@@ -103,6 +103,10 @@ record terminal_env xterm
 record truth42sim_launch omitted_requires_ground_software
 record camera_simulator_launch omitted_outside_frozen_pilot
 record radio_network_alias radio-sim
+record radio_ground_transport tcp
+record cryptolib_transport tcp
+record cryptolib_stdin_mode interactive
+record cryptolib_gsw_mode local_loopback_no_ground_software
 
 for command in docker git awk shasum python3; do
   command -v "$command" >/dev/null 2>&1 || { echo "[ERROR] Missing command: $command" >&2; exit 1; }
@@ -200,6 +204,29 @@ start() {
   echo "$name" >> "$NAMES"
 }
 
+wait_for_tcp_listener() {
+  local name="$1" port="$2" timeout_seconds="$3"
+  local hex_port attempt state
+  hex_port="$(printf '%04X' "$port")"
+  for ((attempt=1; attempt<=timeout_seconds; attempt++)); do
+    state="$(docker inspect "$name" --format '{{.State.Status}}' 2>/dev/null || echo missing)"
+    if [[ "$state" != running ]]; then
+      echo "[ERROR] $name stopped before TCP port $port became ready." >&2
+      return 1
+    fi
+    if docker exec "$name" sh -lc \
+      "awk '\$2 ~ /:${hex_port}\$/ && \$4 == \"0A\" {found=1} END {exit found ? 0 : 1}' /proc/net/tcp" \
+      >/dev/null 2>&1; then
+      record radio_tcp_8010_listener ready
+      record radio_tcp_8010_ready_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      return 0
+    fi
+    sleep 1
+  done
+  echo "[ERROR] $name did not expose TCP listener $port within ${timeout_seconds}s." >&2
+  return 1
+}
+
 start engine nos-engine-server \
   --interactive --tty --network-alias sc01-nos-engine-server \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
@@ -216,6 +243,7 @@ for sim in "${HARDWARE_SIMS[@]}"; do
   if [[ "$sim" == "generic-radio-sim" ]]; then
     start "$sim" radio-sim \
       --network-alias generic-radio-sim \
+      --env TCP_GROUND=1 --env MULTI_GDS=0 \
       --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
       "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
   else
@@ -224,10 +252,13 @@ for sim in "${HARDWARE_SIMS[@]}"; do
       "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
   fi
 done
+wait_for_tcp_listener "$PREFIX-generic-radio-sim" 8010 35
 start bridge nos-sim-bridge \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
   "$IMAGE" ./nos3-sim-cmdbus-bridge -f nos3-simulator.xml
 start cryptolib cryptolib \
+  --interactive \
+  --env STANDALONE_TCP=1 --env CRYPTO_HOST=0.0.0.0 --env GSWALIAS=127.0.0.1 \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/gsw/build \
   "$IMAGE" ./support/standalone
 start cfs nos-fsw \
