@@ -1,6 +1,6 @@
 {
   "contract_version": "0.6.0",
-  "status": "PLAINTEXT_RELAY_RUNNER_VALIDATION_PENDING",
+  "status": "PLAINTEXT_RELAY_STATIC_GATE_PASS_BASELINE_RUN_1_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
@@ -11,6 +11,7 @@
     "protocol": "docs/19-wp4-benign-command-telemetry-baseline-protocol.md",
     "telemetry_setup_addendum": "docs/20-wp4-benign-baseline-telemetry-setup-addendum.md",
     "plaintext_transport_addendum": "docs/21-wp4-benign-baseline-plaintext-transport-addendum.md",
+    "plaintext_relay_static_gate_lock": "artifacts/plaintext-relay-static-gate-lock.txt",
     "runtime_interface_correction_record": "artifacts/benign-baseline-invalid-20260725T215659Z.txt",
     "cryptolib_incompatibility_evidence": "artifacts/benign-baseline-invalid-20260725T230542Z.txt"
   },
@@ -26,9 +27,11 @@
     "runtime_runner_verification_script": "scripts/verify_benign_baseline_plaintext_relay.sh",
     "measurement_probe_self_test": "PASS",
     "runtime_config_preparer_self_test": "PASS",
-    "plaintext_transport_relay_self_test": "PENDING",
-    "network_disabled_container_self_tests": "PENDING",
-    "runtime_runner_validation": "PENDING"
+    "plaintext_transport_relay_self_test": "PASS",
+    "network_disabled_container_self_tests": "PASS",
+    "runtime_runner_validation": "PASS",
+    "baseline_run_1": "PENDING",
+    "baseline_run_2": "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
   },
   "baseline_transport": {
     "profile": "PLAINTEXT_UDP_RELAY",
@@ -203,6 +206,8 @@
     "cross_run_comparison_required": true,
     "event_injection_unblocked_after_gate": false,
     "cryptolib_semantics_unblocked_after_gate": false,
+    "baseline_run_1_authorized": true,
+    "baseline_run_2_authorized": false,
     "additional_requirement": "The plaintext relay profile must validate the nominal CI_LAB/TO_LAB command and telemetry path twice with exactly one allowlisted command, clean isolation, and separated evidence. CryptoLib semantics remain a separate compatible flight-side integration gate, and event injection remains blocked."
   }
 }
