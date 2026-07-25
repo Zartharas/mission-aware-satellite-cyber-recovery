@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful isolated 21-component runtime preflight; locked SAMPLE no-op command, transport, telemetry assertion, and evidence-separation design | Implement and reproduce the complete benign command/telemetry baseline twice |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful isolated 21-component runtime preflight; locked benign-baseline design; implemented deterministic packet builder, telemetry parser, internal probe, and separated evidence writer | Pass host and isolated-container probe self-tests, implement the bounded runner, then reproduce the benign baseline twice |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -104,22 +104,22 @@ Last updated: 2026-07-25
 - [x] Lock the internal ground-probe transport path over CryptoLib UDP 6010/6011 and radio TCP 8010/8011
 - [x] Define immutable ground-evidence and policy-visible evidence boundaries
 - [x] Commit the machine-readable benign-baseline contract
+- [x] Implement the pinned cFE XOR checksum and fixed `SAMPLE_NOOP_CC` packet vector
+- [x] Implement deterministic `SAMPLE_HK_TLM` parsing using the pinned 12-byte cFE telemetry header layout
+- [x] Implement the internal ground probe with exactly-one-command enforcement and bounded acceptance logic
+- [x] Implement separate immutable-ground and policy-visible evidence files with independent SHA-256 manifests
+- [x] Add host and network-disabled pinned-container self-test automation
 
 ## Immediate tasks
 
-- [x] Pull the internal truth-stream compatibility revision
-- [x] Run `bash -n scripts/run_nominal_runtime_preflight.sh`
-- [x] Run `DURATION_SECONDS=60 STARTUP_GRACE_SECONDS=30 bash scripts/run_nominal_runtime_preflight.sh`
-- [x] Verify `truth_sink_connection=ready` and `radio_tcp_8010_listener=ready` in the manifest
-- [x] Review the 21-component liveness record, truth-sink byte counts, 42/radio/CryptoLib logs, network inspection, and cleanup evidence
-- [x] Define the controlled ground command and telemetry endpoint for the complete nominal baseline
-- [x] Select the exact benign cFE command and deterministic command-acceptance assertion
-- [x] Define required telemetry fields, source identities, and timing tolerances
-- [x] Define the evidence-separation contract
-- [ ] Implement and self-test the cFS command checksum and packet builder
-- [ ] Implement the internal ground probe with UDP 6010 transmit and UDP 6011 receive
-- [ ] Implement deterministic `SAMPLE_HK_TLM` parsing and pre-command stability checks
-- [ ] Implement independent immutable-ground and policy-visible evidence files and hashes
+- [x] Pull and validate the locked benign-baseline design
+- [ ] Pull the benign ground-probe implementation revision
+- [ ] Run `python3 -m py_compile scripts/benign_ground_probe.py`
+- [ ] Run `bash -n scripts/verify_benign_ground_probe.sh`
+- [ ] Run `bash scripts/verify_benign_ground_probe.sh`
+- [ ] Verify both self-tests report `BENIGN_GROUND_PROBE_SELF_TEST=PASS`
+- [ ] Verify the gate reports `BENIGN_GROUND_PROBE_VERIFICATION_STATUS=PASS`
+- [ ] Review the frozen command vector `18fac000000100dc` and its SHA-256
 - [ ] Implement a bounded benign-baseline runner with no event-injection capability
 - [ ] Execute the first clean benign baseline run
 - [ ] Execute the second clean benign baseline run
@@ -134,4 +134,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, and scoped runtime-preflight controls. Gate 3B Phase 1 is complete, and the Phase 2 benign-baseline design is locked. Phase 2 implementation and two clean passes remain pending. Event injection remains blocked until both baseline runs pass and immutable ground-truth evidence is demonstrably separated from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, and scoped runtime-preflight controls. Gate 3B Phase 1 is complete. Phase 2 now has an implemented but not yet locally self-tested packet builder, telemetry parser, ground probe, and evidence-separation writer. The bounded runtime runner and two clean passes remain pending. Event injection remains blocked until both baseline runs pass and immutable ground-truth evidence is demonstrably separated from policy-visible evidence.
