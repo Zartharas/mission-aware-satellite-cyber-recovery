@@ -47,7 +47,6 @@ RADIO_LOG="$(find_log generic-radio-sim)"
 CFS_LOG="$(find_log cfs)"
 RADIO_INSPECT="$(find_inspect generic-radio-sim)"
 LIVENESS="$ORCH/liveness.csv"
-TERMINAL="$ORCH/terminal-state.txt"
 
 value() {
   awk -F= -v key="$2" '$1 == key {print substr($0,index($0,"=")+1)}' "$1" | tail -n 1
@@ -236,21 +235,36 @@ echo "cleanup_clean=$cleanup_clean"
 echo "immutable_ground_hashes_valid=$ground_hash_ok"
 echo "policy_visible_hashes_valid=$policy_hash_ok"
 
-read -r classification reason samples transmissions < <(
-  python3 - "$RESULT" <<'PY'
+classification="$(python3 - "$RESULT" <<'PY'
 import json
-import shlex
 import sys
 from pathlib import Path
-result = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-print(
-    shlex.quote(str(result.get("classification"))),
-    shlex.quote(str(result.get("reason"))),
-    int(result.get("sample_packets_received") or 0),
-    int(result.get("command", {}).get("transmissions") or 0),
-)
+print(json.loads(Path(sys.argv[1]).read_text(encoding="utf-8")).get("classification") or "")
 PY
-)
+)"
+reason="$(python3 - "$RESULT" <<'PY'
+import json
+import sys
+from pathlib import Path
+print(json.loads(Path(sys.argv[1]).read_text(encoding="utf-8")).get("reason") or "")
+PY
+)"
+samples="$(python3 - "$RESULT" <<'PY'
+import json
+import sys
+from pathlib import Path
+print(int(json.loads(Path(sys.argv[1]).read_text(encoding="utf-8")).get("sample_packets_received") or 0))
+PY
+)"
+transmissions="$(python3 - "$RESULT" <<'PY'
+import json
+import sys
+from pathlib import Path
+print(int(json.loads(Path(sys.argv[1]).read_text(encoding="utf-8")).get("command", {}).get("transmissions") or 0))
+PY
+)"
+
+echo "probe_reason=$reason"
 
 if (( config_present == 0 || config_single_diff == 0 || config_ci_5012 == 0 )); then
   diagnosis="RUNTIME_INTERFACE_COPY_INVALID_OR_UNCONFIRMED"
@@ -262,6 +276,8 @@ elif (( to_lab_active_gs == 0 )); then
   diagnosis="TO_LAB_ACTIVE_GS_ACTIVATION_UNCONFIRMED"
 elif (( radio_uplink_5012 == 0 )); then
   diagnosis="RADIO_UPLINK_5012_OVERRIDE_UNCONFIRMED"
+elif (( radio_downlink_5011 == 0 )); then
+  diagnosis="RADIO_DOWNLINK_5011_PATH_UNCONFIRMED"
 elif (( radio_cryptolib_tcp == 0 )); then
   diagnosis="RADIO_CRYPTOLIB_TCP_PATH_UNCONFIRMED"
 elif (( samples == 0 )); then
