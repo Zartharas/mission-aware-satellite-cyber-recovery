@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; two invalid baseline attempts retained; actual CI_LAB/TO_LAB interface mapped; measurement-only probe and interface-corrected runner implemented | Pass the static interface gate, then obtain the first accepted benign baseline pass |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; three invalid baseline attempts retained; CI_LAB/TO_LAB interface mapped; standalone CryptoLib packet-layer incompatibility identified; allowlisted plaintext-relay baseline implemented | Pass the plaintext-relay static gate, then obtain the first accepted benign baseline pass |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -101,7 +101,6 @@ Last updated: 2026-07-25
 - [x] Commit the compact runtime-preflight lock without committing large runtime logs
 - [x] Select `SAMPLE_NOOP_CC` as the single measured benign command
 - [x] Lock the measured-command message ID, function code, telemetry packet, counters, and 30-second assertion window
-- [x] Lock the internal ground-probe transport path over CryptoLib UDP 6010/6011 and radio TCP 8010/8011
 - [x] Define immutable-ground and policy-visible evidence boundaries
 - [x] Commit the machine-readable benign-baseline contract
 - [x] Implement the pinned cFE XOR checksum and fixed `SAMPLE_NOOP_CC` packet vector
@@ -109,35 +108,46 @@ Last updated: 2026-07-25
 - [x] Implement separate immutable-ground and policy-visible evidence files with independent SHA-256 manifests
 - [x] Add and pass host and network-disabled pinned-container probe self-tests
 - [x] Implement the bounded 22-component benign-baseline runner with no event-injection path
-- [x] Add and pass the static runner verification gate
+- [x] Add and pass the initial static runner verification gate
 - [x] Execute full baseline attempt `20260725T212156Z` and classify it `RUN_INVALID`
 - [x] Execute setup-gated attempt `20260725T215659Z` and classify it `RUN_INVALID`
-- [x] Verify both invalid attempts preserved runtime health, cleanup, evidence hashing, and zero measured-command transmissions
+- [x] Verify both early invalid attempts preserved runtime health, cleanup, evidence hashing, and zero measured-command transmissions
 - [x] Run read-only hop analysis on retained run `20260725T215659Z`
 - [x] Confirm the runtime loads `CI_LAB_APP` and `TO_LAB_APP`, not the assumed CFS_CI/CFS_TO interface
 - [x] Confirm `CI_LAB` listens on UDP port `5012`
 - [x] Confirm `SC_RTS001` automatically enables `TO_LAB` to destination `active-gs`
 - [x] Supersede the explicit ground `TO_ENABLE_OUTPUT` setup-command design
 - [x] Add a measurement-only ground probe with exactly one possible ground transmission
-- [x] Add a hashed runtime XML copy that changes only the radio CI destination from `5010` to `5012`
+- [x] Add a hashed runtime configuration copy that changes only the radio CI destination from `5010` to `5012`
+- [x] Treat the pinned NOS3 simulator configuration as opaque XML-like text and prove a one-character runtime diff
 - [x] Assign the internal `active-gs` alias to the radio container for the TO_LAB downlink
-- [x] Add an interface-corrected runner and static verification gate
-- [x] Update the machine-readable contract to version `0.5.0`
+- [x] Pass the interface-corrected text-safe static verification gate
+- [x] Execute interface-corrected attempt `20260725T230542Z` and classify it `RUN_INVALID`
+- [x] Verify run `20260725T230542Z` applied the 5012 correction, resolved `active-gs`, initialized CI_LAB/TO_LAB and radio paths, retained full liveness, cleaned up, and validated both evidence trees
+- [x] Confirm SAMPLE housekeeping is scheduled every five seconds and included in the TO_LAB subscription table
+- [x] Confirm TO_LAB emits plain cFS telemetry packets while the pinned standalone CryptoLib TM path requires transfer-frame security processing
+- [x] Confirm the pinned standalone CryptoLib TC path produces a protected transfer frame while CI_LAB expects a plain cFS command packet
+- [x] Record that the standalone CryptoLib program is not a transparent packet relay for this nominal CI_LAB/TO_LAB gate
+- [x] Defer CryptoLib and SDLS semantics to a separate compatible flight-side integration gate
+- [x] Implement an internal plaintext UDP relay that allowlists only the frozen eight-byte `SAMPLE_NOOP_CC` and permits at most one command
+- [x] Require independent relay evidence of one command receive, one matching command forward, telemetry forwarding, and zero relay-invalid events
+- [x] Preserve the existing radio aliases and ports through a compatibility alias explicitly labeled as not CryptoLib
+- [x] Add the plaintext-relay runner, contract version `0.6.0`, transport addendum, invalid-run lock, and network-disabled verification gate
 
 ## Immediate tasks
 
-- [ ] Pull the interface-corrected baseline revision
+- [ ] Pull the plaintext-relay baseline revision
 - [ ] Validate `configs/benign-baseline-contract.json`
-- [ ] Run `python3 -m py_compile scripts/benign_ground_probe_measurement.py`
-- [ ] Run `bash -n scripts/run_benign_baseline_interface_corrected.sh`
-- [ ] Run `bash -n scripts/verify_benign_baseline_interface.sh`
-- [ ] Run `bash scripts/verify_benign_baseline_interface.sh`
-- [ ] Confirm both measurement-probe self-tests and `BENIGN_BASELINE_INTERFACE_VERIFICATION_STATUS=PASS`
-- [ ] Execute the first corrected benign baseline only through `scripts/run_benign_baseline_interface_corrected.sh`
-- [ ] Review telemetry activation, runtime XML hash, one-command accounting, counters, liveness, cleanup, and separated evidence hashes
+- [ ] Compile `benign_ground_probe_measurement.py`, `prepare_runtime_radio_config.py`, and `benign_plaintext_transport_relay.py`
+- [ ] Syntax-check `run_benign_baseline_plaintext_relay.sh` and `verify_benign_baseline_plaintext_relay.sh`
+- [ ] Run `bash scripts/verify_benign_baseline_plaintext_relay.sh`
+- [ ] Confirm all host and network-disabled self-tests and `BENIGN_BASELINE_PLAINTEXT_RELAY_VERIFICATION_STATUS=PASS`
+- [ ] Execute the first plaintext-relay benign baseline only after the complete static gate passes
+- [ ] Review relay command/telemetry accounting, counter transition, liveness, cleanup, runtime configuration hash, and separated evidence hashes
 - [ ] Accept or reject the first clean baseline run before attempting run 2
 - [ ] Execute the second clean benign baseline run only after run 1 acceptance
 - [ ] Compare the two clean-run manifests and reject unexplained variation before event work
+- [ ] Design a separate compatible CryptoLib/SDLS integration gate without conflating it with the nominal cFS packet baseline
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
@@ -148,4 +158,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, and prior probe/runner static controls. Two full baseline attempts are retained as `RUN_INVALID`; neither transmitted the measured `SAMPLE_NOOP_CC`, so neither produced an experimental outcome. Read-only hop analysis showed that the runtime actually uses CI_LAB on UDP 5012 and TO_LAB enabled by SC_RTS001 to `active-gs`, while the generic-radio XML used CI port 5010 and the isolated network lacked the `active-gs` radio alias. Contract version 0.5.0 now corrects only the runtime interface copy, uses no ground setup command, and permits exactly one measured no-op after stable telemetry. Event injection remains blocked until the corrected interface gate passes, two benign baselines are accepted, cross-run structural comparison is approved, and immutable-ground evidence remains demonstrably separate from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, and prior runner static controls. Three full baseline attempts are retained as `RUN_INVALID`; run `20260725T230542Z` proved the corrected CI_LAB/TO_LAB and radio interface was active, but zero telemetry reached the probe and zero measured commands were transmitted. Source-level review established that the plain cFS packets used by CI_LAB/TO_LAB are incompatible with the pinned standalone CryptoLib transfer-frame processing path. Contract version 0.6.0 therefore uses an allowlisted internal plaintext UDP relay for the nominal two-run command/telemetry gate and explicitly defers all CryptoLib/SDLS claims to a separate compatible integration gate. Event injection remains blocked until the plaintext-relay static gate passes, two benign baselines are accepted, cross-run structural comparison is approved, and immutable-ground evidence remains demonstrably separate from policy-visible evidence.
