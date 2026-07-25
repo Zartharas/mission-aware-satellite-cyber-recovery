@@ -16,9 +16,9 @@ Last updated: 2026-07-24
 |---|---|---|---|---|
 | WP0 | Research governance and workspace | Complete | Private GitHub repository, initial commit, data and legal controls | Maintain clean synchronized repository |
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
-| WP2 | Theoretical and conceptual model | In progress | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; contribution boundaries frozen | Final construct definitions and proposition-to-metric traceability |
-| WP3 | Threat and mission model | In progress | Mission objectives, unacceptable losses, safety/trust invariants, trusted-recovery terminal states, pilot boundary | Independent red-team review and machine-readable specification |
-| WP4 | Testbed selection and architecture | Not started | Candidate NOS3/cFS design | Nominal commands, telemetry, mission states reproducible |
+| WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; construct definitions and proposition-to-metric traceability | Approve Gate 2 traceability and metric definitions |
+| WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and draft ROE | Resolve mandatory red-team changes in WP4 requirements |
+| WP4 | Testbed selection and architecture | Blocked | Candidate NOS3/cFS design | Verify local environment, pin versions, and map Gate 2 requirements to architecture |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -43,22 +43,34 @@ Last updated: 2026-07-24
 - [x] Freeze safety/trust invariants and trusted-recovery criteria
 - [x] Freeze the minimum viable pilot boundary
 
+## Completed WP2/WP3 tasks
+
+- [x] Build proposition-to-variable-to-metric traceability table
+- [x] Define a falsification condition for every proposition
+- [x] Create machine-readable mission/event/policy/contact/evidence catalog
+- [x] Create JSON Schema for experiment-run records
+- [x] Conduct independent red-team review of the threat and mission model
+- [x] Separate immutable ground truth from policy-visible state
+- [x] Treat safe mode as both a response and an adversarially inducible condition
+- [x] Draft software-only laboratory Rules of Engagement
+- [x] Record Gate 2 decisions in the decision log
+
 ## Immediate tasks
 
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Verify Mac architecture and available virtualization
 - [ ] Pin cFS and NOS3 candidate versions
 - [ ] Complete license verification for CuCD-ID and AegisSat
-- [ ] Build proposition-to-variable-to-metric traceability table
-- [ ] Convert mission states, events, policies, invariants, and terminal states into machine-readable schemas
-- [ ] Conduct independent red-team review of the threat and mission model
-- [ ] Draft laboratory Rules of Engagement
+- [ ] Add environment-specific network-isolation and emergency-shutdown commands to the ROE
+- [ ] Map red-team mandatory changes to WP4 architecture requirements
+- [ ] Validate `configs/experiment_run.schema.json` with sample valid and invalid run records
+- [ ] Define deterministic calculations for every primary metric
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
 
 ## Final candidate novelty statement
 
 This study introduces a reproducible software-in-the-loop experimental method for comparing satellite cyber-containment and trusted-recovery policies across mission states, telemetry-evidence conditions, and intermittent ground contact, while measuring adversary containment, mission continuity, safety-invariant preservation, and time to verified trusted recovery.
 
-## Gate 1 decision
+## Gate 2 decision
 
-Proceed to WP2/WP3 refinement. WP4 implementation remains blocked until the citation audit, traceability model, and machine-readable mission/threat specification are complete.
+WP2 and WP3 are ready for review. WP4 remains blocked until the citation audit, local environment verification, simulator/version pinning, schema validation, and architecture mapping of the red-team requirements are complete.
