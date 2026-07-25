@@ -1,52 +1,38 @@
 {
-  "contract_version": "0.4.1",
-  "status": "SETUP_GATED_RUNNER_VALIDATION_PENDING",
+  "contract_version": "0.5.0",
+  "status": "INTERFACE_CORRECTED_RUNNER_VALIDATION_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
     "cfe_commit": "87e273743f3d07ed9216462b461e9f398ff96c87",
-    "to_commit": "666a8d17c87ac4f5dae1719dc218f9146468d062",
     "sample_component_commit": "9d1a76dc391fefe7a42314052c1f10fa527f526b",
     "cryptolib_commit": "d4f91523b7f2f247b89bbde9e156cd8420e2cb86",
-    "cosmos_ground_config_commit": "5e45ff376d017cc517ff9d03995109b59254e518",
     "protocol": "docs/19-wp4-benign-command-telemetry-baseline-protocol.md",
-    "telemetry_setup_addendum": "docs/20-wp4-benign-baseline-telemetry-setup-addendum.md"
+    "telemetry_setup_addendum": "docs/20-wp4-benign-baseline-telemetry-setup-addendum.md",
+    "runtime_interface_correction_record": "artifacts/benign-baseline-invalid-20260725T215659Z.txt"
   },
   "implementation": {
-    "ground_probe": "scripts/benign_ground_probe.py",
-    "ground_probe_verification_script": "scripts/verify_benign_ground_probe.sh",
-    "lower_level_runtime_runner": "scripts/run_benign_baseline.sh",
-    "runtime_runner": "scripts/run_benign_baseline_with_setup.sh",
-    "runtime_runner_verification_script": "scripts/verify_benign_baseline_setup.sh",
-    "host_self_test": "PASS",
-    "network_disabled_container_self_test": "PASS",
-    "lower_level_runner_static_validation": "PASS",
-    "setup_gated_runner_validation": "PENDING"
+    "historical_setup_probe": "scripts/benign_ground_probe.py",
+    "measurement_probe": "scripts/benign_ground_probe_measurement.py",
+    "historical_setup_runner": "scripts/run_benign_baseline_with_setup.sh",
+    "runtime_runner": "scripts/run_benign_baseline_interface_corrected.sh",
+    "runtime_runner_verification_script": "scripts/verify_benign_baseline_interface.sh",
+    "host_self_test": "PENDING",
+    "network_disabled_container_self_test": "PENDING",
+    "runtime_runner_validation": "PENDING"
   },
-  "setup_command": {
-    "role": "nominal_telemetry_activation_not_measured_outcome",
-    "application": "TO",
-    "name": "TO_ENABLE_OUTPUT",
-    "message_id_hex": "0x1880",
-    "message_id_decimal": 6272,
-    "sequence_control_hex": "0xC000",
-    "packet_length_field": 19,
-    "function_code": 2,
-    "destination_host": "radio-sim",
-    "destination_host_field_length": 16,
+  "telemetry_activation": {
+    "mechanism": "SC_RTS001_TO_LAB_OUTPUT_ENABLE",
+    "application": "TO_LAB",
+    "destination_alias": "active-gs",
     "destination_port": 5011,
-    "destination_port_endianness": "little",
-    "maximum_transmissions_per_run": 1,
-    "expected_packet_hex": "1880c0000013021d726164696f2d73696d000000000000009313",
-    "expected_packet_length": 26,
-    "expected_packet_sha256": "c9b26e373b21170039deb6ab4d54c49401581eae5d8f3d1eaf304e65f300d3bb",
-    "release_conditions": [
-      "ground_probe_udp_6011_bound",
-      "cfs_log_contains_entering_OPERATIONAL_state",
-      "radio_log_contains_Successfully_connected_to_TCP_server"
-    ],
-    "evidence_visibility": "IMMUTABLE_GROUND_ONLY",
-    "policy_visibility": "NONE"
+    "ground_setup_transmissions": 0,
+    "measured_outcome": false,
+    "source": "cfg/nos3_defs/tables/sc_rts001.c",
+    "required_runtime_evidence": [
+      "cfs_log_contains_TO_telemetry_output_enabled_for_IP_active-gs",
+      "radio_container_has_network_alias_active-gs"
+    ]
   },
   "measured_command": {
     "application": "SAMPLE",
@@ -64,11 +50,11 @@
     "checksum": {
       "algorithm_source": "cFE 87e273743f3d07ed9216462b461e9f398ff96c87 modules/msg/fsw/src/cfe_msg_sechdr_checksum.c",
       "algorithm": "Set checksum byte to zero, initialize accumulator to 0xFF, XOR every packet byte, then store the accumulator in the checksum byte; a complete valid packet XORs to zero.",
-      "implementation_status": "SELF_TEST_PASS"
+      "implementation_status": "SELF_TEST_PENDING_ON_MEASUREMENT_PROBE"
     }
   },
   "command": {
-    "compatibility_role": "legacy_alias_for_measured_command_used_by_lower_level_runner",
+    "compatibility_role": "legacy_alias_for_measured_command",
     "application": "SAMPLE",
     "name": "SAMPLE_NOOP_CC",
     "message_id_hex": "0x18FA",
@@ -83,10 +69,10 @@
     "expected_packet_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd"
   },
   "command_accounting": {
-    "setup_command_transmissions": 1,
+    "ground_setup_command_transmissions": 0,
     "measured_command_transmissions": 1,
-    "total_expected_transmissions": 2,
-    "setup_command_excluded_from_sample_counter_baseline": true,
+    "total_expected_ground_transmissions": 1,
+    "startup_telemetry_activation_is_internal_flight_automation": true,
     "measured_command_sent_only_after_stable_sample_housekeeping": true
   },
   "telemetry": {
@@ -108,7 +94,7 @@
       "CMD_ERR_COUNT",
       "DEVICE_ERR_COUNT"
     ],
-    "parser_status": "SELF_TEST_PASS"
+    "parser_status": "SELF_TEST_PENDING_ON_MEASUREMENT_PROBE"
   },
   "assertions": {
     "acceptance_timeout_seconds": 30,
@@ -120,6 +106,26 @@
   "transport": {
     "network": "project_labeled_internal_bridge",
     "ground_probe_alias": "ground-probe",
+    "cfs_ci": {
+      "application": "CI_LAB",
+      "protocol": "udp",
+      "destination": "nos-fsw",
+      "port": 5012,
+      "source_evidence": "retained cFS log from run 20260725T215659Z"
+    },
+    "cfs_to": {
+      "application": "TO_LAB",
+      "protocol": "udp",
+      "destination_alias": "active-gs",
+      "port": 5011
+    },
+    "runtime_radio_interface_override": {
+      "source_ci_port": 5010,
+      "runtime_ci_port": 5012,
+      "to_port": 5011,
+      "source_tree_modified": false,
+      "runtime_copy_hashed": true
+    },
     "ground_to_cryptolib": {
       "protocol": "udp",
       "destination": "cryptolib",
@@ -148,8 +154,8 @@
     "immutable_ground_evidence": "IMPLEMENTED_RUNTIME_VALIDATION_PENDING",
     "policy_visible_evidence": "IMPLEMENTED_RUNTIME_VALIDATION_PENDING",
     "independent_hashes_required": true,
-    "setup_trigger_visibility": "IMMUTABLE_GROUND_ONLY",
-    "setup_packet_visibility": "IMMUTABLE_GROUND_ONLY",
+    "runtime_interface_copy_visibility": "IMMUTABLE_GROUND_ONLY",
+    "startup_telemetry_activation_visibility": "IMMUTABLE_GROUND_ONLY",
     "truth_sink_policy_visibility": "NONE",
     "large_runtime_logs_committed": false,
     "compact_run_locks_committed": true
@@ -163,6 +169,6 @@
     "required_clean_passes": 2,
     "cross_run_comparison_required": true,
     "event_injection_unblocked_after_gate": false,
-    "additional_requirement": "Evidence separation must be demonstrated and the setup command must remain distinct from the measured command before event-injection implementation begins."
+    "additional_requirement": "The CI_LAB/TO_LAB interface correction, one-command accounting, runtime isolation, and ground-versus-policy evidence separation must be validated twice before event-injection implementation begins."
   }
 }
