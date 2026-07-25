@@ -1,12 +1,20 @@
 {
-  "contract_version": "0.1.0",
-  "status": "DESIGN_LOCKED_IMPLEMENTATION_PENDING",
+  "contract_version": "0.2.0",
+  "status": "IMPLEMENTED_SELF_TEST_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "cfe_commit": "87e273743f3d07ed9216462b461e9f398ff96c87",
     "sample_component_commit": "9d1a76dc391fefe7a42314052c1f10fa527f526b",
     "cryptolib_commit": "d4f91523b7f2f247b89bbde9e156cd8420e2cb86",
     "protocol": "docs/19-wp4-benign-command-telemetry-baseline-protocol.md"
+  },
+  "implementation": {
+    "ground_probe": "scripts/benign_ground_probe.py",
+    "verification_script": "scripts/verify_benign_ground_probe.sh",
+    "runtime_runner": "PENDING",
+    "host_self_test": "PENDING",
+    "network_disabled_container_self_test": "PENDING"
   },
   "command": {
     "application": "SAMPLE",
@@ -18,9 +26,13 @@
     "function_code": 0,
     "arguments": [],
     "maximum_transmissions_per_run": 1,
+    "expected_packet_hex": "18fac000000100dc",
+    "expected_packet_length": 8,
+    "expected_packet_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
     "checksum": {
-      "algorithm_source": "pinned_cfs_compatible_command_checksum",
-      "implementation_status": "PENDING_SELF_TEST"
+      "algorithm_source": "cFE 87e273743f3d07ed9216462b461e9f398ff96c87 modules/msg/fsw/src/cfe_msg_sechdr_checksum.c",
+      "algorithm": "Set checksum byte to zero, initialize accumulator to 0xFF, XOR every packet byte, then store the accumulator in the checksum byte; a complete valid packet XORs to zero.",
+      "implementation_status": "IMPLEMENTED_SELF_TEST_PENDING"
     }
   },
   "telemetry": {
@@ -29,15 +41,20 @@
     "message_id_hex": "0x08FA",
     "message_id_decimal": 2298,
     "minimum_stable_pre_command_packets": 2,
+    "ccsds_primary_header_length": 6,
+    "cfe_telemetry_secondary_header_length": 6,
+    "required_counter_offset": 12,
     "field_layout_sources": [
       "components/sample/fsw/cfs/src/sample_msg.h",
-      "components/sample/gsw/sample.xtce"
+      "components/sample/gsw/sample.xtce",
+      "fsw/cfe/modules/msg/option_inc/default_cfe_msg_sechdr.h"
     ],
     "required_fields": [
       "CMD_COUNT",
       "CMD_ERR_COUNT",
       "DEVICE_ERR_COUNT"
-    ]
+    ],
+    "parser_status": "IMPLEMENTED_SELF_TEST_PENDING"
   },
   "assertions": {
     "acceptance_timeout_seconds": 30,
@@ -74,8 +91,8 @@
     "external_egress_allowed": false
   },
   "evidence": {
-    "immutable_ground_evidence": "REQUIRED",
-    "policy_visible_evidence": "REQUIRED",
+    "immutable_ground_evidence": "IMPLEMENTED_SELF_TEST_PENDING",
+    "policy_visible_evidence": "IMPLEMENTED_SELF_TEST_PENDING",
     "independent_hashes_required": true,
     "truth_sink_policy_visibility": "NONE",
     "large_runtime_logs_committed": false,
