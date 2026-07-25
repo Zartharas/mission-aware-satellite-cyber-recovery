@@ -17,8 +17,8 @@ Last updated: 2026-07-24
 | WP0 | Research governance and workspace | Complete | Private GitHub repository, initial commit, data and legal controls | Maintain clean synchronized repository |
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; construct definitions and proposition-to-metric traceability | Approve Gate 2 traceability and metric definitions |
-| WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and draft ROE | Resolve mandatory red-team changes in WP4 requirements |
-| WP4 | Testbed selection and architecture | Blocked | Candidate NOS3/cFS design | Verify local environment, pin versions, and map Gate 2 requirements to architecture |
+| WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
+| WP4 | Testbed selection and architecture | In progress | Verified Intel Mac baseline, Docker-first headless architecture, candidate NOS3/cFS pins, runtime and schema validation tools | Pass runtime/schema checks, lock recursive submodules and image digest, reproduce nominal command/telemetry baseline twice |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -53,17 +53,35 @@ Last updated: 2026-07-24
 - [x] Separate immutable ground truth from policy-visible state
 - [x] Treat safe mode as both a response and an adversarially inducible condition
 - [x] Draft software-only laboratory Rules of Engagement
+- [x] Add Docker-specific network-isolation and emergency-shutdown controls
 - [x] Record Gate 2 decisions in the decision log
+
+## Completed WP4 design tasks
+
+- [x] Verify host operating system, architecture, tools, and storage
+- [x] Select Docker-first headless execution strategy
+- [x] Select exact NOS3 candidate commit and container tag
+- [x] Require the cFS revision pinned by NOS3 rather than a moving upstream branch
+- [x] Create candidate toolchain lock
+- [x] Map red-team requirements to the reference architecture
+- [x] Create Docker runtime and internal-network verification script
+- [x] Create exact-commit NOS3 checkout and recursive-submodule lock script
+- [x] Add positive and negative experiment-schema fixtures
+- [x] Add JSON Schema validation runner and pinned development dependency
 
 ## Immediate tasks
 
+- [ ] Pull the latest repository commits locally
+- [ ] Run `bash scripts/verify_wp4_runtime.sh`
+- [ ] Install development validation dependency and run `python3 scripts/validate_experiment_schema.py`
+- [ ] Run `bash scripts/prepare_nos3_candidate.sh`
+- [ ] Review and commit the generated recursive submodule lock
+- [ ] Pull `ivvitc/nos3-64:20260619` and record its resolved digest
+- [ ] Identify and record the cFS submodule commit selected by NOS3
+- [ ] Build or launch a minimal headless NOS3/cFS baseline
+- [ ] Reproduce nominal command and telemetry twice from a clean reset
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
-- [ ] Verify Mac architecture and available virtualization
-- [ ] Pin cFS and NOS3 candidate versions
 - [ ] Complete license verification for CuCD-ID and AegisSat
-- [ ] Add environment-specific network-isolation and emergency-shutdown commands to the ROE
-- [ ] Map red-team mandatory changes to WP4 architecture requirements
-- [ ] Validate `configs/experiment_run.schema.json` with sample valid and invalid run records
 - [ ] Define deterministic calculations for every primary metric
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
 
@@ -71,6 +89,6 @@ Last updated: 2026-07-24
 
 This study introduces a reproducible software-in-the-loop experimental method for comparing satellite cyber-containment and trusted-recovery policies across mission states, telemetry-evidence conditions, and intermittent ground contact, while measuring adversary containment, mission continuity, safety-invariant preservation, and time to verified trusted recovery.
 
-## Gate 2 decision
+## Gate 3 status
 
-WP2 and WP3 are ready for review. WP4 remains blocked until the citation audit, local environment verification, simulator/version pinning, schema validation, and architecture mapping of the red-team requirements are complete.
+WP4 design has started. Implementation may proceed only through controlled environment validation, exact upstream locking, and nominal baseline reproduction. Event injection remains blocked until the nominal command/telemetry baseline and separate ground-truth/policy-visible logging paths are verified.
