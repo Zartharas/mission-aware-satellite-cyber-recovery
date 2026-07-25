@@ -119,7 +119,7 @@ fi
 PROBE_RESULT="$EVIDENCE/immutable-ground/probe/probe-result.json"
 SETUP_PACKET="$EVIDENCE/immutable-ground/probe/transmitted-setup-command.bin"
 
-python3 - "$PROBE_RESULT" "$SETUP_PACKET" <<'PY'
+if ! python3 - "$PROBE_RESULT" "$SETUP_PACKET" <<'PY'
 import hashlib
 import json
 import sys
@@ -143,6 +143,16 @@ assert measured["transmissions"] == 1
 assert setup_path.read_bytes().hex() == expected_hex
 assert hashlib.sha256(setup_path.read_bytes()).hexdigest() == expected_sha
 PY
+then
+  {
+    printf 'setup_wrapper_status=RUN_INVALID\n'
+    printf 'setup_wrapper_reason=post_run_setup_validation_failed\n'
+    printf 'terminal_classification=RUN_INVALID\n'
+    printf 'exit_code=3\n'
+  } >> "$MANIFEST"
+  echo "BENIGN_BASELINE_SETUP_WRAPPER_STATUS=RUN_INVALID" >&2
+  exit 3
+fi
 
 printf 'setup_wrapper_status=PASS\n' >> "$MANIFEST"
 printf 'setup_wrapper_trigger_file=immutable-ground/probe/start-baseline.trigger\n' >> "$MANIFEST"
