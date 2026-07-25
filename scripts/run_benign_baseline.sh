@@ -286,6 +286,8 @@ grep -Eq 'fortytwo[[:space:]]+9999[[:space:]]*![[:space:]]*Server Host Name, Por
   exit 1
 }
 
+docker ps -a --no-trunc --format '{{json .}}' > "$ORCHESTRATION/docker-ps-before.jsonl"
+docker network ls --no-trunc --format '{{json .}}' > "$ORCHESTRATION/docker-networks-before.jsonl"
 cp -R "$NOS3/cfg/build/InOut/." "$INOUT/"
 python3 - "$INOUT/Inp_Sim.txt" <<'PY'
 from pathlib import Path
@@ -346,7 +348,27 @@ start() {
     --log-driver json-file --log-opt max-size=10m --log-opt max-file=2 \
     "$@" >/dev/null
   echo "$name" >> "$NAMES"
-  [[ "$runtime" == true ]] && echo "$name" >> "$RUNTIME_NAMES"
+  if [[ "$runtime" == true ]]; then
+    echo "$name" >> "$RUNTIME_NAMES"
+  fi
+}
+
+check_container_isolation() {
+  local name="$1" networks
+  networks="$(docker inspect "$name" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}{{end}}' 2>/dev/null || true)"
+  [[ "$networks" == "$NETWORK" ]] || {
+    echo "[ERROR] Unexpected network for $name: $networks" >&2
+    return 1
+  }
+  [[ -z "$(docker port "$name" 2>/dev/null)" ]] || {
+    echo "[ERROR] Host port published by $name." >&2
+    return 1
+  }
+  if docker inspect "$name" --format '{{range .Mounts}}{{println .Source .Destination}}{{end}}' 2>/dev/null | \
+    grep -q '/var/run/docker.sock'; then
+    echo "[ERROR] Docker socket mounted in $name." >&2
+    return 1
+  fi
 }
 
 wait_for_log_marker() {
@@ -394,7 +416,7 @@ wait_for_tcp_listener() {
 }
 
 check_runtime() {
-  local phase="$1" failed=0 name state code networks
+  local phase="$1" failed=0 name state code
   while IFS= read -r name; do
     state="$(docker inspect "$name" --format '{{.State.Status}}' 2>/dev/null || echo missing)"
     code="$(docker inspect "$name" --format '{{.State.ExitCode}}' 2>/dev/null || echo unknown)"
@@ -403,20 +425,7 @@ check_runtime() {
       echo "[ERROR] $name is $state (exit $code)." >&2
       failed=1
     }
-    networks="$(docker inspect "$name" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}{{end}}' 2>/dev/null || true)"
-    [[ "$networks" == "$NETWORK" ]] || {
-      echo "[ERROR] Unexpected network for $name: $networks" >&2
-      failed=1
-    }
-    [[ -z "$(docker port "$name" 2>/dev/null)" ]] || {
-      echo "[ERROR] Host port published by $name." >&2
-      failed=1
-    }
-    docker inspect "$name" --format '{{range .Mounts}}{{println .Source .Destination}}{{end}}' 2>/dev/null | \
-      grep -q '/var/run/docker.sock' && {
-      echo "[ERROR] Docker socket mounted in $name." >&2
-      failed=1
-    }
+    check_container_isolation "$name" || failed=1
   done < "$RUNTIME_NAMES"
   return "$failed"
 }
@@ -437,6 +446,7 @@ start ground-probe ground-probe false \
     --acceptance-timeout "$ACCEPTANCE_TIMEOUT" \
     --minimum-stable 2
 wait_for_log_marker "$PREFIX-ground-probe" GROUND_PROBE_READY 20 ground_probe_udp_6011
+check_container_isolation "$PREFIX-ground-probe"
 
 start engine nos-engine-server true \
   --interactive --tty --network-alias sc01-nos-engine-server \
@@ -521,6 +531,8 @@ start cfs nos-fsw true \
   "$IMAGE" bash -lc 'exec ./core-cpu1 -R PO'
 
 record containers_started_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+record runtime_component_count "$(wc -l < "$RUNTIME_NAMES" | tr -d ' ')"
+record total_component_count "$(wc -l < "$NAMES" | tr -d ' ')"
 check_runtime startup
 
 probe_name="$PREFIX-ground-probe"
