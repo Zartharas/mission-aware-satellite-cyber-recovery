@@ -211,6 +211,39 @@ updated = replace_once(
     'wait_for_log_marker "$PREFIX-generic-radio-sim" "forward_loop - Initial = cryptolib" 45 radio_plaintext_downlink_destination\n',
     "radio downlink readiness",
 )
+relay_acceptance = '''    relay_logs="$(docker logs "$PREFIX-plaintext-relay" 2>&1 || true)"
+    relay_command_received_count="$(grep -Fc 'PLAINTEXT_RELAY_COMMAND_RECEIVED' <<< "$relay_logs" || true)"
+    relay_command_forwarded_count="$(grep -Fc 'PLAINTEXT_RELAY_COMMAND_FORWARDED' <<< "$relay_logs" || true)"
+    relay_command_hash_match_count="$(awk '/PLAINTEXT_RELAY_COMMAND_FORWARDED/ && /sha256=722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd/ {count++} END {print count+0}' <<< "$relay_logs")"
+    relay_telemetry_forwarded_count="$(grep -Fc 'PLAINTEXT_RELAY_TELEMETRY_FORWARDED' <<< "$relay_logs" || true)"
+    relay_invalid_count="$(grep -Fc 'PLAINTEXT_RELAY_INVALID' <<< "$relay_logs" || true)"
+    [[ "$relay_command_received_count" == 1 ]] || {
+      echo "[ERROR] Relay command receive count is $relay_command_received_count; expected 1." >&2
+      exit 3
+    }
+    [[ "$relay_command_forwarded_count" == 1 && "$relay_command_hash_match_count" == 1 ]] || {
+      echo "[ERROR] Relay command-forward evidence is incomplete or non-deterministic." >&2
+      exit 3
+    }
+    (( relay_telemetry_forwarded_count >= 1 )) || {
+      echo "[ERROR] Relay did not record telemetry forwarding." >&2
+      exit 3
+    }
+    [[ "$relay_invalid_count" == 0 ]] || {
+      echo "[ERROR] Relay recorded an invalid condition." >&2
+      exit 3
+    }
+    record transport_relay_command_received_count "$relay_command_received_count"
+    record transport_relay_command_forwarded_count "$relay_command_forwarded_count"
+    record transport_relay_telemetry_forwarded_log_markers "$relay_telemetry_forwarded_count"
+    record transport_relay_invalid_count "$relay_invalid_count"
+'''
+updated = replace_once(
+    updated,
+    '    RESULT="BENIGN_BASELINE_PASS"\n',
+    relay_acceptance + '    RESULT="BENIGN_BASELINE_PASS"\n',
+    "relay acceptance evidence",
+)
 updated = replace_once(
     updated,
     'echo "[OK] CI_LAB/TO_LAB interface correction and evidence separation remained active."\n',
@@ -226,16 +259,17 @@ for forbidden in (
 ):
     if forbidden in updated:
         raise SystemExit(f"forbidden legacy transport content remained: {forbidden}")
-required_tokens = (
+required_exact_tokens = (
     'TCP_GROUND=0',
-    'benign_plaintext_transport_relay.py',
+    'RELAY_SCRIPT="$ROOT/scripts/benign_plaintext_transport_relay.py"',
     'start plaintext-relay cryptolib true',
     'wait_for_udp_listener "$PREFIX-generic-radio-sim" 8010',
     'wait_for_udp_listener "$PREFIX-generic-radio-sim" 5011',
     'baseline_transport_profile plaintext_udp_relay',
     'cryptographic_semantics_status deferred',
+    'transport_relay_command_forwarded_count',
 )
-for token in required_tokens:
+for token in required_exact_tokens:
     if updated.count(token) != 1:
         raise SystemExit(f"required generated-runner token missing or ambiguous: {token}")
 
