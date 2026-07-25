@@ -3,10 +3,10 @@
 
 The pinned NOS3 configuration contains element names such as
 ``<42-css-scale-factor>`` that are accepted by the NOS3 runtime parser but are
-not legal XML names for Python's strict ``xml.etree.ElementTree`` parser.  This
+not legal XML names for Python's strict ``xml.etree.ElementTree`` parser. This
 helper therefore treats the upstream configuration as opaque UTF-8 text,
-validates the unique generic-radio block and its frozen interface values, and
-changes only the FSW CI port from 5010 to 5012 in a copied runtime file.
+validates the unique generic-radio block and its frozen active interface values,
+and changes only the FSW CI port from 5010 to 5012 in a copied runtime file.
 """
 
 from __future__ import annotations
@@ -21,6 +21,7 @@ from pathlib import Path
 RADIO_MARKER = "<name>generic-radio-sim</name>"
 SOURCE_CI_PORT = "5010"
 RUNTIME_CI_PORT = "5012"
+COMMENT_PATTERN = re.compile(r"<!--.*?-->", re.DOTALL)
 
 
 class PreparationError(RuntimeError):
@@ -45,14 +46,19 @@ def one_connection(block: str, name: str) -> tuple[int, int, str]:
     return match.start(), match.end(), match.group(0)
 
 
+def active_text(block: str) -> str:
+    """Return validation text with XML comments removed, without editing source."""
+    return COMMENT_PATTERN.sub("", block)
+
+
 def require_value(block: str, tag: str, expected: str, context: str) -> None:
     pattern = re.compile(
         rf"<{re.escape(tag)}>\s*{re.escape(expected)}\s*</{re.escape(tag)}>"
     )
-    count = len(pattern.findall(block))
+    count = len(pattern.findall(active_text(block)))
     if count != 1:
         raise PreparationError(
-            f"expected exactly one {context} {tag}={expected}; found {count}"
+            f"expected exactly one active {context} {tag}={expected}; found {count}"
         )
 
 
@@ -109,8 +115,8 @@ def prepare_text(source: str) -> tuple[str, int]:
     updated_radio_check = updated[simulator_start:simulator_end]
     if "<ci-port>5012</ci-port>" not in updated_radio_check:
         raise PreparationError("runtime radio block does not contain CI port 5012")
-    if "<ci-port>5010</ci-port>" in updated_radio_check:
-        raise PreparationError("runtime radio block still contains CI port 5010")
+    if "<ci-port>5010</ci-port>" in active_text(updated_radio_check):
+        raise PreparationError("runtime radio block still contains active CI port 5010")
 
     return updated, difference_index
 
@@ -145,7 +151,10 @@ def self_test() -> None:
   <hardware-model><connections>
     <connection><name>fsw</name><ip>nos-fsw</ip><ci-port>5010</ci-port><to-port>5011</to-port></connection>
     <connection><name>radio</name><ip>radio-sim</ip><cmd-port>5014</cmd-port></connection>
-    <connection><name>gsw</name><ip>cryptolib</ip><cmd-port>8010</cmd-port><tlm-port>8011</tlm-port></connection>
+    <connection><name>gsw</name>
+      <!-- <ip>cosmos</ip><cmd-port>8010</cmd-port><tlm-port>6011</tlm-port> -->
+      <ip>cryptolib</ip><cmd-port>8010</cmd-port><tlm-port>8011</tlm-port>
+    </connection>
   </connections></hardware-model>
 </simulator>
 </simulators>
@@ -155,6 +164,7 @@ def self_test() -> None:
     assert updated.count("<42-css-scale-factor>") == 1
     assert updated.count("<ci-port>5012</ci-port>") == 1
     assert updated.count("<ci-port>5010</ci-port>") == 0
+    assert updated.count("<cmd-port>8010</cmd-port>") == 2
     assert len(updated) == len(synthetic)
     differences = [i for i, pair in enumerate(zip(synthetic, updated)) if pair[0] != pair[1]]
     assert differences == [offset]
@@ -166,6 +176,18 @@ def self_test() -> None:
         pass
     else:
         raise AssertionError("unexpected source CI port was not rejected")
+
+    try:
+        prepare_text(
+            synthetic.replace(
+                "<ip>cryptolib</ip><cmd-port>8010</cmd-port><tlm-port>8011</tlm-port>",
+                "<ip>cryptolib</ip><cmd-port>8020</cmd-port><tlm-port>8011</tlm-port>",
+            )
+        )
+    except PreparationError:
+        pass
+    else:
+        raise AssertionError("unexpected active GSW command port was not rejected")
 
     print("RUNTIME_RADIO_CONFIG_PREPARATION_SELF_TEST=PASS")
 
