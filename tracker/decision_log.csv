@@ -6,3 +6,8 @@ D-004,2026-07-24,Data,Do not commit raw third-party datasets,Preserves license o
 D-005,2026-07-24,Evaluation,Use multi-objective/Pareto analysis,Avoid arbitrary single-score optimization,Accepted
 D-006,2026-07-24,Novelty,"Testbed is infrastructure, not contribution","Existing NOS3, AegisSat, and cyber datasets already exist",Accepted
 D-007,2026-07-24,Theory,Mission Aware primary; FDIR operational; RMF/SPARTA supporting,Avoid framework overload,Accepted
+D-008,2026-07-24,Traceability,Require proposition-variable-metric-falsification traceability,Prevents post hoc claims and demonstration bias,Accepted
+D-009,2026-07-24,Threat model,Separate immutable ground truth from spacecraft ground and policy-visible state,Prevents the mission-aware policy from receiving an experimental oracle,Accepted
+D-010,2026-07-24,Safe mode,Treat safe mode as both a response option and a potential adversarially induced condition,Safe mode can preserve survival while reducing service or observability,Accepted
+D-011,2026-07-24,Trusted recovery,Require current evidence and explicit terminal-state classification,Restart or nominal telemetry alone does not prove restoration of trust,Accepted
+D-012,2026-07-24,Rules of Engagement,Keep ROE draft non-operational until platform-specific isolation and shutdown checks are recorded,Authorization must match the selected WP4 environment,Accepted
