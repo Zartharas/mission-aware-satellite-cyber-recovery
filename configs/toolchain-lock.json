@@ -1,7 +1,7 @@
 {
-  "lock_version": "0.1.0",
-  "recorded_date": "2026-07-24",
-  "status": "candidate_pending_local_runtime_validation",
+  "lock_version": "0.2.0",
+  "recorded_date": "2026-07-25",
+  "status": "source_and_container_locked_pending_nominal_build",
   "host": {
     "operating_system": "macOS",
     "product_version": "26.5.2",
@@ -12,27 +12,46 @@
     "git": "2.54.0",
     "python": "3.11.7",
     "docker_cli": "29.6.2",
+    "docker_server": "29.6.2",
+    "docker_compose": "5.3.1",
     "github_cli": "2.96.0",
     "jsonschema": "4.26.0"
+  },
+  "validation": {
+    "docker_runtime": "PASS",
+    "linux_amd64_container": "PASS",
+    "docker_internal_network": "PASS",
+    "public_egress_blocked_on_internal_network": "PASS",
+    "experiment_schema": "PASS",
+    "negative_trusted_recovery_fixture_rejected": true
   },
   "simulator": {
     "name": "NASA Operational Simulator for Space Systems",
     "short_name": "NOS3",
     "repository": "https://github.com/nasa/nos3",
     "commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
-    "recursive_submodules": "pending_local_inventory",
+    "describe": "v1_07_03-331-g5a3bdee6",
+    "recursive_submodule_lock": "artifacts/nos3-submodule-lock.txt",
     "container_image": "ivvitc/nos3-64:20260619",
-    "container_digest": null,
+    "container_digest": "sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+    "immutable_container_reference": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
     "license": "NASA Open Source Agreement 1.3"
   },
   "flight_software": {
-    "name": "NASA Core Flight System",
-    "short_name": "cFS",
+    "name": "NASA core Flight Executive stack selected by NOS3",
     "effective_revision_source": "NOS3 recursive submodule lock",
+    "cfe_commit": "87e273743f3d07ed9216462b461e9f398ff96c87",
+    "osal_commit": "08a79bb6ac02b9ced8aa555853ecdd96e5ebc1a7",
+    "psp_commit": "d0a5d6fa4093d473a929fde42a0983e489d89d4a",
+    "independent_cfs_reference_release": "v7.0.1",
+    "independent_cfs_reference_release_date": "2026-05-14",
+    "license_note": "The public cFS bundle is Apache-2.0; each NOS3-pinned submodule license remains subject to its own upstream record."
+  },
+  "truth_simulator": {
+    "name": "42",
+    "upstream_branch_used_by_nos3_prepare_script": "dev_20260403",
     "effective_commit": null,
-    "independent_reference_release": "v7.0.1",
-    "independent_reference_release_date": "2026-05-14",
-    "license": "Apache-2.0 for the public open-source bundle"
+    "status": "pending_exact_commit_lock"
   },
   "execution": {
     "platform": "linux/amd64",
@@ -40,6 +59,7 @@
     "host_networking_allowed": false,
     "docker_socket_mount_allowed": false,
     "external_network_egress_during_scored_trials": false,
-    "live_rf_allowed": false
+    "live_rf_allowed": false,
+    "event_injection_allowed": false
   }
 }
