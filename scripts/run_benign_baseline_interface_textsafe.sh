@@ -30,7 +30,7 @@ bash -n "$SOURCE_RUNNER"
 source_sha_before="$(shasum -a 256 "$SOURCE_RUNNER" | awk '{print $1}')"
 TEMP_RUNNER="$(mktemp "$ROOT/scripts/.run-benign-interface-textsafe.XXXXXX.sh")"
 
-python3 - "$SOURCE_RUNNER" "$TEMP_RUNNER" <<'PY'
+python3 - "$SOURCE_RUNNER" "$TEMP_RUNNER" <<'PYWRAP'
 from pathlib import Path
 import sys
 
@@ -87,7 +87,7 @@ if updated.count('record runtime_simulator_config_edit_method bounded_text_singl
     raise SystemExit("runtime edit method was not recorded exactly once")
 
 output_path.write_text(updated, encoding="utf-8")
-PY
+PYWRAP
 
 chmod 700 "$TEMP_RUNNER"
 bash -n "$TEMP_RUNNER"
