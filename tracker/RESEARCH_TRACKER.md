@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful isolated 21-component runtime preflight; locked benign-baseline design; implemented deterministic packet builder, telemetry parser, internal probe, and separated evidence writer | Pass host and isolated-container probe self-tests, implement the bounded runner, then reproduce the benign baseline twice |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful isolated 21-component runtime preflight; passed host and network-disabled probe self-tests; implemented bounded 22-component benign-baseline runner with separated evidence trees | Validate runner syntax and safety markers, then reproduce the benign baseline twice from clean state |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -45,7 +45,7 @@ Last updated: 2026-07-25
 
 ## Completed WP2/WP3 tasks
 
-- [x] Build proposition-to-variable-to-metric traceability table
+- [x] Build proposition-to-variable-to-metric-falsification traceability table
 - [x] Define a falsification condition for every proposition
 - [x] Define deterministic primary metrics, raw inputs, zero-denominator rules, censoring, and terminal-state precedence
 - [x] Create machine-readable mission/event/policy/contact/evidence catalog
@@ -109,19 +109,26 @@ Last updated: 2026-07-25
 - [x] Implement the internal ground probe with exactly-one-command enforcement and bounded acceptance logic
 - [x] Implement separate immutable-ground and policy-visible evidence files with independent SHA-256 manifests
 - [x] Add host and network-disabled pinned-container self-test automation
+- [x] Pass both benign-ground-probe self-tests and the aggregate probe verification gate
+- [x] Implement the bounded 22-component benign-baseline runner with no event-injection path
+- [x] Add a static runner verification gate and ignore generated baseline evidence
 
 ## Immediate tasks
 
-- [x] Pull and validate the locked benign-baseline design
-- [ ] Pull the benign ground-probe implementation revision
-- [ ] Run `python3 -m py_compile scripts/benign_ground_probe.py`
-- [ ] Run `bash -n scripts/verify_benign_ground_probe.sh`
-- [ ] Run `bash scripts/verify_benign_ground_probe.sh`
-- [ ] Verify both self-tests report `BENIGN_GROUND_PROBE_SELF_TEST=PASS`
-- [ ] Verify the gate reports `BENIGN_GROUND_PROBE_VERIFICATION_STATUS=PASS`
-- [ ] Review the frozen command vector `18fac000000100dc` and its SHA-256
-- [ ] Implement a bounded benign-baseline runner with no event-injection capability
+- [x] Pull the benign ground-probe implementation revision
+- [x] Run `python3 -m py_compile scripts/benign_ground_probe.py`
+- [x] Run `bash -n scripts/verify_benign_ground_probe.sh`
+- [x] Run `bash scripts/verify_benign_ground_probe.sh`
+- [x] Verify both self-tests report `BENIGN_GROUND_PROBE_SELF_TEST=PASS`
+- [x] Verify the gate reports `BENIGN_GROUND_PROBE_VERIFICATION_STATUS=PASS`
+- [x] Review the frozen command vector `18fac000000100dc` and its SHA-256
+- [x] Implement a bounded benign-baseline runner with no event-injection capability
+- [ ] Pull the benign-baseline runner revision
+- [ ] Run `bash -n scripts/run_benign_baseline.sh`
+- [ ] Run `bash -n scripts/verify_benign_baseline_runner.sh`
+- [ ] Run `bash scripts/verify_benign_baseline_runner.sh`
 - [ ] Execute the first clean benign baseline run
+- [ ] Review the first run classification, counters, liveness, evidence hashes, and cleanup fields
 - [ ] Execute the second clean benign baseline run
 - [ ] Compare the two clean-run manifests and reject unexplained variation before event work
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
@@ -134,4 +141,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, and scoped runtime-preflight controls. Gate 3B Phase 1 is complete. Phase 2 now has an implemented but not yet locally self-tested packet builder, telemetry parser, ground probe, and evidence-separation writer. The bounded runtime runner and two clean passes remain pending. Event injection remains blocked until both baseline runs pass and immutable ground-truth evidence is demonstrably separated from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, and isolated ground-probe self-test controls. Gate 3B Phase 1 is complete. Phase 2 now has a self-tested packet builder, telemetry parser, ground probe, separated evidence writer, and bounded benign-baseline runner awaiting local static validation and two clean executions. Event injection remains blocked until both baseline runs pass, cross-run structural comparison is accepted, and immutable ground evidence is demonstrably separated from policy-visible evidence.
