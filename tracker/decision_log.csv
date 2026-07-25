@@ -11,3 +11,9 @@ D-009,2026-07-24,Threat model,Separate immutable ground truth from spacecraft gr
 D-010,2026-07-24,Safe mode,Treat safe mode as both a response option and a potential adversarially induced condition,Safe mode can preserve survival while reducing service or observability,Accepted
 D-011,2026-07-24,Trusted recovery,Require current evidence and explicit terminal-state classification,Restart or nominal telemetry alone does not prove restoration of trust,Accepted
 D-012,2026-07-24,Rules of Engagement,Keep ROE draft non-operational until platform-specific isolation and shutdown checks are recorded,Authorization must match the selected WP4 environment,Accepted
+D-013,2026-07-24,WP4 platform,Use a Docker-first headless Linux amd64 environment on the verified Intel Mac,Reduces host variability and avoids making graphical or VirtualBox dependencies part of the experiment,Accepted
+D-014,2026-07-24,NOS3 pin,Use NOS3 commit 5a3bdee6be9a2c67fdf994ae6db56d5c60395302 as the candidate integrated baseline,An exact commit is reproducible and the observed upstream build uses the 20260619 NOS3 container,Accepted
+D-015,2026-07-24,cFS pin,Use the cFS revision recursively pinned by the selected NOS3 commit,Replacing the submodule with a moving upstream cFS branch could break interoperability and reproducibility,Accepted
+D-016,2026-07-24,Container provenance,Resolve and record the NOS3 image digest before scored trials,A mutable tag alone is not an immutable environment identifier,Accepted
+D-017,2026-07-24,Network isolation,Use Docker internal networks and prohibit host networking and Docker-socket mounts,Supports the software-only ROE and limits unintended external connectivity,Accepted
+D-018,2026-07-24,Implementation gate,Block event injection until schema checks pass and nominal command telemetry is reproduced twice,Separates testbed debugging from scientific event effects,Accepted
