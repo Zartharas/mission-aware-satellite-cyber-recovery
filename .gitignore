@@ -36,6 +36,12 @@ data/*
 results/*
 !results/README.md
 
+# Generated runtime and incident evidence
+artifacts/runtime/
+artifacts/incidents/
+artifacts/*.jsonl
+artifacts/*.tmp
+
 # External software checkouts
 external/
 nos3/
