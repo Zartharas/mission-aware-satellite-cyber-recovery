@@ -58,10 +58,12 @@ trigger_written=0
 while kill -0 "$CHILD_PID" >/dev/null 2>&1; do
   cfs_state="$(docker inspect "$cfs_name" --format '{{.State.Status}}' 2>/dev/null || true)"
   radio_state="$(docker inspect "$radio_name" --format '{{.State.Status}}' 2>/dev/null || true)"
+  cfs_logs="$(docker logs "$cfs_name" 2>&1 || true)"
+  radio_logs="$(docker logs "$radio_name" 2>&1 || true)"
 
   if [[ "$cfs_state" == running && "$radio_state" == running ]] && \
-     docker logs "$cfs_name" 2>&1 | grep -Fq 'entering OPERATIONAL state' && \
-     docker logs "$radio_name" 2>&1 | grep -Fq 'Successfully connected to TCP server!'; then
+     grep -Fq 'entering OPERATIONAL state' <<< "$cfs_logs" && \
+     grep -Fq 'Successfully connected to TCP server!' <<< "$radio_logs"; then
     sleep 2
     mkdir -p "$(dirname "$TRIGGER")"
     temporary="$TRIGGER.tmp"
