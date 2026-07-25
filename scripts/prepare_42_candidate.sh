@@ -52,10 +52,30 @@ if [[ -n "$(git -C "$FORTYTWO_DIR" status --short)" ]]; then
   exit 1
 fi
 
+FORTYTWO_COMMIT_RESOLVED="$(git -C "$FORTYTWO_DIR" rev-parse HEAD)"
+FORTYTWO_DESCRIBE="$(git -C "$FORTYTWO_DIR" describe --always --dirty --tags 2>/dev/null || git -C "$FORTYTWO_DIR" rev-parse --short HEAD)"
+IMAGE_ID="$(docker image inspect "$PINNED_IMAGE" --format '{{.Id}}')"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 LOG_FILE="$LOG_DIR/fortytwo-build-$STAMP.log"
 
+cat > "$LOCK_FILE" <<EOF
+recorded_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+fortytwo_repository=$FORTYTWO_REPOSITORY
+fortytwo_requested_ref=$FORTYTWO_REF
+fortytwo_commit=$FORTYTWO_COMMIT_RESOLVED
+fortytwo_describe=$FORTYTWO_DESCRIBE
+fortytwo_worktree_status_begin
+$(git -C "$FORTYTWO_DIR" status --short)
+fortytwo_worktree_status_end
+fortytwo_build_status=PENDING
+builder_image=$PINNED_IMAGE
+builder_image_id=$IMAGE_ID
+build_log=$LOG_FILE
+EOF
+
+echo "[OK] Exact 42 commit frozen before build: $FORTYTWO_COMMIT_RESOLVED"
 echo "Building 42 with the pinned NOS3 image and no network access..."
+
 docker run --rm \
   --platform linux/amd64 \
   --network none \
@@ -72,10 +92,7 @@ if [[ ! -x "$FORTYTWO_DIR/42" ]]; then
   exit 1
 fi
 
-FORTYTWO_COMMIT_RESOLVED="$(git -C "$FORTYTWO_DIR" rev-parse HEAD)"
-FORTYTWO_DESCRIBE="$(git -C "$FORTYTWO_DIR" describe --always --dirty --tags 2>/dev/null || git -C "$FORTYTWO_DIR" rev-parse --short HEAD)"
 FORTYTWO_SHA256="$(shasum -a 256 "$FORTYTWO_DIR/42" | awk '{print $1}')"
-IMAGE_ID="$(docker image inspect "$PINNED_IMAGE" --format '{{.Id}}')"
 
 cat > "$LOCK_FILE" <<EOF
 recorded_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -86,6 +103,7 @@ fortytwo_describe=$FORTYTWO_DESCRIBE
 fortytwo_worktree_status_begin
 $(git -C "$FORTYTWO_DIR" status --short)
 fortytwo_worktree_status_end
+fortytwo_build_status=PASS
 fortytwo_binary_sha256=$FORTYTWO_SHA256
 builder_image=$PINNED_IMAGE
 builder_image_id=$IMAGE_ID
