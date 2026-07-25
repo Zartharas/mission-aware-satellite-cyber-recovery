@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; passed probe and runner static gates; first full attempt retained as `RUN_INVALID`; readiness-gated TO telemetry setup implemented | Validate the setup-gated runner and obtain the first accepted benign baseline pass |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; two invalid baseline attempts retained; actual CI_LAB/TO_LAB interface mapped; measurement-only probe and interface-corrected runner implemented | Pass the static interface gate, then obtain the first accepted benign baseline pass |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -106,33 +106,35 @@ Last updated: 2026-07-25
 - [x] Commit the machine-readable benign-baseline contract
 - [x] Implement the pinned cFE XOR checksum and fixed `SAMPLE_NOOP_CC` packet vector
 - [x] Implement deterministic `SAMPLE_HK_TLM` parsing using the pinned 12-byte cFE telemetry header layout
-- [x] Implement the internal ground probe with exactly-one-measured-command enforcement and bounded acceptance logic
 - [x] Implement separate immutable-ground and policy-visible evidence files with independent SHA-256 manifests
 - [x] Add and pass host and network-disabled pinned-container probe self-tests
 - [x] Implement the bounded 22-component benign-baseline runner with no event-injection path
 - [x] Add and pass the static runner verification gate
-- [x] Execute first full baseline attempt `20260725T212156Z`
-- [x] Classify the attempt `RUN_INVALID` because no `SAMPLE_HK_TLM` arrived and no command was transmitted
-- [x] Verify all 21 runtime components remained healthy and all cleanup/evidence-hash controls passed in the invalid run
-- [x] Confirm from the pinned TO source that telemetry output initializes disabled
-- [x] Freeze one `TO_ENABLE_OUTPUT` setup command separately from one measured `SAMPLE_NOOP_CC`
-- [x] Freeze the setup packet vector, hash, destination `radio-sim:5011`, and readiness markers
-- [x] Implement an immutable-ground trigger so the probe transmits nothing before cFS and radio/CryptoLib readiness
-- [x] Implement and self-test the setup packet builder and checksum validation
-- [x] Add the setup-gated wrapper and isolated setup verification script
-- [x] Commit a compact lock for invalid run `20260725T212156Z`
+- [x] Execute full baseline attempt `20260725T212156Z` and classify it `RUN_INVALID`
+- [x] Execute setup-gated attempt `20260725T215659Z` and classify it `RUN_INVALID`
+- [x] Verify both invalid attempts preserved runtime health, cleanup, evidence hashing, and zero measured-command transmissions
+- [x] Run read-only hop analysis on retained run `20260725T215659Z`
+- [x] Confirm the runtime loads `CI_LAB_APP` and `TO_LAB_APP`, not the assumed CFS_CI/CFS_TO interface
+- [x] Confirm `CI_LAB` listens on UDP port `5012`
+- [x] Confirm `SC_RTS001` automatically enables `TO_LAB` to destination `active-gs`
+- [x] Supersede the explicit ground `TO_ENABLE_OUTPUT` setup-command design
+- [x] Add a measurement-only ground probe with exactly one possible ground transmission
+- [x] Add a hashed runtime XML copy that changes only the radio CI destination from `5010` to `5012`
+- [x] Assign the internal `active-gs` alias to the radio container for the TO_LAB downlink
+- [x] Add an interface-corrected runner and static verification gate
+- [x] Update the machine-readable contract to version `0.5.0`
 
 ## Immediate tasks
 
-- [ ] Pull the telemetry-setup correction revision
+- [ ] Pull the interface-corrected baseline revision
 - [ ] Validate `configs/benign-baseline-contract.json`
-- [ ] Run `python3 -m py_compile scripts/benign_ground_probe.py`
-- [ ] Run `bash -n scripts/run_benign_baseline_with_setup.sh`
-- [ ] Run `bash -n scripts/verify_benign_baseline_setup.sh`
-- [ ] Run `bash scripts/verify_benign_baseline_setup.sh`
-- [ ] Confirm both probe self-tests and `BENIGN_BASELINE_SETUP_VERIFICATION_STATUS=PASS`
-- [ ] Execute the corrected first benign baseline only through `scripts/run_benign_baseline_with_setup.sh`
-- [ ] Review setup and measured packet hashes, transmission counts, counters, liveness, cleanup, and separated evidence hashes
+- [ ] Run `python3 -m py_compile scripts/benign_ground_probe_measurement.py`
+- [ ] Run `bash -n scripts/run_benign_baseline_interface_corrected.sh`
+- [ ] Run `bash -n scripts/verify_benign_baseline_interface.sh`
+- [ ] Run `bash scripts/verify_benign_baseline_interface.sh`
+- [ ] Confirm both measurement-probe self-tests and `BENIGN_BASELINE_INTERFACE_VERIFICATION_STATUS=PASS`
+- [ ] Execute the first corrected benign baseline only through `scripts/run_benign_baseline_interface_corrected.sh`
+- [ ] Review telemetry activation, runtime XML hash, one-command accounting, counters, liveness, cleanup, and separated evidence hashes
 - [ ] Accept or reject the first clean baseline run before attempting run 2
 - [ ] Execute the second clean benign baseline run only after run 1 acceptance
 - [ ] Compare the two clean-run manifests and reject unexplained variation before event work
@@ -146,4 +148,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe self-test, and lower-level runner static controls. The first full baseline attempt is retained as `RUN_INVALID` because the pinned TO application starts with telemetry disabled; it transmitted no command and produced no experimental outcome. A readiness-gated, separately evidenced `TO_ENABLE_OUTPUT` setup command is now implemented before the unchanged measured `SAMPLE_NOOP_CC`. The corrected runner still requires local validation and two accepted clean runs. Event injection remains blocked until both runs pass, cross-run structural comparison is accepted, and immutable-ground evidence remains demonstrably separate from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, and prior probe/runner static controls. Two full baseline attempts are retained as `RUN_INVALID`; neither transmitted the measured `SAMPLE_NOOP_CC`, so neither produced an experimental outcome. Read-only hop analysis showed that the runtime actually uses CI_LAB on UDP 5012 and TO_LAB enabled by SC_RTS001 to `active-gs`, while the generic-radio XML used CI port 5010 and the isolated network lacked the `active-gs` radio alias. Contract version 0.5.0 now corrects only the runtime interface copy, uses no ground setup command, and permits exactly one measured no-op after stable telemetry. Event injection remains blocked until the corrected interface gate passes, two benign baselines are accepted, cross-run structural comparison is approved, and immutable-ground evidence remains demonstrably separate from policy-visible evidence.
