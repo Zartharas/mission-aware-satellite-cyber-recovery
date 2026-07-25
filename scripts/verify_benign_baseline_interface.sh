@@ -3,27 +3,39 @@ set -Eeuo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROBE="$ROOT/scripts/benign_ground_probe_measurement.py"
-RUNNER="$ROOT/scripts/run_benign_baseline_interface_corrected.sh"
+ENGINE="$ROOT/scripts/run_benign_baseline_interface_corrected.sh"
+RUNNER="$ROOT/scripts/run_benign_baseline_interface_textsafe.sh"
+PREPARER="$ROOT/scripts/prepare_runtime_radio_config.py"
 CONTRACT="$ROOT/configs/benign-baseline-contract.json"
 SOURCE_CONFIG="$ROOT/external/nos3/sims/build/bin/nos3-simulator.xml"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
+TEMP_DIR=""
 
-for file in "$PROBE" "$RUNNER" "$CONTRACT" "$SOURCE_CONFIG"; do
+cleanup() {
+  local rc=$?
+  [[ -z "$TEMP_DIR" ]] || rm -rf "$TEMP_DIR"
+  trap - EXIT
+  exit "$rc"
+}
+trap cleanup EXIT
+
+for file in "$PROBE" "$ENGINE" "$RUNNER" "$PREPARER" "$CONTRACT" "$SOURCE_CONFIG"; do
   [[ -f "$file" ]] || {
     echo "[ERROR] Missing file: $file" >&2
     exit 1
   }
 done
 
-python3 -m py_compile "$PROBE"
+python3 -m py_compile "$PROBE" "$PREPARER"
 python3 "$PROBE" --self-test
+python3 "$PREPARER" --self-test
+bash -n "$ENGINE"
 bash -n "$RUNNER"
 python3 -m json.tool "$CONTRACT" >/dev/null
 
-python3 - "$CONTRACT" "$SOURCE_CONFIG" <<'PY'
+python3 - "$CONTRACT" <<'PY'
 import json
 import sys
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
 contract = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
@@ -45,33 +57,60 @@ assert contract["transport"]["runtime_radio_interface_override"]["runtime_ci_por
 assert contract["transport"]["host_ports_allowed"] is False
 assert contract["transport"]["docker_socket_mount_allowed"] is False
 assert contract["transport"]["external_egress_allowed"] is False
-
-root = ET.parse(sys.argv[2]).getroot()
-radio = next(
-    simulator
-    for simulator in root.findall("./simulators/simulator")
-    if (simulator.findtext("name") or "").strip() == "generic-radio-sim"
-)
-connections = radio.findall("./hardware-model/connections/connection")
-fsw = next(c for c in connections if (c.findtext("name") or "").strip() == "fsw")
-gsw = next(c for c in connections if (c.findtext("name") or "").strip() == "gsw")
-assert (fsw.findtext("ci-port") or "").strip() == "5010"
-assert (fsw.findtext("to-port") or "").strip() == "5011"
-assert (gsw.findtext("ip") or "").strip() == "cryptolib"
-assert (gsw.findtext("cmd-port") or "").strip() == "8010"
-assert (gsw.findtext("tlm-port") or "").strip() == "8011"
 PY
 
-grep -Fq 'ci_port.text = "5012"' "$RUNNER"
-grep -Fq -- '--network-alias active-gs' "$RUNNER"
-grep -Fq 'CI_LAB listening on UDP port: 5012' "$RUNNER"
-grep -Fq 'TO telemetry output enabled for IP active-gs' "$RUNNER"
-grep -Fq 'ground_setup_command_transmissions 0' "$RUNNER"
-grep -Fq 'maximum_command_transmissions 1' "$RUNNER"
-grep -Fq 'event_injection disabled' "$RUNNER"
+TEMP_DIR="$(mktemp -d)"
+RUNTIME_CONFIG="$TEMP_DIR/nos3-simulator.xml"
+source_sha_before="$(shasum -a 256 "$SOURCE_CONFIG" | awk '{print $1}')"
+python3 "$PREPARER" "$SOURCE_CONFIG" "$RUNTIME_CONFIG"
+source_sha_after="$(shasum -a 256 "$SOURCE_CONFIG" | awk '{print $1}')"
+[[ "$source_sha_before" == "$source_sha_after" ]] || {
+  echo "[ERROR] Source NOS3 simulator configuration changed during verification." >&2
+  exit 1
+}
 
-if grep -Fq '1880c0000013021d726164696f2d73696d000000000000009313' "$RUNNER"; then
-  echo "[ERROR] Corrected runner still contains the deprecated ground setup packet." >&2
+python3 - "$SOURCE_CONFIG" "$RUNTIME_CONFIG" <<'PY'
+import sys
+from pathlib import Path
+
+source = Path(sys.argv[1]).read_text(encoding="utf-8")
+runtime = Path(sys.argv[2]).read_text(encoding="utf-8")
+assert "<42-css-scale-factor>" in source
+assert "<42-css-scale-factor>" in runtime
+assert len(source) == len(runtime)
+differences = [index for index, pair in enumerate(zip(source, runtime)) if pair[0] != pair[1]]
+assert len(differences) == 1, differences
+index = differences[0]
+assert source[index] == "0"
+assert runtime[index] == "2"
+marker = "<name>generic-radio-sim</name>"
+assert source.count(marker) == 1
+assert runtime.count(marker) == 1
+start = runtime.rfind("<simulator>", 0, runtime.index(marker))
+end = runtime.index("</simulator>", runtime.index(marker)) + len("</simulator>")
+radio = runtime[start:end]
+assert "<ci-port>5012</ci-port>" in radio
+assert "<ci-port>5010</ci-port>" not in radio
+assert "<to-port>5011</to-port>" in radio
+assert "<ip>cryptolib</ip>" in radio
+assert "<cmd-port>8010</cmd-port>" in radio
+assert "<tlm-port>8011</tlm-port>" in radio
+print("RUNTIME_RADIO_CONFIG_BOUNDED_DIFF_VERIFICATION=PASS")
+PY
+
+TEXTSAFE_VERIFY_ONLY=1 bash "$RUNNER"
+
+grep -Fq -- '--network-alias active-gs' "$ENGINE"
+grep -Fq 'CI_LAB listening on UDP port: 5012' "$ENGINE"
+grep -Fq 'TO telemetry output enabled for IP active-gs' "$ENGINE"
+grep -Fq 'ground_setup_command_transmissions 0' "$ENGINE"
+grep -Fq 'maximum_command_transmissions 1' "$ENGINE"
+grep -Fq 'event_injection disabled' "$ENGINE"
+grep -Fq 'prepare_runtime_radio_config.py' "$RUNNER"
+grep -Fq 'bounded_text_single_character' "$RUNNER"
+
+if grep -Fq '1880c0000013021d726164696f2d73696d000000000000009313' "$ENGINE"; then
+  echo "[ERROR] Corrected runtime engine still contains the deprecated ground setup packet." >&2
   exit 1
 fi
 if grep -Fq 'transmitted-setup-command.bin' "$PROBE"; then
@@ -79,13 +118,10 @@ if grep -Fq 'transmitted-setup-command.bin' "$PROBE"; then
   exit 1
 fi
 
-for command in docker; do
-  command -v "$command" >/dev/null 2>&1 || {
-    echo "[ERROR] Missing command: $command" >&2
-    exit 1
-  }
-done
-
+command -v docker >/dev/null 2>&1 || {
+  echo "[ERROR] Missing command: docker" >&2
+  exit 1
+}
 docker info >/dev/null 2>&1 || {
   echo "[ERROR] Docker daemon is not reachable." >&2
   exit 1
@@ -99,5 +135,10 @@ docker run --rm --platform linux/amd64 --network none \
   --mount "type=bind,source=$ROOT,target=/work/project,readonly" \
   --workdir /work/project \
   "$IMAGE" python3 scripts/benign_ground_probe_measurement.py --self-test
+
+docker run --rm --platform linux/amd64 --network none \
+  --mount "type=bind,source=$ROOT,target=/work/project,readonly" \
+  --workdir /work/project \
+  "$IMAGE" python3 scripts/prepare_runtime_radio_config.py --self-test
 
 echo "BENIGN_BASELINE_INTERFACE_VERIFICATION_STATUS=PASS"
