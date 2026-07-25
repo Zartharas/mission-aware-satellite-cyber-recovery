@@ -22,6 +22,24 @@ MANIFEST="$EVIDENCE/runtime-manifest.txt"
 NAMES="$EVIDENCE/container-names.txt"
 RESULT="RUN_INVALID"
 
+HARDWARE_SIMS=(
+  camsim
+  generic-css-sim
+  generic-eps-sim
+  generic-fss-sim
+  gps
+  generic-imu-sim
+  generic-mag-sim
+  generic-reactionwheel-sim0
+  generic-reactionwheel-sim1
+  generic-reactionwheel-sim2
+  generic-radio-sim
+  sample-sim
+  generic-star-tracker-sim
+  generic-thruster-sim
+  generic-torquer-sim
+)
+
 value() {
   awk -F= -v key="$2" '$1 == key {print substr($0,index($0,"=")+1)}' "$1" | tail -n 1
 }
@@ -79,6 +97,9 @@ record phase "$PHASE"
 record duration_seconds "$DURATION"
 record startup_grace_seconds "$GRACE"
 record event_injection disabled
+record simulator_launch_mode individual_pinned_ci_set
+record hardware_simulator_count "${#HARDWARE_SIMS[@]}"
+record engine_stdin_mode interactive_tty
 
 for command in docker git awk shasum python3; do
   command -v "$command" >/dev/null 2>&1 || { echo "[ERROR] Missing command: $command" >&2; exit 1; }
@@ -102,7 +123,6 @@ done
 required=(
   "$NOS3/cfg/build/InOut/Inp_Sim.txt"
   "$NOS3/fsw/build/exe/cpu1/core-cpu1"
-  "$NOS3/sims/build/bin/nos3-all-simulators"
   "$NOS3/sims/build/bin/nos3-single-simulator"
   "$NOS3/sims/build/bin/nos3-sim-cmdbus-bridge"
   "$NOS3/sims/build/bin/nos_engine_server_config.json"
@@ -177,6 +197,7 @@ start() {
 }
 
 start engine nos-engine-server \
+  --interactive --tty --network-alias sc01-nos-engine-server \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
   "$IMAGE" /usr/bin/nos_engine_server_standalone -f nos_engine_server_config.json
 sleep 2
@@ -187,9 +208,14 @@ start fortytwo fortytwo \
   --mount "type=bind,source=$FORTYTWO,target=/work/fortytwo,readonly" \
   --mount "type=bind,source=$INOUT,target=$FORTYTWO_INOUT_CONTAINER" --workdir /work/fortytwo \
   "$IMAGE" ./42 "$FORTYTWO_INOUT_CONTAINER"
-start simulators nos3-simulators \
+start truth42sim truth42sim \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
-  "$IMAGE" ./nos3-all-simulators -f nos3-simulator.xml
+  "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml truth42sim
+for sim in "${HARDWARE_SIMS[@]}"; do
+  start "$sim" "$sim" \
+    --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
+    "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
+done
 start bridge nos-sim-bridge \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
   "$IMAGE" ./nos3-sim-cmdbus-bridge -f nos3-simulator.xml
