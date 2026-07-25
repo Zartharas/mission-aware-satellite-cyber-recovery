@@ -1,24 +1,54 @@
 {
-  "contract_version": "0.3.0",
-  "status": "SELF_TEST_PASS_RUNNER_VALIDATION_PENDING",
+  "contract_version": "0.4.0",
+  "status": "SETUP_GATED_RUNNER_VALIDATION_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
     "cfe_commit": "87e273743f3d07ed9216462b461e9f398ff96c87",
+    "to_commit": "666a8d17c87ac4f5dae1719dc218f9146468d062",
     "sample_component_commit": "9d1a76dc391fefe7a42314052c1f10fa527f526b",
     "cryptolib_commit": "d4f91523b7f2f247b89bbde9e156cd8420e2cb86",
-    "protocol": "docs/19-wp4-benign-command-telemetry-baseline-protocol.md"
+    "cosmos_ground_config_commit": "5e45ff376d017cc517ff9d03995109b59254e518",
+    "protocol": "docs/19-wp4-benign-command-telemetry-baseline-protocol.md",
+    "telemetry_setup_addendum": "docs/20-wp4-benign-baseline-telemetry-setup-addendum.md"
   },
   "implementation": {
     "ground_probe": "scripts/benign_ground_probe.py",
     "ground_probe_verification_script": "scripts/verify_benign_ground_probe.sh",
-    "runtime_runner": "scripts/run_benign_baseline.sh",
-    "runtime_runner_verification_script": "scripts/verify_benign_baseline_runner.sh",
+    "lower_level_runtime_runner": "scripts/run_benign_baseline.sh",
+    "runtime_runner": "scripts/run_benign_baseline_with_setup.sh",
+    "runtime_runner_verification_script": "scripts/verify_benign_baseline_setup.sh",
     "host_self_test": "PASS",
     "network_disabled_container_self_test": "PASS",
-    "runtime_runner_validation": "PENDING"
+    "lower_level_runner_static_validation": "PASS",
+    "setup_gated_runner_validation": "PENDING"
   },
-  "command": {
+  "setup_command": {
+    "role": "nominal_telemetry_activation_not_measured_outcome",
+    "application": "TO",
+    "name": "TO_ENABLE_OUTPUT",
+    "message_id_hex": "0x1880",
+    "message_id_decimal": 6272,
+    "sequence_control_hex": "0xC000",
+    "packet_length_field": 19,
+    "function_code": 2,
+    "destination_host": "radio-sim",
+    "destination_host_field_length": 16,
+    "destination_port": 5011,
+    "destination_port_endianness": "little",
+    "maximum_transmissions_per_run": 1,
+    "expected_packet_hex": "1880c0000013021d726164696f2d73696d000000000000009313",
+    "expected_packet_length": 26,
+    "expected_packet_sha256": "c9b26e373b21170039deb6ab4d54c49401581eae5d8f3d1eaf304e65f300d3bb",
+    "release_conditions": [
+      "ground_probe_udp_6011_bound",
+      "cfs_log_contains_entering_OPERATIONAL_state",
+      "radio_log_contains_Successfully_connected_to_TCP_server"
+    ],
+    "evidence_visibility": "IMMUTABLE_GROUND_ONLY",
+    "policy_visibility": "NONE"
+  },
+  "measured_command": {
     "application": "SAMPLE",
     "name": "SAMPLE_NOOP_CC",
     "message_id_hex": "0x18FA",
@@ -36,6 +66,13 @@
       "algorithm": "Set checksum byte to zero, initialize accumulator to 0xFF, XOR every packet byte, then store the accumulator in the checksum byte; a complete valid packet XORs to zero.",
       "implementation_status": "SELF_TEST_PASS"
     }
+  },
+  "command_accounting": {
+    "setup_command_transmissions": 1,
+    "measured_command_transmissions": 1,
+    "total_expected_transmissions": 2,
+    "setup_command_excluded_from_sample_counter_baseline": true,
+    "measured_command_sent_only_after_stable_sample_housekeeping": true
   },
   "telemetry": {
     "application": "SAMPLE",
@@ -96,6 +133,8 @@
     "immutable_ground_evidence": "IMPLEMENTED_RUNTIME_VALIDATION_PENDING",
     "policy_visible_evidence": "IMPLEMENTED_RUNTIME_VALIDATION_PENDING",
     "independent_hashes_required": true,
+    "setup_trigger_visibility": "IMMUTABLE_GROUND_ONLY",
+    "setup_packet_visibility": "IMMUTABLE_GROUND_ONLY",
     "truth_sink_policy_visibility": "NONE",
     "large_runtime_logs_committed": false,
     "compact_run_locks_committed": true
@@ -109,6 +148,6 @@
     "required_clean_passes": 2,
     "cross_run_comparison_required": true,
     "event_injection_unblocked_after_gate": false,
-    "additional_requirement": "Evidence separation must be demonstrated before event-injection implementation begins."
+    "additional_requirement": "Evidence separation must be demonstrated and the setup command must remain distinct from the measured command before event-injection implementation begins."
   }
 }
