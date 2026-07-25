@@ -45,12 +45,15 @@ Third-party data and source code must not be copied into this repository unless 
 ### CuCD-ID
 
 - Type: Simulated CubeSat cyber command and telemetry dataset
-- DOI: 10.17632/7n2d42pm3n.2
-- License: CC BY 4.0
-- Intended use: Validate data pipeline and compare synthetic event signatures
+- Current dataset DOI: 10.17632/7n2d42pm3n.3
+- Earlier reviewed DOI: 10.17632/7n2d42pm3n.2
+- Published article DOI: 10.1016/j.dib.2026.112598
+- License status: **Conditional hold pending reconciliation**
+- Licensing note: The published Data in Brief article reports CC BY-NC-ND 4.0. The exact license displayed by the selected Mendeley dataset version must be captured before download, transformation, or publication use.
+- Intended use after clearance: Validate the data pipeline and compare synthetic event signatures
 - Scenarios: Nominal, command flooding, false data injection, defense impairment, storage exhaustion
 - Limitation: Does not contain the mission-response and trusted-recovery outcome variables required for this paper
-- Repository treatment: Download locally; preserve citation and license; do not commit raw files
+- Repository treatment: Do not commit raw files; do not modify or redistribute until the selected record's terms are documented
 
 ### AegisSat dataset
 
