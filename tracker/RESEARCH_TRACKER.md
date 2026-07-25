@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact NOS3, cFE/OSAL/PSP, 42, and image locks; successful network-disabled builds; scoped project-labeled headless runtime preflight under validation | Pass the scoped runtime preflight, then reproduce the complete benign command/telemetry baseline twice |
+| WP4 | Testbed selection and architecture | In progress | Exact NOS3, cFE/OSAL/PSP, 42, and image locks; successful network-disabled builds; scoped project-labeled headless runtime preflight with explicit radio/CryptoLib readiness under validation | Pass the scoped runtime preflight, then reproduce the complete benign command/telemetry baseline twice |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -88,6 +88,8 @@ Last updated: 2026-07-25
 - [x] Scope the infrastructure-only headless preflight to fourteen frozen-pilot hardware simulators
 - [x] Record COSMOS-dependent truth streaming and camera payload validation as separate later dependencies
 - [x] Correct the generic-radio hostname alias and normalize the container terminal environment
+- [x] Isolate the remaining CryptoLib exit to its radio transport-readiness interval
+- [x] Add explicit TCP selection, radio port-8010 readiness verification, interactive CryptoLib stdin, and recorded loopback ground destination
 
 ## Immediate tasks
 
@@ -98,10 +100,12 @@ Last updated: 2026-07-25
 - [x] Review and commit `artifacts/nominal-build-lock.txt`
 - [x] Pull and run the initial Gate 3B Phase 1 runtime-preflight revisions
 - [x] Review the retained `RUN_INVALID` manifests, liveness records, logs, network inspection, and cleanup evidence
-- [ ] Pull the scoped headless preflight revision
+- [x] Pull and exercise the scoped headless preflight revision
+- [x] Confirm twenty scoped components started and the earlier radio-DNS and terminal errors did not recur
+- [ ] Pull the explicit radio/CryptoLib readiness revision
 - [ ] Run `bash -n scripts/run_nominal_runtime_preflight.sh`
 - [ ] Run `DURATION_SECONDS=60 STARTUP_GRACE_SECONDS=30 bash scripts/run_nominal_runtime_preflight.sh`
-- [ ] Review the runtime manifest, liveness record, component logs, network inspection, and cleanup evidence
+- [ ] Review the listener-ready manifest field, liveness record, CryptoLib/radio logs, network inspection, and cleanup evidence
 - [ ] Pin or eliminate the ground-software dependency for the complete nominal baseline
 - [ ] Define the exact benign cFE command and command-acceptance assertion
 - [ ] Define required telemetry fields and timing tolerances
