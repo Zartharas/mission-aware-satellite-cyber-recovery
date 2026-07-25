@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/configs/experiment_run.schema.json",
+  "title": "Mission-Aware Satellite Cyber-Recovery Experiment Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "model_version",
+    "seed",
+    "mission_state_id",
+    "event_id",
+    "policy_id",
+    "contact_condition_id",
+    "evidence_condition_id",
+    "environment",
+    "timing",
+    "outcomes",
+    "recovery_evidence",
+    "terminal_state"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+    "model_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mission_state_id": {
+      "enum": ["M0", "M2", "M4"]
+    },
+    "event_id": {
+      "enum": ["E1", "E4", "E6"]
+    },
+    "policy_id": {
+      "enum": ["P0", "P1", "P2", "P4", "P5", "P7"]
+    },
+    "contact_condition_id": {
+      "enum": ["C0", "C1"]
+    },
+    "evidence_condition_id": {
+      "enum": ["T0", "T1"]
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["host_architecture", "simulator", "simulator_commit", "flight_software", "flight_software_commit", "snapshot_id"],
+      "properties": {
+        "host_architecture": {"type": "string"},
+        "simulator": {"type": "string"},
+        "simulator_commit": {"type": "string", "minLength": 7},
+        "flight_software": {"type": "string"},
+        "flight_software_commit": {"type": "string", "minLength": 7},
+        "snapshot_id": {"type": "string"},
+        "container_or_vm_digest": {"type": ["string", "null"]}
+      }
+    },
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_start_utc", "event_activation_s", "run_end_utc"],
+      "properties": {
+        "run_start_utc": {"type": "string", "format": "date-time"},
+        "event_activation_s": {"type": "number", "minimum": 0},
+        "containment_s": {"type": ["number", "null"], "minimum": 0},
+        "verified_recovery_s": {"type": ["number", "null"], "minimum": 0},
+        "run_end_utc": {"type": "string", "format": "date-time"}
+      }
+    },
+    "outcomes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unauthorized_effect_completed",
+        "mission_objective_completion_ratio",
+        "safety_invariant_violations",
+        "legitimate_command_rejection_rate",
+        "ground_spacecraft_state_divergence_s",
+        "evidence_completeness_ratio"
+      ],
+      "properties": {
+        "unauthorized_effect_completed": {"type": "boolean"},
+        "mission_objective_completion_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "safety_invariant_violations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["SI-1", "SI-2", "SI-3", "SI-4", "SI-5", "SI-6", "SI-7", "SI-8"]}
+        },
+        "legitimate_command_rejection_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "ground_spacecraft_state_divergence_s": {"type": "number", "minimum": 0},
+        "evidence_completeness_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "minimum_energy_reserve_ratio": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "time_in_safe_mode_s": {"type": ["number", "null"], "minimum": 0},
+        "time_in_degraded_mode_s": {"type": ["number", "null"], "minimum": 0},
+        "contact_windows_consumed": {"type": "integer", "minimum": 0},
+        "residual_unauthorized_state_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "recovery_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approved_version",
+        "integrity_measurement_valid",
+        "authorization_valid",
+        "measured_state_current",
+        "authorized_command_path_restored",
+        "ground_spacecraft_state_agreed",
+        "required_telemetry_restored",
+        "health_checks_passed",
+        "no_residual_unauthorized_state",
+        "recovery_manifest_complete"
+      ],
+      "properties": {
+        "approved_version": {"type": "boolean"},
+        "integrity_measurement_valid": {"type": "boolean"},
+        "authorization_valid": {"type": "boolean"},
+        "measured_state_current": {"type": "boolean"},
+        "authorized_command_path_restored": {"type": "boolean"},
+        "ground_spacecraft_state_agreed": {"type": "boolean"},
+        "required_telemetry_restored": {"type": "boolean"},
+        "health_checks_passed": {"type": "boolean"},
+        "no_residual_unauthorized_state": {"type": "boolean"},
+        "recovery_manifest_complete": {"type": "boolean"}
+      }
+    },
+    "terminal_state": {
+      "enum": [
+        "TRUSTED_RECOVERY_CONFIRMED",
+        "OPERATIONAL_BUT_UNVERIFIED",
+        "CONTAINED_NOT_RECOVERED",
+        "RECOVERY_FAILED",
+        "MISSION_LOSS",
+        "RUN_INVALID"
+      ]
+    },
+    "invalid_run_reason": {
+      "type": ["string", "null"]
+    },
+    "notes": {
+      "type": ["string", "null"]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"terminal_state": {"const": "TRUSTED_RECOVERY_CONFIRMED"}}
+      },
+      "then": {
+        "properties": {
+          "recovery_evidence": {
+            "properties": {
+              "approved_version": {"const": true},
+              "integrity_measurement_valid": {"const": true},
+              "authorization_valid": {"const": true},
+              "measured_state_current": {"const": true},
+              "authorized_command_path_restored": {"const": true},
+              "ground_spacecraft_state_agreed": {"const": true},
+              "required_telemetry_restored": {"const": true},
+              "health_checks_passed": {"const": true},
+              "no_residual_unauthorized_state": {"const": true},
+              "recovery_manifest_complete": {"const": true}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"terminal_state": {"const": "RUN_INVALID"}}
+      },
+      "then": {
+        "required": ["invalid_run_reason"],
+        "properties": {"invalid_run_reason": {"type": "string", "minLength": 1}}
+      }
+    }
+  ]
+}
