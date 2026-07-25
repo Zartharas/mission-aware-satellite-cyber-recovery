@@ -1,0 +1,95 @@
+{
+  "contract_version": "0.1.0",
+  "status": "DESIGN_LOCKED_IMPLEMENTATION_PENDING",
+  "event_injection_allowed": false,
+  "source_locks": {
+    "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "sample_component_commit": "9d1a76dc391fefe7a42314052c1f10fa527f526b",
+    "cryptolib_commit": "d4f91523b7f2f247b89bbde9e156cd8420e2cb86",
+    "protocol": "docs/19-wp4-benign-command-telemetry-baseline-protocol.md"
+  },
+  "command": {
+    "application": "SAMPLE",
+    "name": "SAMPLE_NOOP_CC",
+    "message_id_hex": "0x18FA",
+    "message_id_decimal": 6394,
+    "sequence_control_hex": "0xC000",
+    "packet_length_field": 1,
+    "function_code": 0,
+    "arguments": [],
+    "maximum_transmissions_per_run": 1,
+    "checksum": {
+      "algorithm_source": "pinned_cfs_compatible_command_checksum",
+      "implementation_status": "PENDING_SELF_TEST"
+    }
+  },
+  "telemetry": {
+    "application": "SAMPLE",
+    "packet_name": "SAMPLE_HK_TLM",
+    "message_id_hex": "0x08FA",
+    "message_id_decimal": 2298,
+    "minimum_stable_pre_command_packets": 2,
+    "field_layout_sources": [
+      "components/sample/fsw/cfs/src/sample_msg.h",
+      "components/sample/gsw/sample.xtce"
+    ],
+    "required_fields": [
+      "CMD_COUNT",
+      "CMD_ERR_COUNT",
+      "DEVICE_ERR_COUNT"
+    ]
+  },
+  "assertions": {
+    "acceptance_timeout_seconds": 30,
+    "cmd_count": "after == (before + 1) mod 256",
+    "cmd_err_count": "after == before",
+    "device_err_count": "after == before",
+    "pre_command_counter_stability_required": true
+  },
+  "transport": {
+    "network": "project_labeled_internal_bridge",
+    "ground_probe_alias": "ground-probe",
+    "ground_to_cryptolib": {
+      "protocol": "udp",
+      "destination": "cryptolib",
+      "port": 6010
+    },
+    "cryptolib_to_radio": {
+      "protocol": "tcp",
+      "destination": "radio-sim",
+      "port": 8010
+    },
+    "radio_to_cryptolib": {
+      "protocol": "tcp",
+      "destination": "cryptolib",
+      "port": 8011
+    },
+    "cryptolib_to_ground": {
+      "protocol": "udp",
+      "destination": "ground-probe",
+      "port": 6011
+    },
+    "host_ports_allowed": false,
+    "docker_socket_mount_allowed": false,
+    "external_egress_allowed": false
+  },
+  "evidence": {
+    "immutable_ground_evidence": "REQUIRED",
+    "policy_visible_evidence": "REQUIRED",
+    "independent_hashes_required": true,
+    "truth_sink_policy_visibility": "NONE",
+    "large_runtime_logs_committed": false,
+    "compact_run_locks_committed": true
+  },
+  "terminal_classifications": [
+    "BENIGN_BASELINE_PASS",
+    "BENIGN_BASELINE_FAIL",
+    "RUN_INVALID"
+  ],
+  "gate": {
+    "required_clean_passes": 2,
+    "cross_run_comparison_required": true,
+    "event_injection_unblocked_after_gate": false,
+    "additional_requirement": "Evidence separation must be demonstrated before event-injection implementation begins."
+  }
+}
