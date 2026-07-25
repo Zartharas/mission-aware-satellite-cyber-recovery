@@ -9,6 +9,7 @@ BUILD_LOCK="$ROOT_DIR/artifacts/nominal-build-lock.txt"
 LOG_DIR="$ROOT_DIR/logs/wp4"
 EXPECTED_NOS3_COMMIT="5a3bdee6be9a2c67fdf994ae6db56d5c60395302"
 PINNED_IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
+CONTAINER_NOS3_DIR="/work/nos3"
 
 mkdir -p "$ROOT_DIR/artifacts" "$LOG_DIR"
 
@@ -18,6 +19,11 @@ for required in "$NOS3_LOCK" "$FORTYTWO_LOCK"; do
     exit 1
   fi
 done
+
+if [[ "$(awk -F= '$1=="fortytwo_build_status" {print $2}' "$FORTYTWO_LOCK" | tail -n 1)" != "PASS" ]]; then
+  echo "[ERROR] The committed 42 lock does not show a successful build." >&2
+  exit 1
+fi
 
 if [[ ! -d "$NOS3_DIR/.git" ]]; then
   echo "[ERROR] NOS3 checkout is missing: $NOS3_DIR" >&2
@@ -70,6 +76,8 @@ echo "WP4 nominal NOS3 build"
 echo "======================="
 echo "NOS3 commit: $ACTUAL_NOS3_COMMIT"
 echo "Builder image: $PINNED_IMAGE"
+echo "Host source: $NOS3_DIR"
+echo "Container source: $CONTAINER_NOS3_DIR"
 echo "Network mode: none"
 echo ""
 
@@ -78,13 +86,13 @@ docker run --rm \
   --network none \
   --user "$(id -u):$(id -g)" \
   -e HOME=/tmp \
-  -v "$NOS3_DIR:$NOS3_DIR" \
-  -w "$NOS3_DIR" \
+  --mount "type=bind,source=$NOS3_DIR,target=$CONTAINER_NOS3_DIR" \
+  --workdir "$CONTAINER_NOS3_DIR" \
   "$PINNED_IMAGE" \
   bash -lc '
     set -euo pipefail
     rm -rf cfg/build fsw/build sims/build gsw/build
-    ./scripts/cfg/config.sh
+    bash ./scripts/cfg/config.sh
     make build-fsw
     make build-sim
     make build-cryptolib
@@ -116,6 +124,7 @@ cat > "$BUILD_LOCK" <<EOF
 recorded_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 build_status=PASS
 network_mode=none
+container_source_path=$CONTAINER_NOS3_DIR
 nos3_commit=$ACTUAL_NOS3_COMMIT
 cfe_commit=$CFE_COMMIT
 osal_commit=$OSAL_COMMIT
