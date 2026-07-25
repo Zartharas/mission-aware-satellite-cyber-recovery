@@ -1,0 +1,138 @@
+{
+  "model_version": "0.1.0",
+  "gate": "Gate 2 draft",
+  "mission_states": [
+    {
+      "id": "M0",
+      "name": "nominal_operations",
+      "description": "Routine command, telemetry, and scheduled mission activity.",
+      "priority_order": ["command_authority", "spacecraft_survivability", "mission_service", "incident_evidence"]
+    },
+    {
+      "id": "M2",
+      "name": "low_power_or_eclipse",
+      "description": "Energy-constrained state in which survival reserve and power-positive operation dominate payload continuity.",
+      "priority_order": ["spacecraft_survivability", "command_authority", "incident_evidence", "mission_service"]
+    },
+    {
+      "id": "M4",
+      "name": "software_update_or_recovery",
+      "description": "Software or configuration transition requiring integrity, authorization, rollback, and state-convergence evidence.",
+      "priority_order": ["command_authority", "verified_recovery", "spacecraft_survivability", "incident_evidence", "mission_service"]
+    }
+  ],
+  "events": [
+    {
+      "id": "E1",
+      "name": "unauthorized_or_replayed_command",
+      "description": "A syntactically valid command is submitted using an unauthorized identity, invalid mission-state authorization, or stale/replayed authorization context.",
+      "allowed_effects": ["command_rejected", "command_executed", "state_change_attempted"],
+      "prohibited_real_world_actions": ["operational_credentials", "live_satellite_access", "rf_transmission"]
+    },
+    {
+      "id": "E4",
+      "name": "modified_or_unauthorized_update",
+      "description": "A synthetic software or configuration artifact is modified, downgraded, incorrectly authorized, or interrupted during installation.",
+      "allowed_effects": ["verification_failure", "unauthorized_install_attempt", "rollback_required", "state_divergence"],
+      "prohibited_real_world_actions": ["proprietary_firmware", "production_signing_keys", "operational_update_service"]
+    },
+    {
+      "id": "E6",
+      "name": "telemetry_suppression_during_response",
+      "description": "Selected synthetic telemetry or trust evidence is delayed, suppressed, or made unavailable during response and recovery.",
+      "allowed_effects": ["evidence_incomplete", "policy_uncertainty", "delayed_recovery", "incorrect_state_estimate"],
+      "prohibited_real_world_actions": ["rf_jamming", "interception", "operational_telemetry_manipulation"]
+    }
+  ],
+  "response_policies": [
+    {
+      "id": "P0",
+      "name": "observe_only",
+      "autonomy_level": "none",
+      "description": "Record and alert without automatic containment."
+    },
+    {
+      "id": "P1",
+      "name": "identity_or_source_isolation",
+      "autonomy_level": "bounded",
+      "description": "Revoke the modeled identity or isolate the synthetic source while preserving unaffected command paths."
+    },
+    {
+      "id": "P2",
+      "name": "selective_command_restriction",
+      "autonomy_level": "bounded",
+      "description": "Block predeclared high-risk command classes while allowing authorized low-risk operations."
+    },
+    {
+      "id": "P4",
+      "name": "safe_mode_transition",
+      "autonomy_level": "high",
+      "description": "Enter a sustainable, commandable, evidence-preserving safe state subject to frozen invariants."
+    },
+    {
+      "id": "P5",
+      "name": "rollback",
+      "autonomy_level": "bounded",
+      "description": "Restore an approved software or configuration state using verified artifacts and recovery evidence."
+    },
+    {
+      "id": "P7",
+      "name": "mission_aware_selection",
+      "autonomy_level": "adaptive",
+      "description": "Select among bounded actions using mission state, event evidence, contact availability, resource state, and safety/trust constraints."
+    }
+  ],
+  "contact_conditions": [
+    {
+      "id": "C0",
+      "name": "immediate_ground_contact",
+      "missed_windows": 0
+    },
+    {
+      "id": "C1",
+      "name": "one_missed_contact_window",
+      "missed_windows": 1
+    }
+  ],
+  "evidence_conditions": [
+    {
+      "id": "T0",
+      "name": "full_evidence",
+      "description": "All applicable synthetic telemetry and recovery evidence are available within configured timing bounds."
+    },
+    {
+      "id": "T1",
+      "name": "reduced_or_suppressed_telemetry",
+      "description": "A predeclared subset of telemetry or trust evidence is unavailable, delayed, or stale."
+    }
+  ],
+  "invariants": [
+    {"id": "SI-1", "name": "command_state_authorization"},
+    {"id": "SI-2", "name": "energy_reserve"},
+    {"id": "SI-3", "name": "verified_recovery_image"},
+    {"id": "SI-4", "name": "recovery_path_preservation"},
+    {"id": "SI-5", "name": "evidence_freshness"},
+    {"id": "SI-6", "name": "ground_spacecraft_convergence"},
+    {"id": "SI-7", "name": "minimum_observability"},
+    {"id": "SI-8", "name": "immutable_ground_truth"}
+  ],
+  "terminal_states": [
+    "TRUSTED_RECOVERY_CONFIRMED",
+    "OPERATIONAL_BUT_UNVERIFIED",
+    "CONTAINED_NOT_RECOVERED",
+    "RECOVERY_FAILED",
+    "MISSION_LOSS",
+    "RUN_INVALID"
+  ],
+  "required_primary_metrics": [
+    "unauthorized_effect_completed",
+    "mission_objective_completion_ratio",
+    "safety_invariant_violation_count",
+    "time_to_containment_s",
+    "time_to_verified_recovery_s",
+    "recovery_terminal_state",
+    "legitimate_command_rejection_rate",
+    "ground_spacecraft_state_divergence_s",
+    "evidence_completeness_ratio"
+  ]
+}
