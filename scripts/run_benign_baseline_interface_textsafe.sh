@@ -99,4 +99,9 @@ source_sha_after="$(shasum -a 256 "$SOURCE_RUNNER" | awk '{print $1}')"
 }
 
 echo "[OK] Generated a text-safe bounded runtime runner without modifying the canonical source."
+if [[ "${TEXTSAFE_VERIFY_ONLY:-0}" == 1 ]]; then
+  echo "BENIGN_BASELINE_TEXTSAFE_WRAPPER_VERIFICATION_STATUS=PASS"
+  exit 0
+fi
+
 bash "$TEMP_RUNNER" "$@"
