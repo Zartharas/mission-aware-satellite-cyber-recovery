@@ -56,8 +56,8 @@ record() {
 
 capture() {
   local name="$1"
-  docker inspect "$name" > "$ORCHESTRATION/inspect-$name.json" 2>/dev/null || true
-  docker logs --timestamps "$name" > "$ORCHESTRATION/$name.log" 2>&1 || true
+  docker inspect "$name" > "$ORCHESTRATION/inspect-$name.json" 2>/dev/null || return 1
+  docker logs --timestamps "$name" > "$ORCHESTRATION/$name.log" 2>&1 || return 1
 }
 
 hash_tree() {
@@ -86,38 +86,77 @@ PY
 
 cleanup() {
   local rc=$?
+  local final_rc="$rc"
   local ids remaining_containers remaining_networks ground_hash policy_hash
+  local capture_failed=0 cleanup_failed=0 ground_hash_failed=0 policy_hash_failed=0
   set +e
 
   if [[ -f "$NAMES" ]]; then
     while IFS= read -r name; do
-      [[ -n "$name" ]] && capture "$name"
+      if [[ -n "$name" ]]; then
+        capture "$name" || capture_failed=1
+      fi
     done < "$NAMES"
   fi
 
-  docker network inspect "$NETWORK" > "$ORCHESTRATION/network-final.json" 2>/dev/null || true
-  docker ps -a --no-trunc --format '{{json .}}' > "$ORCHESTRATION/docker-ps-final.jsonl" 2>/dev/null || true
+  docker network inspect "$NETWORK" > "$ORCHESTRATION/network-final.json" 2>/dev/null || cleanup_failed=1
+  docker ps -a --no-trunc --format '{{json .}}' > "$ORCHESTRATION/docker-ps-final.jsonl" 2>/dev/null || cleanup_failed=1
 
   ids="$(docker ps -aq --filter "label=research.project=$PROJECT" --filter "label=research.run_id=$RUN_ID")"
-  [[ -z "$ids" ]] || docker rm -f $ids >/dev/null 2>&1
-  docker network rm "$NETWORK" >/dev/null 2>&1 || true
+  if [[ -n "$ids" ]]; then
+    docker rm -f $ids >/dev/null 2>&1 || cleanup_failed=1
+  fi
+  docker network rm "$NETWORK" >/dev/null 2>&1 || cleanup_failed=1
 
   remaining_containers="$(docker ps -aq --filter "label=research.project=$PROJECT" --filter "label=research.run_id=$RUN_ID" | wc -l | tr -d ' ')"
+  [[ -n "$remaining_containers" ]] || {
+    remaining_containers=-1
+    cleanup_failed=1
+  }
   remaining_networks="$(docker network ls -q --filter "label=research.project=$PROJECT" --filter "label=research.run_id=$RUN_ID" | wc -l | tr -d ' ')"
+  [[ -n "$remaining_networks" ]] || {
+    remaining_networks=-1
+    cleanup_failed=1
+  }
+
+  if (( capture_failed != 0 || cleanup_failed != 0 || remaining_containers != 0 || remaining_networks != 0 )); then
+    RESULT="RUN_INVALID"
+    final_rc=3
+  fi
+
+  cat > "$ORCHESTRATION/terminal-state.txt" <<EOF
+run_id=$RUN_ID
+capture_failed=$capture_failed
+cleanup_failed=$cleanup_failed
+cleanup_project_containers_remaining=$remaining_containers
+cleanup_project_networks_remaining=$remaining_networks
+terminal_classification=$RESULT
+pre_hash_exit_code=$final_rc
+EOF
+
+  ground_hash="$(hash_tree "$GROUND" 2>/dev/null)" || ground_hash_failed=1
+  policy_hash="$(hash_tree "$POLICY" 2>/dev/null)" || policy_hash_failed=1
+  [[ -n "$ground_hash" ]] || ground_hash_failed=1
+  [[ -n "$policy_hash" ]] || policy_hash_failed=1
+
+  if (( ground_hash_failed != 0 || policy_hash_failed != 0 )); then
+    RESULT="RUN_INVALID"
+    final_rc=3
+  fi
 
   record cleanup_completed_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  record evidence_capture_failed "$capture_failed"
+  record cleanup_failed "$cleanup_failed"
   record cleanup_project_containers_remaining "$remaining_containers"
   record cleanup_project_networks_remaining "$remaining_networks"
-  record terminal_classification "$RESULT"
-  record exit_code "$rc"
-
-  cp "$MANIFEST" "$ORCHESTRATION/baseline-manifest-final.txt" 2>/dev/null || true
-  ground_hash="$(hash_tree "$GROUND" 2>/dev/null || true)"
-  policy_hash="$(hash_tree "$POLICY" 2>/dev/null || true)"
+  record immutable_ground_hash_failed "$ground_hash_failed"
+  record policy_visible_hash_failed "$policy_hash_failed"
   [[ -z "$ground_hash" ]] || record immutable_ground_manifest_sha256 "$ground_hash"
   [[ -z "$policy_hash" ]] || record policy_visible_manifest_sha256 "$policy_hash"
+  record terminal_classification "$RESULT"
+  record exit_code "$final_rc"
 
-  if [[ "$RESULT" == BENIGN_BASELINE_PASS && "$rc" -eq 0 && "$remaining_containers" -eq 0 && "$remaining_networks" -eq 0 ]]; then
+  if [[ "$RESULT" == BENIGN_BASELINE_PASS && "$final_rc" -eq 0 ]]; then
     echo "BENIGN_BASELINE_STATUS=PASS"
     echo "[OK] Evidence retained at: $EVIDENCE"
   elif [[ "$RESULT" == BENIGN_BASELINE_FAIL ]]; then
@@ -127,6 +166,9 @@ cleanup() {
     echo "BENIGN_BASELINE_STATUS=RUN_INVALID" >&2
     echo "[INFO] Evidence retained at: $EVIDENCE" >&2
   fi
+
+  trap - EXIT
+  exit "$final_rc"
 }
 
 for number in "$BASELINE_TIMEOUT" "$PROBE_READINESS_TIMEOUT" "$ACCEPTANCE_TIMEOUT"; do
@@ -574,8 +616,48 @@ record ground_probe_result_sha256 "$(shasum -a 256 "$PROBE_RESULT" | awk '{print
 
 case "$probe_classification:$probe_code" in
   BENIGN_BASELINE_PASS:0)
+    required_pass_evidence=(
+      "$PROBE_GROUND/transmitted-command.bin"
+      "$PROBE_GROUND/pre-command-1.bin"
+      "$PROBE_GROUND/pre-command-2.bin"
+      "$PROBE_GROUND/post-command.bin"
+      "$PROBE_GROUND/telemetry-events.jsonl"
+      "$POLICY/telemetry.jsonl"
+    )
+    for file in "${required_pass_evidence[@]}"; do
+      [[ -s "$file" ]] || {
+        echo "[ERROR] Required PASS evidence is missing or empty: $file" >&2
+        exit 3
+      }
+    done
+    [[ "$(shasum -a 256 "$PROBE_GROUND/transmitted-command.bin" | awk '{print $1}')" == \
+      722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd ]] || {
+      echo "[ERROR] Transmitted command evidence hash mismatch." >&2
+      exit 3
+    }
+    probe_latency_ms="$(python3 - "$PROBE_RESULT" <<'PY'
+import json
+import sys
+
+result = json.load(open(sys.argv[1], encoding="utf-8"))
+assert result["classification"] == "BENIGN_BASELINE_PASS"
+assert result["command"]["transmissions"] == 1
+assert result["command"]["packet_hex"] == "18fac000000100dc"
+before = result["before"]
+after = result["after"]
+assert before is not None and after is not None
+assert after["cmd_count"] == (before["cmd_count"] + 1) % 256
+assert after["cmd_err_count"] == before["cmd_err_count"]
+assert after["device_err_count"] == before["device_err_count"]
+print(result["command_to_acceptance_latency_ms"])
+PY
+)" || {
+      echo "[ERROR] Ground-probe PASS result failed deterministic assertion review." >&2
+      exit 3
+    }
     RESULT="BENIGN_BASELINE_PASS"
     record baseline_status PASS
+    record command_to_acceptance_latency_ms "$probe_latency_ms"
     ;;
   BENIGN_BASELINE_FAIL:2)
     RESULT="BENIGN_BASELINE_FAIL"
