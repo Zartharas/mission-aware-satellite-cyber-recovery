@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.5.0",
-  "status": "INTERFACE_CORRECTED_RUNNER_VALIDATION_PENDING",
+  "contract_version": "0.5.1",
+  "status": "INTERFACE_CORRECTED_TEXTSAFE_RUNNER_VALIDATION_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
@@ -15,10 +15,13 @@
     "historical_setup_probe": "scripts/benign_ground_probe.py",
     "measurement_probe": "scripts/benign_ground_probe_measurement.py",
     "historical_setup_runner": "scripts/run_benign_baseline_with_setup.sh",
-    "runtime_runner": "scripts/run_benign_baseline_interface_corrected.sh",
+    "runtime_runner_engine": "scripts/run_benign_baseline_interface_corrected.sh",
+    "runtime_runner": "scripts/run_benign_baseline_interface_textsafe.sh",
+    "runtime_config_preparer": "scripts/prepare_runtime_radio_config.py",
     "runtime_runner_verification_script": "scripts/verify_benign_baseline_interface.sh",
-    "host_self_test": "PENDING",
-    "network_disabled_container_self_test": "PENDING",
+    "measurement_probe_host_self_test": "PASS",
+    "runtime_config_preparer_host_self_test": "PENDING",
+    "network_disabled_container_self_tests": "PENDING",
     "runtime_runner_validation": "PENDING"
   },
   "telemetry_activation": {
@@ -50,7 +53,7 @@
     "checksum": {
       "algorithm_source": "cFE 87e273743f3d07ed9216462b461e9f398ff96c87 modules/msg/fsw/src/cfe_msg_sechdr_checksum.c",
       "algorithm": "Set checksum byte to zero, initialize accumulator to 0xFF, XOR every packet byte, then store the accumulator in the checksum byte; a complete valid packet XORs to zero.",
-      "implementation_status": "SELF_TEST_PENDING_ON_MEASUREMENT_PROBE"
+      "implementation_status": "SELF_TEST_PASS"
     }
   },
   "command": {
@@ -94,7 +97,7 @@
       "CMD_ERR_COUNT",
       "DEVICE_ERR_COUNT"
     ],
-    "parser_status": "SELF_TEST_PENDING_ON_MEASUREMENT_PROBE"
+    "parser_status": "SELF_TEST_PASS"
   },
   "assertions": {
     "acceptance_timeout_seconds": 30,
@@ -124,7 +127,10 @@
       "runtime_ci_port": 5012,
       "to_port": 5011,
       "source_tree_modified": false,
-      "runtime_copy_hashed": true
+      "runtime_copy_hashed": true,
+      "edit_method": "bounded_opaque_text_single_character",
+      "strict_xml_parser_used": false,
+      "expected_changed_characters": 1
     },
     "ground_to_cryptolib": {
       "protocol": "udp",
@@ -155,6 +161,7 @@
     "policy_visible_evidence": "IMPLEMENTED_RUNTIME_VALIDATION_PENDING",
     "independent_hashes_required": true,
     "runtime_interface_copy_visibility": "IMMUTABLE_GROUND_ONLY",
+    "runtime_interface_edit_method_visibility": "IMMUTABLE_GROUND_ONLY",
     "startup_telemetry_activation_visibility": "IMMUTABLE_GROUND_ONLY",
     "truth_sink_policy_visibility": "NONE",
     "large_runtime_logs_committed": false,
