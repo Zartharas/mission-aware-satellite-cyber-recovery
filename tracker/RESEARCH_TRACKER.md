@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful isolated 21-component runtime preflight; passed host and network-disabled probe self-tests; implemented bounded 22-component benign-baseline runner with separated evidence trees | Validate runner syntax and safety markers, then reproduce the benign baseline twice from clean state |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; passed probe and runner static gates; first full attempt retained as `RUN_INVALID`; readiness-gated TO telemetry setup implemented | Validate the setup-gated runner and obtain the first accepted benign baseline pass |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -99,37 +99,42 @@ Last updated: 2026-07-25
 - [x] Verify all startup and observation liveness rows remained `running:0`
 - [x] Verify no host ports, Docker-socket mounts, residual labeled containers, or residual labeled networks
 - [x] Commit the compact runtime-preflight lock without committing large runtime logs
-- [x] Select `SAMPLE_NOOP_CC` as the single benign baseline command
-- [x] Lock the command message ID, function code, telemetry packet, required counters, and 30-second assertion window
+- [x] Select `SAMPLE_NOOP_CC` as the single measured benign command
+- [x] Lock the measured-command message ID, function code, telemetry packet, counters, and 30-second assertion window
 - [x] Lock the internal ground-probe transport path over CryptoLib UDP 6010/6011 and radio TCP 8010/8011
-- [x] Define immutable ground-evidence and policy-visible evidence boundaries
+- [x] Define immutable-ground and policy-visible evidence boundaries
 - [x] Commit the machine-readable benign-baseline contract
 - [x] Implement the pinned cFE XOR checksum and fixed `SAMPLE_NOOP_CC` packet vector
 - [x] Implement deterministic `SAMPLE_HK_TLM` parsing using the pinned 12-byte cFE telemetry header layout
-- [x] Implement the internal ground probe with exactly-one-command enforcement and bounded acceptance logic
+- [x] Implement the internal ground probe with exactly-one-measured-command enforcement and bounded acceptance logic
 - [x] Implement separate immutable-ground and policy-visible evidence files with independent SHA-256 manifests
-- [x] Add host and network-disabled pinned-container self-test automation
-- [x] Pass both benign-ground-probe self-tests and the aggregate probe verification gate
+- [x] Add and pass host and network-disabled pinned-container probe self-tests
 - [x] Implement the bounded 22-component benign-baseline runner with no event-injection path
-- [x] Add a static runner verification gate and ignore generated baseline evidence
+- [x] Add and pass the static runner verification gate
+- [x] Execute first full baseline attempt `20260725T212156Z`
+- [x] Classify the attempt `RUN_INVALID` because no `SAMPLE_HK_TLM` arrived and no command was transmitted
+- [x] Verify all 21 runtime components remained healthy and all cleanup/evidence-hash controls passed in the invalid run
+- [x] Confirm from the pinned TO source that telemetry output initializes disabled
+- [x] Freeze one `TO_ENABLE_OUTPUT` setup command separately from one measured `SAMPLE_NOOP_CC`
+- [x] Freeze the setup packet vector, hash, destination `radio-sim:5011`, and readiness markers
+- [x] Implement an immutable-ground trigger so the probe transmits nothing before cFS and radio/CryptoLib readiness
+- [x] Implement and self-test the setup packet builder and checksum validation
+- [x] Add the setup-gated wrapper and isolated setup verification script
+- [x] Commit a compact lock for invalid run `20260725T212156Z`
 
 ## Immediate tasks
 
-- [x] Pull the benign ground-probe implementation revision
-- [x] Run `python3 -m py_compile scripts/benign_ground_probe.py`
-- [x] Run `bash -n scripts/verify_benign_ground_probe.sh`
-- [x] Run `bash scripts/verify_benign_ground_probe.sh`
-- [x] Verify both self-tests report `BENIGN_GROUND_PROBE_SELF_TEST=PASS`
-- [x] Verify the gate reports `BENIGN_GROUND_PROBE_VERIFICATION_STATUS=PASS`
-- [x] Review the frozen command vector `18fac000000100dc` and its SHA-256
-- [x] Implement a bounded benign-baseline runner with no event-injection capability
-- [ ] Pull the benign-baseline runner revision
-- [ ] Run `bash -n scripts/run_benign_baseline.sh`
-- [ ] Run `bash -n scripts/verify_benign_baseline_runner.sh`
-- [ ] Run `bash scripts/verify_benign_baseline_runner.sh`
-- [ ] Execute the first clean benign baseline run
-- [ ] Review the first run classification, counters, liveness, evidence hashes, and cleanup fields
-- [ ] Execute the second clean benign baseline run
+- [ ] Pull the telemetry-setup correction revision
+- [ ] Validate `configs/benign-baseline-contract.json`
+- [ ] Run `python3 -m py_compile scripts/benign_ground_probe.py`
+- [ ] Run `bash -n scripts/run_benign_baseline_with_setup.sh`
+- [ ] Run `bash -n scripts/verify_benign_baseline_setup.sh`
+- [ ] Run `bash scripts/verify_benign_baseline_setup.sh`
+- [ ] Confirm both probe self-tests and `BENIGN_BASELINE_SETUP_VERIFICATION_STATUS=PASS`
+- [ ] Execute the corrected first benign baseline only through `scripts/run_benign_baseline_with_setup.sh`
+- [ ] Review setup and measured packet hashes, transmission counts, counters, liveness, cleanup, and separated evidence hashes
+- [ ] Accept or reject the first clean baseline run before attempting run 2
+- [ ] Execute the second clean benign baseline run only after run 1 acceptance
 - [ ] Compare the two clean-run manifests and reject unexplained variation before event work
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
@@ -141,4 +146,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, and isolated ground-probe self-test controls. Gate 3B Phase 1 is complete. Phase 2 now has a self-tested packet builder, telemetry parser, ground probe, separated evidence writer, and bounded benign-baseline runner awaiting local static validation and two clean executions. Event injection remains blocked until both baseline runs pass, cross-run structural comparison is accepted, and immutable ground evidence is demonstrably separated from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe self-test, and lower-level runner static controls. The first full baseline attempt is retained as `RUN_INVALID` because the pinned TO application starts with telemetry disabled; it transmitted no command and produced no experimental outcome. A readiness-gated, separately evidenced `TO_ENABLE_OUTPUT` setup command is now implemented before the unchanged measured `SAMPLE_NOOP_CC`. The corrected runner still requires local validation and two accepted clean runs. Event injection remains blocked until both runs pass, cross-run structural comparison is accepted, and immutable-ground evidence remains demonstrably separate from policy-visible evidence.
