@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; three invalid baseline attempts retained; CI_LAB/TO_LAB interface mapped; standalone CryptoLib packet-layer incompatibility identified; allowlisted plaintext-relay baseline implemented | Pass the plaintext-relay static gate, then obtain the first accepted benign baseline pass |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; three invalid baseline attempts retained; standalone CryptoLib packet-layer incompatibility identified; allowlisted plaintext-relay static gate passed | Obtain and review the first accepted plaintext-relay benign baseline pass |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -133,16 +133,18 @@ Last updated: 2026-07-25
 - [x] Require independent relay evidence of one command receive, one matching command forward, telemetry forwarding, and zero relay-invalid events
 - [x] Preserve the existing radio aliases and ports through a compatibility alias explicitly labeled as not CryptoLib
 - [x] Add the plaintext-relay runner, contract version `0.6.0`, transport addendum, invalid-run lock, and network-disabled verification gate
+- [x] Pass the plaintext-relay host and pinned-image network-disabled static verification gate
+- [x] Record the plaintext-relay static gate lock and decision D-038
 
 ## Immediate tasks
 
-- [ ] Pull the plaintext-relay baseline revision
-- [ ] Validate `configs/benign-baseline-contract.json`
-- [ ] Compile `benign_ground_probe_measurement.py`, `prepare_runtime_radio_config.py`, and `benign_plaintext_transport_relay.py`
-- [ ] Syntax-check `run_benign_baseline_plaintext_relay.sh` and `verify_benign_baseline_plaintext_relay.sh`
-- [ ] Run `bash scripts/verify_benign_baseline_plaintext_relay.sh`
-- [ ] Confirm all host and network-disabled self-tests and `BENIGN_BASELINE_PLAINTEXT_RELAY_VERIFICATION_STATUS=PASS`
-- [ ] Execute the first plaintext-relay benign baseline only after the complete static gate passes
+- [x] Pull the plaintext-relay baseline revision
+- [x] Validate `configs/benign-baseline-contract.json`
+- [x] Compile `benign_ground_probe_measurement.py`, `prepare_runtime_radio_config.py`, and `benign_plaintext_transport_relay.py`
+- [x] Syntax-check `run_benign_baseline_plaintext_relay.sh` and `verify_benign_baseline_plaintext_relay.sh`
+- [x] Run `bash scripts/verify_benign_baseline_plaintext_relay.sh`
+- [x] Confirm all host and network-disabled self-tests and `BENIGN_BASELINE_PLAINTEXT_RELAY_VERIFICATION_STATUS=PASS`
+- [ ] Execute the first plaintext-relay benign baseline through `scripts/run_benign_baseline_plaintext_relay.sh`
 - [ ] Review relay command/telemetry accounting, counter transition, liveness, cleanup, runtime configuration hash, and separated evidence hashes
 - [ ] Accept or reject the first clean baseline run before attempting run 2
 - [ ] Execute the second clean benign baseline run only after run 1 acceptance
@@ -158,4 +160,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, and prior runner static controls. Three full baseline attempts are retained as `RUN_INVALID`; run `20260725T230542Z` proved the corrected CI_LAB/TO_LAB and radio interface was active, but zero telemetry reached the probe and zero measured commands were transmitted. Source-level review established that the plain cFS packets used by CI_LAB/TO_LAB are incompatible with the pinned standalone CryptoLib transfer-frame processing path. Contract version 0.6.0 therefore uses an allowlisted internal plaintext UDP relay for the nominal two-run command/telemetry gate and explicitly defers all CryptoLib/SDLS claims to a separate compatible integration gate. Event injection remains blocked until the plaintext-relay static gate passes, two benign baselines are accepted, cross-run structural comparison is approved, and immutable-ground evidence remains demonstrably separate from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, prior runner, and plaintext-relay static controls. Three full baseline attempts remain retained as `RUN_INVALID`; none produced a measured command outcome. Contract version 0.6.0 now has a passed host and pinned-image network-disabled verification gate for the allowlisted plaintext UDP relay. Benign baseline run 1 is authorized, but run 2 remains blocked pending review and acceptance of run 1. Event injection remains blocked until two benign baselines are accepted and cross-run structural comparison is approved. CryptoLib and SDLS claims remain deferred to a separate compatible flight-side integration gate, and immutable-ground evidence must remain demonstrably separate from policy-visible evidence.
