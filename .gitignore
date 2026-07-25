@@ -38,6 +38,7 @@ results/*
 
 # Generated runtime and incident evidence
 artifacts/runtime/
+artifacts/baselines/
 artifacts/incidents/
 artifacts/*.jsonl
 artifacts/*.tmp
