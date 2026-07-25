@@ -20,6 +20,7 @@ INOUT="$EVIDENCE/fortytwo/NOS3InOut"
 FORTYTWO_INOUT_CONTAINER="/work/fortytwo-inout"
 MANIFEST="$EVIDENCE/runtime-manifest.txt"
 NAMES="$EVIDENCE/container-names.txt"
+LIVENESS="$EVIDENCE/liveness.csv"
 RESULT="RUN_INVALID"
 
 HARDWARE_SIMS=(
@@ -86,6 +87,7 @@ done
 mkdir -p "$EVIDENCE" "$INOUT"
 : > "$MANIFEST"
 : > "$NAMES"
+printf 'timestamp_utc,phase,container,state_exit_code\n' > "$LIVENESS"
 trap cleanup EXIT
 trap 'exit 130' INT TERM
 
@@ -98,9 +100,14 @@ record startup_grace_seconds "$GRACE"
 record event_injection disabled
 record simulator_launch_mode individual_pinned_headless_set
 record hardware_simulator_count "${#HARDWARE_SIMS[@]}"
+record expected_runtime_component_count 21
 record engine_stdin_mode interactive_tty
 record terminal_env xterm
 record truth42sim_launch omitted_requires_ground_software
+record truth_stream_dependency internal_read_only_sink
+record truth_sink_port 9999
+record truth_sink_capture_mode byte_count_only
+record truth_sink_policy_visibility none
 record camera_simulator_launch omitted_outside_frozen_pilot
 record radio_network_alias radio-sim
 record radio_ground_transport tcp
@@ -129,6 +136,7 @@ done
 
 required=(
   "$NOS3/cfg/build/InOut/Inp_Sim.txt"
+  "$NOS3/cfg/build/InOut/Inp_IPC.txt"
   "$NOS3/fsw/build/exe/cpu1/core-cpu1"
   "$NOS3/sims/build/bin/nos3-single-simulator"
   "$NOS3/sims/build/bin/nos3-sim-cmdbus-bridge"
@@ -140,6 +148,12 @@ required=(
 for file in "${required[@]}"; do
   [[ -f "$file" ]] || { echo "[ERROR] Missing runtime artifact: $file" >&2; exit 1; }
 done
+
+grep -q 'fortytwo[[:space:]]\+9999[[:space:]]*![[:space:]]*Server Host Name, Port' \
+  "$NOS3/cfg/build/InOut/Inp_IPC.txt" || {
+  echo "[ERROR] Pinned 42 IPC configuration does not expose the expected truth stream on port 9999." >&2
+  exit 1
+}
 
 [[ -z "$(docker ps -aq --filter "label=research.project=$PROJECT")" ]] || {
   echo "[ERROR] Existing project runtime containers found; run scripts/cleanup_nominal_runtime.sh." >&2
@@ -176,6 +190,7 @@ record image "$IMAGE"
 record image_id "$(docker image inspect "$IMAGE" --format '{{.Id}}')"
 record build_lock_sha256 "$(shasum -a 256 "$BUILD_LOCK" | awk '{print $1}')"
 record runtime_inp_sim_sha256 "$(shasum -a 256 "$INOUT/Inp_Sim.txt" | awk '{print $1}')"
+record runtime_inp_ipc_sha256 "$(shasum -a 256 "$INOUT/Inp_IPC.txt" | awk '{print $1}')"
 record fortytwo_inout_container "$FORTYTWO_INOUT_CONTAINER"
 
 docker network create --driver bridge --internal \
@@ -204,8 +219,28 @@ start() {
   echo "$name" >> "$NAMES"
 }
 
+wait_for_log_marker() {
+  local name="$1" marker="$2" timeout_seconds="$3" manifest_key="$4"
+  local attempt state
+  for ((attempt=1; attempt<=timeout_seconds; attempt++)); do
+    state="$(docker inspect "$name" --format '{{.State.Status}}' 2>/dev/null || echo missing)"
+    if [[ "$state" != running ]]; then
+      echo "[ERROR] $name stopped before readiness marker '$marker' was observed." >&2
+      return 1
+    fi
+    if docker logs "$name" 2>&1 | grep -Fq -- "$marker"; then
+      record "$manifest_key" ready
+      record "${manifest_key}_utc" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      return 0
+    fi
+    sleep 1
+  done
+  echo "[ERROR] $name did not report readiness marker '$marker' within ${timeout_seconds}s." >&2
+  return 1
+}
+
 wait_for_tcp_listener() {
-  local name="$1" port="$2" timeout_seconds="$3"
+  local name="$1" port="$2" timeout_seconds="$3" manifest_key="$4"
   local hex_port attempt state
   hex_port="$(printf '%04X' "$port")"
   for ((attempt=1; attempt<=timeout_seconds; attempt++)); do
@@ -217,14 +252,30 @@ wait_for_tcp_listener() {
     if docker exec "$name" sh -lc \
       "awk '\$2 ~ /:${hex_port}\$/ && \$4 == \"0A\" {found=1} END {exit found ? 0 : 1}' /proc/net/tcp" \
       >/dev/null 2>&1; then
-      record radio_tcp_8010_listener ready
-      record radio_tcp_8010_ready_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      record "$manifest_key" ready
+      record "${manifest_key}_utc" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
       return 0
     fi
     sleep 1
   done
   echo "[ERROR] $name did not expose TCP listener $port within ${timeout_seconds}s." >&2
   return 1
+}
+
+check() {
+  local phase="$1" failed=0
+  while IFS= read -r name; do
+    state="$(docker inspect "$name" --format '{{.State.Status}}' 2>/dev/null || echo missing)"
+    code="$(docker inspect "$name" --format '{{.State.ExitCode}}' 2>/dev/null || echo unknown)"
+    printf '%s,%s,%s,%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$phase" "$name" "$state:$code" >> "$LIVENESS"
+    [[ "$state" == running ]] || { echo "[ERROR] $name is $state (exit $code)." >&2; failed=1; }
+    networks="$(docker inspect "$name" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}{{end}}')"
+    [[ "$networks" == "$NETWORK" ]] || { echo "[ERROR] Unexpected network for $name: $networks" >&2; failed=1; }
+    [[ -z "$(docker port "$name")" ]] || { echo "[ERROR] Host port published by $name." >&2; failed=1; }
+    docker inspect "$name" --format '{{range .Mounts}}{{println .Source .Destination}}{{end}}' | \
+      grep -q '/var/run/docker.sock' && { echo "[ERROR] Docker socket mounted in $name." >&2; failed=1; }
+  done < "$NAMES"
+  return "$failed"
 }
 
 start engine nos-engine-server \
@@ -239,6 +290,44 @@ start fortytwo fortytwo \
   --mount "type=bind,source=$FORTYTWO,target=/work/fortytwo,readonly" \
   --mount "type=bind,source=$INOUT,target=$FORTYTWO_INOUT_CONTAINER" --workdir /work/fortytwo \
   "$IMAGE" ./42 "$FORTYTWO_INOUT_CONTAINER"
+start truth-sink truth-sink \
+  --env TRUTH_HOST=fortytwo --env TRUTH_PORT=9999 --env CONNECT_TIMEOUT_SECONDS=75 \
+  "$IMAGE" python3 -u -c '
+import os
+import socket
+import sys
+import time
+
+host = os.environ["TRUTH_HOST"]
+port = int(os.environ["TRUTH_PORT"])
+deadline = time.monotonic() + int(os.environ["CONNECT_TIMEOUT_SECONDS"])
+last_error = None
+while True:
+    try:
+        stream = socket.create_connection((host, port), timeout=1.0)
+        stream.settimeout(None)
+        print(f"TRUTH_SINK_CONNECTED host={host} port={port}", flush=True)
+        break
+    except OSError as exc:
+        last_error = exc
+        if time.monotonic() >= deadline:
+            print(f"TRUTH_SINK_CONNECT_FAILED host={host} port={port} error={last_error}", file=sys.stderr, flush=True)
+            raise SystemExit(2)
+        time.sleep(0.5)
+
+received = 0
+last_report = time.monotonic()
+while True:
+    payload = stream.recv(65536)
+    if not payload:
+        print(f"TRUTH_SINK_STREAM_CLOSED bytes={received}", file=sys.stderr, flush=True)
+        raise SystemExit(3)
+    received += len(payload)
+    now = time.monotonic()
+    if now - last_report >= 5.0:
+        print(f"TRUTH_SINK_BYTES={received}", flush=True)
+        last_report = now
+'
 for sim in "${HARDWARE_SIMS[@]}"; do
   if [[ "$sim" == "generic-radio-sim" ]]; then
     start "$sim" radio-sim \
@@ -252,7 +341,8 @@ for sim in "${HARDWARE_SIMS[@]}"; do
       "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
   fi
 done
-wait_for_tcp_listener "$PREFIX-generic-radio-sim" 8010 35
+wait_for_log_marker "$PREFIX-truth-sink" TRUTH_SINK_CONNECTED 75 truth_sink_connection
+wait_for_tcp_listener "$PREFIX-generic-radio-sim" 8010 45 radio_tcp_8010_listener
 start bridge nos-sim-bridge \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
   "$IMAGE" ./nos3-sim-cmdbus-bridge -f nos3-simulator.xml
@@ -269,24 +359,7 @@ start cfs nos-fsw \
   "$IMAGE" bash -lc 'exec ./core-cpu1 -R PO'
 
 record containers_started_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-printf 'timestamp_utc,phase,container,state_exit_code\n' > "$EVIDENCE/liveness.csv"
 sleep "$GRACE"
-
-check() {
-  local phase="$1" failed=0
-  while IFS= read -r name; do
-    state="$(docker inspect "$name" --format '{{.State.Status}}' 2>/dev/null || echo missing)"
-    code="$(docker inspect "$name" --format '{{.State.ExitCode}}' 2>/dev/null || echo unknown)"
-    printf '%s,%s,%s,%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$phase" "$name" "$state:$code" >> "$EVIDENCE/liveness.csv"
-    [[ "$state" == running ]] || { echo "[ERROR] $name is $state (exit $code)." >&2; failed=1; }
-    networks="$(docker inspect "$name" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}{{end}}')"
-    [[ "$networks" == "$NETWORK" ]] || { echo "[ERROR] Unexpected network for $name: $networks" >&2; failed=1; }
-    [[ -z "$(docker port "$name")" ]] || { echo "[ERROR] Host port published by $name." >&2; failed=1; }
-    docker inspect "$name" --format '{{range .Mounts}}{{println .Source .Destination}}{{end}}' | \
-      grep -q '/var/run/docker.sock' && { echo "[ERROR] Docker socket mounted in $name." >&2; failed=1; }
-  done < "$NAMES"
-  return "$failed"
-}
 
 check startup
 elapsed=0
