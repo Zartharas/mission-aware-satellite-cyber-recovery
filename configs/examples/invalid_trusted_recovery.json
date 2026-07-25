@@ -1,0 +1,54 @@
+{
+  "run_id": "pilot-invalid-001",
+  "model_version": "0.1.0",
+  "seed": 1002,
+  "mission_state_id": "M4",
+  "event_id": "E6",
+  "policy_id": "P7",
+  "contact_condition_id": "C1",
+  "evidence_condition_id": "T1",
+  "environment": {
+    "host_architecture": "x86_64",
+    "simulator": "NOS3",
+    "simulator_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "flight_software": "cFS via NOS3 submodule",
+    "flight_software_commit": "sample-cfs-commit",
+    "snapshot_id": "sample-clean-baseline-v1",
+    "container_or_vm_digest": "sha256:sample"
+  },
+  "timing": {
+    "run_start_utc": "2026-07-24T21:00:00Z",
+    "event_activation_s": 20.0,
+    "containment_s": 80.0,
+    "verified_recovery_s": 130.0,
+    "run_end_utc": "2026-07-24T21:04:00Z"
+  },
+  "outcomes": {
+    "unauthorized_effect_completed": false,
+    "mission_objective_completion_ratio": 0.8,
+    "safety_invariant_violations": [],
+    "legitimate_command_rejection_rate": 0.2,
+    "ground_spacecraft_state_divergence_s": 75.0,
+    "evidence_completeness_ratio": 0.9,
+    "minimum_energy_reserve_ratio": 0.55,
+    "time_in_safe_mode_s": 60.0,
+    "time_in_degraded_mode_s": 100.0,
+    "contact_windows_consumed": 1,
+    "residual_unauthorized_state_count": 0
+  },
+  "recovery_evidence": {
+    "approved_version": true,
+    "integrity_measurement_valid": true,
+    "authorization_valid": true,
+    "measured_state_current": false,
+    "authorized_command_path_restored": true,
+    "ground_spacecraft_state_agreed": true,
+    "required_telemetry_restored": true,
+    "health_checks_passed": true,
+    "no_residual_unauthorized_state": true,
+    "recovery_manifest_complete": true
+  },
+  "terminal_state": "TRUSTED_RECOVERY_CONFIRMED",
+  "invalid_run_reason": null,
+  "notes": "Negative fixture: trusted recovery is claimed despite stale measured-state evidence."
+}
