@@ -1,0 +1,5 @@
+source_id,name,persistent_id,license,approved_use,raw_data_committed,status
+DS-001,ESA Anomaly Dataset,10.5281/zenodo.12528696,CC BY 3.0 IGO,Telemetry calibration and benchmarking,No,Approved with attribution
+DS-002,OPSSAT-AD,10.5281/zenodo.15108715,CC BY 4.0,Telemetry calibration and benchmarking,No,Approved with attribution
+DS-003,CuCD-ID,10.17632/7n2d42pm3n.2,CC BY 4.0,Pipeline validation and attack-signature comparison,No,Approved with attribution
+DS-004,AegisSat telemetry dataset,10.5281/zenodo.14960983,TBD,External plausibility comparison,No,Hold pending license verification

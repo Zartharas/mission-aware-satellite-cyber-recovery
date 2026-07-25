@@ -1,0 +1,13 @@
+id,work_package,status,current_output,acceptance_gate,target_date
+WP0,Research governance and workspace,In progress,Repository scaffold,GitHub private repo and initial commit,
+WP1,Literature and novelty validation,In progress,Focused evidence matrix,Novelty gate approved,
+WP2,Theoretical and conceptual model,In progress,Mission Aware + FDIR model,Constructs frozen,
+WP3,Threat and mission model,In progress,Draft threat model,Red-team review complete,
+WP4,Testbed selection and architecture,Not started,,Nominal scenario reproducible,
+WP5,Event-injection library,Not started,,Events deterministic and isolated,
+WP6,Response-policy implementation,Not started,,Policy tests pass,
+WP7,Trusted-recovery implementation,Not started,,Recovery evidence validated,
+WP8,Pilot experiment,Not started,,Final design and repetitions determined,
+WP9,Final experiment,Not started,,Campaign completed,
+WP10,Analysis and manuscript,Not started,,Submission-ready draft,
+WP11,Artifact and responsible release,Not started,,Release review passed,

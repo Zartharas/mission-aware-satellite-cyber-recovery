@@ -1,0 +1,13 @@
+id,category,risk,likelihood,impact,mitigation,status
+R-001,Novelty,Direct overlap with Mission Aware or FDIR literature,High,High,Frame contribution as policy comparison with mission and trusted-recovery outcomes,Open
+R-002,Scope,Paper becomes a broad satellite cybersecurity survey/testbed,High,High,"Freeze MVP events, states, policies, and primary outcomes",Open
+R-003,Licensing,Redistribution violates NOS3 or dataset terms,Medium,High,"Use upstream pins, manifests, attribution, and no raw third-party data in Git",Open
+R-004,Validity,Simulation is too simplified for mission claims,High,High,Define architecture and external-validity boundary; use public data for calibration,Open
+R-005,Metric bias,Composite score predetermines the winner,Medium,High,Use primary outcomes and Pareto analysis; composite only in sensitivity analysis,Open
+R-006,Reproducibility,Trials depend on uncontrolled simulator state,Medium,High,"Clean snapshots, seeds, immutable logs, pinned versions",Open
+R-007,Safety/legal,Event injection reaches external systems or RF,Low,Critical,"Host-only network, no antennas, ROE, shutdown checks",Open
+R-008,Human subjects,Interview reuse or operator study occurs without determination,Low,High,Use published findings only until IRB/HRPP determination,Open
+R-009,Export control,Hardware or technical data changes scope,Low,High,Public software/synthetic data only; institutional export review for expansion,Open
+R-010,Misuse,Released scripts lower barriers for operational abuse,Medium,High,Sanitize artifacts and conduct responsible-release review,Open
+R-011,Platform,NOS3 dependencies fail on Apple Silicon or current macOS,Medium,Medium,Use Linux VM/container and validate architecture before implementation,Open
+R-012,Data interpretation,Operational anomalies are mislabeled as cyberattacks,Medium,High,Use ESA/OPS-SAT only for calibration; causal cyber labels come from controlled experiments,Open

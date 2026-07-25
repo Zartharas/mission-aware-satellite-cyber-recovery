@@ -1,0 +1,50 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+
+# Build and runtime
+build/
+dist/
+logs/
+tmp/
+cache/
+*.log
+
+# Research data
+data/*
+!data/README.md
+!data/manifest.csv
+!data/checksums.txt
+
+# Experiment results
+results/*
+!results/README.md
+
+# External software checkouts
+external/
+nos3/
+cFS/
+
+# Credentials and secrets
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/

@@ -1,0 +1,8 @@
+id,date,area,decision,rationale,status
+D-001,2026-07-24,Methodology,Use theory-informed design science plus controlled simulation,Avoid overclaiming mixed methods unless interview data are formally reanalyzed,Accepted
+D-002,2026-07-24,Scope,Software-only first phase,"Minimizes legal, RF, and operational risk",Accepted
+D-003,2026-07-24,Repository,Private during development,Allows license and responsible-release review before publication,Accepted
+D-004,2026-07-24,Data,Do not commit raw third-party datasets,Preserves license obligations and repository size,Accepted
+D-005,2026-07-24,Evaluation,Use multi-objective/Pareto analysis,Avoid arbitrary single-score optimization,Accepted
+D-006,2026-07-24,Novelty,"Testbed is infrastructure, not contribution","Existing NOS3, AegisSat, and cyber datasets already exist",Accepted
+D-007,2026-07-24,Theory,Mission Aware primary; FDIR operational; RMF/SPARTA supporting,Avoid framework overload,Accepted
