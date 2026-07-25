@@ -1,28 +1,48 @@
 {
-  "contract_version": "0.5.1",
-  "status": "INTERFACE_CORRECTED_TEXTSAFE_RUNNER_VALIDATION_PENDING",
+  "contract_version": "0.6.0",
+  "status": "PLAINTEXT_RELAY_RUNNER_VALIDATION_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
     "cfe_commit": "87e273743f3d07ed9216462b461e9f398ff96c87",
     "sample_component_commit": "9d1a76dc391fefe7a42314052c1f10fa527f526b",
-    "cryptolib_commit": "d4f91523b7f2f247b89bbde9e156cd8420e2cb86",
+    "generic_radio_commit": "a2effa73715ab4fe2fdc41e549ae2dca81214d98",
+    "cryptolib_commit_reviewed_but_deferred": "d4f91523b7f2f247b89bbde9e156cd8420e2cb86",
     "protocol": "docs/19-wp4-benign-command-telemetry-baseline-protocol.md",
     "telemetry_setup_addendum": "docs/20-wp4-benign-baseline-telemetry-setup-addendum.md",
-    "runtime_interface_correction_record": "artifacts/benign-baseline-invalid-20260725T215659Z.txt"
+    "plaintext_transport_addendum": "docs/21-wp4-benign-baseline-plaintext-transport-addendum.md",
+    "runtime_interface_correction_record": "artifacts/benign-baseline-invalid-20260725T215659Z.txt",
+    "cryptolib_incompatibility_evidence": "artifacts/benign-baseline-invalid-20260725T230542Z.txt"
   },
   "implementation": {
     "historical_setup_probe": "scripts/benign_ground_probe.py",
     "measurement_probe": "scripts/benign_ground_probe_measurement.py",
     "historical_setup_runner": "scripts/run_benign_baseline_with_setup.sh",
+    "historical_cryptolib_runner": "scripts/run_benign_baseline_interface_textsafe.sh",
     "runtime_runner_engine": "scripts/run_benign_baseline_interface_corrected.sh",
-    "runtime_runner": "scripts/run_benign_baseline_interface_textsafe.sh",
     "runtime_config_preparer": "scripts/prepare_runtime_radio_config.py",
-    "runtime_runner_verification_script": "scripts/verify_benign_baseline_interface.sh",
-    "measurement_probe_host_self_test": "PASS",
-    "runtime_config_preparer_host_self_test": "PENDING",
+    "plaintext_transport_relay": "scripts/benign_plaintext_transport_relay.py",
+    "runtime_runner": "scripts/run_benign_baseline_plaintext_relay.sh",
+    "runtime_runner_verification_script": "scripts/verify_benign_baseline_plaintext_relay.sh",
+    "measurement_probe_self_test": "PASS",
+    "runtime_config_preparer_self_test": "PASS",
+    "plaintext_transport_relay_self_test": "PENDING",
     "network_disabled_container_self_tests": "PENDING",
     "runtime_runner_validation": "PENDING"
+  },
+  "baseline_transport": {
+    "profile": "PLAINTEXT_UDP_RELAY",
+    "scope": "nominal_command_telemetry_gate_only",
+    "cryptographic_semantics": "DEFERRED",
+    "deferred_reason": "CI_LAB and TO_LAB exchange plain cFS command and telemetry packets, while the pinned standalone CryptoLib path applies or processes SDLS transfer frames rather than acting as a transparent cFS packet relay.",
+    "separate_future_gate_required": "compatible_flight_side_cryptolib_integration",
+    "relay_alias": "cryptolib",
+    "relay_alias_role": "compatibility_only_not_cryptolib",
+    "allowed_command_hex": "18fac000000100dc",
+    "allowed_command_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
+    "maximum_command_transmissions": 1,
+    "telemetry_forwarding": "byte_preserving",
+    "event_injection_capability": false
   },
   "telemetry_activation": {
     "mechanism": "SC_RTS001_TO_LAB_OUTPUT_ENABLE",
@@ -76,7 +96,9 @@
     "measured_command_transmissions": 1,
     "total_expected_ground_transmissions": 1,
     "startup_telemetry_activation_is_internal_flight_automation": true,
-    "measured_command_sent_only_after_stable_sample_housekeeping": true
+    "measured_command_sent_only_after_stable_sample_housekeeping": true,
+    "relay_must_record_exactly_one_command_receive": true,
+    "relay_must_record_exactly_one_command_forward": true
   },
   "telemetry": {
     "application": "SAMPLE",
@@ -97,7 +119,8 @@
       "CMD_ERR_COUNT",
       "DEVICE_ERR_COUNT"
     ],
-    "parser_status": "SELF_TEST_PASS"
+    "parser_status": "SELF_TEST_PASS",
+    "relay_must_record_at_least_one_telemetry_forward": true
   },
   "assertions": {
     "acceptance_timeout_seconds": 30,
@@ -108,13 +131,14 @@
   },
   "transport": {
     "network": "project_labeled_internal_bridge",
+    "radio_ground_mode": "UDP",
     "ground_probe_alias": "ground-probe",
     "cfs_ci": {
       "application": "CI_LAB",
       "protocol": "udp",
       "destination": "nos-fsw",
       "port": 5012,
-      "source_evidence": "retained cFS log from run 20260725T215659Z"
+      "source_evidence": "retained cFS logs from runs 20260725T215659Z and 20260725T230542Z"
     },
     "cfs_to": {
       "application": "TO_LAB",
@@ -132,22 +156,22 @@
       "strict_xml_parser_used": false,
       "expected_changed_characters": 1
     },
-    "ground_to_cryptolib": {
+    "ground_to_relay": {
       "protocol": "udp",
       "destination": "cryptolib",
       "port": 6010
     },
-    "cryptolib_to_radio": {
-      "protocol": "tcp",
+    "relay_to_radio": {
+      "protocol": "udp",
       "destination": "radio-sim",
       "port": 8010
     },
-    "radio_to_cryptolib": {
-      "protocol": "tcp",
+    "radio_to_relay": {
+      "protocol": "udp",
       "destination": "cryptolib",
       "port": 8011
     },
-    "cryptolib_to_ground": {
+    "relay_to_ground": {
       "protocol": "udp",
       "destination": "ground-probe",
       "port": 6011
@@ -162,8 +186,10 @@
     "independent_hashes_required": true,
     "runtime_interface_copy_visibility": "IMMUTABLE_GROUND_ONLY",
     "runtime_interface_edit_method_visibility": "IMMUTABLE_GROUND_ONLY",
+    "transport_relay_logs_visibility": "IMMUTABLE_GROUND_ONLY",
     "startup_telemetry_activation_visibility": "IMMUTABLE_GROUND_ONLY",
     "truth_sink_policy_visibility": "NONE",
+    "cryptographic_semantics_claim_allowed": false,
     "large_runtime_logs_committed": false,
     "compact_run_locks_committed": true
   },
@@ -176,6 +202,7 @@
     "required_clean_passes": 2,
     "cross_run_comparison_required": true,
     "event_injection_unblocked_after_gate": false,
-    "additional_requirement": "The CI_LAB/TO_LAB interface correction, one-command accounting, runtime isolation, and ground-versus-policy evidence separation must be validated twice before event-injection implementation begins."
+    "cryptolib_semantics_unblocked_after_gate": false,
+    "additional_requirement": "The plaintext relay profile must validate the nominal CI_LAB/TO_LAB command and telemetry path twice with exactly one allowlisted command, clean isolation, and separated evidence. CryptoLib semantics remain a separate compatible flight-side integration gate, and event injection remains blocked."
   }
 }
