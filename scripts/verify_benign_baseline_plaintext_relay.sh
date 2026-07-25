@@ -49,8 +49,13 @@ runner = Path(sys.argv[2]).read_text(encoding="utf-8")
 relay = Path(sys.argv[3]).read_text(encoding="utf-8")
 
 assert contract["contract_version"] == "0.6.0"
-assert contract["status"] == "PLAINTEXT_RELAY_RUNNER_VALIDATION_PENDING"
+assert contract["status"] == "PLAINTEXT_RELAY_STATIC_GATE_PASS_BASELINE_RUN_1_PENDING"
 assert contract["event_injection_allowed"] is False
+assert contract["implementation"]["plaintext_transport_relay_self_test"] == "PASS"
+assert contract["implementation"]["network_disabled_container_self_tests"] == "PASS"
+assert contract["implementation"]["runtime_runner_validation"] == "PASS"
+assert contract["implementation"]["baseline_run_1"] == "PENDING"
+assert contract["implementation"]["baseline_run_2"] == "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
 baseline = contract["baseline_transport"]
 assert baseline["profile"] == "PLAINTEXT_UDP_RELAY"
 assert baseline["scope"] == "nominal_command_telemetry_gate_only"
@@ -64,6 +69,8 @@ assert baseline["event_injection_capability"] is False
 assert contract["evidence"]["cryptographic_semantics_claim_allowed"] is False
 assert contract["gate"]["required_clean_passes"] == 2
 assert contract["gate"]["event_injection_unblocked_after_gate"] is False
+assert contract["gate"]["baseline_run_1_authorized"] is True
+assert contract["gate"]["baseline_run_2_authorized"] is False
 
 transport = contract["transport"]
 assert transport["radio_ground_mode"] == "UDP"
