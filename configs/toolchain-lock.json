@@ -1,0 +1,45 @@
+{
+  "lock_version": "0.1.0",
+  "recorded_date": "2026-07-24",
+  "status": "candidate_pending_local_runtime_validation",
+  "host": {
+    "operating_system": "macOS",
+    "product_version": "26.5.2",
+    "build_version": "25F84",
+    "kernel_architecture": "x86_64"
+  },
+  "tools": {
+    "git": "2.54.0",
+    "python": "3.11.7",
+    "docker_cli": "29.6.2",
+    "github_cli": "2.96.0",
+    "jsonschema": "4.26.0"
+  },
+  "simulator": {
+    "name": "NASA Operational Simulator for Space Systems",
+    "short_name": "NOS3",
+    "repository": "https://github.com/nasa/nos3",
+    "commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "recursive_submodules": "pending_local_inventory",
+    "container_image": "ivvitc/nos3-64:20260619",
+    "container_digest": null,
+    "license": "NASA Open Source Agreement 1.3"
+  },
+  "flight_software": {
+    "name": "NASA Core Flight System",
+    "short_name": "cFS",
+    "effective_revision_source": "NOS3 recursive submodule lock",
+    "effective_commit": null,
+    "independent_reference_release": "v7.0.1",
+    "independent_reference_release_date": "2026-05-14",
+    "license": "Apache-2.0 for the public open-source bundle"
+  },
+  "execution": {
+    "platform": "linux/amd64",
+    "strategy": "docker_first_headless",
+    "host_networking_allowed": false,
+    "docker_socket_mount_allowed": false,
+    "external_network_egress_during_scored_trials": false,
+    "live_rf_allowed": false
+  }
+}
