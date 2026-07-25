@@ -1,0 +1,20 @@
+recorded_utc=2026-07-25T05:06:16Z
+build_status=PASS
+network_mode=none
+container_source_path=/work/nos3
+nos3_commit=5a3bdee6be9a2c67fdf994ae6db56d5c60395302
+cfe_commit=87e273743f3d07ed9216462b461e9f398ff96c87
+osal_commit=08a79bb6ac02b9ced8aa555853ecdd96e5ebc1a7
+psp_commit=d0a5d6fa4093d473a929fde42a0983e489d89d4a
+fortytwo_commit=eda252bf31f27850e867e698cfdd963e143ead1f
+fortytwo_binary_sha256=9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7
+builder_image=ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2
+builder_image_id=sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2
+build_log=/Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/logs/wp4/nominal-build-20260725T045755Z.log
+artifact_sha256_begin
+65b484a2452792e0eb653417beb05196e1f131ab9b4cfea118720c85e3fd89c1  /Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/external/nos3/cfg/build/launch.sh
+21da3ab97181962ba6842da35428d26cff3e7d81fc77f2b1bec57c139e5c3ecd  /Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/external/nos3/fsw/build/exe/cpu1/core-cpu1
+a3bec73b2ba47e9e84f41fa1a09c299b7619429cd0d3c656a2c57e966be5f5fa  /Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/external/nos3/sims/build/bin/nos3-single-simulator
+91e457d30a4b664bfce2d66140ad5244bf691aa5c282b5ed4922587dabf21ce4  /Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/external/nos3/sims/build/bin/nos3-sim-cmdbus-bridge
+9639bf99aa116b9149900cc098fe36145d758fec66f9ef299df46a550ea0a37d  /Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/external/nos3/gsw/build/support/standalone
+artifact_sha256_end
