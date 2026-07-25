@@ -23,7 +23,6 @@ NAMES="$EVIDENCE/container-names.txt"
 RESULT="RUN_INVALID"
 
 HARDWARE_SIMS=(
-  camsim
   generic-css-sim
   generic-eps-sim
   generic-fss-sim
@@ -97,9 +96,13 @@ record phase "$PHASE"
 record duration_seconds "$DURATION"
 record startup_grace_seconds "$GRACE"
 record event_injection disabled
-record simulator_launch_mode individual_pinned_ci_set
+record simulator_launch_mode individual_pinned_headless_set
 record hardware_simulator_count "${#HARDWARE_SIMS[@]}"
 record engine_stdin_mode interactive_tty
+record terminal_env xterm
+record truth42sim_launch omitted_requires_ground_software
+record camera_simulator_launch omitted_outside_frozen_pilot
+record radio_network_alias radio-sim
 
 for command in docker git awk shasum python3; do
   command -v "$command" >/dev/null 2>&1 || { echo "[ERROR] Missing command: $command" >&2; exit 1; }
@@ -188,6 +191,7 @@ start() {
   local name="$PREFIX-$logical"
   docker run -d --platform linux/amd64 --name "$name" --hostname "$alias" \
     --network "$NETWORK" --network-alias "$alias" \
+    --env TERM=xterm \
     --label "research.project=$PROJECT" \
     --label "research.phase=$PHASE" \
     --label "research.run_id=$RUN_ID" \
@@ -208,13 +212,17 @@ start fortytwo fortytwo \
   --mount "type=bind,source=$FORTYTWO,target=/work/fortytwo,readonly" \
   --mount "type=bind,source=$INOUT,target=$FORTYTWO_INOUT_CONTAINER" --workdir /work/fortytwo \
   "$IMAGE" ./42 "$FORTYTWO_INOUT_CONTAINER"
-start truth42sim truth42sim \
-  --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
-  "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml truth42sim
 for sim in "${HARDWARE_SIMS[@]}"; do
-  start "$sim" "$sim" \
-    --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
-    "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
+  if [[ "$sim" == "generic-radio-sim" ]]; then
+    start "$sim" radio-sim \
+      --network-alias generic-radio-sim \
+      --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
+      "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
+  else
+    start "$sim" "$sim" \
+      --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
+      "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
+  fi
 done
 start bridge nos-sim-bridge \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
