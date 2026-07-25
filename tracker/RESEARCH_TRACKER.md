@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact NOS3, cFE/OSAL/PSP, 42, and image locks; successful network-disabled builds; successful isolated 21-component headless runtime preflight | Define and reproduce the complete benign command/telemetry baseline twice with separated evidence paths |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful isolated 21-component runtime preflight; locked SAMPLE no-op command, transport, telemetry assertion, and evidence-separation design | Implement and reproduce the complete benign command/telemetry baseline twice |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -99,6 +99,11 @@ Last updated: 2026-07-25
 - [x] Verify all startup and observation liveness rows remained `running:0`
 - [x] Verify no host ports, Docker-socket mounts, residual labeled containers, or residual labeled networks
 - [x] Commit the compact runtime-preflight lock without committing large runtime logs
+- [x] Select `SAMPLE_NOOP_CC` as the single benign baseline command
+- [x] Lock the command message ID, function code, telemetry packet, required counters, and 30-second assertion window
+- [x] Lock the internal ground-probe transport path over CryptoLib UDP 6010/6011 and radio TCP 8010/8011
+- [x] Define immutable ground-evidence and policy-visible evidence boundaries
+- [x] Commit the machine-readable benign-baseline contract
 
 ## Immediate tasks
 
@@ -107,12 +112,17 @@ Last updated: 2026-07-25
 - [x] Run `DURATION_SECONDS=60 STARTUP_GRACE_SECONDS=30 bash scripts/run_nominal_runtime_preflight.sh`
 - [x] Verify `truth_sink_connection=ready` and `radio_tcp_8010_listener=ready` in the manifest
 - [x] Review the 21-component liveness record, truth-sink byte counts, 42/radio/CryptoLib logs, network inspection, and cleanup evidence
-- [ ] Define the controlled ground command and telemetry endpoint for the complete nominal baseline
-- [ ] Select the exact benign cFE command and deterministic command-acceptance assertion
-- [ ] Define required telemetry fields, source identities, and timing tolerances
-- [ ] Define separate immutable ground-truth and policy-visible evidence files and schemas
+- [x] Define the controlled ground command and telemetry endpoint for the complete nominal baseline
+- [x] Select the exact benign cFE command and deterministic command-acceptance assertion
+- [x] Define required telemetry fields, source identities, and timing tolerances
+- [x] Define the evidence-separation contract
+- [ ] Implement and self-test the cFS command checksum and packet builder
+- [ ] Implement the internal ground probe with UDP 6010 transmit and UDP 6011 receive
+- [ ] Implement deterministic `SAMPLE_HK_TLM` parsing and pre-command stability checks
+- [ ] Implement independent immutable-ground and policy-visible evidence files and hashes
 - [ ] Implement a bounded benign-baseline runner with no event-injection capability
-- [ ] Reproduce the complete nominal command and telemetry baseline twice from clean runtime state
+- [ ] Execute the first clean benign baseline run
+- [ ] Execute the second clean benign baseline run
 - [ ] Compare the two clean-run manifests and reject unexplained variation before event work
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
@@ -124,4 +134,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, and scoped runtime-preflight controls. Gate 3B Phase 1 is complete. Gate 3B Phase 2—the deterministic benign command-and-telemetry baseline reproduced twice—remains pending. Event injection remains blocked until both baseline runs pass and immutable ground-truth evidence is demonstrably separated from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, and scoped runtime-preflight controls. Gate 3B Phase 1 is complete, and the Phase 2 benign-baseline design is locked. Phase 2 implementation and two clean passes remain pending. Event injection remains blocked until both baseline runs pass and immutable ground-truth evidence is demonstrably separated from policy-visible evidence.
