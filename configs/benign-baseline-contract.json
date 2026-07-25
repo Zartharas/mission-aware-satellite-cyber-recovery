@@ -1,5 +1,5 @@
 {
-  "contract_version": "0.4.0",
+  "contract_version": "0.4.1",
   "status": "SETUP_GATED_RUNNER_VALIDATION_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
@@ -66,6 +66,21 @@
       "algorithm": "Set checksum byte to zero, initialize accumulator to 0xFF, XOR every packet byte, then store the accumulator in the checksum byte; a complete valid packet XORs to zero.",
       "implementation_status": "SELF_TEST_PASS"
     }
+  },
+  "command": {
+    "compatibility_role": "legacy_alias_for_measured_command_used_by_lower_level_runner",
+    "application": "SAMPLE",
+    "name": "SAMPLE_NOOP_CC",
+    "message_id_hex": "0x18FA",
+    "message_id_decimal": 6394,
+    "sequence_control_hex": "0xC000",
+    "packet_length_field": 1,
+    "function_code": 0,
+    "arguments": [],
+    "maximum_transmissions_per_run": 1,
+    "expected_packet_hex": "18fac000000100dc",
+    "expected_packet_length": 8,
+    "expected_packet_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd"
   },
   "command_accounting": {
     "setup_command_transmissions": 1,
