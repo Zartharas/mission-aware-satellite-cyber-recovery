@@ -1,7 +1,7 @@
 {
-  "lock_version": "0.2.0",
+  "lock_version": "0.3.0",
   "recorded_date": "2026-07-25",
-  "status": "source_and_container_locked_pending_nominal_build",
+  "status": "nominal_build_pass_runtime_preflight_pending",
   "host": {
     "operating_system": "macOS",
     "product_version": "26.5.2",
@@ -23,7 +23,11 @@
     "docker_internal_network": "PASS",
     "public_egress_blocked_on_internal_network": "PASS",
     "experiment_schema": "PASS",
-    "negative_trusted_recovery_fixture_rejected": true
+    "negative_trusted_recovery_fixture_rejected": true,
+    "fortytwo_build": "PASS",
+    "nominal_nos3_build": "PASS",
+    "nominal_runtime_preflight": "PENDING",
+    "two_run_nominal_command_telemetry_baseline": "PENDING"
   },
   "simulator": {
     "name": "NASA Operational Simulator for Space Systems",
@@ -35,6 +39,7 @@
     "container_image": "ivvitc/nos3-64:20260619",
     "container_digest": "sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
     "immutable_container_reference": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+    "build_lock": "artifacts/nominal-build-lock.txt",
     "license": "NASA Open Source Agreement 1.3"
   },
   "flight_software": {
@@ -49,14 +54,20 @@
   },
   "truth_simulator": {
     "name": "42",
+    "repository": "https://github.com/nasa-itc/42",
     "upstream_branch_used_by_nos3_prepare_script": "dev_20260403",
-    "effective_commit": null,
-    "status": "pending_exact_commit_lock"
+    "effective_commit": "eda252bf31f27850e867e698cfdd963e143ead1f",
+    "describe": "V20260401",
+    "binary_sha256": "9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7",
+    "build_lock": "artifacts/fortytwo-lock.txt",
+    "status": "PASS"
   },
   "execution": {
     "platform": "linux/amd64",
     "strategy": "docker_first_headless",
+    "runtime_network": "project_labeled_internal_bridge",
     "host_networking_allowed": false,
+    "published_host_ports_allowed_in_preflight": false,
     "docker_socket_mount_allowed": false,
     "external_network_egress_during_scored_trials": false,
     "live_rf_allowed": false,
