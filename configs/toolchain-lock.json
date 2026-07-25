@@ -1,7 +1,7 @@
 {
-  "lock_version": "0.3.0",
+  "lock_version": "0.4.0",
   "recorded_date": "2026-07-25",
-  "status": "nominal_build_pass_runtime_preflight_pending",
+  "status": "runtime_preflight_pass_nominal_baseline_pending",
   "host": {
     "operating_system": "macOS",
     "product_version": "26.5.2",
@@ -26,8 +26,21 @@
     "negative_trusted_recovery_fixture_rejected": true,
     "fortytwo_build": "PASS",
     "nominal_nos3_build": "PASS",
-    "nominal_runtime_preflight": "PENDING",
+    "nominal_runtime_preflight": "PASS",
     "two_run_nominal_command_telemetry_baseline": "PENDING"
+  },
+  "runtime_preflight": {
+    "lock": "artifacts/nominal-runtime-preflight-lock.txt",
+    "run_id": "20260725T201918Z",
+    "duration_seconds": 60,
+    "startup_grace_seconds": 30,
+    "expected_runtime_component_count": 21,
+    "startup_component_count": 21,
+    "non_running_liveness_rows": 0,
+    "truth_sink_connection": "ready",
+    "radio_tcp_8010_listener": "ready",
+    "terminal_classification": "RUNTIME_PREFLIGHT_PASS",
+    "acceptance_scope": "runtime_compatibility_and_isolation_only"
   },
   "simulator": {
     "name": "NASA Operational Simulator for Space Systems",
