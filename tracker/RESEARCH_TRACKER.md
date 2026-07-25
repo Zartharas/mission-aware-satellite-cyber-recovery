@@ -18,7 +18,7 @@ Last updated: 2026-07-24
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Verified Intel Mac baseline, Docker-first headless architecture, candidate NOS3/cFS pins, runtime/schema validation and CI | Pass runtime/schema checks, lock recursive submodules and image digest, reproduce nominal command/telemetry baseline twice |
+| WP4 | Testbed selection and architecture | In progress | Runtime/schema gates passed; exact NOS3 recursive lock and image digest committed; controlled 42 and network-disabled NOS3 build workflows added | Resolve and lock 42, pass deterministic build, then reproduce bounded nominal command/telemetry baseline twice |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -57,7 +57,7 @@ Last updated: 2026-07-24
 - [x] Add Docker-specific network-isolation and emergency-shutdown controls
 - [x] Record Gate 2 decisions in the decision log
 
-## Completed WP4 design tasks
+## Completed WP4 design and validation tasks
 
 - [x] Verify host operating system, architecture, tools, and storage
 - [x] Select Docker-first headless execution strategy
@@ -66,23 +66,30 @@ Last updated: 2026-07-24
 - [x] Create candidate toolchain lock
 - [x] Map red-team requirements to the reference architecture
 - [x] Create Docker runtime and internal-network verification script
+- [x] Pass Docker daemon, linux/amd64, internal-network, and internet-blocking checks
 - [x] Create exact-commit NOS3 checkout and recursive-submodule lock script
+- [x] Initialize all recursive NOS3 submodules without drift
+- [x] Record cFE, OSAL, PSP, application, simulator, and ground-software commits
+- [x] Resolve and commit the NOS3 image digest
 - [x] Add positive and negative experiment-schema fixtures
-- [x] Add JSON Schema validation runner and pinned development dependency
+- [x] Pass local JSON Schema validation including rejection of stale trusted-recovery evidence
 - [x] Add GitHub Actions validation for research configurations
 - [x] Exclude generated runtime and incident evidence from Git
+- [x] Define a controlled exact-resolution and build workflow for 42
+- [x] Define a network-disabled deterministic NOS3/cFS build gate
+- [x] Define the two-run nominal baseline protocol
 
 ## Immediate tasks
 
 - [ ] Pull the latest repository commits locally
-- [ ] Run `bash scripts/verify_wp4_runtime.sh`
-- [ ] Install development validation dependency and run `python3 scripts/validate_experiment_schema.py`
-- [ ] Run `bash scripts/prepare_nos3_candidate.sh`
-- [ ] Review and commit the generated recursive submodule lock
-- [ ] Pull `ivvitc/nos3-64:20260619` and record its resolved digest
-- [ ] Identify and record the cFS submodule commit selected by NOS3
-- [ ] Build or launch a minimal headless NOS3/cFS baseline
-- [ ] Reproduce nominal command and telemetry twice from a clean reset
+- [ ] Run `bash scripts/prepare_42_candidate.sh`
+- [ ] Review and commit `artifacts/fortytwo-lock.txt`
+- [ ] Run `bash scripts/build_nominal_nos3.sh`
+- [ ] Review and commit `artifacts/nominal-build-lock.txt`
+- [ ] Add the bounded project-labeled headless launch and shutdown wrapper
+- [ ] Define the exact benign command and required telemetry assertions
+- [ ] Reproduce nominal command and telemetry twice from clean runtime state
+- [ ] Verify separate immutable ground-truth and policy-visible logging paths
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
@@ -93,4 +100,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 design has started. Implementation may proceed only through controlled environment validation, exact upstream locking, and nominal baseline reproduction. Event injection remains blocked until the nominal command/telemetry baseline and separate ground-truth/policy-visible logging paths are verified.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, and container-digest controls. The project is now at the deterministic build gate. Event injection remains blocked until the network-disabled build succeeds, the bounded nominal command/telemetry baseline passes twice, and ground-truth logging is demonstrably separated from policy-visible evidence.
