@@ -37,6 +37,15 @@ def sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def validate_allowed_command(payload: bytes, command_received: int, command_forwarded: int) -> str:
+    digest = sha256_bytes(payload)
+    if payload != EXPECTED_COMMAND or digest != EXPECTED_COMMAND_SHA256:
+        raise RelayInvalid("received command outside the frozen SAMPLE_NOOP_CC allowlist")
+    if command_received != 1 or command_forwarded != 0:
+        raise RelayInvalid("more than one command transmission reached the relay")
+    return digest
+
+
 def resolve_ipv4(host: str, port: int, timeout: float) -> tuple[str, int]:
     deadline = time.monotonic() + timeout
     last_error: OSError | None = None
@@ -97,10 +106,11 @@ class PlaintextRelay:
             f"utc={utc_now()} source={source[0]}:{source[1]} bytes={len(payload)} sha256={digest}",
             flush=True,
         )
-        if payload != EXPECTED_COMMAND or digest != EXPECTED_COMMAND_SHA256:
-            raise RelayInvalid("received command outside the frozen SAMPLE_NOOP_CC allowlist")
-        if self.counters.command_received != 1 or self.counters.command_forwarded != 0:
-            raise RelayInvalid("more than one command transmission reached the relay")
+        digest = validate_allowed_command(
+            payload,
+            self.counters.command_received,
+            self.counters.command_forwarded,
+        )
         if self.command_target is None:
             self.command_target = resolve_ipv4(
                 self.args.radio_host,
@@ -178,14 +188,24 @@ class PlaintextRelay:
         return 0
 
 
+def expect_invalid(payload: bytes, command_received: int, command_forwarded: int) -> None:
+    try:
+        validate_allowed_command(payload, command_received, command_forwarded)
+    except RelayInvalid:
+        return
+    raise AssertionError("relay allowlist self-test did not reject invalid command state")
+
+
 def self_test() -> None:
     assert len(EXPECTED_COMMAND) == 8
     assert EXPECTED_COMMAND.hex() == "18fac000000100dc"
     assert sha256_bytes(EXPECTED_COMMAND) == EXPECTED_COMMAND_SHA256
+    assert validate_allowed_command(EXPECTED_COMMAND, 1, 0) == EXPECTED_COMMAND_SHA256
     altered = bytearray(EXPECTED_COMMAND)
     altered[-1] ^= 1
-    assert bytes(altered) != EXPECTED_COMMAND
-    assert sha256_bytes(bytes(altered)) != EXPECTED_COMMAND_SHA256
+    expect_invalid(bytes(altered), 1, 0)
+    expect_invalid(EXPECTED_COMMAND, 2, 0)
+    expect_invalid(EXPECTED_COMMAND, 1, 1)
     counters = RelayCounters()
     assert counters.command_received == 0
     assert counters.telemetry_forwarded == 0
