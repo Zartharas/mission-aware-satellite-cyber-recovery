@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.2.0",
-  "status": "IMPLEMENTED_SELF_TEST_PENDING",
+  "contract_version": "0.3.0",
+  "status": "SELF_TEST_PASS_RUNNER_VALIDATION_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
@@ -11,10 +11,12 @@
   },
   "implementation": {
     "ground_probe": "scripts/benign_ground_probe.py",
-    "verification_script": "scripts/verify_benign_ground_probe.sh",
-    "runtime_runner": "PENDING",
-    "host_self_test": "PENDING",
-    "network_disabled_container_self_test": "PENDING"
+    "ground_probe_verification_script": "scripts/verify_benign_ground_probe.sh",
+    "runtime_runner": "scripts/run_benign_baseline.sh",
+    "runtime_runner_verification_script": "scripts/verify_benign_baseline_runner.sh",
+    "host_self_test": "PASS",
+    "network_disabled_container_self_test": "PASS",
+    "runtime_runner_validation": "PENDING"
   },
   "command": {
     "application": "SAMPLE",
@@ -32,7 +34,7 @@
     "checksum": {
       "algorithm_source": "cFE 87e273743f3d07ed9216462b461e9f398ff96c87 modules/msg/fsw/src/cfe_msg_sechdr_checksum.c",
       "algorithm": "Set checksum byte to zero, initialize accumulator to 0xFF, XOR every packet byte, then store the accumulator in the checksum byte; a complete valid packet XORs to zero.",
-      "implementation_status": "IMPLEMENTED_SELF_TEST_PENDING"
+      "implementation_status": "SELF_TEST_PASS"
     }
   },
   "telemetry": {
@@ -54,7 +56,7 @@
       "CMD_ERR_COUNT",
       "DEVICE_ERR_COUNT"
     ],
-    "parser_status": "IMPLEMENTED_SELF_TEST_PENDING"
+    "parser_status": "SELF_TEST_PASS"
   },
   "assertions": {
     "acceptance_timeout_seconds": 30,
@@ -91,8 +93,8 @@
     "external_egress_allowed": false
   },
   "evidence": {
-    "immutable_ground_evidence": "IMPLEMENTED_SELF_TEST_PENDING",
-    "policy_visible_evidence": "IMPLEMENTED_SELF_TEST_PENDING",
+    "immutable_ground_evidence": "IMPLEMENTED_RUNTIME_VALIDATION_PENDING",
+    "policy_visible_evidence": "IMPLEMENTED_RUNTIME_VALIDATION_PENDING",
     "independent_hashes_required": true,
     "truth_sink_policy_visibility": "NONE",
     "large_runtime_logs_committed": false,
