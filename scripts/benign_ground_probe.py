@@ -2,9 +2,10 @@
 """Deterministic internal ground probe for the WP4 benign baseline.
 
 This program has no event-injection capability. It binds the internal telemetry
-endpoint, establishes a stable SAMPLE housekeeping baseline, transmits exactly
-one frozen SAMPLE_NOOP_CC packet, and records separated ground and policy-visible
-evidence.
+endpoint, waits for an orchestration trigger, transmits exactly one recorded
+TO_ENABLE_OUTPUT setup command, establishes a stable SAMPLE housekeeping
+baseline, transmits exactly one frozen SAMPLE_NOOP_CC measured command, and
+records separated immutable-ground and policy-visible evidence.
 """
 
 from __future__ import annotations
@@ -22,6 +23,18 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, TextIO
+
+TO_COMMAND_MID = 0x1880
+TO_ENABLE_OUTPUT_FC = 2
+TO_ENABLE_OUTPUT_LENGTH_FIELD = 19
+TO_DESTINATION_HOST = "radio-sim"
+TO_DESTINATION_PORT = 5011
+EXPECTED_TO_ENABLE_OUTPUT_PACKET = bytes.fromhex(
+    "1880c0000013021d726164696f2d73696d000000000000009313"
+)
+EXPECTED_TO_ENABLE_OUTPUT_PACKET_SHA256 = (
+    "c9b26e373b21170039deb6ab4d54c49401581eae5d8f3d1eaf304e65f300d3bb"
+)
 
 SAMPLE_COMMAND_MID = 0x18FA
 SAMPLE_HK_MID = 0x08FA
@@ -73,6 +86,57 @@ def cfs_xor_checksum(payload: bytes) -> int:
     for byte in payload:
         checksum ^= byte
     return checksum
+
+
+def build_to_enable_output_packet() -> bytes:
+    destination = TO_DESTINATION_HOST.encode("ascii")
+    if len(destination) > 16:
+        raise RunInvalid("TO destination hostname exceeds the frozen 16-byte field")
+    packet = bytearray(
+        struct.pack(
+            ">HHHBB",
+            TO_COMMAND_MID,
+            INITIAL_SEQUENCE_CONTROL,
+            TO_ENABLE_OUTPUT_LENGTH_FIELD,
+            TO_ENABLE_OUTPUT_FC,
+            0,
+        )
+        + destination.ljust(16, b"\x00")
+        + struct.pack("<H", TO_DESTINATION_PORT)
+    )
+    packet[7] = cfs_xor_checksum(packet)
+    result = bytes(packet)
+    validate_to_enable_output_packet(result)
+    return result
+
+
+def validate_to_enable_output_packet(packet: bytes) -> None:
+    if len(packet) != 26:
+        raise RunInvalid(f"TO_ENABLE_OUTPUT packet length is {len(packet)}, expected 26")
+    mid, sequence, length_field, function_code, _checksum = struct.unpack_from(">HHHBB", packet, 0)
+    expected = (
+        TO_COMMAND_MID,
+        INITIAL_SEQUENCE_CONTROL,
+        TO_ENABLE_OUTPUT_LENGTH_FIELD,
+        TO_ENABLE_OUTPUT_FC,
+    )
+    observed = (mid, sequence, length_field, function_code)
+    if observed != expected:
+        raise RunInvalid(f"TO_ENABLE_OUTPUT field mismatch: observed={observed!r} expected={expected!r}")
+    destination = packet[8:24].split(b"\x00", 1)[0].decode("ascii")
+    destination_port = struct.unpack_from("<H", packet, 24)[0]
+    if destination != TO_DESTINATION_HOST or destination_port != TO_DESTINATION_PORT:
+        raise RunInvalid(
+            "TO_ENABLE_OUTPUT destination mismatch: "
+            f"observed={destination}:{destination_port} "
+            f"expected={TO_DESTINATION_HOST}:{TO_DESTINATION_PORT}"
+        )
+    if cfs_xor_checksum(packet) != 0:
+        raise RunInvalid("TO_ENABLE_OUTPUT checksum validation failed")
+    if packet != EXPECTED_TO_ENABLE_OUTPUT_PACKET:
+        raise RunInvalid(f"TO_ENABLE_OUTPUT vector mismatch: {packet.hex()}")
+    if sha256_bytes(packet) != EXPECTED_TO_ENABLE_OUTPUT_PACKET_SHA256:
+        raise RunInvalid("TO_ENABLE_OUTPUT SHA-256 mismatch")
 
 
 def build_sample_noop_packet() -> bytes:
@@ -193,16 +257,29 @@ class GroundProbe:
         self.args = args
         self.ground_dir = Path(args.ground_dir)
         self.policy_dir = Path(args.policy_dir)
+        self.start_trigger = (
+            Path(args.start_trigger)
+            if args.start_trigger
+            else self.ground_dir / "start-baseline.trigger"
+        )
         self.ground_dir.mkdir(parents=True, exist_ok=True)
         self.policy_dir.mkdir(parents=True, exist_ok=True)
-        self.ground_events = (self.ground_dir / "telemetry-events.jsonl").open("a", encoding="utf-8", buffering=1)
-        self.policy_events = (self.policy_dir / "telemetry.jsonl").open("a", encoding="utf-8", buffering=1)
+        self.ground_events = (self.ground_dir / "telemetry-events.jsonl").open(
+            "a", encoding="utf-8", buffering=1
+        )
+        self.policy_events = (self.policy_dir / "telemetry.jsonl").open(
+            "a", encoding="utf-8", buffering=1
+        )
         self.sample_packets_received = 0
+        self.setup_command_transmissions = 0
         self.command_transmissions = 0
         self.before: SampleHousekeeping | None = None
         self.after: SampleHousekeeping | None = None
+        self.setup_command_sent_utc: str | None = None
+        self.setup_command_sent_monotonic_ns: int | None = None
         self.command_sent_utc: str | None = None
         self.command_sent_monotonic_ns: int | None = None
+        self.setup_command_packet = build_to_enable_output_packet()
         self.command_packet = build_sample_noop_packet()
 
     def close(self) -> None:
@@ -211,6 +288,52 @@ class GroundProbe:
                 handle.flush()
                 os.fsync(handle.fileno())
                 handle.close()
+
+    def wait_for_start_trigger(self) -> None:
+        deadline = time.monotonic() + self.args.trigger_timeout
+        while time.monotonic() < deadline:
+            if self.start_trigger.is_file():
+                print(
+                    f"GROUND_PROBE_TRIGGER_OBSERVED path={self.start_trigger}",
+                    flush=True,
+                )
+                return
+            time.sleep(0.2)
+        raise RunInvalid(f"timed out waiting for orchestration trigger: {self.start_trigger}")
+
+    def transmit_packet(self, packet: bytes, label: str) -> tuple[str, int]:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as command_socket:
+            command_socket.settimeout(5.0)
+            try:
+                sent = command_socket.sendto(
+                    packet, (self.args.command_host, self.args.command_port)
+                )
+            except OSError as exc:
+                raise RunInvalid(f"{label} transmission failed: {exc}") from exc
+        if sent != len(packet):
+            raise RunInvalid(f"partial {label} transmission: {sent}/{len(packet)}")
+        return utc_now(), time.monotonic_ns()
+
+    def send_setup_command(self) -> None:
+        validate_to_enable_output_packet(self.setup_command_packet)
+        atomic_write_bytes(
+            self.ground_dir / "transmitted-setup-command.bin",
+            self.setup_command_packet,
+        )
+        sent_utc, sent_monotonic_ns = self.transmit_packet(
+            self.setup_command_packet, "TO_ENABLE_OUTPUT"
+        )
+        self.setup_command_transmissions += 1
+        if self.setup_command_transmissions != 1:
+            raise RunInvalid("more than one TO_ENABLE_OUTPUT setup transmission was attempted")
+        self.setup_command_sent_utc = sent_utc
+        self.setup_command_sent_monotonic_ns = sent_monotonic_ns
+        print(
+            "GROUND_PROBE_SETUP_COMMAND_SENT "
+            f"bytes={len(self.setup_command_packet)} "
+            f"sha256={sha256_bytes(self.setup_command_packet)}",
+            flush=True,
+        )
 
     def record_telemetry(self, payload: bytes, source: tuple[str, int]) -> SampleHousekeeping | None:
         hk = parse_sample_housekeeping(payload, source)
@@ -263,24 +386,17 @@ class GroundProbe:
     def send_command(self) -> None:
         validate_sample_noop_packet(self.command_packet)
         atomic_write_bytes(self.ground_dir / "transmitted-command.bin", self.command_packet)
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as command_socket:
-            command_socket.settimeout(5.0)
-            try:
-                sent = command_socket.sendto(
-                    self.command_packet, (self.args.command_host, self.args.command_port)
-                )
-            except OSError as exc:
-                raise RunInvalid(f"command transmission failed: {exc}") from exc
-        if sent != len(self.command_packet):
-            raise RunInvalid(f"partial command transmission: {sent}/{len(self.command_packet)}")
+        sent_utc, sent_monotonic_ns = self.transmit_packet(
+            self.command_packet, "SAMPLE_NOOP_CC"
+        )
         self.command_transmissions += 1
         if self.command_transmissions != 1:
-            raise RunInvalid("more than one command transmission was attempted")
-        self.command_sent_utc = utc_now()
-        self.command_sent_monotonic_ns = time.monotonic_ns()
+            raise RunInvalid("more than one measured command transmission was attempted")
+        self.command_sent_utc = sent_utc
+        self.command_sent_monotonic_ns = sent_monotonic_ns
         print(
             "GROUND_PROBE_COMMAND_SENT "
-            f"bytes={sent} sha256={sha256_bytes(self.command_packet)}",
+            f"bytes={len(self.command_packet)} sha256={sha256_bytes(self.command_packet)}",
             flush=True,
         )
 
@@ -315,6 +431,19 @@ class GroundProbe:
             "classification": classification,
             "reason": reason,
             "event_injection": "disabled",
+            "setup_command": {
+                "name": "TO_ENABLE_OUTPUT",
+                "message_id_hex": "0x1880",
+                "function_code": 2,
+                "destination_host": TO_DESTINATION_HOST,
+                "destination_port": TO_DESTINATION_PORT,
+                "packet_hex": self.setup_command_packet.hex(),
+                "packet_length": len(self.setup_command_packet),
+                "packet_sha256": sha256_bytes(self.setup_command_packet),
+                "transmissions": self.setup_command_transmissions,
+                "sent_utc": self.setup_command_sent_utc,
+                "sent_monotonic_ns": self.setup_command_sent_monotonic_ns,
+            },
             "command": {
                 "name": "SAMPLE_NOOP_CC",
                 "message_id_hex": "0x18FA",
@@ -361,6 +490,8 @@ class GroundProbe:
             flush=True,
         )
         try:
+            self.wait_for_start_trigger()
+            self.send_setup_command()
             self.before, stable_packets = self.establish_stable_baseline(telemetry_socket)
             for index, (_hk, payload) in enumerate(stable_packets, start=1):
                 atomic_write_bytes(self.ground_dir / f"pre-command-{index}.bin", payload)
@@ -385,6 +516,15 @@ class GroundProbe:
 
 
 def self_test() -> None:
+    setup_packet = build_to_enable_output_packet()
+    assert setup_packet == EXPECTED_TO_ENABLE_OUTPUT_PACKET
+    assert setup_packet.hex() == "1880c0000013021d726164696f2d73696d000000000000009313"
+    assert sha256_bytes(setup_packet) == EXPECTED_TO_ENABLE_OUTPUT_PACKET_SHA256
+    assert cfs_xor_checksum(setup_packet) == 0
+    setup_mutated = bytearray(setup_packet)
+    setup_mutated[-1] ^= 0x01
+    assert cfs_xor_checksum(setup_mutated) != 0
+
     packet = build_sample_noop_packet()
     assert packet == EXPECTED_NOOP_PACKET
     assert packet.hex() == "18fac000000100dc"
@@ -412,6 +552,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--run-id", default=os.environ.get("RUN_ID", "unassigned"))
     parser.add_argument("--ground-dir", default="/evidence/ground")
     parser.add_argument("--policy-dir", default="/evidence/policy-visible")
+    parser.add_argument("--start-trigger")
+    parser.add_argument("--trigger-timeout", type=int, default=120)
     parser.add_argument("--telemetry-bind", default="0.0.0.0")
     parser.add_argument("--telemetry-port", type=int, default=6011)
     parser.add_argument("--command-host", default="cryptolib")
@@ -429,6 +571,8 @@ def main() -> int:
         return 0
     if args.minimum_stable < 2:
         raise SystemExit("--minimum-stable must be at least 2")
+    if args.trigger_timeout < 30:
+        raise SystemExit("--trigger-timeout must be at least 30 seconds")
     if args.readiness_timeout < 30 or args.acceptance_timeout < 1:
         raise SystemExit("invalid timeout")
     return GroundProbe(args).run()
