@@ -2,9 +2,9 @@
 """Deterministic internal plaintext relay for the WP4 benign baseline.
 
 This relay exists only to validate the nominal CI_LAB/TO_LAB command and
-telemetry path before cryptographic semantics are introduced.  It has no event
+telemetry path before cryptographic semantics are introduced. It has no event
 injection capability: the command direction accepts exactly the frozen
-SAMPLE_NOOP_CC packet and forwards it at most once.  Telemetry datagrams are
+SAMPLE_NOOP_CC packet and forwards it at most once. Telemetry datagrams are
 forwarded without modification from the radio endpoint to the internal ground
 probe.
 """
@@ -65,7 +65,7 @@ class PlaintextRelay:
         self.args = args
         self.running = True
         self.counters = RelayCounters()
-        self.command_target = resolve_ipv4(args.radio_host, args.radio_command_port, args.resolve_timeout)
+        self.command_target: tuple[str, int] | None = None
         self.telemetry_target = resolve_ipv4(args.ground_host, args.ground_telemetry_port, args.resolve_timeout)
         self.command_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.telemetry_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -101,6 +101,17 @@ class PlaintextRelay:
             raise RelayInvalid("received command outside the frozen SAMPLE_NOOP_CC allowlist")
         if self.counters.command_received != 1 or self.counters.command_forwarded != 0:
             raise RelayInvalid("more than one command transmission reached the relay")
+        if self.command_target is None:
+            self.command_target = resolve_ipv4(
+                self.args.radio_host,
+                self.args.radio_command_port,
+                self.args.resolve_timeout,
+            )
+            print(
+                "PLAINTEXT_RELAY_COMMAND_TARGET_RESOLVED "
+                f"host={self.args.radio_host} destination={self.command_target[0]}:{self.command_target[1]}",
+                flush=True,
+            )
         sent = self.forward_socket.sendto(payload, self.command_target)
         if sent != len(payload):
             raise RelayInvalid(f"partial command forward: {sent}/{len(payload)}")
@@ -137,7 +148,7 @@ class PlaintextRelay:
         print(
             "PLAINTEXT_RELAY_READY "
             f"command_bind={self.args.bind_host}:{self.args.ground_command_port} "
-            f"command_target={self.command_target[0]}:{self.command_target[1]} "
+            f"command_target={self.args.radio_host}:{self.args.radio_command_port}:lazy "
             f"telemetry_bind={self.args.bind_host}:{self.args.radio_telemetry_port} "
             f"telemetry_target={self.telemetry_target[0]}:{self.telemetry_target[1]} "
             f"allowed_command_sha256={EXPECTED_COMMAND_SHA256} maximum_commands=1",
