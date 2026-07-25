@@ -2,11 +2,11 @@
 
 ## Status
 
-The bounded headless runtime check has not passed yet. Run `20260725T190105Z` remains classified as `RUN_INVALID` because the failures arose from testbed dependencies rather than from any scored study condition.
+The bounded headless runtime check has not passed yet. Runs `20260725T190105Z` and `20260725T191239Z` remain classified as `RUN_INVALID` because their failures arose from testbed dependencies rather than from any scored study condition.
 
 ## Confirmed working components
 
-The corrected individual-launch topology kept NOS Engine, the time driver, 42, cFS, CryptoLib, the command-bus bridge, and fourteen non-camera hardware simulators live at the startup observation. Project-scoped cleanup completed without leaving labeled containers or networks.
+The corrected individual-launch topology kept NOS Engine, the time driver, 42, cFS, the command-bus bridge, and fourteen non-camera hardware simulators live at the startup observation. In run `20260725T191239Z`, all twenty scoped components started, the earlier radio name-resolution errors were absent, and the terminal-environment error did not recur. Project-scoped cleanup completed without leaving labeled containers or networks.
 
 ## Compatibility findings
 
@@ -26,9 +26,15 @@ The XML expects the radio process to resolve as `radio-sim`. The earlier wrapper
 
 The time driver stayed live but reported an unknown terminal. The revised wrapper sets `TERM=xterm` for all runtime containers.
 
+### CryptoLib transport readiness
+
+Run `20260725T191239Z` kept CryptoLib live through the startup observation, after which it exited during `observation-5` with code 255. The pinned standalone implementation sleeps for ten seconds, then initializes a TCP command path to `radio-sim:8010`; on failure it retries for up to thirty one-second intervals and exits with the last library status. The observed timing is consistent with that dependency path, but the retained filtered output alone does not prove the precise socket message.
+
+The wrapper now makes the dependency explicit instead of relying on implicit defaults. It starts the generic radio with `TCP_GROUND=1`, waits for an IPv4 TCP listener on port 8010 inside the radio container, and only then launches CryptoLib with `STANDALONE_TCP=1`. CryptoLib receives an interactive stdin so its command loop does not encounter immediate EOF. Because this phase has no ground software, its post-decryption UDP destination is explicitly looped back locally and recorded in the manifest rather than silently defaulting to `cosmos`.
+
 ### Log interpretation
 
-A bridge warning about an inferred plug-in can coexist with a live dedicated bridge process. The cFS initialization text `CFE_PSP_AttachExceptions Called` is not sufficient by itself to classify a runtime exception. Acceptance is based on component liveness, exit codes, isolation checks, and component-specific evidence rather than broad keyword matching alone.
+A bridge warning about an inferred plug-in can coexist with a live dedicated bridge process. The cFS initialization text `CFE_PSP_AttachExceptions Called` is not sufficient by itself to classify a runtime exception. Acceptance is based on component liveness, exit codes, isolation checks, explicit transport readiness, and component-specific evidence rather than broad keyword matching alone.
 
 ## Revised Phase 1 scope
 
@@ -38,6 +44,6 @@ It deliberately omits COSMOS, `truth42sim`, and `camsim` from this infrastructur
 
 ## Acceptance boundary
 
-Every launched process must remain live for the bounded observation period. All containers must remain only on the project internal network, with no host ports and no Docker-socket mounts. Evidence capture and project-scoped cleanup must complete successfully.
+Every launched process must remain live for the bounded observation period. The generic-radio TCP listener on port 8010 must be observed before CryptoLib starts. All containers must remain only on the project internal network, with no host ports and no Docker-socket mounts. Evidence capture and project-scoped cleanup must complete successfully.
 
 Passing this check does not complete the nominal baseline gate. The benign command and telemetry baseline must still be defined and reproduced twice, and ground-truth evidence must remain separate from policy-visible evidence before later experimental work begins.
