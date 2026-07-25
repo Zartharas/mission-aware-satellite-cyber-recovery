@@ -17,6 +17,21 @@ for file in "$PROBE" "$PREPARER" "$RELAY" "$RUNNER" "$CONTRACT"; do
   }
 done
 
+for command in python3 bash docker; do
+  command -v "$command" >/dev/null 2>&1 || {
+    echo "[ERROR] Missing command: $command" >&2
+    exit 1
+  }
+done
+docker info >/dev/null 2>&1 || {
+  echo "[ERROR] Docker daemon is not reachable." >&2
+  exit 1
+}
+docker image inspect "$IMAGE" >/dev/null 2>&1 || {
+  echo "[ERROR] Pinned image is unavailable: $IMAGE" >&2
+  exit 1
+}
+
 python3 -m py_compile "$PROBE" "$PREPARER" "$RELAY"
 python3 "$PROBE" --self-test
 python3 "$PREPARER" --self-test
@@ -96,19 +111,6 @@ project_networks_before="$(docker network ls -q --filter "label=research.project
 }
 
 PLAINTEXT_RELAY_VERIFY_ONLY=1 bash "$RUNNER"
-
-command -v docker >/dev/null 2>&1 || {
-  echo "[ERROR] Missing command: docker" >&2
-  exit 1
-}
-docker info >/dev/null 2>&1 || {
-  echo "[ERROR] Docker daemon is not reachable." >&2
-  exit 1
-}
-docker image inspect "$IMAGE" >/dev/null 2>&1 || {
-  echo "[ERROR] Pinned image is unavailable: $IMAGE" >&2
-  exit 1
-}
 
 for self_test in \
   "scripts/benign_ground_probe_measurement.py" \
