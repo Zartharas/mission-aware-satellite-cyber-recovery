@@ -17,6 +17,7 @@ NETWORK="mascr-$SAFE_ID"
 PREFIX="mascr-$SAFE_ID"
 EVIDENCE="$ROOT/artifacts/runtime/$RUN_ID"
 INOUT="$EVIDENCE/fortytwo/NOS3InOut"
+FORTYTWO_INOUT_CONTAINER="/work/fortytwo-inout"
 MANIFEST="$EVIDENCE/runtime-manifest.txt"
 NAMES="$EVIDENCE/container-names.txt"
 RESULT="RUN_INVALID"
@@ -148,6 +149,7 @@ record image "$IMAGE"
 record image_id "$(docker image inspect "$IMAGE" --format '{{.Id}}')"
 record build_lock_sha256 "$(shasum -a 256 "$BUILD_LOCK" | awk '{print $1}')"
 record runtime_inp_sim_sha256 "$(shasum -a 256 "$INOUT/Inp_Sim.txt" | awk '{print $1}')"
+record fortytwo_inout_container "$FORTYTWO_INOUT_CONTAINER"
 
 docker network create --driver bridge --internal \
   --label "research.project=$PROJECT" \
@@ -183,8 +185,8 @@ start time nos-time-driver \
   "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml time
 start fortytwo fortytwo \
   --mount "type=bind,source=$FORTYTWO,target=/work/fortytwo,readonly" \
-  --mount "type=bind,source=$INOUT,target=/work/fortytwo/NOS3InOut" --workdir /work/fortytwo \
-  "$IMAGE" ./42 NOS3InOut
+  --mount "type=bind,source=$INOUT,target=$FORTYTWO_INOUT_CONTAINER" --workdir /work/fortytwo \
+  "$IMAGE" ./42 "$FORTYTWO_INOUT_CONTAINER"
 start simulators nos3-simulators \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
   "$IMAGE" ./nos3-all-simulators -f nos3-simulator.xml
