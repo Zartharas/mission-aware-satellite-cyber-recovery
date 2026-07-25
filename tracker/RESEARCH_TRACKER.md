@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact NOS3, cFE/OSAL/PSP, 42, and image locks; successful network-disabled builds; scoped project-labeled headless runtime preflight with explicit truth-stream, radio, and CryptoLib readiness under validation | Pass the scoped runtime preflight, then reproduce the complete benign command/telemetry baseline twice |
+| WP4 | Testbed selection and architecture | In progress | Exact NOS3, cFE/OSAL/PSP, 42, and image locks; successful network-disabled builds; successful isolated 21-component headless runtime preflight | Define and reproduce the complete benign command/telemetry baseline twice with separated evidence paths |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -94,21 +94,26 @@ Last updated: 2026-07-25
 - [x] Identify the omitted port-9999 truth client as an earlier pinned 42 IPC dependency
 - [x] Add an internal byte-count-only truth sink without COSMOS, host ports, event injection, or policy visibility
 - [x] Create the liveness CSV before startup so readiness-gate failures retain a valid evidence structure
+- [x] Pass the scoped 21-component runtime preflight in run `20260725T201918Z`
+- [x] Verify truth-sink readiness, radio port-8010 readiness, radio-to-42 connectivity, and radio/CryptoLib TCP establishment
+- [x] Verify all startup and observation liveness rows remained `running:0`
+- [x] Verify no host ports, Docker-socket mounts, residual labeled containers, or residual labeled networks
+- [x] Commit the compact runtime-preflight lock without committing large runtime logs
 
 ## Immediate tasks
 
-- [x] Pull and exercise the explicit radio/CryptoLib readiness revision
-- [x] Review run `20260725T192635Z` and retain it as `RUN_INVALID`
-- [ ] Pull the internal truth-stream compatibility revision
-- [ ] Run `bash -n scripts/run_nominal_runtime_preflight.sh`
-- [ ] Run `DURATION_SECONDS=60 STARTUP_GRACE_SECONDS=30 bash scripts/run_nominal_runtime_preflight.sh`
-- [ ] Verify `truth_sink_connection=ready` and `radio_tcp_8010_listener=ready` in the manifest
-- [ ] Review the 21-component liveness record, truth-sink byte counts, 42/radio/CryptoLib logs, network inspection, and cleanup evidence
-- [ ] Pin or eliminate the ground-software dependency for the complete nominal baseline
-- [ ] Define the exact benign cFE command and command-acceptance assertion
-- [ ] Define required telemetry fields and timing tolerances
+- [x] Pull the internal truth-stream compatibility revision
+- [x] Run `bash -n scripts/run_nominal_runtime_preflight.sh`
+- [x] Run `DURATION_SECONDS=60 STARTUP_GRACE_SECONDS=30 bash scripts/run_nominal_runtime_preflight.sh`
+- [x] Verify `truth_sink_connection=ready` and `radio_tcp_8010_listener=ready` in the manifest
+- [x] Review the 21-component liveness record, truth-sink byte counts, 42/radio/CryptoLib logs, network inspection, and cleanup evidence
+- [ ] Define the controlled ground command and telemetry endpoint for the complete nominal baseline
+- [ ] Select the exact benign cFE command and deterministic command-acceptance assertion
+- [ ] Define required telemetry fields, source identities, and timing tolerances
+- [ ] Define separate immutable ground-truth and policy-visible evidence files and schemas
+- [ ] Implement a bounded benign-baseline runner with no event-injection capability
 - [ ] Reproduce the complete nominal command and telemetry baseline twice from clean runtime state
-- [ ] Verify separate immutable ground-truth and policy-visible logging paths
+- [ ] Compare the two clean-run manifests and reject unexplained variation before event work
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
@@ -119,4 +124,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, and network-disabled compilation controls. Gate 3B Phase 1 remains in runtime compatibility validation. Event injection remains blocked until the scoped runtime preflight passes, the complete benign command/telemetry baseline passes twice, and ground-truth logging is demonstrably separated from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, and scoped runtime-preflight controls. Gate 3B Phase 1 is complete. Gate 3B Phase 2—the deterministic benign command-and-telemetry baseline reproduced twice—remains pending. Event injection remains blocked until both baseline runs pass and immutable ground-truth evidence is demonstrably separated from policy-visible evidence.
