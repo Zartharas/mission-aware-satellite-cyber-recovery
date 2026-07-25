@@ -15,9 +15,9 @@ Last updated: 2026-07-24
 | ID | Work package | Status | Current output | Next acceptance gate |
 |---|---|---|---|---|
 | WP0 | Research governance and workspace | Complete | Private GitHub repository, initial commit, data and legal controls | Maintain clean synchronized repository |
-| WP1 | Literature and novelty validation | In progress | WP1 Review 1 and 22-source literature matrix | Expand to 30+ directly relevant sources and complete independent gap challenge |
-| WP2 | Theoretical and conceptual model | In progress | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure | Constructs, propositions, and boundaries frozen |
-| WP3 | Threat and mission model | In progress | Draft assets, trust boundaries, invariants, and safe-mode abuse concern | Independent red-team review |
+| WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
+| WP2 | Theoretical and conceptual model | In progress | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; contribution boundaries frozen | Final construct definitions and proposition-to-metric traceability |
+| WP3 | Threat and mission model | In progress | Mission objectives, unacceptable losses, safety/trust invariants, trusted-recovery terminal states, pilot boundary | Independent red-team review and machine-readable specification |
 | WP4 | Testbed selection and architecture | Not started | Candidate NOS3/cFS design | Nominal commands, telemetry, mission states reproducible |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
@@ -27,7 +27,7 @@ Last updated: 2026-07-24
 | WP10 | Analysis and manuscript | Not started | — | Reproducible tables, figures, and paper draft |
 | WP11 | Artifact and responsible release | Not started | — | License, secrets, misuse, and reproducibility review passed |
 
-## Completed setup tasks
+## Completed setup and WP1 tasks
 
 - [x] Create private GitHub repository
 - [x] Push initial scaffold
@@ -35,21 +35,30 @@ Last updated: 2026-07-24
 - [x] Complete first focused novelty review
 - [x] Expand literature matrix from 12 to 22 sources
 - [x] Flag CuCD-ID license discrepancy and place it on conditional hold
+- [x] Expand literature matrix to 30 sources
+- [x] Search adjacent cyber-physical attack-recovery and spacecraft fault-management literature
+- [x] Conduct reviewer-style challenge of the novelty claim
+- [x] Produce final defensible gap and falsification criteria
+- [x] Finalize initial mission objectives and unacceptable losses
+- [x] Freeze safety/trust invariants and trusted-recovery criteria
+- [x] Freeze the minimum viable pilot boundary
 
 ## Immediate tasks
 
+- [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Verify Mac architecture and available virtualization
 - [ ] Pin cFS and NOS3 candidate versions
 - [ ] Complete license verification for CuCD-ID and AegisSat
-- [ ] Expand literature matrix to at least 30 directly relevant primary sources
-- [ ] Search adjacent cyber-physical incident-response and resilient-control literature
-- [ ] Conduct an independent red-team challenge of the novelty claim
-- [ ] Finalize mission objectives and unacceptable losses
-- [ ] Freeze safety invariants and trusted-recovery criteria
-- [ ] Define the minimum viable pilot matrix
+- [ ] Build proposition-to-variable-to-metric traceability table
+- [ ] Convert mission states, events, policies, invariants, and terminal states into machine-readable schemas
+- [ ] Conduct independent red-team review of the threat and mission model
 - [ ] Draft laboratory Rules of Engagement
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
 
-## Current novelty statement
+## Final candidate novelty statement
 
-A generic satellite cyber range, anomaly detector, FDIR mechanism, or cyber-safe mode is not the contribution. The candidate contribution is a controlled and reproducible comparison of cyber-response and trusted-recovery policies using security, mission-continuity, safety, and recovery-evidence outcomes under mission-state, telemetry-quality, and intermittent-contact constraints.
+This study introduces a reproducible software-in-the-loop experimental method for comparing satellite cyber-containment and trusted-recovery policies across mission states, telemetry-evidence conditions, and intermittent ground contact, while measuring adversary containment, mission continuity, safety-invariant preservation, and time to verified trusted recovery.
+
+## Gate 1 decision
+
+Proceed to WP2/WP3 refinement. WP4 implementation remains blocked until the citation audit, traceability model, and machine-readable mission/threat specification are complete.
