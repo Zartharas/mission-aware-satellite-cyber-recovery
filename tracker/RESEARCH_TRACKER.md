@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 ## Status legend
 
@@ -18,7 +18,7 @@ Last updated: 2026-07-24
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Runtime/schema gates passed; exact NOS3 recursive lock and image digest committed; controlled 42 and network-disabled NOS3 build workflows added | Resolve and lock 42, pass deterministic build, then reproduce bounded nominal command/telemetry baseline twice |
+| WP4 | Testbed selection and architecture | In progress | Exact NOS3, cFE/OSAL/PSP, 42, and image locks; successful network-disabled builds; bounded project-labeled runtime preflight added | Pass runtime preflight, then reproduce the complete benign command/telemetry baseline twice |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -76,19 +76,28 @@ Last updated: 2026-07-24
 - [x] Add GitHub Actions validation for research configurations
 - [x] Exclude generated runtime and incident evidence from Git
 - [x] Define a controlled exact-resolution and build workflow for 42
-- [x] Define a network-disabled deterministic NOS3/cFS build gate
+- [x] Define a network-disabled controlled NOS3/cFS build gate
 - [x] Define the two-run nominal baseline protocol
+- [x] Resolve 42 to commit `eda252bf31f27850e867e698cfdd963e143ead1f`, build it, and commit its lock
+- [x] Complete the clean network-disabled NOS3/cFS/simulator/CryptoLib build and commit its lock
+- [x] Add project-scoped runtime cleanup and bounded internal-network preflight scripts
+- [x] Document Gate 3B Phase 1 evidence and acceptance boundaries
 
 ## Immediate tasks
 
-- [ ] Pull the latest repository commits locally
-- [ ] Run `bash scripts/prepare_42_candidate.sh`
-- [ ] Review and commit `artifacts/fortytwo-lock.txt`
-- [ ] Run `bash scripts/build_nominal_nos3.sh`
-- [ ] Review and commit `artifacts/nominal-build-lock.txt`
-- [ ] Add the bounded project-labeled headless launch and shutdown wrapper
-- [ ] Define the exact benign command and required telemetry assertions
-- [ ] Reproduce nominal command and telemetry twice from clean runtime state
+- [x] Pull the repository changes containing the build-path fix
+- [x] Run `bash scripts/prepare_42_candidate.sh`
+- [x] Review and commit `artifacts/fortytwo-lock.txt`
+- [x] Run `bash scripts/build_nominal_nos3.sh` from clean build state
+- [x] Review and commit `artifacts/nominal-build-lock.txt`
+- [ ] Pull the Gate 3B Phase 1 runtime-preflight changes
+- [ ] Run `bash scripts/cleanup_nominal_runtime.sh`
+- [ ] Run `DURATION_SECONDS=60 STARTUP_GRACE_SECONDS=20 bash scripts/run_nominal_runtime_preflight.sh`
+- [ ] Review the runtime manifest, liveness record, component logs, network inspection, and cleanup evidence
+- [ ] Pin or eliminate the ground-software dependency for the complete nominal baseline
+- [ ] Define the exact benign cFE command and command-acceptance assertion
+- [ ] Define required telemetry fields and timing tolerances
+- [ ] Reproduce the complete nominal command and telemetry baseline twice from clean runtime state
 - [ ] Verify separate immutable ground-truth and policy-visible logging paths
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
@@ -100,4 +109,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, and container-digest controls. The project is now at the deterministic build gate. Event injection remains blocked until the network-disabled build succeeds, the bounded nominal command/telemetry baseline passes twice, and ground-truth logging is demonstrably separated from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, and network-disabled compilation controls. Gate 3B Phase 1 is ready for local execution. Event injection remains blocked until the runtime preflight passes, the complete benign command/telemetry baseline passes twice, and ground-truth logging is demonstrably separated from policy-visible evidence.
