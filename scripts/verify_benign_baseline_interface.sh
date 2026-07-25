@@ -39,8 +39,11 @@ import sys
 from pathlib import Path
 
 contract = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-assert contract["contract_version"] == "0.5.0"
+assert contract["contract_version"] == "0.5.1"
 assert contract["event_injection_allowed"] is False
+assert contract["implementation"]["runtime_runner"] == "scripts/run_benign_baseline_interface_textsafe.sh"
+assert contract["implementation"]["runtime_runner_engine"] == "scripts/run_benign_baseline_interface_corrected.sh"
+assert contract["implementation"]["runtime_config_preparer"] == "scripts/prepare_runtime_radio_config.py"
 assert contract["telemetry_activation"]["mechanism"] == "SC_RTS001_TO_LAB_OUTPUT_ENABLE"
 assert contract["telemetry_activation"]["ground_setup_transmissions"] == 0
 assert contract["measured_command"]["name"] == "SAMPLE_NOOP_CC"
@@ -52,8 +55,12 @@ assert contract["transport"]["cfs_ci"]["port"] == 5012
 assert contract["transport"]["cfs_to"]["application"] == "TO_LAB"
 assert contract["transport"]["cfs_to"]["destination_alias"] == "active-gs"
 assert contract["transport"]["cfs_to"]["port"] == 5011
-assert contract["transport"]["runtime_radio_interface_override"]["source_ci_port"] == 5010
-assert contract["transport"]["runtime_radio_interface_override"]["runtime_ci_port"] == 5012
+override = contract["transport"]["runtime_radio_interface_override"]
+assert override["source_ci_port"] == 5010
+assert override["runtime_ci_port"] == 5012
+assert override["edit_method"] == "bounded_opaque_text_single_character"
+assert override["strict_xml_parser_used"] is False
+assert override["expected_changed_characters"] == 1
 assert contract["transport"]["host_ports_allowed"] is False
 assert contract["transport"]["docker_socket_mount_allowed"] is False
 assert contract["transport"]["external_egress_allowed"] is False
