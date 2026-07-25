@@ -149,7 +149,7 @@ for file in "${required[@]}"; do
   [[ -f "$file" ]] || { echo "[ERROR] Missing runtime artifact: $file" >&2; exit 1; }
 done
 
-grep -q 'fortytwo[[:space:]]\+9999[[:space:]]*![[:space:]]*Server Host Name, Port' \
+grep -Eq 'fortytwo[[:space:]]+9999[[:space:]]*![[:space:]]*Server Host Name, Port' \
   "$NOS3/cfg/build/InOut/Inp_IPC.txt" || {
   echo "[ERROR] Pinned 42 IPC configuration does not expose the expected truth stream on port 9999." >&2
   exit 1
@@ -221,14 +221,15 @@ start() {
 
 wait_for_log_marker() {
   local name="$1" marker="$2" timeout_seconds="$3" manifest_key="$4"
-  local attempt state
+  local attempt state logs
   for ((attempt=1; attempt<=timeout_seconds; attempt++)); do
     state="$(docker inspect "$name" --format '{{.State.Status}}' 2>/dev/null || echo missing)"
     if [[ "$state" != running ]]; then
       echo "[ERROR] $name stopped before readiness marker '$marker' was observed." >&2
       return 1
     fi
-    if docker logs "$name" 2>&1 | grep -Fq -- "$marker"; then
+    logs="$(docker logs "$name" 2>&1 || true)"
+    if grep -Fq -- "$marker" <<< "$logs"; then
       record "$manifest_key" ready
       record "${manifest_key}_utc" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
       return 0
