@@ -16,9 +16,9 @@ Last updated: 2026-07-24
 |---|---|---|---|---|
 | WP0 | Research governance and workspace | Complete | Private GitHub repository, initial commit, data and legal controls | Maintain clean synchronized repository |
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
-| WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; construct definitions and proposition-to-metric traceability | Approve Gate 2 traceability and metric definitions |
+| WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Verified Intel Mac baseline, Docker-first headless architecture, candidate NOS3/cFS pins, runtime and schema validation tools | Pass runtime/schema checks, lock recursive submodules and image digest, reproduce nominal command/telemetry baseline twice |
+| WP4 | Testbed selection and architecture | In progress | Verified Intel Mac baseline, Docker-first headless architecture, candidate NOS3/cFS pins, runtime/schema validation and CI | Pass runtime/schema checks, lock recursive submodules and image digest, reproduce nominal command/telemetry baseline twice |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -47,6 +47,7 @@ Last updated: 2026-07-24
 
 - [x] Build proposition-to-variable-to-metric traceability table
 - [x] Define a falsification condition for every proposition
+- [x] Define deterministic primary metrics, raw inputs, zero-denominator rules, censoring, and terminal-state precedence
 - [x] Create machine-readable mission/event/policy/contact/evidence catalog
 - [x] Create JSON Schema for experiment-run records
 - [x] Conduct independent red-team review of the threat and mission model
@@ -68,6 +69,8 @@ Last updated: 2026-07-24
 - [x] Create exact-commit NOS3 checkout and recursive-submodule lock script
 - [x] Add positive and negative experiment-schema fixtures
 - [x] Add JSON Schema validation runner and pinned development dependency
+- [x] Add GitHub Actions validation for research configurations
+- [x] Exclude generated runtime and incident evidence from Git
 
 ## Immediate tasks
 
@@ -82,7 +85,6 @@ Last updated: 2026-07-24
 - [ ] Reproduce nominal command and telemetry twice from a clean reset
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
-- [ ] Define deterministic calculations for every primary metric
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
 
 ## Final candidate novelty statement
