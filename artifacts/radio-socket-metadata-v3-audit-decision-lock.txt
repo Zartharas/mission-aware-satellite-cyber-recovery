@@ -1,0 +1,9 @@
+RADIO_SOCKET_METADATA_V3_AUDIT_DECISION_LOCK
+date_utc=2026-07-26
+D-053=Accept the retained evidence audit for run 20260726T192902Z. The audit recorded 1,061 successful generic-radio recvfrom calls on local UDP 5011, zero successful or failed sendto calls to UDP 8011, 990 proxy receive and forward markers, zero egress receive markers, 22 of 22 retained component snapshots running, verified immutable-ground and policy-visible evidence trees, zero measured commands, and clean teardown.
+D-054=Classify the bounded infrastructure diagnosis as RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE within the frozen diagnostic taxonomy. This confirms a post-ingress, pre-egress boundary but does not by itself prove a specific source-code defect or constitute a scored scientific outcome. Require read-only analysis of packet eligibility and the simulation-time callback before any new infrastructure change or runtime authorization.
+runtime_authorized=false
+runtime_attempts_authorized=0
+baseline_execution_allowed=false
+event_injection_allowed=false
+scientific_outcome_allowed=false
