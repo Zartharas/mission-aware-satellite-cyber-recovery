@@ -58,7 +58,7 @@ assert contract["pre_runtime_attempt_results"][-1]["docker_invoked"] is False
 required_wrapper_tokens = (
     'SOURCE="$ROOT/scripts/run_radio_socket_metadata_diagnostic_v2.sh"',
     'radio_socket_metadata_runtime_wrapper_v3_static_verification',
-    '("PENDING" if verify_only else "PASS")',
+    '== (\\"PENDING\\" if verify_only else \\"PASS\\")',
     'RADIO_SOCKET_METADATA_RUNTIME_ATTEMPT_CONSUMED_PRE_RUNTIME_ASSERTION_FAILED',
     'RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_GATE_PASS_RUNTIME_PENDING',
     'assert ("PENDING" if True else "PASS") == "PENDING"',
@@ -143,6 +143,11 @@ import sys
 from pathlib import Path
 
 text = Path(sys.argv[1]).read_text(encoding="utf-8")
+mode_aware_assertion = (
+    'assert contract["gate"]'
+    '["radio_socket_metadata_runtime_wrapper_v3_static_verification"] '
+    '== ("PENDING" if verify_only else "PASS")'
+)
 required = (
     'SOCKET_METADATA_DIR="$GROUND/radio-socket-metadata"',
     'SHIM_BUILD_DIR="$ORCHESTRATION/radio-socket-shim"',
@@ -161,10 +166,15 @@ required = (
     'RADIO_SOCKET_METADATA_DIAGNOSTIC_STATUS=COMPLETE',
     'record measured_command_transmissions 0',
     'record ground_command_sources 0',
+    mode_aware_assertion,
 )
 for token in required:
     if token not in text:
         raise SystemExit(f"generated v3 runtime requirement missing: {token}")
+if text.count(mode_aware_assertion) != 1:
+    raise SystemExit(
+        "generated v3 runtime must contain exactly one mode-aware wrapper-gate assertion"
+    )
 
 if text.count('LD_PRELOAD=/tmp/libradio_socket_metadata_shim.so') != 1:
     raise SystemExit("LD_PRELOAD must occur exactly once")
