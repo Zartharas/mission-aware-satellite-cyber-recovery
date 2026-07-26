@@ -18,7 +18,7 @@ Last updated: 2026-07-26
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; four invalid baseline attempts retained; standalone CryptoLib packet-layer incompatibility identified; functional-readiness static gate passed | Execute and review the corrected plaintext-relay run-1 rerun |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; four invalid baseline attempts retained; baseline contract fail-closed; telemetry-only downlink diagnostic static gate passed | Execute and review one hardened telemetry-only downlink diagnostic |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -142,21 +142,29 @@ Last updated: 2026-07-26
 - [x] Update the contract to version `0.6.1`, retain the invalid-run lock, and add decision D-039
 - [x] Pass and accept the contract-0.6.1 functional-readiness static verification gate
 - [x] Commit the functional-readiness static-gate lock and decision D-040
+- [x] Execute corrected plaintext-relay rerun `20260726T005937Z` and classify it `RUN_INVALID`
+- [x] Verify run `20260726T005937Z` kept all runtime components live, transmitted no command, cleaned up, and validated both evidence trees
+- [x] Fail-close benign-baseline contract version `0.6.2` and block every further baseline execution
+- [x] Add a telemetry-only proxy/sink diagnostic with no command source
+- [x] Pass host and network-disabled static verification for the diagnostic witness, canonical wrapper, and hardened wrapper
+- [x] Record the telemetry-only static-gate lock and decision D-042
+- [x] Authorize exactly one runtime through `bash scripts/run_downlink_path_diagnostic_hardened.sh`
 
 ## Immediate tasks
 
-- [x] Pull the functional-readiness correction
-- [x] Validate `configs/benign-baseline-contract.json`
-- [x] Compile `benign_ground_probe_measurement.py`, `prepare_runtime_radio_config.py`, and `benign_plaintext_transport_relay.py`
-- [x] Syntax-check `run_benign_baseline_plaintext_relay.sh` and `verify_benign_baseline_plaintext_relay.sh`
-- [x] Run `bash scripts/verify_benign_baseline_plaintext_relay.sh`
-- [x] Confirm all host and network-disabled self-tests and `BENIGN_BASELINE_PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VERIFICATION_STATUS=PASS`
-- [x] Accept the functional-readiness static correction and authorize one corrected run-1 rerun
-- [ ] Execute the corrected plaintext-relay run-1 rerun through `scripts/run_benign_baseline_plaintext_relay.sh`
-- [ ] Review relay command/telemetry accounting, counter transition, liveness, cleanup, runtime configuration hash, and separated evidence hashes
-- [ ] Accept or reject the first clean baseline run before attempting run 2
-- [ ] Execute the second clean benign baseline run only after run 1 acceptance
-- [ ] Compare the two clean-run manifests and reject unexplained variation before event work
+- [x] Pull and validate the telemetry-only diagnostic implementation
+- [x] Validate both JSON contracts
+- [x] Compile the runtime configuration preparer and telemetry witness
+- [x] Syntax-check the canonical, hardened, and verifier shell scripts
+- [x] Run `bash scripts/verify_downlink_path_diagnostic.sh`
+- [x] Confirm `DOWNLINK_DIAGNOSTIC_STATIC_VERIFICATION_STATUS=PASS`
+- [x] Accept the static gate without unblocking any baseline or command path
+- [ ] Execute one telemetry-only diagnostic through `bash scripts/run_downlink_path_diagnostic_hardened.sh`
+- [ ] Review TO witness receive/forward evidence and radio-egress witness evidence
+- [ ] Confirm zero command sources, zero measured-command transmissions, clean liveness, cleanup, and evidence hashes
+- [ ] Classify the downlink boundary and close the one-run diagnostic authorization
+- [ ] Design a correction only after the diagnostic boundary is established
+- [ ] Keep both benign baseline runs blocked pending the correction and a new static gate
 - [ ] Design a separate compatible CryptoLib/SDLS integration gate without conflating it with the nominal cFS packet baseline
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
@@ -168,4 +176,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, prior runner, original plaintext-relay, and functional-readiness static controls. Four full baseline attempts remain retained as `RUN_INVALID`; none produced a measured command outcome. Contract version `0.6.1` now requires observed `PLAINTEXT_RELAY_TELEMETRY_FORWARDED` evidence before measurement, and its corrected static gate has passed. One corrected run-1 rerun is authorized. Run 2 remains blocked until run 1 is reviewed and accepted. Event injection and CryptoLib/SDLS claims remain blocked, and immutable-ground evidence must remain demonstrably separate from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, and telemetry-only diagnostic static controls. Four full baseline attempts remain retained as `RUN_INVALID`; none produced a measured command outcome. Benign-baseline contract version `0.6.2` is fail-closed and authorizes no baseline execution. Downlink-diagnostic contract version `0.1.0` authorizes exactly one telemetry-only runtime through the hardened wrapper. No command source, event injection, scientific outcome classification, cryptographic claim, or baseline run is authorized.
