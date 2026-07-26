@@ -1,0 +1,19 @@
+RADIO_QUEUE_ELIGIBILITY_TIME_CALLBACK_AUDIT_DESIGN_LOCK
+date_utc=2026-07-26
+decision_id=D-055
+decision=Require a read-only retained-evidence and pinned-source audit of generic-radio packet eligibility, downlink enqueue, NOS Engine time progression, callback registration, and queue release before any infrastructure change or new runtime is considered.
+accepted_auditor=scripts/audit_radio_queue_eligibility_and_time_callback.sh
+retained_run=20260726T192902Z
+nos3_commit=5a3bdee6be9a2c67fdf994ae6db56d5c60395302
+generic_radio_commit=a2effa73715ab4fe2fdc41e549ae2dca81214d98
+sim_common_commit=0dbcb2ead4e5625a2a163c0fabe04157dd7e375e
+nos_time_driver_commit=0c097273431cf8a4882559518b704d8c8621b74f
+source_supported_preliminary_finding=The retained configuration sets downlink-close-criteria to none and downlink-delay-on to false. In the pinned source this makes communication capable with zero delay, after which successful UDP 5011 receipt is expected to enqueue a downlink message.
+remaining_boundary=Whether NOS Engine time progressed in retained evidence and whether the registered generic-radio callback received those ticks and observed the queued messages.
+overclaim_control=Zero UDP 8011 sends does not alone prove a specific callback defect. Retained time progression must be demonstrated before narrowing the finding to callback delivery or queue visibility.
+runtime_authorized=false
+runtime_attempts_authorized=0
+baseline_execution_allowed=false
+event_injection_allowed=false
+scientific_outcome_allowed=false
+retained_evidence_modified=false
