@@ -23,6 +23,30 @@ done
 
 bash -n "$SOURCE_VERIFIER"
 bash -n "$WRAPPER_V2"
+python3 - "$WRAPPER_V2" <<'PY'
+import sys
+from pathlib import Path
+
+text = Path(sys.argv[1]).read_text(encoding="utf-8")
+required = (
+    "radio_anchor = ''.join((",
+    "radio_instrumented = ''.join((",
+    "ast.parse(body",
+    "unterminated generated Python heredoc",
+    "no generated Python heredocs were validated",
+)
+for token in required:
+    if token not in text:
+        raise SystemExit(f"v2 overlay regression guard missing: {token}")
+for forbidden in (
+    'f"      --mount \\"type=bind',
+    "radio_old = '''",
+    "radio_new = '''",
+):
+    if forbidden in text:
+        raise SystemExit(f"v2 overlay retained unsafe or obsolete token: {forbidden}")
+PY
+
 source_sha_before="$(shasum -a 256 "$SOURCE_VERIFIER" | awk '{print $1}')"
 TEMP="$(mktemp "$ROOT/scripts/.verify-radio-socket-metadata-v2.XXXXXX.sh")"
 
