@@ -18,7 +18,7 @@ Last updated: 2026-07-26
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts and one invalid telemetry-only diagnostic retained; direct TO_LAB `5013` versus radio `5011` mismatch identified; all runtimes fail-closed | Pass the corrected 5013-to-5011 telemetry-only static gate |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts and one invalid telemetry-only diagnostic retained; direct TO_LAB `5013` versus radio `5011` mismatch identified; corrected static gate accepted | Execute and review one authorized telemetry-only `5013`-to-`5011` diagnostic |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -104,7 +104,7 @@ Last updated: 2026-07-26
 - [x] Define immutable-ground and policy-visible evidence boundaries
 - [x] Commit the machine-readable benign-baseline contract
 - [x] Implement the pinned cFE XOR checksum and fixed `SAMPLE_NOOP_CC` packet vector
-- [x] Implement deterministic `SAMPLE_HK_TLM` parsing using the pinned 12-byte telemetry header layout
+- [x] Implement deterministic `SAMPLE_HK_TLM` parsing using the pinned 12-byte cFE telemetry header layout
 - [x] Implement separate immutable-ground and policy-visible evidence files with independent SHA-256 manifests
 - [x] Add and pass host and network-disabled pinned-container probe self-tests
 - [x] Implement the bounded 22-component benign-baseline runner with no event-injection path
@@ -155,6 +155,9 @@ Last updated: 2026-07-26
 - [x] Define contract `0.2.0` for an `active-gs:5013` byte-preserving proxy to `radio-sim:5011`
 - [x] Add a non-sensitive policy-visible `scope.json` requirement and zero-entry manifest rejection
 - [x] Add the corrected overlay and dedicated static verifier without authorizing runtime
+- [x] Pass the corrected port-correction static verification gate
+- [x] Seal the static gate in `artifacts/downlink-port-correction-static-gate-lock.txt`
+- [x] Accept decision D-047 and authorize exactly one telemetry-only port-correction runtime
 
 ## Immediate tasks
 
@@ -162,12 +165,16 @@ Last updated: 2026-07-26
 - [x] Confirm `cfgTLM_PORT` is `5013`
 - [x] Confirm SAMPLE subscription and five-second scheduling are present
 - [x] Confirm the prior local diagnostic evidence directory is ignored and the worktree is clean
-- [ ] Pull the TO_LAB port-correction implementation
-- [ ] Validate contract `0.2.0`
-- [ ] Syntax-check `run_downlink_port_correction_diagnostic.sh` and `verify_downlink_port_correction_diagnostic.sh`
-- [ ] Run `bash scripts/verify_downlink_port_correction_diagnostic.sh`
-- [ ] Confirm `DOWNLINK_PORT_CORRECTION_STATIC_VERIFICATION_STATUS=PASS`
-- [ ] Review and formally accept the corrected static gate before authorizing one telemetry-only runtime
+- [x] Pull the TO_LAB port-correction implementation
+- [x] Validate contract `0.2.0`
+- [x] Syntax-check `run_downlink_port_correction_diagnostic.sh` and `verify_downlink_port_correction_diagnostic.sh`
+- [x] Run `bash scripts/verify_downlink_port_correction_diagnostic.sh`
+- [x] Confirm `DOWNLINK_PORT_CORRECTION_STATIC_VERIFICATION_STATUS=PASS`
+- [x] Review and formally accept the corrected static gate
+- [ ] Execute exactly one telemetry-only runtime through `bash scripts/run_downlink_port_correction_diagnostic.sh`
+- [ ] Review the `5013` proxy receive/forward markers and radio-egress receive marker
+- [ ] Verify the policy-visible `scope.json`, non-empty manifests, runtime liveness, cleanup, and zero commands
+- [ ] Close the one-run authorization and classify the corrected downlink path
 - [ ] Keep all benign baseline runs blocked pending a successful telemetry-only correction diagnostic
 - [ ] Design a separate compatible CryptoLib/SDLS integration gate without conflating it with the nominal cFS packet baseline
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
@@ -180,4 +187,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, and TO_LAB static-audit controls. Four benign baseline attempts remain `RUN_INVALID`; none produced a measured command outcome. Telemetry-only run `20260726T021807Z` remains `DOWNLINK_DIAGNOSTIC_INVALID`, but its zero-packet observation is explained by a direct compiled port mismatch: TO_LAB sends to `5013` while the witness and radio listener used `5011`. Contract `0.2.0` defines a corrected `5013`-to-`5011` bridge and evidence-tree fix, but authorizes zero runtime attempts until its dedicated static gate passes and is accepted. Event injection, baseline execution, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, TO_LAB static-audit, and corrected port-bridge static controls. Four benign baseline attempts remain `RUN_INVALID`; none produced a measured command outcome. Telemetry-only run `20260726T021807Z` remains `DOWNLINK_DIAGNOSTIC_INVALID`, and its zero-packet observation is explained by the prior witness listening on `5011` while TO_LAB was compiled to send on `5013`. Contract `0.2.0` now authorizes exactly one telemetry-only `active-gs:5013` to `radio-sim:5011` diagnostic through the corrected entrypoint. Event injection, baseline execution, command transmission, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.
