@@ -47,7 +47,7 @@ bash -n "$HISTORICAL_RUNNER"
 bash -n "$RUNNER"
 bash -n "$AUDITOR"
 
-python3 - "$BASELINE_CONTRACT" "$DIAGNOSTIC_CONTRACT" "$AUDIT_LOCK" "$RUNNER" <<'PY'
+python3 - "$BASELINE_CONTRACT" "$DIAGNOSTIC_CONTRACT" "$AUDIT_LOCK" "$RUNNER" "$HISTORICAL_RUNNER" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -56,6 +56,7 @@ baseline = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 diagnostic = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
 audit_lock = Path(sys.argv[3]).read_text(encoding="utf-8")
 runner = Path(sys.argv[4]).read_text(encoding="utf-8")
+historical_runner = Path(sys.argv[5]).read_text(encoding="utf-8")
 
 assert baseline["contract_version"] == "0.6.2"
 assert baseline["status"] == "PLAINTEXT_RELAY_DOWNLINK_DIAGNOSIS_PENDING"
@@ -106,6 +107,11 @@ for token in (
     "classification=PASS_DIRECT_CONFIGURATION_MISMATCH_IDENTIFIED",
 ):
     assert token in audit_lock, token
+
+historical_runtime_line = '--mode proxy --bind-host 0.0.0.0 --bind-port 5011 ' + chr(92) * 2
+assert historical_runner.count(historical_runtime_line) == 1
+assert "runtime_line_old = '--mode proxy --bind-host 0.0.0.0 --bind-port 5011 ' + chr(92) * 2" in runner
+assert "runtime_line_new = '--mode proxy --bind-host 0.0.0.0 --bind-port 5013 ' + chr(92) * 2" in runner
 
 for token in (
     'assert contract["contract_version"] == "0.2.0"',
