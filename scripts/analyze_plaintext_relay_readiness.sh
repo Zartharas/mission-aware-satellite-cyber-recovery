@@ -59,6 +59,7 @@ PROBE_LOG="$(find_log ground-probe)"
 RELAY_LOG="$(find_log plaintext-relay)"
 RADIO_LOG="$(find_log generic-radio-sim)"
 CFS_LOG="$(find_log cfs)"
+TRUTH_LOG="$(find_log truth-sink)"
 RADIO_INSPECT="$(find_inspect generic-radio-sim)"
 RELAY_INSPECT="$(find_inspect plaintext-relay)"
 
@@ -68,9 +69,12 @@ relay_alias=0
 radio_udp_5011=0
 radio_udp_8010=0
 radio_destination_8011=0
-radio_time_bus=0
+radio_time_bus_logged=0
+radio_time_bus_inferred=0
 radio_42_connected=0
 radio_forward_errors=0
+truth_sink_connected=0
+truth_sink_bytes_observed=0
 cfs_operational=0
 ci_lab_5012=0
 to_lab_active_gs=0
@@ -132,13 +136,26 @@ PY
 )"
 fi
 
+[[ "$(value "$MANIFEST" radio_udp_5011_listener)" == ready ]] && radio_udp_5011=1 || true
+[[ "$(value "$MANIFEST" radio_udp_8010_listener)" == ready ]] && radio_udp_8010=1 || true
+[[ "$(value "$MANIFEST" truth_sink_connection)" == ready ]] && truth_sink_connected=1 || true
+
+if (( radio_udp_5011 == 1 && radio_udp_8010 == 1 )); then
+  radio_time_bus_inferred=1
+fi
+
 if [[ -n "$RADIO_LOG" && -f "$RADIO_LOG" ]]; then
   grep -Eq 'radio-sim.*Port = 5011|radio-sim:5011' "$RADIO_LOG" && radio_udp_5011=1 || true
   grep -Eq 'radio-sim.*Port = 8010|radio-sim:8010' "$RADIO_LOG" && radio_udp_8010=1 || true
   grep -Eq 'Initial = cryptolib.*Port = 8011|to cryptolib:8011' "$RADIO_LOG" && radio_destination_8011=1 || true
-  grep -Fq 'Now on time bus named command' "$RADIO_LOG" && radio_time_bus=1 || true
+  grep -Fq 'Now on time bus named command' "$RADIO_LOG" && radio_time_bus_logged=1 || true
   grep -Eq 'Successfully connected TELEMETRY host fortytwo, port 4286|connected.*fortytwo.*4286' "$RADIO_LOG" && radio_42_connected=1 || true
   radio_forward_errors="$(grep -ciE 'only forwarded|Socker bind error|Socket bind error|Invalid IP resolution|Failed to resolve host Cryptolib IP after|recvfrom.*error|sendto.*error' "$RADIO_LOG" || true)"
+fi
+
+if [[ -n "$TRUTH_LOG" && -f "$TRUTH_LOG" ]]; then
+  grep -Fq 'TRUTH_SINK_CONNECTED' "$TRUTH_LOG" && truth_sink_connected=1 || true
+  grep -Fq 'TRUTH_SINK_BYTES=' "$TRUTH_LOG" && truth_sink_bytes_observed=1 || true
 fi
 
 if [[ -n "$CFS_LOG" && -f "$CFS_LOG" ]]; then
@@ -187,7 +204,7 @@ echo
 echo "[MANIFEST]"
 for key in \
   run_id phase baseline_transport_profile cryptographic_semantics_status \
-  plaintext_relay_ready radio_udp_8010_listener radio_udp_5011_listener \
+  plaintext_relay_ready truth_sink_connection radio_udp_8010_listener radio_udp_5011_listener \
   plaintext_relay_telemetry_flow ground_probe_exit_state ground_probe_classification \
   baseline_status terminal_classification exit_code evidence_capture_failed cleanup_failed \
   cleanup_project_containers_remaining cleanup_project_networks_remaining \
@@ -201,6 +218,8 @@ show_matches "PLAINTEXT_RELAY" "$RELAY_LOG" \
   'PLAINTEXT_RELAY_(READY|TELEMETRY_FORWARDED|COMMAND_RECEIVED|COMMAND_FORWARDED|INVALID|STOPPED)'
 show_matches "RADIO" "$RADIO_LOG" \
   'Construction complete|Now on time bus|fortytwo|4286|5011|5012|8010|8011|forward_loop|received [0-9]+ bytes|only forwarded|bind error|error|failed|exception'
+show_matches "TRUTH_SINK" "$TRUTH_LOG" \
+  'TRUTH_SINK_(CONNECTED|BYTES|STREAM_CLOSED|CONNECT_FAILED)'
 show_matches "CFS" "$CFS_LOG" \
   'entering OPERATIONAL state|CI_LAB listening|TO telemetry output enabled|active-gs|SAMPLE App Initialized|SAMPLE.*housekeeping|error|failed'
 show_matches "GROUND_PROBE" "$PROBE_LOG" \
@@ -211,11 +230,14 @@ echo "[CONTROL_EVIDENCE]"
 echo "runtime_config_single_character_5010_to_5012=$runtime_config_valid"
 echo "radio_active_gs_alias_present=$active_gs_alias"
 echo "relay_cryptolib_and_plaintext_aliases_present=$relay_alias"
-echo "radio_udp_5011_listener_observed=$radio_udp_5011"
-echo "radio_udp_8010_listener_observed=$radio_udp_8010"
-echo "radio_downlink_destination_8011_observed=$radio_destination_8011"
-echo "radio_time_bus_registration_observed=$radio_time_bus"
-echo "radio_42_connection_observed=$radio_42_connected"
+echo "radio_udp_5011_listener_manifest_or_log=$radio_udp_5011"
+echo "radio_udp_8010_listener_manifest_or_log=$radio_udp_8010"
+echo "radio_downlink_destination_8011_log_observed=$radio_destination_8011"
+echo "radio_time_bus_registration_log_observed=$radio_time_bus_logged"
+echo "radio_time_bus_registration_inferred_from_forward_threads=$radio_time_bus_inferred"
+echo "radio_42_connection_log_observed=$radio_42_connected"
+echo "truth_sink_connection_observed=$truth_sink_connected"
+echo "truth_sink_byte_progress_observed=$truth_sink_bytes_observed"
 echo "radio_udp_forward_error_lines=$radio_forward_errors"
 echo "cfs_operational_observed=$cfs_operational"
 echo "ci_lab_5012_observed=$ci_lab_5012"
@@ -242,12 +264,12 @@ elif (( cfs_operational == 0 || ci_lab_5012 == 0 || to_lab_active_gs == 0 || sam
   diagnosis="CFS_OR_TO_LAB_READINESS_INCOMPLETE"
 elif (( relay_telemetry > 0 )); then
   diagnosis="TELEMETRY_REACHED_RELAY_RUNNER_MARKER_TIMING_OR_CAPTURE_MISMATCH"
-elif (( radio_destination_8011 == 0 )); then
-  diagnosis="RADIO_TO_RELAY_DESTINATION_RESOLUTION_UNCONFIRMED"
-elif (( radio_time_bus == 0 || radio_42_connected == 0 )); then
-  diagnosis="RADIO_SIMULATION_TIME_FORWARD_QUEUE_UNCONFIRMED"
 elif (( radio_forward_errors > 0 )); then
   diagnosis="RADIO_UDP_FORWARDING_ERROR_OBSERVED"
+elif (( radio_42_connected == 0 )); then
+  diagnosis="RADIO_42_DATA_PROVIDER_CONNECTION_UNCONFIRMED"
+elif (( radio_destination_8011 == 0 )); then
+  diagnosis="RADIO_TO_RELAY_DESTINATION_LOG_UNCONFIRMED"
 else
   diagnosis="TO_LAB_TO_RADIO_RECEIVE_OR_RADIO_QUEUE_RELEASE_UNRESOLVED"
 fi
