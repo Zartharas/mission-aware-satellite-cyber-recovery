@@ -70,7 +70,7 @@ radio_udp_8010=0
 radio_destination_8011=0
 radio_time_bus=0
 radio_42_connected=0
-radio_errors=0
+radio_forward_errors=0
 cfs_operational=0
 ci_lab_5012=0
 to_lab_active_gs=0
@@ -138,7 +138,7 @@ if [[ -n "$RADIO_LOG" && -f "$RADIO_LOG" ]]; then
   grep -Eq 'Initial = cryptolib.*Port = 8011|to cryptolib:8011' "$RADIO_LOG" && radio_destination_8011=1 || true
   grep -Fq 'Now on time bus named command' "$RADIO_LOG" && radio_time_bus=1 || true
   grep -Eq 'Successfully connected TELEMETRY host fortytwo, port 4286|connected.*fortytwo.*4286' "$RADIO_LOG" && radio_42_connected=1 || true
-  radio_errors="$(grep -ciE 'error|failed|exception' "$RADIO_LOG" || true)"
+  radio_forward_errors="$(grep -ciE 'only forwarded|Socker bind error|Socket bind error|Invalid IP resolution|Failed to resolve host Cryptolib IP after|recvfrom.*error|sendto.*error' "$RADIO_LOG" || true)"
 fi
 
 if [[ -n "$CFS_LOG" && -f "$CFS_LOG" ]]; then
@@ -200,7 +200,7 @@ done
 show_matches "PLAINTEXT_RELAY" "$RELAY_LOG" \
   'PLAINTEXT_RELAY_(READY|TELEMETRY_FORWARDED|COMMAND_RECEIVED|COMMAND_FORWARDED|INVALID|STOPPED)'
 show_matches "RADIO" "$RADIO_LOG" \
-  'Construction complete|Now on time bus|fortytwo|4286|5011|5012|8010|8011|forward_loop|received [0-9]+ bytes|only forwarded|error|failed|exception'
+  'Construction complete|Now on time bus|fortytwo|4286|5011|5012|8010|8011|forward_loop|received [0-9]+ bytes|only forwarded|bind error|error|failed|exception'
 show_matches "CFS" "$CFS_LOG" \
   'entering OPERATIONAL state|CI_LAB listening|TO telemetry output enabled|active-gs|SAMPLE App Initialized|SAMPLE.*housekeeping|error|failed'
 show_matches "GROUND_PROBE" "$PROBE_LOG" \
@@ -216,7 +216,7 @@ echo "radio_udp_8010_listener_observed=$radio_udp_8010"
 echo "radio_downlink_destination_8011_observed=$radio_destination_8011"
 echo "radio_time_bus_registration_observed=$radio_time_bus"
 echo "radio_42_connection_observed=$radio_42_connected"
-echo "radio_error_or_failure_lines=$radio_errors"
+echo "radio_udp_forward_error_lines=$radio_forward_errors"
 echo "cfs_operational_observed=$cfs_operational"
 echo "ci_lab_5012_observed=$ci_lab_5012"
 echo "to_lab_active_gs_observed=$to_lab_active_gs"
@@ -246,8 +246,8 @@ elif (( radio_destination_8011 == 0 )); then
   diagnosis="RADIO_TO_RELAY_DESTINATION_RESOLUTION_UNCONFIRMED"
 elif (( radio_time_bus == 0 || radio_42_connected == 0 )); then
   diagnosis="RADIO_SIMULATION_TIME_FORWARD_QUEUE_UNCONFIRMED"
-elif (( radio_errors > 0 )); then
-  diagnosis="RADIO_LOG_CONTAINS_ERRORS_REVIEW_REQUIRED"
+elif (( radio_forward_errors > 0 )); then
+  diagnosis="RADIO_UDP_FORWARDING_ERROR_OBSERVED"
 else
   diagnosis="TO_LAB_TO_RADIO_RECEIVE_OR_RADIO_QUEUE_RELEASE_UNRESOLVED"
 fi
