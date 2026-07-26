@@ -49,13 +49,13 @@ runner = Path(sys.argv[2]).read_text(encoding="utf-8")
 relay = Path(sys.argv[3]).read_text(encoding="utf-8")
 
 assert contract["contract_version"] == "0.6.1"
-assert contract["status"] == "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VALIDATION_PENDING"
+assert contract["status"] == "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_STATIC_GATE_PASS_RUN_1_RERUN_PENDING"
 assert contract["event_injection_allowed"] is False
 assert contract["implementation"]["plaintext_transport_relay_self_test"] == "PASS"
 assert contract["implementation"]["network_disabled_container_self_tests"] == "PASS"
-assert contract["implementation"]["runtime_runner_validation"] == "PENDING_FUNCTIONAL_READINESS_GATE"
+assert contract["implementation"]["runtime_runner_validation"] == "PASS"
 assert contract["implementation"]["baseline_run_1"] == "RUN_INVALID_PRE_MEASUREMENT_READINESS"
-assert contract["implementation"]["baseline_run_1_rerun"] == "BLOCKED_PENDING_FUNCTIONAL_READINESS_STATIC_GATE"
+assert contract["implementation"]["baseline_run_1_rerun"] == "PENDING"
 assert contract["implementation"]["baseline_run_2"] == "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
 baseline = contract["baseline_transport"]
 assert baseline["profile"] == "PLAINTEXT_UDP_RELAY"
@@ -73,7 +73,7 @@ assert contract["evidence"]["cryptographic_semantics_claim_allowed"] is False
 assert contract["gate"]["required_clean_passes"] == 2
 assert contract["gate"]["event_injection_unblocked_after_gate"] is False
 assert contract["gate"]["baseline_run_1_authorized"] is False
-assert contract["gate"]["baseline_run_1_rerun_authorized"] is False
+assert contract["gate"]["baseline_run_1_rerun_authorized"] is True
 assert contract["gate"]["baseline_run_2_authorized"] is False
 
 transport = contract["transport"]
