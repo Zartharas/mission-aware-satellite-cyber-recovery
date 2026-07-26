@@ -18,7 +18,7 @@ Last updated: 2026-07-26
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts and two invalid telemetry-only diagnostics retained; TO_LAB `5013` bridge validated; generic-radio ingress versus queue release unresolved | Complete and accept the read-only radio observability audit |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts and two invalid telemetry-only diagnostics retained; TO_LAB `5013` bridge validated; metadata-only radio socket shim static gate accepted | Implement and pass the dedicated metadata-runtime wrapper static gate |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -160,21 +160,26 @@ Last updated: 2026-07-26
 - [x] Accept decision D-047 and authorize exactly one telemetry-only port-correction runtime
 - [x] Execute corrected telemetry-only run `20260726T165332Z` and classify it `DOWNLINK_DIAGNOSTIC_INVALID`
 - [x] Confirm the `5013` proxy received and byte-preservingly forwarded 1,452 unique packets totaling 314,985 bytes to radio-sim UDP `5011`
-- [x] Confirm the UDP `8011` egress witness remained empty while all 22 components remained live
+- [x] Confirm the UDP `8011` egress witness remained empty at the final retained observation
 - [x] Verify zero commands, clean teardown, valid evidence trees, and non-empty policy-visible scope evidence
 - [x] Close the consumed corrected-runtime authorization in contract `0.3.0`
 - [x] Record compact run lock and decisions D-048 and D-049
-- [x] Add read-only retained radio-queue and static observability audits
+- [x] Add and run the read-only retained radio-queue and static observability audits
+- [x] Distinguish the header-only liveness checkpoint CSV from the 22-container final Docker-inspect snapshot
+- [x] Confirm metadata-only `LD_PRELOAD` interposition is feasible without source edits, packet capture, host networking, Docker-socket access, or commands
+- [x] Implement the filtered radio socket metadata shim and deterministic loopback self-test
+- [x] Pass the pinned-image, network-disabled shim static verification gate
+- [x] Seal the shim gate in `artifacts/radio-socket-metadata-shim-static-gate-lock.txt`
+- [x] Accept decision D-050 while keeping all NOS3 runtime integration blocked
 
 ## Immediate tasks
 
-- [ ] Pull contract `0.3.0` and the two radio-observability audit scripts
-- [ ] Syntax-check `analyze_radio_queue_retained_run.sh` and `audit_radio_observability_static.sh`
-- [ ] Run the retained-run analyzer against `20260726T165332Z`
-- [ ] Confirm the proxy counts, byte-preservation, liveness, cleanup, and evidence findings
-- [ ] Run the pinned-source/logger/toolchain observability audit
-- [ ] Determine whether an `LD_PRELOAD` recvfrom/sendto metadata shim is feasible without source edits, packet-capture capabilities, host networking, or commands
-- [ ] Keep all diagnostic runtimes and benign baselines blocked pending a separately accepted observability design and static gate
+- [ ] Implement a dedicated telemetry-only metadata-runtime wrapper without modifying the historical or port-correction runners
+- [ ] Mount the accepted shim only into generic-radio and store its trace only under immutable-ground evidence
+- [ ] Preserve the `active-gs:5013` proxy to `radio-sim:5011` and the UDP `8011` egress sink
+- [ ] Prove the generated wrapper contains no command source, event injection, packet capture, host networking, Docker-socket mount, packet content, packet hashes, or IP-address trace fields
+- [ ] Pass a separate network-disabled wrapper-generation and syntax-verification gate
+- [ ] Keep every diagnostic runtime and benign baseline blocked until that wrapper gate is reviewed and accepted
 - [ ] Design a separate compatible CryptoLib/SDLS integration gate without conflating it with the nominal cFS packet baseline
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
@@ -186,4 +191,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, TO_LAB static-audit, and corrected port-bridge static controls. Four benign baseline attempts and two telemetry-only diagnostics remain invalid infrastructure runs; none produced a measured command outcome. Run `20260726T165332Z` conclusively validates TO_LAB packet production and a byte-preserving `active-gs:5013` to `radio-sim:5011` bridge, but zero packets reached the UDP `8011` egress witness. The pinned radio queues received downlink packets and releases them from a NOS Engine time-tick callback; its current source has no successful ingress trace and only a TRACE-level queue-release marker. Contract `0.3.0` authorizes zero runtimes while read-only radio observability is audited. Event injection, baseline execution, command transmission, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, TO_LAB static-audit, corrected port-bridge, radio-observability, retained-liveness, and metadata-shim component controls. Four benign baseline attempts and two telemetry-only diagnostics remain invalid infrastructure runs; none produced a measured command outcome. Run `20260726T165332Z` validates TO_LAB packet production and the byte-preserving `active-gs:5013` to `radio-sim:5011` bridge, but does not distinguish radio UDP ingress from simulation-time queue release. The accepted metadata-only shim can observe `recvfrom` on local UDP `5011` and `sendto` to UDP `8011` without packet content or IP addresses. Contract `0.4.1` authorizes zero runtimes while a dedicated generic-radio-only integration wrapper and its static gate are designed. Event injection, baseline execution, command transmission, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.
