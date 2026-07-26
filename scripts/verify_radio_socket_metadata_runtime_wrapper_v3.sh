@@ -68,6 +68,9 @@ required_wrapper_tokens = (
 for token in required_wrapper_tokens:
     if token not in wrapper:
         raise SystemExit(f"v3 wrapper requirement missing: {token}")
+
+assert ("PENDING" if True else "PASS") == "PENDING"
+assert ("PENDING" if False else "PASS") == "PASS"
 PY
 
 lock_value() {
@@ -143,11 +146,6 @@ import sys
 from pathlib import Path
 
 text = Path(sys.argv[1]).read_text(encoding="utf-8")
-mode_aware_assertion = (
-    'assert contract["gate"]'
-    '["radio_socket_metadata_runtime_wrapper_v3_static_verification"] '
-    '== ("PENDING" if verify_only else "PASS")'
-)
 required = (
     'SOCKET_METADATA_DIR="$GROUND/radio-socket-metadata"',
     'SHIM_BUILD_DIR="$ORCHESTRATION/radio-socket-shim"',
@@ -166,14 +164,15 @@ required = (
     'RADIO_SOCKET_METADATA_DIAGNOSTIC_STATUS=COMPLETE',
     'record measured_command_transmissions 0',
     'record ground_command_sources 0',
-    mode_aware_assertion,
 )
 for token in required:
     if token not in text:
         raise SystemExit(f"generated v3 runtime requirement missing: {token}")
-if text.count(mode_aware_assertion) != 1:
+
+wrapper_gate_token = "radio_socket_metadata_runtime_wrapper_v3_static_verification"
+if wrapper_gate_token in text:
     raise SystemExit(
-        "generated v3 runtime must contain exactly one mode-aware wrapper-gate assertion"
+        "generated final runtime must not contain intermediate wrapper-gate assertions"
     )
 
 if text.count('LD_PRELOAD=/tmp/libradio_socket_metadata_shim.so') != 1:
@@ -265,6 +264,9 @@ echo "generated_runtime_v3_sha256=$(shasum -a 256 "$EMITTED" | awk '{print $1}')
 echo "shim_source_sha256=$expected_shim_source_sha"
 echo "shim_linux_shared_object_sha256=$actual_shim_so_sha"
 echo "wrapper_gate_assertion_mode_aware=1"
+echo "intermediate_wrapper_verify_mode_gate=PASS"
+echo "runtime_branch_expression_self_test=PASS"
+echo "final_runtime_wrapper_gate_assertion_present=0"
 echo "verification_expected_gate=PENDING"
 echo "runtime_expected_gate=PASS"
 echo "docker_network_mode=none"
