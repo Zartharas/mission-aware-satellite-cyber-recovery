@@ -66,17 +66,41 @@ add(
 '''
 
 updated = text[:start] + replacement + text[end:]
+
+legacy_docker_guard = '''add("for forbidden in ('--network host', '/var/run/docker.sock', '--cap-add NET_RAW', '--cap-add NET_ADMIN', 'tcpdump', 'tshark'):")
+add("    if forbidden in updated:")
+add("        raise SystemExit(f'forbidden metadata runtime token present: {forbidden}')")
+'''
+structural_docker_guard = '''add("for forbidden in ('--network host', '--cap-add NET_RAW', '--cap-add NET_ADMIN', 'tcpdump', 'tshark'):")
+add("    if forbidden in updated:")
+add("        raise SystemExit(f'forbidden metadata runtime token present: {forbidden}')")
+add("docker_socket_mount_markers = ('--mount', '--volume', 'source=', 'target=', '-v /var/run/docker.sock', '-v=/var/run/docker.sock')")
+add("for docker_socket_line in updated.splitlines():")
+add("    if '/var/run/docker.sock' in docker_socket_line and any(marker in docker_socket_line for marker in docker_socket_mount_markers):")
+add("        raise SystemExit(f'forbidden Docker socket mount present: {docker_socket_line.strip()}')")
+'''
+if updated.count(legacy_docker_guard) != 1:
+    raise SystemExit(
+        "legacy Docker socket guard source shape changed: "
+        f"expected 1, found {updated.count(legacy_docker_guard)}"
+    )
+updated = updated.replace(legacy_docker_guard, structural_docker_guard, 1)
+
 for required in (
     "radio_anchor = ''.join((",
     "radio_instrumented = ''.join((",
     "generic-radio-only shim mount",
     "LD_PRELOAD=/tmp/libradio_socket_metadata_shim.so",
     "RADIO_SOCKET_TRACE_PATH=/evidence-socket-metadata/radio-socket-metadata.log",
+    "docker_socket_mount_markers = (",
+    "forbidden Docker socket mount present",
 ):
     if required not in updated:
         raise SystemExit(f"v2 wrapper requirement missing: {required}")
 if "radio_old = '''" in updated or "radio_new = '''" in updated:
     raise SystemExit("legacy multiline radio anchor remained after v2 preparation")
+if "for forbidden in ('--network host', '/var/run/docker.sock'" in updated:
+    raise SystemExit("legacy broad Docker socket literal ban remained after v2 preparation")
 
 lines = updated.splitlines()
 marker = re.compile(r"<<'(?P<delimiter>PY[A-Z0-9_]*)'")
