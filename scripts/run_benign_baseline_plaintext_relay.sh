@@ -183,8 +183,8 @@ udp_wait_function = '''wait_for_udp_listener() {
       echo "[ERROR] $name stopped before UDP port $port became ready." >&2
       return 1
     }
-    if docker exec "$name" sh -lc \
-      "awk '\\$2 ~ /:${hex_port}\\$/ {found=1} END {exit found ? 0 : 1}' /proc/net/udp" \
+    if docker exec "$name" sh -lc \\
+      "awk '\\$2 ~ /:${hex_port}\\$/ {found=1} END {exit found ? 0 : 1}' /proc/net/udp" \\
       >/dev/null 2>&1; then
       record "$manifest_key" ready
       record "${manifest_key}_utc" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -207,9 +207,15 @@ updated = replace_once(
 updated = replace_once(
     updated,
     'wait_for_log_marker "$PREFIX-generic-radio-sim" "Successfully connected to TCP server!" 45 radio_cryptolib_downlink\n',
-    'wait_for_udp_listener "$PREFIX-generic-radio-sim" 5011 45 radio_udp_5011_listener\n'
-    'wait_for_log_marker "$PREFIX-generic-radio-sim" "forward_loop - Initial = cryptolib" 45 radio_plaintext_downlink_destination\n',
-    "radio downlink readiness",
+    'wait_for_udp_listener "$PREFIX-generic-radio-sim" 5011 45 radio_udp_5011_listener\n',
+    "radio downlink listener",
+)
+updated = replace_once(
+    updated,
+    'wait_for_log_marker "$PREFIX-cfs" "TO telemetry output enabled for IP active-gs" 60 to_lab_active_gs\n',
+    'wait_for_log_marker "$PREFIX-cfs" "TO telemetry output enabled for IP active-gs" 60 to_lab_active_gs\n'
+    'wait_for_log_marker "$PREFIX-plaintext-relay" PLAINTEXT_RELAY_TELEMETRY_FORWARDED 60 plaintext_relay_telemetry_flow\n',
+    "functional telemetry readiness",
 )
 relay_acceptance = '''    relay_logs="$(docker logs "$PREFIX-plaintext-relay" 2>&1 || true)"
     relay_command_received_count="$(grep -Fc 'PLAINTEXT_RELAY_COMMAND_RECEIVED' <<< "$relay_logs" || true)"
@@ -256,6 +262,7 @@ for forbidden in (
     "./support/standalone",
     "STANDALONE_TCP=1",
     "TCP_GROUND=1",
+    'forward_loop - Initial = cryptolib',
 ):
     if forbidden in updated:
         raise SystemExit(f"forbidden legacy transport content remained: {forbidden}")
@@ -265,6 +272,7 @@ required_exact_tokens = (
     'start plaintext-relay cryptolib true',
     'wait_for_udp_listener "$PREFIX-generic-radio-sim" 8010',
     'wait_for_udp_listener "$PREFIX-generic-radio-sim" 5011',
+    'wait_for_log_marker "$PREFIX-plaintext-relay" PLAINTEXT_RELAY_TELEMETRY_FORWARDED 60 plaintext_relay_telemetry_flow',
     'baseline_transport_profile plaintext_udp_relay',
     'cryptographic_semantics_status deferred',
     'transport_relay_command_forwarded_count',
