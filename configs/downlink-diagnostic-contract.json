@@ -1,6 +1,6 @@
 {
   "contract_version": "0.4.2",
-  "status": "RADIO_SOCKET_METADATA_RUNTIME_STATIC_GATE_PASS_RUNTIME_PENDING",
+  "status": "RADIO_SOCKET_METADATA_RUNTIME_ATTEMPT_CONSUMED_PRE_RUNTIME_ASSERTION_FAILED",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -22,7 +22,8 @@
     "port_correction_invalid_runtime_lock": "artifacts/downlink-port-correction-invalid-20260726T165332Z.txt",
     "radio_observability_read_only_audit_lock": "artifacts/radio-observability-read-only-audit-lock.txt",
     "radio_socket_metadata_shim_static_gate_lock": "artifacts/radio-socket-metadata-shim-static-gate-lock.txt",
-    "radio_socket_metadata_runtime_wrapper_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-static-gate-lock.txt"
+    "radio_socket_metadata_runtime_wrapper_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-static-gate-lock.txt",
+    "radio_socket_metadata_runtime_prelaunch_failure_lock": "artifacts/radio-socket-metadata-runtime-prelaunch-assertion-failed-20260726.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -39,6 +40,8 @@
     "radio_socket_metadata_shim_verifier": "scripts/verify_radio_socket_metadata_shim.sh",
     "radio_socket_metadata_runtime_entrypoint": "scripts/run_radio_socket_metadata_diagnostic_v2.sh",
     "radio_socket_metadata_runtime_verifier": "scripts/verify_radio_socket_metadata_runtime_wrapper_v2.sh",
+    "next_radio_socket_metadata_runtime_entrypoint_candidate": "scripts/run_radio_socket_metadata_diagnostic_v3.sh",
+    "next_radio_socket_metadata_runtime_verifier_candidate": "scripts/verify_radio_socket_metadata_runtime_wrapper_v3.sh",
     "direct_historical_runner_execution_allowed": false,
     "direct_port_correction_runner_execution_allowed": false,
     "direct_radio_socket_metadata_runner_execution_allowed": false,
@@ -48,7 +51,8 @@
     "historical_diagnostic_runtime_authorization_consumed": true,
     "port_correction_runtime_authorization_consumed": true,
     "radio_socket_metadata_shim_static_verification": "PASS",
-    "radio_socket_metadata_runtime": "AUTHORIZED_ONE_TELEMETRY_ONLY_ATTEMPT"
+    "radio_socket_metadata_runtime": "CONSUMED_PRE_RUNTIME_ASSERTION_FAILED",
+    "radio_socket_metadata_v3_runtime": "BLOCKED_PENDING_STATIC_VALIDATION"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -114,6 +118,11 @@
       "classification": "RADIO_INGRESS_OR_SIMULATION_TIME_QUEUE_RELEASE_UNRESOLVED_AT_CURRENT_LOG_LEVEL",
       "status": "ACTIVE",
       "reason": "The pinned radio receives UDP in forward_loop, queues eligible downlink packets, and sends them only from a time-tick callback. The retained logger level did not expose a successful recvfrom or queue-release event, and the source has no successful ingress trace at the recvfrom boundary."
+    },
+    {
+      "classification": "METADATA_RUNTIME_PRELAUNCH_WRAPPER_GATE_ASSERTION_MISMATCH",
+      "status": "ACTIVE_FOR_CORRECTION",
+      "reason": "The v2 metadata wrapper inserted an unconditional PENDING assertion for radio_socket_metadata_runtime_wrapper_static_verification. During the authorized path the contract correctly held PASS, so the nested wrapper failed before temporary runtime generation or Docker activity."
     }
   ],
   "root_cause_finding": {
@@ -126,7 +135,7 @@
   "compatibility_aliases": {
     "topology": "confirmed_topology",
     "root_cause_finding": "root_cause_findings[DIRECT_COMPILED_PORT_MISMATCH]",
-    "scope": "nested wrapper generation and the single authorized metadata diagnostic",
+    "scope": "nested wrapper generation only while runtime remains blocked",
     "runtime_behavior_changed": false
   },
   "retained_runtime_results": [
@@ -161,6 +170,25 @@
       "immutable_ground_hash_failed": 0,
       "policy_visible_hash_failed": 0,
       "interpretation": "TO_LAB production, hostname resolution, UDP 5013 receipt, and byte-preserving forwarding to radio-sim UDP 5011 are confirmed. Radio socket receipt versus simulation-time queue release remains unresolved at the retained logging level."
+    }
+  ],
+  "pre_runtime_attempt_results": [
+    {
+      "attempt_date_utc": "2026-07-26",
+      "authorized_entrypoint": "bash scripts/run_radio_socket_metadata_diagnostic_v2.sh",
+      "terminal_classification": "PRE_RUNTIME_ASSERTION_FAILED",
+      "failure_stage": "nested_port_correction_contract_validation",
+      "observed_exception": "AssertionError_line_15",
+      "failed_assertion": "radio_socket_metadata_runtime_wrapper_static_verification == PENDING",
+      "contract_value": "PASS",
+      "runtime_wrapper_generation_completed": false,
+      "docker_invoked": false,
+      "project_network_created": false,
+      "nos3_runtime_launched": false,
+      "command_source_present": false,
+      "command_transmission_possible": false,
+      "event_injection_possible": false,
+      "runtime_authorization_consumed": true
     }
   ],
   "accepted_read_only_audits": {
@@ -214,7 +242,8 @@
     "docker_socket_mount_forbidden": true,
     "command_source_forbidden": true,
     "event_injection_forbidden": true,
-    "runtime_static_verification_required": true
+    "runtime_static_verification_required": true,
+    "wrapper_gate_assertion_must_be_mode_aware": true
   },
   "evidence_requirements": {
     "policy_visible_scope_marker_required": true,
@@ -236,16 +265,17 @@
   "gate": {
     "static_verification_required_for_any_future_runtime": true,
     "radio_socket_metadata_shim_static_verification": "PASS",
-    "radio_socket_metadata_runtime_wrapper_static_verification": "PASS",
-    "diagnostic_runtime_authorized": true,
-    "diagnostic_runtime_attempts_authorized": 1,
+    "radio_socket_metadata_runtime_wrapper_static_verification": "SUPERSEDED_BY_PRE_RUNTIME_ASSERTION_FAILURE",
+    "radio_socket_metadata_runtime_wrapper_v3_static_verification": "PENDING",
+    "diagnostic_runtime_authorized": false,
+    "diagnostic_runtime_attempts_authorized": 0,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Execute exactly one telemetry-only metadata diagnostic through bash scripts/run_radio_socket_metadata_diagnostic_v2.sh. After the attempt, retain and analyze its evidence, close authorization regardless of outcome, and continue to block baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims."
+    "additional_requirement": "Pass and separately seal scripts/verify_radio_socket_metadata_runtime_wrapper_v3.sh before any new telemetry-only runtime is considered. Baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims remain blocked."
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
-    "verification": "PASS",
+    "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
     "accepted_entrypoint": "bash scripts/run_radio_socket_metadata_diagnostic_v2.sh",
     "runtime_wrapper_sha256": "1bcf74ca5c162c5ce4096807d3151b8b507238c4e49a69fb34982a22aa6fb963",
     "generated_runtime_sha256": "086255ae892ea7dc6d119dc394679722176f8027045599bf36dc1a24ab6db368",
@@ -261,6 +291,7 @@
     "docker_socket_mounted": false,
     "command_source_present": false,
     "event_injection_present": false,
-    "diagnostic_runtime_launched_during_static_gate": false
+    "diagnostic_runtime_launched_during_static_gate": false,
+    "superseded_reason": "The generated runtime assertion required PENDING in both verification and runtime modes."
   }
 }
