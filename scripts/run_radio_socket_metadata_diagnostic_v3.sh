@@ -42,11 +42,11 @@ if text.count(anchor) != 1:
 mode_patch = r'''updated = text[:start] + replacement + text[end:]
 
 static_status_old = "RADIO_SOCKET_METADATA_RUNTIME_WRAPPER_STATIC_VALIDATION_PENDING"
-static_status_new = "RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_VALIDATION_PENDING"
+static_status_new = "RADIO_SOCKET_METADATA_RUNTIME_ATTEMPT_CONSUMED_PRE_RUNTIME_ASSERTION_FAILED"
 runtime_status_old = "RADIO_SOCKET_METADATA_RUNTIME_STATIC_GATE_PASS_RUNTIME_PENDING"
 runtime_status_new = "RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_GATE_PASS_RUNTIME_PENDING"
 for old_status, new_status, label in (
-    (static_status_old, static_status_new, "v3 static status"),
+    (static_status_old, static_status_new, "v3 fail-closed static status"),
     (runtime_status_old, runtime_status_new, "v3 runtime status"),
 ):
     count = updated.count(old_status)
@@ -82,7 +82,7 @@ legacy_docker_guard ='''
 
 updated = text.replace(anchor, mode_patch, 1)
 for required in (
-    "RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_VALIDATION_PENDING",
+    "RADIO_SOCKET_METADATA_RUNTIME_ATTEMPT_CONSUMED_PRE_RUNTIME_ASSERTION_FAILED",
     "RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_GATE_PASS_RUNTIME_PENDING",
     "radio_socket_metadata_runtime_wrapper_v3_static_verification",
     '("PENDING" if verify_only else "PASS")',
