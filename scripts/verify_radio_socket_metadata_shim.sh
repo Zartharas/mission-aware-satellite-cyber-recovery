@@ -61,16 +61,18 @@ for required in \
   'requested=%zu' \
   'result=%zd' \
   'local_port == 5011' \
-  'peer_port == 8011'; do
+  'peer_port == 8011' \
+  'write_metadata_line' \
+  'written = write('; do
   grep -Fq -- "$required" "$SHIM" || {
     echo "[ERROR] Shim requirement missing: $required" >&2
     exit 1
   }
 done
 
-for forbidden in 'payload=' 'payload_sha' 'hex=' 'address=' 'ip_address='; do
+for forbidden in 'payload=' 'payload_sha' 'hex=' 'address=' 'ip_address=' '(void)write('; do
   if grep -Fq -- "$forbidden" "$SHIM"; then
-    echo "[ERROR] Shim contains forbidden content-capture token: $forbidden" >&2
+    echo "[ERROR] Shim contains forbidden content-capture or unchecked-write token: $forbidden" >&2
     exit 1
   fi
 done
