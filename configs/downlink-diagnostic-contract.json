@@ -1,7 +1,7 @@
 {
-  "contract_version": "0.3.0",
-  "status": "RADIO_QUEUE_OBSERVABILITY_AUDIT_PENDING",
-  "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress without transmitting commands or modifying the pinned radio source.",
+  "contract_version": "0.4.0",
+  "status": "RADIO_SOCKET_METADATA_SHIM_STATIC_VALIDATION_PENDING",
+  "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
   "command_transmission_allowed": false,
@@ -29,7 +29,11 @@
     "port_correction_verifier": "scripts/verify_downlink_port_correction_diagnostic.sh",
     "retained_path_analyzer": "scripts/analyze_downlink_path_diagnostic.sh",
     "retained_radio_queue_analyzer": "scripts/analyze_radio_queue_retained_run.sh",
-    "to_lab_static_auditor": "scripts/audit_to_lab_downlink_static.sh",
+    "retained_liveness_snapshot_auditor": "scripts/audit_retained_liveness_snapshot.sh",
+    "radio_observability_static_auditor": "scripts/audit_radio_observability_static.sh",
+    "radio_socket_metadata_shim": "scripts/radio_socket_metadata_shim.c",
+    "radio_socket_metadata_shim_selftest": "scripts/radio_socket_metadata_shim_selftest.c",
+    "radio_socket_metadata_shim_verifier": "scripts/verify_radio_socket_metadata_shim.sh",
     "direct_historical_runner_execution_allowed": false,
     "direct_port_correction_runner_execution_allowed": false,
     "shell_invocation_required": true,
@@ -37,7 +41,7 @@
     "port_correction_runtime": "CONSUMED_RUN_INVALID",
     "historical_diagnostic_runtime_authorization_consumed": true,
     "port_correction_runtime_authorization_consumed": true,
-    "radio_observability_runtime": "BLOCKED"
+    "radio_socket_metadata_runtime": "BLOCKED_PENDING_STATIC_VALIDATION"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -85,7 +89,6 @@
       "terminal_classification": "DOWNLINK_DIAGNOSTIC_INVALID",
       "corrected_interpretation": "WITNESS_LISTENED_ON_WRONG_TO_LAB_DESTINATION_PORT",
       "measured_command_transmissions": 0,
-      "runtime_nonrunning_rows": 0,
       "cleanup_project_containers_remaining": 0,
       "cleanup_project_networks_remaining": 0
     },
@@ -101,7 +104,9 @@
       "radio_egress_received_packets": 0,
       "ground_command_sources": 0,
       "measured_command_transmissions": 0,
-      "runtime_nonrunning_rows": 0,
+      "liveness_csv_data_rows": 0,
+      "liveness_checkpoint_interpretation": "NO_CHECKPOINT_ROWS_BECAUSE_EGRESS_READINESS_TIMEOUT_PRECEDED_FIRST_CHECK_RUNTIME_CALL",
+      "final_container_inspect_snapshot_audit": "PENDING_READ_ONLY_AUDIT",
       "cleanup_project_containers_remaining": 0,
       "cleanup_project_networks_remaining": 0,
       "immutable_ground_hash_failed": 0,
@@ -109,38 +114,65 @@
       "interpretation": "TO_LAB production, hostname resolution, UDP 5013 receipt, and byte-preserving forwarding to radio-sim UDP 5011 are confirmed. Radio socket receipt versus simulation-time queue release remains unresolved at the retained logging level."
     }
   ],
+  "accepted_read_only_audits": {
+    "retained_radio_queue_analysis": "COMPLETE",
+    "static_radio_observability_audit": "COMPLETE",
+    "trace_only_fully_dispositive": false,
+    "successful_recvfrom_marker_in_pinned_source": false,
+    "queue_release_trace_in_pinned_source": true,
+    "metadata_interposition_feasible": true
+  },
+  "radio_socket_metadata_shim": {
+    "method": "LD_PRELOAD_RECVFROM_SENDTO_INTERPOSITION",
+    "build_environment": "PINNED_LINUX_IMAGE_NETWORK_NONE",
+    "observed_ingress_local_port": 5011,
+    "observed_egress_destination_port": 8011,
+    "metadata_fields": [
+      "sequence",
+      "event",
+      "monotonic_ns",
+      "file_descriptor",
+      "local_port",
+      "peer_port",
+      "requested_length",
+      "result_length",
+      "errno"
+    ],
+    "captures_packet_content": false,
+    "captures_packet_hashes": false,
+    "captures_ip_addresses": false,
+    "pinned_radio_source_modified": false,
+    "packet_capture_capability_required": false,
+    "host_network_required": false,
+    "docker_socket_mount_required": false,
+    "command_source_required": false,
+    "runtime_behavior_change_intended": false
+  },
   "evidence_requirements": {
     "policy_visible_scope_marker_required": true,
     "policy_visible_scope_marker_filename": "scope.json",
     "zero_entry_manifest_allowed": false,
     "independent_evidence_hashes_required": true,
-    "retroactive_modification_of_prior_runs_allowed": false
-  },
-  "next_audit_requirements": {
-    "retained_run_analysis_required": true,
-    "pinned_radio_source_queue_semantics_required": true,
-    "logger_configuration_discovery_required": true,
-    "successful_radio_recvfrom_observability_required": true,
-    "queue_release_sendto_observability_required": true,
-    "pinned_radio_source_modification_allowed": false,
-    "packet_capture_capabilities_allowed": false,
-    "host_network_allowed": false,
-    "docker_socket_mount_allowed": false,
-    "command_source_allowed": false
+    "retroactive_modification_of_prior_runs_allowed": false,
+    "socket_metadata_trace_immutable_ground_only": true,
+    "packet_content_in_socket_trace_allowed": false,
+    "ip_addresses_in_socket_trace_allowed": false
   },
   "interpretation": {
-    "radio_socket_receive_observed_queue_release_absent": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
-    "radio_socket_receive_absent": "RADIO_UDP_5011_INGRESS_FAILURE",
-    "radio_queue_release_send_observed_sink_absent": "RADIO_EGRESS_DESTINATION_OR_DELIVERY_FAILURE",
+    "recvfrom_5011_observed_sendto_8011_absent": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+    "recvfrom_5011_absent": "RADIO_UDP_5011_INGRESS_FAILURE",
+    "sendto_8011_success_observed_sink_absent": "RADIO_EGRESS_DESTINATION_OR_DELIVERY_FAILURE",
+    "sendto_8011_failure_observed": "RADIO_EGRESS_SEND_FAILURE",
     "radio_egress_receive": "DOWNLINK_PATH_THROUGH_RADIO_OBSERVED"
   },
   "gate": {
     "static_verification_required_for_any_future_runtime": true,
+    "radio_socket_metadata_shim_static_verification": "PENDING",
     "diagnostic_runtime_authorized": false,
     "diagnostic_runtime_attempts_authorized": 0,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Run and accept the read-only retained radio-queue analyzer and logger/socket observability audit. Any future diagnostic must preserve the pinned generic-radio source, add no packet-capture capability, expose successful UDP 5011 recvfrom and UDP 8011 sendto boundaries without commands, and pass a separate network-disabled static gate before one runtime may be considered."
+    "additional_requirement": "Run and accept the retained liveness snapshot audit and the network-disabled radio socket metadata shim static verifier. No runtime may be designed or authorized unless the shim compiles inside the pinned image, records only filtered recvfrom/sendto metadata for UDP 5011 and UDP 8011, captures no packet content or IP addresses, requires no packet-capture capability, leaves the pinned radio source unchanged, and creates no command path."
   }
 }
