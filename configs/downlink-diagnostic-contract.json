@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.1.0",
-  "status": "STATIC_GATE_PASS_RUNTIME_PENDING",
+  "contract_version": "0.1.1",
+  "status": "RUNTIME_INVALID_TO_LAB_OUTPUT_DIAGNOSIS_PENDING",
   "purpose": "Distinguish TO_LAB-to-radio delivery from generic-radio simulation-time queue release without transmitting any command.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -15,17 +15,21 @@
     "fortytwo_commit": "eda252bf31f27850e867e698cfdd963e143ead1f",
     "image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
     "blocked_baseline_contract": "configs/benign-baseline-contract.json",
-    "static_gate_lock": "artifacts/downlink-diagnostic-static-gate-lock.txt"
+    "static_gate_lock": "artifacts/downlink-diagnostic-static-gate-lock.txt",
+    "invalid_runtime_lock": "artifacts/downlink-diagnostic-invalid-20260726T021807Z.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
     "canonical_runner": "scripts/run_downlink_path_diagnostic.sh",
-    "authorized_entrypoint": "scripts/run_downlink_path_diagnostic_hardened.sh",
+    "hardened_entrypoint": "scripts/run_downlink_path_diagnostic_hardened.sh",
     "verifier": "scripts/verify_downlink_path_diagnostic.sh",
+    "retained_run_analyzer": "scripts/analyze_downlink_path_diagnostic.sh",
     "direct_canonical_runner_execution_allowed": false,
     "shell_invocation_required": true,
     "static_verification": "PASS",
-    "diagnostic_runtime": "PENDING"
+    "diagnostic_runtime": "RUN_INVALID",
+    "diagnostic_run_id": "20260726T021807Z",
+    "diagnostic_runtime_authorization_consumed": true
   },
   "topology": {
     "to_lab_destination_alias": "active-gs",
@@ -53,33 +57,42 @@
     "external_egress_allowed": false,
     "network": "project_labeled_internal_bridge"
   },
-  "required_pass_evidence": {
+  "retained_runtime_result": {
+    "terminal_classification": "DOWNLINK_DIAGNOSTIC_INVALID",
+    "exit_code": 1,
     "to_witness_ready": true,
-    "to_witness_received_packets_minimum": 1,
-    "to_witness_forwarded_packets_minimum": 1,
+    "to_witness_received_packets": 0,
+    "to_witness_forwarded_packets": 0,
     "radio_egress_witness_ready": true,
-    "radio_egress_received_packets_minimum": 1,
-    "witness_invalid_events": 0,
+    "radio_egress_received_packets": 0,
     "ground_command_sources": 0,
     "measured_command_transmissions": 0,
     "runtime_nonrunning_rows": 0,
     "cleanup_project_containers_remaining": 0,
     "cleanup_project_networks_remaining": 0,
-    "independent_evidence_hashes": true
+    "boundary_finding": "TO_LAB_OUTPUT_OR_DESTINATION_PATH_NOT_OBSERVED",
+    "radio_queue_evaluated": false
+  },
+  "evidence_issue": {
+    "immutable_ground_external_verification": "PASS",
+    "policy_visible_external_verification": "FAIL_EMPTY_MANIFEST",
+    "cause": "The policy-visible tree contained no evidence object, so sha256-manifest.txt contained no checksum entries and shasum -c rejected it.",
+    "required_correction": "Create a non-sensitive policy-visible scope marker before evidence hashing and reject any zero-entry evidence manifest.",
+    "retroactive_modification_allowed": false
   },
   "interpretation": {
-    "no_to_witness_receive": "TO_LAB_OUTPUT_OR_DESTINATION_PATH_NOT_OBSERVED",
+    "no_to_witness_receive": "TO_LAB_PACKET_PRODUCTION_OR_DESTINATION_RESOLUTION_UNOBSERVED",
     "to_witness_receive_without_forward": "TO_WITNESS_FORWARDING_FAILURE",
     "to_witness_forward_without_radio_egress_receive": "RADIO_RECEIVE_OR_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
     "radio_egress_receive": "DOWNLINK_PATH_THROUGH_RADIO_OBSERVED"
   },
   "gate": {
-    "static_verification_required": true,
-    "diagnostic_runtime_authorized": true,
-    "diagnostic_runtime_attempts_authorized": 1,
+    "static_verification_required_for_any_future_runtime": true,
+    "diagnostic_runtime_authorized": false,
+    "diagnostic_runtime_attempts_authorized": 0,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Exactly one telemetry-only diagnostic runtime is authorized through bash scripts/run_downlink_path_diagnostic_hardened.sh. No command-producing component may be present. Direct canonical-runner execution, baseline execution, event injection, scientific outcome classification, and cryptographic claims remain prohibited."
+    "additional_requirement": "The one telemetry-only runtime authorization was consumed by invalid run 20260726T021807Z. No additional runtime is authorized. Analyze the retained run, correct the policy-visible evidence-tree defect, establish whether TO_LAB produced and addressed UDP telemetry, and pass a new static gate before any further diagnostic."
   }
 }
