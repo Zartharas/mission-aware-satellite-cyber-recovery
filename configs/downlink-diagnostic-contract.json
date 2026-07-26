@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.0",
-  "status": "RADIO_SOCKET_METADATA_SHIM_STATIC_VALIDATION_PENDING",
+  "contract_version": "0.4.1",
+  "status": "RADIO_SOCKET_METADATA_SHIM_STATIC_GATE_PASS_RUNTIME_DESIGN_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -19,7 +19,9 @@
     "first_invalid_runtime_lock": "artifacts/downlink-diagnostic-invalid-20260726T021807Z.txt",
     "to_lab_static_audit_lock": "artifacts/to-lab-downlink-static-audit-lock.txt",
     "port_correction_static_gate_lock": "artifacts/downlink-port-correction-static-gate-lock.txt",
-    "port_correction_invalid_runtime_lock": "artifacts/downlink-port-correction-invalid-20260726T165332Z.txt"
+    "port_correction_invalid_runtime_lock": "artifacts/downlink-port-correction-invalid-20260726T165332Z.txt",
+    "radio_observability_read_only_audit_lock": "artifacts/radio-observability-read-only-audit-lock.txt",
+    "radio_socket_metadata_shim_static_gate_lock": "artifacts/radio-socket-metadata-shim-static-gate-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -34,6 +36,8 @@
     "radio_socket_metadata_shim": "scripts/radio_socket_metadata_shim.c",
     "radio_socket_metadata_shim_selftest": "scripts/radio_socket_metadata_shim_selftest.c",
     "radio_socket_metadata_shim_verifier": "scripts/verify_radio_socket_metadata_shim.sh",
+    "radio_socket_metadata_runtime_entrypoint": "PENDING_IMPLEMENTATION",
+    "radio_socket_metadata_runtime_verifier": "PENDING_IMPLEMENTATION",
     "direct_historical_runner_execution_allowed": false,
     "direct_port_correction_runner_execution_allowed": false,
     "shell_invocation_required": true,
@@ -41,7 +45,8 @@
     "port_correction_runtime": "CONSUMED_RUN_INVALID",
     "historical_diagnostic_runtime_authorization_consumed": true,
     "port_correction_runtime_authorization_consumed": true,
-    "radio_socket_metadata_runtime": "BLOCKED_PENDING_STATIC_VALIDATION"
+    "radio_socket_metadata_shim_static_verification": "PASS",
+    "radio_socket_metadata_runtime": "BLOCKED_PENDING_DEDICATED_WRAPPER_STATIC_GATE"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -106,7 +111,10 @@
       "measured_command_transmissions": 0,
       "liveness_csv_data_rows": 0,
       "liveness_checkpoint_interpretation": "NO_CHECKPOINT_ROWS_BECAUSE_EGRESS_READINESS_TIMEOUT_PRECEDED_FIRST_CHECK_RUNTIME_CALL",
-      "final_container_inspect_snapshot_audit": "PENDING_READ_ONLY_AUDIT",
+      "final_container_inspect_snapshots": 22,
+      "final_container_inspect_running": 22,
+      "final_container_inspect_nonrunning": 0,
+      "final_container_inspect_snapshot_audit": "COMPLETE",
       "cleanup_project_containers_remaining": 0,
       "cleanup_project_networks_remaining": 0,
       "immutable_ground_hash_failed": 0,
@@ -116,6 +124,7 @@
   ],
   "accepted_read_only_audits": {
     "retained_radio_queue_analysis": "COMPLETE",
+    "retained_liveness_snapshot_audit": "COMPLETE",
     "static_radio_observability_audit": "COMPLETE",
     "trace_only_fully_dispositive": false,
     "successful_recvfrom_marker_in_pinned_source": false,
@@ -125,6 +134,10 @@
   "radio_socket_metadata_shim": {
     "method": "LD_PRELOAD_RECVFROM_SENDTO_INTERPOSITION",
     "build_environment": "PINNED_LINUX_IMAGE_NETWORK_NONE",
+    "static_verification": "PASS",
+    "shim_source_sha256": "d15ede657230560178b5648ef5d4e15b1965837a1c384790d9cbd3dc8f01ee1b",
+    "shim_selftest_source_sha256": "ecc2c510ff02cc4416ac3b73c18a69e8163918f890040bb7aebf1c3ec3a5e023",
+    "shim_linux_shared_object_sha256": "5a1e4f0cb2b5567ee70defa893f7c976453c788b6c9ac70e4f7d646c16223205",
     "observed_ingress_local_port": 5011,
     "observed_egress_destination_port": 8011,
     "metadata_fields": [
@@ -148,6 +161,20 @@
     "command_source_required": false,
     "runtime_behavior_change_intended": false
   },
+  "runtime_wrapper_requirements": {
+    "shim_mounted_only_into_generic_radio": true,
+    "trace_path_immutable_ground_only": true,
+    "trace_file_required": true,
+    "trace_packet_content_forbidden": true,
+    "trace_ip_addresses_forbidden": true,
+    "generic_radio_source_modification_forbidden": true,
+    "packet_capture_capability_forbidden": true,
+    "host_network_forbidden": true,
+    "docker_socket_mount_forbidden": true,
+    "command_source_forbidden": true,
+    "event_injection_forbidden": true,
+    "runtime_static_verification_required": true
+  },
   "evidence_requirements": {
     "policy_visible_scope_marker_required": true,
     "policy_visible_scope_marker_filename": "scope.json",
@@ -167,12 +194,13 @@
   },
   "gate": {
     "static_verification_required_for_any_future_runtime": true,
-    "radio_socket_metadata_shim_static_verification": "PENDING",
+    "radio_socket_metadata_shim_static_verification": "PASS",
+    "radio_socket_metadata_runtime_wrapper_static_verification": "PENDING",
     "diagnostic_runtime_authorized": false,
     "diagnostic_runtime_attempts_authorized": 0,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Run and accept the retained liveness snapshot audit and the network-disabled radio socket metadata shim static verifier. No runtime may be designed or authorized unless the shim compiles inside the pinned image, records only filtered recvfrom/sendto metadata for UDP 5011 and UDP 8011, captures no packet content or IP addresses, requires no packet-capture capability, leaves the pinned radio source unchanged, and creates no command path."
+    "additional_requirement": "Implement and statically verify a dedicated telemetry-only runtime wrapper. It must mount the accepted shim only into generic-radio, write metadata only to immutable-ground evidence, retain the 5013-to-5011 proxy and 8011 sink, introduce no command path, and prove all isolation, hashing, cleanup, and forbidden-content controls before any single runtime authorization may be considered."
   }
 }
