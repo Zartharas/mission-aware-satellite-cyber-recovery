@@ -1,0 +1,73 @@
+{
+  "contract_version": "0.1.0",
+  "status": "STATIC_VALIDATION_PENDING",
+  "purpose": "Distinguish TO_LAB-to-radio delivery from generic-radio simulation-time queue release without transmitting any command.",
+  "scientific_outcome_allowed": false,
+  "event_injection_allowed": false,
+  "command_transmission_allowed": false,
+  "baseline_execution_allowed": false,
+  "cryptographic_semantics_claim_allowed": false,
+  "source_locks": {
+    "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "generic_radio_commit": "a2effa73715ab4fe2fdc41e549ae2dca81214d98",
+    "sim_common_commit": "0dbcb2ead4e5625a2a163c0fabe04157dd7e375e",
+    "to_lab_commit": "6ae88fd1c2bb931d233c0051c88b787447bd5bb6",
+    "fortytwo_commit": "eda252bf31f27850e867e698cfdd963e143ead1f",
+    "image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+    "blocked_baseline_contract": "configs/benign-baseline-contract.json"
+  },
+  "topology": {
+    "to_lab_destination_alias": "active-gs",
+    "to_lab_destination_port": 5011,
+    "to_radio_witness": {
+      "mode": "proxy",
+      "alias": "active-gs",
+      "bind_port": 5011,
+      "forward_destination": "radio-sim",
+      "forward_port": 5011,
+      "byte_preserving": true
+    },
+    "radio_egress_witness": {
+      "mode": "sink",
+      "alias": "cryptolib",
+      "bind_port": 8011,
+      "forwarding": false
+    },
+    "radio_ground_mode": "UDP",
+    "radio_command_listener_port": 8010,
+    "radio_fsw_telemetry_listener_port": 5011,
+    "radio_fsw_command_destination_port": 5012,
+    "host_ports_allowed": false,
+    "docker_socket_mount_allowed": false,
+    "external_egress_allowed": false,
+    "network": "project_labeled_internal_bridge"
+  },
+  "required_pass_evidence": {
+    "to_witness_ready": true,
+    "to_witness_received_packets_minimum": 1,
+    "to_witness_forwarded_packets_minimum": 1,
+    "radio_egress_witness_ready": true,
+    "radio_egress_received_packets_minimum": 1,
+    "witness_invalid_events": 0,
+    "ground_command_sources": 0,
+    "measured_command_transmissions": 0,
+    "runtime_nonrunning_rows": 0,
+    "cleanup_project_containers_remaining": 0,
+    "cleanup_project_networks_remaining": 0,
+    "independent_evidence_hashes": true
+  },
+  "interpretation": {
+    "no_to_witness_receive": "TO_LAB_OUTPUT_OR_DESTINATION_PATH_NOT_OBSERVED",
+    "to_witness_receive_without_forward": "TO_WITNESS_FORWARDING_FAILURE",
+    "to_witness_forward_without_radio_egress_receive": "RADIO_RECEIVE_OR_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+    "radio_egress_receive": "DOWNLINK_PATH_THROUGH_RADIO_OBSERVED"
+  },
+  "gate": {
+    "static_verification_required": true,
+    "diagnostic_runtime_authorized": false,
+    "baseline_run_1_authorized": false,
+    "baseline_run_2_authorized": false,
+    "event_injection_authorized": false,
+    "additional_requirement": "Only the telemetry-only diagnostic may be authorized after its static gate passes. No command-producing component may be present."
+  }
+}
