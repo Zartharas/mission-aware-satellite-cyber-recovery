@@ -47,6 +47,18 @@ assert contract["gate"]["diagnostic_runtime_attempts_authorized"] == 0
 assert contract["gate"]["baseline_run_1_authorized"] is False
 assert contract["gate"]["baseline_run_2_authorized"] is False
 assert contract["gate"]["event_injection_authorized"] is False
+assert contract["topology"] == contract["confirmed_topology"]
+direct_findings = [
+    finding
+    for finding in contract["root_cause_findings"]
+    if finding.get("classification") == "DIRECT_COMPILED_PORT_MISMATCH"
+]
+assert len(direct_findings) == 1
+assert contract["root_cause_finding"] == direct_findings[0]
+aliases = contract["compatibility_aliases"]
+assert aliases["topology"] == "confirmed_topology"
+assert aliases["root_cause_finding"] == "root_cause_findings[DIRECT_COMPILED_PORT_MISMATCH]"
+assert aliases["runtime_behavior_changed"] is False
 requirements = contract["runtime_wrapper_requirements"]
 assert requirements["shim_mounted_only_into_generic_radio"] is True
 assert requirements["trace_path_immutable_ground_only"] is True
