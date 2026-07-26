@@ -35,6 +35,8 @@ required = (
     "unterminated generated Python heredoc",
     "no generated Python heredocs were validated",
     "legacy multiline radio anchor remained after v2 preparation",
+    "legacy_docker_guard = ''',",
+    "structural_docker_guard = ''',",
     "docker_socket_mount_markers = (",
     "forbidden Docker socket mount present",
     "legacy broad Docker socket literal ban remained after v2 preparation",
@@ -44,8 +46,6 @@ for token in required:
         raise SystemExit(f"v2 overlay regression guard missing: {token}")
 if 'f"      --mount \\"type=bind' in text:
     raise SystemExit("v2 overlay retained unsafe nested mount f-string quoting")
-if "for forbidden in ('--network host', '/var/run/docker.sock'" in text:
-    raise SystemExit("v2 overlay retained the broad Docker socket literal ban")
 PY
 
 source_sha_before="$(shasum -a 256 "$SOURCE_VERIFIER" | awk '{print $1}')"
