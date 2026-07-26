@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.2",
-  "status": "RADIO_SOCKET_METADATA_RUNTIME_V3_COMPLETE_EVIDENCE_AUDIT_PASS",
+  "contract_version": "0.4.3",
+  "status": "RADIO_TIME_PROGRESS_RETAINED_AUDIT_CORRECTED_UNPROVEN",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -26,7 +26,8 @@
     "radio_socket_metadata_runtime_prelaunch_failure_lock": "artifacts/radio-socket-metadata-runtime-prelaunch-assertion-failed-20260726.txt",
     "radio_socket_metadata_runtime_wrapper_v3_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-v3-static-gate-lock.txt",
     "radio_socket_metadata_v3_terminal_lock": "artifacts/radio-socket-metadata-v3-terminal-20260726T192902Z.txt",
-    "radio_socket_metadata_v3_retained_audit_lock": "artifacts/radio-socket-metadata-v3-retained-audit-lock-20260726T192902Z.txt"
+    "radio_socket_metadata_v3_retained_audit_lock": "artifacts/radio-socket-metadata-v3-retained-audit-lock-20260726T192902Z.txt",
+    "radio_time_tick_parser_correction_lock": "artifacts/radio-time-tick-parser-correction-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -56,7 +57,9 @@
     "radio_socket_metadata_shim_static_verification": "PASS",
     "radio_socket_metadata_v2_runtime": "CONSUMED_PRE_RUNTIME_ASSERTION_FAILED",
     "radio_socket_metadata_v3_runtime": "CONSUMED_COMPLETE_EVIDENCE_AUDIT_PASS",
-    "radio_socket_metadata_retained_auditor": "scripts/audit_radio_socket_metadata_retained_run.sh"
+    "radio_socket_metadata_retained_auditor": "scripts/audit_radio_socket_metadata_retained_run.sh",
+    "radio_queue_eligibility_time_callback_auditor": "scripts/audit_radio_queue_eligibility_and_time_callback.sh",
+    "radio_time_tick_parser_regression_self_test": "bash scripts/audit_radio_queue_eligibility_and_time_callback.sh --self-test"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -119,9 +122,15 @@
       "status": "CORRECTED_AND_VALIDATED_TO_PROXY_FORWARD"
     },
     {
-      "classification": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
-      "status": "CONFIRMED_AT_METADATA_DIAGNOSTIC_BOUNDARY",
-      "reason": "The retained v3 run recorded 1,061 successful recvfrom calls on local UDP 5011 and zero successful or failed sendto calls to UDP 8011. Within the frozen diagnostic taxonomy, telemetry entered generic-radio but was not released through the simulation-time egress path during the bounded observation."
+      "classification": "RADIO_POST_INGRESS_PRE_EGRESS_TRANSPORT_OBSERVATION",
+      "historical_transport_diagnosis": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+      "status": "TRANSPORT_OBSERVATION_CONFIRMED_CAUSAL_INTERPRETATION_CORRECTED",
+      "reason": "The retained v3 run recorded 1,061 successful recvfrom calls on local UDP 5011 and zero successful or failed sendto calls to UDP 8011. This proves the post-ingress, pre-egress transport boundary but does not prove advancing NOS Engine time, callback delivery, or callback queue visibility."
+    },
+    {
+      "classification": "RETAINED_TIME_TICK_PARSER_FALSE_POSITIVE",
+      "status": "CORRECTED_BY_AUTHORITATIVE_TIMEDRIVER_MATCHER",
+      "reason": "The broad matcher tick\\s*=\\s*(\\d+) parsed both TimeDriver tick 0 and the configuration phrase microseconds per tick = 10000 from one retained log line. The corrected matcher accepts only TimeDriver::send_tick_to_nos_engine tick emissions and returns one retained tick value: 0."
     },
     {
       "classification": "METADATA_RUNTIME_PRELAUNCH_WRAPPER_GATE_ASSERTION_MISMATCH",
@@ -179,6 +188,8 @@
       "run_id": "20260726T192902Z",
       "terminal_classification": "RADIO_SOCKET_METADATA_DIAGNOSTIC_COMPLETE",
       "transport_diagnosis": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+      "transport_diagnosis_scope": "HISTORICAL_METADATA_DIAGNOSTIC_TAXONOMY",
+      "retained_transport_observation": "1061 successful recvfrom records on UDP 5011 and zero successful or failed sendto records to UDP 8011",
       "source_sha256": "7f2d792ef69793a61e939cc10b683d971025aa518fd8b3b31800da0c0e994847",
       "runtime_sha256": "2ccf9c24b8f6b621b2ca224119bf566988f6cce6d57efb2aafd227811f4877f2",
       "changed_character_offset": 25658,
@@ -188,6 +199,12 @@
       "radio_socket_recvfrom_5011_records": 1061,
       "radio_socket_sendto_8011_success_records": 0,
       "radio_socket_sendto_8011_failure_records": 0,
+      "authoritative_time_tick_marker_count": 1,
+      "authoritative_time_tick_distinct_values": 1,
+      "authoritative_time_tick_min": 0,
+      "authoritative_time_tick_max": 0,
+      "retained_time_progress_proven": false,
+      "corrected_read_only_diagnosis": "RADIO_TIME_PROGRESS_OR_CALLBACK_INVOCATION_UNPROVEN_BY_RETAINED_LOG",
       "to_witness_received_markers": 990,
       "to_witness_forwarded_markers": 990,
       "radio_egress_received_markers": 0,
@@ -206,7 +223,7 @@
       "evidence_audit_status": "PASS",
       "cleanup_audit_status": "PASS",
       "scientific_outcome": false,
-      "interpretation": "Telemetry was received by generic-radio on UDP 5011, but no UDP 8011 send attempt occurred during the bounded observation. This localizes the infrastructure fault to the post-ingress, pre-egress simulation-time queue-release boundary and is not a scored research outcome."
+      "interpretation": "Telemetry was received by generic-radio on UDP 5011, but no UDP 8011 send attempt occurred during the bounded observation. The retained evidence does not prove advancing NOS Engine time or callback invocation after ingress, so callback delivery and queue visibility remain unproven. This is an infrastructure observation, not a scored research outcome."
     }
   ],
   "pre_runtime_attempt_results": [
@@ -236,8 +253,26 @@
     "successful_recvfrom_marker_in_pinned_source": false,
     "queue_release_trace_in_pinned_source": true,
     "metadata_interposition_feasible": true,
-    "v3_retained_evidence_audit": "PASS"
+    "v3_retained_evidence_audit": "PASS",
+    "radio_queue_eligibility_time_callback_audit": "CORRECTED_TIME_PROGRESS_UNPROVEN",
+    "radio_time_tick_parser_regression_self_test": "PASS"
   },
+  "read_only_corrections": [
+    {
+      "decision_id": "D-056",
+      "date_utc": "2026-07-26",
+      "retained_run": "20260726T192902Z",
+      "correction": "AUTHORITATIVE_TIMEDRIVER_TICK_MATCHER",
+      "prior_false_positive": "microseconds per tick = 10000",
+      "authoritative_tick_values": [
+        0
+      ],
+      "retained_time_progress_proven": false,
+      "corrected_read_only_diagnosis": "RADIO_TIME_PROGRESS_OR_CALLBACK_INVOCATION_UNPROVEN_BY_RETAINED_LOG",
+      "runtime_launched": false,
+      "retained_evidence_modified": false
+    }
+  ],
   "radio_socket_metadata_shim": {
     "method": "LD_PRELOAD_RECVFROM_SENDTO_INTERPOSITION",
     "build_environment": "PINNED_LINUX_IMAGE_NETWORK_NONE",
@@ -294,7 +329,8 @@
     "ip_addresses_in_socket_trace_allowed": false
   },
   "interpretation": {
-    "recvfrom_5011_observed_sendto_8011_absent": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+    "recvfrom_5011_observed_sendto_8011_absent": "RADIO_POST_INGRESS_PRE_EGRESS_TRANSPORT_OBSERVATION",
+    "retained_time_progress_unproven": "RADIO_TIME_PROGRESS_OR_CALLBACK_INVOCATION_UNPROVEN_BY_RETAINED_LOG",
     "recvfrom_5011_absent": "RADIO_UDP_5011_INGRESS_FAILURE",
     "sendto_8011_success_observed_sink_absent": "RADIO_EGRESS_DESTINATION_OR_DELIVERY_FAILURE",
     "sendto_8011_failure_observed": "RADIO_EGRESS_SEND_FAILURE",
@@ -310,7 +346,7 @@
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "No additional runtime is authorized. Perform read-only source and retained-evidence analysis of the generic-radio simulation-time queue-release callback and packet eligibility conditions before considering any new infrastructure change. Baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims remain blocked."
+    "additional_requirement": "No additional runtime is authorized. The retained transport observation is 1,061 UDP 5011 receives with zero UDP 8011 send attempts; retained time progression and callback invocation are unproven. Baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims remain blocked."
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",

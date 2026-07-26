@@ -2,23 +2,14 @@
 set -Eeuo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-RUN_DIR="${1:-}"
+ARG="${1:-}"
 
-if [[ -z "$RUN_DIR" ]]; then
-  echo "Usage: bash scripts/audit_radio_queue_eligibility_and_time_callback.sh artifacts/downlink-diagnostics/<run-id>" >&2
+if [[ -z "$ARG" ]]; then
+  echo "Usage: bash scripts/audit_radio_queue_eligibility_and_time_callback.sh <retained-run-dir|--self-test>" >&2
   exit 2
 fi
 
-if [[ "$RUN_DIR" != /* ]]; then
-  RUN_DIR="$ROOT/$RUN_DIR"
-fi
-
-[[ -d "$RUN_DIR" ]] || {
-  echo "[ERROR] Retained run directory not found: $RUN_DIR" >&2
-  exit 2
-}
-
-python3 - "$ROOT" "$RUN_DIR" <<'PY'
+python3 - "$ROOT" "$ARG" <<'PY'
 from __future__ import annotations
 
 import json
@@ -28,7 +19,56 @@ import sys
 from pathlib import Path
 
 root = Path(sys.argv[1]).resolve()
-run_dir = Path(sys.argv[2]).resolve()
+argument = sys.argv[2]
+
+ANSI_PATTERN = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
+AUTHORITATIVE_TIME_TICK_PATTERN = re.compile(
+    r"TimeDriver::send_tick_to_nos_engine:tick\s*=\s*(\d+)"
+)
+
+
+def parse_authoritative_time_ticks(text: str) -> tuple[str, list[int]]:
+    clean_text = ANSI_PATTERN.sub("", text)
+    values: list[int] = []
+    for line in clean_text.splitlines():
+        match = AUTHORITATIVE_TIME_TICK_PATTERN.search(line)
+        if match:
+            values.append(int(match.group(1)))
+    return clean_text, values
+
+
+if argument == "--self-test":
+    synthetic = (
+        "TimeDriver::send_tick_to_nos_engine:tick = 0, "
+        "absolute time = 814254200.000000 "
+        "real microseconds per tick = 10000"
+    )
+    _, synthetic_ticks = parse_authoritative_time_ticks(synthetic)
+    if synthetic_ticks != [0]:
+        raise SystemExit(
+            "[ERROR] Authoritative time-tick parser regression: "
+            f"expected [0], found {synthetic_ticks}"
+        )
+    print("RADIO_TIME_TICK_PARSER_REGRESSION_SELF_TEST")
+    print(
+        "authoritative_pattern="
+        r"TimeDriver::send_tick_to_nos_engine:tick\s*=\s*(\d+)"
+    )
+    print(f"synthetic_authoritative_ticks={synthetic_ticks}")
+    print("microseconds_per_tick_false_positive_excluded=1")
+    print("runtime_launched=0")
+    print("docker_invoked=0")
+    print("retained_evidence_modified=0")
+    print("RADIO_TIME_TICK_PARSER_REGRESSION_SELF_TEST_STATUS=PASS")
+    raise SystemExit(0)
+
+run_dir = Path(argument)
+if not run_dir.is_absolute():
+    run_dir = root / run_dir
+run_dir = run_dir.resolve()
+if not run_dir.is_dir():
+    raise SystemExit(f"[ERROR] Retained run directory not found: {run_dir}")
+
 orch = run_dir / "immutable-ground" / "orchestration"
 external = root / "external" / "nos3"
 
@@ -232,9 +272,7 @@ trace_recv = len(re.findall(r"event=recvfrom .*local_port=5011 .*result=[1-9][0-
 trace_send_success = len(re.findall(r"event=sendto .*peer_port=8011 .*result=[1-9][0-9]* errno=0$", trace, flags=re.MULTILINE))
 trace_send_failure = len(re.findall(r"event=sendto .*peer_port=8011 .*result=-1 errno=[1-9][0-9]*$", trace, flags=re.MULTILINE))
 
-ansi = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
-clean_time_log = ansi.sub("", time_log)
-tick_values = [int(value) for value in re.findall(r"tick\s*=\s*(\d+)", clean_time_log)]
+clean_time_log, tick_values = parse_authoritative_time_ticks(time_log)
 time_tick_min = min(tick_values) if tick_values else -1
 time_tick_max = max(tick_values) if tick_values else -1
 time_tick_distinct = len(set(tick_values))
