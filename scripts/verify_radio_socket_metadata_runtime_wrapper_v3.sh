@@ -36,7 +36,7 @@ contract = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 wrapper = Path(sys.argv[2]).read_text(encoding="utf-8")
 
 assert contract["contract_version"] == "0.4.2"
-assert contract["status"] == "RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_VALIDATION_PENDING"
+assert contract["status"] == "RADIO_SOCKET_METADATA_RUNTIME_ATTEMPT_CONSUMED_PRE_RUNTIME_ASSERTION_FAILED"
 assert contract["scientific_outcome_allowed"] is False
 assert contract["event_injection_allowed"] is False
 assert contract["command_transmission_allowed"] is False
@@ -59,7 +59,7 @@ required_wrapper_tokens = (
     'SOURCE="$ROOT/scripts/run_radio_socket_metadata_diagnostic_v2.sh"',
     'radio_socket_metadata_runtime_wrapper_v3_static_verification',
     '("PENDING" if verify_only else "PASS")',
-    'RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_VALIDATION_PENDING',
+    'RADIO_SOCKET_METADATA_RUNTIME_ATTEMPT_CONSUMED_PRE_RUNTIME_ASSERTION_FAILED',
     'RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_GATE_PASS_RUNTIME_PENDING',
     'assert ("PENDING" if True else "PASS") == "PENDING"',
     'assert ("PENDING" if False else "PASS") == "PASS"',
