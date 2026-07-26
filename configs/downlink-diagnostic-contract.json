@@ -1,7 +1,7 @@
 {
-  "contract_version": "0.2.0",
-  "status": "PORT_CORRECTION_STATIC_GATE_PASS_RUNTIME_PENDING",
-  "purpose": "Validate a telemetry-only bridge from the compiled TO_LAB UDP destination port 5013 to the generic-radio FSW telemetry listener port 5011 without transmitting any command.",
+  "contract_version": "0.3.0",
+  "status": "RADIO_QUEUE_OBSERVABILITY_AUDIT_PENDING",
+  "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
   "command_transmission_allowed": false,
@@ -16,9 +16,10 @@
     "image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
     "blocked_baseline_contract": "configs/benign-baseline-contract.json",
     "original_static_gate_lock": "artifacts/downlink-diagnostic-static-gate-lock.txt",
-    "invalid_runtime_lock": "artifacts/downlink-diagnostic-invalid-20260726T021807Z.txt",
+    "first_invalid_runtime_lock": "artifacts/downlink-diagnostic-invalid-20260726T021807Z.txt",
     "to_lab_static_audit_lock": "artifacts/to-lab-downlink-static-audit-lock.txt",
-    "port_correction_static_gate_lock": "artifacts/downlink-port-correction-static-gate-lock.txt"
+    "port_correction_static_gate_lock": "artifacts/downlink-port-correction-static-gate-lock.txt",
+    "port_correction_invalid_runtime_lock": "artifacts/downlink-port-correction-invalid-20260726T165332Z.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -26,27 +27,19 @@
     "historical_hardened_entrypoint": "scripts/run_downlink_path_diagnostic_hardened.sh",
     "port_correction_entrypoint": "scripts/run_downlink_port_correction_diagnostic.sh",
     "port_correction_verifier": "scripts/verify_downlink_port_correction_diagnostic.sh",
-    "retained_run_analyzer": "scripts/analyze_downlink_path_diagnostic.sh",
-    "static_auditor": "scripts/audit_to_lab_downlink_static.sh",
+    "retained_path_analyzer": "scripts/analyze_downlink_path_diagnostic.sh",
+    "retained_radio_queue_analyzer": "scripts/analyze_radio_queue_retained_run.sh",
+    "to_lab_static_auditor": "scripts/audit_to_lab_downlink_static.sh",
     "direct_historical_runner_execution_allowed": false,
+    "direct_port_correction_runner_execution_allowed": false,
     "shell_invocation_required": true,
     "port_correction_static_verification": "PASS",
-    "diagnostic_runtime": "PENDING",
+    "port_correction_runtime": "CONSUMED_RUN_INVALID",
     "historical_diagnostic_runtime_authorization_consumed": true,
-    "port_correction_runtime_authorization_consumed": false
+    "port_correction_runtime_authorization_consumed": true,
+    "radio_observability_runtime": "BLOCKED"
   },
-  "root_cause_finding": {
-    "classification": "DIRECT_COMPILED_PORT_MISMATCH",
-    "to_lab_compiled_destination_port": 5013,
-    "radio_fsw_telemetry_listener_port": 5011,
-    "prior_witness_bind_port": 5011,
-    "prior_run_effect": "The active-gs witness listened on the radio port rather than the compiled TO_LAB output port, so zero received packets did not test TO_LAB packet production.",
-    "sample_subscription_present": true,
-    "sample_schedule_enabled": true,
-    "hostname_resolution_observability": "SILENT_FAILURE_PATH_PRESENT",
-    "evidence": "artifacts/to-lab-downlink-static-audit-lock.txt"
-  },
-  "topology": {
+  "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
     "to_lab_compiled_destination_port": 5013,
     "to_radio_witness": {
@@ -72,68 +65,82 @@
     "external_egress_allowed": false,
     "network": "project_labeled_internal_bridge"
   },
-  "retained_runtime_result": {
-    "run_id": "20260726T021807Z",
-    "terminal_classification": "DOWNLINK_DIAGNOSTIC_INVALID",
-    "exit_code": 1,
-    "to_witness_ready": true,
-    "to_witness_bind_port": 5011,
-    "to_witness_received_packets": 0,
-    "to_witness_forwarded_packets": 0,
-    "radio_egress_witness_ready": true,
-    "radio_egress_received_packets": 0,
-    "ground_command_sources": 0,
-    "measured_command_transmissions": 0,
-    "runtime_nonrunning_rows": 0,
-    "cleanup_project_containers_remaining": 0,
-    "cleanup_project_networks_remaining": 0,
-    "superseded_boundary_interpretation": "TO_LAB_OUTPUT_OR_DESTINATION_PATH_NOT_OBSERVED",
-    "corrected_interpretation": "WITNESS_LISTENED_ON_WRONG_TO_LAB_DESTINATION_PORT",
-    "radio_queue_evaluated": false
-  },
+  "root_cause_findings": [
+    {
+      "classification": "DIRECT_COMPILED_PORT_MISMATCH",
+      "to_lab_compiled_destination_port": 5013,
+      "radio_fsw_telemetry_listener_port": 5011,
+      "prior_witness_bind_port": 5011,
+      "status": "CORRECTED_AND_VALIDATED_TO_PROXY_FORWARD"
+    },
+    {
+      "classification": "RADIO_INGRESS_OR_SIMULATION_TIME_QUEUE_RELEASE_UNRESOLVED_AT_CURRENT_LOG_LEVEL",
+      "status": "ACTIVE",
+      "reason": "The pinned radio receives UDP in forward_loop, queues eligible downlink packets, and sends them only from a time-tick callback. The retained logger level did not expose a successful recvfrom or queue-release event, and the source has no successful ingress trace at the recvfrom boundary."
+    }
+  ],
+  "retained_runtime_results": [
+    {
+      "run_id": "20260726T021807Z",
+      "terminal_classification": "DOWNLINK_DIAGNOSTIC_INVALID",
+      "corrected_interpretation": "WITNESS_LISTENED_ON_WRONG_TO_LAB_DESTINATION_PORT",
+      "measured_command_transmissions": 0,
+      "runtime_nonrunning_rows": 0,
+      "cleanup_project_containers_remaining": 0,
+      "cleanup_project_networks_remaining": 0
+    },
+    {
+      "run_id": "20260726T165332Z",
+      "terminal_classification": "DOWNLINK_DIAGNOSTIC_INVALID",
+      "exit_code": 1,
+      "to_witness_bind_port": 5013,
+      "to_witness_unique_received_packets": 1452,
+      "to_witness_unique_forwarded_packets": 1452,
+      "to_witness_total_forwarded_bytes": 314985,
+      "to_witness_received_forwarded_pairs_match": true,
+      "radio_egress_received_packets": 0,
+      "ground_command_sources": 0,
+      "measured_command_transmissions": 0,
+      "runtime_nonrunning_rows": 0,
+      "cleanup_project_containers_remaining": 0,
+      "cleanup_project_networks_remaining": 0,
+      "immutable_ground_hash_failed": 0,
+      "policy_visible_hash_failed": 0,
+      "interpretation": "TO_LAB production, hostname resolution, UDP 5013 receipt, and byte-preserving forwarding to radio-sim UDP 5011 are confirmed. Radio socket receipt versus simulation-time queue release remains unresolved at the retained logging level."
+    }
+  ],
   "evidence_requirements": {
     "policy_visible_scope_marker_required": true,
     "policy_visible_scope_marker_filename": "scope.json",
-    "policy_visible_scope_marker_fields": {
-      "policy_visible_evidence": "none_by_design",
-      "truth_data_included": false,
-      "command_data_included": false,
-      "scientific_outcome_included": false
-    },
     "zero_entry_manifest_allowed": false,
     "independent_evidence_hashes_required": true,
-    "retroactive_modification_of_prior_run_allowed": false
+    "retroactive_modification_of_prior_runs_allowed": false
   },
-  "required_pass_evidence": {
-    "to_witness_ready": true,
-    "to_witness_bind_port": 5013,
-    "to_witness_received_packets_minimum": 1,
-    "to_witness_forwarded_packets_minimum": 1,
-    "radio_egress_witness_ready": true,
-    "radio_egress_received_packets_minimum": 1,
-    "witness_invalid_events": 0,
-    "ground_command_sources": 0,
-    "measured_command_transmissions": 0,
-    "runtime_nonrunning_rows": 0,
-    "cleanup_project_containers_remaining": 0,
-    "cleanup_project_networks_remaining": 0,
-    "immutable_ground_manifest_entries_minimum": 1,
-    "policy_visible_manifest_entries_minimum": 1,
-    "independent_evidence_hashes": true
+  "next_audit_requirements": {
+    "retained_run_analysis_required": true,
+    "pinned_radio_source_queue_semantics_required": true,
+    "logger_configuration_discovery_required": true,
+    "successful_radio_recvfrom_observability_required": true,
+    "queue_release_sendto_observability_required": true,
+    "pinned_radio_source_modification_allowed": false,
+    "packet_capture_capabilities_allowed": false,
+    "host_network_allowed": false,
+    "docker_socket_mount_allowed": false,
+    "command_source_allowed": false
   },
   "interpretation": {
-    "no_to_witness_receive_on_5013": "TO_LAB_PACKET_PRODUCTION_OR_HOSTNAME_RESOLUTION_FAILURE",
-    "to_witness_receive_without_forward": "TO_WITNESS_FORWARDING_FAILURE",
-    "to_witness_forward_without_radio_egress_receive": "RADIO_RECEIVE_OR_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+    "radio_socket_receive_observed_queue_release_absent": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+    "radio_socket_receive_absent": "RADIO_UDP_5011_INGRESS_FAILURE",
+    "radio_queue_release_send_observed_sink_absent": "RADIO_EGRESS_DESTINATION_OR_DELIVERY_FAILURE",
     "radio_egress_receive": "DOWNLINK_PATH_THROUGH_RADIO_OBSERVED"
   },
   "gate": {
     "static_verification_required_for_any_future_runtime": true,
-    "diagnostic_runtime_authorized": true,
-    "diagnostic_runtime_attempts_authorized": 1,
+    "diagnostic_runtime_authorized": false,
+    "diagnostic_runtime_attempts_authorized": 0,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Exactly one telemetry-only port-correction diagnostic runtime is authorized through bash scripts/run_downlink_port_correction_diagnostic.sh. The active-gs witness must bind UDP 5013 and forward byte-for-byte to radio-sim UDP 5011. The policy-visible scope marker and non-empty evidence manifests are mandatory. No command-producing component, baseline execution, event injection, scientific outcome classification, or cryptographic claim is authorized."
+    "additional_requirement": "Run and accept the read-only retained radio-queue analyzer and logger/socket observability audit. Any future diagnostic must preserve the pinned generic-radio source, add no packet-capture capability, expose successful UDP 5011 recvfrom and UDP 8011 sendto boundaries without commands, and pass a separate network-disabled static gate before one runtime may be considered."
   }
 }
