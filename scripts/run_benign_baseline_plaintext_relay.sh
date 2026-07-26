@@ -35,8 +35,13 @@ import sys
 from pathlib import Path
 contract = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 assert contract["contract_version"] == "0.6.1"
-assert contract["status"] == "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VALIDATION_PENDING"
+assert contract["status"] == "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_STATIC_GATE_PASS_RUN_1_RERUN_PENDING"
 assert contract["event_injection_allowed"] is False
+assert contract["implementation"]["runtime_runner_validation"] == "PASS"
+assert contract["implementation"]["baseline_run_1_rerun"] == "PENDING"
+assert contract["implementation"]["baseline_run_2"] == "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
+assert contract["gate"]["baseline_run_1_rerun_authorized"] is True
+assert contract["gate"]["baseline_run_2_authorized"] is False
 assert contract["baseline_transport"]["profile"] == "PLAINTEXT_UDP_RELAY"
 assert contract["baseline_transport"]["cryptographic_semantics"] == "DEFERRED"
 assert contract["baseline_transport"]["relay_alias"] == "cryptolib"
