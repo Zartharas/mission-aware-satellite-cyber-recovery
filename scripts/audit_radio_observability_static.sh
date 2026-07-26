@@ -100,7 +100,6 @@ queue_release_trace_present = int(
     "Generic_radioHardwareModel::forward_loop: %s:%d received %ld bytes" in queue
 )
 forward_error_log_present = int("only forwarded" in queue)
-
 logger_cli_override_present = int('("log-config-file,l"' in sim_config)
 logger_configure_present = int("ItcLogger::Logger::configure" in sim_config)
 
@@ -117,17 +116,14 @@ print(f"queue_release_trace_source_present={queue_release_trace_present}")
 print(f"forward_error_log_source_present={forward_error_log_present}")
 print(f"logger_cli_override_source_present={logger_cli_override_present}")
 print(f"logger_configure_source_present={logger_configure_present}")
-
-if successful_ingress_trace_present:
-    ingress = "EXISTING_TRACE_AVAILABLE"
-else:
-    ingress = "NO_SUCCESS_INGRESS_TRACE_IN_PINNED_SOURCE"
-if queue_release_trace_present:
-    release = "EXISTING_TRACE_AVAILABLE"
-else:
-    release = "NO_QUEUE_RELEASE_TRACE_IN_PINNED_SOURCE"
-print(f"radio_ingress_observability={ingress}")
-print(f"radio_queue_release_observability={release}")
+print(
+    "radio_ingress_observability="
+    + ("EXISTING_TRACE_AVAILABLE" if successful_ingress_trace_present else "NO_SUCCESS_INGRESS_TRACE_IN_PINNED_SOURCE")
+)
+print(
+    "radio_queue_release_observability="
+    + ("EXISTING_TRACE_AVAILABLE" if queue_release_trace_present else "NO_QUEUE_RELEASE_TRACE_IN_PINNED_SOURCE")
+)
 PY
 
 echo "RADIO_OBSERVABILITY_STATIC_AUDIT"
@@ -143,12 +139,11 @@ echo "sim_common_source_clean=$sim_common_clean"
 
 echo
 echo "[LOGGER_CONFIGURATION_CANDIDATES]"
-mapfile -t logger_candidates < <(
-  find "$NOS3" -type f \( -name 'sim_log_config.xml' -o -name '*log*config*.xml' \) -print | sort
-)
-echo "logger_config_candidate_count=${#logger_candidates[@]}"
+logger_candidate_count=0
 trace_token_files=0
-for candidate in "${logger_candidates[@]}"; do
+while IFS= read -r candidate; do
+  [[ -n "$candidate" ]] || continue
+  logger_candidate_count=$((logger_candidate_count + 1))
   digest="$(shasum -a 256 "$candidate" | awk '{print $1}')"
   bytes="$(wc -c < "$candidate" | tr -d ' ')"
   echo "file=$candidate sha256=$digest bytes=$bytes"
@@ -156,7 +151,8 @@ for candidate in "${logger_candidates[@]}"; do
     trace_token_files=$((trace_token_files + 1))
   fi
   grep -Eni 'logger|level|trace|debug|appender|threshold' "$candidate" | head -40 || true
-done
+done < <(find "$NOS3" -type f \( -name 'sim_log_config.xml' -o -name '*log*config*.xml' \) -print | sort)
+echo "logger_config_candidate_count=$logger_candidate_count"
 echo "logger_config_candidates_with_trace_or_level_tokens=$trace_token_files"
 
 echo
