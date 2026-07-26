@@ -1,0 +1,18 @@
+RADIO_SOCKET_METADATA_V3_TERMINAL_RESULT_LOCK
+run_id=20260726T192902Z
+execution_date_utc=2026-07-26
+authorized_entrypoint=bash scripts/run_radio_socket_metadata_diagnostic_v3.sh
+terminal_status=RADIO_SOCKET_METADATA_DIAGNOSTIC_STATUS_COMPLETE
+transport_diagnosis=RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE
+radio_udp_5011_ingress_observed=true
+source_sha256=7f2d792ef69793a61e939cc10b683d971025aa518fd8b3b31800da0c0e994847
+runtime_sha256=2ccf9c24b8f6b621b2ca224119bf566988f6cce6d57efb2aafd227811f4877f2
+changed_character_offset=25658
+runtime_radio_ci_port=5012
+evidence_relative_path=artifacts/downlink-diagnostics/20260726T192902Z
+evidence_audit_status=PENDING_READ_ONLY_AUDIT
+cleanup_audit_status=PENDING_READ_ONLY_AUDIT
+runtime_authorization_consumed=true
+runtime_attempts_remaining=0
+scientific_outcome=false
+interpretation=Successful metadata-only recvfrom observation on local UDP 5011 resolves the prior ingress-versus-release ambiguity. The terminal diagnosis localizes the remaining transport failure after radio ingress and before UDP 8011 egress. Retained counts, component state, cleanup, and evidence-integrity results require a separate read-only audit.
