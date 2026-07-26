@@ -48,13 +48,14 @@ contract = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 runner = Path(sys.argv[2]).read_text(encoding="utf-8")
 relay = Path(sys.argv[3]).read_text(encoding="utf-8")
 
-assert contract["contract_version"] == "0.6.0"
-assert contract["status"] == "PLAINTEXT_RELAY_STATIC_GATE_PASS_BASELINE_RUN_1_PENDING"
+assert contract["contract_version"] == "0.6.1"
+assert contract["status"] == "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VALIDATION_PENDING"
 assert contract["event_injection_allowed"] is False
 assert contract["implementation"]["plaintext_transport_relay_self_test"] == "PASS"
 assert contract["implementation"]["network_disabled_container_self_tests"] == "PASS"
-assert contract["implementation"]["runtime_runner_validation"] == "PASS"
-assert contract["implementation"]["baseline_run_1"] == "PENDING"
+assert contract["implementation"]["runtime_runner_validation"] == "PENDING_FUNCTIONAL_READINESS_GATE"
+assert contract["implementation"]["baseline_run_1"] == "RUN_INVALID_PRE_MEASUREMENT_READINESS"
+assert contract["implementation"]["baseline_run_1_rerun"] == "BLOCKED_PENDING_FUNCTIONAL_READINESS_STATIC_GATE"
 assert contract["implementation"]["baseline_run_2"] == "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
 baseline = contract["baseline_transport"]
 assert baseline["profile"] == "PLAINTEXT_UDP_RELAY"
@@ -65,11 +66,14 @@ assert baseline["relay_alias_role"] == "compatibility_only_not_cryptolib"
 assert baseline["allowed_command_hex"] == "18fac000000100dc"
 assert baseline["allowed_command_sha256"] == "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd"
 assert baseline["maximum_command_transmissions"] == 1
+assert baseline["functional_readiness_signal"] == "PLAINTEXT_RELAY_TELEMETRY_FORWARDED"
+assert baseline["deprecated_readiness_signal"] == "generic_radio_forward_loop_hostname_resolution_log"
 assert baseline["event_injection_capability"] is False
 assert contract["evidence"]["cryptographic_semantics_claim_allowed"] is False
 assert contract["gate"]["required_clean_passes"] == 2
 assert contract["gate"]["event_injection_unblocked_after_gate"] is False
-assert contract["gate"]["baseline_run_1_authorized"] is True
+assert contract["gate"]["baseline_run_1_authorized"] is False
+assert contract["gate"]["baseline_run_1_rerun_authorized"] is False
 assert contract["gate"]["baseline_run_2_authorized"] is False
 
 transport = contract["transport"]
@@ -98,6 +102,8 @@ for token in (
     "PLAINTEXT_RELAY_VERIFY_ONLY",
     "cryptographic_semantics_status deferred",
     "transport_relay_command_forwarded_count",
+    "PLAINTEXT_RELAY_TELEMETRY_FORWARDED 60 plaintext_relay_telemetry_flow",
+    "forward_loop - Initial = cryptolib",
     "./support/standalone",
 ):
     assert token in runner, token
@@ -136,4 +142,4 @@ project_networks_after="$(docker network ls -q --filter "label=research.project=
   exit 1
 }
 
-echo "BENIGN_BASELINE_PLAINTEXT_RELAY_VERIFICATION_STATUS=PASS"
+echo "BENIGN_BASELINE_PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VERIFICATION_STATUS=PASS"
