@@ -1,6 +1,6 @@
 {
   "contract_version": "0.1.0",
-  "status": "STATIC_VALIDATION_PENDING",
+  "status": "STATIC_GATE_PASS_RUNTIME_PENDING",
   "purpose": "Distinguish TO_LAB-to-radio delivery from generic-radio simulation-time queue release without transmitting any command.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -14,7 +14,18 @@
     "to_lab_commit": "6ae88fd1c2bb931d233c0051c88b787447bd5bb6",
     "fortytwo_commit": "eda252bf31f27850e867e698cfdd963e143ead1f",
     "image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
-    "blocked_baseline_contract": "configs/benign-baseline-contract.json"
+    "blocked_baseline_contract": "configs/benign-baseline-contract.json",
+    "static_gate_lock": "artifacts/downlink-diagnostic-static-gate-lock.txt"
+  },
+  "implementation": {
+    "witness": "scripts/telemetry_path_witness.py",
+    "canonical_runner": "scripts/run_downlink_path_diagnostic.sh",
+    "authorized_entrypoint": "scripts/run_downlink_path_diagnostic_hardened.sh",
+    "verifier": "scripts/verify_downlink_path_diagnostic.sh",
+    "direct_canonical_runner_execution_allowed": false,
+    "shell_invocation_required": true,
+    "static_verification": "PASS",
+    "diagnostic_runtime": "PENDING"
   },
   "topology": {
     "to_lab_destination_alias": "active-gs",
@@ -64,10 +75,11 @@
   },
   "gate": {
     "static_verification_required": true,
-    "diagnostic_runtime_authorized": false,
+    "diagnostic_runtime_authorized": true,
+    "diagnostic_runtime_attempts_authorized": 1,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Only the telemetry-only diagnostic may be authorized after its static gate passes. No command-producing component may be present."
+    "additional_requirement": "Exactly one telemetry-only diagnostic runtime is authorized through bash scripts/run_downlink_path_diagnostic_hardened.sh. No command-producing component may be present. Direct canonical-runner execution, baseline execution, event injection, scientific outcome classification, and cryptographic claims remain prohibited."
   }
 }
