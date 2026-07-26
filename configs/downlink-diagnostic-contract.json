@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.1",
-  "status": "RADIO_SOCKET_METADATA_SHIM_STATIC_GATE_PASS_RUNTIME_DESIGN_PENDING",
+  "contract_version": "0.4.2",
+  "status": "RADIO_SOCKET_METADATA_RUNTIME_WRAPPER_STATIC_VALIDATION_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -36,17 +36,18 @@
     "radio_socket_metadata_shim": "scripts/radio_socket_metadata_shim.c",
     "radio_socket_metadata_shim_selftest": "scripts/radio_socket_metadata_shim_selftest.c",
     "radio_socket_metadata_shim_verifier": "scripts/verify_radio_socket_metadata_shim.sh",
-    "radio_socket_metadata_runtime_entrypoint": "PENDING_IMPLEMENTATION",
-    "radio_socket_metadata_runtime_verifier": "PENDING_IMPLEMENTATION",
+    "radio_socket_metadata_runtime_entrypoint": "scripts/run_radio_socket_metadata_diagnostic.sh",
+    "radio_socket_metadata_runtime_verifier": "scripts/verify_radio_socket_metadata_runtime_wrapper.sh",
     "direct_historical_runner_execution_allowed": false,
     "direct_port_correction_runner_execution_allowed": false,
+    "direct_radio_socket_metadata_runner_execution_allowed": false,
     "shell_invocation_required": true,
     "port_correction_static_verification": "PASS",
     "port_correction_runtime": "CONSUMED_RUN_INVALID",
     "historical_diagnostic_runtime_authorization_consumed": true,
     "port_correction_runtime_authorization_consumed": true,
     "radio_socket_metadata_shim_static_verification": "PASS",
-    "radio_socket_metadata_runtime": "BLOCKED_PENDING_DEDICATED_WRAPPER_STATIC_GATE"
+    "radio_socket_metadata_runtime": "BLOCKED_PENDING_WRAPPER_STATIC_VALIDATION"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -201,6 +202,6 @@
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Implement and statically verify a dedicated telemetry-only runtime wrapper. It must mount the accepted shim only into generic-radio, write metadata only to immutable-ground evidence, retain the 5013-to-5011 proxy and 8011 sink, introduce no command path, and prove all isolation, hashing, cleanup, and forbidden-content controls before any single runtime authorization may be considered."
+    "additional_requirement": "Run and accept scripts/verify_radio_socket_metadata_runtime_wrapper.sh. It may compile the accepted shim in the pinned image with network mode none and generate/inspect the telemetry-only runtime, but it must launch no NOS3 component and create no project-labeled runtime resource. A runtime may be considered only after a clean static result is sealed separately."
   }
 }
