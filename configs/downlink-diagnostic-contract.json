@@ -1,6 +1,6 @@
 {
   "contract_version": "0.2.0",
-  "status": "PORT_CORRECTION_STATIC_VALIDATION_PENDING",
+  "status": "PORT_CORRECTION_STATIC_GATE_PASS_RUNTIME_PENDING",
   "purpose": "Validate a telemetry-only bridge from the compiled TO_LAB UDP destination port 5013 to the generic-radio FSW telemetry listener port 5011 without transmitting any command.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -17,7 +17,8 @@
     "blocked_baseline_contract": "configs/benign-baseline-contract.json",
     "original_static_gate_lock": "artifacts/downlink-diagnostic-static-gate-lock.txt",
     "invalid_runtime_lock": "artifacts/downlink-diagnostic-invalid-20260726T021807Z.txt",
-    "to_lab_static_audit_lock": "artifacts/to-lab-downlink-static-audit-lock.txt"
+    "to_lab_static_audit_lock": "artifacts/to-lab-downlink-static-audit-lock.txt",
+    "port_correction_static_gate_lock": "artifacts/downlink-port-correction-static-gate-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -29,9 +30,10 @@
     "static_auditor": "scripts/audit_to_lab_downlink_static.sh",
     "direct_historical_runner_execution_allowed": false,
     "shell_invocation_required": true,
-    "port_correction_static_verification": "PENDING",
-    "diagnostic_runtime": "BLOCKED",
-    "diagnostic_runtime_authorization_consumed": true
+    "port_correction_static_verification": "PASS",
+    "diagnostic_runtime": "PENDING",
+    "historical_diagnostic_runtime_authorization_consumed": true,
+    "port_correction_runtime_authorization_consumed": false
   },
   "root_cause_finding": {
     "classification": "DIRECT_COMPILED_PORT_MISMATCH",
@@ -127,11 +129,11 @@
   },
   "gate": {
     "static_verification_required_for_any_future_runtime": true,
-    "diagnostic_runtime_authorized": false,
-    "diagnostic_runtime_attempts_authorized": 0,
+    "diagnostic_runtime_authorized": true,
+    "diagnostic_runtime_attempts_authorized": 1,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "The compiled TO_LAB destination port mismatch is confirmed. Update and statically verify the telemetry-only runner to bind active-gs UDP 5013 and forward byte-for-byte to radio-sim UDP 5011. Add a non-sensitive policy-visible scope marker and reject zero-entry manifests. No runtime is authorized until the corrected static gate is separately accepted."
+    "additional_requirement": "Exactly one telemetry-only port-correction diagnostic runtime is authorized through bash scripts/run_downlink_port_correction_diagnostic.sh. The active-gs witness must bind UDP 5013 and forward byte-for-byte to radio-sim UDP 5011. The policy-visible scope marker and non-empty evidence manifests are mandatory. No command-producing component, baseline execution, event injection, scientific outcome classification, or cryptographic claim is authorized."
   }
 }
