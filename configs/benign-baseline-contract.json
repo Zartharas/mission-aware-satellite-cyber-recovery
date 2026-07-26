@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.6.1",
-  "status": "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_STATIC_GATE_PASS_RUN_1_RERUN_PENDING",
+  "contract_version": "0.6.2",
+  "status": "PLAINTEXT_RELAY_DOWNLINK_DIAGNOSIS_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
@@ -15,7 +15,8 @@
     "plaintext_relay_functional_readiness_static_gate_lock": "artifacts/plaintext-relay-functional-readiness-static-gate-lock.txt",
     "runtime_interface_correction_record": "artifacts/benign-baseline-invalid-20260725T215659Z.txt",
     "cryptolib_incompatibility_evidence": "artifacts/benign-baseline-invalid-20260725T230542Z.txt",
-    "plaintext_relay_readiness_invalid_run": "artifacts/benign-baseline-invalid-20260726T001052Z.txt"
+    "plaintext_relay_readiness_invalid_run": "artifacts/benign-baseline-invalid-20260726T001052Z.txt",
+    "plaintext_relay_functional_readiness_invalid_run": "artifacts/benign-baseline-invalid-20260726T005937Z.txt"
   },
   "implementation": {
     "historical_setup_probe": "scripts/benign_ground_probe.py",
@@ -27,13 +28,14 @@
     "plaintext_transport_relay": "scripts/benign_plaintext_transport_relay.py",
     "runtime_runner": "scripts/run_benign_baseline_plaintext_relay.sh",
     "runtime_runner_verification_script": "scripts/verify_benign_baseline_plaintext_relay.sh",
+    "read_only_downlink_analyzer": "scripts/analyze_plaintext_relay_readiness.sh",
     "measurement_probe_self_test": "PASS",
     "runtime_config_preparer_self_test": "PASS",
     "plaintext_transport_relay_self_test": "PASS",
     "network_disabled_container_self_tests": "PASS",
-    "runtime_runner_validation": "PASS",
+    "runtime_runner_validation": "BLOCKED_PENDING_DOWNLINK_DIAGNOSIS",
     "baseline_run_1": "RUN_INVALID_PRE_MEASUREMENT_READINESS",
-    "baseline_run_1_rerun": "PENDING",
+    "baseline_run_1_rerun": "RUN_INVALID_PRE_MEASUREMENT_TELEMETRY_FLOW",
     "baseline_run_2": "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
   },
   "baseline_transport": {
@@ -51,6 +53,7 @@
     "functional_readiness_signal": "PLAINTEXT_RELAY_TELEMETRY_FORWARDED",
     "functional_readiness_signal_stage": "after_TO_LAB_activation_before_baseline_observation",
     "deprecated_readiness_signal": "generic_radio_forward_loop_hostname_resolution_log",
+    "downlink_diagnostic_question": "Determine whether TO_LAB packets reach radio UDP 5011 and whether the radio simulation-time queue releases them to relay UDP 8011.",
     "event_injection_capability": false
   },
   "telemetry_activation": {
@@ -214,8 +217,8 @@
     "event_injection_unblocked_after_gate": false,
     "cryptolib_semantics_unblocked_after_gate": false,
     "baseline_run_1_authorized": false,
-    "baseline_run_1_rerun_authorized": true,
+    "baseline_run_1_rerun_authorized": false,
     "baseline_run_2_authorized": false,
-    "additional_requirement": "The functional-readiness static gate has passed. One corrected run-1 rerun is authorized and must observe PLAINTEXT_RELAY_TELEMETRY_FORWARDED before measurement, then validate exactly one allowlisted command, clean isolation, and separated evidence. Run 2 remains blocked until run 1 is reviewed and accepted. CryptoLib semantics remain a separate compatible flight-side integration gate, and event injection remains blocked."
+    "additional_requirement": "The authorized run-1 rerun ended RUN_INVALID before measurement because no relay telemetry-forward event was observed. No further baseline run is authorized. Complete read-only diagnosis of the radio 42 data-provider connection and distinguish TO_LAB-to-radio receipt from radio simulation-time queue release before proposing a new static gate. CryptoLib semantics remain separate and event injection remains blocked."
   }
 }
