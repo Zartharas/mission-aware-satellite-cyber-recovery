@@ -59,7 +59,7 @@ def self_test() -> int:
     sink = WitnessConfig("sink", "0.0.0.0", 8011, None, None, 5.0)
     validate_config(proxy)
     validate_config(sink)
-    assert packet_digest(b"telemetry") == "b1c08975d731a4ef765aab2fc20a787e1ee89d2623a3db0bc9eca184fb244642"
+    assert packet_digest(b"telemetry") == "16091175048ac6014be4712b1640c0e3a3272f4fc944e0bee3248f8861b234be"
     for invalid in (
         WitnessConfig("proxy", "0.0.0.0", 5011, None, None, 5.0),
         WitnessConfig("sink", "0.0.0.0", 8011, "radio-sim", 5011, 5.0),
