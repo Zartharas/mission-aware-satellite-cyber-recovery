@@ -61,10 +61,6 @@ def first_glob(pattern: str) -> Path | None:
     return next(iter(sorted(orch.glob(pattern))), None)
 
 
-def first_source(filename: str) -> Path | None:
-    return next(iter(sorted(external.rglob(filename))), None)
-
-
 def git_root(path: Path | None) -> Path | None:
     if path is None:
         return None
@@ -112,6 +108,15 @@ def xml_value(block: str, tag: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def named_connection(block: str, name: str) -> str:
+    match = re.search(
+        rf"<connection>\s*<name>\s*{re.escape(name)}\s*</name>.*?</connection>",
+        block,
+        re.DOTALL,
+    )
+    return match.group(0) if match else ""
+
+
 def isolate_function(text: str, start_name: str, next_name: str) -> str:
     match = re.search(
         rf"void\s+Generic_radioHardwareModel::{re.escape(start_name)}\(.*?\n\s*}}\n\s*\n\s*void\s+Generic_radioHardwareModel::{re.escape(next_name)}",
@@ -131,10 +136,10 @@ trace_path = run_dir / "immutable-ground" / "radio-socket-metadata" / "radio-soc
 trace = read_text(trace_path)
 engine_inspect = first_glob("inspect-*-engine.json")
 
-radio_source_path = first_source("generic_radio_hardware_model.cpp")
-provider_source_path = first_source("generic_radio_42_data_provider.cpp")
-sim_common_path = first_source("sim_i_hardware_model.hpp")
-time_driver_path = first_source("time_driver.cpp")
+radio_source_path = external / "components" / "generic_radio" / "sim" / "src" / "generic_radio_hardware_model.cpp"
+provider_source_path = external / "components" / "generic_radio" / "sim" / "src" / "generic_radio_42_data_provider.cpp"
+sim_common_path = external / "sims" / "sim_common" / "inc" / "sim_i_hardware_model.hpp"
+time_driver_path = external / "sims" / "nos_time_driver" / "src" / "time_driver.cpp"
 
 for label, path in (
     ("generic_radio_hardware_model.cpp", radio_source_path),
@@ -142,7 +147,7 @@ for label, path in (
     ("sim_i_hardware_model.hpp", sim_common_path),
     ("time_driver.cpp", time_driver_path),
 ):
-    if path is None:
+    if not path.is_file():
         raise SystemExit(f"[ERROR] Missing pinned source: {label}")
 
 nos3_head = subprocess.check_output(
@@ -172,13 +177,16 @@ radio_end = runtime_xml.find("</simulator>", radio_start)
 if radio_end < 0:
     raise SystemExit("[ERROR] Retained runtime generic-radio block is unterminated")
 radio_block = runtime_xml[radio_start:radio_end]
+gsw_block = named_connection(radio_block, "gsw")
+if not gsw_block:
+    raise SystemExit("[ERROR] Retained generic-radio gsw connection not found")
 
 criteria = xml_value(radio_block, "downlink-close-criteria")
 delay_on = xml_value(radio_block, "downlink-delay-on").lower()
 comm_downlink = xml_value(radio_block, "comm-downlink")
-fsw_to_port = xml_value(radio_block, "to-port")
-gsw_tlm_port = xml_value(radio_block, "tlm-port")
-gsw_ip = xml_value(radio_block, "ip")
+fsw_to_port = xml_value(named_connection(radio_block, "fsw"), "to-port")
+gsw_tlm_port = xml_value(gsw_block, "tlm-port")
+gsw_ip = xml_value(gsw_block, "ip")
 common_connection = xml_value(runtime_xml, "nos-connection-string")
 override_connection = xml_value(runtime_xml, "nos-connection-string-override")
 
@@ -194,10 +202,18 @@ source_provider_reads_config = all(
         'config.get("simulator.hardware-model.data-provider.downlink-delay-on", false)',
     )
 )
-source_none_allows = 'else { // downlink_close_criteria == "none" or anything else\n                    communication_capable = true;' in forward
+source_none_allows = bool(
+    re.search(
+        r'else\s*\{\s*//\s*downlink_close_criteria\s*==\s*"none".*?communication_capable\s*=\s*true\s*;',
+        forward,
+        re.DOTALL,
+    )
+)
 source_delay_zero_default = "delay = 0;" in forward
 source_downlink_enqueue = "_message_queue_udp_downlink.push(message)" in forward
-source_enqueue_after_eligibility = forward.find("if (status != -1 && communication_capable)") < forward.find("_message_queue_udp_downlink.push(message)")
+eligibility_anchor = forward.find("if (status != -1 && communication_capable)")
+enqueue_anchor = forward.find("_message_queue_udp_downlink.push(message)")
+source_enqueue_after_eligibility = eligibility_anchor >= 0 and enqueue_anchor > eligibility_anchor
 source_timestamp_from_bus = "_time_bus->get_time()" in forward and "message.time_to_send" in forward
 source_callback_registered = "add_time_tick_callback(std::bind(&Generic_radioHardwareModel::process_forward_loop_message_queue" in radio_source
 source_callback_downlink_queue = "while(!_message_queue_udp_downlink.empty())" in callback
