@@ -75,6 +75,32 @@
     "external_egress_allowed": false,
     "network": "project_labeled_internal_bridge"
   },
+  "topology": {
+    "to_lab_destination_alias": "active-gs",
+    "to_lab_compiled_destination_port": 5013,
+    "to_radio_witness": {
+      "mode": "proxy",
+      "alias": "active-gs",
+      "bind_port": 5013,
+      "forward_destination": "radio-sim",
+      "forward_port": 5011,
+      "byte_preserving": true
+    },
+    "radio_egress_witness": {
+      "mode": "sink",
+      "alias": "cryptolib",
+      "bind_port": 8011,
+      "forwarding": false
+    },
+    "radio_ground_mode": "UDP",
+    "radio_command_listener_port": 8010,
+    "radio_fsw_telemetry_listener_port": 5011,
+    "radio_fsw_command_destination_port": 5012,
+    "host_ports_allowed": false,
+    "docker_socket_mount_allowed": false,
+    "external_egress_allowed": false,
+    "network": "project_labeled_internal_bridge"
+  },
   "root_cause_findings": [
     {
       "classification": "DIRECT_COMPILED_PORT_MISMATCH",
@@ -89,6 +115,19 @@
       "reason": "The pinned radio receives UDP in forward_loop, queues eligible downlink packets, and sends them only from a time-tick callback. The retained logger level did not expose a successful recvfrom or queue-release event, and the source has no successful ingress trace at the recvfrom boundary."
     }
   ],
+  "root_cause_finding": {
+    "classification": "DIRECT_COMPILED_PORT_MISMATCH",
+    "to_lab_compiled_destination_port": 5013,
+    "radio_fsw_telemetry_listener_port": 5011,
+    "prior_witness_bind_port": 5011,
+    "status": "CORRECTED_AND_VALIDATED_TO_PROXY_FORWARD"
+  },
+  "compatibility_aliases": {
+    "topology": "confirmed_topology",
+    "root_cause_finding": "root_cause_findings[DIRECT_COMPILED_PORT_MISMATCH]",
+    "scope": "static wrapper generation only",
+    "runtime_behavior_changed": false
+  },
   "retained_runtime_results": [
     {
       "run_id": "20260726T021807Z",
