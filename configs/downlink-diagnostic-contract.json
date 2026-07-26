@@ -1,6 +1,6 @@
 {
   "contract_version": "0.4.2",
-  "status": "RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_GATE_PASS_RUNTIME_PENDING",
+  "status": "RADIO_SOCKET_METADATA_RUNTIME_V3_COMPLETE_EVIDENCE_AUDIT_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -24,7 +24,8 @@
     "radio_socket_metadata_shim_static_gate_lock": "artifacts/radio-socket-metadata-shim-static-gate-lock.txt",
     "radio_socket_metadata_runtime_wrapper_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-static-gate-lock.txt",
     "radio_socket_metadata_runtime_prelaunch_failure_lock": "artifacts/radio-socket-metadata-runtime-prelaunch-assertion-failed-20260726.txt",
-    "radio_socket_metadata_runtime_wrapper_v3_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-v3-static-gate-lock.txt"
+    "radio_socket_metadata_runtime_wrapper_v3_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-v3-static-gate-lock.txt",
+    "radio_socket_metadata_v3_terminal_lock": "artifacts/radio-socket-metadata-v3-terminal-20260726T192902Z.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -53,7 +54,7 @@
     "port_correction_runtime_authorization_consumed": true,
     "radio_socket_metadata_shim_static_verification": "PASS",
     "radio_socket_metadata_v2_runtime": "CONSUMED_PRE_RUNTIME_ASSERTION_FAILED",
-    "radio_socket_metadata_v3_runtime": "AUTHORIZED_ONE_TELEMETRY_ONLY_ATTEMPT"
+    "radio_socket_metadata_v3_runtime": "CONSUMED_COMPLETE_EVIDENCE_AUDIT_PENDING"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -117,13 +118,19 @@
     },
     {
       "classification": "RADIO_INGRESS_OR_SIMULATION_TIME_QUEUE_RELEASE_UNRESOLVED_AT_CURRENT_LOG_LEVEL",
-      "status": "ACTIVE",
-      "reason": "The pinned radio receives UDP in forward_loop, queues eligible downlink packets, and sends them only from a time-tick callback. The retained logger level did not expose a successful recvfrom or queue-release event, and the source has no successful ingress trace at the recvfrom boundary."
+      "status": "RESOLVED_TO_POST_INGRESS_QUEUE_RELEASE_BOUNDARY",
+      "reason": "The v3 metadata diagnostic observed successful recvfrom activity on local UDP 5011 and returned RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE, localizing the unresolved boundary after radio ingress and before UDP 8011 egress. Retained evidence counts and cleanup remain pending read-only audit."
     },
     {
       "classification": "METADATA_RUNTIME_PRELAUNCH_WRAPPER_GATE_ASSERTION_MISMATCH",
       "status": "CORRECTED_BY_V3_MODE_AWARE_GATE",
       "reason": "The v2 metadata wrapper inserted an unconditional PENDING assertion for radio_socket_metadata_runtime_wrapper_static_verification. The v3 wrapper now evaluates PENDING only in static verification mode and PASS only in the separately authorized runtime mode."
+    },
+    {
+      "classification": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+      "status": "TERMINAL_DIAGNOSTIC_OBSERVED_EVIDENCE_AUDIT_PENDING",
+      "run_id": "20260726T192902Z",
+      "reason": "Terminal output reported successful metadata-only UDP 5011 ingress observation and no subsequent UDP 8011 release during the bounded diagnostic, producing the transport diagnosis RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE."
     }
   ],
   "root_cause_finding": {
@@ -136,7 +143,7 @@
   "compatibility_aliases": {
     "topology": "confirmed_topology",
     "root_cause_finding": "root_cause_findings[DIRECT_COMPILED_PORT_MISMATCH]",
-    "scope": "nested wrapper generation and the single authorized v3 telemetry-only diagnostic",
+    "scope": "nested wrapper generation; v3 diagnostic consumed; no further runtime authorized",
     "runtime_behavior_changed": false
   },
   "retained_runtime_results": [
@@ -171,6 +178,21 @@
       "immutable_ground_hash_failed": 0,
       "policy_visible_hash_failed": 0,
       "interpretation": "TO_LAB production, hostname resolution, UDP 5013 receipt, and byte-preserving forwarding to radio-sim UDP 5011 are confirmed. Radio socket receipt versus simulation-time queue release remains unresolved at the retained logging level."
+    },
+    {
+      "run_id": "20260726T192902Z",
+      "terminal_classification": "RADIO_SOCKET_METADATA_DIAGNOSTIC_COMPLETE",
+      "transport_diagnosis": "RADIO_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
+      "source_sha256": "7f2d792ef69793a61e939cc10b683d971025aa518fd8b3b31800da0c0e994847",
+      "runtime_sha256": "2ccf9c24b8f6b621b2ca224119bf566988f6cce6d57efb2aafd227811f4877f2",
+      "changed_character_offset": 25658,
+      "runtime_radio_ci_port": 5012,
+      "radio_udp_5011_ingress_observed": true,
+      "terminal_evidence_path": "/Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/artifacts/downlink-diagnostics/20260726T192902Z",
+      "evidence_audit_status": "PENDING_READ_ONLY_AUDIT",
+      "cleanup_audit_status": "PENDING_READ_ONLY_AUDIT",
+      "scientific_outcome": false,
+      "interpretation": "The radio process received forwarded telemetry on UDP 5011. During the bounded observation, the diagnostic classified the absence of UDP 8011 egress as a post-ingress simulation-time queue-release failure. This is an infrastructure transport diagnosis, not a scored research outcome."
     }
   ],
   "pre_runtime_attempt_results": [
@@ -199,7 +221,8 @@
     "trace_only_fully_dispositive": false,
     "successful_recvfrom_marker_in_pinned_source": false,
     "queue_release_trace_in_pinned_source": true,
-    "metadata_interposition_feasible": true
+    "metadata_interposition_feasible": true,
+    "v3_retained_evidence_audit": "PENDING"
   },
   "radio_socket_metadata_shim": {
     "method": "LD_PRELOAD_RECVFROM_SENDTO_INTERPOSITION",
@@ -268,12 +291,12 @@
     "radio_socket_metadata_shim_static_verification": "PASS",
     "radio_socket_metadata_runtime_wrapper_static_verification": "SUPERSEDED_BY_PRE_RUNTIME_ASSERTION_FAILURE",
     "radio_socket_metadata_runtime_wrapper_v3_static_verification": "PASS",
-    "diagnostic_runtime_authorized": true,
-    "diagnostic_runtime_attempts_authorized": 1,
+    "diagnostic_runtime_authorized": false,
+    "diagnostic_runtime_attempts_authorized": 0,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Execute exactly one telemetry-only metadata diagnostic through bash scripts/run_radio_socket_metadata_diagnostic_v3.sh. After the attempt, retain and analyze its evidence, close authorization regardless of outcome, and continue to block baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims."
+    "additional_requirement": "Perform a read-only audit of retained run 20260726T192902Z and record socket metadata counts, witness counts, component liveness, cleanup state, and evidence-integrity results. No additional runtime, baseline, command, event-injection, scientific-outcome, or CryptoLib/SDLS authorization exists."
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
