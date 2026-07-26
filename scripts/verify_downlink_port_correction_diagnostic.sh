@@ -112,6 +112,12 @@ historical_runtime_line = '--mode proxy --bind-host 0.0.0.0 --bind-port 5011 ' +
 assert historical_runner.count(historical_runtime_line) == 1
 assert "runtime_line_old = '--mode proxy --bind-host 0.0.0.0 --bind-port 5011 ' + chr(92) * 2" in runner
 assert "runtime_line_new = '--mode proxy --bind-host 0.0.0.0 --bind-port 5013 ' + chr(92) * 2" in runner
+assert "def validate_top_level_python_heredocs" in runner
+assert "ast.parse(body" in runner
+assert "hash_replacement = (" in runner
+assert "policy_replacement = (" in runner
+assert "f\"    {hash_anchor!r},\\n\"" in runner
+assert "f\"    {policy_replacement!r},\\n\"" in runner
 
 for token in (
     'assert contract["contract_version"] == "0.2.0"',
