@@ -116,10 +116,12 @@ text = replace_exact(
     1,
     "proxy bind assertion",
 )
+runtime_line_old = '--mode proxy --bind-host 0.0.0.0 --bind-port 5011 ' + chr(92) * 2
+runtime_line_new = '--mode proxy --bind-host 0.0.0.0 --bind-port 5013 ' + chr(92) * 2
 text = replace_exact(
     text,
-    '--mode proxy --bind-host 0.0.0.0 --bind-port 5011 \\\n',
-    '--mode proxy --bind-host 0.0.0.0 --bind-port 5013 \\\n',
+    runtime_line_old,
+    runtime_line_new,
     1,
     "proxy bind runtime",
 )
@@ -157,13 +159,13 @@ if text.count(runtime_anchor) != 1:
     raise SystemExit("runtime transformation anchor missing")
 runtime_insert = '''updated = replace_once(
     updated,
-    'record to_lab_destination_port 5011\\n',
-    'record to_lab_destination_port 5013\\n'
-    'record to_lab_compiled_destination_port 5013\\n'
-    'record radio_fsw_telemetry_listener_port 5011\\n',
+    'record to_lab_destination_port 5011\n',
+    'record to_lab_destination_port 5013\n'
+    'record to_lab_compiled_destination_port 5013\n'
+    'record radio_fsw_telemetry_listener_port 5011\n',
     "compiled TO_LAB destination port",
 )
-updated = replace_once(updated, 'record expected_runtime_component_count 21\\n', 'record expected_runtime_component_count 22\\n', "runtime count")
+updated = replace_once(updated, 'record expected_runtime_component_count 21\n', 'record expected_runtime_component_count 22\n', "runtime count")
 '''
 text = text.replace(runtime_anchor, runtime_insert, 1)
 
@@ -175,24 +177,24 @@ if text.count(transform_anchor) != 1:
 transform_insert = '''updated = replace_once(
     updated,
     ''' + repr(hash_anchor) + ''',
-    'if not entries:\\n'
-    '    raise SystemExit(f"zero-entry evidence manifest rejected: {directory}")\\n'
-    'temporary = manifest.with_suffix(".txt.tmp")\\n'
-    'temporary.write_text("\\\\n".join(entries) + "\\\\n", encoding="utf-8")\\n',
+    'if not entries:\n'
+    '    raise SystemExit(f"zero-entry evidence manifest rejected: {directory}")\n'
+    'temporary = manifest.with_suffix(".txt.tmp")\n'
+    'temporary.write_text("\\n".join(entries) + "\\n", encoding="utf-8")\n',
     "zero-entry evidence rejection",
 )
 updated = replace_once(
     updated,
     ''' + repr(policy_anchor) + ''',
-    'mkdir -p "$PROBE_GROUND" "$ORCHESTRATION/runtime-config" "$POLICY" "$INOUT"\\n'
-    'cat > "$POLICY/scope.json" <<\'EOF\'\\n'
-    '{\\n'
-    '  "policy_visible_evidence": "none_by_design",\\n'
-    '  "truth_data_included": false,\\n'
-    '  "command_data_included": false,\\n'
-    '  "scientific_outcome_included": false\\n'
-    '}\\n'
-    'EOF\\n',
+    'mkdir -p "$PROBE_GROUND" "$ORCHESTRATION/runtime-config" "$POLICY" "$INOUT"\n'
+    'cat > "$POLICY/scope.json" <<\'EOF\'\n'
+    '{\n'
+    '  "policy_visible_evidence": "none_by_design",\n'
+    '  "truth_data_included": false,\n'
+    '  "command_data_included": false,\n'
+    '  "scientific_outcome_included": false\n'
+    '}\n'
+    'EOF\n',
     "policy-visible scope marker",
 )
 
