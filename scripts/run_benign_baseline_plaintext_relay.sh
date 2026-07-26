@@ -34,7 +34,8 @@ import json
 import sys
 from pathlib import Path
 contract = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-assert contract["contract_version"] == "0.6.0"
+assert contract["contract_version"] == "0.6.1"
+assert contract["status"] == "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VALIDATION_PENDING"
 assert contract["event_injection_allowed"] is False
 assert contract["baseline_transport"]["profile"] == "PLAINTEXT_UDP_RELAY"
 assert contract["baseline_transport"]["cryptographic_semantics"] == "DEFERRED"
@@ -42,6 +43,8 @@ assert contract["baseline_transport"]["relay_alias"] == "cryptolib"
 assert contract["baseline_transport"]["relay_alias_role"] == "compatibility_only_not_cryptolib"
 assert contract["baseline_transport"]["allowed_command_sha256"] == "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd"
 assert contract["baseline_transport"]["maximum_command_transmissions"] == 1
+assert contract["baseline_transport"]["functional_readiness_signal"] == "PLAINTEXT_RELAY_TELEMETRY_FORWARDED"
+assert contract["baseline_transport"]["deprecated_readiness_signal"] == "generic_radio_forward_loop_hostname_resolution_log"
 assert contract["transport"]["radio_ground_mode"] == "UDP"
 assert contract["transport"]["ground_to_relay"]["port"] == 6010
 assert contract["transport"]["relay_to_radio"]["port"] == 8010
