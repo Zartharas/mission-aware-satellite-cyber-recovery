@@ -67,6 +67,25 @@ static int local_port_for_fd(int fd)
     return socket_port((const struct sockaddr *)&address, length);
 }
 
+static void write_metadata_line(const char *line, size_t bytes)
+{
+    size_t offset = 0;
+    while (offset < bytes)
+    {
+        ssize_t written = write(trace_fd, line + offset, bytes - offset);
+        if (written > 0)
+        {
+            offset += (size_t)written;
+            continue;
+        }
+        if (written < 0 && errno == EINTR)
+        {
+            continue;
+        }
+        break;
+    }
+}
+
 static void emit_metadata(
     const char *event,
     int fd,
@@ -107,7 +126,7 @@ static void emit_metadata(
     if (length > 0)
     {
         size_t bytes = (size_t)length < sizeof(line) ? (size_t)length : sizeof(line) - 1;
-        (void)write(trace_fd, line, bytes);
+        write_metadata_line(line, bytes);
     }
 }
 
