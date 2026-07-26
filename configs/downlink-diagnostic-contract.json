@@ -1,6 +1,6 @@
 {
   "contract_version": "0.4.2",
-  "status": "RADIO_SOCKET_METADATA_RUNTIME_WRAPPER_STATIC_VALIDATION_PENDING",
+  "status": "RADIO_SOCKET_METADATA_RUNTIME_STATIC_GATE_PASS_RUNTIME_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -21,7 +21,8 @@
     "port_correction_static_gate_lock": "artifacts/downlink-port-correction-static-gate-lock.txt",
     "port_correction_invalid_runtime_lock": "artifacts/downlink-port-correction-invalid-20260726T165332Z.txt",
     "radio_observability_read_only_audit_lock": "artifacts/radio-observability-read-only-audit-lock.txt",
-    "radio_socket_metadata_shim_static_gate_lock": "artifacts/radio-socket-metadata-shim-static-gate-lock.txt"
+    "radio_socket_metadata_shim_static_gate_lock": "artifacts/radio-socket-metadata-shim-static-gate-lock.txt",
+    "radio_socket_metadata_runtime_wrapper_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-static-gate-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -36,8 +37,8 @@
     "radio_socket_metadata_shim": "scripts/radio_socket_metadata_shim.c",
     "radio_socket_metadata_shim_selftest": "scripts/radio_socket_metadata_shim_selftest.c",
     "radio_socket_metadata_shim_verifier": "scripts/verify_radio_socket_metadata_shim.sh",
-    "radio_socket_metadata_runtime_entrypoint": "scripts/run_radio_socket_metadata_diagnostic.sh",
-    "radio_socket_metadata_runtime_verifier": "scripts/verify_radio_socket_metadata_runtime_wrapper.sh",
+    "radio_socket_metadata_runtime_entrypoint": "scripts/run_radio_socket_metadata_diagnostic_v2.sh",
+    "radio_socket_metadata_runtime_verifier": "scripts/verify_radio_socket_metadata_runtime_wrapper_v2.sh",
     "direct_historical_runner_execution_allowed": false,
     "direct_port_correction_runner_execution_allowed": false,
     "direct_radio_socket_metadata_runner_execution_allowed": false,
@@ -47,7 +48,7 @@
     "historical_diagnostic_runtime_authorization_consumed": true,
     "port_correction_runtime_authorization_consumed": true,
     "radio_socket_metadata_shim_static_verification": "PASS",
-    "radio_socket_metadata_runtime": "BLOCKED_PENDING_WRAPPER_STATIC_VALIDATION"
+    "radio_socket_metadata_runtime": "AUTHORIZED_ONE_TELEMETRY_ONLY_ATTEMPT"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -125,7 +126,7 @@
   "compatibility_aliases": {
     "topology": "confirmed_topology",
     "root_cause_finding": "root_cause_findings[DIRECT_COMPILED_PORT_MISMATCH]",
-    "scope": "static wrapper generation only",
+    "scope": "nested wrapper generation and the single authorized metadata diagnostic",
     "runtime_behavior_changed": false
   },
   "retained_runtime_results": [
@@ -235,12 +236,31 @@
   "gate": {
     "static_verification_required_for_any_future_runtime": true,
     "radio_socket_metadata_shim_static_verification": "PASS",
-    "radio_socket_metadata_runtime_wrapper_static_verification": "PENDING",
-    "diagnostic_runtime_authorized": false,
-    "diagnostic_runtime_attempts_authorized": 0,
+    "radio_socket_metadata_runtime_wrapper_static_verification": "PASS",
+    "diagnostic_runtime_authorized": true,
+    "diagnostic_runtime_attempts_authorized": 1,
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Run and accept scripts/verify_radio_socket_metadata_runtime_wrapper.sh. It may compile the accepted shim in the pinned image with network mode none and generate/inspect the telemetry-only runtime, but it must launch no NOS3 component and create no project-labeled runtime resource. A runtime may be considered only after a clean static result is sealed separately."
+    "additional_requirement": "Execute exactly one telemetry-only metadata diagnostic through bash scripts/run_radio_socket_metadata_diagnostic_v2.sh. After the attempt, retain and analyze its evidence, close authorization regardless of outcome, and continue to block baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims."
+  },
+  "radio_socket_metadata_runtime_wrapper_static_gate": {
+    "verification": "PASS",
+    "accepted_entrypoint": "bash scripts/run_radio_socket_metadata_diagnostic_v2.sh",
+    "runtime_wrapper_sha256": "1bcf74ca5c162c5ce4096807d3151b8b507238c4e49a69fb34982a22aa6fb963",
+    "generated_runtime_sha256": "086255ae892ea7dc6d119dc394679722176f8027045599bf36dc1a24ab6db368",
+    "shim_source_sha256": "d15ede657230560178b5648ef5d4e15b1965837a1c384790d9cbd3dc8f01ee1b",
+    "shim_linux_shared_object_sha256": "5a1e4f0cb2b5567ee70defa893f7c976453c788b6c9ac70e4f7d646c16223205",
+    "docker_network_mode_for_static_build": "none",
+    "shim_mount_scope": "generic_radio_only",
+    "trace_evidence_scope": "immutable_ground_only",
+    "packet_content_captured": false,
+    "ip_addresses_captured": false,
+    "packet_capture_capability_required": false,
+    "host_network_used": false,
+    "docker_socket_mounted": false,
+    "command_source_present": false,
+    "event_injection_present": false,
+    "diagnostic_runtime_launched_during_static_gate": false
   }
 }
