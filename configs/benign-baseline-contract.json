@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.6.0",
-  "status": "PLAINTEXT_RELAY_STATIC_GATE_PASS_BASELINE_RUN_1_PENDING",
+  "contract_version": "0.6.1",
+  "status": "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VALIDATION_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
@@ -13,7 +13,8 @@
     "plaintext_transport_addendum": "docs/21-wp4-benign-baseline-plaintext-transport-addendum.md",
     "plaintext_relay_static_gate_lock": "artifacts/plaintext-relay-static-gate-lock.txt",
     "runtime_interface_correction_record": "artifacts/benign-baseline-invalid-20260725T215659Z.txt",
-    "cryptolib_incompatibility_evidence": "artifacts/benign-baseline-invalid-20260725T230542Z.txt"
+    "cryptolib_incompatibility_evidence": "artifacts/benign-baseline-invalid-20260725T230542Z.txt",
+    "plaintext_relay_readiness_invalid_run": "artifacts/benign-baseline-invalid-20260726T001052Z.txt"
   },
   "implementation": {
     "historical_setup_probe": "scripts/benign_ground_probe.py",
@@ -29,8 +30,9 @@
     "runtime_config_preparer_self_test": "PASS",
     "plaintext_transport_relay_self_test": "PASS",
     "network_disabled_container_self_tests": "PASS",
-    "runtime_runner_validation": "PASS",
-    "baseline_run_1": "PENDING",
+    "runtime_runner_validation": "PENDING_FUNCTIONAL_READINESS_GATE",
+    "baseline_run_1": "RUN_INVALID_PRE_MEASUREMENT_READINESS",
+    "baseline_run_1_rerun": "BLOCKED_PENDING_FUNCTIONAL_READINESS_STATIC_GATE",
     "baseline_run_2": "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
   },
   "baseline_transport": {
@@ -45,6 +47,9 @@
     "allowed_command_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
     "maximum_command_transmissions": 1,
     "telemetry_forwarding": "byte_preserving",
+    "functional_readiness_signal": "PLAINTEXT_RELAY_TELEMETRY_FORWARDED",
+    "functional_readiness_signal_stage": "after_TO_LAB_activation_before_baseline_observation",
+    "deprecated_readiness_signal": "generic_radio_forward_loop_hostname_resolution_log",
     "event_injection_capability": false
   },
   "telemetry_activation": {
@@ -57,7 +62,8 @@
     "source": "cfg/nos3_defs/tables/sc_rts001.c",
     "required_runtime_evidence": [
       "cfs_log_contains_TO_telemetry_output_enabled_for_IP_active-gs",
-      "radio_container_has_network_alias_active-gs"
+      "radio_container_has_network_alias_active-gs",
+      "plaintext_relay_log_contains_PLAINTEXT_RELAY_TELEMETRY_FORWARDED"
     ]
   },
   "measured_command": {
@@ -206,8 +212,9 @@
     "cross_run_comparison_required": true,
     "event_injection_unblocked_after_gate": false,
     "cryptolib_semantics_unblocked_after_gate": false,
-    "baseline_run_1_authorized": true,
+    "baseline_run_1_authorized": false,
+    "baseline_run_1_rerun_authorized": false,
     "baseline_run_2_authorized": false,
-    "additional_requirement": "The plaintext relay profile must validate the nominal CI_LAB/TO_LAB command and telemetry path twice with exactly one allowlisted command, clean isolation, and separated evidence. CryptoLib semantics remain a separate compatible flight-side integration gate, and event injection remains blocked."
+    "additional_requirement": "The corrected plaintext relay profile must pass a static gate that replaces the logger-only radio destination marker with an observed telemetry-forward event. Then two clean nominal baselines must validate the CI_LAB/TO_LAB command and telemetry path with exactly one allowlisted command, clean isolation, and separated evidence. CryptoLib semantics remain a separate compatible flight-side integration gate, and event injection remains blocked."
   }
 }
