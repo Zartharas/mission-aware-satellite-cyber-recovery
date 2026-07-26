@@ -34,17 +34,13 @@ required = (
     "ast.parse(body",
     "unterminated generated Python heredoc",
     "no generated Python heredocs were validated",
+    "legacy multiline radio anchor remained after v2 preparation",
 )
 for token in required:
     if token not in text:
         raise SystemExit(f"v2 overlay regression guard missing: {token}")
-for forbidden in (
-    'f"      --mount \\"type=bind',
-    "radio_old = '''",
-    "radio_new = '''",
-):
-    if forbidden in text:
-        raise SystemExit(f"v2 overlay retained unsafe or obsolete token: {forbidden}")
+if 'f"      --mount \\"type=bind' in text:
+    raise SystemExit("v2 overlay retained unsafe nested mount f-string quoting")
 PY
 
 source_sha_before="$(shasum -a 256 "$SOURCE_VERIFIER" | awk '{print $1}')"
