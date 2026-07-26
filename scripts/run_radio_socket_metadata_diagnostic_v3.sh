@@ -81,11 +81,14 @@ assert ("PENDING" if False else "PASS") == "PASS"
 legacy_docker_guard ='''
 
 updated = text.replace(anchor, mode_patch, 1)
+mode_aware_source_token = (
+    '== (\\"PENDING\\" if verify_only else \\"PASS\\")'
+)
 for required in (
     "RADIO_SOCKET_METADATA_RUNTIME_ATTEMPT_CONSUMED_PRE_RUNTIME_ASSERTION_FAILED",
     "RADIO_SOCKET_METADATA_RUNTIME_V3_STATIC_GATE_PASS_RUNTIME_PENDING",
     "radio_socket_metadata_runtime_wrapper_v3_static_verification",
-    '("PENDING" if verify_only else "PASS")',
+    mode_aware_source_token,
     "legacy wrapper-gate assertion changed",
 ):
     if required not in updated:
