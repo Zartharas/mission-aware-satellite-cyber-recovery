@@ -1,7 +1,7 @@
 {
-  "contract_version": "0.1.1",
-  "status": "RUNTIME_INVALID_TO_LAB_OUTPUT_DIAGNOSIS_PENDING",
-  "purpose": "Distinguish TO_LAB-to-radio delivery from generic-radio simulation-time queue release without transmitting any command.",
+  "contract_version": "0.2.0",
+  "status": "PORT_CORRECTION_STATIC_VALIDATION_PENDING",
+  "purpose": "Validate a telemetry-only bridge from the compiled TO_LAB UDP destination port 5013 to the generic-radio FSW telemetry listener port 5011 without transmitting any command.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
   "command_transmission_allowed": false,
@@ -15,8 +15,9 @@
     "fortytwo_commit": "eda252bf31f27850e867e698cfdd963e143ead1f",
     "image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
     "blocked_baseline_contract": "configs/benign-baseline-contract.json",
-    "static_gate_lock": "artifacts/downlink-diagnostic-static-gate-lock.txt",
-    "invalid_runtime_lock": "artifacts/downlink-diagnostic-invalid-20260726T021807Z.txt"
+    "original_static_gate_lock": "artifacts/downlink-diagnostic-static-gate-lock.txt",
+    "invalid_runtime_lock": "artifacts/downlink-diagnostic-invalid-20260726T021807Z.txt",
+    "to_lab_static_audit_lock": "artifacts/to-lab-downlink-static-audit-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -24,20 +25,31 @@
     "hardened_entrypoint": "scripts/run_downlink_path_diagnostic_hardened.sh",
     "verifier": "scripts/verify_downlink_path_diagnostic.sh",
     "retained_run_analyzer": "scripts/analyze_downlink_path_diagnostic.sh",
+    "static_auditor": "scripts/audit_to_lab_downlink_static.sh",
     "direct_canonical_runner_execution_allowed": false,
     "shell_invocation_required": true,
-    "static_verification": "PASS",
-    "diagnostic_runtime": "RUN_INVALID",
-    "diagnostic_run_id": "20260726T021807Z",
+    "port_correction_static_verification": "PENDING",
+    "diagnostic_runtime": "BLOCKED",
     "diagnostic_runtime_authorization_consumed": true
+  },
+  "root_cause_finding": {
+    "classification": "DIRECT_COMPILED_PORT_MISMATCH",
+    "to_lab_compiled_destination_port": 5013,
+    "radio_fsw_telemetry_listener_port": 5011,
+    "prior_witness_bind_port": 5011,
+    "prior_run_effect": "The active-gs witness listened on the radio port rather than the compiled TO_LAB output port, so zero received packets did not test TO_LAB packet production.",
+    "sample_subscription_present": true,
+    "sample_schedule_enabled": true,
+    "hostname_resolution_observability": "SILENT_FAILURE_PATH_PRESENT",
+    "evidence": "artifacts/to-lab-downlink-static-audit-lock.txt"
   },
   "topology": {
     "to_lab_destination_alias": "active-gs",
-    "to_lab_destination_port": 5011,
+    "to_lab_compiled_destination_port": 5013,
     "to_radio_witness": {
       "mode": "proxy",
       "alias": "active-gs",
-      "bind_port": 5011,
+      "bind_port": 5013,
       "forward_destination": "radio-sim",
       "forward_port": 5011,
       "byte_preserving": true
@@ -58,9 +70,11 @@
     "network": "project_labeled_internal_bridge"
   },
   "retained_runtime_result": {
+    "run_id": "20260726T021807Z",
     "terminal_classification": "DOWNLINK_DIAGNOSTIC_INVALID",
     "exit_code": 1,
     "to_witness_ready": true,
+    "to_witness_bind_port": 5011,
     "to_witness_received_packets": 0,
     "to_witness_forwarded_packets": 0,
     "radio_egress_witness_ready": true,
@@ -70,18 +84,42 @@
     "runtime_nonrunning_rows": 0,
     "cleanup_project_containers_remaining": 0,
     "cleanup_project_networks_remaining": 0,
-    "boundary_finding": "TO_LAB_OUTPUT_OR_DESTINATION_PATH_NOT_OBSERVED",
+    "superseded_boundary_interpretation": "TO_LAB_OUTPUT_OR_DESTINATION_PATH_NOT_OBSERVED",
+    "corrected_interpretation": "WITNESS_LISTENED_ON_WRONG_TO_LAB_DESTINATION_PORT",
     "radio_queue_evaluated": false
   },
-  "evidence_issue": {
-    "immutable_ground_external_verification": "PASS",
-    "policy_visible_external_verification": "FAIL_EMPTY_MANIFEST",
-    "cause": "The policy-visible tree contained no evidence object, so sha256-manifest.txt contained no checksum entries and shasum -c rejected it.",
-    "required_correction": "Create a non-sensitive policy-visible scope marker before evidence hashing and reject any zero-entry evidence manifest.",
-    "retroactive_modification_allowed": false
+  "evidence_requirements": {
+    "policy_visible_scope_marker_required": true,
+    "policy_visible_scope_marker_filename": "scope.json",
+    "policy_visible_scope_marker_fields": {
+      "policy_visible_evidence": "none_by_design",
+      "truth_data_included": false,
+      "command_data_included": false,
+      "scientific_outcome_included": false
+    },
+    "zero_entry_manifest_allowed": false,
+    "independent_evidence_hashes_required": true,
+    "retroactive_modification_of_prior_run_allowed": false
+  },
+  "required_pass_evidence": {
+    "to_witness_ready": true,
+    "to_witness_bind_port": 5013,
+    "to_witness_received_packets_minimum": 1,
+    "to_witness_forwarded_packets_minimum": 1,
+    "radio_egress_witness_ready": true,
+    "radio_egress_received_packets_minimum": 1,
+    "witness_invalid_events": 0,
+    "ground_command_sources": 0,
+    "measured_command_transmissions": 0,
+    "runtime_nonrunning_rows": 0,
+    "cleanup_project_containers_remaining": 0,
+    "cleanup_project_networks_remaining": 0,
+    "immutable_ground_manifest_entries_minimum": 1,
+    "policy_visible_manifest_entries_minimum": 1,
+    "independent_evidence_hashes": true
   },
   "interpretation": {
-    "no_to_witness_receive": "TO_LAB_PACKET_PRODUCTION_OR_DESTINATION_RESOLUTION_UNOBSERVED",
+    "no_to_witness_receive_on_5013": "TO_LAB_PACKET_PRODUCTION_OR_HOSTNAME_RESOLUTION_FAILURE",
     "to_witness_receive_without_forward": "TO_WITNESS_FORWARDING_FAILURE",
     "to_witness_forward_without_radio_egress_receive": "RADIO_RECEIVE_OR_SIMULATION_TIME_QUEUE_RELEASE_FAILURE",
     "radio_egress_receive": "DOWNLINK_PATH_THROUGH_RADIO_OBSERVED"
@@ -93,6 +131,6 @@
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "The one telemetry-only runtime authorization was consumed by invalid run 20260726T021807Z. No additional runtime is authorized. Analyze the retained run, correct the policy-visible evidence-tree defect, establish whether TO_LAB produced and addressed UDP telemetry, and pass a new static gate before any further diagnostic."
+    "additional_requirement": "The compiled TO_LAB destination port mismatch is confirmed. Update and statically verify the telemetry-only runner to bind active-gs UDP 5013 and forward byte-for-byte to radio-sim UDP 5011. Add a non-sensitive policy-visible scope marker and reject zero-entry manifests. No runtime is authorized until the corrected static gate is separately accepted."
   }
 }
