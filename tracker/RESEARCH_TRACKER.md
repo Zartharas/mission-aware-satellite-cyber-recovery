@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 ## Status legend
 
@@ -18,7 +18,7 @@ Last updated: 2026-07-25
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; three invalid baseline attempts retained; standalone CryptoLib packet-layer incompatibility identified; allowlisted plaintext-relay static gate passed | Obtain and review the first accepted plaintext-relay benign baseline pass |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful 21-component runtime preflight; four invalid baseline attempts retained; standalone CryptoLib packet-layer incompatibility identified; allowlisted plaintext relay implemented; functional telemetry readiness correction pending validation | Pass the functional-readiness static gate before rerunning benign baseline run 1 |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -135,16 +135,22 @@ Last updated: 2026-07-25
 - [x] Add the plaintext-relay runner, contract version `0.6.0`, transport addendum, invalid-run lock, and network-disabled verification gate
 - [x] Pass the plaintext-relay host and pinned-image network-disabled static verification gate
 - [x] Record the plaintext-relay static gate lock and decision D-038
+- [x] Execute plaintext-relay attempt `20260726T001052Z` and classify it `RUN_INVALID`
+- [x] Verify run `20260726T001052Z` reached relay readiness and radio UDP listeners `8010` and `5011`, transmitted no command, cleaned up, and validated both evidence trees
+- [x] Identify the generic-radio hostname-resolution log as a logger-only readiness heuristic rather than proof of functional telemetry flow
+- [x] Replace the logger-only marker with an observed `PLAINTEXT_RELAY_TELEMETRY_FORWARDED` event after TO_LAB activation
+- [x] Update the contract to version `0.6.1`, retain the invalid-run lock, and add decision D-039
 
 ## Immediate tasks
 
-- [x] Pull the plaintext-relay baseline revision
-- [x] Validate `configs/benign-baseline-contract.json`
-- [x] Compile `benign_ground_probe_measurement.py`, `prepare_runtime_radio_config.py`, and `benign_plaintext_transport_relay.py`
-- [x] Syntax-check `run_benign_baseline_plaintext_relay.sh` and `verify_benign_baseline_plaintext_relay.sh`
-- [x] Run `bash scripts/verify_benign_baseline_plaintext_relay.sh`
-- [x] Confirm all host and network-disabled self-tests and `BENIGN_BASELINE_PLAINTEXT_RELAY_VERIFICATION_STATUS=PASS`
-- [ ] Execute the first plaintext-relay benign baseline through `scripts/run_benign_baseline_plaintext_relay.sh`
+- [ ] Pull the functional-readiness correction
+- [ ] Validate `configs/benign-baseline-contract.json`
+- [ ] Compile `benign_ground_probe_measurement.py`, `prepare_runtime_radio_config.py`, and `benign_plaintext_transport_relay.py`
+- [ ] Syntax-check `run_benign_baseline_plaintext_relay.sh` and `verify_benign_baseline_plaintext_relay.sh`
+- [ ] Run `bash scripts/verify_benign_baseline_plaintext_relay.sh`
+- [ ] Confirm all host and network-disabled self-tests and `BENIGN_BASELINE_PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VERIFICATION_STATUS=PASS`
+- [ ] Accept or reject the functional-readiness static correction before authorizing another run-1 attempt
+- [ ] Execute the first accepted plaintext-relay benign baseline only after the corrected static gate is accepted
 - [ ] Review relay command/telemetry accounting, counter transition, liveness, cleanup, runtime configuration hash, and separated evidence hashes
 - [ ] Accept or reject the first clean baseline run before attempting run 2
 - [ ] Execute the second clean benign baseline run only after run 1 acceptance
@@ -160,4 +166,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, prior runner, and plaintext-relay static controls. Three full baseline attempts remain retained as `RUN_INVALID`; none produced a measured command outcome. Contract version 0.6.0 now has a passed host and pinned-image network-disabled verification gate for the allowlisted plaintext UDP relay. Benign baseline run 1 is authorized, but run 2 remains blocked pending review and acceptance of run 1. Event injection remains blocked until two benign baselines are accepted and cross-run structural comparison is approved. CryptoLib and SDLS claims remain deferred to a separate compatible flight-side integration gate, and immutable-ground evidence must remain demonstrably separate from policy-visible evidence.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, prior runner, and original plaintext-relay static controls. Four full baseline attempts are retained as `RUN_INVALID`; none produced a measured command outcome. Run `20260726T001052Z` stopped before measurement because a logger-only radio hostname-resolution marker was not observed even though the relay and both radio UDP listeners were ready. Contract version `0.6.1` replaces that heuristic with functional evidence from `PLAINTEXT_RELAY_TELEMETRY_FORWARDED`. Another run-1 attempt remains blocked until the corrected host and pinned-image network-disabled static gate passes and is accepted. Run 2, event injection, and CryptoLib/SDLS claims remain blocked, and immutable-ground evidence must remain demonstrably separate from policy-visible evidence.
