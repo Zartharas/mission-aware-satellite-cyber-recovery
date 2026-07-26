@@ -1,6 +1,6 @@
 {
   "contract_version": "0.6.1",
-  "status": "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_VALIDATION_PENDING",
+  "status": "PLAINTEXT_RELAY_FUNCTIONAL_READINESS_STATIC_GATE_PASS_RUN_1_RERUN_PENDING",
   "event_injection_allowed": false,
   "source_locks": {
     "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
@@ -12,6 +12,7 @@
     "telemetry_setup_addendum": "docs/20-wp4-benign-baseline-telemetry-setup-addendum.md",
     "plaintext_transport_addendum": "docs/21-wp4-benign-baseline-plaintext-transport-addendum.md",
     "plaintext_relay_static_gate_lock": "artifacts/plaintext-relay-static-gate-lock.txt",
+    "plaintext_relay_functional_readiness_static_gate_lock": "artifacts/plaintext-relay-functional-readiness-static-gate-lock.txt",
     "runtime_interface_correction_record": "artifacts/benign-baseline-invalid-20260725T215659Z.txt",
     "cryptolib_incompatibility_evidence": "artifacts/benign-baseline-invalid-20260725T230542Z.txt",
     "plaintext_relay_readiness_invalid_run": "artifacts/benign-baseline-invalid-20260726T001052Z.txt"
@@ -30,9 +31,9 @@
     "runtime_config_preparer_self_test": "PASS",
     "plaintext_transport_relay_self_test": "PASS",
     "network_disabled_container_self_tests": "PASS",
-    "runtime_runner_validation": "PENDING_FUNCTIONAL_READINESS_GATE",
+    "runtime_runner_validation": "PASS",
     "baseline_run_1": "RUN_INVALID_PRE_MEASUREMENT_READINESS",
-    "baseline_run_1_rerun": "BLOCKED_PENDING_FUNCTIONAL_READINESS_STATIC_GATE",
+    "baseline_run_1_rerun": "PENDING",
     "baseline_run_2": "BLOCKED_PENDING_RUN_1_ACCEPTANCE"
   },
   "baseline_transport": {
@@ -213,8 +214,8 @@
     "event_injection_unblocked_after_gate": false,
     "cryptolib_semantics_unblocked_after_gate": false,
     "baseline_run_1_authorized": false,
-    "baseline_run_1_rerun_authorized": false,
+    "baseline_run_1_rerun_authorized": true,
     "baseline_run_2_authorized": false,
-    "additional_requirement": "The corrected plaintext relay profile must pass a static gate that replaces the logger-only radio destination marker with an observed telemetry-forward event. Then two clean nominal baselines must validate the CI_LAB/TO_LAB command and telemetry path with exactly one allowlisted command, clean isolation, and separated evidence. CryptoLib semantics remain a separate compatible flight-side integration gate, and event injection remains blocked."
+    "additional_requirement": "The functional-readiness static gate has passed. One corrected run-1 rerun is authorized and must observe PLAINTEXT_RELAY_TELEMETRY_FORWARDED before measurement, then validate exactly one allowlisted command, clean isolation, and separated evidence. Run 2 remains blocked until run 1 is reviewed and accepted. CryptoLib semantics remain a separate compatible flight-side integration gate, and event injection remains blocked."
   }
 }
