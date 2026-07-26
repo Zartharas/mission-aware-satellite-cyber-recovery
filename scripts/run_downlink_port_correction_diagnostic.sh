@@ -59,8 +59,10 @@ source_sha_before="$(shasum -a 256 "$SOURCE" | awk '{print $1}')"
 TEMP="$(mktemp "$ROOT/scripts/.run-downlink-port-correction.XXXXXX.sh")"
 
 python3 - "$SOURCE" "$TEMP" <<'PY'
-from pathlib import Path
+import ast
+import re
 import sys
+from pathlib import Path
 
 source = Path(sys.argv[1])
 output = Path(sys.argv[2])
@@ -72,6 +74,37 @@ def replace_exact(payload: str, old: str, new: str, expected: int, label: str) -
     if count != expected:
         raise SystemExit(f"{label}: expected {expected} occurrence(s), found {count}")
     return payload.replace(old, new)
+
+
+def validate_top_level_python_heredocs(shell_text: str) -> None:
+    lines = shell_text.splitlines()
+    marker = re.compile(r"<<'(?P<delimiter>PY[A-Z0-9_]*)'")
+    parsed = 0
+    index = 0
+    while index < len(lines):
+        match = marker.search(lines[index])
+        if match is None:
+            index += 1
+            continue
+        delimiter = match.group("delimiter")
+        body_start = index + 1
+        index = body_start
+        while index < len(lines) and lines[index] != delimiter:
+            index += 1
+        if index >= len(lines):
+            raise SystemExit(f"unterminated Python heredoc: {delimiter}")
+        body = "\n".join(lines[body_start:index]) + "\n"
+        try:
+            ast.parse(body, filename=f"<{delimiter}>")
+        except SyntaxError as error:
+            raise SystemExit(
+                f"generated Python heredoc {delimiter} is invalid at line "
+                f"{error.lineno}: {error.msg}"
+            ) from error
+        parsed += 1
+        index += 1
+    if parsed < 2:
+        raise SystemExit(f"expected at least two top-level Python heredocs; found {parsed}")
 
 
 text = replace_exact(
@@ -154,51 +187,73 @@ text = replace_exact(
     "runtime component count",
 )
 
-runtime_anchor = "updated = replace_once(updated, 'record expected_runtime_component_count 21\\n', 'record expected_runtime_component_count 22\\n', \"runtime count\")\n"
+runtime_anchor = (
+    "updated = replace_once(updated, 'record expected_runtime_component_count 21\\n', "
+    "'record expected_runtime_component_count 22\\n', \"runtime count\")\n"
+)
 if text.count(runtime_anchor) != 1:
     raise SystemExit("runtime transformation anchor missing")
-runtime_insert = '''updated = replace_once(
-    updated,
-    'record to_lab_destination_port 5011\n',
-    'record to_lab_destination_port 5013\n'
-    'record to_lab_compiled_destination_port 5013\n'
-    'record radio_fsw_telemetry_listener_port 5011\n',
-    "compiled TO_LAB destination port",
+runtime_old = "record to_lab_destination_port 5011\n"
+runtime_new = (
+    "record to_lab_destination_port 5013\n"
+    "record to_lab_compiled_destination_port 5013\n"
+    "record radio_fsw_telemetry_listener_port 5011\n"
 )
-updated = replace_once(updated, 'record expected_runtime_component_count 21\n', 'record expected_runtime_component_count 22\n', "runtime count")
-'''
+runtime_insert = (
+    "updated = replace_once(\n"
+    "    updated,\n"
+    f"    {runtime_old!r},\n"
+    f"    {runtime_new!r},\n"
+    '    "compiled TO_LAB destination port",\n'
+    ")\n"
+    "updated = replace_once(updated, 'record expected_runtime_component_count 21\\n', "
+    "'record expected_runtime_component_count 22\\n', \"runtime count\")\n"
+)
 text = text.replace(runtime_anchor, runtime_insert, 1)
 
-hash_anchor = "temporary = manifest.with_suffix(\".txt.tmp\")\n    temporary.write_text(\"\\n\".join(entries) + \"\\n\", encoding=\"utf-8\")\n"
-policy_anchor = "mkdir -p \"$PROBE_GROUND\" \"$ORCHESTRATION/runtime-config\" \"$POLICY\" \"$INOUT\"\n"
-transform_anchor = "updated = replace_once(\n    updated,\n    'PHASE=\"wp4-benign-baseline-interface-corrected\"',\n"
-if text.count(transform_anchor) != 1:
-    raise SystemExit("generated-runner transformation insertion anchor missing")
-transform_insert = '''updated = replace_once(
-    updated,
-    ''' + repr(hash_anchor) + ''',
-    'if not entries:\n'
+hash_anchor = (
+    'temporary = manifest.with_suffix(".txt.tmp")\n'
+    'temporary.write_text("\\n".join(entries) + "\\n", encoding="utf-8")\n'
+)
+hash_replacement = (
+    "if not entries:\n"
     '    raise SystemExit(f"zero-entry evidence manifest rejected: {directory}")\n'
     'temporary = manifest.with_suffix(".txt.tmp")\n'
-    'temporary.write_text("\\n".join(entries) + "\\n", encoding="utf-8")\n',
-    "zero-entry evidence rejection",
+    'temporary.write_text("\\n".join(entries) + "\\n", encoding="utf-8")\n'
 )
-updated = replace_once(
-    updated,
-    ''' + repr(policy_anchor) + ''',
+policy_anchor = 'mkdir -p "$PROBE_GROUND" "$ORCHESTRATION/runtime-config" "$POLICY" "$INOUT"\n'
+policy_replacement = (
     'mkdir -p "$PROBE_GROUND" "$ORCHESTRATION/runtime-config" "$POLICY" "$INOUT"\n'
     'cat > "$POLICY/scope.json" <<\'EOF\'\n'
-    '{\n'
+    "{\n"
     '  "policy_visible_evidence": "none_by_design",\n'
     '  "truth_data_included": false,\n'
     '  "command_data_included": false,\n'
     '  "scientific_outcome_included": false\n'
-    '}\n'
-    'EOF\n',
-    "policy-visible scope marker",
+    "}\n"
+    "EOF\n"
 )
-
-'''
+transform_anchor = (
+    "updated = replace_once(\n"
+    "    updated,\n"
+    "    'PHASE=\"wp4-benign-baseline-interface-corrected\"',\n"
+)
+if text.count(transform_anchor) != 1:
+    raise SystemExit("generated-runner transformation insertion anchor missing")
+transform_insert = (
+    "updated = replace_once(\n"
+    "    updated,\n"
+    f"    {hash_anchor!r},\n"
+    f"    {hash_replacement!r},\n"
+    '    "zero-entry evidence rejection",\n'
+    ")\n"
+    "updated = replace_once(\n"
+    "    updated,\n"
+    f"    {policy_anchor!r},\n"
+    f"    {policy_replacement!r},\n"
+    '    "policy-visible scope marker",\n'
+    ")\n\n"
+)
 text = text.replace(transform_anchor, transform_insert + transform_anchor, 1)
 
 required_anchor = "    'TCP_GROUND=0',\n"
@@ -216,20 +271,21 @@ text = text.replace(
 
 for required in (
     'assert diagnostic["contract_version"] == "0.2.0"',
-    'PORT_CORRECTION_STATIC_VALIDATION_PENDING',
-    'PORT_CORRECTION_STATIC_GATE_PASS_RUNTIME_PENDING',
-    '--bind-port 5013',
-    '--forward-host radio-sim --forward-port 5011',
-    'start radio-egress-witness cryptolib true',
-    'start to-radio-witness active-gs true',
-    'record expected_runtime_component_count 22',
-    'record to_lab_compiled_destination_port 5013',
-    'policy-visible scope marker',
-    'zero-entry evidence rejection',
+    "PORT_CORRECTION_STATIC_VALIDATION_PENDING",
+    "PORT_CORRECTION_STATIC_GATE_PASS_RUNTIME_PENDING",
+    "--bind-port 5013",
+    "--forward-host radio-sim --forward-port 5011",
+    "start radio-egress-witness cryptolib true",
+    "start to-radio-witness active-gs true",
+    "record expected_runtime_component_count 22",
+    "record to_lab_compiled_destination_port 5013",
+    "policy-visible scope marker",
+    "zero-entry evidence rejection",
 ):
     if required not in text:
         raise SystemExit(f"port-correction requirement missing: {required}")
 
+validate_top_level_python_heredocs(text)
 output.write_text(text, encoding="utf-8")
 PY
 
