@@ -18,7 +18,7 @@ Last updated: 2026-07-26
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts and two invalid telemetry-only diagnostics retained; TO_LAB `5013` bridge validated; metadata-only radio socket shim static gate accepted | Implement and pass the dedicated metadata-runtime wrapper static gate |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts, two invalid telemetry-only diagnostics, and one completed metadata-only diagnostic retained; TO_LAB `5013` bridge, radio socket metadata wrapper, retained audit, and D-056 parser correction complete; passive time-witness design locked | Implement and pass the passive time-witness static verification gate |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -171,15 +171,26 @@ Last updated: 2026-07-26
 - [x] Pass the pinned-image, network-disabled shim static verification gate
 - [x] Seal the shim gate in `artifacts/radio-socket-metadata-shim-static-gate-lock.txt`
 - [x] Accept decision D-050 while keeping all NOS3 runtime integration blocked
+- [x] Retain the v2 metadata-runtime invocation as a consumed fail-closed pre-runtime assertion failure with no Docker or NOS3 launch
+- [x] Pass and accept the v3 mode-aware metadata-runtime wrapper static gate
+- [x] Execute the single authorized v3 telemetry-only metadata diagnostic in run `20260726T192902Z`
+- [x] Accept the retained metadata audit with 1,061 UDP `5011` receives, zero UDP `8011` send attempts, zero commands, valid evidence trees, and clean teardown
+- [x] Separate the confirmed post-ingress/pre-egress transport observation from causal claims about time progression or callback behavior
+- [x] Complete the D-055 read-only eligibility and callback-path audit
+- [x] Correct the D-056 time-tick parser false positive and confirm that the retained log contains only authoritative tick `0`
+- [x] Record that retained NOS Engine time progression and callback invocation after ingress remain unproven
+- [x] Reconcile the primary tracker, work-package register, decision log, and contract through D-058
+- [x] Lock the passive NOS Engine time-witness design without implementing or executing it
 
 ## Immediate tasks
 
-- [ ] Implement a dedicated telemetry-only metadata-runtime wrapper without modifying the historical or port-correction runners
-- [ ] Mount the accepted shim only into generic-radio and store its trace only under immutable-ground evidence
-- [ ] Preserve the `active-gs:5013` proxy to `radio-sim:5011` and the UDP `8011` egress sink
-- [ ] Prove the generated wrapper contains no command source, event injection, packet capture, host networking, Docker-socket mount, packet content, packet hashes, or IP-address trace fields
-- [ ] Pass a separate network-disabled wrapper-generation and syntax-verification gate
-- [ ] Keep every diagnostic runtime and benign baseline blocked until that wrapper gate is reviewed and accepted
+- [ ] Implement a passive NOS Engine time witness that records only sequence, Linux `CLOCK_MONOTONIC` nanoseconds, authoritative tick value, and evidence-validity connection state
+- [ ] Implement an isolated witness self-test without NOS3 runtime launch or external network access
+- [ ] Prove the passive witness and radio socket metadata shim use the same Linux `CLOCK_MONOTONIC` basis
+- [ ] Integrate the witness into a dedicated telemetry-only wrapper without modifying historical runners or pinned NOS3 sources
+- [ ] Keep passive time evidence exclusively in immutable-ground storage and expose only a non-sensitive policy-visible scope marker
+- [ ] Pass a separate network-disabled passive time-witness static verification gate
+- [ ] Keep all diagnostic runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS authorizations closed until the static gate is reviewed and separately accepted
 - [ ] Design a separate compatible CryptoLib/SDLS integration gate without conflating it with the nominal cFS packet baseline
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
@@ -191,4 +202,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, TO_LAB static-audit, corrected port-bridge, radio-observability, retained-liveness, and metadata-shim component controls. Four benign baseline attempts and two telemetry-only diagnostics remain invalid infrastructure runs; none produced a measured command outcome. Run `20260726T165332Z` validates TO_LAB packet production and the byte-preserving `active-gs:5013` to `radio-sim:5011` bridge, but does not distinguish radio UDP ingress from simulation-time queue release. The accepted metadata-only shim can observe `recvfrom` on local UDP `5011` and `sendto` to UDP `8011` without packet content or IP addresses. Contract `0.4.1` authorizes zero runtimes while a dedicated generic-radio-only integration wrapper and its static gate are designed. Event injection, baseline execution, command transmission, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, TO_LAB static-audit, corrected port-bridge, radio-observability, retained-liveness, metadata-shim component, metadata-runtime wrapper, retained metadata-audit, and corrected time-tick-parser controls. Four benign baseline attempts and two telemetry-only diagnostics remain invalid infrastructure runs; one bounded metadata-only diagnostic completed as infrastructure evidence, and none produced a measured command or scientific outcome. Run `20260726T192902Z` confirms 1,061 generic-radio UDP `5011` receives and zero successful or failed UDP `8011` send attempts, but retained evidence contains only authoritative TimeDriver tick `0` and therefore does not prove time progression or callback invocation after ingress. Contract `0.4.4` locks a passive NOS Engine time-witness design and keeps every runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS gate closed pending a separate static verification gate.

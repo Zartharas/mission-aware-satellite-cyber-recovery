@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.3",
-  "status": "RADIO_TIME_PROGRESS_RETAINED_AUDIT_CORRECTED_UNPROVEN",
+  "contract_version": "0.4.4",
+  "status": "PASSIVE_TIME_WITNESS_DESIGN_LOCKED_STATIC_GATE_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -27,7 +27,9 @@
     "radio_socket_metadata_runtime_wrapper_v3_static_gate_lock": "artifacts/radio-socket-metadata-runtime-wrapper-v3-static-gate-lock.txt",
     "radio_socket_metadata_v3_terminal_lock": "artifacts/radio-socket-metadata-v3-terminal-20260726T192902Z.txt",
     "radio_socket_metadata_v3_retained_audit_lock": "artifacts/radio-socket-metadata-v3-retained-audit-lock-20260726T192902Z.txt",
-    "radio_time_tick_parser_correction_lock": "artifacts/radio-time-tick-parser-correction-lock.txt"
+    "radio_time_tick_parser_correction_lock": "artifacts/radio-time-tick-parser-correction-lock.txt",
+    "wp4_passive_time_witness_plan": "tracker/WP4_PASSIVE_TIME_WITNESS_PLAN_20260726.md",
+    "wp4_passive_time_witness_design_lock": "artifacts/wp4-passive-time-witness-design-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -59,7 +61,10 @@
     "radio_socket_metadata_v3_runtime": "CONSUMED_COMPLETE_EVIDENCE_AUDIT_PASS",
     "radio_socket_metadata_retained_auditor": "scripts/audit_radio_socket_metadata_retained_run.sh",
     "radio_queue_eligibility_time_callback_auditor": "scripts/audit_radio_queue_eligibility_and_time_callback.sh",
-    "radio_time_tick_parser_regression_self_test": "bash scripts/audit_radio_queue_eligibility_and_time_callback.sh --self-test"
+    "radio_time_tick_parser_regression_self_test": "bash scripts/audit_radio_queue_eligibility_and_time_callback.sh --self-test",
+    "passive_time_witness": "NOT_IMPLEMENTED",
+    "passive_time_witness_runtime_wrapper": "NOT_CREATED",
+    "passive_time_witness_static_verifier": "NOT_CREATED"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -346,7 +351,8 @@
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "No additional runtime is authorized. The retained transport observation is 1,061 UDP 5011 receives with zero UDP 8011 send attempts; retained time progression and callback invocation are unproven. Baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims remain blocked."
+    "additional_requirement": "Implement and pass a separate passive time-witness static verification gate before any new telemetry-only runtime is considered. No runtime is authorized. Baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.",
+    "passive_time_witness_static_verification": "PENDING"
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -392,5 +398,77 @@
     "command_source_present": false,
     "event_injection_present": false,
     "diagnostic_runtime_launched_during_static_gate": false
+  },
+  "governance_decisions": [
+    {
+      "decision_id": "D-057",
+      "area": "WP4 governance reconciliation",
+      "status": "ACCEPTED",
+      "record": "tracker/decision_log.csv"
+    },
+    {
+      "decision_id": "D-058",
+      "area": "WP4 passive time observability",
+      "status": "ACCEPTED",
+      "record": "artifacts/wp4-passive-time-witness-design-lock.txt"
+    }
+  ],
+  "retained_evidence_analysis": {
+    "status": "COMPLETE_NOT_DISPOSITIVE_FOR_TIME_PROGRESS_OR_CALLBACK_INVOCATION",
+    "retained_run": "20260726T192902Z",
+    "radio_socket_recvfrom_5011_records": 1061,
+    "radio_socket_sendto_8011_success_records": 0,
+    "radio_socket_sendto_8011_failure_records": 0,
+    "authoritative_time_tick_values": [
+      0
+    ],
+    "retained_time_progress_proven": false,
+    "callback_invocation_after_ingress_proven": false,
+    "corrected_read_only_diagnosis": "RADIO_TIME_PROGRESS_OR_CALLBACK_INVOCATION_UNPROVEN_BY_RETAINED_LOG"
+  },
+  "passive_time_witness_design": {
+    "status": "DESIGN_LOCKED_IMPLEMENTATION_NOT_STARTED",
+    "plan": "tracker/WP4_PASSIVE_TIME_WITNESS_PLAN_20260726.md",
+    "design_lock": "artifacts/wp4-passive-time-witness-design-lock.txt",
+    "allowed_record_fields": [
+      "sequence_number",
+      "clock_monotonic_ns",
+      "authoritative_nos_engine_tick",
+      "connection_disconnect_state"
+    ],
+    "clock_basis": "LINUX_CLOCK_MONOTONIC_SHARED_WITH_RADIO_SOCKET_METADATA_TRACE",
+    "immutable_ground_only": true,
+    "policy_visible_time_evidence_allowed": false,
+    "forbidden": [
+      "command_source",
+      "command_transmission",
+      "event_injection",
+      "packet_payload_capture",
+      "packet_hashes",
+      "ip_address_collection",
+      "packet_capture_capability",
+      "host_networking",
+      "host_ports",
+      "docker_socket_mount",
+      "external_network_egress",
+      "policy_access_to_immutable_ground_time_evidence",
+      "pinned_nos3_source_modification",
+      "pinned_generic_radio_source_modification",
+      "pinned_sim_common_source_modification",
+      "pinned_nos_time_driver_source_modification"
+    ],
+    "future_acceptance_evidence": {
+      "minimum_distinct_monotonically_increasing_authoritative_ticks": 2,
+      "authoritative_tick_after_first_udp_5011_recvfrom_required": true,
+      "authoritative_tick_after_final_udp_5011_recvfrom_preferred": true,
+      "censored_classification_required_if_observation_ends_first": true,
+      "zero_command_sources_required": true,
+      "zero_command_transmissions_required": true,
+      "retained_evidence_mutation_allowed": false,
+      "independent_manifests_required": true,
+      "complete_cleanup_required": true,
+      "scientific_outcome_classification_allowed": false
+    },
+    "interpretation_limit": "The witness may prove NOS Engine time progression and a post-ingress callback opportunity only; it does not prove generic-radio callback invocation, queue visibility, or due-time evaluation."
   }
 }
