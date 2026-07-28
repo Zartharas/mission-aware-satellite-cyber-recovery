@@ -3,7 +3,7 @@ WP0,Research governance and workspace,Complete,"Synchronized repository, legal/d
 WP1,Literature and novelty validation,Ready for review,"Two gap reviews, reviewer challenge, final novelty statement, 30-source matrix",Citation/metadata audit and approval of final gap statement,
 WP2,Theoretical and conceptual model,Ready for review,"Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract",Approve Gate 2 traceability and metric definitions,
 WP3,Threat and mission model,Ready for review,"Frozen boundaries, machine-readable model and run schema, red-team review, Docker-specific ROE controls",Approve Gate 2 threat/mission model and ROE controls,
-WP4,Testbed selection and architecture,In progress,"Pinned toolchain and runtime preflight; retained diagnostics; metadata wrapper and audit complete; passive time-witness design locked",Implement and pass the passive time-witness static verification gate,
+WP4,Testbed selection and architecture,In progress,"Pinned toolchain and runtime preflight; retained diagnostics; metadata wrapper and audit complete; passive time-witness design locked; D-060 (2026-07-28) governance-accepted the remediated passive time-witness static gate and locked the reviewed implementation and runtime-candidate hashes while retaining a closed runtime-authorization gate",Propose a separately governed decision for one passive telemetry runtime attempt,
 WP5,Event-injection library,Not started,,Events deterministic and isolated,
 WP6,Response-policy implementation,Not started,,Policy tests pass,
 WP7,Trusted-recovery implementation,Not started,,Recovery evidence validated,

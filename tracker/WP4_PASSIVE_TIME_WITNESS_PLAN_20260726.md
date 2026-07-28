@@ -1,8 +1,8 @@
 # WP4 Passive NOS Engine Time-Witness Plan
 
 Date: 2026-07-26
-Decisions: D-057, D-058, and D-059
-Status: Implementation candidate created; static-gate review pending
+Decisions: D-057, D-058, D-059, and D-060
+Status: Static gate accepted under D-060 (2026-07-28); runtime remains unauthorized
 
 ## Purpose
 
@@ -105,7 +105,7 @@ Decision D-059 accepted the passive NOS Engine time-tick subscriber, exact-schem
 ### Implementation files
 
 - scripts/passive_nos_engine_time_witness.cpp
-  - SHA-256: 8b3c1061b910c75e75a828101d74243f5b7e4f344dda3e2fc6ce0dda2dd4091e
+  - SHA-256: 830cd1a3e336c7ed2fe5c6755a30ee24b5bbc04106d3c14f2a9d26995adaaf7e
 - scripts/validate_passive_time_witness_trace.py
   - SHA-256: f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027
 - scripts/prepare_passive_time_witness_runtime_candidate.sh
@@ -119,17 +119,18 @@ Decision D-059 accepted the passive NOS Engine time-tick subscriber, exact-schem
 - The original Part 5 verifier was later found to permit a deferred pinned-image compile and C++ witness --self-test PASS path; it could print PASS without executing those mandatory network-disabled requirements.
 - Part 7D remediated that fail-closed defect. The current remediated verifier (scripts/verify_passive_time_witness_static.sh, current SHA-256 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f) fails closed unless Docker, the exact pinned image, the strict --network none C++14 compile, and the C++ witness --self-test all execute and pass.
 - The remediated verifier was successfully executed in Part 7D and produced PASSIVE_NOS_ENGINE_TIME_WITNESS_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_TRACE_VALIDATOR_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS, VERIFIER_RC=0.
-- Neither the original Part 5 technical PASS nor the Part 7D remediated-verifier technical PASS has been governance-accepted.
-- The static gate is not accepted.
-- No runtime is authorized.
+- D-060 (governance_date=2026-07-28) governance-accepted the remediated static-gate result and locked the reviewed implementation and deterministic runtime-candidate hashes in artifacts/wp4-passive-time-witness-static-gate-lock.txt. The final read-only review confirmed exact pinned-image compilation, the C++ witness self-test, the trace-validator self-test, deterministic candidate generation, fail-closed candidate execution, zero fake-Docker invocation, zero project-labeled containers and networks before and after verification, and unchanged retained evidence.
+- The static gate is accepted. Contract version advanced to 0.4.6 (PASSIVE_TIME_WITNESS_STATIC_GATE_ACCEPTED_RUNTIME_NOT_AUTHORIZED); gate.passive_time_witness_static_verification=PASS.
+- No runtime is authorized. The accepted runtime entrypoint SHA-256 (gate.accepted_runtime_entrypoint_sha256) records candidate identity only and does not authorize execution.
 - No diagnostic or baseline may run.
 - Commands and event injection remain blocked.
 - No scientific outcome may be claimed.
-- D-060 is reserved for a later decision to accept or reject the static-gate result.
+- The next task is a separately governed proposal for exactly one passive telemetry runtime attempt.
 
 ### Provenance note (Part 7E.1)
 
 - The current implementation manifest above records the remediated verifier hash 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f. The superseded original Part 5 verifier hash 0f4db49582d8cacab1fefe7919af7a104bda5360ae1d82d4901d5396a13a52d3 is retained here only as clearly labeled historical provenance of the superseded original; it is not the current verifier.
-- D-060 remains reserved for the disposition of the current remediated verifier result; it has not been created as a decision.
+- D-060 has been created and accepted on 2026-07-28: the remediated static-gate result is governance-accepted in artifacts/wp4-passive-time-witness-static-gate-lock.txt, while every runtime, diagnostic, baseline, command, event-injection, and scientific-outcome gate remains closed.
+- Note: the witness source SHA-256 is recorded as 830cd1a3e336c7ed2fe5c6755a30ee24b5bbc04106d3c14f2a9d26995adaaf7e (the current on-disk file hash after the eca23ae trailing-whitespace cleanup). Earlier draft references cited 8b3c1061b910c75e75a828101d74243f5b7e4f344dda3e2fc6ce0dda2dd4091e, which was the file hash at commit 54c07aa before that cleanup; that value is now reconciled to the current file so the implementation manifest matches the committed file.
 
 No result recorded here authorizes runtime execution, a telemetry diagnostic, a benign baseline, command transmission, event injection, or any scientific-outcome classification.
