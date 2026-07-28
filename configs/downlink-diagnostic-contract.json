@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.6",
-  "status": "PASSIVE_TIME_WITNESS_STATIC_GATE_ACCEPTED_RUNTIME_NOT_AUTHORIZED",
+  "contract_version": "0.4.7",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_LOCKED_IMPLEMENTATION_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -30,7 +30,9 @@
     "radio_time_tick_parser_correction_lock": "artifacts/radio-time-tick-parser-correction-lock.txt",
     "wp4_passive_time_witness_plan": "tracker/WP4_PASSIVE_TIME_WITNESS_PLAN_20260726.md",
     "wp4_passive_time_witness_design_lock": "artifacts/wp4-passive-time-witness-design-lock.txt",
-    "wp4_passive_time_witness_static_gate_lock": "artifacts/wp4-passive-time-witness-static-gate-lock.txt"
+    "wp4_passive_time_witness_static_gate_lock": "artifacts/wp4-passive-time-witness-static-gate-lock.txt",
+    "wp4_passive_time_witness_runtime_control_design": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_20260728.md",
+    "wp4_passive_time_witness_runtime_control_design_lock": "artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -444,6 +446,12 @@
       "area": "WP4 passive time-witness static-gate disposition",
       "status": "ACCEPTED",
       "record": "artifacts/wp4-passive-time-witness-static-gate-lock.txt"
+    },
+    {
+      "decision_id": "D-061",
+      "area": "WP4 bounded passive telemetry runtime-control design",
+      "status": "ACCEPTED",
+      "record": "artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt"
     }
   ],
   "retained_evidence_analysis": {
@@ -568,5 +576,79 @@
       "verifier_rc": 0,
       "static_verification_result": "PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS"
     }
+  },
+  "wp4_passive_time_witness_runtime_control_design": {
+    "decision": "D-061",
+    "disposition": "ACCEPTED_DESIGN_ONLY",
+    "design": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_20260728.md",
+    "design_lock": "artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt",
+    "current_candidate_sha256": "0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259",
+    "current_candidate_static_baseline_accepted": true,
+    "current_candidate_runtime_authorization_eligible": false,
+    "current_candidate_bounded_observation_present": false,
+    "current_candidate_complete_cleanup_present": false,
+    "versioned_replacement_required": true,
+    "future_generator": "scripts/prepare_passive_time_witness_runtime_candidate_v2.sh",
+    "future_generator_creation_status": "NOT_CREATED_DESIGN_REFERENCE_ONLY",
+    "future_static_verifier": "scripts/verify_passive_time_witness_runtime_candidate_v2_static.sh",
+    "future_static_verifier_creation_status": "NOT_CREATED_DESIGN_REFERENCE_ONLY",
+    "future_v2_candidate_sha256": "UNRESOLVED_PENDING_D062_IMPLEMENTATION",
+    "future_v2_generator_sha256": "UNRESOLVED_PENDING_D062_IMPLEMENTATION",
+    "deterministic_observation_bound_required": true,
+    "observation_duration_value": "UNRESOLVED_NO_ACCEPTED_REPOSITORY_PRECEDENT",
+    "observation_duration_must_be_frozen_during": "D-062",
+    "complete_internal_cleanup_required": true,
+    "cleanup_traps_required": "EXIT_INT_TERM_HUP",
+    "cleanup_reverse_order_containers": true,
+    "cleanup_network_removal": true,
+    "cleanup_no_global_prune": true,
+    "cleanup_idempotent": true,
+    "cleanup_failure_classifies_invalid_infrastructure": true,
+    "pre_existing_project_resources_abort": true,
+    "post_cleanup_zero_project_resources_asserted": true,
+    "evidence_fresh_root_per_run": true,
+    "evidence_roots_separate_sibling": true,
+    "retained_evidence_mutation_allowed": false,
+    "witness_timing_evidence_scope": "immutable_ground_only",
+    "policy_visible_timing_data_allowed": false,
+    "independent_manifests_required": true,
+    "accepted_witness_sha256": "830cd1a3e336c7ed2fe5c6755a30ee24b5bbc04106d3c14f2a9d26995adaaf7e",
+    "accepted_validator_sha256": "f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027",
+    "accepted_generator_sha256": "e288abc456fb15cdfd5b3ab33198ee6ed2c48e3489e0c05aa6e0b61ff5db1890",
+    "accepted_verifier_sha256": "947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f",
+    "pinned_image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+    "pinned_image_id": "sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+    "docker_platform": "linux/amd64",
+    "runtime_authorized": false,
+    "diagnostic_runtime_attempts_authorized": 0,
+    "implementation_decision_required": "D-062",
+    "static_gate_decision_required": "D-063",
+    "runtime_authorization_decision_required": "D-064",
+    "scientific_outcome_allowed": false,
+    "interpretation_may_establish": [
+      "authoritative NOS Engine ticks progressed",
+      "at least one authoritative tick followed first UDP 5011 ingress",
+      "a post-ingress callback opportunity existed"
+    ],
+    "interpretation_may_not_establish": [
+      "generic-radio callback invocation",
+      "callback queue visibility",
+      "due-time evaluation",
+      "a generic-radio source defect",
+      "mission impact",
+      "scientific outcome",
+      "CryptoLib or SDLS behavior"
+    ],
+    "phase_separation": {
+      "D-061": "runtime-control remediation design accepted; no implementation and no runtime authorization",
+      "D-062": "implement the versioned v2 generator and candidate; runtime remains unauthorized",
+      "D-063": "execute and review a separate fail-closed static verification gate for v2; runtime remains unauthorized",
+      "D-064": "consider authorization for exactly one bounded passive telemetry attempt only after D-063 is accepted"
+    },
+    "implementation_scripts_modified": 0,
+    "diagnostic_or_baseline_artifact_created": 0,
+    "candidate_emitted": 0,
+    "candidate_executed": 0,
+    "classification": "DESIGN_LOCKED_IMPLEMENTATION_PENDING_RUNTIME_NOT_AUTHORIZED"
   }
 }

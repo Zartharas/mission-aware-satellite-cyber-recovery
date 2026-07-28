@@ -1,8 +1,8 @@
 # WP4 Passive NOS Engine Time-Witness Plan
 
 Date: 2026-07-26
-Decisions: D-057, D-058, D-059, and D-060
-Status: Static gate accepted under D-060 (2026-07-28); runtime remains unauthorized
+Decisions: D-057, D-058, D-059, D-060, and D-061
+Status: Static gate accepted under D-060 (2026-07-28); runtime-control remediation design accepted under D-061 (2026-07-28); implementation pending under D-062; runtime remains unauthorized
 
 ## Purpose
 
@@ -126,12 +126,47 @@ Decision D-059 accepted the passive NOS Engine time-tick subscriber, exact-schem
 - No diagnostic or baseline may run.
 - Commands and event injection remain blocked.
 - No scientific outcome may be claimed.
-- The next task is a separately governed proposal for exactly one passive telemetry runtime attempt.
+- The next task is to implement the versioned bounded runtime candidate and cleanup controls under D-062 without authorizing runtime.
 
 ### Provenance note (Part 7E.1)
 
 - The current implementation manifest above records the remediated verifier hash 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f. The superseded original Part 5 verifier hash 0f4db49582d8cacab1fefe7919af7a104bda5360ae1d82d4901d5396a13a52d3 is retained here only as clearly labeled historical provenance of the superseded original; it is not the current verifier.
 - D-060 has been created and accepted on 2026-07-28: the remediated static-gate result is governance-accepted in artifacts/wp4-passive-time-witness-static-gate-lock.txt, while every runtime, diagnostic, baseline, command, event-injection, and scientific-outcome gate remains closed.
 - Note: the witness source SHA-256 is recorded as 830cd1a3e336c7ed2fe5c6755a30ee24b5bbc04106d3c14f2a9d26995adaaf7e (the current on-disk file hash after the eca23ae trailing-whitespace cleanup). Earlier draft references cited 8b3c1061b910c75e75a828101d74243f5b7e4f344dda3e2fc6ce0dda2dd4091e, which was the file hash at commit 54c07aa before that cleanup; that value is now reconciled to the current file so the implementation manifest matches the committed file.
+
+## Runtime-control remediation design (D-061)
+
+Decision D-061 (2026-07-28) accepted the runtime-control remediation design only. The design is recorded in `tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_20260728.md` and locked in `artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt`; the contract advanced to `0.4.7` (`PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_LOCKED_IMPLEMENTATION_PENDING`). No implementation script was created or modified; no candidate was emitted or executed; no static verifier ran; no Docker was invoked.
+
+- **Current candidate `0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259` is a D-060 static-baseline identity only and is runtime-authorization-ineligible in its present form.** A read-only inspection found two runtime-control gaps: no deterministic bounded observation duration and no complete internal cleanup path (it launches detached Docker resources with no timeout, no bounded wait, no EXIT trap, no reverse-order teardown, no network removal, and no post-cleanup zero-resource assertion).
+- D-061 does **not revoke or rewrite D-060**. The D-060 static gate and lock remain the accepted static baseline. D-061 requires a **versioned replacement** generator and candidate rather than silently editing the accepted historical candidate.
+- **Future design references (not created under D-061):** `scripts/prepare_passive_time_witness_runtime_candidate_v2.sh` (v2 generator) and `scripts/verify_passive_time_witness_runtime_candidate_v2_static.sh` (v2 static verifier). These names are design references only; they are not created under D-061.
+
+### Required v2 control architecture (frozen)
+
+The future v2 candidate must be a self-contained, fail-closed runtime entrypoint containing all runtime controls internally, with no reliance on an undocumented external operator procedure for duration or cleanup.
+
+- **A. Deterministic bounded observation:** exactly one observation-duration value supplied by a governed contract field or hard-locked constant; strict integer validation (reject empty/negative/zero/non-integer/out-of-range); no unlimited or empty duration; no user-controlled expansion outside the accepted value; a bounded wait for the passive observation; the timeout result recorded distinctly from infrastructure failure; the duration begins only after required runtime readiness; the duration cannot authorize a second attempt.
+- **B. Complete cleanup:** cleanup function defined before resource creation; `trap` installed before the first Docker resource is created; traps for `EXIT`, `INT`, `TERM`, and `HUP`; cleanup runs after success, failure, timeout, or interruption; containers stopped and removed in deterministic reverse order; project-labeled network removed; cleanup limited strictly to project names and labels; no global `docker prune`; idempotent; pre-existing project resources cause fail-closed abort before creation; a final assertion requires zero project-labeled containers and zero project-labeled networks; cleanup failure overrides a nominal observation result and classifies the attempt as invalid infrastructure evidence.
+- **C. Evidence safety:** fresh evidence root per run; immutable-ground and policy-visible roots remain separate siblings; no overwrite or mutation of retained evidence; witness timing data immutable-ground only; policy-visible data contains no tick, monotonic timestamp, or derived timing; independent manifests generated and validated; evidence survives cleanup; partial evidence retained and classified when execution fails after evidence creation; no diagnostic or baseline evidence created during static verification.
+- **D. Containment:** internal project-labeled bridge only; no host network; no host ports; no Docker socket; no external egress; no command source; no command transmission; no event injection; no packet capture; no packet payload, packet hash, or IP-address collection.
+- **E. Entry-point and hash governance:** the v2 candidate must have a new deterministic SHA-256; the v2 generator must have a new SHA-256; a separate v2 static verifier must bind its PASS to the exact v2 generator and generated-candidate hashes; the v2 candidate (not an external wrapper) must become the future accepted runtime entrypoint; the existing `0fe76023...` candidate remains historical and unauthorized; `gate.accepted_runtime_entrypoint_sha256` does not change under D-061.
+
+### Observation-duration resolution (unresolved)
+
+There is no accepted repository precedent for an exact passive time-witness observation-duration value; the benign-baseline and radio accepted durations are readiness/acceptance timeouts, not a deterministic passive-observation window. D-061 does **not** select an arbitrary observation duration. The exact value is recorded as **unresolved** and must be frozen during the D-062 implementation disposition (via a governed contract field or a hard-locked constant), with its derivation recorded in the D-062 implementation lock.
+
+### Frozen future phase separation
+
+- **D-061**: runtime-control remediation design accepted; no implementation and no runtime authorization.
+- **D-062**: implement the versioned v2 generator and candidate; runtime remains unauthorized.
+- **D-063**: execute and review a separate fail-closed static verification gate for v2 that binds its PASS to the exact v2 generator and candidate hashes; runtime remains unauthorized.
+- **D-064**: consider authorization for exactly one bounded passive telemetry attempt only after D-063 is accepted.
+
+### Interpretation limits
+
+The future bounded attempt may establish only whether authoritative NOS Engine ticks progressed, whether at least one authoritative tick followed the first UDP `5011` ingress, and whether a post-ingress callback opportunity existed. It may not establish generic-radio callback invocation, callback queue visibility, due-time evaluation, a generic-radio source defect, mission impact, a scientific outcome, or CryptoLib/SDLS behavior.
+
+The next acceptance gate is: implement the versioned bounded runtime candidate and cleanup controls under D-062 without authorizing runtime.
 
 No result recorded here authorizes runtime execution, a telemetry diagnostic, a benign baseline, command transmission, event injection, or any scientific-outcome classification.
