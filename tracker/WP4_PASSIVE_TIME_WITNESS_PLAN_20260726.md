@@ -1,8 +1,8 @@
 # WP4 Passive NOS Engine Time-Witness Plan
 
 Date: 2026-07-26
-Decisions: D-057, D-058, D-059, D-060, and D-061
-Status: Static gate accepted under D-060 (2026-07-28); runtime-control remediation design accepted under D-061 (2026-07-28); implementation pending under D-062; runtime remains unauthorized
+Decisions: D-057, D-058, D-059, D-060, D-061, and D-062
+Status: Historical static baseline accepted under D-060 (2026-07-28); runtime-control design accepted under D-061 (2026-07-28); versioned v2 implementation accepted under D-062 (2026-07-29); D-063 static gate pending; runtime remains unauthorized
 
 ## Purpose
 
@@ -126,7 +126,7 @@ Decision D-059 accepted the passive NOS Engine time-tick subscriber, exact-schem
 - No diagnostic or baseline may run.
 - Commands and event injection remain blocked.
 - No scientific outcome may be claimed.
-- The next task is to implement the versioned bounded runtime candidate and cleanup controls under D-062 without authorizing runtime.
+- D-062 implemented the versioned bounded runtime candidate generator and cleanup controls without authorizing runtime. The next task is the separate D-063 static gate.
 
 ### Provenance note (Part 7E.1)
 
@@ -167,6 +167,50 @@ There is no accepted repository precedent for an exact passive time-witness obse
 
 The future bounded attempt may establish only whether authoritative NOS Engine ticks progressed, whether at least one authoritative tick followed the first UDP `5011` ingress, and whether a post-ingress callback opportunity existed. It may not establish generic-radio callback invocation, callback queue visibility, due-time evaluation, a generic-radio source defect, mission impact, a scientific outcome, or CryptoLib/SDLS behavior.
 
-The next acceptance gate is: implement the versioned bounded runtime candidate and cleanup controls under D-062 without authorizing runtime.
+The next acceptance gate is: execute and review the separate fail-closed v2 static gate under D-063 without authorizing runtime.
 
 No result recorded here authorizes runtime execution, a telemetry diagnostic, a benign baseline, command transmission, event injection, or any scientific-outcome classification.
+
+## D-062 versioned runtime-control implementation
+
+Decision D-062 was recorded on 2026-07-29 as **implementation-only acceptance**. It does not accept the future v2 static gate and does not authorize runtime.
+
+### Frozen identities
+
+- Generator: `scripts/prepare_passive_time_witness_runtime_candidate_v2.sh`
+- Generator SHA-256: `504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b`
+- Deterministic generated candidate SHA-256: `b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322`
+- Historical D-060 candidate identity retained unchanged: `0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259`
+- Materialized actual-v3 topology review artifact SHA-256: `3fb6b0bf6a542a5dbbc2046fa01f062afe71e127160f4555715f6d7a6e28bd3e`
+
+The v2 candidate is a deterministic temporary emission, not a committed runtime artifact. `gate.accepted_runtime_entrypoint_v2_sha256` remains empty until a separately accepted D-063 static gate. The historical `gate.accepted_runtime_entrypoint_sha256` remains unchanged and unauthorized.
+
+### Observation-duration resolution
+
+D-062 resolves the D-061 duration placeholder and freezes the observation at exactly **70 seconds**:
+
+1. retained successful UDP `5011` metadata trace span: `49.880617419` seconds;
+2. configured simulation and wall tick interval: `0.010` seconds;
+3. retained span plus one tick: `49.890617419` seconds;
+4. conservative safety multiplier: `1.25`;
+5. multiplied value: `62.363271774` seconds;
+6. ceiling to the next ten-second boundary: **70 seconds**.
+
+The historical 30-second metadata observation remains a lower-bound precedent only. No environment variable or operator input may expand or replace the frozen 70-second value.
+
+### Implemented runtime controls
+
+- exact fail-closed status, authorization-count, v2-static-PASS, governed-duration, proposed-attempt-count, and candidate-self-hash checks before Docker;
+- `EXIT`, `INT`, `TERM`, and `HUP` traps before the first Docker invocation;
+- 60-second bounded readiness controls and a 70-second observation that begins only after required readiness, including successful UDP `5011` ingress metadata and passive-witness connection;
+- bounded Docker operations using Python `subprocess.run(..., timeout=...)`;
+- reverse-creation-order container stop/removal, exact same-run labeled network removal, idempotent cleanup, and ten post-cleanup zero-resource assertions;
+- fresh per-run evidence root; separate immutable-ground and policy-visible siblings; independent SHA-256 manifests; no policy-visible tick, monotonic timestamp, or derived timing relationship;
+- actual v3 telemetry topology retained: `active-gs:5013` proxy to `radio-sim:5011`, radio egress sink on `8011`, NOS Engine, TimeDriver, 42, hardware simulators, bridge, cFS, socket metadata shim, and one passive time witness;
+- no command source, command transmission, event injection, packet capture, packet hash collection, IP-address retention, host networking, host ports, Docker-socket mount, external egress, or scientific-outcome authorization.
+
+### D-062 non-runtime validation
+
+The generator passed Bash syntax validation, emitted byte-identical candidates twice, produced the exact candidate hash above, and the current contract caused candidate rc=`1` with `CLOSED_GATE_NOT_AUTHORIZED` before fake Docker. Retained evidence was unchanged. The candidate runtime path was not executed and real Docker was not invoked.
+
+This D-062 validation is not the D-063 static gate. D-063 must create, execute, and govern a separate fail-closed verifier bound to the exact generator and candidate hashes. D-064 alone may later consider one bounded passive telemetry attempt, and only after D-063 is accepted.

@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.7",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_LOCKED_IMPLEMENTATION_PENDING",
+  "contract_version": "0.4.8",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTED_STATIC_GATE_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -32,7 +32,9 @@
     "wp4_passive_time_witness_design_lock": "artifacts/wp4-passive-time-witness-design-lock.txt",
     "wp4_passive_time_witness_static_gate_lock": "artifacts/wp4-passive-time-witness-static-gate-lock.txt",
     "wp4_passive_time_witness_runtime_control_design": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_20260728.md",
-    "wp4_passive_time_witness_runtime_control_design_lock": "artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt"
+    "wp4_passive_time_witness_runtime_control_design_lock": "artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt",
+    "wp4_passive_time_witness_runtime_control_v2_implementation": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTATION_20260728.md",
+    "wp4_passive_time_witness_runtime_control_v2_implementation_lock": "artifacts/wp4-passive-time-witness-runtime-control-v2-implementation-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -66,7 +68,7 @@
     "radio_queue_eligibility_time_callback_auditor": "scripts/audit_radio_queue_eligibility_and_time_callback.sh",
     "radio_time_tick_parser_regression_self_test": "bash scripts/audit_radio_queue_eligibility_and_time_callback.sh --self-test",
     "passive_time_witness": "STATIC_GATE_ACCEPTED_CANDIDATE",
-    "passive_time_witness_runtime_wrapper": "EMIT_ONLY_CANDIDATE_ACCEPTED_NOT_AUTHORIZED",
+    "passive_time_witness_runtime_wrapper": "V2_IMPLEMENTED_STATIC_GATE_PENDING_RUNTIME_NOT_AUTHORIZED",
     "passive_time_witness_static_verifier": "ACCEPTED",
     "passive_time_witness_implementation_files": {
       "witness_source": {
@@ -84,8 +86,19 @@
       "static_verifier": {
         "path": "scripts/verify_passive_time_witness_static.sh",
         "sha256": "947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f"
+      },
+      "runtime_candidate_generator_v2": {
+        "path": "scripts/prepare_passive_time_witness_runtime_candidate_v2.sh",
+        "sha256": "504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b",
+        "status": "IMPLEMENTED_D062"
+      },
+      "generated_runtime_candidate_v2": {
+        "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
+        "sha256": "b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322",
+        "status": "PROPOSED_D063_STATIC_GATE_PENDING"
       }
-    }
+    },
+    "passive_time_witness_runtime_candidate_v2": "IMPLEMENTED_PROPOSED_IDENTITY_NOT_STATICALLY_ACCEPTED_NOT_AUTHORIZED"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -372,10 +385,13 @@
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "D-060 (governance_date=2026-07-28) governance-accepted the remediated passive time-witness static-verification gate (gate.passive_time_witness_static_verification=PASS). The final read-only review confirmed exact pinned-image compilation, the C++ witness self-test, the trace-validator self-test, deterministic candidate generation, fail-closed candidate execution, zero fake-Docker invocation, zero project-labeled containers and networks before and after verification, and unchanged retained evidence. The accepted runtime entrypoint SHA-256 (gate.accepted_runtime_entrypoint_sha256) records candidate identity only and does not authorize execution. Acceptance of the static gate establishes the reviewed implementation baseline but does not authorize a telemetry runtime, diagnostic, baseline, command transmission, event injection, or scientific outcome. Every runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS gate remains closed unless a future decision explicitly authorizes a separately governed passive telemetry runtime attempt.",
+    "additional_requirement": "D-060 (governance_date=2026-07-28) governance-accepted the remediated passive time-witness static-verification gate (gate.passive_time_witness_static_verification=PASS). The final read-only review confirmed exact pinned-image compilation, the C++ witness self-test, the trace-validator self-test, deterministic candidate generation, fail-closed candidate execution, zero fake-Docker invocation, zero project-labeled containers and networks before and after verification, and unchanged retained evidence. The accepted runtime entrypoint SHA-256 (gate.accepted_runtime_entrypoint_sha256) records candidate identity only and does not authorize execution. Acceptance of the static gate establishes the reviewed implementation baseline but does not authorize a telemetry runtime, diagnostic, baseline, command transmission, event injection, or scientific outcome. Every runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS gate remains closed unless a future decision explicitly authorizes a separately governed passive telemetry runtime attempt. D-062 (implementation_date=2026-07-29) implemented the versioned v2 generator and deterministic candidate with a frozen 70-second observation window and complete bounded cleanup controls. The v2 generator SHA-256 is 504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b; the proposed deterministic candidate SHA-256 is b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322. These are implementation identities only. gate.passive_time_witness_runtime_candidate_v2_static_verification remains PENDING; gate.accepted_runtime_entrypoint_v2_sha256 remains empty; diagnostic runtime authorization remains false with zero authorized attempts. D-063 must separately execute and govern the fail-closed v2 static gate before D-064 may consider one bounded passive telemetry attempt.",
     "passive_time_witness_static_verification": "PASS",
     "accepted_runtime_entrypoint_sha256": "0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259",
-    "accepted_runtime_entrypoint_identity_only_not_authorized": true
+    "accepted_runtime_entrypoint_identity_only_not_authorized": true,
+    "passive_time_witness_runtime_candidate_v2_static_verification": "PENDING",
+    "accepted_runtime_entrypoint_v2_sha256": "",
+    "accepted_runtime_entrypoint_v2_identity_only_not_authorized": false
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -452,6 +468,12 @@
       "area": "WP4 bounded passive telemetry runtime-control design",
       "status": "ACCEPTED",
       "record": "artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt"
+    },
+    {
+      "decision_id": "D-062",
+      "area": "WP4 bounded passive telemetry runtime-control v2 implementation",
+      "status": "ACCEPTED_IMPLEMENTATION_ONLY",
+      "record": "artifacts/wp4-passive-time-witness-runtime-control-v2-implementation-lock.txt"
     }
   ],
   "retained_evidence_analysis": {
@@ -589,13 +611,13 @@
     "current_candidate_complete_cleanup_present": false,
     "versioned_replacement_required": true,
     "future_generator": "scripts/prepare_passive_time_witness_runtime_candidate_v2.sh",
-    "future_generator_creation_status": "NOT_CREATED_DESIGN_REFERENCE_ONLY",
+    "future_generator_creation_status": "IMPLEMENTED_D062",
     "future_static_verifier": "scripts/verify_passive_time_witness_runtime_candidate_v2_static.sh",
     "future_static_verifier_creation_status": "NOT_CREATED_DESIGN_REFERENCE_ONLY",
-    "future_v2_candidate_sha256": "UNRESOLVED_PENDING_D062_IMPLEMENTATION",
-    "future_v2_generator_sha256": "UNRESOLVED_PENDING_D062_IMPLEMENTATION",
+    "future_v2_candidate_sha256": "b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322",
+    "future_v2_generator_sha256": "504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b",
     "deterministic_observation_bound_required": true,
-    "observation_duration_value": "UNRESOLVED_NO_ACCEPTED_REPOSITORY_PRECEDENT",
+    "observation_duration_value": 70,
     "observation_duration_must_be_frozen_during": "D-062",
     "complete_internal_cleanup_required": true,
     "cleanup_traps_required": "EXIT_INT_TERM_HUP",
@@ -621,7 +643,7 @@
     "docker_platform": "linux/amd64",
     "runtime_authorized": false,
     "diagnostic_runtime_attempts_authorized": 0,
-    "implementation_decision_required": "D-062",
+    "implementation_decision_required": "D-062_ACCEPTED_IMPLEMENTATION_ONLY",
     "static_gate_decision_required": "D-063",
     "runtime_authorization_decision_required": "D-064",
     "scientific_outcome_allowed": false,
@@ -645,10 +667,71 @@
       "D-063": "execute and review a separate fail-closed static verification gate for v2; runtime remains unauthorized",
       "D-064": "consider authorization for exactly one bounded passive telemetry attempt only after D-063 is accepted"
     },
-    "implementation_scripts_modified": 0,
+    "implementation_scripts_modified": 1,
     "diagnostic_or_baseline_artifact_created": 0,
-    "candidate_emitted": 0,
+    "candidate_emitted": 2,
     "candidate_executed": 0,
-    "classification": "DESIGN_LOCKED_IMPLEMENTATION_PENDING_RUNTIME_NOT_AUTHORIZED"
+    "classification": "V2_IMPLEMENTED_STATIC_GATE_PENDING_RUNTIME_NOT_AUTHORIZED",
+    "observation_duration_resolution": "FROZEN_D062",
+    "observation_duration_derivation_record": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTATION_20260728.md",
+    "implementation_record": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTATION_20260728.md",
+    "implementation_lock": "artifacts/wp4-passive-time-witness-runtime-control-v2-implementation-lock.txt"
+  },
+  "passive_time_witness_runtime_control_v2": {
+    "decision": "D-062",
+    "disposition": "ACCEPTED_IMPLEMENTATION_ONLY",
+    "implementation_date": "2026-07-29",
+    "implementation_record": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTATION_20260728.md",
+    "implementation_lock": "artifacts/wp4-passive-time-witness-runtime-control-v2-implementation-lock.txt",
+    "generator": "scripts/prepare_passive_time_witness_runtime_candidate_v2.sh",
+    "generator_sha256": "504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b",
+    "generated_candidate_sha256": "b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322",
+    "historical_d060_candidate_sha256": "0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259",
+    "materialized_v3_topology_review_sha256": "3fb6b0bf6a542a5dbbc2046fa01f062afe71e127160f4555715f6d7a6e28bd3e",
+    "observation_duration_seconds": 70,
+    "observation_duration_operator_override_allowed": false,
+    "observation_duration_derivation": {
+      "retained_udp_5011_trace_span_seconds": 49.880617419,
+      "configured_tick_interval_seconds": 0.01,
+      "udp_span_plus_one_tick_seconds": 49.890617419,
+      "historical_observation_lower_bound_seconds": 30,
+      "selected_basis_seconds": 49.890617419,
+      "safety_multiplier": 1.25,
+      "multiplied_seconds": 62.363271774,
+      "rounding_rule": "CEILING_TO_NEXT_10_SECONDS",
+      "frozen_result_seconds": 70
+    },
+    "readiness_timeout_seconds": 60,
+    "docker_stop_grace_seconds": 10,
+    "cleanup_command_timeout_seconds": 15,
+    "network_removal_timeout_seconds": 15,
+    "post_cleanup_assert_retries": 10,
+    "post_cleanup_retry_interval_seconds": 1,
+    "cleanup_traps": [
+      "EXIT",
+      "INT",
+      "TERM",
+      "HUP"
+    ],
+    "cleanup_reverse_order_containers": true,
+    "cleanup_exact_labeled_network_only": true,
+    "cleanup_global_prune_allowed": false,
+    "cleanup_idempotent": true,
+    "cleanup_failure_classification": "INVALID_INFRASTRUCTURE_EVIDENCE",
+    "fresh_evidence_root_required": true,
+    "immutable_ground_and_policy_visible_sibling_roots": true,
+    "policy_visible_timing_evidence_allowed": false,
+    "candidate_self_hash_gate_required": true,
+    "proposed_runtime_attempts": 1,
+    "static_gate_status": "PENDING_D063",
+    "accepted_runtime_entrypoint_v2_sha256": "",
+    "runtime_authorized": false,
+    "diagnostic_runtime_attempts_authorized": 0,
+    "candidate_executed": false,
+    "docker_invoked_during_d062": false,
+    "retained_evidence_modified": false,
+    "scientific_outcome_allowed": false,
+    "next_decision": "D-063",
+    "runtime_authorization_decision": "D-064_ONLY_AFTER_D063_ACCEPTED"
   }
 }
