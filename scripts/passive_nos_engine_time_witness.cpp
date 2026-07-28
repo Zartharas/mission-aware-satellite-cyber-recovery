@@ -27,8 +27,8 @@
 //
 // Compilation (pin):
 //   g++ -std=c++14 -Wall -Wextra -Werror -I/usr/include
-//       scripts/passive_nos_engine_time_witness.cpp 
-//       -lnos_engine_client -lnos_engine_common 
+//       scripts/passive_nos_engine_time_witness.cpp
+//       -lnos_engine_client -lnos_engine_common
 //       -o passive_nos_engine_time_witness
 //
 // Contract version: 0.4.5 (PASSIVE_TIME_WITNESS_IMPLEMENTED_STATIC_GATE_PENDING)
