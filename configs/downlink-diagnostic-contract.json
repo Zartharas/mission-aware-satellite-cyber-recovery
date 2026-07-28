@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.4",
-  "status": "PASSIVE_TIME_WITNESS_DESIGN_LOCKED_STATIC_GATE_PENDING",
+  "contract_version": "0.4.5",
+  "status": "PASSIVE_TIME_WITNESS_IMPLEMENTED_STATIC_GATE_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -62,9 +62,27 @@
     "radio_socket_metadata_retained_auditor": "scripts/audit_radio_socket_metadata_retained_run.sh",
     "radio_queue_eligibility_time_callback_auditor": "scripts/audit_radio_queue_eligibility_and_time_callback.sh",
     "radio_time_tick_parser_regression_self_test": "bash scripts/audit_radio_queue_eligibility_and_time_callback.sh --self-test",
-    "passive_time_witness": "NOT_IMPLEMENTED",
-    "passive_time_witness_runtime_wrapper": "NOT_CREATED",
-    "passive_time_witness_static_verifier": "NOT_CREATED"
+    "passive_time_witness": "IMPLEMENTED_CANDIDATE",
+    "passive_time_witness_runtime_wrapper": "EMIT_ONLY_CANDIDATE_GENERATOR_CREATED",
+    "passive_time_witness_static_verifier": "CREATED_NOT_ACCEPTED",
+    "passive_time_witness_implementation_files": {
+      "witness_source": {
+        "path": "scripts/passive_nos_engine_time_witness.cpp",
+        "sha256": "8b3c1061b910c75e75a828101d74243f5b7e4f344dda3e2fc6ce0dda2dd4091e"
+      },
+      "trace_validator": {
+        "path": "scripts/validate_passive_time_witness_trace.py",
+        "sha256": "f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027"
+      },
+      "runtime_candidate_generator": {
+        "path": "scripts/prepare_passive_time_witness_runtime_candidate.sh",
+        "sha256": "e288abc456fb15cdfd5b3ab33198ee6ed2c48e3489e0c05aa6e0b61ff5db1890"
+      },
+      "static_verifier": {
+        "path": "scripts/verify_passive_time_witness_static.sh",
+        "sha256": "947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f"
+      }
+    }
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -351,8 +369,8 @@
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "Implement and pass a separate passive time-witness static verification gate before any new telemetry-only runtime is considered. No runtime is authorized. Baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.",
-    "passive_time_witness_static_verification": "PENDING"
+    "additional_requirement": "Implement and pass a separate passive time-witness static verification gate before any new telemetry-only runtime is considered. An implementation candidate has been created. The original Part 5 technical static verifier (superseded SHA-256 0f4db49582d8cacab1fefe7919af7a104bda5360ae1d82d4901d5396a13a52d3) returned a technical PASS, but was later found to permit a deferred pinned-image compile and C++ witness --self-test PASS path. Part 7D remediated that fail-closed defect; the current remediated verifier (SHA-256 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f) was executed in Part 7D and returned PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS. Neither the original Part 5 technical PASS nor the Part 7D remediated-verifier technical PASS has been governance-accepted, no runtime is authorized, and D-060 is reserved for the static-gate disposition. Baseline execution, command transmission, event injection, scientific outcome classification, and CryptoLib/SDLS claims remain blocked.",
+    "passive_time_witness_static_verification": "PENDING_REVIEW"
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -411,6 +429,12 @@
       "area": "WP4 passive time observability",
       "status": "ACCEPTED",
       "record": "artifacts/wp4-passive-time-witness-design-lock.txt"
+    },
+    {
+      "decision_id": "D-059",
+      "area": "WP4 passive time-witness implementation",
+      "status": "ACCEPTED",
+      "record": "tracker/decision_log.csv"
     }
   ],
   "retained_evidence_analysis": {
@@ -427,7 +451,7 @@
     "corrected_read_only_diagnosis": "RADIO_TIME_PROGRESS_OR_CALLBACK_INVOCATION_UNPROVEN_BY_RETAINED_LOG"
   },
   "passive_time_witness_design": {
-    "status": "DESIGN_LOCKED_IMPLEMENTATION_NOT_STARTED",
+    "status": "DESIGN_LOCKED_IMPLEMENTATION_CANDIDATE_CREATED_STATIC_GATE_PASS_PENDING_REVIEW",
     "plan": "tracker/WP4_PASSIVE_TIME_WITNESS_PLAN_20260726.md",
     "design_lock": "artifacts/wp4-passive-time-witness-design-lock.txt",
     "allowed_record_fields": [
@@ -469,6 +493,25 @@
       "complete_cleanup_required": true,
       "scientific_outcome_classification_allowed": false
     },
-    "interpretation_limit": "The witness may prove NOS Engine time progression and a post-ingress callback opportunity only; it does not prove generic-radio callback invocation, queue visibility, or due-time evaluation."
+    "interpretation_limit": "The witness may prove NOS Engine time progression and a post-ingress callback opportunity only; it does not prove generic-radio callback invocation, queue visibility, or due-time evaluation.",
+    "passive_time_witness_static_verifier_provenance": {
+      "current_remediated_verifier": {
+        "path": "scripts/verify_passive_time_witness_static.sh",
+        "sha256": "947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f",
+        "status": "CREATED_NOT_ACCEPTED",
+        "part7d_execution_result": "PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS",
+        "governance_accepted": false
+      },
+      "superseded_original_part5_verifier": {
+        "path": "scripts/verify_passive_time_witness_static.sh",
+        "sha256": "0f4db49582d8cacab1fefe7919af7a104bda5360ae1d82d4901d5396a13a52d3",
+        "status": "SUPERSEDED_PART5",
+        "part5_execution_result": "PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS",
+        "later_finding": "PERMITTED_DEFERRED_COMPILE_AND_SELFTEST_PASS_PATH",
+        "remediation": "PART_7D_FAIL_CLOSED",
+        "governance_accepted": false
+      },
+      "governance_disposition": "D-060 reserved; not created as a decision"
+    }
   }
 }

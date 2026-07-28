@@ -1,8 +1,8 @@
 # WP4 Passive NOS Engine Time-Witness Plan
 
 Date: 2026-07-26
-Decisions: D-057 and D-058
-Status: Design locked; implementation and static verification pending
+Decisions: D-057, D-058, and D-059
+Status: Implementation candidate created; static-gate review pending
 
 ## Purpose
 
@@ -97,3 +97,39 @@ If advancing post-ingress ticks are proven while UDP `8011` remains absent, the 
 - Event injection authorized: false
 - Scientific outcome allowed: false
 - CryptoLib/SDLS interpretation allowed: false
+
+## Implementation candidate (Part 6 governance record)
+
+Decision D-059 accepted the passive NOS Engine time-tick subscriber, exact-schema trace validator, emit-only telemetry-runtime candidate generator, and network-disabled static verifier described in this plan while retaining a closed runtime gate. This section records the implementation files produced under that decision. Recording these files and their hashes does not accept the static-gate result and does not authorize any runtime.
+
+### Implementation files
+
+- scripts/passive_nos_engine_time_witness.cpp
+  - SHA-256: 8b3c1061b910c75e75a828101d74243f5b7e4f344dda3e2fc6ce0dda2dd4091e
+- scripts/validate_passive_time_witness_trace.py
+  - SHA-256: f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027
+- scripts/prepare_passive_time_witness_runtime_candidate.sh
+  - SHA-256: e288abc456fb15cdfd5b3ab33198ee6ed2c48e3489e0c05aa6e0b61ff5db1890
+- scripts/verify_passive_time_witness_static.sh
+  - SHA-256: 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f
+
+### Static-gate result and governance status
+
+- The original technical static verifier (scripts/verify_passive_time_witness_static.sh, superseded SHA-256 0f4db49582d8cacab1fefe7919af7a104bda5360ae1d82d4901d5396a13a52d3) produced the result PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS during Part 5.
+- The original Part 5 verifier was later found to permit a deferred pinned-image compile and C++ witness --self-test PASS path; it could print PASS without executing those mandatory network-disabled requirements.
+- Part 7D remediated that fail-closed defect. The current remediated verifier (scripts/verify_passive_time_witness_static.sh, current SHA-256 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f) fails closed unless Docker, the exact pinned image, the strict --network none C++14 compile, and the C++ witness --self-test all execute and pass.
+- The remediated verifier was successfully executed in Part 7D and produced PASSIVE_NOS_ENGINE_TIME_WITNESS_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_TRACE_VALIDATOR_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS, VERIFIER_RC=0.
+- Neither the original Part 5 technical PASS nor the Part 7D remediated-verifier technical PASS has been governance-accepted.
+- The static gate is not accepted.
+- No runtime is authorized.
+- No diagnostic or baseline may run.
+- Commands and event injection remain blocked.
+- No scientific outcome may be claimed.
+- D-060 is reserved for a later decision to accept or reject the static-gate result.
+
+### Provenance note (Part 7E.1)
+
+- The current implementation manifest above records the remediated verifier hash 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f. The superseded original Part 5 verifier hash 0f4db49582d8cacab1fefe7919af7a104bda5360ae1d82d4901d5396a13a52d3 is retained here only as clearly labeled historical provenance of the superseded original; it is not the current verifier.
+- D-060 remains reserved for the disposition of the current remediated verifier result; it has not been created as a decision.
+
+No result recorded here authorizes runtime execution, a telemetry diagnostic, a benign baseline, command transmission, event injection, or any scientific-outcome classification.

@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-07-26
+Last updated: 2026-07-27
 
 ## Status legend
 
@@ -18,7 +18,7 @@ Last updated: 2026-07-26
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts, two invalid telemetry-only diagnostics, and one completed metadata-only diagnostic retained; TO_LAB `5013` bridge, radio socket metadata wrapper, retained audit, and D-056 parser correction complete; passive time-witness design locked | Implement and pass the passive time-witness static verification gate |
+| WP4 | Testbed selection and architecture | In progress | Exact toolchain locks; successful runtime preflight; four invalid baseline attempts, two invalid telemetry-only diagnostics, and one completed metadata-only diagnostic retained; TO_LAB `5013` bridge, radio socket metadata wrapper, retained audit, and D-056 parser correction complete; passive time-witness design locked; D-059 implementation candidate (subscriber, trace validator, emit-only candidate generator, network-disabled static verifier) created; the original Part 5 technical static verifier returned PASS but was later found to permit a deferred compile/self-test PASS path, Part 7D remediated that fail-closed defect, and the current remediated verifier returned PASS in Part 7D; neither technical PASS has been governance-accepted | Review and disposition the passive time-witness static-verifier result under D-060 |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -181,20 +181,34 @@ Last updated: 2026-07-26
 - [x] Record that retained NOS Engine time progression and callback invocation after ingress remain unproven
 - [x] Reconcile the primary tracker, work-package register, decision log, and contract through D-058
 - [x] Lock the passive NOS Engine time-witness design without implementing or executing it
+- [x] Accept decision D-059 and record the passive time-witness implementation candidate (script set and SHA-256 hashes) while retaining a closed runtime gate
+- [x] Produce the Part 5 technical static-verifier result PASS for the passive time-witness static gate
+- [x] Hold the technical static-verifier PASS for governance review under D-060 without accepting it
+- [x] Identify the original Part 5 verifier's deferred pinned-image compile/C++ witness --self-test PASS path as a fail-closed defect (Part 7)
+- [x] Remediate the verifier to fail closed unless the pinned-image compile and witness --self-test execute and pass (Part 7D, current hash 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f)
+- [x] Execute the remediated verifier in Part 7D and produce PASSIVE_NOS_ENGINE_TIME_WITNESS_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_STATIC_VALIDATOR_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS, VERIFIER_RC=0
+- [x] Hold both the original Part 5 technical PASS and the Part 7D remediated-verifier technical PASS for governance review under D-060 without accepting either
 
 ## Immediate tasks
 
-- [ ] Implement a passive NOS Engine time witness that records only sequence, Linux `CLOCK_MONOTONIC` nanoseconds, authoritative tick value, and evidence-validity connection state
-- [ ] Implement an isolated witness self-test without NOS3 runtime launch or external network access
-- [ ] Prove the passive witness and radio socket metadata shim use the same Linux `CLOCK_MONOTONIC` basis
-- [ ] Integrate the witness into a dedicated telemetry-only wrapper without modifying historical runners or pinned NOS3 sources
-- [ ] Keep passive time evidence exclusively in immutable-ground storage and expose only a non-sensitive policy-visible scope marker
-- [ ] Pass a separate network-disabled passive time-witness static verification gate
-- [ ] Keep all diagnostic runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS authorizations closed until the static gate is reviewed and separately accepted
+- [ ] Review and disposition the passive time-witness static-verifier result under D-060 (the original Part 5 verifier returned PASS, Part 7D remediated the fail-closed defect and the current verifier returned PASS in Part 7D; neither technical PASS has been governance-accepted and no runtime is authorized)
+- [ ] Keep all diagnostic runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS authorizations closed until the static-gate result is reviewed and separately accepted under D-060
 - [ ] Design a separate compatible CryptoLib/SDLS integration gate without conflating it with the nominal cFS packet baseline
 - [ ] Audit author, venue, DOI, publication status, and access terms for all 30 literature entries
 - [ ] Complete license verification for CuCD-ID and AegisSat
 - [ ] Obtain institutional determination before any interview-data reanalysis or human study
+
+## Blocked
+
+The following remain blocked until the passive time-witness static-gate result is reviewed and separately accepted under D-060, and remain blocked thereafter unless a future decision explicitly authorizes them:
+
+- Runtime execution
+- Telemetry diagnostic
+- Benign baseline
+- Command transmission
+- Event injection
+- Scientific outcome classification
+- CryptoLib/SDLS conclusions
 
 ## Final candidate novelty statement
 
@@ -202,4 +216,4 @@ This study introduces a reproducible software-in-the-loop experimental method fo
 
 ## Gate 3 status
 
-WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, TO_LAB static-audit, corrected port-bridge, radio-observability, retained-liveness, metadata-shim component, metadata-runtime wrapper, retained metadata-audit, and corrected time-tick-parser controls. Four benign baseline attempts and two telemetry-only diagnostics remain invalid infrastructure runs; one bounded metadata-only diagnostic completed as infrastructure evidence, and none produced a measured command or scientific outcome. Run `20260726T192902Z` confirms 1,061 generic-radio UDP `5011` receives and zero successful or failed UDP `8011` send attempts, but retained evidence contains only authoritative TimeDriver tick `0` and therefore does not prove time progression or callback invocation after ingress. Contract `0.4.4` locks a passive NOS Engine time-witness design and keeps every runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS gate closed pending a separate static verification gate.
+WP4 has passed the host-runtime, schema, NOS3 source, recursive-submodule, cFE/OSAL/PSP, 42 source/build, container-digest, network-disabled compilation, scoped runtime-preflight, ground-probe, runtime-configuration, historical runner, plaintext-relay, functional-readiness, telemetry-only diagnostic, retained-run-analysis, TO_LAB static-audit, corrected port-bridge, radio-observability, retained-liveness, metadata-shim component, metadata-runtime wrapper, retained metadata-audit, and corrected time-tick-parser controls. Four benign baseline attempts and two telemetry-only diagnostics remain invalid infrastructure runs; one bounded metadata-only diagnostic completed as infrastructure evidence, and none produced a measured command or scientific outcome. Run `20260726T192902Z` confirms 1,061 generic-radio UDP `5011` receives and zero successful or failed UDP `8011` send attempts, but retained evidence contains only authoritative TimeDriver tick `0` and therefore does not prove time progression or callback invocation after ingress. Decision D-059 and contract `0.4.5` record a passive NOS Engine time-witness implementation candidate (script set and SHA-256 hashes). The original Part 5 technical static verifier (superseded hash 0f4db49582d8cacab1fefe7919af7a104bda5360ae1d82d4901d5396a13a52d3) returned PASS but was later found to permit a deferred pinned-image compile and C++ witness --self-test PASS path; Part 7D remediated that fail-closed defect and the current remediated verifier (hash 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f) returned PASS in Part 7D. Neither technical PASS has been governance-accepted, and every runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS gate remains closed pending review under D-060.
