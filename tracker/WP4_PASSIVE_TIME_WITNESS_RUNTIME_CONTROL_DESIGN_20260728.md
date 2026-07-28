@@ -147,3 +147,36 @@ It may **not** establish:
 - Accepted runtime entrypoint recorded for identity only, not authorized for execution
 
 No result recorded here authorizes runtime execution, a telemetry diagnostic, a benign baseline, command transmission, event injection, or any scientific-outcome classification. The next acceptance gate is: implement the versioned bounded runtime candidate and cleanup controls under D-062 without authorizing runtime.
+
+## D-062 implementation addendum
+
+Recorded: 2026-07-29
+
+Disposition: `ACCEPTED_IMPLEMENTATION_ONLY`
+
+Contract target reached: `0.4.8` (`PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTED_STATIC_GATE_PENDING`)
+
+D-062 implemented the versioned generator named by the D-061 design:
+
+- `scripts/prepare_passive_time_witness_runtime_candidate_v2.sh`
+- generator SHA-256 `504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b`
+- deterministic generated-candidate SHA-256 `b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322`
+
+The candidate incorporates the actual accepted v3 topology, a single passive NOS Engine time witness, a hard-locked 70-second observation, candidate self-hash authorization, bounded readiness and Docker operations, all four cleanup traps, reverse-order container teardown, exact labeled-network removal, ten zero-resource cleanup assertions, and separate fresh immutable-ground and policy-visible evidence roots.
+
+### D-061 unresolved duration closed by D-062
+
+D-062 freezes the observation at 70 seconds. The derivation uses the retained `49.880617419`-second successful UDP `5011` trace span plus one configured `0.010`-second tick (`49.890617419` seconds), applies the conservative factor `1.25` (`62.363271774` seconds), and rounds upward to the next 10-second boundary. The value is not environment-overridable.
+
+### Governance boundary
+
+- `gate.passive_time_witness_runtime_candidate_v2_static_verification=PENDING`
+- `gate.accepted_runtime_entrypoint_v2_sha256=""`
+- `gate.diagnostic_runtime_authorized=false`
+- `gate.diagnostic_runtime_attempts_authorized=0`
+- historical `gate.accepted_runtime_entrypoint_sha256=0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259` unchanged
+- candidate executed: false
+- real Docker invoked during D-062: false
+- retained evidence modified: false
+
+The D-062 implementation and deterministic-emission checks do not constitute the D-063 static gate. D-063 must separately bind a fail-closed PASS to the exact v2 generator and candidate hashes. D-064 remains the sole phase that may consider one bounded passive telemetry attempt after D-063 acceptance.
