@@ -549,7 +549,24 @@
     "baseline_execution_authorized": false,
     "scientific_outcome_allowed": false,
     "cryptographic_semantics_claim_allowed": false,
-    "implementation_scripts_modified": false,
-    "diagnostic_or_baseline_artifact_created": false
+    "implementation_scripts_modified_during_d060": false,
+    "diagnostic_or_baseline_artifact_created_during_d060": false,
+    "post_whitespace_recheck": {
+      "commit": "eca23aee777dff8f523aad485e074dc62c1983f8",
+      "result": "PASS",
+      "witness_sha256": "830cd1a3e336c7ed2fe5c6755a30ee24b5bbc04106d3c14f2a9d26995adaaf7e",
+      "generated_candidate_sha256": "0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259",
+      "witness_self_test": "PASSIVE_NOS_ENGINE_TIME_WITNESS_SELF_TEST=PASS",
+      "trace_validator_self_test": "PASSIVE_TIME_WITNESS_TRACE_VALIDATOR_SELF_TEST=PASS",
+      "candidate_run_rc": 1,
+      "candidate_run_status": "CLOSED_GATE_NOT_AUTHORIZED",
+      "fake_docker_log_bytes": 0,
+      "pre_containers": 0,
+      "pre_networks": 0,
+      "post_containers": 0,
+      "post_networks": 0,
+      "verifier_rc": 0,
+      "static_verification_result": "PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS"
+    }
   }
 }

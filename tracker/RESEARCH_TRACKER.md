@@ -186,7 +186,7 @@ Last updated: 2026-07-27
 - [x] Hold the technical static-verifier PASS for governance review under D-060 without accepting it
 - [x] Identify the original Part 5 verifier's deferred pinned-image compile/C++ witness --self-test PASS path as a fail-closed defect (Part 7)
 - [x] Remediate the verifier to fail closed unless the pinned-image compile and witness --self-test execute and pass (Part 7D, current hash 947961bfcbee386553c472fef1b2f9b25fa5cf03f1120e750085c9dd6e96ad9f)
-- [x] Execute the remediated verifier in Part 7D and produce PASSIVE_NOS_ENGINE_TIME_WITNESS_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_STATIC_VALIDATOR_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS, VERIFIER_RC=0
+- [x] Execute the remediated verifier in Part 7D and produce PASSIVE_NOS_ENGINE_TIME_WITNESS_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_TRACE_VALIDATOR_SELF_TEST=PASS, PASSIVE_TIME_WITNESS_STATIC_VERIFICATION_STATUS=PASS, VERIFIER_RC=0
 - [x] Hold both the original Part 5 technical PASS and the Part 7D remediated-verifier technical PASS for governance review under D-060 without accepting either
 
 ## Immediate tasks
