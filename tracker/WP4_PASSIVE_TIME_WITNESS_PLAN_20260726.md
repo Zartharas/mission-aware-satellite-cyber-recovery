@@ -2,7 +2,9 @@
 
 Date: 2026-07-26
 Decisions: D-057, D-058, D-059, D-060, D-061, D-062, and D-063
+Additional decision: D-063R1
 Status: Historical static baseline accepted under D-060 (2026-07-28); runtime-control design accepted under D-061 (2026-07-28); versioned v2 implementation accepted under D-062 (2026-07-29); D-063 v2 static gate EXECUTED and FAILED on 2026-07-29 (write-capable bind of pinned $NOS3 -> /work/nos3 not explicitly read-only); D-064 BLOCKED; runtime remains unauthorized
+D-063R1 status: Design locked under D-063R1 on 2026-07-29 as DESIGN_LOCKED_IMPLEMENTATION_NOT_AUTHORIZED; design and governance record only; no implementation, no runtime, no candidate emission or execution, no verifier execution; implementation_status=NOT_STARTED; static_verification=PENDING; runtime_authorized=false; runtime_attempts=0; D-064=BLOCKED; next decision SEPARATELY_GOVERNED_V3_IMPLEMENTATION_REQUIRED_BEFORE_D064
 
 ## Purpose
 
@@ -274,3 +276,41 @@ No real Docker invocation occurred; no runtime candidate post-gate path was exec
 ### D-064 blocked and remediation required
 
 D-064 is explicitly blocked. A separately governed remediation phase must modify the generator, emit a new deterministic candidate, establish new generator/candidate hashes, and rerun static verification. That remediation is not performed in this disposition; a remediation phase identifier is not invented here because existing project conventions do not define one for this step.
+
+## D-063R1 v3 manifest-seed design lock
+
+Decision D-063R1 was recorded on 2026-07-29 as `DESIGN_LOCKED_IMPLEMENTATION_NOT_AUTHORIZED`. This is a design and governance record only: it creates no v3 generator, candidate, verifier, materializer, or runtime-material manifest, and authorizes no runtime.
+
+- Architecture: `PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES`
+- Design record: `tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_20260729.md` (SHA-256 `c089ffacac68694de2d446acbd301d0a96bc270fa9d1042e7e4c2c6f5bdf2f14`)
+- Design lock: `artifacts/wp4-passive-time-witness-runtime-candidate-v3-manifest-seed-design-lock.txt` (SHA-256 `cebd5933d2bea7246f2a4d14d0f1efacafcb4f20afa5b901ba505a9c2512263d`)
+- Contract: `0.4.10` / `PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_LOCKED_IMPLEMENTATION_PENDING`
+
+### Pre-write audit
+
+- Simulator seed (`sims/build/bin` + `sims/build/lib`): 27 raw regular files; 25 included (2 ItcLogger rollover archives excluded).
+- cFS seed (`fsw/build/exe/cpu1`): 1370 raw; 1365 included (5 stale runtime files excluded).
+- Config seed (`cfg/build/InOut`): 36 raw; 36 included.
+- 0 symlinks; 0 escaping symlinks; 0 unsupported filesystem objects; 0 hard-link aliases; 0 unclassified source paths.
+
+### Plugin mapping
+
+- 14 hardware simulator instances; 12 distinct hardware plugin files; 13 distinct simulator plugin files including TimeDriver.
+
+### Architecture
+
+- The pinned image remains the immutable execution base; image-owned files remain in the image and are never copied into the host seed.
+- The host seed is bound by the canonical manifest model (normalized paths, entry types, modes, regular-file sizes and SHA-256 values, directory entries, explicit exclusions, and deterministic serialization) via the SHA-256 of the canonical manifest; stale runtime state is `MUST_BE_ABSENT_AT_START` by source evidence.
+- 18 private run-scoped NOS3 workspaces (NOS Engine 1, TimeDriver 1, 14 hardware simulators, bridge 1, cFS 1), each mounted at `/work/nos3` from a private workspace never `external/nos3`; no cross-container writable log-file alias.
+- Private-copy materialization (not an overlay); no hard links/reflinks/aliases to `external/nos3`.
+
+### Governance state
+
+- `gate.passive_time_witness_runtime_candidate_v3_static_verification=PENDING`; `gate.accepted_runtime_entrypoint_v3_sha256=""`; runtime authorization remains false with zero authorized attempts; all top-level permissions remain false.
+- Historical v2 generator (`504069a6fa68...`), rejected candidate (`b541d22ecd7a...`), D-063 verifier (`879dcac2...`), D-063 retained log (`753bcc17...`), and D-060 accepted entrypoint (`0fe76023...`) remain unchanged.
+- D-064 remains BLOCKED; the next decision is `SEPARATELY_GOVERNED_V3_IMPLEMENTATION_REQUIRED_BEFORE_D064`.
+- Runtime compatibility remains UNPROVEN. The design requires every runtime write to be contained within a private run-scoped workspace; implementation correctness, runtime containment, and runtime compatibility remain UNPROVEN until a separately governed implementation and static verification are completed; no runtime is authorized. No scientific, mission-impact, generic-radio-defect, CryptoLib, or SDLS claim is made.
+
+### Future verifier requirements
+
+A future versioned verifier must fail closed unless it proves the exact new generator/candidate/manifest hashes, complete source classification, 18 private workspaces, 14 hardware instances / 12 distinct hardware plugin files / 13 distinct simulator plugin files, no mount source resolving to `external/nos3`, unique run-scoped `/work/nos3` mount sources, no writable path aliasing, workspace files matching manifest entries, unchanged historical hashes, and runtime authorization false with zero attempts.
