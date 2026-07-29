@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.9",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V2_STATIC_GATE_FAILED_REMEDIATION_REQUIRED",
+  "contract_version": "0.4.10",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_LOCKED_IMPLEMENTATION_PENDING",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -385,13 +385,16 @@
     "baseline_run_1_authorized": false,
     "baseline_run_2_authorized": false,
     "event_injection_authorized": false,
-    "additional_requirement": "D-060 (governance_date=2026-07-28) governance-accepted the remediated passive time-witness static-verification gate (gate.passive_time_witness_static_verification=PASS). The final read-only review confirmed exact pinned-image compilation, the C++ witness self-test, the trace-validator self-test, deterministic candidate generation, fail-closed candidate execution, zero fake-Docker invocation, zero project-labeled containers and networks before and after verification, and unchanged retained evidence. The accepted runtime entrypoint SHA-256 (gate.accepted_runtime_entrypoint_sha256) records candidate identity only and does not authorize execution. Acceptance of the static gate establishes the reviewed implementation baseline but does not authorize a telemetry runtime, diagnostic, baseline, command transmission, event injection, or scientific outcome. Every runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS gate remains closed unless a future decision explicitly authorizes a separately governed passive telemetry runtime attempt. D-062 (implementation_date=2026-07-29) implemented the versioned v2 generator and deterministic candidate with a frozen 70-second observation window and complete bounded cleanup controls. The v2 generator SHA-256 is 504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b; the proposed deterministic candidate SHA-256 is b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322. These are implementation identities only. gate.passive_time_witness_runtime_candidate_v2_static_verification remains PENDING; gate.accepted_runtime_entrypoint_v2_sha256 remains empty; diagnostic runtime authorization remains false with zero authorized attempts. D-063 must separately execute and govern the fail-closed v2 static gate before D-064 may consider one bounded passive telemetry attempt. D-063 (governance_date=2026-07-29) executed the fail-closed v2 static verification gate using verifier SHA-256 879dcac237717e84043cac5cdcd89c8c546f568c48e4ec7c897dc5c15cfbf87f. The frozen v2 candidate FAILED at step 6 because it permits a write-capable bind of the pinned NOS3 source (source=$NOS3 -> /work/nos3) that is not explicitly read-only; the gate rejects the write capability even though no observed command explicitly writes through the mount. Verifier rc=1; Docker guard log bytes=0; no real Docker invocation occurred; no pinned-image compile was attempted; no NOS3 runtime was launched; no runtime candidate post-gate path was executed; no diagnostic or baseline was executed; no retained evidence was modified. gate.passive_time_witness_runtime_candidate_v2_static_verification=FAIL; gate.accepted_runtime_entrypoint_v2_sha256 remains empty; diagnostic runtime authorization remains false with zero authorized attempts; both baseline authorizations remain false; event injection authorization remains false; all top-level scientific, command-transmission, baseline, event-injection, and cryptographic-semantics permissions remain false. The historical D-060 accepted entrypoint hash gate.accepted_runtime_entrypoint_sha256 is preserved unchanged. The frozen D-062 generator and candidate identities are preserved as the identities that were tested and rejected. The retained log is artifacts/wp4-passive-time-witness-runtime-candidate-v2-static-gate-failure-20260729T051122Z.log (SHA-256 753bcc17a6b3cda9686f76b7120edc588da6b22cdc28757d8af942aba6fab87f). D-064 is explicitly BLOCKED: a separately governed remediation phase must modify the generator, emit a new deterministic candidate, establish new generator/candidate hashes, and pass a separate static verification before D-064 may consider one bounded passive telemetry attempt. This disposition makes no scientific, mission-impact, generic-radio-defect, CryptoLib, or SDLS claim.",
+    "additional_requirement": "D-060 (governance_date=2026-07-28) governance-accepted the remediated passive time-witness static-verification gate (gate.passive_time_witness_static_verification=PASS). The final read-only review confirmed exact pinned-image compilation, the C++ witness self-test, the trace-validator self-test, deterministic candidate generation, fail-closed candidate execution, zero fake-Docker invocation, zero project-labeled containers and networks before and after verification, and unchanged retained evidence. The accepted runtime entrypoint SHA-256 (gate.accepted_runtime_entrypoint_sha256) records candidate identity only and does not authorize execution. Acceptance of the static gate establishes the reviewed implementation baseline but does not authorize a telemetry runtime, diagnostic, baseline, command transmission, event injection, or scientific outcome. Every runtime, baseline, command, event-injection, scientific-outcome, and CryptoLib/SDLS gate remains closed unless a future decision explicitly authorizes a separately governed passive telemetry runtime attempt. D-062 (implementation_date=2026-07-29) implemented the versioned v2 generator and deterministic candidate with a frozen 70-second observation window and complete bounded cleanup controls. The v2 generator SHA-256 is 504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b; the proposed deterministic candidate SHA-256 is b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322. These are implementation identities only. gate.passive_time_witness_runtime_candidate_v2_static_verification remains PENDING; gate.accepted_runtime_entrypoint_v2_sha256 remains empty; diagnostic runtime authorization remains false with zero authorized attempts. D-063 must separately execute and govern the fail-closed v2 static gate before D-064 may consider one bounded passive telemetry attempt. D-063 (governance_date=2026-07-29) executed the fail-closed v2 static verification gate using verifier SHA-256 879dcac237717e84043cac5cdcd89c8c546f568c48e4ec7c897dc5c15cfbf87f. The frozen v2 candidate FAILED at step 6 because it permits a write-capable bind of the pinned NOS3 source (source=$NOS3 -> /work/nos3) that is not explicitly read-only; the gate rejects the write capability even though no observed command explicitly writes through the mount. Verifier rc=1; Docker guard log bytes=0; no real Docker invocation occurred; no pinned-image compile was attempted; no NOS3 runtime was launched; no runtime candidate post-gate path was executed; no diagnostic or baseline was executed; no retained evidence was modified. gate.passive_time_witness_runtime_candidate_v2_static_verification=FAIL; gate.accepted_runtime_entrypoint_v2_sha256 remains empty; diagnostic runtime authorization remains false with zero authorized attempts; both baseline authorizations remain false; event injection authorization remains false; all top-level scientific, command-transmission, baseline, event-injection, and cryptographic-semantics permissions remain false. The historical D-060 accepted entrypoint hash gate.accepted_runtime_entrypoint_sha256 is preserved unchanged. The frozen D-062 generator and candidate identities are preserved as the identities that were tested and rejected. The retained log is artifacts/wp4-passive-time-witness-runtime-candidate-v2-static-gate-failure-20260729T051122Z.log (SHA-256 753bcc17a6b3cda9686f76b7120edc588da6b22cdc28757d8af942aba6fab87f). D-064 is explicitly BLOCKED: a separately governed remediation phase must modify the generator, emit a new deterministic candidate, establish new generator/candidate hashes, and pass a separate static verification before D-064 may consider one bounded passive telemetry attempt. This disposition makes no scientific, mission-impact, generic-radio-defect, CryptoLib, or SDLS claim. D-063R1 (governance_date=2026-07-29) locks the design for a versioned passive time-witness runtime candidate using architecture PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES. The design lock is recorded in tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_20260729.md (SHA-256 c089ffacac68694de2d446acbd301d0a96bc270fa9d1042e7e4c2c6f5bdf2f14) and artifacts/wp4-passive-time-witness-runtime-candidate-v3-manifest-seed-design-lock.txt (SHA-256 cebd5933d2bea7246f2a4d14d0f1efacafcb4f20afa5b901ba505a9c2512263d). Pre-write audit of the host source roots found simulator seed 27 raw / 25 included (2 ItcLogger rollover archives excluded), cFS seed 1370 raw / 1365 included (5 stale runtime files excluded), configuration seed 36 raw / 36 included, with 0 symlinks, 0 escaping symlinks, 0 unsupported filesystem objects, 0 hard-link aliases, and 0 unclassified source paths. Plugin mapping: 14 hardware simulator instances, 12 distinct hardware plugin files, 13 distinct simulator plugin files including TimeDriver. The design requires exactly 18 private run-scoped NOS3 workspaces (NOS Engine 1, TimeDriver 1, 14 hardware simulators, bridge 1, cFS 1), each mounted at /work/nos3 from a private workspace never external/nos3, with no cross-container writable log-file alias. Image-owned files remain in the pinned image (digest ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2) and are never copied into the host seed; only external/nos3 material is represented by the canonical manifest model (normalized paths, entry types, modes, regular-file sizes and SHA-256 values, directory entries, explicit exclusions, and deterministic serialization) bound by the SHA-256 of the canonical manifest. Stale runtime state is MUST_BE_ABSENT_AT_START by source evidence. This is a design and governance record only: no v3 generator, candidate, verifier, materializer, or manifest is created; no runtime is authorized; historical v2 and D-060 identities remain unchanged; runtime authorization remains false with zero authorized attempts; D-064 remains BLOCKED; the next decision is SEPARATELY_GOVERNED_V3_IMPLEMENTATION_REQUIRED_BEFORE_D064. Runtime compatibility remains UNPROVEN. The design requires every runtime write to be contained within a private run-scoped workspace. Implementation correctness, runtime containment, and runtime compatibility remain UNPROVEN until a separately governed implementation and static verification are completed. This record makes no scientific, mission-impact, generic-radio-defect, CryptoLib, or SDLS claim.",
     "passive_time_witness_static_verification": "PASS",
     "accepted_runtime_entrypoint_sha256": "0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259",
     "accepted_runtime_entrypoint_identity_only_not_authorized": true,
     "passive_time_witness_runtime_candidate_v2_static_verification": "FAIL",
     "accepted_runtime_entrypoint_v2_sha256": "",
-    "accepted_runtime_entrypoint_v2_identity_only_not_authorized": false
+    "accepted_runtime_entrypoint_v2_identity_only_not_authorized": false,
+    "passive_time_witness_runtime_candidate_v3_static_verification": "PENDING",
+    "accepted_runtime_entrypoint_v3_sha256": "",
+    "accepted_runtime_entrypoint_v3_identity_only_not_authorized": false
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -485,6 +488,17 @@
       "verifier_sha256": "879dcac237717e84043cac5cdcd89c8c546f568c48e4ec7c897dc5c15cfbf87f",
       "candidate_result": "FAIL",
       "failure_reason": "WRITABLE_PINNED_NOS3_SOURCE_MOUNT",
+      "runtime_authorized": false,
+      "d064_status": "BLOCKED"
+    },
+    {
+      "decision_id": "D-063R1",
+      "area": "WP4 passive time-witness runtime-candidate v3 manifest-seed design",
+      "status": "DESIGN_LOCKED_IMPLEMENTATION_NOT_AUTHORIZED",
+      "record": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_20260729.md",
+      "design_lock": "artifacts/wp4-passive-time-witness-runtime-candidate-v3-manifest-seed-design-lock.txt",
+      "design_lock_sha256": "cebd5933d2bea7246f2a4d14d0f1efacafcb4f20afa5b901ba505a9c2512263d",
+      "architecture": "PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES",
       "runtime_authorized": false,
       "d064_status": "BLOCKED"
     }
@@ -769,5 +783,55 @@
     "d063_candidate_result": "FAIL",
     "d064_status": "BLOCKED",
     "remediation_required": true
+  },
+  "passive_time_witness_runtime_candidate_v3_design": {
+    "design_decision": "D-063R1",
+    "design_status": "DESIGN_LOCKED_IMPLEMENTATION_NOT_AUTHORIZED",
+    "design_governance_date": "2026-07-29",
+    "architecture_identifier": "PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES",
+    "design_record": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_20260729.md",
+    "design_record_sha256": "c089ffacac68694de2d446acbd301d0a96bc270fa9d1042e7e4c2c6f5bdf2f14",
+    "design_lock": "artifacts/wp4-passive-time-witness-runtime-candidate-v3-manifest-seed-design-lock.txt",
+    "design_lock_sha256": "cebd5933d2bea7246f2a4d14d0f1efacafcb4f20afa5b901ba505a9c2512263d",
+    "pinned_image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+    "pinned_nos3_head": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "source_root_counts": {
+      "simulator_raw_regular_files": 27,
+      "simulator_included_regular_files": 25,
+      "cfs_raw_regular_files": 1370,
+      "cfs_included_regular_files": 1365,
+      "config_raw_regular_files": 36,
+      "config_included_regular_files": 36
+    },
+    "plugin_counts": {
+      "hardware_sim_instance_count": 14,
+      "distinct_hardware_plugin_file_count": 12,
+      "distinct_simulator_plugin_file_count_total": 13
+    },
+    "private_workspace_count": 18,
+    "stale_state_exclusion_required": true,
+    "manifest_required": true,
+    "canonical_manifest_model": {
+      "format": "UTF-8 JSON",
+      "path_normalization": "POSIX forward-slash; bytewise sorted normalized relative paths; no absolute paths; no .. traversal; no duplicate paths",
+      "content": "modes; regular-file sizes and SHA-256; directories normalized relative path and mode",
+      "excluded_files": "MUST_BE_ABSENT_AT_WORKSPACE_START=true",
+      "binding": "SHA-256 of the canonical manifest binds the complete host-seed definition",
+      "timestamps": "normalized, not identity-bearing"
+    },
+    "image_boundary": {
+      "image_owned_files_remain_in_image": true,
+      "image_files_required_in_host_seed": false,
+      "file_level_image_inventory_required": false,
+      "image_digest_collectively_binds_image_content": true
+    },
+    "implementation_status": "NOT_STARTED",
+    "static_verification": "PENDING",
+    "accepted_runtime_entrypoint_v3_sha256": "",
+    "runtime_authorized": false,
+    "runtime_attempts_authorized": 0,
+    "d064_status": "BLOCKED",
+    "next_decision": "SEPARATELY_GOVERNED_V3_IMPLEMENTATION_REQUIRED_BEFORE_D064",
+    "runtime_authorization_decision": "D064_BLOCKED_PENDING_V3_IMPLEMENTATION_AND_STATIC_VERIFICATION"
   }
 }
