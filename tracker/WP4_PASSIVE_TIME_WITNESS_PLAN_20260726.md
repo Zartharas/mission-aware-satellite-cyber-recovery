@@ -3,8 +3,10 @@
 Date: 2026-07-26
 Decisions: D-057, D-058, D-059, D-060, D-061, D-062, and D-063
 Additional decision: D-063R1
+Additional decision: D-063R2
 Status: Historical static baseline accepted under D-060 (2026-07-28); runtime-control design accepted under D-061 (2026-07-28); versioned v2 implementation accepted under D-062 (2026-07-29); D-063 v2 static gate EXECUTED and FAILED on 2026-07-29 (write-capable bind of pinned $NOS3 -> /work/nos3 not explicitly read-only); D-064 BLOCKED; runtime remains unauthorized
 D-063R1 status: Design locked under D-063R1 on 2026-07-29 as DESIGN_LOCKED_IMPLEMENTATION_NOT_AUTHORIZED; design and governance record only; no implementation, no runtime, no candidate emission or execution, no verifier execution; implementation_status=NOT_STARTED; static_verification=PENDING; runtime_authorized=false; runtime_attempts=0; D-064=BLOCKED; next decision SEPARATELY_GOVERNED_V3_IMPLEMENTATION_REQUIRED_BEFORE_D064
+D-063R2 status: Design amended under D-063R2 on 2026-07-29 as DESIGN_AMENDMENT_LOCKED_IMPLEMENTATION_NOT_AUTHORIZED; corrects inventory counts, exact-exclusion model, byte calculations, identity controls, canonicalization, and phase-governance sequencing; historical D-063R1 immutable; implementation_status=NOT_STARTED; static_verification=PENDING; runtime_authorized=false; runtime_attempts=0; D-064=BLOCKED; contract advanced to 0.4.11; next decision SEPARATELY_GOVERNED_COMBINED_V3_IMPLEMENTATION_REQUIRED_BEFORE_STATIC_VERIFICATION
 
 ## Purpose
 
@@ -314,3 +316,45 @@ Decision D-063R1 was recorded on 2026-07-29 as `DESIGN_LOCKED_IMPLEMENTATION_NOT
 ### Future verifier requirements
 
 A future versioned verifier must fail closed unless it proves the exact new generator/candidate/manifest hashes, complete source classification, 18 private workspaces, 14 hardware instances / 12 distinct hardware plugin files / 13 distinct simulator plugin files, no mount source resolving to `external/nos3`, unique run-scoped `/work/nos3` mount sources, no writable path aliasing, workspace files matching manifest entries, unchanged historical hashes, and runtime authorization false with zero attempts.
+
+## D-063R2 Design Amendment
+
+D-063R2 (2026-07-29) amends the D-063R1 v3 manifest-seed design as a governance-only correction. The historical D-063R1 design record (SHA-256 `c089ffacac68694de2d446acbd301d0a96bc270fa9d1042e7e4c2c6f5bdf2f14`) and lock (SHA-256 `cebd5933d2bea7246f2a4d14d0f1efacafcb4f20afa5b901ba505a9c2512263d`) remain immutable and unchanged. The amendment record is `tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_AMENDMENT_1_20260729.md` (SHA-256 `a6c6e158842dc1c9fac28570adef9501cdb611eb0217468e674a9d2efb1c84e8`); the amendment lock is `artifacts/wp4-passive-time-witness-runtime-candidate-v3-manifest-seed-design-amendment-1-lock.txt` (SHA-256 `1d4d16c422f1dcf3a9162ae4535a2836c3edd46a5aa8ba3ee318915abb100bff`).
+
+### Corrected inventory
+
+- Contract: `0.4.11` / `PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_MANIFEST_SEED_DESIGN_AMENDED_IMPLEMENTATION_PENDING`
+- Simulator seed: 27 raw / 25 included / 2 excluded / 54427517 bytes.
+- cFS seed: 1370 raw / 1361 included / 9 excluded / 45877946 bytes (four `data/owls/bundle/.goutputstream-*` stale temporary files are exact exclusions based on exact byte duplication, no repository references, hidden temporary-style naming, and the presence of the intended duplicate file).
+- Config seed: 36 raw / 36 included / 0 excluded / 190651 bytes.
+- Aggregate: 1433 raw / 1422 manifest regular-file entries / 89 directory entries / 11 exact exclusions; 0 unsupported, 0 escaping symlinks, 0 hard-link aliases, 0 unclassified.
+
+### Corrected byte calculations
+
+- 18 private workspaces = 971145735 bytes; Fortytwo scratch = 190651 bytes (separate, not inside private-workspace bytes); optional staging seed = 100496114 bytes; prelaunch without staging = 971336386 bytes; prelaunch with staging = 1071832500 bytes; recommended free space = 3215497500 bytes (`3 * max(prelaunch_without_staging, prelaunch_with_staging)`).
+
+### Canonical manifest model
+
+- No internal manifest self-hash; detached SHA-256 over complete file bytes; `ensure_ascii=True`; `sort_keys=True`; `separators=(",", ":")`; exactly one final LF; byte-encoded sort keys; `str.casefold()` with NFC/NFD collision guards; exact UTF-8 bytes remain identity.
+
+### Identity controls
+
+- Eleven logical candidate dependencies, fourteen implementation/runtime identity controls (including baseline-contract SHA-256 `86d365fe08d7ee177e74192cead71dc366e9c546e81668261c770350003e37ca` and Fortytwo executable SHA-256 `9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7`), and seven governance-artifact identity categories.
+- Contract schema `passive_time_witness_runtime_candidate_v3_contract_schema=1` provides candidate compatibility independent of the mutable governance revision.
+- `proposed_runtime_entrypoint_v3_sha256` is distinct from and does not authorize `accepted_runtime_entrypoint_v3_sha256` (empty until a separately governed static gate passes).
+
+### Host-side boundary
+
+- Authorization checks precede materialization; the runtime-material tool executes on the host; static verification invokes no real Docker; under the closed contract the candidate exits before materializer execution and fake Docker.
+
+### Inventory snapshot versus invariant semantics
+
+The corrected counts are 2026-07-29 amendment-time snapshots. Raw counts (1433 aggregate) are snapshot-only, not unconditional future gates. Included entry count (1422), included bytes (100496114), and exact exclusion-record count (11) are future invariants. Present exclusion count may range 0 to 11. Future raw count = included manifest entries (1422) + present exact exclusions. Absence of an exact excluded source path is not drift; a present exclusion must match its frozen identity; an unlisted path fails closed.
+
+### Post-static-PASS D-064 boundary
+
+The current D-064 state remains `BLOCKED`. A future static PASS may set `d064_status=READY_FOR_SEPARATE_D064_CONSIDERATION` but does not authorize D-064, runtime, or attempts. A static FAIL keeps D-064 `BLOCKED`. A static PASS does not constitute decision D-064. A separate explicit D-064 governance decision is required. `runtime_authorized_after_static_pass=false`; `runtime_attempts_after_static_pass=0`. Only a later, explicit D-064 governance decision may authorize a bounded passive telemetry attempt.
+
+### Phase sequencing
+
+- Combined v3 implementation phase (contract 0.4.12, 11 files) with internal stop gates, then separately governed static-verification disposition (contract 0.4.13, 8 files). Implementation is `NOT_STARTED` and unauthorized; static verification is `PENDING` and unauthorized; runtime authorization remains false with zero authorized attempts; D-064 remains `BLOCKED`; all top-level permissions remain false; the next decision is `SEPARATELY_GOVERNED_COMBINED_V3_IMPLEMENTATION_REQUIRED_BEFORE_STATIC_VERIFICATION`. Runtime compatibility remains UNPROVEN. No scientific, mission-impact, generic-radio-defect, CryptoLib, or SDLS claim is made.
