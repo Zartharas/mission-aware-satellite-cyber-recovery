@@ -1,8 +1,8 @@
 # WP4 Passive NOS Engine Time-Witness Plan
 
 Date: 2026-07-26
-Decisions: D-057, D-058, D-059, D-060, D-061, and D-062
-Status: Historical static baseline accepted under D-060 (2026-07-28); runtime-control design accepted under D-061 (2026-07-28); versioned v2 implementation accepted under D-062 (2026-07-29); D-063 static gate pending; runtime remains unauthorized
+Decisions: D-057, D-058, D-059, D-060, D-061, D-062, and D-063
+Status: Historical static baseline accepted under D-060 (2026-07-28); runtime-control design accepted under D-061 (2026-07-28); versioned v2 implementation accepted under D-062 (2026-07-29); D-063 v2 static gate EXECUTED and FAILED on 2026-07-29 (write-capable bind of pinned $NOS3 -> /work/nos3 not explicitly read-only); D-064 BLOCKED; runtime remains unauthorized
 
 ## Purpose
 
@@ -160,14 +160,14 @@ There is no accepted repository precedent for an exact passive time-witness obse
 
 - **D-061**: runtime-control remediation design accepted; no implementation and no runtime authorization.
 - **D-062**: implement the versioned v2 generator and candidate; runtime remains unauthorized.
-- **D-063**: execute and review a separate fail-closed static verification gate for v2 that binds its PASS to the exact v2 generator and candidate hashes; runtime remains unauthorized.
-- **D-064**: consider authorization for exactly one bounded passive telemetry attempt only after D-063 is accepted.
+- **D-063**: execute and review a separate fail-closed static verification gate for v2 that binds its PASS to the exact v2 generator and candidate hashes; runtime remains unauthorized. **D-063 EXECUTED 2026-07-29 — v2 candidate FAILED the gate at step 6 (write-capable bind of pinned $NOS3 -> /work/nos3 not explicitly read-only); verifier 879dcac2... rc=1; no runtime; contract 0.4.9.**
+- **D-064**: consider authorization for exactly one bounded passive telemetry attempt only after a separately governed remediated candidate passes a separate static verification. **D-064 is BLOCKED pending that remediation; the D-063 candidate was rejected.**
 
 ### Interpretation limits
 
 The future bounded attempt may establish only whether authoritative NOS Engine ticks progressed, whether at least one authoritative tick followed the first UDP `5011` ingress, and whether a post-ingress callback opportunity existed. It may not establish generic-radio callback invocation, callback queue visibility, due-time evaluation, a generic-radio source defect, mission impact, a scientific outcome, or CryptoLib/SDLS behavior.
 
-The next acceptance gate is: execute and review the separate fail-closed v2 static gate under D-063 without authorizing runtime.
+The next acceptance gate is: a separately governed generator remediation (modify the generator, emit a new deterministic candidate, establish new generator/candidate hashes, and pass a separate static verification) before D-064 may consider one bounded passive telemetry attempt; runtime remains unauthorized.
 
 No result recorded here authorizes runtime execution, a telemetry diagnostic, a benign baseline, command transmission, event injection, or any scientific-outcome classification.
 
@@ -214,3 +214,63 @@ The historical 30-second metadata observation remains a lower-bound precedent on
 The generator passed Bash syntax validation, emitted byte-identical candidates twice, produced the exact candidate hash above, and the current contract caused candidate rc=`1` with `CLOSED_GATE_NOT_AUTHORIZED` before fake Docker. Retained evidence was unchanged. The candidate runtime path was not executed and real Docker was not invoked.
 
 This D-062 validation is not the D-063 static gate. D-063 must create, execute, and govern a separate fail-closed verifier bound to the exact generator and candidate hashes. D-064 alone may later consider one bounded passive telemetry attempt, and only after D-063 is accepted.
+
+
+## D-063 v2 static-gate disposition
+
+Decision D-063 was recorded on 2026-07-29. The fail-closed v2 static verification gate was executed and the frozen v2 candidate **FAILED**.
+
+- Disposition: `V2_STATIC_GATE_FAILED_CANDIDATE_REMEDIATION_REQUIRED`
+- Activity status: COMPLETE
+- Candidate result: FAIL
+- D-064: BLOCKED
+- Disposition record: `tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V2_STATIC_GATE_DISPOSITION_20260729.md`
+
+### Controlled-execution context
+
+- Branch: `wp4-d063-v2-static-gate`
+- Starting HEAD: `0559af9841a80f9b3168d9de9dfa96cae8da9cc7`
+- Contract version: `0.4.9`
+- Contract status: `PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V2_STATIC_GATE_FAILED_REMEDIATION_REQUIRED`
+
+### Verifier, identities, and evidence
+
+- Verifier path: `scripts/verify_passive_time_witness_runtime_candidate_v2_static.sh`
+- Verifier SHA-256: `879dcac237717e84043cac5cdcd89c8c546f568c48e4ec7c897dc5c15cfbf87f`
+- Verifier mode: 755; `bash -n` PASS
+- Generator SHA-256 (tested and rejected): `504069a6fa6889a998c1b98ea5211c78c2a12006f7f6ead0bc4a060175e22a3b`
+- Candidate SHA-256 (tested and rejected): `b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322`
+- Retained log: `artifacts/wp4-passive-time-witness-runtime-candidate-v2-static-gate-failure-20260729T051122Z.log`
+- Retained log SHA-256: `753bcc17a6b3cda9686f76b7120edc588da6b22cdc28757d8af942aba6fab87f` (byte-identical to raw source)
+
+### Exact controlled-execution metrics
+
+- verifier rc=1; Docker guard log bytes=0; final PASS marker count=0; step 8 reached count=0; writable NOS3 rejection count=1
+- failure occurred at step 6 (Topology + containment + claim validation)
+- no real Docker invocation; no pinned-image compile; no NOS3 runtime; no runtime candidate post-gate path; no diagnostic or baseline; no retained-evidence mutation
+- runtime authorization remains false; authorized runtime attempts remain 0
+
+### Checks that passed through step 5
+
+Steps 1–5 passed (required files + contract JSON; fail-closed pre-gate; frozen source/artifact binding; syntax + deterministic double emission; candidate structural validation). The candidate double-emission under `mktemp` was byte-identical and matched the frozen SHA-256; the candidate was not executed.
+
+### Exact step-6 failure
+
+The candidate permits a write-capable bind of the pinned NOS3 source (`source=$NOS3 -> /work/nos3`) that is not explicitly read-only. The gate rejects the write capability itself, even though no observed command in the current candidate explicitly writes through the mount, because a future or altered command path could mutate the pinned source under a write-capable bind that the static verifier cannot exhaustively enumerate.
+
+### Contract gate state after D-063
+
+- `gate.passive_time_witness_runtime_candidate_v2_static_verification` = `FAIL`
+- `gate.accepted_runtime_entrypoint_v2_sha256` = `""` (unchanged)
+- `gate.diagnostic_runtime_authorized` = `false`; `gate.diagnostic_runtime_attempts_authorized` = `0`
+- `gate.baseline_run_1_authorized` = `false`; `gate.baseline_run_2_authorized` = `false`; `gate.event_injection_authorized` = `false`
+- Historical `gate.accepted_runtime_entrypoint_sha256` preserved unchanged: `0fe76023ccc968f0aa12fa27db0a5ae21597b03e53066cebb5cf56bc29572259`
+- All top-level scientific, command-transmission, baseline, event-injection, and cryptographic-semantics permissions remain `false`.
+
+### No runtime execution, no evidence mutation, no scientific outcome
+
+No real Docker invocation occurred; no runtime candidate post-gate path was executed; no diagnostic or baseline was executed; no retained evidence was modified. This disposition records a static-gate failure and governance disposition only and makes no scientific, mission-impact, generic-radio-defect, CryptoLib, or SDLS claim.
+
+### D-064 blocked and remediation required
+
+D-064 is explicitly blocked. A separately governed remediation phase must modify the generator, emit a new deterministic candidate, establish new generator/candidate hashes, and rerun static verification. That remediation is not performed in this disposition; a remediation phase identifier is not invented here because existing project conventions do not define one for this step.
