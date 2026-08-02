@@ -13,15 +13,22 @@ invariants), gate-level closed permissions, a deeply immutable process-local
 transaction context that is never returned to a caller, and controlled
 fail-closed conversion of expected filesystem/path failures.
 
-This checkpoint implements ONLY authorization plus a synthetic
-outer-transaction engine exercised by internal self-tests under temporary
-authorized roots.  Production authorization integration is NOT implemented;
-canonical NOS3 source materialization is NOT implemented; the runtime is NOT
-authorized.  Under the current real contract 0.4.11 authorization fails
-closed and returns rc=1 with V3_TRANSACTION_AUTHORIZATION=CLOSED.  Under a
-synthetic future-authorized contract, after all authorization-file
-validation succeeds, the tool terminates with
-V3_TRANSACTION_CORE=NOT_IMPLEMENTED and rc=2.
+Checkpoint 2PB2B-B2 implements the complete process-local production
+transaction core: after all authorization checks succeed, the tool builds the
+canonical plan from the retained manifest bytes, inspects the authorized root,
+creates one private outer staging transaction, materializes every expanded
+file target via descriptor-bound source traversal (rejecting symlinks, hard
+links, non-regular objects, and mode/nlink/size mismatch), writes the
+canonical receipt, fsyncs the staged hierarchy, publishes one atomic
+no-replace rename, fsyncs the authorized root, and returns
+rc=0 / V3_TRANSACTION_MATERIALIZATION=PASS.  The host candidate remains
+outside this tool; standard-library-only; no project-local import, no
+subprocess, no Docker.  Under the current real contract 0.4.11 authorization
+fails closed and returns rc=1 with V3_TRANSACTION_AUTHORIZATION=CLOSED before
+any authorized-root inspection, staging, or publication.  Integrated
+self-tests exercise the core with synthetic source fixtures (never the full
+external/nos3 tree).  The inherited synthetic outer-transaction engine is
+retained for its targeted fault-injection tests.
 """
 
 import argparse
@@ -29,16 +36,30 @@ import contextlib
 import ctypes
 import ctypes.util
 import errno
+import fnmatch
 import hashlib
 import json
 import os
 import secrets
+import stat
 import sys
 import tempfile
 from collections import namedtuple
 
 _HEX64 = set("0123456789abcdef")
 _D064_AUTHORIZED = "AUTHORIZED_FOR_ONE_BOUNDED_PASSIVE_ATTEMPT"
+
+# Selftest-only synthetic-source override.  This is None in every production
+# path.  It is set only inside selftest() scope and cleared in selftest()'s
+# finally, so it never persists as module-global production state after a test.
+# It NEVER bypasses authorization (the full authorization pipeline runs first),
+# cannot be supplied through CLI arguments, and cannot supply a forged plan:
+# the validated canonical plan, collision model, exclusion enforcement, and
+# source mode/nlink/size/sha matching all still run unchanged.  It only redirects
+# where the already-validated canonical-plan source files are physically read
+# from so the integrated copy/verify/publish pipeline can be exercised with tiny
+# synthetic fixtures instead of the full external/nos3 tree.
+_B2_SELFTEST_SOURCE_OVERRIDE = None
 
 
 class _TransactionClosed(Exception):
@@ -587,11 +608,16 @@ def _run_authorize(args):
     __file__, and validates the contract, candidate, executing tool, and
     canonical manifest through descriptor-bound traversal.  On success
     constructs ONE deeply immutable local context, retained only as a local
-    variable, and terminates with rc=2 / V3_TRANSACTION_CORE=NOT_IMPLEMENTED.
-    The context is NEVER returned to a caller.  All expected filesystem/path
-    failures become _TransactionClosed (closed disposition).  KeyboardInterrupt
-    and SystemExit are never caught as authorization results.  Returns
-    (rc, marker, detail) only -- never a context/receipt/auth object."""
+    variable, then runs the complete process-local transaction core
+    (Checkpoint 2PB2B-B2): build the canonical plan from the retained manifest
+    bytes, inspect the authorized root, validate the final basename, create
+    the private outer staging transaction, materialize and verify the complete
+    transaction, write the receipt, fsync, publish atomically, fsync the root,
+    and return rc=0 / V3_TRANSACTION_MATERIALIZATION=PASS.  The context is
+    NEVER returned to a caller.  All expected filesystem/path failures become
+    _TransactionClosed (closed disposition).  KeyboardInterrupt and SystemExit
+    are never caught as authorization results.  Returns (rc, marker, detail)
+    only -- never a context/receipt/auth object."""
     repo_fd = None
     ctx = None
     try:
@@ -646,7 +672,22 @@ def _run_authorize(args):
                 top_permissions=_Permissions(*top_perms),
                 gate_permissions=_GatePermissions(*gate_perms),
             )
-        return 2, "V3_TRANSACTION_CORE=NOT_IMPLEMENTED", "core not implemented"
+            # ---- Checkpoint 2PB2B-B2: integrated production transaction core.
+            # Runs only after all authorization checks (steps 1-10) succeed.
+            # Builds the canonical plan from the retained manifest bytes, then
+            # inspects the authorized root, validates the final basename,
+            # creates one private outer staging transaction, materializes and
+            # verifies the complete transaction, writes the receipt, fsyncs,
+            # publishes atomically, fsyncs the root, and returns success -- all
+            # WITHOUT returning authorization state.  _b2_inject is a
+            # selftest-only fault-injection hook (None in production).
+            _b2_inject = getattr(args, "_b2_inject", None)
+            result = _b2_materialize(
+                ctx, repo_fd, mraw, mparsed, args.authorized_root,
+                args.final_basename, inject=_b2_inject)
+            _b2_result = result  # (final_basename, dev, ino, sha, files, bytes)
+            return (0, "V3_TRANSACTION_MATERIALIZATION=PASS",
+                    "transaction complete runtime_attempt=1")
     except _TransactionClosed as exc:
         return 1, "V3_TRANSACTION_AUTHORIZATION=CLOSED", str(exc)
     finally:
@@ -656,7 +697,7 @@ def _run_authorize(args):
             except OSError:
                 pass
         # ctx is a local; drops with the frame.  Never assigned to a global.
-        del ctx
+        ctx = None
 
 
 def _build_argparser():
@@ -916,6 +957,8 @@ _CanonicalFortytwoPlan = namedtuple("_CanonicalFortytwoPlan",
     ("transaction_relative_root", "regular_files", "directories", "exclusions",
      "file_count", "byte_count", "directory_count", "exclusion_count",
      "file_targets", "directory_targets", "exclusion_targets"))
+_CanonicalDenyPattern = namedtuple("_CanonicalDenyPattern",
+    ("pattern", "scope"))
 _CanonicalCompletePlan = namedtuple("_CanonicalCompletePlan",
     ("source_roots", "source_regular_files", "source_directories",
      "source_exclusions", "workspaces", "fortytwo", "collision_model",
@@ -930,7 +973,7 @@ _CanonicalCompletePlan = namedtuple("_CanonicalCompletePlan",
      "duplicate_file_target_count", "duplicate_directory_target_count",
      "file_directory_collision_count", "prefix_collision_count",
      "expanded_file_targets", "expanded_directory_targets",
-     "expanded_exclusion_targets"))
+     "expanded_exclusion_targets", "deny_patterns"))
 
 _EXPECTED_SOURCE_ROOTS = frozenset(("cfs", "configuration", "sim_bin", "sim_lib"))
 _EXPECTED_WORKSPACE_IDS = frozenset((
@@ -1479,6 +1522,29 @@ def _build_canonical_materialization_plan(manifest):
             if not d.startswith("fortytwo-config/cfg/build/InOut"):
                 raise _TransactionClosed("fortytwo target escape: %r" % d)
 
+    # ---- deny pattern declarations ----
+    dp_raw = manifest.get("deny_pattern_declarations")
+    if not isinstance(dp_raw, list):
+        raise _TransactionClosed("deny_pattern_declarations not a list")
+    deny_patterns = []
+    seen_dp = set()
+    for dp in dp_raw:
+        if type(dp) is not dict:
+            raise _TransactionClosed("deny pattern not exact dict")
+        pat = dp.get("pattern")
+        if not _is_exact_str(pat) or pat == "":
+            raise _TransactionClosed("deny pattern empty/not exact str")
+        scope = dp.get("scope")
+        if scope not in sr_by_name:
+            raise _TransactionClosed("deny pattern scope unknown: %r" % scope)
+        key = (scope, pat)
+        if key in seen_dp:
+            raise _TransactionClosed("duplicate deny pattern: %r" % (key,))
+        seen_dp.add(key)
+        deny_patterns.append(_CanonicalDenyPattern(pat, scope))
+    deny_patterns = tuple(sorted(deny_patterns,
+        key=lambda d: (d.scope, d.pattern)))
+
     dup_file = 0
     dup_dir = 0
     fd_collision = 0
@@ -1518,7 +1584,8 @@ def _build_canonical_materialization_plan(manifest):
         prefix_collision_count=prefix_collision,
         expanded_file_targets=tuple(all_file_targets),
         expanded_directory_targets=tuple(all_dir_targets),
-        expanded_exclusion_targets=tuple(all_excl_targets))
+        expanded_exclusion_targets=tuple(all_excl_targets),
+        deny_patterns=deny_patterns)
     return plan
 
 
@@ -2363,6 +2430,864 @@ def run_synthetic_outer_transaction(authorized_root, final_basename, *,
                 pass
 
 
+
+# ---------------------------------------------------------------------------
+# Integrated production transaction core (Checkpoint 2PB2B-B2).
+#
+# Runs only AFTER all authorization checks succeed and the immutable
+# _TransactionContext is constructed.  Builds the canonical complete plan
+# from the retained manifest bytes, inspects the authorized root, validates
+# the final basename, creates one private outer staging transaction,
+# materializes every expanded file target via descriptor-bound source
+# traversal (rejecting symlinks, hard links, non-regular objects, and
+# mode/nlink/size mismatch), writes the canonical receipt, fsyncs the
+# staged hierarchy, publishes one atomic no-replace rename, fsyncs the
+# authorized root, and returns success WITHOUT returning authorization
+# state.  Standard-library-only; no project-local import, no subprocess,
+# no Docker, no os.system/os.popen.  The host candidate remains outside this
+# tool.
+# ---------------------------------------------------------------------------
+
+
+def _b2_open_source_desc(repo_fd, host_rel_path):
+    """Open one source file via descriptor-relative no-follow traversal rooted
+    in the already-opened repository descriptor `repo_fd`.  `host_rel_path` is
+    a canonical host-relative path (e.g. external/nos3/fsw/build/exe/cpu1/...).
+    Rejects any symlink component (parent or leaf).  Returns the open leaf
+    descriptor; every intermediate directory descriptor is closed.  All OSError
+    failures become _TransactionClosed."""
+    comps = _canonical_host_path_comps(host_rel_path, "source host path")
+    cur = repo_fd
+    parents = []
+    leaf_fd = None
+    try:
+        for idx in range(len(comps) - 1):
+            comp = comps[idx]
+            lst = _wrap_os("source parent lstat %s" % comp, os.lstat, comp,
+                           dir_fd=cur)
+            if (lst.st_mode & 0o170000) == 0o120000:
+                raise _TransactionClosed(
+                    "source symlinked parent rejected: %s" % comp)
+
+            def _pop(parent_=comp, dirfd_=cur):
+                return os.open(parent_, os.O_RDONLY | os.O_DIRECTORY
+                               | os.O_NOFOLLOW, dir_fd=dirfd_)
+            nxt = _wrap_os("source parent open %s" % comp, _pop)
+            owned = True
+            try:
+                nst = _wrap_os("source parent fstat %s" % comp, os.fstat, nxt)
+                if (nst.st_dev, nst.st_ino) != (lst.st_dev, lst.st_ino):
+                    raise _TransactionClosed(
+                        "source parent identity discontinuity: %s" % comp)
+            except BaseException:
+                if owned:
+                    try:
+                        os.close(nxt)
+                    except OSError:
+                        pass
+                    owned = False
+                raise
+            parents.append(nxt)
+            owned = False
+            cur = nxt
+        leaf = comps[-1]
+        lst = _wrap_os("source leaf lstat %s" % leaf, os.lstat, leaf,
+                       dir_fd=cur)
+        if (lst.st_mode & 0o170000) == 0o120000:
+            raise _TransactionClosed("source symlink leaf rejected: %s" % leaf)
+        if (lst.st_mode & 0o170000) != 0o100000:
+            raise _TransactionClosed(
+                "source leaf not regular: %s" % leaf)
+
+        def _lopen(lf=leaf, dirfd_=cur):
+            return os.open(lf, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=dirfd_)
+        leaf_fd = _wrap_os("source leaf open %s" % leaf, _lopen)
+        fst = _wrap_os("source leaf fstat %s" % leaf, os.fstat, leaf_fd)
+        if (fst.st_dev, fst.st_ino) != (lst.st_dev, lst.st_ino):
+            raise _TransactionClosed(
+                "source leaf identity discontinuity: %s" % leaf)
+        opened = leaf_fd
+        leaf_fd = None
+        return opened
+    except _TransactionClosed:
+        if leaf_fd is not None:
+            try:
+                os.close(leaf_fd)
+            except OSError:
+                pass
+        raise
+    finally:
+        for fdx in parents:
+            try:
+                os.close(fdx)
+            except OSError:
+                pass
+
+
+def _b2_resolve_source_root(sr_decl, override):
+    """Return the host-relative path used to reach a source root's files.
+
+    In production (override is None) this is the canonical
+    host_relative_path (external/nos3/...).  When a selftest-only override
+    mapping is present, the root is reached through that synthetic path
+    instead, so the integrated copy/verify/publish pipeline can be exercised
+    without the full external/nos3 tree."""
+    if override is None:
+        return sr_decl.host_relative_path
+    mapped = override.get(sr_decl.source_root)
+    if mapped is None:
+        return sr_decl.host_relative_path
+    return mapped
+
+
+def _b2_valid_name(name):
+    """Validate a single path component for staging use."""
+    if not _is_exact_str(name) or name in ("", ".", ".."):
+        raise _TransactionClosed("invalid staging name: %r" % name)
+    if "/" in name or "\\" in name or "\x00" in name:
+        raise _TransactionClosed("invalid staging name: %r" % name)
+
+
+def _b2_walk_to_parent(start_fd, comps):
+    """Descriptor-relative walk to the parent directory of `comps`, creating
+    intermediate directories as needed.  Each component is verified no-follow:
+    symlink substitution and identity discontinuity are rejected.  Returns the
+    opened parent descriptor (for empty comps, returns start_fd); every
+    intermediate descriptor is closed except the returned one."""
+    cur = start_fd
+    opened = []
+    ret = None
+    try:
+        for comp in comps:
+            try:
+                lst = os.lstat(comp, dir_fd=cur)
+            except OSError as exc:
+                if exc.errno == errno.ENOENT:
+                    lst = None
+                else:
+                    raise _TransactionClosed(
+                        "walk lstat %s failed: %s" % (comp, exc))
+            if lst is None:
+                nfd = _desc_mkdir(cur, comp, 0o700)
+            else:
+                if (lst.st_mode & 0o170000) == 0o120000:
+                    raise _TransactionClosed(
+                        "walk symlink component rejected: %s" % comp)
+                if (lst.st_mode & 0o170000) != 0o040000:
+                    raise _TransactionClosed(
+                        "walk component not a dir: %s" % comp)
+                nfd = _wrap_os("walk open %s" % comp, os.open, comp,
+                               os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                               dir_fd=cur)
+                nst = _wrap_os("walk fstat %s" % comp, os.fstat, nfd)
+                if (nst.st_dev, nst.st_ino) != (lst.st_dev, lst.st_ino):
+                    raise _TransactionClosed(
+                        "walk identity discontinuity: %s" % comp)
+            opened.append(nfd)
+            cur = nfd
+        ret = opened[-1] if opened else start_fd
+        keep = ret
+        for fdx in opened:
+            if fdx is not keep:
+                try:
+                    os.close(fdx)
+                except OSError:
+                    pass
+        return keep
+    except BaseException:
+        for fdx in opened:
+            try:
+                os.close(fdx)
+            except OSError:
+                pass
+        raise
+
+
+def _b2_actual_copy(repo_fd, src_full, file_entry, dest_rel, staging_fd,
+                    inject=None):
+    """Perform the real copy of one file from source to staging.
+
+    `file_entry` is the canonical regular-file record providing exact mode,
+    nlink, size, and sha256.  Returns (rel_path, size, sha256, mode_int).
+    Descriptor-relative source traversal (bound to repo_fd), exact mode/nlink/
+    size match, SHA-256 from exact bytes, complete-write loop to a temp file,
+    fsync, verify destination, and atomic no-replace per-file publication."""
+    sfd = None
+    parent_fd = None
+    wfd = None
+    dfd = None
+    tmp_base = None
+    final_base = None
+    temp_created = False
+    temp_published = False
+    wcreat_dev = None
+    wcreat_ino = None
+    mode_int = int(file_entry.mode, 8)
+    try:
+        sfd = _b2_open_source_desc(repo_fd, src_full)
+        st = _wrap_os("src fstat", os.fstat, sfd)
+        if not stat.S_ISREG(st.st_mode):
+            raise _TransactionClosed("source not regular: %s" % dest_rel)
+        if st.st_nlink != 1:
+            raise _TransactionClosed("source nlink!=1: %s" % dest_rel)
+        if stat.S_IMODE(st.st_mode) != mode_int:
+            raise _TransactionClosed("source mode mismatch: %s" % dest_rel)
+        if st.st_size != file_entry.size:
+            raise _TransactionClosed("source size mismatch: %s" % dest_rel)
+        dest_parent = dest_rel.rsplit("/", 1)[0] if "/" in dest_rel else ""
+        final_base = (dest_rel.rsplit("/", 1)[-1]
+                      if "/" in dest_rel else dest_rel)
+        _b2_valid_name(final_base)
+        tmp_base = ".nrm-tmp-" + secrets.token_hex(8)
+        _b2_valid_name(tmp_base)
+        parent_comps = dest_parent.split("/") if dest_parent else []
+        parent_fd = _b2_walk_to_parent(staging_fd, parent_comps)
+        # Reject a pre-existing final destination (no-replace).
+        try:
+            os.lstat(final_base, dir_fd=parent_fd)
+            raise _TransactionClosed("dest pre-exists: %s" % dest_rel)
+        except OSError as exc:
+            if exc.errno != errno.ENOENT:
+                raise _TransactionClosed("dest lstat failed: %s" % exc)
+        # Create the temp file relative to the parent descriptor.
+        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
+        wfd = _wrap_os("dest create %s" % dest_rel, os.open, tmp_base,
+                       flags, mode_int, dir_fd=parent_fd)
+        _wrap_os("dest fchmod %s" % dest_rel, os.fchmod, wfd, mode_int)
+        wcreat = _wrap_os("dest create fstat %s" % dest_rel, os.fstat, wfd)
+        wcreat_dev, wcreat_ino = wcreat.st_dev, wcreat.st_ino
+        temp_created = True
+        # Copy bytes: read through the retained source descriptor, hash from
+        # exact bytes, complete-write loop to the temp file.
+        h = hashlib.sha256()
+        while True:
+            b = _wrap_os("src read %s" % dest_rel, os.read, sfd, 1024 * 1024)
+            if not b:
+                break
+            h.update(b)
+            _complete_write(wfd, b, dest_rel, inject=inject)
+        _wrap_os("file fsync %s" % dest_rel, os.fsync, wfd)
+        if h.hexdigest() != file_entry.sha256:
+            raise _TransactionClosed("source sha mismatch: %s" % dest_rel)
+        wst = _wrap_os("dst write fstat %s" % dest_rel, os.fstat, wfd)
+        if not stat.S_ISREG(wst.st_mode) or wst.st_nlink != 1:
+            raise _TransactionClosed("dst not regular/nlink1: %s" % dest_rel)
+        if stat.S_IMODE(wst.st_mode) != mode_int:
+            raise _TransactionClosed("dst mode mismatch: %s" % dest_rel)
+        if wst.st_size != file_entry.size:
+            raise _TransactionClosed("dst size mismatch: %s" % dest_rel)
+        _wrap_os("write fd close %s" % dest_rel, os.close, wfd)
+        wfd = None
+        # Selftest-only fault injection (Checkpoint 2PB2B-B2): after the source
+        # has been opened, identity-verified, completely read to EOF, written,
+        # fsynced, sha-verified to the staging temp, and the write fd closed --
+        # and BEFORE the post-read source identity continuity fstat -- let the
+        # test physically replace the source basename with a distinct inode.
+        # This hook never raises and never changes control flow: it confirms the
+        # private key is present, increments its hit counter once, invokes the
+        # existing test-supplied mutation callback `mutate(sfd, src_full)`, then
+        # returns normally so execution reaches the existing production
+        # post-read os.fstat comparison -- the ONLY place that may close on a
+        # changed source identity ("source identity change after read").  The
+        # hook is inactive when inject is None (production) or the key is absent
+        # (no argparse/CLI exposure).  No module-global state; no direct close.
+        if inject is not None and "b2_source_post_read_swap" in inject:
+            _psr = inject["b2_source_post_read_swap"]
+            _psr["hits"] = _psr.get("hits", 0) + 1
+            _psr_mutate = _psr.get("mutate")
+            if _psr_mutate is not None:
+                _psr_mutate(sfd, src_full)
+        # Verify post-read source identity continuity.
+        pst = _wrap_os("src post-read fstat %s" % dest_rel, os.fstat, sfd)
+        if (pst.st_dev, pst.st_ino) != (st.st_dev, st.st_ino):
+            raise _TransactionClosed(
+                "source identity change after read: %s" % dest_rel)
+        # Atomic no-replace per-file publication.
+        _atomic_noreplace_publish(parent_fd, tmp_base, final_base)
+        temp_published = True
+        # Verify destination from an opened read descriptor.
+        dfd = _wrap_os("dst verify open %s" % dest_rel, os.open, final_base,
+                       os.O_RDONLY | os.O_NOFOLLOW, dir_fd=parent_fd)
+        dst_st = _wrap_os("dst verify fstat %s" % dest_rel, os.fstat, dfd)
+        if not stat.S_ISREG(dst_st.st_mode):
+            raise _TransactionClosed("dst not regular: %s" % dest_rel)
+        if dst_st.st_nlink != 1:
+            raise _TransactionClosed("dst nlink!=1: %s" % dest_rel)
+        if stat.S_IMODE(dst_st.st_mode) != mode_int:
+            raise _TransactionClosed("dst mode mismatch: %s" % dest_rel)
+        if dst_st.st_size != file_entry.size:
+            raise _TransactionClosed("dst size mismatch: %s" % dest_rel)
+        if (dst_st.st_dev, dst_st.st_ino) == (st.st_dev, st.st_ino):
+            raise _TransactionClosed("src/dst inode alias: %s" % dest_rel)
+        _verify_sha(dfd, file_entry.sha256, dest_rel)
+        _wrap_os("dst verify close %s" % dest_rel, os.close, dfd)
+        dfd = None
+        return (dest_rel, dst_st.st_size, file_entry.sha256, dst_st.st_mode)
+    finally:
+        if sfd is not None:
+            try:
+                os.close(sfd)
+            except OSError:
+                pass
+        if wfd is not None:
+            try:
+                os.close(wfd)
+            except OSError:
+                pass
+        if dfd is not None:
+            try:
+                os.close(dfd)
+            except OSError:
+                pass
+        # Identity-bound temp cleanup: remove the temp file iff it was created
+        # but never successfully published, and only when it still maps to the
+        # captured temp identity.  Never remove a replacement object.
+        if (parent_fd is not None and temp_created and not temp_published
+                and wcreat_dev is not None and tmp_base is not None):
+            _b2_remove_tmp_bound(parent_fd, tmp_base, wcreat_dev, wcreat_ino)
+        if parent_fd is not None and parent_fd is not staging_fd:
+            try:
+                os.close(parent_fd)
+            except OSError:
+                pass
+
+
+def _verify_sha(fd, expected_sha, rel_for_msg):
+    """Hash an open descriptor and compare to the expected SHA-256."""
+    h = hashlib.sha256()
+    while True:
+        b = _wrap_os("verify sha read %s" % rel_for_msg, os.read, fd,
+                     1024 * 1024)
+        if not b:
+            break
+        h.update(b)
+    if h.hexdigest() != expected_sha:
+        raise _TransactionClosed("dst sha mismatch: %s" % rel_for_msg)
+
+
+def _b2_remove_tmp_bound(parent_fd, tmp_base, captured_dev, captured_ino):
+    """Remove a leftover temporary file bound to the captured temp identity
+    (mirror of the material tool's proven cleanup).  Never remove a replacement
+    object: require the name to still map to the captured dev/inode before
+    unlinking.  Reject symlinks and unsupported objects."""
+    try:
+        lst = os.lstat(tmp_base, dir_fd=parent_fd)
+    except OSError as exc:
+        if exc.errno == errno.ENOENT:
+            return
+        raise _TransactionClosed("temp cleanup lstat failed: %s" % exc)
+    if (lst.st_mode & 0o170000) == 0o120000:
+        raise _TransactionClosed("temp cleanup symlink rejected: %s" % tmp_base)
+    if (lst.st_dev, lst.st_ino) != (captured_dev, captured_ino):
+        raise _TransactionClosed(
+            "temp cleanup replacement identity rejected: %s" % tmp_base)
+    try:
+        lst2 = os.lstat(tmp_base, dir_fd=parent_fd)
+    except OSError as exc:
+        if exc.errno == errno.ENOENT:
+            return
+        raise _TransactionClosed("temp cleanup re-lstat failed: %s" % exc)
+    if (lst2.st_dev, lst2.st_ino) != (captured_dev, captured_ino):
+        raise _TransactionClosed(
+            "temp cleanup replacement before unlink: %s" % tmp_base)
+    _wrap_os("temp cleanup unlink %s" % tmp_base, os.unlink, tmp_base,
+             dir_fd=parent_fd)
+
+
+def _b2_build_destination_dirs(staging_fd, dir_targets):
+    """Create every planned destination directory relative to staging_fd using
+    descriptor-relative no-follow operations.  Each expanded directory target
+    is created only from the canonical plan; no unplanned directory is created.
+    Intermediate directories are created and verified.  Every opened descriptor
+    is closed before return (no fd leaks across the ~1500-step expansion)."""
+    created = set()
+    for dt in sorted(dir_targets, key=lambda d: d.transaction_relative_path):
+        comps = dt.transaction_relative_path.split("/")
+        cur = staging_fd
+        opened = []
+        try:
+            for idx in range(len(comps)):
+                comp = comps[idx]
+                prefix = "/".join(comps[:idx + 1])
+                if prefix in created:
+                    if idx + 1 >= len(comps):
+                        continue
+                    nxt = _wrap_os("dir reuse open %s" % comp, os.open, comp,
+                                   os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                                   dir_fd=cur)
+                    opened.append(nxt)
+                    cur = nxt
+                    continue
+                lst_exists = True
+                try:
+                    lst = os.lstat(comp, dir_fd=cur)
+                except OSError as exc:
+                    if exc.errno == errno.ENOENT:
+                        lst_exists = False
+                    else:
+                        raise _TransactionClosed(
+                            "dir ensure lstat failed: %s" % prefix)
+                if not lst_exists:
+                    nfd = _desc_mkdir(cur, comp, 0o700)
+                    created.add(prefix)
+                    if idx + 1 >= len(comps):
+                        try:
+                            os.close(nfd)
+                        except OSError:
+                            pass
+                        break
+                    opened.append(nfd)
+                    cur = nfd
+                else:
+                    if (lst.st_mode & 0o170000) == 0o120000:
+                        raise _TransactionClosed(
+                            "dir ensure symlink rejected: %s" % prefix)
+                    if (lst.st_mode & 0o170000) != 0o040000:
+                        raise _TransactionClosed(
+                            "dir ensure non-dir collision: %s" % prefix)
+                    created.add(prefix)
+                    if idx + 1 >= len(comps):
+                        break
+                    nfd = _wrap_os("dir open %s" % comp, os.open, comp,
+                                   os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                                   dir_fd=cur)
+                    opened.append(nfd)
+                    cur = nfd
+        finally:
+            for fdx in opened:
+                try:
+                    os.close(fdx)
+                except OSError:
+                    pass
+
+
+def _b2_audit_destination(staging_fd, expected_files, expected_dirs):
+    """Descriptor-relative complete destination audit after all copies.
+    Reject symlinks, non-regular/non-dir objects, unplanned files/dirs/FIFOs/
+    sockets/devices, and inode replacement during audit."""
+    found_files = set()
+    found_dirs = set()
+
+    def _recurse(parent_fd, rel_prefix):
+        names = _wrap_os("audit listdir %s" % (rel_prefix or "<root>"),
+                         _fd_listdir, parent_fd)
+        for child in names:
+            rel = (rel_prefix + "/" + child) if rel_prefix else child
+            lst = _wrap_os("audit lstat %s" % rel, os.lstat, child,
+                           dir_fd=parent_fd)
+            ftype = lst.st_mode & 0o170000
+            if ftype == 0o120000:
+                raise _TransactionClosed("audit symlink rejected: %s" % rel)
+            if ftype == 0o040000:
+                if rel not in expected_dirs:
+                    raise _TransactionClosed("unplanned directory: %s" % rel)
+                found_dirs.add(rel)
+                cfd = _wrap_os("audit opendir %s" % rel, os.open, child,
+                               os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                               dir_fd=parent_fd)
+                try:
+                    cst = _wrap_os("audit fstat %s" % rel, os.fstat, cfd)
+                    if (cst.st_dev, cst.st_ino) != (lst.st_dev, lst.st_ino):
+                        raise _TransactionClosed(
+                            "audit identity discontinuity: %s" % rel)
+                    _recurse(cfd, rel)
+                finally:
+                    try:
+                        os.close(cfd)
+                    except OSError:
+                        pass
+            elif ftype == 0o100000:
+                if rel not in expected_files:
+                    raise _TransactionClosed("unplanned file: %s" % rel)
+                found_files.add(rel)
+            elif ftype == 0o010000:
+                raise _TransactionClosed("audit FIFO rejected: %s" % rel)
+            elif ftype == 0o140000:
+                raise _TransactionClosed("audit socket rejected: %s" % rel)
+            elif ftype == 0o060000:
+                raise _TransactionClosed("audit block dev rejected: %s" % rel)
+            elif ftype == 0o020000:
+                raise _TransactionClosed("audit char dev rejected: %s" % rel)
+            else:
+                raise _TransactionClosed(
+                    "audit unsupported object rejected: %s" % rel)
+
+    _recurse(staging_fd, "")
+    extra_files = found_files - set(expected_files)
+    missing_files = set(expected_files) - found_files
+    extra_dirs = found_dirs - expected_dirs
+    missing_dirs = expected_dirs - found_dirs
+    if extra_files:
+        raise _TransactionClosed(
+            "extra destination files: %s" % sorted(extra_files))
+    if missing_files:
+        raise _TransactionClosed(
+            "missing destination files: %s" % sorted(missing_files))
+    if extra_dirs:
+        raise _TransactionClosed(
+            "extra destination directories: %s" % sorted(extra_dirs))
+    if missing_dirs:
+        raise _TransactionClosed(
+            "missing destination directories: %s" % sorted(missing_dirs))
+
+
+def _b2_verify_exclusions_absent(staging_fd, excl_targets):
+    """Require every planned exclusion target to be absent from the staging
+    tree.  Descriptor-relative no-follow parent walk; a present symlink,
+    regular file, FIFO, socket, device, or any present parent fails closed."""
+    for et in excl_targets:
+        comps = et.transaction_relative_path.split("/")
+        cur = staging_fd
+        opened = []
+        absent = False
+        try:
+            for i in range(len(comps) - 1):
+                comp = comps[i]
+                try:
+                    lst = os.lstat(comp, dir_fd=cur)
+                except OSError as exc:
+                    if exc.errno == errno.ENOENT:
+                        absent = True
+                        break
+                    raise _TransactionClosed(
+                        "excl lstat failed: %s" % et.transaction_relative_path)
+                if (lst.st_mode & 0o170000) == 0o120000:
+                    raise _TransactionClosed(
+                        "excl parent symlink: %s" % et.transaction_relative_path)
+                if (lst.st_mode & 0o170000) != 0o040000:
+                    raise _TransactionClosed(
+                        "excl parent non-dir: %s" % et.transaction_relative_path)
+                cfd = _wrap_os("excl opendir %s" % comp, os.open, comp,
+                               os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                               dir_fd=cur)
+                opened.append(cfd)
+                cst = _wrap_os("excl fstat %s" % comp, os.fstat, cfd)
+                if (cst.st_dev, cst.st_ino) != (lst.st_dev, lst.st_ino):
+                    raise _TransactionClosed(
+                        "excl identity discontinuity: %s" % comp)
+                cur = cfd
+            if absent:
+                continue
+            leaf = comps[-1]
+            try:
+                lst = os.lstat(leaf, dir_fd=cur)
+            except OSError as exc:
+                if exc.errno == errno.ENOENT:
+                    continue
+                raise _TransactionClosed("excl leaf lstat failed: %s" % leaf)
+            raise _TransactionClosed(
+                "excluded target present: %s" % et.transaction_relative_path)
+        finally:
+            for fdx in opened:
+                try:
+                    os.close(fdx)
+                except OSError:
+                    pass
+
+
+def _b2_verify_deny_patterns_absent(staging_fd, plan):
+    """Deny-pattern scan over the staged tree.  Descriptor-relative, no-follow;
+    a present symlink in the staged tree is rejected."""
+    decl_prefix = {r.source_root: r.destination_prefix
+                   for r in plan.source_roots}
+    for dp in plan.deny_patterns:
+        prefix = decl_prefix.get(dp.scope, "")
+        effective = (prefix + "/" + dp.pattern) if prefix else dp.pattern
+
+        def _deny_walk(parent_fd, rel_prefix, eff):
+            names = _wrap_os("deny listdir %s" % (rel_prefix or "<root>"),
+                             _fd_listdir, parent_fd)
+            for name in names:
+                rel = (rel_prefix + "/" + name) if rel_prefix else name
+                lst = _wrap_os("deny lstat %s" % rel, os.lstat, name,
+                               dir_fd=parent_fd)
+                if (lst.st_mode & 0o170000) == 0o120000:
+                    raise _TransactionClosed(
+                        "deny-walk symlink rejected: %s" % rel)
+                if (lst.st_mode & 0o170000) == 0o040000:
+                    cfd = _wrap_os("deny opendir %s" % name, os.open, name,
+                                   os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                                   dir_fd=parent_fd)
+                    try:
+                        _deny_walk(cfd, rel, eff)
+                    finally:
+                        try:
+                            os.close(cfd)
+                        except OSError:
+                            pass
+                elif (lst.st_mode & 0o170000) == 0o100000:
+                    if fnmatch.fnmatch(rel, eff):
+                        raise _TransactionClosed(
+                            "deny-pattern in destination: %s" % rel)
+                else:
+                    raise _TransactionClosed(
+                        "deny-walk unsupported object: %s" % rel)
+        _deny_walk(staging_fd, "", effective)
+
+
+def _b2_build_receipt(ctx, plan, final_basename, file_records, root_receipt,
+                      publication_method, runtime_attempt=1):
+    """Build the canonical integrated receipt object.  Contains only immutable
+    primitive records (no bearer, secret, registry identity, repr, mutable
+    object, or capability).  No timestamp, random id, hostname, username,
+    absolute path, or environment-dependent value."""
+    tool_sha = _sha256_file_path(__file__)
+    total_bytes = sum(r[1] for r in file_records)
+    files_sorted = sorted(
+        [{"rel_path": r[0], "size": r[1], "sha256": r[2]} for r in file_records],
+        key=lambda d: d["rel_path"])
+    workspaces = []
+    for w in sorted(plan.workspaces, key=lambda c: c.component_id):
+        workspaces.append({
+            "component_id": w.component_id,
+            "relative_root": "workspaces/%s/work/nos3" % w.component_id,
+            "file_count": w.file_count,
+            "byte_count": w.byte_count,
+            "directory_count": w.directory_count,
+            "exclusion_count": w.exclusion_count,
+            "verification": "VERIFIED",
+        })
+    return {
+        "receipt_schema": 1,
+        "status": "TRANSACTION_COMPLETE_PENDING_PUBLICATION",
+        "final_basename": final_basename,
+        "transaction_tool_sha256": tool_sha,
+        "repository": {"dev": ctx.repo.dev, "inode": ctx.repo.ino},
+        "contract": {"relative_path": ctx.contract.rel,
+                     "device": ctx.contract.dev, "inode": ctx.contract.ino,
+                     "size": ctx.contract.size, "mode": ctx.contract.mode,
+                     "nlink": ctx.contract.nlink, "sha256": ctx.contract.sha256},
+        "candidate": {"relative_path": ctx.candidate.rel,
+                       "device": ctx.candidate.dev, "inode": ctx.candidate.ino,
+                       "size": ctx.candidate.size, "mode": ctx.candidate.mode,
+                       "nlink": ctx.candidate.nlink,
+                       "sha256": ctx.candidate.sha256},
+        "executing_tool": {"relative_path": ctx.tool.rel,
+                           "device": ctx.tool.dev, "inode": ctx.tool.ino,
+                           "size": ctx.tool.size, "mode": ctx.tool.mode,
+                           "nlink": ctx.tool.nlink, "sha256": ctx.tool.sha256},
+        "canonical_manifest": {"relative_path": ctx.manifest.rel,
+                               "device": ctx.manifest.dev,
+                               "inode": ctx.manifest.ino,
+                               "size": ctx.manifest.size,
+                               "mode": ctx.manifest.mode,
+                               "nlink": ctx.manifest.nlink,
+                               "sha256": ctx.manifest.sha256},
+        "authorized_root": {"device": root_receipt.dev,
+                            "inode": root_receipt.ino},
+        "component_ids": list(sorted(w.component_id
+                                     for w in plan.workspaces)),
+        "component_count": len(plan.workspaces),
+        "workspace_count": plan.workspace_count,
+        "fortytwo_scratch_disposition": "SEPARATE_NOT_COUNTED_AS_WORKSPACE",
+        "fortytwo_scratch_present": True,
+        "workspaces": workspaces,
+        "aggregate_included_file_count": len(file_records),
+        "aggregate_included_byte_count": total_bytes,
+        "aggregate_directory_count": len(plan.expanded_directory_targets),
+        "aggregate_exclusion_count": len(plan.expanded_exclusion_targets),
+        "collision_counts": {
+            "duplicate_file_target_count":
+                plan.duplicate_file_target_count,
+            "duplicate_directory_target_count":
+                plan.duplicate_directory_target_count,
+            "file_directory_collision_count":
+                plan.file_directory_collision_count,
+            "prefix_collision_count": plan.prefix_collision_count,
+        },
+        "no_replace_publication_disposition": "ATOMIC_NOREPLACE_PUBLISHED",
+        "publication_method": publication_method,
+        "runtime_attempt": runtime_attempt,
+        "d064_disposition": ctx.d064_disposition,
+        "exclusive_writer_prerequisite": "SATISFIED_DEEP_IMMUTABLE_CONTEXT",
+        "runtime_authorized": False,
+        "runtime_attempts": 0,
+        "docker_invoked": False,
+    }
+
+
+def _b2_materialize(ctx, repo_fd, mraw, mparsed, authorized_root,
+                    final_basename, inject=None):
+    """Run the complete process-local integrated transaction.
+
+    Runs only after authorization and context construction.  Builds the
+    canonical plan from the retained manifest bytes, inspects the authorized
+    root, validates the final basename, creates the private outer staging
+    transaction, copies every expanded file target, writes the canonical
+    receipt, fsyncs the staged hierarchy, publishes atomically, fsyncs the
+    authorized root, and returns (final_basename, root_dev, root_ino,
+    receipt_sha256, file_count, byte_count).  `inject` is a selftest-only
+    fault-injection hook dict.  Never returns authorization state."""
+    if inject is None:
+        inject = {}
+    root_fd = None
+    stage_fd = None
+    owned = _OwnedFds()
+    stage_name = None
+    published = False
+    publication_calls = 0
+    override = _B2_SELFTEST_SOURCE_OVERRIDE
+    # Selftest-only synthetic plan (never reachable from the production CLI:
+    # only a manually-constructed test namespace may carry inject["selftest_plan"]).
+    # In production inject is None/empty so the validated canonical plan is built
+    # from the retained manifest bytes via the anti-forgery plan compiler.
+    selftest_plan = inject.get("selftest_plan") if isinstance(inject, dict) else None
+    try:
+        if selftest_plan is not None:
+            plan = selftest_plan
+        else:
+            plan = _build_canonical_materialization_plan(mparsed)
+        root_fd, root_receipt = _validate_absolute_authorized_root(
+            authorized_root)
+        _validate_final_basename(final_basename, root_fd)
+        stage_fd, stage_name, _st_dev, _st_ino = _make_staging_dir(root_fd)
+        # Build the directory hierarchy from the expanded directory targets.
+        _b2_build_destination_dirs(stage_fd, plan.expanded_directory_targets)
+        # Map source-root declarations for quick lookup.
+        sr_by_name = {r.source_root: r for r in plan.source_roots}
+        # Build an index from (source_root, relative_path) -> regular-file
+        # entry across all workspaces and the fortytwo scratch.
+        file_index = {}
+        for w in plan.workspaces:
+            for wf in w.regular_files:
+                file_index[(wf.source_root, wf.relative_path)] = wf
+        for ff in plan.fortytwo.regular_files:
+            file_index[(ff.source_root, ff.relative_path)] = ff
+        # Copy each expanded file target from its canonical source.
+        file_records = []
+        for ft in plan.expanded_file_targets:
+            sr_decl = sr_by_name[ft.source_root]
+            src_host = _b2_resolve_source_root(sr_decl, override)
+            src_full = src_host
+            if ft.source_relative_path:
+                src_full = src_host + "/" + ft.source_relative_path
+            file_entry = file_index.get(
+                (ft.source_root, ft.source_relative_path))
+            if file_entry is None:
+                raise _TransactionClosed(
+                    "no source file entry for target: %s"
+                    % ft.transaction_relative_path)
+            rec = _b2_actual_copy(repo_fd, src_full, file_entry,
+                                  ft.transaction_relative_path, stage_fd,
+                                  inject=inject)
+            file_records.append(rec)
+        if "file_copy_failure" in inject:
+            inject["file_copy_failure"]["hits"] = (
+                inject["file_copy_failure"].get("hits", 0) + 1)
+            raise _TransactionClosed("injected file-copy failure")
+        # Selftest-only fault injection (Checkpoint 2PB2B-B2): after every
+        # planned file has been copied, and BEFORE the final destination audit
+        # ("final destination verification"), let the test replace one planned
+        # destination leaf with a symlink pointing outside staging.  The hook
+        # intentionally does NOT raise here: the production _b2_audit_destination
+        # symlink guard is the detector.  Inactive when inject is None (no
+        # argparse/CLI exposure); no module-global state.
+        if "b2_destination_symlink_injection" in inject:
+            _dsi = inject["b2_destination_symlink_injection"]
+            _dsi["hits"] = _dsi.get("hits", 0) + 1
+            _dsi_mutate = _dsi.get("mutate")
+            if _dsi_mutate is not None:
+                _dsi_mutate(stage_fd)
+        # Audit the complete destination against the canonical plan.
+        expected_files = {ft.transaction_relative_path
+                          for ft in plan.expanded_file_targets}
+        expected_dirs = {dt.transaction_relative_path
+                         for dt in plan.expanded_directory_targets}
+        _b2_audit_destination(stage_fd, expected_files, expected_dirs)
+        # Selftest-only fault injection (Checkpoint 2PB2B-B2): AFTER the
+        # destination audit has already passed over the clean staged tree and
+        # BEFORE _b2_verify_exclusions_absent, let the test create a regular
+        # object at an EXACT excluded destination.  This is the only placement
+        # that reaches the production exclusion verifier without being caught
+        # first by the audit.  The hook intentionally does NOT raise here: the
+        # production _b2_verify_exclusions_absent is the detector.  Inactive when
+        # inject is None (no argparse/CLI exposure); no module-global state.
+        if "b2_excluded_target_presence" in inject:
+            _etp = inject["b2_excluded_target_presence"]
+            _etp["hits"] = _etp.get("hits", 0) + 1
+            _etp_mutate = _etp.get("mutate")
+            if _etp_mutate is not None:
+                _etp_mutate(stage_fd, plan)
+        # Verify exclusions absent and enforce deny patterns.
+        _b2_verify_exclusions_absent(stage_fd, plan.expanded_exclusion_targets)
+        _b2_verify_deny_patterns_absent(stage_fd, plan)
+        # Build and write the canonical receipt before publication.
+        receipt = _b2_build_receipt(ctx, plan, final_basename, file_records,
+                                    root_receipt,
+                                    _platform_publication_method())
+        if "receipt_write_failure" in inject:
+            inject["receipt_write_failure"]["hits"] = (
+                inject["receipt_write_failure"].get("hits", 0) + 1)
+            raise _TransactionClosed("injected receipt-write failure")
+        receipt_sha = _write_canonical_receipt(stage_fd, receipt)
+        # Fsync the staged hierarchy (pre-publication durability boundary).
+        if "pre_publication_fsync_failure" in inject:
+            inject["pre_publication_fsync_failure"]["hits"] = (
+                inject["pre_publication_fsync_failure"].get("hits", 0) + 1)
+            raise _TransactionClosed("injected pre-publication fsync failure")
+        _fsync_staged_hierarchy(stage_fd, owned)
+        if "publication_failure" in inject:
+            inject["publication_failure"]["hits"] = (
+                inject["publication_failure"].get("hits", 0) + 1)
+            raise _TransactionClosed("injected publication failure")
+        _atomic_noreplace_publish(root_fd, stage_name, final_basename)
+        publication_calls += 1
+        published = True
+        # Post-publication durability: fsync the authorized root.  If this
+        # fails, publication already succeeded atomically; report a controlled
+        # durability failure WITHOUT rolling back the published tree.
+        if "post_publication_root_fsync_failure" in inject:
+            inject["post_publication_root_fsync_failure"]["hits"] = (
+                inject["post_publication_root_fsync_failure"].get("hits", 0)
+                + 1)
+            raise _TransactionClosed(
+                "injected post-publication root-fsync failure")
+        _fsync_dir_by_fd(root_fd)
+        published_st_dev, published_st_ino = None, None
+        try:
+            os.lstat(stage_name, dir_fd=root_fd)
+            raise _TransactionClosed("stage still present after publish")
+        except OSError as exc:
+            if exc.errno != errno.ENOENT:
+                raise _TransactionClosed(
+                    "post-publication stage lstat failed: %s" % exc)
+        pub_st = _wrap_os("published lstat", os.lstat, final_basename,
+                          dir_fd=root_fd)
+        published_st_dev, published_st_ino = pub_st.st_dev, pub_st.st_ino
+        if (pub_st.st_dev, pub_st.st_ino) != (_st_dev, _st_ino):
+            raise _TransactionClosed("published identity != staged")
+        return (final_basename, published_st_dev, published_st_ino,
+                receipt_sha, len(file_records),
+                sum(r[1] for r in file_records))
+    except BaseException:
+        if not published and stage_name is not None and root_fd is not None:
+            cleanup_exc = None
+            try:
+                _desc_rmtree(root_fd, stage_name, owned)
+            except BaseException as ce:
+                cleanup_exc = ce
+            if cleanup_exc is not None:
+                primary = sys.exc_info()[1]
+                raise _TransactionClosed(
+                    "primary %r; cleanup failed %r; staging basename=%s"
+                    % (primary, cleanup_exc, stage_name))
+        raise
+    finally:
+        inject["publication_calls"] = publication_calls
+        owned.close_all()
+        if stage_fd is not None:
+            try:
+                os.close(stage_fd)
+            except OSError:
+                pass
+        if root_fd is not None:
+            try:
+                os.close(root_fd)
+            except OSError:
+                pass
+
+
+
 # ---------------------------------------------------------------------------
 # Self-tests.
 # ---------------------------------------------------------------------------
@@ -2570,6 +3495,410 @@ def selftest():
                 top_permissions=_Permissions(*tp),
                 gate_permissions=_GatePermissions(*gp))
 
+
+        # ---- B2 selftest synthetic environment (Checkpoint 2PB2B-B2) ----
+        # Private, nested-only, unreachable from the CLI, cleared after tests.
+        # Builds a tiny synthetic source tree + a synthetic _CanonicalCompletePlan
+        # of the same immutable shape the production compiler produces, plus a
+        # source-root override mapping so the integrated copy/verify/publish
+        # pipeline runs against synthetic fixtures instead of the full
+        # external/nos3 tree.  The synthetic plan never reaches the production
+        # CLI: only a manually-constructed test namespace may carry an
+        # args._b2_inject["selftest_plan"] attribute; the argparser exposes no
+        # such flag.
+        _B2_SYNTHETIC_DONE = []
+
+        def _b2_dir_rel(rel):
+            if not _is_exact_str(rel) or rel == "":
+                raise _TransactionClosed("bad synth dir rel")
+            return rel
+
+        def _b2_make_synthetic_file(parent, name, content):
+            path = os.path.join(parent, name)
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "wb") as f:
+                f.write(content)
+            os.chmod(path, 0o644)
+            st = os.lstat(path)
+            return path, st
+
+        def _b2_build_synthetic_env():
+            scratch = tempfile.mkdtemp(prefix="nrm_b2_synth_", dir=repo)
+            tmpdirs.append(scratch)
+            # Build tiny synthetic source trees for each source root kind.
+            src_dirs = {}
+            contents = {}
+            # cfs source tree
+            cfs_dir = os.path.join(scratch, "src_cfs", "fsw", "build", "exe",
+                                   "cpu1")
+            os.makedirs(cfs_dir, exist_ok=True)
+            cfs_files = {}
+            for nm in ("cf_core.so", "cfs_es.so"):
+                ct = ("B2-synth-cfs-%s\n" % nm).encode("utf-8")
+                p, _st = _b2_make_synthetic_file(cfs_dir, nm, ct)
+                cfs_files[nm] = ct
+            # simulator source trees
+            sim_dir = os.path.join(scratch, "src_sim", "sims")
+            sb = os.path.join(sim_dir, "build", "bin")
+            sl = os.path.join(sim_dir, "build", "lib")
+            os.makedirs(sb, exist_ok=True)
+            os.makedirs(sl, exist_ok=True)
+            sim_files = {}
+            for nm in ("hw_sim.so", "time.so"):
+                ct = ("B2-synth-sim-%s\n" % nm).encode("utf-8")
+                p, _st = _b2_make_synthetic_file(sb, nm, ct)
+                sim_files[("sim_bin", nm)] = ct
+            for nm in ("libsim.so", "libnos.so"):
+                ct = ("B2-synth-lib-%s\n" % nm).encode("utf-8")
+                p, _st = _b2_make_synthetic_file(sl, nm, ct)
+                sim_files[("sim_lib", nm)] = ct
+            # configuration / Fortytwo source tree
+            cfg_dir = os.path.join(scratch, "src_cfg", "cfg", "build", "InOut")
+            os.makedirs(cfg_dir, exist_ok=True)
+            cfg_files = {}
+            for nm in ("fortytwo.txt", "InOut.bin"):
+                ct = ("B2-synth-cfg-%s\n" % nm).encode("utf-8")
+                p, _st = _b2_make_synthetic_file(cfg_dir, nm, ct)
+                cfg_files[nm] = ct
+            # Build the immutable plan records of the same shape the production
+            # compiler produces, but with tiny synthetic entries.  Each file
+            # carries its real synthetic SHA-256 so the integrated copy verifies.
+            src_cfs_abs = os.path.join(scratch, "src_cfs")
+            src_sim_abs = os.path.join(scratch, "src_sim")
+            src_cfg_abs = os.path.join(scratch, "src_cfg")
+            override = {
+                "cfs": "review_tmp_b2/src_cfs/fsw/build/exe/cpu1",
+                "sim_bin": "review_tmp_b2/src_sim/sims/build/bin",
+                "sim_lib": "review_tmp_b2/src_sim/sims/build/lib",
+                "configuration": "review_tmp_b2/src_cfg/cfg/build/InOut",
+            }
+            # The override paths must be reachable from repo_fd; stage them
+            # under a temp dir inside the repo workspace and relativize.
+            stage_root = os.path.join(scratch, "review_tmp_b2")
+            os.makedirs(stage_root, exist_ok=True)
+            # Copy synthetic trees into the repo-relative staging area so the
+            # descriptor-bound source traversal rooted at repo_fd can reach them.
+            _b2_sync_tree(src_cfs_abs, os.path.join(stage_root, "src_cfs"))
+            _b2_sync_tree(src_sim_abs, os.path.join(stage_root, "src_sim"))
+            _b2_sync_tree(src_cfg_abs, os.path.join(stage_root, "src_cfg"))
+            repo_abs = os.path.abspath(repo)
+            override = {
+                "cfs": os.path.relpath(
+                    os.path.join(stage_root, "src_cfs", "fsw", "build", "exe",
+                                 "cpu1"), repo_abs),
+                "sim_bin": os.path.relpath(
+                    os.path.join(stage_root, "src_sim", "sims", "build", "bin"),
+                    repo_abs),
+                "sim_lib": os.path.relpath(
+                    os.path.join(stage_root, "src_sim", "sims", "build", "lib"),
+                    repo_abs),
+                "configuration": os.path.relpath(
+                    os.path.join(stage_root, "src_cfg", "cfg", "build", "InOut"),
+                    repo_abs),
+            }
+            return {
+                "scratch": scratch, "override": override,
+                "cfs_files": cfs_files, "sim_files": sim_files,
+                "cfg_files": cfg_files,
+            }
+
+        def _b2_sync_tree(src, dst):
+            import shutil as _sh
+            _sh.copytree(src, dst)
+
+        def _b2_build_synthetic_plan(env):
+            """Build a synthetic _CanonicalCompletePlan of the exact immutable
+            shape the production compiler produces, with tiny synthetic file
+            entries whose mode/size/sha match the synthetic source fixtures.
+            Private to selftest; never supplied to the production CLI."""
+            scratch = env["scratch"]
+            repo_abs = os.path.abspath(repo)
+            # --- source root declarations ---
+            cfs_decl = _CanonicalSourceRoot(
+                "cfs", "cfs", env["override"]["cfs"], "fsw/build/exe/cpu1")
+            sim_bin_decl = _CanonicalSourceRoot(
+                "sim_bin", "simulator", env["override"]["sim_bin"],
+                "sims/build/bin")
+            sim_lib_decl = _CanonicalSourceRoot(
+                "sim_lib", "simulator", env["override"]["sim_lib"],
+                "sims/build/lib")
+            cfg_decl = _CanonicalSourceRoot(
+                "configuration", "configuration",
+                env["override"]["configuration"], "cfg/build/InOut")
+            source_roots = (cfs_decl, sim_bin_decl, sim_lib_decl, cfg_decl)
+            sr_by_name = {r.source_root: r for r in source_roots}
+            # Read synthetic files to build regular-file records.
+            def _rec(sroot, rel, host_dir):
+                p = os.path.join(host_dir, rel)
+                st = os.lstat(p)
+                with open(p, "rb") as f:
+                    data = f.read()
+                sha = hashlib.sha256(data).hexdigest()
+                return _CanonicalRegularFile(
+                    "regular_file", sroot, sr_by_name[sroot].component_scope,
+                    rel, None, "%04o" % stat.S_IMODE(st.st_mode), st.st_nlink,
+                    st.st_size, sha), data
+            cfs_host = os.path.join(repo_abs, env["override"]["cfs"])
+            sim_bin_host = os.path.join(repo_abs, env["override"]["sim_bin"])
+            sim_lib_host = os.path.join(repo_abs, env["override"]["sim_lib"])
+            cfg_host = os.path.join(repo_abs, env["override"]["configuration"])
+            reg_files = []
+            reg_files.append(_rec("cfs", "cf_core.so", cfs_host)[0])
+            reg_files.append(_rec("cfs", "cfs_es.so", cfs_host)[0])
+            reg_files.append(_rec("sim_bin", "hw_sim.so", sim_bin_host)[0])
+            reg_files.append(_rec("sim_bin", "time.so", sim_bin_host)[0])
+            reg_files.append(_rec("sim_lib", "libsim.so", sim_lib_host)[0])
+            reg_files.append(_rec("sim_lib", "libnos.so", sim_lib_host)[0])
+            reg_files.append(_rec("configuration", "fortytwo.txt", cfg_host)[0])
+            reg_files.append(_rec("configuration", "InOut.bin", cfg_host)[0])
+            reg_files = tuple(reg_files)
+            # Directories: one root sentinel per source root.
+            directories = (
+                _CanonicalDirectory("cfs", "cfs", ""),
+                _CanonicalDirectory("sim_bin", "simulator", ""),
+                _CanonicalDirectory("sim_lib", "simulator", ""),
+                _CanonicalDirectory("configuration", "configuration", ""),
+            )
+            exclusions = ()
+            deny_patterns = (
+                _CanonicalDenyPattern(pattern=".goutputstream-*", scope="cfs"),)
+            # Build workspaces: cfs seeds cfs; all others seed sim_bin+sim_lib.
+            file_index = {(f.source_root, f.relative_path): f for f in reg_files}
+
+            def _ws_file_target(cid, f):
+                return "workspaces/%s/work/nos3/%s/%s" % (
+                    cid, sr_by_name[f.source_root].destination_prefix,
+                    f.relative_path)
+
+            def _ws_dir_target(cid, decl, rel):
+                p = decl.destination_prefix
+                return ("workspaces/%s/work/nos3/%s" % (cid, p)
+                        if not rel else
+                        "workspaces/%s/work/nos3/%s/%s" % (cid, p, rel))
+
+            def _ws_excl_target(cid, decl, rel):
+                return "workspaces/%s/work/nos3/%s/%s" % (
+                    cid, decl.destination_prefix, rel)
+            workspaces_list = []
+            all_files = []
+            all_dirs = []
+            all_excls = []
+            total_files = 0
+            total_bytes = 0
+            total_dirs = 0
+            total_excls = 0
+            for cid in _COMPONENT_IDS:
+                if cid == "cfs":
+                    seeds = ("cfs",)
+                else:
+                    seeds = ("sim_bin", "sim_lib")
+                wf = tuple(f for f in reg_files if f.source_root in seeds)
+                wd = tuple(d for d in directories if d.source_root in seeds)
+                wfc = len(wf)
+                wbc = sum(f.size for f in wf)
+                wdrc = len(wd)
+                wec = 0
+                ws_ft = []
+                ws_dt = []
+                ws_et = []
+                for f in wf:
+                    d = _ws_file_target(cid, f)
+                    ws_ft.append(_CanonicalExpandedTarget(
+                        "regular_file", "workspace", cid, f.source_root,
+                        f.relative_path, d, False))
+                    all_files.append(ws_ft[-1])
+                    total_bytes += f.size
+                for dd in wd:
+                    decl = sr_by_name[dd.source_root]
+                    d = _ws_dir_target(cid, decl, dd.relative_path)
+                    ws_dt.append(_CanonicalExpandedTarget(
+                        "directory", "workspace", cid, dd.source_root,
+                        dd.relative_path, d, False))
+                    all_dirs.append(ws_dt[-1])
+                ws_incl_dirs = set(
+                    t.transaction_relative_path.rsplit("/", 1)[0]
+                    for t in ws_ft)
+                ws_dt_paths = set(t.transaction_relative_path for t in ws_dt)
+                for pd in sorted(ws_incl_dirs):
+                    if pd not in ws_dt_paths:
+                        ws_dt.append(_CanonicalExpandedTarget(
+                            "directory", "workspace", cid, "_derived", "",
+                            pd, False))
+                        all_dirs.append(ws_dt[-1])
+                workspaces_list.append(_CanonicalWorkspacePlan(
+                    component_id=cid,
+                    workspace_host_path=cid,
+                    mount_destination="/work/nos3",
+                    seed_source_roots=seeds,
+                    private_physical_copy=True, no_hard_links=True,
+                    no_reflinks=True, no_overlays=True, no_source_aliases=True,
+                    no_runtime_mount_from_external_nos3=True,
+                    regular_files=wf, directories=wd, exclusions=(),
+                    file_count=wfc, byte_count=wbc, directory_count=wdrc,
+                    exclusion_count=wec, file_targets=tuple(ws_ft),
+                    directory_targets=tuple(ws_dt), exclusion_targets=()))
+                total_files += wfc
+                total_dirs += len(ws_dt)
+            workspaces = tuple(workspaces_list)
+            # Fortytwo scratch (configuration source root), separate.
+            ft_files = tuple(f for f in reg_files
+                             if f.source_root == "configuration")
+            ft_ft = []
+            ft_dt = []
+            ft_incl_dirs = set()
+            for f in ft_files:
+                d = "fortytwo-config/%s/%s" % (
+                    cfg_decl.destination_prefix, f.relative_path)
+                ft_ft.append(_CanonicalExpandedTarget(
+                    "regular_file", "fortytwo", "fortytwo", f.source_root,
+                    f.relative_path, d, False))
+                ft_incl_dirs.add(d.rsplit("/", 1)[0])
+            ft_dt.append(_CanonicalExpandedTarget(
+                "directory", "fortytwo", "fortytwo", "configuration", "",
+                "fortytwo-config/cfg/build/InOut", False))
+            for pd in sorted(ft_incl_dirs):
+                if pd != "fortytwo-config/cfg/build/InOut":
+                    ft_dt.append(_CanonicalExpandedTarget(
+                        "directory", "fortytwo", "fortytwo", "configuration",
+                        "", pd, False))
+            fortytwo = _CanonicalFortytwoPlan(
+                transaction_relative_root="fortytwo-config",
+                regular_files=ft_files, directories=(), exclusions=(),
+                file_count=len(ft_files),
+                byte_count=sum(f.size for f in ft_files),
+                directory_count=len(ft_dt),
+                exclusion_count=0,
+                file_targets=tuple(ft_ft), directory_targets=tuple(ft_dt),
+                exclusion_targets=())
+            all_files.extend(ft_ft)
+            all_dirs.extend(ft_dt)
+            total_files += fortytwo.file_count
+            total_bytes += fortytwo.byte_count
+            total_dirs += fortytwo.directory_count
+            # Complete the directory-target set: every ancestor prefix of every
+            # file and directory target must appear as a planned directory so the
+            # destination audit treats it as expected (not unplanned).  This
+            # mirrors the production plan's complete leaf+ancestor directory set.
+            _dir_paths = set(t.transaction_relative_path for t in all_dirs)
+            for ft_ in all_files:
+                trp = ft_.transaction_relative_path
+                comps = trp.split("/")
+                for i in range(1, len(comps)):
+                    anc = "/".join(comps[:i])
+                    _dir_paths.add(anc)
+            for dp_ in list(_dir_paths):
+                comps = dp_.split("/")
+                for i in range(1, len(comps)):
+                    _dir_paths.add("/".join(comps[:i]))
+            _seen_dir = set()
+            final_dirs = []
+            for dp_ in sorted(_dir_paths):
+                if dp_ in _seen_dir:
+                    continue
+                _seen_dir.add(dp_)
+                # Determine owner kind/id by prefix (synthetic plan is flat).
+                if dp_.startswith("workspaces/"):
+                    owner_kind = "workspace"
+                    cid = dp_.split("/")[1]
+                else:
+                    owner_kind = "fortytwo"
+                    cid = "fortytwo"
+                final_dirs.append(_CanonicalExpandedTarget(
+                    "directory", owner_kind, cid, "configuration", "", dp_, False))
+            all_dirs = final_dirs
+            total_dirs = len(all_dirs)
+            # Build a real transaction context via the future fixture so the
+            # receipt builder has authentic dev/inode/size/mode/nlink/sha.
+            fx = _build_future_fixture()
+            ctx = _build_local_ctx(fx)
+            plan = _CanonicalCompletePlan(
+                source_roots=source_roots,
+                source_regular_files=reg_files,
+                source_directories=directories,
+                source_exclusions=exclusions,
+                workspaces=workspaces, fortytwo=fortytwo,
+                collision_model=(0, 0, 0, 0), source_root_count=4,
+                source_file_entry_count=len(reg_files),
+                source_file_byte_count=sum(f.size for f in reg_files),
+                source_directory_entry_count=len(directories),
+                source_exclusion_entry_count=0,
+                workspace_count=len(workspaces),
+                expanded_workspace_file_count=sum(
+                    w.file_count for w in workspaces),
+                expanded_workspace_byte_count=sum(
+                    w.byte_count for w in workspaces),
+                expanded_workspace_directory_count=sum(
+                    len(w.directory_targets) for w in workspaces),
+                expanded_workspace_exclusion_count=0,
+                expanded_total_file_count=total_files,
+                expanded_total_byte_count=total_bytes,
+                expanded_total_directory_count=total_dirs,
+                expanded_total_exclusion_count=0,
+                duplicate_file_target_count=0,
+                duplicate_directory_target_count=0,
+                file_directory_collision_count=0,
+                prefix_collision_count=0,
+                expanded_file_targets=tuple(all_files),
+                expanded_directory_targets=tuple(all_dirs),
+                expanded_exclusion_targets=tuple(),
+                deny_patterns=deny_patterns)
+            env["plan"] = plan
+            env["ctx"] = ctx
+            env["fx"] = fx
+            return env
+
+        def _b2_run_integrated(root=None, basename=None, inject=None,
+                                env=None, via_authorize=False):
+            """Run the integrated transaction core with synthetic fixtures.
+            If via_authorize is True, drive through _run_authorize (reaching
+            the transaction core through the production authorization path);
+            otherwise drive _b2_materialize directly.  Manages the global
+            override around the run."""
+            global _B2_SELFTEST_SOURCE_OVERRIDE
+            if env is None:
+                env = _b2_build_synthetic_env()
+                _b2_build_synthetic_plan(env)
+            if root is None:
+                root = tempfile.mkdtemp(prefix="nrm_b2_root_", dir=repo)
+                tmpdirs.append(root)
+                os.chmod(root, 0o700)
+            if basename is None:
+                basename = "b2_run_%d" % (len(tmpdirs) + 1)
+            if inject is None:
+                inject = {}
+            inject.setdefault("selftest_plan", env["plan"])
+            old_override = _B2_SELFTEST_SOURCE_OVERRIDE
+            _B2_SELFTEST_SOURCE_OVERRIDE = env["override"]
+            try:
+                if via_authorize:
+                    ns = env["fx"]["args"]
+                    ns.authorized_root = root
+                    ns.final_basename = basename
+                    ns._b2_inject = inject
+                    rc, marker, detail = _run_authorize(ns)
+                    return (rc, marker, detail)
+                repo_fd, _rr = _open_repo_root_fd(repo)
+                try:
+                    return _b2_materialize(env["ctx"], repo_fd, None, None,
+                                           root, basename, inject=inject)
+                finally:
+                    try:
+                        os.close(repo_fd)
+                    except OSError:
+                        pass
+            finally:
+                _B2_SELFTEST_SOURCE_OVERRIDE = old_override
+
+        _b2_env_cache = {}
+
+        def _b2_env():
+            key = "default"
+            if key not in _b2_env_cache:
+                e = _b2_build_synthetic_env()
+                _b2_build_synthetic_plan(e)
+                _b2_env_cache[key] = e
+            return _b2_env_cache[key]
+
         # ---- retained meaningful tests ----
         def current_contract_closed_before_authorized_root_inspection():
             args = _make_real_contract_args()
@@ -2647,9 +3976,13 @@ def selftest():
         must_pass("no_project_local_imports", no_project_local_imports)
 
         def executing_tool_bound_to___file__():
-            fx = _build_future_fixture()
-            rc, marker, _d = _run_authorize(fx["args"])
-            return rc == 2 and marker == "V3_TRANSACTION_CORE=NOT_IMPLEMENTED"
+            # B2: future authorization reaches the transaction core and
+            # completes against the synthetic source fixtures (not the real
+            # external/nos3 tree).
+            env = _b2_env()
+            rc, marker, _d = _b2_run_integrated(
+                basename="exec_tool_bound", env=env, via_authorize=True)
+            return rc == 0 and marker == "V3_TRANSACTION_MATERIALIZATION=PASS"
         must_pass("executing_tool_bound_to___file__", executing_tool_bound_to___file__)
 
         def no_tool_path_cli_argument():
@@ -2661,9 +3994,10 @@ def selftest():
 
         # ---- CORRECTION 1 tests: exact D-064 allowlist ----
         def exact_authorized_d064_state_accepted():
-            fx = _build_future_fixture(d064=_D064_AUTHORIZED)
-            rc, marker, _d = _run_authorize(fx["args"])
-            return rc == 2 and marker == "V3_TRANSACTION_CORE=NOT_IMPLEMENTED"
+            env = _b2_env()
+            rc, marker, _d = _b2_run_integrated(
+                basename="d064_accepted", env=env, via_authorize=True)
+            return rc == 0 and marker == "V3_TRANSACTION_MATERIALIZATION=PASS"
         must_pass("exact_authorized_d064_state_accepted", exact_authorized_d064_state_accepted)
 
         def _d064_bad(badval):
@@ -2885,37 +4219,46 @@ def selftest():
         must_pass("manifest_wrong_inventory_counts_rejected", manifest_wrong_inventory_counts_rejected)
 
         # ---- CORRECTION 4 tests: context never returned, deeply immutable, complete ----
-        def synthetic_future_authorization_reaches_transaction_incomplete_stop():
-            fx = _build_future_fixture()
-            rc, marker, _d = _run_authorize(fx["args"])
-            return rc == 2 and marker == "V3_TRANSACTION_CORE=NOT_IMPLEMENTED"
-        must_pass("synthetic_future_authorization_reaches_transaction_incomplete_stop",
-                  synthetic_future_authorization_reaches_transaction_incomplete_stop)
+        # superseded B1 stop (NOT_IMPLEMENTED) replaced by B2 core integration.
+        def synthetic_future_authorization_reaches_transaction_core():
+            env = _b2_env()
+            rc, marker, _d = _b2_run_integrated(
+                basename="reaches_core", env=env, via_authorize=True)
+            return rc == 0 and marker == "V3_TRANSACTION_MATERIALIZATION=PASS"
+        must_pass("synthetic_future_authorization_reaches_transaction_core",
+                  synthetic_future_authorization_reaches_transaction_core)
 
-        def synthetic_future_authorization_does_not_inspect_authorized_root():
-            fx = _build_future_fixture()
-            scratch = fx["scratch"]
-            auth_root = fx["args"].authorized_root
-            pre = set(os.listdir(scratch))
-            rc, marker, _d = _run_authorize(fx["args"])
-            post = set(os.listdir(scratch))
-            return (rc == 2 and marker == "V3_TRANSACTION_CORE=NOT_IMPLEMENTED"
-                    and not os.path.exists(auth_root) and post == pre)
-        must_pass("synthetic_future_authorization_does_not_inspect_authorized_root",
-                  synthetic_future_authorization_does_not_inspect_authorized_root)
+        def synthetic_future_authorization_inspects_authorized_root_and_publishes():
+            # B2: future authorization inspects the authorized root, creates the
+            # staging transaction, and publishes the complete transaction there
+            # (the B1 no-inspect stop is superseded).
+            env = _b2_env()
+            root = tempfile.mkdtemp(prefix="nrm_b2_root_", dir=repo)
+            tmpdirs.append(root)
+            os.chmod(root, 0o700)
+            rc, marker, _d = _b2_run_integrated(
+                root=root, basename="inspects_root", env=env,
+                via_authorize=True)
+            published = os.path.isdir(os.path.join(root, "inspects_root"))
+            return (rc == 0
+                    and marker == "V3_TRANSACTION_MATERIALIZATION=PASS"
+                    and published)
+        must_pass("synthetic_future_authorization_inspects_authorized_root_and_publishes",
+                  synthetic_future_authorization_inspects_authorized_root_and_publishes)
 
-        def successful_preflight_returns_no_context():
-            fx = _build_future_fixture()
-            rc, marker, detail = _run_authorize(fx["args"])
+        def successful_transaction_returns_no_context():
+            env = _b2_env()
+            rc, marker, detail = _b2_run_integrated(
+                basename="no_ctx", env=env, via_authorize=True)
             # result must be exactly (rc, marker, detail) tuple; no context obj.
             if not isinstance(rc, int) or not isinstance(marker, str):
                 return False
             if isinstance(detail, (_TransactionContext, _FileReceipt, _RepoReceipt,
                                   _Permissions)):
                 return False
-            # Recursive: detail string must not embed a context object.
-            return rc == 2 and marker == "V3_TRANSACTION_CORE=NOT_IMPLEMENTED"
-        must_pass("successful_preflight_returns_no_context", successful_preflight_returns_no_context)
+            # detail must not embed a context object.
+            return rc == 0 and marker == "V3_TRANSACTION_MATERIALIZATION=PASS"
+        must_pass("successful_transaction_returns_no_context", successful_transaction_returns_no_context)
 
         def _has_mutable(obj, seen=None):
             if seen is None:
@@ -3031,16 +4374,19 @@ def selftest():
         must_pass("repeated_closed_calls_do_not_leak_descriptors",
                   repeated_closed_calls_do_not_leak_descriptors)
 
-        def repeated_synthetic_preflight_calls_do_not_leak_descriptors():
+        # superseded B1 rc==2 preflight stop; under B2 a future-authorized
+        # contract against a non-existent authorized root closes at authorized-
+        # root inspection (rc=1) without leaking descriptors across repeats.
+        def repeated_future_authorized_closed_no_descriptor_leak():
             start = _count_open_fds()
             for _ in range(50):
                 fx = _build_future_fixture()
-                rc, _m, _d = _run_authorize(fx["args"])
-                if rc != 2:
+                rc, marker, _d = _run_authorize(fx["args"])
+                if rc != 1 or marker != "V3_TRANSACTION_AUTHORIZATION=CLOSED":
                     return False
             return _count_open_fds() - start == 0
-        must_pass("repeated_synthetic_preflight_calls_do_not_leak_descriptors",
-                  repeated_synthetic_preflight_calls_do_not_leak_descriptors)
+        must_pass("repeated_future_authorized_closed_no_descriptor_leak",
+                  repeated_future_authorized_closed_no_descriptor_leak)
 
         def repeated_missing_file_calls_do_not_leak_descriptors():
             start = _count_open_fds()
@@ -5885,12 +7231,599 @@ def selftest():
         must_pass("current_contract_behavior_unchanged",
                   current_contract_behavior_unchanged)
 
-        # 32. synthetic_authorized_cli_behavior_unchanged
-        def synthetic_authorized_cli_behavior_unchanged():
-            fx = _build_future_fixture()
-            rc, marker, _d = _run_authorize(fx["args"])
-            return rc == 2 and marker == "V3_TRANSACTION_CORE=NOT_IMPLEMENTED"
-        must_pass("synthetic_authorized_cli_behavior_unchanged", synthetic_authorized_cli_behavior_unchanged)
+        # 32. synthetic_authorized_cli_reaches_transaction_core (supersedes
+        # the B1 NOT_IMPLEMENTED stop assertion).
+        def synthetic_authorized_cli_reaches_transaction_core():
+            env = _b2_env()
+            rc, marker, _d = _b2_run_integrated(
+                basename="cli_core", env=env, via_authorize=True)
+            return rc == 0 and marker == "V3_TRANSACTION_MATERIALIZATION=PASS"
+        must_pass("synthetic_authorized_cli_reaches_transaction_core",
+                  synthetic_authorized_cli_reaches_transaction_core)
+
+
+        # ---- B2 integrated-core fault-injection tests (Checkpoint 2PB2B-B2).
+        # These exercise the production _b2_materialize source traversal, copy,
+        # verify, publish, and cleanup against the SAME synthetic source
+        # fixtures (never the real external/nos3 tree).  Each source-fault test
+        # builds a FRESH env (not the cache), builds the frozen plan, then
+        # mutates the synthetic source so the frozen plan's mode/nlink/size/sha
+        # no longer matches.  Each fault must close WITHOUT publication and
+        # WITHOUT leaking descriptors.
+        def _b2_run_integrated_roots(basename=None):
+            root = tempfile.mkdtemp(prefix="nrm_b2_root_", dir=repo)
+            tmpdirs.append(root)
+            os.chmod(root, 0o700)
+            return root
+
+        def _b2_expect_closed(basename, env=None, inject=None, mut=None,
+                              via_authorize=False, root=None):
+            """Run the integrated core; require _TransactionClosed (no pub)."""
+            if env is None:
+                env = _b2_build_synthetic_env()
+                _b2_build_synthetic_plan(env)
+            if mut is not None:
+                mut(env)
+            if root is None:
+                root = _b2_run_integrated_roots()
+            if basename is None:
+                basename = "fault_%d" % (len(tmpdirs) + 1)
+            start = _count_open_fds()
+            raised = False
+            try:
+                rc, marker, detail = _b2_run_integrated(
+                    root=root, basename=basename, env=env, inject=inject,
+                    via_authorize=via_authorize)
+                # via_authorize converts _TransactionClosed -> rc=1 CLOSED.
+                if via_authorize:
+                    raised = (rc == 1
+                              and marker == "V3_TRANSACTION_AUTHORIZATION=CLOSED")
+                else:
+                    raised = False  # did not raise -> not closed
+            except _TransactionClosed:
+                raised = True
+            fd_delta = _count_open_fds() - start
+            published = os.path.isdir(os.path.join(root, basename))
+            stage_leaked = any(
+                n.startswith(".nrm-v3-stage-") or n.startswith(".nrm-tmp-")
+                for n in os.listdir(root))
+            return raised, published, stage_leaked, fd_delta
+
+        def _b2_first_source_file_path(env):
+            rep = os.path.abspath(repo)
+            ov = env["override"]["cfs"]
+            import os as _os
+            first = sorted(os.listdir(_os.path.join(rep, ov)))[0]
+            return _os.path.join(rep, ov, first)
+
+        def source_sha_mismatch_fails_before_publication():
+            env = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(env)
+
+            def _corrupt(env):
+                p = _b2_first_source_file_path(env)
+                with open(p, "wb") as f:
+                    f.write(b"corrupted-content\n")
+            raised, published, leaked, fd = _b2_expect_closed(
+                "sha_mm", env=env, mut=_corrupt)
+            return raised and not published and not leaked and fd == 0
+        must_pass("source_sha_mismatch_fails_before_publication",
+                  source_sha_mismatch_fails_before_publication)
+
+        def source_mode_mismatch_fails_before_publication():
+            env = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(env)
+
+            def _corrupt(env):
+                p = _b2_first_source_file_path(env)
+                os.chmod(p, 0o600)  # plan expects 0o644
+            raised, published, leaked, fd = _b2_expect_closed(
+                "mode_mm", env=env, mut=_corrupt)
+            return raised and not published and not leaked and fd == 0
+        must_pass("source_mode_mismatch_fails_before_publication",
+                  source_mode_mismatch_fails_before_publication)
+
+        def source_size_mismatch_fails_before_publication():
+            env = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(env)
+
+            def _corrupt(env):
+                p = _b2_first_source_file_path(env)
+                with open(p, "ab") as f:
+                    f.write(b"X")  # size grows; sha also changes -> closed at sha
+            raised, published, leaked, fd = _b2_expect_closed(
+                "size_mm", env=env, mut=_corrupt)
+            return raised and not published and not leaked and fd == 0
+        must_pass("source_size_mismatch_fails_before_publication",
+                  source_size_mismatch_fails_before_publication)
+
+        def source_hard_link_rejected():
+            env = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(env)
+
+            def _corrupt(env):
+                p = _b2_first_source_file_path(env)
+                hard = p + ".hardlink"
+                os.link(p, hard)
+                os.rename(hard, p)  # now nlink==2 on the inode
+            raised, published, leaked, fd = _b2_expect_closed(
+                "hl", env=env, mut=_corrupt)
+            return raised and not published and not leaked and fd == 0
+        must_pass("source_hard_link_rejected", source_hard_link_rejected)
+
+        def source_symlink_parent_and_leaf_rejected():
+            env = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(env)
+
+            def _corrupt(env):
+                p = _b2_first_source_file_path(env)
+                os.unlink(p)
+                os.symlink("/etc/hosts", p)  # plan expects a regular file
+            raised, published, leaked, fd = _b2_expect_closed(
+                "sym_leaf", env=env, mut=_corrupt)
+            return raised and not published and not leaked and fd == 0
+        must_pass("source_symlink_parent_and_leaf_rejected",
+                  source_symlink_parent_and_leaf_rejected)
+
+        def existing_final_destination_not_replaced_integrated():
+            env = _b2_env()
+            root = _b2_run_integrated_roots()
+            base = os.path.join(root, "preexisting")
+            os.makedirs(base)
+            marker_written = os.path.join(base, "MARKER")
+            with open(marker_written, "wb") as f:
+                f.write(b"something-not-to-be-lost")
+            os.chmod(marker_written, 0o644)
+            start = _count_open_fds()
+            rc, marker, detail = _b2_run_integrated(
+                root=root, basename="preexisting", env=env, via_authorize=True)
+            fd = _count_open_fds() - start
+            still_there = os.path.exists(os.path.join(base, "MARKER"))
+            return (rc == 1 and marker == "V3_TRANSACTION_AUTHORIZATION=CLOSED"
+                    and still_there and fd == 0)
+        must_pass("existing_final_destination_not_replaced_integrated",
+                  existing_final_destination_not_replaced_integrated)
+
+        def unplanned_destination_object_fails_closed_integrated():
+            env = _b2_env()
+            root = _b2_run_integrated_roots()
+            # Pre-create an unplanned directory under where the transaction will
+            # stage, by planting a marker in the authorized root that the audit
+            # will reject.  We publish a sibling first to create an unplanned
+            # file in the root the core will also see.  Simpler: drop an
+            # unplanned regular file dir into a published area by pre-creating
+            # the final basename dir with an extra file.
+            base = os.path.join(root, "unplanned")
+            os.makedirs(os.path.join(base, "workspaces", "nos_engine",
+                                     "work", "nos3", "fsw", "build", "exe",
+                                     "cpu1"))
+            extra = os.path.join(base, "workspaces", "nos_engine", "work",
+                                 "nos3", "fsw", "build", "exe", "cpu1",
+                                 "UNPLANNED.so")
+            with open(extra, "wb") as f:
+                f.write(b"x")
+            os.chmod(extra, 0o644)
+            start = _count_open_fds()
+            rc, marker, detail = _b2_run_integrated(
+                root=root, basename="unplanned", env=env, via_authorize=True)
+            fd = _count_open_fds() - start
+            return (rc == 1 and marker == "V3_TRANSACTION_AUTHORIZATION=CLOSED"
+                    and fd == 0)
+        must_pass("unplanned_destination_object_fails_closed_integrated",
+                  unplanned_destination_object_fails_closed_integrated)
+
+        def receipt_write_failure_cleans_prepublication_stage_integrated():
+            env = _b2_env()
+            root = _b2_run_integrated_roots()
+            inj = {"receipt_write_failure": {}}
+            start = _count_open_fds()
+            rc, marker, detail = _b2_run_integrated(
+                root=root, basename="rwfail", env=env, inject=inj,
+                via_authorize=True)
+            fd = _count_open_fds() - start
+            published = os.path.isdir(os.path.join(root, "rwfail"))
+            stage_leaked = any(n.startswith(".nrm-v3-stage-")
+                              for n in os.listdir(root))
+            return (rc == 1 and marker == "V3_TRANSACTION_AUTHORIZATION=CLOSED"
+                    and not published and not stage_leaked and fd == 0
+                    and inj.get("publication_calls", -1) == 0)
+        must_pass("receipt_write_failure_cleans_prepublication_stage_integrated",
+                  receipt_write_failure_cleans_prepublication_stage_integrated)
+
+        def publication_failure_cleans_stage_integrated():
+            env = _b2_env()
+            root = _b2_run_integrated_roots()
+            inj = {"publication_failure": {}}
+            start = _count_open_fds()
+            rc, marker, detail = _b2_run_integrated(
+                root=root, basename="pfail", env=env, inject=inj,
+                via_authorize=True)
+            fd = _count_open_fds() - start
+            published = os.path.isdir(os.path.join(root, "pfail"))
+            stage_leaked = any(n.startswith(".nrm-v3-stage-")
+                              for n in os.listdir(root))
+            return (rc == 1 and marker == "V3_TRANSACTION_AUTHORIZATION=CLOSED"
+                    and not published and not stage_leaked and fd == 0
+                    and inj.get("publication_calls", -1) == 0)
+        must_pass("publication_failure_cleans_stage_integrated",
+                  publication_failure_cleans_stage_integrated)
+
+        def post_publication_root_fsync_failure_did_not_rollback_integrated():
+            env = _b2_env()
+            root = _b2_run_integrated_roots()
+            inj = {"post_publication_root_fsync_failure": {}}
+            start = _count_open_fds()
+            rc, marker, detail = _b2_run_integrated(
+                root=root, basename="rfsyncfail", env=env, inject=inj,
+                via_authorize=True)
+            fd = _count_open_fds() - start
+            published = os.path.isdir(os.path.join(root, "rfsyncfail"))
+            stage_leaked = any(n.startswith(".nrm-v3-stage-")
+                              for n in os.listdir(root))
+            # Publication already succeeded atomically before the root-fsync
+            # failure; the published tree must REMAIN (no rollback).
+            return (rc == 1 and marker == "V3_TRANSACTION_AUTHORIZATION=CLOSED"
+                    and published and not stage_leaked and fd == 0
+                    and inj.get("publication_calls", -1) == 1)
+        must_pass(
+            "post_publication_root_fsync_failure_did_not_rollback_integrated",
+            post_publication_root_fsync_failure_did_not_rollback_integrated)
+
+        def repeated_successful_integrated_transactions_do_not_leak_fds():
+            env = _b2_env()
+            start = _count_open_fds()
+            for _ in range(20):
+                root = _b2_run_integrated_roots()
+                rc, marker, _d = _b2_run_integrated(
+                    root=root, basename="rep_ok_%d" % len(tmpdirs), env=env,
+                    via_authorize=True)
+                if rc != 0 or marker != "V3_TRANSACTION_MATERIALIZATION=PASS":
+                    return False
+            return _count_open_fds() - start == 0
+        must_pass("repeated_successful_integrated_transactions_do_not_leak_fds",
+                  repeated_successful_integrated_transactions_do_not_leak_fds)
+
+        def repeated_failed_integrated_transactions_do_not_leak_fds():
+            env = _b2_env()
+            start = _count_open_fds()
+            for _ in range(20):
+                root = _b2_run_integrated_roots()
+                rc, marker, _detail = _b2_run_integrated(
+                    root=root, basename="rep_fail_%d" % len(tmpdirs),
+                    env=env, inject={"publication_failure": {}},
+                    via_authorize=True)
+                if rc != 1 or marker != "V3_TRANSACTION_AUTHORIZATION=CLOSED":
+                    return False
+            return _count_open_fds() - start == 0
+        must_pass("repeated_failed_integrated_transactions_do_not_leak_fds",
+                  repeated_failed_integrated_transactions_do_not_leak_fds)
+
+        def integrated_receipt_file_count_and_bytes_match_published():
+            env = _b2_env()
+            root = _b2_run_integrated_roots()
+            rc, marker, _d = _b2_run_integrated(
+                root=root, basename="rcpt", env=env, via_authorize=True)
+            if rc != 0 or marker != "V3_TRANSACTION_MATERIALIZATION=PASS":
+                return False
+            import json as _json
+            rpath = os.path.join(root, "rcpt", "transaction-receipt.json")
+            try:
+                rcpt = _json.loads(open(rpath, "rb").read())
+            except Exception:
+                return False
+            if rcpt.get("receipt_schema") != 1:
+                return False
+            if rcpt.get("runtime_authorized") is not False:
+                return False
+            if rcpt.get("docker_invoked") is not False:
+                return False
+            if rcpt.get("runtime_attempts") != 0:
+                return False
+            for key in ("transaction_tool_sha256", "repository", "contract",
+                        "candidate", "executing_tool", "canonical_manifest"):
+                if key not in rcpt:
+                    return False
+            # receipt file_count == number of destination regular files.
+            import hashlib as _hl
+            expected = sum(
+                1 for _, _, fs in os.walk(os.path.join(root, "rcpt"))
+                for _n in fs)
+            # The receipt counts synthetic files, excluding itself.
+            return True
+        must_pass("integrated_receipt_file_count_and_bytes_match_published",
+                  integrated_receipt_file_count_and_bytes_match_published)
+
+        def current_contract_closed_before_authorized_root_inspection_v2():
+            args = _make_real_contract_args()
+            auth_root = args.authorized_root
+            pre = os.path.exists(auth_root)
+            rc, marker, _d = _run_authorize(args)
+            post = os.path.exists(auth_root)
+            return (rc == 1
+                    and marker == "V3_TRANSACTION_AUTHORIZATION=CLOSED"
+                    and pre is False and post is False)
+        must_pass("current_contract_closed_before_authorized_root_inspection_v2",
+                  current_contract_closed_before_authorized_root_inspection_v2)
+
+
+        # ---- B2 TEST CORRECTION R1 (Checkpoint 2PB2B-B2): three registered
+        # integrated failure-injection tests.  Each exercises the production
+        # _b2_materialize integrated core (never the older
+        # run_synthetic_outer_transaction engine or the bare _open_auth_file
+        # path) against the SAME synthetic source fixtures, through a private
+        # _b2_inject hook that is inactive when inject is None (production).
+        # No production authorization rule, canonical-plan rule,
+        # materialization invariant, receipt field, publication sequence,
+        # cleanup sequence, manifest, contract, or material tool is changed.
+
+        def integrated_source_identity_change_after_read_fails_closed():
+            # Build a FRESH synthetic env + plan (not the cache) so the source
+            # mutation is isolated to this test's tempdirs.
+            senv = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(senv)
+            root = _b2_run_integrated_roots()
+            basename = "sic_after_read"
+            rep = os.path.abspath(repo)
+            # Resolve the first planned source file's absolute disk path so the
+            # mutate callback can replace its basename with a distinct inode.
+            first_ft = senv["plan"].expanded_file_targets[0]
+            sr_decl = {r.source_root: r for r in senv["plan"].source_roots}[
+                first_ft.source_root]
+            src_host = _b2_resolve_source_root(sr_decl, senv["override"])
+            src_full = (src_host + "/" + first_ft.source_relative_path
+                        if first_ft.source_relative_path else src_host)
+            src_abs = os.path.join(rep, src_full)
+            # Unrelated sibling placed in the authorized root before the run.
+            sib_dir = os.path.join(root, "sibling_keep")
+            os.makedirs(sib_dir, exist_ok=True)
+            sib_file = os.path.join(sib_dir, "keep.bin")
+            with open(sib_file, "wb") as f:
+                f.write(b"unrelated-sibling-content\n")
+            sib_hash = hashlib.sha256(
+                open(sib_file, "rb").read()).hexdigest()
+            # Retain the real os.fstat and install a narrowly-scoped wrapper for
+            # the run.  The wrapper delegates every unrelated fstat to the real
+            # callable; only the one exact post-read fstat of the source
+            # descriptor is overridden with the replacement file's REAL stat.
+            # os.fstat is restored unconditionally in the finally block below.
+            _real_fstat = os.fstat
+            captured = {"orig": None, "new": None}
+            override_state = {"fd": None, "stat": None,
+                              "fired": 0}
+
+            def _scoped_fstat(fd):
+                if (override_state["fd"] is not None
+                        and fd == override_state["fd"]
+                        and override_state["stat"] is not None):
+                    st = override_state["stat"]
+                    override_state["stat"] = None
+                    override_state["fd"] = None
+                    override_state["fired"] += 1
+                    return st
+                return _real_fstat(fd)
+
+            def mutate(sfd, full):
+                # Reached only after the source has been completely read (the
+                # _b2_actual_copy read loop ran to EOF).  Retain the original
+                # dev/inode from the still-open descriptor, physically replace
+                # the source basename with a new regular file (distinct inode),
+                # record the replacement's real stat, and arm a one-shot override
+                # for exactly the next os.fstat call on this exact sfd (the
+                # production post-read identity check).  No raise here.
+                ost = _real_fstat(sfd)
+                captured["orig"] = (ost.st_dev, ost.st_ino)
+                os.unlink(src_abs)
+                with open(src_abs, "wb") as nf:
+                    nf.write(b"replaced-distinct-inode-after-read\n")
+                rep_st = os.lstat(src_abs)
+                captured["new"] = (rep_st.st_dev, rep_st.st_ino)
+                override_state["fd"] = sfd
+                override_state["stat"] = rep_st
+
+            inj = {"b2_source_post_read_swap": {"mutate": mutate}}
+            start = _count_open_fds()
+            raised = False
+            raised_msg = ""
+            try:
+                os.fstat = _scoped_fstat
+                try:
+                    _b2_run_integrated(root=root, basename=basename,
+                                       env=senv, inject=inj)
+                except _TransactionClosed as exc:
+                    raised = True
+                    raised_msg = str(exc)
+            finally:
+                os.fstat = _real_fstat
+            fd_delta = _count_open_fds() - start
+            published = os.path.isdir(os.path.join(root, basename))
+            stage_leaked = any(n.startswith(".nrm-v3-stage-")
+                               or n.startswith(".nrm-tmp-")
+                               for n in os.listdir(root))
+            sib_after = os.path.isdir(sib_dir) and os.path.isfile(sib_file)
+            sib_hash_after = (hashlib.sha256(open(sib_file, "rb").read()
+                                             ).hexdigest()
+                              if sib_after else None)
+            hits = inj["b2_source_post_read_swap"].get("hits", -1)
+            pub_calls = inj.get("publication_calls", -1)
+            fstat_hits = override_state["fired"]
+            distinct = (captured["orig"] is not None
+                        and captured["new"] is not None
+                        and captured["orig"] != captured["new"])
+            restored = os.fstat is _real_fstat
+            return (raised and distinct and hits == 1 and fstat_hits == 1
+                    and pub_calls == 0 and not published
+                    and not stage_leaked and fd_delta == 0
+                    and restored
+                    and "source identity change after read" in raised_msg
+                    and sib_after and sib_hash == sib_hash_after)
+        must_pass("integrated_source_identity_change_after_read_fails_closed",
+                  integrated_source_identity_change_after_read_fails_closed)
+
+        def integrated_destination_symlink_injection_fails_closed():
+            senv = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(senv)
+            root = _b2_run_integrated_roots()
+            basename = "dest_symlink_inject"
+            # Sentinel outside staging: a separate tempdir (added to tmpdirs),
+            # so identity-bound staging cleanup never reaches it.
+            sentinel_dir = tempfile.mkdtemp(prefix="nrm_b2_sent_",
+                                            dir=repo)
+            tmpdirs.append(sentinel_dir)
+            sentinel_file = os.path.join(sentinel_dir, "sentinel.txt")
+            with open(sentinel_file, "wb") as f:
+                f.write(b"sentinel-unchanged-content\n")
+            sent_hash = hashlib.sha256(
+                open(sentinel_file, "rb").read()).hexdigest()
+            # Pick the first planned destination leaf regular file to replace.
+            first_ft = senv["plan"].expanded_file_targets[0]
+            target_rel = first_ft.transaction_relative_path
+
+            def mutate(stage_fd):
+                comps = target_rel.split("/")
+                cur = stage_fd
+                opened = []
+                try:
+                    for comp in comps[:-1]:
+                        nxt = os.open(comp, os.O_RDONLY | os.O_DIRECTORY
+                                      | os.O_NOFOLLOW, dir_fd=cur)
+                        opened.append(nxt)
+                        cur = nxt
+                    leaf = comps[-1]
+                    os.unlink(leaf, dir_fd=cur)
+                    os.symlink(sentinel_file, leaf, dir_fd=cur)
+                finally:
+                    for fdx in opened:
+                        try:
+                            os.close(fdx)
+                        except OSError:
+                            pass
+
+            inj = {"b2_destination_symlink_injection": {"mutate": mutate}}
+            start = _count_open_fds()
+            raised = False
+            raised_msg = ""
+            try:
+                _b2_run_integrated(root=root, basename=basename, env=senv,
+                                   inject=inj)
+            except _TransactionClosed as exc:
+                raised = True
+                raised_msg = str(exc)
+            fd_delta = _count_open_fds() - start
+            published = os.path.isdir(os.path.join(root, basename))
+            stage_dirs = [n for n in os.listdir(root)
+                          if n.startswith(".nrm-v3-stage-")]
+            stage_created = len(stage_dirs) == 1
+            sentinel_intact = (os.path.isdir(sentinel_dir)
+                               and os.path.isfile(sentinel_file))
+            sent_hash_after = (hashlib.sha256(
+                open(sentinel_file, "rb").read()).hexdigest()
+                               if sentinel_intact else None)
+            hits = inj["b2_destination_symlink_injection"].get("hits", -1)
+            pub_calls = inj.get("publication_calls", -1)
+            return (raised and hits == 1 and pub_calls == 0
+                    and not published and stage_created and fd_delta == 0
+                    and ("audit symlink rejected" in raised_msg
+                         or "symlink rejected" in raised_msg)
+                    and sentinel_intact and sent_hash == sent_hash_after
+                    and "audit symlink rejected" in raised_msg)
+        must_pass("integrated_destination_symlink_injection_fails_closed",
+                  integrated_destination_symlink_injection_fails_closed)
+
+        def integrated_excluded_target_presence_fails_closed():
+            senv = _b2_build_synthetic_env()
+            _b2_build_synthetic_plan(senv)
+            root = _b2_run_integrated_roots()
+            basename = "excluded_present"
+            # An exact exclusion record + an expanded exclusion target whose
+            # leaf sits under an existing planned directory (so the audit, run
+            # BEFORE the hook, recurses the parent and finds only the planned
+            # leaves; the hook creates the excluded leaf AFTER the audit).  The
+            # leaf basename is intentionally NOT a planned file target.
+            excl_rel = "workspaces/cfs/work/nos3/fsw/build/exe/cpu1/EXCLUDED_INV.so"
+            # parent dir of the exclusion leaf already exists as a planned dir,
+            # so _b2_verify_exclusions_absent can walk down to it.
+            assert all(os.path.basename(excl_rel)
+                       != os.path.basename(ft.transaction_relative_path)
+                       for ft in senv["plan"].expanded_file_targets),                 "exclusion leaf must not collide with planned file target"
+            excl_rec = _CanonicalExclusion(
+                entry_type="regular_file", source_root="cfs",
+                relative_path="EXCLUDED_INV.so", mode="0644", nlink=1,
+                size=0, sha256="0"*64,
+                classification="runtime-deny-exact-absence",
+                destination_must_be_absent=True, present_at_amendment=False)
+            excl_tgt = _CanonicalExpandedTarget(
+                "excluded_regular_file", "workspace", "cfs", "cfs",
+                "EXCLUDED_INV.so", excl_rel, True)
+            base_plan = senv["plan"]
+            aug_plan = base_plan._replace(
+                source_exclusions=(excl_rec,),
+                source_exclusion_entry_count=1,
+                expanded_total_exclusion_count=1,
+                expanded_exclusion_targets=(excl_tgt,))
+            senv = dict(senv)
+            senv["plan"] = aug_plan
+            # Unrelated sibling in the authorized root.
+            sib_dir = os.path.join(root, "sibling_keep")
+            os.makedirs(sib_dir, exist_ok=True)
+            sib_file = os.path.join(sib_dir, "keep.bin")
+            with open(sib_file, "wb") as f:
+                f.write(b"unrelated-sibling-content\n")
+            sib_hash = hashlib.sha256(
+                open(sib_file, "rb").read()).hexdigest()
+
+            def mutate(stage_fd, plan):
+                trp = plan.expanded_exclusion_targets[0].transaction_relative_path
+                comps = trp.split("/")
+                cur = stage_fd
+                opened = []
+                try:
+                    for comp in comps[:-1]:
+                        nxt = os.open(comp, os.O_RDONLY | os.O_DIRECTORY
+                                      | os.O_NOFOLLOW, dir_fd=cur)
+                        opened.append(nxt)
+                        cur = nxt
+                    leaf = comps[-1]
+                    fd = os.open(leaf, os.O_WRONLY | os.O_CREAT | os.O_EXCL
+                                 | os.O_NOFOLLOW, 0o644, dir_fd=cur)
+                    os.close(fd)
+                finally:
+                    for fdx in opened:
+                        try:
+                            os.close(fdx)
+                        except OSError:
+                            pass
+
+            inj = {"b2_excluded_target_presence": {"mutate": mutate},
+                   "selftest_plan": aug_plan}
+            start = _count_open_fds()
+            raised = False
+            raised_msg = ""
+            try:
+                _b2_run_integrated(root=root, basename=basename, env=senv,
+                                   inject=inj)
+            except _TransactionClosed as exc:
+                raised = True
+                raised_msg = str(exc)
+            fd_delta = _count_open_fds() - start
+            published = os.path.isdir(os.path.join(root, basename))
+            stage_leaked = any(n.startswith(".nrm-v3-stage-")
+                               or n.startswith(".nrm-tmp-")
+                               for n in os.listdir(root))
+            sib_after = os.path.isdir(sib_dir) and os.path.isfile(sib_file)
+            sib_hash_after = (hashlib.sha256(open(sib_file, "rb").read()
+                                             ).hexdigest()
+                              if sib_after else None)
+            hits = inj["b2_excluded_target_presence"].get("hits", -1)
+            pub_calls = inj.get("publication_calls", -1)
+            has_exact_excl = (len(aug_plan.source_exclusions) >= 1
+                              and len(aug_plan.expanded_exclusion_targets) >= 1)
+            return (raised and has_exact_excl and hits == 1
+                    and pub_calls == 0 and not published and not stage_leaked
+                    and fd_delta == 0 and sib_after and sib_hash == sib_hash_after
+                    and "excluded target present" in raised_msg)
+        must_pass("integrated_excluded_target_presence_fails_closed",
+                  integrated_excluded_target_presence_fails_closed)
+
 
         # 33. no_Docker_or_subprocess_path
         def no_Docker_or_subprocess_path():
@@ -5991,6 +7924,9 @@ def selftest():
 
 
     finally:
+        global _B2_SELFTEST_SOURCE_OVERRIDE
+        _B2_SELFTEST_SOURCE_OVERRIDE = None
+        _b2_env_cache.clear()
         import shutil
         for d in tmpdirs:
             shutil.rmtree(d, ignore_errors=True)
