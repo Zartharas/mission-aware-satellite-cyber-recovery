@@ -524,7 +524,7 @@ def resolve_expected(fix, verifier_path, cid, kind):
         return impl.get("pinned_oci_image") or fix.get("pinned_image")
     return None
 
-def resolve_actual(repo_root, verifier_path, fix, cid, kind):
+def resolve_actual(repo_root, verifier_path, fix, cid, kind, candidate_path=None):
     """Independently resolve the ACTUAL governed object: hash the real file,
     read the real git HEAD, stat the real executable mode, or read the
     real verifying bytes. This is the independent ACTUAL side; it never
@@ -536,9 +536,16 @@ def resolve_actual(repo_root, verifier_path, fix, cid, kind):
     if cid == "IDC_GENERATOR":
         return sha256_file(os.path.join(repo_root, ACCEPTED_GENERATOR_PATH))
     if cid == "IDC_PROPOSED_CANDIDATE":
-        # dynamic: hash of the synthetic candidate body emitted by the
-        # accepted generator (READ_HASH_AND_STATIC_ANALYSIS_ONLY).
-        return hashlib.sha256((fix.get("candidate_body") or synthetic_candidate()).encode()).hexdigest()
+        # Production ACTUAL is the exact caller-supplied candidate file bytes.
+        # Selftests use only the explicit candidate_body carried by their
+        # synthetic fixture. There is no implicit synthetic fallback in
+        # production identity resolution.
+        if candidate_path is not None:
+            return sha256_file(candidate_path)
+        body = fix.get("candidate_body")
+        if body is None:
+            return None
+        return hashlib.sha256(body.encode()).hexdigest()
     if cid == "IDC_TRANSACTION_TOOL":
         return sha256_file(os.path.join(repo_root, "scripts/nos3_runtime_transaction_v1.py"))
     if cid == "IDC_CANONICAL_MANIFEST":
@@ -576,7 +583,7 @@ def _git_head(repo):
     except Exception:
         return None
 
-def validate_identity_control(fix, repo_root, verifier_path, cid, kind):
+def validate_identity_control(fix, repo_root, verifier_path, cid, kind, candidate_path=None):
     """Run the production identity comparison for one control.
 
     Returns (status, expected_repr, actual_repr) where status is "PASS" only
@@ -585,7 +592,7 @@ def validate_identity_control(fix, repo_root, verifier_path, cid, kind):
     placeholder/unresolved expected) until governance binds final bytes.
     """
     expected = resolve_expected(fix, verifier_path, cid, kind)
-    actual = resolve_actual(repo_root, verifier_path, fix, cid, kind)
+    actual = resolve_actual(repo_root, verifier_path, fix, cid, kind, candidate_path=candidate_path)
     if cid == "IDC_CONTRACT_SCHEMA":
         ok = (expected == actual) and expected == (REQUIRED_CONTRACT_VERSION, REQUIRED_V3_SCHEMA)
         return ("PASS" if ok else "FAIL_CLOSED", str(expected), str(actual))
@@ -618,7 +625,7 @@ def validate_identity_control(fix, repo_root, verifier_path, cid, kind):
     ok = (expected == actual) and hex64(expected or "")
     return ("PASS" if ok else "FAIL_CLOSED", expected, actual)
 
-def identity_controls(fix, repo_root, verifier_path):
+def identity_controls(fix, repo_root, verifier_path, candidate_path=None):
     """Build the 14 accepted identity controls with independent expected/actual.
 
     Each control resolves EXPECTED from the governed fixture field and ACTUAL
@@ -629,13 +636,49 @@ def identity_controls(fix, repo_root, verifier_path):
     ctr = []
     impl = _impl_object(fix)
     for (cid, subject, kind) in ACCEPTED_CONTROL_ORDER:
-        status, expected, actual = validate_identity_control(fix, repo_root, verifier_path, cid, kind)
+        status, expected, actual = validate_identity_control(fix, repo_root, verifier_path, cid, kind, candidate_path=candidate_path)
         ctr.append({"ordinal": len(ctr)+1, "control_id": cid, "subject": subject,
                     "expected_identity": expected if expected is not None else "<unresolved>",
                     "actual_identity": actual if actual is not None else "<unresolved>",
                     "status": status})
     assert len(ctr) == 14, len(ctr)
     return ctr
+
+def identity_failure_id(ctl):
+    """Return the accepted stable failure ID for a failed identity control.
+
+    T036 is reserved for the verifier-self placeholder case; it is not a
+    generic identity failure. Production mismatches are surfaced using the
+    corresponding accepted oracle failure ID.
+    """
+    cid = ctl.get("control_id")
+    expected = ctl.get("expected_identity")
+    actual = ctl.get("actual_identity")
+
+    if cid == "IDC_VERIFIER_SELF":
+        if is_placeholder(expected):
+            return "SVF_SV_T036_VERIFIER_PLACEHOLDER_UNRESOLVED"
+        return "SVF_SV_T037_VERIFIER_SELF_HASH_MISMATCH"
+
+    mapping = {
+        "IDC_CONTRACT_SCHEMA": "SVF_SV_T013_WRONG_V3_SCHEMA",
+        "IDC_GENERATOR": "SVF_SV_T033_GENERATOR_FILE_HASH_MISMATCH",
+        "IDC_PROPOSED_CANDIDATE": "SVF_SV_T029_CANDIDATE_FILE_HASH_MISMATCH",
+        "IDC_TRANSACTION_TOOL": "SVF_SV_T045_TRANSACTION_FILE_HASH_MISMATCH",
+        "IDC_CANONICAL_MANIFEST": "SVF_SV_T048_MANIFEST_FILE_HASH_MISMATCH",
+        "IDC_WITNESS_SOURCE": "SVF_SV_T051_WITNESS_FILE_HASH_MISMATCH",
+        "IDC_TRACE_VALIDATOR": "SVF_SV_T052_TRACE_VALIDATOR_FILE_HASH_MISMATCH",
+        "IDC_SOCKET_SHIM": "SVF_SV_T053_SOCKET_SHIM_FILE_HASH_MISMATCH",
+        "IDC_BASELINE_CONTRACT": "SVF_SV_T054_BASELINE_CONTRACT_FILE_HASH_MISMATCH",
+        "IDC_NOS3_COMMIT": "SVF_SV_T055_NOS3_COMMIT_MISMATCH",
+        "IDC_FORTYTWO_COMMIT": "SVF_SV_T057_FORTYTWO_COMMIT_MISMATCH",
+        "IDC_PINNED_OCI_DIGEST": "SVF_SV_T061_OCI_DIGEST_MUTABLE_TAG",
+    }
+    if cid == "IDC_FORTYTWO_EXE":
+        if actual == "<unresolved>":
+            return "SVF_SV_T060_FORTYTWO_EXECUTABLE_NOT_EXECUTABLE"
+        return "SVF_SV_T059_FORTYTWO_EXECUTABLE_HASH_MISMATCH"
+    return mapping.get(cid, "SVF_SV_T043_MISSING_LOCKED_IDENTITY_CONTROL")
 
 def synth_fixture(verifier_path=None, work=None):
     """Synthetic RESOLVED_REVIEWED_0_4_12_SELFTEST_FIXTURE.
@@ -885,10 +928,12 @@ def run_verify():
     fix = base_fixture(repo_root)
     rc, fid = _check_contract_gate(fix)
     if rc: print(fid, file=sys.stderr); return rc
-    ctrls = identity_controls(fix, repo_root, verifier_path)
+    ctrls = identity_controls(fix, repo_root, verifier_path, candidate_path=candidate)
     if len(ctrls) != 14: print("SVF_SV_T042_IDENTITY_CONTROL_COUNT_MISMATCH", file=sys.stderr); return RC_VERIFY
     for ctl in ctrls:
-        if ctl["status"] != "PASS": print("SVF_SV_T036_VERIFIER_PLACEHOLDER_UNRESOLVED", file=sys.stderr); return RC_VERIFY
+        if ctl["status"] != "PASS":
+            print(identity_failure_id(ctl), file=sys.stderr)
+            return RC_VERIFY
     gen = os.path.join(repo_root, ACCEPTED_GENERATOR_PATH)
     if sha256_file(gen) != ACCEPTED_GENERATOR_SHA256: print("SVF_SV_T033_GENERATOR_FILE_HASH_MISMATCH", file=sys.stderr); return RC_VERIFY
     emissions = []
