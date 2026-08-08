@@ -273,3 +273,18 @@ D-063R2-PB2B-B1R4 (2026-08-01) records the narrowly scoped WP4 Checkpoint 2PB2B-
 - [x] Prepare the minimum six-file verifier-identity governance reconciliation and prove the active verifier binding plus complete-verifier execution counter are stale.
 - [x] Implement the six-file verifier-identity governance reconciliation while preserving contract `0.4.12`, static verification `PENDING`, accepted candidate empty, runtime false/0, and D-064 `BLOCKED`.
 - [ ] Independently review the six-file retry-verifier identity governance reconciliation before publication or any further production static-verification authorization.
+
+## C3B-I2D VR4 generator-stage observability governance reconciliation
+
+- Decision: `D-063R2-C3B-I2D-VR4`.
+- Published verifier: `da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca` at `main` commit `d4466c2c1a117cdd3354a35f4a5749bbdd61266f`.
+- Previous active verifier `238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7` remains historical and was used by production verifier execution #3.
+- Execution #3: `rc=4`, `INVALID_EXECUTION_NO_STATIC_DISPOSITION`; candidate source scan not reached; no candidate static finding; no static PASS/FAIL.
+- Aggregate complete production verifier executions: `3`.
+- Production executions using `238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7`: `1`.
+- Production executions using `da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca`: `0`.
+- Observability correction: six stable generator-stage diagnostic IDs, behavioral gate changes `0`, retained selftest `78/0/0`, independent source findings `0`.
+- Contract remains `0.4.12`; static verification `PENDING`; accepted v3 candidate empty; runtime authorization false; runtime attempts `0`; D-064 `BLOCKED`.
+- VR4 six-file proposal hashes: contract `f572cdbb216c5c11ce82d21f8c2ecf6525ea0be8988129c11d171e211d71fe62`, implementation record `18760a9c5f7809f248014fd23d401e822b13474230b8e335a72af3ded7a50bb7`, implementation lock `f870268ed669ff8cb6ac0b4dfeee650fb2db5e7ccc85f097c0368d823bccb915`.
+- No production verifier execution, generator execution, candidate execution, materialization, Docker/NOS3/Fortytwo runtime, staging, commit, or push is performed by this design.
+- Next gate: `C3B_I2D_RETRY_VERIFIER_GENERATOR_STAGE_OBSERVABILITY_CORRECTION_GOVERNANCE_RECONCILIATION_IMPLEMENTATION_AUTHORIZATION`.

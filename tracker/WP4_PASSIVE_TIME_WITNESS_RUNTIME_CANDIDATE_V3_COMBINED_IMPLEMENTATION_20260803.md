@@ -25,7 +25,7 @@ The eight existing implementation artifacts listed below remain byte-identical t
 | 6 | `scripts/validate_passive_time_witness_trace.py` | trace validator | `f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027` |
 | 7 | `scripts/radio_socket_metadata_shim.c` | socket metadata shim source | `d15ede657230560178b5648ef5d4e15b1965837a1c384790d9cbd3dc8f01ee1b` |
 | 8 | `scripts/prepare_passive_time_witness_runtime_candidate_v3.sh` | v3 generator | `e3b1f8922161116e3ecfc1355900b72311d2834f5617b7a4956ccae4f6e50153` |
-| 9 | `scripts/verify_passive_time_witness_runtime_candidate_v3_static.sh` | v3 static verifier implementation (retry source-corrected production candidate binding) | `238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7` |
+| 9 | `scripts/verify_passive_time_witness_runtime_candidate_v3_static.sh` | v3 static verifier implementation (retry source-corrected binding plus generator-stage deterministic failure observability) | `da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca` |
 | 10 | `tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_COMBINED_IMPLEMENTATION_20260803.md` | combined implementation record | `SELF_GOVERNED_BELOW` |
 | 11 | `artifacts/wp4-passive-time-witness-runtime-candidate-v3-combined-implementation-lock.txt` | combined implementation lock | `SELF_GOVERNED_BELOW` |
 
@@ -41,7 +41,7 @@ Combined implementation package file-set count: 11.
 - Trace validator SHA-256: `f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027`
 - Socket shim SHA-256: `d15ede657230560178b5648ef5d4e15b1965837a1c384790d9cbd3dc8f01ee1b`
 - Generator SHA-256: `e3b1f8922161116e3ecfc1355900b72311d2834f5617b7a4956ccae4f6e50153`
-- Static verifier SHA-256: `238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7`
+- Static verifier SHA-256: `da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca`
 - Baseline contract SHA-256: `86d365fe08d7ee177e74192cead71dc366e9c546e81668261c770350003e37ca`
 - NOS3 commit: `5a3bdee6be9a2c67fdf994ae6db56d5c60395302`
 - Fortytwo commit: `eda252bf31f27850e867e698cfdd963e143ead1f`
@@ -115,3 +115,29 @@ Retained provenance bindings:
 - Source-correction independent-review report SHA-256: `f64b69f789d0bc1e48d062151b8c377f6b1b44737d1028faaadfe73be80338c6`.
 - Source-correction publication report SHA-256: `cee9f932318c33e405bb6ffdb4f70515ac9eea91bc1c20b827d8c46cde7346d2`.
 - Governance-reconciliation preparation report SHA-256: `384eb8e316698c2577a73147ddef01394ccab6e3b86b39f3055b5964cd4090a9`.
+
+## C3B-I2D generator-stage observability correction and VR4 governance reconciliation — 2026-08-08
+
+- Decision: `D-063R2-C3B-I2D-VR4`.
+- The previously active retry-source-corrected verifier SHA-256 `238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7` remains preserved as historical provenance.
+- Production verifier execution #3 used `238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7`, returned `rc=4`, and is retained as `INVALID_EXECUTION_NO_STATIC_DISPOSITION`.
+- Execution #3 reached neither candidate source scanning nor a candidate static finding; it established neither static PASS nor static FAIL.
+- Aggregate complete production `--verify` executions are reconciled from `2` to `3`.
+- Production executions using `238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7` are reconciled from `0` to `1`.
+- The generator-stage observability correction adds six stable generator-stage failure identifiers only; behavioral gate change count is `0`.
+- The observability-corrected verifier retained `SELFTEST passed=78 failed=0 skips=0`.
+- Independent source review reported `source_finding_count=0` and disposition `ACCEPTED`.
+- The observability-corrected verifier SHA-256 is `da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca` and was published on `main` at commit `d4466c2c1a117cdd3354a35f4a5749bbdd61266f`.
+- Production executions using `da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca` remain `0`.
+- Contract version remains `0.4.12`; static verification remains `PENDING`; `accepted_runtime_entrypoint_v3_sha256` remains empty.
+- Candidate execution attempts remain `0`; production materialization attempts remain `0`; real Docker invocations remain `0`.
+- Runtime authorization remains false; runtime attempts remain `0`; D-064 remains `BLOCKED`.
+- No production `--verify`, verifier selftest, generator execution, candidate execution, materialization, Docker/NOS3/Fortytwo runtime, static disposition, candidate acceptance, or scientific outcome is authorized or performed by this reconciliation.
+- Independent review of the six-file VR4 governance reconciliation is required before publication or any later production static-verification authorization.
+
+Retained VR4 provenance bindings:
+- Execution #3 result SHA-256: `197dfc9bbedb5ca3df3faa99c71f82966308884ef2772bf46f628bb707962999`.
+- Execution #3 independent result-review SHA-256: `58818f25eb7ad4084054e3eae1ca84eb32d933229201e137f3343e1e8c2a3947`.
+- Observability-correction implementation R3 report SHA-256: `4b90843aee71ca6c559637d10153c944cd64900ee5f986a66a8d5473adec68d3`.
+- Observability-correction independent-review R2 report SHA-256: `6fd3dbce46cd76f10d580f2cfb56f76fe78d20162362b3e6379ca0074eedfd88`.
+- Observability-correction publication report SHA-256: `684e676f95ba60d2a662e83469edca8bb7156b448b15b8fba61583de406dba65`.
