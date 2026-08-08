@@ -947,16 +947,28 @@ def run_verify():
                    "TMPDIR": td, "PASSIVE_TIME_WITNESS_V3_EMIT_PATH": ep}
             pr = subprocess.run([bash, gen], env=env, cwd=repo_root,
                 stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
-            if pr.returncode != 0: return RC_VERIFY
+            if pr.returncode != 0:
+                print("SVF_C3B_I2D_GEN_001_PROCESS_NONZERO", file=sys.stderr)
+                return RC_VERIFY
             out = pr.stdout.decode(); err = pr.stderr.decode()
-            if err.strip(): return RC_VERIFY
+            if err.strip():
+                print("SVF_C3B_I2D_GEN_002_STDERR_NONEMPTY", file=sys.stderr)
+                return RC_VERIFY
             ls = [l for l in out.splitlines() if l]
-            if len(ls) != 2: return RC_VERIFY
+            if len(ls) != 2:
+                print("SVF_C3B_I2D_GEN_003_STDOUT_LINE_COUNT_INVALID", file=sys.stderr)
+                return RC_VERIFY
             if not (ls[0].startswith("PASSIVE_TIME_WITNESS_V3_RUNTIME_CANDIDATE_SHA256=") and
-                    ls[1].startswith("PASSIVE_TIME_WITNESS_V3_RUNTIME_CANDIDATE_EMIT_STATUS=COMPLETE")): return RC_VERIFY
-            if not os.path.isfile(ep) or os.path.islink(ep): return RC_VERIFY
+                    ls[1].startswith("PASSIVE_TIME_WITNESS_V3_RUNTIME_CANDIDATE_EMIT_STATUS=COMPLETE")):
+                print("SVF_C3B_I2D_GEN_004_STDOUT_FORMAT_INVALID", file=sys.stderr)
+                return RC_VERIFY
+            if not os.path.isfile(ep) or os.path.islink(ep):
+                print("SVF_C3B_I2D_GEN_005_EMISSION_FILE_INVALID", file=sys.stderr)
+                return RC_VERIFY
             md = oct(os.stat(ep).st_mode)[-4:]
-            if md != "0700": return RC_VERIFY
+            if md != "0700":
+                print("SVF_C3B_I2D_GEN_006_EMISSION_MODE_INVALID", file=sys.stderr)
+                return RC_VERIFY
             cs = sha256_file(ep)
             emissions.append({"name": nm, "candidate_sha256": cs,
                 "stdout_sha256": hashlib.sha256(out.encode()).hexdigest(), "file_mode": "0700", "status": "PASS"})
