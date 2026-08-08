@@ -1463,6 +1463,11 @@ def base_fixture(repo_root):
         "baseline_contract_sha": impl.get("baseline_contract", {}).get("sha256"),
         "baseline_contract_path": impl.get("baseline_contract", {}).get("path"),
         "d064_status": impl.get("d064_status") or d.get("d064_status"),
+        "scientific": c.get("scientific_outcome_allowed"),
+        "baseline": c.get("baseline_execution_allowed"),
+        "command": c.get("command_transmission_allowed"),
+        "event": c.get("event_injection_allowed"),
+        "crypto": c.get("cryptographic_semantics_claim_allowed"),
         "implementation": impl,
     }
 
