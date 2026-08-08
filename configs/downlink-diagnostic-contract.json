@@ -1282,7 +1282,7 @@
         "binding_status": "RESOLVED",
         "superseded_sha256": "6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9",
         "correction_publication_commit": "659ad0e3fb9ce79efe9c513279e145840ed9939e",
-        "correction_status": "CORRECTED_PUBLISHED_IDENTITY_RECONCILIATION_PENDING_INDEPENDENT_REVIEW"
+        "correction_status": "ACCEPTED_PUBLISHED"
       },
       "implementation_record": {
         "path": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_COMBINED_IMPLEMENTATION_20260803.md",
@@ -1291,7 +1291,7 @@
       },
       "implementation_lock": {
         "path": "artifacts/wp4-passive-time-witness-runtime-candidate-v3-combined-implementation-lock.txt",
-        "sha256": "d22ea17a9d1aaba1770401ede338a8897638c3a0dfaa0afffdda4c4ec68c5cdc",
+        "sha256": "9d96cf2d251479665a0b047e9833e17cccb50dd6457d53b27b76beb19692e073",
         "binding_status": "RESOLVED"
       },
       "generated_runtime_candidate": {
@@ -1325,7 +1325,7 @@
       "command_transmission_allowed": false,
       "event_injection_allowed": false,
       "cryptographic_semantics_claim_allowed": false,
-      "next_decision": "SEPARATELY_GOVERNED_V3_STATIC_VERIFICATION_DISPOSITION_REQUIRED",
+      "next_decision": "SEPARATELY_AUTHORIZED_CORRECTED_V3_STATIC_VERIFICATION_RETRY_REQUIRED",
       "historical_invalid_verifier_execution": {
         "verifier_sha256": "6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9",
         "verifier_rc": 1,
@@ -1342,7 +1342,14 @@
         "publication_commit": "659ad0e3fb9ce79efe9c513279e145840ed9939e",
         "corrected_verifier_sha256": "49b12d8e8c66441b4d97580ce398dcf943348038ebff42db847c8c0a630a82e2",
         "independent_source_review_report_sha256": "2fa918d0120a7ccb1e9e9c6087caef1f39ca019c4d6110b3bdb888ac54d670c0",
-        "status": "PREPARED_PENDING_INDEPENDENT_GOVERNANCE_REVIEW"
+        "status": "ACCEPTED_PUBLISHED",
+        "independent_governance_review": {
+          "report_sha256": "752f78f81b8d36577828b6e85fa480d0b9b559a21b69d9821aaeb44dafb67b96",
+          "finding_count": 0,
+          "disposition": "ACCEPTED"
+        },
+        "governance_publication_commit": "e137f4ecd2eebc11670998ee7cf407682aa34571",
+        "governance_publication_status": "COMPLETE"
       }
     }
   }
