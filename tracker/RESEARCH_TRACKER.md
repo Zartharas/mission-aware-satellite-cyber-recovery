@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-08-07
+Last updated: 2026-08-08
 
 ## Status legend
 
@@ -18,7 +18,7 @@ Last updated: 2026-08-07
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | Merged v3 process-boundary transaction core, deterministic v3 generator, and corrected v3 static-verifier implementation are reconciled under C3B-I2C to contract 0.4.12; proposed candidate `599c534df37b...`; static verification remains PENDING; accepted v3 candidate identity remains empty; runtime authorization false; attempts 0; D-064 BLOCKED | Separately governed v3 static-verification disposition under contract 0.4.13; no runtime authorization |
+| WP4 | Testbed selection and architecture | In progress | C3B-I2C implementation remains at contract 0.4.12; corrected v3 verifier `49b12d8e8c66...` was independently reviewed and published at `659ad0e3fb9c...`; one historical complete verifier execution is retained as INVALID_EXECUTION (`rc=1`) with no static disposition; corrected-verifier identity governance reconciliation prepared; proposed candidate `599c534df37b...`; static verification PENDING; accepted v3 candidate identity empty; runtime authorization false; attempts 0; D-064 BLOCKED | Independent review/publication of corrected-verifier identity reconciliation, then separately authorized corrected static-verification retry; no runtime authorization |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -253,3 +253,16 @@ D-063R2-PB2B-B1R4 (2026-08-01) records the narrowly scoped WP4 Checkpoint 2PB2B-
 - [x] Preserve v3 static verification as `PENDING`, runtime authorization as false, runtime attempts as zero, and D-064 as `BLOCKED`.
 - [x] Perform no complete verifier `--verify` execution, no candidate execution, no production materialization, no Docker/NOS3/Fortytwo runtime, and no scientific outcome.
 - [ ] Separately govern and execute the v3 static-verification disposition under contract `0.4.13`.
+
+## C3B-I2D corrected-verifier identity governance reconciliation
+
+- [x] Preserve the original C3B-I2C verifier SHA-256 `6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9` as the historical implementation binding.
+- [x] Preserve the first complete verifier execution as `INVALID_EXECUTION` with `verifier_rc=1`; it established neither static PASS nor static FAIL.
+- [x] Preserve retained invalid raw-log SHA-256 `a4a131c710e894ebdf8e29116ff4a08cb69351102d935c4f9ade1ef7586b06fb` and the diagnostic classification `SOURCE_DEFECT_PRODUCTION_FIXTURE_SCHEMA_GAP`.
+- [x] Bind the independently reviewed corrected verifier published at `659ad0e3fb9ce79efe9c513279e145840ed9939e` with SHA-256 `49b12d8e8c66441b4d97580ce398dcf943348038ebff42db847c8c0a630a82e2`.
+- [x] Reconcile the current contract `0.4.12` verifier identity plus implementation-record and implementation-lock hashes without advancing to `0.4.13`.
+- [x] Record aggregate complete production verifier executions as `1` before any corrected retry.
+- [x] Keep v3 static verification `PENDING`, accepted v3 candidate identity empty, runtime authorization false, runtime attempts `0`, and D-064 `BLOCKED`.
+- [x] Perform no corrected complete `--verify`, candidate execution, production materialization, Docker/NOS3/Fortytwo runtime, or scientific outcome in this reconciliation.
+- [ ] Independently review and publish the six-file corrected-verifier identity governance reconciliation.
+- [ ] Only after publication, separately authorize a corrected static-verification retry.

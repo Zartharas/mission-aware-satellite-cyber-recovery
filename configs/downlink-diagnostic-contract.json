@@ -1278,17 +1278,20 @@
       },
       "static_verifier": {
         "path": "scripts/verify_passive_time_witness_runtime_candidate_v3_static.sh",
-        "sha256": "6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9",
-        "binding_status": "RESOLVED"
+        "sha256": "49b12d8e8c66441b4d97580ce398dcf943348038ebff42db847c8c0a630a82e2",
+        "binding_status": "RESOLVED",
+        "superseded_sha256": "6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9",
+        "correction_publication_commit": "659ad0e3fb9ce79efe9c513279e145840ed9939e",
+        "correction_status": "CORRECTED_PUBLISHED_IDENTITY_RECONCILIATION_PENDING_INDEPENDENT_REVIEW"
       },
       "implementation_record": {
         "path": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_COMBINED_IMPLEMENTATION_20260803.md",
-        "sha256": "5e8f8a29c0135ce6aad3a4cad448503c3e2cbbb5550966d111ed1fd3faf03ec3",
+        "sha256": "4f98a6938933aafe2f52daffab00e79f6f5548198830da291bd9e17e74c6ab3e",
         "binding_status": "RESOLVED"
       },
       "implementation_lock": {
         "path": "artifacts/wp4-passive-time-witness-runtime-candidate-v3-combined-implementation-lock.txt",
-        "sha256": "8015422baca8d4c097cb16db39753916643ef05a0cc04b2b1d076cc6aba63de5",
+        "sha256": "d22ea17a9d1aaba1770401ede338a8897638c3a0dfaa0afffdda4c4ec68c5cdc",
         "binding_status": "RESOLVED"
       },
       "generated_runtime_candidate": {
@@ -1311,7 +1314,7 @@
       "pinned_oci_image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
       "combined_implementation_package_file_set_count": 11,
       "candidate_execution_attempts": 0,
-      "complete_verifier_verify_executions": 0,
+      "complete_verifier_verify_executions": 1,
       "production_materialization_attempts": 0,
       "real_docker_invocations": 0,
       "runtime_authorized": false,
@@ -1322,7 +1325,25 @@
       "command_transmission_allowed": false,
       "event_injection_allowed": false,
       "cryptographic_semantics_claim_allowed": false,
-      "next_decision": "SEPARATELY_GOVERNED_V3_STATIC_VERIFICATION_DISPOSITION_REQUIRED"
+      "next_decision": "SEPARATELY_GOVERNED_V3_STATIC_VERIFICATION_DISPOSITION_REQUIRED",
+      "historical_invalid_verifier_execution": {
+        "verifier_sha256": "6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9",
+        "verifier_rc": 1,
+        "classification": "INVALID_EXECUTION",
+        "static_disposition_established": false,
+        "raw_log_sha256": "a4a131c710e894ebdf8e29116ff4a08cb69351102d935c4f9ade1ef7586b06fb",
+        "execution_state_sha256": "f12a3f359b5c497236e62b8396805a3aa5828e1ac3763ae0aabc4cc48787daf5",
+        "diagnostic_report_sha256": "11b81820ed0640a94eff2dc6168c73735a4353aa15ed44220c3773981e61e151",
+        "diagnostic_class": "SOURCE_DEFECT_PRODUCTION_FIXTURE_SCHEMA_GAP",
+        "root_cause": "base_fixture_missing_scientific_baseline_command_event_crypto",
+        "preserved": true
+      },
+      "corrected_verifier_identity_reconciliation": {
+        "publication_commit": "659ad0e3fb9ce79efe9c513279e145840ed9939e",
+        "corrected_verifier_sha256": "49b12d8e8c66441b4d97580ce398dcf943348038ebff42db847c8c0a630a82e2",
+        "independent_source_review_report_sha256": "2fa918d0120a7ccb1e9e9c6087caef1f39ca019c4d6110b3bdb888ac54d670c0",
+        "status": "PREPARED_PENDING_INDEPENDENT_GOVERNANCE_REVIEW"
+      }
     }
   }
 }

@@ -25,7 +25,7 @@ The eight existing implementation artifacts listed below remain byte-identical t
 | 6 | `scripts/validate_passive_time_witness_trace.py` | trace validator | `f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027` |
 | 7 | `scripts/radio_socket_metadata_shim.c` | socket metadata shim source | `d15ede657230560178b5648ef5d4e15b1965837a1c384790d9cbd3dc8f01ee1b` |
 | 8 | `scripts/prepare_passive_time_witness_runtime_candidate_v3.sh` | v3 generator | `e3b1f8922161116e3ecfc1355900b72311d2834f5617b7a4956ccae4f6e50153` |
-| 9 | `scripts/verify_passive_time_witness_runtime_candidate_v3_static.sh` | v3 static verifier implementation | `6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9` |
+| 9 | `scripts/verify_passive_time_witness_runtime_candidate_v3_static.sh` | v3 static verifier implementation (corrected production fixture bindings) | `49b12d8e8c66441b4d97580ce398dcf943348038ebff42db847c8c0a630a82e2` |
 | 10 | `tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_COMBINED_IMPLEMENTATION_20260803.md` | combined implementation record | `SELF_GOVERNED_BELOW` |
 | 11 | `artifacts/wp4-passive-time-witness-runtime-candidate-v3-combined-implementation-lock.txt` | combined implementation lock | `SELF_GOVERNED_BELOW` |
 
@@ -41,7 +41,7 @@ Combined implementation package file-set count: 11.
 - Trace validator SHA-256: `f75131770ab9020c8c2dfb41102121e12ffd664c02a8a2e03bd8aa8c7b8d9027`
 - Socket shim SHA-256: `d15ede657230560178b5648ef5d4e15b1965837a1c384790d9cbd3dc8f01ee1b`
 - Generator SHA-256: `e3b1f8922161116e3ecfc1355900b72311d2834f5617b7a4956ccae4f6e50153`
-- Static verifier SHA-256: `6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9`
+- Static verifier SHA-256: `49b12d8e8c66441b4d97580ce398dcf943348038ebff42db847c8c0a630a82e2`
 - Baseline contract SHA-256: `86d365fe08d7ee177e74192cead71dc366e9c546e81668261c770350003e37ca`
 - NOS3 commit: `5a3bdee6be9a2c67fdf994ae6db56d5c60395302`
 - Fortytwo commit: `eda252bf31f27850e867e698cfdd963e143ead1f`
@@ -75,3 +75,18 @@ Combined implementation package file-set count: 11.
 - Scientific, baseline, command-transmission, event-injection, and cryptographic-semantics permissions: false.
 
 The next governed phase is the separate v3 static-verification disposition under contract 0.4.13. A future static PASS may only make D-064 ready for separate consideration; it does not itself authorize D-064 or runtime.
+
+## C3B-I2D corrected-verifier identity reconciliation — 2026-08-08
+
+- The C3B-I2C implementation originally bound verifier SHA-256 `6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9`.
+- That original verifier remains preserved in Git history and in the retained first complete verifier execution, which terminated as `INVALID_EXECUTION` with `verifier_rc=1`; it did not establish static PASS or FAIL.
+- Retained invalid raw-log SHA-256: `a4a131c710e894ebdf8e29116ff4a08cb69351102d935c4f9ade1ef7586b06fb`.
+- The diagnostic classified the cause as `SOURCE_DEFECT_PRODUCTION_FIXTURE_SCHEMA_GAP` (`base_fixture` omitted `scientific`, `baseline`, `command`, `event`, and `crypto`).
+- The corrected verifier was independently reviewed with zero findings and published on `main` at commit `659ad0e3fb9ce79efe9c513279e145840ed9939e`.
+- Corrected verifier SHA-256: `49b12d8e8c66441b4d97580ce398dcf943348038ebff42db847c8c0a630a82e2`.
+- This reconciliation updates only the verifier identity and associated governance provenance inside the existing contract `0.4.12` implementation state.
+- Aggregate complete production `--verify` executions before any corrected retry: `1` (the retained historical invalid execution).
+- v3 static verification remains `PENDING`.
+- `accepted_runtime_entrypoint_v3_sha256` remains empty.
+- Runtime authorization remains false; runtime attempts remain `0`; D-064 remains `BLOCKED`.
+- No candidate execution, production materialization, Docker/NOS3/Fortytwo runtime, or scientific outcome is authorized or performed by this reconciliation.
