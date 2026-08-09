@@ -1430,8 +1430,7 @@
         "governance_reconciliation_status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW"
       }
     }
-  }
-,
+  },
   "c3b_i2d_vr5_reconciliation": {
     "decision_id": "D-063R2-C3B-I2D-VR5",
     "active_generator_sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812",
@@ -1451,5 +1450,35 @@
     "runtime_attempts": 0,
     "d064_status": "BLOCKED",
     "production_verify_rerun_authorized": false
+  },
+  "c3b_i2d_t063_reconciliation": {
+    "decision_id": "D-063R2-C3B-I2D-VR6",
+    "superseded_active_verifier_sha256": "1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2",
+    "active_verifier_sha256": "89e34a6ae35ea45675c264dc90c15790216b53f72a9a7df4eb76f38efc90b51a",
+    "active_generator_sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812",
+    "execution_5_verifier_sha256": "1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2",
+    "execution_5_verifier_rc": 4,
+    "execution_5_failure_id": "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION",
+    "execution_5_classification": "INVALID_EXECUTION_VERIFIER_SOURCE_FALSE_POSITIVE_NO_STATIC_DISPOSITION",
+    "execution_5_candidate_source_scan_reached": true,
+    "execution_5_candidate_failure_established": false,
+    "execution_5_candidate_static_failure_established": false,
+    "execution_5_static_pass_established": false,
+    "execution_5_source_findings": [
+      "VERIFIER_SOURCE_DEFECT_T063_LEXICAL_DOCKER_ASSIGNMENT_FALSE_POSITIVE",
+      "VERIFIER_SELFTEST_GAP_T063_NONDISCRIMINATING_ASSIGNMENT_AND_COMMAND_FIXTURE",
+      "VERIFIER_SOURCE_DEFECT_T063_RECEIPT_HEREDOC_STATE_NOT_RECOGNIZED"
+    ],
+    "candidate_runtime_ordering_cleared_by_static_review": true,
+    "runtime_capable_docker_before_semantic_receipt_count": 0,
+    "aggregate_complete_production_verify_executions": 5,
+    "active_verifier_production_executions": 0,
+    "candidate_failure_established": false,
+    "static_verification": "PENDING",
+    "production_verify_rerun_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "d064_status": "BLOCKED",
+    "governance_reconciliation_status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW"
   }
 }
