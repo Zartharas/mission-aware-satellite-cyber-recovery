@@ -266,8 +266,11 @@ def heredoc_aware_scan(src):
 
 DOCKER_CMD_RE = re.compile(r"\bdocker\b")
 DOCKER_RUNTIME_RE = re.compile(
-    r'(?:^|\\bbounded_exec\\b.*?)(?:docker|\\$DOCKER_BIN|"\\$DOCKER_BIN"|\\$\\{DOCKER_BIN\\}|"\\$\\{DOCKER_BIN\\}")\\s+'
-    r'(?:yaml|wait|run|restart|stop|rm|images|ps|system|volume|network|build|load|pull|inspect)\\b',
+    r'(?:'
+    r'^\s*(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+[A-Za-z][A-Za-z0-9_-]*\b'
+    r'|^\s*(?:if\s+!?\s*)?bounded_exec\b.*?(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+[A-Za-z][A-Za-z0-9_-]*\b'
+    r'|\$\(\s*bounded_exec\b.*?(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+[A-Za-z][A-Za-z0-9_-]*\b'
+    r')',
     re.I,
 )
 DOCKER_EXEC_SUB_RE = re.compile(r"\byaml|\bwait\b|\brun\b|\brestart\b|\bstop\b|\brm\b|\bimages\b|\bps\b|\bsystem\b|\bvolume\b|\bnetwork\b|\bbuild\b|\bload\b|\bpull\b")
@@ -292,75 +295,170 @@ SHELL_INFINITE_LOOP_RE = re.compile(
 CP_WRITER_RE = re.compile(r"\b(cp|rsync)\s+.*\$REPO/external", re.I)
 MATERIALIZATION_RE = re.compile(r"--materialize-v3-transaction|--materialize")
 
+DIRECT_DOCKER_RE = re.compile(
+    r'^\s*(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+'
+    r'([A-Za-z][A-Za-z0-9_-]*)\b',
+    re.I,
+)
+BOUNDED_DOCKER_RE = re.compile(
+    r'^\s*(?:if\s+!?\s*)?bounded_exec\b.*?'
+    r'(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+'
+    r'([A-Za-z][A-Za-z0-9_-]*)\b',
+    re.I,
+)
+SUBSHELL_BOUNDED_DOCKER_RE = re.compile(
+    r'\$\(\s*bounded_exec\b.*?'
+    r'(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+'
+    r'([A-Za-z][A-Za-z0-9_-]*)\b',
+    re.I,
+)
+BIND_SOURCE_RE = re.compile(
+    r'(?:source|src)=(?:"([^"]+)"|\'([^\']+)\'|([^,\s"\']+))',
+    re.I,
+)
+AUTH_HEREDOC_REQUIRED = (
+    "diagnostic_runtime_authorized",
+    "diagnostic_runtime_attempts_authorized",
+    "accepted_runtime_entrypoint_v3_sha256",
+    "passive_time_witness_runtime_candidate_v3_static_verification",
+)
+RECEIPT_HEREDOC_REQUIRED = (
+    "transaction-receipt.json",
+    "receipt_schema",
+    "component_ids",
+    "runtime_attempt",
+)
+
+def docker_runtime_subcommand(s):
+    for regex in (
+        DIRECT_DOCKER_RE,
+        BOUNDED_DOCKER_RE,
+        SUBSHELL_BOUNDED_DOCKER_RE,
+    ):
+        match = regex.search(s)
+        if match:
+            return match.group(1).lower()
+    return None
+
+def authorization_heredoc_valid(body):
+    return (
+        all(token in body for token in AUTH_HEREDOC_REQUIRED)
+        and (
+            "raise SystemExit(1)" in body
+            or "sys.exit(1)" in body
+            or "closed(" in body
+        )
+    )
+
+def receipt_heredoc_valid(body):
+    return (
+        all(token in body for token in RECEIPT_HEREDOC_REQUIRED)
+        and re.search(r"json\.loads|json\.load", body) is not None
+        and "require(" in body
+    )
+
+def is_live_external_nos3_mount(s):
+    if not re.search(r'\btype=bind\b', s, re.I):
+        return False
+    for match in BIND_SOURCE_RE.finditer(s):
+        source = next(
+            (group for group in match.groups() if group is not None),
+            "",
+        )
+        normalized = source.lower()
+        if (
+            normalized == "$nos3"
+            or normalized.startswith("$nos3/")
+            or normalized == "${nos3}"
+            or normalized.startswith("${nos3}/")
+        ):
+            return True
+        if re.search(r'(?:^|/)external/nos3(?:/|$)', normalized):
+            return True
+    return False
+
+def is_global_docker_prune(s):
+    subcommand = docker_runtime_subcommand(s)
+    return (
+        subcommand == "system"
+        and re.search(r'\bsystem\s+prune\b', s, re.I) is not None
+    )
+
+def is_live_external_writer(s):
+    import shlex
+
+    try:
+        words = shlex.split(s, posix=True)
+    except ValueError:
+        return False
+    if len(words) < 3 or words[0] not in ("cp", "rsync"):
+        return False
+    destination = words[-1].lower()
+    if (
+        destination == "$root/external/nos3"
+        or destination.startswith("$root/external/nos3/")
+        or destination == "${root}/external/nos3"
+        or destination.startswith("${root}/external/nos3/")
+        or destination == "$repo/external/nos3"
+        or destination.startswith("$repo/external/nos3/")
+        or destination == "${repo}/external/nos3"
+        or destination.startswith("${repo}/external/nos3/")
+    ):
+        return True
+    return re.search(r'(?:^|/)external/nos3(?:/|$)', destination) is not None
+
 def scan_prohibited_conditions(src,
         preceding_authorization_seen=None,
         preceding_receipt_seen=None):
-    """Apply accepted R2C/R2D prohibited-condition predicates to a candidate
-    source. Returns (prohibited_fids, findings) where prohibited_fids is a list
-    of stable failure IDs (empty if clean) and findings is the detail list.
-
-    The accepted runtime candidate establishes its authorization gate inside a
-    quoted Python heredoc body (PYCLOSE) that reads the contract gate and exits
-    non-zero when unauthorized. Heredoc bodies are skipped by the executable
-    command scan, so this function tracks heredoc-gate establishment: when a
-    heredoc body contains an authorization-read marker the gate is treated as
-    established once that heredoc closes.
-
-    Accepted prohibited conditions (failure IDs, stable):
-      SVF_SV_T062: authorization-ordering violation (transaction before auth gate)
-      SVF_SV_T063: receipt-before-runtime ordering violation (docker before receipt)
-      SVF_SV_T064: executable Docker command before authorization gate
-      SVF_SV_T065: executable subprocess bypass
-      SVF_SV_T066: candidate global prune command
-      SVF_SV_T067: live external NOS3 mount
-      SVF_SV_T068: unbounded runtime operation
-      SVF_SV_T069: unexpected materialization writer
-    """
+    # Apply accepted prohibited-condition predicates to candidate source.
+    # Authorization state is established only by a completed authorization
+    # validation heredoc. Receipt state is established only by a completed
+    # transaction-receipt validation heredoc. Executable text containing words
+    # such as "AUTHORIZED" or "receipt" does not establish either state.
     prohibited = []
     detail = []
-    auth_heredoc_queue = []   # delims whose body contains an authorization read
-    auth_seen = False
+    auth_seen = preceding_authorization_seen is True
     materialization_seen = False
-    receipt_seen = False
+    receipt_seen = preceding_receipt_seen is True
     in_heredoc = False
     delim = None
-    body_has_auth = False
-    body_has_receipt_path = False
-    body_has_receipt_validation = False
+    body_lines = []
+
     for idx, raw in enumerate(src.splitlines(True), 1):
         line = raw.rstrip("\n")
+
         if in_heredoc:
             if line.strip() == delim:
-                in_heredoc = False; delim = None
-                if body_has_auth:
+                body = "\n".join(body_lines)
+                if authorization_heredoc_valid(body):
                     auth_seen = True
-                if body_has_receipt_path and body_has_receipt_validation:
+                if receipt_heredoc_valid(body):
                     receipt_seen = True
-                body_has_auth = False
-                body_has_receipt_path = False
-                body_has_receipt_validation = False
+                in_heredoc = False
+                delim = None
+                body_lines = []
                 continue
-            if re.search(r"diagnostic_runtime_authorized|runtime_entrypoint|accepted_runtime|static_verification", line):
-                body_has_auth = True
-            if "transaction-receipt.json" in line:
-                body_has_receipt_path = True
-            if re.search(r"json\\.loads|json\\.load", line):
-                body_has_receipt_validation = True
+            body_lines.append(line)
             continue
-        m = HEREDOC_OPEN.search(line)
-        if m:
-            delim = m.group(1); in_heredoc = True; body_has_auth = False
-            body_has_receipt_path = False; body_has_receipt_validation = False
+
+        opener = HEREDOC_OPEN.search(line)
+        if opener:
+            delim = opener.group(1)
+            in_heredoc = True
+            body_lines = []
             continue
+
         s = line.lstrip()
         if not s or s.startswith("#"):
             continue
-        is_docker = bool(DOCKER_CMD_RE.search(s))
-        is_docker_runtime = bool(DOCKER_RUNTIME_RE.search(s))
+
+        runtime_subcommand = docker_runtime_subcommand(s)
+        is_docker_runtime = runtime_subcommand is not None
+        is_direct_docker = DIRECT_DOCKER_RE.search(s) is not None
         is_sub = bool(SUBPROCESS_RE.search(s))
         is_net = bool(NCURL_RE.search(s))
-        is_prune = bool(PRUNE_RE.search(s))
-        is_mount_live = bool(MOUNT_RE.search(s)) and "nos3" in s.lower()
+        is_prune = is_global_docker_prune(s)
+        is_mount_live = is_live_external_nos3_mount(s)
         is_unbounded = (
             bool(RESTART_ALWAYS_RE.search(s))
             or bool(SHELL_INFINITE_LOOP_RE.search(s))
@@ -369,56 +467,71 @@ def scan_prohibited_conditions(src,
                 and not bool(BOUNDED_DOCKER_WAIT_RE.search(s))
             )
         )
-        is_cp_writer = bool(CP_WRITER_RE.search(s))
+        is_cp_writer = is_live_external_writer(s)
         is_materialize = bool(MATERIALIZATION_RE.search(s))
-        if re.search(r"authorized|AUTHORIZATION=AUTHORIZED|GATE=AUTHORIZED|diagnostic_runtime_authorized", s, re.I):
-            auth_seen = True
-        if re.search(r"receipt|RECEIPT|receipt.json", s, re.I):
-            receipt_seen = True
+
         if is_materialize:
             materialization_seen = True
-        # T062: transaction/materialization invocation before authorization gate
+
         if is_materialize and not auth_seen:
-            prohibited.append("SVF_SV_T062_CANDIDATE_AUTHORIZATION_ORDERING_VIOLATION")
+            prohibited.append(
+                "SVF_SV_T062_CANDIDATE_AUTHORIZATION_ORDERING_VIOLATION"
+            )
             detail.append((idx, "T062", s))
-        # T064: executable Docker command before authorization gate
-        if is_docker and re.search(r"^(docker|\$DOCKER_BIN|\"\$DOCKER_BIN\")", s) and not auth_seen:
-            prohibited.append("SVF_SV_T064_CANDIDATE_EXECUTABLE_DOCKER_COMMAND_BEFORE_GATE")
+
+        if is_direct_docker and not auth_seen:
+            prohibited.append(
+                "SVF_SV_T064_CANDIDATE_EXECUTABLE_DOCKER_COMMAND_BEFORE_GATE"
+            )
             detail.append((idx, "T064", s))
-        # T063: executable/runtime Docker operation before receipt validation.
-        # Variable assignment or artifact-path text containing "docker" is not
-        # itself a runtime operation and must not satisfy this predicate.
+
         if is_docker_runtime and not receipt_seen:
-            prohibited.append("SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION")
+            prohibited.append(
+                "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION"
+            )
             detail.append((idx, "T063", s))
-        # T065: executable subprocess bypass
+
         if is_sub:
-            prohibited.append("SVF_SV_T065_CANDIDATE_EXECUTABLE_SUBPROCESS_BYPASS")
+            prohibited.append(
+                "SVF_SV_T065_CANDIDATE_EXECUTABLE_SUBPROCESS_BYPASS"
+            )
             detail.append((idx, "T065", s))
-        # T066: global prune
-        if is_docker and is_prune:
-            prohibited.append("SVF_SV_T066_CANDIDATE_GLOBAL_PRUNE_COMMAND")
+
+        if is_prune:
+            prohibited.append(
+                "SVF_SV_T066_CANDIDATE_GLOBAL_PRUNE_COMMAND"
+            )
             detail.append((idx, "T066", s))
-        # T067: live external NOS3 mount
+
         if is_mount_live:
-            prohibited.append("SVF_SV_T067_CANDIDATE_LIVE_EXTERNAL_NOS3_MOUNT")
+            prohibited.append(
+                "SVF_SV_T067_CANDIDATE_LIVE_EXTERNAL_NOS3_MOUNT"
+            )
             detail.append((idx, "T067", s))
-        # T068: unbounded runtime operation
+
         if is_unbounded:
-            prohibited.append("SVF_SV_T068_CANDIDATE_UNBOUNDED_RUNTIME_OPERATION")
+            prohibited.append(
+                "SVF_SV_T068_CANDIDATE_UNBOUNDED_RUNTIME_OPERATION"
+            )
             detail.append((idx, "T068", s))
-        # T069: unexpected materialization writer (cp/rsync into external/nos3)
+
         if is_cp_writer:
-            prohibited.append("SVF_SV_T069_CANDIDATE_UNEXPECTED_MATERIALIZATION_WRITER")
+            prohibited.append(
+                "SVF_SV_T069_CANDIDATE_UNEXPECTED_MATERIALIZATION_WRITER"
+            )
             detail.append((idx, "T069", s))
-        # network primitives are themselves prohibited in candidate executable body
+
         if is_net:
-            prohibited.append("SVF_SV_T073_NETWORK_INVOCATION_ATTEMPT_BY_VERIFIER")
+            prohibited.append(
+                "SVF_SV_T073_NETWORK_INVOCATION_ATTEMPT_BY_VERIFIER"
+            )
             detail.append((idx, "NETWORK", s))
-    # caller-supplied ordering overrides (for controlled ordering tests)
+
     if preceding_authorization_seen is False and materialization_seen:
-        if "SVF_SV_T062_CANDIDATE_AUTHORIZATION_ORDERING_VIOLATION" not in prohibited:
-            prohibited.append("SVF_SV_T062_CANDIDATE_AUTHORIZATION_ORDERING_VIOLATION")
+        fid = "SVF_SV_T062_CANDIDATE_AUTHORIZATION_ORDERING_VIOLATION"
+        if fid not in prohibited:
+            prohibited.append(fid)
+
     return prohibited, detail
 
 def synthetic_candidate():
@@ -431,16 +544,29 @@ def synthetic_candidate():
 'import json,sys\ngate=json.load(open(sys.argv[1])).get("gate",{})\n'
 'if not (gate.get("diagnostic_runtime_authorized") is True):\n'
 '    print("PASSIVE_TIME_WITNESS_V3_RUNTIME_CANDIDATE_STATUS=CLOSED_GATE_NOT_AUTHORIZED",file=sys.stderr);sys.exit(1)\n'
-'# accepted = gate.get("accepted_runtime_entrypoint_v3_sha256")\n'
-'# passive_time_witness_runtime_candidate_v3_static_verification gate required\n'
+'if gate.get("diagnostic_runtime_attempts_authorized") != 1: sys.exit(1)\n'
+'accepted = gate.get("accepted_runtime_entrypoint_v3_sha256")\n'
+'if not accepted: sys.exit(1)\n'
+'if gate.get("passive_time_witness_runtime_candidate_v3_static_verification") != "PASS": sys.exit(1)\n'
 'PYCLOSE\n'
 'TRANSACTION_TOOL="$ROOT/scripts/nos3_runtime_transaction_v1.py"\n'
 'python3 "$TRANSACTION_TOOL" --materialize-v3-transaction\n'
-'RECEIPT="$EVIDENCE/receipt.json"\n'
-'[ -f "$RECEIPT" ] || exit 1\n'
+'python3 - <<"PYRECEIPT"\n'
+'import json\n'
+'receipt_path = "transaction-receipt.json"\n'
+'raw = b"{}"\n'
+'receipt = json.loads(raw.decode("utf-8"))\n'
+'receipt_schema = 1\n'
+'component_ids = []\n'
+'runtime_attempt = 1\n'
+'def require(value, message):\n'
+'    if not value: raise SystemExit(message)\n'
+'require(receipt_schema == 1, "receipt_schema")\n'
+'require(isinstance(component_ids, list), "component_ids")\n'
+'require(runtime_attempt == 1, "runtime_attempt")\n'
+'PYRECEIPT\n'
 'DOCKER_BIN="docker"\n'
 '"$DOCKER_BIN" run --rm "$IMAGE"\n'
-'echo "PASSIVE_TIME_WITNESS_V3_RUNTIME_CANDIDATE_GATE=AUTHORIZED"\n'
     )
 
 # ---------------------------------------------------------------------------
@@ -1409,50 +1535,123 @@ def _eval_test(tid, repo_root, fix, ctrls, verifier_path, work):
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     # --- candidate ordering / prohibited behavior (T062-T069): drive scan_prohibited_conditions ---
     if tid == "SV-T062":
-        # materialization invocation before the authorization gate
-        src = 'python3 "$TRANSACTION_TOOL" --materialize-v3-transaction\n' + clean_scanner_base()
-        prohibited, _ = scan_prohibited_conditions(src)
-        ok = any(p == expected_fid for p in prohibited)
-        return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
-    if tid == "SV-T063":
-        # Composite oracle: distinguish harmless Docker-token assignment from an
-        # actual pre-receipt Docker operation and recognize receipt validation
-        # completed inside the candidate PYRECEIPT-style heredoc.
-        assignment_only = clean_scanner_base() + (
-            'DOCKER_BIN="docker"\n'
-            'RECEIPT="$EVIDENCE/receipt.json"\n'
+        before_auth = (
+            'python3 "$TRANSACTION_TOOL" --materialize-v3-transaction\n'
+            + clean_scanner_base()
         )
-        assignment_prohibited, _ = scan_prohibited_conditions(assignment_only)
+        p_before_auth, _ = scan_prohibited_conditions(before_auth)
 
-        actual_pre_receipt = clean_scanner_base() + (
-            'DOCKER_BIN="docker"\n'
-            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
-            'RECEIPT="$EVIDENCE/receipt.json"\n'
+        fake_auth_text = (
+            'echo "AUTHORIZED"\n'
+            'python3 "$TRANSACTION_TOOL" --materialize-v3-transaction\n'
         )
-        actual_prohibited, _ = scan_prohibited_conditions(actual_pre_receipt)
-
-        receipt_heredoc_safe = clean_scanner_base() + (
-            "python3 - <<'PYRECEIPT'\n"
-            "from pathlib import Path\n"
-            "import json\n"
-            "p = Path('transaction-receipt.json')\n"
-            "receipt = json.loads(p.read_text(encoding='utf-8'))\n"
-            "PYRECEIPT\n"
-            'DOCKER_BIN="docker"\n'
-            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
-        )
-        receipt_prohibited, _ = scan_prohibited_conditions(receipt_heredoc_safe)
+        p_fake_auth, _ = scan_prohibited_conditions(fake_auth_text)
 
         ok = (
-            expected_fid not in assignment_prohibited
-            and expected_fid in actual_prohibited
-            and expected_fid not in receipt_prohibited
+            expected_fid in p_before_auth
+            and expected_fid in p_fake_auth
+        )
+        return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
+    if tid == "SV-T063":
+        assignment_only = (
+            'DOCKER_BIN="docker"\n'
+            'RECEIPT="$EVIDENCE/receipt.json"\n'
+        )
+        p_assignment, _ = scan_prohibited_conditions(assignment_only)
+
+        direct_pre_receipt = '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+        p_direct, _ = scan_prohibited_conditions(direct_pre_receipt)
+
+        bounded_pre_receipt = (
+            'bounded_exec "$T" "$DOCKER_BIN" inspect "$name"\n'
+        )
+        p_bounded, _ = scan_prohibited_conditions(bounded_pre_receipt)
+
+        fake_receipt_assignment = (
+            'RECEIPT="$EVIDENCE/transaction-receipt.json"\n'
+            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+        )
+        p_fake_receipt, _ = scan_prohibited_conditions(fake_receipt_assignment)
+
+        incomplete_receipt_heredoc = (
+            "python3 - <<'PYRECEIPT'\n"
+            "import json\n"
+            "p = 'transaction-receipt.json'\n"
+            "receipt = json.loads('{}')\n"
+            "PYRECEIPT\n"
+            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+        )
+        p_incomplete, _ = scan_prohibited_conditions(incomplete_receipt_heredoc)
+
+        validated_receipt_heredoc = (
+            "python3 - <<'PYRECEIPT'\n"
+            "import json\n"
+            "receipt_path = 'transaction-receipt.json'\n"
+            "receipt = json.loads('{}')\n"
+            "receipt_schema = 1\n"
+            "component_ids = []\n"
+            "runtime_attempt = 1\n"
+            "def require(value, message):\n"
+            "    if not value: raise SystemExit(message)\n"
+            "require(receipt_schema == 1, 'receipt_schema')\n"
+            "require(isinstance(component_ids, list), 'component_ids')\n"
+            "require(runtime_attempt == 1, 'runtime_attempt')\n"
+            "PYRECEIPT\n"
+            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+        )
+        p_validated, _ = scan_prohibited_conditions(validated_receipt_heredoc)
+
+        runtime_vocabulary = (
+            'docker info\n'
+            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+            'bounded_exec "$T" "$DOCKER_BIN" inspect "$name"\n'
+            'bounded_exec "$T" "$DOCKER_BIN" image inspect "$IMAGE"\n'
+            '"$DOCKER_BIN" logs "$name"\n'
+            '"$DOCKER_BIN" port "$name"\n'
+            '"$DOCKER_BIN" exec "$name" true\n'
+            '"$DOCKER_BIN" network inspect "$NETWORK"\n'
+            '"$DOCKER_BIN" ps -aq\n'
+            '"$DOCKER_BIN" rm -f "$name"\n'
+            '"$DOCKER_BIN" stop --time 5 "$name"\n'
+        )
+        p_vocabulary, _ = scan_prohibited_conditions(runtime_vocabulary)
+
+        quoted_note = 'echo "bounded_exec 1 docker run image"\n'
+        p_quoted_note, _ = scan_prohibited_conditions(quoted_note)
+
+        ok = (
+            expected_fid not in p_assignment
+            and expected_fid in p_direct
+            and expected_fid in p_bounded
+            and expected_fid in p_fake_receipt
+            and expected_fid in p_incomplete
+            and expected_fid not in p_validated
+            and p_vocabulary.count(expected_fid) == 11
+            and expected_fid not in p_quoted_note
         )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T064":
-        src = "docker version\n" + clean_scanner_base()
-        prohibited, _ = scan_prohibited_conditions(src)
-        ok = any(p == expected_fid for p in prohibited)
+        literal = "docker version\n"
+        p_literal, _ = scan_prohibited_conditions(literal)
+
+        variable = '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+        p_variable, _ = scan_prohibited_conditions(variable)
+
+        braced = '"${DOCKER_BIN}" inspect "$IMAGE"\n'
+        p_braced, _ = scan_prohibited_conditions(braced)
+
+        fake_auth_text = (
+            'echo "GATE=AUTHORIZED"\n'
+            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+        )
+        p_fake_auth, _ = scan_prohibited_conditions(fake_auth_text)
+
+        ok = (
+            expected_fid in p_literal
+            and expected_fid in p_variable
+            and expected_fid in p_braced
+            and expected_fid in p_fake_auth
+        )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T065":
         src = clean_scanner_base() + "python3 -c 'import subprocess;subprocess.run([\"true\"], check=True)'\n"
@@ -1460,14 +1659,55 @@ def _eval_test(tid, repo_root, fix, ctrls, verifier_path, work):
         ok = any(p == expected_fid for p in prohibited)
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T066":
-        src = clean_scanner_base() + "docker system prune -af\n"
-        prohibited, _ = scan_prohibited_conditions(src)
-        ok = any(p == expected_fid for p in prohibited)
+        literal_prune = "docker system prune -af\n"
+        p_literal, _ = scan_prohibited_conditions(literal_prune)
+
+        variable_prune = '"$DOCKER_BIN" system prune -af\n'
+        p_variable, _ = scan_prohibited_conditions(variable_prune)
+
+        safe_all = "docker ps --all\n"
+        p_safe_all, _ = scan_prohibited_conditions(safe_all)
+
+        ok = (
+            expected_fid in p_literal
+            and expected_fid in p_variable
+            and expected_fid not in p_safe_all
+        )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T067":
-        src = clean_scanner_base() + 'docker run --rm --mount type=bind,source="$REPO/external/nos3",target=/work/nos3 "$IMAGE"\n'
-        prohibited, _ = scan_prohibited_conditions(src)
-        ok = any(p == expected_fid for p in prohibited)
+        live_repo_source = (
+            'docker run --mount "type=bind,source=$ROOT/external/nos3,'
+            'target=/work/nos3" image\n'
+        )
+        p_live_repo, _ = scan_prohibited_conditions(live_repo_source)
+
+        live_nos3_variable = (
+            'docker run --mount "type=bind,source=$NOS3,'
+            'target=/work/nos3" image\n'
+        )
+        p_live_var, _ = scan_prohibited_conditions(live_nos3_variable)
+
+        safe_sources = (
+            "$WS_NOS_ENGINE",
+            "$WS_TIME_DRIVER",
+            "$WS_CMD_BUS_BRIDGE",
+            "$WS_CFS",
+            "$hw_workspace",
+            "$RUNTIME_SIM_CONFIG",
+        )
+        safe_results = []
+        for source in safe_sources:
+            src = (
+                'docker run --mount "type=bind,source=' + source
+                + ',target=/work/nos3" image\n'
+            )
+            safe_results.append(scan_prohibited_conditions(src)[0])
+
+        ok = (
+            expected_fid in p_live_repo
+            and expected_fid in p_live_var
+            and all(expected_fid not in result for result in safe_results)
+        )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T068":
         # Composite oracle: reject genuinely unbounded constructs while
@@ -1522,9 +1762,26 @@ def _eval_test(tid, repo_root, fix, ctrls, verifier_path, work):
         )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T069":
-        src = clean_scanner_base() + 'cp -R "$REPO/external/nos3" "$AUTHORIZED_ROOT/component"\n'
-        prohibited, _ = scan_prohibited_conditions(src)
-        ok = any(p == expected_fid for p in prohibited)
+        write_root = 'cp source "$ROOT/external/nos3"\n'
+        p_write_root, _ = scan_prohibited_conditions(write_root)
+
+        write_repo = 'rsync -a source/ "$REPO/external/nos3/cfg/"\n'
+        p_write_repo, _ = scan_prohibited_conditions(write_repo)
+
+        read_from_live = (
+            'cp -R "$REPO/external/nos3" "$AUTHORIZED_ROOT/component"\n'
+        )
+        p_read_from_live, _ = scan_prohibited_conditions(read_from_live)
+
+        unrelated_copy = 'cp source "$AUTHORIZED_ROOT/component"\n'
+        p_unrelated, _ = scan_prohibited_conditions(unrelated_copy)
+
+        ok = (
+            expected_fid in p_write_root
+            and expected_fid in p_write_repo
+            and expected_fid not in p_read_from_live
+            and expected_fid not in p_unrelated
+        )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     # --- verifier-boundary + evidence canonicality (T070-T078) ---
     if tid == "SV-T070":
