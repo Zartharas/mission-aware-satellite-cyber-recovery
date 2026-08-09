@@ -1300,7 +1300,11 @@
           "skips": 0
         },
         "t068_correction_previous_sha256": "89e34a6ae35ea45675c264dc90c15790216b53f72a9a7df4eb76f38efc90b51a",
-        "t068_correction_status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW"
+        "t068_correction_status": "ACCEPTED_PUBLISHED",
+        "t068_correction_publication_pr": 10,
+        "t068_correction_publication_commit": "7c519ef8e5df86bc50dabfff7361e0b6c2f6d3e2",
+        "t068_correction_merge_commit": "889672b889d1a4a432a6844b0e422623f12d0aa4",
+        "t068_correction_merge_tree": "e6033906054879037f12a4bb072f2c26bed938c2"
       },
       "implementation_record": {
         "path": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_COMBINED_IMPLEMENTATION_20260803.md",
@@ -1552,6 +1556,42 @@
     "runtime_authorized": false,
     "runtime_attempts": 0,
     "d064_status": "BLOCKED",
+    "status": "ACCEPTED_PUBLISHED_NO_STATIC_DISPOSITION",
+    "publication_pr": 10,
+    "publication_commit": "7c519ef8e5df86bc50dabfff7361e0b6c2f6d3e2",
+    "merge_commit": "889672b889d1a4a432a6844b0e422623f12d0aa4",
+    "merge_tree": "e6033906054879037f12a4bb072f2c26bed938c2"
+  },
+  "c3b_i2d_vr9_post_publication_production_verify_authorization": {
+    "decision_id": "D-063R2-C3B-I2D-VR9",
+    "classification": "POST_PUBLICATION_ONE_RUN_CORRECTED_STATIC_VERIFIER_AUTHORIZATION",
+    "vr8_publication_pr": 10,
+    "vr8_publication_commit": "7c519ef8e5df86bc50dabfff7361e0b6c2f6d3e2",
+    "vr8_merge_commit": "889672b889d1a4a432a6844b0e422623f12d0aa4",
+    "vr8_merge_tree": "e6033906054879037f12a4bb072f2c26bed938c2",
+    "corrected_verifier_sha256": "4a74b7e8e08c9258d61be1c13c2410bf2d523728611a33ab5834c3713338a80b",
+    "superseded_execution_verifier_sha256": "89e34a6ae35ea45675c264dc90c15790216b53f72a9a7df4eb76f38efc90b51a",
+    "active_generator_sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812",
+    "proposed_candidate_sha256": "599c534df37b127f7325ad513eecc4b24bdc0d37a56c32b4448a0b0099c13a1f",
+    "aggregate_complete_production_verify_executions": 6,
+    "corrected_verifier_production_executions": 0,
+    "candidate_failure_established": false,
+    "static_verification": "PENDING",
+    "production_verify_rerun_authorized": true,
+    "production_verify_authorized_attempts": 1,
+    "production_verify_authorization_consumed": false,
+    "new_production_verify_authorization_granted": true,
+    "authorization_scope": "EXACTLY_ONE_FUTURE_PRODUCTION_STATIC_VERIFY_ONLY_NO_RUNTIME_AUTHORIZATION",
+    "candidate_execution_authorized": false,
+    "materialization_authorized": false,
+    "docker_authorized": false,
+    "nos3_authorized": false,
+    "fortytwo_authorized": false,
+    "event_injection_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "d064_status": "BLOCKED",
+    "wp5_execution_authorized": false,
     "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
   }
 }
