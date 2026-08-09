@@ -1142,6 +1142,7 @@ def run_verify():
         if cand_sha != emissions[0]["candidate_sha256"]:
             print("SVF_SV_T035_GENERATOR_EMISSION_DIFFERS_FROM_CANDIDATE", file=sys.stderr); return RC_VERIFY
         with open(candidate, "r", encoding="utf-8") as f: src = f.read()
+        fix["candidate_body"] = src
         # FINDING 1: production source-scan enforcement gate. Reject accepted
         # prohibited conditions before any PASS evidence publication.
         prohibited, _ = scan_prohibited_conditions(src)
