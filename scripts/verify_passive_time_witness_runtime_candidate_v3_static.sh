@@ -16,7 +16,7 @@
 # ===========================================================================
 set -Eeuo pipefail
 
-readonly ACCEPTED_GENERATOR_SHA256="e3b1f8922161116e3ecfc1355900b72311d2834f5617b7a4956ccae4f6e50153"
+readonly ACCEPTED_GENERATOR_SHA256="7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812"
 readonly ACCEPTED_GENERATOR_PATH="scripts/prepare_passive_time_witness_runtime_candidate_v3.sh"
 readonly REQUIRED_CONTRACT_VERSION="0.4.12"
 readonly REQUIRED_V3_SCHEMA="1"
@@ -87,7 +87,7 @@ R2B_SHA256 = "220f162e2bd4e5e9a861389aeb4c10d732313aea6112e435259f323b93573b84"
 R2C_SHA256 = "d3376d3c790b500791d71ec1e62d98c103438e186da209ad934c5c095e54c24b"
 R2C_COV_SHA256 = "38126ef3cff98a9c5cde7494f88685bc9774f4774fd40a1f0ce91a0042c134e0"
 R2D_SHA256 = "570b745152cb8316cf266b0d5ff6e6bdd1e8bac9f50ca7517d6d37d957e46300"
-ACCEPTED_GENERATOR_SHA256 = "e3b1f8922161116e3ecfc1355900b72311d2834f5617b7a4956ccae4f6e50153"
+ACCEPTED_GENERATOR_SHA256 = "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812"
 ACCEPTED_GENERATOR_PATH = "scripts/prepare_passive_time_witness_runtime_candidate_v3.sh"
 
 # Accepted 14-control identity map (I2A-R1 FOURTEEN_CONTROL_IDENTITY_MAP,

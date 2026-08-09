@@ -288,3 +288,22 @@ D-063R2-PB2B-B1R4 (2026-08-01) records the narrowly scoped WP4 Checkpoint 2PB2B-
 - VR4 six-file proposal hashes: contract `f572cdbb216c5c11ce82d21f8c2ecf6525ea0be8988129c11d171e211d71fe62`, implementation record `18760a9c5f7809f248014fd23d401e822b13474230b8e335a72af3ded7a50bb7`, implementation lock `f870268ed669ff8cb6ac0b4dfeee650fb2db5e7ccc85f097c0368d823bccb915`.
 - No production verifier execution, generator execution, candidate execution, materialization, Docker/NOS3/Fortytwo runtime, staging, commit, or push is performed by this design.
 - Next gate: `C3B_I2D_RETRY_VERIFIER_GENERATOR_STAGE_OBSERVABILITY_CORRECTION_GOVERNANCE_RECONCILIATION_IMPLEMENTATION_AUTHORIZATION`.
+
+## C3B-I2D VR5 coordinated generator/verifier correction and execution #4 reconciliation
+
+- Decision: `D-063R2-C3B-I2D-VR5`.
+- Corrected active v3 generator SHA-256: `7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812`.
+- Corrected active static verifier SHA-256: `1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2`.
+- Execution #4: `INVALID_EXECUTION_NO_STATIC_DISPOSITION`.
+- Execution #4 failure ID: `SVF_C3B_I2D_GEN_001_PROCESS_NONZERO`.
+- Accepted root cause: `V3_GENERATOR_SOURCE_API_COMPATIBILITY_DEFECT`.
+- Accepted source finding: `SOURCE_DEFECT_V3_GENERATOR_PATHLIB_WRITE_TEXT_NEWLINE_COMPATIBILITY`.
+- Aggregate complete production verifier executions: `4`.
+- Corrected-verifier production executions represented by execution evidence: `1`.
+- Candidate source scan reached: `false`.
+- Candidate failure established: `false`.
+- Static verification remains: `PENDING`.
+- Runtime authorization remains: `false`.
+- Runtime attempts remain: `0`.
+- D-064 remains: `BLOCKED`.
+- Production verifier rerun authorization remains: `false`.

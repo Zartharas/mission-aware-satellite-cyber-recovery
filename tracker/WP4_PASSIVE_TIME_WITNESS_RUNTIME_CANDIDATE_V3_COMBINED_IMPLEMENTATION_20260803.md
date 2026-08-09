@@ -141,3 +141,22 @@ Retained VR4 provenance bindings:
 - Observability-correction implementation R3 report SHA-256: `4b90843aee71ca6c559637d10153c944cd64900ee5f986a66a8d5473adec68d3`.
 - Observability-correction independent-review R2 report SHA-256: `6fd3dbce46cd76f10d580f2cfb56f76fe78d20162362b3e6379ca0074eedfd88`.
 - Observability-correction publication report SHA-256: `684e676f95ba60d2a662e83469edca8bb7156b448b15b8fba61583de406dba65`.
+
+## C3B-I2D VR5 coordinated generator/verifier correction and execution #4 reconciliation
+
+- Decision: `D-063R2-C3B-I2D-VR5`.
+- Corrected active v3 generator SHA-256: `7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812`.
+- Corrected active static verifier SHA-256: `1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2`.
+- Execution #4: `INVALID_EXECUTION_NO_STATIC_DISPOSITION`.
+- Execution #4 failure ID: `SVF_C3B_I2D_GEN_001_PROCESS_NONZERO`.
+- Accepted root cause: `V3_GENERATOR_SOURCE_API_COMPATIBILITY_DEFECT`.
+- Accepted source finding: `SOURCE_DEFECT_V3_GENERATOR_PATHLIB_WRITE_TEXT_NEWLINE_COMPATIBILITY`.
+- Aggregate complete production verifier executions: `4`.
+- Corrected-verifier production executions represented by execution evidence: `1`.
+- Candidate source scan reached: `false`.
+- Candidate failure established: `false`.
+- Static verification remains: `PENDING`.
+- Runtime authorization remains: `false`.
+- Runtime attempts remain: `0`.
+- D-064 remains: `BLOCKED`.
+- Production verifier rerun authorization remains: `false`.

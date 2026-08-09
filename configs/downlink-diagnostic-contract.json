@@ -1244,7 +1244,7 @@
       "merged_main_commit": "6fa928108ac744ab5b2acd56dc6c39fbb861c2a2",
       "runtime_candidate_generator": {
         "path": "scripts/prepare_passive_time_witness_runtime_candidate_v3.sh",
-        "sha256": "e3b1f8922161116e3ecfc1355900b72311d2834f5617b7a4956ccae4f6e50153"
+        "sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812"
       },
       "runtime_material_tool": {
         "path": "scripts/nos3_runtime_transaction_v1.py",
@@ -1278,7 +1278,7 @@
       },
       "static_verifier": {
         "path": "scripts/verify_passive_time_witness_runtime_candidate_v3_static.sh",
-        "sha256": "da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca",
+        "sha256": "1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2",
         "binding_status": "RESOLVED",
         "superseded_sha256": "6556a4bbd01f46d11dd35abe420b3fbaaaab417339d6aa7d21040ca47f665ad9",
         "correction_publication_commit": "5045d734d876d3e1a6ee2d322fae121d536f7382",
@@ -1298,12 +1298,12 @@
       },
       "implementation_record": {
         "path": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_COMBINED_IMPLEMENTATION_20260803.md",
-        "sha256": "d1c950605e69b3a2c823ce8ec468d78d8506a0dc94d2e062b5c03b290f07fde2",
+        "sha256": "86d611bf0fc55dc4ef61b9385c2da20604e4e3097add676a978911ba0559b508",
         "binding_status": "RESOLVED"
       },
       "implementation_lock": {
         "path": "artifacts/wp4-passive-time-witness-runtime-candidate-v3-combined-implementation-lock.txt",
-        "sha256": "6f5eb5614910979f508c3ad37b6e70df07d6329376dd6145068a9f44c97b3bb7",
+        "sha256": "ef133fb2fec5481db59d049c10714deeb4d10e6dfbac17f279d8b41a03367f19",
         "binding_status": "RESOLVED"
       },
       "generated_runtime_candidate": {
@@ -1398,7 +1398,7 @@
       "generator_stage_observability_correction": {
         "decision": "D-063R2-C3B-I2D-VR4",
         "previous_active_static_verifier_sha256": "238724221f595e81d52283345f3eb6e79404a0e49bfcc56fb463203ac88c6ee7",
-        "active_static_verifier_sha256": "da7d16d75d962d19997834d0c526298e7de74ef2250143667602fedaac932dca",
+        "active_static_verifier_sha256": "1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2",
         "publication_commit": "d4466c2c1a117cdd3354a35f4a5749bbdd61266f",
         "publication_status": "COMPLETE",
         "source_finding_count": 0,
@@ -1430,5 +1430,26 @@
         "governance_reconciliation_status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW"
       }
     }
+  }
+,
+  "c3b_i2d_vr5_reconciliation": {
+    "decision_id": "D-063R2-C3B-I2D-VR5",
+    "active_generator_sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812",
+    "active_verifier_sha256": "1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2",
+    "combined_implementation_record_sha256": "86d611bf0fc55dc4ef61b9385c2da20604e4e3097add676a978911ba0559b508",
+    "combined_implementation_lock_sha256": "ef133fb2fec5481db59d049c10714deeb4d10e6dfbac17f279d8b41a03367f19",
+    "aggregate_complete_production_verify_executions": 4,
+    "active_corrected_verifier_production_executions": 1,
+    "execution_4_classification": "INVALID_EXECUTION_NO_STATIC_DISPOSITION",
+    "execution_4_failure_id": "SVF_C3B_I2D_GEN_001_PROCESS_NONZERO",
+    "root_cause_class": "V3_GENERATOR_SOURCE_API_COMPATIBILITY_DEFECT",
+    "source_finding": "SOURCE_DEFECT_V3_GENERATOR_PATHLIB_WRITE_TEXT_NEWLINE_COMPATIBILITY",
+    "candidate_source_scan_reached": false,
+    "candidate_failure_established": false,
+    "static_verification": "PENDING",
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "d064_status": "BLOCKED",
+    "production_verify_rerun_authorized": false
   }
 }

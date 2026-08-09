@@ -730,7 +730,8 @@ if source.count('source=$WS_CMD_BUS_BRIDGE,target=/work/nos3') != 1:
 if source.count('source=$WS_CFS,target=/work/nos3') != 1:
     raise SystemExit("cFS workspace mount missing")
 
-output.write_text(source, encoding="utf-8", newline="\n")
+with output.open("w", encoding="utf-8", newline="\n") as handle:
+    handle.write(source)
 PYTRANSFORM
 
 bash -n "$tmp_emit"
