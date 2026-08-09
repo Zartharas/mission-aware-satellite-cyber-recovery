@@ -265,6 +265,11 @@ def heredoc_aware_scan(src):
     return findings
 
 DOCKER_CMD_RE = re.compile(r"\bdocker\b")
+DOCKER_RUNTIME_RE = re.compile(
+    r'(?:^|\\bbounded_exec\\b.*?)(?:docker|\\$DOCKER_BIN|"\\$DOCKER_BIN"|\\$\\{DOCKER_BIN\\}|"\\$\\{DOCKER_BIN\\}")\\s+'
+    r'(?:yaml|wait|run|restart|stop|rm|images|ps|system|volume|network|build|load|pull|inspect)\\b',
+    re.I,
+)
 DOCKER_EXEC_SUB_RE = re.compile(r"\byaml|\bwait\b|\brun\b|\brestart\b|\bstop\b|\brm\b|\bimages\b|\bps\b|\bsystem\b|\bvolume\b|\bnetwork\b|\bbuild\b|\bload\b|\bpull\b")
 DOCKER_PRUNE_RE = re.compile(r"\bdocker\s+system\s+prune\b", re.I)
 SUBPROCESS_RE = re.compile(r"\bsubprocess\b", re.I)
@@ -308,6 +313,8 @@ def scan_prohibited_conditions(src,
     in_heredoc = False
     delim = None
     body_has_auth = False
+    body_has_receipt_path = False
+    body_has_receipt_validation = False
     for idx, raw in enumerate(src.splitlines(True), 1):
         line = raw.rstrip("\n")
         if in_heredoc:
@@ -315,19 +322,29 @@ def scan_prohibited_conditions(src,
                 in_heredoc = False; delim = None
                 if body_has_auth:
                     auth_seen = True
-                    body_has_auth = False
+                if body_has_receipt_path and body_has_receipt_validation:
+                    receipt_seen = True
+                body_has_auth = False
+                body_has_receipt_path = False
+                body_has_receipt_validation = False
                 continue
             if re.search(r"diagnostic_runtime_authorized|runtime_entrypoint|accepted_runtime|static_verification", line):
                 body_has_auth = True
+            if "transaction-receipt.json" in line:
+                body_has_receipt_path = True
+            if re.search(r"json\\.loads|json\\.load", line):
+                body_has_receipt_validation = True
             continue
         m = HEREDOC_OPEN.search(line)
         if m:
             delim = m.group(1); in_heredoc = True; body_has_auth = False
+            body_has_receipt_path = False; body_has_receipt_validation = False
             continue
         s = line.lstrip()
         if not s or s.startswith("#"):
             continue
         is_docker = bool(DOCKER_CMD_RE.search(s))
+        is_docker_runtime = bool(DOCKER_RUNTIME_RE.search(s))
         is_sub = bool(SUBPROCESS_RE.search(s))
         is_net = bool(NCURL_RE.search(s))
         is_prune = bool(PRUNE_RE.search(s))
@@ -349,8 +366,10 @@ def scan_prohibited_conditions(src,
         if is_docker and re.search(r"^(docker|\$DOCKER_BIN|\"\$DOCKER_BIN\")", s) and not auth_seen:
             prohibited.append("SVF_SV_T064_CANDIDATE_EXECUTABLE_DOCKER_COMMAND_BEFORE_GATE")
             detail.append((idx, "T064", s))
-        # T063: docker/runtime operation before receipt validation
-        if is_docker and not receipt_seen:
+        # T063: executable/runtime Docker operation before receipt validation.
+        # Variable assignment or artifact-path text containing "docker" is not
+        # itself a runtime operation and must not satisfy this predicate.
+        if is_docker_runtime and not receipt_seen:
             prohibited.append("SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION")
             detail.append((idx, "T063", s))
         # T065: executable subprocess bypass
@@ -1377,10 +1396,39 @@ def _eval_test(tid, repo_root, fix, ctrls, verifier_path, work):
         ok = any(p == expected_fid for p in prohibited)
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T063":
-        # docker operation before receipt
-        src = clean_scanner_base() + 'DOCKER_BIN="docker"\n"$DOCKER_BIN" run --rm "$IMAGE"\nRECEIPT="$EVIDENCE/receipt.json"\n'
-        prohibited, _ = scan_prohibited_conditions(src)
-        ok = any(p == expected_fid for p in prohibited)
+        # Composite oracle: distinguish harmless Docker-token assignment from an
+        # actual pre-receipt Docker operation and recognize receipt validation
+        # completed inside the candidate PYRECEIPT-style heredoc.
+        assignment_only = clean_scanner_base() + (
+            'DOCKER_BIN="docker"\n'
+            'RECEIPT="$EVIDENCE/receipt.json"\n'
+        )
+        assignment_prohibited, _ = scan_prohibited_conditions(assignment_only)
+
+        actual_pre_receipt = clean_scanner_base() + (
+            'DOCKER_BIN="docker"\n'
+            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+            'RECEIPT="$EVIDENCE/receipt.json"\n'
+        )
+        actual_prohibited, _ = scan_prohibited_conditions(actual_pre_receipt)
+
+        receipt_heredoc_safe = clean_scanner_base() + (
+            "python3 - <<'PYRECEIPT'\n"
+            "from pathlib import Path\n"
+            "import json\n"
+            "p = Path('transaction-receipt.json')\n"
+            "receipt = json.loads(p.read_text(encoding='utf-8'))\n"
+            "PYRECEIPT\n"
+            'DOCKER_BIN="docker"\n'
+            '"$DOCKER_BIN" run --rm "$IMAGE"\n'
+        )
+        receipt_prohibited, _ = scan_prohibited_conditions(receipt_heredoc_safe)
+
+        ok = (
+            expected_fid not in assignment_prohibited
+            and expected_fid in actual_prohibited
+            and expected_fid not in receipt_prohibited
+        )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T064":
         src = "docker version\n" + clean_scanner_base()
