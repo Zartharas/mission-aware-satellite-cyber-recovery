@@ -276,7 +276,19 @@ SUBPROCESS_RE = re.compile(r"\bsubprocess\b", re.I)
 NCURL_RE = re.compile(r"\b(curl|wget|nc|ncat|ssh|scp|rsync|socat)\b")
 PRUNE_RE = re.compile(r"\b(prune|-a\s*-\s*f|--all)\b", re.I)
 MOUNT_RE = re.compile(r"--mount|type=bind,source=", re.I)
-UNBOUNDED_WAIT_RE = re.compile(r"\bdocker\s+wait\b|\bsleep\b|\b--restart\s*=?\s*always|while\s+true", re.I)
+DOCKER_WAIT_RE = re.compile(
+    r'(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+wait\b',
+    re.I,
+)
+BOUNDED_DOCKER_WAIT_RE = re.compile(
+    r'\bbounded_exec\b.*?(?:docker|\$DOCKER_BIN|"\$DOCKER_BIN"|\$\{DOCKER_BIN\}|"\$\{DOCKER_BIN\}")\s+wait\b',
+    re.I,
+)
+RESTART_ALWAYS_RE = re.compile(r'(?<!\S)--restart\s*=?\s*always\b', re.I)
+SHELL_INFINITE_LOOP_RE = re.compile(
+    r'^\s*while\s+(?:true|:)\s*;\s*do\b',
+    re.I,
+)
 CP_WRITER_RE = re.compile(r"\b(cp|rsync)\s+.*\$REPO/external", re.I)
 MATERIALIZATION_RE = re.compile(r"--materialize-v3-transaction|--materialize")
 
@@ -349,7 +361,14 @@ def scan_prohibited_conditions(src,
         is_net = bool(NCURL_RE.search(s))
         is_prune = bool(PRUNE_RE.search(s))
         is_mount_live = bool(MOUNT_RE.search(s)) and "nos3" in s.lower()
-        is_unbounded = bool(UNBOUNDED_WAIT_RE.search(s))
+        is_unbounded = (
+            bool(RESTART_ALWAYS_RE.search(s))
+            or bool(SHELL_INFINITE_LOOP_RE.search(s))
+            or (
+                bool(DOCKER_WAIT_RE.search(s))
+                and not bool(BOUNDED_DOCKER_WAIT_RE.search(s))
+            )
+        )
         is_cp_writer = bool(CP_WRITER_RE.search(s))
         is_materialize = bool(MATERIALIZATION_RE.search(s))
         if re.search(r"authorized|AUTHORIZATION=AUTHORIZED|GATE=AUTHORIZED|diagnostic_runtime_authorized", s, re.I):
@@ -1451,9 +1470,56 @@ def _eval_test(tid, repo_root, fix, ctrls, verifier_path, work):
         ok = any(p == expected_fid for p in prohibited)
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T068":
-        src = clean_scanner_base() + 'docker wait "$CID"\n'
-        prohibited, _ = scan_prohibited_conditions(src)
-        ok = any(p == expected_fid for p in prohibited)
+        # Composite oracle: reject genuinely unbounded constructs while
+        # accepting finite sleeps, bounded Docker waits, and quoted Python
+        # while-True payload text that is not shell control syntax.
+        unbounded_wait = clean_scanner_base() + 'docker wait "$CID"\n'
+        p_unbounded_wait, _ = scan_prohibited_conditions(unbounded_wait)
+
+        bounded_wait = clean_scanner_base() + (
+            'bounded_exec "$ACCEPTANCE_TIMEOUT" docker wait "$CID"\n'
+        )
+        p_bounded_wait, _ = scan_prohibited_conditions(bounded_wait)
+
+        finite_sleep = clean_scanner_base() + 'sleep 2\n'
+        p_finite_sleep, _ = scan_prohibited_conditions(finite_sleep)
+
+        bounded_loop_sleep = clean_scanner_base() + (
+            'for ((i=1; i<=3; i++)); do\n'
+            '  sleep 1\n'
+            'done\n'
+        )
+        p_bounded_loop_sleep, _ = scan_prohibited_conditions(bounded_loop_sleep)
+
+        quoted_python_loop = clean_scanner_base() + (
+            "python3 -u -c '\n"
+            "while True:\n"
+            "    break\n"
+            "'\n"
+        )
+        p_quoted_python_loop, _ = scan_prohibited_conditions(quoted_python_loop)
+
+        shell_infinite = clean_scanner_base() + (
+            'while true; do\n'
+            '  echo still-running\n'
+            'done\n'
+        )
+        p_shell_infinite, _ = scan_prohibited_conditions(shell_infinite)
+
+        restart_always = clean_scanner_base() + (
+            'docker run --restart always "$IMAGE"\n'
+        )
+        p_restart_always, _ = scan_prohibited_conditions(restart_always)
+
+        ok = (
+            expected_fid in p_unbounded_wait
+            and expected_fid not in p_bounded_wait
+            and expected_fid not in p_finite_sleep
+            and expected_fid not in p_bounded_loop_sleep
+            and expected_fid not in p_quoted_python_loop
+            and expected_fid in p_shell_infinite
+            and expected_fid in p_restart_always
+        )
         return ("FAIL_CLOSED" if ok else "PASS", 4, expected_fid)
     if tid == "SV-T069":
         src = clean_scanner_base() + 'cp -R "$REPO/external/nos3" "$AUTHORIZED_ROOT/component"\n'
