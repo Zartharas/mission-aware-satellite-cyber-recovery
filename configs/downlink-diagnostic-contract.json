@@ -1347,7 +1347,7 @@
           "skips": 0
         },
         "t063_legacy_ordering_fallback_correction_previous_sha256": "3f56834da2aaefb5608b9ff9afae84bcc74c768087499bf94af57ca0e5e27669",
-        "t063_legacy_ordering_fallback_correction_status": "IMPLEMENTED_LOCAL_SELFTESTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION",
+        "t063_legacy_ordering_fallback_correction_status": "ACCEPTED_PUBLISHED",
         "t063_legacy_ordering_fallback_correction_root_cause": "CHECK_CANDIDATE_ORDERING_LEGACY_DOCKER_INDEX_MATCHES_DOCKER_BIN_ASSIGNMENT_BEFORE_RECEIPT_AFTER_COMMAND_AWARE_SCANNER_ALREADY_PASSES",
         "t063_execution_9_failure_id": "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION",
         "t063_execution_9_disposition": "INVALID_EXECUTION_VERIFIER_SOURCE_FALSE_POSITIVE_T063_LEGACY_LEXICAL_DOCKER_INDEX_FALLBACK_MISCLASSIFIES_DOCKER_BIN_ASSIGNMENT_AS_RUNTIME_OPERATION_NO_STATIC_DISPOSITION",
@@ -1362,7 +1362,11 @@
           "real_runtime_before_receipt_rejected": true,
           "real_runtime_after_valid_receipt_accepted": true,
           "materialization_before_authorization_rejected": true
-        }
+        },
+        "t063_legacy_ordering_fallback_correction_publication_pr": 16,
+        "t063_legacy_ordering_fallback_correction_publication_commit": "0584c34ec831746050d28671b6537868de24af96",
+        "t063_legacy_ordering_fallback_correction_merge_commit": "080e487fa0795268d9880a41273fa1316220d422",
+        "t063_legacy_ordering_fallback_correction_merge_tree": "2876303575be3aebec0b80b428e2aafa36672f56"
       },
       "implementation_record": {
         "path": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_COMBINED_IMPLEMENTATION_20260803.md",
@@ -1915,7 +1919,7 @@
     "runtime_attempts": 0,
     "d064_status": "BLOCKED",
     "wp5_execution_authorized": false,
-    "status": "IMPLEMENTED_LOCAL_SELFTESTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION",
+    "status": "ACCEPTED_PUBLISHED_NO_STATIC_DISPOSITION",
     "corrected_verifier_selftest": {
       "passed": 78,
       "failed": 0,
@@ -1926,6 +1930,45 @@
       "real_runtime_before_receipt_rejected": true,
       "real_runtime_after_valid_receipt_accepted": true,
       "materialization_before_authorization_rejected": true
-    }
+    },
+    "publication_pr": 16,
+    "publication_commit": "0584c34ec831746050d28671b6537868de24af96",
+    "merge_commit": "080e487fa0795268d9880a41273fa1316220d422",
+    "merge_tree": "2876303575be3aebec0b80b428e2aafa36672f56"
+  },
+  "c3b_i2d_vr15_post_publication_production_verify_authorization": {
+    "decision_id": "D-063R2-C3B-I2D-VR15",
+    "classification": "POST_PUBLICATION_ONE_RUN_CORRECTED_STATIC_VERIFIER_AUTHORIZATION",
+    "vr14_publication_pr": 16,
+    "vr14_publication_commit": "0584c34ec831746050d28671b6537868de24af96",
+    "vr14_merge_commit": "080e487fa0795268d9880a41273fa1316220d422",
+    "vr14_merge_tree": "2876303575be3aebec0b80b428e2aafa36672f56",
+    "corrected_verifier_sha256": "e803d59b0a0afb0fb49c05b42053ab07cc866494711c09248ba49574b6bb1c2b",
+    "superseded_execution_verifier_sha256": "3f56834da2aaefb5608b9ff9afae84bcc74c768087499bf94af57ca0e5e27669",
+    "active_generator_sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812",
+    "proposed_candidate_sha256": "599c534df37b127f7325ad513eecc4b24bdc0d37a56c32b4448a0b0099c13a1f",
+    "aggregate_complete_production_verify_executions": 9,
+    "corrected_verifier_production_executions": 0,
+    "candidate_failure_established": false,
+    "static_verification": "PENDING",
+    "production_verify_rerun_authorized": true,
+    "production_verify_authorized_attempts": 1,
+    "production_verify_authorization_consumed": false,
+    "new_production_verify_authorization_granted": true,
+    "authorization_scope": "EXACTLY_ONE_FUTURE_PRODUCTION_STATIC_VERIFY_ONLY_NO_RUNTIME_AUTHORIZATION",
+    "next_expected_production_execution": 10,
+    "execution_9_authorization_consumed": true,
+    "execution_9_rerun_authorized": false,
+    "candidate_execution_authorized": false,
+    "materialization_authorized": false,
+    "docker_authorized": false,
+    "nos3_authorized": false,
+    "fortytwo_authorized": false,
+    "event_injection_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "d064_status": "BLOCKED",
+    "wp5_execution_authorized": false,
+    "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
   }
 }
