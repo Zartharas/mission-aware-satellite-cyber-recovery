@@ -1278,7 +1278,7 @@
       },
       "static_verifier": {
         "path": "scripts/verify_passive_time_witness_runtime_candidate_v3_static.sh",
-        "sha256": "3f56834da2aaefb5608b9ff9afae84bcc74c768087499bf94af57ca0e5e27669",
+        "sha256": "e803d59b0a0afb0fb49c05b42053ab07cc866494711c09248ba49574b6bb1c2b",
         "t063_correction_previous_sha256": "1a7db020a08beca3448c484273595bfa769112ad1fd2a66d73094c37a8d88fa2",
         "t063_correction_publication_commit": "c130306f37b6f88a42bcec029fa17aaed7e6de9c",
         "t063_correction_publication_pr": 8,
@@ -1345,6 +1345,23 @@
           "passed": 78,
           "failed": 0,
           "skips": 0
+        },
+        "t063_legacy_ordering_fallback_correction_previous_sha256": "3f56834da2aaefb5608b9ff9afae84bcc74c768087499bf94af57ca0e5e27669",
+        "t063_legacy_ordering_fallback_correction_status": "IMPLEMENTED_LOCAL_SELFTESTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION",
+        "t063_legacy_ordering_fallback_correction_root_cause": "CHECK_CANDIDATE_ORDERING_LEGACY_DOCKER_INDEX_MATCHES_DOCKER_BIN_ASSIGNMENT_BEFORE_RECEIPT_AFTER_COMMAND_AWARE_SCANNER_ALREADY_PASSES",
+        "t063_execution_9_failure_id": "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION",
+        "t063_execution_9_disposition": "INVALID_EXECUTION_VERIFIER_SOURCE_FALSE_POSITIVE_T063_LEGACY_LEXICAL_DOCKER_INDEX_FALLBACK_MISCLASSIFIES_DOCKER_BIN_ASSIGNMENT_AS_RUNTIME_OPERATION_NO_STATIC_DISPOSITION",
+        "t063_legacy_ordering_fallback_correction_behavior": "REMOVE_ONLY_REDUNDANT_LINE_INDEX_FALLBACK_FROM_CHECK_CANDIDATE_ORDERING_AND_RETAIN_SCAN_PROHIBITED_CONDITIONS_AS_ORDERING_AUTHORITY",
+        "t063_legacy_ordering_fallback_correction_selftest": {
+          "passed": 78,
+          "failed": 0,
+          "skips": 0
+        },
+        "t063_legacy_ordering_fallback_regression_controls": {
+          "docker_bin_assignment_only_accepted": true,
+          "real_runtime_before_receipt_rejected": true,
+          "real_runtime_after_valid_receipt_accepted": true,
+          "materialization_before_authorization_rejected": true
         }
       },
       "implementation_record": {
@@ -1823,14 +1840,14 @@
     "superseded_execution_verifier_sha256": "46cf958d3bdde50946ff2387bcd5c7ac18f4b9e588ddd5e9392d743b090ef945",
     "active_generator_sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812",
     "proposed_candidate_sha256": "599c534df37b127f7325ad513eecc4b24bdc0d37a56c32b4448a0b0099c13a1f",
-    "aggregate_complete_production_verify_executions": 8,
-    "corrected_verifier_production_executions": 0,
+    "aggregate_complete_production_verify_executions": 9,
+    "corrected_verifier_production_executions": 1,
     "candidate_failure_established": false,
     "static_verification": "PENDING",
-    "production_verify_rerun_authorized": true,
+    "production_verify_rerun_authorized": false,
     "production_verify_authorized_attempts": 1,
-    "production_verify_authorization_consumed": false,
-    "new_production_verify_authorization_granted": true,
+    "production_verify_authorization_consumed": true,
+    "new_production_verify_authorization_granted": false,
     "authorization_scope": "EXACTLY_ONE_FUTURE_PRODUCTION_STATIC_VERIFY_ONLY_NO_RUNTIME_AUTHORIZATION",
     "next_expected_production_execution": 9,
     "execution_8_authorization_consumed": true,
@@ -1845,6 +1862,70 @@
     "runtime_attempts": 0,
     "d064_status": "BLOCKED",
     "wp5_execution_authorized": false,
-    "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
+    "status": "ACCEPTED_PUBLISHED_AUTHORIZATION_CONSUMED_EXECUTION_9_INVALID_VERIFIER_SOURCE_NO_STATIC_DISPOSITION",
+    "publication_pr": 15,
+    "publication_commit": "f9a4bd8b1861bdaa55081515cdc28bb048bb0e61",
+    "merge_commit": "5729f321801358115123463be58510aea5bc486e",
+    "merge_tree": "ac1ff2d229b1b8f28a74630719964ff6b7722b78",
+    "execution_9_verifier_rc": 4,
+    "execution_9_failure_id": "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION",
+    "execution_9_disposition": "INVALID_EXECUTION_VERIFIER_SOURCE_FALSE_POSITIVE_T063_LEGACY_LEXICAL_DOCKER_INDEX_FALLBACK_MISCLASSIFIES_DOCKER_BIN_ASSIGNMENT_AS_RUNTIME_OPERATION_NO_STATIC_DISPOSITION",
+    "execution_9_evidence": {
+      "prestate_sha256": "e36510bde700ba7e6a4eb6210aba31d26ed04621bce08d0fa0eb30317a8db223",
+      "authorization_receipt_sha256": "37f80b302fe0f901db497a6e1b59fbffe54315f6342bfb36ef292d5bc4083ac2",
+      "result_sha256": "b2c8f83eeadf9c2deef28791f0b70a553cb1d853c5fe923f8dcef3f048ec2005",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "993a479f9aa5b238019cb9e45aba82875d56fae2e7c8ce4233ad77b33fc65b84"
+    }
+  },
+  "c3b_i2d_vr14_t063_legacy_fallback_source_correction_execution9_reconciliation": {
+    "decision_id": "D-063R2-C3B-I2D-VR14",
+    "classification": "T063_LEGACY_ORDERING_FALLBACK_SOURCE_CORRECTION_AND_EXECUTION9_GOVERNANCE_RECONCILIATION",
+    "execution_number": 9,
+    "execution_verifier_sha256": "3f56834da2aaefb5608b9ff9afae84bcc74c768087499bf94af57ca0e5e27669",
+    "corrected_verifier_sha256": "e803d59b0a0afb0fb49c05b42053ab07cc866494711c09248ba49574b6bb1c2b",
+    "active_generator_sha256": "7140b7ff1aa1873ac020bae24d2a921a343f3d1fde86c6bbb4aece45cf229812",
+    "candidate_sha256": "599c534df37b127f7325ad513eecc4b24bdc0d37a56c32b4448a0b0099c13a1f",
+    "failure_id": "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION",
+    "root_cause": "CHECK_CANDIDATE_ORDERING_LEGACY_DOCKER_INDEX_MATCHES_DOCKER_BIN_ASSIGNMENT_BEFORE_RECEIPT_AFTER_COMMAND_AWARE_SCANNER_ALREADY_PASSES",
+    "disposition": "INVALID_EXECUTION_VERIFIER_SOURCE_FALSE_POSITIVE_T063_LEGACY_LEXICAL_DOCKER_INDEX_FALLBACK_MISCLASSIFIES_DOCKER_BIN_ASSIGNMENT_AS_RUNTIME_OPERATION_NO_STATIC_DISPOSITION",
+    "execution_9_authorization_consumed": true,
+    "execution_9_rerun_authorized": false,
+    "aggregate_complete_production_verify_executions": 9,
+    "superseded_verifier_production_executions": 1,
+    "corrected_verifier_production_executions": 0,
+    "candidate_failure_established": false,
+    "static_verification": "PENDING",
+    "source_correction": "REMOVE_ONLY_REDUNDANT_LEGACY_LINE_INDEX_ORDERING_FALLBACK_FROM_CHECK_CANDIDATE_ORDERING_RETAIN_COMMAND_AWARE_SCANNER",
+    "execution_9_evidence": {
+      "prestate_sha256": "e36510bde700ba7e6a4eb6210aba31d26ed04621bce08d0fa0eb30317a8db223",
+      "authorization_receipt_sha256": "37f80b302fe0f901db497a6e1b59fbffe54315f6342bfb36ef292d5bc4083ac2",
+      "result_sha256": "b2c8f83eeadf9c2deef28791f0b70a553cb1d853c5fe923f8dcef3f048ec2005",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "993a479f9aa5b238019cb9e45aba82875d56fae2e7c8ce4233ad77b33fc65b84"
+    },
+    "new_production_verify_authorization_granted": false,
+    "candidate_execution_authorized": false,
+    "materialization_authorized": false,
+    "docker_authorized": false,
+    "nos3_authorized": false,
+    "fortytwo_authorized": false,
+    "event_injection_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "d064_status": "BLOCKED",
+    "wp5_execution_authorized": false,
+    "status": "IMPLEMENTED_LOCAL_SELFTESTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION",
+    "corrected_verifier_selftest": {
+      "passed": 78,
+      "failed": 0,
+      "skips": 0
+    },
+    "focused_regression_controls": {
+      "docker_bin_assignment_only_accepted": true,
+      "real_runtime_before_receipt_rejected": true,
+      "real_runtime_after_valid_receipt_accepted": true,
+      "materialization_before_authorization_rejected": true
+    }
   }
 }

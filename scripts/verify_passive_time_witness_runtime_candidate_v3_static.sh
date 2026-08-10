@@ -969,16 +969,6 @@ def _check_candidate_ordering(fix):
         return (4, "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION")
     for p in prohibited:
         return (4, p)
-    # Accepted-candidate ordering invariants on the synthetic body
-    lines = src.splitlines()
-    auth_idx = next((i for i,l in enumerate(lines) if "diagnostic_runtime_authorized" in l and "if not" in l), None)
-    tx_idx = next((i for i,l in enumerate(lines) if "materialize-v3-transaction" in l), None)
-    receipt_idx = next((i for i,l in enumerate(lines) if "receipt" in l.lower()), None)
-    docker_idx = next((i for i,l in enumerate(lines) if "docker" in l.lower() and "DOCKER" in l), None)
-    if auth_idx is not None and tx_idx is not None and tx_idx < auth_idx:
-        return (4, "SVF_SV_T062_CANDIDATE_AUTHORIZATION_ORDERING_VIOLATION")
-    if receipt_idx is not None and docker_idx is not None and docker_idx < receipt_idx:
-        return (4, "SVF_SV_T063_RECEIPT_BEFORE_RUNTIME_ORDERING_VIOLATION")
     return (0, None)
 
 def _check_candidate_structural(fix):
