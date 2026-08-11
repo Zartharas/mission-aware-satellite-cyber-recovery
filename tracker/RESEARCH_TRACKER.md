@@ -18,7 +18,7 @@ Last updated: 2026-08-10
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | V4 source implementation is complete locally under `D-063R2-C3B-I2D-D064-SIA1`: reviewed transaction-v2 is frozen; generator-v4 deterministically emits the proposed V4 candidate; contract `0.4.14` is implementation-only with V4 static verification `PENDING`; verifier-v4 selftest passes; production candidate execution, Execution #11, authorized-root work, retained host evidence, D-064, runtime and WP5 remain closed. | Independent review and publication of the exact nine-path V4 source implementation; only afterward may a separately authorized production V4 static-verification execution be considered |
+| WP4 | Testbed selection and architecture | In progress | V4 source implementation is published; production static verifier Execution #11 passed and was independently reviewed with zero findings; candidate `b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7` is accepted identity-only and not runtime-authorized; D-064, authorized-root work, retained host evidence, runtime and WP5 remain closed. | Separate D-064 governance decision required before any authorized-root or runtime work |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -321,3 +321,18 @@ D-063R2-PB2B-B1R4 (2026-08-01) records the narrowly scoped WP4 Checkpoint 2PB2B-
 - implementation lock SHA-256: `6540a348a485d4ee74c2d373f1a6f10ac43a59f1b2714b621f1f0c2af4feecc7`
 - production V4 static verification: `PENDING`; Execution #11 not authorized
 - D-064/runtime/WP5 execution: not authorized
+
+## WP4 V4 production static verification governance — 2026-08-10
+
+- decision: `D-063R2-C3B-I2D-D064-V4-SV1`
+- Execution #11: `PASS`, consumed, rerun not authorized
+- accepted V4 identity: `b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7` (identity-only; not runtime-authorized)
+- Execution #11 report SHA-256: `77689b9173a90284b3b5c077fd89ef3b8d7057ed5ca36547f232c98cc6659749`
+- Execution #11 evidence-manifest SHA-256: `63d2190730e6f827ddd981600f6191f8198ab8f00e2b35a6e6ab1eb87c3381de`
+- independent evidence review findings: `0`
+- D-064: `READY_FOR_SEPARATE_D064_CONSIDERATION_NOT_AUTHORIZED`
+- authorized-root selection/creation: not authorized
+- retained host evidence: not authorized
+- runtime authorization/attempts: false / `0`
+- event injection / baseline / WP5 execution: not authorized
+- next action: separate D-064 governance decision

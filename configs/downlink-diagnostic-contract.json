@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.14",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_D064_BLOCKED_RUNTIME_NOT_AUTHORIZED",
+  "contract_version": "0.4.15",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -419,10 +419,13 @@
     "proposed_runtime_entrypoint_v3_sha256": "599c534df37b127f7325ad513eecc4b24bdc0d37a56c32b4448a0b0099c13a1f",
     "passive_time_witness_runtime_candidate_v3_contract_schema": 1,
     "passive_time_witness_runtime_candidate_v4_contract_schema": 1,
-    "passive_time_witness_runtime_candidate_v4_static_verification": "PENDING",
-    "accepted_runtime_entrypoint_v4_sha256": "",
-    "accepted_runtime_entrypoint_v4_identity_only_not_authorized": false,
-    "proposed_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7"
+    "passive_time_witness_runtime_candidate_v4_static_verification": "PASS",
+    "accepted_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+    "accepted_runtime_entrypoint_v4_identity_only_not_authorized": true,
+    "proposed_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+    "passive_time_witness_runtime_candidate_v4_static_verification_execution_number": 11,
+    "passive_time_witness_runtime_candidate_v4_static_verification_report_sha256": "77689b9173a90284b3b5c077fd89ef3b8d7057ed5ca36547f232c98cc6659749",
+    "passive_time_witness_runtime_candidate_v4_static_verification_evidence_manifest_sha256": "63d2190730e6f827ddd981600f6191f8198ab8f00e2b35a6e6ab1eb87c3381de"
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -2061,12 +2064,12 @@
     "design_authority": "D-063R2-C3B-I2D-D064-RD1",
     "implementation_authorization": "D-063R2-C3B-I2D-D064-SIA1",
     "implementation_date": "2026-08-10",
-    "status": "V4_SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED",
+    "status": "V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
     "architecture_identifier": "PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES_WITH_DARWIN_ACL_AND_ADVISORY_SERIALIZATION",
     "runtime_authorized": false,
     "runtime_attempts": 0,
-    "d064_status": "BLOCKED_PENDING_V4_STATIC_VERIFICATION_AND_SEPARATE_D064_DECISION",
-    "next_decision": "SEPARATELY_AUTHORIZED_V4_STATIC_VERIFICATION_EXECUTION_REQUIRED",
+    "d064_status": "READY_FOR_SEPARATE_D064_CONSIDERATION_NOT_AUTHORIZED",
+    "next_decision": "SEPARATE_D064_DECISION_REQUIRED",
     "runtime_authorization_decision": "NOT_AUTHORIZED",
     "candidate_required_checks": {
       "passive_time_witness_runtime_candidate_v4_contract_schema": 1,
@@ -2103,12 +2106,12 @@
       "generated_runtime_candidate_v4": {
         "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
         "sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
-        "status": "PROPOSED_STATIC_VERIFICATION_PENDING_NOT_AUTHORIZED",
-        "accepted": false
+        "status": "STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_NOT_RUNTIME_AUTHORIZED",
+        "accepted": true
       },
       "proposed_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
-      "accepted_runtime_entrypoint_v4_sha256": "",
-      "passive_time_witness_runtime_candidate_v4_static_verification": "PENDING",
+      "accepted_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+      "passive_time_witness_runtime_candidate_v4_static_verification": "PASS",
       "host_exclusive_writer_evidence": {
         "path": "",
         "sha256": "",
@@ -2124,7 +2127,7 @@
         "external_noncooperating_writer_absence_proven": false
       },
       "production_candidate_execution_count": 0,
-      "production_static_verifier_execution_count": 0,
+      "production_static_verifier_execution_count": 1,
       "execution_11_authorized": false,
       "authorized_root_selected": false,
       "authorized_root_created": false,
@@ -2132,7 +2135,14 @@
       "d064_authorized": false,
       "runtime_authorized": false,
       "runtime_attempts": 0,
-      "wp5_execution_authorized": false
+      "wp5_execution_authorized": false,
+      "execution_11_executed": true,
+      "execution_11_result": "PASS",
+      "execution_11_consumed": true,
+      "execution_11_rerun_authorized": false,
+      "execution_11_report_sha256": "77689b9173a90284b3b5c077fd89ef3b8d7057ed5ca36547f232c98cc6659749",
+      "execution_11_evidence_manifest_sha256": "63d2190730e6f827ddd981600f6191f8198ab8f00e2b35a6e6ab1eb87c3381de",
+      "accepted_runtime_entrypoint_v4_identity_only_not_authorized": true
     }
   },
   "passive_time_witness_runtime_candidate_v4_source_implementation": {
@@ -2153,5 +2163,33 @@
     "runtime_authorized": false,
     "runtime_attempts": 0,
     "wp5_execution_authorized": false
+  },
+  "passive_time_witness_runtime_candidate_v4_static_verification_governance_1": {
+    "decision": "D-063R2-C3B-I2D-D064-V4-SV1",
+    "authorization": "USER_AUTHORIZED_POST_EXECUTION_11_GOVERNANCE_RECORDING_20260810",
+    "recorded_date": "2026-08-10",
+    "source_commit": "6e5d4d5ad7f15480ed2ef4c32cd90d36f9061f4f",
+    "execution_number": 11,
+    "execution_result": "PASS",
+    "execution_consumed": true,
+    "execution_rerun_authorized": false,
+    "static_verification": "PASS",
+    "accepted_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+    "accepted_runtime_entrypoint_v4_identity_only_not_authorized": true,
+    "execution_11_report_sha256": "77689b9173a90284b3b5c077fd89ef3b8d7057ed5ca36547f232c98cc6659749",
+    "execution_11_evidence_manifest_sha256": "63d2190730e6f827ddd981600f6191f8198ab8f00e2b35a6e6ab1eb87c3381de",
+    "candidate_executed": false,
+    "production_runtime_executed": false,
+    "authorized_root_selected": false,
+    "authorized_root_created": false,
+    "retained_host_evidence_created": false,
+    "d064_status": "READY_FOR_SEPARATE_D064_CONSIDERATION_NOT_AUTHORIZED",
+    "d064_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "event_injection_executed": false,
+    "baseline_executed": false,
+    "wp5_execution_authorized": false,
+    "next_decision": "SEPARATE_D064_DECISION_REQUIRED"
   }
 }
