@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.16",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_SUCCESSOR_HOST_EVIDENCE_BOUND_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
+  "contract_version": "0.4.17",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_FRESH_SUCCESSOR_HOST_EVIDENCE_HE2_BOUND_D064_BLOCKED_PENDING_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_RUNTIME_NOT_AUTHORIZED",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -36,7 +36,9 @@
     "wp4_passive_time_witness_runtime_control_v2_implementation": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTATION_20260728.md",
     "wp4_passive_time_witness_runtime_control_v2_implementation_lock": "artifacts/wp4-passive-time-witness-runtime-control-v2-implementation-lock.txt",
     "wp4_d064_v4_successor_host_evidence_governance": "tracker/WP4_D064_V4_SUCCESSOR_HOST_EVIDENCE_GOVERNANCE_20260811.md",
-    "wp4_d064_v4_successor_host_evidence_governance_lock": "artifacts/wp4-d064-v4-successor-host-evidence-governance-lock.txt"
+    "wp4_d064_v4_successor_host_evidence_governance_lock": "artifacts/wp4-d064-v4-successor-host-evidence-governance-lock.txt",
+    "wp4_d064_v4_fresh_successor_host_evidence_governance": "tracker/WP4_D064_V4_FRESH_SUCCESSOR_HOST_EVIDENCE_GOVERNANCE_20260811.md",
+    "wp4_d064_v4_fresh_successor_host_evidence_governance_lock": "artifacts/wp4-d064-v4-fresh-successor-host-evidence-governance-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -2066,12 +2068,12 @@
     "design_authority": "D-063R2-C3B-I2D-D064-RD1",
     "implementation_authorization": "D-063R2-C3B-I2D-D064-SIA1",
     "implementation_date": "2026-08-10",
-    "status": "V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_SUCCESSOR_HOST_EVIDENCE_BOUND_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
+    "status": "V4_STATIC_VERIFICATION_PASS_FRESH_SUCCESSOR_HOST_EVIDENCE_HE2_BOUND_D064_BLOCKED_PENDING_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_RUNTIME_NOT_AUTHORIZED",
     "architecture_identifier": "PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES_WITH_DARWIN_ACL_AND_ADVISORY_SERIALIZATION",
     "runtime_authorized": false,
     "runtime_attempts": 0,
-    "d064_status": "READY_FOR_SEPARATE_D064_CONSIDERATION_NOT_AUTHORIZED",
-    "next_decision": "SEPARATE_D064_DECISION_REQUIRED_AFTER_HE1_PUBLICATION",
+    "d064_status": "BLOCKED_PENDING_FRESH_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION",
+    "next_decision": "SEPARATELY_GOVERNED_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION_REQUIRED_BEFORE_D064_CONSIDERATION",
     "runtime_authorization_decision": "NOT_AUTHORIZED",
     "candidate_required_checks": {
       "passive_time_witness_runtime_candidate_v4_contract_schema": 1,
@@ -2088,7 +2090,7 @@
     "passive_time_witness_runtime_candidate_v4_implementation": {
       "decision": "D-063R2-C3B-I2D-D064-V4-IMPL",
       "implementation_date": "2026-08-10",
-      "status": "STATIC_VERIFICATION_PASS_SUCCESSOR_HOST_EVIDENCE_BOUND_D064_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
+      "status": "STATIC_VERIFICATION_PASS_FRESH_SUCCESSOR_HOST_EVIDENCE_HE2_BOUND_ACTIVE_TRANSACTION_V2_SCHEMA1_BINDING_RETAINED_D064_BLOCKED_RUNTIME_NOT_AUTHORIZED",
       "runtime_candidate_generator": {
         "path": "scripts/prepare_passive_time_witness_runtime_candidate_v4.sh",
         "sha256": "5e7cec82032b16edc30a7c0f5d4bfe0a5ddb567ed6a13f6c3075f4db3c97f2a7"
@@ -2193,7 +2195,63 @@
           "semantics_claim": "NOT_MADE",
           "cleanup_authorized": false
         }
-      }
+      },
+      "fresh_successor_host_evidence_governance": {
+        "path": "review-evidence/WP4_D064_V4_PRE_D064/host-exclusive-writer-precondition-v3.json",
+        "sha256": "c4783f95de24ae309c6fd1c79ea2bc0d27e1dfdb319259351338d0f75c62de9a",
+        "bytes": 8400,
+        "schema": 2,
+        "status": "CAPTURED_FRESH_SUCCESSOR_PRECONDITION_EVIDENCE_PENDING_INDEPENDENT_REVIEW_NOT_D064_AUTHORITY",
+        "evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION_REFRESH",
+        "observed_at_utc": "2026-08-11T23:21:19Z",
+        "capture_gate_sha256": "f5aa02c3c89bcb119313a105f8606631f4353e7215d01cdc4e757c6c5800633a",
+        "independent_review_script_sha256": "4f9a079ff7954dc3f9f52cf62b8a8a3ba79639c89fe9de508d14f2a6b6577687",
+        "independent_review_result": "PASS",
+        "independent_review_findings": 0,
+        "current_host_reobservation_consistent_with_v3": true,
+        "xattr_observations": {
+          "com_apple_macl": {
+            "capture_length": 72,
+            "capture_sha256": "d66d5f6d7ae3cc3cb4144fb7baaa3ac7c6b5bceecbb5be3737eaf52859e061fe",
+            "predecessor_capture_sha256": "fa684fb95f30efabd12c9e2c52418f015d17c0f465d531bde3f7eff15495501a",
+            "changed_from_predecessor": true,
+            "causation_proven": false,
+            "semantics_claim": "NOT_MADE",
+            "internal_semantics_used_for_authorization": false,
+            "remediation_authorized": false,
+            "remediation_performed": false
+          },
+          "com_apple_provenance": {
+            "capture_length": 11,
+            "capture_sha256": "f5556b5fbd36d387eebe64c9da92eb21a7af846e790cbd98bfcf742963eb683d",
+            "predecessor_capture_sha256": "739fa17afddf55e97efadf89eebac7c3b0dae01478a2634454d592b3073d4df0",
+            "changed_from_predecessor": true,
+            "causation_proven": false,
+            "semantics_claim": "NOT_MADE",
+            "remediation_authorized": false,
+            "remediation_performed": false
+          },
+          "raw_values_retained": false,
+          "raw_values_printed": false
+        },
+        "transaction_v2_consumer_compatibility": {
+          "transaction_v2_sha256": "7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29",
+          "expected_host_evidence_schema": 1,
+          "expected_host_evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION",
+          "expected_host_evidence_status": "RETAINED_PRECONDITION_EVIDENCE",
+          "fresh_v3_schema": 2,
+          "fresh_v3_evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION_REFRESH",
+          "fresh_v3_status": "CAPTURED_FRESH_SUCCESSOR_PRECONDITION_EVIDENCE_PENDING_INDEPENDENT_REVIEW_NOT_D064_AUTHORITY",
+          "compatible": false,
+          "active_runtime_host_evidence_binding_preserved_to_v2": true,
+          "source_remediation_authorized": false,
+          "blocker": "TRANSACTION_V2_HOST_EVIDENCE_SCHEMA_TYPE_STATUS_INCOMPATIBLE_WITH_FRESH_V3"
+        },
+        "d064_authorization_decision_eligible": false,
+        "d064_status": "BLOCKED_PENDING_FRESH_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION",
+        "next_decision": "SEPARATELY_GOVERNED_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION_REQUIRED_BEFORE_D064_CONSIDERATION"
+      },
+      "fresh_successor_host_evidence_created": true
     }
   },
   "passive_time_witness_runtime_candidate_v4_source_implementation": {
@@ -2316,6 +2374,111 @@
     "baseline_executed": false,
     "wp5_execution_authorized": false,
     "next_decision": "SEPARATE_D064_DECISION_REQUIRED_ONLY_AFTER_HE1_PUBLICATION",
+    "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
+  },
+  "passive_time_witness_runtime_candidate_v4_fresh_successor_host_evidence_governance_2": {
+    "decision": "D-063R2-C3B-I2D-D064-V4-HE2",
+    "authorization": "USER_AUTHORIZED_WP4_C3B_I2D_V4_HE2_FRESH_SUCCESSOR_HOST_EVIDENCE_CONTRACT_GOVERNANCE_BINDING_20260811",
+    "recorded_date": "2026-08-11",
+    "source_commit": "1a106e0a23244802f443872be77074940818e4ec",
+    "source_tree": "dc12cf86ad4f321aad8c62796cf49dd1f892cd43",
+    "contract_version": "0.4.17",
+    "fresh_successor_host_evidence": {
+      "path": "review-evidence/WP4_D064_V4_PRE_D064/host-exclusive-writer-precondition-v3.json",
+      "sha256": "c4783f95de24ae309c6fd1c79ea2bc0d27e1dfdb319259351338d0f75c62de9a",
+      "bytes": 8400,
+      "schema": 2,
+      "status": "CAPTURED_FRESH_SUCCESSOR_PRECONDITION_EVIDENCE_PENDING_INDEPENDENT_REVIEW_NOT_D064_AUTHORITY",
+      "evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION_REFRESH",
+      "observed_at_utc": "2026-08-11T23:21:19Z",
+      "capture_gate_sha256": "f5aa02c3c89bcb119313a105f8606631f4353e7215d01cdc4e757c6c5800633a",
+      "independent_review_script_sha256": "4f9a079ff7954dc3f9f52cf62b8a8a3ba79639c89fe9de508d14f2a6b6577687",
+      "independent_review_result": "PASS",
+      "independent_review_findings": 0,
+      "current_host_reobservation_consistent_with_v3": true,
+      "xattr_observations": {
+        "com_apple_macl": {
+          "capture_length": 72,
+          "capture_sha256": "d66d5f6d7ae3cc3cb4144fb7baaa3ac7c6b5bceecbb5be3737eaf52859e061fe",
+          "predecessor_capture_sha256": "fa684fb95f30efabd12c9e2c52418f015d17c0f465d531bde3f7eff15495501a",
+          "changed_from_predecessor": true,
+          "causation_proven": false,
+          "semantics_claim": "NOT_MADE",
+          "internal_semantics_used_for_authorization": false,
+          "remediation_authorized": false,
+          "remediation_performed": false
+        },
+        "com_apple_provenance": {
+          "capture_length": 11,
+          "capture_sha256": "f5556b5fbd36d387eebe64c9da92eb21a7af846e790cbd98bfcf742963eb683d",
+          "predecessor_capture_sha256": "739fa17afddf55e97efadf89eebac7c3b0dae01478a2634454d592b3073d4df0",
+          "changed_from_predecessor": true,
+          "causation_proven": false,
+          "semantics_claim": "NOT_MADE",
+          "remediation_authorized": false,
+          "remediation_performed": false
+        },
+        "raw_values_retained": false,
+        "raw_values_printed": false
+      },
+      "transaction_v2_consumer_compatibility": {
+        "transaction_v2_sha256": "7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29",
+        "expected_host_evidence_schema": 1,
+        "expected_host_evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION",
+        "expected_host_evidence_status": "RETAINED_PRECONDITION_EVIDENCE",
+        "fresh_v3_schema": 2,
+        "fresh_v3_evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION_REFRESH",
+        "fresh_v3_status": "CAPTURED_FRESH_SUCCESSOR_PRECONDITION_EVIDENCE_PENDING_INDEPENDENT_REVIEW_NOT_D064_AUTHORITY",
+        "compatible": false,
+        "active_runtime_host_evidence_binding_preserved_to_v2": true,
+        "source_remediation_authorized": false,
+        "blocker": "TRANSACTION_V2_HOST_EVIDENCE_SCHEMA_TYPE_STATUS_INCOMPATIBLE_WITH_FRESH_V3"
+      },
+      "d064_authorization_decision_eligible": false,
+      "d064_status": "BLOCKED_PENDING_FRESH_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION",
+      "next_decision": "SEPARATELY_GOVERNED_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION_REQUIRED_BEFORE_D064_CONSIDERATION"
+    },
+    "active_transaction_v2_runtime_host_evidence_binding": {
+      "path": "review-evidence/WP4_D064_V4_PRE_D064/host-exclusive-writer-precondition-v2.json",
+      "sha256": "af8bd76dbe81004e58abd0936f7480e371db9c09b149f0529a6f658aee106669",
+      "bytes": 6413,
+      "schema": 1,
+      "status": "RETAINED_PRECONDITION_EVIDENCE",
+      "preserved_for_frozen_transaction_v2_consumer_compatibility": true,
+      "currentness_for_D064_authorization_decision": false
+    },
+    "consumer_compatibility_disposition": {
+      "transaction_v2_sha256": "7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29",
+      "transaction_v2_expected_schema": 1,
+      "transaction_v2_expected_evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION",
+      "transaction_v2_expected_status": "RETAINED_PRECONDITION_EVIDENCE",
+      "fresh_v3_schema": 2,
+      "fresh_v3_evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION_REFRESH",
+      "fresh_v3_status": "CAPTURED_FRESH_SUCCESSOR_PRECONDITION_EVIDENCE_PENDING_INDEPENDENT_REVIEW_NOT_D064_AUTHORITY",
+      "compatible": false,
+      "finding": "TRANSACTION_V2_HOST_EVIDENCE_SCHEMA_TYPE_STATUS_INCOMPATIBLE_WITH_FRESH_V3",
+      "source_remediation_authorized": false
+    },
+    "accepted_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+    "accepted_runtime_entrypoint_v4_identity_only_not_authorized": true,
+    "execution_11_consumed": true,
+    "execution_11_rerun_authorized": false,
+    "candidate_executed": false,
+    "production_materialization_executed": false,
+    "xattr_remediation_performed": false,
+    "acl_mutation_performed": false,
+    "source_remediation_performed": false,
+    "external_noncooperating_writer_absence_proven": false,
+    "d064_status": "BLOCKED_PENDING_FRESH_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION",
+    "d064_authorization_decision_eligible": false,
+    "d064_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "event_injection_executed": false,
+    "command_transmission_executed": false,
+    "baseline_executed": false,
+    "wp5_execution_authorized": false,
+    "next_decision": "SEPARATELY_GOVERNED_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION_REQUIRED_BEFORE_D064_CONSIDERATION",
     "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
   }
 }
