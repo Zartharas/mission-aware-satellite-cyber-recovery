@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-08-08
+Last updated: 2026-08-10
 
 ## Status legend
 
@@ -18,7 +18,7 @@ Last updated: 2026-08-08
 | WP1 | Literature and novelty validation | Ready for review | Two gap reviews, reviewer challenge, final novelty statement, and 30-source matrix | Citation/metadata audit and approval of final gap statement |
 | WP2 | Theoretical and conceptual model | Ready for review | Mission Aware + FDIR + cyber-resilience/RMF/SPARTA structure; traceability and deterministic metric contract | Approve Gate 2 traceability and metric definitions |
 | WP3 | Threat and mission model | Ready for review | Frozen boundaries, machine-readable model and run schema, red-team review, and Docker-specific ROE controls | Approve Gate 2 threat/mission model and ROE controls |
-| WP4 | Testbed selection and architecture | In progress | R2 D-064 V4 remediation-design governance is published on main at `e8547fec461fd2034913ef4ce71abb9989c42839` with contract `0.4.13` unchanged and all runtime gates closed. Separate source-implementation authorization `D-063R2-C3B-I2D-D064-SIA1` is now recorded locally: it permits a later independently governed implementation to create transaction-v2, generator/candidate-v4, verifier-v4 and an implementation-only contract `0.4.14`, plus their implementation governance record/lock and WP4 tracker updates. The authorization permits syntax/static checks, synthetic self-tests, and temporary deterministic double emission only after this authorization is independently reviewed and published. It does not authorize production candidate execution, production static-verifier execution #11, authorized-root selection/creation, retained host-evidence creation, D-064, runtime, event injection, or WP5. | Independently review and publish the exact V4 source-implementation authorization; only after publication may the separate V4 source-implementation phase begin |
+| WP4 | Testbed selection and architecture | In progress | V4 source implementation is complete locally under `D-063R2-C3B-I2D-D064-SIA1`: reviewed transaction-v2 is frozen; generator-v4 deterministically emits the proposed V4 candidate; contract `0.4.14` is implementation-only with V4 static verification `PENDING`; verifier-v4 selftest passes; production candidate execution, Execution #11, authorized-root work, retained host evidence, D-064, runtime and WP5 remain closed. | Independent review and publication of the exact nine-path V4 source implementation; only afterward may a separately authorized production V4 static-verification execution be considered |
 | WP5 | Event-injection library | Not started | — | Each event deterministic and contained |
 | WP6 | Response-policy implementation | Not started | — | Baseline policies pass unit and integration tests |
 | WP7 | Trusted-recovery implementation | Not started | — | Recovery evidence checklist verified |
@@ -307,3 +307,17 @@ D-063R2-PB2B-B1R4 (2026-08-01) records the narrowly scoped WP4 Checkpoint 2PB2B-
 - Runtime attempts remain: `0`.
 - D-064 remains: `BLOCKED`.
 - Production verifier rerun authorization remains: `false`.
+
+## WP4 D-064 V4 source implementation — 2026-08-10
+
+- Decision: `D-063R2-C3B-I2D-D064-V4-IMPL`
+- Authorization: `D-063R2-C3B-I2D-D064-SIA1`
+- transaction-v2 SHA-256: `7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29`
+- generator-v4 SHA-256: `5e7cec82032b16edc30a7c0f5d4bfe0a5ddb567ed6a13f6c3075f4db3c97f2a7`
+- proposed candidate-v4 SHA-256: `b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7`
+- verifier-v4 SHA-256: `ccc364c24a11092c2f11aed45636daaca813630745268ce0695d0b89184286f6`
+- contract `0.4.14` SHA-256: `b1a4d16a22de4ee8420b23121ad17fa0a6a287b2dfbbc27ec931d001aedd4fe6`
+- implementation record SHA-256: `cceeeee068181dd629f6e1bac3470cdb1043ca4c49957c1b50b790903cfb3bb0`
+- implementation lock SHA-256: `6540a348a485d4ee74c2d373f1a6f10ac43a59f1b2714b621f1f0c2af4feecc7`
+- production V4 static verification: `PENDING`; Execution #11 not authorized
+- D-064/runtime/WP5 execution: not authorized

@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.13",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V3_STATIC_VERIFICATION_PASS_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
+  "contract_version": "0.4.14",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_D064_BLOCKED_RUNTIME_NOT_AUTHORIZED",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -96,9 +96,30 @@
         "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
         "sha256": "b541d22ecd7a94b2acb1f85bb9478453b090ab11e19fb5b667eed1b588a27322",
         "status": "PROPOSED_D063_STATIC_GATE_PENDING"
+      },
+      "runtime_material_tool_v2": {
+        "path": "scripts/nos3_runtime_transaction_v2.py",
+        "sha256": "7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29",
+        "status": "IMPLEMENTED_REVIEWED_SOURCE"
+      },
+      "runtime_candidate_generator_v4": {
+        "path": "scripts/prepare_passive_time_witness_runtime_candidate_v4.sh",
+        "sha256": "5e7cec82032b16edc30a7c0f5d4bfe0a5ddb567ed6a13f6c3075f4db3c97f2a7",
+        "status": "IMPLEMENTED_STATIC_VERIFICATION_PENDING"
+      },
+      "generated_runtime_candidate_v4": {
+        "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
+        "sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+        "status": "PROPOSED_STATIC_VERIFICATION_PENDING_NOT_AUTHORIZED"
+      },
+      "static_verifier_v4": {
+        "path": "scripts/verify_passive_time_witness_runtime_candidate_v4_static.sh",
+        "sha256": "ccc364c24a11092c2f11aed45636daaca813630745268ce0695d0b89184286f6",
+        "status": "IMPLEMENTED_SELFTEST_PASS_PRODUCTION_VERIFY_NOT_AUTHORIZED"
       }
     },
-    "passive_time_witness_runtime_candidate_v2": "IMPLEMENTED_PROPOSED_IDENTITY_NOT_STATICALLY_ACCEPTED_NOT_AUTHORIZED"
+    "passive_time_witness_runtime_candidate_v2": "IMPLEMENTED_PROPOSED_IDENTITY_NOT_STATICALLY_ACCEPTED_NOT_AUTHORIZED",
+    "passive_time_witness_runtime_candidate_v4": "SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -396,7 +417,12 @@
     "accepted_runtime_entrypoint_v3_sha256": "599c534df37b127f7325ad513eecc4b24bdc0d37a56c32b4448a0b0099c13a1f",
     "accepted_runtime_entrypoint_v3_identity_only_not_authorized": true,
     "proposed_runtime_entrypoint_v3_sha256": "599c534df37b127f7325ad513eecc4b24bdc0d37a56c32b4448a0b0099c13a1f",
-    "passive_time_witness_runtime_candidate_v3_contract_schema": 1
+    "passive_time_witness_runtime_candidate_v3_contract_schema": 1,
+    "passive_time_witness_runtime_candidate_v4_contract_schema": 1,
+    "passive_time_witness_runtime_candidate_v4_static_verification": "PENDING",
+    "accepted_runtime_entrypoint_v4_sha256": "",
+    "accepted_runtime_entrypoint_v4_identity_only_not_authorized": false,
+    "proposed_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7"
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -2029,5 +2055,103 @@
     "wp5_execution_authorized": false,
     "next_decision": "SEPARATELY_GOVERNED_D064_DECISION_REQUIRED",
     "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
+  },
+  "passive_time_witness_runtime_candidate_v4_design_amendment_1": {
+    "decision": "D-063R2-C3B-I2D-D064-V4-IMPL",
+    "design_authority": "D-063R2-C3B-I2D-D064-RD1",
+    "implementation_authorization": "D-063R2-C3B-I2D-D064-SIA1",
+    "implementation_date": "2026-08-10",
+    "status": "V4_SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED",
+    "architecture_identifier": "PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES_WITH_DARWIN_ACL_AND_ADVISORY_SERIALIZATION",
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "d064_status": "BLOCKED_PENDING_V4_STATIC_VERIFICATION_AND_SEPARATE_D064_DECISION",
+    "next_decision": "SEPARATELY_AUTHORIZED_V4_STATIC_VERIFICATION_EXECUTION_REQUIRED",
+    "runtime_authorization_decision": "NOT_AUTHORIZED",
+    "candidate_required_checks": {
+      "passive_time_witness_runtime_candidate_v4_contract_schema": 1,
+      "must_require_static_verification_pass": true,
+      "accepted_runtime_entrypoint_v4_sha256_must_match_own_file_hash": true,
+      "must_require_explicit_runtime_authorization": true,
+      "must_require_exactly_one_authorized_attempt": true,
+      "must_require_exact_d064_authorized_state": true,
+      "must_bind_transaction_v2_actual_identity": true,
+      "must_bind_host_evidence_actual_sha256": true,
+      "must_validate_receipt_exclusive_writer_controls": true,
+      "must_not_trust_narrative_status_alone": true
+    },
+    "passive_time_witness_runtime_candidate_v4_implementation": {
+      "decision": "D-063R2-C3B-I2D-D064-V4-IMPL",
+      "implementation_date": "2026-08-10",
+      "status": "SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED",
+      "runtime_candidate_generator": {
+        "path": "scripts/prepare_passive_time_witness_runtime_candidate_v4.sh",
+        "sha256": "5e7cec82032b16edc30a7c0f5d4bfe0a5ddb567ed6a13f6c3075f4db3c97f2a7"
+      },
+      "runtime_material_tool": {
+        "path": "scripts/nos3_runtime_transaction_v2.py",
+        "sha256": "7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29"
+      },
+      "canonical_manifest": {
+        "path": "manifests/nos3-runtime-material-manifest.json",
+        "sha256": "5026176de3084c8015fd7f84827ce8a4e5d44df7e986bc142815eb0d649e81cd"
+      },
+      "static_verifier": {
+        "path": "scripts/verify_passive_time_witness_runtime_candidate_v4_static.sh",
+        "sha256": "ccc364c24a11092c2f11aed45636daaca813630745268ce0695d0b89184286f6"
+      },
+      "generated_runtime_candidate_v4": {
+        "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
+        "sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+        "status": "PROPOSED_STATIC_VERIFICATION_PENDING_NOT_AUTHORIZED",
+        "accepted": false
+      },
+      "proposed_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+      "accepted_runtime_entrypoint_v4_sha256": "",
+      "passive_time_witness_runtime_candidate_v4_static_verification": "PENDING",
+      "host_exclusive_writer_evidence": {
+        "path": "",
+        "sha256": "",
+        "schema": 1,
+        "status": "NOT_CREATED_NOT_AUTHORIZED"
+      },
+      "exclusive_writer_technical_controls": {
+        "acl_policy": "NO_EXTENDED_ACL_ENTRIES_FOR_FIRST_D064_ATTEMPT",
+        "serialization_method": "fcntl.flock_LOCK_EX_LOCK_NB",
+        "serialization_lock_basename": ".wp4-d064-v4-transaction.lock",
+        "serialization_lock_mode": "0600",
+        "advisory_only": true,
+        "external_noncooperating_writer_absence_proven": false
+      },
+      "production_candidate_execution_count": 0,
+      "production_static_verifier_execution_count": 0,
+      "execution_11_authorized": false,
+      "authorized_root_selected": false,
+      "authorized_root_created": false,
+      "retained_host_evidence_created": false,
+      "d064_authorized": false,
+      "runtime_authorized": false,
+      "runtime_attempts": 0,
+      "wp5_execution_authorized": false
+    }
+  },
+  "passive_time_witness_runtime_candidate_v4_source_implementation": {
+    "decision": "D-063R2-C3B-I2D-D064-V4-IMPL",
+    "authorization": "D-063R2-C3B-I2D-D064-SIA1",
+    "implementation_date": "2026-08-10",
+    "status": "SOURCE_IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION",
+    "transaction_v2_sha256": "7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29",
+    "generator_v4_sha256": "5e7cec82032b16edc30a7c0f5d4bfe0a5ddb567ed6a13f6c3075f4db3c97f2a7",
+    "proposed_candidate_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+    "verifier_v4_sha256": "ccc364c24a11092c2f11aed45636daaca813630745268ce0695d0b89184286f6",
+    "production_candidate_executed": false,
+    "production_static_verify_execution_11_executed": false,
+    "authorized_root_selected": false,
+    "authorized_root_created": false,
+    "retained_host_evidence_created": false,
+    "d064_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "wp5_execution_authorized": false
   }
 }
