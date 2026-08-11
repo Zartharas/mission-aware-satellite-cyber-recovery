@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.15",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
+  "contract_version": "0.4.16",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_SUCCESSOR_HOST_EVIDENCE_BOUND_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -34,7 +34,9 @@
     "wp4_passive_time_witness_runtime_control_design": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_DESIGN_20260728.md",
     "wp4_passive_time_witness_runtime_control_design_lock": "artifacts/wp4-passive-time-witness-runtime-control-design-lock.txt",
     "wp4_passive_time_witness_runtime_control_v2_implementation": "tracker/WP4_PASSIVE_TIME_WITNESS_RUNTIME_CONTROL_V2_IMPLEMENTATION_20260728.md",
-    "wp4_passive_time_witness_runtime_control_v2_implementation_lock": "artifacts/wp4-passive-time-witness-runtime-control-v2-implementation-lock.txt"
+    "wp4_passive_time_witness_runtime_control_v2_implementation_lock": "artifacts/wp4-passive-time-witness-runtime-control-v2-implementation-lock.txt",
+    "wp4_d064_v4_successor_host_evidence_governance": "tracker/WP4_D064_V4_SUCCESSOR_HOST_EVIDENCE_GOVERNANCE_20260811.md",
+    "wp4_d064_v4_successor_host_evidence_governance_lock": "artifacts/wp4-d064-v4-successor-host-evidence-governance-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -2064,12 +2066,12 @@
     "design_authority": "D-063R2-C3B-I2D-D064-RD1",
     "implementation_authorization": "D-063R2-C3B-I2D-D064-SIA1",
     "implementation_date": "2026-08-10",
-    "status": "V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
+    "status": "V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_SUCCESSOR_HOST_EVIDENCE_BOUND_D064_READY_FOR_SEPARATE_CONSIDERATION_RUNTIME_NOT_AUTHORIZED",
     "architecture_identifier": "PINNED_IMAGE_BASE_PLUS_CANONICAL_MANIFEST_BOUND_PRIVATE_HOST_WORKSPACES_WITH_DARWIN_ACL_AND_ADVISORY_SERIALIZATION",
     "runtime_authorized": false,
     "runtime_attempts": 0,
     "d064_status": "READY_FOR_SEPARATE_D064_CONSIDERATION_NOT_AUTHORIZED",
-    "next_decision": "SEPARATE_D064_DECISION_REQUIRED",
+    "next_decision": "SEPARATE_D064_DECISION_REQUIRED_AFTER_HE1_PUBLICATION",
     "runtime_authorization_decision": "NOT_AUTHORIZED",
     "candidate_required_checks": {
       "passive_time_witness_runtime_candidate_v4_contract_schema": 1,
@@ -2086,7 +2088,7 @@
     "passive_time_witness_runtime_candidate_v4_implementation": {
       "decision": "D-063R2-C3B-I2D-D064-V4-IMPL",
       "implementation_date": "2026-08-10",
-      "status": "SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED",
+      "status": "STATIC_VERIFICATION_PASS_SUCCESSOR_HOST_EVIDENCE_BOUND_D064_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
       "runtime_candidate_generator": {
         "path": "scripts/prepare_passive_time_witness_runtime_candidate_v4.sh",
         "sha256": "5e7cec82032b16edc30a7c0f5d4bfe0a5ddb567ed6a13f6c3075f4db3c97f2a7"
@@ -2113,10 +2115,15 @@
       "accepted_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
       "passive_time_witness_runtime_candidate_v4_static_verification": "PASS",
       "host_exclusive_writer_evidence": {
-        "path": "",
-        "sha256": "",
+        "path": "review-evidence/WP4_D064_V4_PRE_D064/host-exclusive-writer-precondition-v2.json",
+        "sha256": "af8bd76dbe81004e58abd0936f7480e371db9c09b149f0529a6f658aee106669",
+        "bytes": 6413,
         "schema": 1,
-        "status": "NOT_CREATED_NOT_AUTHORIZED"
+        "status": "RETAINED_PRECONDITION_EVIDENCE",
+        "preparation_gate_sha256": "5adc4800cbd4c267bf6dcdfbbfd67e90088b3dddbda6a777baff0ab082a0c1bf",
+        "independent_review_script_sha256": "3bc3bcce7ea91a9eb987a5c13ed8435c167030871dd15dd691e07ad470b5894d",
+        "independent_review_result": "PASS",
+        "independent_review_findings": 0
       },
       "exclusive_writer_technical_controls": {
         "acl_policy": "NO_EXTENDED_ACL_ENTRIES_FOR_FIRST_D064_ATTEMPT",
@@ -2129,9 +2136,9 @@
       "production_candidate_execution_count": 0,
       "production_static_verifier_execution_count": 1,
       "execution_11_authorized": false,
-      "authorized_root_selected": false,
-      "authorized_root_created": false,
-      "retained_host_evidence_created": false,
+      "authorized_root_selected": true,
+      "authorized_root_created": true,
+      "retained_host_evidence_created": true,
       "d064_authorized": false,
       "runtime_authorized": false,
       "runtime_attempts": 0,
@@ -2142,7 +2149,51 @@
       "execution_11_rerun_authorized": false,
       "execution_11_report_sha256": "77689b9173a90284b3b5c077fd89ef3b8d7057ed5ca36547f232c98cc6659749",
       "execution_11_evidence_manifest_sha256": "63d2190730e6f827ddd981600f6191f8198ab8f00e2b35a6e6ab1eb87c3381de",
-      "accepted_runtime_entrypoint_v4_identity_only_not_authorized": true
+      "accepted_runtime_entrypoint_v4_identity_only_not_authorized": true,
+      "authorized_root": {
+        "path": "/Users/zarthras/.wp4-d064-v4-authorized-root",
+        "device": 16777221,
+        "inode": 359966629,
+        "uid": 599,
+        "gid": 20,
+        "mode": "0700",
+        "extended_acl_entry_count": 0,
+        "empty_at_review": true
+      },
+      "parent_traversal_remediation": {
+        "accepted": true,
+        "parent_path": "/Users/zarthras/Documents",
+        "device": 16777221,
+        "inode": 24332,
+        "uid": 501,
+        "gid": 20,
+        "mode": "0700",
+        "acl_text": "user:wp4d064mat allow search",
+        "acl_rights": [
+          "search"
+        ],
+        "acl_inheritance": "none",
+        "directory_listing_granted": false,
+        "write_access_granted": false,
+        "search_traversal_effective": true,
+        "repository_access_effective": true,
+        "transaction_input_read_access_effective": true,
+        "independent_review_sha256": "d2d51b609c48e37f5736f8901a0019beab1c47f04ead2a51d7d12cc6c474ba49",
+        "mutation_gate_sha256": "c87f4e69cd961b1dcf4c68e26e93293a588c2d3eb2b297daeabca9c6c140d415",
+        "com_apple_macl": {
+          "capture_length": 72,
+          "capture_sha256": "fa684fb95f30efabd12c9e2c52418f015d17c0f465d531bde3f7eff15495501a",
+          "unchanged_from_pre_acl_mutation": true
+        },
+        "com_apple_provenance": {
+          "accepted_retained_side_effect": true,
+          "capture_length": 11,
+          "capture_sha256": "739fa17afddf55e97efadf89eebac7c3b0dae01478a2634454d592b3073d4df0",
+          "causation_proven": false,
+          "semantics_claim": "NOT_MADE",
+          "cleanup_authorized": false
+        }
+      }
     }
   },
   "passive_time_witness_runtime_candidate_v4_source_implementation": {
@@ -2191,5 +2242,80 @@
     "baseline_executed": false,
     "wp5_execution_authorized": false,
     "next_decision": "SEPARATE_D064_DECISION_REQUIRED"
+  },
+  "passive_time_witness_runtime_candidate_v4_successor_host_evidence_governance_1": {
+    "decision": "D-063R2-C3B-I2D-D064-V4-HE1",
+    "authorization": "USER_AUTHORIZED_WP4_C3B_I2D_V4_SUCCESSOR_EVIDENCE_CONTRACT_GOVERNANCE_BINDING_20260811",
+    "recorded_date": "2026-08-11",
+    "source_commit": "af002020edde5490085446207eb3b754ab893ba5",
+    "source_tree": "4d798b2d3b5bc082695ab5a70c87e48f9329d50c",
+    "contract_version": "0.4.16",
+    "successor_host_evidence": {
+      "path": "review-evidence/WP4_D064_V4_PRE_D064/host-exclusive-writer-precondition-v2.json",
+      "sha256": "af8bd76dbe81004e58abd0936f7480e371db9c09b149f0529a6f658aee106669",
+      "bytes": 6413,
+      "schema": 1,
+      "status": "RETAINED_PRECONDITION_EVIDENCE",
+      "preparation_gate_sha256": "5adc4800cbd4c267bf6dcdfbbfd67e90088b3dddbda6a777baff0ab082a0c1bf",
+      "independent_review_script_sha256": "3bc3bcce7ea91a9eb987a5c13ed8435c167030871dd15dd691e07ad470b5894d",
+      "independent_review_result": "PASS",
+      "independent_review_findings": 0
+    },
+    "authorized_root": {
+      "path": "/Users/zarthras/.wp4-d064-v4-authorized-root",
+      "device": 16777221,
+      "inode": 359966629,
+      "uid": 599,
+      "gid": 20,
+      "mode": "0700",
+      "extended_acl_entry_count": 0,
+      "empty_at_independent_review": true,
+      "serialization_lock_present_at_independent_review": false
+    },
+    "serialization_readiness": {
+      "method": "fcntl.flock_LOCK_EX_LOCK_NB",
+      "lock_mode": "0600",
+      "cross_process_contention_rejected": true,
+      "advisory_only": true,
+      "external_noncooperating_writer_absence_proven": false
+    },
+    "parent_traversal_remediation": {
+      "accepted": true,
+      "parent_path": "/Users/zarthras/Documents",
+      "acl_text": "user:wp4d064mat allow search",
+      "acl_rights": [
+        "search"
+      ],
+      "acl_inheritance": "none",
+      "documents_list_granted": false,
+      "documents_write_granted": false,
+      "repository_access_effective": true,
+      "transaction_input_read_access_effective": true,
+      "independent_review_sha256": "d2d51b609c48e37f5736f8901a0019beab1c47f04ead2a51d7d12cc6c474ba49",
+      "accepted_com_apple_provenance": {
+        "length": 11,
+        "capture_sha256": "739fa17afddf55e97efadf89eebac7c3b0dae01478a2634454d592b3073d4df0",
+        "causation_proven": false,
+        "semantics_claim": "NOT_MADE",
+        "cleanup_authorized": false
+      },
+      "com_apple_macl_capture_sha256": "fa684fb95f30efabd12c9e2c52418f015d17c0f465d531bde3f7eff15495501a"
+    },
+    "accepted_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
+    "accepted_runtime_entrypoint_v4_identity_only_not_authorized": true,
+    "execution_11_consumed": true,
+    "execution_11_rerun_authorized": false,
+    "candidate_executed": false,
+    "production_materialization_executed": false,
+    "d064_status": "READY_FOR_SEPARATE_D064_CONSIDERATION_NOT_AUTHORIZED",
+    "d064_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "event_injection_executed": false,
+    "command_transmission_executed": false,
+    "baseline_executed": false,
+    "wp5_execution_authorized": false,
+    "next_decision": "SEPARATE_D064_DECISION_REQUIRED_ONLY_AFTER_HE1_PUBLICATION",
+    "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
   }
 }
