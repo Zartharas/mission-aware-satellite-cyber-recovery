@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.17",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V4_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_FRESH_SUCCESSOR_HOST_EVIDENCE_HE2_BOUND_D064_BLOCKED_PENDING_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_RUNTIME_NOT_AUTHORIZED",
+  "contract_version": "0.4.18",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V5_SOURCE_IMPLEMENTED_INDEPENDENT_REVIEW_PASS_COMPATIBILITY_GOVERNANCE_BOUND_STATIC_VERIFICATION_PENDING_D064_BLOCKED_RUNTIME_NOT_AUTHORIZED",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -38,7 +38,9 @@
     "wp4_d064_v4_successor_host_evidence_governance": "tracker/WP4_D064_V4_SUCCESSOR_HOST_EVIDENCE_GOVERNANCE_20260811.md",
     "wp4_d064_v4_successor_host_evidence_governance_lock": "artifacts/wp4-d064-v4-successor-host-evidence-governance-lock.txt",
     "wp4_d064_v4_fresh_successor_host_evidence_governance": "tracker/WP4_D064_V4_FRESH_SUCCESSOR_HOST_EVIDENCE_GOVERNANCE_20260811.md",
-    "wp4_d064_v4_fresh_successor_host_evidence_governance_lock": "artifacts/wp4-d064-v4-fresh-successor-host-evidence-governance-lock.txt"
+    "wp4_d064_v4_fresh_successor_host_evidence_governance_lock": "artifacts/wp4-d064-v4-fresh-successor-host-evidence-governance-lock.txt",
+    "wp4_d064_v5_compatibility_source_publication_governance": "tracker/WP4_D064_V5_COMPATIBILITY_SOURCE_PUBLICATION_GOVERNANCE_20260811.md",
+    "wp4_d064_v5_compatibility_source_publication_governance_lock": "artifacts/wp4-d064-v5-compatibility-source-publication-governance-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -120,10 +122,36 @@
         "path": "scripts/verify_passive_time_witness_runtime_candidate_v4_static.sh",
         "sha256": "ccc364c24a11092c2f11aed45636daaca813630745268ce0695d0b89184286f6",
         "status": "IMPLEMENTED_SELFTEST_PASS_PRODUCTION_VERIFY_NOT_AUTHORIZED"
+      },
+      "runtime_material_tool_v3": {
+        "path": "scripts/nos3_runtime_transaction_v3.py",
+        "sha256": "ce1f1f3ad3ba50373e57f36c6490c4ece67f028994155015ed536ce4832fec9e",
+        "bytes": 441397,
+        "status": "IMPLEMENTED_INDEPENDENT_REVIEW_PASS_STATIC_VERIFICATION_PENDING"
+      },
+      "runtime_candidate_generator_v5": {
+        "path": "scripts/prepare_passive_time_witness_runtime_candidate_v5.sh",
+        "sha256": "9f006bc7e13e73b9702d2f63c5d97413a77151af0a9d63e3ed88d3cba121bed7",
+        "bytes": 9186,
+        "status": "IMPLEMENTED_INDEPENDENT_REVIEW_PASS_STATIC_VERIFICATION_PENDING"
+      },
+      "generated_runtime_candidate_v5": {
+        "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
+        "sha256": "6d9158287b8addeea41740a2b50538ea545d4d5d3463d649ba5938be7b5b197e",
+        "bytes": 69951,
+        "status": "PROPOSED_STATIC_VERIFICATION_PENDING_NOT_AUTHORIZED",
+        "accepted": false
+      },
+      "static_verifier_v5": {
+        "path": "scripts/verify_passive_time_witness_runtime_candidate_v5_static.sh",
+        "sha256": "a688ba002b243a07ddb95a7819b19875a7020132812c6fccfc65c01c93eda5c5",
+        "bytes": 18171,
+        "status": "IMPLEMENTED_SELFTEST_PASS_PRODUCTION_VERIFY_NOT_AUTHORIZED"
       }
     },
     "passive_time_witness_runtime_candidate_v2": "IMPLEMENTED_PROPOSED_IDENTITY_NOT_STATICALLY_ACCEPTED_NOT_AUTHORIZED",
-    "passive_time_witness_runtime_candidate_v4": "SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED"
+    "passive_time_witness_runtime_candidate_v4": "SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED",
+    "passive_time_witness_runtime_candidate_v5": "SOURCE_IMPLEMENTED_INDEPENDENT_REVIEW_PASS_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -429,7 +457,14 @@
     "proposed_runtime_entrypoint_v4_sha256": "b67ad4d03e04ca1e01d32b7869668c2d2be04c76f51017ec72a36f130527b7d7",
     "passive_time_witness_runtime_candidate_v4_static_verification_execution_number": 11,
     "passive_time_witness_runtime_candidate_v4_static_verification_report_sha256": "77689b9173a90284b3b5c077fd89ef3b8d7057ed5ca36547f232c98cc6659749",
-    "passive_time_witness_runtime_candidate_v4_static_verification_evidence_manifest_sha256": "63d2190730e6f827ddd981600f6191f8198ab8f00e2b35a6e6ab1eb87c3381de"
+    "passive_time_witness_runtime_candidate_v4_static_verification_evidence_manifest_sha256": "63d2190730e6f827ddd981600f6191f8198ab8f00e2b35a6e6ab1eb87c3381de",
+    "passive_time_witness_runtime_candidate_v5_contract_schema": 1,
+    "passive_time_witness_runtime_candidate_v5_static_verification": "PENDING",
+    "proposed_runtime_entrypoint_v5_sha256": "6d9158287b8addeea41740a2b50538ea545d4d5d3463d649ba5938be7b5b197e",
+    "accepted_runtime_entrypoint_v5_sha256": "",
+    "accepted_runtime_entrypoint_v5_identity_only_not_authorized": true,
+    "passive_time_witness_runtime_candidate_v5_static_verify_execution_authorized": false,
+    "passive_time_witness_runtime_candidate_v5_static_verify_executions": 0
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -2480,5 +2515,200 @@
     "wp5_execution_authorized": false,
     "next_decision": "SEPARATELY_GOVERNED_HOST_EVIDENCE_CONSUMER_SCHEMA_COMPATIBILITY_REMEDIATION_REQUIRED_BEFORE_D064_CONSIDERATION",
     "status": "IMPLEMENTED_PENDING_INDEPENDENT_REVIEW_AND_PUBLICATION"
+  },
+  "passive_time_witness_runtime_candidate_v5_design_amendment_1": {
+    "decision": "D-063R2-C3B-I2D-D064-V5-COMPAT-PUB1",
+    "source_implementation_authorization": "USER_AUTHORIZED_WP4_C3B_I2D_D064_SUCCESSOR_V5_HOST_EVIDENCE_CONSUMER_COMPATIBILITY_SOURCE_IMPLEMENTATION_20260811",
+    "publication_authorization": "USER_AUTHORIZED_WP4_C3B_I2D_D064_V5_CONTRACT_GOVERNANCE_BINDING_AND_SOURCE_PUBLICATION_20260811",
+    "recorded_date": "2026-08-11",
+    "status": "SOURCE_IMPLEMENTED_INDEPENDENT_REVIEW_PASS_COMPATIBILITY_GOVERNANCE_BOUND_STATIC_VERIFICATION_PENDING_D064_BLOCKED_RUNTIME_NOT_AUTHORIZED",
+    "architecture_identifier": "SUCCESSOR_V5_SCHEMA2_GOVERNANCE_ENVELOPE_AWARE_CONSUMER_NO_IN_PLACE_V4_MUTATION",
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "d064_status": "BLOCKED_PENDING_V5_STATIC_VERIFICATION_AND_SEPARATE_D064_DECISION",
+    "d064_authorization_decision_eligible": false,
+    "next_decision": "SEPARATELY_AUTHORIZED_V5_STATIC_VERIFICATION_REQUIRED_BEFORE_D064_CONSIDERATION",
+    "runtime_authorization_decision": "NOT_AUTHORIZED",
+    "static_verification_execution_authorized": false,
+    "static_verification_executed": false,
+    "candidate_required_checks": {
+      "passive_time_witness_runtime_candidate_v5_contract_schema": 1,
+      "must_require_static_verification_pass_before_runtime": true,
+      "must_bind_transaction_v3_actual_identity": true,
+      "must_bind_fresh_schema2_host_evidence_actual_identity": true,
+      "must_bind_successor_consumer_independent_review": true,
+      "must_preserve_he2_transaction_v2_incompatibility": true,
+      "must_prohibit_schema1_production_fallback": true,
+      "must_require_explicit_runtime_authorization": true,
+      "must_require_exactly_one_authorized_attempt": true,
+      "must_require_exact_d064_authorized_state": true
+    },
+    "passive_time_witness_runtime_candidate_v5_implementation": {
+      "decision": "D-063R2-C3B-I2D-D064-V5-COMPAT-PUB1",
+      "implementation_date": "2026-08-11",
+      "status": "SOURCE_IMPLEMENTED_INDEPENDENT_REVIEW_PASS_COMPATIBILITY_GOVERNANCE_BOUND_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED",
+      "runtime_candidate_generator": {
+        "path": "scripts/prepare_passive_time_witness_runtime_candidate_v5.sh",
+        "sha256": "9f006bc7e13e73b9702d2f63c5d97413a77151af0a9d63e3ed88d3cba121bed7",
+        "bytes": 9186
+      },
+      "runtime_material_tool": {
+        "path": "scripts/nos3_runtime_transaction_v3.py",
+        "sha256": "ce1f1f3ad3ba50373e57f36c6490c4ece67f028994155015ed536ce4832fec9e",
+        "bytes": 441397
+      },
+      "canonical_manifest": {
+        "path": "manifests/nos3-runtime-material-manifest.json",
+        "sha256": "5026176de3084c8015fd7f84827ce8a4e5d44df7e986bc142815eb0d649e81cd"
+      },
+      "static_verifier": {
+        "path": "scripts/verify_passive_time_witness_runtime_candidate_v5_static.sh",
+        "sha256": "a688ba002b243a07ddb95a7819b19875a7020132812c6fccfc65c01c93eda5c5",
+        "bytes": 18171
+      },
+      "generated_runtime_candidate_v5": {
+        "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
+        "sha256": "6d9158287b8addeea41740a2b50538ea545d4d5d3463d649ba5938be7b5b197e",
+        "bytes": 69951,
+        "status": "PROPOSED_STATIC_VERIFICATION_PENDING_NOT_AUTHORIZED",
+        "accepted": false
+      },
+      "proposed_runtime_entrypoint_v5_sha256": "6d9158287b8addeea41740a2b50538ea545d4d5d3463d649ba5938be7b5b197e",
+      "accepted_runtime_entrypoint_v5_sha256": "",
+      "passive_time_witness_runtime_candidate_v5_static_verification": "PENDING",
+      "active_host_exclusive_writer_evidence_v3": {
+        "path": "review-evidence/WP4_D064_V4_PRE_D064/host-exclusive-writer-precondition-v3.json",
+        "sha256": "c4783f95de24ae309c6fd1c79ea2bc0d27e1dfdb319259351338d0f75c62de9a",
+        "bytes": 8400,
+        "schema": 2,
+        "evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION_REFRESH",
+        "status": "CAPTURED_FRESH_SUCCESSOR_PRECONDITION_EVIDENCE_PENDING_INDEPENDENT_REVIEW_NOT_D064_AUTHORITY",
+        "observed_at_utc": "2026-08-11T23:21:19Z",
+        "capture_gate_sha256": "f5aa02c3c89bcb119313a105f8606631f4353e7215d01cdc4e757c6c5800633a",
+        "independent_review_script_sha256": "4f9a079ff7954dc3f9f52cf62b8a8a3ba79639c89fe9de508d14f2a6b6577687",
+        "independent_review_result": "PASS",
+        "independent_review_findings": 0,
+        "current_host_reobservation_consistent_with_v3": true
+      },
+      "compatibility_governance": {
+        "decision": "D-063R2-C3B-I2D-D064-V5-COMPAT-PUB1",
+        "contract_version": "0.4.18",
+        "successor_consumer_path": "scripts/nos3_runtime_transaction_v3.py",
+        "successor_consumer_sha256": "ce1f1f3ad3ba50373e57f36c6490c4ece67f028994155015ed536ce4832fec9e",
+        "fresh_evidence_independent_review_script_sha256": "4f9a079ff7954dc3f9f52cf62b8a8a3ba79639c89fe9de508d14f2a6b6577687",
+        "successor_consumer_independent_review_script_sha256": "a5db61451b245d4216627a776a07a6dd5ad04f32c2ee855e6c490de46869d305",
+        "successor_consumer_independent_review_result": "PASS",
+        "successor_consumer_independent_review_findings": 0,
+        "schema2_compatible": true,
+        "schema1_fallback_allowed": false,
+        "governance_binding_verified": true,
+        "historical_transaction_v2_fresh_v3_compatible": false,
+        "historical_transaction_v2_incompatibility_preserved": true,
+        "static_verification_status": "PENDING",
+        "static_verification_executed": false,
+        "static_verification_execution_authorized": false,
+        "d064_authorization_decision_eligible": false
+      },
+      "historical_transaction_v2_consumer_compatibility": {
+        "transaction_v2_sha256": "7419fa18b891ddc7525fa237b12323a092b9ece0f44d5b6fa4069c614322ce29",
+        "fresh_v3_schema": 2,
+        "compatible": false,
+        "finding": "TRANSACTION_V2_HOST_EVIDENCE_SCHEMA_TYPE_STATUS_INCOMPATIBLE_WITH_FRESH_V3",
+        "historical_finding_preserved": true
+      },
+      "production_candidate_execution_count": 0,
+      "production_static_verifier_execution_count": 0,
+      "production_materialization_count": 0,
+      "static_verification_execution_authorized": false,
+      "d064_authorization_decision_eligible": false,
+      "d064_authorized": false,
+      "runtime_authorized": false,
+      "runtime_attempts": 0,
+      "execution_11_rerun_authorized": false,
+      "wp5_execution_authorized": false
+    }
+  },
+  "passive_time_witness_runtime_candidate_v5_compatibility_source_publication_governance_1": {
+    "decision": "D-063R2-C3B-I2D-D064-V5-COMPAT-PUB1",
+    "authorization": "USER_AUTHORIZED_WP4_C3B_I2D_D064_V5_CONTRACT_GOVERNANCE_BINDING_AND_SOURCE_PUBLICATION_20260811",
+    "recorded_date": "2026-08-11",
+    "source_commit": "3aadfff088af896d29d7bedd809cf785ef187ee9",
+    "source_tree": "1015f68279243b10331d27bc6eca8caba8298f70",
+    "contract_version": "0.4.18",
+    "source_implementation_gate_sha256": "3be5e2c1a05780e62b8adaf1f2980b1c857656b1e8930f1bc991a1e37059989b",
+    "source_worktree_independent_review_script_sha256": "a5db61451b245d4216627a776a07a6dd5ad04f32c2ee855e6c490de46869d305",
+    "source_worktree_independent_review_result": "PASS",
+    "source_worktree_independent_review_findings": 0,
+    "successor_source_identities": {
+      "transaction_v3": {
+        "path": "scripts/nos3_runtime_transaction_v3.py",
+        "sha256": "ce1f1f3ad3ba50373e57f36c6490c4ece67f028994155015ed536ce4832fec9e",
+        "bytes": 441397
+      },
+      "generator_v5": {
+        "path": "scripts/prepare_passive_time_witness_runtime_candidate_v5.sh",
+        "sha256": "9f006bc7e13e73b9702d2f63c5d97413a77151af0a9d63e3ed88d3cba121bed7",
+        "bytes": 9186
+      },
+      "verifier_v5": {
+        "path": "scripts/verify_passive_time_witness_runtime_candidate_v5_static.sh",
+        "sha256": "a688ba002b243a07ddb95a7819b19875a7020132812c6fccfc65c01c93eda5c5",
+        "bytes": 18171
+      }
+    },
+    "proposed_runtime_candidate_v5": {
+      "path": "TEMPORARY_DETERMINISTIC_EMISSION_ONLY",
+      "sha256": "6d9158287b8addeea41740a2b50538ea545d4d5d3463d649ba5938be7b5b197e",
+      "bytes": 69951,
+      "executed": false,
+      "accepted": false
+    },
+    "fresh_successor_host_evidence": {
+      "path": "review-evidence/WP4_D064_V4_PRE_D064/host-exclusive-writer-precondition-v3.json",
+      "sha256": "c4783f95de24ae309c6fd1c79ea2bc0d27e1dfdb319259351338d0f75c62de9a",
+      "bytes": 8400,
+      "schema": 2,
+      "evidence_type": "D064_HOST_EXCLUSIVE_WRITER_PRECONDITION_REFRESH",
+      "status": "CAPTURED_FRESH_SUCCESSOR_PRECONDITION_EVIDENCE_PENDING_INDEPENDENT_REVIEW_NOT_D064_AUTHORITY",
+      "observed_at_utc": "2026-08-11T23:21:19Z",
+      "capture_gate_sha256": "f5aa02c3c89bcb119313a105f8606631f4353e7215d01cdc4e757c6c5800633a",
+      "independent_review_script_sha256": "4f9a079ff7954dc3f9f52cf62b8a8a3ba79639c89fe9de508d14f2a6b6577687",
+      "independent_review_result": "PASS",
+      "independent_review_findings": 0,
+      "current_host_reobservation_consistent_with_v3": true
+    },
+    "compatibility_governance": {
+      "decision": "D-063R2-C3B-I2D-D064-V5-COMPAT-PUB1",
+      "contract_version": "0.4.18",
+      "successor_consumer_path": "scripts/nos3_runtime_transaction_v3.py",
+      "successor_consumer_sha256": "ce1f1f3ad3ba50373e57f36c6490c4ece67f028994155015ed536ce4832fec9e",
+      "fresh_evidence_independent_review_script_sha256": "4f9a079ff7954dc3f9f52cf62b8a8a3ba79639c89fe9de508d14f2a6b6577687",
+      "successor_consumer_independent_review_script_sha256": "a5db61451b245d4216627a776a07a6dd5ad04f32c2ee855e6c490de46869d305",
+      "successor_consumer_independent_review_result": "PASS",
+      "successor_consumer_independent_review_findings": 0,
+      "schema2_compatible": true,
+      "schema1_fallback_allowed": false,
+      "governance_binding_verified": true,
+      "historical_transaction_v2_fresh_v3_compatible": false,
+      "historical_transaction_v2_incompatibility_preserved": true,
+      "static_verification_status": "PENDING",
+      "static_verification_executed": false,
+      "static_verification_execution_authorized": false,
+      "d064_authorization_decision_eligible": false
+    },
+    "historical_he2_transaction_v2_incompatibility_preserved": true,
+    "v5_static_verification": "PENDING",
+    "v5_static_verification_execution_authorized": false,
+    "v5_static_verification_executed": false,
+    "d064_authorization_decision_eligible": false,
+    "d064_authorized": false,
+    "runtime_authorized": false,
+    "runtime_attempts": 0,
+    "candidate_executed": false,
+    "production_materialization_executed": false,
+    "execution_11_rerun": false,
+    "wp5_execution_authorized": false,
+    "next_decision": "SEPARATELY_AUTHORIZED_V5_STATIC_VERIFICATION_REQUIRED_BEFORE_D064_CONSIDERATION",
+    "status": "IMPLEMENTED_PENDING_INDEPENDENT_PRESTAGING_REVIEW_AND_PUBLICATION"
   }
 }
