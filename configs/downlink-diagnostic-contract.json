@@ -1,6 +1,6 @@
 {
-  "contract_version": "0.4.19",
-  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V5_STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_DECISION_ELIGIBLE_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
+  "contract_version": "0.4.20",
+  "status": "PASSIVE_TIME_WITNESS_RUNTIME_CANDIDATE_V5_D064_SINGLE_USE_AUTHORIZATION_DECISION_PUBLISHED_UNCONSUMED_EXECUTION_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
   "purpose": "Distinguish generic-radio UDP 5011 ingress, simulation-time queue release, and UDP 8011 egress using metadata-only socket interposition without transmitting commands or modifying the pinned radio source.",
   "scientific_outcome_allowed": false,
   "event_injection_allowed": false,
@@ -42,7 +42,9 @@
     "wp4_d064_v5_compatibility_source_publication_governance": "tracker/WP4_D064_V5_COMPATIBILITY_SOURCE_PUBLICATION_GOVERNANCE_20260811.md",
     "wp4_d064_v5_compatibility_source_publication_governance_lock": "artifacts/wp4-d064-v5-compatibility-source-publication-governance-lock.txt",
     "wp4_d064_v5_static_verification_pass_governance": "tracker/WP4_D064_V5_STATIC_VERIFICATION_PASS_GOVERNANCE_20260811.md",
-    "wp4_d064_v5_static_verification_pass_governance_lock": "artifacts/wp4-d064-v5-static-verification-pass-governance-lock.txt"
+    "wp4_d064_v5_static_verification_pass_governance_lock": "artifacts/wp4-d064-v5-static-verification-pass-governance-lock.txt",
+    "wp4_d064_v5_single_use_authorization_decision": "tracker/WP4_D064_V5_SINGLE_USE_AUTHORIZATION_DECISION_20260812.md",
+    "wp4_d064_v5_single_use_authorization_decision_lock": "artifacts/wp4-d064-v5-single-use-authorization-decision-lock.txt"
   },
   "implementation": {
     "witness": "scripts/telemetry_path_witness.py",
@@ -153,7 +155,7 @@
     },
     "passive_time_witness_runtime_candidate_v2": "IMPLEMENTED_PROPOSED_IDENTITY_NOT_STATICALLY_ACCEPTED_NOT_AUTHORIZED",
     "passive_time_witness_runtime_candidate_v4": "SOURCE_IMPLEMENTED_STATIC_VERIFICATION_PENDING_RUNTIME_NOT_AUTHORIZED",
-    "passive_time_witness_runtime_candidate_v5": "STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_DECISION_ELIGIBLE_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED"
+    "passive_time_witness_runtime_candidate_v5": "D064_SINGLE_USE_AUTHORIZATION_GRANTED_UNCONSUMED_EXECUTION_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED"
   },
   "confirmed_topology": {
     "to_lab_destination_alias": "active-gs",
@@ -474,7 +476,16 @@
     "passive_time_witness_runtime_candidate_v5_static_verification_evidence_manifest_sha256": "11d515856942d096d75dbdea1731317feb7031a57ba93597df52c40c841842a3",
     "passive_time_witness_runtime_candidate_v5_static_verification_post_execution_review_sha256": "06ae7353a5c08a3c46cb7bf5f9f160425b4431d1773480c0e1dca7a0ec4e9cfb",
     "passive_time_witness_runtime_candidate_v5_static_verification_post_execution_review_result": "PASS",
-    "passive_time_witness_runtime_candidate_v5_static_verification_post_execution_review_findings": 0
+    "passive_time_witness_runtime_candidate_v5_static_verification_post_execution_review_findings": 0,
+    "passive_time_witness_runtime_candidate_v5_d064_authorization_decision": "AUTHORIZED_SINGLE_USE_UNCONSUMED_EXECUTION_NOT_AUTHORIZED",
+    "passive_time_witness_runtime_candidate_v5_d064_authorized": true,
+    "passive_time_witness_runtime_candidate_v5_d064_authorization_single_use": true,
+    "passive_time_witness_runtime_candidate_v5_d064_authorization_consumed": false,
+    "passive_time_witness_runtime_candidate_v5_d064_execution_authorized": false,
+    "passive_time_witness_runtime_candidate_v5_d064_execution_attempts_authorized": 0,
+    "passive_time_witness_runtime_candidate_v5_d064_execution_attempts": 0,
+    "passive_time_witness_runtime_candidate_v5_execution_time_host_recheck_required": true,
+    "passive_time_witness_runtime_candidate_v5_execution_time_nonblocking_flock_required": true
   },
   "radio_socket_metadata_runtime_wrapper_static_gate": {
     "verification": "PASS_BUT_RUNTIME_ASSERTION_DEFECT_DISCOVERED",
@@ -2531,13 +2542,13 @@
     "source_implementation_authorization": "USER_AUTHORIZED_WP4_C3B_I2D_D064_SUCCESSOR_V5_HOST_EVIDENCE_CONSUMER_COMPATIBILITY_SOURCE_IMPLEMENTATION_20260811",
     "publication_authorization": "USER_AUTHORIZED_WP4_C3B_I2D_D064_V5_CONTRACT_GOVERNANCE_BINDING_AND_SOURCE_PUBLICATION_20260811",
     "recorded_date": "2026-08-11",
-    "status": "STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_DECISION_ELIGIBLE_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
+    "status": "D064_SINGLE_USE_AUTHORIZATION_GRANTED_UNCONSUMED_EXECUTION_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
     "architecture_identifier": "SUCCESSOR_V5_SCHEMA2_GOVERNANCE_ENVELOPE_AWARE_CONSUMER_NO_IN_PLACE_V4_MUTATION",
     "runtime_authorized": false,
     "runtime_attempts": 0,
-    "d064_status": "READY_FOR_SEPARATE_D064_CONSIDERATION_NOT_AUTHORIZED",
+    "d064_status": "AUTHORIZED_SINGLE_USE_UNCONSUMED_EXECUTION_NOT_AUTHORIZED",
     "d064_authorization_decision_eligible": true,
-    "next_decision": "SEPARATE_D064_AUTHORIZATION_DECISION_REQUIRED",
+    "next_decision": "SEPARATELY_AUTHORIZED_SINGLE_USE_D064_EXECUTION_GATE_REQUIRED",
     "runtime_authorization_decision": "NOT_AUTHORIZED",
     "static_verification_execution_authorized": false,
     "static_verification_executed": true,
@@ -2556,7 +2567,7 @@
     "passive_time_witness_runtime_candidate_v5_implementation": {
       "decision": "D-063R2-C3B-I2D-D064-V5-COMPAT-PUB1",
       "implementation_date": "2026-08-11",
-      "status": "STATIC_VERIFICATION_PASS_IDENTITY_ACCEPTED_D064_DECISION_ELIGIBLE_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
+      "status": "D064_SINGLE_USE_AUTHORIZATION_GRANTED_UNCONSUMED_EXECUTION_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
       "runtime_candidate_generator": {
         "path": "scripts/prepare_passive_time_witness_runtime_candidate_v5.sh",
         "sha256": "9f006bc7e13e73b9702d2f63c5d97413a77151af0a9d63e3ed88d3cba121bed7",
@@ -2631,12 +2642,31 @@
       "production_materialization_count": 0,
       "static_verification_execution_authorized": false,
       "d064_authorization_decision_eligible": true,
-      "d064_authorized": false,
+      "d064_authorized": true,
       "runtime_authorized": false,
       "runtime_attempts": 0,
       "execution_11_rerun_authorized": false,
-      "wp5_execution_authorized": false
-    }
+      "wp5_execution_authorized": false,
+      "d064_authorization_single_use": true,
+      "d064_authorization_consumed": false,
+      "d064_execution_authorized": false,
+      "d064_execution_attempts_authorized": 0,
+      "d064_execution_attempts": 0,
+      "execution_time_host_recheck_required": true,
+      "execution_time_nonblocking_flock_required": true,
+      "external_noncooperating_writer_absence_proven": false,
+      "fresh_contention_probe_performed": false
+    },
+    "d064_authorized": true,
+    "d064_authorization_single_use": true,
+    "d064_authorization_consumed": false,
+    "d064_execution_authorized": false,
+    "d064_execution_attempts_authorized": 0,
+    "d064_execution_attempts": 0,
+    "execution_time_host_recheck_required": true,
+    "execution_time_nonblocking_flock_required": true,
+    "external_noncooperating_writer_absence_proven": false,
+    "fresh_contention_probe_performed": false
   },
   "passive_time_witness_runtime_candidate_v5_compatibility_source_publication_governance_1": {
     "decision": "D-063R2-C3B-I2D-D064-V5-COMPAT-PUB1",
@@ -2797,5 +2827,80 @@
     "runtime_attempts": 0,
     "wp5_execution_authorized": false,
     "next_decision": "SEPARATE_D064_AUTHORIZATION_DECISION_REQUIRED"
+  },
+  "passive_time_witness_runtime_candidate_v5_d064_single_use_authorization_decision_1": {
+    "decision": "D-063R2-C3B-I2D-D064-V5-AUTH1",
+    "authorization": "USER_AUTHORIZED_WP4_C3B_I2D_D064_V5_SINGLE_USE_AUTHORIZATION_DECISION_PUBLICATION_20260812",
+    "recorded_date": "2026-08-12",
+    "source_commit": "78b7dfb601aaddea0b286b8463792f70d25b028b",
+    "contract_transition": "0.4.19_TO_0.4.20",
+    "status": "AUTHORIZED_SINGLE_USE_UNCONSUMED_EXECUTION_NOT_AUTHORIZED_RUNTIME_NOT_AUTHORIZED",
+    "candidate": {
+      "sha256": "6d9158287b8addeea41740a2b50538ea545d4d5d3463d649ba5938be7b5b197e",
+      "bytes": 69951,
+      "static_verification": "PASS",
+      "identity_accepted": true,
+      "production_candidate_executed": false
+    },
+    "source_chain": {
+      "transaction_v3_sha256": "ce1f1f3ad3ba50373e57f36c6490c4ece67f028994155015ed536ce4832fec9e",
+      "generator_v5_sha256": "9f006bc7e13e73b9702d2f63c5d97413a77151af0a9d63e3ed88d3cba121bed7",
+      "static_verifier_v5_sha256": "a688ba002b243a07ddb95a7819b19875a7020132812c6fccfc65c01c93eda5c5",
+      "fresh_schema2_host_evidence_sha256": "c4783f95de24ae309c6fd1c79ea2bc0d27e1dfdb319259351338d0f75c62de9a",
+      "fresh_schema2_host_evidence_bytes": 8400,
+      "static_report_sha256": "7268ebfb15f5929a90e1ffbb4e42b926eb46dec740fc92237857208bf9c5a8ac",
+      "static_evidence_manifest_sha256": "11d515856942d096d75dbdea1731317feb7031a57ba93597df52c40c841842a3"
+    },
+    "readiness_reviews": {
+      "r3": {
+        "script_name": "C3B_I2D_D064_V5_AUTHORIZATION_DECISION_READINESS_R3_PRIVILEGE_AWARE_DARWIN_SYSCALL_XATTR_STRICT_READ_ONLY_NO_D064_VALIDATED.py",
+        "sha256": "6c861907d4aacc62ec2cd6fbcfa4e63d18880b8b5f3f24000ba29843a89a6665",
+        "bytes": 25331,
+        "result": "PASS",
+        "findings": 0,
+        "current_host_reobservation_consistent_with_v3": true
+      },
+      "independent": {
+        "script_name": "C3B_I2D_D064_V5_AUTHORIZATION_DECISION_READINESS_INDEPENDENT_REVIEW_R1_STRICT_READ_ONLY_DARWIN_CURRENT_HOST_NO_D064_VALIDATED.py",
+        "sha256": "d1cbfa46fd8cfd6aac48ee98c4232d90fea85edb48a7ddbe9602b2686035e1b3",
+        "bytes": 25649,
+        "result": "PASS",
+        "findings": 0,
+        "current_host_reobservation_consistent_with_v3": true
+      },
+      "external_noncooperating_writer_absence_proven": false,
+      "fresh_contention_probe_performed": false
+    },
+    "authorization_scope": {
+      "d064_authorized": true,
+      "single_use": true,
+      "authorization_consumed": false,
+      "authorization_scope_attempt_limit": 1,
+      "d064_execution_authorized": false,
+      "d064_execution_attempts_authorized": 0,
+      "d064_execution_attempts": 0,
+      "execution_time_host_recheck_required": true,
+      "execution_time_nonblocking_flock_required": true,
+      "candidate_execution_authorized": false,
+      "production_materialization_authorized": false,
+      "runtime_authorized": false,
+      "runtime_attempts": 0,
+      "docker_authorized": false,
+      "nos3_runtime_authorized": false,
+      "fortytwo_runtime_authorized": false,
+      "event_injection_authorized": false,
+      "command_transmission_authorized": false,
+      "baseline_execution_authorized": false,
+      "static_verifier_rerun_authorized": false,
+      "execution_11_rerun_authorized": false,
+      "xattr_mutation_authorized": false,
+      "acl_mutation_authorized": false,
+      "ownership_mutation_authorized": false,
+      "schema1_production_fallback_allowed": false,
+      "wp5_execution_authorized": false
+    },
+    "governance_record_path": "tracker/WP4_D064_V5_SINGLE_USE_AUTHORIZATION_DECISION_20260812.md",
+    "governance_lock_path": "artifacts/wp4-d064-v5-single-use-authorization-decision-lock.txt",
+    "next_decision": "SEPARATELY_AUTHORIZED_SINGLE_USE_D064_EXECUTION_GATE_REQUIRED"
   }
 }
