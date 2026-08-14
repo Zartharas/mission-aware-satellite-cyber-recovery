@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NETWORK_NAME="ma-wp4-runtime-check"
+NETWORK_NAME="ma-testbed-runtime-check"
 TEST_IMAGE="alpine:3.20"
 
 cleanup() {
@@ -9,7 +9,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "WP4 Docker runtime verification"
+echo "Research testbed Docker runtime verification"
 echo "==============================="
 
 echo
@@ -73,9 +73,9 @@ echo "[OK] public internet access blocked from internal network"
 
 echo
 cat <<'EOF'
-WP4_RUNTIME_STATUS=PASS
+TESTBED_RUNTIME_STATUS=PASS
 
-The runtime is suitable for the Docker-first headless candidate architecture.
+The runtime is suitable for the Docker-first headless research testbed.
 This does not validate NOS3 itself. Next run:
 
   bash scripts/prepare_nos3_candidate.sh

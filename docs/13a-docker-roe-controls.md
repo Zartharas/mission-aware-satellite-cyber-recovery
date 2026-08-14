@@ -21,7 +21,7 @@ Run before launching any experiment services:
 ```bash
 docker info >/dev/null
 docker compose version
-bash scripts/verify_wp4_runtime.sh
+bash scripts/verify_testbed_runtime.sh
 ```
 
 Confirm the macOS application firewall state without changing it:

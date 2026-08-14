@@ -1,15 +1,11 @@
-# Experiment Configurations
+# Experiment configurations
 
-Store non-secret, machine-readable experiment configurations here.
+Active configurations are limited to paper/reproducibility needs:
 
-Recommended fields:
-- scenario_id
-- simulator_version
-- mission_state
-- event_id
-- response_policy
-- contact_delay
-- telemetry_condition
-- seed
-- stop_conditions
-- expected safety invariants
+- `experiment_model.json` — mission states, event classes, policies, conditions, invariants, and metrics
+- `experiment_run.schema.json` — run-record schema
+- `toolchain-lock.json` — source/container/toolchain identity
+- `wp5_event_catalog.json` — deterministic event definitions and external evidence mappings
+- `examples/` — schema fixtures
+
+Historical WP4 diagnostic contracts remain available through Git history, not the active tree.

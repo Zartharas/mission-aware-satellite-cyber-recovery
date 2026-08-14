@@ -56,3 +56,6 @@ cFS/
 *.pfx
 secrets/
 credentials/
+
+# Local engineering/review evidence; Git history retains published provenance
+review-evidence/
