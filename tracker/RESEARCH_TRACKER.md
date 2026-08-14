@@ -17,7 +17,7 @@ Evidence-first objective: each event must have an external/threat-model rational
 | WP2 | Theoretical model | Ready for final review | Mission Aware + FDIR + cyber-resilience framing |
 | WP3 | Threat and mission model | Ready for final review | Mission states, invariants, trust boundaries, evidence separation |
 | WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and bounded runtime-preflight evidence |
-| WP5 | Deterministic event library | **In progress** | Evidence map, event catalog, deterministic materializer, tests, and E1 delivery validated in the accepted nominal NOS3 runtime; E2 adapter next |
+| WP5 | Deterministic event library | **In progress** | E1 unauthorized-valid-command and E2 byte-identical replay delivery validated in the accepted nominal NOS3 runtime; E3 adapter next |
 | WP6 | Response-policy implementation | Not started | Baselines + mission-aware policy |
 | WP7 | Trusted-recovery implementation | Not started | Independent recovery evidence and terminal-state verification |
 | WP8 | Pilot | Not started | Nominal/control validity, variability, repetition count |
