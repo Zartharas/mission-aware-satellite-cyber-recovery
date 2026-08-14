@@ -1,0 +1,50 @@
+{
+  "adapter_version": "1.1.0",
+  "event_id": "E4",
+  "event_name": "telemetry_observability_degradation",
+  "sparta": ["DE-0003.06"],
+  "canonical_variant": "matched_fresh_runtime_high_value_suppression",
+  "scope": "validated_nominal_runtime_telemetry_visibility_degradation",
+  "scientific_claim_boundary": "WP5 telemetry-observability event validation only; no response-policy effectiveness or trusted-recovery claim",
+  "runtime_dependency": "scripts/run_nominal_runtime_preflight.sh",
+  "source_bindings": {
+    "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "to_lab_commit": "6ae88fd1c2bb931d233c0051c88b787447bd5bb6",
+    "to_lab_command_mid": "0x18E8",
+    "to_lab_data_types_mid": "0x08E9",
+    "to_lab_output_enable_cc": 2,
+    "to_lab_send_data_types_cc": 3,
+    "observed_to_lab_udp_port": 5013
+  },
+  "trial_isolation": {
+    "control_and_degraded_use_separate_fresh_nominal_runtimes": true,
+    "one_send_data_types_command_per_runtime": true,
+    "mission_state": "M2",
+    "contact_condition": "C0",
+    "evidence_condition": "T0",
+    "seed": 1
+  },
+  "observation_planes": {
+    "immutable_truth": "pre_filter_bound_udp_proxy_capture",
+    "policy_visible": "post_filter_policy_observer",
+    "filter_target_mid": "0x08E9",
+    "proxy_capture_mode": "bound_udp_receiver",
+    "host_port_published": false
+  },
+  "acceptance": {
+    "control_truth_high_value_delta": 1,
+    "control_policy_high_value_delta": 1,
+    "control_forwarded_to_policy": true,
+    "degraded_truth_high_value_delta": 1,
+    "degraded_policy_high_value_delta": 0,
+    "degraded_forwarded_to_policy": false,
+    "both_nominal_runtimes_must_pass": true,
+    "command_packet_sha256_must_match": true
+  },
+  "ground_truth": {
+    "telemetry_truth_available": true,
+    "policy_high_value_channel_complete_in_degraded_condition": false,
+    "real_world_target": false,
+    "rf_interference": false
+  }
+}
