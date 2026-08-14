@@ -1,6 +1,6 @@
 {
-  "model_version": "0.2.0",
-  "gate": "WP5 evidence-first event semantics",
+  "model_version": "0.3.0",
+  "gate": "WP6 deterministic response-policy semantics",
   "mission_states": [
     {
       "id": "M0",

@@ -1,0 +1,160 @@
+{
+  "catalog_version": "0.1.0",
+  "scope": "deterministic_response_decision_semantics",
+  "scientific_claim_boundary": "WP6 decision semantics only; containment effectiveness and trusted recovery require later runtime validation",
+  "fixed_policies": {
+    "P0": {
+      "name": "observe_only",
+      "action": "OBSERVE_ONLY",
+      "autonomy_level": "none"
+    },
+    "P1": {
+      "name": "identity_or_source_isolation",
+      "action": "ISOLATE_MODELED_SOURCE",
+      "autonomy_level": "bounded"
+    },
+    "P2": {
+      "name": "selective_command_restriction",
+      "action": "RESTRICT_HIGH_RISK_COMMANDS",
+      "autonomy_level": "bounded"
+    },
+    "P4": {
+      "name": "safe_mode_transition",
+      "action": "ENTER_SAFE_MODE",
+      "autonomy_level": "high"
+    },
+    "P5": {
+      "name": "rollback",
+      "action": "REQUEST_VERIFIED_ROLLBACK",
+      "autonomy_level": "bounded",
+      "trusted_recovery_verification": "WP7"
+    }
+  },
+  "minimum_policy_evidence": {
+    "E1": [
+      {
+        "key": "authorization_context_current",
+        "rule": "present"
+      }
+    ],
+    "E2": [
+      {
+        "key": "sequence_fresh",
+        "rule": "present"
+      }
+    ],
+    "E3": [
+      {
+        "key": "integrity_check_passed",
+        "rule": "present"
+      },
+      {
+        "key": "approved_version",
+        "rule": "present"
+      },
+      {
+        "key": "rollback_available",
+        "rule": "present"
+      }
+    ],
+    "E4": [
+      {
+        "key": "high_value_channels_complete",
+        "rule": "true"
+      },
+      {
+        "key": "evidence_fresh",
+        "rule": "true"
+      },
+      {
+        "key": "state_estimate_complete",
+        "rule": "true"
+      }
+    ]
+  },
+  "mission_aware_policy": {
+    "id": "P7",
+    "name": "mission_aware_selection",
+    "autonomy_level": "adaptive",
+    "decision_order": [
+      "minimum_evidence",
+      "event",
+      "mission_state",
+      "contact_condition"
+    ],
+    "rules": {
+      "evidence_insufficient": {
+        "M2": {
+          "C0": "P4",
+          "C1": "P4"
+        },
+        "M4": {
+          "C0": "P2",
+          "C1": "P4"
+        },
+        "M0": {
+          "C0": "P2",
+          "C1": "P2"
+        }
+      },
+      "evidence_sufficient": {
+        "E1": {
+          "M0": {
+            "C0": "P1",
+            "C1": "P2"
+          },
+          "M2": {
+            "C0": "P2",
+            "C1": "P2"
+          },
+          "M4": {
+            "C0": "P2",
+            "C1": "P2"
+          }
+        },
+        "E2": {
+          "M0": {
+            "C0": "P1",
+            "C1": "P2"
+          },
+          "M2": {
+            "C0": "P2",
+            "C1": "P2"
+          },
+          "M4": {
+            "C0": "P2",
+            "C1": "P2"
+          }
+        },
+        "E3": {
+          "M0": {
+            "C0": "P5",
+            "C1": "P5"
+          },
+          "M2": {
+            "C0": "P5",
+            "C1": "P5"
+          },
+          "M4": {
+            "C0": "P5",
+            "C1": "P5"
+          }
+        },
+        "E4": {
+          "M0": {
+            "C0": "P2",
+            "C1": "P2"
+          },
+          "M2": {
+            "C0": "P4",
+            "C1": "P4"
+          },
+          "M4": {
+            "C0": "P2",
+            "C1": "P4"
+          }
+        }
+      }
+    }
+  }
+}

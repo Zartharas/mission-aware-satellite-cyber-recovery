@@ -49,9 +49,10 @@ jobs:
           python -m json.tool configs/experiment_run.schema.json >/dev/null
           python -m json.tool configs/toolchain-lock.json >/dev/null
           python -m json.tool configs/wp5_event_catalog.json >/dev/null
+          python -m json.tool configs/wp6_policy_rules.json >/dev/null
 
       - name: Validate experiment schema fixtures
         run: python scripts/validate_experiment_schema.py
 
-      - name: Run WP5 unit tests
+      - name: Run research unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
