@@ -50,6 +50,7 @@ jobs:
           python -m json.tool configs/toolchain-lock.json >/dev/null
           python -m json.tool configs/wp5_event_catalog.json >/dev/null
           python -m json.tool configs/wp6_policy_rules.json >/dev/null
+          python -m json.tool configs/wp6_p01_source_isolation_adapter.json >/dev/null
 
       - name: Validate experiment schema fixtures
         run: python scripts/validate_experiment_schema.py

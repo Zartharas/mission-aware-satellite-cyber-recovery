@@ -1,0 +1,53 @@
+{
+  "adapter_version": "0.1.0",
+  "work_package": "WP6",
+  "scope": "P0_P1_source_isolation_effect_validation",
+  "scientific_claim_boundary": "action-effect adapter validation only; no final campaign effect size, containment latency, or trusted-recovery claim",
+  "event": {
+    "id": "E1",
+    "mission_state": "M0",
+    "contact_condition": "C0",
+    "evidence_condition": "T0",
+    "seed": 1
+  },
+  "matched_runtime_design": {
+    "policies": ["P0", "P1"],
+    "fresh_runtime_per_policy": true,
+    "command_packet_must_match": true
+  },
+  "modeled_sources": {
+    "attacker": "modeled_attacker",
+    "authorized": "authorized_ground"
+  },
+  "gateway": {
+    "listen_port": 19091,
+    "target_host": "nos-fsw",
+    "target_port": 5012,
+    "host_port_published": false,
+    "source_identity_semantics": "research-owned synthetic envelope metadata; not native cFS authentication"
+  },
+  "expected_effects": {
+    "P0": {
+      "modeled_attacker_forwarded": true,
+      "authorized_ground_forwarded": true,
+      "attacker_noop_acceptance_delta": 1,
+      "authorized_noop_acceptance_delta": 1,
+      "modeled_unauthorized_effect_completed": true,
+      "legitimate_command_rejection_rate": 0.0
+    },
+    "P1": {
+      "modeled_attacker_forwarded": false,
+      "authorized_ground_forwarded": true,
+      "attacker_noop_acceptance_delta": 0,
+      "authorized_noop_acceptance_delta": 1,
+      "modeled_unauthorized_effect_completed": false,
+      "legitimate_command_rejection_rate": 0.0
+    }
+  },
+  "prohibited_claims": [
+    "native_cfs_identity_enforcement",
+    "operational_identity_revocation",
+    "final_policy_effect_size",
+    "trusted_recovery"
+  ]
+}
