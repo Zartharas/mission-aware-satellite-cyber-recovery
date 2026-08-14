@@ -1,0 +1,45 @@
+{
+  "adapter_version": "0.2.0",
+  "event_id": "E3",
+  "event_name": "compromised_update",
+  "sparta": [
+    "IA-0007.01",
+    "EX-0004"
+  ],
+  "canonical_variant": "integrity_tamper_same_claimed_version",
+  "scope": "synthetic_update_artifact_integrity_and_simulator_staging_validation",
+  "scientific_claim_boundary": "WP5 artifact-compromise detection and staging only; no activation, rollback-effectiveness, or flight-software exploit claim",
+  "runtime_dependency": "scripts/run_nominal_runtime_preflight.sh",
+  "nos3_patching_evidence": {
+    "startup_script": "cfg/nos3_defs/cpu1_cfe_es_startup.scr",
+    "cf_loaded": true,
+    "fm_loaded": true,
+    "documented_scenario": "docs/wiki/Scenario_Patching.md",
+    "documented_spacecraft_patch_prefix": "/cf/"
+  },
+  "artifact": {
+    "component": "synthetic_mission_table",
+    "approved_version": "2.0.0",
+    "minimum_allowed_version": "2.0.0",
+    "executable": false,
+    "simulator_virtual_stage_path": "/cf/mission-aware-e3-candidate.pkg",
+    "linux_backing_stage_path": "/work/nos3/fsw/build/exe/cpu1/cf/mission-aware-e3-candidate.pkg"
+  },
+  "acceptance": {
+    "approved_manifest_required": true,
+    "approved_candidate_must_validate": true,
+    "tampered_candidate_must_fail_integrity": true,
+    "control_stage_hash_must_match_approved": true,
+    "tampered_stage_hash_must_match_tampered": true,
+    "tampered_stage_hash_must_not_match_approved": true,
+    "activation_performed": false,
+    "nominal_runtime_must_pass": true,
+    "cf_virtual_to_backing_mapping_verified_at_runtime": true
+  },
+  "ground_truth": {
+    "update_integrity_valid": false,
+    "claimed_version_unchanged": true,
+    "real_world_target": false,
+    "operational_firmware": false
+  }
+}
