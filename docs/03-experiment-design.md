@@ -31,14 +31,12 @@ The initial testbed should contain:
 
 | ID | Event | SPARTA relationship | Safety boundary |
 |---|---|---|---|
-| E1 | Unauthorized valid command | Valid-command abuse | Synthetic identity and command |
-| E2 | Replay of authorized command | Replay/command abuse | Recorded lab command only |
-| E3 | Abnormal command sequence | Valid-command misuse | Restricted command catalogue |
-| E4 | Modified update | Software/firmware corruption | Synthetic package |
-| E5 | Unauthorized downgrade | Software lifecycle abuse | Synthetic version |
-| E6 | Telemetry suppression | Disrupt/deceive downlink | Software-only data path |
-| E7 | Telemetry falsification | Sensor/telemetry manipulation | Synthetic channels |
-| E8 | Contact loss during response | Operational impairment | Simulated scheduler |
+| E1 | Unauthorized valid command | IA-0007.02 Malicious Commanding via Valid GS | Synthetic identity/command only |
+| E2 | Replay of authorized command | EX-0001.01 Replay: Command Packets | Previously generated lab command only |
+| E3 | Compromised update | IA-0007.01 Compromise On-Orbit Update; EX-0004 Compromise Boot Memory | Synthetic package/version only |
+| E4 | Telemetry observability degradation | DE-0003.06 Telemetry Downlink Modes | Software-only policy-visible evidence |
+
+Ground-contact delay is modeled separately as an experimental condition rather than an attack.
 
 ## Response policies
 
@@ -72,7 +70,7 @@ A trial is recovered only when all applicable conditions pass:
 
 Use a reduced pilot:
 
-- Events: E1, E4, E6
+- Events: E1, E3, E4
 - Mission states: M0, M2, M4
 - Policies: P0, P1/P2, P4, P5, P7
 - Contact: immediate, one missed pass

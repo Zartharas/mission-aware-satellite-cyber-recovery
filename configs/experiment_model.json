@@ -1,47 +1,95 @@
 {
-  "model_version": "0.1.0",
-  "gate": "Gate 2 draft",
+  "model_version": "0.2.0",
+  "gate": "WP5 evidence-first event semantics",
   "mission_states": [
     {
       "id": "M0",
       "name": "nominal_operations",
       "description": "Routine command, telemetry, and scheduled mission activity.",
-      "priority_order": ["command_authority", "spacecraft_survivability", "mission_service", "incident_evidence"]
+      "priority_order": [
+        "command_authority",
+        "spacecraft_survivability",
+        "mission_service",
+        "incident_evidence"
+      ]
     },
     {
       "id": "M2",
       "name": "low_power_or_eclipse",
       "description": "Energy-constrained state in which survival reserve and power-positive operation dominate payload continuity.",
-      "priority_order": ["spacecraft_survivability", "command_authority", "incident_evidence", "mission_service"]
+      "priority_order": [
+        "spacecraft_survivability",
+        "command_authority",
+        "incident_evidence",
+        "mission_service"
+      ]
     },
     {
       "id": "M4",
       "name": "software_update_or_recovery",
       "description": "Software or configuration transition requiring integrity, authorization, rollback, and state-convergence evidence.",
-      "priority_order": ["command_authority", "verified_recovery", "spacecraft_survivability", "incident_evidence", "mission_service"]
+      "priority_order": [
+        "command_authority",
+        "verified_recovery",
+        "spacecraft_survivability",
+        "incident_evidence",
+        "mission_service"
+      ]
     }
   ],
   "events": [
     {
       "id": "E1",
-      "name": "unauthorized_or_replayed_command",
-      "description": "A syntactically valid command is submitted using an unauthorized identity, invalid mission-state authorization, or stale/replayed authorization context.",
-      "allowed_effects": ["command_rejected", "command_executed", "state_change_attempted"],
-      "prohibited_real_world_actions": ["operational_credentials", "live_satellite_access", "rf_transmission"]
+      "name": "unauthorized_valid_command",
+      "description": "A syntactically valid synthetic command arrives through an expected ground path but lacks current authorization.",
+      "sparta": [
+        "IA-0007.02"
+      ],
+      "prohibited_real_world_actions": [
+        "operational_credentials",
+        "live_satellite_access",
+        "rf_transmission"
+      ]
+    },
+    {
+      "id": "E2",
+      "name": "replayed_command",
+      "description": "A previously valid synthetic command is replayed with stale authorization/sequence context.",
+      "sparta": [
+        "EX-0001.01"
+      ],
+      "prohibited_real_world_actions": [
+        "captured_operational_command",
+        "live_satellite_access",
+        "rf_transmission"
+      ]
+    },
+    {
+      "id": "E3",
+      "name": "compromised_update",
+      "description": "A synthetic software/configuration update has invalid integrity, authorization, or version provenance and requires rollback/trust verification.",
+      "sparta": [
+        "IA-0007.01",
+        "EX-0004"
+      ],
+      "prohibited_real_world_actions": [
+        "proprietary_firmware",
+        "production_signing_keys",
+        "operational_update_service"
+      ]
     },
     {
       "id": "E4",
-      "name": "modified_or_unauthorized_update",
-      "description": "A synthetic software or configuration artifact is modified, downgraded, incorrectly authorized, or interrupted during installation.",
-      "allowed_effects": ["verification_failure", "unauthorized_install_attempt", "rollback_required", "state_divergence"],
-      "prohibited_real_world_actions": ["proprietary_firmware", "production_signing_keys", "operational_update_service"]
-    },
-    {
-      "id": "E6",
-      "name": "telemetry_suppression_during_response",
-      "description": "Selected synthetic telemetry or trust evidence is delayed, suppressed, or made unavailable during response and recovery.",
-      "allowed_effects": ["evidence_incomplete", "policy_uncertainty", "delayed_recovery", "incorrect_state_estimate"],
-      "prohibited_real_world_actions": ["rf_jamming", "interception", "operational_telemetry_manipulation"]
+      "name": "telemetry_observability_degradation",
+      "description": "Selected synthetic policy-visible telemetry/trust evidence is delayed or suppressed while immutable experiment ground truth remains intact.",
+      "sparta": [
+        "DE-0003.06"
+      ],
+      "prohibited_real_world_actions": [
+        "rf_jamming",
+        "operational_telemetry_interception",
+        "live_satellite_access"
+      ]
     }
   ],
   "response_policies": [
@@ -107,14 +155,38 @@
     }
   ],
   "invariants": [
-    {"id": "SI-1", "name": "command_state_authorization"},
-    {"id": "SI-2", "name": "energy_reserve"},
-    {"id": "SI-3", "name": "verified_recovery_image"},
-    {"id": "SI-4", "name": "recovery_path_preservation"},
-    {"id": "SI-5", "name": "evidence_freshness"},
-    {"id": "SI-6", "name": "ground_spacecraft_convergence"},
-    {"id": "SI-7", "name": "minimum_observability"},
-    {"id": "SI-8", "name": "immutable_ground_truth"}
+    {
+      "id": "SI-1",
+      "name": "command_state_authorization"
+    },
+    {
+      "id": "SI-2",
+      "name": "energy_reserve"
+    },
+    {
+      "id": "SI-3",
+      "name": "verified_recovery_image"
+    },
+    {
+      "id": "SI-4",
+      "name": "recovery_path_preservation"
+    },
+    {
+      "id": "SI-5",
+      "name": "evidence_freshness"
+    },
+    {
+      "id": "SI-6",
+      "name": "ground_spacecraft_convergence"
+    },
+    {
+      "id": "SI-7",
+      "name": "minimum_observability"
+    },
+    {
+      "id": "SI-8",
+      "name": "immutable_ground_truth"
+    }
   ],
   "terminal_states": [
     "TRUSTED_RECOVERY_CONFIRMED",

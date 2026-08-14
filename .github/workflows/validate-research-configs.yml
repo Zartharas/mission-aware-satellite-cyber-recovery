@@ -7,12 +7,16 @@ on:
       - "configs/**"
       - "scripts/validate_experiment_schema.py"
       - "requirements-dev.txt"
+      - "src/**"
+      - "tests/**"
       - ".github/workflows/validate-research-configs.yml"
   pull_request:
     paths:
       - "configs/**"
       - "scripts/validate_experiment_schema.py"
       - "requirements-dev.txt"
+      - "src/**"
+      - "tests/**"
       - ".github/workflows/validate-research-configs.yml"
 
 permissions:
@@ -42,6 +46,10 @@ jobs:
           python -m json.tool configs/experiment_model.json >/dev/null
           python -m json.tool configs/experiment_run.schema.json >/dev/null
           python -m json.tool configs/toolchain-lock.json >/dev/null
+          python -m json.tool configs/wp5_event_catalog.json >/dev/null
 
       - name: Validate experiment schema fixtures
         run: python scripts/validate_experiment_schema.py
+
+      - name: Run WP5 unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py'

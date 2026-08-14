@@ -1,0 +1,105 @@
+{
+  "catalog_version": "0.1.0",
+  "study_scope": "researcher_controlled_software_simulation_only",
+  "events": [
+    {
+      "id": "E1",
+      "name": "unauthorized_valid_command",
+      "sparta": ["IA-0007.02"],
+      "rationale": "Legitimate-looking command misuse through a valid ground path tests command-authority containment without requiring protocol exploitation.",
+      "hypotheses": ["H1", "H2", "H3"],
+      "ground_truth": {
+        "command_syntactically_valid": true,
+        "source_path_valid": true,
+        "command_authorized": false,
+        "replay": false,
+        "update_integrity_valid": true,
+        "telemetry_truth_available": true
+      },
+      "policy_evidence": {
+        "command_received": true,
+        "command_format_valid": true,
+        "source_path_expected": true,
+        "authorization_context_current": false,
+        "command_effect_observed": true
+      },
+      "reduced_evidence_omit": ["authorization_context_current"],
+      "expected_modeled_effects": ["authorization_violation_attempt", "command_effect_possible_if_policy_allows"],
+      "prohibited_actions": ["operational_credentials", "live_satellite_access", "rf_transmission"]
+    },
+    {
+      "id": "E2",
+      "name": "replayed_command",
+      "sparta": ["EX-0001.01"],
+      "rationale": "Replay of a previously valid synthetic command tests stale authorization and anti-replay response behavior.",
+      "hypotheses": ["H1", "H2", "H3"],
+      "ground_truth": {
+        "command_syntactically_valid": true,
+        "source_path_valid": true,
+        "command_authorized": false,
+        "replay": true,
+        "update_integrity_valid": true,
+        "telemetry_truth_available": true
+      },
+      "policy_evidence": {
+        "command_received": true,
+        "command_format_valid": true,
+        "source_path_expected": true,
+        "sequence_fresh": false,
+        "command_effect_observed": true
+      },
+      "reduced_evidence_omit": ["sequence_fresh"],
+      "expected_modeled_effects": ["stale_command_attempt", "duplicate_effect_possible_if_policy_allows"],
+      "prohibited_actions": ["captured_operational_command", "live_satellite_access", "rf_transmission"]
+    },
+    {
+      "id": "E3",
+      "name": "compromised_update",
+      "sparta": ["IA-0007.01", "EX-0004"],
+      "rationale": "A modified or downgraded synthetic update directly exercises integrity checks, rollback decisions, and evidence-based trusted recovery.",
+      "hypotheses": ["H1", "H2", "H4", "H5"],
+      "ground_truth": {
+        "command_syntactically_valid": true,
+        "source_path_valid": true,
+        "command_authorized": true,
+        "replay": false,
+        "update_integrity_valid": false,
+        "telemetry_truth_available": true
+      },
+      "policy_evidence": {
+        "update_requested": true,
+        "source_path_expected": true,
+        "integrity_check_passed": false,
+        "approved_version": false,
+        "rollback_available": true
+      },
+      "reduced_evidence_omit": ["approved_version"],
+      "expected_modeled_effects": ["verification_failure", "rollback_required", "trusted_recovery_required"],
+      "prohibited_actions": ["proprietary_firmware", "production_signing_keys", "operational_update_service"]
+    },
+    {
+      "id": "E4",
+      "name": "telemetry_observability_degradation",
+      "sparta": ["DE-0003.06"],
+      "rationale": "Selective suppression/delay of synthetic policy-visible telemetry tests response selection under incomplete evidence while immutable ground truth remains intact.",
+      "hypotheses": ["H1", "H5", "H6"],
+      "ground_truth": {
+        "command_syntactically_valid": true,
+        "source_path_valid": true,
+        "command_authorized": true,
+        "replay": false,
+        "update_integrity_valid": true,
+        "telemetry_truth_available": true
+      },
+      "policy_evidence": {
+        "telemetry_stream_present": true,
+        "high_value_channels_complete": false,
+        "evidence_fresh": false,
+        "state_estimate_complete": false
+      },
+      "reduced_evidence_omit": ["high_value_channels_complete", "evidence_fresh"],
+      "expected_modeled_effects": ["evidence_incomplete", "policy_uncertainty", "recovery_verification_delay"],
+      "prohibited_actions": ["rf_jamming", "operational_telemetry_interception", "live_satellite_access"]
+    }
+  ]
+}
