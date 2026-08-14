@@ -1,0 +1,37 @@
+{
+  "adapter_version": "0.2.0",
+  "event_id": "E1",
+  "event_name": "unauthorized_valid_command",
+  "scope": "validated_nominal_runtime_direct_cfs_ingest_validation",
+  "scientific_claim_boundary": "WP5 event-delivery validation only; no response-policy effectiveness claim",
+  "runtime_dependency": "scripts/run_nominal_runtime_preflight.sh",
+  "source_bindings": {
+    "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "sample_commit": "9d1a76dc391fefe7a42314052c1f10fa527f526b",
+    "ci_lab_commit": "5dd2cf50a827c4837c867a0bdc58b5295caf61c1"
+  },
+  "command": {
+    "name": "SAMPLE_NOOP_CC",
+    "expected_packet_hex": "18fac000000100dc",
+    "expected_packet_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
+    "maximum_datagrams_per_validation_run": 1
+  },
+  "ingest": {
+    "container_alias": "nos-fsw",
+    "protocol": "udp",
+    "port": 5012,
+    "host_port_published": false,
+    "network": "validated_nominal_internal_network"
+  },
+  "acceptance": {
+    "ci_readiness": "bound_udp_5012",
+    "sample_marker": "SAMPLE: NOOP command received",
+    "required_marker_delta": 1,
+    "nominal_runtime_must_pass": true
+  },
+  "ground_truth": {
+    "authorization": "unauthorized",
+    "command_syntactically_valid": true,
+    "real_world_target": false
+  }
+}
