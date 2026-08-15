@@ -23,6 +23,7 @@ SUPPORTED_ACTIONS = {
     "OBSERVE_ONLY",
     "ISOLATE_MODELED_SOURCE",
     "RESTRICT_HIGH_RISK_COMMANDS",
+    "ENTER_SAFE_MODE",
 }
 
 COMMAND_FUNCTION_CODES = {
@@ -91,6 +92,9 @@ def decide_forward(
 
     if action == "ISOLATE_MODELED_SOURCE":
         return envelope["source_id"] != isolated_source
+
+    if action == "ENTER_SAFE_MODE":
+        return False
 
     return envelope["command_class"] not in HIGH_RISK_COMMAND_CLASSES
 

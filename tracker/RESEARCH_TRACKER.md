@@ -18,7 +18,7 @@ Implementation objective: make each retained response policy deterministic, test
 | WP3 | Threat and mission model | Ready for final review | Mission states, invariants, trust boundaries, evidence separation |
 | WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and bounded runtime-preflight evidence |
 | WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
-| WP6 | Response-policy implementation | **In progress** | P0/P1 source isolation and P0/P2 safe command-class restriction effects validated; P4 safe-mode effect next |
+| WP6 | Response-policy implementation | **In progress** | P0/P1 source isolation, P0/P2 selective restriction, and P0/P4 modeled safe-mode tradeoff validated; P5 rollback-request effect next |
 | WP7 | Trusted-recovery implementation | Not started | Independent recovery evidence and terminal-state verification |
 | WP8 | Pilot | Not started | Nominal/control validity, variability, repetition count |
 | WP9 | Frozen experiment campaign | Not started | Randomized controlled repeated trials |

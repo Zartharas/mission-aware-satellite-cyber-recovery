@@ -96,10 +96,20 @@ class PolicyGatewayTests(unittest.TestCase):
                     )
                 )
 
+    def test_p4_blocks_routine_commands_from_both_sources(self):
+        for source_id in ("modeled_attacker", "authorized_ground"):
+            with self.subTest(source_id=source_id):
+                self.assertFalse(
+                    decide_forward(
+                        "ENTER_SAFE_MODE",
+                        build_e1_envelope(source_id),
+                    )
+                )
+
     def test_unsupported_action_rejected(self):
         with self.assertRaises(ValueError):
             decide_forward(
-                "ENTER_SAFE_MODE",
+                "REQUEST_VERIFIED_ROLLBACK",
                 build_e1_envelope("modeled_attacker"),
             )
 

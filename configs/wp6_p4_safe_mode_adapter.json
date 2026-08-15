@@ -1,0 +1,66 @@
+{
+  "adapter_version": "0.1.0",
+  "work_package": "WP6",
+  "scope": "P4_modeled_safe_mode_command_gate_effect_validation",
+  "scientific_claim_boundary": "post-response command-gate mechanics only; no native spacecraft safe-mode transition, final mission-cost estimate, containment-latency, or trusted-recovery claim",
+  "decision_context": {
+    "event_id": "E1",
+    "mission_state": "M0",
+    "contact_condition": "C0",
+    "evidence_condition": "T0",
+    "seed": 1
+  },
+  "matched_runtime_design": {
+    "policies": ["P0", "P4"],
+    "fresh_runtime_per_policy": true,
+    "command_packet_must_match": true,
+    "command_sequence": [
+      {
+        "source_id": "modeled_attacker",
+        "command_class": "sample_noop"
+      },
+      {
+        "source_id": "authorized_ground",
+        "command_class": "sample_noop"
+      }
+    ]
+  },
+  "modeled_safe_mode_effect": {
+    "action": "ENTER_SAFE_MODE",
+    "implementation": "research_owned_routine_command_gate",
+    "routine_commands_forwarded": false,
+    "native_cfs_safe_mode_claim": false,
+    "spacecraft_hardware_mode_claim": false
+  },
+  "expected_effects": {
+    "P0": {
+      "attacker_forwarded": true,
+      "authorized_forwarded": true,
+      "attacker_noop_acceptance_delta": 1,
+      "authorized_noop_acceptance_delta": 1,
+      "modeled_unauthorized_effect_completed": true,
+      "legitimate_command_rejection_rate": 0.0
+    },
+    "P4": {
+      "attacker_forwarded": false,
+      "authorized_forwarded": false,
+      "attacker_noop_acceptance_delta": 0,
+      "authorized_noop_acceptance_delta": 0,
+      "modeled_unauthorized_effect_completed": false,
+      "legitimate_command_rejection_rate": 1.0
+    }
+  },
+  "tradeoff": {
+    "containment_improves": true,
+    "authorized_routine_command_availability_degrades": true,
+    "mission_objective_completion_claim": false
+  },
+  "prohibited_claims": [
+    "native_cfs_safe_mode",
+    "operational_spacecraft_safe_mode",
+    "final_mission_cost",
+    "final_policy_effect_size",
+    "containment_latency",
+    "trusted_recovery"
+  ]
+}
