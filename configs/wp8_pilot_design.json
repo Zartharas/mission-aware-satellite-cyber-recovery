@@ -236,7 +236,10 @@
       "raw_metric_schema": true,
       "deterministic_primary_metric_scorer": true,
       "run_record_emitter": true,
-      "nos3_runtime_binding": false
+      "nos3_runtime_binding": false,
+      "invalid_run_nonfabrication_contract": true,
+      "applicable_recovery_evidence_contract": true,
+      "objective_schedule_predicate_contract": true
     }
   },
   "invalid_run_rule": {

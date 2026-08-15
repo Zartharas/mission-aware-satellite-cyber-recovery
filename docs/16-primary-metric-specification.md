@@ -214,6 +214,8 @@ The WP8 run-record schema preserves the raw evidence required to derive these pr
 
 No primary metric is imputed for an individual run. Missing required ground-truth data makes the run `RUN_INVALID`. Missing policy-visible telemetry may be an intended experimental condition and does not invalidate a run when immutable ground truth remains complete.
 
+The WP8 schema therefore permits a `RUN_INVALID` record to retain factor/environment provenance and an invalid-run reason without fabricating unavailable outcome or raw-metric fields. Recovery-evidence elements excluded by a predeclared scenario rule are recorded explicitly and represented as `null` in the top-level recovery-evidence object.
+
 ## Reporting rule
 
 Report raw counts and denominators alongside ratios. Report time-to-event censoring and use analysis methods that retain censored runs. Never discard failed or unrecovered trials solely because a duration is unavailable.

@@ -68,12 +68,20 @@
       {
         "objective_instance_id": "fixture-objective-completed",
         "weight": 95.0,
-        "completed": true
+        "completed": true,
+        "scheduled_start_s": 30.0,
+        "scheduled_end_s": 180.0,
+        "completion_predicate": "fixture_declared_completion_status",
+        "completion_evidence_ref": "fixture:fixture-objective-completed"
       },
       {
         "objective_instance_id": "fixture-objective-incomplete",
         "weight": 5.0,
-        "completed": false
+        "completed": false,
+        "scheduled_start_s": 30.0,
+        "scheduled_end_s": 180.0,
+        "completion_predicate": "fixture_declared_completion_status",
+        "completion_evidence_ref": "fixture:fixture-objective-incomplete"
       }
     ],
     "invariant_violation_intervals": [],
@@ -91,43 +99,53 @@
     "recovery_checklist": [
       {
         "criterion_id": "approved_version",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:approved_version"
       },
       {
         "criterion_id": "integrity_measurement_valid",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:integrity_measurement_valid"
       },
       {
         "criterion_id": "authorization_valid",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:authorization_valid"
       },
       {
         "criterion_id": "measured_state_current",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:measured_state_current"
       },
       {
         "criterion_id": "authorized_command_path_restored",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:authorized_command_path_restored"
       },
       {
         "criterion_id": "ground_spacecraft_state_agreed",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:ground_spacecraft_state_agreed"
       },
       {
         "criterion_id": "required_telemetry_restored",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:required_telemetry_restored"
       },
       {
         "criterion_id": "health_checks_passed",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:health_checks_passed"
       },
       {
         "criterion_id": "no_residual_unauthorized_state",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:no_residual_unauthorized_state"
       },
       {
         "criterion_id": "recovery_manifest_complete",
-        "available_current": true
+        "available_current": true,
+        "evidence_ref": "fixture:recovery_manifest_complete"
       }
     ],
     "run_end_s": 180.0,
@@ -138,6 +156,7 @@
       "operational_restored": true,
       "recovery_failed": false,
       "contained": true
-    }
+    },
+    "recovery_checklist_excluded": []
   }
 }

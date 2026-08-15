@@ -4,6 +4,7 @@ import unittest
 
 from src.mission_recovery.primary_metrics import (
     RECOVERY_CRITERIA,
+    build_invalid_run_record,
     build_run_record,
     classify_terminal_state,
     score_raw_metric_evidence,
@@ -32,11 +33,19 @@ def valid_raw() -> dict:
             {
                 "objective_instance_id": "MO-1-A",
                 "weight": 3.0,
+                "scheduled_start_s": 10.0,
+                "scheduled_end_s": 60.0,
+                "completion_predicate": "mo1_complete",
+                "completion_evidence_ref": "fixture:mo1",
                 "completed": True,
             },
             {
                 "objective_instance_id": "MO-3-A",
                 "weight": 1.0,
+                "scheduled_start_s": 10.0,
+                "scheduled_end_s": 60.0,
+                "completion_predicate": "mo3_complete",
+                "completion_evidence_ref": "fixture:mo3",
                 "completed": False,
             },
         ],
@@ -45,11 +54,13 @@ def valid_raw() -> dict:
                 "invariant_id": "SI-2",
                 "start_s": 4.0,
                 "end_s": 5.0,
+                "ground_truth_evidence_ref": "fixture:si2-a",
             },
             {
                 "invariant_id": "SI-2",
                 "start_s": 8.0,
                 "end_s": 9.0,
+                "ground_truth_evidence_ref": "fixture:si2-b",
             },
         ],
         "legitimate_commands": {
@@ -77,9 +88,11 @@ def valid_raw() -> dict:
             {
                 "criterion_id": key,
                 "available_current": True,
+                "evidence_ref": f"fixture:{key}",
             }
             for key in RECOVERY_CRITERIA
         ],
+        "recovery_checklist_excluded": [],
         "run_end_s": 60.0,
         "terminal_state_predicates": {
             "run_invalid": False,
@@ -233,6 +246,57 @@ class PrimaryMetricTests(unittest.TestCase):
                 raw=raw,
                 recovery_evidence=evidence,
             )
+
+    def test_applicable_recovery_evidence_excludes_n_a(self) -> None:
+        raw = valid_raw()
+        evidence = recovery_evidence_all()
+        excluded = "required_telemetry_restored"
+        evidence[excluded] = None
+        raw["recovery_checklist"] = [
+            row
+            for row in raw["recovery_checklist"]
+            if row["criterion_id"] != excluded
+        ]
+        raw["recovery_checklist_excluded"] = [excluded]
+        raw["trusted_recovery"] = {"predicate": False, "timestamp_s": None}
+        raw["terminal_state_predicates"]["trusted_recovery_confirmed"] = False
+        raw["terminal_state_predicates"]["operational_restored"] = True
+
+        result = score_raw_metric_evidence(
+            event_activation_s=10.0,
+            raw=raw,
+            recovery_evidence=evidence,
+        )
+        self.assertEqual(result["evidence_completeness_ratio"], 1.0)
+        self.assertEqual(
+            result["recovery_terminal_state"],
+            "OPERATIONAL_BUT_UNVERIFIED",
+        )
+
+    def test_build_invalid_run_record_needs_no_fabricated_metrics(self) -> None:
+        record = build_invalid_run_record(
+            run_id="wp8-invalid-001",
+            model_version="0.3.0",
+            seed=101,
+            mission_state_id="M0",
+            event_id="E1",
+            policy_id="P0",
+            contact_condition_id="C0",
+            evidence_condition_id="T0",
+            environment={
+                "host_architecture": "x86_64",
+                "simulator": "NOS3",
+                "simulator_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+                "flight_software": "cFS via NOS3 submodule",
+                "flight_software_commit": "sample-cfs-commit",
+                "snapshot_id": "invalid-fixture",
+                "container_or_vm_digest": None,
+            },
+            invalid_run_reason="evidence_capture_failure",
+        )
+        self.assertEqual(record["terminal_state"], "RUN_INVALID")
+        self.assertNotIn("outcomes", record)
+        self.assertNotIn("raw_metric_evidence", record)
 
     def test_build_run_record_uses_derived_metrics(self) -> None:
         record = build_run_record(

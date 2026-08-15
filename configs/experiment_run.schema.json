@@ -14,10 +14,6 @@
     "contact_condition_id",
     "evidence_condition_id",
     "environment",
-    "timing",
-    "outcomes",
-    "recovery_evidence",
-    "raw_metric_evidence",
     "terminal_state"
   ],
   "properties": {
@@ -119,16 +115,16 @@
         "recovery_manifest_complete"
       ],
       "properties": {
-        "approved_version": {"type": "boolean"},
-        "integrity_measurement_valid": {"type": "boolean"},
-        "authorization_valid": {"type": "boolean"},
-        "measured_state_current": {"type": "boolean"},
-        "authorized_command_path_restored": {"type": "boolean"},
-        "ground_spacecraft_state_agreed": {"type": "boolean"},
-        "required_telemetry_restored": {"type": "boolean"},
-        "health_checks_passed": {"type": "boolean"},
-        "no_residual_unauthorized_state": {"type": "boolean"},
-        "recovery_manifest_complete": {"type": "boolean"}
+        "approved_version": {"type": ["boolean", "null"]},
+        "integrity_measurement_valid": {"type": ["boolean", "null"]},
+        "authorization_valid": {"type": ["boolean", "null"]},
+        "measured_state_current": {"type": ["boolean", "null"]},
+        "authorized_command_path_restored": {"type": ["boolean", "null"]},
+        "ground_spacecraft_state_agreed": {"type": ["boolean", "null"]},
+        "required_telemetry_restored": {"type": ["boolean", "null"]},
+        "health_checks_passed": {"type": ["boolean", "null"]},
+        "no_residual_unauthorized_state": {"type": ["boolean", "null"]},
+        "recovery_manifest_complete": {"type": ["boolean", "null"]}
       }
     },
     "raw_metric_evidence": {
@@ -143,6 +139,7 @@
         "legitimate_commands",
         "ground_spacecraft_divergence_intervals",
         "recovery_checklist",
+        "recovery_checklist_excluded",
         "run_end_s",
         "terminal_state_predicates"
       ],
@@ -180,10 +177,14 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["objective_instance_id", "weight", "completed"],
+            "required": ["objective_instance_id", "weight", "scheduled_start_s", "scheduled_end_s", "completion_predicate", "completion_evidence_ref", "completed"],
             "properties": {
               "objective_instance_id": {"type": "string", "minLength": 1},
               "weight": {"type": "number", "exclusiveMinimum": 0},
+              "scheduled_start_s": {"type": "number", "minimum": 0},
+              "scheduled_end_s": {"type": "number", "minimum": 0},
+              "completion_predicate": {"type": "string", "minLength": 1},
+              "completion_evidence_ref": {"type": "string", "minLength": 1},
               "completed": {"type": "boolean"}
             }
           }
@@ -193,11 +194,12 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["invariant_id", "start_s", "end_s"],
+            "required": ["invariant_id", "start_s", "end_s", "ground_truth_evidence_ref"],
             "properties": {
               "invariant_id": {"enum": ["SI-1", "SI-2", "SI-3", "SI-4", "SI-5", "SI-6", "SI-7", "SI-8"]},
               "start_s": {"type": "number", "minimum": 0},
-              "end_s": {"type": ["number", "null"], "minimum": 0}
+              "end_s": {"type": ["number", "null"], "minimum": 0},
+              "ground_truth_evidence_ref": {"type": "string", "minLength": 1}
             }
           }
         },
@@ -229,7 +231,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["criterion_id", "available_current"],
+            "required": ["criterion_id", "available_current", "evidence_ref"],
             "properties": {
               "criterion_id": {
                 "enum": [
@@ -245,8 +247,27 @@
                   "recovery_manifest_complete"
                 ]
               },
-              "available_current": {"type": "boolean"}
+              "available_current": {"type": "boolean"},
+              "evidence_ref": {"type": "string", "minLength": 1}
             }
+          }
+        },
+        "recovery_checklist_excluded": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "approved_version",
+              "integrity_measurement_valid",
+              "authorization_valid",
+              "measured_state_current",
+              "authorized_command_path_restored",
+              "ground_spacecraft_state_agreed",
+              "required_telemetry_restored",
+              "health_checks_passed",
+              "no_residual_unauthorized_state",
+              "recovery_manifest_complete"
+            ]
           }
         },
         "run_end_s": {"type": "number", "exclusiveMinimum": 0},
@@ -290,6 +311,19 @@
     }
   },
   "allOf": [
+    {
+      "if": {
+        "properties": {
+          "terminal_state": {"not": {"const": "RUN_INVALID"}}
+        }
+      },
+      "then": {
+        "required": ["timing", "outcomes", "recovery_evidence", "raw_metric_evidence"],
+        "properties": {
+          "invalid_run_reason": {"type": "null"}
+        }
+      }
+    },
     {
       "if": {
         "properties": {"terminal_state": {"const": "TRUSTED_RECOVERY_CONFIRMED"}}

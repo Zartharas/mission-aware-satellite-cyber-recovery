@@ -143,6 +143,34 @@ def main() -> int:
         return 1
     print("[OK] Positive fixture validates")
 
+    minimal_invalid = {
+        key: valid_fixture[key]
+        for key in (
+            "run_id",
+            "model_version",
+            "seed",
+            "mission_state_id",
+            "event_id",
+            "policy_id",
+            "contact_condition_id",
+            "evidence_condition_id",
+            "environment",
+        )
+    }
+    minimal_invalid["run_id"] = "schema-valid-run-invalid"
+    minimal_invalid["terminal_state"] = "RUN_INVALID"
+    minimal_invalid["invalid_run_reason"] = "evidence_capture_failure"
+
+    minimal_invalid_errors = sorted(
+        validator.iter_errors(minimal_invalid),
+        key=lambda err: list(err.path),
+    )
+    if minimal_invalid_errors:
+        print("[FAIL] Minimal RUN_INVALID record did not validate:")
+        print(format_errors(minimal_invalid_errors))
+        return 1
+    print("[OK] RUN_INVALID record validates without fabricated metrics")
+
     invalid_errors = sorted(
         validator.iter_errors(invalid_fixture),
         key=lambda err: list(err.path),

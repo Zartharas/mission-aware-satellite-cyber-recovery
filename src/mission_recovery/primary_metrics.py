@@ -99,7 +99,7 @@ def score_raw_metric_evidence(
     *,
     event_activation_s: float,
     raw: dict[str, Any],
-    recovery_evidence: dict[str, bool],
+    recovery_evidence: dict[str, bool | None],
 ) -> dict[str, Any]:
     event_activation_s = float(event_activation_s)
     run_end_s = float(raw["run_end_s"])
@@ -139,8 +139,16 @@ def score_raw_metric_evidence(
     completed_weight = 0.0
     for row in objectives:
         weight = float(row["weight"])
+        start = float(row["scheduled_start_s"])
+        end = float(row["scheduled_end_s"])
+        predicate = row["completion_predicate"]
+        evidence_ref = row["completion_evidence_ref"]
         if weight <= 0:
             raise ValueError("mission objective weight must be positive")
+        if start < 0 or end < start or end > run_end_s:
+            raise ValueError("mission objective schedule outside run bounds")
+        if not predicate or not evidence_ref:
+            raise ValueError("mission objective predicate/evidence reference required")
         total_weight += weight
         if row["completed"]:
             completed_weight += weight
@@ -160,6 +168,8 @@ def score_raw_metric_evidence(
             if end_value < start or end_value > run_end_s:
                 raise ValueError("invariant interval end outside run bounds")
 
+        if not row["ground_truth_evidence_ref"]:
+            raise ValueError("invariant violation requires ground-truth evidence reference")
         invariant_ids.add(row["invariant_id"])
 
     commands = raw["legitimate_commands"]
@@ -176,22 +186,40 @@ def score_raw_metric_evidence(
     )
 
     checklist = raw["recovery_checklist"]
+    excluded = raw["recovery_checklist_excluded"]
     if not checklist:
         raise ValueError("recovery checklist denominator is zero")
 
     criterion_ids = [row["criterion_id"] for row in checklist]
     if len(criterion_ids) != len(set(criterion_ids)):
         raise ValueError("duplicate recovery checklist criterion")
+    if len(excluded) != len(set(excluded)):
+        raise ValueError("duplicate excluded recovery criterion")
 
-    unknown = set(criterion_ids) - set(RECOVERY_CRITERIA)
+    applicable = set(criterion_ids)
+    excluded_set = set(excluded)
+    unknown = (applicable | excluded_set) - set(RECOVERY_CRITERIA)
     if unknown:
         raise ValueError(f"unknown recovery criterion: {sorted(unknown)}")
+    if applicable & excluded_set:
+        raise ValueError("recovery criterion cannot be both applicable and excluded")
+    if applicable | excluded_set != set(RECOVERY_CRITERIA):
+        raise ValueError("recovery checklist/exclusions must partition all criteria")
 
     for row in checklist:
         criterion = row["criterion_id"]
-        if bool(recovery_evidence[criterion]) != bool(row["available_current"]):
+        value = recovery_evidence[criterion]
+        if value is None or bool(value) != bool(row["available_current"]):
             raise ValueError(
                 f"recovery evidence disagrees with raw checklist: {criterion}"
+            )
+        if not row["evidence_ref"]:
+            raise ValueError("applicable recovery criterion requires evidence reference")
+
+    for criterion in excluded_set:
+        if recovery_evidence[criterion] is not None:
+            raise ValueError(
+                f"excluded recovery criterion must be null: {criterion}"
             )
 
     evidence_ratio = (
@@ -212,12 +240,7 @@ def score_raw_metric_evidence(
                 "trusted terminal state lacks trusted-recovery timestamp"
             )
 
-        if set(criterion_ids) != set(RECOVERY_CRITERIA):
-            raise ValueError(
-                "trusted terminal state requires the full recovery checklist"
-            )
-
-        if not all(bool(recovery_evidence[key]) for key in RECOVERY_CRITERIA):
+        if not all(bool(row["available_current"]) for row in checklist):
             raise ValueError(
                 "trusted terminal state has incomplete recovery evidence"
             )
@@ -270,7 +293,7 @@ def build_run_record(
     event_activation_s: float,
     run_end_utc: str,
     raw_metric_evidence: dict[str, Any],
-    recovery_evidence: dict[str, bool],
+    recovery_evidence: dict[str, bool | None],
     invalid_run_reason: str | None = None,
     notes: str | None = None,
 ) -> dict[str, Any]:
@@ -331,6 +354,38 @@ def build_run_record(
         "recovery_evidence": deepcopy(recovery_evidence),
         "raw_metric_evidence": deepcopy(raw_metric_evidence),
         "terminal_state": terminal_state,
+        "invalid_run_reason": invalid_run_reason,
+        "notes": notes,
+    }
+
+def build_invalid_run_record(
+    *,
+    run_id: str,
+    model_version: str,
+    seed: int,
+    mission_state_id: str,
+    event_id: str,
+    policy_id: str,
+    contact_condition_id: str,
+    evidence_condition_id: str,
+    environment: dict[str, Any],
+    invalid_run_reason: str,
+    notes: str | None = None,
+) -> dict[str, Any]:
+    if not invalid_run_reason:
+        raise ValueError("RUN_INVALID requires invalid_run_reason")
+
+    return {
+        "run_id": run_id,
+        "model_version": model_version,
+        "seed": int(seed),
+        "mission_state_id": mission_state_id,
+        "event_id": event_id,
+        "policy_id": policy_id,
+        "contact_condition_id": contact_condition_id,
+        "evidence_condition_id": evidence_condition_id,
+        "environment": deepcopy(environment),
+        "terminal_state": "RUN_INVALID",
         "invalid_run_reason": invalid_run_reason,
         "notes": notes,
     }
