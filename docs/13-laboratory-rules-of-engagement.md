@@ -24,7 +24,7 @@ The following activities are authorized only inside the defined isolated environ
 
 - Execute nominal command and telemetry workflows
 - Create synthetic identities, keys, certificates, commands, telemetry, software packages, and mission states
-- Inject frozen event families E1, E4, and E6
+- Inject frozen event families E1 through E4
 - Emulate delay, loss, ordering changes, and missed contact windows in software
 - Suppress or stale selected synthetic telemetry and trust evidence
 - Trigger bounded safe-mode and rollback workflows
@@ -48,9 +48,10 @@ The following activities are authorized only inside the defined isolated environ
 
 | Event | Authorized implementation | Prohibited implementation |
 |---|---|---|
-| E1 Unauthorized/replayed command | Synthetic identity and laboratory command catalogue | Real credentials or operational command formats obtained without authorization |
-| E4 Modified/unauthorized update | Synthetic package, test signing authority, version downgrade, interrupted transfer | Proprietary firmware, production signing keys, operational update service |
-| E6 Telemetry suppression | Software drop/delay/staleness in virtual data path | RF interference, interception, or operational telemetry manipulation |
+| E1 Unauthorized valid command | Synthetic identity and laboratory command catalogue | Real credentials or operational command formats obtained without authorization |
+| E2 Replayed command | Previously generated synthetic laboratory command and stale sequence context | Captured operational command traffic or real credentials |
+| E3 Compromised update | Synthetic package, test-only provenance, version downgrade, or modified payload | Proprietary firmware, production signing keys, operational update service |
+| E4 Telemetry observability degradation | Software drop/delay/staleness in virtual policy-visible evidence | RF interference, interception, or operational telemetry manipulation |
 
 ## Test roles
 

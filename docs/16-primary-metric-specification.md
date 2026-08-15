@@ -33,9 +33,10 @@ The value remains true even if the effect is later reversed. Reversal is measure
 
 ### Event-specific predicates
 
-- E1: A protected state is changed by the unauthorized/replayed command.
-- E4: An unapproved software/configuration version becomes active or is accepted for activation.
-- E6: Required policy-visible telemetry is suppressed or stale beyond the configured threshold.
+- E1: A protected state is changed by the unauthorized valid command.
+- E2: A replayed command produces a duplicate or stale protected-state effect.
+- E3: An unapproved software/configuration version becomes active or is accepted for activation.
+- E4: Required policy-visible telemetry is suppressed or stale beyond the configured threshold.
 
 ## M-02 Mission objective completion ratio
 

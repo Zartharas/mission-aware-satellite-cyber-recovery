@@ -36,7 +36,7 @@
       "enum": ["M0", "M2", "M4"]
     },
     "event_id": {
-      "enum": ["E1", "E4", "E6"]
+      "enum": ["E1", "E2", "E3", "E4"]
     },
     "policy_id": {
       "enum": ["P0", "P1", "P2", "P4", "P5", "P7"]
@@ -92,7 +92,7 @@
           "uniqueItems": true,
           "items": {"enum": ["SI-1", "SI-2", "SI-3", "SI-4", "SI-5", "SI-6", "SI-7", "SI-8"]}
         },
-        "legitimate_command_rejection_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "legitimate_command_rejection_rate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
         "ground_spacecraft_state_divergence_s": {"type": "number", "minimum": 0},
         "evidence_completeness_ratio": {"type": "number", "minimum": 0, "maximum": 1},
         "minimum_energy_reserve_ratio": {"type": ["number", "null"], "minimum": 0, "maximum": 1},

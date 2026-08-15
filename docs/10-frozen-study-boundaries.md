@@ -100,9 +100,11 @@ Other terminal states are:
 
 ### Cyber events
 
-- E1: Unauthorized or replayed command
-- E4: Modified or unauthorized update
-- E6: Telemetry suppression during response
+- E1: Unauthorized valid command
+- E3: Compromised update
+- E4: Telemetry observability degradation
+
+E2 replayed-command semantics remain in the frozen event catalog but are omitted from the minimum WP8 pilot because E1 exercises the same command-path response mechanism. E2 remains eligible for WP9.
 
 ### Mission states
 

@@ -7,7 +7,7 @@ WP4,Testbed selection and architecture,Complete,Pinned Docker-first NOS3/Fortytw
 WP5,Deterministic event library,Complete,E1-E4 deterministic event adapters validated against accepted NOS3 runtime,Closed,
 WP6,Response-policy implementation,Complete,Deterministic fixed-policy and P7 mission-aware effects validated,Closed,
 WP7,Trusted-recovery implementation,Complete,Hardened E3/P5 trusted recovery plus four bounded failure-mode validations,Closed,
-WP8,Pilot,Not started,,"Control validity, variability, and repetition count established",
+WP8,Pilot,In progress,Minimal staged pilot matrix and metric-contract reconciliation,"Control validity raw metric emission variability and repetition count established",
 WP9,Frozen experiment campaign,Not started,,Frozen randomized campaign completed,
 WP10,Analysis and manuscript,Not started,,Reproducible analysis and submission-ready manuscript,
 WP11,Responsible artifact release,Not started,,"Licensing, secrets, reproducibility, and misuse review passed",

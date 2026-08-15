@@ -17,7 +17,7 @@ This document connects the research questions and theory-derived propositions to
 | Factor | ID | Levels | Role |
 |---|---|---|---|
 | Response policy | `policy_id` | P0, P1, P2, P4, P5, P7 | Primary treatment |
-| Cyber event | `event_id` | E1, E4, E6 | Adversarial condition |
+| Cyber event | `event_id` | E1, E2, E3, E4 | Adversarial condition |
 | Mission state | `mission_state_id` | M0, M2, M4 | Operational context |
 | Contact condition | `contact_condition_id` | C0, C1 | Ground-intervention constraint |
 | Evidence condition | `evidence_condition_id` | T0, T1 | Observability/trust constraint |
@@ -121,6 +121,12 @@ This document connects the research questions and theory-derived propositions to
 | RQ3 Contact delay | P2 | Recovery time, containment time, state divergence |
 | RQ4 Harmful automation | P1, P4, P5 | Mission loss, invariant violations, condition-specific policy comparisons |
 | RQ5 Trusted-state evidence | P3, P4 | Evidence completeness, residual state, terminal-state classification |
+
+## WP8 minimal pilot subset
+
+WP8 uses E1, E3, and E4 as the high-information pilot subset. E2 remains in the frozen event catalog but is omitted from the pilot because E1 already exercises the command-path response mechanism; replay-specific coverage remains eligible for WP9.
+
+The pilot is staged: one control-validity run is required for every declared pilot cell before replicated variability runs begin. Pilot results determine campaign readiness and repetition count; they are not used as final hypothesis tests.
 
 ## Blocking and replication
 

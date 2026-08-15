@@ -1,0 +1,265 @@
+{
+  "pilot_version": "0.1.0",
+  "work_package": "WP8",
+  "status": "CONTRACT_AND_INSTRUMENTATION_READINESS",
+  "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
+  "model_version": "0.3.0",
+  "purpose": [
+    "establish_control_validity",
+    "estimate_run_to_run_variability",
+    "determine_wp9_repetition_count"
+  ],
+  "scientific_boundary": {
+    "pilot_hypothesis_acceptance_allowed": false,
+    "final_effect_size_claim_allowed": false,
+    "final_recovery_rate_claim_allowed": false,
+    "wp9_repetition_count_freeze_allowed_only_after_pilot_acceptance": true
+  },
+  "pilot_event_subset": {
+    "included": [
+      "E1",
+      "E3",
+      "E4"
+    ],
+    "omitted_but_retained_for_wp9": [
+      "E2"
+    ],
+    "e2_omission_rationale": "E2 is retained in the frozen event catalog but omitted from the minimal pilot because E1 already exercises the command-path response mechanism; replay-specific coverage remains eligible for the frozen WP9 campaign."
+  },
+  "stage_1_control_validity": {
+    "seed": 101,
+    "cell_ids": [
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "O01"
+    ],
+    "randomize_order_within_seed_block": true,
+    "gate": "Each cell must produce at least one scientifically valid run with expected policy/effect semantics and complete raw metric inputs before Stage 2."
+  },
+  "stage_2_variability": {
+    "additional_seeds": [
+      202,
+      303,
+      404,
+      505
+    ],
+    "anchor_cell_ids": [
+      "C02",
+      "C03",
+      "C05",
+      "C06",
+      "R02",
+      "R03",
+      "O01"
+    ],
+    "total_valid_repetitions_per_anchor_after_stage_2": 5,
+    "randomize_order_within_seed_block": true,
+    "execute_only_after_stage_1_pass": true
+  },
+  "cells": [
+    {
+      "cell_id": "C01",
+      "family": "command_baseline",
+      "event_id": "E1",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P0",
+      "expected_effective_policy_id": "P0",
+      "primary_role": "no_response_event_effect_control"
+    },
+    {
+      "cell_id": "C02",
+      "family": "command_matched_fixed",
+      "event_id": "E1",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P1",
+      "expected_effective_policy_id": "P1",
+      "primary_role": "fixed_command_containment_anchor"
+    },
+    {
+      "cell_id": "C03",
+      "family": "command_matched_p7",
+      "event_id": "E1",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P1",
+      "primary_role": "matched_p7_selector_overhead_and_effect_anchor"
+    },
+    {
+      "cell_id": "C04",
+      "family": "command_state_fixed",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P1",
+      "expected_effective_policy_id": "P1",
+      "primary_role": "same_fixed_policy_across_mission_state_control"
+    },
+    {
+      "cell_id": "C05",
+      "family": "command_state_p7",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P2",
+      "primary_role": "mission_state_adaptation_anchor"
+    },
+    {
+      "cell_id": "C06",
+      "family": "command_evidence_p7",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T1",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P4",
+      "primary_role": "degraded_evidence_conservative_action_anchor"
+    },
+    {
+      "cell_id": "C07",
+      "family": "command_contact_p7",
+      "event_id": "E1",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C1",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P2",
+      "primary_role": "contact_condition_selector_control"
+    },
+    {
+      "cell_id": "R01",
+      "family": "recovery_baseline",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P0",
+      "expected_effective_policy_id": "P0",
+      "primary_role": "no_recovery_compromised_update_control"
+    },
+    {
+      "cell_id": "R02",
+      "family": "recovery_fixed",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P5",
+      "expected_effective_policy_id": "P5",
+      "primary_role": "fixed_trusted_recovery_anchor"
+    },
+    {
+      "cell_id": "R03",
+      "family": "recovery_p7",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P5",
+      "primary_role": "matched_p7_trusted_recovery_anchor"
+    },
+    {
+      "cell_id": "R04",
+      "family": "recovery_evidence_p7",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T1",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P2",
+      "primary_role": "recovery_evidence_insufficiency_control"
+    },
+    {
+      "cell_id": "O01",
+      "family": "observability_p7",
+      "event_id": "E4",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P4",
+      "primary_role": "telemetry_degradation_conservative_action_anchor"
+    }
+  ],
+  "required_primary_metrics": [
+    "unauthorized_effect_completed",
+    "mission_objective_completion_ratio",
+    "safety_invariant_violation_count",
+    "time_to_containment_s",
+    "time_to_verified_recovery_s",
+    "recovery_terminal_state",
+    "legitimate_command_rejection_rate",
+    "ground_spacecraft_state_divergence_s",
+    "evidence_completeness_ratio"
+  ],
+  "required_raw_metric_inputs": [
+    "event_success_predicate_and_timestamp",
+    "containment_predicate_and_timestamp",
+    "objective_instance_weights_and_completion_states",
+    "invariant_violation_intervals",
+    "legitimate_commands_attempted_and_rejected",
+    "ground_spacecraft_divergence_intervals",
+    "recovery_checklist_denominator_and_element_states",
+    "run_end_censoring_timestamp",
+    "terminal_state_predicate_evidence"
+  ],
+  "instrumentation_gate": {
+    "pilot_execution_authorized": false,
+    "authorization_condition": "A runner must emit every required raw metric input without manual reconstruction or expected-value substitution.",
+    "known_pre_pilot_implementation_work": [
+      "mission_objective_instance_accounting",
+      "safety_invariant_interval_accounting",
+      "primary_metric_raw_event_timestamps",
+      "legitimate_command_attempt_and_rejection_denominators",
+      "ground_spacecraft_divergence_intervals",
+      "terminal_state_predicate_evidence"
+    ]
+  },
+  "invalid_run_rule": {
+    "retain_all_invalid_runs": true,
+    "replacement_run_requires_new_run_id": true,
+    "same_cause_repeated_infrastructure_failure_blocks_stage_progression": true,
+    "maximum_infrastructure_invalid_fraction_before_pilot_halt": 0.1
+  },
+  "wp9_repetition_selection": {
+    "method": "Use Stage-2 pilot distributions in simulation/bootstrap-based precision and model-stability checks over candidate balanced repetition counts.",
+    "candidate_valid_repetitions_per_cell": [
+      12,
+      16,
+      20,
+      24,
+      30
+    ],
+    "ratio_metric_95pct_ci_half_width_target": 0.1,
+    "binary_metric_95pct_ci_half_width_target": 0.18,
+    "time_metric_relative_95pct_ci_half_width_target": 0.25,
+    "model_fit_convergence_target": 0.9,
+    "selection_rule": "Choose the smallest candidate count satisfying all applicable precision and model-stability targets; if none through 30 pass, do not freeze WP9 and instead revise instrumentation/design or extend the pilot."
+  },
+  "pilot_acceptance": {
+    "stage_1_all_cells_valid": true,
+    "stage_1_expected_policy_semantics_required": true,
+    "stage_1_complete_raw_metric_inputs_required": true,
+    "stage_2_all_anchor_repetitions_valid": true,
+    "wp9_repetition_count_selected_by_predeclared_rule": true,
+    "pilot_results_are_not_final_hypothesis_tests": true
+  }
+}

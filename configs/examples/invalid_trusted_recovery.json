@@ -3,7 +3,7 @@
   "model_version": "0.1.0",
   "seed": 1002,
   "mission_state_id": "M4",
-  "event_id": "E6",
+  "event_id": "E4",
   "policy_id": "P7",
   "contact_condition_id": "C1",
   "evidence_condition_id": "T1",
