@@ -10,6 +10,7 @@ on:
       - "src/**"
       - "tests/**"
       - "scripts/run_wp5_*.sh"
+      - "scripts/run_wp7_*.sh"
       - ".github/workflows/validate-research-configs.yml"
   pull_request:
     paths:
@@ -19,6 +20,7 @@ on:
       - "src/**"
       - "tests/**"
       - "scripts/run_wp5_*.sh"
+      - "scripts/run_wp7_*.sh"
       - ".github/workflows/validate-research-configs.yml"
 
 permissions:
@@ -55,9 +57,13 @@ jobs:
           python -m json.tool configs/wp6_p4_safe_mode_adapter.json >/dev/null
           python -m json.tool configs/wp6_p5_rollback_request_adapter.json >/dev/null
           python -m json.tool configs/wp6_p7_mission_aware_integration.json >/dev/null
+          python -m json.tool configs/wp7_trusted_recovery_adapter.json >/dev/null
 
       - name: Validate experiment schema fixtures
         run: python scripts/validate_experiment_schema.py
 
       - name: Run research unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Validate WP7 shell syntax
+        run: bash -n scripts/run_wp7_trusted_recovery_test.sh

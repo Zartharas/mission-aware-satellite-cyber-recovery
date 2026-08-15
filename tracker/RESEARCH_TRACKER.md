@@ -19,7 +19,7 @@ Implementation objective: execute and independently verify evidence-based recove
 | WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and bounded runtime-preflight evidence |
 | WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
 | WP6 | Response-policy implementation | **Complete** | Fixed-policy effects plus corrected P7 mission-aware integration validated with functional Sample readiness and observed cFS-marker deltas; trusted-recovery execution remains WP7 |
-| WP7 | Trusted-recovery implementation | Not started | Independent recovery evidence and terminal-state verification |
+| WP7 | Trusted-recovery implementation | **In progress** | E3/P5 staged-candidate recovery execution with independent terminal verification; failure-mode recovery validation next |
 | WP8 | Pilot | Not started | Nominal/control validity, variability, repetition count |
 | WP9 | Frozen experiment campaign | Not started | Randomized controlled repeated trials |
 | WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |

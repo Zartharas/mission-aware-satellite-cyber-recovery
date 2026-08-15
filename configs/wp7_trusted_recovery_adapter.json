@@ -1,0 +1,54 @@
+{
+  "adapter_version": "0.1.0",
+  "work_package": "WP7",
+  "scope": "E3_staged_candidate_trusted_recovery",
+  "scientific_claim_boundary": "trusted recovery of the controlled staged synthetic update state; no operational firmware activation or flight-system recovery claim",
+  "decision_context": {
+    "event_id": "E3",
+    "mission_state": "M4",
+    "contact_condition": "C0",
+    "evidence_condition": "T0",
+    "seed": 1,
+    "policy_id": "P5",
+    "required_action": "REQUEST_VERIFIED_ROLLBACK"
+  },
+  "artifact_bindings": {
+    "approved_sha256": "42945a2622fa351b3a3fdc31e002cbe326cb7a42a958ee757f317abea67b6697",
+    "rejected_candidate_sha256": "ff96d61205cc2c49b6d7d73fc36b9544c0deea79d7a9304cc1fb9f1f8986053d",
+    "approved_version": "2.0.0",
+    "simulator_candidate_path": "/cf/mission-aware-e3-candidate.pkg"
+  },
+  "execution": {
+    "replacement_source_verified_before_use": true,
+    "temporary_recovery_path_used": true,
+    "atomic_same_filesystem_replace": true,
+    "terminal_candidate_copied_out_for_independent_host_verification": true
+  },
+  "terminal_trust_criteria": [
+    "rollback_request_valid",
+    "pre_recovery_candidate_rejected",
+    "replacement_source_manifest_valid",
+    "terminal_candidate_manifest_valid",
+    "terminal_sha_matches_approved_target",
+    "terminal_sha_differs_from_rejected_candidate",
+    "recovery_temp_absent",
+    "nominal_runtime_pass"
+  ],
+  "timing": {
+    "metric": "time_to_trusted_recovery_ms",
+    "start": "immediately_before_atomic_replace",
+    "stop": "after_independent_terminal_verification",
+    "single_run_descriptive_only": true
+  },
+  "negative_case": {
+    "pre_recovery_tampered_candidate_must_fail_terminal_trust_verification": true,
+    "invalid_replacement_source_must_be_rejected_by_unit_test": true
+  },
+  "prohibited_claims": [
+    "operational_firmware_activation",
+    "flight_software_reflash",
+    "final_recovery_success_rate",
+    "final_time_to_trusted_recovery_effect",
+    "live_spacecraft_recovery"
+  ]
+}
