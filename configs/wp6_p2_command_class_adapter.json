@@ -1,0 +1,65 @@
+{
+  "adapter_version": "0.2.0",
+  "work_package": "WP6",
+  "scope": "P2_selective_command_restriction_effect_validation",
+  "scientific_claim_boundary": "treatment-mechanics validation only; no universal command-risk taxonomy, final campaign effect size, mission-cost, containment-latency, or trusted-recovery claim",
+  "decision_context": {
+    "event_id": "E1",
+    "mission_state": "M0",
+    "contact_condition": "C0",
+    "evidence_condition": "T0",
+    "seed": 1
+  },
+  "probe_variant": "safe_command_class_selectivity",
+  "matched_runtime_design": {
+    "policies": ["P0", "P2"],
+    "fresh_runtime_per_policy": true,
+    "source_id_held_constant": "modeled_attacker",
+    "command_sequence": ["sample_reset_counters", "sample_noop"]
+  },
+  "packets": {
+    "sample_reset_counters": {
+      "function_code": 1,
+      "packet_hex": "18fac000000101dd",
+      "packet_sha256": "c8a8692bad90aab74ffe550c87e93ed83838d4b4f45c57a609a00455292d41cb",
+      "declared_risk_class": "high_surrogate",
+      "safety_reason": "deterministic simulator-only state change with no hardware-state precondition"
+    },
+    "sample_noop": {
+      "function_code": 0,
+      "packet_hex": "18fac000000100dc",
+      "packet_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
+      "declared_risk_class": "low"
+    }
+  },
+  "expected_effects": {
+    "P0": {
+      "sample_reset_counters_forwarded": true,
+      "reset_marker_delta": 1,
+      "sample_noop_forwarded": true,
+      "noop_acceptance_delta": 1,
+      "restricted_class_effect_completed": true,
+      "low_risk_path_preserved": true
+    },
+    "P2": {
+      "sample_reset_counters_forwarded": false,
+      "reset_marker_delta": 0,
+      "sample_noop_forwarded": true,
+      "noop_acceptance_delta": 1,
+      "restricted_class_effect_completed": false,
+      "low_risk_path_preserved": true
+    }
+  },
+  "important_negative_case": {
+    "P2_does_not_block_all_modeled_attacker_commands": true,
+    "meaning": "selective command restriction is intentionally narrower than source isolation"
+  },
+  "prohibited_claims": [
+    "native_cfs_command_authorization",
+    "universal_high_risk_command_taxonomy",
+    "operational_command_risk_classification",
+    "final_policy_effect_size",
+    "mission_cost",
+    "trusted_recovery"
+  ]
+}
