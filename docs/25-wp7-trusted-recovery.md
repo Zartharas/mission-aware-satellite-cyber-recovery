@@ -38,11 +38,30 @@ Before recovery, the same terminal verifier is applied to the staged tampered ca
 
 Unit tests additionally require a tampered replacement source to be rejected before use.
 
+## Failure-mode validation
+
+The bounded WP7 failure campaign retains four discriminating cases:
+
+1. an internally digest-consistent rollback request with altered policy binding is rejected;
+2. a tampered replacement source is rejected before recovery execution;
+3. a controlled interruption after verified temporary staging but before the atomic replace leaves the rejected candidate untrusted; and
+4. corruption after replacement but before independent terminal verification prevents trusted-recovery acceptance.
+
+The third case validates only the controlled pre-replace interruption point. It does not establish filesystem crash consistency, power-loss atomicity, or storage durability guarantees.
+
+The first case validates semantic request binding even when an unkeyed SHA-256 consistency digest is recomputed. The digest is not treated as a MAC, digital signature, or authentication mechanism.
+
 ## Timing
 
 `time_to_trusted_recovery_ms` begins immediately before the atomic replacement and ends after independent terminal verification succeeds.
 
-This first measurement is descriptive implementation evidence only. Repeated-trial timing effects belong to the pilot and frozen campaign.
+Implementation-level timing measurements are descriptive only. Repeated-trial timing effects belong to the pilot and frozen campaign.
+
+## Acceptance
+
+WP7 is accepted after the hardened positive recovery path and all four bounded failure-mode cases pass with independent terminal verification, clean runtime isolation, and the claim boundaries above preserved.
+
+The bounded validation does not establish a recovery success rate or a time-to-recovery effect.
 
 ## Claim boundary
 

@@ -4,9 +4,9 @@ Last updated: 2026-08-15
 
 ## Current focus
 
-**WP7 — trusted-recovery implementation**
+**WP8 — pilot**
 
-Implementation objective: execute and independently verify evidence-based recovery while preserving the WP6 boundary between rollback request and terminal trusted recovery.
+Pilot objective: establish control validity, observed variability, and the repetition count required before freezing the experiment campaign.
 
 ## Work packages
 
@@ -19,7 +19,7 @@ Implementation objective: execute and independently verify evidence-based recove
 | WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and bounded runtime-preflight evidence |
 | WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
 | WP6 | Response-policy implementation | **Complete** | Fixed-policy effects plus corrected P7 mission-aware integration validated with functional Sample readiness and observed cFS-marker deltas; trusted-recovery execution remains WP7 |
-| WP7 | Trusted-recovery implementation | **In progress** | E3/P5 staged-candidate recovery execution with independent terminal verification; failure-mode recovery validation next |
+| WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery plus four bounded failure-mode validations passed; reproducibility harness retained |
 | WP8 | Pilot | Not started | Nominal/control validity, variability, repetition count |
 | WP9 | Frozen experiment campaign | Not started | Randomized controlled repeated trials |
 | WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |
