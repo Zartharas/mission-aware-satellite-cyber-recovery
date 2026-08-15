@@ -1,0 +1,118 @@
+{
+  "adapter_version": "0.1.0",
+  "work_package": "WP6",
+  "scope": "P7_mission_aware_dispatch_and_effect_integration",
+  "scientific_claim_boundary": "deterministic selector-to-treatment integration only; no final campaign effect size, containment-latency estimate, mission-objective-completion estimate, or trusted-recovery claim",
+  "runtime_cases": [
+    {
+      "case_id": "A",
+      "event_id": "E1",
+      "mission_state": "M0",
+      "contact_condition": "C0",
+      "evidence_condition": "T0",
+      "seed": 1,
+      "expected_delegate": "P1",
+      "expected_action": "ISOLATE_MODELED_SOURCE",
+      "effect_family": "command_gateway",
+      "expected_attacker_noop_acceptance_delta": 0,
+      "expected_authorized_noop_acceptance_delta": 1
+    },
+    {
+      "case_id": "B",
+      "event_id": "E1",
+      "mission_state": "M0",
+      "contact_condition": "C1",
+      "evidence_condition": "T0",
+      "seed": 1,
+      "expected_delegate": "P2",
+      "expected_action": "RESTRICT_HIGH_RISK_COMMANDS",
+      "effect_family": "command_gateway",
+      "expected_attacker_noop_acceptance_delta": 1,
+      "expected_authorized_noop_acceptance_delta": 1
+    },
+    {
+      "case_id": "C",
+      "event_id": "E1",
+      "mission_state": "M2",
+      "contact_condition": "C0",
+      "evidence_condition": "T0",
+      "seed": 1,
+      "expected_delegate": "P2",
+      "expected_action": "RESTRICT_HIGH_RISK_COMMANDS",
+      "effect_family": "command_gateway",
+      "expected_attacker_noop_acceptance_delta": 1,
+      "expected_authorized_noop_acceptance_delta": 1
+    },
+    {
+      "case_id": "D",
+      "event_id": "E1",
+      "mission_state": "M2",
+      "contact_condition": "C0",
+      "evidence_condition": "T1",
+      "seed": 1,
+      "expected_delegate": "P4",
+      "expected_action": "ENTER_SAFE_MODE",
+      "effect_family": "command_gateway",
+      "expected_attacker_noop_acceptance_delta": 0,
+      "expected_authorized_noop_acceptance_delta": 0
+    },
+    {
+      "case_id": "E",
+      "event_id": "E3",
+      "mission_state": "M4",
+      "contact_condition": "C0",
+      "evidence_condition": "T0",
+      "seed": 1,
+      "expected_delegate": "P5",
+      "expected_action": "REQUEST_VERIFIED_ROLLBACK",
+      "effect_family": "rollback_request",
+      "expected_rollback_request_created": true,
+      "expected_recovery_execution_performed": false
+    }
+  ],
+  "one_factor_contrasts": [
+    {
+      "name": "contact_only",
+      "case_left": "A",
+      "case_right": "B",
+      "held_constant": ["event_id", "mission_state", "evidence_condition", "seed"],
+      "changed_factor": "contact_condition",
+      "expected_delegate_change": "P1_to_P2"
+    },
+    {
+      "name": "mission_state_only",
+      "case_left": "A",
+      "case_right": "C",
+      "held_constant": ["event_id", "contact_condition", "evidence_condition", "seed"],
+      "changed_factor": "mission_state",
+      "expected_delegate_change": "P1_to_P2"
+    },
+    {
+      "name": "evidence_only",
+      "case_left": "C",
+      "case_right": "D",
+      "held_constant": ["event_id", "mission_state", "contact_condition", "seed"],
+      "changed_factor": "evidence_condition",
+      "expected_delegate_change": "P2_to_P4"
+    }
+  ],
+  "oracle_boundary": {
+    "selector_reads_ground_truth": false,
+    "ground_truth_mutation_invariance_required": true
+  },
+  "trusted_recovery_boundary": {
+    "P5_request_creation_allowed": true,
+    "rollback_staging_allowed": false,
+    "rollback_activation_allowed": false,
+    "recovery_execution_allowed": false,
+    "trusted_recovery_verification": "WP7"
+  },
+  "prohibited_claims": [
+    "final_policy_effect_size",
+    "containment_latency",
+    "mission_objective_completion",
+    "trusted_recovery",
+    "time_to_trusted_recovery",
+    "operational_spacecraft_response"
+  ]
+}
