@@ -1,0 +1,59 @@
+{
+  "adapter_version": "0.1.0",
+  "work_package": "WP6",
+  "scope": "P5_verified_rollback_request_effect_validation",
+  "scientific_claim_boundary": "rollback-request generation only; no rollback staging, activation, recovery completion, terminal trust, or trusted-recovery claim",
+  "decision_context": {
+    "event_id": "E3",
+    "mission_state": "M4",
+    "contact_condition": "C0",
+    "evidence_condition": "T0",
+    "seed": 1
+  },
+  "matched_runtime_design": {
+    "policies": ["P0", "P5"],
+    "fresh_runtime_per_policy": true,
+    "same_event_instance_required": true,
+    "same_tampered_candidate_required": true,
+    "same_approved_manifest_required": true
+  },
+  "artifact_bindings": {
+    "approved_sha256": "42945a2622fa351b3a3fdc31e002cbe326cb7a42a958ee757f317abea67b6697",
+    "tampered_sha256": "ff96d61205cc2c49b6d7d73fc36b9544c0deea79d7a9304cc1fb9f1f8986053d",
+    "approved_version": "2.0.0",
+    "simulator_candidate_path": "/cf/mission-aware-e3-candidate.pkg"
+  },
+  "expected_effects": {
+    "P0": {
+      "tampered_candidate_staged": true,
+      "rollback_request_created": false,
+      "approved_rollback_staged": false,
+      "recovery_execution_performed": false,
+      "trusted_recovery_verified": false
+    },
+    "P5": {
+      "tampered_candidate_staged": true,
+      "rollback_request_created": true,
+      "rollback_request_action": "REQUEST_VERIFIED_ROLLBACK",
+      "request_approved_target_sha_matches_manifest": true,
+      "request_rejected_candidate_sha_matches_staged_candidate": true,
+      "approved_rollback_staged": false,
+      "recovery_execution_performed": false,
+      "trusted_recovery_verified": false
+    }
+  },
+  "request_evidence_boundary": {
+    "uses_policy_visible_evidence": true,
+    "uses_candidate_verification_result": true,
+    "uses_approved_manifest": true,
+    "reads_immutable_ground_truth": false
+  },
+  "prohibited_claims": [
+    "rollback_executed",
+    "rollback_activated",
+    "recovery_success",
+    "trusted_recovery",
+    "time_to_trusted_recovery",
+    "operational_firmware_recovery"
+  ]
+}
