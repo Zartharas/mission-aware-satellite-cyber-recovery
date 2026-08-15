@@ -7,6 +7,7 @@ This document defines deterministic calculations for the frozen primary outcomes
 ## Common time basis
 
 - `t0` is the monotonic timestamp at event activation.
+- `raw_metric_evidence.*.timestamp_s` and `run_end_s` are monotonic offsets from run start; reported time-to-event values subtract `event_activation_s` (`t0`).
 - All elapsed-time metrics use the experiment controller's monotonic clock.
 - UTC timestamps are retained for provenance but are not used to calculate elapsed durations.
 - A time-to-event value is `null` when the event was not observed before the run ended.
@@ -197,7 +198,7 @@ The classifier must store the predicates that selected the terminal state.
 
 ## Required raw fields for implementation
 
-Future run-record schema revision must preserve at least:
+The WP8 run-record schema preserves the raw evidence required to derive these primary metrics. Runtime adapters must populate these fields from observations rather than expected values. The retained evidence includes at least:
 
 - Event success predicate and timestamp
 - Containment predicate and timestamp

@@ -19,6 +19,7 @@ except ImportError as exc:
 
 from src.mission_recovery.events import materialize_event
 from src.mission_recovery.policies import evaluate_policy
+from src.mission_recovery.primary_metrics import score_raw_metric_evidence
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -164,7 +165,92 @@ def main() -> int:
         print(format_errors(invalid_errors))
         return 1
 
-    print("[OK] Negative trusted-recovery fixture rejected as expected")
+    unexpected_invalid_errors = [
+        error
+        for error in invalid_errors
+        if list(error.absolute_path)
+        != ["recovery_evidence", "measured_state_current"]
+    ]
+    if unexpected_invalid_errors:
+        print(
+            "[FAIL] Negative fixture has failures beyond the intended "
+            "measured-state freshness guardrail:"
+        )
+        print(format_errors(unexpected_invalid_errors))
+        return 1
+
+    try:
+        score_raw_metric_evidence(
+            event_activation_s=invalid_fixture["timing"][
+                "event_activation_s"
+            ],
+            raw=invalid_fixture["raw_metric_evidence"],
+            recovery_evidence=invalid_fixture["recovery_evidence"],
+        )
+    except ValueError as exc:
+        if "incomplete recovery evidence" not in str(exc):
+            print(
+                "[FAIL] Negative fixture scorer rejected for an "
+                f"unexpected reason: {exc}"
+            )
+            return 1
+    else:
+        print(
+            "[FAIL] Negative trusted-recovery fixture unexpectedly "
+            "passed raw metric scoring"
+        )
+        return 1
+
+    print(
+        "[OK] Negative trusted-recovery fixture rejected only on "
+        "the intended freshness fault"
+    )
+
+    try:
+        scored = score_raw_metric_evidence(
+            event_activation_s=valid_fixture["timing"]["event_activation_s"],
+            raw=valid_fixture["raw_metric_evidence"],
+            recovery_evidence=valid_fixture["recovery_evidence"],
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        print(f"[FAIL] Positive fixture raw metric scoring failed: {exc}")
+        return 1
+
+    expected_pairs = {
+        "unauthorized_effect_completed": valid_fixture["outcomes"][
+            "unauthorized_effect_completed"
+        ],
+        "mission_objective_completion_ratio": valid_fixture["outcomes"][
+            "mission_objective_completion_ratio"
+        ],
+        "safety_invariant_violations": valid_fixture["outcomes"][
+            "safety_invariant_violations"
+        ],
+        "legitimate_command_rejection_rate": valid_fixture["outcomes"][
+            "legitimate_command_rejection_rate"
+        ],
+        "ground_spacecraft_state_divergence_s": valid_fixture["outcomes"][
+            "ground_spacecraft_state_divergence_s"
+        ],
+        "evidence_completeness_ratio": valid_fixture["outcomes"][
+            "evidence_completeness_ratio"
+        ],
+        "time_to_containment_s": valid_fixture["timing"]["containment_s"],
+        "time_to_verified_recovery_s": valid_fixture["timing"][
+            "verified_recovery_s"
+        ],
+        "recovery_terminal_state": valid_fixture["terminal_state"],
+    }
+
+    for key, expected in expected_pairs.items():
+        if scored[key] != expected:
+            print(
+                f"[FAIL] Positive fixture metric mismatch for {key}: "
+                f"derived={scored[key]!r} fixture={expected!r}"
+            )
+            return 1
+
+    print("[OK] Positive fixture metrics derive from raw evidence")
 
     try:
         assert_model_schema_alignment(schema, model)
@@ -175,7 +261,8 @@ def main() -> int:
 
     print("[OK] Experiment schema factor enums align with experiment model")
     print("[OK] WP8 pilot cells match current policy semantics")
-    print("[OK] WP8 pilot execution remains gated on metric instrumentation")
+    print("[OK] WP8 pilot execution remains gated on runtime metric binding")
+    print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
     print("WP8_PILOT_CONTRACT_STATUS=PASS")

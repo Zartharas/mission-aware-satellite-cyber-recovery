@@ -19,8 +19,8 @@
   "timing": {
     "run_start_utc": "2026-07-24T20:00:00Z",
     "event_activation_s": 30.0,
-    "containment_s": 42.5,
-    "verified_recovery_s": 95.0,
+    "containment_s": 12.5,
+    "verified_recovery_s": 65.0,
     "run_end_utc": "2026-07-24T20:03:00Z"
   },
   "outcomes": {
@@ -50,5 +50,94 @@
   },
   "terminal_state": "TRUSTED_RECOVERY_CONFIRMED",
   "invalid_run_reason": null,
-  "notes": "Positive schema-validation fixture only; not an experimental result."
+  "notes": "Positive schema-validation fixture only; not an experimental result.",
+  "raw_metric_evidence": {
+    "event_success": {
+      "predicate": false,
+      "timestamp_s": null
+    },
+    "containment": {
+      "predicate": true,
+      "timestamp_s": 42.5
+    },
+    "trusted_recovery": {
+      "predicate": true,
+      "timestamp_s": 95.0
+    },
+    "objective_instances": [
+      {
+        "objective_instance_id": "fixture-objective-completed",
+        "weight": 95.0,
+        "completed": true
+      },
+      {
+        "objective_instance_id": "fixture-objective-incomplete",
+        "weight": 5.0,
+        "completed": false
+      }
+    ],
+    "invariant_violation_intervals": [],
+    "legitimate_commands": {
+      "attempted": 20,
+      "rejected": 1
+    },
+    "ground_spacecraft_divergence_intervals": [
+      {
+        "state_key": "command_authority",
+        "start_s": 0.0,
+        "end_s": 12.5
+      }
+    ],
+    "recovery_checklist": [
+      {
+        "criterion_id": "approved_version",
+        "available_current": true
+      },
+      {
+        "criterion_id": "integrity_measurement_valid",
+        "available_current": true
+      },
+      {
+        "criterion_id": "authorization_valid",
+        "available_current": true
+      },
+      {
+        "criterion_id": "measured_state_current",
+        "available_current": true
+      },
+      {
+        "criterion_id": "authorized_command_path_restored",
+        "available_current": true
+      },
+      {
+        "criterion_id": "ground_spacecraft_state_agreed",
+        "available_current": true
+      },
+      {
+        "criterion_id": "required_telemetry_restored",
+        "available_current": true
+      },
+      {
+        "criterion_id": "health_checks_passed",
+        "available_current": true
+      },
+      {
+        "criterion_id": "no_residual_unauthorized_state",
+        "available_current": true
+      },
+      {
+        "criterion_id": "recovery_manifest_complete",
+        "available_current": true
+      }
+    ],
+    "run_end_s": 180.0,
+    "terminal_state_predicates": {
+      "run_invalid": false,
+      "mission_loss": false,
+      "trusted_recovery_confirmed": true,
+      "operational_restored": true,
+      "recovery_failed": false,
+      "contained": true
+    }
+  }
 }

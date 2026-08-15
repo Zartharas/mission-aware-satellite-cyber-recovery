@@ -6,7 +6,7 @@ Last updated: 2026-08-15
 
 **WP8 — pilot**
 
-Current gate: reconcile the machine-readable experiment contract and implement raw primary-metric emission before any scored pilot run. After that, establish control validity, observed variability, and the repetition count required before freezing the experiment campaign.
+Current gate: bind the validated raw primary-metric schema/scorer to observed NOS3 runtime evidence before any scored pilot run. After that, establish control validity, observed variability, and the repetition count required before freezing the experiment campaign.
 
 ## Work packages
 

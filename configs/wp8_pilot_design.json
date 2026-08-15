@@ -223,15 +223,21 @@
   ],
   "instrumentation_gate": {
     "pilot_execution_authorized": false,
-    "authorization_condition": "A runner must emit every required raw metric input without manual reconstruction or expected-value substitution.",
+    "authorization_condition": "The NOS3 pilot runner must bind observed runtime evidence to the validated raw-metric schema and emit a schema-valid scored run record without manual reconstruction or expected-value substitution.",
     "known_pre_pilot_implementation_work": [
-      "mission_objective_instance_accounting",
-      "safety_invariant_interval_accounting",
-      "primary_metric_raw_event_timestamps",
-      "legitimate_command_attempt_and_rejection_denominators",
-      "ground_spacecraft_divergence_intervals",
-      "terminal_state_predicate_evidence"
-    ]
+      "nos3_runtime_raw_metric_binding",
+      "mission_objective_instance_runtime_accounting",
+      "safety_invariant_interval_runtime_accounting",
+      "containment_and_recovery_monotonic_timestamps",
+      "ground_spacecraft_divergence_runtime_intervals",
+      "terminal_state_runtime_predicate_evidence"
+    ],
+    "component_status": {
+      "raw_metric_schema": true,
+      "deterministic_primary_metric_scorer": true,
+      "run_record_emitter": true,
+      "nos3_runtime_binding": false
+    }
   },
   "invalid_run_rule": {
     "retain_all_invalid_runs": true,
