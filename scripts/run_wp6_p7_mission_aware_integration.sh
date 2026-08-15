@@ -249,6 +249,47 @@ run_command_case() {
   launch_nominal "$run_id" "$nominal_log"
 
   local network="mascr-$safe_id"
+  local readiness_before readiness_after readiness_attempt readiness_ready=0
+
+  readiness_before="$(count_noop_marker)"
+
+  for readiness_attempt in $(seq 1 15); do
+    docker run --rm --platform linux/amd64 \
+      --network "$network" \
+      "$IMAGE" \
+      python3 -c '''
+import socket
+packet=bytes.fromhex("18fac000000100dc")
+s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+sent=s.sendto(packet,("nos-fsw",5012))
+s.close()
+raise SystemExit(0 if sent==len(packet) else 2)
+'''
+
+    sleep 2
+    readiness_after="$(count_noop_marker)"
+
+    if [[ "$readiness_after" -eq $((readiness_before + 1)) ]]; then
+      readiness_ready=1
+      break
+    fi
+
+    if [[ "$readiness_after" -gt $((readiness_before + 1)) ]]; then
+      echo "[ERROR] case $case_id readiness produced multiple accepted NOOPs" >&2
+      return 1
+    fi
+  done
+
+  [[ "$readiness_ready" -eq 1 ]] || {
+    echo "[ERROR] case $case_id functional Sample readiness not established" >&2
+    return 1
+  }
+
+  local baseline="$readiness_after"
+  echo "pre_treatment_sample_readiness=PASS"
+  echo "pre_treatment_readiness_delta=1"
+  echo "pre_treatment_readiness_attempts=$readiness_attempt"
+
   ACTIVE_GATEWAY="mascr-$safe_id-wp6-p7-gateway"
 
   docker run -d --platform linux/amd64 \
@@ -291,9 +332,8 @@ run_command_case() {
   [[ -z "$(docker port "$ACTIVE_GATEWAY")" ]]
   echo "p7_effect_gateway_ready=PASS"
 
-  local baseline after_attack after_auth
-
-  baseline="$(count_noop_marker)"
+  local after_attack after_auth
+  local observed_attack_delta observed_auth_delta
 
   docker run --rm --platform linux/amd64 \
     --network "$network" \
@@ -308,7 +348,10 @@ run_command_case() {
       --result-json "/evidence/$(basename "$attack_send")"
 
   if [[ "$expected_attack_delta" -eq 1 ]]; then
-    after_attack="$(wait_noop_exact "$baseline" 1 "${case_id}_attacker")"
+    if ! after_attack="$(wait_noop_exact "$baseline" 1 "${case_id}_attacker")"; then
+      echo "[ERROR] case $case_id attacker acceptance not observed" >&2
+      return 1
+    fi
   else
     sleep 3
     after_attack="$(count_noop_marker)"
@@ -317,7 +360,12 @@ run_command_case() {
       return 1
     }
   fi
-  echo "attacker_noop_acceptance_delta=$expected_attack_delta"
+  observed_attack_delta=$((after_attack - baseline))
+  test "$observed_attack_delta" -eq "$expected_attack_delta" || {
+    echo "[ERROR] case $case_id attacker observed/expected delta mismatch" >&2
+    return 1
+  }
+  echo "attacker_noop_acceptance_delta=$observed_attack_delta"
 
   docker run --rm --platform linux/amd64 \
     --network "$network" \
@@ -332,7 +380,10 @@ run_command_case() {
       --result-json "/evidence/$(basename "$auth_send")"
 
   if [[ "$expected_auth_delta" -eq 1 ]]; then
-    after_auth="$(wait_noop_exact "$after_attack" 1 "${case_id}_authorized")"
+    if ! after_auth="$(wait_noop_exact "$after_attack" 1 "${case_id}_authorized")"; then
+      echo "[ERROR] case $case_id authorized acceptance not observed" >&2
+      return 1
+    fi
   else
     sleep 3
     after_auth="$(count_noop_marker)"
@@ -341,12 +392,17 @@ run_command_case() {
       return 1
     }
   fi
-  echo "authorized_noop_acceptance_delta=$expected_auth_delta"
+  observed_auth_delta=$((after_auth - after_attack))
+  test "$observed_auth_delta" -eq "$expected_auth_delta" || {
+    echo "[ERROR] case $case_id authorized observed/expected delta mismatch" >&2
+    return 1
+  }
+  echo "authorized_noop_acceptance_delta=$observed_auth_delta"
 
   python3 - \
     "$ingress_jsonl" "$decisions_jsonl" \
     "$expected_delegate" "$expected_action" \
-    "$expected_attack_delta" "$expected_auth_delta" <<'PY'
+    "$observed_attack_delta" "$observed_auth_delta" <<'PY'
 import json, sys
 from pathlib import Path
 
@@ -401,7 +457,7 @@ PY
   python3 - \
     "$event_json" "$decision_json" "$plan_json" \
     "$summary" "$case_id" \
-    "$expected_attack_delta" "$expected_auth_delta" \
+    "$observed_attack_delta" "$observed_auth_delta" \
     "$runtime_sha" <<'PY'
 import hashlib, json, sys
 from pathlib import Path
@@ -431,6 +487,8 @@ summary={
     "evidence_insufficient":decision["evidence_insufficient"],
     "effect_family":plan["effect_family"],
     "command_packet_sha256":"722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
+    "pre_treatment_sample_readiness":True,
+    "measurement_source":"observed_cfs_event_markers",
     "attacker_noop_acceptance_delta":attack_delta,
     "authorized_noop_acceptance_delta":auth_delta,
     "modeled_unauthorized_effect_completed":attack_delta==1,
@@ -452,8 +510,9 @@ PY
   echo "P7_COMMAND_EFFECT_CASE=PASS"
   echo "case_id=$case_id"
   echo "delegated_policy=$expected_delegate"
-  echo "modeled_unauthorized_effect_completed=$([[ "$expected_attack_delta" -eq 1 ]] && echo true || echo false)"
-  echo "legitimate_command_rejection_rate=$([[ "$expected_auth_delta" -eq 1 ]] && echo 0.0 || echo 1.0)"
+  echo "measurement_source=observed_cfs_event_markers"
+  echo "modeled_unauthorized_effect_completed=$([[ "$observed_attack_delta" -eq 1 ]] && echo true || echo false)"
+  echo "legitimate_command_rejection_rate=$([[ "$observed_auth_delta" -eq 1 ]] && echo 0.0 || echo 1.0)"
 
   cleanup_active
 }

@@ -1,12 +1,12 @@
 # Research Tracker
 
-Last updated: 2026-08-14
+Last updated: 2026-08-15
 
 ## Current focus
 
-**WP6 — response-policy implementation**
+**WP7 — trusted-recovery implementation**
 
-Implementation objective: make each retained response policy deterministic, testable, and separable from trusted-recovery verification; mission-aware decisions must use policy-visible evidence rather than immutable experiment ground truth.
+Implementation objective: execute and independently verify evidence-based recovery while preserving the WP6 boundary between rollback request and terminal trusted recovery.
 
 ## Work packages
 
@@ -18,7 +18,7 @@ Implementation objective: make each retained response policy deterministic, test
 | WP3 | Threat and mission model | Ready for final review | Mission states, invariants, trust boundaries, evidence separation |
 | WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and bounded runtime-preflight evidence |
 | WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
-| WP6 | Response-policy implementation | **Complete** | P0/P1/P2/P4/P5 effects and P7 mission-aware dispatch/effect integration validated; trusted-recovery execution remains WP7 |
+| WP6 | Response-policy implementation | **Complete** | Fixed-policy effects plus corrected P7 mission-aware integration validated with functional Sample readiness and observed cFS-marker deltas; trusted-recovery execution remains WP7 |
 | WP7 | Trusted-recovery implementation | Not started | Independent recovery evidence and terminal-state verification |
 | WP8 | Pilot | Not started | Nominal/control validity, variability, repetition count |
 | WP9 | Frozen experiment campaign | Not started | Randomized controlled repeated trials |

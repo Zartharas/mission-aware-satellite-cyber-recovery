@@ -75,3 +75,11 @@ P7 therefore depends only on event identity, mission state, contact condition, e
 This WP6 integration establishes deterministic selector-to-treatment mechanics and concrete single-run tradeoff examples.
 
 It does not estimate final policy effect sizes, containment latency, mission objective completion probability, or trusted recovery. Those require the later repeated experimental campaign and WP7 recovery implementation.
+
+## Runtime-evidence correction
+
+The first published integration harness (adapter 0.1.0) is retained as partial debugging evidence, not final WP6 evidence. Cases B and C recorded both NOOPs as forwarded but only one cFS NOOP-acceptance marker, while the harness incorrectly substituted the expected attacker delta into the summary.
+
+Adapter 0.2.0 then aborted before treatment because it required CI_LAB UDP 5012 to be visible through /proc/net/udp; that introspection predicate is not part of the accepted nominal-runtime contract.
+
+Adapter 0.2.1 uses a functional readiness discriminator instead. Before the policy gateway is activated, a bounded direct Sample NOOP loop runs until exactly one cFS acceptance marker is observed. The treatment baseline is then reset to that count. More than one accepted readiness NOOP is a hard failure. Treatment effects are derived only from observed cFS markers, and missing expected markers are fatal.

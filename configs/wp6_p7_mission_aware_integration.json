@@ -1,5 +1,5 @@
 {
-  "adapter_version": "0.1.0",
+  "adapter_version": "0.2.1",
   "work_package": "WP6",
   "scope": "P7_mission_aware_dispatch_and_effect_integration",
   "scientific_claim_boundary": "deterministic selector-to-treatment integration only; no final campaign effect size, containment-latency estimate, mission-objective-completion estimate, or trusted-recovery claim",
@@ -75,7 +75,12 @@
       "name": "contact_only",
       "case_left": "A",
       "case_right": "B",
-      "held_constant": ["event_id", "mission_state", "evidence_condition", "seed"],
+      "held_constant": [
+        "event_id",
+        "mission_state",
+        "evidence_condition",
+        "seed"
+      ],
       "changed_factor": "contact_condition",
       "expected_delegate_change": "P1_to_P2"
     },
@@ -83,7 +88,12 @@
       "name": "mission_state_only",
       "case_left": "A",
       "case_right": "C",
-      "held_constant": ["event_id", "contact_condition", "evidence_condition", "seed"],
+      "held_constant": [
+        "event_id",
+        "contact_condition",
+        "evidence_condition",
+        "seed"
+      ],
       "changed_factor": "mission_state",
       "expected_delegate_change": "P1_to_P2"
     },
@@ -91,7 +101,12 @@
       "name": "evidence_only",
       "case_left": "C",
       "case_right": "D",
-      "held_constant": ["event_id", "mission_state", "contact_condition", "seed"],
+      "held_constant": [
+        "event_id",
+        "mission_state",
+        "contact_condition",
+        "seed"
+      ],
       "changed_factor": "evidence_condition",
       "expected_delegate_change": "P2_to_P4"
     }
@@ -114,5 +129,27 @@
     "trusted_recovery",
     "time_to_trusted_recovery",
     "operational_spacecraft_response"
-  ]
+  ],
+  "runtime_readiness": {
+    "socket_introspection_required": false,
+    "functional_sample_noop_acceptance_required": true,
+    "functional_readiness_retry_attempts_max": 15,
+    "functional_readiness_retry_interval_seconds": 2,
+    "readiness_probe_excluded_from_treatment_deltas": true
+  },
+  "measurement_integrity": {
+    "effect_deltas_derived_from_observed_cfs_markers": true,
+    "expected_values_never_substituted_for_observed_values": true,
+    "missing_expected_marker_is_fatal": true
+  },
+  "supersedes_runtime_evidence": {
+    "adapter_version": "0.1.0",
+    "classification": "PARTIAL_RUNTIME_EVIDENCE_INVALID_FINAL_INTEGRATION",
+    "reason": "Cases B and C forwarded both NOOPs but observed only one cFS acceptance marker; v0.1 summaries substituted expected deltas after timeout"
+  },
+  "runtime_readiness_correction": {
+    "supersedes_failed_adapter_version": "0.2.0",
+    "classification": "PRE_TREATMENT_ABORT_NONPORTABLE_SOCKET_INTROSPECTION",
+    "reason": "functional command acceptance is the decisive readiness discriminator"
+  }
 }
