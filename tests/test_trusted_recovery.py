@@ -1,9 +1,11 @@
+import copy
 import unittest
 
 from src.mission_recovery.events import materialize_event
 from src.mission_recovery.policies import evaluate_policy
 from src.mission_recovery.rollback_requests import (
     build_verified_rollback_request,
+    compute_rollback_request_sha256,
 )
 from src.mission_recovery.trusted_recovery import (
     validate_rollback_request,
@@ -31,11 +33,11 @@ class TrustedRecoveryTests(unittest.TestCase):
             evidence_condition="T0",
             seed=1,
         )
-        decision = evaluate_policy("P5", event)
+        self.decision = evaluate_policy("P5", event)
         verification = verify_candidate(self.tampered, self.manifest)
         self.request = build_verified_rollback_request(
             event_instance=event,
-            policy_decision=decision,
+            policy_decision=self.decision,
             manifest=self.manifest,
             candidate_verification=verification,
         )
@@ -43,6 +45,7 @@ class TrustedRecoveryTests(unittest.TestCase):
     def test_request_validates_against_rejected_candidate(self):
         result = validate_rollback_request(
             request=self.request,
+            policy_decision=self.decision,
             manifest=self.manifest,
             pre_recovery_candidate_sha256=(
                 "ff96d61205cc2c49b6d7d73fc36b9544"
@@ -55,11 +58,65 @@ class TrustedRecoveryTests(unittest.TestCase):
     def test_wrong_rejected_candidate_binding_fails(self):
         result = validate_rollback_request(
             request=self.request,
+            policy_decision=self.decision,
             manifest=self.manifest,
             pre_recovery_candidate_sha256="0" * 64,
         )
         self.assertFalse(result["accepted"])
         self.assertIn("rejected_candidate_mismatch", result["reasons"])
+
+    def test_tampered_request_digest_fails(self):
+        changed = copy.deepcopy(self.request)
+        changed["component"] = "other"
+
+        result = validate_rollback_request(
+            request=changed,
+            policy_decision=self.decision,
+            manifest=self.manifest,
+            pre_recovery_candidate_sha256=(
+                "ff96d61205cc2c49b6d7d73fc36b9544"
+                "c0deea79d7a9304cc1fb9f1f8986053d"
+            ),
+        )
+        self.assertFalse(result["accepted"])
+        self.assertIn("request_sha256_mismatch", result["reasons"])
+        self.assertIn("component_mismatch", result["reasons"])
+
+    def test_recomputed_digest_cannot_bypass_manifest_binding(self):
+        changed = copy.deepcopy(self.request)
+        changed["component"] = "other"
+        changed["request_sha256"] = compute_rollback_request_sha256(changed)
+
+        result = validate_rollback_request(
+            request=changed,
+            policy_decision=self.decision,
+            manifest=self.manifest,
+            pre_recovery_candidate_sha256=(
+                "ff96d61205cc2c49b6d7d73fc36b9544"
+                "c0deea79d7a9304cc1fb9f1f8986053d"
+            ),
+        )
+        self.assertFalse(result["accepted"])
+        self.assertNotIn("request_sha256_mismatch", result["reasons"])
+        self.assertIn("component_mismatch", result["reasons"])
+
+    def test_recomputed_digest_cannot_bypass_policy_binding(self):
+        changed = copy.deepcopy(self.request)
+        changed["requested_policy_id"] = "P0"
+        changed["request_sha256"] = compute_rollback_request_sha256(changed)
+
+        result = validate_rollback_request(
+            request=changed,
+            policy_decision=self.decision,
+            manifest=self.manifest,
+            pre_recovery_candidate_sha256=(
+                "ff96d61205cc2c49b6d7d73fc36b9544"
+                "c0deea79d7a9304cc1fb9f1f8986053d"
+            ),
+        )
+        self.assertFalse(result["accepted"])
+        self.assertNotIn("request_sha256_mismatch", result["reasons"])
+        self.assertIn("requested_policy_mismatch", result["reasons"])
 
     def test_approved_replacement_source_is_valid(self):
         result = verify_replacement_source(self.approved, self.manifest)

@@ -155,7 +155,7 @@ echo "tampered_artifact_identity=PASS"
 echo "rollback_request_created=PASS"
 
 PYTHONPATH="$ROOT" python3 - \
-  "$ROLLBACK_REQUEST" "$MANIFEST" "$TAMPERED_SHA" \
+  "$ROLLBACK_REQUEST" "$POLICY_JSON" "$MANIFEST" "$TAMPERED_SHA" \
   "$REQUEST_VALIDATION" <<'PY'
 import json
 import sys
@@ -166,22 +166,27 @@ from src.mission_recovery.trusted_recovery import (
 )
 
 request=json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-manifest=json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+policy=json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+manifest=json.loads(Path(sys.argv[3]).read_text(encoding="utf-8"))
 
 result=validate_rollback_request(
     request=request,
+    policy_decision=policy,
     manifest=manifest,
-    pre_recovery_candidate_sha256=sys.argv[3],
+    pre_recovery_candidate_sha256=sys.argv[4],
 )
 assert result["accepted"] is True
 assert result["reasons"]==[]
+assert result["request_sha256"]==result["computed_request_sha256"]
 
-Path(sys.argv[4]).write_text(
+Path(sys.argv[5]).write_text(
     json.dumps(result,sort_keys=True,indent=2)+"\n",
     encoding="utf-8",
 )
 
 print("rollback_request_validation=PASS")
+print("rollback_request_digest_consistency=PASS")
+print("rollback_request_policy_binding=PASS")
 PY
 
 PYTHONPATH="$ROOT" python3 - \

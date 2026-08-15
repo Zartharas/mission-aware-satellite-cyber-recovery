@@ -17,6 +17,14 @@ def _canonical(value: Any) -> bytes:
     ).encode("utf-8")
 
 
+def compute_rollback_request_sha256(
+    request: dict[str, Any],
+) -> str:
+    payload = dict(request)
+    payload.pop("request_sha256", None)
+    return hashlib.sha256(_canonical(payload)).hexdigest()
+
+
 def build_verified_rollback_request(
     *,
     event_instance: dict[str, Any],
@@ -62,7 +70,7 @@ def build_verified_rollback_request(
         "oracle_ground_truth_read": False,
     }
 
-    request_sha256 = hashlib.sha256(_canonical(payload)).hexdigest()
+    request_sha256 = compute_rollback_request_sha256(payload)
     return {
         **payload,
         "request_sha256": request_sha256,

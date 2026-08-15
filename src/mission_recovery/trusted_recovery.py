@@ -2,22 +2,58 @@ from __future__ import annotations
 
 from typing import Any
 
+from .rollback_requests import compute_rollback_request_sha256
 from .update_artifacts import verify_candidate
 
 
 def validate_rollback_request(
     *,
     request: dict[str, Any],
+    policy_decision: dict[str, Any],
     manifest: dict[str, Any],
     pre_recovery_candidate_sha256: str,
 ) -> dict[str, Any]:
     reasons: list[str] = []
 
+    computed_request_sha256 = compute_rollback_request_sha256(request)
+    if request.get("request_sha256") != computed_request_sha256:
+        reasons.append("request_sha256_mismatch")
+
+    if policy_decision.get("selected_action") != "REQUEST_VERIFIED_ROLLBACK":
+        reasons.append("policy_not_rollback_authorized")
+
     if request.get("action") != "REQUEST_VERIFIED_ROLLBACK":
         reasons.append("wrong_action")
 
+    if request.get("action") != policy_decision.get("selected_action"):
+        reasons.append("request_policy_action_mismatch")
+
+    if request.get("event_id") != policy_decision.get("event_id"):
+        reasons.append("event_binding_mismatch")
+
+    if (
+        request.get("requested_policy_id")
+        != policy_decision.get("requested_policy_id")
+    ):
+        reasons.append("requested_policy_mismatch")
+
+    if (
+        request.get("delegated_policy_id")
+        != policy_decision.get("delegated_policy_id")
+    ):
+        reasons.append("delegated_policy_mismatch")
+
     if request.get("request_ready") is not True:
         reasons.append("request_not_ready")
+
+    if request.get("rollback_available") is not True:
+        reasons.append("rollback_not_available")
+
+    if request.get("component") != manifest["component"]:
+        reasons.append("component_mismatch")
+
+    if request.get("approved_version") != manifest["approved_version"]:
+        reasons.append("approved_version_mismatch")
 
     if request.get("approved_target_sha256") != manifest["approved_sha256"]:
         reasons.append("approved_target_mismatch")
@@ -28,12 +64,36 @@ def validate_rollback_request(
     ):
         reasons.append("rejected_candidate_mismatch")
 
+    rejection_reasons = request.get("rejection_reasons")
+    if (
+        not isinstance(rejection_reasons, list)
+        or "sha256_mismatch" not in rejection_reasons
+    ):
+        reasons.append("rejection_reason_missing")
+
+    if request.get("rollback_staging_performed") is not False:
+        reasons.append("rollback_staging_already_performed")
+
+    if request.get("rollback_activation_performed") is not False:
+        reasons.append("rollback_activation_already_performed")
+
+    if request.get("recovery_execution_performed") is not False:
+        reasons.append("recovery_already_performed")
+
+    if request.get("trusted_recovery_verified") is not False:
+        reasons.append("trusted_recovery_already_verified")
+
+    if policy_decision.get("oracle_ground_truth_read") is not False:
+        reasons.append("policy_oracle_boundary_violation")
+
     if request.get("oracle_ground_truth_read") is not False:
         reasons.append("oracle_boundary_violation")
 
     return {
         "accepted": not reasons,
         "reasons": reasons,
+        "request_sha256": request.get("request_sha256"),
+        "computed_request_sha256": computed_request_sha256,
         "approved_target_sha256": manifest["approved_sha256"],
         "rejected_candidate_sha256": pre_recovery_candidate_sha256,
     }
