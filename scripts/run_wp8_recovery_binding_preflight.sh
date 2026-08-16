@@ -828,22 +828,97 @@ test "$MEASURED_STATE_NS" -ge "$CONTAINMENT_NS"
 
 NOOP_BEFORE="$(count_noop_marker)"
 
-docker run --rm --platform linux/amd64 \
+docker run --rm -i --platform linux/amd64 \
   --network "$NETWORK" \
   --env PYTHONPATH=/research \
   --mount "type=bind,source=$ROOT/src,target=/research/src,readonly" \
   --mount "type=bind,source=$GROUND,target=/evidence" \
   "$IMAGE" \
-  python3 -m src.mission_recovery.nos3_e1_adapter \
-    --command-class sample_noop \
-    --result-json "/evidence/$(basename "$NOOP_JSON")"
+  python3 - "/evidence/$(basename "$NOOP_JSON")" <<'PY'
+import hashlib
+import json
+import socket
+import sys
+from pathlib import Path
+
+from src.mission_recovery.nos3_e1_adapter import (
+    ALLOWED_HOST,
+    ALLOWED_PORT,
+    build_sample_noop_packet,
+)
+
+result_path = Path(sys.argv[1])
+packet = build_sample_noop_packet()
+packet_sha256 = hashlib.sha256(packet).hexdigest()
+
+assert ALLOWED_HOST == "nos-fsw"
+assert ALLOWED_PORT == 5012
+assert packet.hex() == "18fac000000100dc"
+assert packet_sha256 == (
+    "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd"
+)
+
+with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+    sent = sock.sendto(packet, (ALLOWED_HOST, ALLOWED_PORT))
+
+assert sent == len(packet)
+
+result = {
+    "schema": 1,
+    "role": "post_recovery_authorized_command_path_health_probe",
+    "study_event": False,
+    "event_id": None,
+    "event_instance_used": False,
+    "target": "nos-fsw:5012",
+    "command_class": "sample_noop",
+    "datagrams_sent": 1,
+    "bytes_sent": sent,
+    "packet_hex": packet.hex(),
+    "packet_sha256": packet_sha256,
+    "authorization_evidence_role": (
+        "command_path_health_only_authorization_validity_evidenced_separately"
+    ),
+}
+
+result_path.write_text(
+    json.dumps(result, sort_keys=True, indent=2) + "\n",
+    encoding="utf-8",
+)
+
+print(json.dumps(result, sort_keys=True))
+PY
+
+python3 - "$NOOP_JSON" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+row = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+
+assert row["role"] == "post_recovery_authorized_command_path_health_probe"
+assert row["study_event"] is False
+assert row["event_id"] is None
+assert row["event_instance_used"] is False
+assert row["target"] == "nos-fsw:5012"
+assert row["command_class"] == "sample_noop"
+assert row["datagrams_sent"] == 1
+assert row["packet_hex"] == "18fac000000100dc"
+assert row["packet_sha256"] == (
+    "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd"
+)
+
+print("post_recovery_noop_probe_record=PASS")
+print("post_recovery_noop_probe_study_event=false")
+PY
 
 NOOP_AFTER="$(wait_noop_delta "$NOOP_BEFORE")"
 test "$NOOP_AFTER" -eq $((NOOP_BEFORE + 1))
 COMMAND_PATH_NS="$(mono_ns)"
 
 echo "post_recovery_authorized_noop=PASS"
-echo "probe_adapter_e1_used_as_health_probe_only=true"
+echo "post_recovery_noop_probe_event_instance_used=false"
+echo "probe_adapter_e1_cli_invoked=false"
+echo "probe_packet_builder_reused=true"
 echo "legitimate_commands_attempted=1"
 echo "legitimate_commands_rejected=0"
 
@@ -1064,7 +1139,8 @@ payload = {
     ),
     "probe_adapter_reuse": {
         "nos3_e1_adapter": (
-            "post_recovery_SAMPLE_NOOP_health_probe_only_not_E1_study_event"
+            "post_recovery_SAMPLE_NOOP_packet_builder_only_"
+            "no_E1_event_instance_or_E1_adapter_CLI"
         ),
         "nos3_e4_adapter": (
             "post_recovery_TO_LAB_telemetry_health_probe_only_not_E4_study_event"
@@ -1214,6 +1290,8 @@ summary = {
     "trusted_recovery_manifest_precedes_timestamp": True,
     "all_ten_recovery_criteria_current": True,
     "probe_adapter_e1_study_event": False,
+    "probe_adapter_e1_cli_invoked": False,
+    "post_recovery_noop_event_instance_used": False,
     "probe_adapter_e4_study_event": False,
     "clock_ns": clock,
 }
@@ -1424,6 +1502,8 @@ assert summary["event_success_observed_by_policy_enforcement_boundary"] is True
 assert summary["recovery_effect_delayed_for_ground_truth_observer"] is False
 assert summary["trusted_recovery_manifest_precedes_timestamp"] is True
 assert summary["all_ten_recovery_criteria_current"] is True
+assert summary["probe_adapter_e1_cli_invoked"] is False
+assert summary["post_recovery_noop_event_instance_used"] is False
 assert recovery_manifest["complete"] is True
 assert all(recovery_manifest["trusted_recovery_criteria"].values())
 
@@ -1440,6 +1520,8 @@ print("event_observer_prepositioned_before_t0=true")
 print("event_success_observed_by_policy_enforcement_boundary=true")
 print("recovery_effect_delayed_for_ground_truth_observer=false")
 print("all_ten_recovery_criteria_current=true")
+print("probe_adapter_e1_cli_invoked=false")
+print("post_recovery_noop_event_instance_used=false")
 print("development_preflight=true")
 print("pilot_data=false")
 PY

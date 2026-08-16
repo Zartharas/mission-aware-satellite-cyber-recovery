@@ -433,7 +433,7 @@
         "post_run_nominal_preflight_role": "run_validity_check_only_not_part_of_trusted_recovery_timestamp"
       },
       "probe_adapter_reuse": {
-        "nos3_e1_adapter": "SAMPLE_NOOP_probe_mechanism_only_not_study_event",
+        "nos3_e1_adapter": "SAMPLE_NOOP_packet_builder_probe_mechanism_only_not_study_event_no_E1_event_instance_or_E1_adapter_CLI",
         "nos3_e4_adapter": "TO_LAB_telemetry_probe_mechanism_only_not_study_event"
       },
       "claim_boundary": "controlled_staged_synthetic_update_state_only_not_operational_firmware_activation_not_flight_reflash_not_live_spacecraft_recovery",
@@ -447,6 +447,19 @@
         "observer_completion_can_delay_policy_enforcement": false,
         "observer_completion_can_delay_recovery_effect": false,
         "failure_disposition": "RUN_INVALID_no_recovery_effect_execution"
+      },
+      "post_recovery_command_probe": {
+        "revision_id": "R-020",
+        "implementation": "direct_internal_sample_noop_health_probe",
+        "packet_builder": "src.mission_recovery.nos3_e1_adapter.build_sample_noop_packet",
+        "e1_event_adapter_cli_invoked": false,
+        "study_event": false,
+        "event_instance_required": false,
+        "role": "post_recovery_authorized_command_path_health_probe",
+        "target": "nos-fsw:5012",
+        "expected_packet_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
+        "success_predicate": "exactly_one_additional_cFS_SAMPLE_NOOP_command_received_marker",
+        "claim_boundary": "internal_command_path_functional_health_probe_only_authorization_validity_is_evidenced_separately_by_rollback_request_validation"
       }
     }
   }

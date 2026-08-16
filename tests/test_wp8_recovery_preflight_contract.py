@@ -160,8 +160,47 @@ class WP8RecoveryPreflightContractTests(unittest.TestCase):
         )
 
     def test_post_recovery_command_and_telemetry_probes(self) -> None:
+        operational = PILOT["runtime_measurement_contract"][
+            "recovery_runtime_operationalization"
+        ]
+        command_probe = operational["post_recovery_command_probe"]
+
+        self.assertEqual(
+            command_probe["revision_id"],
+            "R-020",
+        )
+        self.assertEqual(
+            command_probe["implementation"],
+            "direct_internal_sample_noop_health_probe",
+        )
+        self.assertFalse(
+            command_probe["e1_event_adapter_cli_invoked"]
+        )
+        self.assertFalse(command_probe["study_event"])
+        self.assertFalse(command_probe["event_instance_required"])
+        self.assertEqual(
+            command_probe["expected_packet_sha256"],
+            "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
+        )
+
+        self.assertNotIn(
+            "python3 -m src.mission_recovery.nos3_e1_adapter",
+            RUNNER,
+        )
         self.assertIn(
-            "--command-class sample_noop",
+            "build_sample_noop_packet",
+            RUNNER,
+        )
+        self.assertIn(
+            '"study_event": False',
+            RUNNER,
+        )
+        self.assertIn(
+            '"event_instance_used": False',
+            RUNNER,
+        )
+        self.assertIn(
+            "post_recovery_noop_probe_record=PASS",
             RUNNER,
         )
         self.assertIn(
@@ -194,7 +233,7 @@ class WP8RecoveryPreflightContractTests(unittest.TestCase):
             operational["claim_boundary"],
         )
         self.assertIn(
-            "probe_mechanism_only_not_study_event",
+            "no_E1_event_instance_or_E1_adapter_CLI",
             operational["probe_adapter_reuse"][
                 "nos3_e1_adapter"
             ],
