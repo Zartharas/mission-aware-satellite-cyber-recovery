@@ -24,6 +24,77 @@ class WP8RecoveryPreflightContractTests(unittest.TestCase):
         self.assertIn('"development_preflight": True', RUNNER)
         self.assertIn('"pilot_data": False', RUNNER)
 
+    def test_event_observer_is_prepositioned_without_timing_gate(self) -> None:
+        observer = RUNNER.index('PHASE="EVENT_OBSERVER_PREPOSITION"')
+        ready = RUNNER.index(
+            "immutable_activation_slot_observer_prepositioned=PASS"
+        )
+        t0 = RUNNER.index('EVENT_ACTIVATION_NS="$(mono_ns)"')
+        inject = RUNNER.index(
+            'docker cp "$TAMPERED" "$CFS:$STAGE_BACKING"'
+        )
+        select = RUNNER.index('PHASE="POLICY_SELECTION"')
+        enforce_clock = RUNNER.index(
+            'POLICY_ENFORCEMENT_NS="$(mono_ns)"'
+        )
+        strict_boundary = RUNNER.index(
+            "prepositioned E3 event-success observer had not completed"
+        )
+        recovery_effect = RUNNER.index(
+            'PHASE="POST_ENFORCEMENT_RECOVERY_EFFECT"'
+        )
+
+        self.assertLess(observer, ready)
+        self.assertLess(ready, t0)
+        self.assertLess(t0, inject)
+        self.assertLess(inject, select)
+        self.assertLess(select, enforce_clock)
+        self.assertLess(enforce_clock, strict_boundary)
+        self.assertLess(strict_boundary, recovery_effect)
+
+        operational = PILOT["runtime_measurement_contract"][
+            "recovery_runtime_operationalization"
+        ]
+        event_observer = operational["event_success_observer"]
+
+        self.assertEqual(
+            event_observer["revision_id"],
+            "R-019",
+        )
+        self.assertEqual(
+            event_observer["implementation"],
+            "single_persistent_in_container_sha_observer",
+        )
+        self.assertTrue(event_observer["preposition_before_t0"])
+        self.assertFalse(
+            event_observer[
+                "observer_completion_can_delay_policy_selection"
+            ]
+        )
+        self.assertFalse(
+            event_observer[
+                "observer_completion_can_delay_policy_enforcement"
+            ]
+        )
+        self.assertFalse(
+            event_observer[
+                "observer_completion_can_delay_recovery_effect"
+            ]
+        )
+
+        self.assertIn(
+            "event_success_observed_by_policy_enforcement_boundary=true",
+            RUNNER,
+        )
+        self.assertIn(
+            "policy_enforcement_not_gated_on_event_success=true",
+            RUNNER,
+        )
+        self.assertIn(
+            "recovery_effect_not_delayed_for_ground_truth_observer=true",
+            RUNNER,
+        )
+
     def test_event_injection_precedes_nonoracle_policy_selection(self) -> None:
         t0 = RUNNER.index('EVENT_ACTIVATION_NS="$(mono_ns)"')
         inject = RUNNER.index('docker cp "$TAMPERED" "$CFS:$STAGE_BACKING"')

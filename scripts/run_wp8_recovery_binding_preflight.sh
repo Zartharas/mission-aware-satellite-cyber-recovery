@@ -43,6 +43,7 @@ RUN_RECORD="$EVIDENCE/run-record.json"
 PROVENANCE="$EVIDENCE/binding-provenance.json"
 EVENT_SUCCESS_NS_FILE="$OBS/event-success-monotonic-ns.txt"
 EVENT_SLOT_SHA_FILE="$OBS/event-slot-sha256.txt"
+EVENT_WATCH_LOG="$OBS/event-slot-watcher.log"
 
 CF_BACKING_DIR="/work/nos3/fsw/build/exe/cpu1/cf"
 STAGE_BACKING="$CF_BACKING_DIR/mission-aware-e3-candidate.pkg"
@@ -508,33 +509,96 @@ echo "probe_adapter_e4_used_as_health_probe_only=true"
 RUN_START_NS="$(mono_ns)"
 RUN_START_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
+PHASE="EVENT_OBSERVER_PREPOSITION"
+
+: > "$EVENT_WATCH_LOG"
+
+(
+  set +e
+
+  docker exec "$CFS" sh -lc '
+    path="$1"
+    expected="$2"
+
+    echo WP8_EVENT_SLOT_WATCHER_READY
+
+    i=0
+    while [ "$i" -lt 3000 ]; do
+      if [ -f "$path" ]; then
+        observed_sha="$(
+          sha256sum "$path" 2>/dev/null |
+          awk "{print \$1}"
+        )"
+
+        if [ "$observed_sha" = "$expected" ]; then
+          echo "WP8_EVENT_SLOT_SHA=$observed_sha"
+          exit 0
+        fi
+
+        if [ -n "$observed_sha" ]; then
+          echo "WP8_EVENT_SLOT_UNEXPECTED_SHA=$observed_sha" >&2
+          exit 2
+        fi
+      fi
+
+      i=$((i + 1))
+      sleep 0.01
+    done
+
+    echo WP8_EVENT_SLOT_WATCHER_TIMEOUT >&2
+    exit 1
+  ' sh "$STAGE_BACKING" "$TAMPERED_SHA"     > "$EVENT_WATCH_LOG" 2>&1
+
+  watcher_rc=$?
+
+  if [[ "$watcher_rc" -eq 0 ]]; then
+    observed_sha="$(
+      awk -F= '
+        /^WP8_EVENT_SLOT_SHA=/ {
+          print $2
+          exit
+        }
+      ' "$EVENT_WATCH_LOG"
+    )"
+
+    if [[ "$observed_sha" != "$TAMPERED_SHA" ]]; then
+      exit 3
+    fi
+
+    mono_ns > "$EVENT_SUCCESS_NS_FILE"
+    printf '%s\n' "$observed_sha" > "$EVENT_SLOT_SHA_FILE"
+  fi
+
+  exit "$watcher_rc"
+) &
+EVENT_WATCH_PID=$!
+
+EVENT_WATCH_READY=0
+for _ in $(seq 1 200); do
+  if grep -Fq 'WP8_EVENT_SLOT_WATCHER_READY' "$EVENT_WATCH_LOG" 2>/dev/null; then
+    EVENT_WATCH_READY=1
+    break
+  fi
+
+  if ! kill -0 "$EVENT_WATCH_PID" >/dev/null 2>&1; then
+    break
+  fi
+
+  sleep 0.01
+done
+
+[[ "$EVENT_WATCH_READY" -eq 1 ]] || {
+  echo "[ERROR] immutable E3 activation-slot observer did not become ready before t0" >&2
+  cat "$EVENT_WATCH_LOG" >&2 || true
+  exit 1
+}
+
+echo "immutable_activation_slot_observer_prepositioned=PASS"
+echo "event_success_observer_ready_before_t0=true"
+
 PHASE="EVENT_ACTIVATION"
 
 EVENT_ACTIVATION_NS="$(mono_ns)"
-
-(
-  for _ in $(seq 1 300); do
-    if docker exec "$CFS" test -f "$STAGE_BACKING" >/dev/null 2>&1; then
-      observed_sha="$(
-        docker exec "$CFS" sha256sum "$STAGE_BACKING" 2>/dev/null |
-        awk '{print $1}'
-      )"
-      if [[ "$observed_sha" == "$TAMPERED_SHA" ]]; then
-        mono_ns > "$EVENT_SUCCESS_NS_FILE"
-        printf '%s\n' "$observed_sha" > "$EVENT_SLOT_SHA_FILE"
-        exit 0
-      fi
-      if [[ -n "$observed_sha" && "$observed_sha" != "$TAMPERED_SHA" ]]; then
-        echo "[ERROR] modeled activation slot held unexpected SHA during E3 observation" >&2
-        exit 2
-      fi
-    fi
-    sleep 0.02
-  done
-  echo "[ERROR] retained tampered SHA not observed in modeled activation slot" >&2
-  exit 1
-) &
-EVENT_WATCH_PID=$!
 
 docker cp "$TAMPERED" "$CFS:$STAGE_BACKING"
 
@@ -655,11 +719,10 @@ PY
 POLICY_ENFORCEMENT_NS="$(mono_ns)"
 test "$POLICY_ENFORCEMENT_NS" -ge "$POLICY_SELECTION_NS"
 
-test -f "$EVENT_SUCCESS_NS_FILE" || {
-  echo "[ERROR] event-success observation was not complete by the policy-enforcement boundary" >&2
+if kill -0 "$EVENT_WATCH_PID" >/dev/null 2>&1; then
+  echo "[ERROR] prepositioned E3 event-success observer had not completed by the policy-enforcement boundary" >&2
   exit 1
-}
-test -f "$EVENT_SLOT_SHA_FILE"
+fi
 
 set +e
 wait "$EVENT_WATCH_PID"
@@ -669,18 +732,26 @@ EVENT_WATCH_PID=""
 
 [[ "$EVENT_WATCH_RC" -eq 0 ]] || {
   echo "[ERROR] immutable E3 event-success watcher failed: rc=$EVENT_WATCH_RC" >&2
+  cat "$EVENT_WATCH_LOG" >&2 || true
   exit 1
 }
+
+test -f "$EVENT_SUCCESS_NS_FILE"
+test -f "$EVENT_SLOT_SHA_FILE"
 
 EVENT_SUCCESS_NS="$(cat "$EVENT_SUCCESS_NS_FILE")"
 EVENT_SLOT_SHA="$(cat "$EVENT_SLOT_SHA_FILE")"
 
 test "$EVENT_SUCCESS_NS" -ge "$EVENT_ACTIVATION_NS"
+test "$EVENT_SUCCESS_NS" -le "$POLICY_ENFORCEMENT_NS"
 test "$EVENT_SLOT_SHA" = "$TAMPERED_SHA"
 
 echo "immutable_activation_slot_observer=PASS"
 echo "event_success_observed=true"
+echo "event_success_observed_by_policy_enforcement_boundary=true"
 echo "policy_selection_not_gated_on_event_success=true"
+echo "policy_enforcement_not_gated_on_event_success=true"
+echo "recovery_effect_not_delayed_for_ground_truth_observer=true"
 
 PHASE="POST_ENFORCEMENT_RECOVERY_EFFECT"
 
@@ -1134,6 +1205,9 @@ summary = {
     "runner_sha256": runner_sha,
     "event_before_response_order": True,
     "policy_trigger_uses_ground_truth": False,
+    "event_observer_prepositioned_before_t0": True,
+    "event_success_observed_by_policy_enforcement_boundary": True,
+    "recovery_effect_delayed_for_ground_truth_observer": False,
     "modeled_activation_slot_event_success": True,
     "containment_observed": True,
     "trusted_recovery_verified": True,
@@ -1260,6 +1334,7 @@ observation = {
         "source_observation_refs": [
             f"{rel}/immutable-ground/event-instance.json",
             f"{rel}/runtime-observation/event-slot-sha256.txt",
+            f"{rel}/runtime-observation/event-slot-watcher.log",
             f"{rel}/immutable-ground/policy-decision.json",
             f"{rel}/immutable-ground/rollback-request-validation.json",
             f"{rel}/immutable-ground/replacement-source-verification.json",
@@ -1344,6 +1419,9 @@ assert all(value is True for value in record["recovery_evidence"].values())
 assert provenance["development_preflight"] is True
 assert provenance["pilot_data"] is False
 assert summary["policy_trigger_uses_ground_truth"] is False
+assert summary["event_observer_prepositioned_before_t0"] is True
+assert summary["event_success_observed_by_policy_enforcement_boundary"] is True
+assert summary["recovery_effect_delayed_for_ground_truth_observer"] is False
 assert summary["trusted_recovery_manifest_precedes_timestamp"] is True
 assert summary["all_ten_recovery_criteria_current"] is True
 assert recovery_manifest["complete"] is True
@@ -1358,6 +1436,9 @@ print("mission_objective_completion_ratio=1.0")
 print("legitimate_command_rejection_rate=0.0")
 print("evidence_completeness_ratio=1.0")
 print("policy_trigger_uses_ground_truth=false")
+print("event_observer_prepositioned_before_t0=true")
+print("event_success_observed_by_policy_enforcement_boundary=true")
+print("recovery_effect_delayed_for_ground_truth_observer=false")
 print("all_ten_recovery_criteria_current=true")
 print("development_preflight=true")
 print("pilot_data=false")

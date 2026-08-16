@@ -436,7 +436,18 @@
         "nos3_e1_adapter": "SAMPLE_NOOP_probe_mechanism_only_not_study_event",
         "nos3_e4_adapter": "TO_LAB_telemetry_probe_mechanism_only_not_study_event"
       },
-      "claim_boundary": "controlled_staged_synthetic_update_state_only_not_operational_firmware_activation_not_flight_reflash_not_live_spacecraft_recovery"
+      "claim_boundary": "controlled_staged_synthetic_update_state_only_not_operational_firmware_activation_not_flight_reflash_not_live_spacecraft_recovery",
+      "event_success_observer": {
+        "revision_id": "R-019",
+        "implementation": "single_persistent_in_container_sha_observer",
+        "preposition_before_t0": true,
+        "readiness_marker_required_before_t0": true,
+        "must_complete_by": "policy_enforcement_boundary",
+        "observer_completion_can_delay_policy_selection": false,
+        "observer_completion_can_delay_policy_enforcement": false,
+        "observer_completion_can_delay_recovery_effect": false,
+        "failure_disposition": "RUN_INVALID_no_recovery_effect_execution"
+      }
     }
   }
 }
