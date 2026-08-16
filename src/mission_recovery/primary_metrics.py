@@ -233,6 +233,18 @@ def score_raw_metric_evidence(
 
     trusted_predicate = bool(raw["trusted_recovery"]["predicate"])
     terminal_trusted = terminal_state == "TRUSTED_RECOVERY_CONFIRMED"
+    all_applicable_recovery_evidence_current = all(
+        bool(row["available_current"]) for row in checklist
+    )
+
+    if (
+        all_applicable_recovery_evidence_current
+        and not trusted_predicate
+    ):
+        raise ValueError(
+            "complete applicable recovery evidence requires "
+            "trusted-recovery predicate"
+        )
 
     if terminal_trusted:
         if not trusted_predicate or trusted_recovery_s is None:

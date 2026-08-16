@@ -26,6 +26,7 @@ ATTACKER1_JSON="$GROUND/attacker-reset-probe-1.json"
 ATTACKER2_JSON="$GROUND/attacker-reset-probe-2.json"
 AUTHORIZED_JSON="$GROUND/authorized-noop-probe.json"
 SUMMARY_JSON="$GROUND/command-observation-summary.json"
+CLASSIFICATION_JSON="$GROUND/classification-evidence.json"
 OBSERVATION_JSON="$EVIDENCE/runtime-binding-observation.json"
 RUN_RECORD="$EVIDENCE/run-record.json"
 PROVENANCE="$EVIDENCE/binding-provenance.json"
@@ -568,8 +569,44 @@ PRE_PID=""
 grep -Fq 'NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS' "$NOMINAL_LOG"
 test -f "$RUNTIME_MANIFEST"
 
+PHASE="CLASSIFICATION_EVIDENCE_SNAPSHOT"
+
+CLASSIFICATION_EVIDENCE_NS="$(mono_ns)"
+
+python3 -   "$CLASSIFICATION_JSON"   "$CLASSIFICATION_EVIDENCE_NS"   "$RUNTIME_MANIFEST" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+path, timestamp_ns, runtime_manifest = sys.argv[1:]
+
+payload = {
+    "schema": 1,
+    "classification_evidence_monotonic_ns": int(timestamp_ns),
+    "health_checks_passed": True,
+    "runtime_manifest_present": Path(runtime_manifest).is_file(),
+    "recovery_manifest_complete": False,
+    "recovery_manifest_incomplete_reason": (
+        "wp8_event_response_timeline_and_bound_run_record_are_finalized_"
+        "after_the_classification_snapshot"
+    ),
+}
+
+assert payload["runtime_manifest_present"] is True
+
+Path(path).write_text(
+    json.dumps(payload, sort_keys=True, indent=2) + "\n",
+    encoding="utf-8",
+)
+
+print("classification_evidence_snapshot=PASS")
+print("recovery_manifest_complete_at_classification=false")
+PY
+
 RUN_END_NS="$(mono_ns)"
 RUN_END_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+test "$RUN_END_NS" -ge "$CLASSIFICATION_EVIDENCE_NS"
 
 echo "validated_nominal_runtime_pass=true"
 
@@ -680,6 +717,7 @@ summary = {
     "authorized_noop_marker_delta": 1,
     "legitimate_commands_attempted": 1,
     "legitimate_commands_rejected": 0,
+    "recovery_manifest_complete_at_classification": False,
     "clock_ns": numbers,
 }
 
@@ -706,8 +744,8 @@ recovery_applicable = {
         "evidence_ref": f"artifacts/runtime/{factor['run_id']}/runtime-manifest.txt",
     },
     "recovery_manifest_complete": {
-        "available_current": True,
-        "evidence_ref": f"{rel}/immutable-ground/command-observation-summary.json",
+        "available_current": False,
+        "evidence_ref": f"{rel}/immutable-ground/classification-evidence.json",
     },
 }
 
@@ -774,6 +812,7 @@ observation = {
         "trusted_recovery_evidence_ref": None,
         "terminal_state_evidence_refs": [
             f"{rel}/immutable-ground/command-observation-summary.json",
+            f"{rel}/immutable-ground/classification-evidence.json",
             f"artifacts/runtime/{factor['run_id']}/runtime-manifest.txt",
         ],
         "source_observation_refs": [
@@ -783,6 +822,7 @@ observation = {
             f"{rel}/immutable-ground/gateway-ingress.jsonl",
             f"{rel}/immutable-ground/gateway-decisions.jsonl",
             f"{rel}/immutable-ground/command-observation-summary.json",
+            f"{rel}/immutable-ground/classification-evidence.json",
             f"artifacts/runtime/{factor['run_id']}/runtime-manifest.txt",
         ],
         "development_preflight": True,
@@ -843,8 +883,9 @@ assert record["outcomes"]["unauthorized_effect_completed"] is True
 assert record["outcomes"]["mission_objective_completion_ratio"] == 0.5
 assert record["outcomes"]["safety_invariant_violations"] == []
 assert record["outcomes"]["legitimate_command_rejection_rate"] == 0.0
-assert record["outcomes"]["evidence_completeness_ratio"] == 1.0
+assert record["outcomes"]["evidence_completeness_ratio"] == 0.8
 assert record["outcomes"]["ground_spacecraft_state_divergence_s"] > 0.0
+assert record["recovery_evidence"]["recovery_manifest_complete"] is False
 
 assert record["timing"]["containment_s"] is not None
 assert record["timing"]["containment_s"] > 0.0
@@ -856,6 +897,7 @@ assert summary["development_preflight"] is True
 assert summary["pilot_data"] is False
 assert summary["event_before_response_order"] is True
 assert summary["policy_trigger_uses_ground_truth"] is False
+assert summary["recovery_manifest_complete_at_classification"] is False
 assert summary["matched_attacker_reset_probe_count"] == 2
 assert (
     summary["clock_ns"]["authority_convergence_ns"]
@@ -868,7 +910,8 @@ print("unauthorized_effect_observed=true")
 print("containment_observed=true")
 print("mission_objective_completion_ratio=0.5")
 print("legitimate_command_rejection_rate=0.0")
-print("evidence_completeness_ratio=1.0")
+print("evidence_completeness_ratio=0.8")
+print("recovery_manifest_complete_at_classification=false")
 print("policy_trigger_uses_ground_truth=false")
 print("command_authority_convergence_observed=true")
 print("development_preflight=true")

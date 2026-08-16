@@ -137,7 +137,7 @@ def base_observation(
             "authorized_command_path_restored": True,
             "ground_spacecraft_state_agreed": True,
             "health_checks_passed": True,
-            "recovery_manifest_complete": True,
+            "recovery_manifest_complete": False,
         }
     elif family == "recovery":
         objectives = {
@@ -335,6 +335,29 @@ class WP8RuntimeBindingTests(unittest.TestCase):
         )
         self.assertIsNone(record["timing"]["containment_s"])
         self.assertEqual(list(VALIDATOR.iter_errors(record)), [])
+
+    def test_complete_recovery_evidence_requires_trusted_predicate(
+        self,
+    ) -> None:
+        observation = base_observation(
+            family="command",
+            containment=True,
+            recovery=False,
+        )
+        observation["recovery_observations"][
+            "recovery_manifest_complete"
+        ]["available_current"] = True
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "complete applicable recovery evidence requires",
+        ):
+            bind_runtime_observation(
+                contract=PILOT["runtime_measurement_contract"],
+                factor_context=factor_context(family="command"),
+                environment=environment(),
+                observation=observation,
+            )
 
     def test_runtime_applicability_must_match_frozen_family_rule(self) -> None:
         observation = base_observation(

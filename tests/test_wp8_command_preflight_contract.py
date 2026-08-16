@@ -77,6 +77,28 @@ class WP8CommandPreflightContractTests(unittest.TestCase):
             rule["excluded"],
         )
 
+    def test_classification_snapshot_precedes_run_end(self) -> None:
+        snapshot = RUNNER.index(
+            'PHASE="CLASSIFICATION_EVIDENCE_SNAPSHOT"'
+        )
+        run_end = RUNNER.index('RUN_END_NS="$(mono_ns)"')
+        binding = RUNNER.index('PHASE="OBSERVATION_BINDING"')
+
+        self.assertLess(snapshot, run_end)
+        self.assertLess(run_end, binding)
+        self.assertIn(
+            '"recovery_manifest_complete": False',
+            RUNNER,
+        )
+        self.assertIn(
+            '"recovery_manifest_complete_at_classification": False',
+            RUNNER,
+        )
+        self.assertIn(
+            'evidence_completeness_ratio"] == 0.8',
+            RUNNER,
+        )
+
     def test_command_preflight_is_explicitly_nonpilot(self) -> None:
         self.assertIn("SEED=9101", RUNNER)
         self.assertIn("pilot_seed_consumed=false", RUNNER)

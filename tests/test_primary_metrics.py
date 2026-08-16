@@ -258,9 +258,6 @@ class PrimaryMetricTests(unittest.TestCase):
             if row["criterion_id"] != excluded
         ]
         raw["recovery_checklist_excluded"] = [excluded]
-        raw["trusted_recovery"] = {"predicate": False, "timestamp_s": None}
-        raw["terminal_state_predicates"]["trusted_recovery_confirmed"] = False
-        raw["terminal_state_predicates"]["operational_restored"] = True
 
         result = score_raw_metric_evidence(
             event_activation_s=10.0,
@@ -270,7 +267,7 @@ class PrimaryMetricTests(unittest.TestCase):
         self.assertEqual(result["evidence_completeness_ratio"], 1.0)
         self.assertEqual(
             result["recovery_terminal_state"],
-            "OPERATIONAL_BUT_UNVERIFIED",
+            "TRUSTED_RECOVERY_CONFIRMED",
         )
 
     def test_build_invalid_run_record_needs_no_fabricated_metrics(self) -> None:
