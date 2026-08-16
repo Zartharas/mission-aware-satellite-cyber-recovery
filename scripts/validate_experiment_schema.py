@@ -123,6 +123,71 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
             "WP8 pilot execution must remain unauthorized until instrumentation passes"
         )
 
+def assert_runtime_measurement_contract(pilot: dict) -> None:
+    contract = pilot["runtime_measurement_contract"]
+
+    if contract["decision_id"] != "R-015":
+        raise SystemExit("WP8 runtime measurement contract is not R-015")
+
+    weighting = contract["primary_objective_weighting"]
+    if (
+        weighting["method"]
+        != "unit_weight_per_scheduled_objective_instance"
+        or float(weighting["unit_weight"]) != 1.0
+    ):
+        raise SystemExit("WP8 primary objective weighting is not unit-weight")
+
+    expected = {
+        "command": {"MO-1", "MO-3"},
+        "recovery": {"MO-4", "MO-5"},
+        "observability": {"MO-3", "MO-5"},
+    }
+    actual = {
+        family: {row["objective_id"] for row in rows}
+        for family, rows in contract["family_objectives"].items()
+    }
+    if actual != expected:
+        raise SystemExit(
+            f"WP8 runtime family objectives mismatch: {actual}"
+        )
+
+    if contract["controller_clock"] != "experiment_controller_monotonic_ns":
+        raise SystemExit("WP8 controller clock is not monotonic_ns")
+
+    if contract["event_response_order"][0] != "event_activation_t0":
+        raise SystemExit("WP8 runtime response begins before event activation")
+
+    surrogate = contract["e1_modeled_protected_state_surrogate"]
+    if surrogate["command_class"] != "sample_reset_counters":
+        raise SystemExit("WP8 E1 protected-state surrogate changed")
+    if surrogate["source_id"] != "modeled_attacker":
+        raise SystemExit("WP8 E1 attacker source changed")
+    if surrogate["packet_sha256"] != (
+        "c8a8692bad90aab74ffe550c87e93ed83838d4b4f45c57a609a00455292d41cb"
+    ):
+        raise SystemExit("WP8 E1 reset packet identity changed")
+
+    if float(contract["e4_policy_visibility_timeout_s"]) != 3.0:
+        raise SystemExit("WP8 E4 visibility deadline changed")
+
+    if contract["development_preflights_are_pilot_data"] is not False:
+        raise SystemExit("WP8 development preflights cannot be pilot data")
+
+    status = pilot["instrumentation_gate"]["component_status"]
+    if status["runtime_binding_module"] is not True:
+        raise SystemExit("WP8 runtime binding module is not ready")
+    if status["runtime_binding_static_validation"] is not True:
+        raise SystemExit("WP8 runtime binding static validation is not ready")
+    if status["nos3_runtime_binding"] is not False:
+        raise SystemExit(
+            "NOS3 runtime binding cannot pass before development preflights"
+        )
+    if pilot["instrumentation_gate"]["pilot_execution_authorized"] is not False:
+        raise SystemExit(
+            "Pilot execution cannot be authorized before runtime preflights"
+        )
+
+
 def main() -> int:
     schema = load_json(SCHEMA_PATH)
     model = load_json(MODEL_PATH)
@@ -283,12 +348,15 @@ def main() -> int:
     try:
         assert_model_schema_alignment(schema, model)
         assert_pilot_design(pilot, model)
+        assert_runtime_measurement_contract(pilot)
     except (KeyError, TypeError, ValueError) as exc:
         print(f"[FAIL] Model/pilot validation error: {exc}")
         return 1
 
     print("[OK] Experiment schema factor enums align with experiment model")
     print("[OK] WP8 pilot cells match current policy semantics")
+    print("[OK] R-015 runtime measurement contract is frozen")
+    print("[OK] WP8 runtime binding module is statically ready")
     print("[OK] WP8 pilot execution remains gated on runtime metric binding")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")

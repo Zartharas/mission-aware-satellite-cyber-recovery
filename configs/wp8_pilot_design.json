@@ -225,12 +225,10 @@
     "pilot_execution_authorized": false,
     "authorization_condition": "The NOS3 pilot runner must bind observed runtime evidence to the validated raw-metric schema and emit a schema-valid scored run record without manual reconstruction or expected-value substitution.",
     "known_pre_pilot_implementation_work": [
-      "nos3_runtime_raw_metric_binding",
-      "mission_objective_instance_runtime_accounting",
-      "safety_invariant_interval_runtime_accounting",
-      "containment_and_recovery_monotonic_timestamps",
-      "ground_spacecraft_divergence_runtime_intervals",
-      "terminal_state_runtime_predicate_evidence"
+      "command_runtime_binding_development_preflight",
+      "recovery_runtime_binding_development_preflight",
+      "observability_runtime_binding_development_preflight",
+      "runtime_binding_evidence_review_and_gate"
     ],
     "component_status": {
       "raw_metric_schema": true,
@@ -239,7 +237,9 @@
       "nos3_runtime_binding": false,
       "invalid_run_nonfabrication_contract": true,
       "applicable_recovery_evidence_contract": true,
-      "objective_schedule_predicate_contract": true
+      "objective_schedule_predicate_contract": true,
+      "runtime_binding_module": true,
+      "runtime_binding_static_validation": true
     }
   },
   "invalid_run_rule": {
@@ -270,5 +270,81 @@
     "stage_2_all_anchor_repetitions_valid": true,
     "wp9_repetition_count_selected_by_predeclared_rule": true,
     "pilot_results_are_not_final_hypothesis_tests": true
+  },
+  "runtime_measurement_contract": {
+    "decision_id": "R-015",
+    "primary_objective_weighting": {
+      "method": "unit_weight_per_scheduled_objective_instance",
+      "unit_weight": 1.0,
+      "priority_weighted_alternative_role": "secondary_sensitivity_analysis_only"
+    },
+    "objective_schedule": {
+      "start": "event_activation_t0",
+      "end": "run_terminal_timestamp"
+    },
+    "family_objectives": {
+      "command": [
+        {
+          "objective_id": "MO-1",
+          "completion_predicate": "modeled_attacker_sample_reset_counters_does_not_change_the_modeled_protected_state_after_policy_enforcement"
+        },
+        {
+          "objective_id": "MO-3",
+          "completion_predicate": "authorized_ground_sample_noop_reaches_cfs_during_the_response_interval"
+        }
+      ],
+      "recovery": [
+        {
+          "objective_id": "MO-4",
+          "completion_predicate": "applicable_current_evidence_confirms_approved_operational_state"
+        },
+        {
+          "objective_id": "MO-5",
+          "completion_predicate": "immutable_event_response_and_recovery_evidence_set_is_complete"
+        }
+      ],
+      "observability": [
+        {
+          "objective_id": "MO-3",
+          "completion_predicate": "required_high_value_telemetry_is_policy_visible_within_the_frozen_visibility_deadline"
+        },
+        {
+          "objective_id": "MO-5",
+          "completion_predicate": "immutable_truth_and_event_response_evidence_remain_available_for_reconstruction"
+        }
+      ]
+    },
+    "controller_clock": "experiment_controller_monotonic_ns",
+    "event_response_order": [
+      "event_activation_t0",
+      "policy_selection",
+      "policy_enforcement",
+      "post_enforcement_effect_probe",
+      "terminal_classification"
+    ],
+    "e1_modeled_protected_state_surrogate": {
+      "command_class": "sample_reset_counters",
+      "source_id": "modeled_attacker",
+      "cfs_marker": "SAMPLE: RESET counters command received",
+      "packet_sha256": "c8a8692bad90aab74ffe550c87e93ed83838d4b4f45c57a609a00455292d41cb",
+      "claim_boundary": "safe_SAMPLE_application_counter_state_surrogate_only_not_safety_critical_spacecraft_state"
+    },
+    "family_event_success_predicates": {
+      "command": "modeled_attacker_reset_counter_probe_increments_the_retained_cfs_reset_marker",
+      "recovery": "unapproved_candidate_occupies_the_modeled_activation_slot_with_the_retained_tampered_sha256",
+      "observability": "immutable_truth_observes_required_high_value_telemetry_and_no_matching_policy_visible_record_is_observed_before_the_frozen_visibility_deadline"
+    },
+    "family_containment_predicates": {
+      "command": "policy_enforcement_is_active_and_two_consecutive_matched_modeled_attacker_reset_probes_produce_no_cfs_reset_marker_delta",
+      "recovery": "the_unapproved_modeled_activation_slot_is_replaced_by_the_approved_candidate_and_the_rejected_sha256_is_absent",
+      "observability": "required_high_value_telemetry_is_restored_to_the_policy_visible_plane_and_confirmed_by_a_matched_verification_sample"
+    },
+    "e4_policy_visibility_timeout_s": 3.0,
+    "development_preflight_families": [
+      "command",
+      "recovery",
+      "observability"
+    ],
+    "development_preflights_are_pilot_data": false
   }
 }

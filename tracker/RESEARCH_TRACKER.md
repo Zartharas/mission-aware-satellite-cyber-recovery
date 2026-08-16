@@ -6,7 +6,7 @@ Last updated: 2026-08-15
 
 **WP8 — pilot**
 
-Current gate: bind the validated raw primary-metric schema/scorer to observed NOS3 runtime evidence before any scored pilot run. After that, establish control validity, observed variability, and the repetition count required before freezing the experiment campaign.
+Current gate: run and review three non-pilot NOS3 runtime-binding development preflights (command, recovery, observability) under the R-015 measurement contract before any scored pilot run. After that, establish control validity, observed variability, and the repetition count required before freezing the experiment campaign.
 
 ## Work packages
 
@@ -20,7 +20,7 @@ Current gate: bind the validated raw primary-metric schema/scorer to observed NO
 | WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
 | WP6 | Response-policy implementation | **Complete** | Fixed-policy effects plus corrected P7 mission-aware integration validated with functional Sample readiness and observed cFS-marker deltas; trusted-recovery execution remains WP7 |
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery plus four bounded failure-mode validations passed; reproducibility harness retained |
-| WP8 | Pilot | **In progress** | Pilot contract/schema reconciliation and primary-metric instrumentation readiness |
+| WP8 | Pilot | **In progress** | R-015 measurement contract and runtime-binding module ready for three non-pilot NOS3 development preflights |
 | WP9 | Frozen experiment campaign | Not started | Randomized controlled repeated trials |
 | WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |
 | WP11 | Responsible artifact release | Not started | Sanitized code/data/reproducibility release |
