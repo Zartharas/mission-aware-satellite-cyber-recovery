@@ -220,6 +220,69 @@ class WP8RecoveryPreflightContractTests(unittest.TestCase):
             RUNNER,
         )
 
+    def test_trusted_recovery_criteria_are_evidence_derived(self) -> None:
+        operational = PILOT["runtime_measurement_contract"][
+            "recovery_runtime_operationalization"
+        ]
+        derivation = operational[
+            "trusted_recovery_evidence_derivation"
+        ]
+
+        self.assertEqual(
+            derivation["revision_id"],
+            "R-021",
+        )
+        self.assertTrue(
+            derivation["criterion_evidence_refs_required"]
+        )
+        self.assertTrue(
+            derivation[
+                "criterion_values_must_all_be_true_for_trusted_recovery"
+            ]
+        )
+        self.assertEqual(
+            derivation["literal_unconditional_true_criteria_allowed"],
+            ["recovery_manifest_complete"],
+        )
+
+        command_probe = operational["post_recovery_command_probe"]
+        self.assertEqual(
+            command_probe["trusted_recovery_criterion"],
+            "authorized_command_path_restored",
+        )
+        self.assertFalse(
+            command_probe["end_to_end_identity_protocol_claim"]
+        )
+
+        self.assertIn(
+            'criterion_derivation_revision_id": "R-021"',
+            RUNNER,
+        )
+        self.assertIn(
+            '"criterion_evidence_refs": criterion_evidence_refs',
+            RUNNER,
+        )
+        self.assertIn(
+            "authorization_validation_accepted",
+            RUNNER,
+        )
+        self.assertIn(
+            "authorized_command_path_restored = (",
+            RUNNER,
+        )
+        self.assertIn(
+            "required_telemetry_restored = (",
+            RUNNER,
+        )
+        self.assertIn(
+            "no_residual_unauthorized_state = (",
+            RUNNER,
+        )
+        self.assertIn(
+            "trusted_recovery_criteria_derived_from_retained_evidence=PASS",
+            RUNNER,
+        )
+
     def test_claim_boundary_is_modeled_slot_not_firmware_activation(self) -> None:
         operational = PILOT["runtime_measurement_contract"][
             "recovery_runtime_operationalization"

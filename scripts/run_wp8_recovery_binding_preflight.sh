@@ -979,7 +979,9 @@ python3 - \
   "$NOOP_BEFORE" "$NOOP_AFTER" \
   "$TRUTH_BEFORE" "$TRUTH_AFTER" \
   "$POLICY_BEFORE" "$POLICY_AFTER" \
-  "$FINAL_SLOT_SHA" "$APPROVED_SHA" "$TAMPERED_SHA" <<'PY'
+  "$FINAL_SLOT_SHA" "$APPROVED_SHA" "$TAMPERED_SHA" \
+  "$REQUEST_VALIDATION" "$TERMINAL_VERIFY" "$NOOP_JSON" <<'PY'
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -996,30 +998,80 @@ from pathlib import Path
     final_slot_sha,
     approved_sha,
     tampered_sha,
+    request_validation_path,
+    terminal_verify_path,
+    noop_probe_path,
 ) = sys.argv[1:]
+
+request_validation = json.loads(
+    Path(request_validation_path).read_text(encoding="utf-8")
+)
+terminal_verify = json.loads(
+    Path(terminal_verify_path).read_text(encoding="utf-8")
+)
+noop_probe = json.loads(
+    Path(noop_probe_path).read_text(encoding="utf-8")
+)
+
+noop_delta = int(noop_after) - int(noop_before)
+truth_delta = int(truth_after) - int(truth_before)
+policy_delta = int(policy_after) - int(policy_before)
+
+authorization_valid = (
+    request_validation["accepted"] is True
+    and request_validation["reasons"] == []
+)
+command_path_functional = (
+    noop_delta == 1
+    and noop_probe["study_event"] is False
+    and noop_probe["event_id"] is None
+    and noop_probe["event_instance_used"] is False
+    and noop_probe["target"] == "nos-fsw:5012"
+    and noop_probe["packet_sha256"]
+    == "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd"
+)
+authorized_command_path_restored = (
+    authorization_valid and command_path_functional
+)
 
 payload = {
     "schema": 1,
     "health_check_monotonic_ns": int(health_ns),
     "cfs_running": True,
     "ci_lab_udp_5012_ready": True,
-    "authorized_noop_marker_delta": int(noop_after) - int(noop_before),
+    "authorized_noop_marker_delta": noop_delta,
+    "authorization_validation_accepted": authorization_valid,
+    "command_path_functional": command_path_functional,
+    "authorized_command_path_restored": authorized_command_path_restored,
+    "authorization_validation_sha256": hashlib.sha256(
+        Path(request_validation_path).read_bytes()
+    ).hexdigest(),
+    "noop_probe_sha256": hashlib.sha256(
+        Path(noop_probe_path).read_bytes()
+    ).hexdigest(),
     "high_value_mid": "0x08E9",
-    "truth_high_value_delta": int(truth_after) - int(truth_before),
-    "policy_high_value_delta": int(policy_after) - int(policy_before),
+    "truth_high_value_delta": truth_delta,
+    "policy_high_value_delta": policy_delta,
     "modeled_activation_slot_sha256": final_slot_sha,
     "approved_sha256": approved_sha,
     "rejected_sha256": tampered_sha,
     "approved_state_current": final_slot_sha == approved_sha,
     "rejected_state_absent": final_slot_sha != tampered_sha,
+    "terminal_verification_trusted": (
+        terminal_verify["trusted_recovery_verified"] is True
+    ),
     "health_checks_passed": True,
 }
 
 assert payload["authorized_noop_marker_delta"] == 1
+assert payload["authorization_validation_accepted"] is True
+assert payload["command_path_functional"] is True
+assert payload["authorized_command_path_restored"] is True
 assert payload["truth_high_value_delta"] == 1
 assert payload["policy_high_value_delta"] == 1
 assert payload["approved_state_current"] is True
 assert payload["rejected_state_absent"] is True
+assert payload["terminal_verification_trusted"] is True
 
 Path(path).write_text(
     json.dumps(payload, sort_keys=True, indent=2) + "\n",
@@ -1027,6 +1079,9 @@ Path(path).write_text(
 )
 
 print("post_recovery_health_snapshot=PASS")
+print("authorization_validation_accepted=true")
+print("command_path_functional=true")
+print("authorized_command_path_restored=true")
 PY
 
 RECOVERY_MANIFEST_READY_NS="$(mono_ns)"
@@ -1097,25 +1152,128 @@ assert (
 )
 
 source_evidence = {}
+ref_by_path = {}
 for path in evidence_paths:
     data = path.read_bytes()
     try:
         ref = str(path.relative_to(root))
     except ValueError:
         ref = str(path)
+    ref_by_path[path] = ref
     source_evidence[ref] = hashlib.sha256(data).hexdigest()
 
+approved_manifest = json.loads(
+    evidence_paths[2].read_text(encoding="utf-8")
+)
+request_validation = json.loads(
+    evidence_paths[5].read_text(encoding="utf-8")
+)
+terminal_verify = json.loads(
+    evidence_paths[7].read_text(encoding="utf-8")
+)
+noop_probe = json.loads(
+    evidence_paths[8].read_text(encoding="utf-8")
+)
+health = json.loads(
+    evidence_paths[12].read_text(encoding="utf-8")
+)
+
+approved_version = (
+    terminal_verify["terminal_matches_approved"] is True
+    and terminal_verify["version"] == approved_manifest["approved_version"]
+)
+integrity_measurement_valid = (
+    terminal_verify["terminal_candidate_accepted"] is True
+    and terminal_verify["reasons"] == []
+)
+authorization_valid = (
+    request_validation["accepted"] is True
+    and request_validation["reasons"] == []
+)
+measured_state_current = (
+    health["approved_state_current"] is True
+    and health["modeled_activation_slot_sha256"]
+    == approved_manifest["approved_sha256"]
+)
+authorized_command_path_restored = (
+    health["authorization_validation_accepted"] is True
+    and health["command_path_functional"] is True
+    and health["authorized_command_path_restored"] is True
+    and health["authorized_noop_marker_delta"] == 1
+    and noop_probe["study_event"] is False
+    and noop_probe["event_instance_used"] is False
+)
+ground_spacecraft_state_agreed = (
+    health["approved_state_current"] is True
+    and terminal_verify["terminal_sha256"]
+    == health["modeled_activation_slot_sha256"]
+)
+required_telemetry_restored = (
+    health["truth_high_value_delta"] == 1
+    and health["policy_high_value_delta"] == 1
+)
+health_checks_passed = (
+    health["health_checks_passed"] is True
+    and health["cfs_running"] is True
+    and health["ci_lab_udp_5012_ready"] is True
+    and health["terminal_verification_trusted"] is True
+)
+no_residual_unauthorized_state = (
+    health["approved_state_current"] is True
+    and health["rejected_state_absent"] is True
+)
+
 criteria = {
-    "approved_version": True,
-    "integrity_measurement_valid": True,
-    "authorization_valid": True,
-    "measured_state_current": True,
-    "authorized_command_path_restored": True,
-    "ground_spacecraft_state_agreed": True,
-    "required_telemetry_restored": True,
-    "health_checks_passed": True,
-    "no_residual_unauthorized_state": True,
+    "approved_version": approved_version,
+    "integrity_measurement_valid": integrity_measurement_valid,
+    "authorization_valid": authorization_valid,
+    "measured_state_current": measured_state_current,
+    "authorized_command_path_restored": authorized_command_path_restored,
+    "ground_spacecraft_state_agreed": ground_spacecraft_state_agreed,
+    "required_telemetry_restored": required_telemetry_restored,
+    "health_checks_passed": health_checks_passed,
+    "no_residual_unauthorized_state": no_residual_unauthorized_state,
     "recovery_manifest_complete": True,
+}
+
+criterion_evidence_refs = {
+    "approved_version": [
+        ref_by_path[evidence_paths[2]],
+        ref_by_path[evidence_paths[7]],
+    ],
+    "integrity_measurement_valid": [
+        ref_by_path[evidence_paths[7]],
+    ],
+    "authorization_valid": [
+        ref_by_path[evidence_paths[5]],
+    ],
+    "measured_state_current": [
+        ref_by_path[evidence_paths[12]],
+    ],
+    "authorized_command_path_restored": [
+        ref_by_path[evidence_paths[5]],
+        ref_by_path[evidence_paths[8]],
+        ref_by_path[evidence_paths[12]],
+    ],
+    "ground_spacecraft_state_agreed": [
+        ref_by_path[evidence_paths[7]],
+        ref_by_path[evidence_paths[12]],
+    ],
+    "required_telemetry_restored": [
+        ref_by_path[evidence_paths[10]],
+        ref_by_path[evidence_paths[11]],
+        ref_by_path[evidence_paths[12]],
+    ],
+    "health_checks_passed": [
+        ref_by_path[evidence_paths[7]],
+        ref_by_path[evidence_paths[12]],
+    ],
+    "no_residual_unauthorized_state": [
+        ref_by_path[evidence_paths[12]],
+    ],
+    "recovery_manifest_complete": [
+        *sorted(source_evidence),
+    ],
 }
 
 payload = {
@@ -1131,8 +1289,10 @@ payload = {
     "terminal_state_candidate": "TRUSTED_RECOVERY_CONFIRMED",
     "controller_timeline_ns": timeline,
     "trusted_recovery_criteria": criteria,
+    "criterion_evidence_refs": criterion_evidence_refs,
+    "criterion_derivation_revision_id": "R-021",
     "source_evidence_sha256": source_evidence,
-    "complete": True,
+    "complete": all(criteria.values()),
     "scientific_claim_boundary": (
         "controlled_staged_synthetic_update_state_only_no_operational_"
         "firmware_activation_or_flight_reflash_claim"
@@ -1148,8 +1308,10 @@ payload = {
     },
 }
 
-assert all(criteria.values())
+assert all(criteria.values()), criteria
 assert payload["complete"] is True
+assert set(criterion_evidence_refs) == set(criteria)
+assert all(criterion_evidence_refs.values())
 
 manifest_path.write_text(
     json.dumps(payload, sort_keys=True, indent=2) + "\n",
@@ -1157,6 +1319,8 @@ manifest_path.write_text(
 )
 
 print("trusted_recovery_evidence_manifest=PASS")
+print("trusted_recovery_criteria_derived_from_retained_evidence=PASS")
+print("authorized_command_path_restored_composite_evidence=PASS")
 PY
 
 python3 - "$RECOVERY_MANIFEST" <<'PY'
@@ -1169,6 +1333,11 @@ manifest = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 assert manifest["complete"] is True
 assert manifest["terminal_state_candidate"] == "TRUSTED_RECOVERY_CONFIRMED"
 assert all(manifest["trusted_recovery_criteria"].values())
+assert manifest["criterion_derivation_revision_id"] == "R-021"
+assert set(manifest["criterion_evidence_refs"]) == set(
+    manifest["trusted_recovery_criteria"]
+)
+assert all(manifest["criterion_evidence_refs"].values())
 assert manifest["development_preflight"] is True
 assert manifest["pilot_data"] is False
 
@@ -1289,6 +1458,8 @@ summary = {
     "trusted_recovery_verified": True,
     "trusted_recovery_manifest_precedes_timestamp": True,
     "all_ten_recovery_criteria_current": True,
+    "trusted_recovery_criteria_derived_from_retained_evidence": True,
+    "authorized_command_path_restored_composite_evidence": True,
     "probe_adapter_e1_study_event": False,
     "probe_adapter_e1_cli_invoked": False,
     "post_recovery_noop_event_instance_used": False,
@@ -1502,6 +1673,8 @@ assert summary["event_success_observed_by_policy_enforcement_boundary"] is True
 assert summary["recovery_effect_delayed_for_ground_truth_observer"] is False
 assert summary["trusted_recovery_manifest_precedes_timestamp"] is True
 assert summary["all_ten_recovery_criteria_current"] is True
+assert summary["trusted_recovery_criteria_derived_from_retained_evidence"] is True
+assert summary["authorized_command_path_restored_composite_evidence"] is True
 assert summary["probe_adapter_e1_cli_invoked"] is False
 assert summary["post_recovery_noop_event_instance_used"] is False
 assert recovery_manifest["complete"] is True
@@ -1520,6 +1693,8 @@ print("event_observer_prepositioned_before_t0=true")
 print("event_success_observed_by_policy_enforcement_boundary=true")
 print("recovery_effect_delayed_for_ground_truth_observer=false")
 print("all_ten_recovery_criteria_current=true")
+print("trusted_recovery_criteria_derived_from_retained_evidence=true")
+print("authorized_command_path_restored_composite_evidence=true")
 print("probe_adapter_e1_cli_invoked=false")
 print("post_recovery_noop_event_instance_used=false")
 print("development_preflight=true")

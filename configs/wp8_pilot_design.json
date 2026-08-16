@@ -459,7 +459,23 @@
         "target": "nos-fsw:5012",
         "expected_packet_sha256": "722b8fe72fb18ee581c970ea92c100f435fa90ccccaf0a05bf3e8bee0c4d13bd",
         "success_predicate": "exactly_one_additional_cFS_SAMPLE_NOOP_command_received_marker",
-        "claim_boundary": "internal_command_path_functional_health_probe_only_authorization_validity_is_evidenced_separately_by_rollback_request_validation"
+        "claim_boundary": "decomposed_modeled_authorized_command_path_surrogate_authorization_validity_from_rollback_request_validation_and_path_functionality_from_non_event_SAMPLE_NOOP_probe_not_a_cryptographic_end_to_end_identity_protocol_measurement",
+        "trusted_recovery_criterion": "authorized_command_path_restored",
+        "criterion_combination": "rollback_authorization_valid_AND_post_recovery_command_path_functional",
+        "end_to_end_identity_protocol_claim": false
+      },
+      "trusted_recovery_evidence_derivation": {
+        "revision_id": "R-021",
+        "classification_time_rule": "derive_each_trusted_recovery_criterion_from_retained_current_evidence",
+        "literal_unconditional_true_criteria_allowed": [
+          "recovery_manifest_complete"
+        ],
+        "recovery_manifest_complete_rule": "true_only_after_all_source_evidence_is_read_hashed_and_criterion_derivation_succeeds_before_trusted_recovery_timestamp",
+        "criterion_evidence_refs_required": true,
+        "criterion_values_must_all_be_true_for_trusted_recovery": true,
+        "authorized_command_path_restored_rule": "rollback_request_validation_accepted_AND_post_recovery_SAMPLE_NOOP_marker_delta_equals_1",
+        "required_telemetry_restored_rule": "truth_0x08E9_delta_equals_1_AND_policy_visible_0x08E9_delta_equals_1",
+        "no_residual_unauthorized_state_rule": "approved_state_current_AND_rejected_state_absent"
       }
     }
   }
