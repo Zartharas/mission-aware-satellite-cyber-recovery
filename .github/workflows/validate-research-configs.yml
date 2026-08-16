@@ -74,6 +74,7 @@ jobs:
 
       - name: Validate WP8 shell syntax
         run: |
+          bash -n scripts/run_nominal_runtime_preflight.sh
           bash -n scripts/run_wp8_command_binding_preflight.sh
           bash -n scripts/run_wp8_recovery_binding_preflight.sh
           bash -n scripts/run_wp8_observability_binding_preflight.sh

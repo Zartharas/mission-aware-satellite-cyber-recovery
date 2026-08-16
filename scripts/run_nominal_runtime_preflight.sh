@@ -291,6 +291,12 @@ start fortytwo fortytwo \
   --mount "type=bind,source=$FORTYTWO,target=/work/fortytwo,readonly" \
   --mount "type=bind,source=$INOUT,target=$FORTYTWO_INOUT_CONTAINER" --workdir /work/fortytwo \
   "$IMAGE" ./42 "$FORTYTWO_INOUT_CONTAINER"
+
+# R-023: prove Fortytwo IPC readiness before launching any dependent
+# truth consumer or hardware simulator.
+wait_for_tcp_listener "$PREFIX-fortytwo" 9999 75 fortytwo_tcp_9999_listener
+wait_for_tcp_listener "$PREFIX-fortytwo" 4286 75 fortytwo_tcp_4286_listener
+
 start truth-sink truth-sink \
   --env TRUTH_HOST=fortytwo --env TRUTH_PORT=9999 --env CONNECT_TIMEOUT_SECONDS=75 \
   "$IMAGE" python3 -u -c '
@@ -329,6 +335,8 @@ while True:
         print(f"TRUTH_SINK_BYTES={received}", flush=True)
         last_report = now
 '
+wait_for_log_marker "$PREFIX-truth-sink" TRUTH_SINK_CONNECTED 30 truth_sink_connection
+
 for sim in "${HARDWARE_SIMS[@]}"; do
   if [[ "$sim" == "generic-radio-sim" ]]; then
     start "$sim" radio-sim \
@@ -342,7 +350,6 @@ for sim in "${HARDWARE_SIMS[@]}"; do
       "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
   fi
 done
-wait_for_log_marker "$PREFIX-truth-sink" TRUTH_SINK_CONNECTED 75 truth_sink_connection
 wait_for_tcp_listener "$PREFIX-generic-radio-sim" 8010 45 radio_tcp_8010_listener
 start bridge nos-sim-bridge \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
