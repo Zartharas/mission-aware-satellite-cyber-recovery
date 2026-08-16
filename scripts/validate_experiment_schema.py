@@ -151,6 +151,19 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             f"WP8 runtime family objectives mismatch: {actual}"
         )
 
+    command_mo1 = next(
+        row
+        for row in contract["family_objectives"]["command"]
+        if row["objective_id"] == "MO-1"
+    )
+    if command_mo1["completion_predicate"] != (
+        "no_modeled_attacker_sample_reset_counters_effect_occurs_during_"
+        "the_scheduled_objective_interval"
+    ):
+        raise SystemExit(
+            "WP8 command MO-1 predicate does not cover the full scheduled interval"
+        )
+
     if contract["controller_clock"] != "experiment_controller_monotonic_ns":
         raise SystemExit("WP8 controller clock is not monotonic_ns")
 

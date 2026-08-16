@@ -286,7 +286,7 @@
       "command": [
         {
           "objective_id": "MO-1",
-          "completion_predicate": "modeled_attacker_sample_reset_counters_does_not_change_the_modeled_protected_state_after_policy_enforcement"
+          "completion_predicate": "no_modeled_attacker_sample_reset_counters_effect_occurs_during_the_scheduled_objective_interval"
         },
         {
           "objective_id": "MO-3",

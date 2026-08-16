@@ -266,6 +266,36 @@ class WP8RuntimeBindingTests(unittest.TestCase):
         )
         self.assertEqual(list(VALIDATOR.iter_errors(record)), [])
 
+    def test_command_event_effect_reduces_mission_completion(self) -> None:
+        observation = base_observation(
+            family="command",
+            containment=True,
+            recovery=False,
+        )
+        observation["event_success"] = {
+            "predicate": True,
+            "observed_ns": 2_500_000_000,
+            "evidence_ref": "unit:command:event-success",
+        }
+        observation["objective_results"]["MO-1"]["completed"] = False
+
+        result = bind_runtime_observation(
+            contract=PILOT["runtime_measurement_contract"],
+            factor_context=factor_context(family="command"),
+            environment=environment(),
+            observation=observation,
+        )
+
+        record = result["run_record"]
+        self.assertTrue(
+            record["outcomes"]["unauthorized_effect_completed"]
+        )
+        self.assertEqual(
+            record["outcomes"]["mission_objective_completion_ratio"],
+            0.5,
+        )
+        self.assertEqual(list(VALIDATOR.iter_errors(record)), [])
+
     def test_recovery_binding_is_schema_valid_trusted_state(self) -> None:
         result = bind_runtime_observation(
             contract=PILOT["runtime_measurement_contract"],
