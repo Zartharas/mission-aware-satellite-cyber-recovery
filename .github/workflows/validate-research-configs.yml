@@ -73,4 +73,6 @@ jobs:
           bash -n scripts/run_wp7_failure_mode_validation.sh
 
       - name: Validate WP8 shell syntax
-        run: bash -n scripts/run_wp8_command_binding_preflight.sh
+        run: |
+          bash -n scripts/run_wp8_command_binding_preflight.sh
+          bash -n scripts/run_wp8_recovery_binding_preflight.sh

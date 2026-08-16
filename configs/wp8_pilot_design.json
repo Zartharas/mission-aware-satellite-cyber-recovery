@@ -403,6 +403,40 @@
       "claim_boundary": "behaviorally_inferred_command_authority_divergence_only_not_a_direct_measurement_of_an_onboard_authorization_database_identity_table_or_authorization_state_variable",
       "measurement_role": "behavioral_proxy"
     },
-    "measurement_operationalization_decision_id": "R-016"
+    "measurement_operationalization_decision_id": "R-016",
+    "recovery_runtime_operationalization": {
+      "decision_id": "R-018",
+      "development_seed": 9201,
+      "modeled_activation_slot": {
+        "virtual_path": "/cf/mission-aware-e3-candidate.pkg",
+        "linux_backing_path": "/work/nos3/fsw/build/exe/cpu1/cf/mission-aware-e3-candidate.pkg",
+        "event_success": "retained_tampered_sha256_observed_in_slot_after_t0",
+        "execution_semantics": "modeled_staged_update_state_not_executable_firmware_activation"
+      },
+      "policy_timing": {
+        "selection_input": "materialized_E3_policy_visible_evidence_only",
+        "policy_id": "P5",
+        "required_action": "REQUEST_VERIFIED_ROLLBACK",
+        "ground_truth_observer_can_trigger_selection": false,
+        "ground_truth_observer_can_trigger_enforcement": false
+      },
+      "enforcement_boundary": "rollback_request_validated_and_approved_replacement_source_verified",
+      "containment": "approved_sha256_occupies_modeled_activation_slot_rejected_sha256_absent_and_temp_state_absent",
+      "trusted_recovery": {
+        "all_ten_recovery_criteria_required": true,
+        "evidence_manifest": "trusted-recovery-evidence-manifest.json",
+        "evidence_manifest_must_validate_before_trusted_timestamp": true,
+        "authorized_command_probe": "post_recovery_SAMPLE_NOOP_reaches_cFS",
+        "required_telemetry_probe_mid": "0x08E9",
+        "required_telemetry_probe_mode": "control",
+        "health_snapshot": "cFS_running_CI_UDP_5012_ready_command_probe_pass_telemetry_probe_pass_and_approved_slot_current",
+        "post_run_nominal_preflight_role": "run_validity_check_only_not_part_of_trusted_recovery_timestamp"
+      },
+      "probe_adapter_reuse": {
+        "nos3_e1_adapter": "SAMPLE_NOOP_probe_mechanism_only_not_study_event",
+        "nos3_e4_adapter": "TO_LAB_telemetry_probe_mechanism_only_not_study_event"
+      },
+      "claim_boundary": "controlled_staged_synthetic_update_state_only_not_operational_firmware_activation_not_flight_reflash_not_live_spacecraft_recovery"
+    }
   }
 }
