@@ -155,6 +155,49 @@ grep -Eq 'fortytwo[[:space:]]+9999[[:space:]]*![[:space:]]*Server Host Name, Por
   exit 1
 }
 
+FORTYTWO_BLOCKING_IPC_SEQUENCE="$(
+  python3 - "$NOS3/cfg/build/InOut/Inp_IPC.txt" <<'PY_IPC'
+from pathlib import Path
+import sys
+
+lines = Path(sys.argv[1]).read_text(encoding="utf-8").splitlines()
+count = int(lines[1].split()[0])
+ports = []
+idx = 2
+
+for _ in range(count):
+    idx += 1
+    mode = lines[idx].split()[0]
+    idx += 1
+    idx += 1
+    role = lines[idx].split()[0]
+    idx += 1
+    port = int(lines[idx].split("!", 1)[0].split()[1])
+    idx += 1
+    idx += 1
+    idx += 1
+    prefix_count = int(lines[idx].split()[0])
+    idx += 1 + prefix_count
+
+    if mode in {"TX", "RX", "TXRX"} and role == "SERVER":
+        ports.append(port)
+
+print(",".join(str(port) for port in ports))
+PY_IPC
+)"
+
+EXPECTED_FORTYTWO_BLOCKING_IPC_SEQUENCE="4278,4277,4378,4377,4478,4477,4279,4280,4245,4227,4234,9999,4284,4281,4282,4283,4286"
+
+[[ "$FORTYTWO_BLOCKING_IPC_SEQUENCE" == "$EXPECTED_FORTYTWO_BLOCKING_IPC_SEQUENCE" ]] || {
+  echo "[ERROR] Pinned 42 blocking IPC sequence does not match the R-024 startup contract." >&2
+  echo "[ERROR] observed=$FORTYTWO_BLOCKING_IPC_SEQUENCE" >&2
+  echo "[ERROR] expected=$EXPECTED_FORTYTWO_BLOCKING_IPC_SEQUENCE" >&2
+  exit 1
+}
+
+record fortytwo_blocking_ipc_sequence "$FORTYTWO_BLOCKING_IPC_SEQUENCE"
+record fortytwo_blocking_ipc_sequence_verified true
+
 [[ -z "$(docker ps -aq --filter "label=research.project=$PROJECT")" ]] || {
   echo "[ERROR] Existing project runtime containers found; run scripts/cleanup_nominal_runtime.sh." >&2
   exit 1
@@ -279,6 +322,22 @@ check() {
   return "$failed"
 }
 
+start_hardware_sim() {
+  local sim="$1"
+
+  if [[ "$sim" == "generic-radio-sim" ]]; then
+    start "$sim" radio-sim \
+      --network-alias generic-radio-sim \
+      --env TCP_GROUND=1 --env MULTI_GDS=0 \
+      --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
+      "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
+  else
+    start "$sim" "$sim" \
+      --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
+      "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
+  fi
+}
+
 start engine nos-engine-server \
   --interactive --tty --network-alias sc01-nos-engine-server \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
@@ -292,13 +351,39 @@ start fortytwo fortytwo \
   --mount "type=bind,source=$INOUT,target=$FORTYTWO_INOUT_CONTAINER" --workdir /work/fortytwo \
   "$IMAGE" ./42 "$FORTYTWO_INOUT_CONTAINER"
 
-# R-023: prove Fortytwo IPC readiness before launching any dependent
-# truth consumer or hardware simulator.
-wait_for_tcp_listener "$PREFIX-fortytwo" 9999 75 fortytwo_tcp_9999_listener
-wait_for_tcp_listener "$PREFIX-fortytwo" 4286 75 fortytwo_tcp_4286_listener
+# R-024: Fortytwo initializes SERVER sockets sequentially and blocks in
+# accept() on each TX/RX/TXRX entry until that entry's client connects.
+# Progress the frozen IPC chain by launching only the owner of the current
+# blocking listener. Reaching the next listener proves the prior dependency
+# (or reaction-wheel command/telemetry pair) completed.
+
+wait_for_tcp_listener "$PREFIX-fortytwo" 4278 30 fortytwo_ipc_4278_listener
+start_hardware_sim generic-reactionwheel-sim0
+wait_for_tcp_listener "$PREFIX-fortytwo" 4378 30 fortytwo_after_rw0_pair_4378_listener
+
+start_hardware_sim generic-reactionwheel-sim1
+wait_for_tcp_listener "$PREFIX-fortytwo" 4478 30 fortytwo_after_rw1_pair_4478_listener
+
+start_hardware_sim generic-reactionwheel-sim2
+wait_for_tcp_listener "$PREFIX-fortytwo" 4279 30 fortytwo_after_rw2_pair_4279_listener
+
+start_hardware_sim generic-torquer-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 4280 30 fortytwo_after_torquer_4280_listener
+
+start_hardware_sim generic-thruster-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 4245 30 fortytwo_after_thruster_4245_listener
+
+start_hardware_sim gps
+wait_for_tcp_listener "$PREFIX-fortytwo" 4227 30 fortytwo_after_gps_4227_listener
+
+start_hardware_sim generic-css-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 4234 30 fortytwo_after_css_4234_listener
+
+start_hardware_sim generic-mag-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 9999 30 fortytwo_after_mag_9999_listener
 
 start truth-sink truth-sink \
-  --env TRUTH_HOST=fortytwo --env TRUTH_PORT=9999 --env CONNECT_TIMEOUT_SECONDS=75 \
+  --env TRUTH_HOST=fortytwo --env TRUTH_PORT=9999 --env CONNECT_TIMEOUT_SECONDS=30 \
   "$IMAGE" python3 -u -c '
 import os
 import socket
@@ -336,20 +421,22 @@ while True:
         last_report = now
 '
 wait_for_log_marker "$PREFIX-truth-sink" TRUTH_SINK_CONNECTED 30 truth_sink_connection
+wait_for_tcp_listener "$PREFIX-fortytwo" 4284 30 fortytwo_after_truth_4284_listener
 
-for sim in "${HARDWARE_SIMS[@]}"; do
-  if [[ "$sim" == "generic-radio-sim" ]]; then
-    start "$sim" radio-sim \
-      --network-alias generic-radio-sim \
-      --env TCP_GROUND=1 --env MULTI_GDS=0 \
-      --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
-      "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
-  else
-    start "$sim" "$sim" \
-      --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
-      "$IMAGE" ./nos3-single-simulator -f nos3-simulator.xml "$sim"
-  fi
-done
+start_hardware_sim generic-fss-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 4281 30 fortytwo_after_fss_4281_listener
+
+start_hardware_sim generic-imu-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 4282 30 fortytwo_after_imu_4282_listener
+
+start_hardware_sim generic-star-tracker-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 4283 30 fortytwo_after_star_tracker_4283_listener
+
+start_hardware_sim generic-eps-sim
+wait_for_tcp_listener "$PREFIX-fortytwo" 4286 30 fortytwo_after_eps_4286_listener
+
+start_hardware_sim generic-radio-sim
+start_hardware_sim sample-sim
 wait_for_tcp_listener "$PREFIX-generic-radio-sim" 8010 45 radio_tcp_8010_listener
 start bridge nos-sim-bridge \
   --mount "type=bind,source=$NOS3,target=/work/nos3" --workdir /work/nos3/sims/build/bin \
