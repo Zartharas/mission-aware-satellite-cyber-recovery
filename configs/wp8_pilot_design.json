@@ -477,6 +477,53 @@
         "required_telemetry_restored_rule": "truth_0x08E9_delta_equals_1_AND_policy_visible_0x08E9_delta_equals_1",
         "no_residual_unauthorized_state_rule": "approved_state_current_AND_rejected_state_absent"
       }
+    },
+    "observability_runtime_operationalization": {
+      "decision_id": "R-022",
+      "development_seed": 9301,
+      "study_cell": "O01",
+      "factors": {
+        "event_id": "E4",
+        "mission_state_id": "M2",
+        "contact_condition_id": "C0",
+        "evidence_condition_id": "T0",
+        "requested_policy_id": "P7",
+        "expected_effective_policy_id": "P4"
+      },
+      "visibility_deadline_s": 3.0,
+      "event_success_rule": "immutable_truth_0x08E9_delta_equals_1_AND_policy_visible_0x08E9_delta_equals_0_through_deadline",
+      "policy_timing": {
+        "selection_uses_materialized_policy_visible_evidence_only": true,
+        "ground_truth_can_trigger_selection": false,
+        "ground_truth_can_trigger_enforcement": false,
+        "expected_decision_basis": "evidence_insufficient"
+      },
+      "p4_effect": {
+        "implementation": "research_owned_routine_command_gate",
+        "authorized_routine_noop_forwarded": false,
+        "native_safe_mode_claim": false,
+        "telemetry_restoration_claim": false
+      },
+      "containment_rule": "required_high_value_telemetry_policy_visible_and_confirmed_by_matched_post_enforcement_sample",
+      "persistent_event_rule": "matched_post_enforcement_truth_0x08E9_delta_equals_1_AND_policy_visible_delta_equals_0_after_same_3s_deadline",
+      "expected_valid_uncontained_metrics": {
+        "mission_objective_completion_ratio": 0.5,
+        "legitimate_command_rejection_rate": 1.0,
+        "ground_spacecraft_state_divergence_s": 0.0,
+        "evidence_completeness_ratio": 0.6666666666666666,
+        "time_to_containment_s": null,
+        "time_to_verified_recovery_s": null
+      },
+      "terminal_taxonomy": {
+        "persistent_e4_after_bounded_response": "RECOVERY_FAILED",
+        "containment_time_right_censored": true,
+        "verified_recovery_time_right_censored": true,
+        "spacecraft_failure_claim": false,
+        "native_safe_mode_failure_claim": false,
+        "mission_loss_claim": false,
+        "claim_boundary": "RECOVERY_FAILED_means_only_bounded_modeled_response_did_not_achieve_E4_observability_containment_not_spacecraft_failure_not_native_safe_mode_failure_not_mission_loss"
+      },
+      "claim_boundary": "software_only_policy_visible_telemetry_degradation_research_controlled_NOS3_not_native_spacecraft_safe_mode_no_RF_interference_no_live_spacecraft"
     }
   }
 }
