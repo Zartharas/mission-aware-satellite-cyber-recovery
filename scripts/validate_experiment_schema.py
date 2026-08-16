@@ -183,6 +183,67 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
     if float(contract["e4_policy_visibility_timeout_s"]) != 3.0:
         raise SystemExit("WP8 E4 visibility deadline changed")
 
+    criteria = {
+        "approved_version",
+        "integrity_measurement_valid",
+        "authorization_valid",
+        "measured_state_current",
+        "authorized_command_path_restored",
+        "ground_spacecraft_state_agreed",
+        "required_telemetry_restored",
+        "health_checks_passed",
+        "no_residual_unauthorized_state",
+        "recovery_manifest_complete",
+    }
+    applicability = contract["family_recovery_criteria_applicability"]
+    if set(applicability) != {"command", "recovery", "observability"}:
+        raise SystemExit("WP8 family recovery applicability is incomplete")
+    for family, rule in applicability.items():
+        applicable = set(rule["applicable"])
+        excluded = set(rule["excluded"])
+        if applicable & excluded or applicable | excluded != criteria:
+            raise SystemExit(
+                f"WP8 {family} recovery applicability does not partition criteria"
+            )
+
+    command_rule = applicability["command"]
+    if set(command_rule["applicable"]) != {
+        "authorization_valid",
+        "authorized_command_path_restored",
+        "ground_spacecraft_state_agreed",
+        "health_checks_passed",
+        "recovery_manifest_complete",
+    }:
+        raise SystemExit("WP8 command M-08 applicability changed")
+    if set(command_rule["excluded"]) != {
+        "approved_version",
+        "integrity_measurement_valid",
+        "measured_state_current",
+        "required_telemetry_restored",
+        "no_residual_unauthorized_state",
+    }:
+        raise SystemExit("WP8 command M-08 exclusions changed")
+
+    divergence = contract["command_authority_divergence_operationalization"]
+    if divergence["divergence_start"] != (
+        "first_observed_modeled_attacker_reset_counter_effect_after_t0"
+    ):
+        raise SystemExit("WP8 command M-07 divergence start changed")
+    if divergence["divergence_end"] != (
+        "two_consecutive_modeled_attacker_reset_probes_are_blocked_and_a_"
+        "matched_authorized_ground_noop_is_observed_at_cfs"
+    ):
+        raise SystemExit("WP8 command M-07 convergence rule changed")
+    if divergence["measurement_role"] != "behavioral_proxy":
+        raise SystemExit("WP8 command M-07 measurement role changed")
+    if "not_a_direct_measurement_of_an_onboard_authorization_" not in (
+        divergence["claim_boundary"]
+    ):
+        raise SystemExit("WP8 command M-07 claim boundary changed")
+
+    if contract["measurement_operationalization_decision_id"] != "R-016":
+        raise SystemExit("WP8 runtime operationalization decision is not R-016")
+
     if contract["development_preflights_are_pilot_data"] is not False:
         raise SystemExit("WP8 development preflights cannot be pilot data")
 
@@ -369,6 +430,8 @@ def main() -> int:
     print("[OK] Experiment schema factor enums align with experiment model")
     print("[OK] WP8 pilot cells match current policy semantics")
     print("[OK] R-015 runtime measurement contract is frozen")
+    print("[OK] M-07 command-authority convergence rule is frozen")
+    print("[OK] M-08 family applicability rules are frozen")
     print("[OK] WP8 runtime binding module is statically ready")
     print("[OK] WP8 pilot execution remains gated on runtime metric binding")
     print("[OK] Primary metrics derive from retained raw evidence")

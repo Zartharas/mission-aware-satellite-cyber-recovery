@@ -345,6 +345,64 @@
       "recovery",
       "observability"
     ],
-    "development_preflights_are_pilot_data": false
+    "development_preflights_are_pilot_data": false,
+    "family_recovery_criteria_applicability": {
+      "command": {
+        "applicable": [
+          "authorization_valid",
+          "authorized_command_path_restored",
+          "ground_spacecraft_state_agreed",
+          "health_checks_passed",
+          "recovery_manifest_complete"
+        ],
+        "excluded": [
+          "approved_version",
+          "integrity_measurement_valid",
+          "measured_state_current",
+          "required_telemetry_restored",
+          "no_residual_unauthorized_state"
+        ]
+      },
+      "recovery": {
+        "applicable": [
+          "approved_version",
+          "integrity_measurement_valid",
+          "authorization_valid",
+          "measured_state_current",
+          "authorized_command_path_restored",
+          "ground_spacecraft_state_agreed",
+          "required_telemetry_restored",
+          "health_checks_passed",
+          "no_residual_unauthorized_state",
+          "recovery_manifest_complete"
+        ],
+        "excluded": []
+      },
+      "observability": {
+        "applicable": [
+          "required_telemetry_restored",
+          "health_checks_passed",
+          "recovery_manifest_complete"
+        ],
+        "excluded": [
+          "approved_version",
+          "integrity_measurement_valid",
+          "authorization_valid",
+          "measured_state_current",
+          "authorized_command_path_restored",
+          "ground_spacecraft_state_agreed",
+          "no_residual_unauthorized_state"
+        ]
+      }
+    },
+    "command_authority_divergence_operationalization": {
+      "ground_authority": "modeled_attacker_is_unauthorized_and_authorized_ground_is_state_valid",
+      "spacecraft_behavior_observation": "cfs_SAMPLE_effect_markers_observed_through_the_normal_response_path",
+      "divergence_start": "first_observed_modeled_attacker_reset_counter_effect_after_t0",
+      "divergence_end": "two_consecutive_modeled_attacker_reset_probes_are_blocked_and_a_matched_authorized_ground_noop_is_observed_at_cfs",
+      "claim_boundary": "behaviorally_inferred_command_authority_divergence_only_not_a_direct_measurement_of_an_onboard_authorization_database_identity_table_or_authorization_state_variable",
+      "measurement_role": "behavioral_proxy"
+    },
+    "measurement_operationalization_decision_id": "R-016"
   }
 }

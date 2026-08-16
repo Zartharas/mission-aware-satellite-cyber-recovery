@@ -237,9 +237,22 @@ def _divergence_intervals(
 
 def _recovery_partition(
     observation: dict[str, Any],
+    *,
+    family: str,
+    contract: dict[str, Any],
 ) -> tuple[dict[str, bool | None], list[dict[str, Any]], list[str]]:
     applicable = observation["recovery_observations"]
     excluded = list(observation["recovery_checklist_excluded"])
+
+    declared = contract["family_recovery_criteria_applicability"][family]
+    if set(applicable) != set(declared["applicable"]):
+        raise ValueError(
+            "runtime recovery applicability differs from frozen family rule"
+        )
+    if set(excluded) != set(declared["excluded"]):
+        raise ValueError(
+            "runtime recovery exclusions differ from frozen family rule"
+        )
 
     if set(applicable) & set(excluded):
         raise ValueError(
@@ -314,7 +327,9 @@ def bind_runtime_observation(
     )
 
     recovery_evidence, checklist, excluded = _recovery_partition(
-        observation
+        observation,
+        family=family,
+        contract=contract,
     )
 
     objectives = _objective_instances(

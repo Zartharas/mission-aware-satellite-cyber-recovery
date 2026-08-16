@@ -39,6 +39,9 @@ TOOLCHAIN="$ROOT/configs/toolchain-lock.json"
 SCHEMA="$ROOT/configs/experiment_run.schema.json"
 
 PRE_PID=""
+EVENT_WATCH_PID=""
+EVENT_SUCCESS_NS_FILE="$OBS/event-success-monotonic-ns.txt"
+EVENT_RESET_AFTER_FILE="$OBS/event-reset-after.txt"
 RESULT="RUN_INVALID"
 PHASE="INITIALIZATION"
 
@@ -162,6 +165,11 @@ cleanup() {
   set +e
 
   docker rm -f "$GATEWAY" >/dev/null 2>&1 || true
+
+  if [[ -n "$EVENT_WATCH_PID" ]] && kill -0 "$EVENT_WATCH_PID" >/dev/null 2>&1; then
+    kill -TERM "$EVENT_WATCH_PID" >/dev/null 2>&1 || true
+    wait "$EVENT_WATCH_PID" >/dev/null 2>&1 || true
+  fi
 
   if [[ -n "$PRE_PID" ]] && kill -0 "$PRE_PID" >/dev/null 2>&1; then
     kill -TERM "$PRE_PID" >/dev/null 2>&1 || true
@@ -300,6 +308,25 @@ PHASE="EVENT_ACTIVATION"
 RESET_BEFORE_EVENT="$(count_reset_marker)"
 EVENT_ACTIVATION_NS="$(mono_ns)"
 
+(
+  for _ in $(seq 1 150); do
+    now="$(count_reset_marker)"
+    if [[ "$now" -eq $((RESET_BEFORE_EVENT + 1)) ]]; then
+      mono_ns > "$EVENT_SUCCESS_NS_FILE"
+      printf '%s\n' "$now" > "$EVENT_RESET_AFTER_FILE"
+      exit 0
+    fi
+    if [[ "$now" -gt $((RESET_BEFORE_EVENT + 1)) ]]; then
+      echo "[ERROR] event activation reset marker exceeded expected delta" >&2
+      exit 2
+    fi
+    sleep 0.1
+  done
+  echo "[ERROR] event activation reset marker not observed" >&2
+  exit 1
+) &
+EVENT_WATCH_PID=$!
+
 docker run --rm --platform linux/amd64 \
   --network "$NETWORK" \
   --env PYTHONPATH=/research \
@@ -310,11 +337,6 @@ docker run --rm --platform linux/amd64 \
     --event-json /evidence/event-instance.json \
     --command-class sample_reset_counters \
     --result-json /evidence/event-activation-send.json
-
-RESET_AFTER_EVENT="$(
-  wait_exact_delta count_reset_marker "$RESET_BEFORE_EVENT" 1 event_activation_reset
-)"
-EVENT_SUCCESS_NS="$(mono_ns)"
 
 python3 - "$EVENT_SEND_JSON" <<'PY'
 import json
@@ -330,11 +352,8 @@ assert row["packet_sha256"] == (
 print("e1_direct_reset_activation=PASS")
 PY
 
-test "$EVENT_SUCCESS_NS" -ge "$EVENT_ACTIVATION_NS"
-
 echo "event_activation_before_response=true"
-echo "event_success_observed=true"
-echo "reset_marker_delta_event=1"
+echo "policy_trigger_uses_ground_truth=false"
 
 PHASE="POLICY_SELECTION"
 
@@ -360,7 +379,7 @@ print("p1_policy_selection=PASS")
 PY
 
 POLICY_SELECTION_NS="$(mono_ns)"
-test "$POLICY_SELECTION_NS" -ge "$EVENT_SUCCESS_NS"
+test "$POLICY_SELECTION_NS" -ge "$EVENT_ACTIVATION_NS"
 
 PHASE="POLICY_ENFORCEMENT"
 
@@ -403,6 +422,30 @@ test "$POLICY_ENFORCEMENT_NS" -ge "$POLICY_SELECTION_NS"
 
 echo "policy_gateway_ready=PASS"
 echo "policy_enforcement_after_event=true"
+
+PHASE="EVENT_SUCCESS_CONFIRMATION"
+
+set +e
+wait "$EVENT_WATCH_PID"
+EVENT_WATCH_RC=$?
+set -e
+EVENT_WATCH_PID=""
+
+[[ "$EVENT_WATCH_RC" -eq 0 ]] || {
+  echo "[ERROR] immutable event-success watcher failed: rc=$EVENT_WATCH_RC" >&2
+  exit 1
+}
+
+EVENT_SUCCESS_NS="$(cat "$EVENT_SUCCESS_NS_FILE")"
+RESET_AFTER_EVENT="$(cat "$EVENT_RESET_AFTER_FILE")"
+
+test "$EVENT_SUCCESS_NS" -ge "$EVENT_ACTIVATION_NS"
+test "$RESET_AFTER_EVENT" -eq $((RESET_BEFORE_EVENT + 1))
+
+echo "immutable_ground_truth_watcher=PASS"
+echo "event_success_observed=true"
+echo "reset_marker_delta_event=1"
+echo "policy_selection_not_gated_on_event_success=true"
 
 send_gateway_command() {
   local source_id="$1" command_class="$2" result_file="$3"
@@ -498,9 +541,13 @@ assert row["action"] == "ISOLATE_MODELED_SOURCE"
 print("authorized_noop_forwarded=PASS")
 PY
 
+AUTHORITY_CONVERGENCE_NS="$(mono_ns)"
+test "$AUTHORITY_CONVERGENCE_NS" -ge "$CONTAINMENT_NS"
+
 echo "authorized_noop_marker_delta=1"
 echo "legitimate_commands_attempted=1"
 echo "legitimate_commands_rejected=0"
+echo "command_authority_convergence_observed=true"
 
 docker rm -f "$GATEWAY" >/dev/null
 
@@ -534,6 +581,7 @@ python3 - \
   "$FACTOR_JSON" "$SUMMARY_JSON" "$OBSERVATION_JSON" \
   "$RUN_START_NS" "$EVENT_ACTIVATION_NS" "$EVENT_SUCCESS_NS" \
   "$POLICY_SELECTION_NS" "$POLICY_ENFORCEMENT_NS" "$CONTAINMENT_NS" \
+  "$AUTHORITY_CONVERGENCE_NS" \
   "$RUN_END_NS" "$RUN_START_UTC" "$RUN_END_UTC" \
   "$RESET_BEFORE_EVENT" "$RESET_AFTER_EVENT" \
   "$RESET_BEFORE_CONTAINMENT" "$RESET_AFTER_CONTAINMENT" \
@@ -553,6 +601,7 @@ from pathlib import Path
     policy_selection_ns,
     policy_enforcement_ns,
     containment_ns,
+    authority_convergence_ns,
     run_end_ns,
     run_start_utc,
     run_end_utc,
@@ -578,6 +627,7 @@ numbers = {
         "policy_selection_ns": policy_selection_ns,
         "policy_enforcement_ns": policy_enforcement_ns,
         "containment_ns": containment_ns,
+        "authority_convergence_ns": authority_convergence_ns,
         "run_end_ns": run_end_ns,
     }.items()
 }
@@ -585,11 +635,16 @@ numbers = {
 assert (
     numbers["run_start_ns"]
     <= numbers["event_activation_ns"]
-    <= numbers["event_success_ns"]
     <= numbers["policy_selection_ns"]
     <= numbers["policy_enforcement_ns"]
     <= numbers["containment_ns"]
+    <= numbers["authority_convergence_ns"]
     <= numbers["run_end_ns"]
+)
+assert (
+    numbers["event_activation_ns"]
+    <= numbers["event_success_ns"]
+    <= numbers["containment_ns"]
 )
 
 counts = {
@@ -618,6 +673,7 @@ summary = {
     "repo_commit": repo_commit,
     "runner_sha256": runner_sha,
     "event_before_response_order": True,
+    "policy_trigger_uses_ground_truth": False,
     "event_reset_marker_delta": 1,
     "post_enforcement_attacker_reset_marker_delta": 0,
     "matched_attacker_reset_probe_count": 2,
@@ -649,10 +705,6 @@ recovery_applicable = {
         "available_current": True,
         "evidence_ref": f"artifacts/runtime/{factor['run_id']}/runtime-manifest.txt",
     },
-    "no_residual_unauthorized_state": {
-        "available_current": True,
-        "evidence_ref": f"{rel}/immutable-ground/command-observation-summary.json",
-    },
     "recovery_manifest_complete": {
         "available_current": True,
         "evidence_ref": f"{rel}/immutable-ground/command-observation-summary.json",
@@ -664,6 +716,7 @@ excluded = [
     "integrity_measurement_valid",
     "measured_state_current",
     "required_telemetry_restored",
+    "no_residual_unauthorized_state",
 ]
 
 observation = {
@@ -704,7 +757,7 @@ observation = {
             {
                 "state_key": "command_authority",
                 "start_ns": numbers["event_success_ns"],
-                "end_ns": numbers["containment_ns"],
+                "end_ns": numbers["authority_convergence_ns"],
             }
         ],
         "recovery_observations": recovery_applicable,
@@ -802,7 +855,12 @@ assert provenance["pilot_data"] is False
 assert summary["development_preflight"] is True
 assert summary["pilot_data"] is False
 assert summary["event_before_response_order"] is True
+assert summary["policy_trigger_uses_ground_truth"] is False
 assert summary["matched_attacker_reset_probe_count"] == 2
+assert (
+    summary["clock_ns"]["authority_convergence_ns"]
+    >= summary["clock_ns"]["containment_ns"]
+)
 
 print("schema_valid_command_bound_run_record=PASS")
 print("event_before_response_runtime_order=PASS")
@@ -810,6 +868,9 @@ print("unauthorized_effect_observed=true")
 print("containment_observed=true")
 print("mission_objective_completion_ratio=0.5")
 print("legitimate_command_rejection_rate=0.0")
+print("evidence_completeness_ratio=1.0")
+print("policy_trigger_uses_ground_truth=false")
+print("command_authority_convergence_observed=true")
 print("development_preflight=true")
 print("pilot_data=false")
 PY

@@ -133,11 +133,10 @@ def base_observation(
             },
         }
         applicable = {
+            "authorization_valid": True,
             "authorized_command_path_restored": True,
             "ground_spacecraft_state_agreed": True,
-            "required_telemetry_restored": True,
             "health_checks_passed": True,
-            "no_residual_unauthorized_state": True,
             "recovery_manifest_complete": True,
         }
     elif family == "recovery":
@@ -336,6 +335,33 @@ class WP8RuntimeBindingTests(unittest.TestCase):
         )
         self.assertIsNone(record["timing"]["containment_s"])
         self.assertEqual(list(VALIDATOR.iter_errors(record)), [])
+
+    def test_runtime_applicability_must_match_frozen_family_rule(self) -> None:
+        observation = base_observation(
+            family="command",
+            containment=True,
+            recovery=False,
+        )
+        observation["recovery_observations"][
+            "required_telemetry_restored"
+        ] = {
+            "available_current": True,
+            "evidence_ref": "unit:unexpected-telemetry-applicability",
+        }
+        observation["recovery_checklist_excluded"].remove(
+            "required_telemetry_restored"
+        )
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "frozen family rule",
+        ):
+            bind_runtime_observation(
+                contract=PILOT["runtime_measurement_contract"],
+                factor_context=factor_context(family="command"),
+                environment=environment(),
+                observation=observation,
+            )
 
     def test_missing_frozen_objective_result_is_rejected(self) -> None:
         observation = base_observation(
