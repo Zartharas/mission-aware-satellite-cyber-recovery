@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "CONTRACT_AND_INSTRUMENTATION_READINESS",
+  "status": "RUNTIME_BINDING_COMPLETE_PILOT_RUNNER_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -225,16 +225,13 @@
     "pilot_execution_authorized": false,
     "authorization_condition": "The NOS3 pilot runner must bind observed runtime evidence to the validated raw-metric schema and emit a schema-valid scored run record without manual reconstruction or expected-value substitution.",
     "known_pre_pilot_implementation_work": [
-      "command_runtime_binding_development_preflight",
-      "recovery_runtime_binding_development_preflight",
-      "observability_runtime_binding_development_preflight",
-      "runtime_binding_evidence_review_and_gate"
+      "stage_1_pilot_runner_implementation_and_gate_validation"
     ],
     "component_status": {
       "raw_metric_schema": true,
       "deterministic_primary_metric_scorer": true,
       "run_record_emitter": true,
-      "nos3_runtime_binding": false,
+      "nos3_runtime_binding": true,
       "invalid_run_nonfabrication_contract": true,
       "applicable_recovery_evidence_contract": true,
       "objective_schedule_predicate_contract": true,

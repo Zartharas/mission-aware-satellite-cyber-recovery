@@ -60,6 +60,14 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
     if pilot["model_version"] != model["model_version"]:
         raise SystemExit("WP8 pilot model_version does not match model")
 
+    gate = pilot["instrumentation_gate"]
+    if pilot["status"] != "RUNTIME_BINDING_COMPLETE_PILOT_RUNNER_PENDING":
+        raise SystemExit("WP8 runtime-binding completion status is not closed")
+    if gate["known_pre_pilot_implementation_work"] != [
+        "stage_1_pilot_runner_implementation_and_gate_validation"
+    ]:
+        raise SystemExit("WP8 remaining pre-pilot work is not the Stage-1 runner gate")
+
     cells = pilot["cells"]
     ids = [cell["cell_id"] for cell in cells]
     if len(ids) != len(set(ids)):
@@ -252,13 +260,13 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit("WP8 runtime binding module is not ready")
     if status["runtime_binding_static_validation"] is not True:
         raise SystemExit("WP8 runtime binding static validation is not ready")
-    if status["nos3_runtime_binding"] is not False:
+    if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
-            "NOS3 runtime binding cannot pass before development preflights"
+            "NOS3 runtime binding must be closed after accepted development preflights"
         )
     if pilot["instrumentation_gate"]["pilot_execution_authorized"] is not False:
         raise SystemExit(
-            "Pilot execution cannot be authorized before runtime preflights"
+            "Pilot execution must remain blocked pending Stage-1 runner gate validation"
         )
 
 
@@ -433,7 +441,7 @@ def main() -> int:
     print("[OK] M-07 command-authority convergence rule is frozen")
     print("[OK] M-08 family applicability rules are frozen")
     print("[OK] WP8 runtime binding module is statically ready")
-    print("[OK] WP8 pilot execution remains gated on runtime metric binding")
+    print("[OK] WP8 NOS3 runtime binding is closed; pilot execution remains gated")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
