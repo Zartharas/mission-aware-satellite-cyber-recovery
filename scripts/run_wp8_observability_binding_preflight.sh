@@ -91,6 +91,36 @@ count_noop_marker() {
     grep -Fc 'SAMPLE: NOOP command received' || true
 }
 
+count_tolab_enable_markers() {
+  docker logs "$CFS" 2>&1 |
+    grep -Fc 'TO telemetry output enabled for IP ' || true
+}
+
+last_tolab_destination() {
+  docker logs "$CFS" 2>&1 |
+    grep -F 'TO telemetry output enabled for IP ' |
+    tail -1 |
+    sed -E 's/.*TO telemetry output enabled for IP ([^[:space:]]+).*/\1/'
+}
+
+assert_e4_destination_stable() {
+  local observed_count observed_destination
+
+  observed_count="$(count_tolab_enable_markers)"
+  observed_destination="$(last_tolab_destination)"
+
+  if [[ "$observed_count" -ne "$E4_TOLAB_ENABLE_COUNT" ]] ||
+     [[ "$observed_destination" != "e4-proxy" ]]
+  then
+    echo "[ERROR] TO_LAB destination changed during E4 measurement." >&2
+    echo "[ERROR] expected_enable_count=$E4_TOLAB_ENABLE_COUNT observed_enable_count=$observed_count" >&2
+    echo "[ERROR] expected_destination=e4-proxy observed_destination=$observed_destination" >&2
+    docker logs "$CFS" 2>&1 |
+      grep -F 'TO telemetry output enabled for IP ' >&2 || true
+    return 1
+  fi
+}
+
 wait_until_ns() {
   local deadline_ns="$1"
   while true; do
@@ -404,6 +434,37 @@ done
 echo "nominal_ci_lab_udp_5012=PASS"
 echo "nominal_isolation=PASS"
 
+PHASE="NOMINAL_TOLAB_DESTINATION_SETTLE"
+
+NOMINAL_TOLAB_READY=0
+for _ in $(seq 1 60); do
+  kill -0 "$PRE_PID" >/dev/null 2>&1 || break
+  if docker logs "$CFS" 2>&1 |
+    grep -Fq 'TO telemetry output enabled for IP active-gs'
+  then
+    NOMINAL_TOLAB_READY=1
+    break
+  fi
+  sleep 0.2
+done
+
+[[ "$NOMINAL_TOLAB_READY" -eq 1 ]] || {
+  echo "[ERROR] nominal TO_LAB destination initialization was not observed" >&2
+  exit 1
+}
+
+NOMINAL_TOLAB_ENABLE_COUNT="$(count_tolab_enable_markers)"
+NOMINAL_TOLAB_LAST_DESTINATION="$(last_tolab_destination)"
+
+[[ "$NOMINAL_TOLAB_LAST_DESTINATION" == "active-gs" ]] || {
+  echo "[ERROR] nominal TO_LAB destination did not settle on active-gs" >&2
+  exit 1
+}
+
+echo "nominal_tolab_destination_settle=PASS"
+echo "nominal_tolab_destination=active-gs"
+echo "nominal_tolab_enable_count=$NOMINAL_TOLAB_ENABLE_COUNT"
+
 PHASE="E4_MEASUREMENT_PLANE"
 
 docker run -d --platform linux/amd64 \
@@ -470,6 +531,19 @@ done
 
 [[ "$ENABLE_READY" -eq 1 ]]
 
+E4_TOLAB_ENABLE_COUNT="$(count_tolab_enable_markers)"
+E4_TOLAB_LAST_DESTINATION="$(last_tolab_destination)"
+
+test "$E4_TOLAB_ENABLE_COUNT" -eq $((NOMINAL_TOLAB_ENABLE_COUNT + 1))
+test "$E4_TOLAB_LAST_DESTINATION" = "e4-proxy"
+
+echo "e4_tolab_destination_ownership=PASS"
+echo "e4_tolab_destination=e4-proxy"
+echo "e4_tolab_enable_count=$E4_TOLAB_ENABLE_COUNT"
+
+PHASE="E4_DESTINATION_STABILITY"
+assert_e4_destination_stable
+
 TRUTH_BEFORE="$(count_mid "$TRUTH_JSONL" 0x08E9)"
 POLICY_BEFORE="$(count_mid "$POLICY_VISIBLE_JSONL" 0x08E9)"
 test "$TRUTH_BEFORE" -eq 0
@@ -481,6 +555,9 @@ echo "visibility_deadline_s=3.0"
 
 RUN_START_NS="$(mono_ns)"
 RUN_START_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+PHASE="E4_DESTINATION_STABILITY"
+assert_e4_destination_stable
 
 PHASE="EVENT_ACTIVATION"
 
@@ -577,6 +654,10 @@ echo "p4_telemetry_restoration_claim=false"
 PHASE="EVENT_SUCCESS_OBSERVATION"
 
 wait_until_ns "$EVENT_DEADLINE_NS"
+
+PHASE="E4_DESTINATION_STABILITY"
+assert_e4_destination_stable
+PHASE="EVENT_SUCCESS_OBSERVATION"
 
 TRUTH_EVENT_AFTER="$(count_mid "$TRUTH_JSONL" 0x08E9)"
 POLICY_EVENT_AFTER="$(count_mid "$POLICY_VISIBLE_JSONL" 0x08E9)"
@@ -750,6 +831,9 @@ echo "legitimate_commands_rejected=1"
 echo "legitimate_command_rejection_rate_expected=1.0"
 echo "p4_command_availability_cost_observed=true"
 
+PHASE="E4_DESTINATION_STABILITY"
+assert_e4_destination_stable
+
 PHASE="POST_ENFORCEMENT_EFFECT_PROBE"
 
 POST_TRUTH_BEFORE="$(count_mid "$TRUTH_JSONL" 0x08E9)"
@@ -760,6 +844,10 @@ POST_PROBE_DEADLINE_NS=$((POST_PROBE_ACTIVATION_NS + VISIBILITY_DEADLINE_NS))
 run_e4_adapter "$(basename "$POST_SEND_JSON")" send-data-types
 
 wait_until_ns "$POST_PROBE_DEADLINE_NS"
+
+PHASE="E4_DESTINATION_STABILITY"
+assert_e4_destination_stable
+PHASE="POST_ENFORCEMENT_EFFECT_PROBE"
 
 POST_TRUTH_AFTER="$(count_mid "$TRUTH_JSONL" 0x08E9)"
 POST_POLICY_AFTER="$(count_mid "$POLICY_VISIBLE_JSONL" 0x08E9)"
