@@ -8,6 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNNER = (
     ROOT / "scripts" / "run_wp8_observability_binding_preflight.sh"
 ).read_text(encoding="utf-8")
+EVIDENCE_MODULE = (
+    ROOT / "src" / "mission_recovery" / "wp8_observability_evidence.py"
+).read_text(encoding="utf-8")
 PILOT = json.loads(
     (ROOT / "configs" / "wp8_pilot_design.json").read_text(
         encoding="utf-8"
@@ -22,8 +25,12 @@ class WP8ObservabilityPreflightContractTests(unittest.TestCase):
         self.assertIn('"event_id": "E4"', RUNNER)
         self.assertIn('"mission_state_id": "M2"', RUNNER)
         self.assertIn('"policy_id": "P7"', RUNNER)
-        self.assertIn('"development_preflight": True', RUNNER)
-        self.assertIn('"pilot_data": False', RUNNER)
+        self.assertIn('"development_preflight": True', EVIDENCE_MODULE)
+        self.assertIn('"pilot_data": False', EVIDENCE_MODULE)
+        self.assertIn(
+            "wp8_observability_evidence materialize",
+            RUNNER,
+        )
 
     def test_event_policy_order_is_nonoracle(self) -> None:
         t0 = RUNNER.index('EVENT_ACTIVATION_NS="$(mono_ns)"')
@@ -99,10 +106,14 @@ class WP8ObservabilityPreflightContractTests(unittest.TestCase):
             terminal["spacecraft_failure_claim"]
         )
 
-        self.assertIn('"containment_ns": None', RUNNER)
-        self.assertIn('"trusted_recovery_ns": None', RUNNER)
-        self.assertIn('"recovery_failed": True', RUNNER)
-        self.assertIn('"contained": False', RUNNER)
+        self.assertIn('"containment_ns": None', EVIDENCE_MODULE)
+        self.assertIn('"trusted_recovery_ns": None', EVIDENCE_MODULE)
+        self.assertIn('"recovery_failed": True', EVIDENCE_MODULE)
+        self.assertIn('"contained": False', EVIDENCE_MODULE)
+        self.assertIn(
+            "wp8_observability_evidence validate",
+            RUNNER,
+        )
 
     def test_observability_metric_semantics_are_frozen(self) -> None:
         operational = PILOT["runtime_measurement_contract"][

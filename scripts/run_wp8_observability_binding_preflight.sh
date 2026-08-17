@@ -997,112 +997,26 @@ PY
 
 MANIFEST_READY_NS="$(mono_ns)"
 
-python3 - \
-  "$ROOT" "$MANIFEST_JSON" \
-  "$EVENT_JSON" "$POLICY_JSON" "$EVENT_SUCCESS_JSON" "$POST_EFFECT_JSON" \
-  "$P4_PROBE_JSON" "$P4_GATEWAY_TRUTH" "$P4_GATEWAY_DECISIONS" \
-  "$TRUTH_JSONL" "$POLICY_VISIBLE_JSONL" "$HEALTH_JSON" \
-  "$EVENT_ACTIVATION_NS" "$POLICY_SELECTION_NS" "$POLICY_ENFORCEMENT_NS" \
-  "$EVENT_SUCCESS_NS" "$POST_EFFECT_NS" "$HEALTH_NS" "$MANIFEST_READY_NS" <<'PY'
-import hashlib
-import json
-import sys
-from pathlib import Path
-
-root = Path(sys.argv[1])
-manifest_path = Path(sys.argv[2])
-evidence_paths = [Path(v) for v in sys.argv[3:12]]
-(
-    event_activation_ns,
-    policy_selection_ns,
-    policy_enforcement_ns,
-    event_success_ns,
-    post_effect_ns,
-    health_ns,
-    manifest_ready_ns,
-) = map(int, sys.argv[12:])
-
-assert (
-    event_activation_ns
-    <= policy_selection_ns
-    <= policy_enforcement_ns
-    <= event_success_ns
-    <= post_effect_ns
-    <= health_ns
-    <= manifest_ready_ns
-)
-
-source_evidence = {}
-for path in evidence_paths:
-    data = path.read_bytes()
-    try:
-        ref = str(path.relative_to(root))
-    except ValueError:
-        ref = str(path)
-    source_evidence[ref] = hashlib.sha256(data).hexdigest()
-
-health = json.loads(
-    evidence_paths[-1].read_text(encoding="utf-8")
-)
-post_effect = json.loads(
-    evidence_paths[3].read_text(encoding="utf-8")
-)
-
-criteria = {
-    "required_telemetry_restored": (
-        post_effect["required_telemetry_restored"] is True
-    ),
-    "health_checks_passed": (
-        health["health_checks_passed"] is True
-        and health["immutable_truth_available"] is True
-        and health["policy_visible_plane_available"] is True
-        and health["p4_command_gate_running"] is True
-    ),
-    "recovery_manifest_complete": True,
-}
-
-payload = {
-    "schema": 1,
-    "classification": "WP8_OBSERVABILITY_EVIDENCE_MANIFEST_READY",
-    "decision_id": "R-022",
-    "study_event_id": "E4",
-    "requested_policy_id": "P7",
-    "effective_policy_id": "P4",
-    "development_preflight": True,
-    "pilot_data": False,
-    "visibility_deadline_s": 3.0,
-    "trusted_recovery_criteria": criteria,
-    "source_evidence_sha256": source_evidence,
-    "evidence_complete": True,
-    "containment_observed": False,
-    "trusted_recovery_observed": False,
-    "terminal_state_candidate": "RECOVERY_FAILED",
-    "terminal_claim_boundary": (
-        "bounded_modeled_response_failed_to_achieve_E4_observability_"
-        "containment_only_not_spacecraft_failure_not_native_safe_mode_"
-        "failure_not_mission_loss"
-    ),
-    "scientific_claim_boundary": (
-        "software_only_policy_visible_telemetry_degradation_in_"
-        "research_controlled_NOS3_no_RF_interference_no_live_spacecraft"
-    ),
-}
-
-assert criteria["required_telemetry_restored"] is False
-assert criteria["health_checks_passed"] is True
-assert criteria["recovery_manifest_complete"] is True
-
-manifest_path.write_text(
-    json.dumps(payload, sort_keys=True, indent=2) + "\n",
-    encoding="utf-8",
-)
-
-print("observability_evidence_manifest=PASS")
-print("observability_m08_available_current=2")
-print("observability_m08_applicable=3")
-print("observability_expected_m08=0.6666666666666666")
-PY
-
+PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_observability_evidence manifest \
+  --root "$ROOT" \
+  --output "$MANIFEST_JSON" \
+  --event-json "$EVENT_JSON" \
+  --policy-json "$POLICY_JSON" \
+  --event-success-json "$EVENT_SUCCESS_JSON" \
+  --post-effect-json "$POST_EFFECT_JSON" \
+  --p4-probe-json "$P4_PROBE_JSON" \
+  --p4-gateway-truth "$P4_GATEWAY_TRUTH" \
+  --p4-gateway-decisions "$P4_GATEWAY_DECISIONS" \
+  --truth-jsonl "$TRUTH_JSONL" \
+  --policy-visible-jsonl "$POLICY_VISIBLE_JSONL" \
+  --health-json "$HEALTH_JSON" \
+  --event-activation-ns "$EVENT_ACTIVATION_NS" \
+  --policy-selection-ns "$POLICY_SELECTION_NS" \
+  --policy-enforcement-ns "$POLICY_ENFORCEMENT_NS" \
+  --event-success-ns "$EVENT_SUCCESS_NS" \
+  --post-effect-ns "$POST_EFFECT_NS" \
+  --health-ns "$HEALTH_NS" \
+  --manifest-ready-ns "$MANIFEST_READY_NS"
 RUN_END_NS="$(mono_ns)"
 RUN_END_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
@@ -1136,198 +1050,21 @@ PHASE="OBSERVATION_BINDING"
 
 REL="results/wp8/runtime-binding/observability/$RUN_ID"
 
-python3 - \
-  "$FACTOR_JSON" "$SUMMARY_JSON" "$OBSERVATION_JSON" \
-  "$RUN_START_NS" "$EVENT_ACTIVATION_NS" "$EVENT_SUCCESS_NS" \
-  "$POLICY_SELECTION_NS" "$POLICY_ENFORCEMENT_NS" \
-  "$RUN_END_NS" "$RUN_START_UTC" "$RUN_END_UTC" \
-  "$REPO_COMMIT" "$RUNNER_SHA" "$REL" <<'PY'
-import json
-import sys
-from pathlib import Path
-
-(
-    factor_path,
-    summary_path,
-    observation_path,
-    run_start_ns,
-    event_activation_ns,
-    event_success_ns,
-    policy_selection_ns,
-    policy_enforcement_ns,
-    run_end_ns,
-    run_start_utc,
-    run_end_utc,
-    repo_commit,
-    runner_sha,
-    rel,
-) = sys.argv[1:]
-
-factor = json.loads(Path(factor_path).read_text(encoding="utf-8"))
-
-clock = {
-    "run_start_ns": int(run_start_ns),
-    "event_activation_ns": int(event_activation_ns),
-    "event_success_ns": int(event_success_ns),
-    "policy_selection_ns": int(policy_selection_ns),
-    "policy_enforcement_ns": int(policy_enforcement_ns),
-    "containment_ns": None,
-    "trusted_recovery_ns": None,
-    "run_end_ns": int(run_end_ns),
-}
-
-assert (
-    clock["run_start_ns"]
-    <= clock["event_activation_ns"]
-    <= clock["policy_selection_ns"]
-    <= clock["policy_enforcement_ns"]
-    <= clock["event_success_ns"]
-    <= clock["run_end_ns"]
-)
-
-summary = {
-    "schema": 1,
-    "classification": "WP8_OBSERVABILITY_RUNTIME_BINDING_DEVELOPMENT_PASS",
-    "development_preflight": True,
-    "pilot_data": False,
-    "seed": factor["seed"],
-    "repo_commit": repo_commit,
-    "runner_sha256": runner_sha,
-    "study_cell": "O01",
-    "study_event_id": "E4",
-    "requested_policy_id": "P7",
-    "effective_policy_id": "P4",
-    "policy_trigger_uses_ground_truth": False,
-    "event_before_response_order": True,
-    "event_success_after_frozen_visibility_deadline": True,
-    "p4_native_safe_mode_claim": False,
-    "p4_telemetry_restoration_claim": False,
-    "containment_observed": False,
-    "trusted_recovery_observed": False,
-    "containment_right_censored": True,
-    "trusted_recovery_right_censored": True,
-    "terminal_taxonomy_decision_id": "R-022",
-    "terminal_state": "RECOVERY_FAILED",
-    "terminal_state_spacecraft_failure_claim": False,
-    "legitimate_command_rejection_observed": True,
-    "clock_ns": clock,
-}
-
-Path(summary_path).write_text(
-    json.dumps(summary, sort_keys=True, indent=2) + "\n",
-    encoding="utf-8",
-)
-
-observation = {
-    "factor_context": factor,
-    "runtime_observation": {
-        "family": "observability",
-        "clock": {
-            "run_start_utc": run_start_utc,
-            "run_end_utc": run_end_utc,
-            "run_start_ns": clock["run_start_ns"],
-            "event_activation_ns": clock["event_activation_ns"],
-            "containment_ns": None,
-            "trusted_recovery_ns": None,
-            "run_end_ns": clock["run_end_ns"],
-        },
-        "event_success": {
-            "predicate": True,
-            "observed_ns": clock["event_success_ns"],
-            "evidence_ref": f"{rel}/immutable-ground/event-success.json",
-        },
-        "objective_results": {
-            "MO-3": {
-                "completed": False,
-                "evidence_ref": f"{rel}/immutable-ground/post-enforcement-effect.json",
-            },
-            "MO-5": {
-                "completed": True,
-                "evidence_ref": f"{rel}/immutable-ground/observability-evidence-manifest.json",
-            },
-        },
-        "invariant_violation_intervals": [],
-        "legitimate_commands": {
-            "attempted": 1,
-            "rejected": 1,
-            "evidence_ref": f"{rel}/runtime-observation/p4-command-gateway-decisions.jsonl",
-        },
-        "ground_spacecraft_divergence_intervals": [],
-        "recovery_observations": {
-            "required_telemetry_restored": {
-                "available_current": False,
-                "evidence_ref": f"{rel}/immutable-ground/post-enforcement-effect.json",
-            },
-            "health_checks_passed": {
-                "available_current": True,
-                "evidence_ref": f"{rel}/immutable-ground/observability-health.json",
-            },
-            "recovery_manifest_complete": {
-                "available_current": True,
-                "evidence_ref": f"{rel}/immutable-ground/observability-evidence-manifest.json",
-            },
-        },
-        "recovery_checklist_excluded": [
-            "approved_version",
-            "integrity_measurement_valid",
-            "authorization_valid",
-            "measured_state_current",
-            "authorized_command_path_restored",
-            "ground_spacecraft_state_agreed",
-            "no_residual_unauthorized_state",
-        ],
-        "terminal_state_predicates": {
-            "run_invalid": False,
-            "mission_loss": False,
-            "trusted_recovery_confirmed": False,
-            "operational_restored": False,
-            "recovery_failed": True,
-            "contained": False,
-        },
-        "containment_evidence_ref": (
-            f"{rel}/immutable-ground/post-enforcement-effect.json"
-        ),
-        "trusted_recovery_evidence_ref": (
-            f"{rel}/immutable-ground/observability-evidence-manifest.json"
-        ),
-        "terminal_state_evidence_refs": [
-            f"{rel}/immutable-ground/event-success.json",
-            f"{rel}/immutable-ground/post-enforcement-effect.json",
-            f"{rel}/immutable-ground/observability-health.json",
-            f"{rel}/immutable-ground/observability-evidence-manifest.json",
-        ],
-        "source_observation_refs": [
-            f"{rel}/immutable-ground/event-instance.json",
-            f"{rel}/immutable-ground/policy-decision.json",
-            f"{rel}/immutable-ground/event-success.json",
-            f"{rel}/immutable-ground/post-enforcement-effect.json",
-            f"{rel}/immutable-ground/p4-authorized-command-probe.json",
-            f"{rel}/immutable-ground/p4-command-gateway-truth.jsonl",
-            f"{rel}/runtime-observation/p4-command-gateway-decisions.jsonl",
-            f"{rel}/immutable-ground/telemetry-truth.jsonl",
-            f"{rel}/runtime-observation/policy-visible.jsonl",
-            f"{rel}/immutable-ground/observability-health.json",
-            f"{rel}/immutable-ground/observability-evidence-manifest.json",
-            f"artifacts/runtime/{factor['run_id']}/runtime-manifest.txt",
-        ],
-        "development_preflight": True,
-    },
-    "notes": (
-        "WP8 observability-family runtime-binding development preflight. "
-        "RECOVERY_FAILED is used only as the frozen terminal-taxonomy label "
-        "for a bounded modeled response that did not achieve E4 containment; "
-        "it is not a spacecraft failure, native safe-mode failure, or mission-loss claim."
-    ),
-}
-
-Path(observation_path).write_text(
-    json.dumps(observation, sort_keys=True, indent=2) + "\n",
-    encoding="utf-8",
-)
-
-print("observability_runtime_observation_materialized=PASS")
-PY
-
+PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_observability_evidence materialize \
+  --factor-json "$FACTOR_JSON" \
+  --summary-json "$SUMMARY_JSON" \
+  --observation-json "$OBSERVATION_JSON" \
+  --run-start-ns "$RUN_START_NS" \
+  --event-activation-ns "$EVENT_ACTIVATION_NS" \
+  --event-success-ns "$EVENT_SUCCESS_NS" \
+  --policy-selection-ns "$POLICY_SELECTION_NS" \
+  --policy-enforcement-ns "$POLICY_ENFORCEMENT_NS" \
+  --run-end-ns "$RUN_END_NS" \
+  --run-start-utc "$RUN_START_UTC" \
+  --run-end-utc "$RUN_END_UTC" \
+  --repo-commit "$REPO_COMMIT" \
+  --runner-sha "$RUNNER_SHA" \
+  --rel "$REL"
 PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_runtime_binding \
   --observation-json "$OBSERVATION_JSON" \
   --pilot-config "$PILOT_CONFIG" \
@@ -1339,109 +1076,11 @@ PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_runtime_binding \
 
 PHASE="BOUND_RECORD_VALIDATION"
 
-python3 - \
-  "$SCHEMA" "$RUN_RECORD" "$PROVENANCE" "$SUMMARY_JSON" "$MANIFEST_JSON" <<'PY'
-import json
-import sys
-from pathlib import Path
-
-from jsonschema import Draft202012Validator, FormatChecker
-
-schema = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-record = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
-provenance = json.loads(Path(sys.argv[3]).read_text(encoding="utf-8"))
-summary = json.loads(Path(sys.argv[4]).read_text(encoding="utf-8"))
-manifest = json.loads(Path(sys.argv[5]).read_text(encoding="utf-8"))
-
-errors = list(
-    Draft202012Validator(
-        schema,
-        format_checker=FormatChecker(),
-    ).iter_errors(record)
-)
-assert not errors, [error.message for error in errors]
-
-assert record["seed"] == 9301
-assert record["event_id"] == "E4"
-assert record["mission_state_id"] == "M2"
-assert record["policy_id"] == "P7"
-assert record["contact_condition_id"] == "C0"
-assert record["evidence_condition_id"] == "T0"
-
-assert record["terminal_state"] == "RECOVERY_FAILED"
-
-outcomes = record["outcomes"]
-timing = record["timing"]
-
-assert outcomes["unauthorized_effect_completed"] is True
-assert outcomes["mission_objective_completion_ratio"] == 0.5
-assert outcomes["safety_invariant_violations"] == []
-assert outcomes["legitimate_command_rejection_rate"] == 1.0
-assert outcomes["ground_spacecraft_state_divergence_s"] == 0.0
-assert outcomes["evidence_completeness_ratio"] == (2 / 3)
-
-assert timing["containment_s"] is None
-assert timing["verified_recovery_s"] is None
-
-assert record["recovery_evidence"]["required_telemetry_restored"] is False
-assert record["recovery_evidence"]["health_checks_passed"] is True
-assert record["recovery_evidence"]["recovery_manifest_complete"] is True
-
-for criterion in (
-    "approved_version",
-    "integrity_measurement_valid",
-    "authorization_valid",
-    "measured_state_current",
-    "authorized_command_path_restored",
-    "ground_spacecraft_state_agreed",
-    "no_residual_unauthorized_state",
-):
-    assert record["recovery_evidence"][criterion] is None
-
-assert provenance["development_preflight"] is True
-assert provenance["pilot_data"] is False
-
-assert summary["policy_trigger_uses_ground_truth"] is False
-assert summary["effective_policy_id"] == "P4"
-assert summary["p4_native_safe_mode_claim"] is False
-assert summary["p4_telemetry_restoration_claim"] is False
-assert summary["containment_observed"] is False
-assert summary["trusted_recovery_observed"] is False
-assert summary["containment_right_censored"] is True
-assert summary["trusted_recovery_right_censored"] is True
-assert summary["terminal_taxonomy_decision_id"] == "R-022"
-assert summary["terminal_state_spacecraft_failure_claim"] is False
-
-assert manifest["decision_id"] == "R-022"
-assert manifest["terminal_state_candidate"] == "RECOVERY_FAILED"
-assert manifest["containment_observed"] is False
-assert manifest["trusted_recovery_observed"] is False
-assert manifest["trusted_recovery_criteria"] == {
-    "required_telemetry_restored": False,
-    "health_checks_passed": True,
-    "recovery_manifest_complete": True,
-}
-
-print("schema_valid_observability_bound_run_record=PASS")
-print("event_before_response_runtime_order=PASS")
-print("unauthorized_effect_observed=true")
-print("mission_objective_completion_ratio=0.5")
-print("safety_invariant_violation_count=0")
-print("legitimate_command_rejection_rate=1.0")
-print("ground_spacecraft_state_divergence_s=0.0")
-print("evidence_completeness_ratio=0.6666666666666666")
-print("time_to_containment_s=None")
-print("time_to_verified_recovery_s=None")
-print("effective_policy=P4")
-print("policy_trigger_uses_ground_truth=false")
-print("containment_observed=false")
-print("containment_right_censored=true")
-print("trusted_recovery_right_censored=true")
-print("terminal_state=RECOVERY_FAILED")
-print("terminal_state_spacecraft_failure_claim=false")
-print("development_preflight=true")
-print("pilot_data=false")
-PY
-
+PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_observability_evidence validate \
+  --schema "$SCHEMA" \
+  --run-record "$RUN_RECORD" \
+  --provenance "$PROVENANCE" \
+  --summary "$SUMMARY_JSON" \
+  --manifest "$MANIFEST_JSON"
 RESULT="PASS"
 PHASE="COMPLETE"
