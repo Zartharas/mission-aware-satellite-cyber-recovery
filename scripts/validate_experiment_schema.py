@@ -27,6 +27,11 @@ from src.mission_recovery.wp8_command_effect_contract import (
 from src.mission_recovery.wp8_command_observation_contract import (
     build_command_observation_matrix,
 )
+from src.mission_recovery.wp8_command_runtime_executor import (
+    STATIC_DEVELOPMENT_SEED,
+    build_static_development_matrix,
+    reserved_pilot_seeds,
+)
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -69,12 +74,11 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_COMMAND_OBSERVATION_TEMPORAL_ORDER_CORRECTED_"
-        "RUNTIME_EXECUTOR_PENDING"
+        "STAGE1_COMMAND_RUNTIME_EXECUTOR_STATIC_VALIDATED_"
+        "DEVELOPMENT_RUNTIME_PENDING"
     ):
         raise SystemExit(
-            "WP8 Stage-1 command observation temporal-order correction "
-            "is not closed"
+            "WP8 Stage-1 command runtime executor static gate is not closed"
         )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
@@ -101,6 +105,9 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
                 "scripts/run_wp8_command_binding_preflight.sh"
             ),
             "pilot_executor_ready": False,
+            "development_executor": (
+                "scripts/run_wp8_command_stage1_development.sh"
+            ),
         },
         "E3": {
             "runtime_family": "recovery",
@@ -191,6 +198,43 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
     ):
         raise SystemExit(
             "WP8 Stage-1 command observation contract crossed an offline boundary"
+        )
+
+    executor_matrix = build_static_development_matrix(
+        pilot,
+        development_seed=STATIC_DEVELOPMENT_SEED,
+    )
+    expected_executor = {
+        "C01": ("P0", "OBSERVE_ONLY"),
+        "C02": ("P1", "ISOLATE_MODELED_SOURCE"),
+        "C03": ("P1", "ISOLATE_MODELED_SOURCE"),
+        "C04": ("P1", "ISOLATE_MODELED_SOURCE"),
+        "C05": ("P2", "RESTRICT_HIGH_RISK_COMMANDS"),
+        "C06": ("P4", "ENTER_SAFE_MODE"),
+        "C07": ("P2", "RESTRICT_HIGH_RISK_COMMANDS"),
+    }
+    actual_executor = {
+        row["cell_id"]: (
+            row["actual_effective_policy_id"],
+            row["selected_action"],
+        )
+        for row in executor_matrix["rows"]
+    }
+    if actual_executor != expected_executor:
+        raise SystemExit(
+            "WP8 command development executor policy matrix changed"
+        )
+    if reserved_pilot_seeds(pilot) != {101, 202, 303, 404, 505}:
+        raise SystemExit("WP8 reserved pilot seed set changed")
+    if STATIC_DEVELOPMENT_SEED in reserved_pilot_seeds(pilot):
+        raise SystemExit("WP8 R-032 static development seed collides with pilot")
+    if (
+        executor_matrix["runtime_execution_performed"] is not False
+        or executor_matrix["pilot_seed_consumed"] is not False
+        or executor_matrix["pilot_data_generated"] is not False
+    ):
+        raise SystemExit(
+            "WP8 command executor static validation crossed runtime boundary"
         )
 
     cells = pilot["cells"]
@@ -409,8 +453,19 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         "observation_independently;both_precede_post_enforcement_probe"
     ):
         raise SystemExit("WP8 command temporal partial-order rule changed")
+    if status["stage_1_command_runtime_executor_static"] is not True:
+        raise SystemExit(
+            "WP8 Stage-1 command runtime executor is not statically validated"
+        )
+    if (
+        status["stage_1_command_runtime_executor_runtime_validated"]
+        is not False
+    ):
+        raise SystemExit(
+            "WP8 command runtime executor cannot claim runtime validation in R-032"
+        )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-031")
+        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-032")
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -597,6 +652,7 @@ def main() -> int:
     print("[OK] WP8 Stage-1 command effect contract is offline-validated; command runtime executor remains pending")
     print("[OK] WP8 Stage-1 command observation/censoring contract is offline-validated; command runtime executor remains pending")
     print("[OK] WP8 command event-success observation is temporally independent of policy enforcement after activation")
+    print("[OK] WP8 C01-C07 command runtime executor is statically validated; development runtime validation remains pending")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

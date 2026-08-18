@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_COMMAND_OBSERVATION_TEMPORAL_ORDER_CORRECTED_RUNTIME_EXECUTOR_PENDING",
+  "status": "STAGE1_COMMAND_RUNTIME_EXECUTOR_STATIC_VALIDATED_DEVELOPMENT_RUNTIME_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -55,7 +55,8 @@
       "E1": {
         "runtime_family": "command",
         "reference_development_preflight": "scripts/run_wp8_command_binding_preflight.sh",
-        "pilot_executor_ready": false
+        "pilot_executor_ready": false,
+        "development_executor": "scripts/run_wp8_command_stage1_development.sh"
       },
       "E3": {
         "runtime_family": "recovery",
@@ -107,6 +108,32 @@
       "offline_validation_consumes_pilot_seed": false,
       "temporal_order_rule": "event_activation_precedes_policy_enforcement_and_event_success_observation_independently;both_precede_post_enforcement_probe",
       "event_success_policy_enforcement_order_required": false
+    },
+    "command_runtime_executor_contract": {
+      "decision_id": "R-032",
+      "controller_module": "src.mission_recovery.wp8_command_runtime_executor",
+      "development_runner": "scripts/run_wp8_command_stage1_development.sh",
+      "supported_cell_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "factor_source": "wp8_pilot_design.cells",
+      "runtime_policy_selection_source": "src.mission_recovery.policies.evaluate_policy",
+      "gateway_action_source": "runtime_policy_decision.selected_action",
+      "raw_observation_validator": "R-029_R-030_R-031_command_contract_chain",
+      "development_only": true,
+      "pilot_seed_collision_rejected": true,
+      "pilot_executor_ready": false,
+      "runtime_binding_performed": false,
+      "primary_metrics_emitted": false,
+      "terminal_state_emitted": false,
+      "offline_validation_executes_runtime": false,
+      "offline_validation_consumes_pilot_seed": false
     }
   },
   "stage_2_variability": {
@@ -305,7 +332,9 @@
       "stage_1_family_runtime_dispatch_adapters": false,
       "stage_1_command_effect_contract": true,
       "stage_1_command_observation_contract": true,
-      "stage_1_command_observation_temporal_order_corrected": true
+      "stage_1_command_observation_temporal_order_corrected": true,
+      "stage_1_command_runtime_executor_static": true,
+      "stage_1_command_runtime_executor_runtime_validated": false
     }
   },
   "invalid_run_rule": {
