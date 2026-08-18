@@ -74,11 +74,11 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_COMMAND_RUNTIME_EXECUTOR_STATIC_VALIDATED_"
-        "DEVELOPMENT_RUNTIME_PENDING"
+        "STAGE1_COMMAND_RUNTIME_EXECUTOR_RUNTIME_VALIDATED_"
+        "OTHER_FAMILY_EXECUTORS_PENDING"
     ):
         raise SystemExit(
-            "WP8 Stage-1 command runtime executor static gate is not closed"
+            "WP8 Stage-1 command runtime executor runtime gate is not closed"
         )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
@@ -459,11 +459,38 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         )
     if (
         status["stage_1_command_runtime_executor_runtime_validated"]
-        is not False
+        is not True
     ):
         raise SystemExit(
-            "WP8 command runtime executor cannot claim runtime validation in R-032"
+            "WP8 command runtime executor runtime validation is not closed"
         )
+
+    runtime_validation = pilot["stage_1_runner_contract"][
+        "command_runtime_executor_contract"
+    ]["runtime_validation"]
+    if runtime_validation["decision_id"] != "R-033":
+        raise SystemExit("WP8 command runtime validation is not R-033")
+    if runtime_validation["validation_status"] != "PASS":
+        raise SystemExit("WP8 command runtime validation status changed")
+    if runtime_validation["generic_executor_cells_executed"] != [
+        "C01", "C05", "C06"
+    ]:
+        raise SystemExit("WP8 R-033 retained runtime cell set changed")
+    if runtime_validation["generic_executor_cells_not_executed"] != [
+        "C02", "C03", "C04", "C07"
+    ]:
+        raise SystemExit("WP8 R-033 nonexecuted cell boundary changed")
+    if runtime_validation["generic_executor_gateway_actions_observed"] != [
+        "OBSERVE_ONLY",
+        "RESTRICT_HIGH_RISK_COMMANDS",
+        "ENTER_SAFE_MODE",
+    ]:
+        raise SystemExit("WP8 R-033 gateway branch evidence changed")
+    if any(
+        row["pilot_data"] is not False
+        for row in runtime_validation["retained_development_runs"]
+    ):
+        raise SystemExit("WP8 R-033 runtime evidence cannot be pilot data")
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-032")
     if status["nos3_runtime_binding"] is not True:
@@ -649,10 +676,10 @@ def main() -> int:
     print("[OK] WP8 runtime binding module is statically ready")
     print("[OK] WP8 NOS3 runtime binding is closed; pilot execution remains gated")
     print("[OK] WP8 Stage-1 offline orchestration is validated; runtime adapters remain pending")
-    print("[OK] WP8 Stage-1 command effect contract is offline-validated; command runtime executor remains pending")
-    print("[OK] WP8 Stage-1 command observation/censoring contract is offline-validated; command runtime executor remains pending")
+    print("[OK] WP8 Stage-1 command effect contract remains frozen under R-029")
+    print("[OK] WP8 Stage-1 command observation/censoring contract remains frozen under R-030/R-031")
     print("[OK] WP8 command event-success observation is temporally independent of policy enforcement after activation")
-    print("[OK] WP8 C01-C07 command runtime executor is statically validated; development runtime validation remains pending")
+    print("[OK] WP8 command runtime executor development mechanisms are R-033 validated; C02/C03/C04/C07 remain unexecuted by the generic development runner and no pilot cell is claimed")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

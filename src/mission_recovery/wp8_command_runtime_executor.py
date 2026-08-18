@@ -25,6 +25,7 @@ from .wp8_command_observation_contract import (
 )
 
 DECISION_ID = "R-032"
+RUNTIME_VALIDATION_DECISION_ID = "R-033"
 STATIC_DEVELOPMENT_SEED = 9401
 RUN_ID_PATTERN = re.compile(r"^[A-Za-z0-9_.-]+$")
 
@@ -116,8 +117,71 @@ def validate_command_runtime_executor_contract(
         raise ValueError("R-031 temporal correction regressed")
     if status["stage_1_command_runtime_executor_static"] is not True:
         raise ValueError("R-032 command executor static gate is not closed")
-    if status["stage_1_command_runtime_executor_runtime_validated"] is not False:
-        raise ValueError("R-032 cannot claim runtime validation")
+    if status["stage_1_command_runtime_executor_runtime_validated"] is not True:
+        raise ValueError("R-033 command executor runtime validation is not closed")
+
+    runtime_validation = contract.get("runtime_validation")
+    if not isinstance(runtime_validation, dict):
+        raise ValueError("R-033 command runtime validation metadata is missing")
+    if runtime_validation["decision_id"] != RUNTIME_VALIDATION_DECISION_ID:
+        raise ValueError("command runtime validation decision is not R-033")
+    if runtime_validation["validation_status"] != "PASS":
+        raise ValueError("command runtime validation status is not PASS")
+    if runtime_validation["validation_role"] != (
+        "development_mechanism_branch_coverage_not_cellwise_pilot_validation"
+    ):
+        raise ValueError("command runtime validation role changed")
+    if runtime_validation["validated_against_repo_commit"] != (
+        "00b82ad290d626e9e32ce32f0cb297141aec363a"
+    ):
+        raise ValueError("command runtime validation base commit changed")
+    if runtime_validation["runtime_rerun_required_for_closure"] is not False:
+        raise ValueError("R-033 closure cannot require a hidden runtime rerun")
+    if runtime_validation["generic_executor_cells_executed"] != [
+        "C01", "C05", "C06"
+    ]:
+        raise ValueError("R-033 generic executor evidence cells changed")
+    if runtime_validation["generic_executor_cells_not_executed"] != [
+        "C02", "C03", "C04", "C07"
+    ]:
+        raise ValueError("R-033 nonexecuted command cell boundary changed")
+    if runtime_validation["generic_executor_policy_engine_paths_observed"] != [
+        "fixed_policy",
+        "mission_aware_p7_evidence_sufficient",
+        "mission_aware_p7_evidence_insufficient",
+    ]:
+        raise ValueError("R-033 policy-engine branch coverage changed")
+    if runtime_validation["generic_executor_gateway_actions_observed"] != [
+        "OBSERVE_ONLY",
+        "RESTRICT_HIGH_RISK_COMMANDS",
+        "ENTER_SAFE_MODE",
+    ]:
+        raise ValueError("R-033 gateway branch coverage changed")
+
+    prior = runtime_validation["prior_reference_gateway_action"]
+    if prior["action"] != "ISOLATE_MODELED_SOURCE":
+        raise ValueError("R-033 prior P1 gateway reference changed")
+    if prior["evidence_ref"] != (
+        "results/wp8/runtime-binding/command/"
+        "20260816T013055Z-wp8-command-binding-dev"
+    ):
+        raise ValueError("R-033 prior P1 evidence reference changed")
+
+    retained = runtime_validation["retained_development_runs"]
+    if [row["cell_id"] for row in retained] != ["C01", "C05", "C06"]:
+        raise ValueError("R-033 retained development run ordering changed")
+    if [int(row["development_seed"]) for row in retained] != [9401, 9403, 9402]:
+        raise ValueError("R-033 retained development seeds changed")
+    if any(row["pilot_data"] is not False for row in retained):
+        raise ValueError("R-033 retained development run cannot be pilot data")
+    if any(row["pilot_seed_consumed"] is not False for row in retained):
+        raise ValueError("R-033 retained development run cannot consume pilot seed")
+    if any(row["runtime_binding_performed"] is not False for row in retained):
+        raise ValueError("R-033 closure cannot claim runtime binding")
+    if any(row["primary_metrics_emitted"] is not False for row in retained):
+        raise ValueError("R-033 closure cannot claim primary metrics")
+    if any(row["terminal_state_emitted"] is not False for row in retained):
+        raise ValueError("R-033 closure cannot claim terminal states")
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise ValueError("family runtime dispatch adapters cannot pass in R-032")
     if gate["pilot_execution_authorized"] is not False:

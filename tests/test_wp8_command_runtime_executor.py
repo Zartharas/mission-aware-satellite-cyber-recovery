@@ -299,6 +299,79 @@ class WP8CommandRuntimeExecutorTests(unittest.TestCase):
                 measurement=measurement,
             )
 
+    def test_r033_runtime_validation_metadata_is_closed(self) -> None:
+        runtime = PILOT["stage_1_runner_contract"][
+            "command_runtime_executor_contract"
+        ]["runtime_validation"]
+        self.assertEqual(runtime["decision_id"], "R-033")
+        self.assertEqual(runtime["validation_status"], "PASS")
+        self.assertEqual(
+            runtime["validation_role"],
+            (
+                "development_mechanism_branch_coverage_"
+                "not_cellwise_pilot_validation"
+            ),
+        )
+
+    def test_r033_retained_generic_executor_cells_are_discriminating(self) -> None:
+        runtime = PILOT["stage_1_runner_contract"][
+            "command_runtime_executor_contract"
+        ]["runtime_validation"]
+        self.assertEqual(
+            runtime["generic_executor_cells_executed"],
+            ["C01", "C05", "C06"],
+        )
+        self.assertEqual(
+            runtime["generic_executor_gateway_actions_observed"],
+            [
+                "OBSERVE_ONLY",
+                "RESTRICT_HIGH_RISK_COMMANDS",
+                "ENTER_SAFE_MODE",
+            ],
+        )
+        self.assertEqual(
+            runtime["generic_executor_policy_engine_paths_observed"],
+            [
+                "fixed_policy",
+                "mission_aware_p7_evidence_sufficient",
+                "mission_aware_p7_evidence_insufficient",
+            ],
+        )
+
+    def test_r033_nonexecuted_cells_are_not_silently_claimed(self) -> None:
+        runtime = PILOT["stage_1_runner_contract"][
+            "command_runtime_executor_contract"
+        ]["runtime_validation"]
+        self.assertEqual(
+            runtime["generic_executor_cells_not_executed"],
+            ["C02", "C03", "C04", "C07"],
+        )
+        self.assertIn(
+            "not pilot cell outcomes",
+            runtime["coverage_rationale"],
+        )
+        self.assertIn(
+            "does not establish scientifically valid Stage-1 pilot runs",
+            runtime["claim_boundary"],
+        )
+
+    def test_r033_retained_runs_remain_nonpilot_unbound_unscored(self) -> None:
+        runtime = PILOT["stage_1_runner_contract"][
+            "command_runtime_executor_contract"
+        ]["runtime_validation"]
+        retained = runtime["retained_development_runs"]
+        self.assertEqual(
+            [(row["cell_id"], row["development_seed"]) for row in retained],
+            [("C01", 9401), ("C05", 9403), ("C06", 9402)],
+        )
+        for row in retained:
+            self.assertTrue(row["development_preflight"])
+            self.assertFalse(row["pilot_data"])
+            self.assertFalse(row["pilot_seed_consumed"])
+            self.assertFalse(row["runtime_binding_performed"])
+            self.assertFalse(row["primary_metrics_emitted"])
+            self.assertFalse(row["terminal_state_emitted"])
+
     def test_runner_preflight_precedes_nominal_runtime(self) -> None:
         plan_index = RUNNER.index('PHASE="DEVELOPMENT_PLAN_PREFLIGHT"')
         nominal_index = RUNNER.index('PHASE="NOMINAL_RUNTIME_LAUNCH"')

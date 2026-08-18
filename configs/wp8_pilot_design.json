@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_COMMAND_RUNTIME_EXECUTOR_STATIC_VALIDATED_DEVELOPMENT_RUNTIME_PENDING",
+  "status": "STAGE1_COMMAND_RUNTIME_EXECUTOR_RUNTIME_VALIDATED_OTHER_FAMILY_EXECUTORS_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -133,7 +133,116 @@
       "primary_metrics_emitted": false,
       "terminal_state_emitted": false,
       "offline_validation_executes_runtime": false,
-      "offline_validation_consumes_pilot_seed": false
+      "offline_validation_consumes_pilot_seed": false,
+      "runtime_validation": {
+        "decision_id": "R-033",
+        "validation_status": "PASS",
+        "validation_role": "development_mechanism_branch_coverage_not_cellwise_pilot_validation",
+        "validated_against_repo_commit": "00b82ad290d626e9e32ce32f0cb297141aec363a",
+        "runtime_rerun_required_for_closure": false,
+        "generic_executor_cells_executed": [
+          "C01",
+          "C05",
+          "C06"
+        ],
+        "generic_executor_cells_not_executed": [
+          "C02",
+          "C03",
+          "C04",
+          "C07"
+        ],
+        "generic_executor_policy_engine_paths_observed": [
+          "fixed_policy",
+          "mission_aware_p7_evidence_sufficient",
+          "mission_aware_p7_evidence_insufficient"
+        ],
+        "generic_executor_gateway_actions_observed": [
+          "OBSERVE_ONLY",
+          "RESTRICT_HIGH_RISK_COMMANDS",
+          "ENTER_SAFE_MODE"
+        ],
+        "prior_reference_gateway_action": {
+          "action": "ISOLATE_MODELED_SOURCE",
+          "evidence_ref": "results/wp8/runtime-binding/command/20260816T013055Z-wp8-command-binding-dev",
+          "role": "accepted_pre_R032_P1_gateway_runtime_reference_only;not_generic_executor_or_pilot_data"
+        },
+        "coverage_rationale": "C01 exercises the shared fixed-policy decision path and forward-all gateway behavior; C05 exercises P7 with sufficient evidence and selective high-risk restriction; C06 exercises P7 with degraded evidence and safe-mode block-all behavior. The earlier accepted P1 development preflight separately demonstrates ISOLATE_MODELED_SOURCE in the same policy_gateway module. Static R-032 CLI coverage remains the cellwise check for C01-C07. This closure validates executor mechanisms, not pilot cell outcomes.",
+        "retained_development_runs": [
+          {
+            "cell_id": "C01",
+            "run_id": "20260818T051520Z-wp8-command-c01-r033-s9401",
+            "development_seed": 9401,
+            "requested_policy_id": "P0",
+            "actual_effective_policy_id": "P0",
+            "selected_action": "OBSERVE_ONLY",
+            "event_activation_reset_marker_delta": 1,
+            "post_enforcement_attacker_reset_marker_delta": 2,
+            "authorized_noop_marker_delta": 1,
+            "containment_observed": false,
+            "authority_convergence_observed": false,
+            "evidence_ref": "results/wp8/runtime-binding/command-executor-development/20260818T051520Z-wp8-command-c01-r033-s9401",
+            "factor_context_sha256": "5c5f8d01c6a2235bd89518ac75acf9dc64647d9c8431f1bb850bc3faad3875e8",
+            "runtime_policy_decision_sha256": "f40096fae00730dbda720da14f9391dccab3a1cc2386b8f5603dda97c56432bb",
+            "command_runtime_measurement_sha256": "522f0e0234715d5efe0b01e60dcdd3b46f4f36be9bfc85e90c6486f653cc2c92",
+            "command_runtime_observation_derived_sha256": "c0ebac002da66f446f6ff7e854d92ffa62665159beffc2a8c943da14ac4c0668",
+            "development_preflight": true,
+            "pilot_data": false,
+            "pilot_seed_consumed": false,
+            "runtime_binding_performed": false,
+            "primary_metrics_emitted": false,
+            "terminal_state_emitted": false
+          },
+          {
+            "cell_id": "C05",
+            "run_id": "20260818T052846Z-wp8-command-c05-r033-s9403",
+            "development_seed": 9403,
+            "requested_policy_id": "P7",
+            "actual_effective_policy_id": "P2",
+            "selected_action": "RESTRICT_HIGH_RISK_COMMANDS",
+            "event_activation_reset_marker_delta": 1,
+            "post_enforcement_attacker_reset_marker_delta": 0,
+            "authorized_noop_marker_delta": 1,
+            "containment_observed": true,
+            "authority_convergence_observed": true,
+            "evidence_ref": "results/wp8/runtime-binding/command-executor-development/20260818T052846Z-wp8-command-c05-r033-s9403",
+            "factor_context_sha256": "7aa7384e1a1b1aa1aa3a35b759116242d7393da12ea8977b68f3953fe6bd0201",
+            "runtime_policy_decision_sha256": "ff8d57c8cbec0c456a8a8d9b680d3f87fff61717f8c0631158e0285e5e1cdb54",
+            "command_runtime_measurement_sha256": "2bceed9065c0d2d4d8cca98c4c979bbb828940b031f5fd175142800790d08837",
+            "command_runtime_observation_derived_sha256": "9a1878816113e67eb8506261c349840917d5327de1fc20d056852522541c17d8",
+            "development_preflight": true,
+            "pilot_data": false,
+            "pilot_seed_consumed": false,
+            "runtime_binding_performed": false,
+            "primary_metrics_emitted": false,
+            "terminal_state_emitted": false
+          },
+          {
+            "cell_id": "C06",
+            "run_id": "20260818T052222Z-wp8-command-c06-r033-s9402",
+            "development_seed": 9402,
+            "requested_policy_id": "P7",
+            "actual_effective_policy_id": "P4",
+            "selected_action": "ENTER_SAFE_MODE",
+            "event_activation_reset_marker_delta": 1,
+            "post_enforcement_attacker_reset_marker_delta": 0,
+            "authorized_noop_marker_delta": 0,
+            "containment_observed": true,
+            "authority_convergence_observed": false,
+            "evidence_ref": "results/wp8/runtime-binding/command-executor-development/20260818T052222Z-wp8-command-c06-r033-s9402",
+            "factor_context_sha256": "f3ed7089e54fc3a8735e6a4cd59760e6a18a3cb4f7f41a81079fa375bc211ffd",
+            "runtime_policy_decision_sha256": "1d34e2032ded34f51b00bfafd7577a0e90f9845a5bfc254c5ed9ccd0ca539d45",
+            "command_runtime_measurement_sha256": "da9af0db5ee75d80cddaad276f06475c5def6ef967ddec4dd2b70b66f190f691",
+            "command_runtime_observation_derived_sha256": "cd76c6e7dc7dfd1a9b72e13bbf28e09d306074b0a6eac4c2dd60389990aacc16",
+            "development_preflight": true,
+            "pilot_data": false,
+            "pilot_seed_consumed": false,
+            "runtime_binding_performed": false,
+            "primary_metrics_emitted": false,
+            "terminal_state_emitted": false
+          }
+        ],
+        "claim_boundary": "R-033 validates the parameterized command executor's development runtime mechanisms and discriminating policy/gateway branches. It does not establish scientifically valid Stage-1 pilot runs for C01-C07, does not score primary metrics, does not classify terminal recovery state, and does not authorize pilot execution."
+      }
     }
   },
   "stage_2_variability": {
@@ -334,7 +443,7 @@
       "stage_1_command_observation_contract": true,
       "stage_1_command_observation_temporal_order_corrected": true,
       "stage_1_command_runtime_executor_static": true,
-      "stage_1_command_runtime_executor_runtime_validated": false
+      "stage_1_command_runtime_executor_runtime_validated": true
     }
   },
   "invalid_run_rule": {
