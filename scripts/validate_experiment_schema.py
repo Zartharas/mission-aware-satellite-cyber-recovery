@@ -24,6 +24,9 @@ from src.mission_recovery.wp8_stage1_pilot import build_offline_stage1_plan
 from src.mission_recovery.wp8_command_effect_contract import (
     build_command_effect_matrix,
 )
+from src.mission_recovery.wp8_command_observation_contract import (
+    build_command_observation_matrix,
+)
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -66,11 +69,11 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_COMMAND_EFFECT_CONTRACT_OFFLINE_VALIDATED_"
+        "STAGE1_COMMAND_OBSERVATION_CONTRACT_OFFLINE_VALIDATED_"
         "RUNTIME_EXECUTOR_PENDING"
     ):
         raise SystemExit(
-            "WP8 Stage-1 command effect contract status is not closed"
+            "WP8 Stage-1 command observation contract status is not closed"
         )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
@@ -153,6 +156,40 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
     ):
         raise SystemExit(
             "WP8 Stage-1 command effect contract crossed an offline boundary"
+        )
+
+    observation_matrix = build_command_observation_matrix(pilot)
+    expected_observation_rules = {
+        "C01": (False, False, "observed_run_end_ns_right_censoring"),
+        "C02": (True, True, "observed_authorized_noop_probe_timestamp"),
+        "C03": (True, True, "observed_authorized_noop_probe_timestamp"),
+        "C04": (True, True, "observed_authorized_noop_probe_timestamp"),
+        "C05": (True, True, "observed_authorized_noop_probe_timestamp"),
+        "C06": (True, False, "observed_run_end_ns_right_censoring"),
+        "C07": (True, True, "observed_authorized_noop_probe_timestamp"),
+    }
+    actual_observation_rules = {
+        row["cell_id"]: (
+            row["containment_expected_for_acceptance_only"],
+            row["authority_convergence_expected_for_acceptance_only"],
+            row["divergence_endpoint_rule"],
+        )
+        for row in observation_matrix["rows"]
+    }
+    if actual_observation_rules != expected_observation_rules:
+        raise SystemExit(
+            "WP8 Stage-1 command observation/censoring matrix changed"
+        )
+    if (
+        observation_matrix["runtime_execution_authorized"] is not False
+        or observation_matrix["pilot_seed_consumed"] is not False
+        or observation_matrix["pilot_data_generated"] is not False
+        or observation_matrix["primary_metrics_emitted"] is not False
+        or observation_matrix["terminal_states_emitted"] is not False
+        or observation_matrix["recovery_evidence_emitted"] is not False
+    ):
+        raise SystemExit(
+            "WP8 Stage-1 command observation contract crossed an offline boundary"
         )
 
     cells = pilot["cells"]
@@ -351,8 +388,10 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit("WP8 Stage-1 offline runner contract is not validated")
     if status["stage_1_command_effect_contract"] is not True:
         raise SystemExit("WP8 Stage-1 command effect contract is not validated")
+    if status["stage_1_command_observation_contract"] is not True:
+        raise SystemExit("WP8 Stage-1 command observation contract is not validated")
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-029")
+        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-030")
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -537,6 +576,7 @@ def main() -> int:
     print("[OK] WP8 NOS3 runtime binding is closed; pilot execution remains gated")
     print("[OK] WP8 Stage-1 offline orchestration is validated; runtime adapters remain pending")
     print("[OK] WP8 Stage-1 command effect contract is offline-validated; command runtime executor remains pending")
+    print("[OK] WP8 Stage-1 command observation/censoring contract is offline-validated; command runtime executor remains pending")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

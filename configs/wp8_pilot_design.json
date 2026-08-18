@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_COMMAND_EFFECT_CONTRACT_OFFLINE_VALIDATED_RUNTIME_EXECUTOR_PENDING",
+  "status": "STAGE1_COMMAND_OBSERVATION_CONTRACT_OFFLINE_VALIDATED_RUNTIME_EXECUTOR_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -87,6 +87,22 @@
       "expected_effect_values_role": "post_observation_acceptance_only_not_metric_inputs",
       "terminal_state_source": "existing_runtime_binding_and_primary_metric_scorer",
       "primary_metric_source": "existing_runtime_binding_and_primary_metric_scorer",
+      "offline_validation_executes_runtime": false,
+      "offline_validation_consumes_pilot_seed": false
+    },
+    "command_observation_contract": {
+      "decision_id": "R-030",
+      "event_success_source": "observed_event_activation_cfs_reset_marker_delta",
+      "containment_timestamp_rule": "second_matched_attacker_probe_observation_when_both_probes_blocked",
+      "containment_censoring_rule": "null_when_two_matched_attacker_probes_are_not_both_blocked",
+      "authority_convergence_rule": "two_matched_attacker_probes_blocked_and_authorized_noop_observed_at_cfs",
+      "divergence_nonconvergence_endpoint": "observed_run_end_ns_right_censoring",
+      "mo1_completion_source": "observed_modeled_attacker_reset_effect_over_scheduled_interval",
+      "mo3_completion_source": "observed_authorized_ground_noop_cfs_marker_delta",
+      "expected_values_role": "post_observation_acceptance_only_not_raw_metric_substitution",
+      "emits_primary_metrics": false,
+      "emits_terminal_state": false,
+      "emits_recovery_evidence": false,
       "offline_validation_executes_runtime": false,
       "offline_validation_consumes_pilot_seed": false
     }
@@ -285,7 +301,8 @@
       "runtime_binding_static_validation": true,
       "stage_1_runner_offline_contract": true,
       "stage_1_family_runtime_dispatch_adapters": false,
-      "stage_1_command_effect_contract": true
+      "stage_1_command_effect_contract": true,
+      "stage_1_command_observation_contract": true
     }
   },
   "invalid_run_rule": {
