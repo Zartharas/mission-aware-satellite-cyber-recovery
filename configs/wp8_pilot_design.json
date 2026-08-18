@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_COMMAND_RUNTIME_EXECUTOR_RUNTIME_VALIDATED_OTHER_FAMILY_EXECUTORS_PENDING",
+  "status": "STAGE1_RECOVERY_EFFECT_CONTRACT_OFFLINE_VALIDATED_OBSERVATION_CONTRACT_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -243,6 +243,29 @@
         ],
         "claim_boundary": "R-033 validates the parameterized command executor's development runtime mechanisms and discriminating policy/gateway branches. It does not establish scientifically valid Stage-1 pilot runs for C01-C07, does not score primary metrics, does not classify terminal recovery state, and does not authorize pilot execution."
       }
+    },
+    "recovery_effect_contract": {
+      "decision_id": "R-034",
+      "factor_source": "wp8_pilot_design.cells",
+      "policy_evaluation_source": "src.mission_recovery.policies.evaluate_policy",
+      "p7_effect_dispatch_source": "src.mission_recovery.p7_effect_dispatch.build_p7_effect_plan",
+      "event_success_source": "observed_retained_tampered_sha256_in_modeled_activation_slot_after_t0",
+      "effect_family_by_effective_policy": {
+        "P0": "observe_only",
+        "P2": "command_gateway",
+        "P5": "rollback_request"
+      },
+      "rollback_containment_source": "approved_sha256_occupies_modeled_activation_slot_and_rejected_sha256_is_absent_and_temporary_recovery_state_is_absent",
+      "nonrollback_update_slot_rule": "P0_and_P2_do_not_replace_the_tampered_modeled_activation_slot",
+      "p2_command_gateway_probe_rule": "two_modeled_attacker_reset_probes_blocked_and_one_authorized_noop_forwarded",
+      "expected_effect_values_role": "post_observation_acceptance_only_not_raw_metric_substitution",
+      "recovery_criteria_evaluation_deferred_to_observation_contract": true,
+      "emits_primary_metrics": false,
+      "emits_terminal_state": false,
+      "emits_trusted_recovery_evidence": false,
+      "offline_validation_executes_runtime": false,
+      "offline_validation_consumes_pilot_seed": false,
+      "claim_boundary": "R-034 freezes Stage-1 E3 response-effect semantics only. R01/P0 and R04/P7-to-P2 are valid non-rollback response cases and must not be forced through verified rollback. R02/P5 and R03/P7-to-P5 are the verified-rollback cases. Recovery criteria, temporal censoring, MO-4/MO-5, primary metrics, and terminal classification remain deferred."
     }
   },
   "stage_2_variability": {
@@ -443,7 +466,9 @@
       "stage_1_command_observation_contract": true,
       "stage_1_command_observation_temporal_order_corrected": true,
       "stage_1_command_runtime_executor_static": true,
-      "stage_1_command_runtime_executor_runtime_validated": true
+      "stage_1_command_runtime_executor_runtime_validated": true,
+      "stage_1_recovery_effect_contract": true,
+      "stage_1_recovery_observation_contract": false
     }
   },
   "invalid_run_rule": {

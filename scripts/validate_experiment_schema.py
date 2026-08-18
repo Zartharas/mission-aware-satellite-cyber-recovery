@@ -32,6 +32,9 @@ from src.mission_recovery.wp8_command_runtime_executor import (
     build_static_development_matrix,
     reserved_pilot_seeds,
 )
+from src.mission_recovery.wp8_recovery_effect_contract import (
+    build_recovery_effect_matrix,
+)
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -74,11 +77,11 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_COMMAND_RUNTIME_EXECUTOR_RUNTIME_VALIDATED_"
-        "OTHER_FAMILY_EXECUTORS_PENDING"
+        "STAGE1_RECOVERY_EFFECT_CONTRACT_OFFLINE_VALIDATED_"
+        "OBSERVATION_CONTRACT_PENDING"
     ):
         raise SystemExit(
-            "WP8 Stage-1 command runtime executor runtime gate is not closed"
+            "WP8 Stage-1 recovery effect contract R-034 gate is not closed"
         )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
@@ -235,6 +238,56 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
     ):
         raise SystemExit(
             "WP8 command executor static validation crossed runtime boundary"
+        )
+
+    recovery_matrix = build_recovery_effect_matrix(pilot)
+    expected_recovery_effects = {
+        "R01": ("P0", "OBSERVE_ONLY", "observe_only", False),
+        "R02": ("P5", "REQUEST_VERIFIED_ROLLBACK", "rollback_request", True),
+        "R03": ("P5", "REQUEST_VERIFIED_ROLLBACK", "rollback_request", True),
+        "R04": ("P2", "RESTRICT_HIGH_RISK_COMMANDS", "command_gateway", False),
+    }
+    actual_recovery_effects = {
+        row["cell_id"]: (
+            row["policy_evaluation"]["actual_effective_policy_id"],
+            row["policy_evaluation"]["selected_action"],
+            row["effect_dispatch"]["effect_family"],
+            row["effect_dispatch"]["containment_expected_for_acceptance_only"],
+        )
+        for row in recovery_matrix["rows"]
+    }
+    if actual_recovery_effects != expected_recovery_effects:
+        raise SystemExit(
+            "WP8 Stage-1 recovery effect matrix differs from R-034 semantics"
+        )
+    r04 = next(
+        row
+        for row in recovery_matrix["rows"]
+        if row["cell_id"] == "R04"
+    )
+    if (
+        r04["command_gateway_contract"]["attacker_probe"][
+            "expected_cfs_reset_marker_delta_for_acceptance_only"
+        ]
+        != 0
+        or r04["command_gateway_contract"]["authorized_probe"][
+            "expected_cfs_noop_marker_delta_for_acceptance_only"
+        ]
+        != 1
+    ):
+        raise SystemExit(
+            "WP8 R04 P2 command-gateway effect semantics changed"
+        )
+    if (
+        recovery_matrix["runtime_execution_authorized"] is not False
+        or recovery_matrix["pilot_seed_consumed"] is not False
+        or recovery_matrix["pilot_data_generated"] is not False
+        or recovery_matrix["primary_metrics_emitted"] is not False
+        or recovery_matrix["terminal_states_emitted"] is not False
+        or recovery_matrix["trusted_recovery_evidence_emitted"] is not False
+    ):
+        raise SystemExit(
+            "WP8 Stage-1 recovery effect contract crossed an offline boundary"
         )
 
     cells = pilot["cells"]
@@ -491,8 +544,18 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         for row in runtime_validation["retained_development_runs"]
     ):
         raise SystemExit("WP8 R-033 runtime evidence cannot be pilot data")
+    if status["stage_1_recovery_effect_contract"] is not True:
+        raise SystemExit(
+            "WP8 R-034 recovery effect contract is not closed"
+        )
+    if status["stage_1_recovery_observation_contract"] is not False:
+        raise SystemExit(
+            "WP8 recovery observation/censoring contract cannot pass in R-034"
+        )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-032")
+        raise SystemExit(
+            "WP8 Stage-1 runtime adapters cannot pass in R-034"
+        )
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -680,6 +743,7 @@ def main() -> int:
     print("[OK] WP8 Stage-1 command observation/censoring contract remains frozen under R-030/R-031")
     print("[OK] WP8 command event-success observation is temporally independent of policy enforcement after activation")
     print("[OK] WP8 command runtime executor development mechanisms are R-033 validated; C02/C03/C04/C07 remain unexecuted by the generic development runner and no pilot cell is claimed")
+    print("[OK] WP8 Stage-1 recovery effect contract is R-034 offline-validated; R01/R04 remain non-rollback cases and recovery observation/censoring remains pending")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
