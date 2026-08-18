@@ -182,6 +182,12 @@ evidence_completeness_ratio =
 - Invalid, stale, or unverifiable evidence is not complete.
 - Non-applicable elements are excluded only by a predeclared scenario rule.
 - The denominator and excluded elements must be recorded.
+- `available_current` is the M-08 evidence-completeness dimension; it does not mean that the trusted-recovery criterion is true.
+- `criterion_satisfied` is the separate criterion-truth dimension for post-R-035 runtime binding.
+- `available_current=true` with `criterion_satisfied=false` is valid when current evidence demonstrates that a recovery criterion is not satisfied. That evidence counts toward M-08 but cannot establish trusted recovery.
+- `criterion_satisfied=true` requires `available_current=true`.
+- Trusted recovery requires every applicable evidence element to be available and current **and** every applicable criterion to be satisfied.
+- Retained pre-R-035 development records are not rewritten; they are not pilot data and may lack the explicit `criterion_satisfied` checklist field.
 
 ## Terminal-state classification
 

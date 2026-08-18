@@ -247,7 +247,14 @@
                   "recovery_manifest_complete"
                 ]
               },
-              "available_current": {"type": "boolean"},
+              "available_current": {
+                "type": "boolean",
+                "description": "Whether the evidence element is available, current, and usable at classification time; this is the M-08 completeness dimension."
+              },
+              "criterion_satisfied": {
+                "type": "boolean",
+                "description": "Whether the applicable trusted-recovery criterion is satisfied. Post-R-035 pilot binding requires this explicitly; it remains optional in the run-record schema so retained pre-R-035 development records remain readable."
+              },
               "evidence_ref": {"type": "string", "minLength": 1}
             }
           }

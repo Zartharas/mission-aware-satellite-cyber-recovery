@@ -103,6 +103,7 @@ def recovery_partition(
     rows = {
         key: {
             "available_current": value,
+            "criterion_satisfied": value,
             "evidence_ref": f"unit:{key}",
         }
         for key, value in applicable.items()
@@ -347,10 +348,13 @@ class WP8RuntimeBindingTests(unittest.TestCase):
         observation["recovery_observations"][
             "recovery_manifest_complete"
         ]["available_current"] = True
+        observation["recovery_observations"][
+            "recovery_manifest_complete"
+        ]["criterion_satisfied"] = True
 
         with self.assertRaisesRegex(
             ValueError,
-            "complete applicable recovery evidence requires",
+            "complete satisfied recovery evidence requires",
         ):
             bind_runtime_observation(
                 contract=PILOT["runtime_measurement_contract"],
@@ -358,6 +362,47 @@ class WP8RuntimeBindingTests(unittest.TestCase):
                 environment=environment(),
                 observation=observation,
             )
+
+    def test_current_evidence_can_show_failed_criterion(self) -> None:
+        observation = base_observation(
+            family="command", containment=True, recovery=False
+        )
+        row = observation["recovery_observations"]["recovery_manifest_complete"]
+        row["available_current"] = True
+        row["criterion_satisfied"] = False
+        result = bind_runtime_observation(
+            contract=PILOT["runtime_measurement_contract"],
+            factor_context=factor_context(family="command"),
+            environment=environment(),
+            observation=observation,
+        )
+        record = result["run_record"]
+        self.assertEqual(record["outcomes"]["evidence_completeness_ratio"], 1.0)
+        self.assertFalse(record["recovery_evidence"]["recovery_manifest_complete"])
+        self.assertEqual(record["terminal_state"], "OPERATIONAL_BUT_UNVERIFIED")
+        self.assertFalse(
+            result["binding_provenance"]["legacy_recovery_semantics_fallback_used"]
+        )
+
+    def test_legacy_development_observation_fallback_is_audited(self) -> None:
+        observation = base_observation(
+            family="command", containment=True, recovery=False
+        )
+        for row in observation["recovery_observations"].values():
+            del row["criterion_satisfied"]
+        result = bind_runtime_observation(
+            contract=PILOT["runtime_measurement_contract"],
+            factor_context=factor_context(family="command"),
+            environment=environment(),
+            observation=observation,
+        )
+        self.assertTrue(
+            result["binding_provenance"]["legacy_recovery_semantics_fallback_used"]
+        )
+        self.assertEqual(
+            result["binding_provenance"]["recovery_evidence_semantics_decision_id"],
+            "R-035",
+        )
 
     def test_runtime_applicability_must_match_frozen_family_rule(self) -> None:
         observation = base_observation(

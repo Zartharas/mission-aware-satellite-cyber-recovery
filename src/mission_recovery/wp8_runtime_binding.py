@@ -240,7 +240,9 @@ def _recovery_partition(
     *,
     family: str,
     contract: dict[str, Any],
-) -> tuple[dict[str, bool | None], list[dict[str, Any]], list[str]]:
+    development_preflight: bool,
+    pilot_data_marker: bool | None,
+) -> tuple[dict[str, bool | None], list[dict[str, Any]], list[str], bool]:
     applicable = observation["recovery_observations"]
     excluded = list(observation["recovery_checklist_excluded"])
 
@@ -265,6 +267,7 @@ def _recovery_partition(
 
     recovery_evidence: dict[str, bool | None] = {}
     checklist: list[dict[str, Any]] = []
+    legacy_fallback_used = False
 
     for criterion in RECOVERY_CRITERIA:
         if criterion in excluded:
@@ -278,12 +281,30 @@ def _recovery_partition(
                 f"recovery criterion lacks evidence_ref: {criterion}"
             )
 
-        value = bool(row["available_current"])
-        recovery_evidence[criterion] = value
+        available_current = bool(row["available_current"])
+        if "criterion_satisfied" in row:
+            criterion_satisfied = bool(row["criterion_satisfied"])
+        else:
+            if not development_preflight or pilot_data_marker is True:
+                raise ValueError(
+                    "pilot/runtime recovery observation requires explicit "
+                    f"criterion_satisfied: {criterion}"
+                )
+            criterion_satisfied = available_current
+            legacy_fallback_used = True
+
+        if criterion_satisfied and not available_current:
+            raise ValueError(
+                "criterion_satisfied=true requires "
+                f"available_current=true: {criterion}"
+            )
+
+        recovery_evidence[criterion] = criterion_satisfied
         checklist.append(
             {
                 "criterion_id": criterion,
-                "available_current": value,
+                "available_current": available_current,
+                "criterion_satisfied": criterion_satisfied,
                 "evidence_ref": evidence_ref,
             }
         )
@@ -291,7 +312,7 @@ def _recovery_partition(
     if not checklist:
         raise ValueError("runtime recovery checklist denominator is zero")
 
-    return recovery_evidence, checklist, excluded
+    return recovery_evidence, checklist, excluded, legacy_fallback_used
 
 
 def bind_runtime_observation(
@@ -312,6 +333,15 @@ def bind_runtime_observation(
     if contract["controller_clock"] != "experiment_controller_monotonic_ns":
         raise ValueError("unexpected WP8 controller clock")
 
+    development_preflight = bool(observation.get("development_preflight", False))
+    pilot_data_marker = observation.get("pilot_data")
+    if pilot_data_marker is not None and not isinstance(pilot_data_marker, bool):
+        raise ValueError("pilot_data marker must be boolean when supplied")
+    if development_preflight and pilot_data_marker is True:
+        raise ValueError(
+            "development runtime-binding preflight cannot be pilot data"
+        )
+
     clock = observation["clock"]
     run_start_ns = int(clock["run_start_ns"])
     event_activation_ns = int(clock["event_activation_ns"])
@@ -326,10 +356,17 @@ def bind_runtime_observation(
         label="event_success",
     )
 
-    recovery_evidence, checklist, excluded = _recovery_partition(
+    (
+        recovery_evidence,
+        checklist,
+        excluded,
+        legacy_recovery_semantics_fallback_used,
+    ) = _recovery_partition(
         observation,
         family=family,
         contract=contract,
+        development_preflight=development_preflight,
+        pilot_data_marker=pilot_data_marker,
     )
 
     objectives = _objective_instances(
@@ -407,20 +444,13 @@ def bind_runtime_observation(
         notes=notes,
     )
 
-    development_preflight = bool(
-        observation.get("development_preflight", False)
-    )
-    pilot_data_marker = observation.get("pilot_data")
-    if pilot_data_marker is not None and not isinstance(pilot_data_marker, bool):
-        raise ValueError("pilot_data marker must be boolean when supplied")
-    if development_preflight and pilot_data_marker is True:
-        raise ValueError(
-            "development runtime-binding preflight cannot be pilot data"
-        )
-
     provenance = {
         "binding_version": "0.1.0",
         "decision_id": "R-015",
+        "recovery_evidence_semantics_decision_id": "R-035",
+        "legacy_recovery_semantics_fallback_used": (
+            legacy_recovery_semantics_fallback_used
+        ),
         "family": family,
         "run_id": factor_context["run_id"],
         "controller_clock": contract["controller_clock"],

@@ -88,6 +88,7 @@ def valid_raw() -> dict:
             {
                 "criterion_id": key,
                 "available_current": True,
+                "criterion_satisfied": True,
                 "evidence_ref": f"fixture:{key}",
             }
             for key in RECOVERY_CRITERIA
@@ -235,16 +236,45 @@ class PrimaryMetricTests(unittest.TestCase):
         evidence["measured_state_current"] = False
         for row in raw["recovery_checklist"]:
             if row["criterion_id"] == "measured_state_current":
-                row["available_current"] = False
+                row["available_current"] = True
+                row["criterion_satisfied"] = False
 
-        with self.assertRaisesRegex(
-            ValueError,
-            "incomplete recovery evidence",
-        ):
+        with self.assertRaisesRegex(ValueError, "unsatisfied recovery criteria"):
             score_raw_metric_evidence(
                 event_activation_s=10.0,
                 raw=raw,
                 recovery_evidence=evidence,
+            )
+
+    def test_current_evidence_of_failed_criterion_counts_for_m08(self) -> None:
+        raw = valid_raw()
+        evidence = recovery_evidence_all()
+        raw["trusted_recovery"] = {"predicate": False, "timestamp_s": None}
+        raw["terminal_state_predicates"]["trusted_recovery_confirmed"] = False
+        raw["terminal_state_predicates"]["operational_restored"] = True
+        evidence["measured_state_current"] = False
+        for row in raw["recovery_checklist"]:
+            if row["criterion_id"] == "measured_state_current":
+                row["available_current"] = True
+                row["criterion_satisfied"] = False
+        result = score_raw_metric_evidence(
+            event_activation_s=10.0, raw=raw, recovery_evidence=evidence
+        )
+        self.assertEqual(result["evidence_completeness_ratio"], 1.0)
+        self.assertEqual(
+            result["recovery_terminal_state"], "OPERATIONAL_BUT_UNVERIFIED"
+        )
+
+    def test_satisfied_criterion_requires_current_evidence(self) -> None:
+        raw = valid_raw()
+        evidence = recovery_evidence_all()
+        for row in raw["recovery_checklist"]:
+            if row["criterion_id"] == "measured_state_current":
+                row["available_current"] = False
+                row["criterion_satisfied"] = True
+        with self.assertRaisesRegex(ValueError, "lacks available/current evidence"):
+            score_raw_metric_evidence(
+                event_activation_s=10.0, raw=raw, recovery_evidence=evidence
             )
 
     def test_applicable_recovery_evidence_excludes_n_a(self) -> None:

@@ -77,12 +77,10 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_RECOVERY_EFFECT_CONTRACT_OFFLINE_VALIDATED_"
+        "STAGE1_RECOVERY_EVIDENCE_SEMANTICS_SEPARATED_"
         "OBSERVATION_CONTRACT_PENDING"
     ):
-        raise SystemExit(
-            "WP8 Stage-1 recovery effect contract R-034 gate is not closed"
-        )
+        raise SystemExit("WP8 R-035 recovery evidence semantics gate is not closed")
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
     ]:
@@ -425,6 +423,27 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         "no_residual_unauthorized_state",
         "recovery_manifest_complete",
     }
+    semantics = contract["recovery_evidence_semantics"]
+    if semantics["decision_id"] != "R-035":
+        raise SystemExit("WP8 recovery evidence semantics are not R-035")
+    if semantics["raw_checklist_dimensions"] != [
+        "available_current", "criterion_satisfied", "evidence_ref"
+    ]:
+        raise SystemExit("WP8 recovery evidence checklist dimensions changed")
+    if semantics["evidence_completeness_numerator"] != (
+        "count_available_current_true_applicable_evidence_elements"
+    ):
+        raise SystemExit("WP8 M-08 numerator semantics changed")
+    if semantics["trusted_recovery_requires"] != [
+        "all_applicable_evidence_available_current",
+        "all_applicable_criteria_satisfied",
+    ]:
+        raise SystemExit("WP8 trusted-recovery evidence semantics changed")
+    if not semantics["pilot_data_requires_explicit_criterion_satisfied"]:
+        raise SystemExit("WP8 pilot recovery criterion truth is not explicit")
+    if semantics["retained_pre_r035_run_records_rewritten"] is not False:
+        raise SystemExit("WP8 retained pre-R-035 records cannot be rewritten")
+
     applicability = contract["family_recovery_criteria_applicability"]
     if set(applicability) != {"command", "recovery", "observability"}:
         raise SystemExit("WP8 family recovery applicability is incomplete")
@@ -548,13 +567,15 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit(
             "WP8 R-034 recovery effect contract is not closed"
         )
+    if status["recovery_evidence_semantics_separated"] is not True:
+        raise SystemExit("WP8 R-035 recovery evidence semantics are not separated")
     if status["stage_1_recovery_observation_contract"] is not False:
         raise SystemExit(
             "WP8 recovery observation/censoring contract cannot pass in R-034"
         )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise SystemExit(
-            "WP8 Stage-1 runtime adapters cannot pass in R-034"
+            "WP8 Stage-1 runtime adapters cannot pass in R-035"
         )
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
@@ -574,6 +595,15 @@ def main() -> int:
     invalid_fixture = load_json(INVALID_PATH)
 
     Draft202012Validator.check_schema(schema)
+    recovery_item = schema["properties"]["raw_metric_evidence"]["properties"][
+        "recovery_checklist"
+    ]["items"]
+    if "criterion_satisfied" not in recovery_item["properties"]:
+        raise SystemExit("R-035 criterion_satisfied schema dimension is missing")
+    if "criterion_satisfied" in recovery_item["required"]:
+        raise SystemExit(
+            "R-035 schema cannot invalidate retained pre-R-035 run records"
+        )
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
 
     valid_errors = sorted(
@@ -744,6 +774,7 @@ def main() -> int:
     print("[OK] WP8 command event-success observation is temporally independent of policy enforcement after activation")
     print("[OK] WP8 command runtime executor development mechanisms are R-033 validated; C02/C03/C04/C07 remain unexecuted by the generic development runner and no pilot cell is claimed")
     print("[OK] WP8 Stage-1 recovery effect contract is R-034 offline-validated; R01/R04 remain non-rollback cases and recovery observation/censoring remains pending")
+    print("[OK] R-035 separates recovery criterion satisfaction from evidence availability/currentness; pilot data requires the explicit dimension and retained development records are not rewritten")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

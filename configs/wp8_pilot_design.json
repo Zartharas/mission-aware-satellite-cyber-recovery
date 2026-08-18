@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_RECOVERY_EFFECT_CONTRACT_OFFLINE_VALIDATED_OBSERVATION_CONTRACT_PENDING",
+  "status": "STAGE1_RECOVERY_EVIDENCE_SEMANTICS_SEPARATED_OBSERVATION_CONTRACT_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -468,7 +468,8 @@
       "stage_1_command_runtime_executor_static": true,
       "stage_1_command_runtime_executor_runtime_validated": true,
       "stage_1_recovery_effect_contract": true,
-      "stage_1_recovery_observation_contract": false
+      "stage_1_recovery_observation_contract": false,
+      "recovery_evidence_semantics_separated": true
     }
   },
   "invalid_run_rule": {
@@ -753,6 +754,27 @@
         "claim_boundary": "RECOVERY_FAILED_means_only_bounded_modeled_response_did_not_achieve_E4_observability_containment_not_spacecraft_failure_not_native_safe_mode_failure_not_mission_loss"
       },
       "claim_boundary": "software_only_policy_visible_telemetry_degradation_research_controlled_NOS3_not_native_spacecraft_safe_mode_no_RF_interference_no_live_spacecraft"
+    },
+    "recovery_evidence_semantics": {
+      "decision_id": "R-035",
+      "raw_checklist_dimensions": [
+        "available_current",
+        "criterion_satisfied",
+        "evidence_ref"
+      ],
+      "top_level_recovery_evidence_role": "criterion_satisfied_for_applicable_criteria_null_for_predeclared_nonapplicable_criteria",
+      "evidence_completeness_numerator": "count_available_current_true_applicable_evidence_elements",
+      "trusted_recovery_requires": [
+        "all_applicable_evidence_available_current",
+        "all_applicable_criteria_satisfied"
+      ],
+      "criterion_satisfied_true_requires_available_current_true": true,
+      "available_current_true_criterion_satisfied_false_allowed": true,
+      "pilot_data_requires_explicit_criterion_satisfied": true,
+      "legacy_development_observation_compatibility": "pre_R035_development_preflight_only_missing_criterion_satisfied_defaults_to_available_current_and_is_marked_in_binding_provenance",
+      "retained_pre_r035_run_records_rewritten": false,
+      "retained_pre_r035_development_runs_are_pilot_data": false,
+      "claim_boundary": "R-035 separates measurement completeness from recovery-criterion truth. Evidence may be available and current while showing a criterion is false; it counts toward M-08 but cannot establish trusted recovery. Historical development records are not rewritten and remain non-pilot evidence."
     }
   }
 }

@@ -80,22 +80,27 @@ def command_observation_bundle(*, run_id: str) -> dict:
             "recovery_observations": {
                 "authorization_valid": {
                     "available_current": True,
+                    "criterion_satisfied": True,
                     "evidence_ref": "unit:stage1:authorization",
                 },
                 "authorized_command_path_restored": {
                     "available_current": True,
+                    "criterion_satisfied": True,
                     "evidence_ref": "unit:stage1:authorized-path",
                 },
                 "ground_spacecraft_state_agreed": {
                     "available_current": True,
+                    "criterion_satisfied": True,
                     "evidence_ref": "unit:stage1:agreement",
                 },
                 "health_checks_passed": {
                     "available_current": True,
+                    "criterion_satisfied": True,
                     "evidence_ref": "unit:stage1:health",
                 },
                 "recovery_manifest_complete": {
-                    "available_current": False,
+                    "available_current": True,
+                    "criterion_satisfied": False,
                     "evidence_ref": "unit:stage1:manifest",
                 },
             },
@@ -346,6 +351,28 @@ class WP8Stage1PilotTests(unittest.TestCase):
         self.assertTrue(result["binding_provenance"]["pilot_data"])
         self.assertFalse(result["binding_provenance"]["development_preflight"])
         self.assertTrue(result["stage1_acceptance"]["schema_valid"])
+        self.assertEqual(record["outcomes"]["evidence_completeness_ratio"], 1.0)
+        self.assertFalse(record["recovery_evidence"]["recovery_manifest_complete"])
+
+    def test_pilot_observation_requires_explicit_criterion_satisfied(self) -> None:
+        pilot = deepcopy(PILOT)
+        pilot["instrumentation_gate"]["pilot_execution_authorized"] = True
+        run_id = "unit-stage1-missing-criterion-satisfaction"
+        bundle = command_observation_bundle(run_id=run_id)
+        del bundle["runtime_observation"]["recovery_observations"][
+            "recovery_manifest_complete"
+        ]["criterion_satisfied"]
+        with self.assertRaisesRegex(ValueError, "explicit criterion_satisfied"):
+            bind_stage1_runtime_observation(
+                pilot=pilot,
+                toolchain=TOOLCHAIN,
+                schema=SCHEMA,
+                cell_id="C02",
+                run_id=run_id,
+                observation_bundle=bundle,
+                snapshot_id="unit-stage1",
+                host_architecture="x86_64",
+            )
 
     def test_missing_actual_effective_policy_is_rejected(self) -> None:
         pilot = deepcopy(PILOT)

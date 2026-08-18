@@ -209,9 +209,21 @@ def score_raw_metric_evidence(
     for row in checklist:
         criterion = row["criterion_id"]
         value = recovery_evidence[criterion]
-        if value is None or bool(value) != bool(row["available_current"]):
+        if value is None:
+            raise ValueError(f"applicable recovery criterion is null: {criterion}")
+
+        available_current = bool(row["available_current"])
+        criterion_satisfied = bool(row.get("criterion_satisfied", value))
+
+        if bool(value) != criterion_satisfied:
             raise ValueError(
-                f"recovery evidence disagrees with raw checklist: {criterion}"
+                "recovery evidence disagrees with criterion satisfaction: "
+                f"{criterion}"
+            )
+        if criterion_satisfied and not available_current:
+            raise ValueError(
+                "satisfied recovery criterion lacks available/current evidence: "
+                f"{criterion}"
             )
         if not row["evidence_ref"]:
             raise ValueError("applicable recovery criterion requires evidence reference")
@@ -236,25 +248,27 @@ def score_raw_metric_evidence(
     all_applicable_recovery_evidence_current = all(
         bool(row["available_current"]) for row in checklist
     )
+    all_applicable_recovery_criteria_satisfied = all(
+        bool(recovery_evidence[row["criterion_id"]]) for row in checklist
+    )
 
+    if trusted_predicate and not all_applicable_recovery_evidence_current:
+        raise ValueError("trusted terminal state has incomplete recovery evidence")
+    if trusted_predicate and not all_applicable_recovery_criteria_satisfied:
+        raise ValueError("trusted terminal state has unsatisfied recovery criteria")
     if (
         all_applicable_recovery_evidence_current
+        and all_applicable_recovery_criteria_satisfied
         and not trusted_predicate
     ):
         raise ValueError(
-            "complete applicable recovery evidence requires "
-            "trusted-recovery predicate"
+            "complete satisfied recovery evidence requires trusted-recovery predicate"
         )
 
     if terminal_trusted:
         if not trusted_predicate or trusted_recovery_s is None:
             raise ValueError(
                 "trusted terminal state lacks trusted-recovery timestamp"
-            )
-
-        if not all(bool(row["available_current"]) for row in checklist):
-            raise ValueError(
-                "trusted terminal state has incomplete recovery evidence"
             )
 
     if bool(
