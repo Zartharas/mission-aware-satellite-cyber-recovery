@@ -407,6 +407,17 @@ def bind_runtime_observation(
         notes=notes,
     )
 
+    development_preflight = bool(
+        observation.get("development_preflight", False)
+    )
+    pilot_data_marker = observation.get("pilot_data")
+    if pilot_data_marker is not None and not isinstance(pilot_data_marker, bool):
+        raise ValueError("pilot_data marker must be boolean when supplied")
+    if development_preflight and pilot_data_marker is True:
+        raise ValueError(
+            "development runtime-binding preflight cannot be pilot data"
+        )
+
     provenance = {
         "binding_version": "0.1.0",
         "decision_id": "R-015",
@@ -431,12 +442,10 @@ def bind_runtime_observation(
         "source_observation_refs": list(
             observation["source_observation_refs"]
         ),
-        "development_preflight": bool(
-            observation.get("development_preflight", False)
+        "development_preflight": development_preflight,
+        "pilot_data": (
+            False if development_preflight else pilot_data_marker
         ),
-        "pilot_data": False
-        if observation.get("development_preflight", False)
-        else None,
     }
 
     if provenance["development_preflight"] is True:

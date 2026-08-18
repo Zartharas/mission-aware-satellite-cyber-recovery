@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "RUNTIME_BINDING_COMPLETE_PILOT_RUNNER_PENDING",
+  "status": "STAGE1_ORCHESTRATION_OFFLINE_VALIDATED_RUNTIME_ADAPTERS_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -44,6 +44,38 @@
     ],
     "randomize_order_within_seed_block": true,
     "gate": "Each cell must produce at least one scientifically valid run with expected policy/effect semantics and complete raw metric inputs before Stage 2."
+  },
+  "stage_1_runner_contract": {
+    "decision_id": "R-028",
+    "runner_version": "0.1.0",
+    "ordering_method": "sha256_rank_v1",
+    "offline_validation_consumes_pilot_seed": false,
+    "run_id_policy": "utc_microseconds_cell_seed_uuid4",
+    "dispatch_by_event_id": {
+      "E1": {
+        "runtime_family": "command",
+        "reference_development_preflight": "scripts/run_wp8_command_binding_preflight.sh",
+        "pilot_executor_ready": false
+      },
+      "E3": {
+        "runtime_family": "recovery",
+        "reference_development_preflight": "scripts/run_wp8_recovery_binding_preflight.sh",
+        "pilot_executor_ready": false
+      },
+      "E4": {
+        "runtime_family": "observability",
+        "reference_development_preflight": "scripts/run_wp8_observability_binding_preflight.sh",
+        "pilot_executor_ready": false
+      }
+    },
+    "attempt_ledger": {
+      "retain_all_attempts": true,
+      "duplicate_run_id_rejected": true,
+      "invalid_attempt_keeps_seed": true,
+      "stage_2_requires_all_stage_1_cells_valid": true,
+      "infrastructure_invalid_fraction_denominator": "declared_stage_1_cell_count",
+      "same_cause_repeat_threshold": 2
+    }
   },
   "stage_2_variability": {
     "additional_seeds": [
@@ -225,7 +257,7 @@
     "pilot_execution_authorized": false,
     "authorization_condition": "The NOS3 pilot runner must bind observed runtime evidence to the validated raw-metric schema and emit a schema-valid scored run record without manual reconstruction or expected-value substitution.",
     "known_pre_pilot_implementation_work": [
-      "stage_1_pilot_runner_implementation_and_gate_validation"
+      "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
     ],
     "component_status": {
       "raw_metric_schema": true,
@@ -236,7 +268,9 @@
       "applicable_recovery_evidence_contract": true,
       "objective_schedule_predicate_contract": true,
       "runtime_binding_module": true,
-      "runtime_binding_static_validation": true
+      "runtime_binding_static_validation": true,
+      "stage_1_runner_offline_contract": true,
+      "stage_1_family_runtime_dispatch_adapters": false
     }
   },
   "invalid_run_rule": {

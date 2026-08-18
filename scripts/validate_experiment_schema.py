@@ -20,6 +20,7 @@ except ImportError as exc:
 from src.mission_recovery.events import materialize_event
 from src.mission_recovery.policies import evaluate_policy
 from src.mission_recovery.primary_metrics import score_raw_metric_evidence
+from src.mission_recovery.wp8_stage1_pilot import build_offline_stage1_plan
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -61,12 +62,53 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
         raise SystemExit("WP8 pilot model_version does not match model")
 
     gate = pilot["instrumentation_gate"]
-    if pilot["status"] != "RUNTIME_BINDING_COMPLETE_PILOT_RUNNER_PENDING":
-        raise SystemExit("WP8 runtime-binding completion status is not closed")
+    if pilot["status"] != (
+        "STAGE1_ORCHESTRATION_OFFLINE_VALIDATED_RUNTIME_ADAPTERS_PENDING"
+    ):
+        raise SystemExit("WP8 Stage-1 offline orchestration status is not closed")
     if gate["known_pre_pilot_implementation_work"] != [
-        "stage_1_pilot_runner_implementation_and_gate_validation"
+        "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
     ]:
-        raise SystemExit("WP8 remaining pre-pilot work is not the Stage-1 runner gate")
+        raise SystemExit("WP8 remaining pre-pilot work is not the runtime-adapter gate")
+
+    plan = build_offline_stage1_plan(pilot)
+    if plan["ordered_cell_ids"] != [
+        "C05", "R04", "C04", "R01", "R03", "C02",
+        "R02", "C03", "O01", "C07", "C01", "C06",
+    ]:
+        raise SystemExit("WP8 Stage-1 seed-101 deterministic order changed")
+    if (
+        plan["runtime_execution_authorized"] is not False
+        or plan["pilot_seed_consumed"] is not False
+        or plan["pilot_data_generated"] is not False
+    ):
+        raise SystemExit("WP8 Stage-1 offline plan crossed the pilot execution gate")
+
+    expected_dispatch = {
+        "E1": {
+            "runtime_family": "command",
+            "reference_development_preflight": (
+                "scripts/run_wp8_command_binding_preflight.sh"
+            ),
+            "pilot_executor_ready": False,
+        },
+        "E3": {
+            "runtime_family": "recovery",
+            "reference_development_preflight": (
+                "scripts/run_wp8_recovery_binding_preflight.sh"
+            ),
+            "pilot_executor_ready": False,
+        },
+        "E4": {
+            "runtime_family": "observability",
+            "reference_development_preflight": (
+                "scripts/run_wp8_observability_binding_preflight.sh"
+            ),
+            "pilot_executor_ready": False,
+        },
+    }
+    if pilot["stage_1_runner_contract"]["dispatch_by_event_id"] != expected_dispatch:
+        raise SystemExit("WP8 Stage-1 runtime dispatch contract changed")
 
     cells = pilot["cells"]
     ids = [cell["cell_id"] for cell in cells]
@@ -260,13 +302,17 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit("WP8 runtime binding module is not ready")
     if status["runtime_binding_static_validation"] is not True:
         raise SystemExit("WP8 runtime binding static validation is not ready")
+    if status["stage_1_runner_offline_contract"] is not True:
+        raise SystemExit("WP8 Stage-1 offline runner contract is not validated")
+    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
+        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-028")
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
         )
     if pilot["instrumentation_gate"]["pilot_execution_authorized"] is not False:
         raise SystemExit(
-            "Pilot execution must remain blocked pending Stage-1 runner gate validation"
+            "Pilot execution must remain blocked pending Stage-1 runtime-adapter gate validation"
         )
 
 
@@ -442,6 +488,7 @@ def main() -> int:
     print("[OK] M-08 family applicability rules are frozen")
     print("[OK] WP8 runtime binding module is statically ready")
     print("[OK] WP8 NOS3 runtime binding is closed; pilot execution remains gated")
+    print("[OK] WP8 Stage-1 offline orchestration is validated; runtime adapters remain pending")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
