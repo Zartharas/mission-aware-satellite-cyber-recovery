@@ -21,6 +21,9 @@ from src.mission_recovery.events import materialize_event
 from src.mission_recovery.policies import evaluate_policy
 from src.mission_recovery.primary_metrics import score_raw_metric_evidence
 from src.mission_recovery.wp8_stage1_pilot import build_offline_stage1_plan
+from src.mission_recovery.wp8_command_effect_contract import (
+    build_command_effect_matrix,
+)
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -63,9 +66,12 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_ORCHESTRATION_OFFLINE_VALIDATED_RUNTIME_ADAPTERS_PENDING"
+        "STAGE1_COMMAND_EFFECT_CONTRACT_OFFLINE_VALIDATED_"
+        "RUNTIME_EXECUTOR_PENDING"
     ):
-        raise SystemExit("WP8 Stage-1 offline orchestration status is not closed")
+        raise SystemExit(
+            "WP8 Stage-1 command effect contract status is not closed"
+        )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
     ]:
@@ -109,6 +115,45 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
     }
     if pilot["stage_1_runner_contract"]["dispatch_by_event_id"] != expected_dispatch:
         raise SystemExit("WP8 Stage-1 runtime dispatch contract changed")
+
+    command_matrix = build_command_effect_matrix(pilot)
+    expected_command_effects = {
+        "C01": ("P0", "OBSERVE_ONLY", 2, 1),
+        "C02": ("P1", "ISOLATE_MODELED_SOURCE", 0, 1),
+        "C03": ("P1", "ISOLATE_MODELED_SOURCE", 0, 1),
+        "C04": ("P1", "ISOLATE_MODELED_SOURCE", 0, 1),
+        "C05": ("P2", "RESTRICT_HIGH_RISK_COMMANDS", 0, 1),
+        "C06": ("P4", "ENTER_SAFE_MODE", 0, 0),
+        "C07": ("P2", "RESTRICT_HIGH_RISK_COMMANDS", 0, 1),
+    }
+    actual_command_effects = {}
+    for row in command_matrix["rows"]:
+        policy = row["policy_evaluation"]
+        gateway = row["gateway_execution"]
+        actual_command_effects[row["cell_id"]] = (
+            policy["actual_effective_policy_id"],
+            policy["selected_action"],
+            gateway["attacker_probe"][
+                "expected_cfs_reset_marker_delta_for_acceptance_only"
+            ],
+            gateway["authorized_probe"][
+                "expected_cfs_noop_marker_delta_for_acceptance_only"
+            ],
+        )
+    if actual_command_effects != expected_command_effects:
+        raise SystemExit(
+            "WP8 Stage-1 command effect matrix differs from frozen semantics"
+        )
+    if (
+        command_matrix["runtime_execution_authorized"] is not False
+        or command_matrix["pilot_seed_consumed"] is not False
+        or command_matrix["pilot_data_generated"] is not False
+        or command_matrix["primary_metrics_emitted"] is not False
+        or command_matrix["terminal_states_emitted"] is not False
+    ):
+        raise SystemExit(
+            "WP8 Stage-1 command effect contract crossed an offline boundary"
+        )
 
     cells = pilot["cells"]
     ids = [cell["cell_id"] for cell in cells]
@@ -304,8 +349,10 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit("WP8 runtime binding static validation is not ready")
     if status["stage_1_runner_offline_contract"] is not True:
         raise SystemExit("WP8 Stage-1 offline runner contract is not validated")
+    if status["stage_1_command_effect_contract"] is not True:
+        raise SystemExit("WP8 Stage-1 command effect contract is not validated")
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-028")
+        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-029")
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -489,6 +536,7 @@ def main() -> int:
     print("[OK] WP8 runtime binding module is statically ready")
     print("[OK] WP8 NOS3 runtime binding is closed; pilot execution remains gated")
     print("[OK] WP8 Stage-1 offline orchestration is validated; runtime adapters remain pending")
+    print("[OK] WP8 Stage-1 command effect contract is offline-validated; command runtime executor remains pending")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
