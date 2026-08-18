@@ -48,6 +48,7 @@ def observation_for(cell_id: str) -> dict:
         "post_enforcement_attacker_reset_marker_delta": attacker_delta,
         "legitimate_commands_attempted": 1,
         "authorized_noop_marker_delta": 1 if noop_observed else 0,
+        "event_activation_ns": 1_000_000_000,
         "event_success_ns": 2_000_000_000,
         "policy_enforcement_ns": 3_000_000_000,
         "second_attacker_probe_observed_ns": 4_000_000_000,
@@ -203,6 +204,36 @@ class WP8CommandObservationContractTests(unittest.TestCase):
     def test_wrong_timestamp_order_is_rejected(self) -> None:
         obs = observation_for("C02")
         obs["second_attacker_probe_observed_ns"] = 6_000_000_000
+        with self.assertRaisesRegex(ValueError, "out of order"):
+            derive_command_runtime_observation(
+                pilot=PILOT,
+                cell_id="C02",
+                observation=obs,
+            )
+
+    def test_event_success_after_enforcement_is_valid_nonoracle_order(self) -> None:
+        obs = observation_for("C02")
+        obs["policy_enforcement_ns"] = 2_000_000_000
+        obs["event_success_ns"] = 3_000_000_000
+        obs["second_attacker_probe_observed_ns"] = 4_000_000_000
+
+        row = derive_command_runtime_observation(
+            pilot=PILOT,
+            cell_id="C02",
+            observation=obs,
+        )
+
+        self.assertTrue(row["event_success"]["predicate"])
+        self.assertEqual(
+            row["event_success"]["observed_ns"],
+            3_000_000_000,
+        )
+
+    def test_event_success_before_activation_is_rejected(self) -> None:
+        obs = observation_for("C02")
+        obs["event_activation_ns"] = 2_500_000_000
+        obs["event_success_ns"] = 2_000_000_000
+
         with self.assertRaisesRegex(ValueError, "out of order"):
             derive_command_runtime_observation(
                 pilot=PILOT,

@@ -69,11 +69,12 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_COMMAND_OBSERVATION_CONTRACT_OFFLINE_VALIDATED_"
+        "STAGE1_COMMAND_OBSERVATION_TEMPORAL_ORDER_CORRECTED_"
         "RUNTIME_EXECUTOR_PENDING"
     ):
         raise SystemExit(
-            "WP8 Stage-1 command observation contract status is not closed"
+            "WP8 Stage-1 command observation temporal-order correction "
+            "is not closed"
         )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
@@ -390,8 +391,26 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit("WP8 Stage-1 command effect contract is not validated")
     if status["stage_1_command_observation_contract"] is not True:
         raise SystemExit("WP8 Stage-1 command observation contract is not validated")
+    if (
+        status["stage_1_command_observation_temporal_order_corrected"]
+        is not True
+    ):
+        raise SystemExit(
+            "WP8 Stage-1 command observation temporal-order correction "
+            "is not validated"
+        )
+    temporal = pilot["stage_1_runner_contract"]["command_observation_contract"]
+    if temporal["event_success_policy_enforcement_order_required"] is not False:
+        raise SystemExit(
+            "WP8 command event-success observation cannot gate policy enforcement"
+        )
+    if temporal["temporal_order_rule"] != (
+        "event_activation_precedes_policy_enforcement_and_event_success_"
+        "observation_independently;both_precede_post_enforcement_probe"
+    ):
+        raise SystemExit("WP8 command temporal partial-order rule changed")
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-030")
+        raise SystemExit("WP8 Stage-1 runtime adapters cannot pass in R-031")
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -577,6 +596,7 @@ def main() -> int:
     print("[OK] WP8 Stage-1 offline orchestration is validated; runtime adapters remain pending")
     print("[OK] WP8 Stage-1 command effect contract is offline-validated; command runtime executor remains pending")
     print("[OK] WP8 Stage-1 command observation/censoring contract is offline-validated; command runtime executor remains pending")
+    print("[OK] WP8 command event-success observation is temporally independent of policy enforcement after activation")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

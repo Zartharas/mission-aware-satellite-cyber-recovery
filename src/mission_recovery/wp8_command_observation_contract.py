@@ -172,6 +172,7 @@ def derive_command_runtime_observation(
         "post_enforcement_attacker_reset_marker_delta",
         "legitimate_commands_attempted",
         "authorized_noop_marker_delta",
+        "event_activation_ns",
         "event_success_ns",
         "policy_enforcement_ns",
         "second_attacker_probe_observed_ns",
@@ -190,6 +191,7 @@ def derive_command_runtime_observation(
         observation=observation,
     )
 
+    event_activation_ns = int(observation["event_activation_ns"])
     event_success_ns = int(observation["event_success_ns"])
     enforcement_ns = int(observation["policy_enforcement_ns"])
     second_probe_ns = int(observation["second_attacker_probe_observed_ns"])
@@ -199,6 +201,7 @@ def derive_command_runtime_observation(
     run_end_ns = int(observation["run_end_ns"])
 
     if min(
+        event_activation_ns,
         event_success_ns,
         enforcement_ns,
         second_probe_ns,
@@ -207,13 +210,19 @@ def derive_command_runtime_observation(
     ) < 0:
         raise ValueError("command observation timestamps must be non-negative")
 
-    if not (
-        event_success_ns
+    response_order_valid = (
+        event_activation_ns
         <= enforcement_ns
         <= second_probe_ns
         <= authorized_probe_ns
         <= run_end_ns
-    ):
+    )
+    event_observation_order_valid = (
+        event_activation_ns
+        <= event_success_ns
+        <= second_probe_ns
+    )
+    if not response_order_valid or not event_observation_order_valid:
         raise ValueError("command observation timestamps are out of order")
 
     containment = bool(effect["containment_predicate_observed"])

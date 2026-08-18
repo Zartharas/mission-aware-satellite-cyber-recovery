@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_COMMAND_OBSERVATION_CONTRACT_OFFLINE_VALIDATED_RUNTIME_EXECUTOR_PENDING",
+  "status": "STAGE1_COMMAND_OBSERVATION_TEMPORAL_ORDER_CORRECTED_RUNTIME_EXECUTOR_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -104,7 +104,9 @@
       "emits_terminal_state": false,
       "emits_recovery_evidence": false,
       "offline_validation_executes_runtime": false,
-      "offline_validation_consumes_pilot_seed": false
+      "offline_validation_consumes_pilot_seed": false,
+      "temporal_order_rule": "event_activation_precedes_policy_enforcement_and_event_success_observation_independently;both_precede_post_enforcement_probe",
+      "event_success_policy_enforcement_order_required": false
     }
   },
   "stage_2_variability": {
@@ -302,7 +304,8 @@
       "stage_1_runner_offline_contract": true,
       "stage_1_family_runtime_dispatch_adapters": false,
       "stage_1_command_effect_contract": true,
-      "stage_1_command_observation_contract": true
+      "stage_1_command_observation_contract": true,
+      "stage_1_command_observation_temporal_order_corrected": true
     }
   },
   "invalid_run_rule": {
