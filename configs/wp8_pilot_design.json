@@ -514,6 +514,26 @@
         "binding_provenance_sha256": "c49883cf09f2e71046486fb21c95c8cef6567f86ed989071288e7f2667bce1bd",
         "claim_boundary": "Development-only validation of the generic O01 parameterized runner path. RECOVERY_FAILED denotes bounded failure to achieve E4 observability containment only and is not a spacecraft failure, native safe-mode failure, mission-loss, RF-interference, or live-spacecraft claim."
       }
+    },
+    "family_runtime_dispatch_adapter_contract": {
+      "decision_id": "R-038",
+      "adapter_module": "src.mission_recovery.wp8_stage1_family_dispatch",
+      "binding_entrypoint": "src.mission_recovery.wp8_stage1_pilot.bind_stage1_runtime_observation",
+      "expected_stage1_family_counts": {
+        "command": 7,
+        "recovery": 4,
+        "observability": 1
+      },
+      "factor_source": "wp8_pilot_design.cells",
+      "seed_source": "stage_1_control_validity.seed",
+      "actual_policy_source": "retained_runtime_execution_metadata",
+      "raw_metric_source": "retained_family_runtime_observation",
+      "offline_static_validation_complete": true,
+      "pilot_mode_materialization_complete": false,
+      "runtime_execution_performed": false,
+      "pilot_seed_consumed": false,
+      "pilot_data_generated": false,
+      "claim_boundary": "R-038 statically validates the event-to-family adapter interface and frozen 12-cell routing matrix only. It does not execute NOS3, consume seed 101, generate pilot data, close the family runtime-dispatch gate, or authorize pilot execution."
     }
   },
   "stage_2_variability": {

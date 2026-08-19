@@ -842,6 +842,19 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit(
             "WP8 Stage-1 runtime adapters cannot pass before O01 validation"
         )
+    try:
+        from src.mission_recovery.wp8_stage1_family_dispatch import build_offline_family_dispatch_matrix, validate_family_dispatch_contract
+        validate_family_dispatch_contract(pilot)
+        r038_matrix = build_offline_family_dispatch_matrix(pilot)
+    except (ImportError, ValueError) as exc:
+        raise SystemExit(f"WP8 R-038 Stage-1 family dispatch adapter invalid: {exc}") from exc
+    if r038_matrix["ordered_cell_ids"] != ["C05","R04","C04","R01","R03","C02","R02","C03","O01","C07","C01","C06"]:
+        raise SystemExit("WP8 R-038 Stage-1 dispatch order changed")
+    if r038_matrix["family_counts"] != {"command":7,"recovery":4,"observability":1}:
+        raise SystemExit("WP8 R-038 Stage-1 family counts changed")
+    if r038_matrix["runtime_execution_performed"] or r038_matrix["pilot_seed_consumed"] or r038_matrix["pilot_data_generated"]:
+        raise SystemExit("WP8 R-038 crossed offline dispatch boundary")
+
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -1043,6 +1056,7 @@ def main() -> int:
     print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
     print("[OK] R-037 generic recovery executor is runtime-validated by retained R01/R02/R04 development discriminators; R03 remains intentionally unexecuted until pilot and pilot execution remains blocked")
     print("[OK] Generic O01 observability executor is runtime-validated by retained seed-9701 development evidence; pilot execution remains blocked pending the family-dispatch gate")
+    print("[OK] R-038 Stage-1 family dispatch adapter interface and frozen 12-cell routing matrix are statically validated offline; pilot-mode family materialization remains blocked")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
