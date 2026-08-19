@@ -4,21 +4,34 @@ set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
 
-if [[ "$#" -ne 2 ]]; then
-  echo "usage: $0 <R01-R04> <development-seed>" >&2
-  exit 2
+PILOT_MODE="${WP8_STAGE1_PILOT:-0}"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  [[ "${WP8_STAGE1_CONTROLLER:-0}" == "1" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller dispatch" >&2; exit 2; }
+  [[ -n "${RUN_ID:-}" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller RUN_ID" >&2; exit 2; }
+  [[ "$#" -eq 1 ]] || { echo "usage: WP8_STAGE1_PILOT=1 $0 <R01|R04>" >&2; exit 2; }
+  CELL_ID="$1"
+  [[ "$CELL_ID" == "R01" || "$CELL_ID" == "R04" ]] || { echo "[ERROR] generic recovery pilot supports R01/R04 only" >&2; exit 2; }
+  DEVELOPMENT_SEED=101
+else
+  [[ "$#" -eq 2 ]] || { echo "usage: $0 <R01-R04> <development-seed>" >&2; exit 2; }
+  CELL_ID="$1"; DEVELOPMENT_SEED="$2"
 fi
-
-CELL_ID="$1"
-DEVELOPMENT_SEED="$2"
 CELL_SAFE="$(printf '%s' "$CELL_ID" | tr '[:upper:]' '[:lower:]')"
-RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-recovery-${CELL_SAFE}-dev}"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-stage1-${CELL_SAFE}-s101}"
+else
+  RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-recovery-${CELL_SAFE}-dev}"
+fi
 SAFE_ID="$(printf '%s' "$RUN_ID" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9_.-' '-')"
 NETWORK="mascr-$SAFE_ID"
 CFS="mascr-$SAFE_ID-cfs"
 GATEWAY="mascr-$SAFE_ID-recovery-gateway"
 
-EVIDENCE="$ROOT/results/wp8/runtime-binding/recovery-executor-development/$RUN_ID"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  EVIDENCE="$ROOT/results/wp8/pilot/stage1/$RUN_ID"
+else
+  EVIDENCE="$ROOT/results/wp8/runtime-binding/recovery-executor-development/$RUN_ID"
+fi
 GROUND="$EVIDENCE/immutable-ground"
 OBS="$EVIDENCE/runtime-observation"
 PLAN_JSON="$GROUND/execution-plan.json"
@@ -32,10 +45,19 @@ VERIFY_TAMPERED="$GROUND/verify-tampered.json"
 ROLLBACK_JSON="$GROUND/rollback-preparation.json"
 NOOP_JSON="$GROUND/authorized-noop-probe.json"
 POST_SLOT_JSON="$GROUND/post-response-slot.json"
-SCOPE_JSON="$GROUND/development-evidence-scope.json"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  SCOPE_JSON="$GROUND/pilot-evidence-scope.json"
+else
+  SCOPE_JSON="$GROUND/development-evidence-scope.json"
+fi
 MEASUREMENT_JSON="$GROUND/recovery-runtime-measurement.json"
 RAW_JSON="$GROUND/recovery-runtime-observation-raw.json"
 DERIVED_JSON="$GROUND/recovery-runtime-observation-derived.json"
+BUNDLE_JSON="$EVIDENCE/runtime-binding-observation.json"
+RUN_RECORD="$EVIDENCE/run-record.json"
+PROVENANCE="$EVIDENCE/binding-provenance.json"
+ACCEPTANCE_JSON="$EVIDENCE/stage1-acceptance.json"
+CLASSIFICATION_JSON="$GROUND/pilot-classification-evidence.json"
 INVALID_JSON="$EVIDENCE/development-run-invalid.json"
 INGRESS_JSONL="$GROUND/gateway-ingress.jsonl"
 DECISION_JSONL="$GROUND/gateway-decisions.jsonl"
@@ -48,6 +70,10 @@ CF_BACKING_DIR="/work/nos3/fsw/build/exe/cpu1/cf"
 STAGE_BACKING="$CF_BACKING_DIR/mission-aware-e3-candidate.pkg"
 TEMP_BACKING="$CF_BACKING_DIR/mission-aware-wp8-rollback.tmp"
 PILOT_CONFIG="$ROOT/configs/wp8_pilot_design.json"
+TOOLCHAIN="$ROOT/configs/toolchain-lock.json"
+SCHEMA="$ROOT/configs/experiment_run.schema.json"
+NOMINAL_EVIDENCE="$ROOT/artifacts/runtime/$RUN_ID"
+RUNTIME_MANIFEST="$NOMINAL_EVIDENCE/runtime-manifest.txt"
 
 PRE_PID=""
 EVENT_WATCH_PID=""
@@ -55,6 +81,16 @@ RESULT="RUN_INVALID"
 PHASE="INITIALIZATION"
 
 mono_ns() { python3 -c 'import time; print(time.monotonic_ns())'; }
+
+recovery_executor() {
+  local subcommand="$1"
+  shift
+  if [[ "$PILOT_MODE" == "1" ]]; then
+    PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring "recovery-$subcommand" "$@"
+  else
+    PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_recovery_runtime_executor "$subcommand" "$@"
+  fi
+}
 count_reset_marker() { docker logs "$CFS" 2>&1 | grep -Fc 'SAMPLE: RESET counters command received' || true; }
 count_noop_marker() { docker logs "$CFS" 2>&1 | grep -Fc 'SAMPLE: NOOP command received' || true; }
 
@@ -131,17 +167,17 @@ cleanup() {
     wait "$PRE_PID" >/dev/null 2>&1 || true
   fi
   if [[ "$RESULT" == "PASS" && "$rc" -eq 0 ]]; then
-    echo "WP8_RECOVERY_STAGE1_DEVELOPMENT_EXECUTOR=PASS"
-    echo "development_preflight=true"
-    echo "pilot_data=false"
-    echo "pilot_seed_consumed=false"
-    echo "runtime_binding_performed=false"
-    echo "primary_metrics_emitted=false"
-    echo "terminal_state_emitted=false"
+    if [[ "$PILOT_MODE" == "1" ]]; then
+      echo "WP8_RECOVERY_STAGE1_PILOT_EXECUTOR=PASS"
+      echo "development_preflight=false"; echo "pilot_data=true"; echo "pilot_seed_consumed=true"; echo "runtime_binding_performed=true"; echo "primary_metrics_emitted=true"; echo "terminal_state_emitted=true"
+    else
+      echo "WP8_RECOVERY_STAGE1_DEVELOPMENT_EXECUTOR=PASS"
+      echo "development_preflight=true"; echo "pilot_data=false"; echo "pilot_seed_consumed=false"; echo "runtime_binding_performed=false"; echo "primary_metrics_emitted=false"; echo "terminal_state_emitted=false"
+    fi
     echo "evidence_directory=$EVIDENCE"
   else
-    emit_invalid "$rc" || true
-    echo "WP8_RECOVERY_STAGE1_DEVELOPMENT_EXECUTOR=FAIL" >&2
+    [[ "$PILOT_MODE" == "1" ]] || emit_invalid "$rc" || true
+    echo "WP8_RECOVERY_STAGE1_EXECUTOR=FAIL" >&2
     echo "failed_phase=$PHASE" >&2
     echo "evidence_directory=$EVIDENCE" >&2
   fi
@@ -158,6 +194,9 @@ test -z "$(git status --short)" || {
 for command in docker git python3 shasum; do
   command -v "$command" >/dev/null 2>&1 || exit 1
 done
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring     check-gate     --pilot-config "$PILOT_CONFIG"     --cell-id "$CELL_ID"     --run-id "$RUN_ID"
+fi
 docker info >/dev/null 2>&1
 docker image inspect "$IMAGE" >/dev/null 2>&1
 REPO_COMMIT="$(git rev-parse HEAD)"
@@ -167,7 +206,7 @@ mkdir -p "$GROUND" "$OBS"
 : > "$DECISION_JSONL"
 
 PHASE="DEVELOPMENT_PLAN_PREFLIGHT"
-PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_recovery_runtime_executor \
+recovery_executor \
   plan \
   --pilot-config "$PILOT_CONFIG" \
   --cell-id "$CELL_ID" \
@@ -212,6 +251,9 @@ done
 docker exec "$CFS" test -d "$CF_BACKING_DIR"
 docker exec "$CFS" rm -f "$STAGE_BACKING" "$TEMP_BACKING"
 echo "nominal_runtime_ready=PASS"
+
+RUN_START_NS="$(mono_ns)"
+RUN_START_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 PHASE="EVENT_OBSERVER_PREPOSITION"
 TAMPERED_SHA="$(shasum -a 256 "$TAMPERED" | awk '{print $1}')"
@@ -307,7 +349,7 @@ docker cp "$TAMPERED" "$CFS:$STAGE_BACKING"
 echo "e3_modeled_activation=PASS"
 
 PHASE="POLICY_SELECTION"
-PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_recovery_runtime_executor \
+recovery_executor \
   select-policy \
   --pilot-config "$PILOT_CONFIG" \
   --cell-id "$CELL_ID" \
@@ -337,7 +379,7 @@ GATEWAY_PROBE_NS=""
 
 PHASE="POLICY_ENFORCEMENT"
 if [[ "$SELECTED_ACTION" == "REQUEST_VERIFIED_ROLLBACK" ]]; then
-  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_recovery_runtime_executor \
+  recovery_executor \
     prepare-rollback \
     --event-json "$EVENT_JSON" \
     --policy-json "$POLICY_JSON" \
@@ -477,8 +519,16 @@ Path(p).write_text(
 )
 PY
 
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PHASE="PILOT_NOMINAL_RUNTIME_COMPLETION"
+  set +e; wait "$PRE_PID"; PRE_RC=$?; set -e; PRE_PID=""
+  [[ "$PRE_RC" -eq 0 ]] || { echo "[ERROR] nominal runtime failed: rc=$PRE_RC" >&2; tail -160 "$NOMINAL_LOG" >&2 || true; exit 1; }
+  grep -Fq 'NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS' "$NOMINAL_LOG"
+  test -f "$RUNTIME_MANIFEST"
+fi
 CRITERIA_NS="$(mono_ns)"
 RUN_END_NS="$(mono_ns)"
+RUN_END_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 PHASE="RAW_OBSERVATION_MATERIALIZATION"
 python3 - \
@@ -531,7 +581,7 @@ Path(path).write_text(
 PY
 
 REL_EVIDENCE="${EVIDENCE#$ROOT/}"
-PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_recovery_runtime_executor \
+recovery_executor \
   finalize-observation \
   --pilot-config "$PILOT_CONFIG" \
   --cell-id "$CELL_ID" \
@@ -561,5 +611,17 @@ assert r["primary_metrics_emitted"] is False
 assert r["terminal_state_emitted"] is False
 print("recovery_development_observation_acceptance=PASS")
 PY
+
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PHASE="PILOT_OBSERVATION_BINDING"
+  REL_EVIDENCE="${EVIDENCE#$ROOT/}"
+  recovery_executor bind-pilot \
+    --pilot-config "$PILOT_CONFIG" --toolchain-lock "$TOOLCHAIN" --schema "$SCHEMA" \
+    --cell-id "$CELL_ID" --factor-json "$FACTOR_JSON" --policy-json "$POLICY_JSON" --raw-json "$RAW_JSON" \
+    --evidence-prefix "$REL_EVIDENCE" --nominal-log "$NOMINAL_LOG" --runtime-manifest "$RUNTIME_MANIFEST" \
+    --classification-json "$CLASSIFICATION_JSON" --run-start-ns "$RUN_START_NS" --run-start-utc "$RUN_START_UTC" --run-end-utc "$RUN_END_UTC" \
+    --bundle-json "$BUNDLE_JSON" --run-record-json "$RUN_RECORD" --provenance-json "$PROVENANCE" \
+    --acceptance-json "$ACCEPTANCE_JSON" --snapshot-id "repo-$REPO_COMMIT" --host-architecture "$(uname -m)"
+fi
 
 RESULT="PASS"

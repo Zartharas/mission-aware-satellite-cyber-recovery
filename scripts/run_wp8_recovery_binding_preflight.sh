@@ -4,8 +4,22 @@ set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
 
-SEED=9201
-RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-recovery-binding-dev}"
+PILOT_MODE="${WP8_STAGE1_PILOT:-0}"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  [[ "${WP8_STAGE1_CONTROLLER:-0}" == "1" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller dispatch" >&2; exit 2; }
+  [[ -n "${RUN_ID:-}" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller RUN_ID" >&2; exit 2; }
+  [[ "$#" -eq 1 ]] || { echo "usage: WP8_STAGE1_PILOT=1 $0 <R02|R03>" >&2; exit 2; }
+  CELL_ID="$1"
+  [[ "$CELL_ID" == "R02" || "$CELL_ID" == "R03" ]] || { echo "[ERROR] full trusted-recovery pilot supports R02/R03 only" >&2; exit 2; }
+  SEED=101
+  if [[ "$CELL_ID" == "R02" ]]; then export WP8_REQUESTED_POLICY_ID=P5; else export WP8_REQUESTED_POLICY_ID=P7; fi
+  CELL_SAFE="$(printf '%s' "$CELL_ID" | tr '[:upper:]' '[:lower:]')"
+  RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-stage1-${CELL_SAFE}-s101}"
+else
+  [[ "$#" -eq 0 ]] || { echo "usage: $0" >&2; exit 2; }
+  CELL_ID=R02; SEED=9201; export WP8_REQUESTED_POLICY_ID=P5
+  RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-recovery-binding-dev}"
+fi
 SAFE_ID="$(printf '%s' "$RUN_ID" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9_.-' '-')"
 
 NETWORK="mascr-$SAFE_ID"
@@ -14,7 +28,7 @@ PROXY="mascr-$SAFE_ID-recovery-proxy"
 POLICY="mascr-$SAFE_ID-recovery-policy"
 TLM_PORT=5013
 
-EVIDENCE="$ROOT/results/wp8/runtime-binding/recovery/$RUN_ID"
+if [[ "$PILOT_MODE" == "1" ]]; then EVIDENCE="$ROOT/results/wp8/pilot/stage1/$RUN_ID"; else EVIDENCE="$ROOT/results/wp8/runtime-binding/recovery/$RUN_ID"; fi
 GROUND="$EVIDENCE/immutable-ground"
 OBS="$EVIDENCE/runtime-observation"
 
@@ -41,6 +55,7 @@ SUMMARY_JSON="$GROUND/recovery-observation-summary.json"
 OBSERVATION_JSON="$EVIDENCE/runtime-binding-observation.json"
 RUN_RECORD="$EVIDENCE/run-record.json"
 PROVENANCE="$EVIDENCE/binding-provenance.json"
+ACCEPTANCE_JSON="$EVIDENCE/stage1-acceptance.json"
 EVENT_SUCCESS_NS_FILE="$OBS/event-success-monotonic-ns.txt"
 EVENT_SLOT_SHA_FILE="$OBS/event-slot-sha256.txt"
 EVENT_WATCH_LOG="$OBS/event-slot-watcher.log"
@@ -233,16 +248,12 @@ cleanup() {
   fi
 
   if [[ "$RESULT" == PASS && "$rc" -eq 0 ]]; then
-    echo "WP8_RECOVERY_BINDING_PREFLIGHT=PASS"
-    echo "development_preflight=true"
-    echo "pilot_data=false"
+    if [[ "$PILOT_MODE" == "1" ]]; then echo "WP8_RECOVERY_FULL_STAGE1_PILOT_EXECUTOR=PASS"; echo "development_preflight=false"; echo "pilot_data=true"; echo "pilot_seed_consumed=true"; echo "runtime_binding_performed=true"; else echo "WP8_RECOVERY_BINDING_PREFLIGHT=PASS"; echo "development_preflight=true"; echo "pilot_data=false"; fi
     echo "evidence_directory=$EVIDENCE"
   else
-    bind_invalid_observation || true
-    echo "WP8_RECOVERY_BINDING_PREFLIGHT=FAIL" >&2
+    [[ "$PILOT_MODE" == "1" ]] || bind_invalid_observation || true
+    echo "WP8_RECOVERY_BINDING_EXECUTOR=FAIL" >&2
     echo "failure_phase=$PHASE" >&2
-    echo "development_preflight=true" >&2
-    echo "pilot_data=false" >&2
     echo "evidence_directory=$EVIDENCE" >&2
   fi
 
@@ -256,6 +267,10 @@ for cmd in docker git python3 shasum; do
     exit 1
   }
 done
+
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring     check-gate     --pilot-config "$PILOT_CONFIG"     --cell-id "$CELL_ID"     --run-id "$RUN_ID"
+fi
 
 docker info >/dev/null 2>&1
 docker image inspect "$IMAGE" >/dev/null 2>&1
@@ -322,7 +337,10 @@ factor = {
     "seed": seed,
     "mission_state_id": "M4",
     "event_id": "E3",
-    "policy_id": "P5",
+    "policy_id": __import__("os").environ.get(
+        "WP8_REQUESTED_POLICY_ID",
+        "P5",
+    ),
     "contact_condition_id": "C0",
     "evidence_condition_id": "T0",
     "repo_commit": repo_commit,
@@ -350,6 +368,10 @@ Path(verify_path).write_text(
 print("recovery_factor_event_materialization=PASS")
 PY
 
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring full-recovery-validate-factor --pilot-config "$PILOT_CONFIG" --cell-id "$CELL_ID" --factor-json "$FACTOR_JSON" --repo-commit "$REPO_COMMIT"
+fi
+
 APPROVED_SHA="$(shasum -a 256 "$APPROVED" | awk '{print $1}')"
 TAMPERED_SHA="$(shasum -a 256 "$TAMPERED" | awk '{print $1}')"
 
@@ -357,8 +379,7 @@ test "$APPROVED_SHA" = "42945a2622fa351b3a3fdc31e002cbe326cb7a42a958ee757f317abe
 test "$TAMPERED_SHA" = "ff96d61205cc2c49b6d7d73fc36b9544c0deea79d7a9304cc1fb9f1f8986053d"
 test "$APPROVED_SHA" != "$TAMPERED_SHA"
 
-echo "development_seed=9201"
-echo "pilot_seed_consumed=false"
+if [[ "$PILOT_MODE" == "1" ]]; then echo "pilot_seed=101"; echo "pilot_seed_consumed=true"; else echo "development_seed=9201"; echo "pilot_seed_consumed=false"; fi
 echo "approved_artifact_identity=PASS"
 echo "tampered_artifact_identity=PASS"
 
@@ -617,7 +638,8 @@ from pathlib import Path
 from src.mission_recovery.policies import evaluate_policy
 
 event = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-decision = evaluate_policy("P5", event)
+import os
+decision = evaluate_policy(os.environ.get("WP8_REQUESTED_POLICY_ID", "P5"), event)
 
 assert event["event_id"] == "E3"
 assert event["policy_visible_evidence"]["integrity_check_passed"] is False
@@ -1377,7 +1399,7 @@ echo "validated_nominal_runtime_pass=true"
 
 PHASE="OBSERVATION_BINDING"
 
-REL="results/wp8/runtime-binding/recovery/$RUN_ID"
+if [[ "$PILOT_MODE" == "1" ]]; then REL="results/wp8/pilot/stage1/$RUN_ID"; else REL="results/wp8/runtime-binding/recovery/$RUN_ID"; fi
 
 python3 - \
   "$FACTOR_JSON" "$RECOVERY_MANIFEST" "$SUMMARY_JSON" "$OBSERVATION_JSON" \
@@ -1611,6 +1633,17 @@ Path(observation_path).write_text(
 
 print("recovery_runtime_observation_materialized=PASS")
 PY
+
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PHASE="PILOT_OBSERVATION_BINDING"
+  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring full-recovery-bind-existing \
+    --pilot-config "$PILOT_CONFIG" --toolchain-lock "$TOOLCHAIN" --schema "$SCHEMA" --cell-id "$CELL_ID" \
+    --factor-json "$FACTOR_JSON" --policy-json "$POLICY_JSON" --observation-json "$OBSERVATION_JSON" \
+    --manifest-json "$RECOVERY_MANIFEST" --summary-json "$SUMMARY_JSON" --bundle-json "$OBSERVATION_JSON" \
+    --run-record-json "$RUN_RECORD" --provenance-json "$PROVENANCE" --acceptance-json "$ACCEPTANCE_JSON" \
+    --snapshot-id "repo-$REPO_COMMIT" --host-architecture "$(uname -m)"
+  RESULT="PASS"; PHASE="COMPLETE"; exit 0
+fi
 
 PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_runtime_binding \
   --observation-json "$OBSERVATION_JSON" \

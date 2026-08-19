@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_PILOT_MODE_MATERIALIZATION_STATIC_VALIDATED_RUNTIME_WIRING_PENDING",
+  "status": "STAGE1_RUNTIME_WIRING_STATIC_VALIDATED_AUTHORIZATION_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -560,7 +560,7 @@
           "command_generic": {
             "validated_runtime_source": "scripts/run_wp8_command_stage1_development.sh",
             "observation_semantics": "R-029/R-030/R-031",
-            "pilot_runtime_wiring_complete": false
+            "pilot_runtime_wiring_complete": true
           },
           "recovery_generic": {
             "validated_runtime_source": "scripts/run_wp8_recovery_stage1_development.sh",
@@ -569,7 +569,7 @@
               "R01",
               "R04"
             ],
-            "pilot_runtime_wiring_complete": false
+            "pilot_runtime_wiring_complete": true
           },
           "recovery_full_trusted": {
             "validated_runtime_source": "scripts/run_wp8_recovery_binding_preflight.sh",
@@ -579,7 +579,7 @@
               "R03"
             ],
             "full_all_ten_criteria_required": true,
-            "pilot_runtime_wiring_complete": false
+            "pilot_runtime_wiring_complete": true
           },
           "observability_generic": {
             "validated_runtime_source": "scripts/run_wp8_observability_stage1_development.sh",
@@ -587,7 +587,7 @@
             "supported_cells": [
               "O01"
             ],
-            "pilot_runtime_wiring_complete": false
+            "pilot_runtime_wiring_complete": true
           }
         },
         "pilot_observation_envelope": {
@@ -600,11 +600,49 @@
         },
         "invalid_attempt_rule_source": "stage_1_runner_contract.attempt_ledger",
         "offline_static_validation_complete": true,
-        "runtime_wiring_complete": false,
+        "runtime_wiring_complete": true,
         "runtime_execution_performed": false,
         "pilot_seed_consumed": false,
         "pilot_data_generated": false,
         "claim_boundary": "R-039 freezes pilot-mode runtime-path selection and the observation-envelope contract only. R02/R03 use the accepted full trusted-recovery pipeline because they are the trusted-recovery anchors; R01/R04 remain on the generic R-037 recovery path. No NOS3 execution, seed-101 consumption, pilot data, runtime-wiring closure, or pilot authorization occurs in this increment."
+      },
+      "runtime_wiring_contract": {
+        "decision_id": "R-040",
+        "controller": "scripts/run_wp8_stage1_pilot.sh",
+        "adapter_module": "src.mission_recovery.wp8_stage1_runtime_wiring",
+        "binding_entrypoint": "src.mission_recovery.wp8_stage1_family_dispatch.bind_authorized_family_observation",
+        "ledger_module": "src.mission_recovery.wp8_stage1_pilot",
+        "runtime_path_by_cell": {
+          "C01": "command_generic",
+          "C02": "command_generic",
+          "C03": "command_generic",
+          "C04": "command_generic",
+          "C05": "command_generic",
+          "C06": "command_generic",
+          "C07": "command_generic",
+          "R01": "recovery_generic",
+          "R02": "recovery_full_trusted",
+          "R03": "recovery_full_trusted",
+          "R04": "recovery_generic",
+          "O01": "observability_generic"
+        },
+        "pilot_runtime_source_by_path": {
+          "command_generic": "scripts/run_wp8_command_stage1_development.sh",
+          "recovery_generic": "scripts/run_wp8_recovery_stage1_development.sh",
+          "recovery_full_trusted": "scripts/run_wp8_recovery_binding_preflight.sh",
+          "observability_generic": "scripts/run_wp8_observability_stage1_development.sh"
+        },
+        "single_cell_per_controller_invocation": true,
+        "frozen_order_enforced": true,
+        "invalid_attempt_retention_enabled": true,
+        "expected_values_used_as_metric_inputs": false,
+        "development_runners_remain_development_by_default": true,
+        "pilot_mode_requires_explicit_environment_gate": "WP8_STAGE1_PILOT=1 AND WP8_STAGE1_CONTROLLER=1",
+        "runtime_execution_performed": false,
+        "pilot_seed_consumed": false,
+        "pilot_data_generated": false,
+        "authorization_pending": true,
+        "claim_boundary": "R-040 wires the frozen Stage-1 controller, four family runtime paths, observation normalization, schema binding, and attempt ledger while leaving all readiness and authorization gates false pending exact-SHA CI. No NOS3 runtime is executed and seed 101 remains unconsumed."
       }
     }
   },
@@ -788,7 +826,7 @@
     "pilot_execution_authorized": false,
     "authorization_condition": "The NOS3 pilot runner must bind observed runtime evidence to the validated raw-metric schema and emit a schema-valid scored run record without manual reconstruction or expected-value substitution.",
     "known_pre_pilot_implementation_work": [
-      "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
+      "stage_1_runtime_wiring_authorization_gate_activation"
     ],
     "component_status": {
       "raw_metric_schema": true,

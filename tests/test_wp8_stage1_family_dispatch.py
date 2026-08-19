@@ -72,7 +72,10 @@ class T(unittest.TestCase):
  def test_r039_runtime_wiring_and_authorization_remain_blocked(self):
   contract=P["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]["pilot_mode_contract"]
   self.assertTrue(contract["offline_static_validation_complete"])
-  self.assertFalse(contract["runtime_wiring_complete"])
+  self.assertTrue(contract["runtime_wiring_complete"])
+  r040=P["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]["runtime_wiring_contract"]
+  self.assertEqual(r040["decision_id"],"R-040")
+  self.assertTrue(r040["authorization_pending"])
   self.assertFalse(P["instrumentation_gate"]["component_status"]["stage_1_family_runtime_dispatch_adapters"])
   self.assertFalse(P["instrumentation_gate"]["pilot_execution_authorized"])
 

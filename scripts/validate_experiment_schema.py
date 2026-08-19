@@ -84,16 +84,18 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_PILOT_MODE_MATERIALIZATION_STATIC_"
-        "VALIDATED_RUNTIME_WIRING_PENDING"
+        "STAGE1_RUNTIME_WIRING_STATIC_VALIDATED_"
+        "AUTHORIZATION_PENDING"
     ):
         raise SystemExit(
             "WP8 generic O01 observability executor static gate is not closed"
         )
     if gate["known_pre_pilot_implementation_work"] != [
-        "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
+        "stage_1_runtime_wiring_authorization_gate_activation"
     ]:
-        raise SystemExit("WP8 remaining pre-pilot work is not the runtime-adapter gate")
+        raise SystemExit(
+            "WP8 remaining pre-pilot work is not the R-041 authorization gate"
+        )
 
     plan = build_offline_stage1_plan(pilot)
     if plan["ordered_cell_ids"] != [
@@ -628,8 +630,8 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             "WP8 R-037 recovery runtime validation is not closed"
         )
     if pilot["status"] != (
-        "STAGE1_PILOT_MODE_MATERIALIZATION_STATIC_"
-        "VALIDATED_RUNTIME_WIRING_PENDING"
+        "STAGE1_RUNTIME_WIRING_STATIC_VALIDATED_"
+        "AUTHORIZATION_PENDING"
     ):
         raise SystemExit(
             "WP8 generic O01 observability runtime validation "
@@ -886,6 +888,16 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             "WP8 R-039 crossed the offline pilot boundary"
         )
 
+    try:
+        from src.mission_recovery.wp8_stage1_runtime_wiring import (
+            validate_runtime_wiring_contract,
+        )
+        validate_runtime_wiring_contract(pilot)
+    except (ImportError, ValueError) as exc:
+        raise SystemExit(
+            f"WP8 R-040 Stage-1 runtime wiring invalid: {exc}"
+        ) from exc
+
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -1087,8 +1099,9 @@ def main() -> int:
     print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
     print("[OK] R-037 generic recovery executor is runtime-validated by retained R01/R02/R04 development discriminators; R03 remains intentionally unexecuted until pilot and pilot execution remains blocked")
     print("[OK] Generic O01 observability executor is runtime-validated by retained seed-9701 development evidence; pilot execution remains blocked pending the family-dispatch gate")
-    print("[OK] R-038 Stage-1 family dispatch adapter interface and frozen 12-cell routing matrix are statically validated offline; pilot-mode family materialization remains blocked")
-    print("[OK] R-039 pilot-mode runtime paths are frozen offline: command=7, recovery-generic=2, recovery-full-trusted=2, observability=1; runtime wiring and seed 101 remain blocked")
+    print("[OK] R-038 Stage-1 family dispatch interface and frozen 12-cell routing matrix remain validated; later lifecycle gates are tracked separately")
+    print("[OK] R-039 pilot-mode runtime paths remain frozen: command=7, recovery-generic=2, recovery-full-trusted=2, observability=1; R-040 owns runtime wiring progression")
+    print("[OK] R-040 Stage-1 runtime wiring is statically validated across all four pilot paths; exact-SHA CI authorization remains pending and seed 101 is unconsumed")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

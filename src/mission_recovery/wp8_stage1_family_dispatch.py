@@ -139,8 +139,16 @@ def validate_pilot_mode_materialization_contract(pilot: dict[str, Any]) -> None:
         raise ValueError("R-039 binding entrypoint changed")
     if contract["offline_static_validation_complete"] is not True:
         raise ValueError("R-039 static validation incomplete")
-    if contract["runtime_wiring_complete"] is not False:
-        raise ValueError("R-039 runtime wiring predeclared")
+    wiring_complete=contract["runtime_wiring_complete"]
+    if wiring_complete not in (False, True):
+        raise ValueError("R-039 runtime wiring state invalid")
+    if wiring_complete is True:
+        parent=pilot["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]
+        r040=parent.get("runtime_wiring_contract")
+        if not isinstance(r040,dict) or r040.get("decision_id")!="R-040":
+            raise ValueError("R-039 runtime wiring lacks R-040 contract")
+        if r040.get("authorization_pending") is not True:
+            raise ValueError("R-040 authorization boundary changed")
     if contract["runtime_execution_performed"] or contract["pilot_seed_consumed"] or contract["pilot_data_generated"]:
         raise ValueError("R-039 crossed offline boundary")
     gate=pilot["instrumentation_gate"]

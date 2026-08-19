@@ -4,21 +4,19 @@ set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
 
-if [[ "$#" -ne 2 ]]; then
-  echo "usage: $0 O01 <development-seed>" >&2
-  exit 2
+PILOT_MODE="${WP8_STAGE1_PILOT:-0}"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  [[ "${WP8_STAGE1_CONTROLLER:-0}" == "1" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller dispatch" >&2; exit 2; }
+  [[ -n "${RUN_ID:-}" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller RUN_ID" >&2; exit 2; }
+  [[ "$#" -eq 1 ]] || { echo "usage: WP8_STAGE1_PILOT=1 $0 O01" >&2; exit 2; }
+  CELL_ID="$1"; DEVELOPMENT_SEED=101
+else
+  [[ "$#" -eq 2 ]] || { echo "usage: $0 O01 <development-seed>" >&2; exit 2; }
+  CELL_ID="$1"; DEVELOPMENT_SEED="$2"
 fi
-
-CELL_ID="$1"
-DEVELOPMENT_SEED="$2"
-
-if [[ "$CELL_ID" != "O01" ]]; then
-  echo "[ERROR] only frozen Stage-1 observability cell O01 is supported" >&2
-  exit 2
-fi
-
+if [[ "$CELL_ID" != "O01" ]]; then echo "[ERROR] only frozen Stage-1 observability cell O01 is supported" >&2; exit 2; fi
 SEED="$DEVELOPMENT_SEED"
-RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-observability-o01-dev}"
+if [[ "$PILOT_MODE" == "1" ]]; then RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-stage1-o01-s101}"; else RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-observability-o01-dev}"; fi
 SAFE_ID="$(printf '%s' "$RUN_ID" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9_.-' '-')"
 
 NETWORK="mascr-$SAFE_ID"
@@ -32,7 +30,7 @@ GATEWAY_PORT=19091
 GATEWAY_HOST="wp8-observability-gateway"
 VISIBILITY_DEADLINE_NS=3000000000
 
-EVIDENCE="$ROOT/results/wp8/runtime-binding/observability-executor-development/$RUN_ID"
+if [[ "$PILOT_MODE" == "1" ]]; then EVIDENCE="$ROOT/results/wp8/pilot/stage1/$RUN_ID"; else EVIDENCE="$ROOT/results/wp8/runtime-binding/observability-executor-development/$RUN_ID"; fi
 GROUND="$EVIDENCE/immutable-ground"
 OBS="$EVIDENCE/runtime-observation"
 
@@ -59,6 +57,7 @@ SUMMARY_JSON="$GROUND/observability-observation-summary.json"
 OBSERVATION_JSON="$EVIDENCE/runtime-binding-observation.json"
 RUN_RECORD="$EVIDENCE/run-record.json"
 PROVENANCE="$EVIDENCE/binding-provenance.json"
+ACCEPTANCE_JSON="$EVIDENCE/stage1-acceptance.json"
 
 NOMINAL_EVIDENCE="$ROOT/artifacts/runtime/$RUN_ID"
 NOMINAL_LOG="$OBS/nominal-runtime.log"
@@ -298,16 +297,12 @@ cleanup() {
   fi
 
   if [[ "$RESULT" == PASS && "$rc" -eq 0 ]]; then
-    echo "WP8_OBSERVABILITY_STAGE1_DEVELOPMENT_EXECUTOR=PASS"
-    echo "development_preflight=true"
-    echo "pilot_data=false"
+    if [[ "$PILOT_MODE" == "1" ]]; then echo "WP8_OBSERVABILITY_STAGE1_PILOT_EXECUTOR=PASS"; echo "development_preflight=false"; echo "pilot_data=true"; echo "pilot_seed_consumed=true"; echo "runtime_binding_performed=true"; else echo "WP8_OBSERVABILITY_STAGE1_DEVELOPMENT_EXECUTOR=PASS"; echo "development_preflight=true"; echo "pilot_data=false"; fi
     echo "evidence_directory=$EVIDENCE"
   else
-    bind_invalid_observation || true
-    echo "WP8_OBSERVABILITY_STAGE1_DEVELOPMENT_EXECUTOR=FAIL" >&2
+    [[ "$PILOT_MODE" == "1" ]] || bind_invalid_observation || true
+    echo "WP8_OBSERVABILITY_STAGE1_EXECUTOR=FAIL" >&2
     echo "failure_phase=$PHASE" >&2
-    echo "development_preflight=true" >&2
-    echo "pilot_data=false" >&2
     echo "evidence_directory=$EVIDENCE" >&2
   fi
 
@@ -347,10 +342,13 @@ reserved = {
 if seed <= 0:
     raise SystemExit("development seed must be positive")
 
-if seed in reserved:
-    raise SystemExit(
-        f"development seed collides with frozen pilot seed: {seed}"
-    )
+pilot_mode = __import__("os").environ.get("WP8_STAGE1_PILOT", "0") == "1"
+if pilot_mode:
+    if seed != int(pilot["stage_1_control_validity"]["seed"]):
+        raise SystemExit("pilot seed differs from frozen Stage-1 seed")
+else:
+    if seed in reserved:
+        raise SystemExit(f"development seed collides with frozen pilot seed: {seed}")
 
 cells = {
     row["cell_id"]: row
@@ -381,6 +379,10 @@ for key, value in expected.items():
 print("o01_development_seed_preflight=PASS")
 print("o01_pilot_seed_collision=false")
 PY
+
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring check-gate --pilot-config "$PILOT_CONFIG" --cell-id "$CELL_ID" --run-id "$RUN_ID"
+fi
 
 docker info >/dev/null 2>&1
 docker image inspect "$IMAGE" >/dev/null 2>&1
@@ -1149,7 +1151,7 @@ echo "validated_nominal_runtime_pass=true"
 
 PHASE="OBSERVATION_BINDING"
 
-REL="results/wp8/runtime-binding/observability-executor-development/$RUN_ID"
+if [[ "$PILOT_MODE" == "1" ]]; then REL="results/wp8/pilot/stage1/$RUN_ID"; else REL="results/wp8/runtime-binding/observability-executor-development/$RUN_ID"; fi
 
 PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_observability_evidence materialize \
   --factor-json "$FACTOR_JSON" \
@@ -1166,6 +1168,18 @@ PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_observability_evidence ma
   --repo-commit "$REPO_COMMIT" \
   --runner-sha "$RUNNER_SHA" \
   --rel "$REL"
+
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PHASE="PILOT_OBSERVATION_BINDING"
+  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring observability-bind-existing \
+    --pilot-config "$PILOT_CONFIG" --toolchain-lock "$TOOLCHAIN" --schema "$SCHEMA" \
+    --factor-json "$FACTOR_JSON" --policy-json "$POLICY_JSON" --observation-json "$OBSERVATION_JSON" \
+    --manifest-json "$MANIFEST_JSON" --summary-json "$SUMMARY_JSON" --bundle-json "$OBSERVATION_JSON" \
+    --run-record-json "$RUN_RECORD" --provenance-json "$PROVENANCE" --acceptance-json "$ACCEPTANCE_JSON" \
+    --snapshot-id "repo-$REPO_COMMIT" --host-architecture "$(uname -m)"
+  RESULT="PASS"; PHASE="COMPLETE"; exit 0
+fi
+
 PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_runtime_binding \
   --observation-json "$OBSERVATION_JSON" \
   --pilot-config "$PILOT_CONFIG" \

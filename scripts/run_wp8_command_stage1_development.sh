@@ -4,23 +4,36 @@ set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
 
-if [[ "$#" -ne 2 ]]; then
-  echo "usage: $0 <C01-C07> <development-seed>" >&2
-  exit 2
+PILOT_MODE="${WP8_STAGE1_PILOT:-0}"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  [[ "${WP8_STAGE1_CONTROLLER:-0}" == "1" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller dispatch" >&2; exit 2; }
+  [[ -n "${RUN_ID:-}" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller RUN_ID" >&2; exit 2; }
+  [[ "$#" -eq 1 ]] || { echo "usage: WP8_STAGE1_PILOT=1 $0 <C01-C07>" >&2; exit 2; }
+  CELL_ID="$1"
+  DEVELOPMENT_SEED=101
+else
+  [[ "$#" -eq 2 ]] || { echo "usage: $0 <C01-C07> <development-seed>" >&2; exit 2; }
+  CELL_ID="$1"
+  DEVELOPMENT_SEED="$2"
 fi
 
-CELL_ID="$1"
-DEVELOPMENT_SEED="$2"
-
 CELL_SAFE="$(printf '%s' "$CELL_ID" | tr '[:upper:]' '[:lower:]')"
-RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-command-${CELL_SAFE}-dev}"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-stage1-${CELL_SAFE}-s101}"
+else
+  RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-command-${CELL_SAFE}-dev}"
+fi
 SAFE_ID="$(printf '%s' "$RUN_ID" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9_.-' '-')"
 
 NETWORK="mascr-$SAFE_ID"
 CFS="mascr-$SAFE_ID-cfs"
 GATEWAY="mascr-$SAFE_ID-wp8-gateway"
 
-EVIDENCE="$ROOT/results/wp8/runtime-binding/command-executor-development/$RUN_ID"
+if [[ "$PILOT_MODE" == "1" ]]; then
+  EVIDENCE="$ROOT/results/wp8/pilot/stage1/$RUN_ID"
+else
+  EVIDENCE="$ROOT/results/wp8/runtime-binding/command-executor-development/$RUN_ID"
+fi
 GROUND="$EVIDENCE/immutable-ground"
 OBS="$EVIDENCE/runtime-observation"
 
@@ -36,6 +49,11 @@ ATTACKER2_JSON="$GROUND/attacker-reset-probe-2.json"
 AUTHORIZED_JSON="$GROUND/authorized-noop-probe.json"
 MEASUREMENT_JSON="$GROUND/command-runtime-measurement.json"
 DERIVED_JSON="$GROUND/command-runtime-observation-derived.json"
+BUNDLE_JSON="$EVIDENCE/runtime-binding-observation.json"
+RUN_RECORD="$EVIDENCE/run-record.json"
+PROVENANCE="$EVIDENCE/binding-provenance.json"
+ACCEPTANCE_JSON="$EVIDENCE/stage1-acceptance.json"
+CLASSIFICATION_JSON="$GROUND/pilot-classification-evidence.json"
 INVALID_JSON="$EVIDENCE/development-run-invalid.json"
 
 NOMINAL_EVIDENCE="$ROOT/artifacts/runtime/$RUN_ID"
@@ -43,6 +61,8 @@ NOMINAL_LOG="$OBS/nominal-runtime.log"
 RUNTIME_MANIFEST="$NOMINAL_EVIDENCE/runtime-manifest.txt"
 
 PILOT_CONFIG="$ROOT/configs/wp8_pilot_design.json"
+TOOLCHAIN="$ROOT/configs/toolchain-lock.json"
+SCHEMA="$ROOT/configs/experiment_run.schema.json"
 
 PRE_PID=""
 EVENT_WATCH_PID=""
@@ -55,6 +75,16 @@ EFFECT_SETTLE_SECONDS="0.8"
 
 mono_ns() {
   python3 -c 'import time; print(time.monotonic_ns())'
+}
+
+command_executor() {
+  local subcommand="$1"
+  shift
+  if [[ "$PILOT_MODE" == "1" ]]; then
+    PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring "command-$subcommand" "$@"
+  else
+    PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_command_runtime_executor "$subcommand" "$@"
+  fi
 }
 
 count_reset_marker() {
@@ -158,16 +188,18 @@ cleanup() {
   fi
 
   if [[ "$RESULT" != "PASS" || "$rc" -ne 0 ]]; then
-    emit_invalid_evidence "$rc" || true
-    echo "WP8_COMMAND_STAGE1_DEVELOPMENT_EXECUTOR=FAIL" >&2
+    [[ "$PILOT_MODE" == "1" ]] || emit_invalid_evidence "$rc" || true
+    echo "WP8_COMMAND_STAGE1_EXECUTOR=FAIL" >&2
     echo "failed_phase=$PHASE" >&2
     echo "evidence_directory=$EVIDENCE" >&2
   else
-    echo "WP8_COMMAND_STAGE1_DEVELOPMENT_EXECUTOR=PASS"
-    echo "development_preflight=true"
-    echo "pilot_data=false"
-    echo "pilot_seed_consumed=false"
-    echo "runtime_binding_performed=false"
+    if [[ "$PILOT_MODE" == "1" ]]; then
+      echo "WP8_COMMAND_STAGE1_PILOT_EXECUTOR=PASS"
+      echo "development_preflight=false"; echo "pilot_data=true"; echo "pilot_seed_consumed=true"; echo "runtime_binding_performed=true"
+    else
+      echo "WP8_COMMAND_STAGE1_DEVELOPMENT_EXECUTOR=PASS"
+      echo "development_preflight=true"; echo "pilot_data=false"; echo "pilot_seed_consumed=false"; echo "runtime_binding_performed=false"
+    fi
     echo "evidence_directory=$EVIDENCE"
   fi
 }
@@ -188,6 +220,10 @@ for command in docker git python3; do
   }
 done
 
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring     check-gate     --pilot-config "$PILOT_CONFIG"     --cell-id "$CELL_ID"     --run-id "$RUN_ID"
+fi
+
 docker info >/dev/null 2>&1 || {
   echo "[ERROR] Docker daemon is not reachable" >&2
   exit 1
@@ -201,7 +237,7 @@ mkdir -p "$GROUND" "$OBS"
 
 PHASE="DEVELOPMENT_PLAN_PREFLIGHT"
 
-PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_command_runtime_executor \
+command_executor \
   plan \
   --pilot-config "$PILOT_CONFIG" \
   --cell-id "$CELL_ID" \
@@ -264,6 +300,9 @@ echo "nominal_cfs_running=PASS"
 echo "nominal_ci_lab_udp_5012=PASS"
 echo "nominal_isolation=PASS"
 
+RUN_START_NS="$(mono_ns)"
+RUN_START_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
 PHASE="EVENT_ACTIVATION"
 
 RESET_BEFORE_EVENT="$(count_reset_marker)"
@@ -318,7 +357,7 @@ echo "policy_trigger_uses_ground_truth=false"
 
 PHASE="POLICY_SELECTION"
 
-PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_command_runtime_executor \
+command_executor \
   select-policy \
   --pilot-config "$PILOT_CONFIG" \
   --cell-id "$CELL_ID" \
@@ -486,6 +525,7 @@ grep -Fq 'NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS' "$NOMINAL_LOG"
 test -f "$RUNTIME_MANIFEST"
 
 RUN_END_NS="$(mono_ns)"
+RUN_END_UTC="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 PHASE="RAW_OBSERVATION_MATERIALIZATION"
 
@@ -553,9 +593,24 @@ Path(path).write_text(
 )
 PY
 
+if [[ "$PILOT_MODE" == "1" ]]; then
+  python3 - "$MEASUREMENT_JSON" <<'PY'
+import json
+import sys
+from pathlib import Path
+p=Path(sys.argv[1])
+r=json.loads(p.read_text(encoding="utf-8"))
+r["development_preflight"]=False
+r["pilot_data"]=True
+r["pilot_seed_consumed"]=True
+p.write_text(json.dumps(r,sort_keys=True,indent=2)+"\n",encoding="utf-8")
+print("command_pilot_measurement_provenance=PASS")
+PY
+fi
+
 PHASE="RAW_OBSERVATION_VALIDATION"
 
-PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_command_runtime_executor \
+command_executor \
   finalize-observation \
   --pilot-config "$PILOT_CONFIG" \
   --cell-id "$CELL_ID" \
@@ -569,6 +624,20 @@ echo "command_runtime_raw_observation=PASS"
 echo "runtime_binding_performed=false"
 echo "primary_metrics_emitted=false"
 echo "terminal_state_emitted=false"
+
+if [[ "$PILOT_MODE" == "1" ]]; then
+  PHASE="PILOT_OBSERVATION_BINDING"
+  REL_EVIDENCE="${EVIDENCE#$ROOT/}"
+  command_executor bind-pilot \
+    --pilot-config "$PILOT_CONFIG" --toolchain-lock "$TOOLCHAIN" --schema "$SCHEMA" \
+    --cell-id "$CELL_ID" --factor-json "$FACTOR_JSON" --policy-json "$POLICY_JSON" \
+    --finalized-json "$DERIVED_JSON" --gateway-decisions-jsonl "$DECISION_JSONL" \
+    --evidence-prefix "$REL_EVIDENCE" --nominal-log "$NOMINAL_LOG" \
+    --runtime-manifest "$RUNTIME_MANIFEST" --classification-json "$CLASSIFICATION_JSON" \
+    --run-start-ns "$RUN_START_NS" --run-start-utc "$RUN_START_UTC" --run-end-utc "$RUN_END_UTC" \
+    --bundle-json "$BUNDLE_JSON" --run-record-json "$RUN_RECORD" --provenance-json "$PROVENANCE" \
+    --acceptance-json "$ACCEPTANCE_JSON" --snapshot-id "repo-$REPO_COMMIT" --host-architecture "$(uname -m)"
+fi
 
 RESULT="PASS"
 PHASE="COMPLETE"
