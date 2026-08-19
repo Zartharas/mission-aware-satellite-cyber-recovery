@@ -175,9 +175,12 @@ def validate_recovery_effect_contract_config(
         raise ValueError(
             "R-034 recovery effect contract status is not closed"
         )
-    if status["stage_1_recovery_observation_contract"] is not False:
+    if not isinstance(
+        status["stage_1_recovery_observation_contract"],
+        bool,
+    ):
         raise ValueError(
-            "R-034 cannot close recovery observation contract"
+            "recovery observation contract gate must remain boolean"
         )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise ValueError(

@@ -35,6 +35,9 @@ from src.mission_recovery.wp8_command_runtime_executor import (
 from src.mission_recovery.wp8_recovery_effect_contract import (
     build_recovery_effect_matrix,
 )
+from src.mission_recovery.wp8_recovery_observation_contract import (
+    build_recovery_observation_matrix,
+)
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -77,10 +80,10 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_RECOVERY_EVIDENCE_SEMANTICS_SEPARATED_"
-        "OBSERVATION_CONTRACT_PENDING"
+        "STAGE1_RECOVERY_OBSERVATION_CONTRACT_OFFLINE_"
+        "VALIDATED_RUNTIME_EXECUTOR_PENDING"
     ):
-        raise SystemExit("WP8 R-035 recovery evidence semantics gate is not closed")
+        raise SystemExit("WP8 R-036 recovery observation contract gate is not closed")
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
     ]:
@@ -569,13 +572,41 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         )
     if status["recovery_evidence_semantics_separated"] is not True:
         raise SystemExit("WP8 R-035 recovery evidence semantics are not separated")
-    if status["stage_1_recovery_observation_contract"] is not False:
+    if status["stage_1_recovery_observation_contract"] is not True:
         raise SystemExit(
-            "WP8 recovery observation/censoring contract cannot pass in R-034"
+            "WP8 R-036 recovery observation/censoring contract is not closed"
         )
+    recovery_observation = pilot["stage_1_runner_contract"][
+        "recovery_observation_contract"
+    ]
+    if recovery_observation["decision_id"] != "R-036":
+        raise SystemExit("WP8 recovery observation contract is not R-036")
+    if recovery_observation["r04_command_mitigation_rule"] != (
+        "observed_P2_command_gateway_mitigation_is_recorded_separately_"
+        "and_never_counts_as_E3_update_containment"
+    ):
+        raise SystemExit("WP8 R04 mitigation/containment boundary changed")
+    if recovery_observation["t1_policy_visibility_rule"] != (
+        "policy_time_omission_does_not_automatically_imply_"
+        "classification_time_M08_loss"
+    ):
+        raise SystemExit("WP8 R-036 T1 evidence boundary changed")
+    if recovery_observation["criterion_count"] != 10:
+        raise SystemExit("WP8 R-036 recovery criterion count changed")
+    matrix = build_recovery_observation_matrix(pilot)
+    if matrix["cell_ids"] != ["R01", "R02", "R03", "R04"]:
+        raise SystemExit("WP8 R-036 recovery cell order changed")
+    if (
+        matrix["runtime_execution_authorized"] is not False
+        or matrix["pilot_seed_consumed"] is not False
+        or matrix["pilot_data_generated"] is not False
+        or matrix["primary_metrics_emitted"] is not False
+        or matrix["terminal_states_emitted"] is not False
+    ):
+        raise SystemExit("WP8 R-036 crossed offline observation boundary")
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise SystemExit(
-            "WP8 Stage-1 runtime adapters cannot pass in R-035"
+            "WP8 Stage-1 runtime adapters cannot pass in R-036"
         )
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
@@ -773,8 +804,9 @@ def main() -> int:
     print("[OK] WP8 Stage-1 command observation/censoring contract remains frozen under R-030/R-031")
     print("[OK] WP8 command event-success observation is temporally independent of policy enforcement after activation")
     print("[OK] WP8 command runtime executor development mechanisms are R-033 validated; C02/C03/C04/C07 remain unexecuted by the generic development runner and no pilot cell is claimed")
-    print("[OK] WP8 Stage-1 recovery effect contract is R-034 offline-validated; R01/R04 remain non-rollback cases and recovery observation/censoring remains pending")
+    print("[OK] WP8 Stage-1 recovery effect contract remains frozen under R-034; R01/R04 remain non-rollback cases")
     print("[OK] R-035 separates recovery criterion satisfaction from evidence availability/currentness; pilot data requires the explicit dimension and retained development records are not rewritten")
+    print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

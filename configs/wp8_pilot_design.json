@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_RECOVERY_EVIDENCE_SEMANTICS_SEPARATED_OBSERVATION_CONTRACT_PENDING",
+  "status": "STAGE1_RECOVERY_OBSERVATION_CONTRACT_OFFLINE_VALIDATED_RUNTIME_EXECUTOR_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -266,6 +266,39 @@
       "offline_validation_executes_runtime": false,
       "offline_validation_consumes_pilot_seed": false,
       "claim_boundary": "R-034 freezes Stage-1 E3 response-effect semantics only. R01/P0 and R04/P7-to-P2 are valid non-rollback response cases and must not be forced through verified rollback. R02/P5 and R03/P7-to-P5 are the verified-rollback cases. Recovery criteria, temporal censoring, MO-4/MO-5, primary metrics, and terminal classification remain deferred."
+    },
+    "recovery_observation_contract": {
+      "decision_id": "R-036",
+      "event_success_source": "observed_retained_tampered_sha256_in_modeled_activation_slot_after_t0",
+      "event_success_observer_revision": "R-019",
+      "event_success_must_complete_by": "policy_enforcement_boundary",
+      "event_success_observation_can_gate_policy_response": false,
+      "containment_timestamp_rule": "post_response_slot_observation_when_R034_update_containment_is_observed",
+      "containment_censoring_rule": "null_and_right_censored_at_run_end_when_update_containment_is_not_observed",
+      "r04_command_mitigation_rule": "observed_P2_command_gateway_mitigation_is_recorded_separately_and_never_counts_as_E3_update_containment",
+      "divergence_state_key": "approved_version",
+      "divergence_start": "observed_E3_event_success_timestamp",
+      "divergence_end_if_contained": "observed_update_containment_timestamp",
+      "divergence_end_if_uncontained": "observed_run_end_ns_right_censoring",
+      "criterion_dimensions": ["available_current", "criterion_satisfied", "evidence_ref", "observed_ns"],
+      "criterion_count": 10,
+      "classification_time_evidence_rule": "derive_available_current_from_retained_classification_time_evidence_not_policy_visibility_at_selection",
+      "t1_policy_visibility_rule": "policy_time_omission_does_not_automatically_imply_classification_time_M08_loss",
+      "approved_version_observation_rule": "post_response_slot_SHA_is_current_classification_evidence_even_when_approved_version_was_omitted_from_R04_policy_visible_evidence",
+      "mo4_state_criteria": ["approved_version", "integrity_measurement_valid", "authorization_valid", "measured_state_current", "authorized_command_path_restored", "ground_spacecraft_state_agreed", "required_telemetry_restored", "health_checks_passed", "no_residual_unauthorized_state"],
+      "mo4_completion_rule": "all_MO4_state_criteria_are_available_current_and_satisfied",
+      "mo5_completion_rule": "recovery_manifest_complete_is_available_current_and_satisfied",
+      "nonrecovery_mo5_rule": "R01_or_R04_nonrecovery_does_not_by_itself_make_MO5_false",
+      "trusted_recovery_rule": "update_containment_observed_AND_all_ten_criteria_available_current_AND_all_ten_criteria_satisfied",
+      "trusted_recovery_timestamp_rule": "max_of_update_containment_timestamp_and_all_ten_criterion_observed_ns",
+      "trusted_recovery_censoring_rule": "null_and_right_censored_at_run_end_when_trusted_recovery_is_not_observed",
+      "authorized_noop_probe_rule": "one_post_response_authorized_noop_attempt_per_recovery_cell",
+      "expected_values_role": "post_observation_acceptance_only_not_raw_metric_substitution",
+      "emits_primary_metrics": false,
+      "emits_terminal_state": false,
+      "offline_validation_executes_runtime": false,
+      "offline_validation_consumes_pilot_seed": false,
+      "claim_boundary": "R-036 freezes raw E3 recovery observation and right-censoring semantics only. R04 command-path mitigation remains distinct from compromised-update containment; T1 policy-time omission is not automatically classification-time evidence loss; non-recovery does not automatically imply MO-5 failure. Primary metric scoring, terminal classification, generic recovery runtime execution, and pilot execution remain deferred."
     }
   },
   "stage_2_variability": {
@@ -468,7 +501,7 @@
       "stage_1_command_runtime_executor_static": true,
       "stage_1_command_runtime_executor_runtime_validated": true,
       "stage_1_recovery_effect_contract": true,
-      "stage_1_recovery_observation_contract": false,
+      "stage_1_recovery_observation_contract": true,
       "recovery_evidence_semantics_separated": true
     }
   },
