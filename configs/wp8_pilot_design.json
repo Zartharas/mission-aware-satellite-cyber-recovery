@@ -61,7 +61,8 @@
       "E3": {
         "runtime_family": "recovery",
         "reference_development_preflight": "scripts/run_wp8_recovery_binding_preflight.sh",
-        "pilot_executor_ready": false
+        "pilot_executor_ready": false,
+        "development_executor": "scripts/run_wp8_recovery_stage1_development.sh"
       },
       "E4": {
         "runtime_family": "observability",
@@ -299,6 +300,28 @@
       "offline_validation_executes_runtime": false,
       "offline_validation_consumes_pilot_seed": false,
       "claim_boundary": "R-036 freezes raw E3 recovery observation and right-censoring semantics only. R04 command-path mitigation remains distinct from compromised-update containment; T1 policy-time omission is not automatically classification-time evidence loss; non-recovery does not automatically imply MO-5 failure. Primary metric scoring, terminal classification, generic recovery runtime execution, and pilot execution remain deferred."
+    },
+    "recovery_runtime_executor_contract": {
+      "decision_id": "R-037",
+      "controller_module": "src.mission_recovery.wp8_recovery_runtime_executor",
+      "development_runner": "scripts/run_wp8_recovery_stage1_development.sh",
+      "supported_cell_ids": ["R01", "R02", "R03", "R04"],
+      "factor_source": "wp8_pilot_design.cells",
+      "runtime_policy_selection_source": "src.mission_recovery.policies.evaluate_policy",
+      "raw_observation_validator": "R034_R035_R036_recovery_contract_chain",
+      "development_only": true,
+      "pilot_seed_collision_rejected": true,
+      "pilot_executor_ready": false,
+      "runtime_binding_performed": false,
+      "primary_metrics_emitted": false,
+      "terminal_state_emitted": false,
+      "offline_validation_executes_runtime": false,
+      "offline_validation_consumes_pilot_seed": false,
+      "development_validation_cells": ["R01", "R02", "R04"],
+      "development_validation_rationale": "R01_covers_observe_only_R02_covers_verified_rollback_R04_covers_P7_to_P2_command_gateway_R03_runtime_duplicate_omitted_because_R02_covers_same_rollback_effect_family",
+      "trusted_recovery_reference_run": "results/wp8/runtime-binding/recovery/20260816T052549Z-wp8-recovery-binding-dev",
+      "development_r02_scope": "generic_executor_verified_rollback_containment_and_R036_observation_adapter_not_duplicate_all_ten_criteria_runtime_proof",
+      "claim_boundary": "R-037 implements the generic development-only R01-R04 recovery executor. Development runtime validation is deliberately limited to R01 R02 and R04 because those cover the three distinct effect families. The accepted P5 recovery-binding development run remains the trusted-recovery reference; R-037 does not duplicate that full all-ten-criteria runtime proof, does not bind primary metrics, does not classify terminal state, and does not authorize pilot execution."
     }
   },
   "stage_2_variability": {
@@ -502,6 +525,8 @@
       "stage_1_command_runtime_executor_runtime_validated": true,
       "stage_1_recovery_effect_contract": true,
       "stage_1_recovery_observation_contract": true,
+      "stage_1_recovery_runtime_executor_static": true,
+      "stage_1_recovery_runtime_executor_runtime_validated": false,
       "recovery_evidence_semantics_separated": true
     }
   },

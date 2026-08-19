@@ -38,6 +38,10 @@ from src.mission_recovery.wp8_recovery_effect_contract import (
 from src.mission_recovery.wp8_recovery_observation_contract import (
     build_recovery_observation_matrix,
 )
+from src.mission_recovery.wp8_recovery_runtime_executor import (
+    DEVELOPMENT_VALIDATION_CELLS,
+    validate_recovery_runtime_executor_contract,
+)
 
 SCHEMA_PATH = PROJECT_ROOT / "configs" / "experiment_run.schema.json"
 MODEL_PATH = PROJECT_ROOT / "configs" / "experiment_model.json"
@@ -119,6 +123,9 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
                 "scripts/run_wp8_recovery_binding_preflight.sh"
             ),
             "pilot_executor_ready": False,
+            "development_executor": (
+                "scripts/run_wp8_recovery_stage1_development.sh"
+            ),
         },
         "E4": {
             "runtime_family": "observability",
@@ -604,9 +611,30 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         or matrix["terminal_states_emitted"] is not False
     ):
         raise SystemExit("WP8 R-036 crossed offline observation boundary")
+    if status["stage_1_recovery_runtime_executor_static"] is not True:
+        raise SystemExit(
+            "WP8 R-037 recovery runtime executor static gate is not closed"
+        )
+    if (
+        status["stage_1_recovery_runtime_executor_runtime_validated"]
+        is not False
+    ):
+        raise SystemExit(
+            "WP8 R-037 cannot predeclare recovery runtime validation success"
+        )
+    try:
+        validate_recovery_runtime_executor_contract(pilot)
+    except ValueError as exc:
+        raise SystemExit(
+            f"WP8 R-037 recovery runtime executor contract invalid: {exc}"
+        ) from exc
+    if DEVELOPMENT_VALIDATION_CELLS != ("R01", "R02", "R04"):
+        raise SystemExit(
+            "WP8 R-037 recovery discriminator set changed"
+        )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise SystemExit(
-            "WP8 Stage-1 runtime adapters cannot pass in R-036"
+            "WP8 Stage-1 runtime adapters cannot pass in R-037"
         )
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
@@ -807,6 +835,7 @@ def main() -> int:
     print("[OK] WP8 Stage-1 recovery effect contract remains frozen under R-034; R01/R04 remain non-rollback cases")
     print("[OK] R-035 separates recovery criterion satisfaction from evidence availability/currentness; pilot data requires the explicit dimension and retained development records are not rewritten")
     print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
+    print("[OK] R-037 generic recovery executor is statically validated for R01-R04 with development discriminators limited to R01/R02/R04; pilot execution remains blocked")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
