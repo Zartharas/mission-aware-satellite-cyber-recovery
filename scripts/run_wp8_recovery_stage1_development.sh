@@ -41,6 +41,7 @@ INGRESS_JSONL="$GROUND/gateway-ingress.jsonl"
 DECISION_JSONL="$GROUND/gateway-decisions.jsonl"
 EVENT_SUCCESS_NS_FILE="$OBS/event-success-monotonic-ns.txt"
 EVENT_SLOT_SHA_FILE="$OBS/event-slot-sha256.txt"
+EVENT_WATCH_LOG="$OBS/event-slot-watcher.log"
 NOMINAL_LOG="$OBS/nominal-runtime.log"
 
 CF_BACKING_DIR="/work/nos3/fsw/build/exe/cpu1/cf"
@@ -214,22 +215,91 @@ echo "nominal_runtime_ready=PASS"
 
 PHASE="EVENT_OBSERVER_PREPOSITION"
 TAMPERED_SHA="$(shasum -a 256 "$TAMPERED" | awk '{print $1}')"
+: > "$EVENT_WATCH_LOG"
+
 (
-  for _ in $(seq 1 200); do
-    sha="$(docker exec "$CFS" sh -lc \
-      "test -f '$STAGE_BACKING' && sha256sum '$STAGE_BACKING' | awk '{print \$1}'" \
-      2>/dev/null || true)"
-    if [[ "$sha" == "$TAMPERED_SHA" ]]; then
-      mono_ns > "$EVENT_SUCCESS_NS_FILE"
-      printf '%s\n' "$sha" > "$EVENT_SLOT_SHA_FILE"
-      exit 0
+  set +e
+
+  docker exec "$CFS" sh -lc '
+    slot="$1"
+    expected="$2"
+
+    echo WP8_EVENT_SLOT_WATCHER_READY
+
+    i=0
+    while [ "$i" -lt 3000 ]; do
+      if [ -f "$slot" ]; then
+        observed_sha="$(
+          sha256sum "$slot" 2>/dev/null |
+          awk "{print \$1}"
+        )"
+
+        if [ "$observed_sha" = "$expected" ]; then
+          echo "WP8_EVENT_SLOT_SHA=$observed_sha"
+          exit 0
+        fi
+
+        if [ -n "$observed_sha" ]; then
+          echo "WP8_EVENT_SLOT_UNEXPECTED_SHA=$observed_sha" >&2
+          exit 2
+        fi
+      fi
+
+      i=$((i + 1))
+      sleep 0.01
+    done
+
+    echo WP8_EVENT_SLOT_WATCHER_TIMEOUT >&2
+    exit 1
+  ' sh "$STAGE_BACKING" "$TAMPERED_SHA"     > "$EVENT_WATCH_LOG" 2>&1
+
+  watcher_rc=$?
+
+  if [[ "$watcher_rc" -eq 0 ]]; then
+    observed_sha="$(
+      awk -F= '
+        /^WP8_EVENT_SLOT_SHA=/ {
+          print $2
+          exit
+        }
+      ' "$EVENT_WATCH_LOG"
+    )"
+
+    if [[ "$observed_sha" != "$TAMPERED_SHA" ]]; then
+      exit 3
     fi
-    sleep 0.05
-  done
-  exit 1
+
+    mono_ns > "$EVENT_SUCCESS_NS_FILE"
+    printf '%s\n' "$observed_sha" > "$EVENT_SLOT_SHA_FILE"
+  fi
+
+  exit "$watcher_rc"
 ) &
 EVENT_WATCH_PID=$!
+
+EVENT_WATCH_READY=0
+for _ in $(seq 1 200); do
+  if grep -Fq     'WP8_EVENT_SLOT_WATCHER_READY'     "$EVENT_WATCH_LOG" 2>/dev/null
+  then
+    EVENT_WATCH_READY=1
+    break
+  fi
+
+  if ! kill -0 "$EVENT_WATCH_PID" >/dev/null 2>&1; then
+    break
+  fi
+
+  sleep 0.01
+done
+
+[[ "$EVENT_WATCH_READY" -eq 1 ]] || {
+  echo "[ERROR] immutable E3 activation-slot observer did not become ready before t0" >&2
+  cat "$EVENT_WATCH_LOG" >&2 || true
+  exit 1
+}
+
 echo "event_observer_prepositioned=PASS"
+echo "event_success_observer_ready_before_t0=true"
 
 PHASE="EVENT_ACTIVATION"
 EVENT_ACTIVATION_NS="$(mono_ns)"

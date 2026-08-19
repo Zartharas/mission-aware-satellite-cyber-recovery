@@ -206,5 +206,32 @@ class RecoveryRuntimeExecutorTests(unittest.TestCase):
             self.assertFalse(rows[key]["criterion_satisfied"])
 
 
+    def test_runner_requires_observer_ready_before_t0(self) -> None:
+        runner = (
+            ROOT
+            / "scripts"
+            / "run_wp8_recovery_stage1_development.sh"
+        )
+        text = runner.read_text(encoding="utf-8")
+
+        self.assertIn(
+            "WP8_EVENT_SLOT_WATCHER_READY",
+            text,
+        )
+        self.assertIn(
+            "event_success_observer_ready_before_t0=true",
+            text,
+        )
+
+        ready = text.index(
+            'echo "event_success_observer_ready_before_t0=true"'
+        )
+        activation = text.index(
+            'PHASE="EVENT_ACTIVATION"'
+        )
+
+        self.assertLess(ready, activation)
+
+
 if __name__ == "__main__":
     unittest.main()
