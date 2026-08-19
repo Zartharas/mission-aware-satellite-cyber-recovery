@@ -127,8 +127,225 @@ def validate_recovery_runtime_executor_contract(pilot: dict[str, Any]) -> None:
         raise ValueError("R-036 recovery observation contract regressed")
     if status["stage_1_recovery_runtime_executor_static"] is not True:
         raise ValueError("R-037 recovery executor static gate is not closed")
-    if status["stage_1_recovery_runtime_executor_runtime_validated"] is not False:
-        raise ValueError("R-037 cannot predeclare runtime validation success")
+    if status["stage_1_recovery_runtime_executor_runtime_validated"] is not True:
+        raise ValueError(
+            "R-037 recovery executor runtime validation is not closed"
+        )
+
+    runtime_validation = contract.get("runtime_validation")
+    if not isinstance(runtime_validation, dict):
+        raise ValueError(
+            "R-037 recovery runtime validation metadata is missing"
+        )
+    if runtime_validation["decision_id"] != "R-037":
+        raise ValueError(
+            "recovery runtime validation decision is not R-037"
+        )
+    if runtime_validation["validation_status"] != "PASS":
+        raise ValueError(
+            "recovery runtime validation status is not PASS"
+        )
+    if runtime_validation["validation_role"] != (
+        "development_mechanism_branch_coverage_not_cellwise_"
+        "pilot_validation"
+    ):
+        raise ValueError(
+            "recovery runtime validation role changed"
+        )
+    if runtime_validation["validated_against_repo_commit"] != (
+        "5b4587bff0827cb0f95d535d57d828c7f10f2bd0"
+    ):
+        raise ValueError(
+            "recovery runtime validation base commit changed"
+        )
+    if (
+        runtime_validation["runtime_rerun_required_for_closure"]
+        is not False
+    ):
+        raise ValueError(
+            "R-037 closure cannot require a hidden runtime rerun"
+        )
+    if runtime_validation["generic_executor_cells_executed"] != [
+        "R01",
+        "R02",
+        "R04",
+    ]:
+        raise ValueError(
+            "R-037 retained runtime cell set changed"
+        )
+    if runtime_validation[
+        "generic_executor_cells_not_executed"
+    ] != ["R03"]:
+        raise ValueError(
+            "R-037 nonexecuted recovery cell boundary changed"
+        )
+    if runtime_validation["effect_families_observed"] != [
+        "observe_only",
+        "rollback_request",
+        "command_gateway",
+    ]:
+        raise ValueError(
+            "R-037 effect-family runtime coverage changed"
+        )
+
+    retained = runtime_validation["retained_development_runs"]
+
+    if [row["cell_id"] for row in retained] != [
+        "R01",
+        "R02",
+        "R04",
+    ]:
+        raise ValueError(
+            "R-037 retained development run ordering changed"
+        )
+
+    if [int(row["development_seed"]) for row in retained] != [
+        9601,
+        9602,
+        9604,
+    ]:
+        raise ValueError(
+            "R-037 retained development seeds changed"
+        )
+
+    expected = {
+        "R01": (
+            "20260819T013056Z-wp8-recovery-r01-r037-s9601",
+            "P0",
+            "P0",
+            "OBSERVE_ONLY",
+            False,
+            False,
+            "post-response-slot.json",
+        ),
+        "R02": (
+            "20260819T014747Z-wp8-recovery-r02-r037-s9602",
+            "P5",
+            "P5",
+            "REQUEST_VERIFIED_ROLLBACK",
+            True,
+            False,
+            "rollback-preparation.json",
+        ),
+        "R04": (
+            "20260819T015206Z-wp8-recovery-r04-r037-s9604",
+            "P7",
+            "P2",
+            "RESTRICT_HIGH_RISK_COMMANDS",
+            False,
+            True,
+            "gateway-decisions.jsonl",
+        ),
+    }
+
+    hash_fields = (
+        "factor_context_sha256",
+        "runtime_policy_decision_sha256",
+        "recovery_runtime_measurement_sha256",
+        "recovery_runtime_observation_derived_sha256",
+        "development_evidence_scope_sha256",
+        "mechanism_evidence_sha256",
+    )
+
+    for row in retained:
+        cell = row["cell_id"]
+        (
+            run_id,
+            requested,
+            effective,
+            action,
+            containment,
+            mitigation,
+            mechanism_file,
+        ) = expected[cell]
+
+        if row["run_id"] != run_id:
+            raise ValueError(
+                f"R-037 {cell} retained run ID changed"
+            )
+        if row["requested_policy_id"] != requested:
+            raise ValueError(
+                f"R-037 {cell} requested policy changed"
+            )
+        if row["actual_effective_policy_id"] != effective:
+            raise ValueError(
+                f"R-037 {cell} effective policy changed"
+            )
+        if row["selected_action"] != action:
+            raise ValueError(
+                f"R-037 {cell} selected action changed"
+            )
+        if row["event_success_observed"] is not True:
+            raise ValueError(
+                f"R-037 {cell} event success evidence changed"
+            )
+        if (
+            row["update_containment_observed"]
+            is not containment
+        ):
+            raise ValueError(
+                f"R-037 {cell} containment evidence changed"
+            )
+        if (
+            row["command_path_mitigation_observed"]
+            is not mitigation
+        ):
+            raise ValueError(
+                f"R-037 {cell} mitigation evidence changed"
+            )
+        if row["trusted_recovery_observed"] is not False:
+            raise ValueError(
+                f"R-037 {cell} cannot claim trusted recovery"
+            )
+        if (
+            row["trusted_recovery_runtime_claimed"]
+            is not False
+        ):
+            raise ValueError(
+                f"R-037 {cell} trusted recovery claim changed"
+            )
+        if row["mechanism_evidence_file"] != mechanism_file:
+            raise ValueError(
+                f"R-037 {cell} mechanism evidence file changed"
+            )
+
+        for field in hash_fields:
+            value = row[field]
+            if not isinstance(value, str) or len(value) != 64:
+                raise ValueError(
+                    f"R-037 {cell} invalid {field}"
+                )
+            try:
+                int(value, 16)
+            except ValueError as exc:
+                raise ValueError(
+                    f"R-037 {cell} nonhex {field}"
+                ) from exc
+
+        if row["development_preflight"] is not True:
+            raise ValueError(
+                f"R-037 {cell} must remain development-only"
+            )
+        if row["pilot_data"] is not False:
+            raise ValueError(
+                f"R-037 {cell} cannot become pilot data"
+            )
+        if row["pilot_seed_consumed"] is not False:
+            raise ValueError(
+                f"R-037 {cell} cannot consume pilot seed"
+            )
+        if row["runtime_binding_performed"] is not False:
+            raise ValueError(
+                f"R-037 {cell} cannot claim runtime binding"
+            )
+        if row["primary_metrics_emitted"] is not False:
+            raise ValueError(
+                f"R-037 {cell} cannot claim primary metrics"
+            )
+        if row["terminal_state_emitted"] is not False:
+            raise ValueError(
+                f"R-037 {cell} cannot claim terminal state"
+            )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise ValueError("family runtime dispatch adapters cannot pass in R-037")
     if gate["pilot_execution_authorized"] is not False:

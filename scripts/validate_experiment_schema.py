@@ -84,10 +84,12 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_RECOVERY_OBSERVATION_CONTRACT_OFFLINE_"
-        "VALIDATED_RUNTIME_EXECUTOR_PENDING"
+        "STAGE1_RECOVERY_RUNTIME_EXECUTOR_RUNTIME_"
+        "VALIDATED_OBSERVABILITY_EXECUTOR_PENDING"
     ):
-        raise SystemExit("WP8 R-036 recovery observation contract gate is not closed")
+        raise SystemExit(
+            "WP8 R-037 recovery runtime validation status is not closed"
+        )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
     ]:
@@ -617,10 +619,18 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         )
     if (
         status["stage_1_recovery_runtime_executor_runtime_validated"]
-        is not False
+        is not True
     ):
         raise SystemExit(
-            "WP8 R-037 cannot predeclare recovery runtime validation success"
+            "WP8 R-037 recovery runtime validation is not closed"
+        )
+    if pilot["status"] != (
+        "STAGE1_RECOVERY_RUNTIME_EXECUTOR_RUNTIME_"
+        "VALIDATED_OBSERVABILITY_EXECUTOR_PENDING"
+    ):
+        raise SystemExit(
+            "WP8 post-R-037 status does not identify observability "
+            "executor as the next pending runtime family"
         )
     try:
         validate_recovery_runtime_executor_contract(pilot)
@@ -835,7 +845,7 @@ def main() -> int:
     print("[OK] WP8 Stage-1 recovery effect contract remains frozen under R-034; R01/R04 remain non-rollback cases")
     print("[OK] R-035 separates recovery criterion satisfaction from evidence availability/currentness; pilot data requires the explicit dimension and retained development records are not rewritten")
     print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
-    print("[OK] R-037 generic recovery executor is statically validated for R01-R04 with development discriminators limited to R01/R02/R04; pilot execution remains blocked")
+    print("[OK] R-037 generic recovery executor is runtime-validated by retained R01/R02/R04 development discriminators; R03 remains intentionally unexecuted until pilot and pilot execution remains blocked")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

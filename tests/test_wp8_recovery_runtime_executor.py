@@ -61,7 +61,50 @@ class RecoveryRuntimeExecutorTests(unittest.TestCase):
         contract = PILOT["stage_1_runner_contract"]["recovery_runtime_executor_contract"]
         self.assertTrue(contract["development_only"])
         self.assertFalse(contract["pilot_executor_ready"])
-        self.assertFalse(PILOT["instrumentation_gate"]["pilot_execution_authorized"])
+
+        status = PILOT["instrumentation_gate"]["component_status"]
+
+        self.assertTrue(
+            status[
+                "stage_1_recovery_runtime_executor_runtime_validated"
+            ]
+        )
+
+        runtime_validation = contract["runtime_validation"]
+
+        self.assertEqual(
+            runtime_validation["validation_status"],
+            "PASS",
+        )
+        self.assertEqual(
+            runtime_validation["validated_against_repo_commit"],
+            "5b4587bff0827cb0f95d535d57d828c7f10f2bd0",
+        )
+        self.assertEqual(
+            runtime_validation["generic_executor_cells_executed"],
+            ["R01", "R02", "R04"],
+        )
+        self.assertEqual(
+            runtime_validation[
+                "generic_executor_cells_not_executed"
+            ],
+            ["R03"],
+        )
+        self.assertEqual(
+            [
+                row["development_seed"]
+                for row in runtime_validation[
+                    "retained_development_runs"
+                ]
+            ],
+            [9601, 9602, 9604],
+        )
+
+        self.assertFalse(
+            PILOT["instrumentation_gate"][
+                "pilot_execution_authorized"
+            ]
+        )
 
     def test_discriminator_cells_are_minimal_three(self) -> None:
         self.assertEqual(DEVELOPMENT_VALIDATION_CELLS, ("R01", "R02", "R04"))
