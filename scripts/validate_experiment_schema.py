@@ -84,11 +84,11 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_RECOVERY_RUNTIME_EXECUTOR_RUNTIME_"
-        "VALIDATED_OBSERVABILITY_EXECUTOR_PENDING"
+        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_STATIC_"
+        "VALIDATED_RUNTIME_PENDING"
     ):
         raise SystemExit(
-            "WP8 R-037 recovery runtime validation status is not closed"
+            "WP8 generic O01 observability executor static gate is not closed"
         )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_family_runtime_dispatch_adapter_implementation_and_gate_validation"
@@ -135,6 +135,9 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
                 "scripts/run_wp8_observability_binding_preflight.sh"
             ),
             "pilot_executor_ready": False,
+            "development_executor": (
+                "scripts/run_wp8_observability_stage1_development.sh"
+            ),
         },
     }
     if pilot["stage_1_runner_contract"]["dispatch_by_event_id"] != expected_dispatch:
@@ -625,12 +628,12 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             "WP8 R-037 recovery runtime validation is not closed"
         )
     if pilot["status"] != (
-        "STAGE1_RECOVERY_RUNTIME_EXECUTOR_RUNTIME_"
-        "VALIDATED_OBSERVABILITY_EXECUTOR_PENDING"
+        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_STATIC_"
+        "VALIDATED_RUNTIME_PENDING"
     ):
         raise SystemExit(
-            "WP8 post-R-037 status does not identify observability "
-            "executor as the next pending runtime family"
+            "WP8 generic O01 observability runtime validation "
+            "is not the next pending family gate"
         )
     try:
         validate_recovery_runtime_executor_contract(pilot)
@@ -642,9 +645,72 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit(
             "WP8 R-037 recovery discriminator set changed"
         )
+    observability = pilot["stage_1_runner_contract"][
+        "observability_runtime_executor_contract"
+    ]
+    if observability["implementation_id"] != "WP8-O01-GENERIC-V1":
+        raise SystemExit(
+            "WP8 generic O01 observability executor identity changed"
+        )
+    if observability["development_runner"] != (
+        "scripts/run_wp8_observability_stage1_development.sh"
+    ):
+        raise SystemExit(
+            "WP8 generic O01 development runner changed"
+        )
+    if observability["supported_cell_ids"] != ["O01"]:
+        raise SystemExit(
+            "WP8 generic observability executor cell set changed"
+        )
+    if observability["factor_source"] != "wp8_pilot_design.cells":
+        raise SystemExit(
+            "WP8 generic O01 factors must come from pilot config"
+        )
+    if observability["development_seed_parameterized"] is not True:
+        raise SystemExit(
+            "WP8 generic O01 development seed is not parameterized"
+        )
+    if observability["pilot_seed_collision_rejected"] is not True:
+        raise SystemExit(
+            "WP8 generic O01 executor must reject frozen pilot seeds"
+        )
+    if observability["accepted_mechanism_reference_run"] != (
+        "results/wp8/runtime-binding/observability/"
+        "20260817T042131Z-wp8-observability-binding-dev"
+    ):
+        raise SystemExit(
+            "WP8 accepted O01 mechanism reference changed"
+        )
+    if float(observability["frozen_visibility_deadline_s"]) != 3.0:
+        raise SystemExit(
+            "WP8 generic O01 visibility deadline changed"
+        )
+    if observability["static_validation_complete"] is not True:
+        raise SystemExit(
+            "WP8 generic O01 static gate is not closed"
+        )
+    if observability["runtime_validation_complete"] is not False:
+        raise SystemExit(
+            "WP8 generic O01 cannot predeclare runtime validation"
+        )
+    if observability["pilot_executor_ready"] is not False:
+        raise SystemExit(
+            "WP8 generic O01 cannot authorize pilot execution"
+        )
+    if status["stage_1_observability_runtime_executor_static"] is not True:
+        raise SystemExit(
+            "WP8 generic O01 static component gate is not closed"
+        )
+    if (
+        status["stage_1_observability_runtime_executor_runtime_validated"]
+        is not False
+    ):
+        raise SystemExit(
+            "WP8 generic O01 runtime validation cannot be predeclared"
+        )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise SystemExit(
-            "WP8 Stage-1 runtime adapters cannot pass in R-037"
+            "WP8 Stage-1 runtime adapters cannot pass before O01 validation"
         )
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
@@ -846,6 +912,7 @@ def main() -> int:
     print("[OK] R-035 separates recovery criterion satisfaction from evidence availability/currentness; pilot data requires the explicit dimension and retained development records are not rewritten")
     print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
     print("[OK] R-037 generic recovery executor is runtime-validated by retained R01/R02/R04 development discriminators; R03 remains intentionally unexecuted until pilot and pilot execution remains blocked")
+    print("[OK] Generic O01 observability executor is statically validated by parameterizing the accepted E4/P7-to-P4 mechanism; one non-pilot runner-path execution remains pending")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

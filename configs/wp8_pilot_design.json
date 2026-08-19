@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_RECOVERY_RUNTIME_EXECUTOR_RUNTIME_VALIDATED_OBSERVABILITY_EXECUTOR_PENDING",
+  "status": "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_STATIC_VALIDATED_RUNTIME_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -67,7 +67,8 @@
       "E4": {
         "runtime_family": "observability",
         "reference_development_preflight": "scripts/run_wp8_observability_binding_preflight.sh",
-        "pilot_executor_ready": false
+        "pilot_executor_ready": false,
+        "development_executor": "scripts/run_wp8_observability_stage1_development.sh"
       }
     },
     "attempt_ledger": {
@@ -427,6 +428,24 @@
         "claim_boundary": "R-037 runtime validation establishes development mechanism coverage for the generic recovery executor only. These runs are not pilot data, do not emit primary metrics or terminal classification, and do not authorize Stage-1 pilot execution."
       },
       "claim_boundary": "R-037 implements the generic development-only R01-R04 recovery executor. Development runtime validation is deliberately limited to R01 R02 and R04 because those cover the three distinct effect families. The accepted P5 recovery-binding development run remains the trusted-recovery reference; R-037 does not duplicate that full all-ten-criteria runtime proof, does not bind primary metrics, does not classify terminal state, and does not authorize pilot execution."
+    },
+    "observability_runtime_executor_contract": {
+      "implementation_id": "WP8-O01-GENERIC-V1",
+      "development_runner": "scripts/run_wp8_observability_stage1_development.sh",
+      "supported_cell_ids": ["O01"],
+      "factor_source": "wp8_pilot_design.cells",
+      "development_seed_parameterized": true,
+      "pilot_seed_collision_rejected": true,
+      "accepted_mechanism_reference_runner": "scripts/run_wp8_observability_binding_preflight.sh",
+      "accepted_mechanism_reference_run": "results/wp8/runtime-binding/observability/20260817T042131Z-wp8-observability-binding-dev",
+      "accepted_mechanism_reference_seed": 9301,
+      "frozen_visibility_deadline_s": 3.0,
+      "expected_effective_policy_used_only_for_acceptance": true,
+      "development_only": true,
+      "static_validation_complete": true,
+      "runtime_validation_complete": false,
+      "pilot_executor_ready": false,
+      "claim_boundary": "The generic O01 development runner parameterizes only run identity and non-pilot seed while preserving the already accepted E4 M2 C0 T0 P7-to-P4 observability mechanism. The retained R-027 observability run remains mechanism evidence; one generic O01 development execution is required only to validate the new parameterized runner path. No pilot seed is consumed and no pilot execution is authorized."
     }
   },
   "stage_2_variability": {
@@ -632,6 +651,8 @@
       "stage_1_recovery_observation_contract": true,
       "stage_1_recovery_runtime_executor_static": true,
       "stage_1_recovery_runtime_executor_runtime_validated": true,
+      "stage_1_observability_runtime_executor_static": true,
+      "stage_1_observability_runtime_executor_runtime_validated": false,
       "recovery_evidence_semantics_separated": true
     }
   },
