@@ -28,8 +28,8 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
 
         self.assertEqual(
             PILOT["status"],
-            "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_STATIC_"
-            "VALIDATED_RUNTIME_PENDING",
+            "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_"
+            "VALIDATED_FAMILY_DISPATCH_PENDING",
         )
         self.assertEqual(
             contract["implementation_id"],
@@ -48,8 +48,31 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
         self.assertTrue(
             contract["static_validation_complete"]
         )
-        self.assertFalse(
+        self.assertTrue(
             contract["runtime_validation_complete"]
+        )
+
+        runtime_validation = contract["runtime_validation"]
+
+        self.assertEqual(
+            runtime_validation["validation_status"],
+            "PASS",
+        )
+        self.assertEqual(
+            runtime_validation["development_seed"],
+            9701,
+        )
+        self.assertEqual(
+            runtime_validation["actual_effective_policy_id"],
+            "P4",
+        )
+        self.assertTrue(
+            runtime_validation[
+                "schema_valid_scored_run_record_emitted"
+            ]
+        )
+        self.assertFalse(
+            runtime_validation["pilot_data"]
         )
         self.assertFalse(
             contract["pilot_executor_ready"]
@@ -59,7 +82,7 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
                 "stage_1_observability_runtime_executor_static"
             ]
         )
-        self.assertFalse(
+        self.assertTrue(
             status[
                 "stage_1_observability_runtime_executor_runtime_validated"
             ]

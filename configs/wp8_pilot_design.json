@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_STATIC_VALIDATED_RUNTIME_PENDING",
+  "status": "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_VALIDATED_FAMILY_DISPATCH_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -282,12 +282,27 @@
       "divergence_start": "observed_E3_event_success_timestamp",
       "divergence_end_if_contained": "observed_update_containment_timestamp",
       "divergence_end_if_uncontained": "observed_run_end_ns_right_censoring",
-      "criterion_dimensions": ["available_current", "criterion_satisfied", "evidence_ref", "observed_ns"],
+      "criterion_dimensions": [
+        "available_current",
+        "criterion_satisfied",
+        "evidence_ref",
+        "observed_ns"
+      ],
       "criterion_count": 10,
       "classification_time_evidence_rule": "derive_available_current_from_retained_classification_time_evidence_not_policy_visibility_at_selection",
       "t1_policy_visibility_rule": "policy_time_omission_does_not_automatically_imply_classification_time_M08_loss",
       "approved_version_observation_rule": "post_response_slot_SHA_is_current_classification_evidence_even_when_approved_version_was_omitted_from_R04_policy_visible_evidence",
-      "mo4_state_criteria": ["approved_version", "integrity_measurement_valid", "authorization_valid", "measured_state_current", "authorized_command_path_restored", "ground_spacecraft_state_agreed", "required_telemetry_restored", "health_checks_passed", "no_residual_unauthorized_state"],
+      "mo4_state_criteria": [
+        "approved_version",
+        "integrity_measurement_valid",
+        "authorization_valid",
+        "measured_state_current",
+        "authorized_command_path_restored",
+        "ground_spacecraft_state_agreed",
+        "required_telemetry_restored",
+        "health_checks_passed",
+        "no_residual_unauthorized_state"
+      ],
       "mo4_completion_rule": "all_MO4_state_criteria_are_available_current_and_satisfied",
       "mo5_completion_rule": "recovery_manifest_complete_is_available_current_and_satisfied",
       "nonrecovery_mo5_rule": "R01_or_R04_nonrecovery_does_not_by_itself_make_MO5_false",
@@ -306,7 +321,12 @@
       "decision_id": "R-037",
       "controller_module": "src.mission_recovery.wp8_recovery_runtime_executor",
       "development_runner": "scripts/run_wp8_recovery_stage1_development.sh",
-      "supported_cell_ids": ["R01", "R02", "R03", "R04"],
+      "supported_cell_ids": [
+        "R01",
+        "R02",
+        "R03",
+        "R04"
+      ],
       "factor_source": "wp8_pilot_design.cells",
       "runtime_policy_selection_source": "src.mission_recovery.policies.evaluate_policy",
       "raw_observation_validator": "R034_R035_R036_recovery_contract_chain",
@@ -318,7 +338,11 @@
       "terminal_state_emitted": false,
       "offline_validation_executes_runtime": false,
       "offline_validation_consumes_pilot_seed": false,
-      "development_validation_cells": ["R01", "R02", "R04"],
+      "development_validation_cells": [
+        "R01",
+        "R02",
+        "R04"
+      ],
       "development_validation_rationale": "R01_covers_observe_only_R02_covers_verified_rollback_R04_covers_P7_to_P2_command_gateway_R03_runtime_duplicate_omitted_because_R02_covers_same_rollback_effect_family",
       "trusted_recovery_reference_run": "results/wp8/runtime-binding/recovery/20260816T052549Z-wp8-recovery-binding-dev",
       "development_r02_scope": "generic_executor_verified_rollback_containment_and_R036_observation_adapter_not_duplicate_all_ten_criteria_runtime_proof",
@@ -432,7 +456,9 @@
     "observability_runtime_executor_contract": {
       "implementation_id": "WP8-O01-GENERIC-V1",
       "development_runner": "scripts/run_wp8_observability_stage1_development.sh",
-      "supported_cell_ids": ["O01"],
+      "supported_cell_ids": [
+        "O01"
+      ],
       "factor_source": "wp8_pilot_design.cells",
       "development_seed_parameterized": true,
       "pilot_seed_collision_rejected": true,
@@ -443,9 +469,51 @@
       "expected_effective_policy_used_only_for_acceptance": true,
       "development_only": true,
       "static_validation_complete": true,
-      "runtime_validation_complete": false,
+      "runtime_validation_complete": true,
       "pilot_executor_ready": false,
-      "claim_boundary": "The generic O01 development runner parameterizes only run identity and non-pilot seed while preserving the already accepted E4 M2 C0 T0 P7-to-P4 observability mechanism. The retained R-027 observability run remains mechanism evidence; one generic O01 development execution is required only to validate the new parameterized runner path. No pilot seed is consumed and no pilot execution is authorized."
+      "claim_boundary": "The generic O01 development runner parameterizes only run identity and non-pilot seed while preserving the already accepted E4 M2 C0 T0 P7-to-P4 observability mechanism. The retained R-027 observability run remains mechanism evidence; one generic O01 development execution is required only to validate the new parameterized runner path. No pilot seed is consumed and no pilot execution is authorized.",
+      "runtime_validation": {
+        "validation_status": "PASS",
+        "validated_against_repo_commit": "78cef883be2225256577cb17925c8df20364378c",
+        "cell_id": "O01",
+        "development_run_id": "20260819T035950Z-wp8-observability-o01-generic-s9701",
+        "development_seed": 9701,
+        "evidence_ref": "results/wp8/runtime-binding/observability-executor-development/20260819T035950Z-wp8-observability-o01-generic-s9701",
+        "requested_policy_id": "P7",
+        "actual_effective_policy_id": "P4",
+        "selected_action": "ENTER_SAFE_MODE",
+        "policy_oracle_ground_truth_read": false,
+        "event_success_observed": true,
+        "event_truth_high_value_delta": 1,
+        "event_policy_visible_high_value_delta": 0,
+        "visibility_deadline_s": 3.0,
+        "command_availability_cost_observed": true,
+        "authorized_noop_forwarded": false,
+        "observability_containment_observed": false,
+        "required_telemetry_restored": false,
+        "containment_right_censored": true,
+        "trusted_recovery_observed": false,
+        "trusted_recovery_right_censored": true,
+        "terminal_state": "RECOVERY_FAILED",
+        "terminal_state_spacecraft_failure_claim": false,
+        "mission_objective_completion_ratio": 0.5,
+        "evidence_completeness_ratio": 0.6666666666666666,
+        "legitimate_command_rejection_rate": 1.0,
+        "runtime_binding_performed": true,
+        "schema_valid_scored_run_record_emitted": true,
+        "development_preflight": true,
+        "pilot_data": false,
+        "pilot_seed_consumed": false,
+        "runner_sha256": "e8b576ab848cff80f705586ce72b869da6b85fba1583806218cf2eccf37fff93",
+        "factor_context_sha256": "941ff5d71611174dfb233e297f149c26ecd3b264e98ab08b8dc90364d08eef40",
+        "policy_decision_sha256": "6c244dc69e06a53105e1dbe31cbc3392aa487e5576c5727b379f3de7082e3b87",
+        "event_success_sha256": "6ec8294c72860e87bf1591ffb3324ae9f3fd28acf04182b67578c8d4d298782b",
+        "post_enforcement_effect_sha256": "8b6aa135e371b21e283fa6885112df2bf95adef247f08aa9dd8b2545e8813ed6",
+        "observability_manifest_sha256": "12c172bcff0e930aba4fbefcf179f0c2d2b2625cb9ec8d51f75c919010950ae9",
+        "run_record_sha256": "f4c9fb5dfc16535ab1d97403e368e32ef43555c174b0dd68f638cb530af26ac7",
+        "binding_provenance_sha256": "c49883cf09f2e71046486fb21c95c8cef6567f86ed989071288e7f2667bce1bd",
+        "claim_boundary": "Development-only validation of the generic O01 parameterized runner path. RECOVERY_FAILED denotes bounded failure to achieve E4 observability containment only and is not a spacecraft failure, native safe-mode failure, mission-loss, RF-interference, or live-spacecraft claim."
+      }
     }
   },
   "stage_2_variability": {
@@ -652,7 +720,7 @@
       "stage_1_recovery_runtime_executor_static": true,
       "stage_1_recovery_runtime_executor_runtime_validated": true,
       "stage_1_observability_runtime_executor_static": true,
-      "stage_1_observability_runtime_executor_runtime_validated": false,
+      "stage_1_observability_runtime_executor_runtime_validated": true,
       "recovery_evidence_semantics_separated": true
     }
   },

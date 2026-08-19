@@ -84,8 +84,8 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_STATIC_"
-        "VALIDATED_RUNTIME_PENDING"
+        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_"
+        "VALIDATED_FAMILY_DISPATCH_PENDING"
     ):
         raise SystemExit(
             "WP8 generic O01 observability executor static gate is not closed"
@@ -628,8 +628,8 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             "WP8 R-037 recovery runtime validation is not closed"
         )
     if pilot["status"] != (
-        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_STATIC_"
-        "VALIDATED_RUNTIME_PENDING"
+        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_"
+        "VALIDATED_FAMILY_DISPATCH_PENDING"
     ):
         raise SystemExit(
             "WP8 generic O01 observability runtime validation "
@@ -689,10 +689,139 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit(
             "WP8 generic O01 static gate is not closed"
         )
-    if observability["runtime_validation_complete"] is not False:
+    if observability["runtime_validation_complete"] is not True:
         raise SystemExit(
-            "WP8 generic O01 cannot predeclare runtime validation"
+            "WP8 generic O01 runtime validation is not closed"
         )
+
+    runtime_validation = observability.get("runtime_validation")
+    if not isinstance(runtime_validation, dict):
+        raise SystemExit(
+            "WP8 generic O01 retained runtime validation is missing"
+        )
+
+    if runtime_validation["validation_status"] != "PASS":
+        raise SystemExit(
+            "WP8 generic O01 retained validation status changed"
+        )
+
+    if runtime_validation["validated_against_repo_commit"] != (
+        "78cef883be2225256577cb17925c8df20364378c"
+    ):
+        raise SystemExit(
+            "WP8 generic O01 validation baseline changed"
+        )
+
+    if runtime_validation["cell_id"] != "O01":
+        raise SystemExit(
+            "WP8 generic O01 retained cell changed"
+        )
+
+    if runtime_validation["development_seed"] != 9701:
+        raise SystemExit(
+            "WP8 generic O01 retained development seed changed"
+        )
+
+    if runtime_validation["requested_policy_id"] != "P7":
+        raise SystemExit(
+            "WP8 generic O01 requested policy changed"
+        )
+
+    if runtime_validation["actual_effective_policy_id"] != "P4":
+        raise SystemExit(
+            "WP8 generic O01 effective policy changed"
+        )
+
+    if (
+        runtime_validation["policy_oracle_ground_truth_read"]
+        is not False
+    ):
+        raise SystemExit(
+            "WP8 generic O01 cannot use oracle ground truth"
+        )
+
+    if runtime_validation["event_success_observed"] is not True:
+        raise SystemExit(
+            "WP8 generic O01 event success evidence changed"
+        )
+
+    if (
+        runtime_validation["observability_containment_observed"]
+        is not False
+    ):
+        raise SystemExit(
+            "WP8 generic O01 cannot fabricate containment"
+        )
+
+    if (
+        runtime_validation["trusted_recovery_observed"]
+        is not False
+    ):
+        raise SystemExit(
+            "WP8 generic O01 cannot fabricate trusted recovery"
+        )
+
+    if (
+        runtime_validation["terminal_state_spacecraft_failure_claim"]
+        is not False
+    ):
+        raise SystemExit(
+            "WP8 generic O01 terminal claim boundary changed"
+        )
+
+    if runtime_validation["runtime_binding_performed"] is not True:
+        raise SystemExit(
+            "WP8 generic O01 runtime binding evidence missing"
+        )
+
+    if (
+        runtime_validation[
+            "schema_valid_scored_run_record_emitted"
+        ]
+        is not True
+    ):
+        raise SystemExit(
+            "WP8 generic O01 scored run-record evidence missing"
+        )
+
+    if runtime_validation["development_preflight"] is not True:
+        raise SystemExit(
+            "WP8 generic O01 must remain development evidence"
+        )
+
+    if runtime_validation["pilot_data"] is not False:
+        raise SystemExit(
+            "WP8 generic O01 cannot become pilot data"
+        )
+
+    if runtime_validation["pilot_seed_consumed"] is not False:
+        raise SystemExit(
+            "WP8 generic O01 cannot consume pilot seed"
+        )
+
+    for key in (
+        "runner_sha256",
+        "factor_context_sha256",
+        "policy_decision_sha256",
+        "event_success_sha256",
+        "post_enforcement_effect_sha256",
+        "observability_manifest_sha256",
+        "run_record_sha256",
+        "binding_provenance_sha256",
+    ):
+        value = runtime_validation[key]
+
+        if not isinstance(value, str) or len(value) != 64:
+            raise SystemExit(
+                f"WP8 generic O01 invalid retained hash: {key}"
+            )
+
+        try:
+            int(value, 16)
+        except ValueError as exc:
+            raise SystemExit(
+                f"WP8 generic O01 nonhex retained hash: {key}"
+            ) from exc
     if observability["pilot_executor_ready"] is not False:
         raise SystemExit(
             "WP8 generic O01 cannot authorize pilot execution"
@@ -703,10 +832,11 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         )
     if (
         status["stage_1_observability_runtime_executor_runtime_validated"]
-        is not False
+        is not True
     ):
         raise SystemExit(
-            "WP8 generic O01 runtime validation cannot be predeclared"
+            "WP8 generic O01 runtime validation component gate "
+            "is not closed"
         )
     if status["stage_1_family_runtime_dispatch_adapters"] is not False:
         raise SystemExit(
@@ -912,7 +1042,7 @@ def main() -> int:
     print("[OK] R-035 separates recovery criterion satisfaction from evidence availability/currentness; pilot data requires the explicit dimension and retained development records are not rewritten")
     print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
     print("[OK] R-037 generic recovery executor is runtime-validated by retained R01/R02/R04 development discriminators; R03 remains intentionally unexecuted until pilot and pilot execution remains blocked")
-    print("[OK] Generic O01 observability executor is statically validated by parameterizing the accepted E4/P7-to-P4 mechanism; one non-pilot runner-path execution remains pending")
+    print("[OK] Generic O01 observability executor is runtime-validated by retained seed-9701 development evidence; pilot execution remains blocked pending the family-dispatch gate")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")
