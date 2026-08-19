@@ -159,5 +159,30 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
         self.assertFalse(dispatch["pilot_executor_ready"])
 
 
+    def test_bound_validator_does_not_hardcode_seed_9301(
+        self,
+    ) -> None:
+        module = (
+            ROOT
+            / "src"
+            / "mission_recovery"
+            / "wp8_observability_evidence.py"
+        )
+        source = module.read_text(encoding="utf-8")
+
+        start = source.index("def validate(")
+        end = source.index("\ndef main(", start)
+        validate_source = source[start:end]
+
+        self.assertNotIn(
+            '"seed": 9301',
+            validate_source,
+        )
+        self.assertIn(
+            'record["seed"] != summary["seed"]',
+            validate_source,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

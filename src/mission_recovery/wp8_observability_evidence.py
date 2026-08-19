@@ -231,13 +231,29 @@ def validate(*, schema_path: Path, record_path: Path, provenance_path: Path,
         raise ValueError([e.message for e in errors])
 
     expected = {
-        "seed": 9301, "event_id": "E4", "mission_state_id": "M2",
-        "policy_id": "P7", "contact_condition_id": "C0",
-        "evidence_condition_id": "T0", "terminal_state": "RECOVERY_FAILED",
+        "event_id": "E4",
+        "mission_state_id": "M2",
+        "policy_id": "P7",
+        "contact_condition_id": "C0",
+        "evidence_condition_id": "T0",
+        "terminal_state": "RECOVERY_FAILED",
     }
     for key, value in expected.items():
         if record[key] != value:
-            raise ValueError(f"unexpected {key}: {record[key]!r}")
+            raise ValueError(
+                f"unexpected {key}: {record[key]!r}"
+            )
+
+    if not isinstance(record["seed"], int) or record["seed"] <= 0:
+        raise ValueError(
+            f"invalid development seed: {record['seed']!r}"
+        )
+
+    if record["seed"] != summary["seed"]:
+        raise ValueError(
+            "bound record seed disagrees with retained "
+            "observability summary"
+        )
 
     outcomes = record["outcomes"]
     if outcomes["unauthorized_effect_completed"] is not True:
