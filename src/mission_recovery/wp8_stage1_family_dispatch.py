@@ -22,7 +22,13 @@ def validate_family_dispatch_contract(pilot:dict[str,Any])->None:
  if c["actual_policy_source"]!="retained_runtime_execution_metadata": raise ValueError("actual policy source changed")
  if c["raw_metric_source"]!="retained_family_runtime_observation": raise ValueError("raw metric source changed")
  if c["offline_static_validation_complete"] is not True: raise ValueError("offline static validation incomplete")
- if c["pilot_mode_materialization_complete"] is not False: raise ValueError("pilot mode predeclared")
+ materialized=c["pilot_mode_materialization_complete"]
+ if materialized not in (False, True):
+  raise ValueError("invalid pilot-mode materialization state")
+ if materialized is True:
+  pilot_mode=c.get("pilot_mode_contract")
+  if not isinstance(pilot_mode,dict) or pilot_mode.get("decision_id")!="R-039":
+   raise ValueError("pilot-mode materialization lacks R-039 contract")
  if c["runtime_execution_performed"] or c["pilot_seed_consumed"] or c["pilot_data_generated"]: raise ValueError("R-038 crossed offline boundary")
  for eid,(fam,aid,gate,module,runner) in EVENT_ADAPTERS.items():
   d=r["dispatch_by_event_id"][eid]
@@ -71,3 +77,152 @@ def bind_authorized_family_observation(*,pilot,toolchain,schema,cell_id,run_id,o
  require_pilot_dispatch_authorized(pilot)
  validate_family_observation_envelope(pilot,cell_id,run_id,observation_bundle)
  return bind_stage1_runtime_observation(pilot=pilot,toolchain=toolchain,schema=schema,cell_id=cell_id,run_id=run_id,observation_bundle=observation_bundle,snapshot_id=snapshot_id,host_architecture=host_architecture)
+
+PILOT_MODE_DECISION_ID = "R-039"
+PILOT_RUNTIME_PATH_BY_CELL = {
+    "C01": "command_generic",
+    "C02": "command_generic",
+    "C03": "command_generic",
+    "C04": "command_generic",
+    "C05": "command_generic",
+    "C06": "command_generic",
+    "C07": "command_generic",
+    "R01": "recovery_generic",
+    "R02": "recovery_full_trusted",
+    "R03": "recovery_full_trusted",
+    "R04": "recovery_generic",
+    "O01": "observability_generic",
+}
+PILOT_RUNTIME_PATH_FAMILY = {
+    "command_generic": "command",
+    "recovery_generic": "recovery",
+    "recovery_full_trusted": "recovery",
+    "observability_generic": "observability",
+}
+
+def validate_pilot_mode_materialization_contract(pilot: dict[str, Any]) -> None:
+    validate_family_dispatch_contract(pilot)
+    contract=pilot["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]["pilot_mode_contract"]
+    if contract["decision_id"] != PILOT_MODE_DECISION_ID:
+        raise ValueError("pilot-mode contract is not R-039")
+    if int(contract["required_seed"]) != 101:
+        raise ValueError("R-039 pilot seed changed")
+    if contract["seed_source"] != "stage_1_control_validity.seed":
+        raise ValueError("R-039 seed source changed")
+    if contract["factor_source"] != "wp8_pilot_design.cells":
+        raise ValueError("R-039 factor source changed")
+    if contract["policy_selection_source"] != "src.mission_recovery.policies.evaluate_policy":
+        raise ValueError("R-039 policy source changed")
+    if contract["actual_effective_policy_required"] is not True:
+        raise ValueError("R-039 actual effective policy requirement changed")
+    if contract["expected_effective_policy_role"] != "post_observation_acceptance_only":
+        raise ValueError("R-039 expected policy role changed")
+    if contract["runtime_path_by_cell"] != PILOT_RUNTIME_PATH_BY_CELL:
+        raise ValueError("R-039 runtime path mapping changed")
+    sources=contract["runtime_path_sources"]
+    if sources["recovery_generic"]["supported_cells"] != ["R01","R04"]:
+        raise ValueError("R-039 generic recovery cells changed")
+    if sources["recovery_full_trusted"]["supported_cells"] != ["R02","R03"]:
+        raise ValueError("R-039 trusted recovery cells changed")
+    if sources["recovery_full_trusted"]["full_all_ten_criteria_required"] is not True:
+        raise ValueError("R-039 R02/R03 must retain all-ten-criteria proof")
+    if sources["recovery_full_trusted"]["validated_runtime_source"] != "scripts/run_wp8_recovery_binding_preflight.sh":
+        raise ValueError("R-039 trusted recovery source changed")
+    if sources["observability_generic"]["supported_cells"] != ["O01"]:
+        raise ValueError("R-039 observability cell changed")
+    envelope=contract["pilot_observation_envelope"]
+    if envelope["development_preflight"] is not False or envelope["pilot_data"] is not True:
+        raise ValueError("R-039 pilot provenance changed")
+    if envelope["raw_metric_inputs_from_observation_only"] is not True:
+        raise ValueError("R-039 raw metrics cannot use expected values")
+    if envelope["schema_binding_entrypoint"] != "src.mission_recovery.wp8_stage1_pilot.bind_stage1_runtime_observation":
+        raise ValueError("R-039 binding entrypoint changed")
+    if contract["offline_static_validation_complete"] is not True:
+        raise ValueError("R-039 static validation incomplete")
+    if contract["runtime_wiring_complete"] is not False:
+        raise ValueError("R-039 runtime wiring predeclared")
+    if contract["runtime_execution_performed"] or contract["pilot_seed_consumed"] or contract["pilot_data_generated"]:
+        raise ValueError("R-039 crossed offline boundary")
+    gate=pilot["instrumentation_gate"]
+    if gate["component_status"]["stage_1_family_runtime_dispatch_adapters"] is not False:
+        raise ValueError("R-039 cannot close dispatch gate")
+    if gate["pilot_execution_authorized"] is not False:
+        raise ValueError("R-039 cannot authorize pilot")
+
+def pilot_runtime_path_for_cell(pilot: dict[str, Any], cell_id: str) -> dict[str, Any]:
+    validate_pilot_mode_materialization_contract(pilot)
+    cells={row["cell_id"]:row for row in pilot["cells"]}
+    if cell_id not in cells:
+        raise ValueError(f"unknown Stage-1 pilot cell: {cell_id}")
+    cell=cells[cell_id]
+    runtime_path=PILOT_RUNTIME_PATH_BY_CELL[cell_id]
+    family=PILOT_RUNTIME_PATH_FAMILY[runtime_path]
+    expected_family=EVENT_ADAPTERS[cell["event_id"]][0]
+    if family != expected_family:
+        raise ValueError(f"{cell_id}: runtime path disagrees with event family")
+    return {"cell_id":cell_id,"event_id":cell["event_id"],"runtime_family":family,"runtime_path":runtime_path}
+
+def build_blocked_pilot_runtime_request(pilot: dict[str, Any], *, cell_id: str, run_id: str) -> dict[str, Any]:
+    validate_pilot_mode_materialization_contract(pilot)
+    if not run_id:
+        raise ValueError("pilot runtime request requires run_id")
+    cells={row["cell_id"]:row for row in pilot["cells"]}
+    if cell_id not in cells:
+        raise ValueError(f"unknown Stage-1 pilot cell: {cell_id}")
+    cell=cells[cell_id]
+    route=pilot_runtime_path_for_cell(pilot,cell_id)
+    seed=int(pilot["stage_1_control_validity"]["seed"])
+    if seed != 101:
+        raise ValueError("R-039 seed is not 101")
+    return {
+        "schema":1,
+        "decision_id":PILOT_MODE_DECISION_ID,
+        "classification":"WP8_STAGE1_PILOT_RUNTIME_REQUEST_BLOCKED",
+        "cell_id":cell_id,
+        "run_id":run_id,
+        "seed":seed,
+        "event_id":cell["event_id"],
+        "mission_state_id":cell["mission_state_id"],
+        "contact_condition_id":cell["contact_condition_id"],
+        "evidence_condition_id":cell["evidence_condition_id"],
+        "requested_policy_id":cell["policy_id"],
+        "expected_effective_policy_id_for_acceptance_only":cell["expected_effective_policy_id"],
+        "runtime_family":route["runtime_family"],
+        "runtime_path":route["runtime_path"],
+        "runtime_execution_authorized":False,
+        "pilot_seed_consumed":False,
+        "pilot_data_generated":False,
+    }
+
+def build_offline_pilot_mode_matrix(pilot: dict[str, Any]) -> dict[str, Any]:
+    validate_pilot_mode_materialization_contract(pilot)
+    plan=build_offline_stage1_plan(pilot)
+    rows=[
+        build_blocked_pilot_runtime_request(
+            pilot,cell_id=cell_id,run_id=f"offline-r039-{cell_id.lower()}-s101"
+        )
+        for cell_id in plan["ordered_cell_ids"]
+    ]
+    counts={}
+    for row in rows:
+        counts[row["runtime_path"]]=counts.get(row["runtime_path"],0)+1
+    expected={
+        "command_generic":7,
+        "recovery_generic":2,
+        "recovery_full_trusted":2,
+        "observability_generic":1,
+    }
+    if counts != expected:
+        raise ValueError(f"R-039 runtime-path counts changed: {counts!r}")
+    return {
+        "schema":1,
+        "decision_id":PILOT_MODE_DECISION_ID,
+        "seed":101,
+        "ordered_cell_ids":plan["ordered_cell_ids"],
+        "runtime_path_counts":counts,
+        "rows":rows,
+        "runtime_execution_performed":False,
+        "runtime_execution_authorized":False,
+        "pilot_seed_consumed":False,
+        "pilot_data_generated":False,
+    }

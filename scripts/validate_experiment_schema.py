@@ -84,8 +84,8 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_"
-        "VALIDATED_FAMILY_DISPATCH_PENDING"
+        "STAGE1_PILOT_MODE_MATERIALIZATION_STATIC_"
+        "VALIDATED_RUNTIME_WIRING_PENDING"
     ):
         raise SystemExit(
             "WP8 generic O01 observability executor static gate is not closed"
@@ -628,8 +628,8 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             "WP8 R-037 recovery runtime validation is not closed"
         )
     if pilot["status"] != (
-        "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_"
-        "VALIDATED_FAMILY_DISPATCH_PENDING"
+        "STAGE1_PILOT_MODE_MATERIALIZATION_STATIC_"
+        "VALIDATED_RUNTIME_WIRING_PENDING"
     ):
         raise SystemExit(
             "WP8 generic O01 observability runtime validation "
@@ -855,6 +855,37 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
     if r038_matrix["runtime_execution_performed"] or r038_matrix["pilot_seed_consumed"] or r038_matrix["pilot_data_generated"]:
         raise SystemExit("WP8 R-038 crossed offline dispatch boundary")
 
+    try:
+        from src.mission_recovery.wp8_stage1_family_dispatch import (
+            build_offline_pilot_mode_matrix,
+            validate_pilot_mode_materialization_contract,
+        )
+        validate_pilot_mode_materialization_contract(pilot)
+        r039_matrix = build_offline_pilot_mode_matrix(pilot)
+    except (ImportError, ValueError) as exc:
+        raise SystemExit(
+            f"WP8 R-039 pilot-mode materialization invalid: {exc}"
+        ) from exc
+
+    if r039_matrix["runtime_path_counts"] != {
+        "command_generic": 7,
+        "recovery_generic": 2,
+        "recovery_full_trusted": 2,
+        "observability_generic": 1,
+    }:
+        raise SystemExit(
+            "WP8 R-039 runtime-path counts changed"
+        )
+
+    if (
+        r039_matrix["runtime_execution_performed"]
+        or r039_matrix["pilot_seed_consumed"]
+        or r039_matrix["pilot_data_generated"]
+    ):
+        raise SystemExit(
+            "WP8 R-039 crossed the offline pilot boundary"
+        )
+
     if status["nos3_runtime_binding"] is not True:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
@@ -1057,6 +1088,7 @@ def main() -> int:
     print("[OK] R-037 generic recovery executor is runtime-validated by retained R01/R02/R04 development discriminators; R03 remains intentionally unexecuted until pilot and pilot execution remains blocked")
     print("[OK] Generic O01 observability executor is runtime-validated by retained seed-9701 development evidence; pilot execution remains blocked pending the family-dispatch gate")
     print("[OK] R-038 Stage-1 family dispatch adapter interface and frozen 12-cell routing matrix are statically validated offline; pilot-mode family materialization remains blocked")
+    print("[OK] R-039 pilot-mode runtime paths are frozen offline: command=7, recovery-generic=2, recovery-full-trusted=2, observability=1; runtime wiring and seed 101 remain blocked")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

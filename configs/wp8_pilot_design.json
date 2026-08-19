@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_VALIDATED_FAMILY_DISPATCH_PENDING",
+  "status": "STAGE1_PILOT_MODE_MATERIALIZATION_STATIC_VALIDATED_RUNTIME_WIRING_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -529,11 +529,83 @@
       "actual_policy_source": "retained_runtime_execution_metadata",
       "raw_metric_source": "retained_family_runtime_observation",
       "offline_static_validation_complete": true,
-      "pilot_mode_materialization_complete": false,
+      "pilot_mode_materialization_complete": true,
       "runtime_execution_performed": false,
       "pilot_seed_consumed": false,
       "pilot_data_generated": false,
-      "claim_boundary": "R-038 statically validates the event-to-family adapter interface and frozen 12-cell routing matrix only. It does not execute NOS3, consume seed 101, generate pilot data, close the family runtime-dispatch gate, or authorize pilot execution."
+      "claim_boundary": "R-038 statically validates the event-to-family adapter interface and frozen 12-cell routing matrix only. It does not execute NOS3, consume seed 101, generate pilot data, close the family runtime-dispatch gate, or authorize pilot execution.",
+      "pilot_mode_contract": {
+        "decision_id": "R-039",
+        "seed_source": "stage_1_control_validity.seed",
+        "required_seed": 101,
+        "factor_source": "wp8_pilot_design.cells",
+        "policy_selection_source": "src.mission_recovery.policies.evaluate_policy",
+        "actual_effective_policy_required": true,
+        "expected_effective_policy_role": "post_observation_acceptance_only",
+        "runtime_path_by_cell": {
+          "C01": "command_generic",
+          "C02": "command_generic",
+          "C03": "command_generic",
+          "C04": "command_generic",
+          "C05": "command_generic",
+          "C06": "command_generic",
+          "C07": "command_generic",
+          "R01": "recovery_generic",
+          "R02": "recovery_full_trusted",
+          "R03": "recovery_full_trusted",
+          "R04": "recovery_generic",
+          "O01": "observability_generic"
+        },
+        "runtime_path_sources": {
+          "command_generic": {
+            "validated_runtime_source": "scripts/run_wp8_command_stage1_development.sh",
+            "observation_semantics": "R-029/R-030/R-031",
+            "pilot_runtime_wiring_complete": false
+          },
+          "recovery_generic": {
+            "validated_runtime_source": "scripts/run_wp8_recovery_stage1_development.sh",
+            "observation_semantics": "R-034/R-035/R-036/R-037",
+            "supported_cells": [
+              "R01",
+              "R04"
+            ],
+            "pilot_runtime_wiring_complete": false
+          },
+          "recovery_full_trusted": {
+            "validated_runtime_source": "scripts/run_wp8_recovery_binding_preflight.sh",
+            "observation_semantics": "R-018/R-019/R-020/R-021",
+            "supported_cells": [
+              "R02",
+              "R03"
+            ],
+            "full_all_ten_criteria_required": true,
+            "pilot_runtime_wiring_complete": false
+          },
+          "observability_generic": {
+            "validated_runtime_source": "scripts/run_wp8_observability_stage1_development.sh",
+            "observation_semantics": "R-022",
+            "supported_cells": [
+              "O01"
+            ],
+            "pilot_runtime_wiring_complete": false
+          }
+        },
+        "pilot_observation_envelope": {
+          "development_preflight": false,
+          "pilot_data": true,
+          "factor_context_exact_cell_match_required": true,
+          "actual_effective_policy_required": true,
+          "raw_metric_inputs_from_observation_only": true,
+          "schema_binding_entrypoint": "src.mission_recovery.wp8_stage1_pilot.bind_stage1_runtime_observation"
+        },
+        "invalid_attempt_rule_source": "stage_1_runner_contract.attempt_ledger",
+        "offline_static_validation_complete": true,
+        "runtime_wiring_complete": false,
+        "runtime_execution_performed": false,
+        "pilot_seed_consumed": false,
+        "pilot_data_generated": false,
+        "claim_boundary": "R-039 freezes pilot-mode runtime-path selection and the observation-envelope contract only. R02/R03 use the accepted full trusted-recovery pipeline because they are the trusted-recovery anchors; R01/R04 remain on the generic R-037 recovery path. No NOS3 execution, seed-101 consumption, pilot data, runtime-wiring closure, or pilot authorization occurs in this increment."
+      }
     }
   },
   "stage_2_variability": {

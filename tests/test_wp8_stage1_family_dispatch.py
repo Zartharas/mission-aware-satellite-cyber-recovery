@@ -33,4 +33,47 @@ class T(unittest.TestCase):
   p=deepcopy(P); p["instrumentation_gate"]["component_status"]["stage_1_family_runtime_dispatch_adapters"]=True
   with self.assertRaisesRegex(PermissionError,"pilot execution"): require_pilot_dispatch_authorized(p)
 
+ def test_r039_pilot_runtime_path_matrix(self):
+  validate_pilot_mode_materialization_contract(P)
+  matrix=build_offline_pilot_mode_matrix(P)
+  self.assertEqual(
+   matrix["ordered_cell_ids"],
+   ["C05","R04","C04","R01","R03","C02","R02","C03","O01","C07","C01","C06"],
+  )
+  self.assertEqual(
+   matrix["runtime_path_counts"],
+   {"command_generic":7,"recovery_generic":2,"recovery_full_trusted":2,"observability_generic":1},
+  )
+  self.assertFalse(matrix["runtime_execution_performed"])
+  self.assertFalse(matrix["pilot_seed_consumed"])
+  self.assertFalse(matrix["pilot_data_generated"])
+
+ def test_r039_recovery_anchor_routing(self):
+  self.assertEqual(pilot_runtime_path_for_cell(P,"R01")["runtime_path"],"recovery_generic")
+  self.assertEqual(pilot_runtime_path_for_cell(P,"R04")["runtime_path"],"recovery_generic")
+  self.assertEqual(pilot_runtime_path_for_cell(P,"R02")["runtime_path"],"recovery_full_trusted")
+  self.assertEqual(pilot_runtime_path_for_cell(P,"R03")["runtime_path"],"recovery_full_trusted")
+
+ def test_r039_blocked_request_preserves_seed_101(self):
+  row=build_blocked_pilot_runtime_request(P,cell_id="R03",run_id="offline-r039-r03-s101")
+  self.assertEqual(row["seed"],101)
+  self.assertEqual(row["runtime_family"],"recovery")
+  self.assertEqual(row["runtime_path"],"recovery_full_trusted")
+  self.assertFalse(row["runtime_execution_authorized"])
+  self.assertFalse(row["pilot_seed_consumed"])
+  self.assertFalse(row["pilot_data_generated"])
+
+ def test_r039_expected_policy_is_acceptance_only(self):
+  contract=P["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]["pilot_mode_contract"]
+  self.assertTrue(contract["actual_effective_policy_required"])
+  self.assertEqual(contract["expected_effective_policy_role"],"post_observation_acceptance_only")
+  self.assertTrue(contract["pilot_observation_envelope"]["raw_metric_inputs_from_observation_only"])
+
+ def test_r039_runtime_wiring_and_authorization_remain_blocked(self):
+  contract=P["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]["pilot_mode_contract"]
+  self.assertTrue(contract["offline_static_validation_complete"])
+  self.assertFalse(contract["runtime_wiring_complete"])
+  self.assertFalse(P["instrumentation_gate"]["component_status"]["stage_1_family_runtime_dispatch_adapters"])
+  self.assertFalse(P["instrumentation_gate"]["pilot_execution_authorized"])
+
 if __name__=="__main__": unittest.main()
