@@ -28,8 +28,8 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
 
         self.assertEqual(
             PILOT["status"],
-            "STAGE1_OBSERVABILITY_RUNTIME_EXECUTOR_RUNTIME_"
-            "VALIDATED_FAMILY_DISPATCH_PENDING",
+            "STAGE1_PILOT_MODE_MATERIALIZATION_STATIC_"
+            "VALIDATED_RUNTIME_WIRING_PENDING",
         )
         self.assertEqual(
             contract["implementation_id"],
