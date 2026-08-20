@@ -18,7 +18,7 @@ RUNNER = (
 
 
 class ObservabilityRuntimeExecutorTests(unittest.TestCase):
-    def test_static_contract_and_pilot_gate(self) -> None:
+    def test_static_contract_is_lifecycle_independent(self) -> None:
         contract = PILOT["stage_1_runner_contract"][
             "observability_runtime_executor_contract"
         ]
@@ -28,8 +28,8 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
 
         self.assertEqual(
             PILOT["status"],
-            "STAGE1_RUNTIME_DISPATCH_ACTIVATED_"
-            "PILOT_AUTHORIZATION_PENDING",
+            "STAGE1_PILOT_EXECUTION_AUTHORIZED_"
+            "NOT_STARTED",
         )
         self.assertEqual(
             contract["implementation_id"],
@@ -87,7 +87,7 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
                 "stage_1_observability_runtime_executor_runtime_validated"
             ]
         )
-        self.assertFalse(
+        self.assertTrue(
             PILOT["instrumentation_gate"][
                 "pilot_execution_authorized"
             ]

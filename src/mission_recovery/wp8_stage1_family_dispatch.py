@@ -1,5 +1,6 @@
 from __future__ import annotations
 from collections import Counter
+from copy import deepcopy
 from typing import Any
 from .wp8_stage1_pilot import build_offline_stage1_plan, bind_stage1_runtime_observation
 
@@ -37,7 +38,8 @@ def validate_family_dispatch_contract(pilot:dict[str,Any])->None:
 
 def build_offline_family_dispatch_matrix(pilot:dict[str,Any])->dict[str,Any]:
  validate_family_dispatch_contract(pilot)
- plan=build_offline_stage1_plan(pilot); rows=[]
+ blocked=deepcopy(pilot); blocked["instrumentation_gate"]["pilot_execution_authorized"]=False
+ plan=build_offline_stage1_plan(blocked); rows=[]
  for x in plan["planned_cells"]:
   cell=x["cell"]; fam,aid,gate,module,runner=EVENT_ADAPTERS[cell["event_id"]]
   if x["dispatch"]["runtime_family"]!=fam: raise ValueError(f"{cell['cell_id']}: wrong family")
@@ -194,7 +196,9 @@ def build_blocked_pilot_runtime_request(pilot: dict[str, Any], *, cell_id: str, 
 
 def build_offline_pilot_mode_matrix(pilot: dict[str, Any]) -> dict[str, Any]:
     validate_pilot_mode_materialization_contract(pilot)
-    plan=build_offline_stage1_plan(pilot)
+    blocked=deepcopy(pilot)
+    blocked["instrumentation_gate"]["pilot_execution_authorized"]=False
+    plan=build_offline_stage1_plan(blocked)
     rows=[
         build_blocked_pilot_runtime_request(
             pilot,cell_id=cell_id,run_id=f"offline-r039-{cell_id.lower()}-s101"

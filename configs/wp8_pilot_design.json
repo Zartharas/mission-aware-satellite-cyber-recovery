@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_RUNTIME_DISPATCH_ACTIVATED_PILOT_AUTHORIZATION_PENDING",
+  "status": "STAGE1_PILOT_EXECUTION_AUTHORIZED_NOT_STARTED",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -665,8 +665,20 @@
           "pilot_seed_consumed": false,
           "pilot_data_generated": false
         },
+        "pilot_authorization": {
+          "decision_id": "R-043",
+          "status": "PASS",
+          "authorization_basis_commit": "b2f2a9d04f4502a41aacc7327a63d7f8f27a721a",
+          "authorization_basis_workflow_run_id": 32374608416,
+          "authorization_performed": true,
+          "pilot_execution_authorized": true,
+          "automatic_execution_performed": false,
+          "runtime_execution_performed": false,
+          "pilot_seed_consumed": false,
+          "pilot_data_generated": false
+        },
         "authorization_pending": false,
-        "claim_boundary": "R-040 runtime wiring remains frozen; R-041 records exact-SHA CI for the implementation, and R-042 activates the validated Stage-1 family dispatch/readiness gates using exact-SHA CI run 32328740879 as the activation basis. Pilot execution remains separately unauthorized. No NOS3 runtime is executed, seed 101 remains unconsumed, and no pilot data is generated."
+        "claim_boundary": "R-040 runtime wiring remains frozen; R-041 records exact-SHA CI for the implementation; R-042 activates Stage-1 family dispatch/readiness; and R-043 authorizes deliberate manual Stage-1 pilot invocation using R-042 exact-SHA CI run 32374608416 as the authorization basis. R-043 does not invoke the controller, execute NOS3, consume seed 101, or generate pilot data."
       }
     }
   },
@@ -847,7 +859,7 @@
     "terminal_state_predicate_evidence"
   ],
   "instrumentation_gate": {
-    "pilot_execution_authorized": false,
+    "pilot_execution_authorized": true,
     "authorization_condition": "The NOS3 pilot runner must bind observed runtime evidence to the validated raw-metric schema and emit a schema-valid scored run record without manual reconstruction or expected-value substitution.",
     "known_pre_pilot_implementation_work": [],
     "component_status": {

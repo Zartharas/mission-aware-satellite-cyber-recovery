@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import sys
+from copy import deepcopy
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -84,18 +85,22 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_RUNTIME_DISPATCH_ACTIVATED_"
-        "PILOT_AUTHORIZATION_PENDING"
+        "STAGE1_PILOT_EXECUTION_AUTHORIZED_"
+        "NOT_STARTED"
     ):
         raise SystemExit(
-            "WP8 R-041 exact-SHA CI lifecycle state is not recorded"
+            "WP8 R-043 pilot-authorization lifecycle state is not recorded"
         )
     if gate["known_pre_pilot_implementation_work"] != []:
         raise SystemExit(
             "WP8 R-042 must leave no pre-pilot implementation work"
         )
 
-    plan = build_offline_stage1_plan(pilot)
+    offline_pilot = deepcopy(pilot)
+    offline_pilot["instrumentation_gate"][
+        "pilot_execution_authorized"
+    ] = False
+    plan = build_offline_stage1_plan(offline_pilot)
     if plan["ordered_cell_ids"] != [
         "C05", "R04", "C04", "R01", "R03", "C02",
         "R02", "C03", "O01", "C07", "C01", "C06",
@@ -361,9 +366,9 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
     if included != {"E1", "E3", "E4"} or omitted != {"E2"}:
         raise SystemExit("WP8 event subset does not match the frozen pilot design")
 
-    if pilot["instrumentation_gate"]["pilot_execution_authorized"] is not False:
+    if pilot["instrumentation_gate"]["pilot_execution_authorized"] is not True:
         raise SystemExit(
-            "WP8 pilot execution must remain unauthorized until instrumentation passes"
+            "R-043 pilot execution authorization is not active"
         )
 
 def assert_runtime_measurement_contract(pilot: dict) -> None:
@@ -628,11 +633,11 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             "WP8 R-037 recovery runtime validation is not closed"
         )
     if pilot["status"] != (
-        "STAGE1_RUNTIME_DISPATCH_ACTIVATED_"
-        "PILOT_AUTHORIZATION_PENDING"
+        "STAGE1_PILOT_EXECUTION_AUTHORIZED_"
+        "NOT_STARTED"
     ):
         raise SystemExit(
-            "WP8 R-041 exact-SHA CI lifecycle state is not recorded "
+            "WP8 R-043 pilot-authorization lifecycle state is not recorded "
             "before retained recovery-runtime validation"
         )
     try:
@@ -900,9 +905,9 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
         raise SystemExit(
             "NOS3 runtime binding must be closed after accepted development preflights"
         )
-    if pilot["instrumentation_gate"]["pilot_execution_authorized"] is not False:
+    if pilot["instrumentation_gate"]["pilot_execution_authorized"] is not True:
         raise SystemExit(
-            "Pilot execution must remain blocked pending explicit authorization"
+            "R-043 pilot execution authorization is not active"
         )
 
 
@@ -1086,8 +1091,8 @@ def main() -> int:
     print("[OK] M-07 command-authority convergence rule is frozen")
     print("[OK] M-08 family applicability rules are frozen")
     print("[OK] WP8 runtime binding module is statically ready")
-    print("[OK] WP8 NOS3 runtime binding is closed; pilot execution remains gated")
-    print("[OK] WP8 Stage-1 offline orchestration remains validated; R-042 runtime dispatch/readiness is active while pilot execution stays blocked")
+    print("[OK] WP8 NOS3 runtime binding remains closed and R-043 pilot authorization is active; validation performs no runtime execution")
+    print("[OK] WP8 Stage-1 offline orchestration remains validated through an explicitly blocked copy; live R-043 authorization is tracked separately")
     print("[OK] WP8 Stage-1 command effect contract remains frozen under R-029")
     print("[OK] WP8 Stage-1 command observation/censoring contract remains frozen under R-030/R-031")
     print("[OK] WP8 command event-success observation is temporally independent of policy enforcement after activation")
@@ -1096,12 +1101,13 @@ def main() -> int:
     print("[OK] R-035 separates recovery criterion satisfaction from evidence availability/currentness; pilot data requires the explicit dimension and retained development records are not rewritten")
     print("[OK] R-036 freezes E3 recovery observation/censoring semantics; R04 command mitigation is not update containment and final scoring/classification remains deferred")
     print("[OK] R-037 generic recovery executor is runtime-validated by retained R01/R02/R04 development discriminators; R03 remains intentionally unexecuted until pilot and pilot execution remains blocked")
-    print("[OK] Generic O01 observability executor remains runtime-validated by retained seed-9701 development evidence; R-042 dispatch readiness is active and pilot execution remains blocked")
+    print("[OK] Generic O01 observability executor remains runtime-validated by retained seed-9701 development evidence; its development-only contract is independent of live R-043 authorization")
     print("[OK] R-038 Stage-1 family dispatch interface and frozen 12-cell routing matrix remain validated; later lifecycle gates are tracked separately")
     print("[OK] R-039 pilot-mode runtime paths remain frozen: command=7, recovery-generic=2, recovery-full-trusted=2, observability=1; R-040 owns runtime wiring progression")
     print("[OK] R-040 Stage-1 runtime wiring remains validated across all four pilot paths")
     print("[OK] R-041 exact-SHA CI PASS remains bound to ba26b39b295e45932f4adf834f458ccc8dd9863e / run 32319312294")
-    print("[OK] R-042 activates Stage-1 family dispatch/readiness from parent 4322a2a80edfa0a24ad0ab9fa66e0a0046c3b698 / CI run 32328740879; pilot execution remains separately unauthorized")
+    print("[OK] R-042 Stage-1 family dispatch/readiness remains active")
+    print("[OK] R-043 authorizes deliberate Stage-1 pilot invocation from exact R-042 commit b2f2a9d04f4502a41aacc7327a63d7f8f27a721a / CI run 32374608416; validation itself performs no pilot execution")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

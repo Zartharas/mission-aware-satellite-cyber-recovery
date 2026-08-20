@@ -115,9 +115,9 @@ def validate_runtime_wiring_contract(pilot: dict[str, Any]) -> None:
     status = gate["component_status"]
 
     if pilot["status"] != (
-        "STAGE1_RUNTIME_DISPATCH_ACTIVATED_PILOT_AUTHORIZATION_PENDING"
+        "STAGE1_PILOT_EXECUTION_AUTHORIZED_NOT_STARTED"
     ):
-        raise ValueError("R-042 lifecycle status changed")
+        raise ValueError("R-043 lifecycle status changed")
     if dispatch["decision_id"] != "R-038":
         raise ValueError("R-040 requires R-038")
     if dispatch["pilot_mode_materialization_complete"] is not True:
@@ -187,6 +187,23 @@ def validate_runtime_wiring_contract(pilot: dict[str, Any]) -> None:
     }
     if activation != expected_activation:
         raise ValueError("R-042 dispatch activation attestation changed")
+    authorization = r040.get("pilot_authorization")
+    expected_authorization = {
+        "decision_id": "R-043",
+        "status": "PASS",
+        "authorization_basis_commit": (
+            "b2f2a9d04f4502a41aacc7327a63d7f8f27a721a"
+        ),
+        "authorization_basis_workflow_run_id": 32374608416,
+        "authorization_performed": True,
+        "pilot_execution_authorized": True,
+        "automatic_execution_performed": False,
+        "runtime_execution_performed": False,
+        "pilot_seed_consumed": False,
+        "pilot_data_generated": False,
+    }
+    if authorization != expected_authorization:
+        raise ValueError("R-043 pilot authorization attestation changed")
     if r040["authorization_pending"] is not False:
         raise ValueError("R-042 dispatch activation did not close")
     if r040["pilot_mode_requires_explicit_environment_gate"] != (
@@ -207,8 +224,8 @@ def validate_runtime_wiring_contract(pilot: dict[str, Any]) -> None:
             raise ValueError(f"R-040 runtime path is not wired: {path_name}")
     if status["stage_1_family_runtime_dispatch_adapters"] is not True:
         raise ValueError("R-042 Stage-1 family dispatch is not activated")
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("R-042 cannot authorize pilot execution")
+    if gate["pilot_execution_authorized"] is not True:
+        raise ValueError("R-043 pilot execution authorization is not active")
     for row in pilot["stage_1_runner_contract"]["dispatch_by_event_id"].values():
         if row["pilot_executor_ready"] is not True:
             raise ValueError(

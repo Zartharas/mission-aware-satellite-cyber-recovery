@@ -56,7 +56,7 @@ def measurement(cell_id: str) -> dict:
 
 
 class RecoveryRuntimeExecutorTests(unittest.TestCase):
-    def test_contract_is_static_and_pilot_blocked(self) -> None:
+    def test_contract_is_static_and_lifecycle_independent(self) -> None:
         validate_recovery_runtime_executor_contract(PILOT)
         contract = PILOT["stage_1_runner_contract"]["recovery_runtime_executor_contract"]
         self.assertTrue(contract["development_only"])
@@ -100,11 +100,8 @@ class RecoveryRuntimeExecutorTests(unittest.TestCase):
             [9601, 9602, 9604],
         )
 
-        self.assertFalse(
-            PILOT["instrumentation_gate"][
-                "pilot_execution_authorized"
-            ]
-        )
+        self.assertTrue(contract["development_only"])
+        self.assertFalse(contract["pilot_executor_ready"])
 
     def test_discriminator_cells_are_minimal_three(self) -> None:
         self.assertEqual(DEVELOPMENT_VALIDATION_CELLS, ("R01", "R02", "R04"))

@@ -147,6 +147,9 @@ def add_valid_attempt(pilot: dict, ledger: dict, cell_id: str, index: int) -> No
 class WP8Stage1PilotTests(unittest.TestCase):
     def test_plan_reads_cells_from_pilot_config(self) -> None:
         pilot = deepcopy(PILOT)
+        pilot["instrumentation_gate"][
+            "pilot_execution_authorized"
+        ] = False
         pilot["cells"][0]["primary_role"] = "unit_mutated_role"
         plan = build_offline_stage1_plan(pilot)
         planned = {
