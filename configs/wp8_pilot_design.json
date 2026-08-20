@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_RUNTIME_WIRING_STATIC_VALIDATED_AUTHORIZATION_PENDING",
+  "status": "STAGE1_RUNTIME_WIRING_EXACT_SHA_CI_VALIDATED_ACTIVATION_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -641,8 +641,21 @@
         "runtime_execution_performed": false,
         "pilot_seed_consumed": false,
         "pilot_data_generated": false,
+        "exact_sha_ci_validation": {
+          "decision_id": "R-041",
+          "status": "PASS",
+          "validated_implementation_commit": "ba26b39b295e45932f4adf834f458ccc8dd9863e",
+          "workflow": "Validate research configurations",
+          "workflow_run_id": 32319312294,
+          "event": "push",
+          "conclusion": "success",
+          "dispatch_activation_performed": false,
+          "pilot_execution_authorized": false,
+          "pilot_seed_consumed": false,
+          "pilot_data_generated": false
+        },
         "authorization_pending": true,
-        "claim_boundary": "R-040 wires the frozen Stage-1 controller, four family runtime paths, observation normalization, schema binding, and attempt ledger while leaving all readiness and authorization gates false pending exact-SHA CI. No NOS3 runtime is executed and seed 101 remains unconsumed."
+        "claim_boundary": "R-040 runtime wiring is implemented and R-041 records successful exact-SHA CI validation for commit ba26b39b295e45932f4adf834f458ccc8dd9863e (GitHub Actions run 32319312294). Dispatch activation and pilot execution remain separate pending decisions. No NOS3 runtime is executed, seed 101 remains unconsumed, and no pilot data is generated."
       }
     }
   },

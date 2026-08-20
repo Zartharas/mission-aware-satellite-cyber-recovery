@@ -84,11 +84,11 @@ def assert_pilot_design(pilot: dict, model: dict) -> None:
 
     gate = pilot["instrumentation_gate"]
     if pilot["status"] != (
-        "STAGE1_RUNTIME_WIRING_STATIC_VALIDATED_"
-        "AUTHORIZATION_PENDING"
+        "STAGE1_RUNTIME_WIRING_EXACT_SHA_CI_VALIDATED_"
+        "ACTIVATION_PENDING"
     ):
         raise SystemExit(
-            "WP8 generic O01 observability executor static gate is not closed"
+            "WP8 R-041 exact-SHA CI lifecycle state is not recorded"
         )
     if gate["known_pre_pilot_implementation_work"] != [
         "stage_1_runtime_wiring_authorization_gate_activation"
@@ -630,12 +630,12 @@ def assert_runtime_measurement_contract(pilot: dict) -> None:
             "WP8 R-037 recovery runtime validation is not closed"
         )
     if pilot["status"] != (
-        "STAGE1_RUNTIME_WIRING_STATIC_VALIDATED_"
-        "AUTHORIZATION_PENDING"
+        "STAGE1_RUNTIME_WIRING_EXACT_SHA_CI_VALIDATED_"
+        "ACTIVATION_PENDING"
     ):
         raise SystemExit(
-            "WP8 generic O01 observability runtime validation "
-            "is not the next pending family gate"
+            "WP8 R-041 exact-SHA CI lifecycle state is not recorded "
+            "before retained recovery-runtime validation"
         )
     try:
         validate_recovery_runtime_executor_contract(pilot)
@@ -1101,7 +1101,8 @@ def main() -> int:
     print("[OK] Generic O01 observability executor is runtime-validated by retained seed-9701 development evidence; pilot execution remains blocked pending the family-dispatch gate")
     print("[OK] R-038 Stage-1 family dispatch interface and frozen 12-cell routing matrix remain validated; later lifecycle gates are tracked separately")
     print("[OK] R-039 pilot-mode runtime paths remain frozen: command=7, recovery-generic=2, recovery-full-trusted=2, observability=1; R-040 owns runtime wiring progression")
-    print("[OK] R-040 Stage-1 runtime wiring is statically validated across all four pilot paths; exact-SHA CI authorization remains pending and seed 101 is unconsumed")
+    print("[OK] R-040 Stage-1 runtime wiring remains validated across all four pilot paths")
+    print("[OK] R-041 exact-SHA CI PASS is bound to ba26b39b295e45932f4adf834f458ccc8dd9863e / run 32319312294; dispatch activation and pilot execution remain pending")
     print("[OK] Primary metrics derive from retained raw evidence")
     print("[OK] JSON Schema Draft 2020-12 structure is valid")
     print("SCHEMA_VALIDATION_STATUS=PASS")

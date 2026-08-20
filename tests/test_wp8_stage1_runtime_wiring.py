@@ -25,18 +25,33 @@ PILOT = json.loads(
 
 
 class Stage1RuntimeWiringTests(unittest.TestCase):
-    def test_r040_contract_is_static_and_authorization_pending(self):
+    def test_r041_exact_sha_ci_attested_activation_pending(self):
         validate_runtime_wiring_contract(PILOT)
         dispatch = PILOT["stage_1_runner_contract"][
             "family_runtime_dispatch_adapter_contract"
         ]
         r039 = dispatch["pilot_mode_contract"]
         r040 = dispatch["runtime_wiring_contract"]
+        ci = r040["exact_sha_ci_validation"]
         self.assertTrue(r039["runtime_wiring_complete"])
+        self.assertEqual(ci["decision_id"], "R-041")
+        self.assertEqual(ci["status"], "PASS")
+        self.assertEqual(
+            ci["validated_implementation_commit"],
+            "ba26b39b295e45932f4adf834f458ccc8dd9863e",
+        )
+        self.assertEqual(ci["workflow_run_id"], 32319312294)
+        self.assertEqual(ci["conclusion"], "success")
+        self.assertFalse(ci["dispatch_activation_performed"])
         self.assertTrue(r040["authorization_pending"])
         self.assertFalse(r040["runtime_execution_performed"])
         self.assertFalse(r040["pilot_seed_consumed"])
         self.assertFalse(r040["pilot_data_generated"])
+        self.assertFalse(
+            PILOT["instrumentation_gate"]["component_status"][
+                "stage_1_family_runtime_dispatch_adapters"
+            ]
+        )
         self.assertFalse(
             PILOT["instrumentation_gate"]["pilot_execution_authorized"]
         )
