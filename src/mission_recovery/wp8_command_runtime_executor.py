@@ -103,9 +103,6 @@ def validate_command_runtime_executor_contract(
 
     if dispatch.get("development_executor") != contract["development_runner"]:
         raise ValueError("E1 development dispatch does not name R-032 runner")
-    if dispatch["pilot_executor_ready"] is not False:
-        raise ValueError("E1 pilot executor cannot be ready in R-032")
-
     if status["stage_1_command_effect_contract"] is not True:
         raise ValueError("R-029 command effect contract regressed")
     if status["stage_1_command_observation_contract"] is not True:
@@ -182,11 +179,6 @@ def validate_command_runtime_executor_contract(
         raise ValueError("R-033 closure cannot claim primary metrics")
     if any(row["terminal_state_emitted"] is not False for row in retained):
         raise ValueError("R-033 closure cannot claim terminal states")
-    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError("family runtime dispatch adapters cannot pass in R-032")
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("pilot execution must remain blocked in R-032")
-
 
 def _validate_development_seed(
     pilot: dict[str, Any],

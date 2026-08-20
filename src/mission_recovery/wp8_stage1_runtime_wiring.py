@@ -115,9 +115,9 @@ def validate_runtime_wiring_contract(pilot: dict[str, Any]) -> None:
     status = gate["component_status"]
 
     if pilot["status"] != (
-        "STAGE1_RUNTIME_WIRING_EXACT_SHA_CI_VALIDATED_ACTIVATION_PENDING"
+        "STAGE1_RUNTIME_DISPATCH_ACTIVATED_PILOT_AUTHORIZATION_PENDING"
     ):
-        raise ValueError("R-041 lifecycle status changed")
+        raise ValueError("R-042 lifecycle status changed")
     if dispatch["decision_id"] != "R-038":
         raise ValueError("R-040 requires R-038")
     if dispatch["pilot_mode_materialization_complete"] is not True:
@@ -171,8 +171,24 @@ def validate_runtime_wiring_contract(pilot: dict[str, Any]) -> None:
     }
     if ci != expected_ci:
         raise ValueError("R-041 exact-SHA CI attestation changed")
-    if r040["authorization_pending"] is not True:
-        raise ValueError("R-041 dispatch activation must remain pending")
+    activation = r040.get("dispatch_activation")
+    expected_activation = {
+        "decision_id": "R-042",
+        "status": "PASS",
+        "activation_basis_commit": (
+            "4322a2a80edfa0a24ad0ab9fa66e0a0046c3b698"
+        ),
+        "activation_basis_workflow_run_id": 32328740879,
+        "activation_performed": True,
+        "pilot_execution_authorized": False,
+        "runtime_execution_performed": False,
+        "pilot_seed_consumed": False,
+        "pilot_data_generated": False,
+    }
+    if activation != expected_activation:
+        raise ValueError("R-042 dispatch activation attestation changed")
+    if r040["authorization_pending"] is not False:
+        raise ValueError("R-042 dispatch activation did not close")
     if r040["pilot_mode_requires_explicit_environment_gate"] != (
         "WP8_STAGE1_PILOT=1 AND WP8_STAGE1_CONTROLLER=1"
     ):
@@ -189,14 +205,14 @@ def validate_runtime_wiring_contract(pilot: dict[str, Any]) -> None:
     for path_name, source in r039["runtime_path_sources"].items():
         if source["pilot_runtime_wiring_complete"] is not True:
             raise ValueError(f"R-040 runtime path is not wired: {path_name}")
-    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError("R-041 cannot activate dispatch in CI-attestation increment")
+    if status["stage_1_family_runtime_dispatch_adapters"] is not True:
+        raise ValueError("R-042 Stage-1 family dispatch is not activated")
     if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("R-041 cannot authorize pilot in CI-attestation increment")
+        raise ValueError("R-042 cannot authorize pilot execution")
     for row in pilot["stage_1_runner_contract"]["dispatch_by_event_id"].values():
-        if row["pilot_executor_ready"] is not False:
+        if row["pilot_executor_ready"] is not True:
             raise ValueError(
-                "R-041 cannot activate family readiness in CI-attestation increment"
+                "R-042 family pilot executor readiness is incomplete"
             )
 
 

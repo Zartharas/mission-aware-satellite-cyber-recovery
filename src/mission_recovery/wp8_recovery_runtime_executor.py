@@ -116,9 +116,6 @@ def validate_recovery_runtime_executor_contract(pilot: dict[str, Any]) -> None:
 
     if dispatch.get("development_executor") != contract["development_runner"]:
         raise ValueError("E3 dispatch does not name recovery development executor")
-    if dispatch["pilot_executor_ready"] is not False:
-        raise ValueError("E3 pilot executor cannot be ready in R-037")
-
     if status["stage_1_recovery_effect_contract"] is not True:
         raise ValueError("R-034 recovery effect contract regressed")
     if status["recovery_evidence_semantics_separated"] is not True:
@@ -346,11 +343,6 @@ def validate_recovery_runtime_executor_contract(pilot: dict[str, Any]) -> None:
             raise ValueError(
                 f"R-037 {cell} cannot claim terminal state"
             )
-    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError("family runtime dispatch adapters cannot pass in R-037")
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("R-037 cannot authorize pilot execution")
-
 
 def build_development_execution_plan(
     pilot: dict[str, Any],

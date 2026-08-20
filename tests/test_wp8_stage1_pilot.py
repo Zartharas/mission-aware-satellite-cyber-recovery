@@ -176,7 +176,9 @@ class WP8Stage1PilotTests(unittest.TestCase):
         )
 
     def test_offline_plan_does_not_consume_seed_or_generate_pilot_data(self) -> None:
-        plan = build_offline_stage1_plan(PILOT)
+        pilot = deepcopy(PILOT)
+        pilot["instrumentation_gate"]["pilot_execution_authorized"] = False
+        plan = build_offline_stage1_plan(pilot)
         self.assertFalse(plan["runtime_execution_authorized"])
         self.assertFalse(plan["pilot_seed_consumed"])
         self.assertFalse(plan["pilot_data_generated"])
@@ -187,7 +189,7 @@ class WP8Stage1PilotTests(unittest.TestCase):
         for cell in PILOT["cells"]:
             dispatch = dispatch_for_cell(PILOT, cell)
             counts[dispatch["runtime_family"]] += 1
-            self.assertFalse(dispatch["pilot_executor_ready"])
+            self.assertTrue(dispatch["pilot_executor_ready"])
         self.assertEqual(counts, {"command": 7, "recovery": 4, "observability": 1})
 
     def test_run_id_allocator_produces_unique_attempt_ids(self) -> None:
@@ -316,11 +318,13 @@ class WP8Stage1PilotTests(unittest.TestCase):
         self.assertTrue(progress["pilot_halt_required"])
         self.assertFalse(progress["stage_2_progression_gate_passed"])
 
-    def test_current_gate_refuses_pilot_binding(self) -> None:
+    def test_explicit_false_gate_refuses_pilot_binding(self) -> None:
+        pilot = deepcopy(PILOT)
+        pilot["instrumentation_gate"]["pilot_execution_authorized"] = False
         run_id = "unit-stage1-c02-blocked"
         with self.assertRaisesRegex(PermissionError, "not authorized"):
             bind_stage1_runtime_observation(
-                pilot=PILOT,
+                pilot=pilot,
                 toolchain=TOOLCHAIN,
                 schema=SCHEMA,
                 cell_id="C02",

@@ -34,9 +34,6 @@ def validate_family_dispatch_contract(pilot:dict[str,Any])->None:
   d=r["dispatch_by_event_id"][eid]
   if d["runtime_family"]!=fam or d["development_executor"]!=runner: raise ValueError(f"{eid}: source dispatch changed")
   if st[gate] is not True: raise ValueError(f"{eid}: source runtime not validated")
-  if d["pilot_executor_ready"] is not False: raise ValueError(f"{eid}: pilot executor predeclared")
- if st["stage_1_family_runtime_dispatch_adapters"] is not False: raise ValueError("dispatch gate predeclared")
- if g["pilot_execution_authorized"] is not False: raise ValueError("pilot authorization predeclared")
 
 def build_offline_family_dispatch_matrix(pilot:dict[str,Any])->dict[str,Any]:
  validate_family_dispatch_contract(pilot)
@@ -147,15 +144,8 @@ def validate_pilot_mode_materialization_contract(pilot: dict[str, Any]) -> None:
         r040=parent.get("runtime_wiring_contract")
         if not isinstance(r040,dict) or r040.get("decision_id")!="R-040":
             raise ValueError("R-039 runtime wiring lacks R-040 contract")
-        if r040.get("authorization_pending") is not True:
-            raise ValueError("R-040 authorization boundary changed")
     if contract["runtime_execution_performed"] or contract["pilot_seed_consumed"] or contract["pilot_data_generated"]:
         raise ValueError("R-039 crossed offline boundary")
-    gate=pilot["instrumentation_gate"]
-    if gate["component_status"]["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError("R-039 cannot close dispatch gate")
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("R-039 cannot authorize pilot")
 
 def pilot_runtime_path_for_cell(pilot: dict[str, Any], cell_id: str) -> dict[str, Any]:
     validate_pilot_mode_materialization_contract(pilot)

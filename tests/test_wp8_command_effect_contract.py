@@ -269,22 +269,14 @@ class WP8CommandEffectContractTests(unittest.TestCase):
                 row["policy_evaluation"]["oracle_ground_truth_read"]
             )
 
-    def test_r029_is_offline_and_pilot_gate_remains_closed(self) -> None:
+    def test_r029_is_offline_independent_of_later_lifecycle(self) -> None:
         matrix = build_command_effect_matrix(PILOT)
         self.assertFalse(matrix["runtime_execution_authorized"])
         self.assertFalse(matrix["pilot_seed_consumed"])
         self.assertFalse(matrix["pilot_data_generated"])
-        self.assertFalse(
-            PILOT["instrumentation_gate"]["pilot_execution_authorized"]
-        )
         self.assertTrue(
             PILOT["instrumentation_gate"]["component_status"][
                 "stage_1_command_effect_contract"
-            ]
-        )
-        self.assertFalse(
-            PILOT["instrumentation_gate"]["component_status"][
-                "stage_1_family_runtime_dispatch_adapters"
             ]
         )
 

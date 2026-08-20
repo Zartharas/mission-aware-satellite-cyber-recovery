@@ -25,7 +25,7 @@ PILOT = json.loads(
 
 
 class Stage1RuntimeWiringTests(unittest.TestCase):
-    def test_r041_exact_sha_ci_attested_activation_pending(self):
+    def test_r042_dispatch_activated_pilot_authorization_pending(self):
         validate_runtime_wiring_contract(PILOT)
         dispatch = PILOT["stage_1_runner_contract"][
             "family_runtime_dispatch_adapter_contract"
@@ -33,6 +33,7 @@ class Stage1RuntimeWiringTests(unittest.TestCase):
         r039 = dispatch["pilot_mode_contract"]
         r040 = dispatch["runtime_wiring_contract"]
         ci = r040["exact_sha_ci_validation"]
+        activation = r040["dispatch_activation"]
         self.assertTrue(r039["runtime_wiring_complete"])
         self.assertEqual(ci["decision_id"], "R-041")
         self.assertEqual(ci["status"], "PASS")
@@ -43,15 +44,30 @@ class Stage1RuntimeWiringTests(unittest.TestCase):
         self.assertEqual(ci["workflow_run_id"], 32319312294)
         self.assertEqual(ci["conclusion"], "success")
         self.assertFalse(ci["dispatch_activation_performed"])
-        self.assertTrue(r040["authorization_pending"])
+        self.assertEqual(activation["decision_id"], "R-042")
+        self.assertEqual(activation["status"], "PASS")
+        self.assertEqual(
+            activation["activation_basis_commit"],
+            "4322a2a80edfa0a24ad0ab9fa66e0a0046c3b698",
+        )
+        self.assertEqual(
+            activation["activation_basis_workflow_run_id"],
+            32328740879,
+        )
+        self.assertTrue(activation["activation_performed"])
+        self.assertFalse(r040["authorization_pending"])
         self.assertFalse(r040["runtime_execution_performed"])
         self.assertFalse(r040["pilot_seed_consumed"])
         self.assertFalse(r040["pilot_data_generated"])
-        self.assertFalse(
+        self.assertTrue(
             PILOT["instrumentation_gate"]["component_status"][
                 "stage_1_family_runtime_dispatch_adapters"
             ]
         )
+        for row in PILOT["stage_1_runner_contract"][
+            "dispatch_by_event_id"
+        ].values():
+            self.assertTrue(row["pilot_executor_ready"])
         self.assertFalse(
             PILOT["instrumentation_gate"]["pilot_execution_authorized"]
         )
@@ -75,10 +91,10 @@ class Stage1RuntimeWiringTests(unittest.TestCase):
             },
         )
 
-    def test_r040_current_configuration_cannot_execute_pilot(self):
+    def test_r042_current_configuration_cannot_execute_pilot(self):
         with self.assertRaisesRegex(
             PermissionError,
-            "dispatch is not activated",
+            "pilot execution is not authorized",
         ):
             require_active_pilot(PILOT, cell_id="C05")
 

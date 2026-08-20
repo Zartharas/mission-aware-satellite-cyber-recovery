@@ -15,8 +15,9 @@ class T(unittest.TestCase):
  def test_blocked_request(self):
   r=blocked_adapter_request(P,"C05","unit-r038-c05")
   self.assertEqual(r["seed"],101); self.assertEqual(r["runtime_family"],"command"); self.assertFalse(r["pilot_seed_consumed"])
-  with self.assertRaisesRegex(PermissionError,"dispatch gate"):
-   require_pilot_dispatch_authorized(P)
+  blocked=deepcopy(P); blocked["instrumentation_gate"]["pilot_execution_authorized"]=False
+  with self.assertRaisesRegex(PermissionError,"pilot execution"):
+   require_pilot_dispatch_authorized(blocked)
  def test_envelope_three_families(self):
   cells={x["cell_id"]:x for x in P["cells"]}
   for cid in ("C05","R04","O01"):
@@ -29,9 +30,15 @@ class T(unittest.TestCase):
   with self.assertRaisesRegex(ValueError,"actual effective policy"): validate_family_observation_envelope(P,"C05",rid,b)
   b["execution_metadata"]["effective_policy_id"]="P2"; b["runtime_observation"]["development_preflight"]=True; b["runtime_observation"]["pilot_data"]=False
   with self.assertRaisesRegex(ValueError,"development preflight"): validate_family_observation_envelope(P,"C05",rid,b)
- def test_future_authorization_needs_both_gates(self):
-  p=deepcopy(P); p["instrumentation_gate"]["component_status"]["stage_1_family_runtime_dispatch_adapters"]=True
-  with self.assertRaisesRegex(PermissionError,"pilot execution"): require_pilot_dispatch_authorized(p)
+ def test_authorization_needs_both_gates(self):
+  dispatch_blocked=deepcopy(P)
+  dispatch_blocked["instrumentation_gate"]["component_status"]["stage_1_family_runtime_dispatch_adapters"]=False
+  dispatch_blocked["instrumentation_gate"]["pilot_execution_authorized"]=True
+  with self.assertRaisesRegex(PermissionError,"dispatch gate"): require_pilot_dispatch_authorized(dispatch_blocked)
+  pilot_blocked=deepcopy(P)
+  pilot_blocked["instrumentation_gate"]["component_status"]["stage_1_family_runtime_dispatch_adapters"]=True
+  pilot_blocked["instrumentation_gate"]["pilot_execution_authorized"]=False
+  with self.assertRaisesRegex(PermissionError,"pilot execution"): require_pilot_dispatch_authorized(pilot_blocked)
 
  def test_r039_pilot_runtime_path_matrix(self):
   validate_pilot_mode_materialization_contract(P)
@@ -69,14 +76,14 @@ class T(unittest.TestCase):
   self.assertEqual(contract["expected_effective_policy_role"],"post_observation_acceptance_only")
   self.assertTrue(contract["pilot_observation_envelope"]["raw_metric_inputs_from_observation_only"])
 
- def test_r039_runtime_wiring_and_authorization_remain_blocked(self):
+ def test_r039_history_is_independent_of_current_lifecycle(self):
   contract=P["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]["pilot_mode_contract"]
   self.assertTrue(contract["offline_static_validation_complete"])
   self.assertTrue(contract["runtime_wiring_complete"])
+  self.assertFalse(contract["runtime_execution_performed"])
+  self.assertFalse(contract["pilot_seed_consumed"])
+  self.assertFalse(contract["pilot_data_generated"])
   r040=P["stage_1_runner_contract"]["family_runtime_dispatch_adapter_contract"]["runtime_wiring_contract"]
   self.assertEqual(r040["decision_id"],"R-040")
-  self.assertTrue(r040["authorization_pending"])
-  self.assertFalse(P["instrumentation_gate"]["component_status"]["stage_1_family_runtime_dispatch_adapters"])
-  self.assertFalse(P["instrumentation_gate"]["pilot_execution_authorized"])
 
 if __name__=="__main__": unittest.main()

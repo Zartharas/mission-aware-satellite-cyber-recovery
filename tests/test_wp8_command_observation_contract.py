@@ -282,18 +282,14 @@ class WP8CommandObservationContractTests(unittest.TestCase):
                 row["expected_values_used_as_raw_metric_inputs"]
             )
 
-    def test_r030_is_offline_and_pilot_gate_remains_closed(self) -> None:
+    def test_r030_is_offline_independent_of_later_lifecycle(self) -> None:
         matrix = build_command_observation_matrix(PILOT)
         self.assertFalse(matrix["runtime_execution_authorized"])
         self.assertFalse(matrix["pilot_seed_consumed"])
         self.assertFalse(matrix["pilot_data_generated"])
         gate = PILOT["instrumentation_gate"]
-        self.assertFalse(gate["pilot_execution_authorized"])
         self.assertTrue(
             gate["component_status"]["stage_1_command_observation_contract"]
-        )
-        self.assertFalse(
-            gate["component_status"]["stage_1_family_runtime_dispatch_adapters"]
         )
 
 

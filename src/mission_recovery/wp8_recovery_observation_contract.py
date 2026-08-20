@@ -95,11 +95,6 @@ def validate_recovery_observation_contract_config(
         raise ValueError("R-036 requires R-035 semantics")
     if status["stage_1_recovery_observation_contract"] is not True:
         raise ValueError("R-036 observation gate is not closed")
-    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError("R-036 cannot close runtime adapters")
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("R-036 cannot authorize pilot execution")
-
 
 def build_recovery_observation_plan(
     pilot: dict[str, Any], cell_id: str

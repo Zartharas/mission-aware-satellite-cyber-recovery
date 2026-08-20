@@ -1,7 +1,7 @@
 {
   "pilot_version": "0.1.0",
   "work_package": "WP8",
-  "status": "STAGE1_RUNTIME_WIRING_EXACT_SHA_CI_VALIDATED_ACTIVATION_PENDING",
+  "status": "STAGE1_RUNTIME_DISPATCH_ACTIVATED_PILOT_AUTHORIZATION_PENDING",
   "baseline_commit": "704c45dfeda9dabe40ec7cba9d835827f712672f",
   "model_version": "0.3.0",
   "purpose": [
@@ -55,19 +55,19 @@
       "E1": {
         "runtime_family": "command",
         "reference_development_preflight": "scripts/run_wp8_command_binding_preflight.sh",
-        "pilot_executor_ready": false,
+        "pilot_executor_ready": true,
         "development_executor": "scripts/run_wp8_command_stage1_development.sh"
       },
       "E3": {
         "runtime_family": "recovery",
         "reference_development_preflight": "scripts/run_wp8_recovery_binding_preflight.sh",
-        "pilot_executor_ready": false,
+        "pilot_executor_ready": true,
         "development_executor": "scripts/run_wp8_recovery_stage1_development.sh"
       },
       "E4": {
         "runtime_family": "observability",
         "reference_development_preflight": "scripts/run_wp8_observability_binding_preflight.sh",
-        "pilot_executor_ready": false,
+        "pilot_executor_ready": true,
         "development_executor": "scripts/run_wp8_observability_stage1_development.sh"
       }
     },
@@ -654,8 +654,19 @@
           "pilot_seed_consumed": false,
           "pilot_data_generated": false
         },
-        "authorization_pending": true,
-        "claim_boundary": "R-040 runtime wiring is implemented and R-041 records successful exact-SHA CI validation for commit ba26b39b295e45932f4adf834f458ccc8dd9863e (GitHub Actions run 32319312294). Dispatch activation and pilot execution remain separate pending decisions. No NOS3 runtime is executed, seed 101 remains unconsumed, and no pilot data is generated."
+        "dispatch_activation": {
+          "decision_id": "R-042",
+          "status": "PASS",
+          "activation_basis_commit": "4322a2a80edfa0a24ad0ab9fa66e0a0046c3b698",
+          "activation_basis_workflow_run_id": 32328740879,
+          "activation_performed": true,
+          "pilot_execution_authorized": false,
+          "runtime_execution_performed": false,
+          "pilot_seed_consumed": false,
+          "pilot_data_generated": false
+        },
+        "authorization_pending": false,
+        "claim_boundary": "R-040 runtime wiring remains frozen; R-041 records exact-SHA CI for the implementation, and R-042 activates the validated Stage-1 family dispatch/readiness gates using exact-SHA CI run 32328740879 as the activation basis. Pilot execution remains separately unauthorized. No NOS3 runtime is executed, seed 101 remains unconsumed, and no pilot data is generated."
       }
     }
   },
@@ -838,9 +849,7 @@
   "instrumentation_gate": {
     "pilot_execution_authorized": false,
     "authorization_condition": "The NOS3 pilot runner must bind observed runtime evidence to the validated raw-metric schema and emit a schema-valid scored run record without manual reconstruction or expected-value substitution.",
-    "known_pre_pilot_implementation_work": [
-      "stage_1_runtime_wiring_authorization_gate_activation"
-    ],
+    "known_pre_pilot_implementation_work": [],
     "component_status": {
       "raw_metric_schema": true,
       "deterministic_primary_metric_scorer": true,
@@ -852,7 +861,7 @@
       "runtime_binding_module": true,
       "runtime_binding_static_validation": true,
       "stage_1_runner_offline_contract": true,
-      "stage_1_family_runtime_dispatch_adapters": false,
+      "stage_1_family_runtime_dispatch_adapters": true,
       "stage_1_command_effect_contract": true,
       "stage_1_command_observation_contract": true,
       "stage_1_command_observation_temporal_order_corrected": true,

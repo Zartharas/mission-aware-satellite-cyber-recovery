@@ -71,11 +71,6 @@ def validate_command_observation_contract_config(
         raise ValueError("R-029 command effect contract must remain closed")
     if status["stage_1_command_observation_contract"] is not True:
         raise ValueError("R-030 command observation contract is not closed")
-    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError("runtime dispatch adapters cannot pass in R-030")
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("pilot execution must remain blocked in R-030")
-
 
 def build_command_observation_plan(
     pilot: dict[str, Any],

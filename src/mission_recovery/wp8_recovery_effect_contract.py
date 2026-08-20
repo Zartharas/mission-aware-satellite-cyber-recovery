@@ -182,13 +182,6 @@ def validate_recovery_effect_contract_config(
         raise ValueError(
             "recovery observation contract gate must remain boolean"
         )
-    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError(
-            "runtime dispatch adapters cannot pass in R-034"
-        )
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("pilot execution must remain blocked in R-034")
-
     recovery_cells(pilot)
     _artifacts()
 

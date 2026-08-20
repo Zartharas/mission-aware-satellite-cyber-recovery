@@ -107,11 +107,6 @@ def validate_command_effect_contract_config(
 
     if status["stage_1_command_effect_contract"] is not True:
         raise ValueError("Stage-1 command effect contract status is not closed")
-    if status["stage_1_family_runtime_dispatch_adapters"] is not False:
-        raise ValueError("Stage-1 runtime dispatch adapters cannot pass in R-029")
-    if gate["pilot_execution_authorized"] is not False:
-        raise ValueError("pilot execution must remain blocked in R-029")
-
     command_cells(pilot)
 
 

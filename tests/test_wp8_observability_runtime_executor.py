@@ -28,8 +28,8 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
 
         self.assertEqual(
             PILOT["status"],
-            "STAGE1_RUNTIME_WIRING_EXACT_SHA_CI_VALIDATED_"
-            "ACTIVATION_PENDING",
+            "STAGE1_RUNTIME_DISPATCH_ACTIVATED_"
+            "PILOT_AUTHORIZATION_PENDING",
         )
         self.assertEqual(
             contract["implementation_id"],
@@ -179,7 +179,7 @@ class ObservabilityRuntimeExecutorTests(unittest.TestCase):
             dispatch["development_executor"],
             "scripts/run_wp8_observability_stage1_development.sh",
         )
-        self.assertFalse(dispatch["pilot_executor_ready"])
+        self.assertTrue(dispatch["pilot_executor_ready"])
 
 
     def test_bound_validator_does_not_hardcode_seed_9301(
