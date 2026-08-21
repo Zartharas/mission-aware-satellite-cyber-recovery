@@ -159,6 +159,61 @@ class WP8RecoveryPreflightContractTests(unittest.TestCase):
             ]
         )
 
+    def test_recovery_measurement_destination_stabilization(self) -> None:
+        settle = RUNNER.index(
+            'PHASE="NOMINAL_TOLAB_DESTINATION_SETTLE"'
+        )
+        nominal_marker = RUNNER.index(
+            "TO telemetry output enabled for IP active-gs"
+        )
+        plane = RUNNER.index(
+            'PHASE="MEASUREMENT_PLANE_PREPOSITION"'
+        )
+        enable = RUNNER.index(
+            'enable-output --destination recovery-proxy'
+        )
+        ownership = RUNNER.index(
+            "recovery_tolab_destination_ownership=PASS"
+        )
+        event = RUNNER.index('PHASE="EVENT_ACTIVATION"')
+        post_probe = RUNNER.index(
+            'run_e4_adapter "$(basename "$SEND_JSON")" send-data-types'
+        )
+
+        self.assertLess(settle, nominal_marker)
+        self.assertLess(nominal_marker, plane)
+        self.assertLess(plane, enable)
+        self.assertLess(enable, ownership)
+        self.assertLess(ownership, event)
+        self.assertLess(event, post_probe)
+
+        self.assertIn(
+            "count_tolab_enable_markers()",
+            RUNNER,
+        )
+        self.assertIn(
+            "last_tolab_destination()",
+            RUNNER,
+        )
+        self.assertIn(
+            "assert_recovery_destination_stable()",
+            RUNNER,
+        )
+        self.assertIn(
+            'test "$RECOVERY_TOLAB_ENABLE_COUNT" -eq '
+            '$((NOMINAL_TOLAB_ENABLE_COUNT + 1))',
+            RUNNER,
+        )
+        self.assertIn(
+            'test "$RECOVERY_TOLAB_LAST_DESTINATION" = '
+            '"recovery-proxy"',
+            RUNNER,
+        )
+        self.assertGreaterEqual(
+            RUNNER.count("assert_recovery_destination_stable"),
+            4,
+        )
+
     def test_post_recovery_command_and_telemetry_probes(self) -> None:
         operational = PILOT["runtime_measurement_contract"][
             "recovery_runtime_operationalization"

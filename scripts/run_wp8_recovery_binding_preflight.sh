@@ -86,6 +86,36 @@ count_noop_marker() {
     grep -Fc 'SAMPLE: NOOP command received' || true
 }
 
+count_tolab_enable_markers() {
+  docker logs "$CFS" 2>&1 |
+    grep -Fc 'TO telemetry output enabled for IP ' || true
+}
+
+last_tolab_destination() {
+  docker logs "$CFS" 2>&1 |
+    grep -F 'TO telemetry output enabled for IP ' |
+    tail -1 |
+    sed -E 's/.*TO telemetry output enabled for IP ([^[:space:]]+).*/\1/'
+}
+
+assert_recovery_destination_stable() {
+  local observed_count observed_destination
+
+  observed_count="$(count_tolab_enable_markers)"
+  observed_destination="$(last_tolab_destination)"
+
+  if [[ "$observed_count" -ne "$RECOVERY_TOLAB_ENABLE_COUNT" ]] ||
+     [[ "$observed_destination" != "recovery-proxy" ]]
+  then
+    echo "[ERROR] TO_LAB destination changed during trusted-recovery measurement." >&2
+    echo "[ERROR] expected_enable_count=$RECOVERY_TOLAB_ENABLE_COUNT observed_enable_count=$observed_count" >&2
+    echo "[ERROR] expected_destination=recovery-proxy observed_destination=$observed_destination" >&2
+    docker logs "$CFS" 2>&1 |
+      grep -F 'TO telemetry output enabled for IP ' >&2 || true
+    return 1
+  fi
+}
+
 count_mid() {
   python3 - "$1" "$2" <<'PY'
 import json
@@ -438,6 +468,37 @@ docker exec "$CFS" test -d "$CF_BACKING_DIR"
 echo "nominal_ci_lab_udp_5012=PASS"
 echo "nominal_isolation=PASS"
 
+PHASE="NOMINAL_TOLAB_DESTINATION_SETTLE"
+
+NOMINAL_TOLAB_READY=0
+for _ in $(seq 1 60); do
+  kill -0 "$PRE_PID" >/dev/null 2>&1 || break
+  if docker logs "$CFS" 2>&1 |
+    grep -Fq 'TO telemetry output enabled for IP active-gs'
+  then
+    NOMINAL_TOLAB_READY=1
+    break
+  fi
+  sleep 0.2
+done
+
+[[ "$NOMINAL_TOLAB_READY" -eq 1 ]] || {
+  echo "[ERROR] nominal TO_LAB destination initialization was not observed" >&2
+  exit 1
+}
+
+NOMINAL_TOLAB_ENABLE_COUNT="$(count_tolab_enable_markers)"
+NOMINAL_TOLAB_LAST_DESTINATION="$(last_tolab_destination)"
+
+[[ "$NOMINAL_TOLAB_LAST_DESTINATION" == "active-gs" ]] || {
+  echo "[ERROR] nominal TO_LAB destination did not settle on active-gs" >&2
+  exit 1
+}
+
+echo "nominal_tolab_destination_settle=PASS"
+echo "nominal_tolab_destination=active-gs"
+echo "nominal_tolab_enable_count=$NOMINAL_TOLAB_ENABLE_COUNT"
+
 docker exec "$CFS" rm -f "$STAGE_BACKING" "$TEMP_BACKING"
 docker exec "$CFS" test ! -e "$STAGE_BACKING"
 docker exec "$CFS" test ! -e "$TEMP_BACKING"
@@ -520,6 +581,19 @@ for _ in $(seq 1 20); do
   sleep 0.5
 done
 [[ "$ENABLE_READY" -eq 1 ]]
+
+RECOVERY_TOLAB_ENABLE_COUNT="$(count_tolab_enable_markers)"
+RECOVERY_TOLAB_LAST_DESTINATION="$(last_tolab_destination)"
+
+test "$RECOVERY_TOLAB_ENABLE_COUNT" -eq $((NOMINAL_TOLAB_ENABLE_COUNT + 1))
+test "$RECOVERY_TOLAB_LAST_DESTINATION" = "recovery-proxy"
+
+echo "recovery_tolab_destination_ownership=PASS"
+echo "recovery_tolab_destination=recovery-proxy"
+echo "recovery_tolab_enable_count=$RECOVERY_TOLAB_ENABLE_COUNT"
+
+PHASE="RECOVERY_DESTINATION_STABILITY"
+assert_recovery_destination_stable
 
 test "$(count_mid "$TRUTH_JSONL" 0x08E9)" -eq 0
 test "$(count_mid "$POLICY_JSONL" 0x08E9)" -eq 0
@@ -616,6 +690,9 @@ done
 
 echo "immutable_activation_slot_observer_prepositioned=PASS"
 echo "event_success_observer_ready_before_t0=true"
+
+PHASE="RECOVERY_DESTINATION_STABILITY"
+assert_recovery_destination_stable
 
 PHASE="EVENT_ACTIVATION"
 
@@ -947,6 +1024,10 @@ echo "legitimate_commands_rejected=0"
 TRUTH_BEFORE="$(count_mid "$TRUTH_JSONL" 0x08E9)"
 POLICY_BEFORE="$(count_mid "$POLICY_JSONL" 0x08E9)"
 
+PHASE="RECOVERY_DESTINATION_STABILITY"
+assert_recovery_destination_stable
+
+PHASE="POST_RECOVERY_VERIFICATION"
 run_e4_adapter "$(basename "$SEND_JSON")" send-data-types
 
 TRUTH_AFTER="$(wait_for_delta "$TRUTH_JSONL" 0x08E9 "$TRUTH_BEFORE" 1 recovery_truth)"
@@ -954,6 +1035,10 @@ POLICY_AFTER="$(wait_for_delta "$POLICY_JSONL" 0x08E9 "$POLICY_BEFORE" 1 recover
 
 test "$TRUTH_AFTER" -eq $((TRUTH_BEFORE + 1))
 test "$POLICY_AFTER" -eq $((POLICY_BEFORE + 1))
+
+PHASE="RECOVERY_DESTINATION_STABILITY"
+assert_recovery_destination_stable
+PHASE="POST_RECOVERY_VERIFICATION"
 
 python3 - "$TRUTH_JSONL" "$TRUTH_BEFORE" <<'PY'
 import json
