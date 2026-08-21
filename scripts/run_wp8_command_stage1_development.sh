@@ -4,22 +4,54 @@ set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
 
-PILOT_MODE="${WP8_STAGE1_PILOT:-0}"
-if [[ "$PILOT_MODE" == "1" ]]; then
+STAGE1_PILOT="${WP8_STAGE1_PILOT:-0}"
+STAGE2_PILOT="${WP8_STAGE2_PILOT:-0}"
+
+if [[ "$STAGE1_PILOT" == "1" && "$STAGE2_PILOT" == "1" ]]; then
+  echo "[ERROR] Stage-1 and Stage-2 pilot modes are mutually exclusive" >&2
+  exit 2
+fi
+
+PILOT_MODE=0
+PILOT_STAGE="development"
+PILOT_WIRING_MODULE=""
+PILOT_ACCEPTANCE_BASENAME="stage1-acceptance.json"
+
+if [[ "$STAGE1_PILOT" == "1" ]]; then
+  PILOT_MODE=1
+  PILOT_STAGE="stage1"
+  PILOT_WIRING_MODULE="src.mission_recovery.wp8_stage1_runtime_wiring"
   [[ "${WP8_STAGE1_CONTROLLER:-0}" == "1" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller dispatch" >&2; exit 2; }
   [[ -n "${RUN_ID:-}" ]] || { echo "[ERROR] Stage-1 pilot family runner requires controller RUN_ID" >&2; exit 2; }
   [[ "$#" -eq 1 ]] || { echo "usage: WP8_STAGE1_PILOT=1 $0 <C01-C07>" >&2; exit 2; }
   CELL_ID="$1"
   DEVELOPMENT_SEED=101
+elif [[ "$STAGE2_PILOT" == "1" ]]; then
+  PILOT_MODE=1
+  PILOT_STAGE="stage2"
+  PILOT_WIRING_MODULE="src.mission_recovery.wp8_stage2_runtime_wiring"
+  PILOT_ACCEPTANCE_BASENAME="stage2-acceptance.json"
+  [[ "${WP8_STAGE2_CONTROLLER:-0}" == "1" ]] || { echo "[ERROR] Stage-2 pilot family runner requires controller dispatch" >&2; exit 2; }
+  [[ -n "${RUN_ID:-}" ]] || { echo "[ERROR] Stage-2 pilot family runner requires controller RUN_ID" >&2; exit 2; }
+  [[ -n "${WP8_PILOT_SEED:-}" ]] || { echo "[ERROR] Stage-2 pilot family runner requires WP8_PILOT_SEED" >&2; exit 2; }
+  [[ "$#" -eq 1 ]] || { echo "usage: WP8_STAGE2_PILOT=1 $0 <C02|C03|C05|C06>" >&2; exit 2; }
+  CELL_ID="$1"
+  DEVELOPMENT_SEED="$WP8_PILOT_SEED"
 else
   [[ "$#" -eq 2 ]] || { echo "usage: $0 <C01-C07> <development-seed>" >&2; exit 2; }
   CELL_ID="$1"
   DEVELOPMENT_SEED="$2"
 fi
 
+export WP8_PILOT_STAGE="$PILOT_STAGE"
+
 CELL_SAFE="$(printf '%s' "$CELL_ID" | tr '[:upper:]' '[:lower:]')"
 if [[ "$PILOT_MODE" == "1" ]]; then
-  RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-stage1-${CELL_SAFE}-s101}"
+  if [[ "$PILOT_STAGE" == "stage1" ]]; then
+    RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-stage1-${CELL_SAFE}-s101}"
+  else
+    RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-stage2-${CELL_SAFE}-s${DEVELOPMENT_SEED}}"
+  fi
 else
   RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp8-command-${CELL_SAFE}-dev}"
 fi
@@ -30,7 +62,7 @@ CFS="mascr-$SAFE_ID-cfs"
 GATEWAY="mascr-$SAFE_ID-wp8-gateway"
 
 if [[ "$PILOT_MODE" == "1" ]]; then
-  EVIDENCE="$ROOT/results/wp8/pilot/stage1/$RUN_ID"
+  EVIDENCE="$ROOT/results/wp8/pilot/$PILOT_STAGE/$RUN_ID"
 else
   EVIDENCE="$ROOT/results/wp8/runtime-binding/command-executor-development/$RUN_ID"
 fi
@@ -52,7 +84,7 @@ DERIVED_JSON="$GROUND/command-runtime-observation-derived.json"
 BUNDLE_JSON="$EVIDENCE/runtime-binding-observation.json"
 RUN_RECORD="$EVIDENCE/run-record.json"
 PROVENANCE="$EVIDENCE/binding-provenance.json"
-ACCEPTANCE_JSON="$EVIDENCE/stage1-acceptance.json"
+ACCEPTANCE_JSON="$EVIDENCE/$PILOT_ACCEPTANCE_BASENAME"
 CLASSIFICATION_JSON="$GROUND/pilot-classification-evidence.json"
 INVALID_JSON="$EVIDENCE/development-run-invalid.json"
 
@@ -81,7 +113,7 @@ command_executor() {
   local subcommand="$1"
   shift
   if [[ "$PILOT_MODE" == "1" ]]; then
-    PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring "command-$subcommand" "$@"
+    PYTHONPATH="$ROOT" python3 -m "$PILOT_WIRING_MODULE" "command-$subcommand" "$@"
   else
     PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_command_runtime_executor "$subcommand" "$@"
   fi
@@ -189,12 +221,20 @@ cleanup() {
 
   if [[ "$RESULT" != "PASS" || "$rc" -ne 0 ]]; then
     [[ "$PILOT_MODE" == "1" ]] || emit_invalid_evidence "$rc" || true
-    echo "WP8_COMMAND_STAGE1_EXECUTOR=FAIL" >&2
+    if [[ "$PILOT_STAGE" == "stage2" ]]; then
+      echo "WP8_COMMAND_STAGE2_EXECUTOR=FAIL" >&2
+    else
+      echo "WP8_COMMAND_STAGE1_EXECUTOR=FAIL" >&2
+    fi
     echo "failed_phase=$PHASE" >&2
     echo "evidence_directory=$EVIDENCE" >&2
   else
     if [[ "$PILOT_MODE" == "1" ]]; then
-      echo "WP8_COMMAND_STAGE1_PILOT_EXECUTOR=PASS"
+      if [[ "$PILOT_STAGE" == "stage2" ]]; then
+        echo "WP8_COMMAND_STAGE2_PILOT_EXECUTOR=PASS"
+      else
+        echo "WP8_COMMAND_STAGE1_PILOT_EXECUTOR=PASS"
+      fi
       echo "development_preflight=false"; echo "pilot_data=true"; echo "pilot_seed_consumed=true"; echo "runtime_binding_performed=true"
     else
       echo "WP8_COMMAND_STAGE1_DEVELOPMENT_EXECUTOR=PASS"
@@ -221,7 +261,11 @@ for command in docker git python3; do
 done
 
 if [[ "$PILOT_MODE" == "1" ]]; then
-  PYTHONPATH="$ROOT" python3 -m src.mission_recovery.wp8_stage1_runtime_wiring     check-gate     --pilot-config "$PILOT_CONFIG"     --cell-id "$CELL_ID"     --run-id "$RUN_ID"
+  if [[ "$PILOT_STAGE" == "stage1" ]]; then
+    PYTHONPATH="$ROOT" python3 -m "$PILOT_WIRING_MODULE"       check-gate       --pilot-config "$PILOT_CONFIG"       --cell-id "$CELL_ID"       --run-id "$RUN_ID"
+  else
+    PYTHONPATH="$ROOT" python3 -m "$PILOT_WIRING_MODULE"       check-gate       --pilot-config "$PILOT_CONFIG"       --stage1-ledger "$ROOT/results/wp8/pilot/stage1/stage1-ledger.json"       --cell-id "$CELL_ID"       --seed "$DEVELOPMENT_SEED"       --run-id "$RUN_ID"
+  fi
 fi
 
 docker info >/dev/null 2>&1 || {
