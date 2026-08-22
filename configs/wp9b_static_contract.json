@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "decision_id": "R-045",
+  "status": "WP9B1_STATIC_IMPLEMENTATION_FROZEN_RUNTIME_VALIDATION_REQUIRED",
+  "basis": {
+    "wp9a_design": "configs/wp9_campaign_design.json",
+    "wp9_model": "configs/wp9_experiment_model.json",
+    "p6_policy_extension": "configs/wp9_policy_extension.json",
+    "run_schema_extension": "configs/wp9_run_schema_extension.json",
+    "wp8_event_catalog": "configs/wp5_event_catalog.json",
+    "wp8_base_policy_rules": "configs/wp6_policy_rules.json"
+  },
+  "scientific_boundary": {
+    "wp9b1_static_implementation_complete": true,
+    "wp9b2_runtime_validation_complete": false,
+    "runtime_execution_performed": false,
+    "development_runtime_data_generated": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "repetition_count_frozen": false,
+    "campaign_execution_authorized": false,
+    "wp8_code_or_pilot_design_mutated": false
+  },
+  "static_materialization": {
+    "static_seed": 0,
+    "static_seed_role": "semantic materialization only; not a development or campaign execution seed",
+    "expected_values_role": "post-observation acceptance only; never metric inputs",
+    "ground_truth_policy_oracle_allowed": false
+  },
+  "runtime_routing": {
+    "A01": ["command", "e1_command_gateway"],
+    "A02": ["command", "e1_command_gateway"],
+    "A03": ["command", "e1_command_gateway"],
+    "A04": ["command", "e1_command_gateway"],
+    "A05": ["command", "e1_command_gateway"],
+    "A06": ["command", "e1_command_gateway"],
+    "A07": ["command", "e1_command_gateway"],
+    "A08": ["command", "e1_command_gateway"],
+    "A09": ["command", "e1_command_gateway"],
+    "A10": ["recovery", "e3_command_gateway"],
+    "A11": ["recovery", "e3_trusted_recovery"],
+    "A12": ["recovery", "e3_command_gateway"],
+    "A13": ["recovery", "e3_command_gateway"],
+    "A14": ["recovery", "e3_trusted_recovery"],
+    "A15": ["recovery", "e3_trusted_recovery_reduced_evidence"],
+    "A16": ["recovery", "e3_ground_authorized_recovery"],
+    "A17": ["recovery", "e3_ground_authorized_recovery"],
+    "A18": ["recovery", "e3_trusted_recovery_contact_delay"],
+    "A19": ["replay", "e2_replay_effect"],
+    "A20": ["replay", "e2_replay_effect"],
+    "A21": ["replay", "e2_replay_effect"],
+    "A22": ["observability", "e4_observability"],
+    "A23": ["observability", "e4_observability"],
+    "A24": ["observability", "e4_observability"]
+  },
+  "e2_replay_effect_contract": {
+    "cell_ids": ["A19", "A20", "A21"],
+    "event_id": "E2",
+    "safe_surrogate_command_class": "sample_reset_counters",
+    "setup_role": "previously accepted authorized synthetic command before treatment",
+    "replay_role": "byte-identical stale replay from modeled_attacker after treatment activation",
+    "intervening_state_probe": "authorized sample_noop before replay",
+    "packet_sha256": "c8a8692bad90aab74ffe550c87e93ed83838d4b4f45c57a609a00455292d41cb",
+    "byte_identity_required": true,
+    "m01_observation_source": "observed post-replay SAMPLE RESET counters cFS marker delta",
+    "setup_marker_excluded_from_m01": true,
+    "expected_marker_deltas_for_acceptance_only": {
+      "A19": 1,
+      "A20": 0,
+      "A21": 0
+    },
+    "no_op_receipt_alone_satisfies_m01": false
+  },
+  "p6_contract": {
+    "cell_ids": ["A16", "A17"],
+    "pre_authorization_action": "WAIT_FOR_GROUND_AUTHORIZATION",
+    "authorization_source": "synthetic_ground_authorization_schedule",
+    "post_authorization_delegate": "P5",
+    "post_authorization_action": "REQUEST_VERIFIED_ROLLBACK",
+    "runtime_observed_authorization_required_before_handoff": true,
+    "C0_missed_contact_windows": 0,
+    "C1_missed_contact_windows": 1
+  },
+  "wp9b2_required_runtime_validations": [
+    "P6 C0 immediate synthetic-authorization handoff to verified rollback",
+    "P6 C1 one-missed-window synthetic-authorization handoff to verified rollback",
+    "E2 P0 byte-identical replay produces observed reset effect",
+    "E2 P1 source isolation blocks observed replay reset effect",
+    "E2 P7 M0/C0/T0 delegates P1 and blocks observed replay reset effect",
+    "E3 fixed P2 command-gateway path under T0 and T1",
+    "E3 fixed P5 under T1 with right-censored/nonconfirmed recovery semantics when evidence is insufficient",
+    "E4 P0 and P4 fixed paths with immutable ground truth separated from policy-visible evidence"
+  ],
+  "wp9b3_readiness_required": true
+}
