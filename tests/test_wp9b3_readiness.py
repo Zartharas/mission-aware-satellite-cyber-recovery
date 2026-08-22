@@ -118,6 +118,11 @@ class WP9B3ReadinessTests(unittest.TestCase):
             self.assertTrue(row["runtime_prerequisite_sources"])
             self.assertTrue(row["isolation_cleanup_source"].startswith("scripts/"))
             self.assertTrue(row["raw_metric_schema_compatible"])
+        for cell_id in ("A16", "A17"):
+            self.assertEqual(
+                self.rows[cell_id]["isolation_cleanup_source"],
+                "scripts/run_wp9b2_p6_development.sh",
+            )
 
     def test_b3_never_crosses_campaign_or_repetition_boundary(self) -> None:
         for key in (
