@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "decision_id": "R-045",
+  "base_policy_rules": "configs/wp6_policy_rules.json",
+  "scope": "WP9-only additive policy extension; WP8 policy semantics remain frozen",
+  "policy": {
+    "id": "P6",
+    "name": "wait_for_ground_authorization",
+    "action": "WAIT_FOR_GROUND_AUTHORIZATION",
+    "autonomy_level": "ground_dependent",
+    "allowed_event_ids": ["E3"],
+    "allowed_mission_state_ids": ["M4"],
+    "allowed_evidence_condition_ids": ["T0"],
+    "allowed_contact_condition_ids": ["C0", "C1"]
+  },
+  "synthetic_authorization_schedule": {
+    "source": "synthetic_ground_authorization_schedule",
+    "C0": {
+      "available_at_response_boundary": true,
+      "missed_contact_windows_before_authorization": 0,
+      "release_rule": "authorization_current_at_response_boundary"
+    },
+    "C1": {
+      "available_at_response_boundary": false,
+      "missed_contact_windows_before_authorization": 1,
+      "release_rule": "authorization_current_after_one_modeled_missed_contact_window"
+    }
+  },
+  "post_authorization_transition": {
+    "delegated_policy_id": "P5",
+    "selected_action": "REQUEST_VERIFIED_ROLLBACK",
+    "rollback_request_builder": "src.mission_recovery.rollback_requests.build_verified_rollback_request",
+    "trusted_recovery_validation": "existing WP7/WP8 trusted-recovery evidence chain",
+    "authorization_observation_required_before_handoff": true
+  },
+  "boundaries": {
+    "real_human_operator_required": false,
+    "real_world_ground_contact_required": false,
+    "external_network_required": false,
+    "rf_transmission_allowed": false,
+    "oracle_ground_truth_read": false,
+    "runtime_validation_required": true,
+    "campaign_execution_authorized": false
+  }
+}
