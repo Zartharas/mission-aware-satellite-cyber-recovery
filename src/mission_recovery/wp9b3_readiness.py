@@ -126,16 +126,38 @@ def _require_sources(variant: str) -> tuple[str, ...]:
 def _validate_isolation_cleanup(variant: str) -> str:
     rel = ISOLATION_RUNNER[variant]
     text = (ROOT / rel).read_text(encoding="utf-8")
-    required = (
+
+    common = (
         "set -Eeuo pipefail",
         "run_nominal_runtime_preflight.sh",
-        "--network \"$NETWORK\"",
         "trap cleanup EXIT",
-        "docker rm -f",
     )
-    missing = [token for token in required if token not in text]
-    if missing:
-        raise ValueError(f"{variant}: isolation/cleanup tokens missing: {missing}")
+    missing_common = [token for token in common if token not in text]
+    if missing_common:
+        raise ValueError(
+            f"{variant}: lifecycle safety tokens missing: {missing_common}"
+        )
+
+    auxiliary_network_isolation = '--network "$NETWORK"' in text
+    nominal_network_isolation = (
+        'docker network inspect "$NETWORK"' in text
+        and 'docker port "$CFS"' in text
+    )
+    if not (auxiliary_network_isolation or nominal_network_isolation):
+        raise ValueError(
+            f"{variant}: no recognized internal-network/no-host-port isolation proof"
+        )
+
+    auxiliary_cleanup = "docker rm -f" in text
+    nominal_owner_cleanup = (
+        'kill -TERM "$PRE_PID"' in text
+        and 'wait "$PRE_PID"' in text
+    )
+    if not (auxiliary_cleanup or nominal_owner_cleanup):
+        raise ValueError(
+            f"{variant}: no recognized auxiliary or nominal-runtime cleanup path"
+        )
+
     return rel
 
 
