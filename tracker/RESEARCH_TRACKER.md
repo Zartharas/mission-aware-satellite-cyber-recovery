@@ -4,9 +4,9 @@ Last updated: 2026-08-22
 
 ## Current focus
 
-**WP9-C — repetition-count selection**
+**WP9 pre-campaign timing freeze — final C1 modeled contact-window duration**
 
-WP9-B3 is closed. The all-24 readiness validator passed at exact implementation commit `94c5d4aa50d3472461b7a53680c8bbb824b96efb`: all A01-A24 cells retained frozen factor identity, effective-policy/delegate identity, runtime-family routing, raw-metric/schema compatibility, isolation/cleanup readiness, and campaign/development separation; 12/12 dedicated B3 tests and the full 345-test research suite passed; GitHub Actions run `32584085313` completed successfully on that exact SHA. No runtime execution occurred, no campaign seed was consumed, no campaign data was generated, and the repetition count remains unfrozen. WP9-C must now select the smallest candidate valid repetitions per cell from `[12,16,20,24,30]` that satisfies the frozen precision and model-stability rules under both empirical pilot resampling and the predeclared conservative sensitivity analysis. Final-campaign execution remains unauthorized.
+WP9-C is closed. R-050 identified 30 valid repetitions per cell as the smallest candidate satisfying the frozen empirical-precision, conservative-sensitivity, and model-stability gates; R-051 reviewed and froze that result at 30 repetitions per cell / 720 total valid executions. The R-051 freeze contract, 11/11 dedicated WP9-C tests, full 356-test research suite, exact selection-result SHA-256 `027a83947537ddcaa9b6700cb543e4749b079502dcedc2290d86e9ea75b1bbb1`, and GitHub Actions run `32585590793` all passed at commit `56b05e4a7fecbf246e20222348ab42919e7903b4`. No campaign seed has been consumed and no campaign data has been generated. Final-campaign execution remains unauthorized. The remaining pre-campaign design blocker is the final duration of the modeled C1 one-missed-contact window; the 2-second R-047 value was development-only and must not be inherited silently. The next gate is a read-only timing audit of retained WP8 recovery evidence followed by an explicit timing freeze.
 
 ## Work packages
 
@@ -21,7 +21,7 @@ WP9-B3 is closed. The all-24 readiness validator passed at exact implementation 
 | WP6 | Response-policy implementation | **Complete** | Deterministic fixed-policy/P7 mechanisms validated for WP8 scope; bounded P6 extension subsequently passed WP9-B2 development-runtime validation |
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery plus four bounded failure-mode validations passed; reproducibility harness retained |
 | WP8 | Pilot | **Complete** | Read-only closeout passed: 12 Stage-1 valid cells + 28 Stage-2 valid repetitions = 40 valid pilot executions; one Stage-1 invalid attempt retained/excluded; 41 frozen archives verified; see `docs/17-wp8-pilot-closeout.md` |
-| WP9 | Frozen experiment campaign | **Pre-campaign repetition selection in progress** | WP9-A/R-044 froze the 24-cell design; WP9-B1 static mechanisms passed; WP9-B2 closed 10/10 bounded development discriminators; WP9-B3 all-24 readiness passed exact-SHA local/CI validation; next WP9-C repetition selection; final campaign remains unauthorized |
+| WP9 | Frozen experiment campaign | **Pre-campaign timing parameter closure in progress** | WP9-A design, WP9-B runtime/readiness, and WP9-C repetition selection are closed; R-051 freezes 30 valid repetitions/cell (720 total). Next: freeze the final modeled C1 contact-window duration from retained timing evidence; final campaign remains unauthorized |
 | WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |
 | WP11 | Responsible artifact release | Not started | Sanitized code/data/reproducibility release |
 
