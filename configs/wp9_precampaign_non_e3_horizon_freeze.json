@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "decision_id": "R-055",
+  "status": "WP9_COMMON_POST_EVENT_ANALYSIS_HORIZON_FROZEN_EXECUTION_UNAUTHORIZED",
+  "purpose": "Freeze final-campaign E1/E2/E4 post-event analysis and right-censoring horizons before campaign runtime so route-specific runner completion times cannot alter time-to-event or cross-condition P5 tradeoff measurements.",
+  "basis": {
+    "campaign_design": "configs/wp9_campaign_design.json",
+    "e3_timing_freeze": "configs/wp9_precampaign_timing_freeze.json",
+    "command_runtime_source": "scripts/run_wp8_command_stage1_development.sh",
+    "replay_runtime_source": "scripts/run_wp9b2_e2_development.sh",
+    "observability_runtime_source": "scripts/run_wp9b2_e4_fixed_development.sh"
+  },
+  "scientific_rationale": {
+    "right_censoring_preserved_by_r044": true,
+    "p5_tradeoff_includes_time_to_verified_recovery_s": true,
+    "p5_tradeoff_spans_e1_e2_e3_e4_condition_groups": true,
+    "route_runner_completion_time_is_not_analysis_horizon": true,
+    "common_horizon_avoids_route_dependent_censoring": true,
+    "horizon_selection_rule": "Use the already frozen R-052 E3 post-event analysis horizon for E1, E2, and E4 so all final-campaign event families share one 30-second post-event analysis/right-censoring horizon.",
+    "pilot_or_development_outcomes_used_to_select_horizon": false
+  },
+  "frozen_horizons": {
+    "analysis_time_origin": "event_activation_t0",
+    "E1_post_event_analysis_horizon_s": 30,
+    "E2_post_event_analysis_horizon_s": 30,
+    "E3_post_event_analysis_horizon_s": 30,
+    "E4_post_event_analysis_horizon_s": 30,
+    "common_post_event_analysis_horizon_s": 30,
+    "unobserved_containment_right_censored_at_horizon": true,
+    "unobserved_trusted_recovery_right_censored_at_horizon": true,
+    "early_terminal_allowed_only_after_required_raw_metric_inputs_complete": true,
+    "runner_wall_clock_or_nominal_duration_used_as_metric_input": false
+  },
+  "runtime_envelope_requirements": {
+    "runtime_must_remain_available_through_analysis_horizon_when_no_earlier_valid_absorbing_terminal": true,
+    "route_adapter_must_fail_run_invalid_if_runtime_ends_before_required_horizon": true,
+    "runtime_envelope_duration_is_operational_not_an_analysis_metric": true,
+    "existing_60_second_development_nominal_durations_are_feasibility_evidence_only": true
+  },
+  "campaign_readiness_effect": {
+    "repetition_count_frozen": true,
+    "valid_repetitions_per_cell": 30,
+    "planned_total_valid_executions": 720,
+    "c1_contact_window_s": 10,
+    "all_event_post_event_analysis_horizons_frozen": true,
+    "campaign_seed_plan_frozen": true,
+    "campaign_safe_route_adapters_ready": false,
+    "campaign_runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "final_campaign_execution_authorized": false
+  },
+  "scientific_boundary": {
+    "controlled_nos3_software_in_loop_only": true,
+    "expected_values_used_as_metric_inputs": false,
+    "ground_truth_policy_oracle_allowed": false,
+    "wp8_pilot_data_mutated": false,
+    "development_runtime_reclassified_as_campaign_data": false,
+    "campaign_runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "final_campaign_execution_authorized": false
+  }
+}
