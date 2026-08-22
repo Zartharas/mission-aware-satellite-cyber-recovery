@@ -4,9 +4,9 @@ Last updated: 2026-08-21
 
 ## Current focus
 
-**WP9-B — final-campaign runtime readiness**
+**WP9-B2 — bounded development runtime validation**
 
-Current gate: R-044/WP9-A froze a 24-cell estimand-driven final-campaign matrix and endpoint/model applicability contract in `configs/wp9_campaign_design.json`. Campaign execution and repetition-count freeze remain blocked. WP9-B must perform development-only runtime validation for the required P6 ground-authorization policy extension, E2 replay policy binding, new E3 T0/T1 fixed-policy cells, E4 fixed/sentinel cells, and all A01-A24 factor/runtime mappings without consuming final-campaign seeds or generating final-campaign data. After WP9-B passes, WP9-C will apply the predeclared repetition-selection rule to `12, 16, 20, 24, 30` valid repetitions per cell.
+Current gate: R-045/WP9-B1 is closed on exact implementation commit `617279212aea5edd89e63b6f382633325c06d699`: 11/11 WP9 static tests passed, the WP8 regression/schema validator passed, the full 296-test research suite passed, and GitHub Actions run `32549670609` completed successfully on that exact SHA. The additive WP9 model/schema/contracts represent P6 and the E2 protected-state replay-effect measurement while leaving WP8 artifacts unchanged. WP9-B2 must now execute only the bounded development-runtime discriminators required by `configs/wp9b_static_contract.json`; final-campaign seeds, final-campaign data, repetition-count freeze, and final-campaign execution remain blocked.
 
 ## Work packages
 
@@ -18,10 +18,10 @@ Current gate: R-044/WP9-A froze a 24-cell estimand-driven final-campaign matrix 
 | WP3 | Threat and mission model | Ready for final review | Mission states, invariants, trust boundaries, evidence separation |
 | WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and bounded runtime-preflight evidence |
 | WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
-| WP6 | Response-policy implementation | **Complete** | Deterministic fixed-policy and P7 mechanisms validated for the WP8 scope; WP9-B contains one explicitly bounded P6 extension required by R-044 |
+| WP6 | Response-policy implementation | **Complete** | Deterministic fixed-policy and P7 mechanisms validated for the WP8 scope; WP9-B1 now statically represents the bounded P6 extension, with runtime validation remaining a WP9-B2 gate |
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery plus four bounded failure-mode validations passed; reproducibility harness retained |
 | WP8 | Pilot | **Complete** | Read-only closeout passed: 12 Stage-1 valid cells + 28 Stage-2 valid repetitions = 40 valid pilot executions; one Stage-1 invalid attempt retained/excluded; 41 frozen archives verified; see `docs/17-wp8-pilot-closeout.md` |
-| WP9 | Frozen experiment campaign | **Pre-campaign runtime validation in progress** | WP9-A/R-044 froze 24 cells and endpoint/model rules; execute WP9-B development-only runtime support checks before WP9-C repetition selection; final campaign remains unauthorized |
+| WP9 | Frozen experiment campaign | **Pre-campaign runtime validation in progress** | WP9-A/R-044 froze the 24-cell design; WP9-B1/R-045 static mechanisms passed exact-SHA local/CI validation; next execute bounded WP9-B2 development-runtime discriminators, then WP9-B3 readiness audit and WP9-C repetition selection; final campaign remains unauthorized |
 | WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |
 | WP11 | Responsible artifact release | Not started | Sanitized code/data/reproducibility release |
 
