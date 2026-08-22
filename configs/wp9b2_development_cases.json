@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "decision_id": "R-046",
+  "status": "WP9B2_BOUNDED_DEVELOPMENT_CASES_FROZEN_E2_EXECUTOR_READY_OTHER_FAMILIES_PENDING",
+  "purpose": "Validate only new or materially changed WP9 runtime mechanisms before repetition-count selection; these executions are development evidence, never final-campaign data.",
+  "basis": {
+    "wp9a_design": "configs/wp9_campaign_design.json",
+    "wp9b1_static_contract": "configs/wp9b_static_contract.json",
+    "wp9_model": "configs/wp9_experiment_model.json"
+  },
+  "scientific_boundary": {
+    "development_only": true,
+    "single_case_per_invocation": true,
+    "automatic_next_case": false,
+    "final_campaign_seed_consumption": false,
+    "final_campaign_data_generation": false,
+    "repetition_count_frozen": false,
+    "final_campaign_execution_authorized": false,
+    "expected_values_used_as_measurements": false,
+    "ground_truth_policy_oracle_allowed": false
+  },
+  "development_seed_policy": {
+    "reserved_seeds": [9601, 9602, 9603, 9604, 9605, 9606, 9607, 9608, 9609, 9610],
+    "role": "permanently development-reserved WP9-B2 mechanism-validation seeds; never eligible for final-campaign seed selection",
+    "wp8_pilot_seed_collision_forbidden": [101, 202, 303, 404, 505]
+  },
+  "cases": [
+    {
+      "case_id": "D01",
+      "campaign_cell_id": "A16",
+      "development_seed": 9601,
+      "runtime_family": "recovery",
+      "runtime_variant": "p6_ground_authorization_handoff",
+      "executor": "scripts/run_wp9b2_p6_development.sh",
+      "executor_ready": false,
+      "required_discriminator": "C0 authorization is observed current at the response boundary before P6 hands off to the existing verified P5 rollback-request chain."
+    },
+    {
+      "case_id": "D02",
+      "campaign_cell_id": "A17",
+      "development_seed": 9602,
+      "runtime_family": "recovery",
+      "runtime_variant": "p6_ground_authorization_handoff",
+      "executor": "scripts/run_wp9b2_p6_development.sh",
+      "executor_ready": false,
+      "required_discriminator": "C1 withholds current synthetic authorization for exactly one modeled contact window; P6 hands off to P5 only after the authorization observation."
+    },
+    {
+      "case_id": "D03",
+      "campaign_cell_id": "A19",
+      "development_seed": 9603,
+      "runtime_family": "replay",
+      "runtime_variant": "e2_replay_effect",
+      "executor": "scripts/run_wp9b2_e2_development.sh",
+      "executor_ready": true,
+      "required_discriminator": "P0 permits the byte-identical stale reset replay and the post-replay cFS RESET marker increases exactly once."
+    },
+    {
+      "case_id": "D04",
+      "campaign_cell_id": "A20",
+      "development_seed": 9604,
+      "runtime_family": "replay",
+      "runtime_variant": "e2_replay_effect",
+      "executor": "scripts/run_wp9b2_e2_development.sh",
+      "executor_ready": true,
+      "required_discriminator": "P1 source isolation blocks the byte-identical stale reset replay and the post-replay cFS RESET marker does not increase."
+    },
+    {
+      "case_id": "D05",
+      "campaign_cell_id": "A21",
+      "development_seed": 9605,
+      "runtime_family": "replay",
+      "runtime_variant": "e2_replay_effect",
+      "executor": "scripts/run_wp9b2_e2_development.sh",
+      "executor_ready": true,
+      "required_discriminator": "P7 under E2/M0/C0/T0 delegates to P1, then blocks the stale replay effect exactly as the fixed P1 comparator."
+    },
+    {
+      "case_id": "D06",
+      "campaign_cell_id": "A10",
+      "development_seed": 9606,
+      "runtime_family": "recovery",
+      "runtime_variant": "e3_fixed_p2_command_gateway",
+      "executor": "scripts/run_wp9b2_e3_fixed_development.sh",
+      "executor_ready": false,
+      "required_discriminator": "Fixed P2 under E3/T0 uses the command-gateway mitigation path without being mislabeled trusted update containment or trusted recovery."
+    },
+    {
+      "case_id": "D07",
+      "campaign_cell_id": "A12",
+      "development_seed": 9607,
+      "runtime_family": "recovery",
+      "runtime_variant": "e3_fixed_p2_command_gateway",
+      "executor": "scripts/run_wp9b2_e3_fixed_development.sh",
+      "executor_ready": false,
+      "required_discriminator": "Fixed P2 under E3/T1 preserves the same command-gateway mechanism while reduced evidence remains separately represented."
+    },
+    {
+      "case_id": "D08",
+      "campaign_cell_id": "A15",
+      "development_seed": 9608,
+      "runtime_family": "recovery",
+      "runtime_variant": "e3_fixed_p5_reduced_evidence",
+      "executor": "scripts/run_wp9b2_e3_fixed_development.sh",
+      "executor_ready": false,
+      "required_discriminator": "Fixed P5 under T1 cannot manufacture trusted recovery from missing evidence; nonconfirmation/right-censoring semantics are retained."
+    },
+    {
+      "case_id": "D09",
+      "campaign_cell_id": "A22",
+      "development_seed": 9609,
+      "runtime_family": "observability",
+      "runtime_variant": "e4_fixed_policy",
+      "executor": "scripts/run_wp9b2_e4_fixed_development.sh",
+      "executor_ready": false,
+      "required_discriminator": "Fixed P0 under E4 preserves degraded policy-visible evidence without taking a containment action; immutable ground truth remains separate."
+    },
+    {
+      "case_id": "D10",
+      "campaign_cell_id": "A23",
+      "development_seed": 9610,
+      "runtime_family": "observability",
+      "runtime_variant": "e4_fixed_policy",
+      "executor": "scripts/run_wp9b2_e4_fixed_development.sh",
+      "executor_ready": false,
+      "required_discriminator": "Fixed P4 under E4 enters the modeled conservative command gate while immutable ground truth remains separate from degraded policy-visible evidence."
+    }
+  ]
+}
