@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "decision_id": "R-051",
+  "work_package": "WP9-C",
+  "status": "REPETITION_COUNT_FROZEN_PRECAMPAIGN_BLOCKERS_REMAIN",
+  "basis": {
+    "campaign_design": "configs/wp9_campaign_design.json",
+    "selection_method": "configs/wp9c_repetition_selection.json",
+    "selection_method_decision_id": "R-050",
+    "selection_method_commit": "529fd6d85e5a6ff56ced8c5c5ea7f3c929f4e08b",
+    "selection_method_exact_sha_ci_run_id": 32585148467,
+    "local_selection_result_sha256": "027a83947537ddcaa9b6700cb543e4749b079502dcedc2290d86e9ea75b1bbb1"
+  },
+  "reviewed_result": {
+    "classification": "WP9C_REPETITION_CANDIDATE_IDENTIFIED",
+    "selection_result_reviewed": true,
+    "selected_valid_repetitions_per_cell": 30,
+    "selected_total_valid_executions": 720,
+    "selection_rule": "smallest_candidate_satisfying_empirical_precision_conservative_sensitivity_and_model_stability",
+    "binding_gate": "model_stability",
+    "binding_primary_block": "P4",
+    "selected_candidate_minimum_model_stability_rate": 0.9188,
+    "model_stability_target": 0.90,
+    "next_lower_candidate": 24,
+    "next_lower_candidate_minimum_model_stability_rate": 0.8182,
+    "next_lower_candidate_passed_empirical_precision": true,
+    "next_lower_candidate_passed_conservative_sensitivity": true,
+    "next_lower_candidate_passed_model_stability": false,
+    "selected_candidate_passed_empirical_precision": true,
+    "selected_candidate_passed_conservative_sensitivity": true,
+    "selected_candidate_passed_model_stability": true,
+    "selected_candidate_worst_conservative_precision": {
+      "binary_or_binomial": 0.12467209433848718,
+      "bounded_ratio": 0.01789194143717157,
+      "time": 0.10667513908515226
+    },
+    "selected_candidate_precision_targets": {
+      "binary_or_binomial": 0.18,
+      "bounded_ratio": 0.10,
+      "time": 0.25
+    },
+    "structural_empirical_endpoints_deferred_to_sensitivity": 36,
+    "binary_sensitivity_extreme_probability": 0.8571428571428572
+  },
+  "candidate_review": {
+    "12": {
+      "overall_pass": false,
+      "empirical_precision_pass": true,
+      "conservative_sensitivity_pass": false,
+      "minimum_model_stability_rate": 0.2535
+    },
+    "16": {
+      "overall_pass": false,
+      "empirical_precision_pass": true,
+      "conservative_sensitivity_pass": true,
+      "minimum_model_stability_rate": 0.4924
+    },
+    "20": {
+      "overall_pass": false,
+      "empirical_precision_pass": true,
+      "conservative_sensitivity_pass": true,
+      "minimum_model_stability_rate": 0.6869
+    },
+    "24": {
+      "overall_pass": false,
+      "empirical_precision_pass": true,
+      "conservative_sensitivity_pass": true,
+      "minimum_model_stability_rate": 0.8182
+    },
+    "30": {
+      "overall_pass": true,
+      "empirical_precision_pass": true,
+      "conservative_sensitivity_pass": true,
+      "minimum_model_stability_rate": 0.9188
+    }
+  },
+  "scientific_boundary": {
+    "repetition_count_frozen": true,
+    "pilot_effects_used_as_final_effect_assumptions": false,
+    "expected_values_used_as_metric_inputs": false,
+    "pilot_evidence_mutated": false,
+    "runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "final_campaign_execution_authorized": false
+  },
+  "remaining_precampaign_blockers": {
+    "final_c1_contact_window_duration_frozen": false,
+    "reason": "R-047 explicitly marked the 2-second P6 contact window as development-only and required a separate final-campaign duration freeze.",
+    "campaign_seed_schedule_frozen": false,
+    "final_campaign_runner_validated": false,
+    "explicit_final_campaign_execution_authorization": false
+  }
+}
