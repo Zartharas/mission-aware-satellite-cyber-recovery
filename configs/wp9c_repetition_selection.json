@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "decision_id": "R-050",
+  "work_package": "WP9-C",
+  "status": "REPETITION_SELECTION_METHOD_FROZEN_EXECUTION_PENDING",
+  "basis": {
+    "campaign_design": "configs/wp9_campaign_design.json",
+    "pilot_design": "configs/wp8_pilot_design.json",
+    "pilot_closeout": "docs/17-wp8-pilot-closeout.md"
+  },
+  "scientific_boundary": {
+    "read_only_pilot_inputs": true,
+    "pilot_effects_used_as_final_effect_assumptions": false,
+    "expected_values_used_as_metric_inputs": false,
+    "campaign_runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "final_campaign_execution_authorized": false
+  },
+  "input_contract": {
+    "valid_pilot_records": 40,
+    "stage1_valid_records": 12,
+    "stage1_excluded_invalid_records": 1,
+    "stage2_valid_records": 28,
+    "stage2_invalid_records": 0,
+    "anchor_cell_ids": ["C02", "C03", "C05", "C06", "R02", "R03", "O01"],
+    "anchor_seed_ids": [101, 202, 303, 404, 505],
+    "valid_repetitions_per_anchor": 5
+  },
+  "candidate_valid_repetitions_per_cell": [12, 16, 20, 24, 30],
+  "candidate_total_valid_executions": {
+    "12": 288,
+    "16": 384,
+    "20": 480,
+    "24": 576,
+    "30": 720
+  },
+  "precision_targets": {
+    "bounded_ratio_95pct_ci_half_width": 0.10,
+    "binary_95pct_ci_half_width": 0.18,
+    "time_relative_95pct_ci_half_width": 0.25,
+    "model_fit_convergence_rate": 0.90
+  },
+  "metric_classes": {
+    "bounded_ratio": [
+      "mission_objective_completion_ratio",
+      "evidence_completeness_ratio"
+    ],
+    "binary_or_binomial": [
+      "unauthorized_effect_completed",
+      "trusted_recovery_confirmed",
+      "legitimate_command_rejection_rate"
+    ],
+    "time": [
+      "time_to_containment_s",
+      "time_to_verified_recovery_s",
+      "ground_spacecraft_state_divergence_s"
+    ],
+    "no_numeric_precision_threshold_frozen": [
+      "safety_invariant_violation_count",
+      "recovery_terminal_state",
+      "effective_policy_id",
+      "residual_unauthorized_state_count"
+    ]
+  },
+  "empirical_resampling": {
+    "method": "seed_block_nonparametric_bootstrap",
+    "iterations": 10000,
+    "random_seed": 9050001,
+    "resample_unit": "pilot_seed_block",
+    "same_resampled_seed_index_applied_to_all_seven_anchors": true,
+    "percentile_interval": [0.025, 0.975],
+    "right_censoring_preserved": true,
+    "time_estimator": "restricted_time_to_frozen_run_horizon; event time when observed otherwise run_end_s",
+    "legitimate_rejection_estimator": "pooled_rejected_over_attempted_raw_counts",
+    "structural_degeneracy_rule": "A zero-width empirical interval from a constant pilot endpoint is recorded as structural and cannot satisfy the gate without the conservative sensitivity check."
+  },
+  "conservative_sensitivity": {
+    "binary": {
+      "method": "laplace_add_one_run_level_shrinkage",
+      "formula": "p_sens=(successes+1)/(runs+2)",
+      "legitimate_rejection_run_level_indicator": "rejected_count_greater_than_zero",
+      "legitimate_rejection_effective_trials_per_final_run": 1,
+      "interval": "wilson_95pct"
+    },
+    "bounded_ratio": {
+      "sample_sd_inflation_factor": 1.5,
+      "absolute_sd_floor": 0.05,
+      "sd_cap_for_unit_interval": 0.5,
+      "interval": "normal_95pct_mean_half_width"
+    },
+    "time": {
+      "sample_cv_inflation_factor": 1.5,
+      "relative_cv_floor": 0.25,
+      "interval": "normal_95pct_relative_mean_half_width",
+      "structural_zero_or_constant_rule": "use_cv_floor_instead_of_zero_width"
+    },
+    "model_stability": {
+      "method": "nondegenerate_saturated_factorial_separation_screen",
+      "iterations": 10000,
+      "random_seed": 9050002,
+      "binary_probability_source": "most_extreme_laplace_shrunk_run_level_binary_rate_across_balanced_pilot_anchors",
+      "primary_block_cell_counts": {
+        "P1": 6,
+        "P2": 4,
+        "P3": 4,
+        "P4": 8
+      },
+      "convergence_definition": "For the nondegenerate sensitivity screen, every cell in the complete primary block contains at least one outcome of each binary class; frozen design rank must already be full. Structural pilot fallbacks remain tracked separately and do not manufacture a convergence pass.",
+      "candidate_rate": "minimum_convergence_rate_across_P1_P2_P3_P4"
+    }
+  },
+  "selection_rule": "Choose the smallest candidate satisfying every applicable empirical precision target, every conservative-sensitivity precision target, and the conservative model-stability convergence target. Structural empirical zero-width endpoints are deferred to sensitivity rather than counted as empirical precision passes by themselves. If no candidate through 30 passes, do not freeze the campaign repetition count.",
+  "selection_execution": {
+    "writes_pilot_evidence": false,
+    "executes_nos3": false,
+    "executes_campaign": false,
+    "freezes_repetition_count_only_after_local_result_and_exact_sha_ci_pass": true
+  }
+}
