@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "decision_id": "R-045",
+  "base_schema": "configs/experiment_run.schema.json",
+  "result_schema_id": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/configs/wp9_experiment_run.schema.json",
+  "result_title": "Mission-Aware Satellite Cyber-Recovery WP9 Experiment Run",
+  "policy_id_additions": ["P6"],
+  "ground_authorization": {
+    "property_name": "ground_authorization",
+    "require_for_policy_id": "P6",
+    "source_const": "synthetic_ground_authorization_schedule",
+    "required_fields": [
+      "required",
+      "source",
+      "available_at_response_boundary",
+      "available_timestamp_s",
+      "missed_contact_windows",
+      "authorization_current",
+      "evidence_ref"
+    ],
+    "contact_rules": {
+      "C0": {
+        "available_at_response_boundary": true,
+        "missed_contact_windows": 0
+      },
+      "C1": {
+        "available_at_response_boundary": false,
+        "missed_contact_windows": 1
+      }
+    }
+  },
+  "scientific_boundary": {
+    "base_wp8_schema_mutated": false,
+    "p6_runtime_observation_required": true,
+    "expected_contact_condition_not_used_as_observed_timestamp": true,
+    "runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false
+  }
+}
