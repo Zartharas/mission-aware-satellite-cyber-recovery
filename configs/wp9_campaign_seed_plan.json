@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "decision_id": "R-053",
+  "status": "WP9_CAMPAIGN_SEED_BLOCKS_FROZEN_EXECUTION_UNAUTHORIZED",
+  "purpose": "Freeze the 30 final-campaign seed blocks and deterministic within-block cell order before any campaign runtime so seed choice/order cannot be changed after outcomes begin to accrue.",
+  "basis": {
+    "campaign_design": "configs/wp9_campaign_design.json",
+    "repetition_freeze": "configs/wp9c_repetition_freeze.json",
+    "timing_freeze": "configs/wp9_precampaign_timing_freeze.json"
+  },
+  "blocking_contract": {
+    "blocking_factor": "seed",
+    "valid_repetitions_per_cell": 30,
+    "frozen_cell_count": 24,
+    "planned_valid_executions": 720,
+    "same_seed_runs_all_frozen_cells": true,
+    "randomize_cell_order_within_seed_block": true,
+    "clean_snapshot_before_each_trial": true,
+    "invalid_runs_replaced_with_new_run_id_same_seed": true
+  },
+  "seed_selection": {
+    "seed_id_range": "10001-10030 inclusive",
+    "selection_rule": "Thirty consecutive reserved integer seed identifiers chosen prospectively before final-campaign execution; identifiers are nuisance blocking labels and are disjoint from all WP8 pilot seeds and WP9-B2 development seeds.",
+    "pilot_seed_ids": [101, 202, 303, 404, 505],
+    "development_seed_ids": [9601, 9602, 9603, 9604, 9605, 9606, 9607, 9608, 9609, 9610],
+    "campaign_seed_ids": [10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008, 10009, 10010, 10011, 10012, 10013, 10014, 10015, 10016, 10017, 10018, 10019, 10020, 10021, 10022, 10023, 10024, 10025, 10026, 10027, 10028, 10029, 10030],
+    "seed_ids_consumed": false
+  },
+  "order_generation": {
+    "algorithm": "For each campaign seed S, sort A01-A24 ascending by SHA-256 hex digest of UTF-8 string 'WP9-R053-order-v1|S|CELL_ID'.",
+    "namespace": "WP9-R053-order-v1",
+    "runtime_prng_stream_reused": false,
+    "order_independent_of_observed_outcomes": true,
+    "orders_materialized_below": true
+  },
+  "blocks": [
+    {"block_index":1,"campaign_seed":10001,"cell_order":["A19","A13","A22","A11","A18","A10","A24","A14","A23","A21","A08","A03","A05","A02","A16","A12","A04","A15","A20","A01","A09","A07","A06","A17"]},
+    {"block_index":2,"campaign_seed":10002,"cell_order":["A05","A11","A12","A21","A13","A18","A24","A22","A23","A06","A20","A19","A14","A08","A07","A15","A04","A10","A02","A16","A09","A17","A03","A01"]},
+    {"block_index":3,"campaign_seed":10003,"cell_order":["A15","A22","A13","A20","A03","A19","A23","A11","A06","A24","A14","A18","A09","A07","A08","A05","A02","A10","A16","A01","A21","A04","A17","A12"]},
+    {"block_index":4,"campaign_seed":10004,"cell_order":["A11","A24","A10","A23","A05","A14","A21","A12","A01","A13","A20","A08","A03","A07","A02","A22","A17","A09","A06","A15","A04","A19","A18","A16"]},
+    {"block_index":5,"campaign_seed":10005,"cell_order":["A19","A16","A01","A23","A09","A13","A18","A15","A02","A03","A06","A21","A10","A11","A08","A22","A04","A24","A17","A12","A20","A14","A05","A07"]},
+    {"block_index":6,"campaign_seed":10006,"cell_order":["A11","A19","A08","A17","A14","A01","A18","A03","A09","A24","A10","A06","A04","A16","A15","A07","A13","A12","A05","A21","A20","A22","A23","A02"]},
+    {"block_index":7,"campaign_seed":10007,"cell_order":["A14","A04","A17","A09","A18","A11","A12","A05","A01","A13","A06","A10","A03","A20","A02","A19","A22","A23","A15","A24","A21","A08","A16","A07"]},
+    {"block_index":8,"campaign_seed":10008,"cell_order":["A16","A14","A09","A22","A11","A12","A10","A17","A13","A01","A04","A02","A05","A18","A24","A06","A08","A03","A20","A19","A23","A07","A15","A21"]},
+    {"block_index":9,"campaign_seed":10009,"cell_order":["A16","A04","A18","A06","A09","A03","A20","A19","A10","A02","A17","A14","A11","A24","A07","A15","A13","A01","A21","A05","A08","A12","A22","A23"]},
+    {"block_index":10,"campaign_seed":10010,"cell_order":["A17","A09","A03","A02","A13","A20","A22","A12","A08","A05","A11","A16","A04","A07","A14","A06","A01","A15","A21","A24","A23","A18","A10","A19"]},
+    {"block_index":11,"campaign_seed":10011,"cell_order":["A22","A04","A14","A11","A01","A16","A15","A05","A12","A20","A06","A09","A08","A13","A07","A10","A23","A17","A02","A19","A18","A24","A21","A03"]},
+    {"block_index":12,"campaign_seed":10012,"cell_order":["A23","A04","A13","A07","A05","A21","A06","A02","A15","A12","A18","A19","A11","A24","A17","A09","A01","A03","A08","A22","A14","A10","A20","A16"]},
+    {"block_index":13,"campaign_seed":10013,"cell_order":["A14","A15","A06","A21","A20","A08","A10","A13","A05","A04","A22","A07","A17","A09","A01","A02","A03","A11","A23","A18","A12","A24","A19","A16"]},
+    {"block_index":14,"campaign_seed":10014,"cell_order":["A02","A23","A18","A11","A16","A01","A21","A09","A08","A15","A06","A13","A20","A17","A24","A22","A14","A05","A12","A07","A19","A03","A04","A10"]},
+    {"block_index":15,"campaign_seed":10015,"cell_order":["A20","A08","A22","A24","A18","A06","A11","A13","A01","A17","A02","A03","A09","A23","A15","A12","A05","A16","A07","A21","A10","A14","A19","A04"]},
+    {"block_index":16,"campaign_seed":10016,"cell_order":["A10","A02","A01","A09","A19","A20","A04","A21","A15","A03","A24","A12","A23","A06","A13","A07","A08","A14","A22","A16","A18","A17","A05","A11"]},
+    {"block_index":17,"campaign_seed":10017,"cell_order":["A20","A14","A10","A02","A15","A06","A01","A05","A13","A04","A11","A09","A18","A03","A22","A16","A24","A12","A07","A19","A08","A23","A17","A21"]},
+    {"block_index":18,"campaign_seed":10018,"cell_order":["A23","A24","A13","A19","A15","A01","A16","A03","A18","A06","A14","A08","A22","A02","A10","A04","A09","A05","A20","A21","A12","A07","A11","A17"]},
+    {"block_index":19,"campaign_seed":10019,"cell_order":["A02","A19","A24","A20","A18","A13","A05","A07","A03","A21","A01","A22","A14","A12","A15","A17","A10","A16","A09","A23","A08","A11","A06","A04"]},
+    {"block_index":20,"campaign_seed":10020,"cell_order":["A08","A24","A03","A06","A04","A23","A11","A20","A16","A10","A17","A14","A21","A05","A01","A02","A15","A07","A19","A22","A13","A12","A09","A18"]},
+    {"block_index":21,"campaign_seed":10021,"cell_order":["A22","A09","A03","A04","A14","A05","A08","A13","A24","A17","A11","A23","A16","A15","A19","A21","A20","A06","A10","A18","A07","A02","A01","A12"]},
+    {"block_index":22,"campaign_seed":10022,"cell_order":["A20","A23","A12","A01","A11","A04","A24","A21","A17","A06","A02","A19","A13","A22","A03","A09","A08","A18","A16","A14","A15","A10","A07","A05"]},
+    {"block_index":23,"campaign_seed":10023,"cell_order":["A23","A03","A07","A08","A24","A20","A01","A05","A06","A17","A21","A09","A02","A16","A10","A12","A14","A11","A18","A22","A04","A15","A13","A19"]},
+    {"block_index":24,"campaign_seed":10024,"cell_order":["A13","A15","A07","A08","A24","A10","A01","A21","A05","A19","A11","A14","A18","A02","A12","A23","A22","A16","A04","A03","A09","A06","A17","A20"]},
+    {"block_index":25,"campaign_seed":10025,"cell_order":["A10","A01","A04","A06","A17","A08","A07","A12","A21","A22","A11","A19","A05","A14","A16","A02","A23","A18","A24","A09","A13","A20","A03","A15"]},
+    {"block_index":26,"campaign_seed":10026,"cell_order":["A03","A23","A19","A06","A09","A17","A05","A18","A15","A12","A22","A16","A07","A20","A02","A13","A04","A11","A10","A14","A21","A24","A01","A08"]},
+    {"block_index":27,"campaign_seed":10027,"cell_order":["A18","A13","A16","A05","A15","A20","A11","A23","A03","A24","A19","A22","A07","A01","A02","A17","A21","A12","A14","A10","A09","A06","A08","A04"]},
+    {"block_index":28,"campaign_seed":10028,"cell_order":["A14","A16","A10","A12","A08","A07","A18","A06","A23","A21","A17","A05","A01","A11","A03","A02","A13","A09","A04","A20","A24","A22","A19","A15"]},
+    {"block_index":29,"campaign_seed":10029,"cell_order":["A04","A12","A08","A24","A20","A21","A22","A19","A06","A23","A15","A02","A03","A11","A14","A13","A18","A17","A09","A16","A01","A07","A05","A10"]},
+    {"block_index":30,"campaign_seed":10030,"cell_order":["A07","A17","A08","A05","A11","A06","A12","A13","A01","A19","A15","A20","A10","A04","A09","A03","A02","A14","A22","A18","A16","A21","A24","A23"]}
+  ],
+  "attempt_semantics": {
+    "planned_valid_unit": "one valid cell execution within one seed block",
+    "invalid_attempt_counts_toward_720": false,
+    "invalid_attempt_reuses_same_campaign_seed": true,
+    "invalid_attempt_reuses_same_cell_id": true,
+    "invalid_attempt_requires_new_run_id": true,
+    "automatic_retry_allowed": false,
+    "automatic_next_case_allowed": false
+  },
+  "scientific_boundary": {
+    "repetition_count_frozen": true,
+    "timing_frozen": true,
+    "campaign_seed_plan_frozen": true,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "campaign_runtime_execution_performed": false,
+    "final_campaign_execution_authorized": false
+  }
+}
