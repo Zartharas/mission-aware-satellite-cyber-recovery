@@ -187,5 +187,27 @@ class WP9CampaignE2RuntimeAdapterTests(unittest.TestCase):
         self.assertIn("runtime_health_passed", text)
 
 
+    def test_runner_removes_orphaned_network_after_gateway_teardown(self) -> None:
+        text = RUNNER.read_text(encoding="utf-8")
+
+        audit = text.index('PHASE="CLEANUP_AUDIT"')
+
+        gateway_rm = text.index(
+            'docker rm -f "$GATEWAY"',
+            audit,
+        )
+        network_rm = text.index(
+            'docker network rm "$NETWORK"',
+            audit,
+        )
+        network_check = text.index(
+            'if docker network inspect "$NETWORK"',
+            audit,
+        )
+
+        self.assertLess(gateway_rm, network_rm)
+        self.assertLess(network_rm, network_check)
+
+
 if __name__ == "__main__":
     unittest.main()

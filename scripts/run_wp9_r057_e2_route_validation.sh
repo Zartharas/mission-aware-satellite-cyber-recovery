@@ -597,6 +597,7 @@ echo "r057_observation_binding=PASS"
 
 PHASE="CLEANUP_AUDIT"
 docker rm -f "$GATEWAY" >/dev/null 2>&1 || true
+docker network rm "$NETWORK" >/dev/null 2>&1 || true
 if docker inspect "$CFS" >/dev/null 2>&1; then
   echo "[ERROR] residual cFS container remains after nominal runtime" >&2
   exit 1
