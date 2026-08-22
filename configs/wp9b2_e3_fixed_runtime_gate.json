@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "decision_id": "R-048",
+  "status": "WP9B2_E3_FIXED_DEVELOPMENT_EXECUTOR_STATICALLY_READY_RUNTIME_VALIDATION_PENDING",
+  "purpose": "Validate only the bounded D06-D08 fixed-policy E3 development discriminators while preserving the frozen R-034/R-036 distinction between command-path mitigation, update containment, and trusted-recovery confirmation.",
+  "basis": {
+    "r044_campaign_design": "configs/wp9_campaign_design.json",
+    "r045_static_contract": "configs/wp9b_static_contract.json",
+    "r046_case_registry": "configs/wp9b2_development_cases.json",
+    "r034_effect_contract": "src/mission_recovery/wp8_recovery_effect_contract.py",
+    "r036_observation_contract": "src/mission_recovery/wp8_recovery_observation_contract.py"
+  },
+  "case_ids": ["D06", "D07", "D08"],
+  "campaign_cell_ids": ["A10", "A12", "A15"],
+  "development_seeds": [9606, 9607, 9608],
+  "case_semantics": {
+    "D06": {
+      "policy_id": "P2",
+      "evidence_condition_id": "T0",
+      "required_observations": [
+        "tampered E3 activation slot observed after t0",
+        "two modeled-attacker reset probes blocked",
+        "one authorized NOOP forwarded and observed",
+        "tampered update remains in modeled activation slot",
+        "command-path mitigation true",
+        "update containment false and right-censored",
+        "trusted recovery false and right-censored"
+      ]
+    },
+    "D07": {
+      "policy_id": "P2",
+      "evidence_condition_id": "T1",
+      "required_observations": [
+        "approved_version omitted from policy-time evidence",
+        "same P2 gateway selectivity as D06",
+        "tampered update remains in modeled activation slot",
+        "command-path mitigation true",
+        "update containment false and right-censored",
+        "policy-time omission is not reused as classification-time evidence"
+      ]
+    },
+    "D08": {
+      "policy_id": "P5",
+      "evidence_condition_id": "T1",
+      "required_observations": [
+        "approved_version omitted from policy-time evidence",
+        "verified rollback request emitted and validated",
+        "approved replacement source verified",
+        "approved surrogate artifact occupies modeled activation slot after response",
+        "update containment true",
+        "bounded WP9-B2 check emits no complete ten-criterion trusted-recovery manifest",
+        "trusted recovery remains unconfirmed/right-censored in this bounded development check"
+      ]
+    }
+  },
+  "d08_r046_clarification": {
+    "reason": "R-036 freezes that T1 policy-time omission does not automatically imply classification-time evidence loss. R-046 wording must therefore not be interpreted as preordaining trusted-recovery failure from T1.",
+    "r046_case_factor_mapping_changed": false,
+    "r046_seed_changed": false,
+    "r044_campaign_cell_changed": false,
+    "runtime_acceptance_rule": "D08 must prove the fixed P5/T1 rollback mechanism and must not manufacture trusted recovery from incomplete bounded-development evidence. Its development-time nonconfirmation is not a causal T1 recovery-failure claim.",
+    "final_campaign_rule": "Final-campaign trusted recovery is determined only from all applicable classification-time criteria under the frozen R-035/R-036 semantics; policy-time T1 omission alone cannot decide it."
+  },
+  "scientific_boundary": {
+    "development_only": true,
+    "single_case_per_invocation": true,
+    "automatic_next_case": false,
+    "final_campaign_seed_consumption": false,
+    "final_campaign_data_generation": false,
+    "repetition_count_frozen": false,
+    "final_campaign_execution_authorized": false,
+    "expected_values_used_as_measurements": false,
+    "ground_truth_policy_oracle_allowed": false,
+    "d08_t1_causal_recovery_failure_claim_allowed": false,
+    "trusted_recovery_claim_allowed": false
+  }
+}
