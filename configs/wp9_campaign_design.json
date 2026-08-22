@@ -1,0 +1,609 @@
+{
+  "schema": 1,
+  "work_package": "WP9",
+  "decision_id": "R-044",
+  "status": "WP9A_MATRIX_AND_ANALYSIS_CONTRACT_FROZEN_RUNTIME_VALIDATION_REQUIRED",
+  "basis": {
+    "wp8_closeout_record": "docs/17-wp8-pilot-closeout.md",
+    "pilot_design": "configs/wp8_pilot_design.json",
+    "experiment_model": "configs/experiment_model.json",
+    "proposition_traceability": "docs/11-proposition-variable-metric-traceability.md",
+    "event_catalog": "configs/wp5_event_catalog.json",
+    "policy_rules": "configs/wp6_policy_rules.json"
+  },
+  "scientific_boundary": {
+    "wp9a_matrix_frozen": true,
+    "endpoint_model_rules_frozen": true,
+    "repetition_count_frozen": false,
+    "runtime_support_complete": false,
+    "campaign_execution_authorized": false,
+    "pilot_effect_estimates_are_final_effect_assumptions": false,
+    "wp8_raw_evidence_mutated": false
+  },
+  "design_strategy": {
+    "type": "estimand_driven_matched_contrast_plus_complete_low_dimensional_factorials",
+    "final_cell_count": 24,
+    "full_factorial_used": false,
+    "rationale": "Retain complete low-dimensional factorials required by P1-P4, matched fixed-versus-P7 comparisons for P5, and P0 sentinel controls for E2/E4; omit combinations that do not identify a predeclared proposition or event-generalization claim.",
+    "aliasing_rule": "No primary interaction may rely on an aliased fractional factorial; every predeclared primary interaction block is complete for its selected factors.",
+    "sentinel_controls": [
+      "A19",
+      "A22"
+    ]
+  },
+  "required_policy_extension": {
+    "policy_id": "P6",
+    "name": "wait_for_ground_authorization",
+    "source": "docs/03-experiment-design.md",
+    "purpose": "Make P2 contact-delay comparison identifiable as ground-dependent versus autonomous recovery.",
+    "deterministic_semantics": "For E3, retain containment/recovery state while waiting for current synthetic ground authorization; when authorization becomes available, request verified rollback using the approved artifact. C0 exposes authorization at the response boundary; C1 exposes it only after one modeled missed contact window.",
+    "real_human_operator_required": false,
+    "real_world_contact_required": false,
+    "existing_experiment_model_support": false,
+    "existing_run_schema_support": false,
+    "existing_runtime_support": false,
+    "wp9b_validation_required": true,
+    "campaign_execution_blocked_until_validated": true
+  },
+  "blocking_and_order": {
+    "blocking_factor": "seed",
+    "same_seed_runs_all_frozen_cells": true,
+    "randomize_cell_order_within_seed_block": true,
+    "clean_snapshot_before_each_trial": true,
+    "invalid_runs_replaced_with_new_run_id_same_seed": true
+  },
+  "repetition_selection": {
+    "candidate_valid_repetitions_per_cell": [
+      12,
+      16,
+      20,
+      24,
+      30
+    ],
+    "candidate_total_valid_executions": {
+      "12": 288,
+      "16": 384,
+      "20": 480,
+      "24": 576,
+      "30": 720
+    },
+    "ratio_metric_95pct_ci_half_width_target": 0.1,
+    "binary_metric_95pct_ci_half_width_target": 0.18,
+    "time_metric_relative_95pct_ci_half_width_target": 0.25,
+    "model_fit_convergence_target": 0.9,
+    "selection_rule": "WP9-C chooses the smallest candidate satisfying all applicable precision and model-stability targets under both empirical pilot resampling and predeclared conservative sensitivity scenarios; a zero-width interval from a structurally degenerate pilot endpoint cannot by itself satisfy the precision gate."
+  },
+  "cells": [
+    {
+      "cell_id": "A01",
+      "event_id": "E1",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P1",
+      "expected_effective_policy_id": "P1",
+      "role": "P1_mission_state_fixed_M0"
+    },
+    {
+      "cell_id": "A02",
+      "event_id": "E1",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P1",
+      "role": "P1_mission_state_adaptive_M0"
+    },
+    {
+      "cell_id": "A03",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P1",
+      "expected_effective_policy_id": "P1",
+      "role": "P1_mission_state_fixed_M2"
+    },
+    {
+      "cell_id": "A04",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P2",
+      "role": "P1_mission_state_adaptive_M2_and_P4_factorial"
+    },
+    {
+      "cell_id": "A05",
+      "event_id": "E1",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P1",
+      "expected_effective_policy_id": "P1",
+      "role": "P1_mission_state_fixed_M4"
+    },
+    {
+      "cell_id": "A06",
+      "event_id": "E1",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P2",
+      "role": "P1_mission_state_adaptive_M4"
+    },
+    {
+      "cell_id": "A07",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P2",
+      "expected_effective_policy_id": "P2",
+      "role": "P4_E1_fixed_full_evidence"
+    },
+    {
+      "cell_id": "A08",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T1",
+      "policy_id": "P2",
+      "expected_effective_policy_id": "P2",
+      "role": "P4_E1_fixed_reduced_evidence"
+    },
+    {
+      "cell_id": "A09",
+      "event_id": "E1",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T1",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P4",
+      "role": "P4_E1_adaptive_reduced_evidence"
+    },
+    {
+      "cell_id": "A10",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P2",
+      "expected_effective_policy_id": "P2",
+      "role": "P4_E3_fixed_full_evidence"
+    },
+    {
+      "cell_id": "A11",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P5",
+      "role": "P2_P3_P4_shared_adaptive_full_evidence"
+    },
+    {
+      "cell_id": "A12",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T1",
+      "policy_id": "P2",
+      "expected_effective_policy_id": "P2",
+      "role": "P4_E3_fixed_reduced_evidence"
+    },
+    {
+      "cell_id": "A13",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T1",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P2",
+      "role": "P3_P4_adaptive_reduced_evidence"
+    },
+    {
+      "cell_id": "A14",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P5",
+      "expected_effective_policy_id": "P5",
+      "role": "P3_fixed_recovery_full_evidence"
+    },
+    {
+      "cell_id": "A15",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T1",
+      "policy_id": "P5",
+      "expected_effective_policy_id": "P5",
+      "role": "P3_fixed_recovery_reduced_evidence"
+    },
+    {
+      "cell_id": "A16",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P6",
+      "expected_effective_policy_id": "P6",
+      "role": "P2_ground_authorized_immediate_contact"
+    },
+    {
+      "cell_id": "A17",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C1",
+      "evidence_condition_id": "T0",
+      "policy_id": "P6",
+      "expected_effective_policy_id": "P6",
+      "role": "P2_ground_authorized_missed_contact"
+    },
+    {
+      "cell_id": "A18",
+      "event_id": "E3",
+      "mission_state_id": "M4",
+      "contact_condition_id": "C1",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P5",
+      "role": "P2_autonomous_missed_contact"
+    },
+    {
+      "cell_id": "A19",
+      "event_id": "E2",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P0",
+      "expected_effective_policy_id": "P0",
+      "role": "E2_no_response_sentinel"
+    },
+    {
+      "cell_id": "A20",
+      "event_id": "E2",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P1",
+      "expected_effective_policy_id": "P1",
+      "role": "E2_fixed_replay_containment"
+    },
+    {
+      "cell_id": "A21",
+      "event_id": "E2",
+      "mission_state_id": "M0",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P1",
+      "role": "E2_adaptive_replay_matched"
+    },
+    {
+      "cell_id": "A22",
+      "event_id": "E4",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P0",
+      "expected_effective_policy_id": "P0",
+      "role": "E4_no_response_sentinel"
+    },
+    {
+      "cell_id": "A23",
+      "event_id": "E4",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P4",
+      "expected_effective_policy_id": "P4",
+      "role": "E4_fixed_conservative_response"
+    },
+    {
+      "cell_id": "A24",
+      "event_id": "E4",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "policy_id": "P7",
+      "expected_effective_policy_id": "P4",
+      "role": "E4_adaptive_conservative_matched"
+    }
+  ],
+  "analysis_contracts": {
+    "P1_mission_state_dependence": {
+      "cell_ids": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06"
+      ],
+      "complete_factorial": {
+        "policy_id": [
+          "P1",
+          "P7"
+        ],
+        "mission_state_id": [
+          "M0",
+          "M2",
+          "M4"
+        ]
+      },
+      "held_constant": {
+        "event_id": "E1",
+        "contact_condition_id": "C0",
+        "evidence_condition_id": "T0"
+      },
+      "primary_endpoints": [
+        "unauthorized_effect_completed",
+        "mission_objective_completion_ratio",
+        "safety_invariant_violation_count",
+        "legitimate_command_rejection_rate"
+      ],
+      "primary_estimand": "policy_by_mission_state_interaction"
+    },
+    "P2_contact_delay": {
+      "cell_ids": [
+        "A11",
+        "A16",
+        "A17",
+        "A18"
+      ],
+      "complete_factorial": {
+        "policy_id": [
+          "P6",
+          "P7"
+        ],
+        "contact_condition_id": [
+          "C0",
+          "C1"
+        ]
+      },
+      "held_constant": {
+        "event_id": "E3",
+        "mission_state_id": "M4",
+        "evidence_condition_id": "T0"
+      },
+      "primary_endpoints": [
+        "time_to_containment_s",
+        "time_to_verified_recovery_s",
+        "ground_spacecraft_state_divergence_s",
+        "recovery_terminal_state"
+      ],
+      "primary_estimand": "policy_by_contact_interaction_ground_dependent_vs_autonomous"
+    },
+    "P3_trusted_recovery_evidence": {
+      "cell_ids": [
+        "A11",
+        "A13",
+        "A14",
+        "A15"
+      ],
+      "complete_factorial": {
+        "policy_id": [
+          "P5",
+          "P7"
+        ],
+        "evidence_condition_id": [
+          "T0",
+          "T1"
+        ]
+      },
+      "held_constant": {
+        "event_id": "E3",
+        "mission_state_id": "M4",
+        "contact_condition_id": "C0"
+      },
+      "primary_endpoints": [
+        "recovery_terminal_state",
+        "ground_spacecraft_state_divergence_s",
+        "evidence_completeness_ratio",
+        "residual_unauthorized_state_count"
+      ],
+      "primary_estimand": "policy_by_evidence_interaction_for_evidence_confirmed_recovery"
+    },
+    "P4_degraded_evidence": {
+      "cell_ids": [
+        "A04",
+        "A07",
+        "A08",
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13"
+      ],
+      "complete_factorial": {
+        "event_id": [
+          "E1",
+          "E3"
+        ],
+        "policy_id": [
+          "P2",
+          "P7"
+        ],
+        "evidence_condition_id": [
+          "T0",
+          "T1"
+        ]
+      },
+      "held_by_event": {
+        "E1": {
+          "mission_state_id": "M2",
+          "contact_condition_id": "C0"
+        },
+        "E3": {
+          "mission_state_id": "M4",
+          "contact_condition_id": "C0"
+        }
+      },
+      "primary_endpoints": [
+        "effective_policy_id",
+        "unauthorized_effect_completed",
+        "mission_objective_completion_ratio",
+        "safety_invariant_violation_count",
+        "recovery_terminal_state"
+      ],
+      "primary_estimand": "evidence_by_policy_by_event_interaction"
+    },
+    "P5_tradeoff": {
+      "condition_groups": {
+        "G01": [
+          "A01",
+          "A02"
+        ],
+        "G02": [
+          "A03",
+          "A04",
+          "A07"
+        ],
+        "G03": [
+          "A05",
+          "A06"
+        ],
+        "G04": [
+          "A08",
+          "A09"
+        ],
+        "G05": [
+          "A10",
+          "A11",
+          "A14",
+          "A16"
+        ],
+        "G06": [
+          "A12",
+          "A13",
+          "A15"
+        ],
+        "G07": [
+          "A17",
+          "A18"
+        ],
+        "G08": [
+          "A19",
+          "A20",
+          "A21"
+        ],
+        "G09": [
+          "A22",
+          "A23",
+          "A24"
+        ]
+      },
+      "primary_endpoints": [
+        "unauthorized_effect_completed",
+        "mission_objective_completion_ratio",
+        "safety_invariant_violation_count",
+        "time_to_verified_recovery_s",
+        "legitimate_command_rejection_rate"
+      ],
+      "primary_estimand": "condition_specific_Pareto_membership_without_weighted_composite"
+    }
+  },
+  "endpoint_model_rules": {
+    "global": {
+      "seed_role": "reproducible_block; use seed-aware mixed/clustered inference where applicable",
+      "raw_counts_and_denominators_reported": true,
+      "right_censoring_preserved": true,
+      "no_missing_metric_imputation": true,
+      "structural_degeneracy_rule": "If a pilot endpoint is constant, do not treat empirical zero variance or zero-width bootstrap intervals as definitive certainty. Use the predeclared exact/descriptive fallback and require WP9-C conservative sensitivity to pass.",
+      "model_convergence_rule": "For nondegenerate simulated datasets, a planned primary model counts as converged only when estimation completes without singular fit, complete/quasi separation, invalid variance estimates, or nonfinite coefficients. Structural-degeneracy fallbacks are tracked separately and cannot manufacture a convergence pass."
+    },
+    "unauthorized_effect_completed": {
+      "type": "binary",
+      "primary_model": "binomial mixed model for factorial contrasts",
+      "fallback": "cellwise exact binomial intervals and seed-blocked risk-difference bootstrap if separation/degeneracy"
+    },
+    "mission_objective_completion_ratio": {
+      "type": "bounded_ratio",
+      "primary_model": "linear mixed model on run-level frozen weighted ratio with seed block; bootstrap marginal contrasts",
+      "fallback": "seed-blocked nonparametric contrasts"
+    },
+    "safety_invariant_violation_count": {
+      "type": "count",
+      "primary_model": "Poisson or negative-binomial mixed model selected by predeclared dispersion diagnostic",
+      "fallback": "exact cellwise counts/upper bounds if structurally all zero"
+    },
+    "time_to_containment_s": {
+      "type": "time_to_event",
+      "primary_model": "restricted-mean-time contrast through frozen run horizon with seed-block bootstrap",
+      "fallback": "Cox proportional-hazards sensitivity only when proportional-hazards diagnostics are acceptable"
+    },
+    "time_to_verified_recovery_s": {
+      "type": "time_to_event_right_censored",
+      "primary_model": "restricted-mean-time contrast through frozen run horizon with seed-block bootstrap",
+      "fallback": "Cox proportional-hazards sensitivity only when proportional-hazards diagnostics are acceptable"
+    },
+    "recovery_terminal_state": {
+      "type": "categorical",
+      "primary_model": "multinomial model for P2/P3 when at least two estimable outcome categories occur",
+      "fallback": "predeclared binary trusted-recovery-confirmed contrast plus full category counts"
+    },
+    "legitimate_command_rejection_rate": {
+      "type": "binomial_ratio",
+      "primary_model": "binomial mixed model from raw rejected/attempted counts rather than modeled ratio",
+      "fallback": "exact intervals when denominator is sparse"
+    },
+    "ground_spacecraft_state_divergence_s": {
+      "type": "continuous_nonnegative",
+      "primary_model": "seed-blocked mixed model with bootstrap marginal contrasts",
+      "fallback": "rank/quantile bootstrap sensitivity under strong skew"
+    },
+    "evidence_completeness_ratio": {
+      "type": "bounded_ratio",
+      "primary_model": "seed-blocked mixed/bootstrapped contrasts on run-level ratio",
+      "fallback": "exact checklist numerator/denominator summaries when structurally discrete"
+    },
+    "effective_policy_id": {
+      "type": "categorical_derived",
+      "primary_model": "predeclared confusion/selection table and multinomial or binary generalized model where estimable",
+      "source": "retained execution metadata; never ground-truth policy oracle"
+    },
+    "residual_unauthorized_state_count": {
+      "type": "count_secondary_schema_field",
+      "primary_model": "cellwise count comparison within P3",
+      "fallback": "exact counts when sparse"
+    }
+  },
+  "event_generalization": {
+    "E2_replay": {
+      "cell_ids": [
+        "A19",
+        "A20",
+        "A21"
+      ],
+      "purpose": "same-campaign untreated sentinel plus matched P1-versus-P7 replay comparison"
+    },
+    "E4_observability": {
+      "cell_ids": [
+        "A22",
+        "A23",
+        "A24"
+      ],
+      "purpose": "same-campaign untreated sentinel plus matched P4-versus-P7 observability-degradation comparison"
+    }
+  },
+  "wp9b_runtime_gate": {
+    "required_before_repetition_selection_freeze": true,
+    "requirements": [
+      "Implement and validate P6 deterministic synthetic ground-authorization timing and post-authorization verified rollback.",
+      "Extend experiment model and run schema to admit P6 only after runtime semantics pass.",
+      "Bind E2 replay event to final-campaign command policy measurement path without reusing expected values as measurements.",
+      "Validate fixed P2 and P5 E3 cells under T0/T1, including right-censored nonrecovery semantics.",
+      "Validate fixed P0/P1 and P7 E2 cells using the accepted byte-identical replay adapter.",
+      "Validate fixed P0/P4 and P7 E4 cells using immutable ground truth and degraded policy-visible telemetry.",
+      "Validate every A01-A24 factor tuple, expected effective policy, runtime family, raw metric completeness, isolation, and cleanup without generating final-campaign data."
+    ],
+    "development_only": true,
+    "final_campaign_seed_consumption": false,
+    "final_campaign_data_generation": false
+  }
+}
