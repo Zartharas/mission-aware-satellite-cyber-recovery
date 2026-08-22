@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "decision_id": "R-052",
+  "status": "WP9_PRECAMPAIGN_TIMING_FROZEN_CAMPAIGN_EXECUTION_UNAUTHORIZED",
+  "purpose": "Freeze the final modeled C1 contact-window duration and a common E3 post-event analysis horizon before any final-campaign execution, without reusing the R-047 development-only timing surrogate or treating early absorbing pilot run-end timestamps as common censoring horizons.",
+  "basis": {
+    "campaign_design": "configs/wp9_campaign_design.json",
+    "repetition_freeze": "configs/wp9c_repetition_freeze.json",
+    "p6_development_gate": "configs/wp9b2_p6_runtime_gate.json",
+    "wp8_pilot_design": "configs/wp8_pilot_design.json",
+    "trusted_recovery_runner": "scripts/run_wp8_recovery_binding_preflight.sh",
+    "generic_recovery_runner": "scripts/run_wp8_recovery_stage1_development.sh"
+  },
+  "reviewed_timing_result": {
+    "review_artifact_sha256": "33b9ded122d3d0da9894622ad12713d5757064ed77e5c1dcce54274bea80efbe",
+    "review_artifact_local_path": "/tmp/wp9-r052-timing-review.json",
+    "review_result_reviewed": true,
+    "balanced_recovery_anchor_cells": ["R02", "R03"],
+    "balanced_seed_ids": [101, 202, 303, 404, 505],
+    "balanced_recovery_records": 10,
+    "max_verified_recovery_s": 4.628859686,
+    "twice_max_verified_recovery_s": 9.257719372,
+    "minimum_c1_floor_s": 10,
+    "development_2s_surrogate_reused": false,
+    "pilot_run_end_used_as_common_horizon": false,
+    "pilot_run_end_interpretation": "R02/R03 trusted-recovery pilot paths stamp run end at the absorbing trusted-recovery classification before post-run nominal validation, whereas the generic recovery path stamps run end after nominal-runtime completion; those values therefore cannot define one common campaign censoring horizon."
+  },
+  "frozen_timing": {
+    "c0_semantics": {
+      "authorization_available_at_response_boundary": true,
+      "missed_contact_windows": 0
+    },
+    "c1_semantics": {
+      "authorization_available_at_response_boundary": false,
+      "missed_contact_windows": 1,
+      "modeled_contact_window_s": 10,
+      "authorization_available_after_event_response_boundary_s": 10
+    },
+    "e3_common_post_event_analysis_horizon_s": 30,
+    "e3_campaign_cell_ids": [
+      "A10",
+      "A11",
+      "A12",
+      "A13",
+      "A14",
+      "A15",
+      "A16",
+      "A17",
+      "A18"
+    ],
+    "c1_fraction_of_e3_horizon": 0.3333333333333333,
+    "post_c1_observation_allowance_s": 20,
+    "post_c1_allowance_over_max_pilot_recovery": 4.320718569303377,
+    "early_absorbing_trusted_recovery_allowed": true,
+    "unrecovered_e3_run_right_censored_at_horizon": true,
+    "analysis_time_origin": "event_activation_t0",
+    "elapsed_time_clock": "experiment_controller_monotonic_clock"
+  },
+  "selection_rule": {
+    "frozen_before_timing_values_reviewed": true,
+    "c1_rule": "ceil(max(10 seconds, 2 times the largest observed verified-recovery time across the balanced R02/R03 recovery anchors))",
+    "observed_c1_candidate_s": 10,
+    "corrected_horizon_rule": "Because retained pilot run_end values do not share one censoring-horizon meaning, freeze an explicit common E3 post-event analysis horizon equal to 3 times the selected C1 duration, leaving two-thirds of the horizon after delayed authorization.",
+    "horizon_rule_result_s": 30,
+    "post_authorization_allowance_rule": "common E3 horizon minus C1 must be at least 2 times the largest observed verified-recovery time",
+    "post_authorization_allowance_rule_pass": true
+  },
+  "interpretation_boundaries": {
+    "c1_is_modeled_synthetic_contact_delay": true,
+    "real_ground_pass_duration_claim": false,
+    "real_operator_latency_claim": false,
+    "rf_contact_claim": false,
+    "spacecraft_contact_schedule_claim": false,
+    "development_2s_surrogate_is_final_parameter": false,
+    "early_success_may_terminate_before_30s": true,
+    "30s_is_common_analysis_censoring_horizon_not_required_successful_runtime_duration": true
+  },
+  "campaign_readiness_effect": {
+    "repetition_count_frozen": true,
+    "valid_repetitions_per_cell": 30,
+    "planned_total_valid_executions": 720,
+    "final_c1_contact_window_duration_frozen": true,
+    "e3_analysis_horizon_frozen": true,
+    "timing_blocker_closed": true,
+    "campaign_runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "final_campaign_execution_authorized": false
+  },
+  "scientific_boundary": {
+    "controlled_nos3_software_in_loop_only": true,
+    "expected_values_used_as_metric_inputs": false,
+    "ground_truth_policy_oracle_allowed": false,
+    "pilot_data_rewritten": false,
+    "wp8_files_mutated": false,
+    "campaign_runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "final_campaign_execution_authorized": false
+  }
+}
