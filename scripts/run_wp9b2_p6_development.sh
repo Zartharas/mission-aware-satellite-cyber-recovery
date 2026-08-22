@@ -59,7 +59,8 @@ row=next(x for x in data["cases"] if x["case_id"]==sys.argv[2])
 print(row["development_seed"])
 PY
 )"
-RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp9b2-${CASE_ID,,}-s${SEED}-$(python3 -c 'import uuid; print(uuid.uuid4().hex)')}"
+CASE_SAFE="$(printf '%s' "$CASE_ID" | tr '[:upper:]' '[:lower:]')"
+RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp9b2-${CASE_SAFE}-s${SEED}-$(python3 -c 'import uuid; print(uuid.uuid4().hex)')}"
 SAFE_ID="$(printf '%s' "$RUN_ID" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9_.-' '-')"
 NETWORK="mascr-$SAFE_ID"
 CFS="mascr-$SAFE_ID-cfs"
