@@ -1,12 +1,12 @@
 # Research Tracker
 
-Last updated: 2026-08-15
+Last updated: 2026-08-21
 
 ## Current focus
 
-**WP8 — pilot**
+**WP9 — repetition-count selection / pre-campaign design**
 
-Current gate: run and review three non-pilot NOS3 runtime-binding development preflights (command, recovery, observability) under the R-015 measurement contract before any scored pilot run. After that, establish control validity, observed variability, and the repetition count required before freezing the experiment campaign.
+Current gate: WP8 pilot closeout passed with 12/12 valid Stage-1 cells, 28/28 valid Stage-2 repetitions, 40 scientifically valid pilot executions total, one transparently retained/excluded Stage-1 `RUN_INVALID` attempt, and 41 frozen attempt archives independently verified. Execute the predeclared bootstrap/precision/model-stability rule to select the smallest defensible WP9 repetition count from `12, 16, 20, 24, 30`. No WP9 final-campaign execution is authorized yet.
 
 ## Work packages
 
@@ -20,8 +20,8 @@ Current gate: run and review three non-pilot NOS3 runtime-binding development pr
 | WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
 | WP6 | Response-policy implementation | **Complete** | Fixed-policy effects plus corrected P7 mission-aware integration validated with functional Sample readiness and observed cFS-marker deltas; trusted-recovery execution remains WP7 |
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery plus four bounded failure-mode validations passed; reproducibility harness retained |
-| WP8 | Pilot | **In progress** | R-015 measurement contract and runtime-binding module ready for three non-pilot NOS3 development preflights |
-| WP9 | Frozen experiment campaign | Not started | Randomized controlled repeated trials |
+| WP8 | Pilot | **Complete** | Read-only closeout passed: 12 Stage-1 valid cells + 28 Stage-2 valid repetitions = 40 valid pilot executions; one Stage-1 invalid attempt retained/excluded; 41 frozen archives verified; see `docs/17-wp8-pilot-closeout.md` |
+| WP9 | Frozen experiment campaign | **Pre-campaign design in progress** | Apply frozen repetition-selection rule to WP8 distributions; campaign execution remains blocked pending selected count, review, and explicit authorization |
 | WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |
 | WP11 | Responsible artifact release | Not started | Sanitized code/data/reproducibility release |
 
