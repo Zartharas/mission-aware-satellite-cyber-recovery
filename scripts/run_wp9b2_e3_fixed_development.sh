@@ -270,6 +270,9 @@ grep -Fq 'NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS' "$NOMINAL_LOG"
 test -f "$NOMINAL_EVIDENCE/runtime-manifest.txt"
 echo "nominal_runtime_completion=PASS"
 
+docker rm -f "$GATEWAY" >/dev/null 2>&1 || true
+echo "auxiliary_gateway_cleanup=PASS"
+
 PHASE="RESIDUE_CHECK"
 RESIDUAL="$(docker ps --format '{{.Names}}' | grep "^mascr-$SAFE_ID" || true)"
 [[ -z "$RESIDUAL" ]] || { echo "[ERROR] residual runtime remains: $RESIDUAL" >&2; exit 1; }
