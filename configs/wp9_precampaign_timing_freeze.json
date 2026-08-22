@@ -13,7 +13,6 @@
   },
   "reviewed_timing_result": {
     "review_artifact_sha256": "33b9ded122d3d0da9894622ad12713d5757064ed77e5c1dcce54274bea80efbe",
-    "review_artifact_local_path": "/tmp/wp9-r052-timing-review.json",
     "review_result_reviewed": true,
     "balanced_recovery_anchor_cells": ["R02", "R03"],
     "balanced_seed_ids": [101, 202, 303, 404, 505],
