@@ -1,0 +1,153 @@
+{
+  "model_version": "0.4.0",
+  "base_model_version": "0.3.0",
+  "decision_id": "R-045",
+  "gate": "WP9-B1 static campaign mechanisms; runtime validation required",
+  "study_scope": "researcher_controlled_software_simulation_only",
+  "mission_states": [
+    {
+      "id": "M0",
+      "name": "nominal_operations",
+      "description": "Routine command, telemetry, and scheduled mission activity.",
+      "priority_order": ["command_authority", "spacecraft_survivability", "mission_service", "incident_evidence"]
+    },
+    {
+      "id": "M2",
+      "name": "low_power_or_eclipse",
+      "description": "Energy-constrained state in which survival reserve and power-positive operation dominate payload continuity.",
+      "priority_order": ["spacecraft_survivability", "command_authority", "incident_evidence", "mission_service"]
+    },
+    {
+      "id": "M4",
+      "name": "software_update_or_recovery",
+      "description": "Software or configuration transition requiring integrity, authorization, rollback, and state-convergence evidence.",
+      "priority_order": ["command_authority", "verified_recovery", "spacecraft_survivability", "incident_evidence", "mission_service"]
+    }
+  ],
+  "events": [
+    {
+      "id": "E1",
+      "name": "unauthorized_valid_command",
+      "description": "A syntactically valid synthetic command arrives through an expected ground path but lacks current authorization.",
+      "sparta": ["IA-0007.02"],
+      "prohibited_real_world_actions": ["operational_credentials", "live_satellite_access", "rf_transmission"]
+    },
+    {
+      "id": "E2",
+      "name": "replayed_command",
+      "description": "A previously valid synthetic command is replayed with stale authorization/sequence context.",
+      "sparta": ["EX-0001.01"],
+      "prohibited_real_world_actions": ["captured_operational_command", "live_satellite_access", "rf_transmission"]
+    },
+    {
+      "id": "E3",
+      "name": "compromised_update",
+      "description": "A synthetic software/configuration update has invalid integrity, authorization, or version provenance and requires rollback/trust verification.",
+      "sparta": ["IA-0007.01", "EX-0004"],
+      "prohibited_real_world_actions": ["proprietary_firmware", "production_signing_keys", "operational_update_service"]
+    },
+    {
+      "id": "E4",
+      "name": "telemetry_observability_degradation",
+      "description": "Selected synthetic policy-visible telemetry/trust evidence is delayed or suppressed while immutable experiment ground truth remains intact.",
+      "sparta": ["DE-0003.06"],
+      "prohibited_real_world_actions": ["rf_jamming", "operational_telemetry_interception", "live_satellite_access"]
+    }
+  ],
+  "response_policies": [
+    {
+      "id": "P0",
+      "name": "observe_only",
+      "autonomy_level": "none",
+      "description": "Record and alert without automatic containment."
+    },
+    {
+      "id": "P1",
+      "name": "identity_or_source_isolation",
+      "autonomy_level": "bounded",
+      "description": "Revoke the modeled identity or isolate the synthetic source while preserving unaffected command paths."
+    },
+    {
+      "id": "P2",
+      "name": "selective_command_restriction",
+      "autonomy_level": "bounded",
+      "description": "Block predeclared high-risk command classes while allowing authorized low-risk operations."
+    },
+    {
+      "id": "P4",
+      "name": "safe_mode_transition",
+      "autonomy_level": "high",
+      "description": "Enter a sustainable, commandable, evidence-preserving safe state subject to frozen invariants."
+    },
+    {
+      "id": "P5",
+      "name": "rollback",
+      "autonomy_level": "bounded",
+      "description": "Restore an approved software or configuration state using verified artifacts and recovery evidence."
+    },
+    {
+      "id": "P6",
+      "name": "wait_for_ground_authorization",
+      "autonomy_level": "ground_dependent",
+      "description": "For the frozen WP9 E3 contact-delay contrast, hold the recovery transition until current synthetic ground authorization is available, then request verified rollback. No real operator, operational contact, or external system is used."
+    },
+    {
+      "id": "P7",
+      "name": "mission_aware_selection",
+      "autonomy_level": "adaptive",
+      "description": "Select among bounded actions using mission state, event evidence, contact availability, resource state, and safety/trust constraints."
+    }
+  ],
+  "contact_conditions": [
+    {"id": "C0", "name": "immediate_ground_contact", "missed_windows": 0},
+    {"id": "C1", "name": "one_missed_contact_window", "missed_windows": 1}
+  ],
+  "evidence_conditions": [
+    {
+      "id": "T0",
+      "name": "full_evidence",
+      "description": "All applicable synthetic telemetry and recovery evidence are available within configured timing bounds."
+    },
+    {
+      "id": "T1",
+      "name": "reduced_or_suppressed_telemetry",
+      "description": "A predeclared subset of telemetry or trust evidence is unavailable, delayed, or stale."
+    }
+  ],
+  "invariants": [
+    {"id": "SI-1", "name": "command_state_authorization"},
+    {"id": "SI-2", "name": "energy_reserve"},
+    {"id": "SI-3", "name": "verified_recovery_image"},
+    {"id": "SI-4", "name": "recovery_path_preservation"},
+    {"id": "SI-5", "name": "evidence_freshness"},
+    {"id": "SI-6", "name": "ground_spacecraft_convergence"},
+    {"id": "SI-7", "name": "minimum_observability"},
+    {"id": "SI-8", "name": "immutable_ground_truth"}
+  ],
+  "terminal_states": [
+    "TRUSTED_RECOVERY_CONFIRMED",
+    "OPERATIONAL_BUT_UNVERIFIED",
+    "CONTAINED_NOT_RECOVERED",
+    "RECOVERY_FAILED",
+    "MISSION_LOSS",
+    "RUN_INVALID"
+  ],
+  "required_primary_metrics": [
+    "unauthorized_effect_completed",
+    "mission_objective_completion_ratio",
+    "safety_invariant_violation_count",
+    "time_to_containment_s",
+    "time_to_verified_recovery_s",
+    "recovery_terminal_state",
+    "legitimate_command_rejection_rate",
+    "ground_spacecraft_state_divergence_s",
+    "evidence_completeness_ratio"
+  ],
+  "scientific_boundary": {
+    "wp8_model_mutated": false,
+    "runtime_execution_performed": false,
+    "campaign_seed_consumed": false,
+    "campaign_data_generated": false,
+    "campaign_execution_authorized": false
+  }
+}
