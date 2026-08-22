@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "decision_id": "R-047",
+  "status": "WP9B2_P6_DEVELOPMENT_EXECUTOR_STATICALLY_READY_RUNTIME_VALIDATION_PENDING",
+  "purpose": "Enable only the bounded D01/D02 development-runtime discriminators for the WP9 P6 ground-authorization handoff without altering the historical R-046 registry or authorizing final-campaign execution.",
+  "basis": {
+    "r046_case_registry": "configs/wp9b2_development_cases.json",
+    "r045_static_contract": "configs/wp9b_static_contract.json",
+    "p6_policy_extension": "configs/wp9_policy_extension.json",
+    "campaign_design": "configs/wp9_campaign_design.json"
+  },
+  "case_ids": ["D01", "D02"],
+  "campaign_cell_ids": ["A16", "A17"],
+  "development_seeds": [9601, 9602],
+  "development_contact_window": {
+    "seconds": 2,
+    "role": "development-only timing surrogate used only to discriminate no-handoff-before-one-window versus handoff-after-one-window",
+    "final_campaign_parameter": false,
+    "final_campaign_duration_frozen": false,
+    "wp9b3_campaign_duration_freeze_required": true
+  },
+  "runtime_semantics": {
+    "event_id": "E3",
+    "mission_state_id": "M4",
+    "evidence_condition_id": "T0",
+    "pre_authorization_policy_id": "P6",
+    "pre_authorization_action": "WAIT_FOR_GROUND_AUTHORIZATION",
+    "authorization_source": "synthetic_ground_authorization_schedule",
+    "post_authorization_policy_id": "P5",
+    "post_authorization_action": "REQUEST_VERIFIED_ROLLBACK",
+    "runtime_observed_authorization_required": true,
+    "rollback_request_must_not_exist_before_authorization": true,
+    "replacement_source_verification_required": true,
+    "actual_recovery_execution_required": false,
+    "trusted_recovery_claim_allowed": false
+  },
+  "case_semantics": {
+    "D01": {
+      "contact_condition_id": "C0",
+      "authorization_available_at_response_boundary": true,
+      "missed_contact_windows": 0
+    },
+    "D02": {
+      "contact_condition_id": "C1",
+      "authorization_available_at_response_boundary": false,
+      "missed_contact_windows": 1
+    }
+  },
+  "scientific_boundary": {
+    "development_only": true,
+    "single_case_per_invocation": true,
+    "automatic_next_case": false,
+    "development_runtime_data": true,
+    "final_campaign_seed_consumption": false,
+    "final_campaign_data_generation": false,
+    "repetition_count_frozen": false,
+    "final_campaign_execution_authorized": false,
+    "real_human_operator_required": false,
+    "real_world_ground_contact_required": false,
+    "external_network_required": false,
+    "rf_transmission_allowed": false,
+    "ground_truth_policy_oracle_allowed": false
+  }
+}
