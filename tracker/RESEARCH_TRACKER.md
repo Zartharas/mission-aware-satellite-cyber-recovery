@@ -4,9 +4,9 @@ Last updated: 2026-08-22
 
 ## Current focus
 
-**WP9-B3 — all-24 static/readiness validation**
+**WP9-C — repetition-count selection**
 
-WP9-B2 is closed. The read-only closeout audit passed all 10 bounded development discriminators (D01-D10) with zero invalid attempts, zero campaign seeds consumed, zero campaign data generated, and no automatic next-case execution. The validated families were E2 replay effect (3/3), P6 synthetic authorization handoff (2/2), E3 fixed-policy mechanisms (3/3), and E4 fixed-policy observability (2/2). WP9-B3 must now verify all A01-A24 campaign cells for frozen factor identity, effective-policy/delegate identity, runtime-family routing, raw-metric compatibility, isolation/cleanup readiness, and campaign/development separation without executing the 24-cell campaign. Repetition-count selection remains WP9-C; final-campaign execution remains unauthorized.
+WP9-B3 is closed. The all-24 readiness validator passed at exact implementation commit `94c5d4aa50d3472461b7a53680c8bbb824b96efb`: all A01-A24 cells retained frozen factor identity, effective-policy/delegate identity, runtime-family routing, raw-metric/schema compatibility, isolation/cleanup readiness, and campaign/development separation; 12/12 dedicated B3 tests and the full 345-test research suite passed; GitHub Actions run `32584085313` completed successfully on that exact SHA. No runtime execution occurred, no campaign seed was consumed, no campaign data was generated, and the repetition count remains unfrozen. WP9-C must now select the smallest candidate valid repetitions per cell from `[12,16,20,24,30]` that satisfies the frozen precision and model-stability rules under both empirical pilot resampling and the predeclared conservative sensitivity analysis. Final-campaign execution remains unauthorized.
 
 ## Work packages
 
@@ -21,7 +21,7 @@ WP9-B2 is closed. The read-only closeout audit passed all 10 bounded development
 | WP6 | Response-policy implementation | **Complete** | Deterministic fixed-policy/P7 mechanisms validated for WP8 scope; bounded P6 extension subsequently passed WP9-B2 development-runtime validation |
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery plus four bounded failure-mode validations passed; reproducibility harness retained |
 | WP8 | Pilot | **Complete** | Read-only closeout passed: 12 Stage-1 valid cells + 28 Stage-2 valid repetitions = 40 valid pilot executions; one Stage-1 invalid attempt retained/excluded; 41 frozen archives verified; see `docs/17-wp8-pilot-closeout.md` |
-| WP9 | Frozen experiment campaign | **Pre-campaign readiness validation in progress** | WP9-A/R-044 froze the 24-cell design; WP9-B1/R-045 static mechanisms passed; WP9-B2 closed 10/10 bounded development discriminators with zero invalid attempts and zero campaign data; next WP9-B3 all-24 static/readiness validation, then WP9-C repetition selection; final campaign remains unauthorized |
+| WP9 | Frozen experiment campaign | **Pre-campaign repetition selection in progress** | WP9-A/R-044 froze the 24-cell design; WP9-B1 static mechanisms passed; WP9-B2 closed 10/10 bounded development discriminators; WP9-B3 all-24 readiness passed exact-SHA local/CI validation; next WP9-C repetition selection; final campaign remains unauthorized |
 | WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |
 | WP11 | Responsible artifact release | Not started | Sanitized code/data/reproducibility release |
 
