@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "decision_id": "R-049",
+  "status": "WP9B2_E4_FIXED_DEVELOPMENT_GATE_READY_D09_D10_ONLY",
+  "purpose": "Validate the two fixed-policy E4 mechanisms required by the bounded WP9-B2 plan without consuming campaign seeds or generating campaign data.",
+  "preserves": {
+    "wp8_observability_runtime": "historical_and_unchanged",
+    "wp9a_campaign_design": "configs/wp9_campaign_design.json",
+    "wp9b2_case_registry": "configs/wp9b2_development_cases.json",
+    "r046_case_identity": true
+  },
+  "cases": {
+    "D09": {
+      "campaign_cell_id": "A22",
+      "development_seed": 9609,
+      "event_id": "E4",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "requested_policy_id": "P0",
+      "effective_policy_id": "P0",
+      "selected_action": "OBSERVE_ONLY",
+      "runtime_discriminator": "degraded_telemetry_is_observed_in_immutable_truth_but_not_policy_visible_plane_and_P0_takes_no_containment_action"
+    },
+    "D10": {
+      "campaign_cell_id": "A23",
+      "development_seed": 9610,
+      "event_id": "E4",
+      "mission_state_id": "M2",
+      "contact_condition_id": "C0",
+      "evidence_condition_id": "T0",
+      "requested_policy_id": "P4",
+      "effective_policy_id": "P4",
+      "selected_action": "ENTER_SAFE_MODE",
+      "runtime_discriminator": "same_degraded_telemetry_event_is_preserved_while_P4_activates_the_modeled_command_gate_and_rejects_one_authorized_noop"
+    }
+  },
+  "measurement_contract": {
+    "high_value_mid": "0x08E9",
+    "visibility_deadline_s": 3,
+    "event_success": {
+      "immutable_truth_high_value_delta": 1,
+      "policy_visible_high_value_delta": 0,
+      "policy_selection_must_not_read_ground_truth": true,
+      "expected_values_used_as_measurements": false
+    },
+    "matched_post_response_probe": {
+      "immutable_truth_high_value_delta": 1,
+      "policy_visible_high_value_delta": 0,
+      "purpose": "demonstrate_that_neither_P0_nor_P4_is_mislabeled_as_E4_telemetry_restoration"
+    },
+    "D09": {
+      "command_gateway_required": false,
+      "containment_action_observed": false,
+      "telemetry_restoration_claim": false
+    },
+    "D10": {
+      "command_gateway_required": true,
+      "authorized_noop_attempt_count": 1,
+      "authorized_noop_forwarded": false,
+      "authorized_noop_marker_delta": 0,
+      "native_safe_mode_claim": false,
+      "telemetry_restoration_claim": false
+    }
+  },
+  "scientific_boundary": {
+    "development_only": true,
+    "single_case_per_invocation": true,
+    "automatic_next_case": false,
+    "campaign_seed_consumed": false,
+    "campaign_data": false,
+    "final_campaign_execution_authorized": false,
+    "ground_truth_policy_oracle_allowed": false,
+    "p4_native_safe_mode_claim": false,
+    "p4_telemetry_restoration_claim": false,
+    "spacecraft_failure_claim": false,
+    "rf_interference": false,
+    "live_spacecraft_access": false
+  }
+}
