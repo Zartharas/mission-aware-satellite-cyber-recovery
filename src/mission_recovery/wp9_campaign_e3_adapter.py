@@ -442,6 +442,27 @@ def build_static_fixture_bundle(
         },
     }
 
+    if effective == "P6":
+        raw["ground_authorization"] = {
+            "required": True,
+            "source": measurement["ground_authorization_source"],
+            "available_at_response_boundary": measurement[
+                "authorization_available_at_response_boundary"
+            ],
+            "available_timestamp_s": _seconds(
+                _as_int(measurement, "authorization_observed_ns"),
+                run_start_ns,
+            ),
+            "missed_contact_windows": _as_int(
+                measurement, "missed_contact_windows_observed"
+            ),
+            "authorization_current": measurement["ground_authorization_current"],
+            "evidence_ref": (
+                f"{evidence_prefix}/runtime-observation/"
+                "synthetic-ground-authorization.json"
+            ),
+        }
+
     start_utc = _parse_utc(measurement["run_start_utc"])
     run_end_utc = start_utc + timedelta(seconds=run_end_s)
     environment = environment_from_toolchain_lock(
