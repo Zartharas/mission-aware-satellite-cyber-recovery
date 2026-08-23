@@ -163,10 +163,21 @@ class WP9R064FinalCampaignBridgeTests(unittest.TestCase):
         self.assertFalse(request["automatic_retry_allowed"])
         self.assertFalse(request["automatic_next_case_allowed"])
 
-        with self.assertRaisesRegex(PermissionError, "not granted"):
+        with self.assertRaisesRegex(ValueError, "classification"):
             validate_trial_authorization(
                 plan=plan,
                 authorization=request,
+                current_repo_sha=REPO_SHA,
+            )
+
+        ungranted = copy.deepcopy(request)
+        ungranted["classification"] = (
+            "WP9_R064_FINAL_CAMPAIGN_SINGLE_TRIAL_AUTHORIZATION"
+        )
+        with self.assertRaisesRegex(PermissionError, "not granted"):
+            validate_trial_authorization(
+                plan=plan,
+                authorization=ungranted,
                 current_repo_sha=REPO_SHA,
             )
 
