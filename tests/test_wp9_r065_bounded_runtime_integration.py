@@ -233,7 +233,7 @@ class WP9R065BoundedRuntimeIntegrationTests(unittest.TestCase):
         with self.assertRaisesRegex(PermissionError, "separate runtime authorization"):
             execution_preflight(descriptor=descriptor)
 
-    def test_shell_entry_point_is_static_only(self):
+    def test_shell_entry_point_routes_only_exactly_authorized_z01(self):
         script_path = ROOT / "scripts" / "run_wp9_r065_bounded_runtime_integration.sh"
         script = script_path.read_text(encoding="utf-8")
 
@@ -241,10 +241,24 @@ class WP9R065BoundedRuntimeIntegrationTests(unittest.TestCase):
         self.assertIn("plan-case", script)
         self.assertIn("authorization-request", script)
         self.assertIn("execute-case", script)
-        self.assertIn("execution remains blocked", script)
+        self.assertIn("WP9_R065_DEVELOPMENT_RUNTIME_AUTHORIZED", script)
+        self.assertIn("WP9_R065_AUTHORIZED_CASE", script)
+        self.assertIn("WP9_R065_AUTHORIZED_SEED", script)
+        self.assertIn("WP9_R065_AUTHORIZED_REPO_SHA", script)
+        self.assertIn('CASE_ID="$1"', script)
+        self.assertIn('[[ "$CASE_ID" == "Z01" ]]', script)
+        self.assertIn("Z02-Z09 remain fail-closed", script)
+        self.assertIn(
+            "src.mission_recovery.wp9_r065_runtime_mechanism_driver",
+            script,
+        )
+        self.assertIn("execute-z01", script)
+        self.assertIn("automatic_retry_allowed=false", script)
+        self.assertIn("automatic_next_case_allowed=false", script)
         self.assertNotIn("docker run", script)
         self.assertNotIn("docker compose", script)
         self.assertNotIn("results/wp9/campaign", script)
+        self.assertNotIn("for CASE_ID", script)
 
 
 if __name__ == "__main__":
