@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
-from pathlib import Path
+from functools import lru_cache
 from typing import Any, Callable
 
 from .wp9_r065_bounded_runtime_integration import (
@@ -97,10 +97,13 @@ def _binding_for_signature(signature: str) -> dict[str, str]:
     try:
         return copy.deepcopy(MECHANISM_BINDINGS[signature])
     except KeyError as exc:
-        raise ValueError(f"R-065 production executor has no mechanism binding: {signature}") from exc
+        raise ValueError(
+            f"R-065 production executor has no mechanism binding: {signature}"
+        ) from exc
 
 
-def validate_static_executor() -> dict[str, Any]:
+@lru_cache(maxsize=1)
+def _validated_static_executor() -> dict[str, Any]:
     base = validate_static_integration()
     _require(base["decision_id"] == DECISION_ID, "R-065 base preparation changed")
     _require(
@@ -128,7 +131,10 @@ def validate_static_executor() -> dict[str, Any]:
             repo_commit="a" * 40,
         )
         binding = _binding_for_signature(plan["integration_signature"])
-        _require(binding["event_id"] == plan["event_id"], f"{case_id}: event binding changed")
+        _require(
+            binding["event_id"] == plan["event_id"],
+            f"{case_id}: event binding changed",
+        )
         _require(
             binding["runtime_family"] == plan["runtime_family"],
             f"{case_id}: runtime family binding changed",
@@ -183,6 +189,10 @@ def validate_static_executor() -> dict[str, Any]:
     }
 
 
+def validate_static_executor() -> dict[str, Any]:
+    return copy.deepcopy(_validated_static_executor())
+
+
 def build_execution_request(
     *,
     plan: dict[str, Any],
@@ -197,7 +207,10 @@ def build_execution_request(
     )
     binding = _binding_for_signature(str(descriptor["integration_signature"]))
 
-    _require(binding["event_id"] == descriptor["event_id"], "R-065 descriptor event mismatch")
+    _require(
+        binding["event_id"] == descriptor["event_id"],
+        "R-065 descriptor event mismatch",
+    )
     _require(
         binding["runtime_family"] == descriptor["runtime_family"],
         "R-065 descriptor runtime family mismatch",
@@ -230,7 +243,9 @@ def build_execution_request(
         "common_post_event_analysis_horizon_s": descriptor[
             "common_post_event_analysis_horizon_s"
         ],
-        "modeled_c1_contact_window_s": descriptor["modeled_c1_contact_window_s"],
+        "modeled_c1_contact_window_s": descriptor[
+            "modeled_c1_contact_window_s"
+        ],
         "p6_authorization_release_after_event_s": descriptor[
             "p6_authorization_release_after_event_s"
         ],
@@ -253,20 +268,35 @@ def build_execution_request(
 
 
 def validate_execution_request(request: dict[str, Any]) -> dict[str, Any]:
-    _require(request.get("decision_id") == DECISION_ID, "not an R-065 execution request")
-    _require(request.get("classification") == REQUEST_CLASSIFICATION, "R-065 request classification changed")
+    _require(
+        request.get("decision_id") == DECISION_ID,
+        "not an R-065 execution request",
+    )
+    _require(
+        request.get("classification") == REQUEST_CLASSIFICATION,
+        "R-065 request classification changed",
+    )
     case_id = str(request.get("case_id"))
     _require(case_id in INTEGRATION_CASES, "R-065 request case changed")
     expected = INTEGRATION_CASES[case_id]
-    _require(request.get("cell_id") == expected["cell_id"], "R-065 request cell mismatch")
+    _require(
+        request.get("cell_id") == expected["cell_id"],
+        "R-065 request cell mismatch",
+    )
     _require(
         int(request.get("development_seed")) == int(expected["development_seed"]),
         "R-065 request development seed mismatch",
     )
     signature = str(request.get("integration_signature"))
     binding = _binding_for_signature(signature)
-    _require(request.get("mechanism_binding") == binding, "R-065 mechanism binding mismatch")
-    _require(request.get("event_id") == binding["event_id"], "R-065 request event mismatch")
+    _require(
+        request.get("mechanism_binding") == binding,
+        "R-065 mechanism binding mismatch",
+    )
+    _require(
+        request.get("event_id") == binding["event_id"],
+        "R-065 request event mismatch",
+    )
     _require(
         request.get("runtime_family") == binding["runtime_family"],
         "R-065 request runtime family mismatch",
@@ -280,18 +310,42 @@ def validate_execution_request(request: dict[str, Any]) -> dict[str, Any]:
         evidence.startswith("results/wp9/development/r065/integration/"),
         "R-065 production request escaped development evidence namespace",
     )
-    _require("results/wp9/campaign" not in evidence, "R-065 production request entered campaign namespace")
-    _require(request.get("development_validation_only") is True, "R-065 request is not development-only")
+    _require(
+        "results/wp9/campaign" not in evidence,
+        "R-065 production request entered campaign namespace",
+    )
+    _require(
+        request.get("development_validation_only") is True,
+        "R-065 request is not development-only",
+    )
     _require(
         request.get("single_case_runtime_authorization_validated") is True,
         "R-065 request lacks exact single-case authorization",
     )
-    _require(request.get("one_case_per_invocation") is True, "R-065 request invocation boundary changed")
-    _require(request.get("driver_invocation_limit") == 1, "R-065 driver invocation limit changed")
-    _require(request.get("automatic_retry_allowed") is False, "R-065 request allows automatic retry")
-    _require(request.get("automatic_next_case_allowed") is False, "R-065 request allows automatic next case")
-    _require(request.get("campaign_seed_consumed") is False, "R-065 request consumed campaign seed")
-    _require(request.get("campaign_data_generated") is False, "R-065 request generated campaign data")
+    _require(
+        request.get("one_case_per_invocation") is True,
+        "R-065 request invocation boundary changed",
+    )
+    _require(
+        request.get("driver_invocation_limit") == 1,
+        "R-065 driver invocation limit changed",
+    )
+    _require(
+        request.get("automatic_retry_allowed") is False,
+        "R-065 request allows automatic retry",
+    )
+    _require(
+        request.get("automatic_next_case_allowed") is False,
+        "R-065 request allows automatic next case",
+    )
+    _require(
+        request.get("campaign_seed_consumed") is False,
+        "R-065 request consumed campaign seed",
+    )
+    _require(
+        request.get("campaign_data_generated") is False,
+        "R-065 request generated campaign data",
+    )
     _require(
         request.get("final_campaign_execution_authorized") is False,
         "R-065 request authorizes final campaign",
@@ -299,7 +353,11 @@ def validate_execution_request(request: dict[str, Any]) -> dict[str, Any]:
     return copy.deepcopy(request)
 
 
-def _validate_driver_result(*, request: dict[str, Any], result: dict[str, Any]) -> None:
+def _validate_driver_result(
+    *,
+    request: dict[str, Any],
+    result: dict[str, Any],
+) -> None:
     for key in (
         "case_id",
         "run_id",
@@ -307,7 +365,10 @@ def _validate_driver_result(*, request: dict[str, Any], result: dict[str, Any]) 
         "event_id",
         "runtime_variant",
     ):
-        _require(result.get(key) == request[key], f"R-065 driver result {key} mismatch")
+        _require(
+            result.get(key) == request[key],
+            f"R-065 driver result {key} mismatch",
+        )
     _require(
         int(result.get("development_seed")) == int(request["development_seed"]),
         "R-065 driver result development seed mismatch",
@@ -334,7 +395,11 @@ def _validate_driver_result(*, request: dict[str, Any], result: dict[str, Any]) 
     )
 
 
-def execute_request(*, request: dict[str, Any], driver: Driver) -> dict[str, Any]:
+def execute_request(
+    *,
+    request: dict[str, Any],
+    driver: Driver,
+) -> dict[str, Any]:
     validated = validate_execution_request(request)
     result = driver(copy.deepcopy(validated))
     _require(isinstance(result, dict), "R-065 driver result must be an object")
@@ -355,7 +420,9 @@ def execute_request(*, request: dict[str, Any], driver: Driver) -> dict[str, Any
         "treatment_fidelity_failure_retained": True,
         "automatic_retry_performed": False,
         "automatic_next_case_performed": False,
-        "runtime_execution_performed": bool(result.get("runtime_execution_performed", False)),
+        "runtime_execution_performed": bool(
+            result.get("runtime_execution_performed", False)
+        ),
         "campaign_seed_consumed": False,
         "campaign_data_generated": False,
         "final_campaign_execution_authorized": False,
