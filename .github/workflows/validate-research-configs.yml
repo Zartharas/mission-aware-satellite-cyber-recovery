@@ -12,6 +12,7 @@ on:
       - "scripts/run_wp5_*.sh"
       - "scripts/run_wp7_*.sh"
       - "scripts/run_wp8_*.sh"
+      - "scripts/run_wp9_*.sh"
       - ".github/workflows/validate-research-configs.yml"
   pull_request:
     paths:
@@ -23,6 +24,7 @@ on:
       - "scripts/run_wp5_*.sh"
       - "scripts/run_wp7_*.sh"
       - "scripts/run_wp8_*.sh"
+      - "scripts/run_wp9_*.sh"
       - ".github/workflows/validate-research-configs.yml"
 
 permissions:
@@ -81,3 +83,9 @@ jobs:
           bash -n scripts/run_wp8_observability_binding_preflight.sh
           bash -n scripts/run_wp8_observability_stage1_development.sh
           bash -n scripts/run_wp8_stage2_pilot.sh
+
+      - name: Validate WP9 shell syntax
+        run: |
+          for script in scripts/run_wp9_*.sh; do
+            bash -n "$script"
+          done
