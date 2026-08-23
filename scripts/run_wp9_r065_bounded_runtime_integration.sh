@@ -83,6 +83,8 @@ print(uuid.uuid4().hex)
 PY
 )"
     RUN_ID="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-wp9-r065-z01-s9941-${TOKEN}}"
+    EVIDENCE_DIRECTORY="$ROOT/results/wp9/development/r065/integration/$RUN_ID"
+    mkdir -p "$EVIDENCE_DIRECTORY/runtime-observation"
 
     echo "r065_exact_single_case_runtime_authorization=PASS"
     echo "authorized_case=Z01"
