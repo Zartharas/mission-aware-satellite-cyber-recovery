@@ -1,0 +1,49 @@
+from __future__ import annotations
+
+import os
+import stat
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = ROOT / "scripts" / "run_wp9_r069_campaign_one_position.sh"
+
+
+class R069EntrypointTests(unittest.TestCase):
+    def test_entrypoint_is_executable_and_single_invocation(self) -> None:
+        self.assertTrue(SCRIPT.is_file())
+        mode = SCRIPT.stat().st_mode
+        self.assertTrue(mode & stat.S_IXUSR)
+        text = SCRIPT.read_text(encoding="utf-8")
+        self.assertEqual(text.count("execute-request"), 1)
+        self.assertEqual(text.count("prepare-next"), 1)
+        self.assertEqual(text.count("append-result"), 1)
+        self.assertNotIn("git pull", text)
+        self.assertNotIn("for POSITION", text)
+        self.assertNotIn("for position", text)
+        self.assertNotIn("while true", text)
+        self.assertNotIn("automatic_retry_performed=true", text)
+        self.assertNotIn("automatic_next_case_performed=true", text)
+
+    def test_entrypoint_derives_metadata_from_operator_summary(self) -> None:
+        text = SCRIPT.read_text(encoding="utf-8")
+        self.assertIn('SUMMARY="$TMP/prepared/request-summary.json"', text)
+        self.assertIn('"RUNTIME_FAMILY": summary["runtime_family"]', text)
+        self.assertIn('"RUNTIME_VARIANT": summary["runtime_variant"]', text)
+        self.assertNotIn('request["runtime_family"]', text)
+        self.assertNotIn('request["runtime_variant"]', text)
+
+    def test_nonzero_executor_path_does_not_append_history(self) -> None:
+        text = SCRIPT.read_text(encoding="utf-8")
+        nonzero = text.split('if [[ "$RC" -ne 0 ]]', 1)[1].split(
+            '[[ -f "$EXEC_OUT" ]]', 1
+        )[0]
+        self.assertIn("attempt_history_append_performed=false", nonzero)
+        self.assertNotIn("append-result", nonzero)
+        self.assertIn("runtime_safety_audit", nonzero)
+        self.assertIn("STOP HERE", nonzero)
+
+
+if __name__ == "__main__":
+    unittest.main()
