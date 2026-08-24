@@ -174,10 +174,49 @@ case "$COMMAND" in
     echo "4. DERIVE EXACT NEXT FROZEN POSITION"
     echo "============================================================"
 
+    RUN_ID_OVERRIDE="$(
+      PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT" python3 - "$HISTORY" <<'PY'
+import json
+import sys
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+
+from src.mission_recovery.wp9_r064_attempt_history import (
+    next_required_trial_from_attempt_history,
+)
+
+path = Path(sys.argv[1])
+if path.exists():
+    history = json.loads(path.read_text(encoding="utf-8"))
+else:
+    history = []
+if not isinstance(history, list):
+    raise ValueError("campaign attempt history must be a JSON array")
+next_trial = next_required_trial_from_attempt_history(history)
+if next_trial is None:
+    raise ValueError("frozen campaign is already complete")
+is_retry = bool(history and history[-1].get("attempt_status") == "INVALID")
+stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+retry = "-retry" if is_retry else ""
+print(
+    f"{stamp}-wp9-r069-p{int(next_trial['global_order_index']):04d}{retry}-"
+    f"s{int(next_trial['campaign_seed'])}-{str(next_trial['cell_id']).lower()}-"
+    f"{uuid.uuid4().hex}"
+)
+PY
+    )"
+
+    [[ -n "$RUN_ID_OVERRIDE" ]] || {
+      echo "[BLOCKED] unable to generate next run ID"
+      exit 18
+    }
+
     PREPARE_ARGS=(
       --attempt-history-json "$HISTORY"
       --campaign-root "$CAMPAIGN_ROOT"
       --current-repo-sha "$LOCAL_SHA"
+      --run-id "$RUN_ID_OVERRIDE"
       --output-dir "$TMP/prepared"
     )
 
