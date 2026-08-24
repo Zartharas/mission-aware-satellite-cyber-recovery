@@ -7,10 +7,13 @@ from src.mission_recovery.wp9_campaign_trial_controller import build_trial_plan
 from src.mission_recovery.wp9_final_campaign_bridge import (
     AUTHORIZATION_CLASSIFICATION,
     build_authorization_request,
-    build_execution_descriptor,
     frozen_campaign_sequence,
+)
+from src.mission_recovery.wp9_r064_attempt_history import (
+    build_attempt_guarded_execution_descriptor,
     next_required_trial_from_attempt_history,
     validate_attempt_history,
+    validate_static_attempt_guard,
 )
 
 REPO_SHA = "a" * 40
@@ -34,6 +37,19 @@ def _granted(plan: dict) -> dict:
 
 
 class WP9R064AttemptHistoryTests(unittest.TestCase):
+    def test_static_guard_is_fail_closed_and_campaign_free(self):
+        result = validate_static_attempt_guard()
+        self.assertTrue(result["attempt_history_required_for_campaign_execution"])
+        self.assertTrue(result["run_id_uniqueness_enforced"])
+        self.assertTrue(result["invalid_attempt_retains_same_seed_cell"])
+        self.assertTrue(result["invalid_attempt_requires_new_run_id"])
+        self.assertTrue(result["duplicate_valid_position_prevented"])
+        self.assertTrue(result["hidden_rerun_prevented"])
+        self.assertFalse(result["runtime_execution_performed"])
+        self.assertFalse(result["campaign_seed_consumed"])
+        self.assertFalse(result["campaign_data_generated"])
+        self.assertFalse(result["final_campaign_execution_authorized"])
+
     def test_invalid_attempt_does_not_advance_and_new_run_id_is_required(self):
         sequence = frozen_campaign_sequence()
         first = sequence[0]
@@ -42,10 +58,7 @@ class WP9R064AttemptHistoryTests(unittest.TestCase):
         validated = validate_attempt_history(history)
         self.assertEqual(validated["valid_position_count"], 0)
         self.assertEqual(validated["attempt_count"], 1)
-        self.assertEqual(
-            next_required_trial_from_attempt_history(history),
-            first,
-        )
+        self.assertEqual(next_required_trial_from_attempt_history(history), first)
 
         with self.assertRaisesRegex(ValueError, "run_id"):
             validate_attempt_history(
@@ -90,7 +103,7 @@ class WP9R064AttemptHistoryTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "attempt_status"):
                     validate_attempt_history([_attempt(first, "bad-status", status)])
 
-    def test_execution_descriptor_requires_attempt_history_and_exact_next_position(self):
+    def test_guarded_descriptor_requires_exact_next_position_and_unused_run_id(self):
         sequence = frozen_campaign_sequence()
         first = sequence[0]
         history = [_attempt(first, "first-invalid", "INVALID")]
@@ -100,7 +113,7 @@ class WP9R064AttemptHistoryTests(unittest.TestCase):
             run_id="first-retry-new-run-id",
             repo_commit=REPO_SHA,
         )
-        descriptor = build_execution_descriptor(
+        descriptor = build_attempt_guarded_execution_descriptor(
             plan=plan,
             authorization=_granted(plan),
             attempt_history=history,
@@ -115,7 +128,7 @@ class WP9R064AttemptHistoryTests(unittest.TestCase):
         reused = copy.deepcopy(plan)
         reused["run_id"] = "first-invalid"
         with self.assertRaisesRegex(ValueError, "run_id"):
-            build_execution_descriptor(
+            build_attempt_guarded_execution_descriptor(
                 plan=reused,
                 authorization=_granted(reused),
                 attempt_history=history,
