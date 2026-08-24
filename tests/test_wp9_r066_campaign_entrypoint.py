@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "run_wp9_r066_final_campaign_trial.sh"
 
 
+def _outer_command_block(text: str, command: str) -> str:
+    start = f"\n  {command})\n"
+    end = "\n  *)\n    usage\n"
+    if start not in text or end not in text:
+        raise AssertionError(f"outer shell command markers missing: {command}")
+    return text.split(start, 1)[1].rsplit(end, 1)[0]
+
+
 class WP9R066CampaignEntrypointTests(unittest.TestCase):
     def test_entrypoint_is_executable_and_single_trial_only(self) -> None:
         mode = SCRIPT.stat().st_mode
@@ -31,7 +39,7 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
             text,
         )
 
-        execute_block = text.split("  execute-request)", 1)[1].split("  *)", 1)[0]
+        execute_block = _outer_command_block(text, "execute-request")
         self.assertNotIn("for ", execute_block)
         self.assertNotIn("docker run", execute_block)
         self.assertNotIn("docker compose", execute_block)
@@ -55,7 +63,7 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
 
     def test_entrypoint_argument_loop_does_not_execute_trials(self) -> None:
         text = SCRIPT.read_text(encoding="utf-8")
-        execute_block = text.split("  execute-request)", 1)[1].split("  *)", 1)[0]
+        execute_block = _outer_command_block(text, "execute-request")
         self.assertIn('while [[ "$#" -gt 0 ]]', execute_block)
         loop_body = execute_block.split('while [[ "$#" -gt 0 ]]', 1)[1].split(
             "    done", 1
@@ -82,7 +90,7 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
         legacy = (
             ROOT / "scripts" / "run_wp9_r064_final_campaign_trial.sh"
         ).read_text(encoding="utf-8")
-        block = legacy.split("  execute-trial)", 1)[1].split("  *)", 1)[0]
+        block = _outer_command_block(legacy, "execute-trial")
         self.assertIn("execution remains blocked", block)
         self.assertIn("exit 3", block)
         self.assertNotIn("docker run", block)
