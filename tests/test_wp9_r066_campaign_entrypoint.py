@@ -14,7 +14,7 @@ SCRIPT = ROOT / "scripts" / "run_wp9_r066_final_campaign_trial.sh"
 
 def _outer_command_block(text: str, command: str) -> str:
     start = f"\n  {command})\n"
-    end = "\n  *)\n    usage\n"
+    end = "\n  *)\n"
     if start not in text or end not in text:
         raise AssertionError(f"outer shell command markers missing: {command}")
     return text.split(start, 1)[1].rsplit(end, 1)[0]
