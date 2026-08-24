@@ -33,18 +33,48 @@ def validate_fresh_campaign_evidence(
     run_id = str(request.get("run_id", ""))
     cell_id = str(request.get("cell_id", ""))
     seed = int(request.get("campaign_seed"))
-    _require(bool(run_id), "R-066 run_id is required")
-    _require(cell_id.startswith("A") and len(cell_id) == 3, "R-066 cell_id is invalid")
+    run_component = Path(run_id)
+    _require(
+        bool(run_id)
+        and not run_component.is_absolute()
+        and len(run_component.parts) == 1
+        and run_component.parts[0] not in {".", ".."},
+        "R-066 run_id must be one relative path component",
+    )
+    _require(
+        len(cell_id) == 3
+        and cell_id.startswith("A")
+        and cell_id[1:].isdigit()
+        and 1 <= int(cell_id[1:]) <= 24,
+        "R-066 cell_id is invalid",
+    )
 
     expected = f"results/wp9/campaign/seed-{seed}/{cell_id}/{run_id}"
     evidence = str(request.get("evidence_directory", ""))
+    relative = Path(evidence)
+    _require(not relative.is_absolute(), "R-066 campaign evidence path is absolute")
+    _require(".." not in relative.parts, "R-066 campaign evidence traversal blocked")
     _require(evidence == expected, "R-066 exact campaign evidence path changed")
     _require(
         "results/wp9/development" not in evidence,
         "R-066 campaign evidence escaped into development namespace",
     )
 
-    target = root / evidence
+    cursor = root
+    for part in relative.parts[:-1]:
+        cursor = cursor / part
+        _require(
+            not cursor.is_symlink(),
+            "R-066 campaign evidence parent symlink blocked",
+        )
+
+    campaign_root = (root / "results" / "wp9" / "campaign").resolve(strict=False)
+    target = root / relative
+    resolved_target = target.resolve(strict=False)
+    _require(
+        resolved_target == campaign_root or campaign_root in resolved_target.parents,
+        "R-066 resolved campaign evidence escaped campaign root",
+    )
     _require(
         not target.exists() and not target.is_symlink(),
         "R-066 campaign evidence directory already exists; hidden rerun blocked",
@@ -59,6 +89,8 @@ def validate_fresh_campaign_evidence(
         "cell_id": cell_id,
         "evidence_directory": evidence,
         "evidence_directory_fresh": True,
+        "parent_symlink_free": True,
+        "resolved_namespace_confined": True,
         "hidden_rerun_blocked": True,
         "filesystem_write_performed": False,
         "runtime_execution_performed": False,
@@ -80,6 +112,8 @@ def main(argv: list[str] | None = None) -> int:
     print("campaign_seed=" + str(result["campaign_seed"]))
     print("cell_id=" + result["cell_id"])
     print("evidence_directory_fresh=true")
+    print("parent_symlink_free=true")
+    print("resolved_namespace_confined=true")
     print("hidden_rerun_blocked=true")
     print("runtime_execution_performed=false")
     print("campaign_seed_consumed=false")
