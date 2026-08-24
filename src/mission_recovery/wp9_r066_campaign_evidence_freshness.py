@@ -68,16 +68,17 @@ def validate_fresh_campaign_evidence(
             "R-066 campaign evidence parent symlink blocked",
         )
 
-    campaign_root = (root / "results" / "wp9" / "campaign").resolve(strict=False)
     target = root / relative
+    _require(
+        not target.exists() and not target.is_symlink(),
+        "R-066 campaign evidence directory already exists; hidden rerun blocked",
+    )
+
+    campaign_root = (root / "results" / "wp9" / "campaign").resolve(strict=False)
     resolved_target = target.resolve(strict=False)
     _require(
         resolved_target == campaign_root or campaign_root in resolved_target.parents,
         "R-066 resolved campaign evidence escaped campaign root",
-    )
-    _require(
-        not target.exists() and not target.is_symlink(),
-        "R-066 campaign evidence directory already exists; hidden rerun blocked",
     )
 
     return {
