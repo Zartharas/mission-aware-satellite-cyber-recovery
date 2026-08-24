@@ -40,6 +40,17 @@ class R069EntrypointTests(unittest.TestCase):
         self.assertIn('retry = "-retry" if is_retry else ""', text)
         self.assertIn('--run-id "$RUN_ID_OVERRIDE"', text)
 
+    def test_atomic_operator_lock_precedes_position_derivation_and_execution(self) -> None:
+        text = SCRIPT.read_text(encoding="utf-8")
+        self.assertIn('LOCK_DIR="/tmp/wp9-r069-campaign-one-position.lock"', text)
+        self.assertIn('mkdir "$LOCK_DIR"', text)
+        self.assertIn('rmdir "$LOCK_DIR"', text)
+        lock_index = text.index('mkdir "$LOCK_DIR"')
+        prepare_index = text.index("prepare-next")
+        execute_index = text.index("execute-request")
+        self.assertLess(lock_index, prepare_index)
+        self.assertLess(prepare_index, execute_index)
+
     def test_nonzero_executor_path_does_not_append_history(self) -> None:
         text = SCRIPT.read_text(encoding="utf-8")
         nonzero = text.split('if [[ "$RC" -ne 0 ]]', 1)[1].split(
