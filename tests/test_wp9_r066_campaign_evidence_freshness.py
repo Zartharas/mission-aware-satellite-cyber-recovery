@@ -24,11 +24,12 @@ def _request(run_id: str = "r066-freshness") -> dict:
 
 
 class WP9R066CampaignEvidenceFreshnessTests(unittest.TestCase):
-    def test_fresh_exact_campaign_namespace_passes_without_writes(self) -> None:
+    def test_fresh_exact_namespaces_pass_without_writes(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             result = validate_fresh_campaign_evidence(_request(), root=root)
             self.assertTrue(result["evidence_directory_fresh"])
+            self.assertTrue(result["nominal_runtime_evidence_directory_fresh"])
             self.assertTrue(result["parent_symlink_free"])
             self.assertTrue(result["resolved_namespace_confined"])
             self.assertTrue(result["hidden_rerun_blocked"])
@@ -37,6 +38,9 @@ class WP9R066CampaignEvidenceFreshnessTests(unittest.TestCase):
             self.assertFalse(result["campaign_seed_consumed"])
             self.assertFalse(result["campaign_data_generated"])
             self.assertFalse((root / result["evidence_directory"]).exists())
+            self.assertFalse(
+                (root / result["nominal_runtime_evidence_directory"]).exists()
+            )
 
     def test_existing_campaign_run_directory_is_blocked(self) -> None:
         request = _request("r066-existing")
@@ -47,7 +51,7 @@ class WP9R066CampaignEvidenceFreshnessTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "hidden rerun blocked"):
                 validate_fresh_campaign_evidence(request, root=root)
 
-    def test_existing_run_symlink_is_blocked(self) -> None:
+    def test_existing_campaign_run_symlink_is_blocked(self) -> None:
         request = _request("r066-symlink")
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -55,6 +59,29 @@ class WP9R066CampaignEvidenceFreshnessTests(unittest.TestCase):
             target.parent.mkdir(parents=True)
             target.symlink_to(root / "missing-target", target_is_directory=True)
             with self.assertRaisesRegex(ValueError, "hidden rerun blocked"):
+                validate_fresh_campaign_evidence(request, root=root)
+
+    def test_existing_nominal_runtime_directory_is_blocked(self) -> None:
+        request = _request("r066-runtime-existing")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            target = root / "artifacts" / "runtime" / request["run_id"]
+            target.mkdir(parents=True)
+            with self.assertRaisesRegex(
+                ValueError, "nominal runtime evidence directory already exists"
+            ):
+                validate_fresh_campaign_evidence(request, root=root)
+
+    def test_nominal_runtime_parent_symlink_is_blocked(self) -> None:
+        request = _request("r066-runtime-parent-symlink")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            external = root / "external-runtime"
+            external.mkdir()
+            runtime_parent = root / "artifacts" / "runtime"
+            runtime_parent.parent.mkdir(parents=True)
+            runtime_parent.symlink_to(external, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "parent symlink blocked"):
                 validate_fresh_campaign_evidence(request, root=root)
 
     def test_parent_symlink_cannot_redirect_campaign_namespace(self) -> None:
