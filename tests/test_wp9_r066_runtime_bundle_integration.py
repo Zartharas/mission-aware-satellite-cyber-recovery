@@ -171,7 +171,9 @@ class WP9R066RuntimeBundleIntegrationTests(unittest.TestCase):
                 result = _runtime_bundle(
                     plan=plan,
                     measurement=factory(plan),
-                    evidence_prefix=f"results/wp9/campaign/seed-10001/{cell_id}/fixture",
+                    evidence_prefix=(
+                        f"results/wp9/campaign/seed-10001/{cell_id}/fixture"
+                    ),
                 )
                 self.assertEqual(result["decision_id"], "R-066")
                 self.assertEqual(result["attempt_status"], "VALID")
@@ -192,57 +194,38 @@ class WP9R066RuntimeBundleIntegrationTests(unittest.TestCase):
                     source_decision,
                 )
                 self.assertFalse(
-                    provenance["claim_boundaries"]["ground_truth_used_as_policy_oracle"]
+                    provenance["execution_metadata"]["oracle_ground_truth_read"]
                 )
                 self.assertEqual(result["run_record"]["seed"], 10001)
 
-    def test_unexpected_scientific_effect_remains_valid_data(self) -> None:
+    def test_unexpected_treatment_valid_scientific_effect_remains_valid_data(self) -> None:
         plan = _plan("A21", "r066-bundle-unexpected")
         measurement = _e2_measurement(plan, replay_delta=1)
-        measurement["replay_gateway_action"] = "ISOLATE_MODELED_SOURCE"
-        measurement["replay_gateway_forwarded"] = False
+        result = _runtime_bundle(
+            plan=plan,
+            measurement=measurement,
+            evidence_prefix="results/wp9/campaign/seed-10001/A21/fixture",
+        )
+        self.assertEqual(result["attempt_status"], "VALID")
+        self.assertFalse(result["outcome_matches_predeclared_expectation"])
+        self.assertTrue(result["unexpected_scientific_outcome_retained"])
+        self.assertTrue(result["treatment_fidelity_valid"])
+        self.assertTrue(
+            result["binding_provenance"]["scientific_validity"][
+                "scientific_observation_retained"
+            ]
+        )
+
+    def test_treatment_fidelity_failure_is_rejected_not_reclassified_as_science(self) -> None:
+        plan = _plan("A21", "r066-bundle-treatment-invalid")
+        measurement = _e2_measurement(plan, replay_delta=0)
+        measurement["replay_gateway_forwarded"] = True
         with self.assertRaisesRegex(ValueError, "treatment semantics"):
             _runtime_bundle(
                 plan=plan,
                 measurement=measurement,
                 evidence_prefix="results/wp9/campaign/seed-10001/A21/fixture",
             )
-
-        # Unexpected science is tested on a treatment-valid sentinel path instead.
-        sentinel = _plan("A19", "r066-bundle-unexpected-sentinel")
-        row = {
-            "schema": 1,
-            "run_id": sentinel["run_id"],
-            "run_start_utc": "2026-08-24T03:00:00Z",
-            "run_start_ns": 1_000_000_000,
-            "event_activation_ns": 2_000_000_000,
-            "policy_enforcement_ns": 2_100_000_000,
-            "replay_gateway_decision_ns": 2_200_000_000,
-            "replay_effect_observed_ns": None,
-            "authorized_noop_probe_observed_ns": 2_400_000_000,
-            "observation_complete_ns": 32_100_000_000,
-            "setup_reset_marker_delta": 1,
-            "intervening_authorized_noop_marker_delta": 1,
-            "post_replay_reset_marker_delta": 0,
-            "post_response_authorized_noop_attempted": 1,
-            "post_response_authorized_noop_marker_delta": 1,
-            "gateway_decision_count": 2,
-            "replayed_packet_byte_identical": True,
-            "runtime_health_passed": True,
-            "replay_gateway_action": "OBSERVE_ONLY",
-            "replay_gateway_forwarded": True,
-            "authorized_noop_gateway_action": "OBSERVE_ONLY",
-            "authorized_noop_gateway_forwarded": True,
-        }
-        result = _runtime_bundle(
-            plan=sentinel,
-            measurement=row,
-            evidence_prefix="results/wp9/campaign/seed-10001/A19/fixture",
-        )
-        self.assertEqual(result["attempt_status"], "VALID")
-        self.assertFalse(result["outcome_matches_predeclared_expectation"])
-        self.assertTrue(result["unexpected_scientific_outcome_retained"])
-        self.assertTrue(result["treatment_fidelity_valid"])
 
 
 if __name__ == "__main__":
