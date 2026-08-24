@@ -7,6 +7,7 @@ cd "$ROOT"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
 CAMPAIGN_ROOT="$ROOT/results/wp9/campaign"
 HISTORY="$CAMPAIGN_ROOT/attempt-history.json"
+LOCK_DIR="/tmp/wp9-r069-campaign-one-position.lock"
 
 usage() {
   cat >&2 <<'EOF'
@@ -77,6 +78,16 @@ runtime_safety_audit() {
   [[ -z "$residual_containers" && -z "$residual_networks" && -z "$residual_aliases" ]]
 }
 
+cleanup_run_once() {
+  if [[ -n "${TMP:-}" && -d "$TMP" ]]; then
+    rm -rf "$TMP"
+  fi
+  if [[ "${LOCK_HELD:-0}" == "1" ]]; then
+    rmdir "$LOCK_DIR" >/dev/null 2>&1 || true
+    LOCK_HELD=0
+  fi
+}
+
 case "$COMMAND" in
   validate-static)
     validate_static
@@ -116,6 +127,18 @@ case "$COMMAND" in
 
     echo "exact_current_main=PASS"
     echo "tracked_worktree=clean"
+
+    LOCK_HELD=0
+    TMP=""
+    if ! mkdir "$LOCK_DIR"; then
+      echo "[BLOCKED] another R-069 campaign operator may already be active"
+      echo "lock_directory=$LOCK_DIR"
+      echo "Do not remove the lock until the other invocation is confirmed stopped."
+      exit 19
+    fi
+    LOCK_HELD=1
+    trap cleanup_run_once EXIT
+    echo "single_operator_lock=PASS"
 
     echo
     echo "============================================================"
@@ -167,7 +190,6 @@ case "$COMMAND" in
     echo "clean_runtime_snapshot=PASS"
 
     TMP="$(mktemp -d /tmp/wp9-r069-one-position.XXXXXX)"
-    trap 'rm -rf "$TMP"' EXIT
 
     echo
     echo "============================================================"
