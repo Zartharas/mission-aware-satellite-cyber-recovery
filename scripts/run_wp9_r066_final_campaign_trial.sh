@@ -173,8 +173,17 @@ PY
       exit 2
     }
 
-    # The Python executor checks exact run-id/seed/cell/repository authorization
-    # before invoking any runtime harness. No loop, retry, or next-case path exists.
+    # Fail before authorization reaches a runtime harness if this run-id already
+    # owns a campaign evidence directory. This independently protects against a
+    # stale/incomplete externally supplied attempt-history array.
+    PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT" python3 -m \
+      src.mission_recovery.wp9_r066_campaign_evidence_freshness \
+      check \
+      --request-json "$REQUEST_JSON"
+
+    # The hardened Python executor checks exact run-id/seed/cell/repository
+    # authorization before invoking one runtime harness. No retry or next-case
+    # execution path exists here.
     PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT" python3 -m \
       src.mission_recovery.wp9_r066_campaign_runtime_executor \
       execute-request \
