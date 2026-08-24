@@ -34,6 +34,12 @@ class R069EntrypointTests(unittest.TestCase):
         self.assertNotIn('request["runtime_family"]', text)
         self.assertNotIn('request["runtime_variant"]', text)
 
+    def test_retry_label_is_derived_only_from_retained_invalid_state(self) -> None:
+        text = SCRIPT.read_text(encoding="utf-8")
+        self.assertIn('history[-1].get("attempt_status") == "INVALID"', text)
+        self.assertIn('retry = "-retry" if is_retry else ""', text)
+        self.assertIn('--run-id "$RUN_ID_OVERRIDE"', text)
+
     def test_nonzero_executor_path_does_not_append_history(self) -> None:
         text = SCRIPT.read_text(encoding="utf-8")
         nonzero = text.split('if [[ "$RC" -ne 0 ]]', 1)[1].split(
