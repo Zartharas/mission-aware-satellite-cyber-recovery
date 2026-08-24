@@ -19,6 +19,37 @@ def _load(path: Path | str) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
+def _require_fresh_confined_path(
+    *,
+    root: Path,
+    relative: Path,
+    namespace_root: Path,
+    label: str,
+) -> Path:
+    cursor = root
+    for part in relative.parts[:-1]:
+        cursor = cursor / part
+        _require(
+            not cursor.is_symlink(),
+            f"R-066 {label} parent symlink blocked",
+        )
+
+    target = root / relative
+    _require(
+        not target.exists() and not target.is_symlink(),
+        f"R-066 {label} already exists; hidden rerun blocked",
+    )
+
+    resolved_namespace = namespace_root.resolve(strict=False)
+    resolved_target = target.resolve(strict=False)
+    _require(
+        resolved_target == resolved_namespace
+        or resolved_namespace in resolved_target.parents,
+        f"R-066 resolved {label} escaped namespace",
+    )
+    return target
+
+
 def validate_fresh_campaign_evidence(
     request: dict[str, Any],
     *,
@@ -60,25 +91,21 @@ def validate_fresh_campaign_evidence(
         "R-066 campaign evidence escaped into development namespace",
     )
 
-    cursor = root
-    for part in relative.parts[:-1]:
-        cursor = cursor / part
-        _require(
-            not cursor.is_symlink(),
-            "R-066 campaign evidence parent symlink blocked",
-        )
-
-    target = root / relative
-    _require(
-        not target.exists() and not target.is_symlink(),
-        "R-066 campaign evidence directory already exists; hidden rerun blocked",
+    campaign_root = root / "results" / "wp9" / "campaign"
+    _require_fresh_confined_path(
+        root=root,
+        relative=relative,
+        namespace_root=campaign_root,
+        label="campaign evidence directory",
     )
 
-    campaign_root = (root / "results" / "wp9" / "campaign").resolve(strict=False)
-    resolved_target = target.resolve(strict=False)
-    _require(
-        resolved_target == campaign_root or campaign_root in resolved_target.parents,
-        "R-066 resolved campaign evidence escaped campaign root",
+    nominal_relative = Path("artifacts") / "runtime" / run_id
+    nominal_root = root / "artifacts" / "runtime"
+    _require_fresh_confined_path(
+        root=root,
+        relative=nominal_relative,
+        namespace_root=nominal_root,
+        label="nominal runtime evidence directory",
     )
 
     return {
@@ -89,7 +116,9 @@ def validate_fresh_campaign_evidence(
         "campaign_seed": seed,
         "cell_id": cell_id,
         "evidence_directory": evidence,
+        "nominal_runtime_evidence_directory": str(nominal_relative),
         "evidence_directory_fresh": True,
+        "nominal_runtime_evidence_directory_fresh": True,
         "parent_symlink_free": True,
         "resolved_namespace_confined": True,
         "hidden_rerun_blocked": True,
@@ -113,6 +142,7 @@ def main(argv: list[str] | None = None) -> int:
     print("campaign_seed=" + str(result["campaign_seed"]))
     print("cell_id=" + result["cell_id"])
     print("evidence_directory_fresh=true")
+    print("nominal_runtime_evidence_directory_fresh=true")
     print("parent_symlink_free=true")
     print("resolved_namespace_confined=true")
     print("hidden_rerun_blocked=true")
