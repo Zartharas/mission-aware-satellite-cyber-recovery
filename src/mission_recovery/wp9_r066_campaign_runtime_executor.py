@@ -185,7 +185,16 @@ def shim_finalize(
         measurement=_load(measurement_json),
         evidence_prefix=evidence_prefix,
     )
-    _write(output_json, result)
+    compatibility = copy.deepcopy(result)
+    if family in {"E1", "E3"}:
+        _require(
+            isinstance(result.get("unexpected_scientific_outcome_retained"), bool),
+            "R-066 canonical unexpected-outcome retention flag is missing",
+        )
+        compatibility[
+            "unexpected_scientific_outcome_would_be_retained_in_campaign"
+        ] = bool(result["unexpected_scientific_outcome_retained"])
+    _write(output_json, compatibility)
     _write(evidence / "campaign-trial-result.json", result)
 
 
@@ -314,10 +323,26 @@ def run_campaign_source_harness(request: dict[str, Any]) -> dict[str, Any]:
     try:
         binding.derive_harness_text = derive_runtime_harness_text
         binding._shim_text = _shim_text
-        return binding.run_source_harness(request)
+        result = binding.run_source_harness(request)
     finally:
         binding.derive_harness_text = original_derive
         binding._shim_text = original_shim
+
+    if result.get("attempt_status") == "INVALID":
+        evidence = ROOT / str(request["evidence_directory"])
+        canonical = evidence / "campaign-trial-result.json"
+        provisional = evidence / "provisional-campaign-trial-result.json"
+        if canonical.exists() or canonical.is_symlink():
+            _require(
+                canonical.is_file() and not canonical.is_symlink(),
+                "R-066 invalid attempt canonical result is not a regular file",
+            )
+            _require(
+                not provisional.exists() and not provisional.is_symlink(),
+                "R-066 provisional campaign result already exists",
+            )
+            canonical.rename(provisional)
+    return result
 
 
 def execute_request(request: dict[str, Any]) -> dict[str, Any]:
@@ -379,6 +404,8 @@ def validate_static_executor() -> dict[str, Any]:
         "evidence_freshness_guard_enforced_in_executor": True,
         "runtime_wrapper_composition_preflight_enforced": True,
         "binding_global_restore_enforced": True,
+        "legacy_finalize_summary_compatibility_enforced": True,
+        "invalid_terminal_canonical_ambiguity_blocked": True,
         "one_source_harness_invocation_per_trial": True,
         "automatic_retry_allowed": False,
         "automatic_next_case_allowed": False,
@@ -428,6 +455,8 @@ def main(argv: list[str] | None = None) -> int:
             "evidence_freshness_guard_enforced_in_executor",
             "runtime_wrapper_composition_preflight_enforced",
             "binding_global_restore_enforced",
+            "legacy_finalize_summary_compatibility_enforced",
+            "invalid_terminal_canonical_ambiguity_blocked",
             "one_source_harness_invocation_per_trial",
             "automatic_retry_allowed",
             "automatic_next_case_allowed",
