@@ -104,7 +104,7 @@ class WP9R066CampaignRuntimeExecutorTests(unittest.TestCase):
                 self.assertEqual(
                     derivation["post_readiness_seed_commit_insertion_count"], 1
                 )
-                self.assertNotIn(_READINESS_MARKER, text)
+                self.assertEqual(text.count(_READINESS_MARKER), 1)
                 self.assertEqual(text.count("mark-seed"), 1)
                 self.assertEqual(text.count("WP9_R066_REPO_ROOT"), 1)
                 self.assertEqual(
