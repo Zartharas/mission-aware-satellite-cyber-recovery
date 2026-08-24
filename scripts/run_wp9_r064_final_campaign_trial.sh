@@ -24,6 +24,12 @@ case "$COMMAND" in
     python3 -m \
       src.mission_recovery.wp9_final_campaign_bridge \
       validate-static
+
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH="$ROOT" \
+    python3 -m \
+      src.mission_recovery.wp9_r064_attempt_history \
+      validate-static
     ;;
 
   authorization-request)
@@ -38,7 +44,7 @@ case "$COMMAND" in
   execute-trial)
     echo "[BLOCKED] R-064 static/TDD gate: campaign execution remains blocked" >&2
     echo "[BLOCKED] bounded non-campaign-seed runtime integration validation is required" >&2
-    echo "[BLOCKED] a separate exact single-trial authorization is required" >&2
+    echo "[BLOCKED] validated attempt history and a separate exact single-trial authorization are required" >&2
     exit 3
     ;;
 
