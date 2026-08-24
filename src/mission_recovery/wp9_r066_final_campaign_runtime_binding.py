@@ -171,7 +171,7 @@ def _make_binding(cell_id: str) -> dict[str, Any]:
         "source_path": source["path"],
         "source_blob_sha": source["blob_sha"],
         "source_decision_id": source["source_decision_id"],
-        "source_supported_cases": source["supported_cases"],
+        "source_supported_cases": list(source["supported_cases"]),
         "runtime_adapter_module": source["runtime_adapter_module"],
         "development_evidence_prefix": source["development_evidence_prefix"],
     }
