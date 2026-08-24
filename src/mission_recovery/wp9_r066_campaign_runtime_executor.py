@@ -14,6 +14,8 @@ from .wp9_static_contracts import evaluate_wp9_policy
 
 ROOT = Path(__file__).resolve().parents[2]
 DECISION_ID = "R-066"
+_BASE_DERIVE_HARNESS_TEXT = binding.derive_harness_text
+_BASE_SHIM_TEXT = binding._shim_text
 
 _READINESS_MARKER = (
     'echo "nominal_runtime_ready=PASS"\n'
@@ -50,7 +52,7 @@ def _write(path: Path | str, value: Any) -> None:
 def derive_runtime_harness_text(
     *, request: dict[str, Any]
 ) -> tuple[str, dict[str, Any]]:
-    text, derivation = binding.derive_harness_text(request=request)
+    text, derivation = _BASE_DERIVE_HARNESS_TEXT(request=request)
     _require(
         text.count(_READINESS_MARKER) == 1,
         "R-066 source harness post-readiness marker changed",
@@ -252,9 +254,63 @@ exec "$REAL" "$@"
 '''
 
 
-def run_campaign_source_harness(request: dict[str, Any]) -> dict[str, Any]:
+def _preflight_runtime_wrapper_composition(
+    *, request: dict[str, Any]
+) -> tuple[str, dict[str, Any], str]:
     original_derive = binding.derive_harness_text
     original_shim = binding._shim_text
+    _require(
+        original_derive is _BASE_DERIVE_HARNESS_TEXT,
+        "R-066 base harness deriver changed before wrapper composition",
+    )
+    _require(
+        original_shim is _BASE_SHIM_TEXT,
+        "R-066 base Python shim changed before wrapper composition",
+    )
+    try:
+        binding.derive_harness_text = derive_runtime_harness_text
+        binding._shim_text = _shim_text
+        text, derivation = binding.derive_harness_text(request=request)
+        shim = binding._shim_text()
+    finally:
+        binding.derive_harness_text = original_derive
+        binding._shim_text = original_shim
+
+    _require(
+        binding.derive_harness_text is original_derive,
+        "R-066 harness deriver was not restored after wrapper preflight",
+    )
+    _require(
+        binding._shim_text is original_shim,
+        "R-066 Python shim was not restored after wrapper preflight",
+    )
+    _require(
+        derivation["post_readiness_seed_commit_insertion_count"] == 1,
+        "R-066 wrapper preflight lost post-readiness seed commit",
+    )
+    _require(
+        text.count("mark-seed") == 1,
+        "R-066 wrapper preflight has invalid seed-commit count",
+    )
+    _require(
+        "shim-select-policy" in shim,
+        "R-066 wrapper preflight lost E3 policy shim",
+    )
+    return text, derivation, shim
+
+
+def run_campaign_source_harness(request: dict[str, Any]) -> dict[str, Any]:
+    _preflight_runtime_wrapper_composition(request=request)
+    original_derive = binding.derive_harness_text
+    original_shim = binding._shim_text
+    _require(
+        original_derive is _BASE_DERIVE_HARNESS_TEXT,
+        "R-066 base harness deriver changed before runtime invocation",
+    )
+    _require(
+        original_shim is _BASE_SHIM_TEXT,
+        "R-066 base Python shim changed before runtime invocation",
+    )
     try:
         binding.derive_harness_text = derive_runtime_harness_text
         binding._shim_text = _shim_text
@@ -288,7 +344,9 @@ def validate_static_executor() -> dict[str, Any]:
             "cell_id": cell_id,
             "campaign_seed": 10001,
         }
-        text, derivation = derive_runtime_harness_text(request=request)
+        text, derivation, shim = _preflight_runtime_wrapper_composition(
+            request=request
+        )
         _require(
             derivation["post_readiness_seed_commit_insertion_count"] == 1,
             f"R-066 seed boundary insertion changed: {cell_id}",
@@ -298,13 +356,15 @@ def validate_static_executor() -> dict[str, Any]:
             f"R-066 derived ROOT binding changed: {cell_id}",
         )
         _require(
-            "mark-seed" in text,
-            f"R-066 derived harness lacks seed boundary: {cell_id}",
+            text.count("mark-seed") == 1,
+            f"R-066 derived harness seed boundary changed: {cell_id}",
+        )
+        _require(
+            "shim-select-policy" in shim,
+            f"R-066 runtime shim composition changed: {cell_id}",
         )
         families.add(request["source_harness"]["event_id"])
     _require(families == {"E1", "E2", "E3", "E4"}, "R-066 family coverage changed")
-    shim = _shim_text()
-    _require("shim-select-policy" in shim, "R-066 E3 policy shim missing")
     return {
         "schema": 1,
         "decision_id": DECISION_ID,
@@ -317,6 +377,8 @@ def validate_static_executor() -> dict[str, Any]:
         "pre_readiness_failure_can_remain_seed_unconsumed": True,
         "e3_runtime_policy_compatibility_intercepted": True,
         "evidence_freshness_guard_enforced_in_executor": True,
+        "runtime_wrapper_composition_preflight_enforced": True,
+        "binding_global_restore_enforced": True,
         "one_source_harness_invocation_per_trial": True,
         "automatic_retry_allowed": False,
         "automatic_next_case_allowed": False,
@@ -364,6 +426,8 @@ def main(argv: list[str] | None = None) -> int:
             "pre_readiness_failure_can_remain_seed_unconsumed",
             "e3_runtime_policy_compatibility_intercepted",
             "evidence_freshness_guard_enforced_in_executor",
+            "runtime_wrapper_composition_preflight_enforced",
+            "binding_global_restore_enforced",
             "one_source_harness_invocation_per_trial",
             "automatic_retry_allowed",
             "automatic_next_case_allowed",
