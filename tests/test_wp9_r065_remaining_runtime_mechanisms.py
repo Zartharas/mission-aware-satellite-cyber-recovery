@@ -94,7 +94,7 @@ def _e4_measurement(run_id: str) -> dict:
         "gateway_decision_count": 1,
         "immutable_truth_separate": True,
         "runtime_health_passed": True,
-        "gateway_action": "ENTER_SAFE_MODE",
+        "authorized_noop_gateway_action": "ENTER_SAFE_MODE",
         "authorized_noop_gateway_forwarded": False,
     }
 
