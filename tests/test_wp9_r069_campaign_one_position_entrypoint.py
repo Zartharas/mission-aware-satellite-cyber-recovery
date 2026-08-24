@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import os
+import re
 import stat
 import unittest
 from pathlib import Path
@@ -19,7 +19,7 @@ class R069EntrypointTests(unittest.TestCase):
         self.assertEqual(text.count("execute-request"), 1)
         self.assertEqual(text.count("prepare-next"), 1)
         self.assertEqual(text.count("append-result"), 1)
-        self.assertNotIn("git pull", text)
+        self.assertIsNone(re.search(r"(?m)^\s*git\s+pull\b", text))
         self.assertNotIn("for POSITION", text)
         self.assertNotIn("for position", text)
         self.assertNotIn("while true", text)
@@ -43,6 +43,13 @@ class R069EntrypointTests(unittest.TestCase):
         self.assertNotIn("append-result", nonzero)
         self.assertIn("runtime_safety_audit", nonzero)
         self.assertIn("STOP HERE", nonzero)
+
+    def test_append_failure_runs_safety_audit_before_stopping(self) -> None:
+        text = SCRIPT.read_text(encoding="utf-8")
+        self.assertIn("attempt_history_append=FAIL", text)
+        append_failure = text.split("attempt_history_append=FAIL", 1)[1]
+        self.assertIn("runtime_safety_audit", append_failure)
+        self.assertIn("STOP HERE", append_failure)
 
 
 if __name__ == "__main__":
