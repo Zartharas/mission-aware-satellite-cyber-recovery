@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import contextlib
+import io
 import stat
 import unittest
 from pathlib import Path
+
+from src.mission_recovery import wp9_r066_final_campaign_runtime_binding as binding_cli
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "run_wp9_r066_final_campaign_trial.sh"
@@ -47,6 +51,12 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
         self.assertNotIn("python3 -m", loop_body)
         self.assertNotIn("docker", loop_body)
         self.assertNotIn("execute-request", loop_body)
+
+    def test_unhardened_binding_cli_exposes_no_execution_command(self) -> None:
+        with contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as blocked:
+                binding_cli.main(["execute-request"])
+        self.assertEqual(blocked.exception.code, 2)
 
     def test_entrypoint_does_not_embed_campaign_authorization(self) -> None:
         text = SCRIPT.read_text(encoding="utf-8")
