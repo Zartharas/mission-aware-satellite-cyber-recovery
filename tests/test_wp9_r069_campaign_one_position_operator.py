@@ -7,6 +7,7 @@ from pathlib import Path
 
 from src.mission_recovery.wp9_r069_campaign_one_position_operator import (
     append_attempt_result_atomic,
+    audit_unledgered_campaign_artifacts,
     inspect_runtime_request,
     prepare_next_attempt,
     validate_static_operator,
@@ -156,6 +157,7 @@ class R069OperatorTests(unittest.TestCase):
             "runtime_execution_performed": True,
             "campaign_seed_consumed": True,
             "campaign_data_generated": True,
+            "campaign_wide_execution_authorized": False,
             "automatic_retry_performed": False,
             "automatic_next_case_performed": False,
             "runner_result": {
@@ -194,6 +196,7 @@ class R069OperatorTests(unittest.TestCase):
             "runtime_execution_performed": True,
             "campaign_seed_consumed": True,
             "campaign_data_generated": True,
+            "campaign_wide_execution_authorized": False,
             "automatic_retry_performed": True,
             "automatic_next_case_performed": False,
             "runner_result": {},
@@ -207,6 +210,42 @@ class R069OperatorTests(unittest.TestCase):
                     executor_result=bad,
                     cell_order_index=2,
                 )
+
+    def test_unledgered_pre_runtime_request_plan_is_retained_but_not_science(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            run = root / "seed-10001" / "A13" / "pre-runtime-abort"
+            ground = run / "immutable-ground"
+            ground.mkdir(parents=True)
+            (ground / "campaign-plan.json").write_text("{}\n", encoding="utf-8")
+            (ground / "r066-runtime-request.json").write_text("{}\n", encoding="utf-8")
+            row = audit_unledgered_campaign_artifacts(
+                attempt_history=self.history,
+                campaign_root=root,
+            )
+        self.assertEqual(row["unledgered_pre_runtime_artifact_count"], 1)
+        self.assertEqual(row["unledgered_pre_runtime_run_ids"], ["pre-runtime-abort"])
+        self.assertFalse(row["unledgered_scientific_artifact_detected"])
+
+    def test_unledgered_seed_commit_or_runtime_evidence_is_fail_closed(self) -> None:
+        for relative in (
+            "immutable-ground/campaign-seed-consumption.json",
+            "campaign-trial-result.json",
+            "campaign-trial-invalid.json",
+            "source-harness.stderr.log",
+            "runtime-observation/measurement.json",
+        ):
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                run = root / "seed-10001" / "A13" / "unledgered-runtime"
+                target = run / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text("{}\n", encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    audit_unledgered_campaign_artifacts(
+                        attempt_history=self.history,
+                        campaign_root=root,
+                    )
 
 
 if __name__ == "__main__":
