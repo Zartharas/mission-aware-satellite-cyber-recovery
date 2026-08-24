@@ -5,7 +5,9 @@ import io
 import stat
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
+from src.mission_recovery import wp9_r066_campaign_runtime_executor as executor_cli
 from src.mission_recovery import wp9_r066_final_campaign_runtime_binding as binding_cli
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -71,6 +73,46 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
         self.assertNotIn("python3 -m", loop_body)
         self.assertNotIn("docker", loop_body)
         self.assertNotIn("execute-request", loop_body)
+
+    def test_direct_hardened_executor_runs_freshness_before_runtime_binding(self) -> None:
+        calls: list[str] = []
+        request = {"run_id": "r066-direct-freshness"}
+
+        def freshness(_: dict) -> dict:
+            calls.append("freshness")
+            return {"evidence_directory_fresh": True}
+
+        def execute(**_: object) -> dict:
+            calls.append("execute")
+            return {"attempt_status": "VALID"}
+
+        with patch.object(
+            executor_cli,
+            "validate_fresh_campaign_evidence",
+            side_effect=freshness,
+        ), patch.object(
+            executor_cli.binding,
+            "execute_campaign_runtime_request",
+            side_effect=execute,
+        ):
+            result = executor_cli.execute_request(request)
+
+        self.assertEqual(calls, ["freshness", "execute"])
+        self.assertEqual(result["attempt_status"], "VALID")
+
+    def test_direct_hardened_executor_stops_when_freshness_fails(self) -> None:
+        request = {"run_id": "r066-direct-stale"}
+        with patch.object(
+            executor_cli,
+            "validate_fresh_campaign_evidence",
+            side_effect=ValueError("stale evidence"),
+        ), patch.object(
+            executor_cli.binding,
+            "execute_campaign_runtime_request",
+        ) as execute:
+            with self.assertRaisesRegex(ValueError, "stale evidence"):
+                executor_cli.execute_request(request)
+            execute.assert_not_called()
 
     def test_unhardened_binding_cli_exposes_no_execution_command(self) -> None:
         with contextlib.redirect_stderr(io.StringIO()):
