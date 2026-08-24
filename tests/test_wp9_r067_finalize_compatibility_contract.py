@@ -122,6 +122,68 @@ class WP9R067FinalizeCompatibilityContractTests(unittest.TestCase):
             campaign_result,
         )
 
+    def test_invalid_source_harness_preserves_provisional_result_noncanonically(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            evidence_rel = Path(
+                "results/wp9/campaign/seed-10001/A13/run-invalid"
+            )
+            evidence = root / evidence_rel
+            canonical = evidence / "campaign-trial-result.json"
+            provisional = evidence / "provisional-campaign-trial-result.json"
+            request = {
+                "source_harness": dict(
+                    executor.binding.CELL_HARNESS_BINDINGS["A13"]
+                ),
+                "cell_id": "A13",
+                "campaign_seed": 10001,
+                "evidence_directory": str(evidence_rel),
+            }
+
+            provisional_payload = {
+                "classification": "WP9_R066_FINAL_CAMPAIGN_VALID_TRIAL_RESULT",
+                "attempt_status": "VALID",
+                "run_id": "run-invalid",
+            }
+
+            def fake_run_source_harness(_: dict) -> dict:
+                canonical.parent.mkdir(parents=True, exist_ok=True)
+                canonical.write_text(
+                    json.dumps(provisional_payload) + "\n",
+                    encoding="utf-8",
+                )
+                return {
+                    "attempt_status": "INVALID",
+                    "run_id": "run-invalid",
+                    "campaign_seed": 10001,
+                    "cell_id": "A13",
+                    "automatic_retry_performed": False,
+                    "automatic_next_case_performed": False,
+                }
+
+            with (
+                patch.object(executor, "ROOT", root),
+                patch.object(
+                    executor,
+                    "_preflight_runtime_wrapper_composition",
+                    return_value=("", {}, ""),
+                ),
+                patch.object(
+                    executor.binding,
+                    "run_source_harness",
+                    side_effect=fake_run_source_harness,
+                ),
+            ):
+                result = executor.run_campaign_source_harness(request)
+
+            self.assertEqual(result["attempt_status"], "INVALID")
+            self.assertFalse(canonical.exists())
+            self.assertTrue(provisional.is_file())
+            self.assertEqual(
+                json.loads(provisional.read_text(encoding="utf-8")),
+                provisional_payload,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
