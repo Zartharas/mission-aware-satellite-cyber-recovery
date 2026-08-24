@@ -26,6 +26,10 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
             "src.mission_recovery.wp9_r066_campaign_runtime_executor",
             text,
         )
+        self.assertIn(
+            "src.mission_recovery.wp9_r066_campaign_evidence_freshness",
+            text,
+        )
 
         execute_block = text.split("  execute-request)", 1)[1].split("  *)", 1)[0]
         self.assertNotIn("for ", execute_block)
@@ -39,7 +43,15 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
             1,
         )
         self.assertEqual(execute_block.count("execute-request"), 1)
-        self.assertIn("No loop, retry, or next-case path exists", execute_block)
+        self.assertLess(
+            execute_block.index(
+                "src.mission_recovery.wp9_r066_campaign_evidence_freshness"
+            ),
+            execute_block.index(
+                "src.mission_recovery.wp9_r066_campaign_runtime_executor"
+            ),
+        )
+        self.assertIn("No retry or next-case", execute_block)
 
     def test_entrypoint_argument_loop_does_not_execute_trials(self) -> None:
         text = SCRIPT.read_text(encoding="utf-8")
