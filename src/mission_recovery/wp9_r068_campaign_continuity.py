@@ -47,9 +47,17 @@ def _snapshot_repo_sha(result: dict[str, Any]) -> str | None:
 def _validate_identity(
     *, attempt: dict[str, Any], result: dict[str, Any]
 ) -> None:
+    try:
+        seed_matches = int(result.get("campaign_seed")) == int(
+            attempt.get("campaign_seed")
+        )
+    except (TypeError, ValueError) as exc:
+        raise ValueError(
+            "R-068 retained result identity differs from attempt ledger"
+        ) from exc
     _require(
         result.get("run_id") == attempt.get("run_id")
-        and int(result.get("campaign_seed")) == int(attempt.get("campaign_seed"))
+        and seed_matches
         and result.get("cell_id") == attempt.get("cell_id")
         and result.get("attempt_status") == attempt.get("attempt_status"),
         "R-068 retained result identity differs from attempt ledger",
@@ -68,6 +76,10 @@ def _validate_valid_result(result: dict[str, Any]) -> None:
         and result.get("treatment_fidelity_valid") is True
         and result.get("raw_metric_inputs_complete") is True,
         "R-068 VALID retained result is scientifically or operationally incomplete",
+    )
+    _require(
+        _snapshot_repo_sha(result) is not None,
+        "R-068 VALID retained result lacks execution snapshot identity",
     )
 
 
