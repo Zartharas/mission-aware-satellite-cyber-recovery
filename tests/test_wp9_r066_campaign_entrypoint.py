@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 import stat
 import unittest
 from pathlib import Path
@@ -26,11 +25,28 @@ class WP9R066CampaignEntrypointTests(unittest.TestCase):
 
         execute_block = text.split("  execute-request)", 1)[1].split("  *)", 1)[0]
         self.assertNotIn("for ", execute_block)
-        self.assertNotIn("while ", execute_block)
         self.assertNotIn("docker run", execute_block)
         self.assertNotIn("docker compose", execute_block)
-        self.assertNotIn("automatic retry", execute_block.lower())
+        self.assertNotIn("run_source_harness", execute_block)
+        self.assertEqual(
+            execute_block.count(
+                "src.mission_recovery.wp9_r066_campaign_runtime_executor"
+            ),
+            1,
+        )
+        self.assertEqual(execute_block.count("execute-request"), 1)
         self.assertIn("No loop, retry, or next-case path exists", execute_block)
+
+    def test_entrypoint_argument_loop_does_not_execute_trials(self) -> None:
+        text = SCRIPT.read_text(encoding="utf-8")
+        execute_block = text.split("  execute-request)", 1)[1].split("  *)", 1)[0]
+        self.assertIn('while [[ "$#" -gt 0 ]]', execute_block)
+        loop_body = execute_block.split('while [[ "$#" -gt 0 ]]', 1)[1].split(
+            "    done", 1
+        )[0]
+        self.assertNotIn("python3 -m", loop_body)
+        self.assertNotIn("docker", loop_body)
+        self.assertNotIn("execute-request", loop_body)
 
     def test_entrypoint_does_not_embed_campaign_authorization(self) -> None:
         text = SCRIPT.read_text(encoding="utf-8")
