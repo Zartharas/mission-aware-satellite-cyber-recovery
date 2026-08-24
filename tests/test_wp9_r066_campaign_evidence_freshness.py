@@ -29,6 +29,8 @@ class WP9R066CampaignEvidenceFreshnessTests(unittest.TestCase):
             root = Path(tmp)
             result = validate_fresh_campaign_evidence(_request(), root=root)
             self.assertTrue(result["evidence_directory_fresh"])
+            self.assertTrue(result["parent_symlink_free"])
+            self.assertTrue(result["resolved_namespace_confined"])
             self.assertTrue(result["hidden_rerun_blocked"])
             self.assertFalse(result["filesystem_write_performed"])
             self.assertFalse(result["runtime_execution_performed"])
@@ -45,7 +47,7 @@ class WP9R066CampaignEvidenceFreshnessTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "hidden rerun blocked"):
                 validate_fresh_campaign_evidence(request, root=root)
 
-    def test_existing_symlink_is_blocked(self) -> None:
+    def test_existing_run_symlink_is_blocked(self) -> None:
         request = _request("r066-symlink")
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -54,6 +56,24 @@ class WP9R066CampaignEvidenceFreshnessTests(unittest.TestCase):
             target.symlink_to(root / "missing-target", target_is_directory=True)
             with self.assertRaisesRegex(ValueError, "hidden rerun blocked"):
                 validate_fresh_campaign_evidence(request, root=root)
+
+    def test_parent_symlink_cannot_redirect_campaign_namespace(self) -> None:
+        request = _request("r066-parent-symlink")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            external = root / "external"
+            external.mkdir()
+            seed_parent = root / "results" / "wp9" / "campaign" / "seed-10001"
+            seed_parent.parent.mkdir(parents=True)
+            seed_parent.symlink_to(external, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "parent symlink blocked"):
+                validate_fresh_campaign_evidence(request, root=root)
+
+    def test_run_id_path_traversal_is_blocked(self) -> None:
+        request = _request("../escape")
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(ValueError, "one relative path component"):
+                validate_fresh_campaign_evidence(request, root=Path(tmp))
 
     def test_noncanonical_campaign_path_is_blocked(self) -> None:
         request = _request()
