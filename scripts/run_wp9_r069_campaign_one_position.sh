@@ -187,7 +187,6 @@ case "$COMMAND" in
 
     SUMMARY="$TMP/prepared/request-summary.json"
     REQUEST="$TMP/prepared/request.json"
-    PLAN="$TMP/prepared/plan.json"
     EXEC_OUT="$TMP/executor-return.json"
 
     eval "$(
@@ -311,19 +310,38 @@ PY
     echo "7. ATOMIC ATTEMPT-HISTORY APPEND"
     echo "============================================================"
 
-    PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT" python3 -m \
+    APPEND_RC=0
+    if PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT" python3 -m \
       src.mission_recovery.wp9_r069_campaign_one_position_operator \
       append-result \
       --attempt-history-json "$HISTORY" \
       --request-json "$REQUEST" \
       --executor-result-json "$EXEC_OUT"
+    then
+      APPEND_RC=0
+    else
+      APPEND_RC=$?
+    fi
+
+    if [[ "$APPEND_RC" -ne 0 ]]; then
+      echo "attempt_history_append=FAIL"
+      echo "automatic_retry_performed=false"
+      echo "automatic_next_case_performed=false"
+      runtime_safety_audit "$RUN_ID" "$SAFE_ID" || true
+      echo "tracked_worktree_after_append_failure=$(test -z "$(git status --short)" && echo clean || echo DIRTY)"
+      echo "STOP HERE. Retained runtime result requires ledger review; do not execute another position."
+      exit "$APPEND_RC"
+    fi
+
+    echo "attempt_history_append=PASS"
 
     echo
     echo "============================================================"
     echo "8. RETAINED RESULT SUMMARY"
     echo "============================================================"
 
-    PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT" python3 - "$EXEC_OUT" <<'PY'
+    SUMMARY_RC=0
+    if PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT" python3 - "$EXEC_OUT" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -375,6 +393,19 @@ if isinstance(record, dict):
             if key in outcomes:
                 print(f"{key}={outcomes[key]}")
 PY
+    then
+      SUMMARY_RC=0
+    else
+      SUMMARY_RC=$?
+    fi
+
+    if [[ "$SUMMARY_RC" -ne 0 ]]; then
+      echo "[RETAIN / STOP] result summary rendering failed after ledger append"
+      runtime_safety_audit "$RUN_ID" "$SAFE_ID" || true
+      echo "tracked_worktree_after_summary_failure=$(test -z "$(git status --short)" && echo clean || echo DIRTY)"
+      echo "STOP HERE. Do not execute another campaign position."
+      exit "$SUMMARY_RC"
+    fi
 
     echo
     echo "============================================================"
