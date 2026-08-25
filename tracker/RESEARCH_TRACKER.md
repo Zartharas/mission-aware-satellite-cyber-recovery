@@ -1,29 +1,125 @@
 # Research Tracker
 
-Last updated: 2026-08-23
+Last updated: 2026-08-25
 
 ## Current focus
 
-**WP9 campaign-safe runtime route adapters — R-063 E3 bounded development runtime and freeze review closed; final campaign separately unauthorized**
+**WP9 final frozen experiment campaign is active under the promoted R-066 production single-trial runtime. Frozen position 1 is valid and retained; the next required frozen position is position 2: seed 10001 / A13.**
 
-WP9-A through WP9-C and the pre-campaign timing/seed freezes are closed. R-051 freezes 30 valid repetitions per cell / 720 total valid executions. R-052 freezes the modeled C1 one-missed-contact window at 10 seconds and the E3 post-event analysis horizon at 30 seconds. R-053 freezes 30 campaign seed blocks (`10001`–`10030`) and a deterministic SHA-256-derived A01–A24 execution order per seed; invalid attempts retain the same seed/cell with a new run ID, with no automatic retry or automatic next case. R-054 adds a fail-closed one-trial controller and passed exact-SHA GitHub Actions run `32590641756`. R-055 freezes a common 30-second post-event analysis/right-censoring horizon across E1–E4 and passed exact-SHA GitHub Actions run `32591203615`. R-056 closes campaign-safe A19–A21/E2 observation binding and passed exact-SHA GitHub Actions run `32591739213`. R-057 closes bounded E2 single-trial route validation: implementation CI `32592274322`; cleanup-only first V01 attempt retained invalid; cleanup ownership fix passed CI `32593243192`; valid V01 replacement (A19/P0), V02 (A20/P1), and V03 (A21/P7→P1) all passed treatment fidelity, 30-second observation, legitimate-command probe, and residue checks. R-058 closes campaign-safe A22–A24/E4 observation binding at commit `70f728290c14788c31071b52875b5030d6ea4237`: 12/12 dedicated tests, full 399-test suite, expected A24 P7→P4 binding, deliberately unexpected A22 legitimate-service loss retained as scientific observation, explicit execution rejection, zero campaign files, and exact-SHA GitHub Actions run `32597726630`. R-059 closes bounded E4 single-trial route validation: implementation `76a61e11d46897edbfee0e730d904be12f111627` passed 12/12 dedicated tests, full 411-test suite, and exact-SHA CI `32599292779`; W01/A22/P0→P0 seed 9911, W02/A23/P4→P4 seed 9912, and W03/A24/P7→P4 seed 9913 each produced valid retained development-runtime evidence with treatment fidelity, full 30-second observation, post-response authorized-NOOP measurement, and residue-free cleanup. W03 specifically confirmed P7→P4 selection without immutable-ground-truth oracle use. R-060 closes campaign-safe E1/A01–A09 observation binding at implementation commit `93b4ab7b92521006036fc3fd09f33c2fd48dd6b3`: 14/14 dedicated tests, full 425-test suite, exact-SHA GitHub Actions run `32606026863`, frozen A01–A09 requested/effective policy bindings, the common 30-second observation/right-censoring horizon, retention of unexpected scientific outcomes, explicit runtime-execution rejection, and zero campaign/R-060 runtime files. R-061 E1 bounded runtime validation is closed. The static/TDD adapter at commit `972fa54a950e646a2cccd3df7b46008e7adb7e84` passed 12/12 focused tests, the full 437-test suite, and exact-SHA GitHub Actions run `32608271724`. The bounded runtime harness at commit `9302a6bfb3daf10bcd2ff73e5a8ed8e0b55daa7a` passed 8/8 harness tests, the full 445-test suite, and exact-SHA GitHub Actions run `32608764570`. Five valid retained E1 development runs X01–X05 cover every distinct requested→effective policy path: P1→P1, P2→P2, P7→P1, P7→P2, and P7→P4. All five passed treatment fidelity, the frozen 30-second post-event observation horizon, runtime-health checks, immutable-ground-truth oracle separation, and residue-free cleanup. X01–X04 observed attacker-reset/authorized-NOOP deltas of 0/1; X05 observed 0/0 under the modeled P4 `ENTER_SAFE_MODE` gateway action; this is not a native spacecraft safe-mode claim. All five matched their predeclared expectations. R-062 closes campaign-safe E3/A10–A18 observation binding at corrected implementation commit `b408875b461543bc595089655101b232b86b772c`: 17 focused tests and the full 462-test suite passed exact-SHA GitHub Actions run `32615784647` after a fail-closed schema regression exposed and corrected the missing P6 `ground_authorization` evidence object. The binder preserves the frozen 10-second modeled C1 window and 30-second E3 analysis horizon, keeps P2 command mitigation distinct from update containment, preserves T1 policy-time versus classification-time evidence semantics, binds P6 C0/C1 synthetic-authorization handoff, and keeps A18 P7→P5 autonomous without immutable-ground-truth oracle use. No E3 runtime was executed under R-062. R-063 closes the E3 bounded-harness static/TDD and development-runtime validation at implementation head `89d0fd348cb6a8de55fb9370750ddc4725a6dddc`: 19 focused R-063 tests and the full 481-test suite passed CI run `32616525018`, with schema validation and WP7/WP8/WP9 shell syntax also passing. The minimal representative set Y01=A13/9931/P7→P2, Y02=A11/9932/P7→P5, Y03=A15/9933/P5→P5, Y04=A16/9934/P6-C0, Y05=A17/9935/P6-C1, and Y06=A18/9936/P7→P5-C1 was each executed exactly once under separate one-case/exact-SHA authorization against reviewed repository SHA `498a79a0764b8c45f162b29b2988023eaa9a4a37`; A10/A12/A14 remain omitted only as runtime-mechanism duplicates. All six retained development runs passed treatment fidelity, runtime-health, observation-binding, cleanup, and claim-boundary checks with zero invalid or extra attempts, zero automatic retries, and zero automatic next-case executions. Y01 confirmed P2 command-path mitigation without update containment; Y02 confirmed autonomous P7→P5 trusted recovery; Y03 preserved T1 policy-time evidence omission while still allowing evidence-driven trusted recovery; Y04 confirmed P6/C0 synthetic authorization available at the response boundary with zero missed windows and P6→P5 handoff; Y05 confirmed P6/C1 authorization unavailable at the response boundary, exactly one modeled missed window, and an observed 10.109910-second authorization delay before P6→P5 handoff; Y06 confirmed P7→P5/C1 remained autonomous with no ground-authorization wait and 0.103200-second policy-selection delay. A read-only freeze review then verified the exact six-run set, zero invalid/extra attempts, five runtime variants, all retained core identities, 140 evidence files, zero campaign files, and aggregate R-063 E3 evidence-tree SHA-256 `11e9e6ee2fc7f1a331de49e539b404bbfeb0897294cad98355e6d52cf16624b8`. Campaign seeds `10001`–`10030` remain untouched, no campaign data has been generated, and final-campaign execution remains separately unauthorized.
+The pre-campaign engineering sequence is closed. R-064 added the single-trial campaign bridge and exact-attempt-history semantics. R-065 completed bounded production-integration validation across representative Z01–Z09 development cases without consuming campaign seeds. R-066 bound the frozen campaign to the already runtime-validated E1/E2/E3/E4 mechanisms, added exact source-harness blob checks, campaign evidence freshness controls, post-readiness seed-commit semantics, exact one-trial authorization, JSON-persistence stability, wrapper-composition preflight, and fail-closed restoration checks. The promoted R-066 main baseline for campaign position 1 was commit `aae2239753119c92e7633db3b6c73aee94c7b6dd`, tree `105bc8a868ab90e0c1cfd2385e4e0b50924312df`.
+
+The frozen campaign remains 24 cells × 30 valid repetitions = 720 valid executions. Campaign seeds are `10001`–`10030`; within-seed order is deterministic under the frozen R-053 ordering rule. C1 is a modeled 10-second synthetic missed-contact window. E1–E4 use the common 30-second post-event observation/right-censoring horizon where applicable. One trial is executed per invocation. Automatic retry and automatic next-case execution remain prohibited. Invalid attempts retain the same frozen seed/cell and require a fresh run ID. Expected values are acceptance-only and never replace raw metric inputs. Treatment-fidelity failures invalidate a trial; unexpected but treatment-valid scientific outcomes are retained.
+
+## R-064 through R-066 closeout
+
+- **R-064:** final-campaign bridge and one-trial campaign routing established; final campaign still fail-closed without a production executor.
+- **R-065:** bounded integration closed across Z01–Z09 using development seeds `9941`–`9949`; all intended runtime mechanism families/variants passed. No campaign seed was consumed and no campaign data was generated.
+- **R-064 attempt-history guard:** enforces global run-ID uniqueness, exact next frozen position, invalid-attempt non-advancement, new-run-ID requirement after invalidity, duplicate-valid rejection, and hidden-rerun rejection.
+- **R-066 production binding:** all A01–A24 cells bind to the previously validated E1/E2/E3/E4 source harnesses by exact Git blob identity. Campaign seed/cell identities are passed through to the runtime while the scientific mechanism body remains derived from the validated source harness.
+- **R-066 evidence freshness:** both `results/wp9/campaign/<seed>/<cell>/<run_id>` and `artifacts/runtime/<run_id>` must be fresh and symlink-safe before execution.
+- **R-066 seed commitment:** campaign seed commitment is recorded only after nominal NOS3 readiness and isolation and before seed-dependent scientific runtime effects.
+- **R-066 persistence defect:** the first production attempt to start position 1 exposed a JSON tuple/list equality defect in the persisted `source_harness` binding. It was reproduced in CI, fixed by using a JSON-native list, and promoted. No source harness was invoked and no campaign seed was consumed.
+- **R-066 composition defect:** a subsequent position-1 start exposed recursion in the wrapper composition layer. The retained run directory contains only pre-runtime request/plan evidence and no seed-commit marker, runtime observation, canonical campaign result, or attempt-history entry. It is classified `PRE_RUNTIME_ABORT_UNCONSUMED`, preserved as evidence, and does not count as a scientific campaign attempt. The defect was independently reproduced by focused tests and fixed by immutable base-function capture, exact zero-write wrapper-composition preflight, fail-closed restoration checks, and static composition validation across all 24 cells.
+- **Composition hardening promotion:** commit `aae2239753119c92e7633db3b6c73aee94c7b6dd`, tree `105bc8a868ab90e0c1cfd2385e4e0b50924312df`.
+
+## Final campaign progress
+
+### Frozen position 1 — VALID
+
+- Global order index: `1`
+- Campaign seed: `10001`
+- Cell: `A19`
+- Event: `E2` replayed command
+- Requested/effective policy: `P0 → P0`
+- Selected action: `OBSERVE_ONLY`
+- Run ID: `20260824T145723Z-wp9-r066-p0001-s10001-a19-69fe370fe1d249e68ebf05671a630b9d`
+- Attempt status: `VALID`
+- Source harness invocation count: `1`
+- Runtime execution performed: `true`
+- Campaign seed consumed: `true`
+- Campaign data generated: `true`
+- Treatment fidelity valid: `true`
+- Raw metric inputs complete: `true`
+- Outcome matched predeclared expectation: `true`
+- Unexpected scientific outcome retained: `false`
+- Automatic retry: `false`
+- Automatic next case: `false`
+- Campaign-wide execution authorization: `false`
+
+Observed E2 discriminators for A19/P0:
+
+- replay gateway action: `OBSERVE_ONLY`
+- replay gateway forwarded: `true`
+- replayed packet byte-identical: `true`
+- post-replay reset-marker delta: `1`
+- authorized NOOP gateway forwarded: `true`
+- intervening authorized-NOOP marker delta: `1`
+- post-response authorized-NOOP marker delta: `1`
+- runtime health passed: `true`
+- unauthorized effect completed: `true`
+- containment: `false`
+- terminal state: `RECOVERY_FAILED`
+- trusted recovery confirmed: `false`
+- mission objective completion ratio: `0.5`
+- legitimate command rejection rate: `0.0`
+- evidence completeness ratio: `1.0`
+- ground/spacecraft-state divergence: `28.281255168 s`
+
+These are valid observations for the frozen P0 observation-only treatment; they are not treatment failures merely because the replay effect is allowed to complete.
+
+### Attempt-history state after position 1
+
+- attempt count: `1`
+- valid position count: `1`
+- invalid attempt count: `0`
+- next required global order index: `2`
+- next required campaign seed: `10001`
+- next required cell order index: `2`
+- next required cell: `A13`
+
+The retained pre-runtime R-066 abort remains preserved separately and is not entered in the scientific attempt-history ledger because no seed commitment or source-harness runtime occurred.
+
+## Next exact action
+
+Execute **only frozen position 2: seed `10001` / cell `A13`** using the promoted R-066 single-trial path and the retained attempt-history ledger. Before execution, revalidate exact repository identity, source-harness blob identity, campaign evidence freshness, zero residual NOS3 runtime, and exact next-position derivation from attempt history. Do not automatically execute position 3.
+
+Continue the frozen campaign one invocation at a time until 720 valid positions are retained. After the campaign completes, perform a read-only campaign integrity freeze, then the statistical analysis. Do not add new development work unless a concrete scientific-validity, reproducibility, safety, or legality defect is observed.
 
 ## Work packages
 
 | ID | Work package | Status | Evidence / next step |
 |---|---|---|---|
 | WP0 | Research workspace | Complete | Reproducibility and responsible-use structure |
-| WP1 | Literature and novelty | Ready for final review | Gap: comparative mission-aware response and evidence-based trusted recovery |
-| WP2 | Theoretical model | Ready for final review | Mission Aware + FDIR + cyber-resilience framing |
-| WP3 | Threat and mission model | Ready for final review | Mission states, invariants, trust boundaries, evidence separation |
-| WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and bounded runtime-preflight evidence |
-| WP5 | Deterministic event library | **Complete** | E1-E4 deterministic event adapters validated against the accepted NOS3 runtime |
-| WP6 | Response-policy implementation | **Complete** | Deterministic fixed-policy/P7 mechanisms validated for WP8 scope; bounded P6 extension subsequently passed WP9-B2 development-runtime validation |
-| WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery plus four bounded failure-mode validations passed; reproducibility harness retained |
-| WP8 | Pilot | **Complete** | Read-only closeout passed: 12 Stage-1 valid cells + 28 Stage-2 valid repetitions = 40 valid pilot executions; one Stage-1 invalid attempt retained/excluded; 41 frozen archives verified; see `docs/17-wp8-pilot-closeout.md` |
-| WP9 | Frozen experiment campaign | **Bounded E3 runtime validation closed** | R-057/R-059 E2/E4 runtime families and R-060/R-061 E1 observation/runtime validation closed; R-062 E3/A10–A18 observation binding closed at `b408875b461543bc595089655101b232b86b772c`; R-063 static/TDD implementation `89d0fd348cb6a8de55fb9370750ddc4725a6dddc` passed CI `32616525018` with 19 focused tests/full 481-test suite; six separately authorized Y01–Y06 development runs passed with zero invalid/extra attempts and no retries/next-case execution; freeze review verified 140 retained files and evidence-tree SHA-256 `11e9e6ee2fc7f1a331de49e539b404bbfeb0897294cad98355e6d52cf16624b8`; campaign seeds/data remain untouched; next gate is separate final-campaign authorization for the frozen 24×30=720 valid-execution design |
-| WP10 | Analysis and manuscript | Not started | Statistical analysis, figures, limitations, journal submission |
-| WP11 | Responsible artifact release | Not started | Sanitized code/data/reproducibility release |
+| WP1 | Literature and novelty | Ready for final review | Refresh publication-era literature and finalize novelty statement after empirical results are locked |
+| WP2 | Theoretical model | Ready for final review | Final proposition-to-metric traceability against retained campaign variables |
+| WP3 | Threat and mission model | Ready for final review | Final event/scenario/claim-boundary review against observed campaign evidence |
+| WP4 | Testbed selection and architecture | **Complete** | Pinned NOS3/Fortytwo testbed and runtime-preflight evidence |
+| WP5 | Deterministic event library | **Complete** | E1–E4 deterministic event adapters validated against accepted NOS3 runtime |
+| WP6 | Response-policy implementation | **Complete** | Deterministic fixed-policy/P7 mechanisms and bounded P6 extension validated |
+| WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery and bounded failure-mode validations passed |
+| WP8 | Pilot | **Complete** | 40 valid pilot executions; one retained/excluded invalid Stage-1 attempt; 41 frozen archives verified |
+| WP9 | Frozen experiment campaign | **In progress — 1/720 valid positions complete** | Position 1 `10001/A19` VALID; next exact frozen position is `10001/A13`; one preserved `PRE_RUNTIME_ABORT_UNCONSUMED` artifact exists outside scientific attempt history |
+| WP10 | Analysis and manuscript | Pending campaign completion | Freeze campaign dataset, run reproducible statistical analysis, figures/tables, limitations, manuscript |
+| WP11 | Responsible artifact release | Not started | Sanitized reproducibility release after analysis/manuscript stabilization |
+
+## Scientific and claim boundaries
+
+Preserve throughout campaign execution and publication:
+
+- controlled NOS3 software-in-the-loop only;
+- no real spacecraft access;
+- no RF interference/transmission claim;
+- no native spacecraft safe-mode claim;
+- no real ground-contact timing claim;
+- no real human-operator timing claim;
+- C1 timing is synthetic/modelled only;
+- immutable ground truth never acts as a policy oracle;
+- expectations are acceptance-only and are not metric inputs;
+- treatment-fidelity failures invalidate trials;
+- unexpected treatment-valid outcomes are retained;
+- trusted recovery is reported only when all applicable/current terminal evidence supports it;
+- one runtime trial per invocation;
+- no automatic retry and no automatic next-case execution.
 
 ## WP4 closeout
 
