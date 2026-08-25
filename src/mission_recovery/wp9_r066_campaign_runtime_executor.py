@@ -161,6 +161,45 @@ def shim_select_policy(*, plan_json: Path, output_json: Path) -> None:
     _write(output_json, result)
 
 
+def _legacy_finalize_summary(
+    *, family: str, result: dict[str, Any]
+) -> dict[str, Any]:
+    compatibility = copy.deepcopy(result)
+
+    if family in {"E1", "E3"}:
+        _require(
+            isinstance(result.get("outcome_matches_predeclared_expectation"), bool),
+            "R-066 canonical outcome-match flag is missing",
+        )
+        _require(
+            isinstance(result.get("unexpected_scientific_outcome_retained"), bool),
+            "R-066 canonical unexpected-outcome retention flag is missing",
+        )
+        compatibility[
+            "unexpected_scientific_outcome_would_be_retained_in_campaign"
+        ] = bool(result["unexpected_scientific_outcome_retained"])
+
+    if family == "E1":
+        _require(
+            result.get("treatment_fidelity_valid") is True,
+            "R-066 E1 legacy summary requires valid treatment fidelity",
+        )
+        _require(
+            result.get("raw_metric_inputs_complete") is True,
+            "R-066 E1 legacy summary requires complete raw metric inputs",
+        )
+        compatibility.update(
+            {
+                "acceptance_status": "PASS",
+                "campaign_seed_consumed": False,
+                "campaign_data_generated": False,
+                "final_campaign_execution_authorized": False,
+            }
+        )
+
+    return compatibility
+
+
 def shim_finalize(
     *, family: str, measurement_json: Path, output_json: Path
 ) -> None:
@@ -185,15 +224,10 @@ def shim_finalize(
         measurement=_load(measurement_json),
         evidence_prefix=evidence_prefix,
     )
-    compatibility = copy.deepcopy(result)
-    if family in {"E1", "E3"}:
-        _require(
-            isinstance(result.get("unexpected_scientific_outcome_retained"), bool),
-            "R-066 canonical unexpected-outcome retention flag is missing",
-        )
-        compatibility[
-            "unexpected_scientific_outcome_would_be_retained_in_campaign"
-        ] = bool(result["unexpected_scientific_outcome_retained"])
+    compatibility = _legacy_finalize_summary(
+        family=family,
+        result=result,
+    )
     _write(output_json, compatibility)
     _write(evidence / "campaign-trial-result.json", result)
 
@@ -390,6 +424,41 @@ def validate_static_executor() -> dict[str, Any]:
         )
         families.add(request["source_harness"]["event_id"])
     _require(families == {"E1", "E2", "E3", "E4"}, "R-066 family coverage changed")
+
+    e1_compatibility = _legacy_finalize_summary(
+        family="E1",
+        result={
+            "treatment_fidelity_valid": True,
+            "raw_metric_inputs_complete": True,
+            "outcome_matches_predeclared_expectation": True,
+            "unexpected_scientific_outcome_retained": False,
+            "campaign_seed_consumed": True,
+            "campaign_data_generated": True,
+        },
+    )
+    _require(
+        e1_compatibility.get("acceptance_status") == "PASS",
+        "R-066 E1 legacy acceptance_status compatibility changed",
+    )
+    _require(
+        e1_compatibility.get("treatment_fidelity_valid") is True
+        and e1_compatibility.get("raw_metric_inputs_complete") is True,
+        "R-066 E1 legacy scientific-validity compatibility changed",
+    )
+    _require(
+        e1_compatibility.get("campaign_seed_consumed") is False
+        and e1_compatibility.get("campaign_data_generated") is False
+        and e1_compatibility.get("final_campaign_execution_authorized") is False,
+        "R-066 E1 legacy campaign-boundary compatibility changed",
+    )
+    _require(
+        e1_compatibility.get(
+            "unexpected_scientific_outcome_would_be_retained_in_campaign"
+        )
+        is False,
+        "R-066 E1 legacy unexpected-outcome alias changed",
+    )
+
     return {
         "schema": 1,
         "decision_id": DECISION_ID,
@@ -405,6 +474,7 @@ def validate_static_executor() -> dict[str, Any]:
         "runtime_wrapper_composition_preflight_enforced": True,
         "binding_global_restore_enforced": True,
         "legacy_finalize_summary_compatibility_enforced": True,
+        "e1_legacy_finalize_consumer_contract_enforced": True,
         "invalid_terminal_canonical_ambiguity_blocked": True,
         "one_source_harness_invocation_per_trial": True,
         "automatic_retry_allowed": False,
@@ -456,6 +526,7 @@ def main(argv: list[str] | None = None) -> int:
             "runtime_wrapper_composition_preflight_enforced",
             "binding_global_restore_enforced",
             "legacy_finalize_summary_compatibility_enforced",
+            "e1_legacy_finalize_consumer_contract_enforced",
             "invalid_terminal_canonical_ambiguity_blocked",
             "one_source_harness_invocation_per_trial",
             "automatic_retry_allowed",
