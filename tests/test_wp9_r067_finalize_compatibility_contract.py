@@ -44,6 +44,10 @@ class WP9R067FinalizeCompatibilityContractTests(unittest.TestCase):
                 "run_id": "run-1",
                 "campaign_seed": 10001,
                 "cell_id": cell_id,
+                "treatment_fidelity_valid": True,
+                "raw_metric_inputs_complete": True,
+                "campaign_seed_consumed": True,
+                "campaign_data_generated": True,
                 "outcome_matches_predeclared_expectation": not unexpected,
                 "unexpected_scientific_outcome_retained": unexpected,
             }
