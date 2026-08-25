@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import importlib.util
 import json
 import sys
@@ -53,6 +54,30 @@ class TestWp9CampaignOperatorSidecar(unittest.TestCase):
         self.assertFalse(self.operator.AUTOMATIC_RETRY_ALLOWED)
         self.assertFalse(self.operator.AUTOMATIC_NEXT_ALLOWED)
         self.assertEqual(self.operator.MAX_RUNTIME_INVOCATIONS_PER_CALL, 1)
+
+    def test_operator_never_fetches_or_pulls_live_main(self) -> None:
+        source = OPERATOR.read_text(encoding="utf-8")
+        self.assertNotIn('"pull"', source)
+        self.assertNotIn('"fetch"', source)
+        self.assertNotIn("origin/main", source)
+
+    def test_run_one_contains_one_execute_request_and_no_while_loop(self) -> None:
+        tree = ast.parse(OPERATOR.read_text(encoding="utf-8"))
+        target = next(
+            node
+            for node in tree.body
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and node.name == "run_one_next_position"
+        )
+        execute_literals = [
+            node
+            for node in ast.walk(target)
+            if isinstance(node, ast.Constant)
+            and node.value == "execute-request"
+        ]
+        while_nodes = [node for node in ast.walk(target) if isinstance(node, ast.While)]
+        self.assertEqual(len(execute_literals), 1)
+        self.assertEqual(while_nodes, [])
 
     def test_position_1_valid_history_resolves_position_2(self) -> None:
         next_trial = self.operator.next_required_trial(
