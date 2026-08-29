@@ -4,18 +4,23 @@ Last updated: 2026-08-29
 
 ## Current focus
 
-**WP9 final frozen experiment campaign is COMPLETE. The canonical runtime/operator stack is R-064 through R-070. All 720/720 valid frozen positions are retained (24 cells × 30 campaign seeds, zero gaps, zero duplicates), independently verified against `results/wp9/campaign/attempt-history.json`. See `docs/26-wp9-r069-campaign-closeout.md` for the full closeout record. WP10 statistical analysis is the current focus.**
+**WP9 final frozen experiment campaign is COMPLETE and cryptographically integrity-frozen. All 720/720 valid frozen positions are retained (24 cells × 30 campaign seeds, zero gaps, zero duplicate valid `(seed, cell)` pairs), with 729 authoritative ledger records (720 VALID + 9 INVALID). The publication-grade integrity freeze passed against all 17,182 local campaign files. See `docs/26-wp9-r069-campaign-closeout.md` for campaign closeout and `docs/27-wp9-cryptographic-integrity-freeze.md` for the durable freeze identities and execution-provenance correction. WP10 statistical analysis is now the current focus.**
 
-The frozen design was 24 cells × 30 valid repetitions = 720 valid executions with campaign seeds `10001`–`10030` and the deterministic R-053 within-seed order. One trial was executed per invocation throughout; automatic retry and automatic next-case execution never occurred. An INVALID attempt never advanced the frozen position and required the same seed/cell with a fresh run ID. Expected values remained acceptance-only and never replaced raw metrics. Treatment-fidelity failures invalidated a trial; unexpected but treatment-valid scientific outcomes were retained. Nine INVALID attempts and one quarantined (never-ledgered) interrupted attempt occurred across the campaign — see `docs/26-wp9-r069-campaign-closeout.md`.
+The frozen design was 24 cells × 30 valid repetitions = 720 valid executions with campaign seeds `10001`–`10030` and the deterministic R-053 within-seed order. One trial was executed per invocation throughout; automatic retry and automatic next-case execution never occurred. An INVALID attempt never advanced the frozen position and required the same seed/cell with a fresh run ID. Expected values remained acceptance-only and never replaced raw metrics. Trial-validity gate failures invalidated 9 retained attempts; unexpected but treatment-valid scientific outcomes were retained. One additional interrupted never-ledgered run at position 660 was quarantined intact and is not part of the 720-valid analysis membership.
 
 ## Current campaign/runtime baseline
 
-Current promoted campaign baseline:
+Per-attempt execution provenance is now frozen and must be distinguished from the final campaign baseline and later documentation commits:
 
-- **Final campaign execution baseline (the commit every one of the 720 valid trials, including the last, actually ran against):** `7ed85d5cbeca8f903b3468bc6ccc1c56e29c2446` (R-070: E1 legacy-finalize consumer contract fidelity fix). Independently confirmed via the last valid trial's own `repo_commit` field (position 720, seed 10030, cell A23).
-- **Current repository HEAD (documentation-only commits after campaign completion, no campaign-affecting code):** `a0ba4b4` (docs: record WP9 R-069 campaign completion) and onward as further docs land. This will keep moving as documentation is revised; the final campaign execution baseline above will not.
-- R-066 validated source mechanisms remain the scientific runtime basis; later R-067/R-068/R-069/R-070 changes are compatibility, continuity, and operator-control plumbing only.
-- The campaign executed to completion on the `7ed85d5` baseline; no campaign-affecting commits occurred after R-070.
+- **Execution-provenance commit `aae2239753119c92e7633db3b6c73aee94c7b6dd`:** 2 ledgered attempts (1 VALID, 1 INVALID), global-position range 1–2.
+- **Execution-provenance commit `97074d0cdc4261de02bc6f618e891a88f45f9cfc`:** 10 ledgered attempts (9 VALID, 1 INVALID), global-position range 2–11.
+- **Execution-provenance commit `7ed85d5cbeca8f903b3468bc6ccc1c56e29c2446`:** 717 ledgered attempts (710 VALID, 7 INVALID), global-position range 11–720.
+- **Final campaign execution baseline:** `7ed85d5cbeca8f903b3468bc6ccc1c56e29c2446` (R-070 fixture-fidelity fields). The final retained position-720 run independently records this SHA in `immutable-ground/campaign-plan.json`, `immutable-ground/development-plan.json`, and `immutable-ground/r066-runtime-request.json`.
+- **Cryptographic-freeze source repository checkpoint:** `18596ea32c696b65bbdaf5676b1157d633ed59b5`. This is a later documentation checkpoint, not the execution baseline for all attempts.
+- All three execution commits resolve in Git history and are ancestors of the freeze source checkpoint. The overlaps at positions 2 and 11 are INVALID→VALID retry boundaries that straddled compatibility/plumbing promotions, not duplicate valid observations.
+- R-066 validated source mechanisms remain the scientific runtime basis; R-067/R-068/R-069/R-070 are compatibility, continuity, operator-control, and contract-fidelity changes whose exact per-attempt repository identity is retained in the freeze manifest.
+
+The prior wording that every one of the 720 valid trials executed against `7ed85d5` is superseded by the per-attempt provenance above and by `docs/27-wp9-cryptographic-integrity-freeze.md`.
 
 ### R-064 through R-070
 
@@ -27,12 +32,12 @@ Current promoted campaign baseline:
 - **R-067 — legacy finalization-summary compatibility:** position 2 (`10001/A13`) produced a retained INVALID scientific attempt after the E3 runtime/treatment completed successfully but the historical R-063 source harness failed in `MEASUREMENT_BINDING`. R-066 finalization had supplied the canonical campaign bundle where the legacy E1/E3 summary reader expected the historical compatibility field `unexpected_scientific_outcome_would_be_retained_in_campaign`. R-067 restores the legacy summary alias while preserving the canonical campaign result. No source harness, frozen design, seed order, timing, treatment, policy, raw metric, or scientific acceptance semantics changed. Merged as PR #35, merge `05dcb05bf73d6d2a52c0baf55c3e919d4278b7fe`.
 - **R-068 — baseline-aware campaign continuity:** retained trials are validated against the repository SHA they actually executed on, and that historical execution SHA must remain an ancestor of the current campaign baseline. This prevents false continuity failure after plumbing-only promotions without relaxing frozen order, ledger integrity, treatment fidelity, retry/next controls, or evidence requirements. Merged as PR #36, merge `72e3a9d81d70b2b993bf28228f3b7b0af24c9908`.
 - **R-069 — canonical one-position campaign operator:** added the reusable schema-aware operator `scripts/run_wp9_r069_campaign_one_position.sh`. It derives the exact next frozen position from retained R-064/R-068 state, builds the exact single-trial authorization/request, validates the canonical nested schema, enforces an operator lock and clean NOS3 snapshot, invokes R-066 exactly once, atomically appends one returned VALID/INVALID result, performs residue/alias audits, and never retries or advances automatically. This replaced ad-hoc per-position wrappers and avoids the prior top-level-schema assumption that stopped a position-2 retry pre-runtime. Merged as PR #37, merge baseline `97074d0cdc4261de02bc6f618e891a88f45f9cfc`. This operator ran every remaining frozen position through campaign completion.
-- **R-070 — E1 legacy-finalize consumer contract:** enforces the exact E1 legacy finalize consumer contract (`e1_legacy_finalize_consumer_contract_enforced=true`), confirmed present in every campaign trial's static-contract section for the remainder of the campaign. Commits `6a9aa42` (red), `e90989a` (enforce), `7ed85d5` (fixture fidelity fields).
-- **Campaign completion (2026-08-29):** the R-069 operator, invoked one position at a time under human supervision, carried the campaign from position 1 through position 720. Nine retained INVALID attempts occurred, each cleared by a same-seed/cell fresh-run-ID retry per the frozen design; they span 5 distinct `failed_phase` values (`CFS_READINESS` ×3, `MEASUREMENT_BINDING` ×2 — including position 2/`10001/A13`, the R-067-motivating case — `NOMINAL_RUNTIME_COMPLETION` ×2, `RUNTIME_HEALTH` ×1, `FROZEN_ANALYSIS_HORIZON` ×1), not the two informal signatures an earlier draft of the closeout used. One additional interrupted mid-harness-preflight attempt (position 660) was never ledgered; it was quarantined intact to `results/wp9/campaign/_quarantined-unledgered/` rather than deleted or fabricated into a ledger entry, and position 660 was then re-derived and executed cleanly. Full per-attempt table and taxonomy: `docs/26-wp9-r069-campaign-closeout.md`.
+- **R-070 — E1 legacy-finalize consumer contract:** enforces the exact E1 legacy finalize consumer contract (`e1_legacy_finalize_consumer_contract_enforced=true`), confirmed present in every applicable campaign trial's static-contract section for the remainder of the campaign. Commits `6a9aa42` (red), `e90989a` (enforce), `7ed85d5` (fixture fidelity fields).
+- **Campaign completion (2026-08-29):** the R-069 operator, invoked one position at a time under human supervision, carried the campaign from position 1 through position 720. Nine retained INVALID attempts occurred, each cleared by a same-seed/cell fresh-run-ID retry per the frozen design; they span 5 distinct `failed_phase` values (`CFS_READINESS` ×3, `MEASUREMENT_BINDING` ×2, `NOMINAL_RUNTIME_COMPLETION` ×2, `RUNTIME_HEALTH` ×1, `FROZEN_ANALYSIS_HORIZON` ×1). One additional interrupted mid-harness-preflight attempt at position 660 was never ledgered; it was quarantined intact to `results/wp9/campaign/_quarantined-unledgered/` rather than deleted or fabricated into a ledger entry, and position 660 was then re-derived and executed cleanly. Full per-attempt table and taxonomy: `docs/26-wp9-r069-campaign-closeout.md`.
 
 ## Final campaign progress
 
-**Campaign complete: 720/720 valid positions retained as of 2026-08-29. Full closeout record: `docs/26-wp9-r069-campaign-closeout.md`.**
+**Campaign complete: 720/720 valid positions retained as of 2026-08-29. Cryptographic integrity freeze complete and PASS.**
 
 ### Frozen position 1 — VALID (first position executed; retained as historical record)
 
@@ -82,27 +87,35 @@ This is a valid observation for the frozen P0 observation-only treatment; allowi
 
 ### Full incident history (all 9 retained INVALID attempts, plus the one quarantined never-ledgered attempt)
 
-See `docs/26-wp9-r069-campaign-closeout.md` for the complete account: three mid-run Docker-termination INVALID attempts (positions 404, 407, 582), two pre-execution-failure INVALID attempts (positions 594, 627), three pre-flight blocks that produced no ledger entry at all, and one interrupted mid-harness-preflight attempt at position 660 that was quarantined (not ledgered, not deleted) to `results/wp9/campaign/_quarantined-unledgered/` and then re-derived and executed cleanly.
+See `docs/26-wp9-r069-campaign-closeout.md` for the authoritative incident account. The nine ledgered INVALID attempts are classified by `failed_phase` as `CFS_READINESS` ×3 (positions 120, 594, 627), `MEASUREMENT_BINDING` ×2 (positions 2, 11), `NOMINAL_RUNTIME_COMPLETION` ×2 (positions 407, 582), `RUNTIME_HEALTH` ×1 (position 404), and `FROZEN_ANALYSIS_HORIZON` ×1 (position 353). Position 582 was independently confirmed as a Docker-container termination; position 407's proximate cause is not generalized beyond its retained `NOMINAL_RUNTIME_COMPLETION` phase without separate stderr review. Three additional pre-flight blocks produced no ledger entry, and the interrupted position-660 attempt was quarantined unledgered and later re-derived cleanly.
 
 ## Campaign ledger / final state
 
-Durable scientific state, independently verified against `results/wp9/campaign/attempt-history.json` on 2026-08-29:
+Durable scientific state, independently verified against `results/wp9/campaign/attempt-history.json` and the completed integrity freeze on 2026-08-29:
 
 - valid frozen positions: `720` of `720` — **campaign target met**
-- retained scientific INVALID attempts: `9` total (see incident history above)
-- quarantined never-ledgered attempts: `1` (position 660 interrupted attempt; evidence retained under `results/wp9/campaign/_quarantined-unledgered/`)
-- `campaign_complete`: `true`
+- retained scientific INVALID attempts: `9`
+- authoritative ledger records: `729`
+- quarantined never-ledgered attempts: `1` (position 660 interrupted attempt)
 - campaign seeds `10001`–`10030`: all 30 represented, contiguous, no gaps
-- all 24 frozen cells (A01–A24): exactly 30 valid repetitions each, no deviations
-- unique (seed, cell) valid pairs: `720`, zero duplicates, zero gaps
+- all 24 frozen cells (A01–A24): exactly 30 valid repetitions each
+- unique valid `(seed, cell)` pairs: `720`, zero duplicates, zero gaps
+- consumed ledgered attempts: `726` = 720 VALID + 6 post-readiness INVALID
+- `CFS_READINESS` INVALID attempts without seed consumption: `3`
+- complete local campaign-tree files: `17182`, zero unclassified
+- deterministic campaign-tree SHA-256: `ad1e127b4431b6b334955129fcba82f76b18e5b43585395ac8c37300cac087b1`
+- authoritative ledger SHA-256: `92893a2fd8746f410bffd4dca5101bc3f533ada2ff82f98681788cf0c24ce6fd`
+- 720-valid analysis-membership SHA-256: `a2bf0c8f352f4386e74a500d97ea8f73e0c39d03bfe10ac0ebcf02470af9f70e`
 
-The local `results/wp9/campaign/attempt-history.json` remains the execution authority and the sole source of truth for this state; this tracker summarizes it but is not authoritative over it.
+The local `results/wp9/campaign/attempt-history.json` remains the execution authority. `docs/27-wp9-cryptographic-integrity-freeze.md` records the durable cryptographic identities and scope partitions without replacing the raw evidence.
 
 ## Next exact action
 
-**No further `run-once` invocations are expected.** The frozen 24×30 design's target is met and `campaign_complete=true` in the ledger. The R-069 operator's next-position derivation step should refuse (or be inapplicable) for a hypothetical position 721 under the frozen design; this has not been explicitly exercised but follows directly from seed/cell exhaustion.
+**No further WP9 `run-once` invocations are expected or authorized by this tracker.** WP9 campaign execution and the read-only cryptographic integrity freeze are complete.
 
-The next work is WP10: perform the read-only campaign integrity freeze recommended in `docs/26-wp9-r069-campaign-closeout.md` (full-tree unledgered-artifact re-audit, trial-payload spot-checks, INVALID-attempt review, decision on referencing the quarantined Signature-C evidence, and consideration of a successor decision record for the Signature-C handling policy), then proceed to the predeclared statistical analysis in `docs/18-wp9a-final-campaign-design.md`.
+The next work is WP10: perform the predeclared reproducible statistical analysis in `docs/18-wp9a-final-campaign-design.md` **only against the frozen 720-valid analysis membership identified by SHA-256 `a2bf0c8f352f4386e74a500d97ea8f73e0c39d03bfe10ac0ebcf02470af9f70e`**. INVALID, pre-runtime unledgered, and quarantined evidence remain available for methods/provenance/limitations but are not analysis members.
+
+In parallel as a publication-governance task, Zenodo is selected as the primary archive target for the frozen data/integrity bundle. The deposit and DOI remain pending package-size/limit verification and post-upload checksum verification; see `docs/27-wp9-cryptographic-integrity-freeze.md`.
 
 ## Work packages
 
@@ -117,22 +130,23 @@ The next work is WP10: perform the read-only campaign integrity freeze recommend
 | WP6 | Response-policy implementation | **Complete** | Deterministic fixed-policy/P7 mechanisms and bounded P6 extension validated |
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery and bounded failure-mode validations passed |
 | WP8 | Pilot | **Complete** | 40 valid pilot executions; one retained/excluded Stage-1 invalid attempt; 41 frozen archives verified |
-| WP9 | Frozen experiment campaign | **Complete — 720/720 valid positions retained** | Full closeout record: `docs/26-wp9-r069-campaign-closeout.md`. 9 retained INVALID attempts, 1 quarantined never-ledgered attempt (Signature C), zero unresolved incidents |
-| WP10 | Analysis and manuscript | **Ready to start** | Campaign integrity freeze (recommended steps in `docs/26-wp9-r069-campaign-closeout.md`) → reproducible statistical analysis → figures/tables → limitations → manuscript |
-| WP11 | Responsible artifact release | Not started | Sanitized reproducibility release after analysis/manuscript stabilization |
+| WP9 | Frozen experiment campaign | **Complete — 720/720 valid; cryptographic freeze PASS** | `docs/26-wp9-r069-campaign-closeout.md`; `docs/27-wp9-cryptographic-integrity-freeze.md` |
+| WP10 | Analysis and manuscript | **Ready to start** | Run predeclared analysis only against frozen 720-valid membership; preserve A16/A17 P6→P5 delegation semantics and claim boundaries |
+| WP11 | Responsible artifact release | Not started | Zenodo selected as primary archive; deposit/DOI and sanitized release pending |
 
 ## Remaining research path
 
-1. ~~Complete WP9 frozen campaign to 720 valid positions using R-069 one position per invocation.~~ **Done 2026-08-29** — see `docs/26-wp9-r069-campaign-closeout.md`.
-2. Perform a read-only campaign integrity freeze: full-tree unledgered-artifact re-audit, run-ID uniqueness, retained invalid/pre-runtime/quarantined evidence classification, seed/cell continuity, treatment-fidelity validity, evidence completeness, and final dataset/evidence hashes. **Outstanding — recommended before WP10 analysis begins.**
-3. Complete WP10 statistical analysis using only the frozen campaign dataset and predeclared metrics; retain unexpected valid science.
+1. ~~Complete WP9 frozen campaign to 720 valid positions using R-069 one position per invocation.~~ **Done 2026-08-29.**
+2. ~~Perform the read-only campaign integrity freeze: ledger/run-ID reconciliation, seed/cell continuity, INVALID classification, seed-consumption boundary, non-ledgered evidence separation, complete-tree checksums, and source immutability verification.~~ **Done 2026-08-29 — PASS.** See `docs/27-wp9-cryptographic-integrity-freeze.md`.
+3. **Current:** complete WP10 statistical analysis using only the frozen 720-valid membership and predeclared metrics; retain unexpected valid science.
 4. Final-review WP1–WP3 against the empirical findings and current publication literature.
-5. Draft and revise the journal manuscript from the locked evidence, including how (or whether) to reference the quarantined Signature-C evidence in methods/limitations.
-6. Complete WP11 sanitized reproducibility/artifact release and submission package.
+5. Draft and revise the journal manuscript from the locked evidence, including appropriate methods/limitations treatment of the 9 INVALID attempts and quarantined position-660 evidence without including them in the 720-valid analysis population.
+6. Deposit the frozen publication dataset/integrity bundle to Zenodo, verify post-upload checksums, capture DOI(s), and update the Data Availability statement.
+7. Complete WP11 sanitized reproducibility/artifact release and submission package.
 
 ## Scientific and claim boundaries
 
-Preserve throughout campaign execution, analysis, and publication:
+Preserve throughout analysis and publication:
 
 - controlled NOS3 software-in-the-loop only;
 - no real spacecraft access;
@@ -143,25 +157,9 @@ Preserve throughout campaign execution, analysis, and publication:
 - C1 timing is synthetic/modelled only;
 - immutable ground truth never acts as a policy oracle;
 - expectations are acceptance-only and are not metric inputs;
-- treatment-fidelity failures invalidate trials;
+- trial-validity gate failures are classified by retained evidence rather than blanket-labelled as treatment-fidelity failures;
 - unexpected treatment-valid outcomes are retained;
 - trusted recovery is reported only when all applicable/current terminal evidence supports it;
+- A16/A17 remain P6-initiated trials with recorded P5 delegation after synthetic ground authorization; do not collapse them into P5-only recovery;
 - one runtime trial per invocation;
 - no automatic retry and no automatic next-case execution.
-
-## WP4 closeout
-
-The passive time-witness/D-064 branch is discontinued. It is not required for the core research claims and will not receive a successor attempt.
-
-## WP5 acceptance
-
-WP5 is complete when the four selected event families have:
-
-- source/threat-model mapping;
-- deterministic parameters;
-- immutable ground truth;
-- policy-visible evidence representation;
-- expected and prohibited modeled effects;
-- isolation/cleanup semantics;
-- positive, negative, and repeatability tests; and
-- one bounded simulator adapter per retained event family.
