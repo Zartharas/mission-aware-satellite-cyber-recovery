@@ -24,7 +24,7 @@ The simulator is infrastructure, not the contribution. The study contributes:
 - WP6 — response policies: pending
 - WP7 — trusted recovery: pending
 - WP8 — pilot: pending
-- WP9 — frozen experiment campaign: pending
+- WP9 — frozen experiment campaign: complete (720/720 valid positions; see tracker/RESEARCH_TRACKER.md and docs/26-wp9-r069-campaign-closeout.md)
 - WP10 — analysis/manuscript: pending
 
 ## Safety and scope
