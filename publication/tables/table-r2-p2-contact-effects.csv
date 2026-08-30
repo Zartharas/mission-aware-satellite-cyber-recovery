@@ -1,0 +1,10 @@
+endpoint,estimand,estimate_s,ci95_low_s,ci95_high_s,analysis_note
+M04 containment RMST,P6 C1-C0,10.0831,9.8304,10.3735,"tau=30 s; C1 is one synthetic/modelled missed-contact window"
+M04 containment RMST,P7 C1-C0,-0.0425,-0.1977,0.0899,"tau=30 s; autonomous P7 path"
+M04 containment RMST,P6-minus-P7 interaction,10.1256,9.7859,10.5176,"seed-block bootstrap interval"
+M05 verified-recovery RMST,P6 C1-C0,10.4246,9.6567,11.3598,"tau=30 s; right-censoring retained"
+M05 verified-recovery RMST,P7 C1-C0,-0.1808,-0.7194,0.2767,"tau=30 s; right-censoring retained"
+M05 verified-recovery RMST,P6-minus-P7 interaction,10.6054,9.5343,11.9023,"seed-block bootstrap interval"
+M07 ground/spacecraft divergence,P6 C1-C0,10.0676,9.8438,10.3260,"modeled divergence duration"
+M07 ground/spacecraft divergence,P7 C1-C0,-0.0390,-0.1690,0.0709,"modeled divergence duration"
+M07 ground/spacecraft divergence,P6-minus-P7 interaction,10.1066,9.8135,10.4499,"seed-block bootstrap interval"
