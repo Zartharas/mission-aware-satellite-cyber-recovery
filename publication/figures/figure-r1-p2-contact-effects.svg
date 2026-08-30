@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="690" viewBox="0 0 1100 690" role="img" aria-labelledby="title desc">
+  <title id="title">Figure R1. Modeled contact-condition effects for P2</title>
+  <desc id="desc">Forest-style plot of P6 C1 minus C0, P7 C1 minus C0, and interaction estimates with 95 percent seed-block bootstrap intervals for containment RMST, verified-recovery RMST, and state-divergence duration.</desc>
+  <rect x="0" y="0" width="1100" height="690" fill="white"/>
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #111; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 14px; }
+    .axis { stroke: #222; stroke-width: 1.5; }
+    .grid { stroke: #bbb; stroke-width: 1; stroke-dasharray: 3 5; }
+    .zero { stroke: #111; stroke-width: 1.5; stroke-dasharray: 7 5; }
+    .ci { stroke: #111; stroke-width: 2; }
+    .label { font-size: 14px; }
+    .endpoint { font-size: 15px; font-weight: 700; }
+    .tick { font-size: 12px; }
+  </style>
+
+  <text x="40" y="38" class="title">Modeled contact-condition effects</text>
+  <text x="40" y="62" class="sub">Estimate and 95% seed-block bootstrap interval; positive values indicate longer duration under C1 than C0.</text>
+  <text x="40" y="82" class="sub">C1 is one synthetic/modelled missed-contact window. M04/M05 RMST horizon τ = 30 s.</text>
+
+  <!-- plotting range x=-1 to 12 s, x=320..1040 -->
+  <line x1="320" y1="620" x2="1040" y2="620" class="axis"/>
+  <line x1="375.38" y1="105" x2="375.38" y2="620" class="zero"/>
+
+  <!-- ticks -->
+  <g class="tick">
+    <line x1="320" y1="620" x2="320" y2="628" class="axis"/><text x="320" y="647" text-anchor="middle">−1</text>
+    <line x1="375.38" y1="620" x2="375.38" y2="628" class="axis"/><text x="375.38" y="647" text-anchor="middle">0</text>
+    <line x1="486.15" y1="620" x2="486.15" y2="628" class="axis"/><text x="486.15" y="647" text-anchor="middle">2</text>
+    <line x1="596.92" y1="620" x2="596.92" y2="628" class="axis"/><text x="596.92" y="647" text-anchor="middle">4</text>
+    <line x1="707.69" y1="620" x2="707.69" y2="628" class="axis"/><text x="707.69" y="647" text-anchor="middle">6</text>
+    <line x1="818.46" y1="620" x2="818.46" y2="628" class="axis"/><text x="818.46" y="647" text-anchor="middle">8</text>
+    <line x1="929.23" y1="620" x2="929.23" y2="628" class="axis"/><text x="929.23" y="647" text-anchor="middle">10</text>
+    <line x1="1040" y1="620" x2="1040" y2="628" class="axis"/><text x="1040" y="647" text-anchor="middle">12</text>
+  </g>
+  <text x="680" y="675" text-anchor="middle" class="label">C1 − C0 effect (seconds)</text>
+
+  <!-- endpoint separators -->
+  <line x1="40" y1="275" x2="1040" y2="275" class="grid"/>
+  <line x1="40" y1="445" x2="1040" y2="445" class="grid"/>
+
+  <!-- M04 -->
+  <text x="40" y="125" class="endpoint">M04 containment RMST</text>
+  <text x="115" y="165" class="label">P6</text>
+  <line x1="919.84" y1="160" x2="949.92" y2="160" class="ci"/><line x1="919.84" y1="154" x2="919.84" y2="166" class="ci"/><line x1="949.92" y1="154" x2="949.92" y2="166" class="ci"/><circle cx="933.83" cy="160" r="6" fill="#111"/>
+  <text x="115" y="205" class="label">P7</text>
+  <line x1="364.44" y1="200" x2="380.36" y2="200" class="ci"/><line x1="364.44" y1="194" x2="364.44" y2="206" class="ci"/><line x1="380.36" y1="194" x2="380.36" y2="206" class="ci"/><rect x="367.53" y="194.5" width="11" height="11" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="115" y="245" class="label">Interaction</text>
+  <line x1="917.37" y1="240" x2="957.90" y2="240" class="ci"/><line x1="917.37" y1="234" x2="917.37" y2="246" class="ci"/><line x1="957.90" y1="234" x2="957.90" y2="246" class="ci"/><polygon points="936.19,232 944.19,240 936.19,248 928.19,240" fill="#777" stroke="#111"/>
+
+  <!-- M05 -->
+  <text x="40" y="305" class="endpoint">M05 verified-recovery RMST</text>
+  <text x="115" y="345" class="label">P6</text>
+  <line x1="910.22" y1="340" x2="1004.54" y2="340" class="ci"/><line x1="910.22" y1="334" x2="910.22" y2="346" class="ci"/><line x1="1004.54" y1="334" x2="1004.54" y2="346" class="ci"/><circle cx="952.75" cy="340" r="6" fill="#111"/>
+  <text x="115" y="385" class="label">P7</text>
+  <line x1="335.54" y1="380" x2="390.71" y2="380" class="ci"/><line x1="335.54" y1="374" x2="335.54" y2="386" class="ci"/><line x1="390.71" y1="374" x2="390.71" y2="386" class="ci"/><rect x="359.87" y="374.5" width="11" height="11" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="115" y="425" class="label">Interaction</text>
+  <line x1="903.44" y1="420" x2="1034.59" y2="420" class="ci"/><line x1="903.44" y1="414" x2="903.44" y2="426" class="ci"/><line x1="1034.59" y1="414" x2="1034.59" y2="426" class="ci"/><polygon points="962.76,412 970.76,420 962.76,428 954.76,420" fill="#777" stroke="#111"/>
+
+  <!-- M07 -->
+  <text x="40" y="475" class="endpoint">M07 state-divergence duration</text>
+  <text x="115" y="515" class="label">P6</text>
+  <line x1="920.58" y1="510" x2="947.29" y2="510" class="ci"/><line x1="920.58" y1="504" x2="920.58" y2="516" class="ci"/><line x1="947.29" y1="504" x2="947.29" y2="516" class="ci"/><circle cx="932.97" cy="510" r="6" fill="#111"/>
+  <text x="115" y="555" class="label">P7</text>
+  <line x1="366.02" y1="550" x2="379.31" y2="550" class="ci"/><line x1="366.02" y1="544" x2="366.02" y2="556" class="ci"/><line x1="379.31" y1="544" x2="379.31" y2="556" class="ci"/><rect x="367.72" y="544.5" width="11" height="11" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="115" y="595" class="label">Interaction</text>
+  <line x1="918.90" y1="590" x2="954.15" y2="590" class="ci"/><line x1="918.90" y1="584" x2="918.90" y2="596" class="ci"/><line x1="954.15" y1="584" x2="954.15" y2="596" class="ci"/><polygon points="935.13,582 943.13,590 935.13,598 927.13,590" fill="#777" stroke="#111"/>
+
+  <!-- legend -->
+  <circle cx="775" cy="100" r="5" fill="#111"/><text x="788" y="105" class="tick">P6</text>
+  <rect x="835" y="95" width="10" height="10" fill="white" stroke="#111" stroke-width="2"/><text x="851" y="105" class="tick">P7</text>
+  <polygon points="910,93 917,100 910,107 903,100" fill="#777" stroke="#111"/><text x="925" y="105" class="tick">interaction</text>
+</svg>
