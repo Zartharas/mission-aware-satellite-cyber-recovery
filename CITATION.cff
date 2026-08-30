@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: >-
+  For scientific reuse, please cite the version-specific Zenodo dataset in
+  preferred-citation. If you modify or reuse the repository software, also
+  identify the repository URL and commit used.
+title: "Mission-Aware Satellite Cyber Response and Trusted Recovery"
+type: software
+authors:
+  - family-names: "Singh"
+    given-names: "Aman"
+    orcid: "https://orcid.org/0009-0008-9752-3743"
+    affiliation: "Independent Researcher"
+repository-code: "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery"
+url: "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery"
+keywords:
+  - satellite cybersecurity
+  - mission-aware cybersecurity
+  - cyber resilience
+  - trusted recovery
+  - software-in-the-loop
+  - NOS3
+  - cFS
+  - reproducible research
+preferred-citation:
+  type: dataset
+  title: "Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Evidence Constraints — Research Data and Reproducibility Artifacts"
+  authors:
+    - family-names: "Singh"
+      given-names: "Aman"
+      orcid: "https://orcid.org/0009-0008-9752-3743"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.22181540"
+  url: "https://doi.org/10.5281/zenodo.22181540"
+  version: "1.0.0"
+  year: 2026
+  date-published: 2026-08-30
+  license: "CC-BY-4.0"
+references:
+  - type: dataset
+    title: "Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Evidence Constraints — Research Data and Reproducibility Artifacts"
+    authors:
+      - family-names: "Singh"
+        given-names: "Aman"
+        orcid: "https://orcid.org/0009-0008-9752-3743"
+    doi: "10.5281/zenodo.22181540"
+    url: "https://doi.org/10.5281/zenodo.22181540"
+    year: 2026
