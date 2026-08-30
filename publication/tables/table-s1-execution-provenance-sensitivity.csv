@@ -1,0 +1,10 @@
+component,scope,value,interpretation
+Primary execution provenance,Commit A aae2239753119c92e7633db3b6c73aee94c7b6dd,1 VALID observation,Retained in 720-run primary analysis
+Primary execution provenance,Commit B 97074d0cdc4261de02bc6f618e891a88f45f9cfc,9 VALID observations,Retained in 720-run primary analysis
+Primary execution provenance,Commit C 7ed85d5cbeca8f903b3468bc6ccc1c56e29c2446,710 VALID observations,Final execution baseline but not the execution commit for all 720 observations
+E0 exchangeability,Scientific core/treatment/event/timing/primary metric generation,No scientific-core change across A/B/C,All 720 VALID observations retained
+Final-commit complete-block sensitivity,Seeds,10002-10030,29 complete seeds all at commit C
+Final-commit complete-block sensitivity,Observations,696,Sensitivity only; does not replace 720-run primary population
+Final-commit complete-block sensitivity,P7 front membership,Stable 9/9 groups,No provenance-driven change
+Final-commit complete-block sensitivity,P7 pairwise Pareto relation,Stable all groups,No provenance-driven change
+Final-commit complete-block sensitivity,Primary-metric effect direction,Stable all groups,No provenance-driven change
