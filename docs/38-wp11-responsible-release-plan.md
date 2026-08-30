@@ -1,9 +1,9 @@
 # WP11 Responsible Artifact Release Plan
 
-**Date:** 2026-08-29  
-**Status:** Release tooling prepared; local candidate generation and audit required before upload  
-**Scientific manuscript authority:** `docs/28`–`docs/37`  
-**Raw campaign authority:** local `results/wp9/campaign/attempt-history.json` and frozen campaign tree  
+**Date:** 2026-08-29<br>
+**Status:** Release tooling prepared; local candidate generation and audit required before upload<br>
+**Scientific manuscript authority:** `docs/28`–`docs/37`<br>
+**Raw campaign authority:** local `results/wp9/campaign/attempt-history.json` and frozen campaign tree<br>
 **Primary archive target:** Zenodo
 
 ## Purpose

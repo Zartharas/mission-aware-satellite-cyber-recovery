@@ -1,7 +1,7 @@
 # Zenodo Metadata Template — WP11
 
-**Status:** Template only — do not treat placeholders as publication metadata  
-**Archive target:** Zenodo  
+**Status:** Template only — do not treat placeholders as publication metadata<br>
+**Archive target:** Zenodo<br>
 **Record publication:** Pending
 
 ## Record title
