@@ -1,0 +1,10 @@
+section,item,endpoints_or_scope,principal_result,status_or_note
+Population,Primary analysis,24 cells x 30 seeds,720 frozen VALID observations,All 720 retained in primary analysis
+Population,M05 event/censor binding,M05 verified recovery,180 observed recovery events; 540 right-censored at 30 s,Administrative censoring explicit
+Population,M03 endpoint,M03 safety-invariant violations,0 violations across 720 VALID observations,Structural zero; not proof of universal safety
+P1,Mission-state dependence,M01; M02; M03; M06,Applicable predeclared policy-by-state contrasts/interactions exactly 0,Not supported on predeclared primary outcomes
+P2,Modeled contact-delay effect,M04; M05; M07,Modeled C1 materially delayed P6 timing while P7 was approximately unchanged,Strongly supported for timing/divergence effects
+P3,Evidence-dependent recovery,Terminal recovery; evidence; M07 supporting timing,A11 P7/T0 trusted 30/30 versus A13 P7/T1 trusted 0/30 and failed 30/30,Supported in broader evidence-dependent recovery form; narrower restoration-without-verification mechanism absent
+P4,Degraded-evidence selection/consequence,Effective policy/action; M02; M06; terminal outcomes,Degraded evidence changed actual P7 selection/action pathways and downstream mission/recovery outcomes,Supported with bounded selection/consequence semantics; no objective correctness oracle
+P5,Conditional mission-aware benefit,M01; M02; M03; M05; M06,P7 on point-estimate Pareto front in 5/9 groups and point-dominated in G04 G05 G06 G09,Conditionally supported; 5/9 is not a success rate; no global policy winner
+Robustness,Execution provenance,720 primary plus 696-observation sensitivity,VALID distribution 1/9/710 across commits A/B/C; 29-seed final-C sensitivity preserves all P5 relations,Primary population unchanged; sensitivity only
