@@ -1,133 +1,108 @@
-# Zenodo Metadata Template — WP11
+# Zenodo Metadata Record — WP11
 
-**Status:** Template only — do not treat placeholders as publication metadata<br>
-**Archive target:** Zenodo<br>
-**Record publication:** Pending
+**Status:** `PUBLISHED — VERSION 1.0.0`  
+**Archive target:** Zenodo  
+**Publication date:** 2026-08-30  
+**Historical note:** This file began as the pre-publication metadata template. The resolved fields below now record the published outcome.
 
 ## Record title
 
-Candidate:
-
 > Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Evidence Constraints — Research Data and Reproducibility Artifacts
-
-Final wording may be adjusted to the selected journal/article title, but the archive should remain identifiable as the data/reproducibility object rather than the journal article itself.
 
 ## Resource type
 
-**Candidate:** Dataset or Other/Research data, depending on final Zenodo field options and release scope.
+**Dataset**
 
-Do not misclassify the record as the journal article if it primarily contains campaign data, integrity evidence, and publication/reproducibility artifacts.
+The record represents campaign data, integrity evidence, and publication/reproducibility artifacts. It is not the journal article itself.
 
-## Publication date
+## Creator
 
-`<ZENODO_PUBLICATION_DATE>`
+- **Aman Singh**
+- affiliation: **Independent Researcher**
+- ORCID: <https://orcid.org/0009-0008-9752-3743>
+- contact person: yes
 
-Use the actual date on which the Zenodo draft is published.
+No additional contributors were declared for this archive record.
 
-## Creators
+## Description of record scope
 
-**USER INPUT REQUIRED.** Use the final scholarly author/creator list and order approved for the archive.
+The published research object provides data, integrity evidence, and reproducibility artifacts supporting a controlled software-in-the-loop study of mission-aware satellite cyber response and trusted recovery under contact and evidence constraints.
 
-For each creator capture:
+The archived experiment contains 720 VALID observations covering 24 frozen experimental cells across 30 campaign seeds. Nine additional INVALID attempts are retained as provenance and are not members of the statistical analysis.
 
-- family name;
-- given name(s);
-- ORCID if applicable and verified;
-- affiliation(s) if applicable and verified.
+The study was conducted in a researcher-controlled NOS3/Fortytwo/cFS-based software-in-the-loop environment using synthetic cyber events, synthetic mission states and synthetic telemetry, policy-visible evidence conditions, and modeled communication-contact behavior. The experiment did not access operational spacecraft or ground stations, did not use operational credentials or proprietary mission telemetry, and did not transmit, interfere with, jam, or spoof radio-frequency communications.
 
-Do not infer creators from Git commit authorship.
+The release includes the frozen raw campaign evidence, publication-grade cryptographic integrity freeze, manuscript-facing publication/provenance artifacts, release manifest, and cryptographic checksums. The archived release candidate was generated from repository commit `eb3be7aaaed9e60c54843d9a7b9ace1a0fa5812e`. Responsible-release closeout before external publication was recorded at `00acf169afe83fa433b10f88d53fa3228e5de103`.
 
-## Description
-
-Candidate description:
-
-> This research object supports a controlled software-in-the-loop study of satellite cyber response and trusted recovery. The release preserves the frozen WP9 campaign evidence, the publication-grade cryptographic integrity freeze, and the manuscript-facing aggregate/provenance artifacts used for WP10 analysis and reporting. The final statistical population contains 720 VALID observations from 24 frozen cells and 30 campaign seeds; nine additional INVALID attempts are retained as provenance but are not members of the statistical analysis. The experiment used a researcher-controlled NOS3/Fortytwo/cFS-based software-in-the-loop environment with synthetic cyber events, policy-visible evidence conditions, and modeled contact behavior. It did not access operational spacecraft or ground stations and did not transmit or interfere with RF. See the included release manifest, checksum file, repository documentation, and associated manuscript for scope and claim boundaries.
-
-Before publication, update this description with the repository tag/commit and article citation if available.
+The statistical and scientific claim boundaries documented in the manuscript and provenance records remain authoritative. The work was conducted independently and received no external funding.
 
 ## Keywords
 
-Candidate keywords:
-
 - satellite cybersecurity
 - mission-aware cybersecurity
+- spacecraft cybersecurity
 - cyber resilience
 - trusted recovery
-- spacecraft autonomy
+- satellite cyber incident response
 - software-in-the-loop
 - NOS3
+- Core Flight System
 - cFS
-- cyber incident response
-- reproducibility
-- Pareto analysis
+- spacecraft autonomy
+- cyber-physical systems
+- reproducible research
+- mission resilience
 
 ## License / rights
 
-**REVIEW REQUIRED — DO NOT ACCEPT ZENODO'S DEFAULT LICENSE WITHOUT REVIEW.**
+**Creative Commons Attribution 4.0 International (CC BY 4.0)**
 
-Zenodo requires a license field and currently defaults to CC BY 4.0. The release contains mixed artifact classes, so final rights must be chosen after reviewing:
+Copyright statement recorded in Zenodo:
 
-- researcher-authored manuscript/docs/tables/figures;
-- raw generated campaign evidence;
-- repository/software licenses applicable to code references;
-- any third-party content included in the archives;
-- any dataset-specific redistribution restrictions.
+`Copyright © 2026 Aman Singh`
 
-Final decision:
+This license applies to the published research dataset/archive as recorded by Zenodo. It does not relicense separately obtained third-party software merely referenced by the project.
 
-`<LICENSE_OR_RIGHTS_STATEMENT>`
+## Visibility
 
-If multiple licenses/custom rights are necessary, record them explicitly in Zenodo and in the release notes.
+**Public**
 
-## File visibility
+The exact six-object candidate had already received the responsible-release disposition:
 
-Choose only after the local automated audit and manual rights/misuse review:
-
-- `<PUBLIC>`
-- `<RESTRICTED>`
-- `<RESTRICTED_WITH_EMBARGO_UNTIL_DATE>`
-
-Zenodo record metadata is public even when files are restricted.
-
-If restricted, document access conditions:
-
-`<ACCESS_CONDITIONS>`
+- `PUBLIC_FILES`
+- `APPROVED_FOR_PUBLICATION`
 
 ## DOI
 
-### Reserved DOI, if created before publication
+### Version DOI
 
-`<RESERVED_VERSION_DOI>`
+`10.5281/zenodo.22181540`
 
-A reserved DOI is not evidence that the record has been published.
-
-### Published version DOI
-
-`<VERSION_DOI>`
+<https://doi.org/10.5281/zenodo.22181540>
 
 ### Concept DOI
 
-`<CONCEPT_DOI>`
+`10.5281/zenodo.22181539`
 
-Use the specific version DOI in the manuscript/Data Availability statement for reproducibility. Retain the concept DOI as the identifier for the evolving record family when Zenodo provides it.
+<https://doi.org/10.5281/zenodo.22181539>
 
-## Related identifiers
+Use the **version DOI** in the manuscript/Data Availability statement when reproducibility depends on the exact v1.0.0 file set.
 
-Populate only when verified:
+## Related work
 
-- GitHub repository/tag URL: `<GITHUB_RELEASE_OR_TAG_URL>`
-- manuscript/article DOI: `<ARTICLE_DOI_IF_AVAILABLE>`
-- ORCID/project identifiers: `<VERIFIED_IDENTIFIERS>`
+GitHub repository:
 
-Suggested relation for the eventual paper: dataset `isSupplementTo` or other relation supported by the selected metadata model, based on the final article/deposit relationship.
+<https://github.com/Zartharas/mission-aware-satellite-cyber-recovery>
+
+Zenodo relation recorded as the dataset being **supplemented by** the software repository.
+
+A future journal-article DOI should be added as a related work when it exists.
 
 ## Version
 
-Candidate initial release version:
-
 `1.0.0`
 
-Do not create a new version solely to fix metadata that Zenodo permits editing on the same record. Use record versioning when the archived files materially change.
+A new archive-file version should be created if the archived files materially change. Metadata-only corrections should follow Zenodo's supported metadata-editing behavior without changing the frozen v1.0.0 file identities.
 
 ## Language
 
@@ -135,28 +110,33 @@ Do not create a new version solely to fix metadata that Zenodo permits editing o
 
 ## Funding
 
-**USER INPUT REQUIRED IF APPLICABLE.**
+**No external funding.**
 
-`<FUNDING / GRANT METADATA OR NONE DECLARED>`
-
-Do not infer grants or funders.
+No grant/award metadata were entered.
 
 ## Contributors
 
-Optional and only if verified:
+None declared for the archive record.
 
-`<DATA CURATION / SOFTWARE / SUPERVISION / OTHER CONTRIBUTORS>`
+## Exact published files
 
-Do not infer contributor roles from repository activity.
+1. `01-wp9-campaign-raw.tar.gz`
+2. `02-wp9-integrity-freeze.tar.gz`
+3. `03-publication-and-provenance.tar.gz`
+4. `README_RELEASE.txt`
+5. `RELEASE_CHECKSUMS.sha256`
+6. `RELEASE_MANIFEST.json`
 
-## Notes before Publish
+See [`../docs/40-zenodo-publication-closeout.md`](../docs/40-zenodo-publication-closeout.md) for SHA-256 identities and publication closeout.
 
-Before clicking Publish, confirm:
+## Historical pre-publication rules retained
 
-- uploaded filenames and byte sizes match the local candidate;
-- uploaded/downloaded SHA-256 checksums match `RELEASE_CHECKSUMS.sha256`;
-- final license/rights and visibility choices are deliberate;
-- the record title/description do not claim operational spacecraft/RF evidence;
-- the version DOI is captured exactly;
-- the concept DOI is captured when available;
-- the manuscript Data Availability statement is updated only after publication.
+The following governance remains applicable to any future archive version:
+
+- do not infer creators from Git commit authorship;
+- do not accept a default license without checking the actual release content;
+- uploaded filenames, sizes, and checksums must match the audited candidate;
+- archive metadata must preserve the controlled SIL / no-operational-spacecraft / no-RF claim boundary;
+- use a version DOI for exact reproducibility;
+- do not mutate a previously audited candidate and continue to call it the same object;
+- a new file set requires a new candidate, audit, rights/misuse review, and archive-version decision.

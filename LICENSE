@@ -1,0 +1,66 @@
+# Repository License Notice
+
+Copyright © 2026 Aman Singh.
+
+This repository contains more than one class of research material. The licenses below apply by content class unless a specific file states different terms.
+
+## 1. Original software and software-like configuration — MIT License
+
+The MIT License applies to original source code and software-oriented material authored for this repository, including the repository's original content under:
+
+- `src/`
+- `scripts/`
+- `tests/`
+- `.github/`
+- original machine-readable experiment/configuration material under `configs/`, except where a file clearly incorporates or is governed by another license
+
+### MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## 2. Original research documentation, figures, tables, and author-generated research data — CC BY 4.0
+
+Unless a file states otherwise, original research content authored for this project is licensed under the **Creative Commons Attribution 4.0 International License (CC BY 4.0)**. This includes original content in locations such as:
+
+- `README.md` and original project documentation;
+- `docs/`;
+- `publication/`;
+- `release/`;
+- `tracker/`;
+- original author-generated data/metadata and reproducibility records under `data/` and `artifacts/`.
+
+The DOI-bearing Zenodo dataset version 1.0.0 is also published under CC BY 4.0:
+
+<https://doi.org/10.5281/zenodo.22181540>
+
+CC BY 4.0 legal terms:
+
+<https://creativecommons.org/licenses/by/4.0/legalcode>
+
+Attribution should identify the author, the work, the applicable DOI or repository URL, and indicate whether changes were made.
+
+## 3. Third-party material is not relicensed
+
+Nothing in this file changes the license of third-party software, source code, publications, bibliographic records, standards, trademarks, names, logos, datasets, or other external material referenced by the project.
+
+The repository uses or references research infrastructure including NOS3, cFS-related components, Fortytwo/42, Docker/container images, and other third-party software. Those components remain under their respective upstream licenses and terms. See [`NOTICE.md`](NOTICE.md) and the upstream projects for authoritative licensing.
+
+The ignored `external/` directory, when populated by preparation scripts, contains separately obtained upstream repositories and is not covered by the repository author's MIT or CC BY grants merely because it resides next to this project locally.
+
+## 4. Citations and quoted material
+
+Bibliographic facts, citations, links, titles of third-party works, and limited quoted material do not become CC BY or MIT licensed by inclusion in this repository. Copyright in cited works remains with the relevant rights holders.
+
+## 5. Research and safety limitations are separate from copyright licensing
+
+These copyright licenses do not authorize access to systems you do not own or have permission to test, do not waive laws or contractual obligations, and do not convert this controlled software-in-the-loop research into authorization for operational spacecraft, TT&C, RF, production credentials, or proprietary telemetry testing.
+
+See [`SECURITY.md`](SECURITY.md) and the laboratory rules of engagement in [`docs/13-laboratory-rules-of-engagement.md`](docs/13-laboratory-rules-of-engagement.md).
+
+## 6. No endorsement
+
+References to NASA, NOS3, cFS, Fortytwo/42, GitHub, Zenodo, Docker, or any other project or organization are descriptive only and do not imply endorsement of this research.
