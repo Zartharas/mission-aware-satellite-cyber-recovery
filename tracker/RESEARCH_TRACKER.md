@@ -1,10 +1,10 @@
 # Research Tracker
 
-Last updated: 2026-08-29
+Last updated: 2026-08-30
 
 ## Current focus
 
-**WP9 final frozen experiment campaign is COMPLETE and cryptographically integrity-frozen. All 720/720 valid frozen positions are retained (24 cells × 30 campaign seeds, zero gaps, zero duplicate valid `(seed, cell)` pairs), with 729 authoritative ledger records (720 VALID + 9 INVALID). The publication-grade integrity freeze passed against all 17,182 local campaign files. See `docs/26-wp9-r069-campaign-closeout.md` for campaign closeout and `docs/27-wp9-cryptographic-integrity-freeze.md` for the durable freeze identities and execution-provenance correction. WP10 statistical analysis is now the current focus.**
+**WP11 responsible release preparation is COMPLETE. The exact six-object local release candidate generated from merge commit `eb3be7aaaed9e60c54843d9a7b9ace1a0fa5812e` passed the independent release audit and the manual rights/privacy/misuse review. The final responsible-release disposition is `PUBLIC_FILES` / `APPROVED_FOR_PUBLICATION`. No Zenodo upload, publication, or DOI assignment has occurred. See `docs/39-wp11-release-preparation-closeout.md` for the exact candidate, audit, review identities, and remaining external archive actions. WP0-WP11 research/release-preparation work is closed; journal-specific submission preparation and actual archive publication are separate next actions.**
 
 The frozen design was 24 cells × 30 valid repetitions = 720 valid executions with campaign seeds `10001`–`10030` and the deterministic R-053 within-seed order. One trial was executed per invocation throughout; automatic retry and automatic next-case execution never occurred. An INVALID attempt never advanced the frozen position and required the same seed/cell with a fresh run ID. Expected values remained acceptance-only and never replaced raw metrics. Trial-validity gate failures invalidated 9 retained attempts; unexpected but treatment-valid scientific outcomes were retained. One additional interrupted never-ledgered run at position 660 was quarantined intact and is not part of the 720-valid analysis membership.
 
@@ -113,7 +113,7 @@ The local `results/wp9/campaign/attempt-history.json` remains the execution auth
 
 **No further WP9 `run-once` invocations are expected or authorized by this tracker.** WP9 campaign execution and the read-only cryptographic integrity freeze are complete.
 
-The next work is WP10: perform the predeclared reproducible statistical analysis in `docs/18-wp9a-final-campaign-design.md` **only against the frozen 720-valid analysis membership identified by SHA-256 `a2bf0c8f352f4386e74a500d97ea8f73e0c39d03bfe10ac0ebcf02470af9f70e`**. INVALID, pre-runtime unledgered, and quarantined evidence remain available for methods/provenance/limitations but are not analysis members.
+No further WP9 campaign runtime or WP10 scientific analysis is required for this phase. WP10 is scientifically closed and WP11 responsible release preparation is complete. The next actions are journal-specific submission preparation and, under separate explicit authorization, Zenodo metadata/license review, authenticated upload, checksum verification, publication, DOI capture, and the corresponding Data Availability update.
 
 In parallel as a publication-governance task, Zenodo is selected as the primary archive target for the frozen data/integrity bundle. The deposit and DOI remain pending package-size/limit verification and post-upload checksum verification; see `docs/27-wp9-cryptographic-integrity-freeze.md`.
 
@@ -131,8 +131,8 @@ In parallel as a publication-governance task, Zenodo is selected as the primary 
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery and bounded failure-mode validations passed |
 | WP8 | Pilot | **Complete** | 40 valid pilot executions; one retained/excluded Stage-1 invalid attempt; 41 frozen archives verified |
 | WP9 | Frozen experiment campaign | **Complete — 720/720 valid; cryptographic freeze PASS** | `docs/26-wp9-r069-campaign-closeout.md`; `docs/27-wp9-cryptographic-integrity-freeze.md` |
-| WP10 | Analysis and manuscript | **Ready to start** | Run predeclared analysis only against frozen 720-valid membership; preserve A16/A17 P6→P5 delegation semantics and claim boundaries |
-| WP11 | Responsible artifact release | Not started | Zenodo selected as primary archive; deposit/DOI and sanitized release pending |
+| WP10 | Analysis and manuscript | **Complete — target-neutral manuscript assembled and audited** | `docs/28-wp10-integrated-findings-freeze.md` through `docs/37-wp10-g7-presubmission-quality-audit.md`; scientifically closed pending journal-specific formatting/submission metadata and final archive DOI |
+| WP11 | Responsible artifact release | **Complete — responsible release preparation; archive publication pending** | `docs/39-wp11-release-preparation-closeout.md`; exact six-object candidate generated and audited PASS; rights/privacy/misuse decision `PUBLIC_FILES` / `APPROVED_FOR_PUBLICATION`; Zenodo upload/publication/DOI remain separate pending external actions |
 
 ## Remaining research path
 
