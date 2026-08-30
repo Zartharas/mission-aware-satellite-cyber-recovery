@@ -442,6 +442,43 @@ def detect_freeze_dir(explicit: str | None) -> Path:
     return candidates[0]
 
 
+def path_is_within(
+    path: Path,
+    root: Path,
+) -> bool:
+    try:
+        path.relative_to(root)
+    except ValueError:
+        return False
+    return True
+
+
+def validate_output_location(
+    out: Path,
+    repo: Path,
+    campaign_root: Path,
+    freeze_dir: Path,
+) -> None:
+    resolved_out = out.resolve()
+
+    protected_roots = (
+        ("campaign", campaign_root.resolve()),
+        ("integrity-freeze", freeze_dir.resolve()),
+        ("repository", repo.resolve()),
+    )
+
+    for label, root in protected_roots:
+        if path_is_within(
+            resolved_out,
+            root,
+        ):
+            raise RuntimeError(
+                "Release-candidate output must be outside "
+                f"protected {label} tree: "
+                f"output={resolved_out}, protected={root}"
+            )
+
+
 def write_json(path: Path, obj: object) -> None:
     path.write_text(json.dumps(obj, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
@@ -494,6 +531,14 @@ def main() -> int:
         if args.out
         else (Path.home() / "Downloads" / f"WP11_RELEASE_CANDIDATE_{head[:7]}").resolve()
     )
+
+    validate_output_location(
+        out,
+        repo,
+        campaign_root,
+        freeze_dir,
+    )
+
     if out.exists():
         raise RuntimeError(f"Refusing to reuse existing release-candidate directory: {out}")
     out.mkdir(parents=True)
@@ -655,12 +700,24 @@ def main() -> int:
     # Re-verify raw source after packaging. This is the critical non-mutation proof.
     ledger_after = sha256_file(ledger_path)
     tree_sha_after, file_count_after = campaign_tree_identity(repo, campaign_root)
+    freeze_after = verify_freeze_bundle(freeze_dir)
     status_after = run_git(repo, "status", "--porcelain")
 
     if ledger_after != EXPECTED_LEDGER_SHA256:
         raise RuntimeError("Ledger changed during packaging")
     if tree_sha_after != tree_sha_before or file_count_after != campaign_file_count:
         raise RuntimeError("Campaign source tree changed during packaging")
+    if (
+        freeze_after["bundle_checksum_file_sha256"]
+        != freeze["bundle_checksum_file_sha256"]
+        or freeze_after["checksum_target_count"]
+        != freeze["checksum_target_count"]
+        or freeze_after["verified_entries"]
+        != freeze["verified_entries"]
+    ):
+        raise RuntimeError(
+            "Integrity-freeze bundle changed during packaging"
+        )
     if status_after != status_before:
         raise RuntimeError("Git worktree changed during packaging")
 
@@ -679,6 +736,7 @@ def main() -> int:
     print(f"campaign_tree_sha256_after={tree_sha_after}")
     print(f"ledger_sha256_after={ledger_after}")
     print("source_campaign_unchanged=true")
+    print("freeze_bundle_unchanged=true")
     print("git_worktree_unchanged=true")
     print("zenodo_default_file_count_gate=PASS")
     print("zenodo_default_size_gate=PASS")

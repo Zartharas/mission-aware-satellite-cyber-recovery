@@ -64,6 +64,11 @@ SENSITIVE_BASENAMES = {
     "secrets.json",
 }
 
+SENSITIVE_PATH_COMPONENTS = {
+    "credentials",
+    "secrets",
+}
+
 SECRET_PATTERNS = {
     "PRIVATE_KEY_MARKER": re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
     "AWS_ACCESS_KEY": re.compile(rb"\bAKIA[0-9A-Z]{16}\b"),
@@ -448,6 +453,27 @@ def verify_freeze_archive(path: Path) -> dict:
     }
 
 
+def sensitive_member_name(
+    posix: PurePosixPath,
+) -> bool:
+    base_lower = posix.name.lower()
+    suffix_lower = posix.suffix.lower()
+    parent_parts_lower = {
+        part.lower()
+        for part in posix.parts[:-1]
+    }
+
+    return (
+        suffix_lower in SENSITIVE_SUFFIXES
+        or base_lower in SENSITIVE_BASENAMES
+        or base_lower.startswith(".env.")
+        or bool(
+            parent_parts_lower
+            & SENSITIVE_PATH_COMPONENTS
+        )
+    )
+
+
 def scan_archive(path: Path) -> dict:
     member_count = 0
     regular_count = 0
@@ -477,20 +503,39 @@ def scan_archive(path: Path) -> dict:
 
             regular_count += 1
             posix = PurePosixPath(member.name)
-            base_lower = posix.name.lower()
             suffix_lower = posix.suffix.lower()
+            sensitive_name = sensitive_member_name(
+                posix
+            )
 
-            if suffix_lower in SENSITIVE_SUFFIXES or base_lower in SENSITIVE_BASENAMES:
-                sensitive_name_candidates.append(member.name)
+            if sensitive_name:
+                sensitive_name_candidates.append(
+                    member.name
+                )
 
-            if member.size <= MAX_SCAN_MEMBER_BYTES and suffix_lower in TEXT_SCAN_SUFFIXES:
+            should_scan = (
+                member.size
+                <= MAX_SCAN_MEMBER_BYTES
+                and (
+                    suffix_lower
+                    in TEXT_SCAN_SUFFIXES
+                    or sensitive_name
+                )
+            )
+
+            if should_scan:
                 extracted = tf.extractfile(member)
                 if extracted is None:
                     continue
                 payload = extracted.read()
                 for label, pattern in SECRET_PATTERNS.items():
                     if pattern.search(payload):
-                        secret_candidates.append({"member": member.name, "pattern": label})
+                        secret_candidates.append(
+                            {
+                                "member": member.name,
+                                "pattern": label,
+                            }
+                        )
 
     return {
         "member_count": member_count,
