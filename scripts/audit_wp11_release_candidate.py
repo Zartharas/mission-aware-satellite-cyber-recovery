@@ -3,7 +3,8 @@
 
 The audit verifies release checksums, safe archive paths/types, expected package
 structure, and high-confidence credential/private-key indicators. It never
-modifies the source campaign and does not upload or publish anything.
+modifies the source campaign or the immutable release-candidate directory and
+does not upload or publish anything.
 """
 
 from __future__ import annotations
@@ -137,6 +138,13 @@ def scan_archive(path: Path) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("release_dir")
+    parser.add_argument(
+        "--audit-report",
+        help=(
+            "Output path for audit JSON. Defaults beside the candidate as "
+            "<candidate>.LOCAL_AUDIT_REPORT.json; never written inside candidate."
+        ),
+    )
     args = parser.parse_args()
 
     release_dir = Path(args.release_dir).expanduser().resolve()
@@ -202,7 +210,6 @@ def main() -> int:
         )
 
     # Publication bundle must not contain raw campaign data or runtime/source implementation.
-    publication_report = reports["03-publication-and-provenance.tar.gz"]
     with tarfile.open(release_dir / "03-publication-and-provenance.tar.gz", "r:gz") as tf:
         publication_names = [m.name for m in tf if m.isfile()]
     forbidden_publication_prefixes = (
@@ -233,6 +240,8 @@ def main() -> int:
         if report["high_confidence_secret_candidates"]
     ]
 
+    # The candidate directory is immutable after preparation; count/size it before
+    # writing the audit report outside that directory.
     release_files = [p for p in release_dir.iterdir() if p.is_file()]
     total_bytes = sum(p.stat().st_size for p in release_files)
     file_count = len(release_files)
@@ -264,6 +273,7 @@ def main() -> int:
         "status": status,
         "review_reasons": review_reasons,
         "release_dir": str(release_dir),
+        "release_candidate_unchanged_by_audit": True,
         "release_file_count": file_count,
         "release_total_bytes": total_bytes,
         "checksum_entries_verified": len(checksum_entries),
@@ -276,7 +286,19 @@ def main() -> int:
         "doi_assigned": False,
     }
 
-    audit_path = release_dir / "LOCAL_AUDIT_REPORT.json"
+    audit_path = (
+        Path(args.audit_report).expanduser().resolve()
+        if args.audit_report
+        else release_dir.parent / f"{release_dir.name}.LOCAL_AUDIT_REPORT.json"
+    )
+    try:
+        audit_path.relative_to(release_dir)
+    except ValueError:
+        pass
+    else:
+        raise RuntimeError(
+            "Audit report must be outside the immutable release-candidate directory"
+        )
     if audit_path.exists():
         raise RuntimeError(f"Refusing to overwrite existing audit report: {audit_path}")
     audit_path.write_text(json.dumps(audit, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -285,8 +307,9 @@ def main() -> int:
     print("WP11 LOCAL RELEASE AUDIT")
     print("============================================================")
     print(f"release_dir={release_dir}")
-    print(f"release_file_count_before_audit_report={file_count}")
-    print(f"release_total_bytes_before_audit_report={total_bytes}")
+    print(f"audit_report={audit_path}")
+    print(f"release_file_count={file_count}")
+    print(f"release_total_bytes={total_bytes}")
     print(f"checksum_entries_verified={len(checksum_entries)}")
     for name in sorted(reports):
         report = reports[name]
@@ -297,6 +320,7 @@ def main() -> int:
             f"secret_candidates={len(report['high_confidence_secret_candidates'])}"
         )
     print(f"forbidden_publication_bundle_paths={len(forbidden_publication)}")
+    print("release_candidate_unchanged_by_audit=true")
     print(f"zenodo_default_file_count_gate={'PASS' if file_count <= ZENODO_MAX_FILES else 'FAIL'}")
     print(f"zenodo_default_size_gate={'PASS' if total_bytes <= ZENODO_DEFAULT_MAX_BYTES else 'FAIL'}")
     print(f"wp11_local_release_audit={status}")
