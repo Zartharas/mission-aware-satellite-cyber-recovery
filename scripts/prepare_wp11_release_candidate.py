@@ -17,7 +17,7 @@ import gzip
 import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import shutil
 import subprocess
 import sys
@@ -160,42 +160,185 @@ def parse_sha256_manifest(path: Path) -> list[tuple[str, str]]:
 
 
 def verify_freeze_bundle(freeze_dir: Path) -> dict:
-    candidates = list(freeze_dir.rglob("BUNDLE_CHECKSUMS.sha256"))
+    root = freeze_dir.resolve()
+
+    paths = sorted(
+        root.rglob("*"),
+        key=lambda path: path.as_posix(),
+    )
+
+    symlinks = [
+        path.relative_to(root).as_posix()
+        for path in paths
+        if path.is_symlink()
+    ]
+    if symlinks:
+        raise RuntimeError(
+            "Symlinks are not permitted in frozen integrity bundle: "
+            f"{symlinks}"
+        )
+
+    special_entries = [
+        path.relative_to(root).as_posix()
+        for path in paths
+        if (
+            not path.is_symlink()
+            and not path.is_file()
+            and not path.is_dir()
+        )
+    ]
+    if special_entries:
+        raise RuntimeError(
+            "Special filesystem entries are not permitted in "
+            f"frozen integrity bundle: {special_entries}"
+        )
+
+    regular_files = [
+        path
+        for path in paths
+        if path.is_file()
+    ]
+
+    candidates = [
+        path
+        for path in regular_files
+        if path.name == "BUNDLE_CHECKSUMS.sha256"
+    ]
+
     if len(candidates) != 1:
         raise RuntimeError(
-            f"Expected exactly one BUNDLE_CHECKSUMS.sha256 under {freeze_dir}; "
-            f"found {len(candidates)}"
+            "Expected exactly one BUNDLE_CHECKSUMS.sha256 under "
+            f"{freeze_dir}; found {len(candidates)}"
         )
 
     manifest = candidates[0]
+
+    if manifest.parent.resolve() != root:
+        raise RuntimeError(
+            "BUNDLE_CHECKSUMS.sha256 must be at the freeze "
+            f"directory root; observed {manifest}"
+        )
+
     manifest_sha = sha256_file(manifest)
-    if manifest_sha != EXPECTED_FREEZE_BUNDLE_CHECKSUM_FILE_SHA256:
+
+    if (
+        manifest_sha
+        != EXPECTED_FREEZE_BUNDLE_CHECKSUM_FILE_SHA256
+    ):
         raise RuntimeError(
             "freeze bundle checksum-file SHA mismatch: "
-            f"expected {EXPECTED_FREEZE_BUNDLE_CHECKSUM_FILE_SHA256}, "
+            f"expected "
+            f"{EXPECTED_FREEZE_BUNDLE_CHECKSUM_FILE_SHA256}, "
             f"observed {manifest_sha}"
         )
 
+    entries = parse_sha256_manifest(manifest)
+
+    normalized_entries: list[tuple[str, str]] = []
+
+    for expected, raw_name in entries:
+        posix = PurePosixPath(raw_name)
+
+        if (
+            posix.is_absolute()
+            or not posix.parts
+            or ".." in posix.parts
+            or "" in posix.parts
+        ):
+            raise RuntimeError(
+                "Unsafe checksum entry in frozen integrity bundle: "
+                f"{raw_name!r}"
+            )
+
+        normalized_entries.append(
+            (
+                expected,
+                posix.as_posix(),
+            )
+        )
+
+    target_names = [
+        name
+        for _, name in normalized_entries
+    ]
+
+    if len(target_names) != len(set(target_names)):
+        raise RuntimeError(
+            "Duplicate checksum target in frozen integrity bundle"
+        )
+
+    manifest_relative = (
+        manifest.relative_to(root).as_posix()
+    )
+
+    if manifest_relative in set(target_names):
+        raise RuntimeError(
+            "BUNDLE_CHECKSUMS.sha256 must not checksum itself"
+        )
+
+    expected_target_set = {
+        path.relative_to(root).as_posix()
+        for path in regular_files
+        if path != manifest
+    }
+
+    actual_target_set = set(target_names)
+
+    if actual_target_set != expected_target_set:
+        missing_files = sorted(
+            actual_target_set - expected_target_set
+        )
+        unchecksummed_files = sorted(
+            expected_target_set - actual_target_set
+        )
+
+        raise RuntimeError(
+            "Frozen integrity-bundle checksum coverage mismatch: "
+            f"missing_targets={missing_files}, "
+            f"unchecksummed_files={unchecksummed_files}"
+        )
+
     verified = 0
-    for expected, name in parse_sha256_manifest(manifest):
-        target = (manifest.parent / name).resolve()
+
+    for expected, name in normalized_entries:
+        target = (root / name).resolve()
+
         try:
-            target.relative_to(freeze_dir.resolve())
+            target.relative_to(root)
         except ValueError as exc:
-            raise RuntimeError(f"Checksum entry escapes freeze directory: {name}") from exc
+            raise RuntimeError(
+                f"Checksum entry escapes freeze directory: {name}"
+            ) from exc
+
         if not target.is_file():
-            raise RuntimeError(f"Missing freeze-bundle file: {target}")
+            raise RuntimeError(
+                f"Missing freeze-bundle file: {target}"
+            )
+
         observed = sha256_file(target)
+
         if observed != expected:
             raise RuntimeError(
-                f"Freeze checksum mismatch for {name}: expected {expected}, observed {observed}"
+                f"Freeze checksum mismatch for {name}: "
+                f"expected {expected}, observed {observed}"
             )
+
         verified += 1
+
+    if verified != len(expected_target_set):
+        raise RuntimeError(
+            "Frozen integrity-bundle verified-target count "
+            f"mismatch: expected {len(expected_target_set)}, "
+            f"observed {verified}"
+        )
 
     return {
         "bundle_checksum_file": str(manifest),
         "bundle_checksum_file_sha256": manifest_sha,
+        "freeze_regular_file_count": len(regular_files),
+        "checksum_target_count": len(actual_target_set),
         "verified_entries": verified,
+        "complete_checksum_coverage": True,
     }
 
 
