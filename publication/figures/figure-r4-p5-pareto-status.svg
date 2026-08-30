@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="560" viewBox="0 0 1180 560" role="img" aria-labelledby="title desc">
+  <title id="title">Figure R4. Condition-specific P7 Pareto status across G01 to G09</title>
+  <desc id="desc">Categorical matrix showing empirical tie or equivalence in G01 to G03, comparator-supported disadvantage in G04 G06 and G09, mixed evidence in G05, and P7-supported benefit in G07 and G08. The display is not a weighted score or global policy ranking.</desc>
+  <rect x="0" y="0" width="1180" height="560" fill="white"/>
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #111; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 14px; }
+    .group { font-size: 14px; font-weight: 700; }
+    .small { font-size: 12px; }
+    .cell { stroke: #222; stroke-width: 1.5; }
+    .legend { font-size: 13px; }
+  </style>
+  <defs>
+    <pattern id="diag" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#777" stroke-width="2"/>
+    </pattern>
+    <pattern id="cross" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M0 0 L10 10 M10 0 L0 10" stroke="#888" stroke-width="1.4"/>
+    </pattern>
+  </defs>
+
+  <text x="40" y="40" class="title">Condition-specific P7 Pareto status</text>
+  <text x="40" y="64" class="sub">Categorical synthesis of frozen point-estimate relations and retained marginal interval support.</text>
+  <text x="40" y="84" class="sub">This is not a weighted projection, success rate, or global ranking of policies.</text>
+
+  <!-- category rows -->
+  <text x="40" y="165" class="group">Tie / equivalence</text>
+  <text x="40" y="245" class="group">Comparator-supported disadvantage</text>
+  <text x="40" y="325" class="group">Mixed</text>
+  <text x="40" y="405" class="group">P7-supported benefit</text>
+
+  <!-- grid labels -->
+  <g>
+    <text x="310" y="120" text-anchor="middle" class="group">G01</text>
+    <text x="400" y="120" text-anchor="middle" class="group">G02</text>
+    <text x="490" y="120" text-anchor="middle" class="group">G03</text>
+    <text x="580" y="120" text-anchor="middle" class="group">G04</text>
+    <text x="670" y="120" text-anchor="middle" class="group">G05</text>
+    <text x="760" y="120" text-anchor="middle" class="group">G06</text>
+    <text x="850" y="120" text-anchor="middle" class="group">G07</text>
+    <text x="940" y="120" text-anchor="middle" class="group">G08</text>
+    <text x="1030" y="120" text-anchor="middle" class="group">G09</text>
+  </g>
+
+  <!-- horizontal guides -->
+  <line x1="260" y1="180" x2="1080" y2="180" stroke="#ddd"/>
+  <line x1="260" y1="260" x2="1080" y2="260" stroke="#ddd"/>
+  <line x1="260" y1="340" x2="1080" y2="340" stroke="#ddd"/>
+  <line x1="260" y1="420" x2="1080" y2="420" stroke="#ddd"/>
+
+  <!-- category markers -->
+  <!-- tie/equivalence G01-G03: open circles -->
+  <circle cx="310" cy="160" r="22" fill="white" class="cell"/>
+  <circle cx="400" cy="160" r="22" fill="white" class="cell"/>
+  <circle cx="490" cy="160" r="22" fill="white" class="cell"/>
+
+  <!-- comparator disadvantage G04 G06 G09: black squares -->
+  <rect x="558" y="218" width="44" height="44" fill="#333" class="cell"/>
+  <rect x="738" y="218" width="44" height="44" fill="#333" class="cell"/>
+  <rect x="1008" y="218" width="44" height="44" fill="#333" class="cell"/>
+
+  <!-- mixed G05: cross hatch diamond -->
+  <polygon points="670,298 697,325 670,352 643,325" fill="url(#cross)" class="cell"/>
+
+  <!-- P7 benefit G07 G08: filled circles -->
+  <circle cx="850" cy="400" r="22" fill="#777" class="cell"/>
+  <circle cx="940" cy="400" r="22" fill="#777" class="cell"/>
+
+  <!-- relation details -->
+  <text x="310" y="195" text-anchor="middle" class="small">A02≈A01</text>
+  <text x="400" y="195" text-anchor="middle" class="small">A04≈A03/A07</text>
+  <text x="490" y="195" text-anchor="middle" class="small">A06≈A05</text>
+  <text x="580" y="282" text-anchor="middle" class="small">A08 &gt; P7</text>
+  <text x="670" y="375" text-anchor="middle" class="small">P7 &gt; A10;</text>
+  <text x="670" y="392" text-anchor="middle" class="small">A14 point &gt; P7</text>
+  <text x="760" y="282" text-anchor="middle" class="small">A15 &gt; P7</text>
+  <text x="850" y="440" text-anchor="middle" class="small">P7 &gt; A17</text>
+  <text x="940" y="440" text-anchor="middle" class="small">P7 &gt; A19</text>
+  <text x="1030" y="282" text-anchor="middle" class="small">A22 &gt; P7</text>
+
+  <!-- legend -->
+  <text x="40" y="485" class="group">Legend</text>
+  <circle cx="120" cy="510" r="11" fill="white" class="cell"/><text x="140" y="515" class="legend">empirical tie/equivalence</text>
+  <rect x="340" y="499" width="22" height="22" fill="#333" class="cell"/><text x="375" y="515" class="legend">marginal intervals support comparator disadvantage</text>
+  <polygon points="720,499 731,510 720,521 709,510" fill="url(#cross)" class="cell"/><text x="745" y="515" class="legend">mixed condition</text>
+  <circle cx="900" cy="510" r="11" fill="#777" class="cell"/><text x="920" y="515" class="legend">marginal intervals support P7 benefit</text>
+
+  <text x="40" y="548" class="sub">P7 is on the point-estimate Pareto front in 5/9 groups, but G01–G03 are equivalence cases and 5/9 must not be reported as a success rate.</text>
+</svg>

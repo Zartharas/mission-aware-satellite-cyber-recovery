@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Figure R3. Evidence-dependent P7 selection and consequence pathways</title>
+  <desc id="desc">Two-panel deterministic flow diagram for E1 and E3 showing how full versus degraded policy-visible evidence changed P7 effective policy, selected action or basis, and downstream mission or recovery outcomes.</desc>
+  <rect x="0" y="0" width="1200" height="720" fill="white"/>
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #111; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 14px; }
+    .panel { fill: #fafafa; stroke: #222; stroke-width: 1.5; }
+    .box { fill: white; stroke: #222; stroke-width: 1.5; rx: 8; ry: 8; }
+    .degraded { fill: #eee; stroke: #222; stroke-width: 1.5; rx: 8; ry: 8; }
+    .head { font-size: 17px; font-weight: 700; }
+    .lab { font-size: 14px; }
+    .small { font-size: 12px; }
+    .arrow { stroke: #222; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#222"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="38" class="title">Evidence-dependent P7 selection and consequence pathways</text>
+  <text x="40" y="62" class="sub">Observed deterministic pathways in the retained P4 cells; no independent objective correctness oracle is applied.</text>
+  <text x="40" y="82" class="sub">ENTER_SAFE_MODE is an experimental modeled action, not a native spacecraft safe-mode claim.</text>
+
+  <!-- E1 panel -->
+  <rect x="35" y="110" width="1130" height="255" class="panel"/>
+  <text x="55" y="140" class="head">E1 — unauthorized valid command, M2/C0</text>
+
+  <rect x="65" y="175" width="170" height="70" class="box"/>
+  <text x="150" y="202" text-anchor="middle" class="lab">T0 full evidence</text>
+  <text x="150" y="224" text-anchor="middle" class="small">P7 requested</text>
+
+  <path d="M235 210 L315 210" class="arrow"/>
+  <rect x="315" y="175" width="210" height="70" class="box"/>
+  <text x="420" y="202" text-anchor="middle" class="lab">Effective P2</text>
+  <text x="420" y="224" text-anchor="middle" class="small">RESTRICT_HIGH_RISK_COMMANDS</text>
+
+  <path d="M525 210 L605 210" class="arrow"/>
+  <rect x="605" y="165" width="250" height="90" class="box"/>
+  <text x="730" y="194" text-anchor="middle" class="lab">Observed consequence</text>
+  <text x="730" y="216" text-anchor="middle" class="small">M02 = 0.5; M06 = 0.0</text>
+  <text x="730" y="238" text-anchor="middle" class="small">no M03 violation; no mission loss</text>
+
+  <rect x="65" y="270" width="170" height="70" class="degraded"/>
+  <text x="150" y="297" text-anchor="middle" class="lab">T1 degraded evidence</text>
+  <text x="150" y="319" text-anchor="middle" class="small">P7 requested</text>
+
+  <path d="M235 305 L315 305" class="arrow"/>
+  <rect x="315" y="270" width="210" height="70" class="degraded"/>
+  <text x="420" y="297" text-anchor="middle" class="lab">Effective P4</text>
+  <text x="420" y="319" text-anchor="middle" class="small">ENTER_SAFE_MODE</text>
+
+  <path d="M525 305 L605 305" class="arrow"/>
+  <rect x="605" y="260" width="250" height="90" class="degraded"/>
+  <text x="730" y="289" text-anchor="middle" class="lab">Observed consequence</text>
+  <text x="730" y="311" text-anchor="middle" class="small">M02 = 0.0; M06 = 1.0</text>
+  <text x="730" y="333" text-anchor="middle" class="small">contained 30/30; no M03 violation</text>
+
+  <text x="900" y="210" class="lab">Δ T1−T0:</text>
+  <text x="900" y="235" class="small">M02 −0.5</text>
+  <text x="900" y="257" class="small">M06 +1.0</text>
+
+  <!-- E3 panel -->
+  <rect x="35" y="390" width="1130" height="270" class="panel"/>
+  <text x="55" y="420" class="head">E3 — compromised update, M4/C0</text>
+
+  <rect x="65" y="455" width="170" height="70" class="box"/>
+  <text x="150" y="482" text-anchor="middle" class="lab">T0 full evidence</text>
+  <text x="150" y="504" text-anchor="middle" class="small">P7 requested</text>
+
+  <path d="M235 490 L315 490" class="arrow"/>
+  <rect x="315" y="455" width="210" height="70" class="box"/>
+  <text x="420" y="482" text-anchor="middle" class="lab">Effective P5</text>
+  <text x="420" y="504" text-anchor="middle" class="small">verified rollback</text>
+
+  <path d="M525 490 L605 490" class="arrow"/>
+  <rect x="605" y="445" width="270" height="90" class="box"/>
+  <text x="740" y="474" text-anchor="middle" class="lab">Observed consequence</text>
+  <text x="740" y="496" text-anchor="middle" class="small">trusted recovery 30/30</text>
+  <text x="740" y="518" text-anchor="middle" class="small">M02 = 1.0</text>
+
+  <rect x="65" y="555" width="170" height="70" class="degraded"/>
+  <text x="150" y="582" text-anchor="middle" class="lab">T1 degraded evidence</text>
+  <text x="150" y="604" text-anchor="middle" class="small">P7 requested</text>
+
+  <path d="M235 590 L295 590" class="arrow"/>
+  <rect x="295" y="550" width="190" height="80" class="degraded"/>
+  <text x="390" y="578" text-anchor="middle" class="lab">evidence_insufficient</text>
+  <text x="390" y="602" text-anchor="middle" class="small">selection basis</text>
+
+  <path d="M485 590 L545 590" class="arrow"/>
+  <rect x="545" y="555" width="185" height="70" class="degraded"/>
+  <text x="637" y="582" text-anchor="middle" class="lab">Effective P2</text>
+  <text x="637" y="604" text-anchor="middle" class="small">restriction</text>
+
+  <path d="M730 590 L790 590" class="arrow"/>
+  <rect x="790" y="545" width="270" height="90" class="degraded"/>
+  <text x="925" y="574" text-anchor="middle" class="lab">Observed consequence</text>
+  <text x="925" y="596" text-anchor="middle" class="small">recovery failed 30/30</text>
+  <text x="925" y="618" text-anchor="middle" class="small">trusted 0/30; M02 = 0.5</text>
+
+  <text x="55" y="690" class="sub">The E3 T1 outcome was recovery failure, not nominal restoration without verification; that narrower anticipated mechanism was not observed.</text>
+</svg>

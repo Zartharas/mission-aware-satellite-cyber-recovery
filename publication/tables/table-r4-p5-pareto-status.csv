@@ -1,0 +1,10 @@
+group,p7_cell,p7_effective_policy,p7_on_point_front,point_estimate_relation_summary,marginal_interval_summary,display_category
+G01,A02,P1,true,"Tie with A01/P1","No marginal dominance claim retained; empirical tie/equivalence only",TIE_EQUIVALENCE
+G02,A04,P2,true,"Ties with A03/P1 and A07/P2","No marginal dominance claim retained; empirical tie/equivalence only",TIE_EQUIVALENCE
+G03,A06,P2,true,"Tie with A05/P1","No marginal dominance claim retained; empirical tie/equivalence only",TIE_EQUIVALENCE
+G04,A09,P4,false,"Dominated by A08/P2","Marginal intervals support comparator dominance",COMPARATOR_SUPPORTED_DISADVANTAGE
+G05,A11,P5,false,"Dominates A10/P2 and A16/P6; point-dominated by A14/P5 through M05 RMST 3.9819393339 s vs 3.8009359910 s","P7 dominance supported versus A10/P2; A14/P5 comparison uncertain/tied under marginal intervals",MIXED
+G06,A13,P2,false,"Tied with A12/P2; dominated by A15/P5","Marginal intervals support comparator dominance versus A15/P5",COMPARATOR_SUPPORTED_DISADVANTAGE
+G07,A18,P5,true,"Unique front member; dominates A17/P6","Marginal intervals support P7 dominance",P7_SUPPORTED_BENEFIT
+G08,A21,P1,true,"Dominates A19/P0; ties A20/P1","Marginal intervals support P7 dominance versus A19/P0",P7_SUPPORTED_BENEFIT
+G09,A24,P4,false,"Tied with A23/P4; dominated by A22/P0","Marginal intervals support comparator dominance versus A22/P0",COMPARATOR_SUPPORTED_DISADVANTAGE

@@ -1,0 +1,7 @@
+event_family,cell,evidence_condition,requested_policy,effective_policy,selected_action_or_basis,M02_mission_completion,M05_trusted_recovery_count,recovery_failed_count,M06_legitimate_rejection_rate,interpretive_note
+E1,A04,T0,P7,P2,RESTRICT_HIGH_RISK_COMMANDS,0.5,0,0,0.0,"Full-evidence P7 E1 pathway; terminal outcome operational/unverified rather than trusted recovery"
+E1,A09,T1,P7,P4,ENTER_SAFE_MODE,0.0,0,0,1.0,"Degraded-evidence P7 E1 pathway; experimental modeled safe-mode action; contained 30/30"
+E3,A14,T0,P5,P5,REQUEST_VERIFIED_ROLLBACK,1.0,30,0,0.0,"Fixed P5 retained trusted recovery"
+E3,A15,T1,P5,P5,REQUEST_VERIFIED_ROLLBACK,1.0,30,0,0.0,"Fixed P5 retained trusted recovery under degraded evidence"
+E3,A11,T0,P7,P5,REQUEST_VERIFIED_ROLLBACK,1.0,30,0,0.0,"Full-evidence P7 selected verified rollback"
+E3,A13,T1,P7,P2,"evidence_insufficient -> RESTRICT_HIGH_RISK_COMMANDS",0.5,0,30,0.0,"Degraded-evidence P7 entered evidence-insufficient basis and failed recovery 30/30; narrower restoration-without-verification mechanism absent"
