@@ -5,14 +5,10 @@ on:
     branches: [main]
     paths:
       - "configs/**"
-      - "scripts/validate_experiment_schema.py"
+      - "scripts/**"
       - "requirements-dev.txt"
       - "src/**"
       - "tests/**"
-      - "scripts/run_wp5_*.sh"
-      - "scripts/run_wp7_*.sh"
-      - "scripts/run_wp8_*.sh"
-      - "scripts/run_wp9_*.sh"
       - "CITATION.cff"
       - ".github/dependabot.yml"
       - "docs/REPRODUCIBILITY_GUIDE.md"
@@ -21,14 +17,10 @@ on:
   pull_request:
     paths:
       - "configs/**"
-      - "scripts/validate_experiment_schema.py"
+      - "scripts/**"
       - "requirements-dev.txt"
       - "src/**"
       - "tests/**"
-      - "scripts/run_wp5_*.sh"
-      - "scripts/run_wp7_*.sh"
-      - "scripts/run_wp8_*.sh"
-      - "scripts/run_wp9_*.sh"
       - "CITATION.cff"
       - ".github/dependabot.yml"
       - "docs/REPRODUCIBILITY_GUIDE.md"
