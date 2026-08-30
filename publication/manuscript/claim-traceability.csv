@@ -1,0 +1,36 @@
+manuscript_location,claim_topic,claim_class,frozen_authority,publication_display,audit_verdict
+4.1,720 VALID analysis population,LIMITATION,docs/28-wp10-integrated-findings-freeze.md; docs/30 C00,table-r1-proposition-summary.csv,PASS
+4.1,M05 180 observed / 540 censored at 30 s,LIMITATION,docs/28; docs/30 C22-C24,table-r1-proposition-summary.csv,PASS
+4.1,M03 structural zero,LIMITATION,docs/28; docs/30,table-r1-proposition-summary.csv,PASS
+4.1,Execution provenance 1/9/710,LIMITATION,docs/28; docs/29,table-s1-execution-provenance-sensitivity.csv,PASS
+4.2,P1 predeclared contrasts/interactions exactly zero,PRIMARY_NULL,docs/28 P1; docs/30 C01,table-r1-proposition-summary.csv,PASS
+4.3,M04 P6 C1-C0 +10.0831 [9.8304 10.3735],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C02,table-r2-p2-contact-effects.csv,PASS
+4.3,M04 P7 C1-C0 -0.0425 [-0.1977 0.0899],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C05,table-r2-p2-contact-effects.csv,PASS
+4.3,M04 interaction +10.1256 [9.7859 10.5176],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C06,table-r2-p2-contact-effects.csv,PASS
+4.3,M05 P6 C1-C0 +10.4246 [9.6567 11.3598],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C03,table-r2-p2-contact-effects.csv,PASS
+4.3,M05 P7 C1-C0 -0.1808 [-0.7194 0.2767],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C05,table-r2-p2-contact-effects.csv,PASS
+4.3,M05 interaction +10.6054 [9.5343 11.9023],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C06,table-r2-p2-contact-effects.csv,PASS
+4.3,M07 P6 C1-C0 +10.0676 [9.8438 10.3260],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C04,table-r2-p2-contact-effects.csv,PASS
+4.3,M07 P7 C1-C0 -0.0390 [-0.1690 0.0709],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C05,table-r2-p2-contact-effects.csv,PASS
+4.3,M07 interaction +10.1066 [9.8135 10.4499],PRIMARY_SUPPORTED,docs/28 P2; docs/30 C06,table-r2-p2-contact-effects.csv,PASS
+4.3,C1 synthetic/modelled and A16/A17 remain P6,LIMITATION,docs/28 P2 terminology boundary; docs/30 C07,figure-r1-p2-contact-effects.svg,PASS
+4.4,A14/A15 fixed P5 trusted 30/30,PRIMARY_SUPPORTED,docs/28 P3; docs/30 C09,table-r3-p3-p4-evidence-pathways.csv,PASS
+4.4,A11 P7/T0 trusted 30/30; A13 P7/T1 trusted 0/30 failed 30/30,PRIMARY_SUPPORTED,docs/28 P3; docs/30 C08,table-r3-p3-p4-evidence-pathways.csv; figure-r2-p3-trusted-recovery.svg,PASS
+4.4,Narrow restoration-without-verification mechanism absent,PRIMARY_NULL,docs/28 P3; docs/30 C10,figure-r2-p3-trusted-recovery.svg,PASS
+4.5,E1 P7 T0 P2 restrict -> T1 P4 ENTER_SAFE_MODE; M02 -0.5 M06 +1.0,BOUNDED_SUPPORTED,docs/28 P4; docs/30 C11-C15,table-r3-p3-p4-evidence-pathways.csv; figure-r3-p4-selection-pathway.svg,PASS
+4.5,E3 P7 T0 P5 rollback -> T1 evidence_insufficient/P2; trusted 30/30 to 0/30; failed 0/30 to 30/30,BOUNDED_SUPPORTED,docs/28 P4; docs/30 C11-C15,table-r3-p3-p4-evidence-pathways.csv; figure-r3-p4-selection-pathway.svg,PASS
+4.5,No objective correctness oracle,BOUNDED_SUPPORTED,docs/28 P4; docs/32,figure-r3-p4-selection-pathway.svg,PASS
+4.6,P7 on point-estimate Pareto front 5/9 but not a success rate,CONDITIONAL_SUPPORTED,docs/28 P5; docs/30 C16-C20,table-r4-p5-pareto-status.csv; figure-r4-p5-pareto-status.svg,PASS
+4.6,G01-G03 equivalence/delegation cases,CONDITIONAL_SUPPORTED,docs/28 P5,table-r4-p5-pareto-status.csv,PASS
+4.6,G04/G06/G09 comparator-supported disadvantage,CONDITIONAL_SUPPORTED,docs/28 P5,table-r4-p5-pareto-status.csv,PASS
+4.6,G05 mixed; A14 point advantage but marginal comparison uncertain/tied,CONDITIONAL_SUPPORTED,docs/28 P5,table-r4-p5-pareto-status.csv,PASS
+4.6,G07/G08 P7-supported benefit,CONDITIONAL_SUPPORTED,docs/28 P5,table-r4-p5-pareto-status.csv,PASS
+4.6,No weighted score/global rank/simultaneous confidence claim,LIMITATION,docs/28 P5; docs/30; docs/34,table-r4-p5-pareto-status.csv,PASS
+4.7,29 final-C seeds / 696 observations sensitivity stable across all groups,SUPPORTING_SENSITIVITY,docs/28 provenance sensitivity; docs/30 C21-C23,table-s1-execution-provenance-sensitivity.csv,PASS
+5.2,Mission Aware treated as design/analysis lens not empirically confirmed P1 theory,INTERPRETIVE_BOUNDARY,docs/32 WP2 reconciliation,,PASS
+5.3,P2 interpreted as implemented authorization-dependency timing cost,INTERPRETIVE_BOUNDARY,docs/32 WP2/WP3 reconciliation; docs/28 P2,figure-r1-p2-contact-effects.svg,PASS
+5.4,Evidence quality central but narrower P3 mechanism absent,INTERPRETIVE_BOUNDARY,docs/32; docs/28 P3/P4,figure-r2-p3-trusted-recovery.svg; figure-r3-p4-selection-pathway.svg,PASS
+5.5,P5 supports conditional trade-offs not universal superiority,INTERPRETIVE_BOUNDARY,docs/32; docs/28 P5,figure-r4-p5-pareto-status.svg,PASS
+5.7,Design implications are method-level not deployment prescriptions,INTERPRETIVE_BOUNDARY,docs/32 claim boundaries,,PASS
+5.8,SIL/synthetic contact/bounded coverage/censoring/M03/provenance/no-human limitations,LIMITATION,docs/28 claim boundaries; docs/32,,PASS
+5.9,Overall bounded mission-aware interpretation,INTERPRETIVE_BOUNDARY,docs/28 integrated interpretation; docs/32,,PASS
