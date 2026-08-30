@@ -13,6 +13,10 @@ on:
       - "scripts/run_wp7_*.sh"
       - "scripts/run_wp8_*.sh"
       - "scripts/run_wp9_*.sh"
+      - "CITATION.cff"
+      - ".github/dependabot.yml"
+      - "docs/REPRODUCIBILITY_GUIDE.md"
+      - "publication/manuscript/07-declarations-and-availability.md"
       - ".github/workflows/validate-research-configs.yml"
   pull_request:
     paths:
@@ -25,6 +29,10 @@ on:
       - "scripts/run_wp7_*.sh"
       - "scripts/run_wp8_*.sh"
       - "scripts/run_wp9_*.sh"
+      - "CITATION.cff"
+      - ".github/dependabot.yml"
+      - "docs/REPRODUCIBILITY_GUIDE.md"
+      - "publication/manuscript/07-declarations-and-availability.md"
       - ".github/workflows/validate-research-configs.yml"
 
 permissions:
