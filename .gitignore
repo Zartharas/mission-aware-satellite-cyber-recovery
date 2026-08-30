@@ -17,6 +17,18 @@ __pycache__/
 venv/
 .env
 .env.*
+.python-version
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+.ipynb_checkpoints/
+*.egg-info/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
 
 # Build and runtime
 build/
@@ -25,6 +37,22 @@ logs/
 tmp/
 cache/
 *.log
+*.prof
+
+# Local scratch, backups, and generated archives
+.backup/
+backups/
+local-backups/
+*.bundle
+*.bak
+*.orig
+*.rej
+*.tmp
+*.temp
+*.tar
+*.tar.gz
+*.tgz
+*.zip
 
 # Research data
 data/*
