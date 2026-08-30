@@ -71,7 +71,9 @@ SENSITIVE_PATH_COMPONENTS = {
 }
 
 SECRET_PATTERNS = {
-    "PRIVATE_KEY_MARKER": re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
+    "PRIVATE_KEY_MARKER": re.compile(
+        rb"-----BEGIN (?:(?:RSA|EC|DSA|OPENSSH|ENCRYPTED) )?PRIVATE KEY-----"
+    ),
     "AWS_ACCESS_KEY": re.compile(rb"\bAKIA[0-9A-Z]{16}\b"),
     "GITHUB_TOKEN": re.compile(rb"\bgh[pousr]_[A-Za-z0-9]{30,}\b"),
     "SLACK_TOKEN": re.compile(rb"\bxox[baprs]-[A-Za-z0-9-]{20,}\b"),

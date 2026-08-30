@@ -122,12 +122,29 @@ def sha256_file(path: Path) -> str:
 
 def all_regular_files(root: Path) -> list[Path]:
     files: list[Path] = []
+
     for path in root.rglob("*"):
         if path.is_symlink():
-            raise RuntimeError(f"Symlink not permitted in frozen release source: {path}")
+            raise RuntimeError(
+                f"Symlink not permitted in frozen release source: {path}"
+            )
+
+        if path.is_dir():
+            continue
+
         if path.is_file():
             files.append(path)
-    return sorted(files, key=lambda p: p.as_posix())
+            continue
+
+        raise RuntimeError(
+            "Special filesystem entry not permitted "
+            f"in frozen release source: {path}"
+        )
+
+    return sorted(
+        files,
+        key=lambda p: p.as_posix(),
+    )
 
 
 def campaign_tree_identity(repo: Path, campaign_root: Path) -> tuple[str, int]:
