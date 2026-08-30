@@ -61,6 +61,7 @@ SENSITIVE_BASENAMES = {
     ".env",
     "credentials",
     "credentials.json",
+    "secrets",
     "secrets.json",
 }
 

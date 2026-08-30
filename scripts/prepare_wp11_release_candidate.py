@@ -64,6 +64,54 @@ def run_git(repo: Path, *args: str) -> str:
     return proc.stdout.strip()
 
 
+def verify_git_identity_unchanged(
+    repo: Path,
+    expected_branch: str,
+    expected_head: str,
+    expected_status: str,
+) -> dict:
+    observed_branch = run_git(
+        repo,
+        "branch",
+        "--show-current",
+    )
+    observed_head = run_git(
+        repo,
+        "rev-parse",
+        "HEAD",
+    )
+    observed_status = run_git(
+        repo,
+        "status",
+        "--porcelain",
+    )
+
+    if observed_branch != expected_branch:
+        raise RuntimeError(
+            "Repository branch changed during packaging: "
+            f"expected {expected_branch!r}, "
+            f"observed {observed_branch!r}"
+        )
+
+    if observed_head != expected_head:
+        raise RuntimeError(
+            "Repository HEAD changed during packaging: "
+            f"expected {expected_head}, "
+            f"observed {observed_head}"
+        )
+
+    if observed_status != expected_status:
+        raise RuntimeError(
+            "Git worktree changed during packaging"
+        )
+
+    return {
+        "branch": observed_branch,
+        "head": observed_head,
+        "status": observed_status,
+    }
+
+
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as handle:
@@ -701,7 +749,15 @@ def main() -> int:
     ledger_after = sha256_file(ledger_path)
     tree_sha_after, file_count_after = campaign_tree_identity(repo, campaign_root)
     freeze_after = verify_freeze_bundle(freeze_dir)
-    status_after = run_git(repo, "status", "--porcelain")
+
+    git_identity_after = (
+        verify_git_identity_unchanged(
+            repo,
+            branch,
+            head,
+            status_before,
+        )
+    )
 
     if ledger_after != EXPECTED_LEDGER_SHA256:
         raise RuntimeError("Ledger changed during packaging")
@@ -718,8 +774,6 @@ def main() -> int:
         raise RuntimeError(
             "Integrity-freeze bundle changed during packaging"
         )
-    if status_after != status_before:
-        raise RuntimeError("Git worktree changed during packaging")
 
     print()
     print("============================================================")
@@ -737,6 +791,16 @@ def main() -> int:
     print(f"ledger_sha256_after={ledger_after}")
     print("source_campaign_unchanged=true")
     print("freeze_bundle_unchanged=true")
+    print(
+        "repository_branch_after="
+        + git_identity_after["branch"]
+    )
+    print(
+        "repository_head_after="
+        + git_identity_after["head"]
+    )
+    print("repository_branch_unchanged=true")
+    print("repository_head_unchanged=true")
     print("git_worktree_unchanged=true")
     print("zenodo_default_file_count_gate=PASS")
     print("zenodo_default_size_gate=PASS")
