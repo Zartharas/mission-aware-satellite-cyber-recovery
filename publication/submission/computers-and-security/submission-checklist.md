@@ -29,10 +29,14 @@
 
 - [x] Primary target selected: Computers & Security.
 - [x] Article type selected: Full Length Article.
+- [x] Current journal scope rechecked in August 2026: practical information-security research is in scope; cryptology as a principal component is excluded.
+- [x] Current journal AI/ML moratorium explicitly checked. Study 1 does **not** use AI/ML as the scientific response mechanism; P7 is a frozen deterministic rule-based selector.
+- [x] AI-assisted manuscript/reproducibility preparation is separately disclosed and is not represented as the experimental response method.
 - [x] Title page drafted.
 - [x] Five research highlights prepared; each is <=85 characters.
-- [x] Cover letter drafted.
+- [x] Cover letter drafted and now explicitly distinguishes the deterministic P7 method from AI/ML.
 - [x] Concise abstract candidate prepared without replacing the authoritative abstract.
+- [x] Target-neutral abstract now identifies P7 as deterministic rule-based.
 - [x] Data Availability statement contains version and concept DOIs.
 - [x] Code Availability statement contains a permanent commit permalink.
 - [x] Funding statement: independent research, no external funding.
@@ -63,7 +67,8 @@
 
 Perform immediately before submission rather than relying on cached guidance:
 
-- [ ] Re-open the current Computers & Security Guide for Authors.
+- [ ] Re-open the current Computers & Security Guide for Authors and Aims & Scope.
+- [ ] Reconfirm that the journal's AI/ML moratorium remains in its current form and that the deterministic rule-based study remains in scope.
 - [ ] Confirm article-type naming and any current abstract/word/reference limits.
 - [ ] Confirm whether highlights are required at initial submission or only final-files stage.
 - [ ] Confirm title-page/contact fields requested by Editorial Manager.
