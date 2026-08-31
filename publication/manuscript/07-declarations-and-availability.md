@@ -37,6 +37,10 @@ The research repository is publicly available at:
 
 <https://github.com/Zartharas/mission-aware-satellite-cyber-recovery>
 
+The reproducibility-hardened repository snapshot used for submission preparation is permanently identified by commit:
+
+<https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/tree/99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc>
+
 It contains the experiment design, software-in-the-loop policy/event implementation history, campaign governance records, analysis/manuscript controls, tests, reproducibility tooling, and aggregate publication artifacts. Raw `results/wp9/campaign/` evidence remains outside GitHub by design and is distributed through the Zenodo dataset above.
 
 Repository-level environment and test instructions are maintained in `docs/REPRODUCIBILITY_GUIDE.md`. Third-party research infrastructure remains subject to its upstream licenses; repository licensing is documented in `LICENSE` and `NOTICE.md`.
