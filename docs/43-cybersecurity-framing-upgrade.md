@@ -2,69 +2,69 @@
 
 ## Status
 
-`IN_PROGRESS_JOURNAL_FRAMING_ONLY_NO_SCIENTIFIC_DATA_CHANGE`
+`COMPLETE_INTEGRATED_JOURNAL_FRAMING_NO_SCIENTIFIC_DATA_CHANGE`
 
 This work package strengthens the current manuscript as a cybersecurity paper without reopening the frozen experiment or altering any historical statistical result.
 
 ## Motivation
 
-Venue review against Computers & Security, IEEE Transactions on Dependable and Secure Computing, ACM Transactions on Privacy and Security, IEEE Transactions on Aerospace and Electronic Systems, and AIAA Journal of Aerospace Information Systems identified a consistent gap: the current study is strong in experimental governance, mixed-result reporting, and reproducibility, but its cybersecurity contribution should be made more explicit through a formal adversary model, trust boundaries, security-property mapping, closest-work differentiation, and mainstream incident-response positioning.
+Venue review against Computers & Security, IEEE Transactions on Dependable and Secure Computing, ACM Transactions on Privacy and Security, IEEE Transactions on Aerospace and Electronic Systems, and AIAA Journal of Aerospace Information Systems identified a consistent gap: Study 1 is strong in experimental governance, mixed-result reporting, and reproducibility, but its cybersecurity contribution needed more explicit adversary assumptions, trust boundaries, security-property mapping, closest-work differentiation, and mainstream incident-response positioning.
 
-The upgrade therefore focuses on **interpretive and methodological clarity**, not new observations.
+The upgrade therefore changed **interpretive and methodological clarity**, not observations or proposition-level results.
 
-## Added manuscript modules
+## Integrated manuscript changes
 
-- `publication/manuscript/02a-cybersecurity-positioning-and-peer-comparison.md`
-  - post-detection security positioning;
-  - conservative closest-work comparison;
-  - SPARTA behavioral alignment;
-  - NIST SP 800-61 Rev. 3 lifecycle positioning;
-  - bounded novelty statement.
+The temporary drafting modules were integrated into the conventional manuscript and then removed to avoid duplicate prose drift:
 
-- `publication/manuscript/03a-threat-trust-and-security-model.md`
-  - post-access adversary model;
-  - adversary exclusions;
-  - defender-knowledge model;
-  - TB0–TB5 trust boundaries;
-  - integrity, availability, safety, recoverability, and evidence-assurance mappings;
-  - explicit non-evaluated security properties.
+- **Section 2 — Background and Related Work** now includes post-detection security positioning, conservative closest-work comparison, frozen SPARTA behavioral correspondence, NIST SP 800-61 Rev. 3 lifecycle positioning, and the bounded novelty statement.
+- **Section 3 — Methods** now includes the post-access adversary model, adversary exclusions, defender-knowledge model, TB0–TB5 trust boundaries, security/dependability-property mappings, explicit non-evaluated properties, and the incident-response mapping.
+- **Section 5 — Discussion** now includes practical security-dependency interpretation, the precise Study 1 evidence-treatment boundary, NIST transferability, limitations, and the separately scoped Study 2/Study 3 research program.
 
-- `publication/manuscript/05a-cybersecurity-implications-and-next-study.md`
-  - practical security-dependency interpretation;
-  - evidence-plane attack-surface implications;
-  - NIST incident-response transferability;
-  - separately scoped Study 2/Study 3 research extensions.
-
-## Added publication tables
+## Publication displays
 
 - `publication/tables/table-r5-cybersecurity-positioning.csv`
 - `publication/tables/table-r6-security-property-mapping.csv`
 
-Table R5 uses conservative `Not primary focus` language for external studies rather than claiming that unreported dimensions are absent from every implementation detail.
+Table R5 uses conservative `Not primary focus` language for external studies rather than claiming that unreported dimensions are absent from every implementation detail. Table R6 explicitly separates evaluated security/dependability properties from confidentiality, RF security, and human/operator performance, which were not evaluated.
 
-## Added references
+## Canonical bibliography
 
-`references/cybersecurity-upgrade.bib` contains only references introduced by this framing work package, including:
+All cybersecurity-upgrade references have been merged and deduplicated into `references/references.bib`, including:
 
 - NIST SP 800-61 Rev. 3;
-- SPARTA command-replay, update-compromise, telemetry/evidence-degradation, and general technique pages;
-- Computers & Security papers on CANSat-IDS, SatCom cybersecurity, space-organization attack-surface measurement, and the SCASS cyber-physical testbed.
+- the SPARTA technique identifiers already frozen in `configs/wp5_event_catalog.json`;
+- Computers & Security papers on CANSat-IDS, SatCom cybersecurity, space-organization attack-surface measurement, and SCASS.
 
-The established `references/references.bib` remains unchanged during this phase to minimize unintended reference drift. Final export must merge/deduplicate both bibliography sources.
+The temporary split bibliography was removed after the canonical bibliography was updated.
 
 ## Framework-use boundaries
 
 ### SPARTA
 
-SPARTA mappings are used as **behavioral correspondence/adjacency** only. The experiment does not claim to reproduce full SPARTA attack chains, real initial-access methods, real credentials, RF delivery, compromised operators, or operational space assets.
+The publication follows the event identifiers already frozen in Study 1:
+
+- E1 → `IA-0007.02` Malicious Commanding via Valid GS;
+- E2 → `EX-0001.01` Replay — Command Packets;
+- E3 → `IA-0007.01` Compromise On-Orbit Update and `EX-0004` Compromise Boot Memory;
+- E4 → `DE-0003.06` Telemetry Downlink Modes.
+
+These are **behavioral/experimental correspondences**. The experiment does not claim to reproduce full SPARTA attack chains, real initial access, real credentials, RF delivery, compromised operators, or operational space assets.
 
 ### NIST SP 800-61 Rev. 3
 
-The NIST mapping is a **lifecycle-positioning aid**, not a compliance claim. The experiment starts after event establishment and does not evaluate detection accuracy, SOC triage, staffing, legal reporting, attribution, or post-incident organizational lessons learned.
+The NIST mapping is a **lifecycle-positioning aid**, not a compliance claim. The experiment starts after modeled event establishment and does not evaluate detector accuracy, SOC triage, staffing, legal reporting, attribution, or organizational lessons learned.
 
-## Scientific immutability
+### Evidence treatment
 
-This framing upgrade must not change:
+Study 1 T1 is implemented as omission/reduction of selected policy-visible evidence fields. The paper does not relabel Study 1 as an experiment in separately controlled staleness, contradiction, or forged/manipulated evidence. Those mechanisms are reserved for Study 2.
+
+### AI/ML scope
+
+P7 is a frozen deterministic rule-based selector. It is not a learned, generative-AI, or other ML response mechanism. AI-assisted manuscript and post-publication reproducibility-code preparation is addressed separately through publisher disclosure and does not change the experimental method.
+
+## Scientific immutability verified by construction
+
+The framing work did not intentionally change:
 
 - 720 VALID primary observations;
 - 24 frozen cells × 30 seeds;
@@ -79,11 +79,12 @@ This framing upgrade must not change:
 - raw campaign evidence;
 - Zenodo v1.0.0.
 
-## Next gates
+## Follow-on research separation
 
-1. Complete current cybersecurity framing modules and citation audit.
-2. Verify no new sentence changes the frozen proposition-level scientific meaning.
-3. Re-run repository CI on the final branch head.
-4. Perform journal-specific editorial integration into conventional section numbering.
-5. Do **not** create new campaign observations as part of Study 1.
-6. Develop Study 2 as a separately frozen research design before any new runtime execution.
+- `docs/44-study2-secure-response-generalization-design.md` is design-only and not runtime-authorized. It covers evidence failure mechanisms, contact regimes, fault/attack ambiguity, selector ablation, stronger baselines, and formal assurance.
+- `docs/46-formal-assurance-traceability-candidate.md` ties candidate formal properties to the implemented Study 1 code and is preparation for future work, not a claim that Study 1 has already been formally verified.
+- Study 3 engineering/HIL extensions remain separate from Study 1 and must use a new frozen design and provenance record.
+
+## Closeout gates
+
+Before PR merge, the final branch head must pass repository CI, the canonical bibliography and peer-comparison claims must be checked, and the final PR diff must remain outside frozen campaign/scientific-source paths. Those are repository-release gates, not reasons to reopen Study 1.
