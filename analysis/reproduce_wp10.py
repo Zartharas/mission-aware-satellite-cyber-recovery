@@ -79,6 +79,146 @@ def read_tsv(file: Path) -> pd.DataFrame:
     return pd.read_csv(file, sep="\t")
 
 
+def verify_reference_manifest(reference: Path) -> None:
+    manifest = reference / "REFERENCE_FILES.sha256"
+    if not manifest.is_file():
+        raise AssertionError(
+            "reference checksum manifest is missing"
+        )
+
+    listed: dict[str, str] = {}
+
+    for line_number, raw_line in enumerate(
+        manifest.read_text(
+            encoding="utf-8"
+        ).splitlines(),
+        1,
+    ):
+        line = raw_line.strip()
+
+        if not line:
+            continue
+
+        parts = line.split(
+            maxsplit=1
+        )
+
+        if len(parts) != 2:
+            raise AssertionError(
+                "malformed reference checksum line "
+                f"{line_number}: {raw_line!r}"
+            )
+
+        expected_sha, relative_name = parts
+
+        if (
+            len(expected_sha) != 64
+            or any(
+                char not in "0123456789abcdef"
+                for char in expected_sha
+            )
+        ):
+            raise AssertionError(
+                "invalid SHA-256 on reference "
+                f"checksum line {line_number}"
+            )
+
+        relative = Path(
+            relative_name
+        )
+
+        if (
+            relative.is_absolute()
+            or ".." in relative.parts
+        ):
+            raise AssertionError(
+                "unsafe reference checksum path "
+                f"on line {line_number}: "
+                f"{relative_name}"
+            )
+
+        normalized = (
+            relative.as_posix()
+        )
+
+        if normalized in listed:
+            raise AssertionError(
+                "duplicate reference checksum "
+                f"entry: {normalized}"
+            )
+
+        listed[normalized] = (
+            expected_sha
+        )
+
+    actual_files: set[str] = set()
+
+    for candidate in reference.rglob(
+        "*"
+    ):
+        if candidate.is_symlink():
+            raise AssertionError(
+                "symlink is not allowed in "
+                "byte-exact reference tree: "
+                + candidate.relative_to(
+                    reference
+                ).as_posix()
+            )
+
+        if (
+            candidate.is_file()
+            and candidate != manifest
+        ):
+            actual_files.add(
+                candidate.relative_to(
+                    reference
+                ).as_posix()
+            )
+
+    listed_files = set(
+        listed
+    )
+
+    if listed_files != actual_files:
+        missing = sorted(
+            listed_files - actual_files
+        )
+
+        unlisted = sorted(
+            actual_files - listed_files
+        )
+
+        raise AssertionError(
+            "reference manifest coverage "
+            "mismatch: "
+            f"missing={missing} "
+            f"unlisted={unlisted}"
+        )
+
+    for (
+        relative_name,
+        expected_sha,
+    ) in listed.items():
+        candidate = (
+            reference /
+            relative_name
+        )
+
+        observed_sha = (
+            sha256_file(
+                candidate
+            )
+        )
+
+        if observed_sha != expected_sha:
+            raise AssertionError(
+                "reference SHA-256 mismatch "
+                f"for {relative_name}: "
+                f"observed={observed_sha} "
+                f"expected={expected_sha}"
+            )
+
+
 def cp_interval(successes: int, n: int, alpha: float = 0.05) -> tuple[float, float]:
     if not (0 <= successes <= n and n > 0):
         raise ValueError((successes, n))
@@ -806,6 +946,49 @@ def validate_against_references(result: dict, expected_dir: Path) -> dict:
             assert_close(got[col], row[col], 2e-6, f"C2 mixed model {row.proposition}/{row.term}/{col}")
     checks["C2_mixed_model_numeric_regression"] = "PASS"
 
+    ref_model_contrasts = read_tsv(
+        expected_dir /
+        "29-wp10c2-m07-model-contrasts.tsv"
+    )
+
+    got_model_contrasts = records_by_keys(
+        result["c2"]["model_contrasts"],
+        (
+            "proposition",
+            "contrast",
+        ),
+    )
+
+    for _, row in (
+        ref_model_contrasts.iterrows()
+    ):
+        got = got_model_contrasts[
+            (
+                row.proposition,
+                row.contrast,
+            )
+        ]
+
+        for col in [
+            "estimate_seconds",
+            "standard_error",
+            "wald95_low",
+            "wald95_high",
+        ]:
+            assert_close(
+                got[col],
+                row[col],
+                2e-6,
+                "C2 model contrast "
+                f"{row.proposition}/"
+                f"{row.contrast}/"
+                f"{col}",
+            )
+
+    checks[
+        "C2_model_contrast_interval_regression"
+    ] = "PASS"
+
     ref_cross = read_tsv(expected_dir / "33-wp10c2-m07-cross-method-direction.tsv")
     got_cross = records_by_keys(result["c2"]["cross_method"], ("proposition", "contrast"))
     for _, row in ref_cross.iterrows():
@@ -922,6 +1105,10 @@ def main() -> int:
     locked = reference / "locked-analysis-extraction-720.tsv"
     p4_locked = reference / "p4-locked-analysis-240.tsv"
     expected = reference / "expected"
+
+    verify_reference_manifest(
+        reference
+    )
 
     if not locked.is_file() or not p4_locked.is_file():
         raise SystemExit("required locked reproduction inputs are missing")
