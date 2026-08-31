@@ -1,9 +1,10 @@
 # Target-Neutral Manuscript Assembly
 
-**Assembly status:** WP10-G6 candidate  
+**Assembly status:** WP10-G6 candidate; reproducibility hardening complete  
 **Scientific evidence audit:** `docs/35-wp10-g5-manuscript-evidence-audit.md` — PASS  
-**Quantitative authority:** `docs/28`–`docs/34` and `publication/tables/`  
-**Target journal:** Not yet selected / not required for scientific assembly
+**Quantitative authority:** `docs/28`–`docs/34`, `publication/tables/`, and the post-publication `analysis/` regression package  
+**Primary target journal:** Computers & Security (Elsevier), Full Length Article  
+**Backup targets:** AIAA Journal of Aerospace Information Systems; IEEE Transactions on Aerospace and Electronic Systems
 
 ## Authoritative manuscript order
 
@@ -48,19 +49,25 @@ Any combined DOCX/LaTeX/PDF or journal-specific rewrite must preserve:
 - execution provenance 1/9/710 across commits A/B/C and the 29-seed/696-observation final-C sensitivity as sensitivity only;
 - no operational spacecraft, real RF, real operator timing, flightworthiness, or certification claim.
 
-## Items legitimately pending user/venue input
+## Submission metadata resolved
 
-The scientific manuscript can be assembled without these items, but final submission cannot be completed until applicable information is supplied or selected:
+- single author: Aman Kumar Singh;
+- affiliation: Independent Researcher, The Woodlands, Texas, United States;
+- corresponding-author email and ORCID are recorded in `submission-inputs.csv`;
+- funding: independent research, no external funding;
+- Zenodo v1.0.0 version DOI and concept DOI are fixed;
+- Code Availability is bound to reproducibility-hardened `main` commit `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`;
+- primary target: Computers & Security, Full Length Article.
 
-- final author list and affiliations;
-- corresponding-author details;
-- funding statement;
-- competing-interest statement;
-- acknowledgments;
-- target journal/conference and article type;
-- journal word/table/figure/reference limits;
-- required generative-AI disclosure language, if any;
-- final Zenodo DOI(s) after WP11 deposit.
+## Items legitimately pending author/venue confirmation
+
+Final submission still requires the applicable items below to be explicitly confirmed rather than inferred:
+
+- competing-interest declaration;
+- acknowledgments decision;
+- live Computers & Security Guide for Authors / submission-portal requirements immediately before export;
+- final target-specific generative-AI disclosure wording and author approval;
+- an institutional IRB/HRPP determination identifier only if the selected venue or institution specifically requires one for this no-human-participant software experiment.
 
 ## Assembly rule
 
