@@ -1,13 +1,13 @@
 input_id,input,required_for,blocking_now,status,notes
-S01,Final author list and order,Submission metadata,false,USER_INPUT_REQUIRED,Do not infer authorship from repository activity
-S02,Author affiliations,Submission metadata,false,USER_INPUT_REQUIRED,Include department/institution/city/country per venue style
-S03,Corresponding-author name and contact,Submission metadata,false,USER_INPUT_REQUIRED,Do not infer email from GitHub metadata
+S01,Final author list and order,Submission metadata,false,RESOLVED,"Single author: Aman Kumar Singh"
+S02,Author affiliations,Submission metadata,false,RESOLVED,"Independent Researcher, The Woodlands, Texas, United States"
+S03,Corresponding-author name and contact,Submission metadata,false,RESOLVED,"Aman Kumar Singh; asingh65430@ucumberlands.edu; ORCID 0009-0008-9752-3743; email preferred as correspondence contact"
 S04,Funding declaration,Declarations,false,RESOLVED,"Independent research; no external funding, consistent with the manuscript declaration"
-S05,Competing-interest declaration,Declarations,false,USER_INPUT_REQUIRED,No declaration inferred
-S06,Acknowledgments if any,Declarations,false,USER_INPUT_REQUIRED,Optional unless venue/funder requires
-S07,Target journal/conference and article type,Journal-specific export,false,USER_DECISION_REQUIRED,Target-neutral manuscript can proceed without this; submission-final formatting cannot
-S08,Journal word/table/figure/reference constraints,Journal-specific export,false,DERIVED_AFTER_S07,Verify against current author instructions after venue selection
-S09,Generative-AI/editorial-assistance disclosure language,Submission disclosure,false,DERIVED_AFTER_S07,Follow current venue policy rather than generic wording
+S05,Competing-interest declaration,Declarations,false,USER_INPUT_REQUIRED,No declaration inferred; explicit author attestation required before submission
+S06,Acknowledgments if any,Declarations,false,USER_INPUT_REQUIRED,Optional unless venue requires; do not carry dissertation acknowledgments into this paper without author confirmation
+S07,Target journal/conference and article type,Journal-specific export,false,RESOLVED,"Primary target selected: Computers & Security (Elsevier), Full Length Article; backups: AIAA Journal of Aerospace Information Systems, then IEEE Transactions on Aerospace and Electronic Systems"
+S08,Journal word/table/figure/reference constraints,Journal-specific export,false,CURRENT_GUIDE_RECHECK_REQUIRED,"Computers & Security supports security research with practical benefit and uses Elsevier submission guidance; verify the live Guide for Authors and portal-specific file/length requirements immediately before final export/submission"
+S09,Generative-AI/editorial-assistance disclosure language,Submission disclosure,false,CURRENT_POLICY_VERIFIED_DRAFT_REQUIRED,"Elsevier's current journal policy requires a separate generative-AI declaration for substantive manuscript-preparation assistance; research-process AI use must be described in Methods when applicable; prepare target-specific disclosure and verify again at submission"
 S10,Zenodo version DOI and concept DOI,Data Availability,false,RESOLVED,Zenodo v1.0.0 version DOI 10.5281/zenodo.22181540; concept DOI 10.5281/zenodo.22181539
-S11,Final repository/release URL or tagged release identifier,Code Availability,false,DERIVED_AFTER_REPRO_HARDENING_MERGE,Public repository URL is known; bind the final merged commit or tag in the submission-final code-availability statement
+S11,Final repository/release URL or tagged release identifier,Code Availability,false,RESOLVED,"Public repository: https://github.com/Zartharas/mission-aware-satellite-cyber-recovery ; reproducibility-hardened main snapshot: commit 99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc (tree f17cd12011cff510aa0c4ce128938b4bf93b0288)"
 S12,Any institutional IRB/HRPP determination identifier if institution requires one for a no-human-participant statement,Ethics submission metadata,false,USER_OR_INSTITUTION_INPUT_IF_REQUIRED,Current reported software experiment used no human participants; do not invent a determination number

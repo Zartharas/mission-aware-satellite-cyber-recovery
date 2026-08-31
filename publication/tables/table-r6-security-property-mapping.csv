@@ -1,0 +1,9 @@
+security_or_dependability_property,experimental_proxy_or_evidence,primary_metrics_or_artifacts,interpretation_boundary
+"Integrity","Unauthorized-effect completion; approved software/configuration identity; authorization/signature evidence; modeled ground/spacecraft convergence","M01; M07; trusted-recovery evidence checklist","Does not measure cryptographic strength, key compromise, or operational attestation assurance"
+"Availability and mission continuity","Mission completion; legitimate-command rejection; containment/recovery timing; divergence duration","M02; M04; M05; M06; M07","Synthetic mission/contact model; not operational availability SLA or measured operator/ground-station performance"
+"Safety","Frozen safety-invariant violations","M03","M03 was structurally zero in the 720 VALID population; absence of observed violations is not proof of universal safety"
+"Recoverability / cyber resilience","Verified trusted-recovery timing; terminal recovery state; restored authorized command path; absence of modeled residual unauthorized state","M05; terminal states; recovery evidence checklist","Evidence-qualified laboratory definition; not flightworthiness, certification, or production recovery assurance"
+"Evidence assurance","Policy-visible evidence condition; completeness/currentness/integrity/authorization checks","T0/T1; M08; trusted-recovery checklist","Study 1 T1 removes selected policy-visible fields; it is not a separate factorial of stale, contradictory, forged, or probabilistically corrupted evidence"
+"Confidentiality","Not evaluated","None","No exfiltration, secrecy, traffic-analysis, or cryptographic-confidentiality conclusion"
+"RF / communications-security resistance","Not evaluated","None","No real RF transmission, jamming, spoofing, interception, antenna, or link-budget experiment"
+"Human/operator response","Not evaluated","None","No cognition, workload, trust, approval latency, SOC performance, or human-subject experiment"

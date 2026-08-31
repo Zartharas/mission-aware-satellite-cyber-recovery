@@ -37,6 +37,10 @@ The research repository is publicly available at:
 
 <https://github.com/Zartharas/mission-aware-satellite-cyber-recovery>
 
+The reproducibility-hardened repository snapshot used for submission preparation is permanently identified by commit:
+
+<https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/tree/99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc>
+
 It contains the experiment design, software-in-the-loop policy/event implementation history, campaign governance records, analysis/manuscript controls, tests, reproducibility tooling, and aggregate publication artifacts. Raw `results/wp9/campaign/` evidence remains outside GitHub by design and is distributed through the Zenodo dataset above.
 
 Repository-level environment and test instructions are maintained in `docs/REPRODUCIBILITY_GUIDE.md`. Third-party research infrastructure remains subject to its upstream licenses; repository licensing is documented in `LICENSE` and `NOTICE.md`.
@@ -55,16 +59,20 @@ This research was conducted independently and received **no external funding**.
 
 ## Competing interests
 
-**To be completed by the author(s) before journal submission.** No competing-interest declaration is inferred by this repository.
+**Author attestation required before submission.** No competing-interest declaration is inferred from repository evidence or from authorization to prepare the manuscript.
 
 ## Author contributions
 
-**To be completed after the final journal author list and target-journal contribution taxonomy are known.** The repository does not infer contribution credit beyond the verified archive creator metadata.
+A target-specific CRediT statement has been prepared in the Computers & Security title-page package. The final role list requires author factual approval before submission; funding acquisition and supervision are not assigned merely because the paper has one author.
 
 ## Acknowledgments
 
-**To be completed before journal submission.** Any acknowledgment of software projects, institutional resources, colleagues, reviewers, or infrastructure should be verified by the author(s) and should not imply endorsement.
+**Author decision required before submission.** No acknowledgment is inferred. Any acknowledgment of software projects, institutional resources, colleagues, reviewers, or infrastructure must be factually verified and must not imply endorsement.
 
-## Use of generative AI / editorial assistance
+## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 
-Journal policies differ on disclosure of generative-AI-assisted drafting or editing. The final submission package should be checked against the selected journal's current policy and include any required disclosure. Scientific claims, numerical results, and source references remain subject to author verification regardless of editorial tooling.
+During the preparation of this work, the author used **OpenAI ChatGPT** to assist with manuscript organization, literature/source checking, editorial refinement, consistency checking, reproducibility documentation, and preparation of journal-submission materials. The author reviewed and edited the resulting content, independently checked scientific quantities and source claims against the frozen research record and cited sources, and takes full responsibility for the content of the publication.
+
+OpenAI ChatGPT was also used after the experimental campaign and historical WP10 statistical findings had been frozen to assist with reconstructing, reviewing, and testing a public statistical reproducibility implementation from preserved derived inputs, outputs, and provenance records. The original executable WP10 analysis source was not recovered. This post-publication reconstruction did **not** generate campaign observations, consume campaign seeds, modify the 720-VALID statistical population, alter frozen WP9 evidence, or change historical statistical outputs. The reconstructed implementation was regression-validated against preserved reference artifacts and tested for reference-tamper rejection; it is identified as a post-publication reproducibility reconstruction rather than the original analysis code.
+
+The experimental P7 response mechanism itself is a frozen deterministic rule-based selector and does not use generative AI or machine learning.

@@ -6,7 +6,7 @@ The study used theory-informed design-science research with controlled software-
 
 The final design contained 24 frozen cells (A01–A24). Thirty campaign seeds (`10001`–`10030`) were applied to every cell, yielding a target of 720 VALID observations. Cell order was deterministic/reproducible within the frozen campaign plan, and one frozen position was executed per operator invocation. INVALID attempts did not advance the position and required a fresh-run-ID retry of the same seed/cell. No automatic retry or automatic next-position execution was allowed.
 
-The experiment tested five propositions: mission-state dependence (P1), contact-delay effects (P2), evidence requirements for trusted recovery (P3), degraded-evidence effects on response selection/consequences (P4), and condition-specific mission-aware policy benefit (P5). Primary outcomes were predeclared and retained separately; no primary weighted composite replaced them.
+The experiment tested five propositions: mission-state dependence (P1), contact-delay effects (P2), evidence requirements for trusted recovery (P3), reduced-evidence effects on response selection/consequences (P4), and condition-specific mission-aware policy benefit (P5). Primary outcomes were predeclared and retained separately; no primary weighted composite replaced them.
 
 ## 3.2 Experimental environment and safety boundary
 
@@ -14,7 +14,68 @@ Experiments were conducted in a controlled NOS3/Fortytwo and cFS-based software-
 
 All cyber events, identities, commands, update artifacts, telemetry/evidence degradation, and contact conditions were synthetic or software-emulated. The study did not access an operational satellite or ground station, use operational credentials, transmit or interfere with RF, intercept non-public communications, or use classified/proprietary mission data. The immutable experiment-control and ground-truth records were outside the simulated adversary boundary and were never available to the runtime response policy as an oracle.
 
-The experiment distinguished immutable experiment ground truth from policy-visible state and recovery evidence. This separation was required because a cyber response can receive stale, missing, or manipulated information even when the experiment controller retains the true underlying state.
+The experiment distinguished immutable experiment ground truth from policy-visible state and recovery evidence. In Study 1, the T1 treatment specifically reduced/suppressed selected policy-visible evidence fields according to the frozen event adapter; it was not a separate experiment in stale, contradictory, or forged observations. Those qualitatively different evidence-failure mechanisms are reserved for follow-on research.
+
+### 3.2.1 Post-access adversary model
+
+The experiment uses a **post-access adversary model**. Reconnaissance, exploit development, credential theft, RF interception, and the process by which an adversary initially reaches a command, update, or telemetry path are outside scope. Each event family instead begins from a frozen cyber-relevant state whose effect on response/recovery behavior can be measured reproducibly.
+
+Depending on the frozen event family, the modeled adversary is represented as able to:
+
+- submit an unauthorized but syntactically valid laboratory command through the simulated command path (E1);
+- cause a previously authorized laboratory command to be replayed (E2);
+- place the simulated spacecraft in a compromised synthetic software/update context (E3); or
+- reduce/suppress selected policy-visible telemetry/evidence fields used for response selection or recovery assessment (E4/T1).
+
+These are capability abstractions rather than claims of compromise of a specific satellite, real ground station, RF link, cryptographic key, software supplier, or operator account. The SPARTA identifiers reported in Section 2 are the identifiers frozen in the event catalog and are used only as behavioral/experimental correspondence.
+
+### 3.2.2 Adversary exclusions and immutable research boundary
+
+The simulated adversary cannot modify the frozen experiment plan, campaign seed, event/cell identity, response-policy implementation, trial-validity rules, analysis-membership rules, authoritative attempt-history ledger, or immutable experiment ground truth. These controls belong to the researcher-controlled experiment plane and are outside the simulated adversary boundary.
+
+The runtime response policy also cannot access post-run outcome labels or the final trusted-recovery adjudication as an oracle. This separation is central to P3/P4: a policy can act with reduced evidence even while the experiment controller retains the true underlying state for later validity and outcome analysis.
+
+The experiment does not evaluate confidentiality loss, data exfiltration, cryptanalytic strength, key extraction, RF jamming/spoofing resistance, physical counterspace attack, insider behavior, or human social engineering.
+
+### 3.2.3 Defender-knowledge model
+
+The defender is represented through two distinct knowledge domains:
+
+1. **Runtime policy-visible state.** The response policy can use only the event, mission, evidence, contact, authorization, and other context explicitly exposed by the frozen policy interface. Under T1, selected evidence fields can be absent according to the frozen event definition.
+2. **Experiment/analysis ground truth.** The controller retains immutable treatment identity, expected treatment/fidelity conditions, run provenance, and outcome evidence required to determine trial validity and terminal state. This information is not exposed to P7 as a correctness oracle.
+
+This architecture creates the core information-security problem studied by P3/P4: response decisions are made under bounded observation, while trustworthy recovery is adjudicated only when sufficient current evidence exists.
+
+### 3.2.4 Trust boundaries
+
+For cybersecurity interpretation, the implemented experiment is partitioned into six trust boundaries:
+
+- **TB0 — research control plane:** frozen campaign plan, run/cell identity, campaign seed, immutable ground truth, ledger rules, analysis-membership controls, and integrity-freeze material. TB0 is trusted for experimental validity and is not part of the simulated operational response system.
+- **TB1 — ground authorization and command origin:** synthetic ground-side command/authorization state. P6 depends on this boundary; C1 delays authorization availability but does not model real operators, antenna scheduling, or ground-network performance.
+- **TB2 — spacecraft command and execution path:** command ingest/execution in the cFS/NOS3/Fortytwo environment. E1/E2 challenge authorization/freshness assumptions of this path; the study measures modeled command consequences rather than protocol or cryptographic strength.
+- **TB3 — policy-visible evidence/telemetry plane:** evidence/state exposed to the selector. Study 1 can reduce selected evidence fields across this boundary. The boundary is therefore treated as degradable rather than implicitly trustworthy.
+- **TB4 — response/recovery mechanism:** fixed response mechanisms, ground-authorized behavior, rollback behavior, the modeled safe-mode action, and the deterministic rule-based P7 selector.
+- **TB5 — recovery evidence adjudication:** post-action evidence used to classify trusted recovery. TB5 is an analysis/assurance boundary and is not a source of privileged runtime guidance to P7.
+
+### 3.2.5 Security and dependability properties
+
+The experiment evaluates multiple properties rather than a single security score. Table R6 provides the full mapping.
+
+- **Integrity:** M01, software/configuration and authorization evidence, and post-response state agreement/divergence (M07).
+- **Availability and mission continuity:** M02, M04, M05, M06, and M07.
+- **Safety:** M03 frozen safety-invariant violations.
+- **Recoverability/cyber resilience:** M05, recovery terminal state, restored authorized command path, and the requirement for current evidence before trusted recovery.
+- **Evidence assurance:** the controlled evidence condition, M08 evidence completeness, and the applicable recovery-evidence criteria.
+
+Confidentiality, exfiltration, cryptographic strength, RF security, and human/operator response are explicitly not evaluated.
+
+### 3.2.6 Incident-response lifecycle mapping
+
+NIST SP 800-61 Rev. 3 positions incident response inside broader cybersecurity risk management [@nist80061r3]. The experiment covers only the bounded response/recovery segment:
+
+`modeled event established → response selection → containment → recovery/reconstitution → evidence-qualified recovery validation → mission/security consequence measurement`.
+
+The study does not evaluate detector precision/recall, SOC triage, incident declaration, escalation staffing, forensic attribution, legal reporting, or organizational lessons learned. The mapping is explanatory rather than a claim of NIST compliance.
 
 ## 3.3 Frozen factors and final campaign cells
 
@@ -62,7 +123,7 @@ The final design retained complete low-dimensional blocks for the proposition in
 
 The policy family included observation-only, fixed containment/recovery mechanisms, a ground-authorized response, and the mission-aware selector. Relevant policies in the final matrix were P0 observe only, P1 identity/source isolation, P2 selective command restriction, P4 modeled safe-mode transition, P5 verified rollback, P6 wait for ground authorization, and P7 mission-aware selection.
 
-P7 selected an effective policy from frozen policy-visible event, mission, evidence, and contact context. It did not read immutable ground truth. The P7 decision logic was frozen before the final campaign.
+P7 was a **frozen deterministic rule-based selector**, not a learned model or AI/ML method. It selected an effective policy from frozen policy-visible event, mission, evidence, and contact context. It did not read immutable ground truth. The P7 decision logic was frozen before the final campaign.
 
 P6 requires special semantic treatment. A16/A17 are requested/effective **P6** cases. P6 represents a ground-authorized WAIT state: under C0 current synthetic authorization is available at the response boundary; under C1 one modeled contact window is missed before authorization becomes available. After authorization, P6 delegates the verified-rollback recovery action/mechanism associated with P5. The analysis therefore does not relabel A16/A17 as P5 policy cases.
 
@@ -121,7 +182,7 @@ P2 compared P6 and P7 across C0/C1 under E3/M4/T0. M04 and M05 used restricted m
 
 P3 compared P5 and P7 under T0/T1 in E3/M4/C0. Terminal-state distributions and trusted-recovery counts were reported directly when the outcome structure was deterministic/degenerate. Supporting divergence/evidence analyses were retained without replacing the terminal-state conclusion. The analysis separately assessed the predeclared narrower possibility of nominal restoration without verification rather than assuming that mechanism from an evidence failure.
 
-### P4 — degraded-evidence selection and consequence
+### P4 — reduced-evidence selection and consequence
 
 P4 used actual execution metadata for `effective_policy_id`, selected action, and selection basis. Selection was not inferred from expected policy or immutable ground truth. The analysis traced `event × evidence × requested policy → actual effective policy/action → observed consequences` across the frozen P4 cells. Because the experiment did not contain an independent objective correctness oracle, P4 was interpreted as selection/consequence evidence rather than as a post-hoc “incorrect action” classification.
 
@@ -151,8 +212,8 @@ After campaign completion, a read-only integrity freeze reconciled all 729 ledge
 
 Raw campaign evidence remains outside GitHub and is publicly archived as the DOI-bearing Zenodo v1.0.0 evidence-of-record (version DOI `10.5281/zenodo.22181540`; concept DOI `10.5281/zenodo.22181539`). The archive contains the frozen raw campaign, integrity-freeze material, publication/provenance artifacts, release documentation, manifest, and checksums. After publication, an executable statistical reproduction implementation was reconstructed under `analysis/` because the original WP10 analysis source was not preserved. That post-publication implementation starts from the frozen derived analysis inputs and is regression-validated against the preserved authoritative WP10 outputs; it is not represented as the original analysis source and does not alter the archived v1.0.0 files or the frozen statistical population.
 
+OpenAI ChatGPT was used **after the campaign and historical WP10 findings were frozen** to assist with reconstructing, reviewing, and testing that public reproducibility implementation from preserved derived inputs, outputs, and provenance records. This AI-assisted reconstruction did not generate experimental observations, consume campaign seeds, change statistical membership, or modify frozen WP9/Zenodo evidence. The implementation was human-reviewed and regression-tested against preserved reference artifacts; the AI assistance is disclosed because it formed part of post-publication code reconstruction, not because AI/ML was part of the Study 1 response mechanism.
+
 ## 3.11 Responsible-research boundary
 
 The study used public/research software, synthetic events, synthetic identities, isolated networking, and software-emulated impairments. No human participants were included in this experiment. No operational satellite/ground-station testing, live RF transmission/interference, stolen credentials, proprietary telemetry, or classified/export-controlled mission data were used.
-
-The publication claims are consequently limited to the controlled software-in-the-loop environment and the implemented frozen factors. The work does not establish flight certification, operational security effectiveness, formal safety assurance, or human-operator performance.
