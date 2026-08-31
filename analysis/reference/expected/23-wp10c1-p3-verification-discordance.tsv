@@ -1,0 +1,5 @@
+cell_label	cell_id	behaviorally_restored	trusted_recovery	operational_but_unverified	restored_but_unverified_fraction	interpretation
+P5_T0	A14	30	30	0	0.0	OPERATIONAL_BUT_UNVERIFIED is behavioral restoration without trusted-recovery confirmation
+P5_T1	A15	30	30	0	0.0	OPERATIONAL_BUT_UNVERIFIED is behavioral restoration without trusted-recovery confirmation
+P7_T0	A11	30	30	0	0.0	OPERATIONAL_BUT_UNVERIFIED is behavioral restoration without trusted-recovery confirmation
+P7_T1	A13	0	0	0		OPERATIONAL_BUT_UNVERIFIED is behavioral restoration without trusted-recovery confirmation

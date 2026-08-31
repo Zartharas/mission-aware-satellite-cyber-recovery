@@ -79,3 +79,9 @@ This sensitivity is supportive only. The primary analysis remains all 720 frozen
 WP10 analysis directories are retained outside the tracked raw-results boundary. Repository documentation records the identities necessary for review, while the raw campaign tree and local analysis outputs are not silently promoted into Git.
 
 WP11 will determine which sanitized analysis tables, scripts, manifests, or archives are appropriate for the public reproducibility release and Zenodo deposit.
+
+## Post-publication executable reconstruction
+
+The local-output handling above describes the historical WP10 analysis state at the time of the original analysis. After Zenodo v1.0.0 publication and repository cleanup, the preserved WP10 output directories were recovered from the private preservation archive and re-verified. No original executable analysis-source candidates were present.
+
+A separate post-publication reconstruction is now tracked under `analysis/`. It starts from the frozen 720-row derived extraction plus the retained P4 selection/provenance binding, and regression-validates the manuscript-facing statistical contracts against preserved authoritative WP10 outputs. It must not be cited or described as recovered original WP10 source. Zenodo v1.0.0 remains unchanged.

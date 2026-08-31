@@ -1,0 +1,10 @@
+group_id	P7_cell	full_seed_count	final_commit_seed_count	full_P7_on_front	final_commit_P7_on_front	full_front_cells	final_commit_front_cells	P7_front_membership_stable	pairwise_relation_stable	metric_direction_stable	sensitivity_status
+G01	A02	30	29	true	true	A01,A02	A01,A02	true	true	true	PASS_STABLE
+G02	A04	30	29	true	true	A03,A04,A07	A03,A04,A07	true	true	true	PASS_STABLE
+G03	A06	30	29	true	true	A05,A06	A05,A06	true	true	true	PASS_STABLE
+G04	A09	30	29	false	false	A08	A08	true	true	true	PASS_STABLE
+G05	A11	30	29	false	false	A14	A14	true	true	true	PASS_STABLE
+G06	A13	30	29	false	false	A15	A15	true	true	true	PASS_STABLE
+G07	A18	30	29	true	true	A18	A18	true	true	true	PASS_STABLE
+G08	A21	30	29	true	true	A20,A21	A20,A21	true	true	true	PASS_STABLE
+G09	A24	30	29	false	false	A22	A22	true	true	true	PASS_STABLE

@@ -1,0 +1,7 @@
+proposition	contrast	rank01_contrast	bootstrap95_low	bootstrap95_high	sensitivity_role
+P2	P6_C1_minus_C0	0.3336134453781513	0.28515406162464985	0.38095238095238093	secondary rank robustness check; does not replace raw-second estimand
+P2	P7_C1_minus_C0	-0.0019607843137254832	-0.0761904761904762	0.0672268907563025	secondary rank robustness check; does not replace raw-second estimand
+P2	contact_by_policy_interaction	0.3355742296918768	0.2490196078431373	0.427170868347339	secondary rank robustness check; does not replace raw-second estimand
+P3	P5_T1_minus_T0	0.03837535014005611	-0.04257703081232489	0.12072829131652668	secondary rank robustness check; does not replace raw-second estimand
+P3	P7_T1_minus_T0	0.5095238095238095	0.4109243697478992	0.6056022408963586	secondary rank robustness check; does not replace raw-second estimand
+P3	evidence_by_policy_interaction	-0.47114845938375344	-0.5924369747899159	-0.33920868347338984	secondary rank robustness check; does not replace raw-second estimand

@@ -1,0 +1,7 @@
+proposition	contrast	risk_difference	bootstrap95_low	bootstrap95_high	direction	model_route
+P2	P6_C1_minus_C0	0.0	0.0	0.0	negative=contact delay reduces trusted recovery	trusted-recovery binary predeclared fallback
+P2	P7_C1_minus_C0	0.0	0.0	0.0	negative=contact delay reduces trusted recovery	trusted-recovery binary predeclared fallback
+P2	contact_by_policy_interaction	0.0	0.0	0.0	negative=contact delay reduces trusted recovery	trusted-recovery binary predeclared fallback
+P3	P5_T1_minus_T0	0.0	0.0	0.0	negative=T1 reduces trusted recovery	trusted-recovery binary predeclared fallback
+P3	P7_T1_minus_T0	-1.0	-1.0	-1.0	negative=T1 reduces trusted recovery	trusted-recovery binary predeclared fallback
+P3	evidence_by_policy_interaction	1.0	1.0	1.0	negative=T1 reduces trusted recovery	trusted-recovery binary predeclared fallback

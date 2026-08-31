@@ -1,0 +1,7 @@
+proposition	contrast	estimate_seconds	bootstrap95_low	bootstrap95_high	bootstrap_replicates	bootstrap_unit	interpretation_direction
+P2	P6_C1_minus_C0	10.067607611666666	9.843755583693333	10.326044333928332	20000	campaign_seed	positive=C1 greater divergence than C0
+P2	P7_C1_minus_C0	-0.038998915099999865	-0.16895429991999977	0.07088838540249981	20000	campaign_seed	positive=C1 greater divergence than C0
+P2	contact_by_policy_interaction	10.106606526766665	9.813502800577501	10.449863604725	20000	campaign_seed	positive=contact delay increases divergence more for P6 than P7
+P3	P5_T1_minus_T0	0.021457810833333313	-0.09690854508833334	0.15648975344166646	20000	campaign_seed	positive=T1 greater divergence than T0
+P3	P7_T1_minus_T0	28.852798141733334	28.699405443380833	28.987157952775835	20000	campaign_seed	positive=T1 greater divergence than T0
+P3	evidence_by_policy_interaction	-28.8313403309	-29.00886802385917	-28.615702798493334	20000	campaign_seed	positive=T1 increases divergence more for P5 than P7

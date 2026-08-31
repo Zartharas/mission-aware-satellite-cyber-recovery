@@ -1,0 +1,10 @@
+group_id	P7_cell	P7_effective_policy_id	P7_on_point_estimate_pareto_front	pareto_front_cells	P7_dominates_cells	P7_dominated_by_cells	P7_tradeoff_or_tie_cells	global_rank_assigned
+G01	A02	P1	true	A01,A02			A01	false
+G02	A04	P2	true	A03,A04,A07			A03,A07	false
+G03	A06	P2	true	A05,A06			A05	false
+G04	A09	P4	false	A08		A08		false
+G05	A11	P5	false	A14	A10,A16	A14		false
+G06	A13	P2	false	A15		A15	A12	false
+G07	A18	P5	true	A18	A17			false
+G08	A21	P1	true	A20,A21	A19		A20	false
+G09	A24	P4	false	A22		A22	A23	false

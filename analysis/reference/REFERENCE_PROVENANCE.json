@@ -1,0 +1,53 @@
+{
+  "artifact_role": "post-publication WP10 statistical reproduction references",
+  "reference_bundle": {
+    "name": "WP10_REPRO_REFERENCE_BUNDLE_20260830.tar.gz",
+    "sha256": "a190c08716dbec55a20025def6bed7e92bae389e6313c98cb631f422f0b23f01",
+    "bytes": 157546,
+    "reference_regular_files": 77
+  },
+  "source_recovery": {
+    "authoritative_outputs_recovered": true,
+    "authoritative_output_manifests_verified": true,
+    "analysis_source_candidates_recovered": 0,
+    "original_analysis_source_preserved": false
+  },
+  "frozen_identities": {
+    "analysis_membership_sha256": "a2bf0c8f352f4386e74a500d97ea8f73e0c39d03bfe10ac0ebcf02470af9f70e",
+    "locked_720_analysis_extraction_sha256": "bf219d71162df708343f4be85bb258a083f5012e696c23619d0a46b7a2f2f265",
+    "locked_p4_240_analysis_sha256": "f848a448cc75818d37a7827df9e8936ff7a4bf60075ca25b102e858df7f56af3",
+    "wp10b_manifest_sha256": "98dfda6dff27fb1f2519c515b095d814c6df80669e0ce54b061cc7194014e9ba",
+    "wp10c1_manifest_sha256": "bd5e3513a5821802a2805e0f62321c779263f6d1e25d871f6db4a5897ed29040",
+    "wp10c2_manifest_sha256": "cfe5dda902be5eeeed268cdb6042b377d9816a369138059ab6b4cf779d22959c",
+    "wp10d2r1_manifest_sha256": "b3239968b596edf1183f4ad6b93a34cf317a794ab86920a775d1e1e9045ad9ff",
+    "wp10e0r1_manifest_sha256": "3c4b141352c8ce9f2341cbc3acb2b6f5f0e7f97847fcc19f258ba1c2dc90eeb4",
+    "wp10f_r3_manifest_sha256": "c31b357cb454ed96d60708f96b27e1993ef002b76a3cd36d90d36a437b3cbc9c"
+  },
+  "recovered_statistical_environment": {
+    "numpy": "1.26.4",
+    "statsmodels": "0.14.0",
+    "scipy_original_version_recovered": false,
+    "pandas_original_version_recovered": false
+  },
+  "bootstrap": {
+    "replicates": 20000,
+    "unit": "campaign_seed",
+    "interval": "percentile_95",
+    "c1_seed": 13772462244504663816,
+    "c2_seed": 7873538898909399172,
+    "p5_original_seed_preserved": false,
+    "p5_reconstruction_seed_derivation": "uint64_be(first_8_bytes(SHA256('post-publication-wp10-p5-bootstrap-v1|' || locked_720_sha256)))"
+  },
+  "scientific_boundaries": {
+    "valid_population": 720,
+    "invalid_attempts_outside_statistical_membership": 9,
+    "m05_observed": 180,
+    "m05_right_censored": 540,
+    "m05_tau_seconds": 30,
+    "p_values_computed": false,
+    "p5_weighted_score_computed": false,
+    "p5_global_rank_computed": false,
+    "simultaneous_pareto_confidence_claim": false,
+    "zenodo_v1_0_0_modified": false
+  }
+}

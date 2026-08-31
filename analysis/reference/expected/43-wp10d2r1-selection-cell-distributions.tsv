@@ -1,0 +1,9 @@
+cell_id	event_id	evidence_condition_id	requested_policy_id	n	effective_policy_counts	selected_action_counts	effective_policy_cell_deterministic	selected_action_cell_deterministic
+A04	E1	T0	P7	30	P2:30	RESTRICT_HIGH_RISK_COMMANDS:30	true	true
+A07	E1	T0	P2	30	P2:30	RESTRICT_HIGH_RISK_COMMANDS:30	true	true
+A08	E1	T1	P2	30	P2:30	RESTRICT_HIGH_RISK_COMMANDS:30	true	true
+A09	E1	T1	P7	30	P4:30	ENTER_SAFE_MODE:30	true	true
+A10	E3	T0	P2	30	P2:30	RESTRICT_HIGH_RISK_COMMANDS:30	true	true
+A11	E3	T0	P7	30	P5:30	REQUEST_VERIFIED_ROLLBACK:30	true	true
+A12	E3	T1	P2	30	P2:30	RESTRICT_HIGH_RISK_COMMANDS:30	true	true
+A13	E3	T1	P7	30	P2:30	RESTRICT_HIGH_RISK_COMMANDS:30	true	true

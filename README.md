@@ -73,15 +73,16 @@ The historical research files keep their stable names and paths so citations, ha
 | Order | Location | Purpose |
 |---:|---|---|
 | 1 | [`publication/`](publication/README.md) | Manuscript, figures, tables, citation/claim controls |
-| 2 | [`docs/`](docs/) | Theory, methods, legal/ethical boundaries, work-package evidence, integrity/release closeouts |
-| 3 | [`configs/`](configs/) | Frozen experiment designs, schemas, adapters, toolchain locks |
-| 4 | [`src/mission_recovery/`](src/mission_recovery/) | Research implementation and policy/runtime logic |
-| 5 | [`tests/`](tests/) | Unit, contract, regression, and campaign-governance tests |
-| 6 | [`scripts/`](scripts/) | Validation, testbed, runtime, campaign, and release tooling |
-| 7 | [`artifacts/`](artifacts/) | Reproducibility lock records retained in Git |
-| 8 | [`tracker/`](tracker/) | Work-package state, decisions, risks, and campaign closeout tracking |
-| 9 | [`release/`](release/) | Responsible-release controls and Zenodo publication record |
-| 10 | [Zenodo v1.0.0](https://doi.org/10.5281/zenodo.22181540) | Raw WP9 campaign evidence and exact DOI-bearing reproducibility package |
+| 2 | [`analysis/`](analysis/README.md) | Post-publication executable reconstruction of the frozen WP10 statistical analysis, validated against preserved reference outputs |
+| 3 | [`docs/`](docs/) | Theory, methods, legal/ethical boundaries, work-package evidence, integrity/release closeouts |
+| 4 | [`configs/`](configs/) | Frozen experiment designs, schemas, adapters, toolchain locks |
+| 5 | [`src/mission_recovery/`](src/mission_recovery/) | Research implementation and policy/runtime logic |
+| 6 | [`tests/`](tests/) | Unit, contract, regression, and campaign-governance tests |
+| 7 | [`scripts/`](scripts/) | Validation, testbed, runtime, campaign, and release tooling |
+| 8 | [`artifacts/`](artifacts/) | Reproducibility lock records retained in Git |
+| 9 | [`tracker/`](tracker/) | Work-package state, decisions, risks, and campaign closeout tracking |
+| 10 | [`release/`](release/) | Responsible-release controls and Zenodo publication record |
+| 11 | [Zenodo v1.0.0](https://doi.org/10.5281/zenodo.22181540) | Raw WP9 campaign evidence and exact DOI-bearing reproducibility package |
 
 Raw `results/wp9/campaign/` evidence is intentionally not stored in GitHub. The DOI-bearing Zenodo record is the public archive for that evidence.
 
@@ -105,6 +106,18 @@ python -m unittest discover -s tests -p 'test_*.py'
 Windows users should use WSL for the Bash-based tooling; the pure Python validation/tests can also be run from a normal Python environment after activating the virtual environment.
 
 For the pinned Docker/NOS3/Fortytwo setup, expected PASS markers, cleanup, Apple Silicon notes, and the distinction between repository validation and a new scientific replication, see **[`docs/REPRODUCIBILITY_GUIDE.md`](docs/REPRODUCIBILITY_GUIDE.md)**.
+
+### Reproduce the frozen WP10 statistical contracts
+
+The repository now includes a post-publication statistical reconstruction under [`analysis/`](analysis/README.md). It is not the original WP10 analysis source; it starts from the frozen derived analysis inputs and regression-validates the reported statistical contracts against preserved authoritative outputs. It does not start the simulator or create campaign evidence.
+
+```bash
+python3.11 -m venv .venv-analysis
+source .venv-analysis/bin/activate
+python -m pip install --upgrade pip
+python -m pip install --only-binary=:all: -r analysis/requirements.txt
+python analysis/reproduce_wp10.py --validate
+```
 
 ## Reproducibility levels
 

@@ -16,6 +16,7 @@ There are three useful reproducibility levels:
 | Level | Purpose | Starts simulator/runtime? | Writes new scientific campaign evidence? |
 |---|---|---:|---:|
 | A — repository validation | Validate schemas, contracts, and Python test suite | No | No |
+| A2 — WP10 statistical reproduction | Recompute and regression-check the frozen manuscript-facing statistical contracts from the tracked derived analysis inputs | No | No |
 | B — bounded testbed preflight | Rebuild pinned NOS3/Fortytwo/cFS environment and verify isolated runtime liveness | Yes | No scored campaign |
 | C — scientific replication | Execute new experimental observations under a separately controlled replication protocol | Yes | Yes — new evidence, not the archived WP9 record |
 
@@ -48,7 +49,7 @@ The GitHub Actions validation path uses Ubuntu with Python 3.11 for repository-l
 Required:
 
 - Git;
-- Python 3.11 recommended;
+- Python 3.11 recommended for Level A and required for Level A2 statistical reproduction;
 - internet access for the initial clone and Python dependency installation.
 
 ### Level B — full testbed preflight
@@ -140,6 +141,26 @@ A Level A validation is successful when:
 - the shell syntax checks exit zero.
 
 This level does **not** claim that NOS3, cFS, Fortytwo, Docker networking, or the historical campaign have been reproduced.
+
+## 5A. Level A2 — reproduce the frozen WP10 statistical contracts
+
+The [`analysis/`](../analysis/README.md) directory contains a post-publication reconstruction of the frozen WP10 statistical analysis. The original executable WP10 analysis source was not preserved; this implementation is explicitly identified as a reconstruction and is validated against cryptographically verified historical outputs.
+
+Create a separate statistical environment and run:
+
+```bash
+python3.11 -m venv .venv-analysis
+source .venv-analysis/bin/activate
+python -m pip install --upgrade pip
+python -m pip install --only-binary=:all: -r analysis/requirements.txt
+python analysis/reproduce_wp10.py --validate
+```
+
+This path reads only the tracked derived analysis inputs under `analysis/reference/`. It does not read or modify the raw WP9 campaign, start NOS3/cFS, consume campaign seeds, or create a new observation.
+
+The C1/C2 bootstrap RNG settings were recovered and reproduce their retained Monte Carlo endpoints numerically. The original P5 bootstrap RNG seed was not preserved, so the reconstruction does not fabricate one: it uses a separately identified deterministic reconstruction seed to confirm that the retained marginal dominance/uncertainty classifications are stable. Original P5 interval endpoints remain historical reference values.
+
+A PASS validates the covered frozen statistical contracts; it does not reclassify the reconstruction as original source code and does not modify Zenodo v1.0.0.
 
 ## 6. Level B — rebuild the pinned testbed and run the bounded preflight
 
