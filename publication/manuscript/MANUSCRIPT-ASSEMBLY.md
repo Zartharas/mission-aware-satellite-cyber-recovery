@@ -1,6 +1,6 @@
 # Target-Neutral Manuscript Assembly
 
-**Assembly status:** cybersecurity framing upgrade in progress; reproducibility hardening complete  
+**Assembly status:** cybersecurity framing integrated; reproducibility hardening complete  
 **Scientific evidence audit:** `docs/35-wp10-g5-manuscript-evidence-audit.md` — PASS  
 **Quantitative authority:** `docs/28`–`docs/34`, `publication/tables/`, and the post-publication `analysis/` regression package  
 **Primary target journal:** Computers & Security (Elsevier), Full Length Article  
@@ -9,25 +9,21 @@
 ## Authoritative manuscript order
 
 1. `00-title-abstract.md` — title, abstract, keywords
-2. `01-introduction.md` — problem, gap, contributions, scope
-3. `02-background-and-related-work.md` — Mission Aware, FDIR/autonomy, cyber resilience, trusted recovery, testbeds/detection, targeted gap
-4. `02a-cybersecurity-positioning-and-peer-comparison.md` — post-detection security positioning, closest-work comparison, SPARTA alignment, NIST incident-response mapping
-5. `03-methods.md` — testbed boundary, frozen design, policies, outcomes, validity, final analysis, provenance, reproducibility
-6. `03a-threat-trust-and-security-model.md` — post-access adversary model, defender knowledge, trust boundaries, security/dependability properties
-7. `04-results.md` — evidence-locked proposition results
-8. `05-discussion.md` — bounded interpretation and limitations
-9. `05a-cybersecurity-implications-and-next-study.md` — cybersecurity design implications and separately scoped follow-on research program
-10. `06-conclusion.md` — conclusions and future work
-11. `07-declarations-and-availability.md` — ethics, responsible-research boundary, data/code availability, reproducibility, submission placeholders
+2. `01-introduction.md` — cybersecurity problem, post-detection gap, contributions, scope
+3. `02-background-and-related-work.md` — Mission Aware, FDIR/autonomy, cyber resilience, trusted recovery, venue-adjacent peer work, SPARTA correspondence, NIST incident-response positioning, targeted gap
+4. `03-methods.md` — post-access adversary model, defender-knowledge model, TB0–TB5 trust boundaries, security/dependability properties, testbed boundary, frozen design, policies, outcomes, validity, statistical analysis, provenance, reproducibility
+5. `04-results.md` — evidence-locked proposition results
+6. `05-discussion.md` — bounded interpretation, cybersecurity design implications, limitations, and separately scoped follow-on research program
+7. `06-conclusion.md` — conclusions and future work
+8. `07-declarations-and-availability.md` — ethics, responsible-research boundary, data/code availability, reproducibility, submission declarations
 
-The `02a`, `03a`, and `05a` modules are journal-upgrade components. They strengthen security framing without changing the frozen experimental treatments, observations, or historical statistical outputs. Final target-specific export may integrate their prose into conventional numbered sections, but the scientific meaning and citations must be preserved.
+The temporary `02a`, `03a`, and `05a` upgrade modules have been integrated into conventional Sections 2, 3, and 5 and removed to avoid duplicate prose drift.
 
-## Bibliography sources
+## Bibliography source
 
-- `../../references/references.bib` — established manuscript bibliography
-- `../../references/cybersecurity-upgrade.bib` — NIST SP 800-61 Rev. 3, SPARTA technique references, and verified venue-adjacent cybersecurity literature added during the cybersecurity-framing upgrade
+- `../../references/references.bib` — canonical, deduplicated manuscript bibliography, including NIST SP 800-61 Rev. 3, the frozen-event SPARTA references, and verified venue-adjacent cybersecurity literature.
 
-A journal export must merge/deduplicate both bibliography sources before reference-style formatting.
+A journal export must format this single canonical bibliography to the target journal style without changing citation meaning.
 
 ## Main publication displays
 
@@ -57,13 +53,16 @@ Any combined DOCX/LaTeX/PDF or journal-specific rewrite must preserve:
 - M05 explicit event/censor representation and 30-s horizon;
 - P3 broader evidence-dependent finding while the narrower restoration-without-verification mechanism remains absent;
 - P4 as actual selection/action/consequence, with no objective correctness oracle;
+- Study 1 T1 as omission/reduction of selected policy-visible evidence fields, not a separate stale/contradictory/forged-evidence experiment;
+- P7 as a frozen deterministic rule-based selector, not a learned or AI/ML scientific method;
 - `ENTER_SAFE_MODE` as an experimental modeled action;
 - M03 structural zero as an observed result, not proof of universal safety;
 - P5 as condition-specific, with no 5/9 success-rate language, no weighted score, and no global policy rank;
 - execution provenance 1/9/710 across commits A/B/C and the 29-seed/696-observation final-C sensitivity as sensitivity only;
 - no operational spacecraft, real RF, real operator timing, flightworthiness, or certification claim;
-- SPARTA mappings described as behavioral correspondence/adjacency rather than proof that complete operational attack chains were reproduced;
-- NIST SP 800-61 Rev. 3 mapping described as lifecycle positioning rather than organizational compliance.
+- SPARTA mappings described as frozen behavioral/experimental correspondence rather than proof that complete operational attack chains were reproduced;
+- NIST SP 800-61 Rev. 3 mapping described as lifecycle positioning rather than organizational compliance;
+- Study 2/Study 3 proposals kept scientifically separate from the frozen Study 1 population.
 
 ## Submission metadata resolved
 
@@ -75,15 +74,17 @@ Any combined DOCX/LaTeX/PDF or journal-specific rewrite must preserve:
 - Code Availability is bound to reproducibility-hardened `main` commit `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`;
 - primary target: Computers & Security, Full Length Article.
 
-## Items legitimately pending author/venue confirmation
+## Submission-state controls
 
-Final submission still requires the applicable items below to be explicitly confirmed rather than inferred:
+The current Computers & Security scope/policy review and cybersecurity fit audit have been completed during this preparation cycle. Because publisher portals and policies can change, a final live Guide for Authors/Editorial Manager check remains mandatory on the actual submission date.
+
+The following items require factual author attestation and therefore must not be inferred from repository evidence:
 
 - competing-interest declaration;
 - acknowledgments decision;
-- live Computers & Security Guide for Authors / submission-portal requirements immediately before export;
-- final target-specific generative-AI disclosure wording and author approval;
-- an institutional IRB/HRPP determination identifier only if the selected venue or institution specifically requires one for this no-human-participant software experiment.
+- confirmation that the manuscript is not simultaneously under consideration elsewhere;
+- final author approval of the CRediT and generative-AI statements;
+- an institutional IRB/HRPP determination identifier only if specifically required for this no-human-participant software experiment.
 
 ## Assembly rule
 
