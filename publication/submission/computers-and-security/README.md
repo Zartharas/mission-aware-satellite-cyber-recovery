@@ -5,13 +5,13 @@
 - **Journal:** Computers & Security (Elsevier)
 - **Article type:** Full Length Article
 - **Primary manuscript:** assembled from the authoritative components listed in `../../manuscript/MANUSCRIPT-ASSEMBLY.md`
-- **Submission-preparation snapshot:** reproducibility-hardened `main` commit `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`, tree `f17cd12011cff510aa0c4ce128938b4bf93b0288`
+- **Reproducibility-hardened code/data reference:** `main` commit `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`, tree `f17cd12011cff510aa0c4ce128938b4bf93b0288`
 
 This directory contains journal-specific submission material only. It does not replace the target-neutral manuscript components and must not become a second manually maintained copy of the full paper.
 
 ## Why this venue is a strong primary target
 
-Computers & Security explicitly combines leading-edge security research with practical security guidance. The fit is strengthened by recent journal publications directly addressing space-sector attack-surface assessment and SatCom cybersecurity, satellite intrusion detection, and cyber-physical security testbeds.
+Computers & Security combines leading-edge information-security research with practical security relevance. The fit is strengthened by recent journal publications addressing space-sector attack-surface assessment, SatCom cybersecurity, satellite intrusion detection, and cyber-physical security testbeds.
 
 Current fit references checked during submission preparation:
 
@@ -19,35 +19,34 @@ Current fit references checked during submission preparation:
 - Space-organization attack-surface study, Computers & Security 164 (2026), 104848: https://doi.org/10.1016/j.cose.2026.104848
 - SatCom user-segment cybersecurity study, Computers & Security 140 (2024), 103799: https://doi.org/10.1016/j.cose.2024.103799
 - CANSat-IDS satellite intrusion-detection study, Computers & Security 146 (2024), 104033: https://doi.org/10.1016/j.cose.2024.104033
-- SCASS open-source cyber-physical security testbed, Computers & Security 151 (2025), 104315: https://doi.org/10.1016/j.cose.2025.104315
-- Intrusion-response systems for cyber-physical systems, Computers & Security 124 (2023), 102984: https://doi.org/10.1016/j.cose.2022.102984
+- SCASS cyber-physical security testbed, Computers & Security 151 (2025), 104315: https://doi.org/10.1016/j.cose.2025.104315
 
-These papers establish venue adjacency; they are not cited merely to manufacture journal fit and should enter the manuscript bibliography only when they substantively support a manuscript claim.
+These works establish venue adjacency. They are included in the manuscript only when they substantively support positioning or comparison claims, not merely to manufacture journal fit.
 
-## Cybersecurity framing upgrade
+## Integrated cybersecurity framing
 
-The manuscript now includes journal-upgrade modules that make the cybersecurity contribution explicit without changing any frozen observations or historical statistical results:
+The journal-upgrade material is now integrated into the conventional manuscript rather than maintained as auxiliary prose:
 
-- `../../manuscript/02a-cybersecurity-positioning-and-peer-comparison.md` — post-detection positioning, closest-work differentiation, SPARTA behavioral mapping, and NIST SP 800-61 Rev. 3 lifecycle mapping;
-- `../../manuscript/03a-threat-trust-and-security-model.md` — post-access adversary model, defender knowledge, TB0–TB5 trust boundaries, and security/dependability properties;
-- `../../manuscript/05a-cybersecurity-implications-and-next-study.md` — practical security implications and a separately scoped higher-bar follow-on research program;
+- **Section 2** — post-detection positioning; close-work differentiation; frozen SPARTA behavioral correspondence; NIST SP 800-61 Rev. 3 lifecycle positioning;
+- **Section 3** — post-access adversary model; defender-knowledge model; TB0–TB5 trust boundaries; security/dependability properties; deterministic P7 semantics;
+- **Section 5** — practical response/recovery implications; Study 1 evidence-treatment boundary; limitations; separately scoped Study 2/Study 3 program;
 - `../../tables/table-r5-cybersecurity-positioning.csv` — conservative closest-work comparison;
-- `../../tables/table-r6-security-property-mapping.csv` — integrity, availability, safety, recoverability, evidence assurance, and explicit non-evaluated properties.
+- `../../tables/table-r6-security-property-mapping.csv` — security/dependability property map.
 
-The additional bibliography is held in `../../../references/cybersecurity-upgrade.bib` and must be merged/deduplicated with the established bibliography during final export.
+All manuscript citations now resolve through the single canonical bibliography `../../../references/references.bib`.
 
 ## Current journal-scope checks
 
 Policy/scope snapshot checked in August 2026:
 
-- Computers & Security emphasizes leading-edge security research with practical security value and explicitly excludes cryptology as a principal component. https://shop.elsevier.com/journals/computers-and-security/0167-4048
+- Computers & Security emphasizes leading-edge security research with practical security value and excludes cryptology as a principal component. https://shop.elsevier.com/journals/computers-and-security/0167-4048
 - The journal currently states a moratorium on submissions in which AI/ML is a significant scientific component. **This study does not use AI/ML as its response method:** P7 is a frozen deterministic rule-based selector. AI-assisted manuscript/reproducibility preparation is separately disclosed under Elsevier's publication-ethics policy and is not the experimental decision mechanism.
 - Elsevier research highlights: 3–5 bullets, no more than 85 characters including spaces, submitted separately. https://www.elsevier.com/researcher/author/tools-and-resources/highlights
-- Elsevier generative-AI journal policy: substantive manuscript-preparation use requires a separate declaration; research-process use, including AI-assisted code development, should be described in Methods. https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
-- Elsevier prior-publication policy does not treat an academic thesis as prior publication. https://www.elsevier.com/connect/clarification-of-our-policy-on-prior-publication
-- Elsevier CRediT guidance supports explicit contributor-role statements. https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement
+- Elsevier generative-AI journal policy requires appropriate disclosure of substantive manuscript-preparation use and research-process code assistance. https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
+- Elsevier's general prior-publication policy does not treat an academic thesis as prior publication.
+- Elsevier CRediT guidance supports explicit contributor-role statements.
 
-The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Manager fields must be rechecked immediately before final export and submission because journal requirements can change.
+The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Manager fields must be rechecked on the actual submission date because publisher requirements can change.
 
 ## Files
 
@@ -56,11 +55,11 @@ The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Man
 - `concise-abstract-candidate.md` — shorter target-specific abstract candidate; the authoritative abstract remains in the manuscript until adopted
 - `cover-letter.md` — target-specific editorial cover-letter draft
 - `ai-declaration.md` — Elsevier disclosure draft plus Methods disclosure text for post-publication AI-assisted code reconstruction
-- `submission-checklist.md` — resolved items, blockers, and final portal checks
+- `submission-checklist.md` — resolved items, remaining factual attestations, and final portal checks
 - `venue-fit.md` — target rationale and backup-journal decision logic
 
 ## Scientific boundary
 
-Every target-specific export must preserve the manuscript controls in `../../manuscript/MANUSCRIPT-ASSEMBLY.md`: 720 VALID primary observations, P1 null preservation, modeled-contact wording, evidence-qualified P3/P4 interpretation, no P4 correctness oracle, condition-specific P5 interpretation without a global rank or success-rate framing, the 696-observation final-commit analysis as sensitivity only, and no operational spacecraft/RF/flight-readiness claim.
+Every target-specific export must preserve the controls in `../../manuscript/MANUSCRIPT-ASSEMBLY.md`, including 720 VALID primary observations; P1 null preservation; modeled-contact wording; T1 as omission/reduction of policy-visible evidence rather than a stale/contradictory/forged-evidence factorial; no P4 correctness oracle; P7 as deterministic rule-based rather than AI/ML; condition-specific P5 interpretation without a global rank or success-rate framing; the 696-observation final-commit analysis as sensitivity only; and no operational spacecraft/RF/flight-readiness claim.
 
-The new SPARTA mappings are behavioral correspondences only, and the NIST SP 800-61 Rev. 3 mapping is lifecycle positioning rather than a compliance claim.
+SPARTA mappings are frozen behavioral/experimental correspondences only, and the NIST SP 800-61 Rev. 3 mapping is lifecycle positioning rather than a compliance claim.
