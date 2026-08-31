@@ -10,6 +10,21 @@
 - [x] P5 missing historical RNG seed is disclosed; exact historical P5 Monte Carlo endpoint replay is not claimed.
 - [x] Manuscript evidence audit previously passed.
 
+## Cybersecurity framing upgrade
+
+- [x] Post-access adversary/threat model drafted without inventing operational attack access.
+- [x] Adversary exclusions and immutable research-control boundary stated.
+- [x] Defender-knowledge model separates policy-visible evidence from experiment ground truth.
+- [x] TB0–TB5 trust boundaries defined.
+- [x] SPARTA behavioral correspondence documented for replay, compromised-update, and evidence-degradation conditions.
+- [x] SPARTA mapping explicitly bounded as adjacency rather than complete attack-chain reproduction.
+- [x] NIST SP 800-61 Rev. 3 response/recovery lifecycle positioning added.
+- [x] NIST mapping explicitly bounded as explanatory rather than a compliance claim.
+- [x] Security/dependability property map covers integrity, availability, safety, recoverability, and evidence assurance.
+- [x] Confidentiality, RF resistance, and human/operator response are explicitly identified as not evaluated.
+- [x] Closest-work comparison uses conservative `Not primary focus` language rather than unsupported absence claims.
+- [x] Study 2 generalization design is separate from the frozen Study 1 population and remains design-only.
+
 ## Journal fit and files
 
 - [x] Primary target selected: Computers & Security.
@@ -24,6 +39,9 @@
 - [x] No-human-participant and responsible-research boundary already stated.
 - [x] Generative-AI declaration draft prepared under current Elsevier policy.
 - [x] Methods disclosure draft prepared for AI-assisted post-publication reproducibility-code reconstruction.
+- [ ] Integrate `02a`, `03a`, and `05a` modules into conventional final journal section numbering during export.
+- [ ] Merge/deduplicate `references/references.bib` and `references/cybersecurity-upgrade.bib` during final reference pass.
+- [ ] Render and inspect Tables R5/R6 in the final manuscript format.
 
 ## Author metadata
 
@@ -57,6 +75,7 @@ Perform immediately before submission rather than relying on cached guidance:
 - [ ] Confirm any requested reviewer/excluded reviewer fields.
 - [ ] Run final citation/DOI/reference audit.
 - [ ] Run final manuscript-vs-frozen-results claim audit.
+- [ ] Run a final scope-fit audit against the current Computers & Security Aims & Scope.
 
 ## Prior-dissemination check
 
