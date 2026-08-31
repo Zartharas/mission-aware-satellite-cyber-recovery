@@ -12,7 +12,7 @@ This document is a research-planning aid, not an immigration-law designation or 
 
 **Scope alignment:** very high.
 
-The journal emphasizes leading-edge information-security research with practical security value. Recent issues include space-sector attack-surface research, SatCom cybersecurity, satellite intrusion detection, and cyber-physical security-testbed work.
+The journal emphasizes leading-edge information-security research with practical security value. Recent issues include space-sector attack-surface research, SatCom cybersecurity, satellite intrusion detection, and cyber-physical security-testbed work. Its current scope explicitly excludes cryptology as a principal component and currently states a moratorium on submissions where AI/ML is a significant scientific component. Study 1 remains compatible with that boundary because P7 is a frozen deterministic rule-based selector, not an AI/ML response model; AI-assisted manuscript/reproducibility preparation is disclosed separately as publication/research-process assistance rather than presented as the experimental security mechanism.
 
 Current paper alignment:
 
@@ -21,11 +21,12 @@ Current paper alignment:
 - practical security/availability implications — strong;
 - satellite-specific context — already represented in venue literature;
 - public reproducibility — strong;
+- deterministic/non-AI response mechanism — compatible with current scope;
 - threat/adversary framing — upgraded in current PR;
 - trust/evidence model — upgraded in current PR;
 - closest-work differentiation — upgraded in current PR.
 
-**Remaining Study 1 work before submission:** editorial integration, bibliography merge, final citation/claim audit, final live Guide for Authors check, and unresolved author attestations. No new campaign observations are required merely to increase sample size.
+**Remaining Study 1 work before submission:** editorial integration, bibliography merge, final citation/claim audit, final live Guide for Authors/Aims & Scope check, and unresolved author attestations. No new campaign observations are required merely to increase sample size.
 
 Official journal page: https://shop.elsevier.com/journals/computers-and-security/0167-4048
 
@@ -35,7 +36,7 @@ Official journal page: https://shop.elsevier.com/journals/computers-and-security
 
 **Scope alignment:** high if Study 2 adds general security/dependability methodology.
 
-Relevant scope themes include secure/dependable system design and evaluation, recovery/survivability, attack models, experimental testbeds, statistical methods, safety-critical computing, cyber-physical systems, and aerospace/satellite contexts.
+TDSC focuses on foundations, methodologies, and mechanisms for systems that are both dependable and secure without compromising performance. Its official topics include online detection/recovery, availability/performability/survivability, attack models, experimental testbeds with fault/error/attack/workload generation, statistical methods, formal specification/verification, safety-critical aerospace computing, networks of satellites, and cyber-physical systems.
 
 Required upgrade beyond Study 1:
 
@@ -50,7 +51,12 @@ Required upgrade beyond Study 1:
 
 Study 2 design candidate: `docs/44-study2-secure-response-generalization-design.md`.
 
-Official journal/topics page: https://www.computer.org/digital-library/journals/tq/tdsc-topics
+Implementation-traced formal-assurance extraction: `docs/46-formal-assurance-traceability-candidate.md`.
+
+Official journal/topics pages:
+
+- https://www.computer.org/digital-library/journals/tq/cfp-dependable-secure-computing
+- https://www.computer.org/digital-library/journals/tq/tdsc-topics
 
 ### ACM Transactions on Privacy and Security (TOPS) — strong alternative
 
@@ -74,7 +80,7 @@ Official topics page: https://www.tissec.hosting.acm.org/content/process/topics-
 
 **Scope alignment:** high after increased aerospace-system realism.
 
-TAES covers organization, design, development, integration, and operation of complex aerospace systems including spacecraft, telemetry, automated testing, command/control, and fault-tolerant systems. Its fault-tolerant area explicitly includes rollback recovery, fault containment, and reliability analysis.
+TAES covers organization, design, development, integration, and operation of complex systems including spacecraft, telemetry, automated testing, and command/control. Its Fault-Tolerant Systems technical area explicitly includes roll-forward/roll-back recovery, fault detection/isolation, fault containment/robustness, and reliability analysis, with aerospace application expected.
 
 Required upgrade beyond Study 2:
 
@@ -94,7 +100,7 @@ Official pages:
 
 **Scope alignment:** very high for an aerospace-information-systems/HIL version.
 
-JAIS seeks original work in aerospace computing, information systems, software engineering, embedded-system verification and validation, autonomous systems, systems health management, systems engineering, safety, resilience, and mission assurance.
+JAIS seeks original archival work in aerospace computing/information systems, aerospace systems and software engineering, embedded-system verification and validation, autonomous systems, systems health management, systems engineering, safety/resilience, and mission assurance. It explicitly seeks quantitative studies, original research, novel applications, and aerospace-specific case studies.
 
 Required upgrade beyond Study 1/2:
 
