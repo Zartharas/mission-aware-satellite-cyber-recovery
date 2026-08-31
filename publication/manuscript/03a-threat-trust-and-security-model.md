@@ -25,7 +25,7 @@ The experiment does not evaluate confidentiality loss, data exfiltration, crypta
 
 The defender is represented through two distinct knowledge domains:
 
-1. **Runtime policy-visible state.** The response policy can use only the event, mission, evidence, contact, authorization, and other context explicitly exposed by the frozen policy interface. Evidence may be full, reduced, stale/insufficient according to the implemented treatment, or otherwise unavailable to the selector.
+1. **Runtime policy-visible state.** The response policy can use only the event, mission, evidence, contact, authorization, and other context explicitly exposed by the frozen policy interface. Under Study 1, this evidence is either the frozen full-evidence condition or the specifically reduced/suppressed policy-visible evidence defined by the applicable treatment; an `evidence_insufficient` state may result from those implemented conditions. Study 1 did not separately manipulate evidence age/staleness, contradiction, or forged values as independent factors.
 2. **Experiment/analysis ground truth.** The controller retains immutable treatment identity, expected treatment/fidelity conditions, run provenance, and outcome evidence required to determine whether the trial is valid and to classify the resulting terminal state. This information is not exposed to the runtime selector as a correctness oracle.
 
 This architecture creates the core information-security problem studied by P3/P4: **response decisions are made under bounded observation, while trustworthy recovery is adjudicated only when sufficient current evidence exists.**
