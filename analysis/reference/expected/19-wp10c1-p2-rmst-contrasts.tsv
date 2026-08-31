@@ -1,0 +1,7 @@
+endpoint	contrast	estimate_seconds	bootstrap95_low	bootstrap95_high	direction	analysis_method
+M04_containment_RMST	P6_C1_minus_C0	10.083106152233334	9.830399388491667	10.373543421211666	positive=C1 slower/worse than C0	RMST tau=30; paired seed-block percentile bootstrap
+M04_containment_RMST	P7_C1_minus_C0	-0.04248030686666662	-0.19769985028749992	0.0899454490441667	positive=C1 slower/worse than C0	RMST tau=30; paired seed-block percentile bootstrap
+M04_containment_RMST	contact_by_policy_interaction	10.125586459099999	9.785899924191666	10.517551669869166	positive=contact delay increases RMST more for P6 than P7	RMST tau=30; paired seed-block percentile bootstrap
+M05_verified_recovery_RMST	P6_C1_minus_C0	10.4246469375	9.656730542550834	11.35982563981	positive=C1 slower/worse than C0	RMST tau=30; paired seed-block percentile bootstrap
+M05_verified_recovery_RMST	P7_C1_minus_C0	-0.1807720026333333	-0.7193925575275	0.2766779512166664	positive=C1 slower/worse than C0	RMST tau=30; paired seed-block percentile bootstrap
+M05_verified_recovery_RMST	contact_by_policy_interaction	10.605418940133335	9.534276748724999	11.902333227909166	positive=contact delay increases RMST more for P6 than P7	RMST tau=30; paired seed-block percentile bootstrap

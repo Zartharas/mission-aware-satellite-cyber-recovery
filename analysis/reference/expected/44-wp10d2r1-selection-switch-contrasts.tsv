@@ -1,0 +1,5 @@
+event_id	selection_construct	P2_switch_rate	P2_exact95_low	P2_exact95_high	P7_switch_rate	P7_exact95_low	P7_exact95_high	P7_minus_P2_switch_difference	bootstrap95_low	bootstrap95_high	scientific_interpretation
+E1	selected_action	0.0	0.0	0.11570330822202779	1.0	0.8842966917779722	1.0	1.0	1.0	1.0	positive=P7 selection changes under T1 more often than fixed P2; not a correctness metric
+E1	effective_policy	0.0	0.0	0.11570330822202779	1.0	0.8842966917779722	1.0	1.0	1.0	1.0	positive=P7 selection changes under T1 more often than fixed P2; not a correctness metric
+E3	selected_action	0.0	0.0	0.11570330822202779	1.0	0.8842966917779722	1.0	1.0	1.0	1.0	positive=P7 selection changes under T1 more often than fixed P2; not a correctness metric
+E3	effective_policy	0.0	0.0	0.11570330822202779	1.0	0.8842966917779722	1.0	1.0	1.0	1.0	positive=P7 selection changes under T1 more often than fixed P2; not a correctness metric

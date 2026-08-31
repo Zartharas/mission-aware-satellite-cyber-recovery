@@ -1,0 +1,21 @@
+endpoint	contrast	estimate	bootstrap95_low	bootstrap95_high	interpretation_direction	model_route
+M01_unauthorized_effect	M0_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher unauthorized-effect completion	seed-blocked direct contrast fallback; mixed model not fit
+M01_unauthorized_effect	M2_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher unauthorized-effect completion	seed-blocked direct contrast fallback; mixed model not fit
+M01_unauthorized_effect	M4_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher unauthorized-effect completion	seed-blocked direct contrast fallback; mixed model not fit
+M01_unauthorized_effect	M2_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 higher unauthorized-effect completion	seed-blocked interaction contrast fallback; mixed model not fit
+M01_unauthorized_effect	M4_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 higher unauthorized-effect completion	seed-blocked interaction contrast fallback; mixed model not fit
+M02_mission_completion	M0_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher mission-objective completion	seed-blocked direct contrast fallback; mixed model not fit
+M02_mission_completion	M2_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher mission-objective completion	seed-blocked direct contrast fallback; mixed model not fit
+M02_mission_completion	M4_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher mission-objective completion	seed-blocked direct contrast fallback; mixed model not fit
+M02_mission_completion	M2_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 higher mission-objective completion	seed-blocked interaction contrast fallback; mixed model not fit
+M02_mission_completion	M4_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 higher mission-objective completion	seed-blocked interaction contrast fallback; mixed model not fit
+M03_safety_violation_count	M0_P7_minus_P1	0.0	0.0	0.0	positive=P7 more safety-invariant violations	seed-blocked direct contrast fallback; mixed model not fit
+M03_safety_violation_count	M2_P7_minus_P1	0.0	0.0	0.0	positive=P7 more safety-invariant violations	seed-blocked direct contrast fallback; mixed model not fit
+M03_safety_violation_count	M4_P7_minus_P1	0.0	0.0	0.0	positive=P7 more safety-invariant violations	seed-blocked direct contrast fallback; mixed model not fit
+M03_safety_violation_count	M2_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 more safety-invariant violations	seed-blocked interaction contrast fallback; mixed model not fit
+M03_safety_violation_count	M4_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 more safety-invariant violations	seed-blocked interaction contrast fallback; mixed model not fit
+M06_legitimate_rejection_rate	M0_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher legitimate-command rejection	seed-blocked direct contrast fallback; mixed model not fit
+M06_legitimate_rejection_rate	M2_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher legitimate-command rejection	seed-blocked direct contrast fallback; mixed model not fit
+M06_legitimate_rejection_rate	M4_P7_minus_P1	0.0	0.0	0.0	positive=P7 higher legitimate-command rejection	seed-blocked direct contrast fallback; mixed model not fit
+M06_legitimate_rejection_rate	M2_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 higher legitimate-command rejection	seed-blocked interaction contrast fallback; mixed model not fit
+M06_legitimate_rejection_rate	M4_vs_M0_policy_effect	0.0	0.0	0.0	positive=P7 higher legitimate-command rejection	seed-blocked interaction contrast fallback; mixed model not fit

@@ -1,0 +1,25 @@
+scope	cell_id	violation_runs	seed_repetitions	observed_run_probability	one_sided95_upper_probability	interpretation
+CELL	A01	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A02	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A03	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A04	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A05	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A06	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A07	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A08	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A09	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A10	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A11	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A12	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A13	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A14	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A15	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A16	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A17	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A18	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A19	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A20	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A21	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A22	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A23	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression
+CELL	A24	0	30	0.0	0.09503385285530419	exact one-sided bound across 30 seed-block replications; no count regression

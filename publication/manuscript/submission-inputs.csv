@@ -1,13 +1,13 @@
 input_id,input,required_for,blocking_now,status,notes
-S01,Final author list and order,Submission metadata,false,USER_INPUT_REQUIRED,"Do not infer authorship from repository activity"
-S02,Author affiliations,Submission metadata,false,USER_INPUT_REQUIRED,"Include department/institution/city/country per venue style"
-S03,Corresponding-author name and contact,Submission metadata,false,USER_INPUT_REQUIRED,"Do not infer email from GitHub metadata"
-S04,Funding declaration,Declarations,false,USER_INPUT_REQUIRED,"No funding source inferred"
-S05,Competing-interest declaration,Declarations,false,USER_INPUT_REQUIRED,"No declaration inferred"
-S06,Acknowledgments if any,Declarations,false,USER_INPUT_REQUIRED,"Optional unless venue/funder requires"
-S07,Target journal/conference and article type,Journal-specific export,false,USER_DECISION_REQUIRED,"Target-neutral manuscript can proceed without this; submission-final formatting cannot"
-S08,Journal word/table/figure/reference constraints,Journal-specific export,false,DERIVED_AFTER_S07,"Verify against current author instructions after venue selection"
-S09,Generative-AI/editorial-assistance disclosure language,Submission disclosure,false,DERIVED_AFTER_S07,"Follow current venue policy rather than generic wording"
-S10,Zenodo version DOI and concept DOI,Data Availability,false,WP11_REQUIRED,"Populate only after archive upload and checksum verification"
-S11,Final repository/release URL or tagged release identifier,Code Availability,false,WP11_REQUIRED,"Bind to responsible artifact release"
-S12,Any institutional IRB/HRPP determination identifier if institution requires one for a no-human-participant statement,Ethics submission metadata,false,USER_OR_INSTITUTION_INPUT_IF_REQUIRED,"Current reported software experiment used no human participants; do not invent a determination number"
+S01,Final author list and order,Submission metadata,false,USER_INPUT_REQUIRED,Do not infer authorship from repository activity
+S02,Author affiliations,Submission metadata,false,USER_INPUT_REQUIRED,Include department/institution/city/country per venue style
+S03,Corresponding-author name and contact,Submission metadata,false,USER_INPUT_REQUIRED,Do not infer email from GitHub metadata
+S04,Funding declaration,Declarations,false,RESOLVED,"Independent research; no external funding, consistent with the manuscript declaration"
+S05,Competing-interest declaration,Declarations,false,USER_INPUT_REQUIRED,No declaration inferred
+S06,Acknowledgments if any,Declarations,false,USER_INPUT_REQUIRED,Optional unless venue/funder requires
+S07,Target journal/conference and article type,Journal-specific export,false,USER_DECISION_REQUIRED,Target-neutral manuscript can proceed without this; submission-final formatting cannot
+S08,Journal word/table/figure/reference constraints,Journal-specific export,false,DERIVED_AFTER_S07,Verify against current author instructions after venue selection
+S09,Generative-AI/editorial-assistance disclosure language,Submission disclosure,false,DERIVED_AFTER_S07,Follow current venue policy rather than generic wording
+S10,Zenodo version DOI and concept DOI,Data Availability,false,RESOLVED,Zenodo v1.0.0 version DOI 10.5281/zenodo.22181540; concept DOI 10.5281/zenodo.22181539
+S11,Final repository/release URL or tagged release identifier,Code Availability,false,DERIVED_AFTER_REPRO_HARDENING_MERGE,Public repository URL is known; bind the final merged commit or tag in the submission-final code-availability statement
+S12,Any institutional IRB/HRPP determination identifier if institution requires one for a no-human-participant statement,Ethics submission metadata,false,USER_OR_INSTITUTION_INPUT_IF_REQUIRED,Current reported software experiment used no human participants; do not invent a determination number

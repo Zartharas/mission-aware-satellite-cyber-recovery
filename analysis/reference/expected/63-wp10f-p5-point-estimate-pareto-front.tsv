@@ -1,0 +1,25 @@
+group_id	cell_id	pareto_front_member	dominated_by_cells	dominates_cells	is_P7_cell
+G01	A01	true			false
+G01	A02	true			true
+G02	A03	true			false
+G02	A04	true			true
+G02	A07	true			false
+G03	A05	true			false
+G03	A06	true			true
+G04	A08	true		A09	false
+G04	A09	false	A08		true
+G05	A10	false	A11,A14,A16		false
+G05	A11	false	A14	A10,A16	true
+G05	A14	true		A10,A11,A16	false
+G05	A16	false	A11,A14	A10	false
+G06	A12	false	A15		false
+G06	A13	false	A15		true
+G06	A15	true		A12,A13	false
+G07	A17	false	A18		false
+G07	A18	true		A17	true
+G08	A19	false	A20,A21		false
+G08	A20	true		A19	false
+G08	A21	true		A19	true
+G09	A22	true		A23,A24	false
+G09	A23	false	A22		false
+G09	A24	false	A22		true

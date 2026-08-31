@@ -41,6 +41,8 @@ It contains the experiment design, software-in-the-loop policy/event implementat
 
 Repository-level environment and test instructions are maintained in `docs/REPRODUCIBILITY_GUIDE.md`. Third-party research infrastructure remains subject to its upstream licenses; repository licensing is documented in `LICENSE` and `NOTICE.md`.
 
+A post-publication executable reconstruction of the frozen WP10 statistical analysis is maintained under `analysis/`. The original WP10 analysis source was not preserved; the reconstruction is explicitly labeled as such and regression-validates the manuscript-facing statistical contracts against preserved authoritative outputs without rerunning the experiment or changing Zenodo v1.0.0.
+
 ## Reproducibility
 
 Reproducibility controls include frozen campaign cells and seeds, exact run IDs, version-pinned execution provenance, immutable per-run plans, an append-only authoritative attempt ledger, retained invalid attempts, explicit right-censoring, analysis-membership checksums, publication-output checksums, and a final-commit complete-block sensitivity analysis. The primary statistical population remains all 720 frozen VALID observations; the 696-observation final-commit analysis is a sensitivity check only.

@@ -1,0 +1,19 @@
+proposition	contrast	quantile	contrast_seconds	bootstrap95_low	bootstrap95_high	sensitivity_role
+P2	P6_C1_minus_C0	Q25	9.961569123999999	9.850532530750002	10.07646193775	secondary quantile robustness check; not primary estimand
+P2	P6_C1_minus_C0	Q50	9.8712532765	9.654937893987501	10.167872119450001	secondary quantile robustness check; not primary estimand
+P2	P6_C1_minus_C0	Q75	9.887554043499998	9.674678742687501	10.161093330493749	secondary quantile robustness check; not primary estimand
+P2	P7_C1_minus_C0	Q25	0.030930241500000122	-0.011279160000000177	0.1438175839999999	secondary quantile robustness check; not primary estimand
+P2	P7_C1_minus_C0	Q50	0.09782270749999988	-0.11377982246250012	0.20895563886249982	secondary quantile robustness check; not primary estimand
+P2	P7_C1_minus_C0	Q75	-0.07444444049999976	-0.37449026849999967	0.12660282875000017	secondary quantile robustness check; not primary estimand
+P2	contact_by_policy_interaction	Q25	9.930638882499998	9.775773815918749	10.046363683774999	secondary quantile robustness check; not primary estimand
+P2	contact_by_policy_interaction	Q50	9.773430568999999	9.537340908150004	10.165654712112499	secondary quantile robustness check; not primary estimand
+P2	contact_by_policy_interaction	Q75	9.961998483999997	9.6334213331125	10.469552144681249	secondary quantile robustness check; not primary estimand
+P3	P5_T1_minus_T0	Q25	0.04167112325	-0.022704084499999944	0.094314809	secondary quantile robustness check; not primary estimand
+P3	P5_T1_minus_T0	Q50	0.027466443499999937	-0.16080365349999992	0.11922860849999983	secondary quantile robustness check; not primary estimand
+P3	P5_T1_minus_T0	Q75	-0.032902110500000026	-0.26466131950625005	0.13950824809999984	secondary quantile robustness check; not primary estimand
+P3	P7_T1_minus_T0	Q25	29.1234809075	29.067612470249998	29.14509147225	secondary quantile robustness check; not primary estimand
+P3	P7_T1_minus_T0	Q50	29.0372689955	28.798325294212496	29.154253976	secondary quantile robustness check; not primary estimand
+P3	P7_T1_minus_T0	Q75	28.7911280665	28.47773071175	28.9580010555	secondary quantile robustness check; not primary estimand
+P3	evidence_by_policy_interaction	Q25	-29.081809784249998	-29.148366750137498	-28.98889182893125	secondary quantile robustness check; not primary estimand
+P3	evidence_by_policy_interaction	Q50	-29.009802552	-29.180547851212502	-28.7677047270125	secondary quantile robustness check; not primary estimand
+P3	evidence_by_policy_interaction	Q75	-28.824030177	-29.0993278422875	-28.44916225111875	secondary quantile robustness check; not primary estimand
