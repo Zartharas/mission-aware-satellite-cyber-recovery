@@ -36,16 +36,18 @@ The manuscript now includes journal-upgrade modules that make the cybersecurity 
 
 The additional bibliography is held in `../../../references/cybersecurity-upgrade.bib` and must be merged/deduplicated with the established bibliography during final export.
 
-## Current publisher-policy checks
+## Current journal-scope checks
 
-Policy snapshot checked in August 2026:
+Policy/scope snapshot checked in August 2026:
 
+- Computers & Security emphasizes leading-edge security research with practical security value and explicitly excludes cryptology as a principal component. https://shop.elsevier.com/journals/computers-and-security/0167-4048
+- The journal currently states a moratorium on submissions in which AI/ML is a significant scientific component. **This study does not use AI/ML as its response method:** P7 is a frozen deterministic rule-based selector. AI-assisted manuscript/reproducibility preparation is separately disclosed under Elsevier's publication-ethics policy and is not the experimental decision mechanism.
 - Elsevier research highlights: 3–5 bullets, no more than 85 characters including spaces, submitted separately. https://www.elsevier.com/researcher/author/tools-and-resources/highlights
 - Elsevier generative-AI journal policy: substantive manuscript-preparation use requires a separate declaration; research-process use, including AI-assisted code development, should be described in Methods. https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
 - Elsevier prior-publication policy does not treat an academic thesis as prior publication. https://www.elsevier.com/connect/clarification-of-our-policy-on-prior-publication
 - Elsevier CRediT guidance supports explicit contributor-role statements. https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement
 
-The live Computers & Security Guide for Authors and Editorial Manager fields must be rechecked immediately before final export and submission because portal requirements can change.
+The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Manager fields must be rechecked immediately before final export and submission because journal requirements can change.
 
 ## Files
 
