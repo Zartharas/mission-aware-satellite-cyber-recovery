@@ -18,9 +18,9 @@ The reported experiment used no human participants, no operational spacecraft or
 
 For transparency, the broader research program developed from my doctoral work, whose dissertation manuscript is archived through ProQuest. The journal article reports the controlled experiment and reproducibility record described above; the dissertation relationship is disclosed rather than treated as undisclosed prior dissemination. Elsevier's general journal policy does not treat an academic thesis as prior publication.
 
-A separate declaration of generative-AI assistance is prepared in accordance with Elsevier's current policy, including disclosure of AI-assisted post-publication reproducibility-code reconstruction and manuscript preparation. I remain responsible for verifying and approving the submitted scientific content.
+A separate declaration of generative-AI assistance is prepared in accordance with Elsevier's current policy, including disclosure of AI-assisted post-publication reproducibility-code reconstruction and manuscript preparation. I have reviewed and approved that declaration and remain responsible for verifying and approving the submitted scientific content.
 
-**Pre-submission author confirmations still required:** competing-interest statement; acknowledgments decision; final approval of the AI declaration; and confirmation that this manuscript is not simultaneously under consideration by another journal.
+I confirm that this manuscript is not simultaneously under consideration elsewhere and that I have no competing financial or non-financial interests to declare. The final CRediT role statement and declaration package have been reviewed and approved. I have no acknowledgments to add for this manuscript.
 
 Thank you for considering this work.
 
