@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "experiment_id": "S2-AEATR-001",
+  "scope": "EXACT_FROZEN_PHASE7_ANALYSIS",
+  "analysis_implementation_base_commit": "18207460fc5d419ad6a940f00db2df8610a5e5a0",
+  "analysis_entrypoint_sha256": "351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd",
+  "phase6_artifact_id": 9816191406,
+  "phase6_artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+  "analysis_population_valid_observations": 3872,
+  "analysis_population_invalid_attempts": 0,
+  "active": true,
+  "results_frozen": false,
+  "no_additional_campaign_execution": true,
+  "no_outcome_dependent_exclusion": true,
+  "no_post_hoc_seed_replacement": true,
+  "global_weighted_policy_score": false
+}
