@@ -11,7 +11,8 @@ Current Study-2 authority is:
 - `study2/README.md`
 - `study2/STUDY2_PROTOCOL.json`
 - `study2/docs/PHASE5_RUNTIME_FREEZE.md`
-- `study2/PHASE6_CAMPAIGN_CLOSEOUT.json`
+- `study2/PHASE6_PROVENANCE.json`
+- `study2/evidence/phase6/README.md`
 - `study2/PHASE7_RESULTS_FREEZE.json`
 - `study2/PHASE7_PROVENANCE.json`
 - `study2/docs/PHASE7_RESULTS_FREEZE.md`
