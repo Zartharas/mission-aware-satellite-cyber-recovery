@@ -19,16 +19,20 @@ The Study-1 T1 treatment remains exactly what it was: omission/reduction of sele
 
 ## Validated foundation checkpoint
 
-The first Dockerized assurance checkpoint was validated on implementation commit `e2462edda703f12fac3245a384344ceb50cafc47` by GitHub Actions run `33467447178` / job `99730137920`.
+The review-hardened Dockerized assurance checkpoint was validated on implementation commit `cb6a8f6a4c5aa765e6943a4b384dade49e61338e` by GitHub Actions run `33514281820` / job `99877257286`. The same implementation commit also passed the exhaustive repository workflow in run `33514281840` / job `99877257082`.
 
 The validated checkpoint established:
 
 - 48/48 frozen Study-1 P7 combinations conformed to the independent baseline;
 - the policy remained unchanged after synthetic mutation of experiment ground truth;
-- 9 evidence-verification tests and 4 trusted-recovery-gate tests passed;
-- 5 explicitly discovered Hypothesis property tests passed;
+- 11 evidence-verification tests and 4 trusted-recovery-gate tests passed;
+- 6 explicitly discovered Hypothesis property tests passed;
+- unresolved recovery-epoch context fails closed;
+- duplicate sequence identity is scoped by source, recovery epoch, and sequence;
+- the Study-2 conformance workflow is triggered by changes to the Study-1 policy/event source files and their rule/catalog inputs;
 - the Study-1 P7 TLA+ abstraction completed with 48 distinct states and no error;
 - the trusted-recovery TLA+ model completed with 385 distinct states and no error;
+- the exhaustive repository gate passed all 611 Study-1 research tests, shell syntax validation, frozen WP10 reconstruction/regression, and zero tracked drift;
 - validation produced zero tracked-file drift.
 
 These are assurance-validation results, not Study-2 empirical campaign observations.
@@ -38,7 +42,7 @@ These are assurance-validation results, not Study-2 empirical campaign observati
 The initial implementation adds four assurance layers before any new campaign is allowed:
 
 1. **Authenticated evidence claims** — canonical synthetic evidence claims signed with Ed25519 and verified against an explicit source-key registry.
-2. **Decision eligibility checks** — source trust, signature integrity, wall-clock freshness, expected recovery epoch, and strictly increasing per-source/per-epoch sequence state must all pass.
+2. **Decision eligibility checks** — source trust, signature integrity, wall-clock freshness, an explicitly resolved expected recovery epoch, and strictly increasing per-source/per-epoch sequence state must all pass. Missing epoch context is decision-ineligible rather than implicitly accepting evidence from any epoch.
 3. **Evidence-qualified trusted recovery** — applicable recovery criteria must be current, authenticated, trusted, non-contradictory, and satisfied; residual unauthorized state blocks trusted recovery.
 4. **Independent conformance/formal checks** — the finite frozen Study-1 P7 state space is checked against an independently encoded baseline, while TLA+ models check control-plane invariants.
 
@@ -84,8 +88,8 @@ Study-2 verifier
   - source trusted?
   - signature valid?
   - claim current?
-  - expected epoch?
-  - sequence newer?
+  - expected epoch explicitly resolved?
+  - sequence newer within source+epoch?
   - independent-source contradiction?
         |
         v
@@ -143,8 +147,8 @@ The models are assurance artifacts, not empirical outcomes. Any later Study-2 ex
 The next work packages are deliberately sequential:
 
 1. implement V0-V5 treatment generation and bounded adversary budgets;
-2. implement new Study-2 baselines and selector ablations under new identifiers;
-3. add matched benign-fault/adversarial ambiguity fixtures;
+2. add matched benign-fault/adversarial ambiguity fixtures;
+3. implement new Study-2 fail-closed, fail-operational, risk-threshold, and evidence-aware selector/ablation baselines under new identifiers;
 4. add mutation testing that must detect weakened evidence/authentication/recovery gates;
 5. freeze RQs, estimands, exact cells, seed count, adversary knowledge, validity/INVALID rules, censoring, and analysis plan;
 6. record source/config hashes and explicit runtime authorization;

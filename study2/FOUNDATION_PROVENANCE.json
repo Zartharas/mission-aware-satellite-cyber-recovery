@@ -32,14 +32,21 @@
     "tla2tools_verified_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88"
   },
   "validation_evidence": {
-    "validated_implementation_commit": "e2462edda703f12fac3245a384344ceb50cafc47",
-    "github_actions_run_id": 33467447178,
-    "github_actions_job_id": 99730137920,
+    "validated_implementation_commit": "cb6a8f6a4c5aa765e6943a4b384dade49e61338e",
+    "study2_github_actions_run_id": 33514281820,
+    "study2_github_actions_job_id": 99877257286,
+    "repository_github_actions_run_id": 33514281840,
+    "repository_github_actions_job_id": 99877257082,
     "study1_p7_conformance_cases": 48,
-    "deterministic_security_tests": 13,
-    "hypothesis_property_tests": 5,
+    "deterministic_security_tests": 15,
+    "hypothesis_property_tests": 6,
+    "study1_research_unit_tests": 611,
     "study1_p7_tla_distinct_states": 48,
     "trusted_recovery_tla_distinct_states": 385,
+    "explicit_epoch_context_required": true,
+    "duplicate_sequence_identity_includes_epoch": true,
+    "study1_policy_input_trigger_coverage": true,
+    "frozen_wp10_reproduction_passed": true,
     "zero_tracked_drift": true
   }
 }
