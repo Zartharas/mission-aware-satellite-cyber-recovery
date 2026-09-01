@@ -17,7 +17,7 @@ The analysis produced **162 primary paired contrasts** and **432 prespecified se
 
 ## Independent reproduction and arithmetic audit
 
-Before freezing the results, the generated tables were independently recomputed directly from the immutable Phase-6 observations. A second, repository-retained independent auditor now provides a machine-reproducible check without importing or invoking the primary Phase-7 analyzer.
+Before freezing the results, the generated tables were independently recomputed directly from the immutable Phase-6 observations. A second, repository-retained independent auditor provides a machine-reproducible check without importing or invoking the primary Phase-7 analyzer.
 
 - independent auditor: `study2/scripts/audit_phase7_independent.py`
 - auditor SHA-256: `3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d`
@@ -47,9 +47,13 @@ At K0, `S2_B0_FAIL_CLOSED` and `S2_S1_EVIDENCE_AWARE` both reached evidence-qual
 
 The fail-closed baseline also eventually recovered at those contact opportunities, but its initial permissive action under unavailable authorization produced an unsafe-permissive increase of +1.0 versus K0 at each non-K0 contact profile. The K0-K3 ordered unsafe-permissive slope for this baseline was +0.3 per contact-severity step, whereas the evidence-aware selector's unsafe-permissive slope was 0. K4 remains a separate intermittent/flapping contrast and is not treated as ordinal severity 4.
 
-### RQ3 — Matched benign/adversarial ambiguity
+### RQ3 — Matched benign/adversarial ambiguity: structural label-invariance control
 
-All 54 prespecified C-family primary-endpoint contrasts were zero after Holm adjustment (0 rejected). Under exactly matched policy-visible observations, changing only the hidden cause label from BENIGN to ADVERSARIAL did not change these policy outcomes. This supports the narrower interpretation that the evaluated policies cannot infer hidden cause from evidence that was deliberately made policy-visible-equivalent; it is not evidence that benign and adversarial situations are intrinsically equivalent.
+All 54 prespecified C-family endpoint contrasts were zero after Holm adjustment (0 rejected). However, the frozen Block-C runtime does **not** instantiate distinct benign and adversarial causal mechanisms behind those labels. Within each ambiguity family, the `BENIGN`/`ADVERSARIAL` cause value does not alter the hidden truth state or the generated policy-visible evidence; it is retained as an adjudication/analysis label. The zero contrasts are therefore a **structural label-invariance/control result** under intentionally identical runtime truth and policy-visible evidence.
+
+Accordingly, this result must **not** be reported as evidence that the policies distinguish, fail to distinguish, or otherwise perform across genuinely different benign versus adversarial causal mechanisms. It verifies that changing a non-operative cause label alone does not change the analyzed outcomes. A journal claim about empirical benign-versus-adversarial discrimination would require a separate design in which the causal mechanisms differ while the intended observable ambiguity relationship is explicitly controlled.
+
+The hash-bound generated `ANALYSIS_REPORT.md` is retained unchanged as an execution artifact. Where its shorter RQ3 wording could be read more broadly, this freeze document supplies the authoritative interpretation boundary without changing any numerical result or generated-file identity.
 
 ### RQ4 — Context contribution
 
