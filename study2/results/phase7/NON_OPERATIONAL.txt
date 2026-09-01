@@ -1,0 +1,1 @@
+These results arise from a controlled deterministic software-in-the-loop study and do not constitute operational spacecraft, RF, flight-certification, or real-link performance evidence.
