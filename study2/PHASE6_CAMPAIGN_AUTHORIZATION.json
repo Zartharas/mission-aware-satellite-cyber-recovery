@@ -1,0 +1,15 @@
+{
+  "authorization_id": "S2-AEATR-001-PHASE6-AUTH-001",
+  "experiment_id": "S2-AEATR-001",
+  "scope": "EXACT_FROZEN_STUDY2_CAMPAIGN",
+  "phase5_base_commit": "08e40cddb2d760eb44286b0a423a97204a3ba433",
+  "protocol_sha256": "fc986f8b5f110fbf405c0f90c02faff1aa8146e0ec711516fb6c3d6c9679d26b",
+  "protocol_amendment_sha256": "987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246",
+  "cell_matrix_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
+  "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+  "runtime_freeze_sha256": "40e38ebc1dccc8b549d36bcbf6c2aca4a52ade7c6ecb87670224ef643d741434",
+  "container_recipe_sha256": "fb12f3194c170953c5643603d94b17e39ebce34faefa781d580a880fc0b3a162",
+  "runtime_bundle_sha256": "7e0883bffd4475a5f5903fa00964ad4cd54d0776cd6a6a9f2243d4b027514be9",
+  "active": true,
+  "consumed": false
+}
