@@ -64,7 +64,7 @@ Ground truth, the adjudication oracle, analysis controls, seeds, treatment ident
 
 ## Hardened pre-runtime assurance checkpoint
 
-Implementation commit `bfb5ee01ec4c9d0010330a12e3c5f76da6b90d48` passed the dedicated Study-2 GitHub Actions run `33536459043` / job `99951852211`. The same hardened head passed the exhaustive repository run `33536458895` / job `99951851674` with the frozen Study-1 research suite and WP10 reconstruction intact.
+Implementation commit `bfb5ee01ec4c9d0010330a12e3c5f76da6b90d48` (tree `dcc0c33619f3b9c387f0864e5a805ffe6ee00cdc`) passed the dedicated Study-2 GitHub Actions run `33536459043` / job `99951852211`. The same hardened implementation passed the exhaustive repository run `33536458895` / job `99951851674` with the frozen Study-1 research suite and WP10 reconstruction intact.
 
 The hardened checkpoint establishes:
 
