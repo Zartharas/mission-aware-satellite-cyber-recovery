@@ -15,7 +15,7 @@ There are three useful reproducibility levels:
 
 | Level | Purpose | Starts simulator/runtime? | Writes new scientific campaign evidence? |
 |---|---|---:|---:|
-| A — repository validation | Validate schemas, contracts, and Python test suite | No | No |
+| A — repository validation | Validate current-state release controls, schemas, contracts, all tracked script syntax, and Python test suite | No | No |
 | A2 — WP10 statistical reproduction | Recompute and regression-check the frozen manuscript-facing statistical contracts from the tracked derived analysis inputs | No | No |
 | B — bounded testbed preflight | Rebuild pinned NOS3/Fortytwo/cFS environment and verify isolated runtime liveness | Yes | No scored campaign |
 | C — scientific replication | Execute new experimental observations under a separately controlled replication protocol | Yes | Yes — new evidence, not the archived WP9 record |
@@ -96,15 +96,23 @@ bash scripts/verify_environment.sh
 
 This is an inventory step. Missing Docker or GitHub CLI does not prevent the pure Python test suite, but Docker is required for Level B.
 
-### 5.2 Validate the experiment schemas and fixtures
+### 5.2 Run the current-state repository release-gate audit
+
+```bash
+python scripts/audit_repository_release_gate.py
+```
+
+This fail-closed audit parses every tracked JSON/CSV/TOML artifact, checks active-document local links and recommended script entry points, verifies current submission/tracker state, cross-checks frozen DOI/hash identities, verifies key historical Git commits from a full checkout, and rejects unresolved `TODO`/`FIXME`/`XXX`/`HACK` markers in Python/shell sources. It does not start the simulator or execute a campaign trial.
+
+### 5.3 Validate the experiment schemas and historical/frozen fixtures
 
 ```bash
 python scripts/validate_experiment_schema.py
 ```
 
-This validates the machine-readable experiment schema and the retained positive/negative fixtures.
+This validates the machine-readable experiment schema and the retained positive/negative fixtures. Some stage-local messages describe the historical state encoded by a frozen WP5–WP9 fixture (for example, an authorization being active at that checkpoint). Those messages are not current runtime authorization; current state is governed by the tracker and final release-gate audit.
 
-### 5.3 Run all Python tests
+### 5.4 Run all Python tests
 
 ```bash
 python -m unittest discover -s tests -p 'test_*.py'
@@ -112,39 +120,41 @@ python -m unittest discover -s tests -p 'test_*.py'
 
 The suite covers the event library, policy logic, trusted-recovery behavior, primary metrics, runtime contracts, pilot controls, WP9 campaign design/governance, compatibility constraints, and regression tests.
 
-### 5.4 Validate Bash syntax without executing runtime scripts
+### 5.5 Parse every tracked shell script without executing it
 
 ```bash
-bash -n scripts/run_nominal_runtime_preflight.sh
-
-for script in scripts/run_wp7_*.sh; do
-  bash -n "$script"
-done
-
-for script in scripts/run_wp8_*.sh; do
-  bash -n "$script"
-done
-
-for script in scripts/run_wp9_*.sh; do
-  bash -n "$script"
-done
+find scripts -type f -name '*.sh' -print0 \
+  | sort -z \
+  | while IFS= read -r -d '' script; do
+      echo "bash -n: $script"
+      bash -n "$script"
+    done
 ```
 
-`bash -n` parses shell syntax and does not execute the runtime bodies.
+This is intentionally exhaustive: it covers historical WP5/WP6/WP7/WP8/WP9/WP9-B2 scripts and current setup/reproducibility helpers. `bash -n` parses shell syntax and does not execute script bodies.
+
+### 5.6 Compile every tracked Python source
+
+```bash
+python -m compileall -q src scripts tests analysis
+```
 
 ### Level A acceptance
 
 A Level A validation is successful when:
 
+- the current-state release-gate audit exits zero;
+- all tracked JSON/CSV/TOML documents parse;
 - schema validation exits zero;
 - the Python unit-test discovery exits zero;
-- the shell syntax checks exit zero.
+- every tracked shell script passes `bash -n`;
+- every tracked Python source compiles.
 
 This level does **not** claim that NOS3, cFS, Fortytwo, Docker networking, or the historical campaign have been reproduced.
 
 ## 5A. Level A2 — reproduce the frozen WP10 statistical contracts
 
-The [`analysis/`](../analysis/README.md) directory contains a post-publication reconstruction of the frozen WP10 statistical analysis. The original executable WP10 analysis source was not preserved; this implementation is explicitly identified as a reconstruction and is validated against cryptographically verified historical outputs.
+The [`analysis/`](../analysis/README.md) directory contains a reconstruction of the frozen WP10 statistical analysis prepared **after the campaign and Zenodo v1.0.0 publication but before journal submission**. The original executable WP10 analysis source was not preserved; this implementation is explicitly identified as a reconstruction and is validated against cryptographically verified historical outputs.
 
 Create a separate statistical environment and run:
 
@@ -154,6 +164,7 @@ source .venv-analysis/bin/activate
 python -m pip install --upgrade pip
 python -m pip install --only-binary=:all: -r analysis/requirements.txt
 python analysis/reproduce_wp10.py --validate
+python -m unittest discover -s analysis/tests -p 'test_*.py'
 ```
 
 This path reads only the tracked derived analysis inputs under `analysis/reference/`. It does not read or modify the raw WP9 campaign, start NOS3/cFS, consume campaign seeds, or create a new observation.

@@ -1,10 +1,10 @@
 # Research Tracker
 
-Last updated: 2026-08-30
+Last updated: 2026-08-31
 
 ## Current focus
 
-**WP0–WP11 research, implementation, frozen campaign execution, analysis/manuscript assembly, integrity freeze, responsible-release preparation, and archive publication are COMPLETE for this study phase. The exact six-object WP11 release candidate was published publicly on Zenodo on 2026-08-30 as Version 1.0.0 under CC BY 4.0. Version DOI: `10.5281/zenodo.22181540`; concept DOI: `10.5281/zenodo.22181539`. See `docs/40-zenodo-publication-closeout.md`. The next phase is journal-specific submission preparation; no further WP9 campaign runtime is required or authorized by this tracker.**
+**WP0–WP11 research, implementation, frozen campaign execution, analysis/manuscript assembly, integrity freeze, responsible-release preparation, archive publication, cybersecurity framing, reproducibility hardening, and Computers & Security author-attestation closeout are COMPLETE for this study phase. Zenodo v1.0.0 remains the public evidence-of-record (version DOI `10.5281/zenodo.22181540`; concept DOI `10.5281/zenodo.22181539`). The package is now at the final submission-export gate: remaining work is live publisher/portal verification, the final abstract/export-format choice, target formatting, and exact export citation/DOI/frozen-claim/scope audits. No further WP9 campaign runtime is required or authorized by this tracker.**
 
 The frozen design was 24 cells × 30 valid repetitions = 720 valid executions with campaign seeds `10001`–`10030` and the deterministic R-053 within-seed order. One trial was executed per invocation throughout; automatic retry and automatic next-case execution never occurred. An INVALID attempt never advanced the frozen position and required the same seed/cell with a fresh run ID. Expected values remained acceptance-only and never replaced raw metrics. Trial-validity gate failures invalidated 9 retained attempts; unexpected but treatment-valid scientific outcomes were retained. One additional interrupted never-ledgered run at position 660 was quarantined intact and is not part of the 720-valid analysis membership.
 
@@ -113,7 +113,7 @@ The archived v1.0.0 Zenodo package is now the public evidence-of-record for the 
 
 **No further WP9 `run-once` invocations are expected or authorized by this tracker.** WP9 campaign execution and the read-only cryptographic integrity freeze are complete.
 
-The Zenodo archive publication is also complete. The next action is **journal-specific submission preparation**: select/confirm the target journal, re-check current author instructions and disclosure requirements, finalize author/declaration metadata, update formatting/reference style, assemble the cover letter and submission package, and preserve the exact version DOI in the Data Availability statement.
+**Current action: final submission-export gate for Computers & Security.** Re-open the live Guide for Authors/Aims & Scope and Editorial Manager requirements, choose the final abstract/export format, format the target package without changing scientific quantities, and run the exact-export citation/DOI/reference, frozen-results claim, and scope-fit audits. An institutional IRB/HRPP identifier remains conditional on a specific applicable portal requirement and must not be invented.
 
 ## Work packages
 
@@ -129,7 +129,7 @@ The Zenodo archive publication is also complete. The next action is **journal-sp
 | WP7 | Trusted-recovery implementation | **Complete** | Hardened E3/P5 trusted recovery and bounded failure-mode validations passed |
 | WP8 | Pilot | **Complete** | 40 valid pilot executions; one retained/excluded Stage-1 invalid attempt; 41 frozen archives verified |
 | WP9 | Frozen experiment campaign | **Complete — 720/720 valid; cryptographic freeze PASS** | `docs/26-wp9-r069-campaign-closeout.md`; `docs/27-wp9-cryptographic-integrity-freeze.md` |
-| WP10 | Analysis and manuscript | **Complete — target-neutral manuscript assembled and audited** | `docs/28`–`docs/37`; scientifically closed; Data Availability now points to Zenodo v1.0.0 |
+| WP10 | Analysis and manuscript | **Complete — target-neutral manuscript assembled and audited** | `docs/28`–`docs/37`, `docs/42`–`docs/47`, and `publication/`; scientifically closed; author-attestation gate PASS; final submission export remains |
 | WP11 | Responsible artifact release | **Complete — archive published** | `docs/39-wp11-release-preparation-closeout.md`; `docs/40-zenodo-publication-closeout.md`; Zenodo v1.0.0 DOI `10.5281/zenodo.22181540` |
 
 ## Remaining publication path
@@ -140,7 +140,8 @@ The Zenodo archive publication is also complete. The next action is **journal-sp
 4. ~~Final-review WP1–WP3 against empirical findings and publication-era literature.~~ **Done through WP10 reconciliation.**
 5. ~~Complete responsible-release preparation, rights/privacy/misuse review, and exact release-candidate audit.~~ **Done.**
 6. ~~Publish the exact six-object research-data/reproducibility package to Zenodo and capture DOI(s).~~ **Done 2026-08-30 — Version DOI `10.5281/zenodo.22181540`; concept DOI `10.5281/zenodo.22181539`.**
-7. **Current:** journal-specific submission preparation: target selection, current author-instruction/policy check, final author/declaration metadata, journal formatting, reference normalization, required AI/editorial-assistance disclosure, cover letter, and submission-system package.
+7. ~~Complete Computers & Security cybersecurity framing, target package, and explicit author attestations.~~ **Done 2026-08-31 — author-attestation gate PASS.**
+8. **Current:** final submission export: live publisher/portal checks, final abstract/export-format decision, target formatting, and exact-export citation/DOI/reference, frozen-claim, and scope-fit audits.
 
 ## Scientific and claim boundaries
 

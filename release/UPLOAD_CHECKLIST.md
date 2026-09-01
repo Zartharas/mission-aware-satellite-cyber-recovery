@@ -1,6 +1,8 @@
 # WP11 Archive Upload and Verification Checklist
 
-Use this checklist only after the local release candidate exists and `scripts/audit_wp11_release_candidate.py` returns `PASS` or a separately reviewed release decision explicitly resolves every `REVIEW_REQUIRED` finding.
+> **Historical procedural checklist.** The Zenodo v1.0.0 publication process governed by this checklist is complete. The unchecked boxes below are intentionally retained as the reusable pre-publication procedure/template; they are **not current unresolved tasks** for Zenodo v1.0.0. Authoritative completion evidence is in `docs/39-wp11-release-preparation-closeout.md` and `docs/40-zenodo-publication-closeout.md`.
+
+Use this checklist only when preparing a deliberately new archive version after the local release candidate exists and `scripts/audit_wp11_release_candidate.py` returns `PASS` or a separately reviewed release decision explicitly resolves every `REVIEW_REQUIRED` finding.
 
 ## A. Local source/candidate gate
 

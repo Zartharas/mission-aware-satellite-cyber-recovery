@@ -3,33 +3,7 @@ name: Validate research configurations
 on:
   push:
     branches: [main]
-    paths:
-      - "configs/**"
-      - "scripts/**"
-      - "analysis/**"
-      - "requirements-dev.txt"
-      - "src/**"
-      - "tests/**"
-      - "CITATION.cff"
-      - ".github/dependabot.yml"
-      - "docs/REPRODUCIBILITY_GUIDE.md"
-      - "publication/manuscript/07-declarations-and-availability.md"
-      - ".github/workflows/reproduce-wp10.yml"
-      - ".github/workflows/validate-research-configs.yml"
   pull_request:
-    paths:
-      - "configs/**"
-      - "scripts/**"
-      - "analysis/**"
-      - "requirements-dev.txt"
-      - "src/**"
-      - "tests/**"
-      - "CITATION.cff"
-      - ".github/dependabot.yml"
-      - "docs/REPRODUCIBILITY_GUIDE.md"
-      - "publication/manuscript/07-declarations-and-availability.md"
-      - ".github/workflows/reproduce-wp10.yml"
-      - ".github/workflows/validate-research-configs.yml"
 
 permissions:
   contents: read
@@ -37,35 +11,40 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
-      - name: Check out repository
+      - name: Check out repository with full provenance history
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: "pip"
-          cache-dependency-path: requirements-dev.txt
+          cache-dependency-path: |
+            requirements-dev.txt
+            analysis/requirements.txt
 
       - name: Install validation dependencies
         run: python -m pip install --requirement requirements-dev.txt
 
-      - name: Validate JSON syntax
+      - name: Audit current repository release gate
+        run: python scripts/audit_repository_release_gate.py
+
+      - name: Validate every tracked JSON document
         run: |
-          python -m json.tool configs/experiment_model.json >/dev/null
-          python -m json.tool configs/experiment_run.schema.json >/dev/null
-          python -m json.tool configs/toolchain-lock.json >/dev/null
-          python -m json.tool configs/wp5_event_catalog.json >/dev/null
-          python -m json.tool configs/wp6_policy_rules.json >/dev/null
-          python -m json.tool configs/wp6_p01_source_isolation_adapter.json >/dev/null
-          python -m json.tool configs/wp6_p2_command_class_adapter.json >/dev/null
-          python -m json.tool configs/wp6_p4_safe_mode_adapter.json >/dev/null
-          python -m json.tool configs/wp6_p5_rollback_request_adapter.json >/dev/null
-          python -m json.tool configs/wp6_p7_mission_aware_integration.json >/dev/null
-          python -m json.tool configs/wp7_trusted_recovery_adapter.json >/dev/null
+          find . -path './.git' -prune -o -type f -name '*.json' -print0 \
+            | sort -z \
+            | while IFS= read -r -d '' file; do
+                echo "json: $file"
+                python -m json.tool "$file" >/dev/null
+              done
+
+      - name: Compile every tracked Python source
+        run: python -m compileall -q src scripts tests analysis
 
       - name: Validate experiment schema fixtures
         run: python scripts/validate_experiment_schema.py
@@ -73,23 +52,23 @@ jobs:
       - name: Run research unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
-      - name: Validate WP7 shell syntax
+      - name: Validate every tracked shell script syntax
         run: |
-          bash -n scripts/run_wp7_trusted_recovery_test.sh
-          bash -n scripts/run_wp7_failure_mode_validation.sh
+          find scripts -type f -name '*.sh' -print0 \
+            | sort -z \
+            | while IFS= read -r -d '' script; do
+                echo "bash -n: $script"
+                bash -n "$script"
+              done
 
-      - name: Validate WP8 shell syntax
-        run: |
-          bash -n scripts/run_nominal_runtime_preflight.sh
-          bash -n scripts/run_wp8_command_binding_preflight.sh
-          bash -n scripts/run_wp8_command_stage1_development.sh
-          bash -n scripts/run_wp8_recovery_binding_preflight.sh
-          bash -n scripts/run_wp8_observability_binding_preflight.sh
-          bash -n scripts/run_wp8_observability_stage1_development.sh
-          bash -n scripts/run_wp8_stage2_pilot.sh
+      - name: Install frozen WP10 reproduction dependencies
+        run: "python -m pip install --only-binary=:all: --requirement analysis/requirements.txt"
 
-      - name: Validate WP9 shell syntax
-        run: |
-          for script in scripts/run_wp9_*.sh; do
-            bash -n "$script"
-          done
+      - name: Reproduce and validate frozen WP10 statistical contracts
+        run: python analysis/reproduce_wp10.py --validate
+
+      - name: Run WP10 reconstruction regression tests
+        run: python -m unittest discover -s analysis/tests -p 'test_*.py'
+
+      - name: Confirm validation produced no tracked-file drift
+        run: git diff --exit-code

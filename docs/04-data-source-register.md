@@ -4,6 +4,8 @@
 
 Third-party data and source code must not be copied into this repository unless redistribution is explicitly permitted and the license obligations are documented. Prefer download scripts, persistent identifiers, hashes, and pinned upstream references.
 
+The external datasets below are screening/calibration/benchmarking candidates or literature context. They are **not statistical inputs to the frozen 720-observation Study-1 campaign** unless a separate frozen record explicitly states otherwise.
+
 ## Approved or conditionally approved sources
 
 ### NASA cFS
@@ -48,20 +50,22 @@ Third-party data and source code must not be copied into this repository unless 
 - Current dataset DOI: 10.17632/7n2d42pm3n.3
 - Earlier reviewed DOI: 10.17632/7n2d42pm3n.2
 - Published article DOI: 10.1016/j.dib.2026.112598
-- License status: **Conditional hold pending reconciliation**
-- Licensing note: The published Data in Brief article reports CC BY-NC-ND 4.0. The exact license displayed by the selected Mendeley dataset version must be captured before download, transformation, or publication use.
-- Intended use after clearance: Validate the data pipeline and compare synthetic event signatures
+- Dataset-license status: **Reconciled 2026-08-31 — Mendeley Data Version 3 reports CC BY 4.0**
+- Licensing note: The dataset record's CC BY 4.0 license governs reuse of that dataset version. Any separately published article remains governed by the license shown for the article itself; the two license statements must not be conflated.
+- Prospective use: Validate the data pipeline and compare synthetic event signatures
 - Scenarios: Nominal, command flooding, false data injection, defense impairment, storage exhaustion
 - Limitation: Does not contain the mission-response and trusted-recovery outcome variables required for this paper
-- Repository treatment: Do not commit raw files; do not modify or redistribute until the selected record's terms are documented
+- Study-1 status: Screened/background source; not a statistical input to the frozen 720-observation campaign
+- Repository treatment: Do not commit raw files; attribute the dataset if independently reused
 
 ### AegisSat dataset
 
 - Type: Physical CubeSat telemetry with labeled attacks
 - DOI: 10.5281/zenodo.14960983
-- Status: Hold pending direct confirmation of the record license and usage terms
+- Status: **Hold pending direct confirmation of the file-level record license and usage terms**
 - Intended use: External plausibility comparison only
-- Repository treatment: Do not download or use until license is recorded
+- Study-1 status: Screened/background source; not a statistical input to the frozen 720-observation campaign
+- Repository treatment: Do not download, transform, or redistribute the dataset until its record license is directly verified. The hold does not block this manuscript because the dataset is not a Study-1 statistical input.
 
 ### SPARTA
 
