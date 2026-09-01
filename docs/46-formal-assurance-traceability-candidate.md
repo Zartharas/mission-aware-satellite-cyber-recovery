@@ -1,221 +1,80 @@
 # Formal-Assurance Traceability Candidate — Study 2
 
-## Status
+## Current status
 
-`DESIGN_ONLY_SOURCE_TRACED_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN`
+`HISTORICAL_PRE_STUDY2_TRACEABILITY_CANDIDATE_SUPERSEDED`
 
-This document extracts the **implemented Study 1 response/recovery semantics** that should serve as the starting point for a Study 2 formal specification. It does not modify Study 1 logic and does not claim that a formal verification has already been completed.
+> This file is retained as a historical planning/traceability record. It predates the frozen Study-2 protocol, implemented assurance foundation, Phase-6 campaign, and canonical Phase-7 analysis. It must not be read as evidence that Study 2 remains design-only or runtime-unauthorized.
 
-## Why formalization is valuable
+Current Study-2 authority is:
 
-Study 1 provides empirical evidence about a deterministic response selector, evidence-conditioned behavior, authorization dependence, and trusted-recovery adjudication. IEEE TDSC explicitly includes formal specification/verification, attack models, online recovery, experimental testbeds, and statistical methods within its scope. ACM TOPS likewise includes recovery/survivable operation, trust, authorization, and formal assurance.
+- `study2/README.md`
+- `study2/STUDY2_PROTOCOL.json`
+- `study2/docs/PHASE5_RUNTIME_FREEZE.md`
+- `study2/PHASE6_CAMPAIGN_CLOSEOUT.json`
+- `study2/PHASE7_RESULTS_FREEZE.json`
+- `study2/PHASE7_PROVENANCE.json`
+- `study2/docs/PHASE7_RESULTS_FREEZE.md`
 
-A formal model can therefore turn the follow-on work from “more simulation” into a stronger **secure/dependable response methodology** by proving bounded state-machine properties and then using SIL/HIL experiments to measure performance and trade-offs that the proof does not address.
+The original candidate version remains recoverable through Git history. This current copy records what the candidate contributed to the eventual design and what changed before the empirical freeze.
 
-## Source-of-truth implementation traced
+## Historical purpose
 
-The starting semantics are taken from the reproducibility-hardened Study 1 repository rather than reconstructed from manuscript prose alone:
+The candidate extracted implemented Study-1 response/recovery semantics as a starting point for a separately frozen Study-2 formal specification. Its central governance requirement was sound and remains applicable: **the formal model must trace to implemented behavior rather than idealized manuscript prose, and Study-2 extensions must not silently redefine frozen Study-1 P7.**
 
-- `src/mission_recovery/events.py`
-  - creates the policy-visible event instance;
-  - applies T1 by omitting event-specific evidence keys;
-  - preserves separate immutable `ground_truth` and `policy_visible_evidence` objects;
-  - records event-level SPARTA identifiers.
-- `configs/wp5_event_catalog.json`
-  - defines E1–E4 ground truth, policy evidence, T1 omitted fields, prohibited actions, and frozen SPARTA associations.
-- `src/mission_recovery/policies.py`
-  - defines the policy input boundary;
-  - computes minimum-evidence sufficiency;
-  - implements deterministic P7 delegation;
-  - records `oracle_ground_truth_read = False`.
-- `configs/wp6_policy_rules.json`
-  - defines fixed policy actions P0/P1/P2/P4/P5;
-  - defines minimum evidence by event;
-  - defines all P7 evidence-sufficient and evidence-insufficient delegation rules.
-- `src/mission_recovery/primary_metrics.py`
-  - defines the ten trusted-recovery criteria;
-  - verifies evidence currentness/satisfaction consistency;
-  - defines terminal-state precedence;
-  - prevents trusted recovery when applicable evidence is incomplete or unsatisfied.
+## Study-1 baseline semantics captured by the candidate
 
-The formal model must remain traceable to these implementation sources. Any Study 2 policy extensions must receive new identifiers and cannot silently redefine Study 1 P7.
+The candidate traced these Study-1 implementation surfaces:
 
-## Study 1 policy semantics to preserve as baseline
+- `src/mission_recovery/events.py` — policy-visible event creation, T1 omission treatment, separation of immutable ground truth from policy-visible evidence;
+- `configs/wp5_event_catalog.json` — frozen event truth/evidence and treatment definitions;
+- `src/mission_recovery/policies.py` — deterministic policy input boundary and P7 delegation;
+- `configs/wp6_policy_rules.json` — fixed actions and P7 evidence-sufficient/evidence-insufficient rule tables;
+- `src/mission_recovery/primary_metrics.py` — trusted-recovery criteria and terminal-state semantics.
 
-### Fixed actions
+Study-1 T1 remains an omission/reduction treatment. The later Study-2 evidence mechanisms for staleness/replay, contradiction, manipulation, and bounded producer compromise were implemented as **new Study-2 factors**, not retroactively attributed to Study 1.
 
-- `P0 → OBSERVE_ONLY`
-- `P1 → ISOLATE_MODELED_SOURCE`
-- `P2 → RESTRICT_HIGH_RISK_COMMANDS`
-- `P4 → ENTER_SAFE_MODE` (experimental modeled action only)
-- `P5 → REQUEST_VERIFIED_ROLLBACK`
+## Core assurance properties proposed historically
 
-### P7 input state
+The candidate identified properties that should be preserved in a stronger secure/dependable response design:
 
-The implemented P7 selector receives:
+1. **Oracle isolation:** runtime policy cannot read research-only ground truth/adjudication controls.
+2. **Deterministic delegation:** a fully specified frozen policy-visible state produces one declared effective policy/action.
+3. **Evidence-path integrity:** evidence-insufficient paths cannot silently take evidence-sufficient branches.
+4. **Authorization gating:** authorization-dependent actions cannot execute before the modeled authorization condition permits them.
+5. **Trusted-recovery soundness:** a trusted terminal requires the applicable frozen evidence/recovery criteria.
+6. **Residual-state exclusion:** modeled residual unauthorized state is incompatible with an objectively trusted terminal classification.
+7. **Terminal-state uniqueness/precedence:** valid terminating paths must map to declared terminal semantics.
+8. **Treatment immutability:** adversarial policy-visible evidence changes cannot mutate seed, treatment identity, immutable truth, or analysis controls.
+9. **Study-1 semantic preservation:** the formal abstraction must not change frozen Study-1 policy behavior.
 
-`{event_id, mission_state, contact_condition, evidence_condition, policy_visible_evidence}`
+These concepts informed the later Study-2 assurance foundation, which added implementation-bound conformance/security testing and formal model checking before the empirical campaign. The actual assurance evidence is recorded under `study2/`; this historical candidate is not the authority for the final model state.
 
-and does not read immutable experiment ground truth.
+## What changed before Study-2 freeze
 
-### Evidence assessment
+The eventual Study-2 design was more specific than this candidate:
 
-For each event, a frozen set of minimum policy-evidence fields is evaluated. The current implementation supports rules `present` and `true`. Failure of any required check produces `evidence_insufficient = True` and an explicit list of failed evidence keys.
+- experiment ID `S2-AEATR-001`;
+- 85 exact cells rather than the candidate approximate design size;
+- 96 paired seeds for the primary Block A and 32 paired seeds for secondary Blocks B–E;
+- V0–V5 evidence mechanisms, including bounded producer compromise;
+- K0–K4 contact profiles with K4 explicitly intermittent/flapping rather than ordinal severity 4;
+- A0–A3 adversary classes with A2/K2 explicitly contact-coupled;
+- independent research-only adjudication unavailable to runtime selectors;
+- frozen logical SIL time and a 240-logical-second RMST restriction;
+- explicit invalid-attempt/ledger/no-hidden-retry controls;
+- a separately frozen Phase-7 statistical implementation before aggregate analysis.
 
-Study 1 T1 is specifically an **omission treatment**: `events.py` removes event-defined keys from the policy-visible evidence map. Future Study 2 states for staleness, contradiction, and deliberate value manipulation must be modeled as new factors rather than retroactively attributed to T1.
+The campaign then completed with **3,872 VALID observations, 0 INVALID attempts, and 85 cells**. Phase 7 produced **162 primary paired contrasts** and **432 prespecified secondary contrasts**, and the independent reproduction reported **0 mismatches**.
 
-### P7 transition function
+## RQ3 correction relevant to assurance interpretation
 
-If evidence is insufficient:
+The historical candidate envisioned matched benign-fault/adversarial ambiguity. The frozen Block-C implementation ultimately varied a `BENIGN`/`ADVERSARIAL` cause label without changing hidden truth or generated policy-visible evidence within an ambiguity family. Accordingly, the final 54 zero C-family contrasts are a **structural label-invariance/control result**, not empirical evidence that policies distinguish or fail to distinguish genuinely different benign and adversarial causal mechanisms.
 
-`P7 → rules.evidence_insufficient[mission_state][contact_condition]`
+That interpretation is authoritative in `study2/docs/PHASE7_RESULTS_FREEZE.md` and must not be weakened by reference to this earlier candidate.
 
-If evidence is sufficient:
+## Current publication use
 
-`P7 → rules.evidence_sufficient[event_id][mission_state][contact_condition]`
+For the journal manuscript, cite or rely on the canonical Study-2 protocol/freeze/provenance and implemented assurance records, not this planning file. This document is useful only for showing the development path from Study-1 implementation semantics to the later Study-2 assurance design.
 
-The delegated policy then determines the selected action. This transition function is deterministic under a fully specified policy-visible input.
-
-## Trusted-recovery semantics to preserve as assurance property
-
-`primary_metrics.py` defines the recovery criteria:
-
-1. approved version;
-2. valid integrity measurement;
-3. valid authorization;
-4. current measured state;
-5. authorized command path restored;
-6. ground/spacecraft state agreement;
-7. required telemetry restored;
-8. health checks passed;
-9. no residual unauthorized state;
-10. complete recovery manifest.
-
-For applicable criteria, a satisfied criterion must have available/current evidence. The implementation rejects a trusted-recovery predicate if applicable recovery evidence is incomplete or a criterion is unsatisfied. Conversely, complete/current and satisfied applicable evidence requires the trusted-recovery predicate.
-
-Study 2 formalization should model this as a conjunction over applicable criteria rather than as a single unconstrained Boolean flag.
-
-## Candidate formal variables
-
-A minimal state-machine model should separate at least:
-
-- `event ∈ {E1,E2,E3,E4,...Study2 extensions}`
-- `mission ∈ MissionStates`
-- `contact ∈ ContactStates`
-- `authorization ∈ AuthorizationStates`
-- `evidence ∈ EvidenceObservationStates`
-- `evidenceSufficient ∈ BOOLEAN`
-- `requestedPolicy ∈ Policies`
-- `effectivePolicy ∈ Policies`
-- `selectedAction ∈ Actions`
-- `systemSecurityState ∈ SecurityStates`
-- `recoveryState ∈ RecoveryStates`
-- `recoveryEvidence[i] ∈ {unavailable,current_unsatisfied,current_satisfied,not_applicable}`
-- `terminalState ∈ TerminalStates`
-- `oracleVisibleToPolicy ∈ BOOLEAN`
-
-For Study 2, `evidence` should decompose into omission, freshness, contradiction, and manipulation dimensions rather than being represented by one binary T0/T1 value.
-
-## Candidate invariants
-
-### F1 — oracle isolation
-
-`oracleVisibleToPolicy = FALSE`
-
-The runtime response selector must never gain access to the experiment/adjudication ground truth that is reserved for validity and post-run analysis.
-
-### F2 — deterministic delegation
-
-For an unchanged frozen policy-visible state, P7 must delegate to exactly one effective policy and selected action.
-
-### F3 — evidence-insufficient path integrity
-
-If minimum evidence is insufficient, P7 must use the explicitly declared evidence-insufficient transition table and cannot take an evidence-sufficient branch.
-
-### F4 — authorization gating
-
-Any Study 2 action declared ground-authorization dependent must not execute before the modeled authorization state permits it.
-
-### F5 — trusted-recovery soundness
-
-`terminalState = TRUSTED_RECOVERY_CONFIRMED`
-
-implies every applicable frozen recovery criterion is current and satisfied, including `no_residual_unauthorized_state`.
-
-### F6 — no residual unauthorized state in trusted terminal
-
-`residualUnauthorizedState = TRUE`
-
-implies
-
-`terminalState ≠ TRUSTED_RECOVERY_CONFIRMED`.
-
-### F7 — trusted-recovery completeness
-
-If every applicable recovery criterion is current and satisfied, the model must not terminate in a non-trusted recovery state unless a separately declared higher-precedence terminal condition (for example `RUN_INVALID` or `MISSION_LOSS`) applies according to the frozen terminal semantics.
-
-### F8 — terminal-state uniqueness
-
-Every terminating valid path reaches one allowed terminal state according to a declared precedence/transition rule; terminal classifications cannot be simultaneously ambiguous at the exported state boundary.
-
-### F9 — treatment immutability
-
-Adversarial changes to policy-visible evidence cannot mutate the immutable treatment identity, seed, experiment ground truth, or analysis-control variables.
-
-### F10 — Study 1 semantic preservation
-
-For every Study 1 P7 input combination represented by the current rule table, the formal transition function must produce the same delegated policy/action as `policies.py` and `wp6_policy_rules.json`.
-
-F10 is essential: the formal model should be checked against the implementation, not merely reviewed manually.
-
-## Candidate temporal/liveness properties
-
-Some properties require assumptions and should not be asserted unconditionally.
-
-- Under a declared recovery-enabled environment and eventual availability of required authorization/evidence, a recovery-capable path should eventually reach a defined terminal state.
-- A ground-authorization wait path should not remain indefinitely authorized-and-enabled without progressing unless the model explicitly permits a timeout/failure terminal.
-- An evidence-insufficient fallback should eventually produce either containment/recovery progress or a declared non-recovery terminal state under bounded-run assumptions.
-
-These properties require exact timeout/contact semantics before freeze. They should not be written as unconditional liveness claims while the Study 2 timing model remains open.
-
-## Recommended formalism
-
-### Primary recommendation: TLA+
-
-TLA+ is a strong first choice for the Study 2 control-plane model because the key questions are discrete state transitions, information visibility, authorization ordering, fallback behavior, recovery predicates, and invariant preservation. It can represent nondeterministic environment/adversary transitions without forcing premature probability assignments.
-
-### Complementary option: PRISM
-
-PRISM becomes attractive if Study 2 later defines probabilistic contact availability, fault/attack occurrence distributions, or stochastic recovery transitions and seeks quantified reliability/security properties. PRISM should complement rather than replace the implementation-traced discrete safety model if probabilistic assumptions are introduced.
-
-### Why not start with an ML policy
-
-Computers & Security currently excludes work in which AI/ML is a significant scientific component, and Study 1 P7 is already deterministic and interpretable. More importantly, TDSC/TOPS value does not require ML. A traceable deterministic formal model, strong adversary/evidence design, and controlled empirical validation provide a cleaner path to methodological novelty.
-
-## Required implementation-conformance tests before formal claims
-
-Before Study 2 calls any property “verified,” add automated conformance tests that enumerate the finite Study 1 policy state space and compare:
-
-`formal-model decision ↔ Python evaluate_policy decision`
-
-for every supported combination of event, mission state, contact condition, evidence condition, and valid policy-visible evidence class.
-
-The test should additionally verify:
-
-- `oracle_ground_truth_read` remains false;
-- evidence failure sets match the implementation;
-- delegated policy and selected action match exactly;
-- trusted-recovery classification in the formal abstraction agrees with implementation-generated criterion states for representative exhaustive criterion combinations where computationally feasible.
-
-## Next design gate
-
-Before writing an executable TLA+/PRISM specification, resolve and freeze the Study 2 definitions for:
-
-1. evidence omission, staleness, contradiction, and manipulation;
-2. contact/authorization state transitions and timeouts;
-3. benign-fault versus adversarial cause representation;
-4. new baselines and selector ablations;
-5. any prospective correctness/acceptability oracle and its strict runtime isolation;
-6. terminal states added or retained from Study 1.
-
-No Study 2 runtime execution is authorized by this document.
+No runtime execution, statistical recalculation, or new scientific claim is authorized by this historical record.
