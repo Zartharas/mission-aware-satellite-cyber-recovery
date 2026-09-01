@@ -1,0 +1,1 @@
+RQ1-RQ5 interpretation is constrained to the frozen endpoint/contrast definitions in STUDY2_ANALYSIS_IMPLEMENTATION_FREEZE.json.
