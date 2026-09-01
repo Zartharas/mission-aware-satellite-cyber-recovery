@@ -6,6 +6,8 @@
 - **Article type:** Full Length Article
 - **Primary manuscript:** assembled from the authoritative components listed in `../../manuscript/MANUSCRIPT-ASSEMBLY.md`
 - **Reproducibility-hardened code/data reference:** `main` commit `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`, tree `f17cd12011cff510aa0c4ce128938b4bf93b0288`
+- **Author-attestation gate:** PASS as of 2026-08-31
+- **Current state:** final submission-export gate; remaining checks are submission-day live-policy/portal checks and final export audits
 
 This directory contains journal-specific submission material only. It does not replace the target-neutral manuscript components and must not become a second manually maintained copy of the full paper.
 
@@ -50,13 +52,19 @@ The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Man
 
 ## Files
 
-- `title-page.md` — author/correspondence metadata and CRediT draft
+- `title-page.md` — finalized author/correspondence metadata, CRediT statement, and author attestations
 - `highlights.md` — five publisher-length-checked research highlights
 - `concise-abstract-candidate.md` — shorter target-specific abstract candidate; the authoritative abstract remains in the manuscript until adopted
-- `cover-letter.md` — target-specific editorial cover-letter draft
-- `ai-declaration.md` — Elsevier disclosure draft plus Methods disclosure text for post-publication AI-assisted code reconstruction
-- `submission-checklist.md` — resolved items, remaining factual attestations, and final portal checks
+- `cover-letter.md` — target-specific editorial cover-letter draft with author confirmations closed
+- `ai-declaration.md` — author-approved Elsevier disclosure plus Methods disclosure text for post-publication AI-assisted code reconstruction
+- `submission-checklist.md` — author-attestation gate PASS; remaining submission-day checks and final export audits
 - `venue-fit.md` — target rationale and backup-journal decision logic
+
+## Author-attestation closeout
+
+On 2026-08-31 the author explicitly confirmed the five outstanding factual items: no competing financial or non-financial interests; no acknowledgments to add; approval of the final CRediT roles; approval of the generative-AI declaration; and confirmation that the manuscript is not simultaneously under consideration elsewhere.
+
+An institutional IRB/HRPP identifier remains conditional on a specific submission-system requirement. None is invented or inferred. The concise abstract candidate remains an export choice rather than a factual declaration.
 
 ## Scientific boundary
 
