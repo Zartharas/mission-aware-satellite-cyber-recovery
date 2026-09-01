@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "artifact": "study2_phase6_campaign_closeout",
+  "status": "PHASE6_CAMPAIGN_COMPLETE_AUTHORIZATION_CONSUMED_EVIDENCE_HASH_FROZEN",
+  "experiment_id": "S2-AEATR-001",
+  "authorization_id": "S2-AEATR-001-PHASE6-AUTH-001",
+  "phase5_merge_commit": "08e40cddb2d760eb44286b0a423a97204a3ba433",
+  "campaign_authorization_merge_commit": "24ed05f4d52611754ac91ad1a74c5bcf242245ac",
+  "campaign_authorization_merge_tree": "6dbdac4d0bc5df46f493e7362a48952d45372bc0",
+  "campaign_workflow": {
+    "run_id": 33547420437,
+    "job_id": 99988273536,
+    "run_attempt": 1,
+    "conclusion": "success",
+    "rerun_performed": false,
+    "artifact_id": 9816191406,
+    "artifact_name": "study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac",
+    "artifact_size_bytes": 257531,
+    "artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "artifact_expires_at": "2026-11-30T19:05:03Z"
+  },
+  "post_authorization_validation": {
+    "study2_assurance_run_id": 33547420358,
+    "study2_assurance_job_id": 99988272625,
+    "study2_assurance_conclusion": "success",
+    "repository_validation_run_id": 33547420493,
+    "repository_validation_job_id": 99988273134,
+    "repository_validation_conclusion": "success"
+  },
+  "frozen_runtime": {
+    "protocol_sha256": "fc986f8b5f110fbf405c0f90c02faff1aa8146e0ec711516fb6c3d6c9679d26b",
+    "protocol_amendment_sha256": "987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246",
+    "cell_matrix_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
+    "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+    "runtime_freeze_sha256": "40e38ebc1dccc8b549d36bcbf6c2aca4a52ade7c6ecb87670224ef643d741434",
+    "runtime_bundle_sha256": "7e0883bffd4475a5f5903fa00964ad4cd54d0776cd6a6a9f2243d4b027514be9",
+    "container_recipe_sha256": "fb12f3194c170953c5643603d94b17e39ebce34faefa781d580a880fc0b3a162"
+  },
+  "campaign": {
+    "exact_cell_count": 85,
+    "target_valid_observations": 3872,
+    "valid_observations": 3872,
+    "invalid_attempts": 0,
+    "attempt_count": 3872,
+    "campaign_complete": true,
+    "automatic_retry_after_invalid_allowed": false,
+    "post_hoc_seed_substitution_allowed": false,
+    "outcome_dependent_stopping_allowed": false,
+    "oracle_was_selector_input_any_observation": false
+  },
+  "evidence_sha256": {
+    "observations.jsonl": "8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854",
+    "attempt_ledger.jsonl": "755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5",
+    "runtime_bindings.json": "4d8d1a4db3c9594946eab06a72c2bb71f1dbb13860bdbd01598ca4694ce4f31a",
+    "campaign_summary.json": "247bdf2e57a1d0c4b7aaf9e9811d1abf331bcd1cd655dddf3e5c2b5b2da82f99",
+    "evidence_hashes.json": "a1a53153356db3434e7ac427225f2a9b620bbec74c3436e2c87a8cbf0b0ffa50"
+  },
+  "independent_artifact_verification": {
+    "zip_digest_matches_github": true,
+    "all_file_digests_match_workflow": true,
+    "evidence_hash_manifest_matches_files": true,
+    "observation_lines": 3872,
+    "attempt_ledger_lines": 3872,
+    "unique_observation_run_ids": 3872,
+    "unique_attempt_run_ids": 3872,
+    "unique_observation_trial_ids": 3872,
+    "unique_attempt_trial_ids": 3872,
+    "exact_ordered_run_ids": true,
+    "exact_row_identity_between_observation_and_ledger": true,
+    "exact_campaign_seed_membership_per_cell": true,
+    "block_replication_counts": {
+      "A": {"cells": 18, "observations_per_cell": 96},
+      "B": {"cells": 20, "observations_per_cell": 32},
+      "C": {"cells": 18, "observations_per_cell": 32},
+      "D": {"cells": 20, "observations_per_cell": 32},
+      "E": {"cells": 9, "observations_per_cell": 32}
+    },
+    "result": "PASS"
+  },
+  "authorization_closeout": {
+    "active": false,
+    "consumed": true,
+    "campaign_rerun_authorized": false
+  },
+  "interpretation_boundary": "This closeout freezes campaign identity, execution provenance, counts, and integrity hashes only. It does not perform or report Study-2 outcome/statistical analysis."
+}
