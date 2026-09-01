@@ -6,31 +6,32 @@ from typing import Any
 
 
 A_PROFILES = (
-    ("V0", "A0", "current"),
-    ("V1", "A0", "benign_omission"),
-    ("V1", "A1", "adversarial_suppression"),
-    ("V2", "A0", "benign_staleness"),
-    ("V2", "A1", "adversarial_replay"),
-    ("V3", "A0", "benign_source_disagreement"),
-    ("V3", "A1", "adversarial_contradiction"),
-    ("V4", "A1", "post_signature_manipulation"),
-    ("V5", "A1", "single_source_partial_compromise"),
-    ("V5", "A3", "multi_source_partial_compromise"),
+    ("V0", "A0", "K0", "current"),
+    ("V1", "A0", "K0", "omission"),
+    ("V2", "A0", "K0", "staleness"),
+    ("V3", "A0", "K0", "source_disagreement"),
+    ("V4", "A1", "K0", "post_signature_manipulation"),
+    ("V5", "A1", "K0", "single_source_partial_compromise"),
 )
 A_POLICIES = ("S2_B0_FAIL_CLOSED", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE")
 B_POLICIES = ("S2_B0_FAIL_CLOSED", "S2_B1_FAIL_OPERATIONAL", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE")
 C_POLICIES = ("S2_B0_FAIL_CLOSED", "S2_B1_FAIL_OPERATIONAL", "S2_S1_EVIDENCE_AWARE")
 D_SELECTORS = ("S2_S1_EVIDENCE_AWARE", "PI_NO_MISSION", "PI_NO_EVIDENCE", "PI_NO_CONTACT", "PI_SECURITY_ONLY")
+E_PROFILES = (
+    ("A1", "K0", "single_source_partial_compromise"),
+    ("A2", "K2", "single_source_partial_compromise_plus_contact_loss"),
+    ("A3", "K0", "multi_source_partial_compromise"),
+)
 
 
 def materialize_cell_matrix() -> dict[str, Any]:
     cells: list[dict[str, Any]] = []
     i = 1
-    for evidence, adversary, mechanism in A_PROFILES:
+    for evidence, adversary, contact, mechanism in A_PROFILES:
         for policy in A_POLICIES:
             cells.append({
                 "cell_id": f"A{i:02d}", "block": "A_PRIMARY_EVIDENCE_MECHANISM",
-                "event": "E3", "mission": "M2", "contact": "K0",
+                "event": "E3", "mission": "M2", "contact": contact,
                 "evidence": evidence, "adversary": adversary,
                 "mechanism": mechanism, "policy": policy, "seed_set": "A96",
             })
@@ -67,6 +68,17 @@ def materialize_cell_matrix() -> dict[str, Any]:
             })
             i += 1
 
+    i = 1
+    for adversary, contact, mechanism in E_PROFILES:
+        for policy in A_POLICIES:
+            cells.append({
+                "cell_id": f"E{i:02d}", "block": "E_ADVERSARY_BUDGET_STRESS",
+                "event": "E3", "mission": "M2", "contact": contact,
+                "evidence": "V5", "adversary": adversary,
+                "mechanism": mechanism, "policy": policy, "seed_set": "E32",
+            })
+            i += 1
+
     return {
         "schema": 1,
         "experiment_id": "S2-AEATR-001",
@@ -76,6 +88,7 @@ def materialize_cell_matrix() -> dict[str, Any]:
             "B32": {"count": 32, "start": 2200001, "end": 2200032},
             "C32": {"count": 32, "start": 2300001, "end": 2300032},
             "D32": {"count": 32, "start": 2400001, "end": 2400032},
+            "E32": {"count": 32, "start": 2500001, "end": 2500032},
         },
         "cells": cells,
     }

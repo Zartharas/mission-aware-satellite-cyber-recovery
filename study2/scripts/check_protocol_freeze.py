@@ -21,6 +21,9 @@ def main() -> None:
     assert data["study1_mutation_authorized"] is False
     assert data["study2_campaign_runtime_authorized"] is False
     assert data["runtime_gate"] == "CLOSED"
+    assert data["adjudication_oracle"]["runtime_policy_access"] is False
+    assert data["adversary_knowledge"]["may_read_ground_truth"] is False
+    assert data["adversary_knowledge"]["may_compromise_verifier"] is False
     assert data["factors"]["evidence"] == ["V0", "V1", "V2", "V3", "V4", "V5"]
     assert data["factors"]["adversary"] == ["A0", "A1", "A2", "A3"]
 
@@ -31,13 +34,15 @@ def main() -> None:
     assert abs(half - recorded) < 0.0001
 
     matrix = materialize_cell_matrix()
-    assert len(matrix["cells"]) == data["cell_matrix"]["exact_cell_count"] == 88
-    assert target_valid_observations(matrix) == data["cell_matrix"]["target_valid_observations"] == 4736
+    assert len(matrix["cells"]) == data["cell_matrix"]["exact_cell_count"] == 85
+    assert target_valid_observations(matrix) == data["cell_matrix"]["target_valid_observations"] == 3872
     assert matrix_sha256(matrix) == data["cell_matrix"]["canonical_sha256"]
     ids = [cell["cell_id"] for cell in matrix["cells"]]
     assert len(ids) == len(set(ids))
     for seed_set in matrix["seed_sets"].values():
         assert seed_set["end"] - seed_set["start"] + 1 == seed_set["count"]
+    a2 = [row for row in matrix["cells"] if row.get("adversary") == "A2"]
+    assert a2 and all(row.get("contact") != "K0" for row in a2)
 
     assert data["analysis"]["global_weighted_policy_score"] == "PROHIBITED"
     print(f"study2_protocol_status={data['status']}")
@@ -46,6 +51,7 @@ def main() -> None:
     print(f"study2_cell_matrix_sha256={matrix_sha256(matrix)}")
     print(f"study2_primary_seed_blocks={n}")
     print(f"study2_primary_wilson_half_width={half:.4f}")
+    print("study2_adjudication_oracle_runtime_access=FALSE")
     print("study2_runtime_gate=CLOSED")
     print("study2_protocol_freeze_check=PASS")
 

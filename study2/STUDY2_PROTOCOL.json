@@ -23,11 +23,29 @@
     "event": ["E1", "E2", "E3", "E4"],
     "cause": ["BENIGN", "ADVERSARIAL"]
   },
+  "contact_semantics": {
+    "K0": "immediate modeled contact",
+    "K1": "short modeled outage",
+    "K2": "medium modeled outage",
+    "K3": "extended modeled outage",
+    "K4": "intermittent/flapping modeled contact",
+    "wall_clock_mapping": "PHASE5_RUNTIME_CALIBRATION_MUST_BE_FROZEN_BEFORE_RUNTIME_AUTHORIZATION"
+  },
   "adversary_contract": {
     "A0": "no evidence-plane producer compromise",
     "A1": "exactly one policy-visible evidence producer controlled",
     "A2": "exactly one producer controlled plus modeled contact unavailability; K0 prohibited",
     "A3": "two or more policy-visible producers controlled while the verifier and independent trust anchor remain outside the adversary budget"
+  },
+  "adversary_knowledge": {
+    "may_read_policy_schema": true,
+    "may_read_public_keys": true,
+    "may_read_ground_truth": false,
+    "may_read_adjudication_oracle": false,
+    "may_read_analysis_controls": false,
+    "may_change_seed": false,
+    "may_change_treatment_identity": false,
+    "may_compromise_verifier": false
   },
   "immutable_runtime_inaccessible_fields": [
     "experiment ground truth",
@@ -54,19 +72,15 @@
       "context": "E3 compromised-update/recovery context; M2; K0",
       "profiles": [
         "V0/A0/current",
-        "V1/A0/benign_omission",
-        "V1/A1/adversarial_suppression",
-        "V2/A0/benign_staleness",
-        "V2/A1/adversarial_replay",
-        "V3/A0/benign_source_disagreement",
-        "V3/A1/adversarial_contradiction",
+        "V1/A0/omission",
+        "V2/A0/staleness",
+        "V3/A0/source_disagreement",
         "V4/A1/post_signature_manipulation",
-        "V5/A1/single_source_partial_compromise",
-        "V5/A3/multi_source_partial_compromise"
+        "V5/A1/single_source_partial_compromise"
       ],
       "policies": ["S2_B0_FAIL_CLOSED", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE"],
       "seed_blocks": 96,
-      "cell_count": 30,
+      "cell_count": 18,
       "primary": true
     },
     "B_CONTACT_AUTHORIZATION": {
@@ -91,18 +105,27 @@
       "seed_blocks": 32,
       "cell_count": 20,
       "primary": false
+    },
+    "E_ADVERSARY_BUDGET_STRESS": {
+      "context": "E3; M2; V5",
+      "profiles": ["A1/K0", "A2/K2", "A3/K0"],
+      "policies": ["S2_B0_FAIL_CLOSED", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE"],
+      "seed_blocks": 32,
+      "cell_count": 9,
+      "primary": false
     }
   },
   "cell_matrix": {
     "generator": "study2_security.cell_matrix.materialize_cell_matrix",
-    "canonical_sha256": "5549155f5e4ad923a5dfcc443e2c3dae3d896c8490aefdff6059fd8afef1e486",
-    "exact_cell_count": 88,
-    "target_valid_observations": 4736,
+    "canonical_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
+    "exact_cell_count": 85,
+    "target_valid_observations": 3872,
     "seed_sets": {
       "A96": "2100001-2100096 inclusive, paired across all Block-A cells",
       "B32": "2200001-2200032 inclusive, paired across all Block-B cells",
       "C32": "2300001-2300032 inclusive, paired across all Block-C cells",
-      "D32": "2400001-2400032 inclusive, paired across all Block-D cells"
+      "D32": "2400001-2400032 inclusive, paired across all Block-D cells",
+      "E32": "2500001-2500032 inclusive, paired across all Block-E cells"
     }
   },
   "sample_size_rationale": {
@@ -112,6 +135,13 @@
     "secondary_seed_blocks": 32,
     "secondary_role": "estimation/sensitivity; not individually powered for small binary effects",
     "selection_rule": "chosen prospectively from a precision target rather than copying Study 1 replication"
+  },
+  "adjudication_oracle": {
+    "implementation": "study2_security.adjudication.AdjudicationTruth",
+    "runtime_policy_access": false,
+    "unsafe_permissive": "a permissive action while residual/unauthorized control is truly present, or proceeding to recovery gate when hidden recovery prerequisites are not satisfied",
+    "false_conservative": "a restrictive action when no unauthorized control is present, hidden recovery prerequisites are satisfied, and mission operation is safe",
+    "purpose": "prospective endpoint adjudication only; never selector input"
   },
   "primary_outcomes": [
     "unsafe_permissive_response_rate",
@@ -133,6 +163,7 @@
     "contact": "ordered K0-K4 trend plus policy-by-contact interaction estimates",
     "ambiguity": "paired benign-versus-adversarial contrasts on matched policy-visible observations",
     "ablation": "paired contrast against S2_S1_EVIDENCE_AWARE within the same context/seed",
+    "adversary_budget": "ordered A1-A3 stress contrasts in Block E; A2 contact coupling is modeled explicitly rather than treated as an unconfounded adversary-only contrast",
     "multiple_comparisons": "Holm adjustment within each named secondary contrast family; primary estimands reported with effect sizes and confidence intervals",
     "global_weighted_policy_score": "PROHIBITED"
   },
@@ -151,7 +182,7 @@
   },
   "censoring": {
     "right_censor_time_to_event": true,
-    "horizons": "must be numerically frozen in Phase 5 runtime freeze before campaign authorization; changing a horizon after outcome generation is prohibited"
+    "horizons": "numerical SIL horizons are Phase-5 runtime-calibration constants and must be frozen before runtime authorization; changing a horizon after outcome generation is prohibited"
   },
   "stopping_rule": "execute exactly the frozen cell/seed membership; no outcome-dependent early stopping",
   "runtime_gate": "CLOSED"

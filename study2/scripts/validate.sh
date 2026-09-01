@@ -23,25 +23,25 @@ python -m unittest discover -s study2/tests -p 'test_protocol.py' -v
 python -m unittest discover -s study2/tests -p 'test_treatments.py' -v
 python -m unittest discover -s study2/tests -p 'test_ambiguity.py' -v
 python -m unittest discover -s study2/tests -p 'test_selectors.py' -v
+python -m unittest discover -s study2/tests -p 'test_adjudication.py' -v
+python -m unittest discover -s study2/tests -p 'test_cell_matrix.py' -v
 python -m unittest discover -s study2/tests -p 'test_mutation_assay.py' -v
 echo "study2_deterministic_security_tests=PASS"
 
 echo "study2_property_tests=START"
 python -m unittest discover -s study2/tests -p 'test_properties.py' -v
+python -m unittest discover -s study2/tests -p 'test_protocol_properties.py' -v
 echo "study2_property_tests=PASS"
 
 echo "study2_tla_model_check=START"
 (
   cd study2/formal
   java -cp /opt/tla2tools.jar tla2sany.SANY Study1P7.tla
-  java -XX:+UseParallelGC -Xmx512m -jar /opt/tla2tools.jar \
-    -workers 1 -config Study1P7.cfg Study1P7.tla
+  java -XX:+UseParallelGC -Xmx512m -jar /opt/tla2tools.jar -workers 1 -config Study1P7.cfg Study1P7.tla
   java -cp /opt/tla2tools.jar tla2sany.SANY TrustedRecovery.tla
-  java -XX:+UseParallelGC -Xmx512m -jar /opt/tla2tools.jar \
-    -workers 1 -config TrustedRecovery.cfg TrustedRecovery.tla
+  java -XX:+UseParallelGC -Xmx512m -jar /opt/tla2tools.jar -workers 1 -config TrustedRecovery.cfg TrustedRecovery.tla
   java -cp /opt/tla2tools.jar tla2sany.SANY AdversarialEvidence.tla
-  java -XX:+UseParallelGC -Xmx512m -jar /opt/tla2tools.jar \
-    -workers 1 -config AdversarialEvidence.cfg AdversarialEvidence.tla
+  java -XX:+UseParallelGC -Xmx512m -jar /opt/tla2tools.jar -workers 1 -config AdversarialEvidence.cfg AdversarialEvidence.tla
 )
 echo "study2_tla_model_check=PASS"
 

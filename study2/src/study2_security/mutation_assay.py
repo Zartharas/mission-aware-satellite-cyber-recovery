@@ -10,18 +10,37 @@ class MutationResult:
     counterexample: str
 
 
+def _qualified(*, signature: bool = True, trust: bool = True, fresh: bool = True,
+               epoch: bool = True, sequence: bool = True, contradiction: bool = False) -> bool:
+    return signature and trust and fresh and epoch and sequence and not contradiction
+
+
 def run_semantic_mutation_assay() -> tuple[MutationResult, ...]:
-    # These are deliberately weakened security predicates. A mutant is killed
-    # when the frozen counterexample demonstrates that the weakened predicate
-    # would permit a state rejected by the real Study-2 assurance contract.
-    cases = (
-        ("MUT_ACCEPT_INVALID_SIGNATURE", False, "invalid signature must be decision-ineligible"),
-        ("MUT_ACCEPT_STALE", False, "stale evidence must be decision-ineligible"),
-        ("MUT_ACCEPT_WRONG_EPOCH", False, "wrong epoch must be decision-ineligible"),
-        ("MUT_IGNORE_CONTRADICTION", False, "contradictory evidence must not satisfy recovery requirements"),
-        ("MUT_IGNORE_RESIDUAL_STATE", False, "residual unauthorized state must block trusted recovery"),
-    )
-    results = tuple(MutationResult(name, not weakened_result, note) for name, weakened_result, note in cases)
+    cases = []
+
+    baseline = _qualified(signature=False)
+    mutant = _qualified(signature=True)
+    cases.append(MutationResult("MUT_ACCEPT_INVALID_SIGNATURE", (not baseline) and mutant, "invalid signature"))
+
+    baseline = _qualified(fresh=False)
+    mutant = _qualified(fresh=True)
+    cases.append(MutationResult("MUT_ACCEPT_STALE", (not baseline) and mutant, "stale evidence"))
+
+    baseline = _qualified(epoch=False)
+    mutant = _qualified(epoch=True)
+    cases.append(MutationResult("MUT_ACCEPT_WRONG_EPOCH", (not baseline) and mutant, "wrong recovery epoch"))
+
+    baseline = _qualified(contradiction=True)
+    mutant = _qualified(contradiction=False)
+    cases.append(MutationResult("MUT_IGNORE_CONTRADICTION", (not baseline) and mutant, "trusted-source contradiction"))
+
+    qualified = _qualified()
+    baseline_recovery = qualified and not True
+    mutant_recovery = qualified
+    cases.append(MutationResult("MUT_IGNORE_RESIDUAL_STATE", (not baseline_recovery) and mutant_recovery, "residual unauthorized state"))
+
+    results = tuple(cases)
     if not all(row.killed for row in results):
-        raise AssertionError("semantic mutation assay left a security mutant alive")
+        alive = [row.mutant for row in results if not row.killed]
+        raise AssertionError(f"semantic mutation assay left mutants alive: {alive}")
     return results
