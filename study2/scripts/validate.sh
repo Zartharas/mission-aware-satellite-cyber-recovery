@@ -12,9 +12,14 @@ echo "study2_compile=PASS"
 echo "study1_policy_conformance=START"
 python study2/scripts/check_study1_policy_conformance.py
 
-echo "study2_security_tests=START"
-python -m unittest discover -s study2/tests -p 'test_*.py' -v
-echo "study2_security_tests=PASS"
+echo "study2_deterministic_security_tests=START"
+python -m unittest discover -s study2/tests -p 'test_evidence.py' -v
+python -m unittest discover -s study2/tests -p 'test_recovery_gate.py' -v
+echo "study2_deterministic_security_tests=PASS"
+
+echo "study2_property_tests=START"
+python -m unittest discover -s study2/tests -p 'test_properties.py' -v
+echo "study2_property_tests=PASS"
 
 echo "study2_tla_model_check=START"
 (

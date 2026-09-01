@@ -117,6 +117,10 @@ FailRecovery ==
                     authorizationValid, residualUnauthorizedState,
                     oracleVisibleToPolicy, decisionPath, groundTruthToken>>
 
+TerminalAbsorb ==
+    /\ phase \in {"TRUSTED_RECOVERY_CONFIRMED", "RECOVERY_FAILED"}
+    /\ UNCHANGED vars
+
 Next ==
     \/ ChangeEvidence
     \/ SelectDecision
@@ -125,6 +129,7 @@ Next ==
     \/ ClearResidualUnauthorizedState
     \/ ConfirmTrustedRecovery
     \/ FailRecovery
+    \/ TerminalAbsorb
 
 Spec == Init /\ [][Next]_vars
 

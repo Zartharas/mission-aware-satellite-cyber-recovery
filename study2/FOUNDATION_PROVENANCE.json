@@ -24,9 +24,11 @@
   ],
   "validation_dependencies": {
     "python_container": "python:3.11-slim-bookworm",
+    "python_container_digest": "sha256:c425d915a89a6dcd3183b1797ad9bd8878caff5a417f6371c8df93c8ea8b727f",
     "cryptography": "50.0.1",
     "hypothesis": "6.167.1",
     "tla2tools": "1.7.4",
-    "tla2tools_official_release_sha1": "bee4a54f3ee3d4afc347c3240ec2d9e93b075104"
+    "tla2tools_official_release_sha1": "bee4a54f3ee3d4afc347c3240ec2d9e93b075104",
+    "tla2tools_verified_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88"
   }
 }
