@@ -1,6 +1,8 @@
 # Study 2 Design Candidate — Secure Response Under Partial and Adversarial Observation
 
-## Status
+> **Historical/superseded planning record.** This document preserves the pre-freeze design-candidate thinking and must not be read as the current Study-2 status. Study 2 was subsequently prospectively frozen, executed as a 3,872-VALID / 85-cell campaign, analyzed in Phase 7, independently reproduced with 0 mismatches, and canonically closed. Current authority is `study2/PHASE7_RESULTS_FREEZE.json`, `study2/PHASE7_PROVENANCE.json`, and `study2/docs/PHASE7_RESULTS_FREEZE.md`. The historical candidate text below is retained for provenance.
+
+## Historical status at time of this document
 
 `DESIGN_ONLY_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN`
 
@@ -291,4 +293,4 @@ Runtime execution is prohibited until all of the following are complete:
 
 ## Separation from Study 1
 
-Study 1 remains immutable at 720 VALID observations and is the basis for the current Computers & Security manuscript. Study 2 will use a separate experiment identifier, seed namespace, ledger, evidence tree, freeze manifest, statistical extraction, analysis package, and archive deposit. No Study 2 observation will be inserted into Study 1 or used to retroactively change Study 1 proposition outcomes.
+Study 1 remains immutable at 720 VALID observations. This historical design candidate was superseded by the separately frozen Study-2 protocol, campaign, and Phase-7 result/provenance records. No Study-2 observation was inserted into Study 1 or used to retroactively change Study-1 proposition outcomes.
