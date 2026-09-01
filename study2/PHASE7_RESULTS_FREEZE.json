@@ -1,8 +1,9 @@
 {
-  "schema": 1,
+  "schema": 2,
   "experiment_id": "S2-AEATR-001",
   "phase": 7,
-  "status": "PRESPECIFIED_ANALYSIS_RESULTS_FREEZE_CANDIDATE",
+  "status": "PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_PENDING_CANONICAL_MERGE",
+  "canonical_merge_pr": 70,
   "analysis_implementation_main_commit": "18207460fc5d419ad6a940f00db2df8610a5e5a0",
   "analysis_entrypoint_sha256": "351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd",
   "phase6_artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
@@ -17,7 +18,15 @@
   "primary_contrast_rows": 162,
   "secondary_contrast_rows": 432,
   "independent_recalculation_mismatches": 0,
+  "independent_auditor_sha256": "3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d",
+  "independent_audit_record_sha256": "a9c13d8bc4247706cff703f52c48ba3e80927f2b1b1a17011f72b0ca787d00a7",
+  "independent_ci_workflow_run_id": 33558376612,
+  "independent_ci_workflow_job_id": 100024673115,
+  "independent_ci_conclusion": "success",
+  "independent_ci_audit_output_sha256": "003aeff4fae88c7ec7ed354a73bf81cc7045c9ef4bfdc1d32a4a269a092ebb9a",
   "new_campaign_execution": false,
+  "study1_reanalysis": false,
   "weighted_global_policy_score_computed": false,
-  "global_policy_rank_computed": false
+  "global_policy_rank_computed": false,
+  "freeze_rule": "No statistical estimate, contrast definition, multiplicity result, or interpretation claim in this Phase-7 freeze may change without an explicit post-freeze amendment that preserves this frozen identity."
 }
