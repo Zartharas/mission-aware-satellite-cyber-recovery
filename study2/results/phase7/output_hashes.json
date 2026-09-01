@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "sha256": {
+    "ANALYSIS_REPORT.md": "4fe99f64223fec6ae58233c5fdf0f7b74337cbcc1ddee426cf5909e16ec93dd4",
+    "analysis_summary.json": "f3784a367bd071505be2120cb82111b0d1f30805e21cb40d70ca21252fea0043",
+    "cell_summary.csv": "6995dc69d2652791feee86e5409565b4c87c7a9b3e041de319d240fa30c7f27c",
+    "primary_contrasts.csv": "a3d4fd395d88ffe83fa39ded3584120ed0cd1e45f184b5fbd3d37ab49cdd2a52",
+    "secondary_contrasts.csv": "9a37c31853c0bfccecd6f66f7701e65dbbbf9e9f9a239479afb770d4bdbe58af",
+    "terminal_state_summary.csv": "efbc26efe7c6edc2ef760654bec2f0a3accfcf898fff6bdcc40392b076b3cce7"
+  }
+}

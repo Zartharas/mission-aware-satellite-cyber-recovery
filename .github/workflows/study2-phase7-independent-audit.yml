@@ -1,0 +1,83 @@
+name: Study 2 Phase 7 independent reproduction audit
+
+on:
+  push:
+    branches:
+      - study2/phase7-results-freeze-v2
+    paths:
+      - ".github/workflows/study2-phase7-independent-audit.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  independent-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out results-freeze lineage
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Verify independent auditor identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d  study2/scripts/audit_phase7_independent.py" | sha256sum --check --strict
+          echo "independent_auditor_identity=PASS"
+
+      - name: Download immutable Phase 6 and Phase 7 artifacts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/9816191406/zip" \
+            --output "$RUNNER_TEMP/phase6.zip"
+          curl --fail --silent --show-error --location \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/9818318189/zip" \
+            --output "$RUNNER_TEMP/phase7.zip"
+          echo "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133  $RUNNER_TEMP/phase6.zip" | sha256sum --check --strict
+          echo "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417  $RUNNER_TEMP/phase7.zip" | sha256sum --check --strict
+          mkdir "$RUNNER_TEMP/phase7-results"
+          unzip -q "$RUNNER_TEMP/phase7.zip" -d "$RUNNER_TEMP/phase7-results"
+          echo "phase6_and_phase7_artifact_identity=PASS"
+
+      - name: Recompute Phase 7 independently
+        shell: bash
+        run: |
+          set -euo pipefail
+          python study2/scripts/audit_phase7_independent.py \
+            --phase6-zip "$RUNNER_TEMP/phase6.zip" \
+            --phase7-dir "$RUNNER_TEMP/phase7-results" \
+            --output "$RUNNER_TEMP/INDEPENDENT_REPRODUCTION_AUDIT_CI.json"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path(os.environ["RUNNER_TEMP"]) / "INDEPENDENT_REPRODUCTION_AUDIT_CI.json"
+          d = json.loads(p.read_text(encoding="utf-8"))
+          assert d["status"] == "PASS"
+          assert d["mismatch_count"] == 0
+          assert d["valid_observations_recomputed"] == 3872
+          assert d["cells_recomputed"] == 85
+          assert d["primary_rows_recomputed"] == 162
+          assert d["secondary_rows_recomputed"] == 432
+          assert d["holm_rows_recomputed"] == 432
+          print("phase7_independent_reproduction=PASS")
+          PY
+          sha256sum "$RUNNER_TEMP/INDEPENDENT_REPRODUCTION_AUDIT_CI.json"
+
+      - name: Upload independent audit evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: study2-phase7-independent-audit-${{ github.sha }}
+          path: ${{ runner.temp }}/INDEPENDENT_REPRODUCTION_AUDIT_CI.json
+          if-no-files-found: error
+          retention-days: 90
