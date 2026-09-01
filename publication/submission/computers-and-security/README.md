@@ -4,70 +4,98 @@
 
 - **Journal:** Computers & Security (Elsevier)
 - **Article type:** Full Length Article
-- **Primary manuscript:** assembled from the authoritative components listed in `../../manuscript/MANUSCRIPT-ASSEMBLY.md`
-- **Reproducibility-hardened code/data reference:** `main` commit `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`, tree `f17cd12011cff510aa0c4ce128938b4bf93b0288`
+- **Primary manuscript:** assembled from `../../manuscript/MANUSCRIPT-ASSEMBLY.md`
+- **Scientific structure:** two separately frozen empirical studies; no pooled statistical population
 - **Author-attestation gate:** PASS as of 2026-08-31
-- **Current state:** final submission-export gate; remaining checks are submission-day live-policy/portal checks and final export audits
+- **Current state:** **two-study journal integration and Study-2 source-evidence release gate**
 
-This directory contains journal-specific submission material only. It does not replace the target-neutral manuscript components and must not become a second manually maintained copy of the full paper.
+This directory contains target-specific submission material only. It does not replace the target-neutral manuscript and must not become a second manually maintained copy of the paper.
 
-## Why this venue is a strong primary target
+## Current scientific package
 
-Computers & Security combines leading-edge information-security research with practical security relevance. The fit is strengthened by recent journal publications addressing space-sector attack-surface assessment, SatCom cybersecurity, satellite intrusion detection, and cyber-physical security testbeds.
+### Study 1
 
-Current fit references checked during submission preparation:
+- 720 VALID observations across 24 frozen cells
+- 9 retained INVALID attempts outside statistical membership
+- frozen WP10 results and 696-observation sensitivity analysis
+- public Study-1 evidence-of-record: Zenodo v1.0.0, DOI `10.5281/zenodo.22181540`
+- deterministic P7 rule-based selector; no AI/ML response model
 
-- Computers & Security journal description: https://shop.elsevier.com/journals/computers-and-security/0167-4048
-- Space-organization attack-surface study, Computers & Security 164 (2026), 104848: https://doi.org/10.1016/j.cose.2026.104848
-- SatCom user-segment cybersecurity study, Computers & Security 140 (2024), 103799: https://doi.org/10.1016/j.cose.2024.103799
-- CANSat-IDS satellite intrusion-detection study, Computers & Security 146 (2024), 104033: https://doi.org/10.1016/j.cose.2024.104033
-- SCASS cyber-physical security testbed, Computers & Security 151 (2025), 104315: https://doi.org/10.1016/j.cose.2025.104315
+### Study 2
 
-These works establish venue adjacency. They are included in the manuscript only when they substantively support positioning or comparison claims, not merely to manufacture journal fit.
+- 3,872 VALID observations, 0 INVALID attempts, 85 cells
+- 162 primary paired contrasts and 432 prespecified secondary contrasts
+- canonical Phase-7 result freeze and provenance under `../../../study2/`
+- independent reproduction: 0 mismatches
+- durable Phase-7 result ZIP in Git history
+- underlying Phase-6 source-evidence archive: hash-bound, but **responsible-release-reviewed DOI publication still required before submission**
 
-## Integrated cybersecurity framing
+The Study-1 Zenodo DOI must never be described as containing Study-2 source observations.
 
-The journal-upgrade material is now integrated into the conventional manuscript rather than maintained as auxiliary prose:
+## Why this venue remains a strong primary target
 
-- **Section 2** — post-detection positioning; close-work differentiation; frozen SPARTA behavioral correspondence; NIST SP 800-61 Rev. 3 lifecycle positioning;
-- **Section 3** — post-access adversary model; defender-knowledge model; TB0–TB5 trust boundaries; security/dependability properties; deterministic P7 semantics;
-- **Section 5** — practical response/recovery implications; Study 1 evidence-treatment boundary; limitations; separately scoped Study 2/Study 3 program;
-- `../../tables/table-r5-cybersecurity-positioning.csv` — conservative closest-work comparison;
-- `../../tables/table-r6-security-property-mapping.csv` — security/dependability property map.
+Computers & Security combines leading-edge information-security research with practical security relevance. The paper centers on a concrete post-detection security problem: how response/recovery policies behave when authorization/contact is constrained and policy-visible evidence can be incomplete, stale, contradictory, manipulated, or compromised.
 
-All manuscript citations resolve through the single canonical bibliography `../../../references/references.bib`.
+The satellite setting is substantive rather than decorative because command authority, intermittent contact, mission continuity, and trusted-state evidence interact directly with response/recovery behavior. At the same time, the research question remains legible to broader cyber-resilience and cyber-physical-systems readers.
 
-## Current journal-scope checks
+Venue-adjacent Computers & Security work already cited in the manuscript includes space-sector attack-surface assessment, SatCom cybersecurity, satellite intrusion detection, cyber-physical security testbeds, and intrusion-response research. These publications establish venue adjacency; they are not used to imply that prior work lacks every dimension evaluated here.
 
-Policy/scope snapshot checked in August 2026:
+## Current journal-scope and policy checks
 
-- Computers & Security emphasizes leading-edge security research with practical security value and excludes cryptology as a principal component. https://shop.elsevier.com/journals/computers-and-security/0167-4048
-- The current Elsevier shop/scope text still displays the journal's 2024 AI/ML moratorium language. Study 1 does **not** use AI/ML as its response method: P7 is a frozen deterministic rule-based selector. Recent 2026 Computers & Security content also includes AI/GenAI-related articles, so this repository does not infer an editorial rule from either signal alone; the live submission-day Guide/Aims/portal is authoritative for current scope and article-type handling.
-- Elsevier's general research-highlights guidance specifies 3–5 bullets, each no more than 85 characters including spaces, and advises avoiding jargon/acronyms. The current five highlights satisfy those content constraints. Whether highlights are required at initial submission or only at a later file stage remains a live portal check. https://www.elsevier.com/researcher/author/tools-and-resources/highlights
-- Elsevier generative-AI journal policy requires appropriate disclosure of substantive manuscript-preparation use and research-process code assistance. https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
-- Elsevier's general prior-publication policy does not treat an academic thesis as prior publication, subject to journal-specific exceptions.
-- Elsevier CRediT guidance supports explicit contributor-role statements.
+Policy/scope snapshot rechecked on **2026-09-01**:
 
-The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Manager fields must be rechecked on the actual submission date because publisher requirements can change.
+- Computers & Security continues to emphasize practical information-security research and excludes cryptology as a principal component.
+- The current journal page still displays the AI/ML moratorium language for submissions in which AI/ML is a significant scientific component. Neither Study 1 nor Study 2 uses AI/ML as the response mechanism; the evaluated selectors are frozen deterministic rule-based policies.
+- AI-assisted manuscript preparation and reproducibility/code-review work are publication-process disclosures, not scientific response mechanisms.
+- Elsevier's current generative-AI journal policy requires substantive manuscript-preparation use to be disclosed and research-process/code assistance to be described in the appropriate Methods context. The repository retains a separate author-approved disclosure.
+- General Elsevier highlights guidance uses 3–5 bullets with a maximum of 85 characters each; the current five highlights satisfy that constraint.
+
+The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Manager fields remain authoritative on the actual submission date.
+
+## Integrated journal framing
+
+The manuscript now uses a two-study structure:
+
+- **Section 3 / Study 1:** original frozen post-access adversary model, defender-knowledge model, TB0–TB5 boundaries, design, P1–P5 methods, provenance, and reproducibility.
+- **Study-2 Methods extension:** adversary classes A0–A3, evidence V0–V5, contact K0–K4, ambiguity controls, context ablations, frozen logical-time/RMST analysis, and independent audit boundary.
+- **Section 4 / Study 1:** frozen P1–P5 results.
+- **Study-2 Results extension:** frozen RQ1–RQ5 results.
+- **Section 5:** cross-study cybersecurity interpretation and limitations.
+
+Study-2 RQ3 is explicitly bounded as a **structural label-invariance/control result**. The BENIGN/ADVERSARIAL label does not alter hidden truth or generated policy-visible evidence within the frozen ambiguity families, so the 54 zero contrasts do not demonstrate empirical discrimination or non-discrimination between genuinely different causal mechanisms.
 
 ## Files
 
-- `title-page.md` — finalized author/correspondence metadata, CRediT statement, and author attestations
-- `highlights.md` — five publisher-length-checked research highlights
-- `concise-abstract-candidate.md` — shorter target-specific abstract candidate; the authoritative abstract remains in the manuscript until adopted
-- `cover-letter.md` — target-specific editorial cover-letter draft with author confirmations closed
-- `ai-declaration.md` — author-approved Elsevier disclosure plus Methods disclosure text for AI-assisted reconstruction of reproducibility code prepared after campaign/Zenodo v1.0.0 publication and before journal submission
-- `submission-checklist.md` — author-attestation gate PASS; remaining submission-day checks and final export audits
-- `venue-fit.md` — target rationale and backup-journal decision logic
-
-## Author-attestation closeout
-
-On 2026-08-31 the author explicitly confirmed the five outstanding factual items: no competing financial or non-financial interests; no acknowledgments to add; approval of the final CRediT roles; approval of the generative-AI declaration; and confirmation that the manuscript is not simultaneously under consideration elsewhere.
-
-An institutional IRB/HRPP identifier remains conditional on a specific submission-system requirement. None is invented or inferred. The concise abstract candidate remains an export choice rather than a factual declaration.
+- `title-page.md` — author/correspondence metadata and CRediT statement
+- `highlights.md` — five two-study, publisher-length-checked research highlights
+- `concise-abstract-candidate.md` — target-specific two-study abstract candidate
+- `cover-letter.md` — target-specific editorial cover letter
+- `ai-declaration.md` — author-approved generative-AI/reproducibility disclosure
+- `submission-checklist.md` — current integration, archive, live-policy, and export gates
+- `venue-fit.md` — updated target and backup-journal decision logic
 
 ## Scientific boundary
 
-Every target-specific export must preserve the controls in `../../manuscript/MANUSCRIPT-ASSEMBLY.md`, including 720 VALID primary observations; P1 null preservation; modeled-contact wording; T1 as omission/reduction of policy-visible evidence rather than a stale/contradictory/forged-evidence factorial; no P4 correctness oracle; P7 as deterministic rule-based rather than AI/ML; condition-specific P5 interpretation without a global rank or success-rate framing; the 696-observation final-commit analysis as sensitivity only; and no operational spacecraft/RF/flight-readiness claim.
+Every target-specific export must preserve the controls in `../../manuscript/MANUSCRIPT-ASSEMBLY.md`. In particular:
 
-SPARTA mappings are frozen behavioral/experimental correspondences only, and the NIST SP 800-61 Rev. 3 mapping is lifecycle positioning rather than a compliance claim.
+- Study 1 remains exactly 720 VALID observations.
+- Study 2 remains exactly 3,872 VALID observations and is not pooled with Study 1.
+- Study-1 P1 null and P3/P4/P5 boundaries remain unchanged.
+- Study-2 V5 evidence qualification must not be equated with objective correctness.
+- Study-2 RQ3 remains structural label-invariance only.
+- K4 is not ordinal severity 4.
+- A2/K2 is contact-coupled.
+- secondary Study-2 n=32 blocks remain sensitivity/estimation evidence.
+- no weighted global score, global policy rank, operational spacecraft/RF/real-link-latency, flightworthiness, or certification claim is supported.
+
+## Gate to actual submission
+
+The package is **not yet final-export ready**. Before submission:
+
+1. complete two-study manuscript integration and updated repository CI;
+2. complete responsible-release review and publish a durable DOI-bearing Study-2 source-evidence archive;
+3. insert the actual Study-2 DOI/archive identity into Data Availability and submission materials;
+4. recheck live Computers & Security scope, AI/ML wording, generative-AI policy, article type, portal fields, and file requirements;
+5. run exact-export citation/DOI/frozen-claim/scope audits.
+
+No missing DOI, portal field, or formatting preference may be resolved by inventing scientific or institutional information.
