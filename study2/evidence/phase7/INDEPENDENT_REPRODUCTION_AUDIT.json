@@ -1,0 +1,38 @@
+{
+  "audit_implementation_sha256": "3907c1260cbd4d2b3d179bb20c71aa30df352d2b32e0d4dea19867c709de2d6d",
+  "audit_scope": "Independent standard-library arithmetic recomputation from immutable Phase-6 observations; no import or invocation of study2/analysis/analyze_phase7.py.",
+  "cells_recomputed": 85,
+  "classification": "STUDY2_PHASE7_INDEPENDENT_ARITHMETIC_REPRODUCTION_AUDIT",
+  "holm_rejection_counts": {
+    "B_CONTACT_VS_K0": 28,
+    "B_K0_K3_ORDERED_TREND": 7,
+    "B_POLICY_BY_CONTACT_INTERACTION": 28,
+    "C_AMBIGUITY": 0,
+    "D_ABLATION": 10,
+    "E_POLICY_WITHIN_PROFILE": 9,
+    "E_STRESS_PROFILE": 12
+  },
+  "holm_rows_recomputed": 432,
+  "mismatch_count": 0,
+  "mismatches": [],
+  "new_campaign_execution": false,
+  "phase6_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+  "phase7_result_artifact_zip_sha256": "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417",
+  "primary_rows_recomputed": 162,
+  "python_runtime": "3.13.5",
+  "result_file_sha256": {
+    "ANALYSIS_REPORT.md": "4fe99f64223fec6ae58233c5fdf0f7b74337cbcc1ddee426cf5909e16ec93dd4",
+    "analysis_summary.json": "f3784a367bd071505be2120cb82111b0d1f30805e21cb40d70ca21252fea0043",
+    "cell_summary.csv": "6995dc69d2652791feee86e5409565b4c87c7a9b3e041de319d240fa30c7f27c",
+    "output_hashes.json": "3c5fac4b8f07c1408711e8961e80c651b150d8fe603a39aba7a267ef20e3a33b",
+    "primary_contrasts.csv": "a3d4fd395d88ffe83fa39ded3584120ed0cd1e45f184b5fbd3d37ab49cdd2a52",
+    "secondary_contrasts.csv": "9a37c31853c0bfccecd6f66f7701e65dbbbf9e9f9a239479afb770d4bdbe58af",
+    "terminal_state_summary.csv": "efbc26efe7c6edc2ef760654bec2f0a3accfcf898fff6bdcc40392b076b3cce7"
+  },
+  "schema": 1,
+  "secondary_rows_recomputed": 432,
+  "status": "PASS",
+  "study1_reanalysis": false,
+  "terminal_state_cells_recomputed": 85,
+  "valid_observations_recomputed": 3872
+}
