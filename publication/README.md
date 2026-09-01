@@ -1,6 +1,6 @@
 # Publication Package
 
-This directory is the human-facing publication layer for the **journal article**. Historical Study-1 publication artifacts retain stable paths for provenance, while the active manuscript now integrates a separately frozen Study 2 without pooling or rewriting the Study-1 population.
+This directory is the human-facing publication layer for the **journal article**. The active manuscript reports **two separately frozen empirical studies**. Historical Study-1 publication artifacts retain stable paths for provenance, while Study 2 is integrated without pooling or rewriting the Study-1 population.
 
 ## 1. Authoritative manuscript order
 
