@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "artifact": "study2_phases_0_4_pre_runtime_freeze",
+  "status": "PHASES_0_4_PRE_RUNTIME_PROTOCOL_FROZEN_RUNTIME_NOT_AUTHORIZED",
+  "foundation_merge_commit": "d3af5cec7a3862e84021335c5f36a6fe3be154d8",
+  "foundation_merge_tree": "6eb0666e7bb20ff5d9981a1abc6c7c2102502ad8",
+  "foundation_post_merge_repository_run_id": 33516260188,
+  "foundation_post_merge_repository_job_id": 99883926323,
+  "foundation_post_merge_study2_run_id": 33516260189,
+  "foundation_post_merge_study2_job_id": 99883926308,
+  "validated_phase_1_4_implementation_commit": "7a62242826b3ec65281b8c84407e5bb0b101021a",
+  "study2_validation_run_id": 33529039158,
+  "study2_validation_job_id": 99927175807,
+  "study1_reproducibility_hardened_snapshot": "99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc",
+  "study1_mutation_authorized": false,
+  "study2_campaign_runtime_authorized": false,
+  "protocol": {
+    "experiment_id": "S2-AEATR-001",
+    "status": "PROTOCOL_FROZEN_PRE_RUNTIME_RUNTIME_NOT_AUTHORIZED",
+    "exact_cell_count": 85,
+    "target_valid_observations": 3872,
+    "primary_seed_blocks": 96,
+    "secondary_seed_blocks": 32,
+    "cell_matrix_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
+    "runtime_gate": "CLOSED"
+  },
+  "validation_evidence": {
+    "study1_p7_conformance_cases": 48,
+    "deterministic_security_tests": 37,
+    "hypothesis_property_tests": 8,
+    "semantic_security_mutants_killed": 5,
+    "semantic_security_mutants_total": 5,
+    "study1_p7_tla_distinct_states": 48,
+    "trusted_recovery_tla_distinct_states": 385,
+    "adversarial_evidence_tla_distinct_states": 400,
+    "adversarial_evidence_tla_generated_states": 540,
+    "adversarial_evidence_tla_depth": 3,
+    "adjudication_oracle_runtime_access": false,
+    "zero_tracked_drift": true
+  },
+  "phase5_remaining_preconditions": [
+    "calibrate and freeze numerical SIL contact/time horizons without consuming frozen campaign seeds",
+    "freeze exact runtime/container/configuration hashes",
+    "validate the Study-2 campaign runner against development-only fixtures",
+    "issue an explicit runtime-authorization checkpoint before any frozen seed is executed"
+  ]
+}

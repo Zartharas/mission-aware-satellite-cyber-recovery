@@ -1,35 +1,67 @@
 # Study 2 Phases 0–4 Pre-Runtime Freeze
 
-**Status:** `PHASES_0_4_IMPLEMENTED_CI_VALIDATION_PENDING_RUNTIME_NOT_AUTHORIZED`
+**Status:** `PHASES_0_4_PRE_RUNTIME_PROTOCOL_FROZEN_RUNTIME_NOT_AUTHORIZED`
 
 ## Phase 0 — foundation closeout
 
-The Study-2 assurance foundation merged to `main` at `d3af5cec7a3862e84021335c5f36a6fe3be154d8`. Post-merge runs `33516260188` (full repository validation) and `33516260189` (Study-2 Docker/formal validation) both completed successfully. This closes the foundation boundary without altering Study-1 evidence or results.
+The Study-2 assurance foundation merged to `main` at `d3af5cec7a3862e84021335c5f36a6fe3be154d8` (tree `6eb0666e7bb20ff5d9981a1abc6c7c2102502ad8`). The actual post-merge `main` runs `33516260188` (full repository validation, job `99883926323`) and `33516260189` (Study-2 Docker/formal validation, job `99883926308`) both completed successfully. This closes the foundation boundary without altering Study-1 evidence or results.
 
 ## Phase 1 — bounded threat/adversary model
 
-The executable contract defines A0–A3. The verifier, independent trust anchor, experiment ground truth, adjudication oracle, seeds, treatment identity, analysis controls, and provenance controls are outside the adversary budget. A2 requires modeled contact unavailability. A3 requires at least two compromised producers while retaining an uncompromised independent trust anchor.
+The executable contract defines A0–A3. The verifier, independent trust anchor, experiment ground truth, adjudication oracle, seeds, treatment identity, analysis controls, and provenance controls are outside the adversary budget. A2 requires modeled contact unavailability. A3 requires at least two compromised producers while retaining an uncompromised independent trust anchor. The protocol separately freezes adversary knowledge and explicitly prohibits ground-truth/oracle access, verifier compromise, seed mutation, and treatment-identity mutation.
 
 ## Phase 2 — adversarial evidence treatments
 
-V0–V5 are executable synthetic transformations. V4 modifies a claim after signing and therefore should fail signature verification. V5 models a more difficult partial compromise: a controlled producer can sign a false value with its legitimately controlled key, demonstrating that signature validity is not equivalent to truth. V3 uses independently signed disagreement. V2 supports signed stale or replayed claims. These mechanisms are Study-2 only and do not redefine Study-1 T1.
+V0–V5 are executable synthetic transformations. V1 omits evidence. V2 creates validly signed stale or replayed evidence. V3 creates independently signed disagreement. V4 changes a claim after signing and therefore fails signature verification. V5 models bounded producer compromise in which a controlled producer may legitimately sign a false value, demonstrating that signature validity and syntactic evidence qualification are not equivalent to truth.
 
-Three matched ambiguity families are predeclared: telemetry loss, state/configuration inconsistency, and contact/authorization loss. Cause metadata is explicitly excluded from the policy-visible fingerprint so benign and adversarial causes may be experimentally indistinguishable to the selector.
+Three matched ambiguity families are frozen: telemetry loss, state/configuration inconsistency, and contact/authorization loss. Cause metadata is excluded from the policy-visible fingerprint so selected benign and adversarial causes can be experimentally indistinguishable to the selector.
+
+A separate research-only adjudication oracle prospectively classifies unsafe-permissive and false-conservative response. The selector API has no truth/oracle parameter, and property/invariant checks preserve the separation.
 
 ## Phase 3 — assurance expansion
 
-The pre-runtime suite includes deterministic treatment/budget tests, policy-ablation tests, ambiguity tests, the existing property-based security suite, a bounded semantic mutation assay, and a new TLA+ adversarial-evidence model. The mutation assay is deliberately a semantic mutant harness rather than a third-party source-rewriting tool; each named weakened security rule must be killed by a frozen counterexample.
+Exact validated implementation commit: `7a62242826b3ec65281b8c84407e5bb0b101021a`.
 
-The TLA+ model checks oracle isolation, treatment immutability, verifier non-compromise, A3 trust-anchor retention, non-qualification of V1–V5 in the conservative abstraction, and trusted-recovery soundness. These are model-checking results only, not proof of operational spacecraft security.
+GitHub Actions run `33529039158`, job `99927175807`, completed successfully with zero tracked-file drift. The gated pre-runtime suite established:
+
+- 48/48 independent frozen Study-1 P7 conformance cases;
+- 37 deterministic Study-2 security/protocol tests;
+- 8 explicitly executed Hypothesis property tests, including treatment-identity immutability and uncompromised-source preservation;
+- 5/5 semantic security mutants killed;
+- Study1P7 TLA+: 48 distinct states, complete, no error;
+- TrustedRecovery TLA+: 385 distinct states, complete, no error;
+- AdversarialEvidence TLA+: 540 generated / 400 distinct states, depth 3, complete, no error.
+
+The adversarial formal model distinguishes evidence qualification from hidden truth under V5. A compromised producer can therefore produce authenticated, apparently current evidence; the model does not falsely equate cryptographic validity with truth. These are finite-model assurance results, not proof of operational spacecraft security.
 
 ## Phase 4 — prospective protocol/sample-size freeze
 
-The machine-readable protocol is `study2/STUDY2_PROTOCOL.json`, experiment `S2-AEATR-001`. The primary evidence-mechanism block uses 96 independent seed blocks because the worst-case Wilson 95% confidence-interval half-width for a Bernoulli cell rate is approximately 0.0981, satisfying the prospectively selected <=0.10 precision criterion. Secondary blocks use 32 seeds and are explicitly estimation/sensitivity blocks rather than being advertised as powered for small effects.
+The machine-readable protocol is `study2/STUDY2_PROTOCOL.json`, experiment `S2-AEATR-001`. The exact prospective cell/seed membership is generated by `study2_security.cell_matrix.materialize_cell_matrix` and frozen by canonical SHA-256:
 
-The protocol predeclares RQ1–RQ5, V0–V5, A0–A3, K0–K4, policy baselines, security ablations, outcomes, invalid-run rules, retained invalid attempts, no hidden retries, no post-hoc seed substitution, right-censoring, multiplicity handling, and a prohibition on weighted global policy scores.
+`5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081`
 
-Numerical runtime horizons and the final materialized campaign cell/seed membership remain Phase-5 runtime-freeze artifacts. Their absence keeps the campaign gate closed; no empirical Study-2 observations are authorized or generated by Phases 0–4.
+The design freezes **85 exact cells** and a target of **3,872 VALID observations**. The primary evidence-mechanism block uses 96 paired seed blocks because the worst-case Wilson 95% confidence-interval half-width for a Bernoulli cell rate is approximately 0.0981, satisfying the prospectively selected <=0.10 precision criterion. Secondary blocks use 32 paired seeds and are explicitly estimation/sensitivity blocks rather than being advertised as powered for small effects.
+
+The frozen blocks are:
+
+- A — primary evidence mechanism: 18 cells x 96 seeds;
+- B — contact/authorization: 20 cells x 32 seeds;
+- C — matched fault/attack ambiguity: 18 cells x 32 seeds;
+- D — context ablation: 20 cells x 32 seeds;
+- E — adversary-budget stress including A1, A2, and A3: 9 cells x 32 seeds.
+
+The protocol predeclares RQ1–RQ5, V0–V5, A0–A3, K0–K4, policy baselines, security ablations, the independent adjudication oracle, outcomes, invalid-run rules, retained invalid attempts, no hidden retries, no post-hoc seed substitution, right-censoring, multiplicity handling, exact seed namespaces, and a prohibition on weighted global policy scores.
+
+The qualitative K0–K4 contact identities are frozen. Numerical SIL wall-clock mappings/horizons remain a Phase-5 runtime-calibration item and must be frozen before runtime authorization. No empirical Study-2 observation has been generated by Phases 0–4.
 
 ## Non-negotiable separation from Study 1
 
-Study 1 remains immutable: 720 VALID observations, 9 retained INVALID attempts, 729 authoritative ledger records, existing proposition findings, frozen analysis, and Zenodo evidence-of-record are not modified or reinterpreted by this work.
+Study 1 remains immutable: 720 VALID observations, 9 retained INVALID attempts, 729 authoritative ledger records, existing proposition findings, frozen analysis, and Zenodo evidence-of-record are not modified or reinterpreted by this work. Study-1 T1 remains omission/reduction only.
+
+## Runtime boundary
+
+`study2_campaign_runtime_authorized = false`
+
+`runtime_gate = CLOSED`
+
+The next phase may perform development-only runtime calibration and runner validation, but no frozen Study-2 campaign seed may be consumed until a separate explicit runtime-authorization checkpoint is created and validated.

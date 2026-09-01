@@ -1,110 +1,81 @@
-# Study 2 — Security-Assurance Foundation
+# Study 2 — Adversarial Evidence-Aware Security Research
 
-**Status:** `ASSURANCE_FOUNDATION_CI_VALIDATED_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN`
+**Status:** `PHASES_0_4_PRE_RUNTIME_PROTOCOL_FROZEN_RUNTIME_NOT_AUTHORIZED`
 
-This directory starts a new, isolated research track for **adversarial evidence-aware cyber response and trusted recovery**. It is intentionally separate from the frozen Study-1 campaign and its Zenodo evidence-of-record.
+This directory is an isolated research track for **adversarial evidence-aware cyber response and trusted recovery under intermittent connectivity**. It is separate from the frozen Study-1 campaign and its Zenodo evidence-of-record.
 
 ## Scientific boundary
 
-This foundation does **not**:
+This work does **not** alter the 720 VALID / 9 retained INVALID Study-1 observations, consume Study-1 campaign seeds, rerun frozen Study-1 analyses, or redefine Study-1 T1. It does not execute an operational spacecraft, RF system, real ground station, real credentials, or classified/proprietary mission data. No Study-2 empirical campaign is authorized yet.
 
-- alter the 720 VALID / 9 retained INVALID Study-1 observations;
-- consume Study-1 or Study-2 campaign seeds;
-- execute NOS3/cFS campaign runtime;
-- modify frozen Study-1 policy P7, event T1 semantics, results, ledgers, or statistical artifacts;
-- authorize a Study-2 empirical campaign;
-- claim operational-spacecraft, RF, flight, hardware-root-of-trust, or standards-conformance validation.
+Study-1 T1 remains omission/reduction of selected policy-visible evidence only. V2–V5 are new Study-2 mechanisms.
 
-The Study-1 T1 treatment remains exactly what it was: omission/reduction of selected policy-visible evidence. Study-2 evidence states V2-V5 are prospective new mechanisms and must never be retroactively attributed to Study 1.
+## Phase 0 foundation boundary
 
-## Validated foundation checkpoint
+The assurance foundation merged to `main` at `d3af5cec7a3862e84021335c5f36a6fe3be154d8`. Both actual post-merge `main` workflows succeeded: repository validation run `33516260188` and Study-2 assurance run `33516260189`.
 
-The review-hardened Dockerized assurance checkpoint was validated on implementation commit `cb6a8f6a4c5aa765e6943a4b384dade49e61338e` by GitHub Actions run `33514281820` / job `99877257286`. The same implementation commit also passed the exhaustive repository workflow in run `33514281840` / job `99877257082`.
+The foundation retains authenticated Ed25519 synthetic evidence, explicit source trust, freshness, recovery epoch, per-source/per-epoch sequence monotonicity, contradiction detection, trusted-recovery gating, independent Study-1 P7 conformance, Hypothesis tests, TLA+ models, and a digest-pinned Docker assurance environment.
 
-The validated checkpoint established:
+## Frozen Phase 1–4 protocol
 
-- 48/48 frozen Study-1 P7 combinations conformed to the independent baseline;
-- the policy remained unchanged after synthetic mutation of experiment ground truth;
-- 11 evidence-verification tests and 4 trusted-recovery-gate tests passed;
-- 6 explicitly discovered Hypothesis property tests passed;
-- unresolved recovery-epoch context fails closed;
-- duplicate sequence identity is scoped by source, recovery epoch, and sequence;
-- the Study-2 conformance workflow is triggered by changes to the Study-1 policy/event source files and their rule/catalog inputs;
-- the Study-1 P7 TLA+ abstraction completed with 48 distinct states and no error;
-- the trusted-recovery TLA+ model completed with 385 distinct states and no error;
-- the exhaustive repository gate passed all 611 Study-1 research tests, shell syntax validation, frozen WP10 reconstruction/regression, and zero tracked drift;
-- validation produced zero tracked-file drift.
+Experiment ID: `S2-AEATR-001`
 
-These are assurance-validation results, not Study-2 empirical campaign observations.
+Machine-readable protocol: `STUDY2_PROTOCOL.json`
 
-## First security milestone
+Canonical cell matrix SHA-256:
+`5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081`
 
-The initial implementation adds four assurance layers before any new campaign is allowed:
+The pre-runtime design freezes:
 
-1. **Authenticated evidence claims** — canonical synthetic evidence claims signed with Ed25519 and verified against an explicit source-key registry.
-2. **Decision eligibility checks** — source trust, signature integrity, wall-clock freshness, an explicitly resolved expected recovery epoch, and strictly increasing per-source/per-epoch sequence state must all pass. Missing epoch context is decision-ineligible rather than implicitly accepting evidence from any epoch.
-3. **Evidence-qualified trusted recovery** — applicable recovery criteria must be current, authenticated, trusted, non-contradictory, and satisfied; residual unauthorized state blocks trusted recovery.
-4. **Independent conformance/formal checks** — the finite frozen Study-1 P7 state space is checked against an independently encoded baseline, while TLA+ models check control-plane invariants.
+- adversary classes A0–A3 and explicit trust/knowledge boundaries;
+- evidence treatments V0–V5;
+- contact identities K0–K4;
+- matched benign/adversarial ambiguity families;
+- Study-2-only fail-closed, fail-operational, risk-threshold, and evidence-aware baselines;
+- security ablations for freshness, contradiction, epoch, and signature/trust checks;
+- an independent research-only adjudication oracle unavailable to selectors;
+- 85 exact cells and 3,872 target VALID observations;
+- paired seed sets: 96 for the primary block and 32 for secondary blocks;
+- invalid-run retention, no hidden retries, no post-hoc seed substitution, no outcome-dependent stopping, prespecified censoring/analysis rules, and no weighted global policy score.
 
-This is a researcher-controlled security prototype. The signature layer is **inspired by** the separation of evidence, verification, and relying-party decisions in remote-attestation architectures such as RFC 9334, but it is not an implementation of a hardware attester, EAT, TPM, or a claim of RFC conformance.
+The 96 primary seeds were selected prospectively from a worst-case Wilson 95% Bernoulli half-width <= 0.10 criterion; at n=96 the half-width is approximately 0.0981. The replication count was not copied from Study 1.
 
-## Prospective Study-2 evidence treatments
+## Evidence semantics
 
-These identifiers are design vocabulary only until a later protocol freeze:
-
-| ID | Meaning |
+| ID | Study-2 meaning |
 |---|---|
 | `V0` | complete/current evidence |
 | `V1` | omitted evidence |
 | `V2` | stale or replayed evidence |
 | `V3` | contradictory independent evidence |
-| `V4` | deliberately manipulated policy-visible value |
-| `V5` | partial evidence-plane compromise with an independent trust source retained |
+| `V4` | post-signature manipulation |
+| `V5` | bounded partial evidence-plane producer compromise |
 
-The implementation deliberately distinguishes **authenticity**, **trust**, **freshness**, **epoch membership**, **sequence monotonicity**, **consistency**, and **criterion satisfaction**. A valid signature by itself does not make evidence suitable for a recovery decision.
+A valid signature is not treated as truth. In V5 a compromised producer may validly sign a false value. The research oracle used to adjudicate correctness remains unavailable to runtime policy logic.
 
-## Prospective bounded adversary budgets
+## Bounded adversary model
 
-These are not runtime treatments yet:
+- `A0`: no evidence-plane producer compromise;
+- `A1`: exactly one policy-visible evidence producer controlled;
+- `A2`: exactly one producer controlled plus modeled contact unavailability; K0 is prohibited;
+- `A3`: at least two policy-visible producers controlled while the verifier and independent trust anchor remain outside the adversary budget.
 
-- `A0`: no evidence-plane compromise;
-- `A1`: one policy-visible evidence producer controlled;
-- `A2`: one evidence producer controlled plus modeled contact unavailability;
-- `A3`: multiple policy-visible producers controlled while an independently designated verifier/trust anchor remains outside the adversary budget.
+Ground truth, the adjudication oracle, analysis controls, seeds, treatment identity, provenance controls, and verifier compromise are outside the permitted adversary budget.
 
-Exact capabilities, knowledge, timing, and exclusions must be frozen before empirical use.
+## Validated pre-runtime assurance checkpoint
 
-## Trust architecture
+Implementation commit `7a62242826b3ec65281b8c84407e5bb0b101021a` passed GitHub Actions run `33529039158` / job `99927175807` with zero tracked drift:
 
-```text
-Synthetic evidence producer / future attester
-        |
-        v
-canonical claim + signature + epoch + sequence + provenance
-        |
-        v
-Study-2 verifier
-  - source key known?
-  - source trusted?
-  - signature valid?
-  - claim current?
-  - expected epoch explicitly resolved?
-  - sequence newer within source+epoch?
-  - independent-source contradiction?
-        |
-        v
-AttestationResult / verified policy-visible evidence
-        |
-        v
-Trusted-recovery relying gate
-        |
-        +----> allow only when all applicable criteria are verified
-        |
-        +----> fail closed otherwise
+- 48 Study-1 P7 conformance cases;
+- 37 deterministic Study-2 tests;
+- 8 Hypothesis property tests;
+- 5/5 semantic security mutants killed;
+- Study1P7 TLA+: 48 distinct states;
+- TrustedRecovery TLA+: 385 distinct states;
+- AdversarialEvidence TLA+: 540 generated / 400 distinct states, depth 3;
+- no TLA+ error.
 
-Independent experiment ground truth / adjudication oracle
-        X  (must remain unavailable to the runtime policy)
-```
+These are assurance/model-checking results, not empirical Study-2 campaign observations or proof of operational spacecraft security.
 
 ## Docker validation
 
@@ -115,43 +86,12 @@ docker build --file study2/Dockerfile --tag satellite-study2-assurance .
 docker run --rm satellite-study2-assurance
 ```
 
-The image performs only assurance validation:
+The image performs compilation, Study-1 P7 conformance, protocol/hash freeze checks, deterministic security tests, property tests, semantic mutation checks, and three TLA+ model checks. It contains no command that launches a Study-1 or Study-2 NOS3/cFS campaign.
 
-- Python compilation;
-- frozen Study-1 P7 conformance enumeration;
-- deterministic and property-based Study-2 security tests;
-- TLA+ parsing/model checking of the Study-1 P7 abstraction and trusted-recovery control plane.
+## Next boundary
 
-It contains no command that launches a Study-1 or Study-2 NOS3/cFS campaign.
+Phases 0–4 stop before empirical execution. Phase 5 must calibrate and freeze numerical SIL contact/time horizons, freeze exact runtime/container/configuration hashes, validate the campaign runner using development-only fixtures, and create an explicit runtime-authorization checkpoint. Until then:
 
-## Formal models
+`study2_campaign_runtime_authorized = false`
 
-`formal/Study1P7.tla` independently encodes the finite Study-1 P7 decision semantics and checks:
-
-- type safety;
-- oracle isolation;
-- evidence-assessment conformance;
-- delegated-policy/action conformance.
-
-`formal/TrustedRecovery.tla` checks:
-
-- oracle isolation;
-- immutable ground-truth token;
-- evidence-sufficient versus fallback branch integrity;
-- trusted-recovery soundness: qualified evidence, authorization, no residual unauthorized state, and the evidence-sufficient path are all required.
-
-The models are assurance artifacts, not empirical outcomes. Any later Study-2 extension must be implementation-traced and receive new identifiers rather than silently redefining Study-1 semantics.
-
-## Next gates before Study-2 runtime
-
-The next work packages are deliberately sequential:
-
-1. implement V0-V5 treatment generation and bounded adversary budgets;
-2. add matched benign-fault/adversarial ambiguity fixtures;
-3. implement new Study-2 fail-closed, fail-operational, risk-threshold, and evidence-aware selector/ablation baselines under new identifiers;
-4. add mutation testing that must detect weakened evidence/authentication/recovery gates;
-5. freeze RQs, estimands, exact cells, seed count, adversary knowledge, validity/INVALID rules, censoring, and analysis plan;
-6. record source/config hashes and explicit runtime authorization;
-7. only then execute a new Study-2 campaign in a separate experiment ID, seed namespace, ledger, evidence tree, analysis package, and archive.
-
-HIL remains a later engineering-transfer study after the SIL cybersecurity analysis is frozen.
+`runtime_gate = CLOSED`
