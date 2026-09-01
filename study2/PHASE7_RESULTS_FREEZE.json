@@ -1,5 +1,5 @@
 {
-  "schema": 2,
+  "schema": 3,
   "experiment_id": "S2-AEATR-001",
   "phase": 7,
   "status": "PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_PENDING_CANONICAL_MERGE",
@@ -19,11 +19,19 @@
   "secondary_contrast_rows": 432,
   "independent_recalculation_mismatches": 0,
   "independent_auditor_sha256": "3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d",
-  "independent_audit_record_sha256": "a9c13d8bc4247706cff703f52c48ba3e80927f2b1b1a17011f72b0ca787d00a7",
   "independent_ci_workflow_run_id": 33558376612,
   "independent_ci_workflow_job_id": 100024673115,
   "independent_ci_conclusion": "success",
   "independent_ci_audit_output_sha256": "003aeff4fae88c7ec7ed354a73bf81cc7045c9ef4bfdc1d32a4a269a092ebb9a",
+  "rq3_interpretation": {
+    "classification": "STRUCTURAL_LABEL_INVARIANCE_CONTROL",
+    "c_family_holm_rejected": 0,
+    "c_family_contrasts": 54,
+    "cause_label_changes_hidden_truth": false,
+    "cause_label_changes_policy_visible_evidence": false,
+    "permitted_claim": "Changing the non-operative BENIGN/ADVERSARIAL cause label alone does not change the analyzed outcomes within the frozen Block-C design.",
+    "prohibited_claim": "The Block-C result empirically establishes policy discrimination or non-discrimination between genuinely different benign and adversarial causal mechanisms."
+  },
   "new_campaign_execution": false,
   "study1_reanalysis": false,
   "weighted_global_policy_score_computed": false,
