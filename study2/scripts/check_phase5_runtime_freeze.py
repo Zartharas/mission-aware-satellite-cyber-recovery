@@ -2,10 +2,15 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path
 
 from study2_security.cell_matrix import materialize_cell_matrix, matrix_sha256
-from study2_security.runtime_authorization import AUTHORIZATION_PATH, current_runtime_bindings
+from study2_security.runtime_authorization import (
+    AUTHORIZATION_PATH,
+    CampaignAuthorization,
+    current_runtime_bindings,
+)
 from study2_security.runtime_engine import development_fixture_report
 from study2_security.runtime_freeze import (
     ASSURANCE_DOCKERFILE_SHA256,
@@ -26,6 +31,19 @@ AMENDMENT = ROOT / "study2" / "STUDY2_PROTOCOL_AMENDMENT_1.json"
 
 def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _validate_authorization_boundary() -> bool:
+    phase6_expected = os.environ.get("STUDY2_PHASE6_AUTH_EXPECTED") == "1"
+    if phase6_expected:
+        if not AUTHORIZATION_PATH.is_file():
+            raise SystemExit("Phase-6 authorization was expected but is absent")
+        payload = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+        CampaignAuthorization(**payload).validate()
+        return True
+    if AUTHORIZATION_PATH.exists():
+        raise SystemExit("pre-Phase-6 validation must not contain campaign authorization")
+    return False
 
 
 def main() -> int:
@@ -53,8 +71,8 @@ def main() -> int:
         raise SystemExit("protocol amendment is not prospective")
     if any(amendment[key] is not False for key in expected_flags):
         raise SystemExit("protocol amendment changed frozen membership/outcomes or followed data")
-    if AUTHORIZATION_PATH.exists():
-        raise SystemExit("Phase-5 branch must not contain an active Phase-6 authorization")
+
+    phase6_authorization_present = _validate_authorization_boundary()
 
     matrix = materialize_cell_matrix()
     if len(matrix["cells"]) != 85 or matrix_sha256(matrix) != frozen["cell_matrix_sha256"]:
@@ -86,7 +104,7 @@ def main() -> int:
         protocol["study2_campaign_runtime_authorized"] is not False
         or protocol["runtime_gate"] != "CLOSED"
     ):
-        raise SystemExit("Study-2 campaign runtime must remain CLOSED in Phase 5")
+        raise SystemExit("frozen protocol baseline must remain CLOSED; Phase-6 authorization is separate")
 
     bindings = current_runtime_bindings()
     if bindings["protocol_amendment_sha256"] != PROTOCOL_AMENDMENT_SHA256:
@@ -103,11 +121,11 @@ def main() -> int:
     print("exact_cell_count=85")
     print("target_valid_observations=3872")
     print("development_cell_types_exercised=85")
-    print("phase6_authorization_present=false")
+    print(f"phase6_authorization_present={str(phase6_authorization_present).lower()}")
     print("campaign_seed_consumed=false")
     print("campaign_observations_generated=false")
-    print("study2_campaign_runtime_authorized=false")
-    print("runtime_gate=CLOSED")
+    print("study2_protocol_runtime_baseline_authorized=false")
+    print("study2_protocol_runtime_baseline_gate=CLOSED")
     return 0
 
 
