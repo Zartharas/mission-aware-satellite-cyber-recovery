@@ -25,7 +25,8 @@
   },
   "canonicalization": {
     "pull_request": 70,
-    "state": "PENDING_MAIN_MERGE"
+    "merge_commit": "49c62cbed3fb8fc318e44d696faba1854ed6c21a",
+    "state": "MERGED_TO_MAIN"
   },
   "experiment_id": "S2-AEATR-001",
   "independent_reproduction": {
@@ -86,7 +87,7 @@
     "secondary_contrasts.csv": "9a37c31853c0bfccecd6f66f7701e65dbbbf9e9f9a239479afb770d4bdbe58af",
     "terminal_state_summary.csv": "efbc26efe7c6edc2ef760654bec2f0a3accfcf898fff6bdcc40392b076b3cce7"
   },
-  "schema": 3,
+  "schema": 4,
   "source_phase6": {
     "artifact_id": 9816191406,
     "artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
@@ -98,5 +99,5 @@
     "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
     "valid_observations": 3872
   },
-  "status": "PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_PENDING_CANONICAL_MERGE"
+  "status": "PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL"
 }
