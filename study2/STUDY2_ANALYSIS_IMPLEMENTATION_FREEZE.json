@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "experiment_id": "S2-AEATR-001",
   "analysis_phase": "PHASE7_STATISTICAL_ANALYSIS",
   "status": "POST_CAMPAIGN_PRE_AGGREGATE_ANALYSIS_IMPLEMENTATION_FROZEN",
@@ -31,6 +31,17 @@
     "analysis_blinded": false,
     "classification": "NOT_A_PREREGISTRATION; OPERATIONALIZATION_OF_PROSPECTIVELY_FROZEN_ANALYSIS_PLAN"
   },
+  "executable_bindings": {
+    "analysis_entrypoint": "study2/analysis/analyze_phase7.py",
+    "analysis_entrypoint_sha256": "351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd",
+    "regression_test": "study2/tests/test_phase7_analysis.py",
+    "regression_test_sha256": "1c5b6796772f20130f9aefa44bb91cff5290665049a41aba9f227e9770c6bb1c",
+    "python_constant_z_0_975": 1.959963984540054,
+    "standard_deviation_convention": "sample standard deviation with n-1 denominator; n=1 uses 0",
+    "numeric_rounding": "no pre-rounding; Python numeric values are written directly to deterministic JSON/CSV",
+    "output_row_order": "frozen cell order and explicitly enumerated frozen contrast-family order",
+    "csv_newline": "\\n"
+  },
   "analysis_population": {
     "include": "all retained VALID Phase-6 observations in the authoritative artifact",
     "valid_observation_count": 3872,
@@ -41,7 +52,11 @@
   },
   "censoring": {
     "recovery_rmst_tau_s": 240.0,
-    "rule": "individual restricted recovery time equals observed event time when event occurs by tau; otherwise tau",
+    "recovery_rule": "individual restricted recovery time equals observed event time when event occurs by tau; otherwise tau",
+    "containment_rmst_tau_s": 240.0,
+    "containment_event": "time_to_containment_s is non-null",
+    "containment_right_censored": "time_to_containment_s is null",
+    "containment_rule": "individual restricted containment time equals observed containment time when non-null; otherwise tau",
     "alternative_horizon_allowed": false
   },
   "primary_outcome_mapping": {
@@ -53,16 +68,17 @@
     "legitimate_command_rejection_rate": "adjudication_only.legitimate_command_rejected"
   },
   "secondary_outcome_mapping": {
-    "time_to_containment": "time_to_containment_s",
+    "time_to_containment": "time_to_containment_s as a time-to-event outcome with null treated as right-censored at 240 s",
     "ground_spacecraft_state_divergence": "ground_spacecraft_state_divergence",
     "response_selection_stability": "response_selection_stability",
     "recovery_terminal_state": "recovery_terminal_state"
   },
   "cell_level_estimation": {
-    "binary_rate_ci": "two-sided 95% Wilson score interval",
-    "rmst": "mean individual restricted recovery time at tau=240 s",
-    "rmst_ci": "two-sided 95% normal interval using the empirical standard error",
-    "secondary_continuous": "count, mean, standard deviation, median, minimum, maximum",
+    "binary_rate_ci": "two-sided 95% Wilson score interval using z=1.959963984540054",
+    "recovery_rmst": "mean individual restricted recovery time at tau=240 s",
+    "containment_rmst": "mean individual restricted containment time at tau=240 s",
+    "rmst_ci": "two-sided 95% normal interval using the empirical standard error and sample standard deviation",
+    "secondary_binary": "count, rate, and Wilson 95% interval",
     "terminal_state": "counts and proportions; no ordinal scoring"
   },
   "paired_effect_estimation": {
@@ -124,16 +140,23 @@
   },
   "integrity_fail_closed_rules": [
     "artifact ZIP SHA-256 mismatch",
+    "artifact file-set mismatch",
     "any authoritative evidence-file SHA-256 mismatch",
     "observation count not equal to 3872",
-    "any non-VALID retained observation in observations.jsonl",
+    "attempt ledger count not equal to 3872",
+    "any non-VALID retained observation or ledger attempt",
     "duplicate or missing frozen trial identity",
-    "cell/seed membership mismatch",
+    "frozen trial order/cell/seed membership mismatch",
+    "run-id sequence mismatch",
+    "ledger/observation identity mismatch",
     "oracle_was_selector_input not false",
+    "censor horizon not equal to 240 s",
     "recovery event time missing when uncensored",
     "recovery event time present beyond tau",
     "censored recovery row carrying a non-null recovery event time",
-    "required primary endpoint missing"
+    "containment event time present beyond tau",
+    "required primary endpoint missing or non-boolean",
+    "observation content SHA-256 mismatch"
   ],
   "reporting_constraints": {
     "global_weighted_policy_score": "PROHIBITED",
