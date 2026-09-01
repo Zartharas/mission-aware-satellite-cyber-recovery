@@ -1,0 +1,2 @@
+Development-only Phase-5 runtime-freeze work may execute only development seeds outside all frozen Study-2 campaign seed ranges.
+Phase-6 empirical execution requires a separate hash-bound authorization after Phase-5 merge and post-merge validation.
