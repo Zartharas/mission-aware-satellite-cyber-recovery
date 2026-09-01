@@ -11,7 +11,6 @@ Use these first when validating or reconstructing the published environment:
 | `verify_environment.sh` | Report the local host/tool prerequisites used by the project. |
 | `validate_experiment_schema.py` | Validate the experiment schema and committed historical/frozen fixtures. |
 | `audit_repository_release_gate.py` | Run the current-state final-submission repository sanity audit without starting the simulator. |
-| `audit_bibliography_metadata.py` | Fail closed on duplicate DOIs and regressions in externally verified canonical bibliography records; offline only, so submission-day publisher/DOI verification remains required. |
 | `prepare_nos3_candidate.sh` | Obtain the pinned NOS3 source tree into the ignored `external/` directory and record the source lock. |
 | `prepare_42_candidate.sh` | Obtain/build the pinned Fortytwo/42 dependency under the frozen container environment. |
 | `build_nominal_nos3.sh` | Build the pinned nominal NOS3 environment with network-disabled container execution. |
@@ -30,7 +29,7 @@ Current project state is governed by `tracker/RESEARCH_TRACKER.md`, `publication
 
 ### Bibliography audit boundary
 
-`audit_bibliography_metadata.py` protects a small set of canonical records whose metadata was re-verified against publisher, DOI-registration, official conference, or authoritative dataset pages during the final academic sanity audit. It also rejects duplicate DOI values and known stale/superseded identifiers. It intentionally performs **no network requests** and must not be represented as proof that every external webpage remains unchanged. The exact exported reference list still requires a live DOI/publisher check at the submission-export gate.
+`audit_bibliography_metadata.py` is an additional current submission/reproducibility check. It protects a small set of canonical records whose metadata was re-verified against publisher, DOI-registration, official conference, or authoritative dataset pages during the final academic sanity audit. It also rejects duplicate DOI values and known stale/superseded identifiers. It intentionally performs **no network requests** and must not be represented as proof that every external webpage remains unchanged. The exact exported reference list still requires a live DOI/publisher check at the submission-export gate.
 
 ## Release tooling
 
