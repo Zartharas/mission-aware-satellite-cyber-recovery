@@ -51,9 +51,7 @@ def runtime_bundle_sha256() -> str:
 def current_runtime_bindings() -> dict[str, str]:
     return {
         "protocol_sha256": _file_sha256("study2/STUDY2_PROTOCOL.json"),
-        "protocol_amendment_sha256": _file_sha256(
-            "study2/STUDY2_PROTOCOL_AMENDMENT_1.json"
-        ),
+        "protocol_amendment_sha256": _file_sha256("study2/STUDY2_PROTOCOL_AMENDMENT_1.json"),
         "cell_matrix_sha256": matrix_sha256(),
         "trial_manifest_sha256": trial_manifest_sha256(),
         "runtime_freeze_sha256": runtime_freeze_sha256(),
@@ -89,7 +87,7 @@ class CampaignAuthorization:
             "runtime_bundle_sha256": self.runtime_bundle_sha256,
         }
 
-    def validate_bindings(self) -> None:
+    def validate_bindings(self, *, require_active: bool = True) -> None:
         if not self.authorization_id:
             raise ValueError("authorization_id is required")
         if self.experiment_id != "S2-AEATR-001":
@@ -98,7 +96,9 @@ class CampaignAuthorization:
             raise ValueError("authorization scope mismatch")
         if not COMMIT_RE.fullmatch(self.phase5_base_commit):
             raise ValueError("phase5_base_commit must be an exact 40-hex Git commit")
-        if not self.active or self.consumed:
+        if (self.active, self.consumed) not in {(True, False), (False, True)}:
+            raise ValueError("authorization lifecycle state is invalid")
+        if require_active and (not self.active or self.consumed):
             raise ValueError("campaign authorization is not active and unconsumed")
         if self._binding_fields() != current_runtime_bindings():
             raise ValueError("campaign authorization does not match current runtime bindings")
@@ -109,12 +109,12 @@ class CampaignAuthorization:
         current_repository_commit: str = "",
         expected_bindings: Mapping[str, str] | None = None,
     ) -> None:
-        # Caller-supplied bindings cannot weaken authorization. The effective
-        # runtime bindings are derived from the checked-out repository itself.
+        # Caller-supplied bindings cannot weaken authorization. Effective
+        # bindings are derived from the checked-out repository itself.
         del expected_bindings
         if current_repository_commit and not COMMIT_RE.fullmatch(current_repository_commit):
             raise ValueError("current_repository_commit must be an exact 40-hex Git commit when supplied")
-        self.validate_bindings()
+        self.validate_bindings(require_active=True)
         if not AUTHORIZATION_PATH.exists():
             raise ValueError("no repository-backed Phase-6 campaign authorization exists")
         persisted = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
@@ -122,5 +122,5 @@ class CampaignAuthorization:
             raise ValueError("in-memory authorization differs from repository authorization")
 
     def consumed_copy(self) -> CampaignAuthorization:
-        self.validate_bindings()
+        self.validate_bindings(require_active=True)
         return replace(self, active=False, consumed=True)
