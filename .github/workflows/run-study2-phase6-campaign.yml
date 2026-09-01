@@ -1,0 +1,91 @@
+name: Execute Study 2 Phase 6 frozen campaign
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "study2/PHASE6_CAMPAIGN_AUTHORIZATION.json"
+
+permissions:
+  contents: read
+
+jobs:
+  phase6-campaign:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out exact authorized repository state
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Classify authorization lifecycle and run attempt
+        id: auth_state
+        shell: bash
+        env:
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          import os
+          from pathlib import Path
+          path = Path("study2/PHASE6_CAMPAIGN_AUTHORIZATION.json")
+          if not path.is_file():
+              raise SystemExit("Phase-6 authorization file is absent")
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          active = payload.get("active") is True and payload.get("consumed") is False
+          consumed = payload.get("active") is False and payload.get("consumed") is True
+          if not (active or consumed):
+              raise SystemExit("invalid Phase-6 authorization lifecycle state")
+          run_attempt = int(os.environ["RUN_ATTEMPT"])
+          rerun_blocked = active and run_attempt != 1
+          execute = active and run_attempt == 1
+          print(f"execute={'true' if execute else 'false'}")
+          print(f"consumed={'true' if consumed else 'false'}")
+          print(f"rerun_blocked={'true' if rerun_blocked else 'false'}")
+          PY
+
+      - name: Reject an attempted campaign workflow rerun
+        if: steps.auth_state.outputs.rerun_blocked == 'true'
+        run: |
+          echo "phase6_campaign_rerun_blocked=true"
+          exit 1
+
+      - name: Confirm consumed authorization does not execute again
+        if: steps.auth_state.outputs.consumed == 'true'
+        run: echo "phase6_authorization_consumed=true campaign_execution_skipped=true"
+
+      - name: Build hash-bound Study 2 image
+        if: steps.auth_state.outputs.execute == 'true'
+        run: docker build --file study2/Dockerfile --tag satellite-study2-assurance .
+
+      - name: Revalidate assurance with Phase 6 authorization present
+        if: steps.auth_state.outputs.execute == 'true'
+        run: docker run --rm -e STUDY2_PHASE6_AUTH_EXPECTED=1 satellite-study2-assurance
+
+      - name: Execute exact frozen Study 2 campaign once
+        if: steps.auth_state.outputs.execute == 'true'
+        run: |
+          docker run --rm \
+            --entrypoint python \
+            -v "$RUNNER_TEMP:/runner-temp" \
+            satellite-study2-assurance \
+            study2/scripts/run_phase6_campaign.py \
+            --output-dir /runner-temp/study2-phase6-evidence
+
+      - name: Verify retained evidence file hashes
+        if: always() && steps.auth_state.outputs.execute == 'true'
+        run: |
+          cd "$RUNNER_TEMP/study2-phase6-evidence"
+          sha256sum observations.jsonl attempt_ledger.jsonl runtime_bindings.json campaign_summary.json evidence_hashes.json
+
+      - name: Upload immutable campaign evidence candidate
+        if: always() && steps.auth_state.outputs.execute == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: study2-phase6-evidence-${{ github.sha }}
+          path: ${{ runner.temp }}/study2-phase6-evidence/
+          if-no-files-found: error
+          retention-days: 90

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "study2_validation_scope=ASSURANCE_AND_PROTOCOL_FREEZE_NO_CAMPAIGN_RUNTIME"
+echo "study2_validation_scope=ASSURANCE_PROTOCOL_PHASE5_RUNTIME_FREEZE_AND_PHASE6_OPERATOR_STATIC_NO_CAMPAIGN_RUNTIME"
 python --version
 java -version
 
@@ -16,6 +16,14 @@ echo "study2_protocol_freeze=START"
 python study2/scripts/check_protocol_freeze.py
 echo "study2_protocol_freeze=PASS"
 
+echo "study2_phase5_runtime_freeze=START"
+python study2/scripts/check_phase5_runtime_freeze.py
+echo "study2_phase5_runtime_freeze=PASS"
+
+echo "study2_phase6_operator_static=START"
+python study2/scripts/run_phase6_campaign.py --validate-static
+echo "study2_phase6_operator_static=PASS"
+
 echo "study2_deterministic_security_tests=START"
 python -m unittest discover -s study2/tests -p 'test_evidence.py' -v
 python -m unittest discover -s study2/tests -p 'test_recovery_gate.py' -v
@@ -26,6 +34,11 @@ python -m unittest discover -s study2/tests -p 'test_selectors.py' -v
 python -m unittest discover -s study2/tests -p 'test_adjudication.py' -v
 python -m unittest discover -s study2/tests -p 'test_cell_matrix.py' -v
 python -m unittest discover -s study2/tests -p 'test_mutation_assay.py' -v
+python -m unittest discover -s study2/tests -p 'test_trial_manifest.py' -v
+python -m unittest discover -s study2/tests -p 'test_runtime_freeze.py' -v
+python -m unittest discover -s study2/tests -p 'test_attempt_ledger.py' -v
+python -m unittest discover -s study2/tests -p 'test_context_ablations.py' -v
+python -m unittest discover -s study2/tests -p 'test_runtime_engine.py' -v
 echo "study2_deterministic_security_tests=PASS"
 
 echo "study2_property_tests=START"

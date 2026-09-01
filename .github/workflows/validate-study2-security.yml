@@ -12,6 +12,7 @@ on:
       - "configs/wp5_event_catalog.json"
       - "configs/wp6_policy_rules.json"
       - ".github/workflows/validate-study2-security.yml"
+      - ".github/workflows/run-study2-phase6-campaign.yml"
   pull_request:
     paths:
       - "study2/**"
@@ -20,6 +21,7 @@ on:
       - "configs/wp5_event_catalog.json"
       - "configs/wp6_policy_rules.json"
       - ".github/workflows/validate-study2-security.yml"
+      - ".github/workflows/run-study2-phase6-campaign.yml"
 
 permissions:
   contents: read
@@ -39,7 +41,12 @@ jobs:
         run: docker build --file study2/Dockerfile --tag satellite-study2-assurance .
 
       - name: Run Study 2 assurance checks
-        run: docker run --rm satellite-study2-assurance
+        run: |
+          if [[ -f study2/PHASE6_CAMPAIGN_AUTHORIZATION.json ]]; then
+            docker run --rm -e STUDY2_PHASE6_AUTH_EXPECTED=1 satellite-study2-assurance
+          else
+            docker run --rm satellite-study2-assurance
+          fi
 
       - name: Confirm validation produced no tracked-file drift
         run: git diff --exit-code
