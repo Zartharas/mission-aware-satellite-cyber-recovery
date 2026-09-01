@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "experiment_id": "S2-AEATR-001",
+  "phase": 7,
+  "status": "ANALYSIS_METHODS_FROZEN_BEFORE_AGGREGATE_OUTCOME_COMPUTATION",
+  "source_boundary": {
+    "phase6_closeout_main_commit": "2e7090ec5c03e280e52cacf56685a83c270d7fd4",
+    "authoritative_artifact_name": "study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac",
+    "authoritative_artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "observations_sha256": "8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854",
+    "attempt_ledger_sha256": "755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5",
+    "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+    "expected_valid_observations": 3872,
+    "expected_invalid_attempts": 0,
+    "expected_cells": 85
+  },
+  "precomputation_disclosure": "Before this analysis-method freeze, source integrity and record schema were inspected and one observation was inspected to resolve field structure. No cell-level, block-level, policy-level, treatment-level, or endpoint aggregate outcome summary was computed before this freeze.",
+  "protocol_bindings": {
+    "protocol_sha256": "fc986f8b5f110fbf405c0f90c02faff1aa8146e0ec711516fb6c3d6c9679d26b",
+    "protocol_amendment_sha256": "987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246",
+    "cell_matrix_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
+    "censor_horizon_s": 240.0,
+    "time_basis": "DETERMINISTIC_LOGICAL_SIL_TIME_NOT_WALL_CLOCK"
+  },
+  "primary_scalar_endpoints": {
+    "unsafe_permissive_response_rate": {"source": "adjudication_only.unsafe_permissive", "type": "binary", "favorable_direction": "lower"},
+    "false_conservative_response_rate": {"source": "adjudication_only.false_conservative", "type": "binary", "favorable_direction": "lower"},
+    "evidence_qualified_trusted_recovery": {"source": "evidence_qualified_trusted_recovery", "type": "binary", "favorable_direction": "higher"},
+    "recovery_rmst_s": {"source": "time_to_evidence_qualified_trusted_recovery_s with administrative right-censoring at 240 logical seconds", "type": "continuous", "favorable_direction": "lower", "definition": "mean min(T,240); with only common administrative censoring at 240 this equals the empirical Kaplan-Meier RMST through 240"},
+    "residual_unauthorized_state": {"source": "adjudication_only.residual_unauthorized_state", "type": "binary", "favorable_direction": "lower"},
+    "legitimate_command_rejection_rate": {"source": "adjudication_only.legitimate_command_rejected", "type": "binary", "favorable_direction": "lower"}
+  },
+  "secondary_scalar_endpoints": {
+    "time_to_containment_s": {"source": "time_to_containment_s", "type": "continuous", "favorable_direction": "lower"},
+    "ground_spacecraft_state_divergence": {"source": "ground_spacecraft_state_divergence", "type": "binary", "favorable_direction": "lower"},
+    "response_selection_stability": {"source": "response_selection_stability", "type": "binary", "favorable_direction": "higher"}
+  },
+  "categorical_secondary_endpoint": {
+    "recovery_terminal_state": {"source": "recovery_terminal_state", "analysis": "descriptive state counts and proportions only; no post-hoc scalarization"}
+  },
+  "cell_estimation": {
+    "binary": "event count, rate, and two-sided Wilson 95% interval with z=1.959963984540054",
+    "continuous": "sample mean and deterministic nonparametric bootstrap percentile 95% interval",
+    "bootstrap_replicates": 20000,
+    "bootstrap_unit": "seed/observation within cell",
+    "bootstrap_rng": "Python random.Random seeded independently from the first 64 bits of SHA256('S2-P7-BOOTSTRAP|' + estimand_id)",
+    "bootstrap_percentile": "linear interpolation at p=0.025 and 0.975 using h=(B-1)p"
+  },
+  "paired_contrast_estimation": {
+    "effect": "mean within-seed difference, test minus reference",
+    "confidence_interval": "deterministic paired nonparametric bootstrap percentile 95% interval over paired seed differences, 20000 replicates",
+    "secondary_raw_p": "two-sided exact paired sign test over nonzero within-seed differences; ties excluded",
+    "primary_p_values": "NOT_USED; primary estimands are reported as effect sizes with 95% confidence intervals",
+    "pairing_failure": "fail closed if seed sets, seed ordering, or one-to-one membership do not match exactly"
+  },
+  "primary_estimands": {
+    "scope": "Block A only",
+    "mechanism_effects": "Within each of the three Block-A policies and each primary endpoint, V1, V2, V3, V4, and V5 are each contrasted against V0 using exact paired A96 seeds; effect is adverse-profile minus V0.",
+    "policy_effects": "Within each of the six Block-A evidence profiles and each primary endpoint, S2_S1_EVIDENCE_AWARE is contrasted against S2_B0_FAIL_CLOSED and S2_B2_RISK_THRESHOLD using exact paired A96 seeds; effect is S2_S1 minus baseline.",
+    "multiplicity": "No multiplicity-adjusted hypothesis declarations for primary estimands; report effect sizes and 95% intervals without a weighted/global policy score."
+  },
+  "secondary_estimands": {
+    "B_CONTACT_AUTHORIZATION": {
+      "ordered_trend": "For each policy, seed, and scalar endpoint, least-squares slope across contact scores K0=0,K1=1,K2=2,K3=3. Report mean per-seed slope and paired-bootstrap 95% CI. Policy-by-contact interaction is S2_S1 slope minus each baseline-policy slope within seed.",
+      "K4_intermittent": "K4 minus K0 within policy and seed. Policy-by-K4 interaction is the difference-in-differences: (S2_S1 K4-K0) minus (baseline K4-K0). K4 is never encoded as ordinal score 4.",
+      "holm_families": "For each scalar endpoint separately: B_ORDERED contains four policy slopes plus three S2_S1-vs-baseline slope interactions; B_K4 contains four policy K4-K0 contrasts plus three S2_S1-vs-baseline difference-in-differences."
+    },
+    "C_FAULT_ATTACK_AMBIGUITY": {
+      "contrast": "ADVERSARIAL minus BENIGN within ambiguity family, policy, seed, and scalar endpoint.",
+      "holm_families": "For each scalar endpoint separately, all 3 ambiguity families x 3 policies = 9 contrasts form one C_AMBIGUITY family."
+    },
+    "D_CONTEXT_ABLATION": {
+      "contrast": "Each PI_NO_MISSION, PI_NO_EVIDENCE, PI_NO_CONTACT, and PI_SECURITY_ONLY selector minus S2_S1_EVIDENCE_AWARE within context, seed, and scalar endpoint.",
+      "holm_families": "For each scalar endpoint separately, all 4 contexts x 4 ablations = 16 contrasts form one D_ABLATION family."
+    },
+    "E_ADVERSARY_BUDGET_STRESS": {
+      "pairwise": "Within policy, seed, and scalar endpoint report A2/K2 minus A1/K0 and A3/K0 minus A1/K0. A2/K2 is explicitly labeled contact-coupled and is not interpreted as an unconfounded adversary-only effect.",
+      "ordered_summary": "Within policy and seed, report least-squares slope across profile scores A1=1,A2=2,A3=3 as a descriptive ordered stress summary, retaining the explicit A2 contact-coupling caveat.",
+      "holm_families": "For each scalar endpoint separately, 3 policies x [A2-A1, A3-A1, ordered slope] = 9 contrasts form one E_STRESS family."
+    }
+  },
+  "holm_adjustment": {
+    "method": "Holm step-down family-wise adjustment",
+    "implementation": "sort raw p ascending; adjusted_i=max(previous_adjusted,(m-rank+1)*p_i), capped at 1; map back to original rows",
+    "scope": "only within the named secondary family and endpoint; never across unrelated blocks/endpoints"
+  },
+  "integrity_checks_before_analysis": [
+    "artifact ZIP SHA-256 must match frozen Phase-6 provenance",
+    "all internal file SHA-256 values must match evidence_hashes.json",
+    "attempt ledger must contain exactly 3872 VALID and 0 INVALID attempts",
+    "observations must contain exactly 3872 VALID records",
+    "run_id and trial_id must be globally unique",
+    "cell/seed membership must equal the frozen 85-cell manifest exactly",
+    "oracle_was_selector_input must be false for every observation",
+    "automatic_retry_allowed and automatic_next_trial_allowed must be false for every observation",
+    "all recovery censor horizons must equal 240 logical seconds"
+  ],
+  "prohibitions": [
+    "no additional Study-2 campaign execution",
+    "no seed replacement",
+    "no outcome-dependent exclusion",
+    "no endpoint redefinition after aggregate outcomes are computed",
+    "no weighted global policy score",
+    "no operational spacecraft or RF claims",
+    "no interpretation of logical SIL seconds as measured spacecraft wall-clock latency"
+  ]
+}
