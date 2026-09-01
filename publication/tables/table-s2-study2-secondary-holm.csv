@@ -1,0 +1,8 @@
+contrast_family,holm_rejected,total_contrasts,statistical_role,interpretation_boundary
+B_CONTACT_VS_K0,28,96,secondary,"Contact-versus-K0 sensitivity/estimation; no global policy rank."
+B_K0_K3_ORDERED_TREND,7,24,secondary,"Ordered trend is K0-K3 only; K4 is excluded from the ordinal trend."
+B_POLICY_BY_CONTACT_INTERACTION,28,72,secondary,"Modeled policy-by-contact interactions; logical SIL time is not operational latency."
+C_AMBIGUITY,0,54,secondary,"Structural BENIGN/ADVERSARIAL label-invariance control only; not empirical causal discrimination."
+D_ABLATION,10,96,secondary,"Context-ablation sensitivity; n=32 blocks were not prospectively powered for small effects."
+E_STRESS_PROFILE,12,54,secondary,"Adversary-budget stress sensitivity; A2/K2 is contact-coupled."
+E_POLICY_WITHIN_PROFILE,9,36,secondary,"Within-profile policy contrasts are endpoint-specific; no weighted/global score."
