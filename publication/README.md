@@ -22,7 +22,7 @@ Assembly and submission controls:
 - [`manuscript/citation-readiness.csv`](manuscript/citation-readiness.csv)
 - [`manuscript/submission-inputs.csv`](manuscript/submission-inputs.csv)
 
-The current manuscript is deliberately target-neutral. Journal-specific formatting, author declarations, conflict-of-interest language, AI/editorial-assistance disclosure, reference style, and submission-system metadata remain part of the journal-submission phase.
+The manuscript source remains target-neutral so scientific text is not duplicated across venues. For the primary Computers & Security package, the **author-attestation gate is complete** and the package is at the **final submission-export gate**. Remaining work is submission-day live publisher/portal verification, the final abstract/export-format decision, target reference/figure/table formatting, and citation/DOI/frozen-claim/scope audits against the exact export. These presentation tasks must not change the frozen Study-1 scientific record.
 
 ## 2. Figures
 
@@ -55,7 +55,9 @@ Use the tables in this order:
 2. [`tables/table-r2-p2-contact-effects.csv`](tables/table-r2-p2-contact-effects.csv) — P2 modeled-contact effects
 3. [`tables/table-r3-p3-p4-evidence-pathways.csv`](tables/table-r3-p3-p4-evidence-pathways.csv) — P3/P4 evidence and pathway results
 4. [`tables/table-r4-p5-pareto-status.csv`](tables/table-r4-p5-pareto-status.csv) — P5 Pareto status
-5. [`tables/table-s1-execution-provenance-sensitivity.csv`](tables/table-s1-execution-provenance-sensitivity.csv) — execution-provenance sensitivity analysis
+5. [`tables/table-r5-cybersecurity-positioning.csv`](tables/table-r5-cybersecurity-positioning.csv) — closest-work cybersecurity positioning
+6. [`tables/table-r6-security-property-mapping.csv`](tables/table-r6-security-property-mapping.csv) — security/dependability property mapping
+7. [`tables/table-s1-execution-provenance-sensitivity.csv`](tables/table-s1-execution-provenance-sensitivity.csv) — execution-provenance sensitivity analysis
 
 ## 4. DOI-bearing research data
 
@@ -84,6 +86,7 @@ Keep these boundaries attached to any reuse of the publication artifacts:
 ## 6. Reproduction and citation
 
 - Environment/test instructions: [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md)
+- Final repository release-gate audit: [`../scripts/audit_repository_release_gate.py`](../scripts/audit_repository_release_gate.py)
 - Citation metadata: [`../CITATION.cff`](../CITATION.cff)
 - Zenodo publication closeout: [`../docs/40-zenodo-publication-closeout.md`](../docs/40-zenodo-publication-closeout.md)
 - Security/responsible disclosure: [`../SECURITY.md`](../SECURITY.md)
