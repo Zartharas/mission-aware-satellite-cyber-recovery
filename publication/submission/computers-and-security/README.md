@@ -35,17 +35,17 @@ The journal-upgrade material is now integrated into the conventional manuscript 
 - `../../tables/table-r5-cybersecurity-positioning.csv` — conservative closest-work comparison;
 - `../../tables/table-r6-security-property-mapping.csv` — security/dependability property map.
 
-All manuscript citations now resolve through the single canonical bibliography `../../../references/references.bib`.
+All manuscript citations resolve through the single canonical bibliography `../../../references/references.bib`.
 
 ## Current journal-scope checks
 
 Policy/scope snapshot checked in August 2026:
 
 - Computers & Security emphasizes leading-edge security research with practical security value and excludes cryptology as a principal component. https://shop.elsevier.com/journals/computers-and-security/0167-4048
-- The journal currently states a moratorium on submissions in which AI/ML is a significant scientific component. **This study does not use AI/ML as its response method:** P7 is a frozen deterministic rule-based selector. AI-assisted manuscript/reproducibility preparation is separately disclosed under Elsevier's publication-ethics policy and is not the experimental decision mechanism.
-- Elsevier research highlights: 3–5 bullets, no more than 85 characters including spaces, submitted separately. https://www.elsevier.com/researcher/author/tools-and-resources/highlights
+- The current Elsevier shop/scope text still displays the journal's 2024 AI/ML moratorium language. Study 1 does **not** use AI/ML as its response method: P7 is a frozen deterministic rule-based selector. Recent 2026 Computers & Security content also includes AI/GenAI-related articles, so this repository does not infer an editorial rule from either signal alone; the live submission-day Guide/Aims/portal is authoritative for current scope and article-type handling.
+- Elsevier's general research-highlights guidance specifies 3–5 bullets, each no more than 85 characters including spaces, and advises avoiding jargon/acronyms. The current five highlights satisfy those content constraints. Whether highlights are required at initial submission or only at a later file stage remains a live portal check. https://www.elsevier.com/researcher/author/tools-and-resources/highlights
 - Elsevier generative-AI journal policy requires appropriate disclosure of substantive manuscript-preparation use and research-process code assistance. https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
-- Elsevier's general prior-publication policy does not treat an academic thesis as prior publication.
+- Elsevier's general prior-publication policy does not treat an academic thesis as prior publication, subject to journal-specific exceptions.
 - Elsevier CRediT guidance supports explicit contributor-role statements.
 
 The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Manager fields must be rechecked on the actual submission date because publisher requirements can change.
@@ -56,7 +56,7 @@ The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Man
 - `highlights.md` — five publisher-length-checked research highlights
 - `concise-abstract-candidate.md` — shorter target-specific abstract candidate; the authoritative abstract remains in the manuscript until adopted
 - `cover-letter.md` — target-specific editorial cover-letter draft with author confirmations closed
-- `ai-declaration.md` — author-approved Elsevier disclosure plus Methods disclosure text for post-publication AI-assisted code reconstruction
+- `ai-declaration.md` — author-approved Elsevier disclosure plus Methods disclosure text for AI-assisted reconstruction of reproducibility code prepared after campaign/Zenodo v1.0.0 publication and before journal submission
 - `submission-checklist.md` — author-attestation gate PASS; remaining submission-day checks and final export audits
 - `venue-fit.md` — target rationale and backup-journal decision logic
 
