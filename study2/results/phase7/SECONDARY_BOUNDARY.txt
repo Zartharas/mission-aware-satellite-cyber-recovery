@@ -1,0 +1,1 @@
+Secondary n=32 blocks are estimation/sensitivity analyses with Holm adjustment within named family and primary endpoint; they are not claimed to be powered for small effects.
