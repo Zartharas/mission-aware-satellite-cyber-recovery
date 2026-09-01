@@ -26,7 +26,7 @@
 | Conditions | Synthetic cyber events, mission states, telemetry/evidence conditions, and modeled contact behavior |
 | Raw campaign archive | Zenodo **v1.0.0**, DOI [`10.5281/zenodo.22181540`](https://doi.org/10.5281/zenodo.22181540) |
 | Concept DOI | [`10.5281/zenodo.22181539`](https://doi.org/10.5281/zenodo.22181539) |
-| Research status | WP0–WP11 research, analysis, integrity freeze, and responsible-release work complete; journal-specific submission preparation is next |
+| Research status | WP0–WP11 scientific work, analysis, integrity freeze, responsible release, cybersecurity framing, and author attestations are complete; the package is at the **final submission-export gate** for Computers & Security |
 
 The study asks how alternative cyber-response strategies affect containment, verified trusted recovery, safety, and mission continuity when the same synthetic cyber event occurs under different spacecraft states, telemetry/evidence conditions, and modeled ground-contact conditions.
 
@@ -73,7 +73,7 @@ The historical research files keep their stable names and paths so citations, ha
 | Order | Location | Purpose |
 |---:|---|---|
 | 1 | [`publication/`](publication/README.md) | Manuscript, figures, tables, citation/claim controls |
-| 2 | [`analysis/`](analysis/README.md) | Post-publication executable reconstruction of the frozen WP10 statistical analysis, validated against preserved reference outputs |
+| 2 | [`analysis/`](analysis/README.md) | Executable reconstruction of the frozen WP10 statistical analysis prepared after campaign/Zenodo publication and before journal submission; validated against preserved reference outputs |
 | 3 | [`docs/`](docs/) | Theory, methods, legal/ethical boundaries, work-package evidence, integrity/release closeouts |
 | 4 | [`configs/`](configs/) | Frozen experiment designs, schemas, adapters, toolchain locks |
 | 5 | [`src/mission_recovery/`](src/mission_recovery/) | Research implementation and policy/runtime logic |
@@ -99,6 +99,7 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements-dev.txt
 
+python scripts/audit_repository_release_gate.py
 python scripts/validate_experiment_schema.py
 python -m unittest discover -s tests -p 'test_*.py'
 ```
@@ -109,7 +110,7 @@ For the pinned Docker/NOS3/Fortytwo setup, expected PASS markers, cleanup, Apple
 
 ### Reproduce the frozen WP10 statistical contracts
 
-The repository now includes a post-publication statistical reconstruction under [`analysis/`](analysis/README.md). It is not the original WP10 analysis source; it starts from the frozen derived analysis inputs and regression-validates the reported statistical contracts against preserved authoritative outputs. It does not start the simulator or create campaign evidence.
+The repository includes a statistical reconstruction under [`analysis/`](analysis/README.md) that was prepared after the campaign and Zenodo v1.0.0 publication but before journal submission. It is not the original WP10 analysis source; it starts from the frozen derived analysis inputs and regression-validates the reported statistical contracts against preserved authoritative outputs. It does not start the simulator or create campaign evidence.
 
 ```bash
 python3.11 -m venv .venv-analysis
@@ -117,11 +118,12 @@ source .venv-analysis/bin/activate
 python -m pip install --upgrade pip
 python -m pip install --only-binary=:all: -r analysis/requirements.txt
 python analysis/reproduce_wp10.py --validate
+python -m unittest discover -s analysis/tests -p 'test_*.py'
 ```
 
 ## Reproducibility levels
 
-1. **Repository validation — recommended first.** Schema validation and Python tests; no simulator runtime.
+1. **Repository validation — recommended first.** Current-state release-gate audit, schema validation, exhaustive script syntax checks, Python compilation, and tests; no simulator runtime.
 2. **Testbed preflight.** Rebuild the pinned NOS3/Fortytwo environment and run the bounded nominal runtime preflight under Docker isolation.
 3. **Scientific replication.** Any new execution of experimental cells is a new replication, not the historical WP9 dataset. Do not overwrite or represent a new run as the archived v1.0.0 campaign.
 
