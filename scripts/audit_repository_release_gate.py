@@ -364,10 +364,15 @@ def validate_no_unresolved_markers() -> None:
     before = len(ERRORS)
     for path in files:
         for lineno, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), start=1):
-            if marker.search(line):
-                fail(f"unresolved source work marker {path.relative_to(ROOT)}:{lineno}: {line.strip()}")
+            # This gate audits human comments, not string/byte literals used as test data.
+            # Requiring a comment delimiter also preserves inline-comment coverage.
+            if "#" not in line:
+                continue
+            comment = line.split("#", 1)[1]
+            if marker.search(comment):
+                fail(f"unresolved source work marker {path.relative_to(ROOT)}:{lineno}: {comment.strip()}")
     if len(ERRORS) == before:
-        ok(f"source work markers checked across {len(files)} Python/shell files")
+        ok(f"source comments checked across {len(files)} Python/shell files")
 
 
 def validate_current_state() -> None:
