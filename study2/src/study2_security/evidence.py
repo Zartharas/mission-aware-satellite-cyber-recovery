@@ -187,9 +187,13 @@ def verify_signed_evidence(
 
     expected_epochs = expected_epoch_by_subject or {}
     expected_epoch = expected_epochs.get(claim.subject_id)
-    epoch_valid = expected_epoch is None or claim.epoch == expected_epoch
-    if not epoch_valid:
-        reasons.append("wrong_evidence_epoch")
+    if expected_epoch is None:
+        epoch_valid = False
+        reasons.append("missing_expected_evidence_epoch")
+    else:
+        epoch_valid = claim.epoch == expected_epoch
+        if not epoch_valid:
+            reasons.append("wrong_evidence_epoch")
 
     minimums = minimum_sequence_by_source_epoch or {}
     previous = minimums.get((claim.source_id, claim.epoch), -1)
@@ -220,11 +224,20 @@ def _reject_duplicate_sequences(
     rows: tuple[EvidenceVerification, ...],
 ) -> tuple[EvidenceVerification, ...]:
     counts = Counter(
-        (row.signed.claim.source_id, row.signed.claim.sequence) for row in rows
+        (
+            row.signed.claim.source_id,
+            row.signed.claim.epoch,
+            row.signed.claim.sequence,
+        )
+        for row in rows
     )
     output: list[EvidenceVerification] = []
     for row in rows:
-        identity = (row.signed.claim.source_id, row.signed.claim.sequence)
+        identity = (
+            row.signed.claim.source_id,
+            row.signed.claim.epoch,
+            row.signed.claim.sequence,
+        )
         if counts[identity] <= 1:
             output.append(row)
             continue
