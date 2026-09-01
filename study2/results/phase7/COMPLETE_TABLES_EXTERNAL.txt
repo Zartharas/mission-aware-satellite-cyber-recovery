@@ -1,0 +1,1 @@
+Complete generated CSV tables are external in the hash-bound result artifact; repository records exact individual file digests and the generated report.
