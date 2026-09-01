@@ -1,0 +1,1 @@
+Primary estimands are Block-A paired effect sizes with 95% confidence intervals. No primary p-value gate is used.
