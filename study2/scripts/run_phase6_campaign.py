@@ -65,6 +65,7 @@ def static_report() -> dict[str, Any]:
         "automatic_retry_after_invalid_allowed": False,
         "automatic_position_advance_after_valid_allowed": True,
         "invalid_attempt_stops_campaign": True,
+        "partial_failure_evidence_retained": True,
     }
 
 
@@ -73,6 +74,50 @@ def _append_jsonl(path: Path, row: dict[str, Any]) -> None:
         handle.write(_canonical_line(row))
         handle.flush()
         os.fsync(handle.fileno())
+
+
+def _write_summary_and_hashes(
+    *,
+    auth: CampaignAuthorization,
+    manifest: dict[str, Any],
+    attempts: list[dict[str, Any]],
+    valid_observations: int,
+    observations_path: Path,
+    attempts_path: Path,
+    bindings_path: Path,
+    summary_path: Path,
+    hashes_path: Path,
+    classification: str,
+    failure: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    state = validate_attempt_ledger(attempts)
+    summary = {
+        "schema": 1,
+        "classification": classification,
+        "experiment_id": EXPERIMENT_ID,
+        "authorization_id": auth.authorization_id,
+        "trial_manifest_sha256": trial_manifest_sha256(manifest),
+        "attempt_count": int(state["attempt_count"]),
+        "valid_observations": valid_observations,
+        "invalid_attempts": int(state["invalid_attempt_count"]),
+        "campaign_complete": bool(state["campaign_complete"]),
+        "automatic_retry_after_invalid_allowed": False,
+        "automatic_position_advance_after_valid_allowed": True,
+        "post_hoc_seed_substitution_allowed": False,
+        "campaign_rerun_authorized": False,
+        "failure": failure,
+    }
+    summary_path.write_text(_canonical_line(summary), encoding="utf-8")
+    hashes = {
+        "schema": 1,
+        "experiment_id": EXPERIMENT_ID,
+        "files": {
+            path.name: _file_sha256(path)
+            for path in (observations_path, attempts_path, bindings_path, summary_path)
+        },
+    }
+    hashes_path.write_text(_canonical_line(hashes), encoding="utf-8")
+    return {**summary, "evidence_hashes": hashes["files"]}
 
 
 def execute_campaign(output_dir: Path) -> dict[str, Any]:
@@ -87,6 +132,8 @@ def execute_campaign(output_dir: Path) -> dict[str, Any]:
     bindings_path = output_dir / "runtime_bindings.json"
     summary_path = output_dir / "campaign_summary.json"
     hashes_path = output_dir / "evidence_hashes.json"
+    observations_path.touch(exist_ok=False)
+    attempts_path.touch(exist_ok=False)
 
     bindings_payload = {
         "schema": 1,
@@ -106,7 +153,25 @@ def execute_campaign(output_dir: Path) -> dict[str, Any]:
     for position in manifest["positions"]:
         expected = next_required_trial(attempts)
         if expected is None or expected != position:
-            raise RuntimeError("attempt ledger diverged from frozen trial order")
+            failure = {
+                "error_type": "RuntimeError",
+                "error_message": "attempt ledger diverged from frozen trial order",
+                "global_order_index": int(position["global_order_index"]),
+            }
+            _write_summary_and_hashes(
+                auth=auth,
+                manifest=manifest,
+                attempts=attempts,
+                valid_observations=valid_observations,
+                observations_path=observations_path,
+                attempts_path=attempts_path,
+                bindings_path=bindings_path,
+                summary_path=summary_path,
+                hashes_path=hashes_path,
+                classification="STUDY2_PHASE6_CAMPAIGN_STOPPED_PARTIAL_EVIDENCE_RETAINED",
+                failure=failure,
+            )
+            raise RuntimeError(failure["error_message"])
 
         order = int(position["global_order_index"])
         run_id = f"S2-P6-{order:04d}-A1"
@@ -144,6 +209,24 @@ def execute_campaign(output_dir: Path) -> dict[str, Any]:
             _append_jsonl(attempts_path, attempt)
             attempts.append(attempt)
             validate_attempt_ledger(attempts)
+            _write_summary_and_hashes(
+                auth=auth,
+                manifest=manifest,
+                attempts=attempts,
+                valid_observations=valid_observations,
+                observations_path=observations_path,
+                attempts_path=attempts_path,
+                bindings_path=bindings_path,
+                summary_path=summary_path,
+                hashes_path=hashes_path,
+                classification="STUDY2_PHASE6_CAMPAIGN_STOPPED_PARTIAL_EVIDENCE_RETAINED",
+                failure={
+                    "error_type": type(exc).__name__,
+                    "error_message": str(exc),
+                    "global_order_index": order,
+                    "trial_id": position["trial_id"],
+                },
+            )
             raise RuntimeError(
                 f"campaign stopped at frozen position {order}; no retry performed"
             ) from exc
@@ -152,6 +235,23 @@ def execute_campaign(output_dir: Path) -> dict[str, Any]:
         attempts.append(attempt)
         state = validate_attempt_ledger(attempts)
         if int(state["valid_position_count"]) != order:
+            _write_summary_and_hashes(
+                auth=auth,
+                manifest=manifest,
+                attempts=attempts,
+                valid_observations=valid_observations,
+                observations_path=observations_path,
+                attempts_path=attempts_path,
+                bindings_path=bindings_path,
+                summary_path=summary_path,
+                hashes_path=hashes_path,
+                classification="STUDY2_PHASE6_CAMPAIGN_STOPPED_PARTIAL_EVIDENCE_RETAINED",
+                failure={
+                    "error_type": "RuntimeError",
+                    "error_message": "VALID attempt did not advance exactly one frozen position",
+                    "global_order_index": order,
+                },
+            )
             raise RuntimeError("VALID attempt did not advance exactly one frozen position")
 
     final_state = validate_attempt_ledger(attempts)
@@ -160,33 +260,18 @@ def execute_campaign(output_dir: Path) -> dict[str, Any]:
     if valid_observations != 3872 or int(final_state["invalid_attempt_count"]) != 0:
         raise RuntimeError("authoritative first campaign run did not complete 3872 VALID observations")
 
-    summary = {
-        "schema": 1,
-        "classification": "STUDY2_PHASE6_CAMPAIGN_COMPLETE_CANDIDATE_EVIDENCE_NOT_YET_REPOSITORY_FROZEN",
-        "experiment_id": EXPERIMENT_ID,
-        "authorization_id": auth.authorization_id,
-        "trial_manifest_sha256": trial_manifest_sha256(manifest),
-        "attempt_count": int(final_state["attempt_count"]),
-        "valid_observations": valid_observations,
-        "invalid_attempts": int(final_state["invalid_attempt_count"]),
-        "campaign_complete": bool(final_state["campaign_complete"]),
-        "automatic_retry_after_invalid_allowed": False,
-        "automatic_position_advance_after_valid_allowed": True,
-        "post_hoc_seed_substitution_allowed": False,
-        "campaign_rerun_authorized": False,
-    }
-    summary_path.write_text(_canonical_line(summary), encoding="utf-8")
-
-    hashes = {
-        "schema": 1,
-        "experiment_id": EXPERIMENT_ID,
-        "files": {
-            path.name: _file_sha256(path)
-            for path in (observations_path, attempts_path, bindings_path, summary_path)
-        },
-    }
-    hashes_path.write_text(_canonical_line(hashes), encoding="utf-8")
-    return {**summary, "evidence_hashes": hashes["files"]}
+    return _write_summary_and_hashes(
+        auth=auth,
+        manifest=manifest,
+        attempts=attempts,
+        valid_observations=valid_observations,
+        observations_path=observations_path,
+        attempts_path=attempts_path,
+        bindings_path=bindings_path,
+        summary_path=summary_path,
+        hashes_path=hashes_path,
+        classification="STUDY2_PHASE6_CAMPAIGN_COMPLETE_CANDIDATE_EVIDENCE_NOT_YET_REPOSITORY_FROZEN",
+    )
 
 
 def main() -> int:
@@ -201,6 +286,7 @@ def main() -> int:
         print(f"position_count={report['position_count']}")
         print(f"trial_manifest_sha256={report['trial_manifest_sha256']}")
         print(f"phase6_authorization_present={str(report['phase6_authorization_present']).lower()}")
+        print("partial_failure_evidence_retained=true")
         print("campaign_seed_consumed=false")
         print("campaign_observations_generated=false")
         return 0
