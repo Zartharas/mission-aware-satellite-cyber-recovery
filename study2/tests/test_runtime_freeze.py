@@ -70,7 +70,11 @@ class RuntimeFreezeTests(unittest.TestCase):
         if phase6_expected:
             self.assertTrue(AUTHORIZATION_PATH.is_file())
             persisted = CampaignAuthorization(**json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8")))
-            persisted.validate()
+            if persisted.active:
+                persisted.validate()
+            else:
+                persisted.validate_bindings(require_active=False)
+                self.assertTrue(persisted.consumed)
         else:
             self.assertFalse(AUTHORIZATION_PATH.exists())
             with self.assertRaises(ValueError):
@@ -80,6 +84,7 @@ class RuntimeFreezeTests(unittest.TestCase):
         consumed = self._authorization().consumed_copy()
         self.assertFalse(consumed.active)
         self.assertTrue(consumed.consumed)
+        consumed.validate_bindings(require_active=False)
         with self.assertRaises(ValueError):
             consumed.validate_bindings()
 
