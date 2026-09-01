@@ -1,6 +1,6 @@
 # Study 2 — Security-Assurance Foundation
 
-**Status:** `IMPLEMENTATION_CANDIDATE_VALIDATION_PENDING_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN`
+**Status:** `ASSURANCE_FOUNDATION_CI_VALIDATED_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN`
 
 This directory starts a new, isolated research track for **adversarial evidence-aware cyber response and trusted recovery**. It is intentionally separate from the frozen Study-1 campaign and its Zenodo evidence-of-record.
 
@@ -16,6 +16,22 @@ This foundation does **not**:
 - claim operational-spacecraft, RF, flight, hardware-root-of-trust, or standards-conformance validation.
 
 The Study-1 T1 treatment remains exactly what it was: omission/reduction of selected policy-visible evidence. Study-2 evidence states V2-V5 are prospective new mechanisms and must never be retroactively attributed to Study 1.
+
+## Validated foundation checkpoint
+
+The first Dockerized assurance checkpoint was validated on implementation commit `e2462edda703f12fac3245a384344ceb50cafc47` by GitHub Actions run `33467447178` / job `99730137920`.
+
+The validated checkpoint established:
+
+- 48/48 frozen Study-1 P7 combinations conformed to the independent baseline;
+- the policy remained unchanged after synthetic mutation of experiment ground truth;
+- 9 evidence-verification tests and 4 trusted-recovery-gate tests passed;
+- 5 explicitly discovered Hypothesis property tests passed;
+- the Study-1 P7 TLA+ abstraction completed with 48 distinct states and no error;
+- the trusted-recovery TLA+ model completed with 385 distinct states and no error;
+- validation produced zero tracked-file drift.
+
+These are assurance-validation results, not Study-2 empirical campaign observations.
 
 ## First security milestone
 

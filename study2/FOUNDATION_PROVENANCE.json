@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "artifact": "study2_security_assurance_foundation",
-  "status": "IMPLEMENTATION_CANDIDATE_VALIDATION_PENDING_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN",
+  "status": "ASSURANCE_FOUNDATION_CI_VALIDATED_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN",
   "base_main_commit": "20b17f8e220b9afcd086ce80cf59e439b022a3e6",
   "base_main_tree": "dc1ff4956b35a1976bc1ca8a44b3a4290f5b279c",
   "study1_reproducibility_hardened_snapshot": "99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc",
@@ -30,5 +30,16 @@
     "tla2tools": "1.7.4",
     "tla2tools_official_release_sha1": "bee4a54f3ee3d4afc347c3240ec2d9e93b075104",
     "tla2tools_verified_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88"
+  },
+  "validation_evidence": {
+    "validated_implementation_commit": "e2462edda703f12fac3245a384344ceb50cafc47",
+    "github_actions_run_id": 33467447178,
+    "github_actions_job_id": 99730137920,
+    "study1_p7_conformance_cases": 48,
+    "deterministic_security_tests": 13,
+    "hypothesis_property_tests": 5,
+    "study1_p7_tla_distinct_states": 48,
+    "trusted_recovery_tla_distinct_states": 385,
+    "zero_tracked_drift": true
   }
 }
