@@ -10,7 +10,7 @@ Condition-specific Pareto analysis across unauthorized-effect completion, missio
 
 ## Keywords
 
-satellite cybersecurity; mission-aware cybersecurity; cyber resilience; trusted recovery; spacecraft autonomy; software-in-the-loop; NOS3; cFS; cyber incident response; Pareto analysis; evidence-aware response
+satellite cybersecurity; mission-aware cybersecurity; cyber resilience; trusted recovery; spacecraft autonomy; software-in-the-loop; cyber incident response; Pareto analysis; evidence-aware response
 
 ## Running-title candidate
 
