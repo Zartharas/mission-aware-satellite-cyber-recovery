@@ -1,9 +1,10 @@
 {
-  "schema": 3,
+  "schema": 4,
   "experiment_id": "S2-AEATR-001",
   "phase": 7,
-  "status": "PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_PENDING_CANONICAL_MERGE",
+  "status": "PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL",
   "canonical_merge_pr": 70,
+  "canonical_merge_commit": "49c62cbed3fb8fc318e44d696faba1854ed6c21a",
   "analysis_implementation_main_commit": "18207460fc5d419ad6a940f00db2df8610a5e5a0",
   "analysis_entrypoint_sha256": "351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd",
   "phase6_artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
@@ -12,6 +13,8 @@
   "phase7_workflow_job_id": 100008137499,
   "phase7_result_artifact_id": 9818318189,
   "phase7_result_artifact_zip_sha256": "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417",
+  "durable_result_archive": "study2/evidence/phase7/archive/study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip",
+  "durable_result_archive_sha256": "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417",
   "valid_observations_analyzed": 3872,
   "invalid_attempts": 0,
   "cells_analyzed": 85,
@@ -36,5 +39,5 @@
   "study1_reanalysis": false,
   "weighted_global_policy_score_computed": false,
   "global_policy_rank_computed": false,
-  "freeze_rule": "No statistical estimate, contrast definition, multiplicity result, or interpretation claim in this Phase-7 freeze may change without an explicit post-freeze amendment that preserves this frozen identity."
+  "freeze_rule": "No statistical estimate, contrast definition, multiplicity result, or interpretation claim in this canonical Phase-7 freeze may change without an explicit post-freeze amendment that preserves the frozen identity."
 }

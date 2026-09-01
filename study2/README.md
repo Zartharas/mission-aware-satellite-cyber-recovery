@@ -1,46 +1,42 @@
 # Study 2 — Adversarial Evidence-Aware Security Research
 
-**Status:** `PHASES_0_4_PRE_RUNTIME_PROTOCOL_FROZEN_RUNTIME_NOT_AUTHORIZED`
+**Status:** `PHASE7_PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`
 
-This directory is an isolated research track for **adversarial evidence-aware cyber response and trusted recovery under intermittent connectivity**. It is separate from the frozen Study-1 campaign and its Zenodo evidence-of-record.
+Study 2 (`S2-AEATR-001`) is the separately frozen journal-research track for **adversarial evidence-aware cyber response and trusted recovery under intermittent connectivity**. It is scientifically and provenance-separated from the frozen Study-1 campaign; no Study-1 observation, seed, endpoint definition, statistical finding, or analysis membership was changed by Study 2.
+
+## Canonical empirical state
+
+- frozen campaign population: **3,872 VALID observations**, **0 INVALID attempts**, **85 cells**;
+- primary Block-A replication: **96 paired seeds per cell**;
+- secondary Blocks B–E: **32 paired seeds per cell**;
+- frozen Phase-7 analysis: **162 primary paired contrasts** and **432 prespecified secondary contrasts**;
+- independent reproduction: **0 mismatches** across cell summaries, primary contrasts, secondary contrasts, Holm adjustments/rejection flags, and terminal-state distributions;
+- canonical Phase-7 results merge: PR `#70`, commit `49c62cbed3fb8fc318e44d696faba1854ed6c21a`;
+- authoritative result ZIP SHA-256: `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`;
+- durable repository archive: `evidence/phase7/archive/study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip`.
+
+Canonical interpretation and provenance are recorded in:
+
+- `STUDY2_PROTOCOL.json` — prospectively frozen Study-2 design;
+- `docs/PHASE5_RUNTIME_FREEZE.md` — logical-time/runtime calibration and prospective contact-analysis amendment;
+- `evidence/phase6/README.md` — immutable campaign-evidence identity;
+- `PHASE7_RESULTS_FREEZE.json` — machine-readable canonical statistical freeze;
+- `PHASE7_PROVENANCE.json` — execution, reproduction, archive, and canonicalization provenance;
+- `docs/PHASE7_RESULTS_FREEZE.md` — journal-facing statistical interpretation boundary.
+
+Historical phase documents intentionally retain their stage-local status language as provenance and should not be read as the current Study-2 state.
 
 ## Scientific boundary
 
-This work does **not** alter the 720 VALID / 9 retained INVALID Study-1 observations, consume Study-1 campaign seeds, rerun frozen Study-1 analyses, or redefine Study-1 T1. It does not execute an operational spacecraft, RF system, real ground station, real credentials, or classified/proprietary mission data. No Study-2 empirical campaign is authorized yet.
+The Study-2 campaign is complete and must not be rerun or extended by appending observations to the frozen population. Future experiments require a separately frozen protocol and authorization boundary.
 
-Study-1 T1 remains omission/reduction of selected policy-visible evidence only. V2–V5 are new Study-2 mechanisms.
+The work does **not** support claims about an operational spacecraft, RF system, real ground station, real credentials, classified/proprietary mission data, flight latency, certification, or universal policy superiority. Logical times are deterministic software-in-the-loop model time.
 
-## Phase 0 foundation boundary
+A valid signature is not treated as truth. In V5, a compromised policy-visible producer may validly sign a false value while the research-only adjudication truth remains unavailable to the runtime selector. This distinction is central to the canonical RQ1 finding that evidence-qualified recovery is not equivalent to objective correctness under the bounded producer-compromise model.
 
-The assurance foundation merged to `main` at `d3af5cec7a3862e84021335c5f36a6fe3be154d8`. Both actual post-merge `main` workflows succeeded: repository validation run `33516260188` and Study-2 assurance run `33516260189`.
+## Frozen factors and evidence semantics
 
-The foundation retains authenticated Ed25519 synthetic evidence, explicit source trust, freshness, recovery epoch, per-source/per-epoch sequence monotonicity, contradiction detection, trusted-recovery gating, independent Study-1 P7 conformance, Hypothesis tests, TLA+ models, and a digest-pinned Docker assurance environment.
-
-## Frozen Phase 1–4 protocol
-
-Experiment ID: `S2-AEATR-001`
-
-Machine-readable protocol: `STUDY2_PROTOCOL.json`
-
-Canonical cell matrix SHA-256:
-`5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081`
-
-The pre-runtime design freezes:
-
-- adversary classes A0–A3 and explicit trust/knowledge boundaries;
-- evidence treatments V0–V5;
-- contact identities K0–K4;
-- matched benign/adversarial ambiguity families;
-- Study-2-only fail-closed, fail-operational, risk-threshold, and evidence-aware baselines;
-- security ablations for freshness, contradiction, epoch, and signature/trust checks;
-- an independent research-only adjudication oracle unavailable to selectors;
-- 85 exact cells and 3,872 target VALID observations;
-- paired seed sets: 96 for the primary block and 32 for secondary blocks;
-- invalid-run retention, no hidden retries, no post-hoc seed substitution, no outcome-dependent stopping, prespecified censoring/analysis rules, and no weighted global policy score.
-
-The 96 primary seeds were selected prospectively from a worst-case Wilson 95% Bernoulli half-width <= 0.10 criterion; at n=96 the half-width is approximately 0.0981. The replication count was not copied from Study 1.
-
-## Evidence semantics
+The protocol includes adversary classes A0–A3, evidence treatments V0–V5, contact identities K0–K4, mission/event contexts, four prespecified Study-2 policies, security/context ablations, and a research-only adjudication oracle that is never selector input.
 
 | ID | Study-2 meaning |
 |---|---|
@@ -51,54 +47,39 @@ The 96 primary seeds were selected prospectively from a worst-case Wilson 95% Be
 | `V4` | post-signature manipulation |
 | `V5` | bounded partial evidence-plane producer compromise |
 
-A valid signature is not treated as truth. In V5 a compromised producer may validly sign a false value. The research oracle used to adjudicate correctness remains unavailable to runtime policy logic.
+Study-1 T1 remains omission/reduction of selected policy-visible evidence only; it was not retrospectively redefined as V2–V5.
 
-## Bounded adversary model
+## Contact and time semantics
 
-- `A0`: no evidence-plane producer compromise;
-- `A1`: exactly one policy-visible evidence producer controlled;
-- `A2`: exactly one producer controlled plus modeled contact unavailability; K0 is prohibited;
-- `A3`: at least two policy-visible producers controlled while the verifier and independent trust anchor remain outside the adversary budget.
+Phase 5 prospectively froze deterministic logical SIL time:
 
-Ground truth, the adjudication oracle, analysis controls, seeds, treatment identity, provenance controls, and verifier compromise are outside the permitted adversary budget.
+- decision time: 10 logical seconds;
+- recovery-processing increment: 5 logical seconds;
+- right-censor horizon: 240 logical seconds;
+- K0 immediate modeled contact;
+- K1 short modeled outage;
+- K2 medium modeled outage;
+- K3 extended modeled outage;
+- K4 intermittent/flapping modeled contact.
 
-## Hardened pre-runtime assurance checkpoint
+K0–K3 form the prespecified ordered contact series. K4 is a separate intermittent/flapping contrast and is **not** ordinal severity level 4.
 
-Implementation commit `bfb5ee01ec4c9d0010330a12e3c5f76da6b90d48` (tree `dcc0c33619f3b9c387f0864e5a805ffe6ee00cdc`) passed the dedicated Study-2 GitHub Actions run `33536459043` / job `99951852211`. The same hardened implementation passed the exhaustive repository run `33536458895` / job `99951851674` with the frozen Study-1 research suite and WP10 reconstruction intact.
+## RQ3 interpretation constraint
 
-The hardened checkpoint establishes:
+The Block-C BENIGN/ADVERSARIAL cause label does not alter hidden truth or generated policy-visible evidence within an ambiguity family. The 54 zero C-family contrasts are therefore a **structural label-invariance/control result**, not empirical evidence that the policies distinguish or fail to distinguish genuinely different benign and adversarial causal mechanisms.
 
-- 48 Study-1 P7 conformance cases;
-- 41 deterministic Study-2 security/protocol tests;
-- 8 Hypothesis property tests;
-- 7/7 targeted semantic security mutants killed through production `verify_bundle()` and trusted-recovery-gate paths;
-- explicit frozen scenario/adversary-budget identity binding;
-- guaranteed V2 stale expiry or fail-closed rejection when the requested logical clock cannot represent expiry;
-- V3/V5 sequence allocation above the signing source's current maximum in the same recovery epoch;
-- Study1P7 TLA+: 48 distinct states;
-- TrustedRecovery TLA+: 385 distinct states;
-- AdversarialEvidence TLA+: 540 generated / 400 distinct states, depth 3;
-- 611/611 frozen Study-1 research tests;
-- frozen WP10 reproduction/regression PASS;
-- zero tracked-file drift.
+## Analysis constraints
 
-All four P1 review findings that prompted the hardening were addressed and resolved before merge eligibility. These are assurance/model-checking results, not empirical Study-2 campaign observations or proof of operational spacecraft security.
+- no Study-1 reanalysis;
+- no new Study-2 campaign execution;
+- no post-hoc seed replacement;
+- no outcome-dependent exclusion or stopping;
+- no alternate censoring horizon after outcome generation;
+- no weighted global policy score;
+- no global policy rank;
+- A2/K2 remains an explicitly coupled producer-compromise/contact-loss profile;
+- secondary n=32 blocks remain estimation/sensitivity evidence rather than small-effect confirmatory tests.
 
-## Docker validation
+## Journal integration boundary
 
-From the repository root:
-
-```bash
-docker build --file study2/Dockerfile --tag satellite-study2-assurance .
-docker run --rm satellite-study2-assurance
-```
-
-The image performs compilation, Study-1 P7 conformance, protocol/hash freeze checks, deterministic security tests, property tests, production-bound semantic mutation checks, and three TLA+ model checks. It contains no command that launches a Study-1 or Study-2 NOS3/cFS campaign.
-
-## Next boundary
-
-Phases 0–4 stop before empirical execution. Phase 5 must calibrate and freeze numerical SIL contact/time horizons, freeze exact runtime/container/configuration hashes, validate the campaign runner using development-only fixtures, and create an explicit runtime-authorization checkpoint. Until then:
-
-`study2_campaign_runtime_authorized = false`
-
-`runtime_gate = CLOSED`
+With Phase 7 canonically frozen, the active next step is **journal-manuscript integration and claim-to-evidence reconciliation**. Manuscript edits may summarize and interpret the frozen Study-2 results but may not modify their statistical identity or the frozen Study-1 science.

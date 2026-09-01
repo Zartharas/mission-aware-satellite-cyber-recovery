@@ -1,8 +1,8 @@
 # Study 2 Phase 7 — Prespecified Analysis Results Freeze
 
-**Status:** `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_PENDING_CANONICAL_MERGE`
+**Status:** `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`
 
-This freeze records the deterministic Phase-7 analysis of the immutable Phase-6 Study-2 campaign. It does not generate new campaign data, alter the frozen trial population, rerun Study 1, or create a weighted/global policy score. Pull request `#70` is the canonical merge gate into `main`; until that merge occurs, the frozen branch identity remains the authoritative Phase-7 freeze candidate.
+This freeze records the deterministic Phase-7 analysis of the immutable Phase-6 Study-2 campaign. It does not generate new campaign data, alter the frozen trial population, rerun Study 1, or create a weighted/global policy score. Pull request `#70` was canonically squash-merged to `main` at commit `49c62cbed3fb8fc318e44d696faba1854ed6c21a`. The statistical findings, interpretation boundaries, independent-reproduction record, and durable result archive are therefore the canonical Phase-7 evidence state.
 
 ## Evidence and implementation boundary
 
@@ -12,6 +12,8 @@ This freeze records the deterministic Phase-7 analysis of the immutable Phase-6 
 - analysis entrypoint SHA-256: `351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd`
 - Phase-7 execution run/job: `33553370460` / `100008137499`
 - Phase-7 result artifact SHA-256: `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
+- durable repository archive: `study2/evidence/phase7/archive/study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip`
+- canonical results merge: PR `#70`, commit `49c62cbed3fb8fc318e44d696faba1854ed6c21a`
 
 The analysis produced **162 primary paired contrasts** and **432 prespecified secondary contrasts**. Recovery and containment time-to-event outcomes use the frozen 240-logical-second restriction. These are deterministic logical SIL seconds, not measured spacecraft or network wall-clock latency.
 
@@ -83,4 +85,8 @@ No global weighted score, global policy rank, operational spacecraft claim, RF c
 
 ## Freeze rule
 
-No statistical estimate, contrast definition, multiplicity result, or interpretation claim in this Phase-7 freeze may change without an explicit post-freeze amendment that preserves the frozen identity and explains the reason for the change. Study-1 empirical findings remain untouched.
+No statistical estimate, contrast definition, multiplicity result, or interpretation claim in this canonical Phase-7 freeze may change without an explicit post-freeze amendment that preserves the frozen identity and explains the reason for the change. Study-1 empirical findings remain untouched.
+
+## Journal-use boundary
+
+Phase 7 is closed as a scientific-analysis phase. Subsequent work may integrate these frozen findings into the journal manuscript, tables, figures, claim traceability, and submission package, but may not silently change the underlying Study-2 statistics or the frozen Study-1 findings. Journal-facing prose must preserve the RQ3 structural-control limitation, the A2/K2 coupling qualification, the K4 non-ordinal treatment, and the distinction between deterministic logical SIL seconds and operational wall-clock latency.
