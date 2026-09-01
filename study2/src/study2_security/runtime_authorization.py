@@ -16,15 +16,20 @@ ROOT = Path(__file__).resolve().parents[3]
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 AUTHORIZATION_PATH = ROOT / "study2" / "PHASE6_CAMPAIGN_AUTHORIZATION.json"
 RUNTIME_STATIC_PATHS = (
+    ".github/workflows/run-study2-phase6-campaign.yml",
     "study2/Dockerfile",
     "study2/requirements.txt",
     "study2/STUDY2_PROTOCOL.json",
     "study2/STUDY2_PROTOCOL_AMENDMENT_1.json",
+    "study2/scripts/run_phase6_campaign.py",
 )
 
 
 def _file_sha256(relative_path: str) -> str:
-    return hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()
+    path = ROOT / relative_path
+    if not path.is_file():
+        raise ValueError(f"required runtime binding path is missing: {relative_path}")
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def runtime_bundle_manifest() -> tuple[tuple[str, str], ...]:
@@ -104,9 +109,11 @@ class CampaignAuthorization:
         current_repository_commit: str = "",
         expected_bindings: Mapping[str, str] | None = None,
     ) -> None:
-        # Caller-supplied bindings are intentionally ignored. Runtime bindings
-        # are derived from the checked-out repository by validate_bindings().
-        del current_repository_commit, expected_bindings
+        # Caller-supplied bindings cannot weaken authorization. The effective
+        # runtime bindings are derived from the checked-out repository itself.
+        del expected_bindings
+        if current_repository_commit and not COMMIT_RE.fullmatch(current_repository_commit):
+            raise ValueError("current_repository_commit must be an exact 40-hex Git commit when supplied")
         self.validate_bindings()
         if not AUTHORIZATION_PATH.exists():
             raise ValueError("no repository-backed Phase-6 campaign authorization exists")
