@@ -20,7 +20,7 @@ The audit did identify correctable academic/repository issues:
 7. the P3 Results heading used `vulnerability`, a stronger security characterization than the controlled T1 omission/reduction manipulation itself establishes;
 8. `post-publication reconstruction` could be misread as post-journal-publication rather than after campaign/Zenodo v1.0.0 publication and before journal submission;
 9. the Introduction's `unresolved comparison problem` language was stronger than a finite literature review can establish globally;
-10. the target-neutral keyword list contained 11 items, including platform names that are better retained in Methods than indexing metadata;
+10. the target-neutral keyword list contained 11 items, including platform names and more indexing terms than necessary for a conservative cross-guide submission set;
 11. bibliography syntax/key checks could not detect a syntactically valid DOI attached to the wrong work.
 
 These items were repaired on the academic-hardening branch without changing frozen scientific quantities.
@@ -43,7 +43,7 @@ Search-engine snippets and secondary aggregators were not treated as sole author
 | Key | Audit result | Authority used |
 |---|---|---|
 | `bakirtzis2026missionaware` | metadata/DOI consistent | DOI `10.1002/sys.70018`; institutional publication record |
-| `thangavel2024trusted` | metadata/DOI consistent | Elsevier / Progress in Aerospace Sciences, DOI `10.1016/j.paerosci.2023.100960` |
+| `thangavel2024trusted` | metadata/DOI consistent; complete seven-author list restored | Elsevier / Progress in Aerospace Sciences, DOI `10.1016/j.paerosci.2023.100960` |
 | `wanninger2025fdir` | corrected to final issue metadata: vol. 18, pp. 991–1004, 2026 | Springer, DOI `10.1007/s12567-025-00651-6` |
 | `geletko2019nos3` | **corrected** from unrelated Aerospace DOI/article to the peer-reviewed JoSS NOS3 case study, vol. 7(3), pp. 789–800, 2018 | Journal of Small Satellites issue record; NASA corroboration |
 | `idan2025aegissat` | metadata/DOI consistent | official NDSS/SpaceSec 2025 program and paper, DOI `10.14722/spacesec.2025.23069` |
@@ -106,7 +106,7 @@ The Introduction now describes the controlled post-detection multi-policy compar
 
 ### Keywords and highlights
 
-The target-neutral keyword list was reduced from 11 to 9 by removing platform names `NOS3` and `cFS`; those remain fully described and cited in the manuscript. The retained keywords emphasize the research object, method, and security/recovery concepts.
+The target-neutral keyword list was reduced from 11 to a conservative six-item set: `satellite cybersecurity`, `mission-aware cybersecurity`, `cyber resilience`, `trusted recovery`, `software-in-the-loop`, and `cyber incident response`. Platform names remain fully described and cited in the manuscript rather than occupying indexing slots. Six keywords are compatible with the accessible current Elsevier guidance surface that caps keywords at six and with the older Computers & Security author-information pack that requested 5–10; the exact live journal Guide/portal remains authoritative at export time.
 
 The five Computers & Security highlights were separately checked against Elsevier's general highlights guidance: five bullets, each <=85 characters, with no internal P-codes or unexplained acronyms. No content change was required.
 
