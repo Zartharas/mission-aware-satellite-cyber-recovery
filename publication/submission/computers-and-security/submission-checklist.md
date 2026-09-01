@@ -37,7 +37,7 @@
 - [x] Current journal scope rechecked in August 2026: practical information-security research is in scope; cryptology as a principal component is excluded.
 - [x] Current journal AI/ML moratorium explicitly checked. Study 1 does **not** use AI/ML as the scientific response mechanism; P7 is deterministic rule-based.
 - [x] AI-assisted manuscript/reproducibility preparation is separately disclosed and is not represented as the experimental response method.
-- [x] Title page drafted.
+- [x] Title page drafted and author attestations finalized.
 - [x] Five research highlights prepared; each is <=85 characters.
 - [x] Cover letter drafted and explicitly distinguishes deterministic P7 from AI/ML.
 - [x] Concise abstract candidate prepared without replacing the authoritative abstract.
@@ -46,8 +46,8 @@
 - [x] Code Availability statement contains a permanent reproducibility-hardened commit permalink.
 - [x] Funding statement: independent research, no external funding.
 - [x] No-human-participant and responsible-research boundary stated.
-- [x] Generative-AI declaration draft prepared under current Elsevier policy.
-- [x] Methods disclosure draft prepared for AI-assisted post-publication reproducibility-code reconstruction.
+- [x] Generative-AI declaration prepared, integrated, and author-approved under the current Elsevier policy snapshot.
+- [x] Methods disclosure prepared for AI-assisted post-publication reproducibility-code reconstruction.
 - [x] Cybersecurity upgrade prose integrated into conventional Sections 2, 3, and 5; temporary 02a/03a/05a modules removed.
 - [x] Cybersecurity bibliography merged/deduplicated into `references/references.bib`; temporary split bibliography removed.
 - [x] Tables R5/R6 retained as publication displays and checked for conservative claim wording.
@@ -58,17 +58,17 @@
 - [x] Affiliation recorded: Independent Researcher, The Woodlands, Texas, United States.
 - [x] Corresponding email recorded.
 - [x] ORCID recorded.
-- [ ] Author to approve final CRediT roles.
+- [x] Author approved final CRediT roles.
 
-## Explicit author attestations still required
+## Explicit author attestations
 
-These are factual attestations and must not be inferred from general authorization to edit/prepare the paper:
+The factual author attestations required before the submission-export gate were explicitly confirmed on 2026-08-31:
 
-- [ ] Competing interests: author must explicitly provide/approve the declaration.
-- [ ] Acknowledgments: author must decide whether any should be included.
-- [ ] Confirm manuscript is not simultaneously under consideration elsewhere.
-- [ ] Approve the final generative-AI declaration.
-- [ ] Approve the final concise abstract if adopted for submission.
+- [x] Competing interests: no competing financial or non-financial interests.
+- [x] Acknowledgments: no acknowledgments to add for this manuscript.
+- [x] Manuscript is not simultaneously under consideration elsewhere.
+- [x] Final generative-AI declaration approved.
+- [x] Final CRediT role statement approved.
 
 ## Final live-portal checks
 
@@ -85,6 +85,8 @@ The following are intentionally submission-day checks because the publisher can 
 - [ ] Recheck Elsevier's generative-AI policy on submission day.
 - [ ] Recheck the journal's current competing-interest workflow.
 - [ ] Confirm any requested reviewer/excluded-reviewer fields.
+- [ ] Decide whether to adopt the concise abstract candidate or retain the authoritative manuscript abstract.
+- [ ] Confirm whether an institutional IRB/HRPP determination identifier is requested; do not invent one if it is not applicable or not required.
 - [ ] Run final citation/DOI/reference audit against the submission export.
 - [ ] Run final manuscript-vs-frozen-results claim audit against the submission export.
 - [ ] Run final scope-fit audit against the submission-day Aims & Scope.
@@ -97,4 +99,4 @@ The following are intentionally submission-day checks because the publisher can 
 
 ## Release/export gate
 
-Do not submit until every unchecked factual author-attestation item is explicitly resolved and the submission-day portal checks are completed. Scientific quantities and the frozen evidence boundary must not be changed merely to satisfy presentation requirements.
+**Author-attestation gate: PASS.** The package is now at the **final submission-export gate**. Do not submit until the remaining submission-day live-policy/portal checks and final export audits above are completed. Scientific quantities and the frozen Study-1 evidence boundary must not be changed merely to satisfy presentation requirements.
