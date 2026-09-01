@@ -1,0 +1,2 @@
+cryptography==50.0.1
+hypothesis==6.167.1
