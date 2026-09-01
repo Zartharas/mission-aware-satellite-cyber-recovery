@@ -16,6 +16,13 @@
     "freeze_pr": 68,
     "implementation_main_commit": "18207460fc5d419ad6a940f00db2df8610a5e5a0"
   },
+  "archive": {
+    "classification": "DURABLE_REPOSITORY_COPY_OF_HASH_BOUND_PHASE7_RESULT_ZIP",
+    "path": "study2/evidence/phase7/archive/study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip",
+    "sha256": "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417",
+    "source_artifact_id": 9818318189,
+    "source_artifact_sha256": "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417"
+  },
   "canonicalization": {
     "pull_request": 70,
     "state": "PENDING_MAIN_MERGE"
@@ -23,7 +30,6 @@
   "experiment_id": "S2-AEATR-001",
   "independent_reproduction": {
     "audit_record": "study2/evidence/phase7/INDEPENDENT_REPRODUCTION_AUDIT.json",
-    "audit_record_sha256": "a9c13d8bc4247706cff703f52c48ba3e80927f2b1b1a17011f72b0ca787d00a7",
     "auditor": "study2/scripts/audit_phase7_independent.py",
     "auditor_sha256": "3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d",
     "audit_scope_note": "Independent standard-library arithmetic recomputation from the immutable Phase-6 observations; the primary analyzer is neither imported nor invoked.",
@@ -61,6 +67,7 @@
     "global_weighted_policy_score": false,
     "logical_sil_seconds_not_wall_clock": true,
     "new_campaign_execution": false,
+    "rq3_structural_label_invariance_only": true,
     "study1_reanalysis": false
   },
   "result_counts": {
@@ -79,7 +86,7 @@
     "secondary_contrasts.csv": "9a37c31853c0bfccecd6f66f7701e65dbbbf9e9f9a239479afb770d4bdbe58af",
     "terminal_state_summary.csv": "efbc26efe7c6edc2ef760654bec2f0a3accfcf898fff6bdcc40392b076b3cce7"
   },
-  "schema": 2,
+  "schema": 3,
   "source_phase6": {
     "artifact_id": 9816191406,
     "artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
