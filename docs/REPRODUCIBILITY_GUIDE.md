@@ -1,72 +1,50 @@
 # Reproducibility Guide
 
-This guide separates **safe repository validation**, **bounded testbed validation**, and **new scientific replication** so users can reproduce the software and evidence controls without accidentally rewriting the historical experiment record.
+This guide separates **safe repository validation**, **Study-1 statistical reproduction**, **Study-2 result verification**, **bounded testbed validation**, and **new scientific replication**. The purpose is to make the journal research reproducible without accidentally rewriting either frozen experimental record.
 
-The DOI-bearing evidence-of-record for the completed WP9 campaign is Zenodo v1.0.0:
+## 1. Current frozen evidence map
+
+### Study 1
+
+Study 1 contains **720 VALID observations** from 24 frozen cells × 30 repetitions. Nine retained INVALID attempts remain provenance outside statistical membership. The DOI-bearing public evidence-of-record is Zenodo v1.0.0:
 
 - version DOI: <https://doi.org/10.5281/zenodo.22181540>
 - concept DOI: <https://doi.org/10.5281/zenodo.22181539>
 
-## 1. What can be reproduced from GitHub alone?
+That Zenodo record is **Study-1 evidence only**.
 
-A normal clone contains the experiment design, source code, tests, testbed/release tooling, manuscript, figures, tables, provenance documentation, and cryptographic identities. The full raw WP9 campaign tree is intentionally not committed to GitHub; it is distributed through the Zenodo dataset.
+### Study 2
 
-There are three useful reproducibility levels:
+Study 2 contains **3,872 VALID observations**, **0 INVALID attempts**, and **85 frozen cells**. Its canonical statistical closeout is recorded by:
+
+- [`../study2/PHASE7_RESULTS_FREEZE.json`](../study2/PHASE7_RESULTS_FREEZE.json)
+- [`../study2/PHASE7_PROVENANCE.json`](../study2/PHASE7_PROVENANCE.json)
+- [`../study2/docs/PHASE7_RESULTS_FREEZE.md`](../study2/docs/PHASE7_RESULTS_FREEZE.md)
+- [`../study2/evidence/phase7/INDEPENDENT_REPRODUCTION_AUDIT.json`](../study2/evidence/phase7/INDEPENDENT_REPRODUCTION_AUDIT.json)
+
+Frozen Study-2 identities include:
+
+- Phase-6 evidence ZIP SHA-256 `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- observations SHA-256 `8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854`
+- trial-manifest SHA-256 `190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67`
+- Phase-7 result ZIP SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
+- independent auditor SHA-256 `3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d`
+
+The exact Phase-7 result ZIP is durably retained in repository history under `study2/evidence/phase7/archive/`. The underlying Phase-6 source evidence remains hash-bound but still requires a responsible-release-reviewed DOI-bearing archive before journal submission. Do not reuse the Study-1 DOI for Study 2 and do not invent a Study-2 DOI.
+
+## 2. Reproducibility levels
 
 | Level | Purpose | Starts simulator/runtime? | Writes new scientific campaign evidence? |
 |---|---|---:|---:|
-| A — repository validation | Validate current-state release controls, schemas, contracts, all tracked script syntax, and Python test suite | No | No |
-| A2 — WP10 statistical reproduction | Recompute and regression-check the frozen manuscript-facing statistical contracts from the tracked derived analysis inputs | No | No |
+| A — repository validation | Validate current-state documents, schemas, publication controls, Python/shell sources, and tests | No | No |
+| A1 — Study-1 statistical reproduction | Recompute/regression-check frozen Study-1 WP10 manuscript contracts from tracked derived inputs | No | No |
+| A2 — Study-2 Phase-7 verification | Verify frozen Study-2 provenance/results and, when the immutable Phase-6 source ZIP is available, run the independent auditor | No | No |
 | B — bounded testbed preflight | Rebuild pinned NOS3/Fortytwo/cFS environment and verify isolated runtime liveness | Yes | No scored campaign |
-| C — scientific replication | Execute new experimental observations under a separately controlled replication protocol | Yes | Yes — new evidence, not the archived WP9 record |
+| C — new scientific replication | Execute new observations under a separately frozen protocol | Yes | Yes — new evidence, not either frozen study |
 
-Start with Level A. Most users who want to inspect or test the repository do not need the full simulator stack.
+Start with Level A. Normal repository inspection does not require NOS3, Docker, or a campaign operator.
 
-## 2. Frozen reference environment
-
-The retained toolchain lock records the validated baseline as:
-
-- host operating system: macOS 26.5.2;
-- host architecture: x86_64;
-- Python: 3.11.7;
-- Git: 2.54.0;
-- Docker CLI/server: 29.6.2;
-- Docker Compose: 5.3.1;
-- `jsonschema`: 4.26.0;
-- execution platform requested by the testbed scripts: `linux/amd64`;
-- NOS3 commit: `5a3bdee6be9a2c67fdf994ae6db56d5c60395302`;
-- Fortytwo commit: `eda252bf31f27850e867e698cfdd963e143ead1f`;
-- pinned NOS3 container digest: `sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2`.
-
-See [`configs/toolchain-lock.json`](../configs/toolchain-lock.json) and the lock files in [`artifacts/`](../artifacts/).
-
-The GitHub Actions validation path uses Ubuntu with Python 3.11 for repository-level validation. A different host can therefore validate the Python code even when it cannot reproduce the full historical simulator host exactly.
-
-## 3. Prerequisites
-
-### Level A — repository validation
-
-Required:
-
-- Git;
-- Python 3.11 recommended for Level A and required for Level A2 statistical reproduction;
-- internet access for the initial clone and Python dependency installation.
-
-### Level B — full testbed preflight
-
-Also required:
-
-- Docker Desktop or Docker Engine with a reachable daemon;
-- support for `linux/amd64` containers;
-- internet access for the initial NOS3/Fortytwo clones and container-image pull;
-- enough local disk space for NOS3, its recursive submodules, the Fortytwo source/build, container image, and generated build artifacts;
-- Bash and standard Unix utilities (`awk`, `shasum`, etc.).
-
-On Apple Silicon, Docker must be able to run the scripts' explicit `linux/amd64` platform. The frozen host baseline itself was x86_64 macOS, so Apple Silicon execution should be treated as a compatible reproduction target rather than an identical host reproduction.
-
-Windows users should prefer WSL2 for the Bash/Docker workflow.
-
-## 4. Clone and create an isolated Python environment
+## 3. Clone and create an isolated validation environment
 
 ```bash
 git clone https://github.com/Zartharas/mission-aware-satellite-cyber-recovery.git
@@ -78,52 +56,29 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements-dev.txt
 ```
 
-On Windows PowerShell for Level A only, activate with:
+Windows users should prefer WSL2 for Bash/Docker workflows. Pure Python Level-A checks can also run in a normal Python environment.
 
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
+## 4. Level A — safe repository validation
 
-The development dependency is pinned in [`requirements-dev.txt`](../requirements-dev.txt).
-
-## 5. Level A — run the safe validation suite
-
-### 5.1 Record the local environment
-
-```bash
-bash scripts/verify_environment.sh
-```
-
-This is an inventory step. Missing Docker or GitHub CLI does not prevent the pure Python test suite, but Docker is required for Level B.
-
-### 5.2 Run the current-state repository release-gate audit
+Run:
 
 ```bash
 python scripts/audit_repository_release_gate.py
-```
-
-This fail-closed audit parses every tracked JSON/CSV/TOML artifact, checks active-document local links and recommended script entry points, verifies current submission/tracker state, cross-checks frozen DOI/hash identities, verifies key historical Git commits from a full checkout, and rejects unresolved `TODO`/`FIXME`/`XXX`/`HACK` markers in Python/shell sources. It does not start the simulator or execute a campaign trial.
-
-### 5.3 Validate the experiment schemas and historical/frozen fixtures
-
-```bash
+python scripts/audit_bibliography_metadata.py
 python scripts/validate_experiment_schema.py
-```
-
-This validates the machine-readable experiment schema and the retained positive/negative fixtures. Some stage-local messages describe the historical state encoded by a frozen WP5–WP9 fixture (for example, an authorization being active at that checkpoint). Those messages are not current runtime authorization; current state is governed by the tracker and final release-gate audit.
-
-### 5.4 Run all Python tests
-
-```bash
 python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-The suite covers the event library, policy logic, trusted-recovery behavior, primary metrics, runtime contracts, pilot controls, WP9 campaign design/governance, compatibility constraints, and regression tests.
-
-### 5.5 Parse every tracked shell script without executing it
+Compile tracked Python sources:
 
 ```bash
-find scripts -type f -name '*.sh' -print0 \
+python -m compileall -q src scripts tests analysis study2
+```
+
+Parse every tracked shell script without executing it:
+
+```bash
+find scripts study2 -type f -name '*.sh' -print0 \
   | sort -z \
   | while IFS= read -r -d '' script; do
       echo "bash -n: $script"
@@ -131,32 +86,25 @@ find scripts -type f -name '*.sh' -print0 \
     done
 ```
 
-This is intentionally exhaustive: it covers historical WP5/WP6/WP7/WP8/WP9/WP9-B2 scripts and current setup/reproducibility helpers. `bash -n` parses shell syntax and does not execute script bodies.
+### Level-A acceptance
 
-### 5.6 Compile every tracked Python source
+A safe repository validation passes when:
 
-```bash
-python -m compileall -q src scripts tests analysis
-```
+- current-state release-gate audit exits zero;
+- bibliography metadata audit exits zero;
+- experiment schema validation exits zero;
+- all Python unit tests pass;
+- all tracked Python sources compile;
+- all tracked shell scripts parse with `bash -n`;
+- validation produces no tracked-file drift.
 
-### Level A acceptance
+This level executes no campaign trial and changes no frozen evidence.
 
-A Level A validation is successful when:
+## 5. Level A1 — reproduce the frozen Study-1 WP10 contracts
 
-- the current-state release-gate audit exits zero;
-- all tracked JSON/CSV/TOML documents parse;
-- schema validation exits zero;
-- the Python unit-test discovery exits zero;
-- every tracked shell script passes `bash -n`;
-- every tracked Python source compiles.
+The [`../analysis/`](../analysis/README.md) directory contains an executable reconstruction prepared after the Study-1 campaign/Zenodo publication and before journal submission. The original executable WP10 source was not preserved. The reconstruction is explicitly labeled and regression-validated against preserved authoritative outputs.
 
-This level does **not** claim that NOS3, cFS, Fortytwo, Docker networking, or the historical campaign have been reproduced.
-
-## 5A. Level A2 — reproduce the frozen WP10 statistical contracts
-
-The [`analysis/`](../analysis/README.md) directory contains a reconstruction of the frozen WP10 statistical analysis prepared **after the campaign and Zenodo v1.0.0 publication but before journal submission**. The original executable WP10 analysis source was not preserved; this implementation is explicitly identified as a reconstruction and is validated against cryptographically verified historical outputs.
-
-Create a separate statistical environment and run:
+Create a separate environment:
 
 ```bash
 python3.11 -m venv .venv-analysis
@@ -167,134 +115,142 @@ python analysis/reproduce_wp10.py --validate
 python -m unittest discover -s analysis/tests -p 'test_*.py'
 ```
 
-This path reads only the tracked derived analysis inputs under `analysis/reference/`. It does not read or modify the raw WP9 campaign, start NOS3/cFS, consume campaign seeds, or create a new observation.
+This reads tracked derived Study-1 inputs only. It does not read or modify the raw WP9 campaign, start NOS3/cFS, consume campaign seeds, or create observations.
 
-The C1/C2 bootstrap RNG settings were recovered and reproduce their retained Monte Carlo endpoints numerically. The original P5 bootstrap RNG seed was not preserved, so the reconstruction does not fabricate one: it uses a separately identified deterministic reconstruction seed to confirm that the retained marginal dominance/uncertainty classifications are stable. Original P5 interval endpoints remain historical reference values.
+A PASS validates the covered frozen statistical contracts; it does not reclassify the reconstruction as the original WP10 analysis source.
 
-A PASS validates the covered frozen statistical contracts; it does not reclassify the reconstruction as original source code and does not modify Zenodo v1.0.0.
+## 6. Level A2 — verify frozen Study-2 Phase-7 results
 
-## 6. Level B — rebuild the pinned testbed and run the bounded preflight
+### 6.1 Repository-retained checks
 
-Run Level B from a disposable/working clone because the preparation/build scripts intentionally regenerate local lock/evidence files. Do not commit generated lock drift unless you are deliberately creating a new reviewed baseline.
+A clone can inspect the canonical freeze/provenance records and verify that the exact Phase-7 result ZIP is present:
 
-### 6.1 Confirm Docker is available
+```bash
+python -m json.tool study2/PHASE7_RESULTS_FREEZE.json >/dev/null
+python -m json.tool study2/PHASE7_PROVENANCE.json >/dev/null
+python -m json.tool study2/evidence/phase7/INDEPENDENT_REPRODUCTION_AUDIT.json >/dev/null
+
+shasum -a 256 \
+  study2/evidence/phase7/archive/study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip
+```
+
+Expected result-ZIP SHA-256:
+
+```text
+0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417
+```
+
+The canonical record reports:
+
+- 3,872 VALID observations;
+- 0 INVALID attempts;
+- 85 cells;
+- 162 primary paired contrasts;
+- 432 secondary contrasts;
+- independent reproduction mismatches = 0.
+
+### 6.2 Independent arithmetic reproduction from source observations
+
+The repository retains the independent auditor at:
+
+```text
+study2/scripts/audit_phase7_independent.py
+```
+
+It does **not** import or invoke the primary Phase-7 analyzer. It independently recomputes the frozen numerical cell summaries, primary contrasts, secondary contrasts, Holm adjustments/rejections, and terminal-state distributions from the immutable Phase-6 observations.
+
+Running that auditor requires the exact Phase-6 source-evidence ZIP plus the exact Phase-7 result ZIP. The original Phase-6 Actions artifact is hash-bound but temporary; the journal package therefore requires a durable responsible-release-reviewed source archive before submission. Once that archive is published, this guide should be updated with the actual DOI/download identity rather than a placeholder.
+
+Do not regenerate Study-2 campaign observations merely to satisfy this prerequisite.
+
+## 7. Study-2 interpretation checks during reproduction
+
+Reproducibility includes claim discipline, not only arithmetic identity:
+
+- Block-C BENIGN/ADVERSARIAL contrasts are a **structural label-invariance/control** result because the cause label does not change hidden truth or generated policy-visible evidence within an ambiguity family.
+- The 54 zero Block-C contrasts do not establish empirical discrimination or non-discrimination between genuinely different causal mechanisms.
+- K4 is an intermittent/flapping profile and is not ordinal severity 4.
+- A2/K2 combines producer compromise and modeled contact loss.
+- Study-2 logical SIL seconds are not operational latency.
+- secondary n=32 blocks are sensitivity/estimation evidence.
+- no weighted global policy score or global policy rank is supported.
+
+These boundaries are part of the frozen journal evidence contract.
+
+## 8. Frozen reference testbed environment
+
+The retained Study-1 toolchain lock records the validated baseline as:
+
+- host operating system: macOS 26.5.2;
+- host architecture: x86_64;
+- Python: 3.11.7;
+- Git: 2.54.0;
+- Docker CLI/server: 29.6.2;
+- Docker Compose: 5.3.1;
+- `jsonschema`: 4.26.0;
+- execution platform: `linux/amd64`;
+- NOS3 commit: `5a3bdee6be9a2c67fdf994ae6db56d5c60395302`;
+- Fortytwo commit: `eda252bf31f27850e867e698cfdd963e143ead1f`;
+- pinned NOS3 container digest: `sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2`.
+
+See [`../configs/toolchain-lock.json`](../configs/toolchain-lock.json) and the retained lock files under [`../artifacts/`](../artifacts/).
+
+## 9. Level B — bounded testbed preflight
+
+Level B validates infrastructure/liveness; it is not a scored scientific trial.
 
 ```bash
 docker info
-```
-
-### 6.2 Prepare the pinned NOS3 checkout and image
-
-```bash
 PULL_IMAGE=1 bash scripts/prepare_nos3_candidate.sh
-```
-
-This clones NOS3 into the ignored `external/nos3/` directory, checks out the pinned commit, initializes recursive submodules, and records a local lock inventory.
-
-### 6.3 Prepare and build Fortytwo
-
-```bash
 bash scripts/prepare_42_candidate.sh
-```
-
-The script uses the pinned NOS3 image and performs the Fortytwo build with container networking disabled.
-
-Expected terminal marker:
-
-```text
-FORTYTWO_PREPARATION_STATUS=PASS
-```
-
-### 6.4 Build the nominal NOS3 stack
-
-```bash
 bash scripts/build_nominal_nos3.sh
-```
-
-The build runs inside the pinned container with `--network none` and verifies required output artifacts.
-
-Expected terminal marker:
-
-```text
-NOMINAL_BUILD_STATUS=PASS
-```
-
-### 6.5 Run the bounded nominal runtime preflight
-
-```bash
 DURATION_SECONDS=60 STARTUP_GRACE_SECONDS=30 \
   bash scripts/run_nominal_runtime_preflight.sh
-```
-
-The preflight is an infrastructure/liveness test. It is not a scored cyber-response trial and does not authorize event injection.
-
-Expected terminal marker:
-
-```text
-NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS
-```
-
-The script records runtime evidence under `artifacts/runtime/<RUN_ID>/` and cleans project-labeled containers/networks on exit.
-
-### 6.6 Explicit cleanup check
-
-```bash
 bash scripts/cleanup_nominal_runtime.sh
 ```
 
-A clean environment reports that no project-labeled runtime resources remain, or removes only resources carrying this project's research label.
-
-## 7. Do not use the historical campaign operator as a generic smoke test
-
-The repository contains historical WP9 campaign/runtime tooling because it is part of the research provenance. In particular, `scripts/run_wp9_r069_campaign_one_position.sh` is **not** a normal installation test. It was designed to advance the frozen campaign one authorized position at a time and can create scientific evidence.
-
-For repository verification, use Level A. For simulator verification, use Level B.
-
-If a researcher intentionally performs new experimental executions, those runs are a **new replication** and must use a new provenance boundary. They must not overwrite, append to, or be represented as the original archived WP9 campaign.
-
-## 8. Verify the published Zenodo archive
-
-Download all six files from Zenodo v1.0.0 into one directory:
+Expected PASS markers include:
 
 ```text
-01-wp9-campaign-raw.tar.gz
-02-wp9-integrity-freeze.tar.gz
-03-publication-and-provenance.tar.gz
-README_RELEASE.txt
-RELEASE_CHECKSUMS.sha256
-RELEASE_MANIFEST.json
+FORTYTWO_PREPARATION_STATUS=PASS
+NOMINAL_BUILD_STATUS=PASS
+NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS
 ```
 
-Then run from that directory:
+Run Level B from a disposable/working clone because preparation/build steps can regenerate local evidence/lock material.
+
+## 10. Do not use historical campaign operators as smoke tests
+
+Historical Study-1 and Study-2 campaign tooling remains in Git because it is part of scientific provenance. It is **not** a normal installation test.
+
+Do not use a historical campaign operator to validate a clone. Use Level A for repository validation and Level B for infrastructure validation.
+
+Any intentional new execution must be treated as a new replication or validation study with its own protocol, seeds, run IDs, environment identity, evidence archive, and analysis membership. It must not overwrite or append to either frozen population.
+
+## 11. Verify the published Study-1 Zenodo archive
+
+Download the Study-1 Zenodo v1.0.0 files and verify the included checksum manifest:
 
 ```bash
 shasum -a 256 -c RELEASE_CHECKSUMS.sha256
 ```
 
-On Linux systems where `sha256sum` is available instead of `shasum`, use the equivalent command appropriate for the checksum-file format.
+See [`40-zenodo-publication-closeout.md`](40-zenodo-publication-closeout.md) for the frozen Study-1 release identities.
 
-The repository-side publication closeout records the frozen SHA-256 identities in [`docs/40-zenodo-publication-closeout.md`](40-zenodo-publication-closeout.md).
+## 12. Journal manuscript reproduction boundary
 
-## 9. Reproduce the manuscript-facing artifacts
+The authoritative article assembly is [`../publication/manuscript/MANUSCRIPT-ASSEMBLY.md`](../publication/manuscript/MANUSCRIPT-ASSEMBLY.md). Study-1 and Study-2 Methods/Results are separate components so future editing cannot silently merge populations or change historical findings.
 
-The DOI archive includes the publication/provenance bundle that was used to support manuscript-facing outputs. The GitHub repository also tracks the final target-neutral manuscript components, tables, and SVG figures under [`publication/`](../publication/).
+A successful clone validation does not make the current branch a submitted journal version. The final submission snapshot must be recorded only after:
 
-Use [`publication/README.md`](../publication/README.md) as the ordered index rather than inferring chronology from directory listings.
+1. two-study manuscript integration passes CI and claim/citation audits;
+2. Study-2 source evidence passes responsible-release review and is durably DOI archived;
+3. the actual Study-2 DOI is inserted into Data Availability;
+4. the live target-journal requirements are rechecked;
+5. the exact export passes final frozen-claim/DOI/scope review.
 
-## 10. Scientific boundary for replications
+## 13. Safety boundary
 
-A successful local test or new simulation does not change the original study's frozen statistical population. The publication baseline remains:
+Do not adapt these instructions to operational spacecraft, production TT&C systems, live RF links, real credentials, proprietary mission telemetry, or unauthorized targets. The reported work is controlled defensive software-in-the-loop research.
 
-- 720 VALID observations;
-- 9 ledgered INVALID attempts retained as provenance;
-- 24 frozen cells × 30 valid repetitions;
-- the original ledger, membership, and campaign-tree identities recorded in the integrity freeze;
-- the DOI-bearing v1.0.0 archive as the public evidence-of-record.
-
-A new run should be reported as an independent reproduction/replication with its own environment, commit, seeds, run IDs, evidence, and analysis membership.
-
-## 11. Safety boundary
-
-Do not adapt these instructions to operational spacecraft, production TT&C systems, live RF links, real credentials, proprietary mission telemetry, or unauthorized targets. The reported study is a controlled defensive software-in-the-loop experiment.
-
-See [`SECURITY.md`](../SECURITY.md) and [`docs/13-laboratory-rules-of-engagement.md`](13-laboratory-rules-of-engagement.md).
+See [`../SECURITY.md`](../SECURITY.md), [`05-legal-ethical-boundaries.md`](05-legal-ethical-boundaries.md), and [`13-laboratory-rules-of-engagement.md`](13-laboratory-rules-of-engagement.md).
