@@ -1,0 +1,1 @@
+Interpret effects endpoint-by-endpoint; no single scalar direction represents overall policy quality.
