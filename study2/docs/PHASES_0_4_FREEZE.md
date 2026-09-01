@@ -14,25 +14,29 @@ The executable contract defines A0–A3. The verifier, independent trust anchor,
 
 V0–V5 are executable synthetic transformations. V1 omits evidence. V2 creates validly signed stale or replayed evidence. V3 creates independently signed disagreement. V4 changes a claim after signing and therefore fails signature verification. V5 models bounded producer compromise in which a controlled producer may legitimately sign a false value, demonstrating that signature validity and syntactic evidence qualification are not equivalent to truth.
 
+Review hardening additionally requires the runtime adversary budget to match the frozen scenario identity exactly, guarantees V2-stale evidence is genuinely expired or rejects the requested logical clock, and allocates V3/V5 sequences above the signing source's existing maximum within the recovery epoch.
+
 Three matched ambiguity families are frozen: telemetry loss, state/configuration inconsistency, and contact/authorization loss. Cause metadata is excluded from the policy-visible fingerprint so selected benign and adversarial causes can be experimentally indistinguishable to the selector.
 
 A separate research-only adjudication oracle prospectively classifies unsafe-permissive and false-conservative response. The selector API has no truth/oracle parameter, and property/invariant checks preserve the separation.
 
 ## Phase 3 — assurance expansion
 
-Exact validated implementation commit: `7a62242826b3ec65281b8c84407e5bb0b101021a`.
+Exact hardened implementation commit: `bfb5ee01ec4c9d0010330a12e3c5f76da6b90d48`.
 
-GitHub Actions run `33529039158`, job `99927175807`, completed successfully with zero tracked-file drift. The gated pre-runtime suite established:
+Dedicated Study-2 GitHub Actions run `33536459043`, job `99951852211`, completed successfully with zero tracked-file drift. Exhaustive repository run `33536458895`, job `99951851674`, also completed successfully. The hardened pre-runtime suite established:
 
 - 48/48 independent frozen Study-1 P7 conformance cases;
-- 37 deterministic Study-2 security/protocol tests;
+- 41 deterministic Study-2 security/protocol tests;
 - 8 explicitly executed Hypothesis property tests, including treatment-identity immutability and uncompromised-source preservation;
-- 5/5 semantic security mutants killed;
+- 7/7 targeted semantic security mutants killed through the production verifier and trusted-recovery-gate paths;
+- 611/611 frozen Study-1 research unit tests PASS;
+- frozen WP10 reconstruction/regression PASS;
 - Study1P7 TLA+: 48 distinct states, complete, no error;
 - TrustedRecovery TLA+: 385 distinct states, complete, no error;
 - AdversarialEvidence TLA+: 540 generated / 400 distinct states, depth 3, complete, no error.
 
-The adversarial formal model distinguishes evidence qualification from hidden truth under V5. A compromised producer can therefore produce authenticated, apparently current evidence; the model does not falsely equate cryptographic validity with truth. These are finite-model assurance results, not proof of operational spacecraft security.
+All four P1 findings raised during PR review were fixed with regression coverage and their review threads were resolved before merge eligibility. The adversarial formal model distinguishes evidence qualification from hidden truth under V5. A compromised producer can therefore produce authenticated, apparently current evidence; the model does not falsely equate cryptographic validity with truth. These are finite-model assurance results, not proof of operational spacecraft security.
 
 ## Phase 4 — prospective protocol/sample-size freeze
 
