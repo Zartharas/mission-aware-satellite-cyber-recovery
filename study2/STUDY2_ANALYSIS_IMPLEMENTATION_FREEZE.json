@@ -1,0 +1,174 @@
+{
+  "schema": 2,
+  "experiment_id": "S2-AEATR-001",
+  "analysis_phase": "PHASE7_STATISTICAL_ANALYSIS",
+  "status": "POST_CAMPAIGN_PRE_AGGREGATE_ANALYSIS_IMPLEMENTATION_FROZEN",
+  "base_main_commit": "2e7090ec5c03e280e52cacf56685a83c270d7fd4",
+  "protocol_sha256": "fc986f8b5f110fbf405c0f90c02faff1aa8146e0ec711516fb6c3d6c9679d26b",
+  "protocol_amendment_sha256": "987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246",
+  "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+  "cell_matrix_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
+  "runtime_freeze_sha256": "40e38ebc1dccc8b549d36bcbf6c2aca4a52ade7c6ecb87670224ef643d741434",
+  "campaign_evidence": {
+    "workflow_run_id": 33547420437,
+    "workflow_job_id": 99988273536,
+    "execution_commit": "24ed05f4d52611754ac91ad1a74c5bcf242245ac",
+    "artifact_id": 9816191406,
+    "artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "observations_sha256": "8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854",
+    "attempt_ledger_sha256": "755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5",
+    "runtime_bindings_sha256": "4d8d1a4db3c9594946eab06a72c2bb71f1dbb13860bdbd01598ca4694ce4f31a",
+    "campaign_summary_sha256": "247bdf2e57a1d0c4b7aaf9e9811d1abf331bcd1cd655dddf3e5c2b5b2da82f99",
+    "evidence_hashes_sha256": "a1a53153356db3434e7ac427225f2a9b620bbec74c3436e2c87a8cbf0b0ffa50",
+    "valid_observations": 3872,
+    "invalid_attempts": 0
+  },
+  "transparency": {
+    "campaign_existed_before_this_implementation_freeze": true,
+    "aggregate_outcome_statistics_computed_before_this_freeze": false,
+    "formal_outcome_contrasts_computed_before_this_freeze": false,
+    "schema_integrity_preview_exposed_one_observation_record": true,
+    "analysis_blinded": false,
+    "classification": "NOT_A_PREREGISTRATION; OPERATIONALIZATION_OF_PROSPECTIVELY_FROZEN_ANALYSIS_PLAN"
+  },
+  "executable_bindings": {
+    "analysis_entrypoint": "study2/analysis/analyze_phase7.py",
+    "analysis_entrypoint_sha256": "351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd",
+    "regression_test": "study2/tests/test_phase7_analysis.py",
+    "regression_test_sha256": "1c5b6796772f20130f9aefa44bb91cff5290665049a41aba9f227e9770c6bb1c",
+    "python_constant_z_0_975": 1.959963984540054,
+    "standard_deviation_convention": "sample standard deviation with n-1 denominator; n=1 uses 0",
+    "numeric_rounding": "no pre-rounding; Python numeric values are written directly to deterministic JSON/CSV",
+    "output_row_order": "frozen cell order and explicitly enumerated frozen contrast-family order",
+    "csv_newline": "\\n"
+  },
+  "analysis_population": {
+    "include": "all retained VALID Phase-6 observations in the authoritative artifact",
+    "valid_observation_count": 3872,
+    "invalid_attempt_count": 0,
+    "exclusions": "none",
+    "post_hoc_seed_replacement": false,
+    "outcome_dependent_exclusion": false
+  },
+  "censoring": {
+    "recovery_rmst_tau_s": 240.0,
+    "recovery_rule": "individual restricted recovery time equals observed event time when event occurs by tau; otherwise tau",
+    "containment_rmst_tau_s": 240.0,
+    "containment_event": "time_to_containment_s is non-null",
+    "containment_right_censored": "time_to_containment_s is null",
+    "containment_rule": "individual restricted containment time equals observed containment time when non-null; otherwise tau",
+    "alternative_horizon_allowed": false
+  },
+  "primary_outcome_mapping": {
+    "unsafe_permissive_response_rate": "adjudication_only.unsafe_permissive",
+    "false_conservative_response_rate": "adjudication_only.false_conservative",
+    "evidence_qualified_trusted_recovery": "evidence_qualified_trusted_recovery",
+    "time_to_evidence_qualified_trusted_recovery": "time_to_evidence_qualified_trusted_recovery_s with administrative right censoring at 240 s",
+    "residual_unauthorized_state": "adjudication_only.residual_unauthorized_state",
+    "legitimate_command_rejection_rate": "adjudication_only.legitimate_command_rejected"
+  },
+  "secondary_outcome_mapping": {
+    "time_to_containment": "time_to_containment_s as a time-to-event outcome with null treated as right-censored at 240 s",
+    "ground_spacecraft_state_divergence": "ground_spacecraft_state_divergence",
+    "response_selection_stability": "response_selection_stability",
+    "recovery_terminal_state": "recovery_terminal_state"
+  },
+  "cell_level_estimation": {
+    "binary_rate_ci": "two-sided 95% Wilson score interval using z=1.959963984540054",
+    "recovery_rmst": "mean individual restricted recovery time at tau=240 s",
+    "containment_rmst": "mean individual restricted containment time at tau=240 s",
+    "rmst_ci": "two-sided 95% normal interval using the empirical standard error and sample standard deviation",
+    "secondary_binary": "count, rate, and Wilson 95% interval",
+    "terminal_state": "counts and proportions; no ordinal scoring"
+  },
+  "paired_effect_estimation": {
+    "unit": "frozen paired seed",
+    "binary_effect": "paired risk difference = mean(seed-level outcome_first - outcome_reference)",
+    "rmst_effect": "paired mean difference in individual restricted recovery time",
+    "ci": "two-sided 95% normal interval using the empirical standard error of paired seed-level differences",
+    "binary_bounds": "clip reported binary risk-difference CI to [-1, 1]",
+    "primary_p_value_gate": "none; primary estimands are reported as effect sizes with confidence intervals"
+  },
+  "primary_contrast_families": {
+    "A_TREATMENT_WITHIN_POLICY": {
+      "definition": "for each policy in Block A, V1-V5 minus V0 using exact A96 seed pairing",
+      "contrasts_per_outcome": 15,
+      "multiplicity_adjustment": "none; effect sizes and 95% CIs are primary"
+    },
+    "A_POLICY_WITHIN_PROFILE": {
+      "definition": "within each Block-A evidence profile, S2_S1_EVIDENCE_AWARE minus S2_B0_FAIL_CLOSED and minus S2_B2_RISK_THRESHOLD",
+      "contrasts_per_outcome": 12,
+      "multiplicity_adjustment": "none; effect sizes and 95% CIs are primary"
+    }
+  },
+  "secondary_contrast_families": {
+    "B_CONTACT_VS_K0": {
+      "definition": "K1, K2, K3, and K4 minus K0 within each Block-B policy",
+      "contrasts_per_outcome": 16
+    },
+    "B_K0_K3_ORDERED_TREND": {
+      "definition": "per-seed least-squares slope across K0,K1,K2,K3 coded 0,1,2,3, summarized within each policy; K4 excluded from ordinal trend",
+      "contrasts_per_outcome": 4
+    },
+    "B_POLICY_BY_CONTACT_INTERACTION": {
+      "definition": "for each non-S1 Block-B policy and K1-K4, [(policy_K-policy_K0) - (S1_K-S1_K0)] using paired seeds",
+      "contrasts_per_outcome": 12
+    },
+    "C_AMBIGUITY": {
+      "definition": "ADVERSARIAL minus BENIGN within each ambiguity family and policy",
+      "contrasts_per_outcome": 9
+    },
+    "D_ABLATION": {
+      "definition": "each PI ablation minus S2_S1_EVIDENCE_AWARE within context",
+      "contrasts_per_outcome": 16
+    },
+    "E_STRESS_PROFILE": {
+      "definition": "A2/K2 minus A1/K0, A3/K0 minus A1/K0, and A3/K0 minus A2/K2 within policy; A2 contrasts are profile contrasts and not unconfounded adversary-only effects",
+      "contrasts_per_outcome": 9
+    },
+    "E_POLICY_WITHIN_PROFILE": {
+      "definition": "S2_S1_EVIDENCE_AWARE minus S2_B0_FAIL_CLOSED and minus S2_B2_RISK_THRESHOLD within each Block-E stress profile",
+      "contrasts_per_outcome": 6
+    }
+  },
+  "secondary_inference": {
+    "simple_paired_binary_p_value": "two-sided exact McNemar test using discordant pairs",
+    "paired_scalar_p_value": "two-sided normal test of the mean paired seed-level contrast; zero-variance zero-effect gives p=1 and zero-variance nonzero effect gives p=0",
+    "holm_rule": "Holm step-down adjustment separately within each named secondary contrast family and separately for each primary endpoint",
+    "alpha": 0.05,
+    "secondary_outcomes": "mechanism/sensitivity summaries; not promoted to primary confirmatory outcomes"
+  },
+  "integrity_fail_closed_rules": [
+    "artifact ZIP SHA-256 mismatch",
+    "artifact file-set mismatch",
+    "any authoritative evidence-file SHA-256 mismatch",
+    "observation count not equal to 3872",
+    "attempt ledger count not equal to 3872",
+    "any non-VALID retained observation or ledger attempt",
+    "duplicate or missing frozen trial identity",
+    "frozen trial order/cell/seed membership mismatch",
+    "run-id sequence mismatch",
+    "ledger/observation identity mismatch",
+    "oracle_was_selector_input not false",
+    "censor horizon not equal to 240 s",
+    "recovery event time missing when uncensored",
+    "recovery event time present beyond tau",
+    "censored recovery row carrying a non-null recovery event time",
+    "containment event time present beyond tau",
+    "required primary endpoint missing or non-boolean",
+    "observation content SHA-256 mismatch"
+  ],
+  "reporting_constraints": {
+    "global_weighted_policy_score": "PROHIBITED",
+    "global_policy_rank": "PROHIBITED",
+    "outcome_direction_must_be_reported_endpoint_by_endpoint": true,
+    "post_hoc_subgroup_selection": "PROHIBITED for confirmatory claims",
+    "alternative_censor_horizon": "PROHIBITED",
+    "study1_reanalysis": "PROHIBITED"
+  },
+  "analysis_runtime": {
+    "language": "Python 3.11+",
+    "external_statistical_dependencies": "none required; standard library implementation",
+    "deterministic_analysis": true
+  }
+}
