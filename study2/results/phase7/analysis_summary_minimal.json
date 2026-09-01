@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "experiment_id": "S2-AEATR-001",
+  "classification": "STUDY2_PHASE7_PRESPECIFIED_ANALYSIS",
+  "analysis_population_valid_observations": 3872,
+  "invalid_attempts": 0,
+  "cell_count": 85,
+  "primary_endpoint_count": 6,
+  "primary_contrast_rows": 162,
+  "secondary_contrast_rows": 432,
+  "terminal_state_rows": 85,
+  "recovery_rmst_tau_s": 240.0,
+  "containment_rmst_tau_s": 240.0,
+  "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+  "artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+  "weighted_global_policy_score": false,
+  "global_policy_rank": false,
+  "study1_reanalysis": false,
+  "post_hoc_seed_replacement": false,
+  "outcome_dependent_exclusion": false
+}
