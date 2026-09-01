@@ -11,6 +11,7 @@ from study2_security.recovery_gate import evaluate_trusted_recovery_gate
 PRIVATE_KEY = Ed25519PrivateKey.from_private_bytes(bytes(range(1, 33)))
 PUBLIC_KEYS = {"trusted-verifier": PRIVATE_KEY.public_key()}
 TRUSTED = {"trusted-verifier"}
+EXPECTED_EPOCHS = {"sat-1": 3}
 
 
 def claim(
@@ -55,6 +56,7 @@ class SecurityPropertyTests(unittest.TestCase):
             public_keys=PUBLIC_KEYS,
             trusted_sources=TRUSTED,
             now_s=110.0,
+            expected_epoch_by_subject=EXPECTED_EPOCHS,
         )
         self.assertFalse(result.accepted)
         self.assertIn("invalid_signature", result.rejected[0].reasons)
@@ -73,6 +75,7 @@ class SecurityPropertyTests(unittest.TestCase):
             public_keys=PUBLIC_KEYS,
             trusted_sources=TRUSTED,
             now_s=110.0,
+            expected_epoch_by_subject=EXPECTED_EPOCHS,
             minimum_sequence_by_source_epoch={
                 ("trusted-verifier", 3): sequence + delta
             },
@@ -105,6 +108,7 @@ class SecurityPropertyTests(unittest.TestCase):
             public_keys=PUBLIC_KEYS,
             trusted_sources=TRUSTED,
             now_s=now_s,
+            expected_epoch_by_subject=EXPECTED_EPOCHS,
         )
         self.assertFalse(result.accepted)
         self.assertIn("stale_or_future_evidence", result.rejected[0].reasons)
@@ -120,6 +124,7 @@ class SecurityPropertyTests(unittest.TestCase):
             public_keys=PUBLIC_KEYS,
             trusted_sources=TRUSTED,
             now_s=110.0,
+            expected_epoch_by_subject=EXPECTED_EPOCHS,
         )
         decision = evaluate_trusted_recovery_gate(
             attestation,
@@ -150,6 +155,19 @@ class SecurityPropertyTests(unittest.TestCase):
         )
         self.assertFalse(result.accepted)
         self.assertIn("wrong_evidence_epoch", result.rejected[0].reasons)
+
+    @settings(max_examples=80, derandomize=True, deadline=None)
+    @given(epoch=st.integers(min_value=0, max_value=1_000_000))
+    def test_missing_expected_epoch_never_becomes_decision_eligible(self, epoch):
+        signed = sign_claim(replace(claim(), epoch=epoch), PRIVATE_KEY)
+        result = verify_bundle(
+            [signed],
+            public_keys=PUBLIC_KEYS,
+            trusted_sources=TRUSTED,
+            now_s=110.0,
+        )
+        self.assertFalse(result.accepted)
+        self.assertIn("missing_expected_evidence_epoch", result.rejected[0].reasons)
 
 
 if __name__ == "__main__":
