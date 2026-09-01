@@ -61,7 +61,7 @@ ApplyEvidence ==
           [] evidenceCondition = "V5" ->
             /\ authenticated' = TRUE /\ complete' = TRUE /\ fresh' = TRUE
             /\ epochValid' = TRUE /\ sequenceValid' = TRUE /\ contradiction' \in BOOLEAN
-  /\ evidenceQualified' = authenticated' /\ complete' /\ fresh' /\ epochValid' /\ sequenceValid' /\ ~contradiction'
+  /\ evidenceQualified' = (authenticated' /\ complete' /\ fresh' /\ epochValid' /\ sequenceValid' /\ ~contradiction')
   /\ UNCHANGED <<evidenceCondition, adversary, contact, oracleVisibleToPolicy,
                   groundTruthToken, seedToken, treatmentToken, verifierCompromised,
                   independentTrustAnchor, hiddenTruthfulEvidence, trustedRecovery>>
