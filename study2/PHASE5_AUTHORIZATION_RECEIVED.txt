@@ -1,0 +1,3 @@
+Study-2 Phase-5 development/runtime-freeze work authorized by the researcher on 2026-09-01.
+This authorization does not itself authorize frozen Phase-6 campaign seed execution.
+Frozen Study-2 campaign runtime remains CLOSED until the Phase-5 hash-bound runtime-freeze package is merged and separately authorized for Phase 6.
