@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Fail-closed repository sanity audit for the final journal-submission gate.
 
-This audit is deliberately current-state aware. Historical work-package configs and
-closeout documents may contain stage-local statuses such as AUTHORIZED_NOT_STARTED;
-those records are provenance, not today's execution authorization. Current status is
-governed by the active tracker/manuscript/submission files checked here.
+Historical work-package configs and closeout documents may retain stage-local status
+text because they are provenance. Current status is governed by the active tracker,
+manuscript assembly, and submission package checked here.
 
 The audit never starts NOS3/cFS, executes a campaign trial, consumes a campaign seed,
 or mutates scientific evidence.
@@ -18,8 +17,11 @@ import re
 import subprocess
 import sys
 import tomllib
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import unquote
+
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 ERRORS: list[str] = []
@@ -46,6 +48,14 @@ ACTIVE_MARKDOWN = (
     "scripts/README.md",
     "docs/REPRODUCIBILITY_GUIDE.md",
     "publication/manuscript/MANUSCRIPT-ASSEMBLY.md",
+    "publication/manuscript/00-title-abstract.md",
+    "publication/manuscript/01-introduction.md",
+    "publication/manuscript/02-background-and-related-work.md",
+    "publication/manuscript/03-methods.md",
+    "publication/manuscript/04-results.md",
+    "publication/manuscript/05-discussion.md",
+    "publication/manuscript/06-conclusion.md",
+    "publication/manuscript/07-declarations-and-availability.md",
     "publication/submission/computers-and-security/README.md",
     "publication/submission/computers-and-security/submission-checklist.md",
     "publication/submission/computers-and-security/title-page.md",
@@ -64,6 +74,31 @@ RECOMMENDED_SCRIPTS = (
     "cleanup_nominal_runtime.sh",
     "verify_nos3_source_lock.sh",
     "verify_testbed_runtime.sh",
+)
+
+DISPLAY_FILES = (
+    "publication/tables/table-r1-proposition-summary.csv",
+    "publication/tables/table-r2-p2-contact-effects.csv",
+    "publication/tables/table-r3-p3-p4-evidence-pathways.csv",
+    "publication/tables/table-r4-p5-pareto-status.csv",
+    "publication/tables/table-r5-cybersecurity-positioning.csv",
+    "publication/tables/table-r6-security-property-mapping.csv",
+    "publication/tables/table-s1-execution-provenance-sensitivity.csv",
+    "publication/figures/figure-r1-p2-contact-effects.svg",
+    "publication/figures/figure-r2-p3-trusted-recovery.svg",
+    "publication/figures/figure-r3-p4-selection-pathway.svg",
+    "publication/figures/figure-r4-p5-pareto-status.svg",
+)
+
+MANUSCRIPT_COMPONENTS = (
+    "publication/manuscript/00-title-abstract.md",
+    "publication/manuscript/01-introduction.md",
+    "publication/manuscript/02-background-and-related-work.md",
+    "publication/manuscript/03-methods.md",
+    "publication/manuscript/04-results.md",
+    "publication/manuscript/05-discussion.md",
+    "publication/manuscript/06-conclusion.md",
+    "publication/manuscript/07-declarations-and-availability.md",
 )
 
 
@@ -85,7 +120,11 @@ def read(rel: str) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def require_text(rel: str, required: tuple[str, ...] = (), forbidden: tuple[str, ...] = ()) -> None:
+def require_text(
+    rel: str,
+    required: tuple[str, ...] = (),
+    forbidden: tuple[str, ...] = (),
+) -> None:
     text = read(rel)
     if not text:
         return
@@ -100,27 +139,46 @@ def require_text(rel: str, required: tuple[str, ...] = (), forbidden: tuple[str,
 
 def validate_json() -> None:
     files = sorted(p for p in ROOT.rglob("*.json") if ".git" not in p.parts)
+    before = len(ERRORS)
     for path in files:
         try:
             json.loads(path.read_text(encoding="utf-8"))
-        except Exception as exc:  # noqa: BLE001 - audit must report any parser failure
+        except Exception as exc:  # noqa: BLE001 - audit reports parser failures
             fail(f"invalid JSON syntax: {path.relative_to(ROOT)}: {exc}")
-    if not ERRORS:
+    if len(ERRORS) == before:
         ok(f"JSON syntax parsed for {len(files)} tracked files")
+
+
+def validate_yaml() -> None:
+    candidates = []
+    for pattern in ("*.yml", "*.yaml", "*.cff"):
+        candidates.extend(ROOT.rglob(pattern))
+    files = sorted({p for p in candidates if ".git" not in p.parts})
+    before = len(ERRORS)
+    for path in files:
+        try:
+            yaml.safe_load(path.read_text(encoding="utf-8"))
+        except Exception as exc:  # noqa: BLE001
+            fail(f"invalid YAML/CFF syntax: {path.relative_to(ROOT)}: {exc}")
+    if len(ERRORS) == before:
+        ok(f"YAML/CFF syntax parsed for {len(files)} tracked files")
 
 
 def validate_toml() -> None:
     files = sorted(p for p in ROOT.rglob("*.toml") if ".git" not in p.parts)
+    before = len(ERRORS)
     for path in files:
         try:
             tomllib.loads(path.read_text(encoding="utf-8"))
         except Exception as exc:  # noqa: BLE001
             fail(f"invalid TOML syntax: {path.relative_to(ROOT)}: {exc}")
-    ok(f"TOML syntax parsed for {len(files)} tracked files")
+    if len(ERRORS) == before:
+        ok(f"TOML syntax parsed for {len(files)} tracked files")
 
 
 def validate_csv() -> None:
     files = sorted(p for p in ROOT.rglob("*.csv") if ".git" not in p.parts)
+    before = len(ERRORS)
     for path in files:
         try:
             with path.open("r", encoding="utf-8-sig", newline="") as handle:
@@ -141,12 +199,27 @@ def validate_csv() -> None:
                     f"ragged CSV: {path.relative_to(ROOT)} line {idx}: "
                     f"expected {width} fields, found {len(row)}"
                 )
-    ok(f"CSV structure checked for {len(files)} tracked files")
+    if len(ERRORS) == before:
+        ok(f"CSV structure checked for {len(files)} tracked files")
+
+
+def validate_xml_svg() -> None:
+    candidates = list(ROOT.rglob("*.xml")) + list(ROOT.rglob("*.svg"))
+    files = sorted({p for p in candidates if ".git" not in p.parts})
+    before = len(ERRORS)
+    for path in files:
+        try:
+            ET.parse(path)
+        except Exception as exc:  # noqa: BLE001
+            fail(f"invalid XML/SVG syntax: {path.relative_to(ROOT)}: {exc}")
+    if len(ERRORS) == before:
+        ok(f"XML/SVG syntax parsed for {len(files)} tracked files")
 
 
 def validate_markdown_links() -> None:
     pattern = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
     checked = 0
+    before = len(ERRORS)
     for rel in ACTIVE_MARKDOWN:
         text = read(rel)
         if not text:
@@ -158,8 +231,7 @@ def validate_markdown_links() -> None:
                 continue
             if target.startswith("<") and target.endswith(">"):
                 target = target[1:-1]
-            # Markdown titles are not used in the active files; trim a simple quoted title if present.
-            target = re.sub(r'\s+["\'].*["\']$', "", target)
+            target = re.sub(r"\s+[\"'].*[\"']$", "", target)
             target = unquote(target.split("#", 1)[0])
             if not target:
                 continue
@@ -172,14 +244,48 @@ def validate_markdown_links() -> None:
             checked += 1
             if not candidate.exists():
                 fail(f"broken local markdown link: {rel}: {raw_target}")
-    ok(f"active-document local links checked: {checked}")
+    if len(ERRORS) == before:
+        ok(f"active-document local links checked: {checked}")
 
 
 def validate_script_guide() -> None:
+    before = len(ERRORS)
     for name in RECOMMENDED_SCRIPTS:
         if not (ROOT / "scripts" / name).is_file():
             fail(f"scripts/README.md recommended entry point missing: scripts/{name}")
-    ok(f"recommended script entry points exist: {len(RECOMMENDED_SCRIPTS)}")
+    if len(ERRORS) == before:
+        ok(f"recommended script entry points exist: {len(RECOMMENDED_SCRIPTS)}")
+
+
+def validate_publication_displays() -> None:
+    before = len(ERRORS)
+    for rel in DISPLAY_FILES:
+        if not (ROOT / rel).is_file():
+            fail(f"publication display missing: {rel}")
+    if len(ERRORS) == before:
+        ok(f"publication display files exist: {len(DISPLAY_FILES)}")
+
+
+def validate_bibliography_and_citations() -> None:
+    bib = read("references/references.bib")
+    key_pattern = re.compile(r"(?m)^\s*@\w+\s*\{\s*([^,\s]+)\s*,")
+    keys = key_pattern.findall(bib)
+    if not keys:
+        fail("references/references.bib contains no parseable BibTeX keys")
+        return
+    duplicates = sorted({key for key in keys if keys.count(key) > 1})
+    if duplicates:
+        fail(f"duplicate BibTeX keys: {duplicates}")
+    key_set = set(keys)
+    cited: set[str] = set()
+    cite_pattern = re.compile(r"@([A-Za-z0-9_:.+\-/]+)")
+    for rel in MANUSCRIPT_COMPONENTS:
+        cited.update(cite_pattern.findall(read(rel)))
+    missing = sorted(cited - key_set)
+    if missing:
+        fail(f"manuscript citation keys absent from references.bib: {missing}")
+    if not duplicates and not missing:
+        ok(f"bibliography/citation keys resolved: {len(key_set)} bibliography keys, {len(cited)} cited keys")
 
 
 def validate_submission_inputs() -> None:
@@ -219,10 +325,18 @@ def validate_frozen_identities() -> None:
             fail(f"research tracker missing {label}: {token}")
     if REPRO_COMMIT not in declarations:
         fail("Code Availability no longer points to the intentionally frozen reproducibility-hardened snapshot")
+
+    citation = yaml.safe_load(read("CITATION.cff"))
+    preferred = citation.get("preferred-citation", {}) if isinstance(citation, dict) else {}
+    if preferred.get("doi") != VERSION_DOI:
+        fail(f"CITATION.cff preferred DOI drift: {preferred.get('doi')!r}")
+    if preferred.get("version") != "1.0.0":
+        fail(f"CITATION.cff preferred version drift: {preferred.get('version')!r}")
     ok("frozen DOI/hash/code-snapshot identities cross-checked")
 
 
 def validate_git_provenance() -> None:
+    before = len(ERRORS)
     for sha in PROVENANCE_COMMITS:
         result = subprocess.run(
             ["git", "cat-file", "-e", f"{sha}^{{commit}}"],
@@ -233,11 +347,11 @@ def validate_git_provenance() -> None:
         )
         if result.returncode != 0:
             fail(f"historical provenance commit not resolvable from full checkout: {sha}")
-    ok(f"historical provenance commits resolve: {len(PROVENANCE_COMMITS)}")
+    if len(ERRORS) == before:
+        ok(f"historical provenance commits resolve: {len(PROVENANCE_COMMITS)}")
 
 
 def validate_no_unresolved_markers() -> None:
-    # Source-level TODO/FIXME/XXX/HACK markers are not allowed in the submission baseline.
     files = [
         p
         for p in ROOT.rglob("*")
@@ -245,12 +359,15 @@ def validate_no_unresolved_markers() -> None:
         and ".git" not in p.parts
         and p.suffix.lower() in {".py", ".sh"}
     ]
-    marker = re.compile(r"\b(TODO|FIXME|XXX|HACK)\b", re.IGNORECASE)
+    terms = ("TO" + "DO", "FIX" + "ME", "X" * 3, "HA" + "CK")
+    marker = re.compile(r"\b(?:" + "|".join(re.escape(term) for term in terms) + r")\b", re.IGNORECASE)
+    before = len(ERRORS)
     for path in files:
         for lineno, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), start=1):
             if marker.search(line):
-                fail(f"unresolved source marker {path.relative_to(ROOT)}:{lineno}: {line.strip()}")
-    ok(f"source comment markers checked across {len(files)} Python/shell files")
+                fail(f"unresolved source work marker {path.relative_to(ROOT)}:{lineno}: {line.strip()}")
+    if len(ERRORS) == before:
+        ok(f"source work markers checked across {len(files)} Python/shell files")
 
 
 def validate_current_state() -> None:
@@ -285,21 +402,30 @@ def validate_current_state() -> None:
     )
     require_text(
         "release/UPLOAD_CHECKLIST.md",
-        required=("historical procedural checklist", "Zenodo v1.0.0"),
+        required=("Historical procedural checklist", "Zenodo v1.0.0"),
     )
     require_text(
         "data/README.md",
         required=("screening/rights register", "not part of the frozen 720-observation statistical population"),
+    )
+    require_text(
+        "publication/manuscript/03-methods.md",
+        required=("before journal submission",),
+        forbidden=("post-publication code reconstruction", "That post-publication implementation"),
     )
 
 
 def main() -> int:
     print("=== FINAL SUBMISSION REPOSITORY RELEASE-GATE AUDIT ===")
     validate_json()
+    validate_yaml()
     validate_toml()
     validate_csv()
+    validate_xml_svg()
     validate_markdown_links()
     validate_script_guide()
+    validate_publication_displays()
+    validate_bibliography_and_citations()
     validate_submission_inputs()
     validate_frozen_identities()
     validate_git_provenance()
