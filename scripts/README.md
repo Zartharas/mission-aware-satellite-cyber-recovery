@@ -27,6 +27,10 @@ The end-to-end setup order, expected PASS markers, platform notes, and safety bo
 
 Current project state is governed by `tracker/RESEARCH_TRACKER.md`, `publication/manuscript/MANUSCRIPT-ASSEMBLY.md`, and the Computers & Security submission checklist. WP8 and WP9 are complete; no further frozen-campaign runtime is authorized. `audit_repository_release_gate.py` checks that these current-facing records do not regress to an earlier stage state.
 
+### Bibliography audit boundary
+
+`audit_bibliography_metadata.py` is an additional current submission/reproducibility check. It protects a small set of canonical records whose metadata was re-verified against publisher, DOI-registration, official conference, or authoritative dataset pages during the final academic sanity audit. It also rejects duplicate DOI values and known stale/superseded identifiers. It intentionally performs **no network requests** and must not be represented as proof that every external webpage remains unchanged. The exact exported reference list still requires a live DOI/publisher check at the submission-export gate.
+
 ## Release tooling
 
 The following scripts are retained because they generated and audited the publication candidate that became Zenodo v1.0.0:

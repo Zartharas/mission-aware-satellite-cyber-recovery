@@ -28,7 +28,7 @@ Thus, the modeled missed-contact condition materially increased containment, ver
 
 The contact condition was synthetic/modelled and should not be interpreted as measured operator latency, ground-station performance, or RF-link timing. A16 and A17 remained requested/effective P6 cases throughout analysis. P6 represented a ground-authorized WAIT policy; after modeled ground authorization, the recovery action delegated to the verified-rollback mechanism associated with P5. These P6 cells were not relabeled as P5 policy cases.
 
-## 4.4 P3 — Degraded policy-visible evidence created a recovery vulnerability for P7
+## 4.4 P3 — Degraded policy-visible evidence produced P7 recovery failure in the tested block
 
 P3 examined whether trusted recovery depended on current policy-visible evidence rather than on behavioral restoration alone. In the retained E3/M4/C0 block, fixed P5 achieved trusted recovery in all 30 repetitions under full evidence (A14/T0) and all 30 repetitions under degraded evidence (A15/T1). P7 also achieved trusted recovery in all 30 full-evidence repetitions (A11/T0).
 
@@ -66,12 +66,12 @@ Table R4 and Figure R4 summarize the group-level P7 relations. The retained P5 r
 
 The primary analysis retained all 720 VALID observations despite their versioned execution provenance. The E0 review classified the observations as analytically exchangeable with versioned runtime-orchestration and finalization provenance because the scientific core, treatments, event simulation, timing horizon, primary metric generation, and frozen configuration did not change across the three execution commits.
 
-A complete-block sensitivity restricted the comparison to campaign seeds 10002–10030, yielding 29 complete seeds and 696 observations, all executed at final commit `7ed85d5cbeca8f903b3468bc6ccc1c56e29c2446`. This sensitivity preserved P7 point-estimate Pareto-front membership in all 9 of 9 groups, every P7-versus-comparator point-estimate relation, and every primary-metric effect direction. The sensitivity therefore did not identify a provenance-driven change in the P5 conclusion.
+A complete-block sensitivity restricted the comparison to campaign seeds 10002–10030, yielding 29 complete seeds and 696 observations, all executed at final commit `7ed85d5cbeca8f903b3468bc6ccc1c56e29c2446`. This sensitivity preserved each group's P7 point-estimate Pareto-front membership/non-membership classification across all 9 groups, every P7-versus-comparator point-estimate relation, and every primary-metric effect direction. The sensitivity therefore did not identify a provenance-driven change in the P5 conclusion.
 
 The 696-observation analysis is a robustness check and does not replace the 720-observation primary population. Table S1 records the execution-provenance distribution and sensitivity results.
 
 ## 4.8 Results synopsis
 
-Across the frozen campaign, the five propositions produced a deliberately non-uniform result pattern. P1 was not supported on its predeclared primary outcomes. P2 showed a strong modeled contact-delay effect on the ground-authorized P6 path but little corresponding change on the autonomous P7 path. P3 showed a pronounced evidence-dependent recovery vulnerability for P7, while the narrower anticipated restoration-without-verification mechanism was absent. P4 showed deterministic evidence-dependent changes in actual policy/action selection with measurable mission and recovery consequences, without supplying an independent correctness oracle. P5 showed condition-specific dominance, equivalence, disadvantage, and mixed outcomes rather than a universal policy winner.
+Across the frozen campaign, the five propositions produced a deliberately non-uniform result pattern. P1 was not supported on its predeclared primary outcomes. P2 showed a strong modeled contact-delay effect on the ground-authorized P6 path but little corresponding change on the autonomous P7 path. P3 showed pronounced evidence-dependent recovery failure for P7, while the narrower anticipated restoration-without-verification mechanism was absent. P4 showed deterministic evidence-dependent changes in actual policy/action selection with measurable mission and recovery consequences, without supplying an independent correctness oracle. P5 showed condition-specific dominance, equivalence, disadvantage, and mixed outcomes rather than a universal policy winner.
 
 Together, these results preserve the intended multi-objective structure of the experiment: security containment, mission continuity, recovery, command availability, and evidence quality did not collapse into a single performance ordering.

@@ -34,6 +34,9 @@ jobs:
       - name: Audit current repository release gate
         run: python scripts/audit_repository_release_gate.py
 
+      - name: Audit bibliography metadata integrity
+        run: python scripts/audit_bibliography_metadata.py
+
       - name: Validate every tracked JSON document
         run: |
           find . -path './.git' -prune -o -type f -name '*.json' -print0 \

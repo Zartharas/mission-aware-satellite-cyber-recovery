@@ -6,7 +6,7 @@
 - [x] Frozen WP9 attempt-history ledger and campaign evidence remain unchanged.
 - [x] Zenodo v1.0.0 published and immutable: 10.5281/zenodo.22181540.
 - [x] Public repository and exact reproducibility-hardened snapshot identified.
-- [x] Post-publication WP10 reconstruction is public, regression-tested, and explicitly distinguished from the unrecovered original analysis source.
+- [x] WP10 reconstruction prepared after campaign/Zenodo v1.0.0 publication and before journal submission is public, regression-tested, and explicitly distinguished from the unrecovered original analysis source.
 - [x] P5 missing historical RNG seed is disclosed; exact historical P5 Monte Carlo endpoint replay is not claimed.
 - [x] Manuscript evidence audit previously passed.
 
@@ -35,10 +35,11 @@
 - [x] Primary target selected: Computers & Security.
 - [x] Article type selected: Full Length Article.
 - [x] Current journal scope rechecked in August 2026: practical information-security research is in scope; cryptology as a principal component is excluded.
-- [x] Current journal AI/ML moratorium explicitly checked. Study 1 does **not** use AI/ML as the scientific response mechanism; P7 is deterministic rule-based.
+- [x] Current Elsevier shop/scope text still displays the journal's 2024 AI/ML moratorium. Study 1 does **not** use AI/ML as the scientific response mechanism; P7 is deterministic rule-based.
+- [x] Recent 2026 Computers & Security content includes AI/GenAI-related articles, so the submission-day journal page/portal is treated as authoritative for any current article-type or editorial nuance rather than assuming the cached moratorium text is the whole policy state.
 - [x] AI-assisted manuscript/reproducibility preparation is separately disclosed and is not represented as the experimental response method.
 - [x] Title page drafted and author attestations finalized.
-- [x] Five research highlights prepared; each is <=85 characters.
+- [x] Five research highlights prepared; each is <=85 characters, with no unexplained acronyms or internal P-codes.
 - [x] Cover letter drafted and explicitly distinguishes deterministic P7 from AI/ML.
 - [x] Concise abstract candidate prepared without replacing the authoritative abstract.
 - [x] Target-neutral abstract identifies P7 as deterministic rule-based.
@@ -47,9 +48,10 @@
 - [x] Funding statement: independent research, no external funding.
 - [x] No-human-participant and responsible-research boundary stated.
 - [x] Generative-AI declaration prepared, integrated, and author-approved under the current Elsevier policy snapshot.
-- [x] Methods disclosure prepared for AI-assisted post-publication reproducibility-code reconstruction.
+- [x] Methods disclosure prepared for AI-assisted reconstruction of reproducibility code after campaign/Zenodo publication and before journal submission.
 - [x] Cybersecurity upgrade prose integrated into conventional Sections 2, 3, and 5; temporary 02a/03a/05a modules removed.
 - [x] Cybersecurity bibliography merged/deduplicated into `references/references.bib`; temporary split bibliography removed.
+- [x] Bibliography metadata sanity audit performed against publisher/DOI/dataset-authority sources; corrected canonical records are protected by offline CI regression checks.
 - [x] Tables R5/R6 retained as publication displays and checked for conservative claim wording.
 
 ## Author metadata
@@ -75,7 +77,7 @@ The factual author attestations required before the submission-export gate were 
 The following are intentionally submission-day checks because the publisher can change them after this preparation cycle:
 
 - [ ] Re-open the current Computers & Security Guide for Authors and Aims & Scope.
-- [ ] Reconfirm the journal's AI/ML moratorium and deterministic-rule-based scope fit.
+- [ ] Reconfirm the journal's **current** AI/ML scope language and any article-type/editorial nuance; confirm again that deterministic rule-based P7 remains outside AI/ML as a scientific mechanism.
 - [ ] Confirm article-type naming and any current abstract/word/reference limits.
 - [ ] Confirm whether highlights are required at initial submission or only final-files stage.
 - [ ] Confirm title-page/contact fields requested by Editorial Manager.
