@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "artifact": "study2_security_assurance_foundation",
+  "status": "ASSURANCE_FOUNDATION_CI_VALIDATED_NOT_RUNTIME_AUTHORIZED_NOT_FROZEN",
+  "base_main_commit": "20b17f8e220b9afcd086ce80cf59e439b022a3e6",
+  "base_main_tree": "dc1ff4956b35a1976bc1ca8a44b3a4290f5b279c",
+  "study1_reproducibility_hardened_snapshot": "99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc",
+  "study1_zenodo_version_doi": "10.5281/zenodo.22181540",
+  "study1_zenodo_concept_doi": "10.5281/zenodo.22181539",
+  "study1_primary_valid_observations": 720,
+  "study1_retained_invalid_attempts": 9,
+  "study1_authoritative_ledger_records": 729,
+  "study1_mutation_authorized": false,
+  "study2_campaign_runtime_authorized": false,
+  "foundation_scope": [
+    "authenticated_synthetic_evidence",
+    "freshness_epoch_sequence_verification",
+    "independent_source_contradiction_detection",
+    "evidence_qualified_trusted_recovery_gate",
+    "study1_p7_conformance_check",
+    "property_based_security_testing",
+    "tla_plus_assurance_models",
+    "dockerized_assurance_validation"
+  ],
+  "validation_dependencies": {
+    "python_container": "python:3.11-slim-bookworm",
+    "python_container_digest": "sha256:c425d915a89a6dcd3183b1797ad9bd8878caff5a417f6371c8df93c8ea8b727f",
+    "cryptography": "50.0.1",
+    "hypothesis": "6.167.1",
+    "tla2tools": "1.7.4",
+    "tla2tools_official_release_sha1": "bee4a54f3ee3d4afc347c3240ec2d9e93b075104",
+    "tla2tools_verified_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88"
+  },
+  "validation_evidence": {
+    "validated_implementation_commit": "cb6a8f6a4c5aa765e6943a4b384dade49e61338e",
+    "study2_github_actions_run_id": 33514281820,
+    "study2_github_actions_job_id": 99877257286,
+    "repository_github_actions_run_id": 33514281840,
+    "repository_github_actions_job_id": 99877257082,
+    "study1_p7_conformance_cases": 48,
+    "deterministic_security_tests": 15,
+    "hypothesis_property_tests": 6,
+    "study1_research_unit_tests": 611,
+    "study1_p7_tla_distinct_states": 48,
+    "trusted_recovery_tla_distinct_states": 385,
+    "explicit_epoch_context_required": true,
+    "duplicate_sequence_identity_includes_epoch": true,
+    "study1_policy_input_trigger_coverage": true,
+    "frozen_wp10_reproduction_passed": true,
+    "zero_tracked_drift": true
+  }
+}
