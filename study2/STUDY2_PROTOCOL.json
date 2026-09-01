@@ -51,10 +51,22 @@
   ],
   "blocks": {
     "A_PRIMARY_EVIDENCE_MECHANISM": {
-      "context": "E3 compromised-update/recovery context; M2; K0 except A2 is excluded; exact treatment-budget compatibility enforced",
-      "evidence": ["V0", "V1", "V2", "V3", "V4", "V5"],
+      "context": "E3 compromised-update/recovery context; M2; K0",
+      "profiles": [
+        "V0/A0/current",
+        "V1/A0/benign_omission",
+        "V1/A1/adversarial_suppression",
+        "V2/A0/benign_staleness",
+        "V2/A1/adversarial_replay",
+        "V3/A0/benign_source_disagreement",
+        "V3/A1/adversarial_contradiction",
+        "V4/A1/post_signature_manipulation",
+        "V5/A1/single_source_partial_compromise",
+        "V5/A3/multi_source_partial_compromise"
+      ],
       "policies": ["S2_B0_FAIL_CLOSED", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE"],
       "seed_blocks": 96,
+      "cell_count": 30,
       "primary": true
     },
     "B_CONTACT_AUTHORIZATION": {
@@ -62,6 +74,7 @@
       "contact": ["K0", "K1", "K2", "K3", "K4"],
       "policies": ["S2_B0_FAIL_CLOSED", "S2_B1_FAIL_OPERATIONAL", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE"],
       "seed_blocks": 32,
+      "cell_count": 20,
       "primary": false
     },
     "C_FAULT_ATTACK_AMBIGUITY": {
@@ -69,13 +82,27 @@
       "cause": ["BENIGN", "ADVERSARIAL"],
       "policies": ["S2_B0_FAIL_CLOSED", "S2_B1_FAIL_OPERATIONAL", "S2_S1_EVIDENCE_AWARE"],
       "seed_blocks": 32,
+      "cell_count": 18,
       "primary": false
     },
     "D_CONTEXT_ABLATION": {
       "contexts": ["unauthorized_command", "update_recovery", "replay", "evidence_loss"],
       "selectors": ["S2_S1_EVIDENCE_AWARE", "PI_NO_MISSION", "PI_NO_EVIDENCE", "PI_NO_CONTACT", "PI_SECURITY_ONLY"],
       "seed_blocks": 32,
+      "cell_count": 20,
       "primary": false
+    }
+  },
+  "cell_matrix": {
+    "generator": "study2_security.cell_matrix.materialize_cell_matrix",
+    "canonical_sha256": "5549155f5e4ad923a5dfcc443e2c3dae3d896c8490aefdff6059fd8afef1e486",
+    "exact_cell_count": 88,
+    "target_valid_observations": 4736,
+    "seed_sets": {
+      "A96": "2100001-2100096 inclusive, paired across all Block-A cells",
+      "B32": "2200001-2200032 inclusive, paired across all Block-B cells",
+      "C32": "2300001-2300032 inclusive, paired across all Block-C cells",
+      "D32": "2400001-2400032 inclusive, paired across all Block-D cells"
     }
   },
   "sample_size_rationale": {
@@ -126,6 +153,6 @@
     "right_censor_time_to_event": true,
     "horizons": "must be numerically frozen in Phase 5 runtime freeze before campaign authorization; changing a horizon after outcome generation is prohibited"
   },
-  "stopping_rule": "execute exactly the frozen valid-target seed membership; no outcome-dependent early stopping",
+  "stopping_rule": "execute exactly the frozen cell/seed membership; no outcome-dependent early stopping",
   "runtime_gate": "CLOSED"
 }
