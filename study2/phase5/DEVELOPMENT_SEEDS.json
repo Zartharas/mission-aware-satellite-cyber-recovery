@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "classification": "DEVELOPMENT_ONLY_NOT_STUDY2_ANALYSIS_EVIDENCE",
+  "seed_namespace": {
+    "start": 2900001,
+    "end": 2900064,
+    "count": 64
+  },
+  "frozen_campaign_seed_consumption_authorized": false,
+  "study2_campaign_runtime_authorized": false
+}
