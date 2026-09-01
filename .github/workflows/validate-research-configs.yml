@@ -3,41 +3,7 @@ name: Validate research configurations
 on:
   push:
     branches: [main]
-    paths:
-      - "configs/**"
-      - "scripts/**"
-      - "analysis/**"
-      - "requirements-dev.txt"
-      - "src/**"
-      - "tests/**"
-      - "CITATION.cff"
-      - "README.md"
-      - "data/**"
-      - "docs/REPRODUCIBILITY_GUIDE.md"
-      - "publication/**"
-      - "release/**"
-      - "tracker/**"
-      - ".github/dependabot.yml"
-      - ".github/workflows/reproduce-wp10.yml"
-      - ".github/workflows/validate-research-configs.yml"
   pull_request:
-    paths:
-      - "configs/**"
-      - "scripts/**"
-      - "analysis/**"
-      - "requirements-dev.txt"
-      - "src/**"
-      - "tests/**"
-      - "CITATION.cff"
-      - "README.md"
-      - "data/**"
-      - "docs/REPRODUCIBILITY_GUIDE.md"
-      - "publication/**"
-      - "release/**"
-      - "tracker/**"
-      - ".github/dependabot.yml"
-      - ".github/workflows/reproduce-wp10.yml"
-      - ".github/workflows/validate-research-configs.yml"
 
 permissions:
   contents: read
