@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "artifact": "study2_phase5_runtime_freeze_checkpoint",
+  "status": "PHASE5_CI_VALIDATED_PRE_MERGE_RUNTIME_NOT_AUTHORIZED",
+  "phase4_merge_commit": "c3c9a77a678fc163053af015fff57304d1fd9746",
+  "validated_phase5_implementation_commit": "3134691fe989f03cee0d56b82f55642a6dcc8e9a",
+  "validated_phase5_implementation_tree": "8d080bd14af21cc52d3f2478662e070e1902e4e0",
+  "study2_validation_run_id": 33541685149,
+  "study2_validation_job_id": 99969224918,
+  "protocol_sha256": "fc986f8b5f110fbf405c0f90c02faff1aa8146e0ec711516fb6c3d6c9679d26b",
+  "protocol_amendment_sha256": "987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246",
+  "cell_matrix_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
+  "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+  "runtime_freeze_sha256": "40e38ebc1dccc8b549d36bcbf6c2aca4a52ade7c6ecb87670224ef643d741434",
+  "runtime_bundle_sha256": "bb1c0235822dec24845760ca536d8d0694a264bc867c0ad316e909b64bd1e06d",
+  "container_recipe_sha256": "fb12f3194c170953c5643603d94b17e39ebce34faefa781d580a880fc0b3a162",
+  "requirements_sha256": "ca5e93a0d998206ccaaa16b2f5a1414bf51d58fd53e7da9da1e2026a6fee8da4",
+  "docker_ci_image_id": "sha256:6069c73b17fe44b3969269c1f319b4cd2db3780630a213a86f363a08fd7896f5",
+  "validation_evidence": {
+    "study1_p7_conformance_cases": 48,
+    "deterministic_study2_tests": 66,
+    "hypothesis_property_tests": 8,
+    "development_cell_types_exercised": 85,
+    "study1_p7_tla_distinct_states": 48,
+    "trusted_recovery_tla_distinct_states": 385,
+    "adversarial_evidence_tla_distinct_states": 400,
+    "zero_tracked_drift": true
+  },
+  "campaign": {
+    "exact_cell_count": 85,
+    "target_valid_observations": 3872,
+    "development_seed_range": [2900001, 2900064],
+    "campaign_seed_consumed": false,
+    "campaign_observations_generated": false,
+    "phase6_authorization_present": false,
+    "study2_campaign_runtime_authorized": false,
+    "runtime_gate": "CLOSED"
+  }
+}
