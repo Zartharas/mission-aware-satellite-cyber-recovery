@@ -1,0 +1,94 @@
+name: Study 2 Phase 7 primary statistical analysis
+
+on:
+  push:
+    branches:
+      - study2/phase7-statistical-findings
+    paths:
+      - ".github/workflows/study2-phase7-primary-analysis.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  primary-analysis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out Phase 7 execution branch
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Verify frozen Phase 7 implementation bindings
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          freeze_path = Path("study2/STUDY2_ANALYSIS_IMPLEMENTATION_FREEZE.json")
+          freeze = json.loads(freeze_path.read_text(encoding="utf-8"))
+          assert freeze["analysis_phase"] == "PHASE7_STATISTICAL_ANALYSIS"
+          assert freeze["status"] == "POST_CAMPAIGN_PRE_AGGREGATE_ANALYSIS_IMPLEMENTATION_FROZEN"
+          assert freeze["base_main_commit"] == "2e7090ec5c03e280e52cacf56685a83c270d7fd4"
+          assert freeze["campaign_evidence"]["valid_observations"] == 3872
+          assert freeze["campaign_evidence"]["invalid_attempts"] == 0
+          assert freeze["reporting_constraints"]["study1_reanalysis"] == "PROHIBITED"
+
+          def sha(path: str) -> str:
+              return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+          assert sha(freeze["executable_bindings"]["analysis_entrypoint"]) == freeze["executable_bindings"]["analysis_entrypoint_sha256"]
+          assert sha(freeze["executable_bindings"]["regression_test"]) == freeze["executable_bindings"]["regression_test_sha256"]
+          print("phase7_implementation_freeze=PASS")
+          print("study1_reanalysis_prohibited=PASS")
+          PY
+
+      - name: Download exact frozen Phase 6 artifact
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ZIP="$RUNNER_TEMP/study2-phase6-evidence.zip"
+          curl --fail --silent --show-error --location \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/9816191406/zip" \
+            --output "$ZIP"
+          echo "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133  $ZIP" | sha256sum --check --strict
+          unzip -l "$ZIP"
+          echo "PHASE7_ARTIFACT_ZIP=$ZIP" >> "$GITHUB_ENV"
+          echo "phase6_artifact_identity=PASS"
+
+      - name: Run frozen analyzer regression tests
+        run: |
+          set -euo pipefail
+          PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s study2/tests -p 'test_phase7_analysis.py' -v
+
+      - name: Execute frozen Phase 7 primary analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/study2-phase7-primary"
+          PYTHONDONTWRITEBYTECODE=1 python study2/analysis/analyze_phase7.py \
+            --artifact-zip "$PHASE7_ARTIFACT_ZIP" \
+            --output-dir "$OUT"
+          python -m json.tool "$OUT/analysis_summary.json" >/dev/null
+          python -m json.tool "$OUT/output_hashes.json" >/dev/null
+          sha256sum "$OUT"/*
+          echo "PHASE7_PRIMARY_OUTPUT=$OUT" >> "$GITHUB_ENV"
+          echo "phase7_primary_analysis=PASS"
+
+      - name: Upload primary statistical outputs
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: study2-phase7-primary-${{ github.sha }}
+          path: ${{ env.PHASE7_PRIMARY_OUTPUT }}/
+          if-no-files-found: error
+          retention-days: 90
