@@ -1,0 +1,93 @@
+name: Execute Study 2 Phase 7 frozen analysis
+
+on:
+  push:
+    branches:
+      - study2/phase7-analysis-execution
+    paths:
+      - "study2/PHASE7_ANALYSIS_EXECUTION.json"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  phase7-analysis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out exact analysis implementation
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Verify execution binding
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          payload = json.loads(Path("study2/PHASE7_ANALYSIS_EXECUTION.json").read_text(encoding="utf-8"))
+          expected = {
+              "experiment_id": "S2-AEATR-001",
+              "scope": "EXACT_FROZEN_PHASE7_ANALYSIS",
+              "analysis_implementation_base_commit": "18207460fc5d419ad6a940f00db2df8610a5e5a0",
+              "analysis_entrypoint_sha256": "351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd",
+              "phase6_artifact_id": 9816191406,
+              "phase6_artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+              "active": True,
+          }
+          for key, value in expected.items():
+              if payload.get(key) != value:
+                  raise SystemExit(f"execution binding mismatch: {key}")
+
+          path = Path("study2/analysis/analyze_phase7.py")
+          actual = hashlib.sha256(path.read_bytes()).hexdigest()
+          if actual != expected["analysis_entrypoint_sha256"]:
+              raise SystemExit("analysis entrypoint SHA-256 mismatch")
+          print("phase7_execution_binding=PASS")
+          PY
+
+      - name: Download immutable Phase 6 evidence artifact
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail --silent --show-error --location \
+            --header "Authorization: Bearer ${GH_TOKEN}" \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/9816191406/zip" \
+            --output "$RUNNER_TEMP/study2-phase6-evidence.zip"
+          echo "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133  $RUNNER_TEMP/study2-phase6-evidence.zip" | sha256sum -c -
+
+      - name: Execute frozen prespecified analysis
+        shell: bash
+        run: |
+          python study2/analysis/analyze_phase7.py \
+            --artifact-zip "$RUNNER_TEMP/study2-phase6-evidence.zip" \
+            --output-dir "$RUNNER_TEMP/study2-phase7-results"
+
+      - name: Verify deterministic result files exist
+        shell: bash
+        run: |
+          test -f "$RUNNER_TEMP/study2-phase7-results/cell_summary.csv"
+          test -f "$RUNNER_TEMP/study2-phase7-results/primary_contrasts.csv"
+          test -f "$RUNNER_TEMP/study2-phase7-results/secondary_contrasts.csv"
+          test -f "$RUNNER_TEMP/study2-phase7-results/terminal_state_summary.csv"
+          test -f "$RUNNER_TEMP/study2-phase7-results/ANALYSIS_REPORT.md"
+          test -f "$RUNNER_TEMP/study2-phase7-results/analysis_summary.json"
+          test -f "$RUNNER_TEMP/study2-phase7-results/output_hashes.json"
+          cd "$RUNNER_TEMP/study2-phase7-results"
+          sha256sum cell_summary.csv primary_contrasts.csv secondary_contrasts.csv terminal_state_summary.csv ANALYSIS_REPORT.md analysis_summary.json output_hashes.json
+
+      - name: Upload frozen Phase 7 result candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: study2-phase7-results-${{ github.sha }}
+          path: ${{ runner.temp }}/study2-phase7-results/
+          if-no-files-found: error
+          retention-days: 90
