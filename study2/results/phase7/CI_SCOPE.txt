@@ -1,0 +1,1 @@
+Required before merge: Study-2 assurance green, exhaustive repository validation green, no unresolved review findings, exact-head merge lock, post-merge main validation.
