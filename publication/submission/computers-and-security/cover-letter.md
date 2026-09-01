@@ -2,7 +2,7 @@
 
 Dear Editors of *Computers & Security*,
 
-I am submitting the manuscript **“Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Evidence Constraints: Two Controlled Software-in-the-Loop Studies”** for consideration as a **Full Length Article**.
+I am submitting the manuscript **“Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints: Two Controlled Software-in-the-Loop Studies”** for consideration as a **Full Length Article**.
 
 The paper addresses a practical cyber-resilience problem for satellite systems: a defensive action can suppress unauthorized activity yet impose mission, command-availability, or recovery costs, while evidence that appears authenticated and current may still be insufficient to establish objective correctness under bounded compromise. Rather than propose another detector or a universal autonomy claim, the article evaluates deterministic response/recovery policies under explicit mission, contact, authorization, evidence, and adversary assumptions.
 
