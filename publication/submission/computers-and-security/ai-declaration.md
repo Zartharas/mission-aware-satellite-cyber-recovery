@@ -1,6 +1,6 @@
 # Generative-AI Disclosure — Elsevier / Computers & Security
 
-**Status:** integrated into the manuscript under the current August 2026 Elsevier journal policy; recheck the live policy on the actual submission date.
+**Status:** author-approved on 2026-08-31 and integrated into the manuscript under the current August 2026 Elsevier journal policy; recheck the live policy on the actual submission date.
 
 ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 

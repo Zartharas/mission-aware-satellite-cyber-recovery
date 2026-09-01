@@ -59,15 +59,17 @@ This research was conducted independently and received **no external funding**.
 
 ## Competing interests
 
-**Author attestation required before submission.** No competing-interest declaration is inferred from repository evidence or from authorization to prepare the manuscript.
+The author declares no competing financial or non-financial interests.
 
 ## Author contributions
 
-A target-specific CRediT statement has been prepared in the Computers & Security title-page package. The final role list requires author factual approval before submission; funding acquisition and supervision are not assigned merely because the paper has one author.
+**Aman Kumar Singh:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing – original draft; Writing – review & editing; Visualization; Project administration.
+
+`Funding acquisition` is omitted because the study reports no external funding. `Supervision` is not assigned because this is a single-author independent study.
 
 ## Acknowledgments
 
-**Author decision required before submission.** No acknowledgment is inferred. Any acknowledgment of software projects, institutional resources, colleagues, reviewers, or infrastructure must be factually verified and must not imply endorsement.
+The author has no acknowledgments to add for this manuscript.
 
 ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 
