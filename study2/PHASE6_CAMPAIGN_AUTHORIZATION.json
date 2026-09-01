@@ -10,6 +10,6 @@
   "runtime_freeze_sha256": "40e38ebc1dccc8b549d36bcbf6c2aca4a52ade7c6ecb87670224ef643d741434",
   "container_recipe_sha256": "fb12f3194c170953c5643603d94b17e39ebce34faefa781d580a880fc0b3a162",
   "runtime_bundle_sha256": "7e0883bffd4475a5f5903fa00964ad4cd54d0776cd6a6a9f2243d4b027514be9",
-  "active": true,
-  "consumed": false
+  "active": false,
+  "consumed": true
 }
