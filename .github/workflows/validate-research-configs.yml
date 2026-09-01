@@ -96,7 +96,7 @@ jobs:
               done
 
       - name: Install frozen WP10 reproduction dependencies
-        run: python -m pip install --only-binary=:all: --requirement analysis/requirements.txt
+        run: "python -m pip install --only-binary=:all: --requirement analysis/requirements.txt"
 
       - name: Reproduce and validate frozen WP10 statistical contracts
         run: python analysis/reproduce_wp10.py --validate
