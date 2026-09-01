@@ -1,10 +1,12 @@
 # Target-Neutral Manuscript Assembly
 
-**Assembly status:** cybersecurity framing integrated; reproducibility hardening complete  
+**Assembly status:** cybersecurity framing integrated; reproducibility hardening complete; author attestations complete  
 **Scientific evidence audit:** `docs/35-wp10-g5-manuscript-evidence-audit.md` — PASS  
-**Quantitative authority:** `docs/28`–`docs/34`, `publication/tables/`, and the post-publication `analysis/` regression package  
+**Quantitative authority:** `docs/28`–`docs/34`, `publication/tables/`, and the reconstructed `analysis/` regression package  
 **Primary target journal:** Computers & Security (Elsevier), Full Length Article  
-**Backup targets:** AIAA Journal of Aerospace Information Systems; IEEE Transactions on Aerospace and Electronic Systems
+**Backup targets:** AIAA Journal of Aerospace Information Systems; IEEE Transactions on Aerospace and Electronic Systems  
+**Author-attestation gate: PASS**  
+**Current submission state:** **final submission-export gate**
 
 ## Authoritative manuscript order
 
@@ -70,22 +72,27 @@ Any combined DOCX/LaTeX/PDF or journal-specific rewrite must preserve:
 - affiliation: Independent Researcher, The Woodlands, Texas, United States;
 - corresponding-author email and ORCID are recorded in `submission-inputs.csv`;
 - funding: independent research, no external funding;
+- competing interests: no competing financial or non-financial interests declared;
+- acknowledgments: none to add for this manuscript;
+- final CRediT role statement: author approved;
+- generative-AI declaration: author approved, with live publisher-policy recheck retained;
+- simultaneous consideration: author confirmed the manuscript is not simultaneously under consideration elsewhere;
 - Zenodo v1.0.0 version DOI and concept DOI are fixed;
-- Code Availability is bound to reproducibility-hardened `main` commit `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`;
+- Code Availability is intentionally bound to the reproducibility-hardened `main` snapshot `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`, which contains the validated WP10 reconstruction; later submission-only commits do not redefine that scientific/reproducibility snapshot;
 - primary target: Computers & Security, Full Length Article.
 
 ## Submission-state controls
 
-The current Computers & Security scope/policy review and cybersecurity fit audit have been completed during this preparation cycle. Because publisher portals and policies can change, a final live Guide for Authors/Editorial Manager check remains mandatory on the actual submission date.
+The current Computers & Security scope/policy review and cybersecurity fit audit have been completed during this preparation cycle. Because publisher portals and policies can change, a final live Guide for Authors/Aims & Scope/Editorial Manager check remains mandatory on the actual submission date.
 
-The following items require factual author attestation and therefore must not be inferred from repository evidence:
+The author-owned factual declarations are closed. The remaining final-export decisions/checks are deliberately different in kind:
 
-- competing-interest declaration;
-- acknowledgments decision;
-- confirmation that the manuscript is not simultaneously under consideration elsewhere;
-- final author approval of the CRediT and generative-AI statements;
-- an institutional IRB/HRPP determination identifier only if specifically required for this no-human-participant software experiment.
+- decide whether to adopt the concise Computers & Security abstract candidate or retain the authoritative target-neutral abstract;
+- confirm current article-type naming, length/reference/display/file requirements, and portal fields;
+- recheck current AI/ML scope, generative-AI disclosure, and competing-interest workflows;
+- provide an institutional IRB/HRPP determination identifier **only if** the portal specifically requires an applicable identifier for this no-human-participant software experiment; none is invented;
+- run the final citation/DOI/reference audit, frozen-results claim audit, and scope-fit audit against the exact submission export.
 
 ## Assembly rule
 
-The component files above are the manuscript source of truth. Do not maintain a second manually copied full-text file before target-journal export, because duplicate prose copies can drift. A journal-specific export should be generated from these components only after the pre-submission audit passes.
+The component files above are the manuscript source of truth. Do not maintain a second manually copied full-text file before target-journal export, because duplicate prose copies can drift. A journal-specific export should be generated from these components only after the final pre-submission audit passes.
