@@ -9,7 +9,7 @@
 [![Research data](https://img.shields.io/badge/data-CC%20BY%204.0-blue)](LICENSE)
 [![Code](https://img.shields.io/badge/code-MIT-green)](LICENSE)
 
-[Dataset](https://doi.org/10.5281/zenodo.22181540) · [Manuscript](publication/README.md) · [Figures](publication/figures/) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
+[Dataset](https://doi.org/10.5281/zenodo.22181540) · [Manuscript](publication/README.md) · [Figures](publication/figures/) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Final academic audit](docs/48-final-academic-and-bibliography-sanity-audit.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
 
 </div>
 
@@ -100,6 +100,7 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements-dev.txt
 
 python scripts/audit_repository_release_gate.py
+python scripts/audit_bibliography_metadata.py
 python scripts/validate_experiment_schema.py
 python -m unittest discover -s tests -p 'test_*.py'
 ```
@@ -123,7 +124,7 @@ python -m unittest discover -s analysis/tests -p 'test_*.py'
 
 ## Reproducibility levels
 
-1. **Repository validation — recommended first.** Current-state release-gate audit, schema validation, exhaustive script syntax checks, Python compilation, and tests; no simulator runtime.
+1. **Repository validation — recommended first.** Current-state release-gate audit, bibliography metadata integrity checks, schema validation, exhaustive script syntax checks, Python compilation, and tests; no simulator runtime.
 2. **Testbed preflight.** Rebuild the pinned NOS3/Fortytwo environment and run the bounded nominal runtime preflight under Docker isolation.
 3. **Scientific replication.** Any new execution of experimental cells is a new replication, not the historical WP9 dataset. Do not overwrite or represent a new run as the archived v1.0.0 campaign.
 
