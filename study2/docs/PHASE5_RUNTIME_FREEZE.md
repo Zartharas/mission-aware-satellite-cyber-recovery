@@ -65,17 +65,17 @@ The first position is `S2-AEATR-001:A01:2100001`; the final position is `S2-AEAT
 
 ## Attempt-history controls
 
-The Phase-5 attempt ledger preserves the Study-1 governance pattern without reusing Study-1 data:
+The Phase-5 attempt ledger preserves the Study-1 governance principles without reusing Study-1 data:
 
 - globally unique run IDs;
 - exact-next-trial enforcement;
 - retained INVALID attempts;
 - INVALID does not advance the frozen position;
-- no automatic retry;
-- no automatic next-trial execution;
-- no post-hoc seed substitution.
+- no automatic retry after INVALID;
+- no post-hoc seed substitution;
+- no outcome-dependent stopping.
 
-The Phase-6 campaign operator must use this exact-next-trial ledger boundary; direct development fixtures are not campaign evidence.
+Each `run_trial()` invocation executes only the requested frozen position and never advances another position internally. The frozen Phase-6 campaign operator may deterministically request the next manifest position only after the ledger has accepted the prior attempt as VALID. On any exception or INVALID result, the operator records that attempt and stops immediately; it does not retry, substitute a seed, or continue to a later position.
 
 ## Development runner
 
@@ -85,9 +85,23 @@ The policy receives only policy-visible evidence/contact/context. Research-only 
 
 Block-B contact trials may perform a deterministic follow-up evaluation when the frozen contact schedule next becomes available. This is logical SIL progression, not sleeping or wall-clock timing.
 
+## Frozen Phase-6 execution surface
+
+Phase 5 freezes the future execution surface before authorization:
+
+- `study2/scripts/run_phase6_campaign.py` is the sole frozen campaign operator;
+- `.github/workflows/run-study2-phase6-campaign.yml` is the authorization-triggered execution workflow;
+- both are included in `runtime_bundle_sha256` together with the Study-2 security package, Dockerfile, requirements, frozen protocol, and PA1;
+- the operator materializes the exact 3,872-position manifest, validates the exact-next ledger after every attempt, and stops on the first INVALID/error;
+- successful evidence is written as canonical JSONL plus runtime bindings, campaign summary, and SHA-256 manifest;
+- the workflow uploads the resulting evidence candidate as a GitHub Actions artifact;
+- updating the authorization to the consumed state does not execute the campaign again.
+
+The Phase-5 assurance gate invokes the Phase-6 operator only in `--validate-static` mode. That static check consumes no campaign seed and generates no campaign observation.
+
 ## Runtime authorization boundary
 
-Phase 5 defines the authorization schema but intentionally contains no `study2/PHASE6_CAMPAIGN_AUTHORIZATION.json`. Even a correctly constructed in-memory authorization is rejected while that repository-backed file is absent.
+Phase 5 intentionally contains no `study2/PHASE6_CAMPAIGN_AUTHORIZATION.json`. Even a correctly constructed in-memory authorization is rejected while that repository-backed file is absent.
 
 Future authorization bindings are derived by the runtime itself, not supplied by the caller. They include:
 
@@ -97,13 +111,13 @@ Future authorization bindings are derived by the runtime itself, not supplied by
 - trial-manifest SHA-256;
 - Phase-5 runtime-freeze SHA-256;
 - Dockerfile/container-recipe SHA-256;
-- a runtime-bundle SHA-256 over the Study-2 security package and frozen static runtime inputs;
+- a runtime-bundle SHA-256 covering the execution workflow, campaign operator, Study-2 security package, and frozen static runtime inputs;
 - a Phase-5 base commit for provenance;
 - explicit exact-campaign scope;
 - `active=true` and `consumed=false`.
 
-The runtime-freeze canonical SHA-256 for this candidate is:
+The runtime-freeze canonical SHA-256 for this candidate remains:
 
 `40e38ebc1dccc8b549d36bcbf6c2aca4a52ade7c6ecb87670224ef643d741434`
 
-Until a future Phase-6 authorization is committed, independently validated, and invoked through the campaign operator, campaign mode remains closed.
+Until a future Phase-6 authorization is committed, independently validated, and invoked through the frozen campaign operator, campaign mode remains closed.
