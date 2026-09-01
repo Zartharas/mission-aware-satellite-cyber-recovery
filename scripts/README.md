@@ -9,7 +9,8 @@ Use these first when validating or reconstructing the published environment:
 | Script | Purpose |
 |---|---|
 | `verify_environment.sh` | Report the local host/tool prerequisites used by the project. |
-| `validate_experiment_schema.py` | Validate the experiment schema and committed fixtures. |
+| `validate_experiment_schema.py` | Validate the experiment schema and committed historical/frozen fixtures. |
+| `audit_repository_release_gate.py` | Run the current-state final-submission repository sanity audit without starting the simulator. |
 | `prepare_nos3_candidate.sh` | Obtain the pinned NOS3 source tree into the ignored `external/` directory and record the source lock. |
 | `prepare_42_candidate.sh` | Obtain/build the pinned Fortytwo/42 dependency under the frozen container environment. |
 | `build_nominal_nos3.sh` | Build the pinned nominal NOS3 environment with network-disabled container execution. |
@@ -19,6 +20,12 @@ Use these first when validating or reconstructing the published environment:
 | `verify_testbed_runtime.sh` | Verify the retained testbed/runtime evidence contract. |
 
 The end-to-end setup order, expected PASS markers, platform notes, and safety boundaries are documented in [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md).
+
+### Historical-fixture messages versus current authorization
+
+`validate_experiment_schema.py` intentionally re-validates stage-local WP5–WP9 fixtures exactly as they were frozen. Some legacy PASS/error text therefore uses historical language such as an R-043 pilot authorization being active or an earlier pilot/campaign gate being blocked. Those messages describe **the semantics of the historical fixture being validated**, not a current authorization to resume WP8/WP9 execution.
+
+Current project state is governed by `tracker/RESEARCH_TRACKER.md`, `publication/manuscript/MANUSCRIPT-ASSEMBLY.md`, and the Computers & Security submission checklist. WP8 and WP9 are complete; no further frozen-campaign runtime is authorized. `audit_repository_release_gate.py` checks that these current-facing records do not regress to an earlier stage state.
 
 ## Release tooling
 
@@ -48,7 +55,7 @@ Do **not** use the historical WP9 campaign operator as a generic test command. A
 
 ## Removed obsolete helpers
 
-The post-publication repository cleanup removed four files from the active branch because they were obsolete/orphaned and not part of the current reproducibility path:
+The post-Zenodo-publication repository cleanup removed four files from the active branch because they were obsolete/orphaned and not part of the current reproducibility path:
 
 - `bootstrap_macos.sh` — contained an old researcher-specific local path/repository bootstrap workflow superseded by the public clone/setup instructions.
 - `benign_plaintext_transport_relay.py` — WP4 benign diagnostic helper from the discontinued transport-observability branch.
