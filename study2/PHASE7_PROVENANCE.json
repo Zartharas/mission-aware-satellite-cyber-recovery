@@ -1,0 +1,70 @@
+{
+  "analysis_execution": {
+    "branch_head": "60f64327c45efda24cbb5b342f9d0eac908e1934",
+    "conclusion": "success",
+    "result_artifact_expires_at": "2026-11-30T20:06:34Z",
+    "result_artifact_id": 9818318189,
+    "result_artifact_name": "study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934",
+    "result_artifact_zip_sha256": "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417",
+    "workflow_job_id": 100008137499,
+    "workflow_run_id": 33553370460
+  },
+  "analysis_implementation": {
+    "classification": "NOT_A_PREREGISTRATION_OPERATIONALIZATION_OF_PROSPECTIVELY_FROZEN_ANALYSIS_PLAN",
+    "entrypoint": "study2/analysis/analyze_phase7.py",
+    "entrypoint_sha256": "351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd",
+    "freeze_pr": 68,
+    "implementation_main_commit": "18207460fc5d419ad6a940f00db2df8610a5e5a0"
+  },
+  "experiment_id": "S2-AEATR-001",
+  "independent_sanity_audit": {
+    "audit_scope_note": "Independent arithmetic recomputation from the immutable Phase-6 observations; not an alternative analysis and not additional campaign data.",
+    "cell_summary_core_outcomes_recomputed": 85,
+    "cell_summary_mismatches": 0,
+    "holm_adjustment_rows_recomputed": 432,
+    "holm_mismatches": 0,
+    "primary_effect_and_paired_sd_rows_recomputed": 162,
+    "primary_mismatches": 0,
+    "secondary_effect_paired_sd_and_raw_p_rows_recomputed": 432,
+    "secondary_mismatches": 0
+  },
+  "phase": 7,
+  "reporting_constraints": {
+    "A2_K2_contact_coupling_must_be_explicit": true,
+    "K4_not_ordinal_continuation": true,
+    "global_policy_rank": false,
+    "global_weighted_policy_score": false,
+    "logical_sil_seconds_not_wall_clock": true,
+    "new_campaign_execution": false,
+    "study1_reanalysis": false
+  },
+  "result_counts": {
+    "cell_summary_rows": 85,
+    "primary_contrast_rows": 162,
+    "primary_endpoint_count": 6,
+    "secondary_contrast_rows": 432,
+    "terminal_state_rows": 85
+  },
+  "result_file_sha256": {
+    "ANALYSIS_REPORT.md": "4fe99f64223fec6ae58233c5fdf0f7b74337cbcc1ddee426cf5909e16ec93dd4",
+    "analysis_summary.json": "f3784a367bd071505be2120cb82111b0d1f30805e21cb40d70ca21252fea0043",
+    "cell_summary.csv": "6995dc69d2652791feee86e5409565b4c87c7a9b3e041de319d240fa30c7f27c",
+    "output_hashes.json": "3c5fac4b8f07c1408711e8961e80c651b150d8fe603a39aba7a267ef20e3a33b",
+    "primary_contrasts.csv": "a3d4fd395d88ffe83fa39ded3584120ed0cd1e45f184b5fbd3d37ab49cdd2a52",
+    "secondary_contrasts.csv": "9a37c31853c0bfccecd6f66f7701e65dbbbf9e9f9a239479afb770d4bdbe58af",
+    "terminal_state_summary.csv": "efbc26efe7c6edc2ef760654bec2f0a3accfcf898fff6bdcc40392b076b3cce7"
+  },
+  "schema": 1,
+  "source_phase6": {
+    "artifact_id": 9816191406,
+    "artifact_zip_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "attempt_ledger_sha256": "755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5",
+    "cell_count": 85,
+    "closeout_main_commit": "2e7090ec5c03e280e52cacf56685a83c270d7fd4",
+    "invalid_attempts": 0,
+    "observations_sha256": "8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854",
+    "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+    "valid_observations": 3872
+  },
+  "status": "PRESPECIFIED_ANALYSIS_RESULTS_FREEZE_CANDIDATE"
+}
