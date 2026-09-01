@@ -16,6 +16,8 @@ The article reports **two separately frozen empirical studies**. They share a po
 - **Study 1:** 24 cells × 30 repetitions = **720 VALID observations**, with 9 retained INVALID attempts outside statistical membership.
 - **Study 2:** 85 cells = **3,872 VALID observations**, 0 INVALID attempts.
 
+Machine-audit population identity: **Study 1 = exactly 720 VALID observations; Study 2 = exactly 3,872 VALID observations.**
+
 Study 1 remains the original comparative response/recovery experiment. Study 2 is a prospectively specified adversarial evidence-aware generalization with additional evidence mechanisms, adversary budgets, contact regimes, ambiguity controls, and selector/context ablations.
 
 ## Authoritative manuscript order
