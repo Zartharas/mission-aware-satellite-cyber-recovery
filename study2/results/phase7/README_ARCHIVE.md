@@ -1,0 +1,1 @@
+Retain a durable local/external copy of the hash-identified Phase-7 result ZIP before the GitHub Actions artifact expires on 2026-11-30. Repository provenance remains authoritative for artifact identity and analysis bindings.
