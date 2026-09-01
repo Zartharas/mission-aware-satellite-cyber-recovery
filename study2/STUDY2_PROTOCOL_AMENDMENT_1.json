@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "experiment_id": "S2-AEATR-001",
+  "amendment_id": "S2-AEATR-001-PA1",
+  "status": "FROZEN_PRE_RUNTIME_NO_CAMPAIGN_DATA_OBSERVED",
+  "reason": "K4 represents intermittent/flapping contact and is not an ordinal continuation of K0-K3 outage severity.",
+  "analysis_contact_original": "ordered K0-K4 trend plus policy-by-contact interaction estimates",
+  "analysis_contact_replacement": "ordered K0-K3 trend; K4 is a prespecified intermittent-contact contrast; policy-by-contact interaction estimates are reported across K0-K4 without treating K4 as the next ordinal severity level",
+  "cell_matrix_changed": false,
+  "seed_membership_changed": false,
+  "sample_size_changed": false,
+  "primary_outcomes_changed": false,
+  "campaign_data_observed_before_amendment": false,
+  "campaign_seed_consumed_before_amendment": false
+}

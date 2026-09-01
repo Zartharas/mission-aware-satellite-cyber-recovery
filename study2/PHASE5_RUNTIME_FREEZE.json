@@ -19,6 +19,7 @@
   "campaign_seed_ranges": [[2100001, 2100096], [2200001, 2200032], [2300001, 2300032], [2400001, 2400032], [2500001, 2500032]],
   "cell_matrix_sha256": "5087e46f9d416fe5b741fedcb4b1a9d848342087c6e317614dec26a56c2dc081",
   "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+  "protocol_amendment_sha256": "987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246",
   "assurance_dockerfile_sha256": "fb12f3194c170953c5643603d94b17e39ebce34faefa781d580a880fc0b3a162",
   "requirements_sha256": "ca5e93a0d998206ccaaa16b2f5a1414bf51d58fd53e7da9da1e2026a6fee8da4",
   "campaign_runtime_authorized": false,

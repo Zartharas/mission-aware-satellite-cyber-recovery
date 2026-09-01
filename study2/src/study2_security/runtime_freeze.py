@@ -30,6 +30,7 @@ CAMPAIGN_SEED_RANGES = (
 
 ASSURANCE_DOCKERFILE_SHA256 = "fb12f3194c170953c5643603d94b17e39ebce34faefa781d580a880fc0b3a162"
 REQUIREMENTS_SHA256 = "ca5e93a0d998206ccaaa16b2f5a1414bf51d58fd53e7da9da1e2026a6fee8da4"
+PROTOCOL_AMENDMENT_SHA256 = "987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246"
 EXPECTED_TRIAL_MANIFEST_SHA256 = "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67"
 
 
@@ -71,7 +72,10 @@ CONTACT_CALIBRATION = {
     ContactRegime.K1: ContactCalibration(ContactRegime.K1, ((20.0, 240.0),)),
     ContactRegime.K2: ContactCalibration(ContactRegime.K2, ((60.0, 240.0),)),
     ContactRegime.K3: ContactCalibration(ContactRegime.K3, ((180.0, 240.0),)),
-    ContactRegime.K4: ContactCalibration(ContactRegime.K4, ((25.0, 35.0), (75.0, 90.0), (145.0, 165.0), (220.0, 240.0))),
+    ContactRegime.K4: ContactCalibration(
+        ContactRegime.K4,
+        ((25.0, 35.0), (75.0, 90.0), (145.0, 165.0), (220.0, 240.0)),
+    ),
 }
 
 
@@ -103,11 +107,15 @@ def freeze_payload() -> dict[str, Any]:
         "evidence_valid_for_s": EVIDENCE_VALID_FOR_S,
         "recovery_processing_s": RECOVERY_PROCESSING_S,
         "censor_horizon_s": CENSOR_HORIZON_S,
-        "contact_windows": {regime.value: [list(window) for window in calibration.windows] for regime, calibration in CONTACT_CALIBRATION.items()},
+        "contact_windows": {
+            regime.value: [list(window) for window in calibration.windows]
+            for regime, calibration in CONTACT_CALIBRATION.items()
+        },
         "development_seed_range": [DEVELOPMENT_SEED_START, DEVELOPMENT_SEED_END],
         "campaign_seed_ranges": [list(row) for row in CAMPAIGN_SEED_RANGES],
         "cell_matrix_sha256": matrix_sha256(),
         "trial_manifest_sha256": trial_manifest_sha256(),
+        "protocol_amendment_sha256": PROTOCOL_AMENDMENT_SHA256,
         "assurance_dockerfile_sha256": ASSURANCE_DOCKERFILE_SHA256,
         "requirements_sha256": REQUIREMENTS_SHA256,
         "campaign_runtime_authorized": False,
@@ -119,7 +127,16 @@ def freeze_payload() -> dict[str, Any]:
 
 
 def canonical_freeze_bytes(payload: dict[str, Any] | None = None) -> bytes:
-    return (json.dumps(payload or freeze_payload(), ensure_ascii=True, allow_nan=False, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
+    return (
+        json.dumps(
+            payload or freeze_payload(),
+            ensure_ascii=True,
+            allow_nan=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        + "\n"
+    ).encode("utf-8")
 
 
 def runtime_freeze_sha256(payload: dict[str, Any] | None = None) -> str:

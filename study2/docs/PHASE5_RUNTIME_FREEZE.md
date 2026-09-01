@@ -12,6 +12,16 @@ This phase remains pre-campaign. It does not alter Study-1 evidence, rerun Study
 
 `runtime_gate = CLOSED`
 
+## Prospective protocol amendment PA1
+
+Before any campaign observation or campaign seed consumption, Phase 5 records `STUDY2_PROTOCOL_AMENDMENT_1.json`.
+
+The amendment corrects only the planned contact analysis: K0-K3 remain an ordered outage trend, while K4 is treated as a prespecified intermittent/flapping-contact contrast rather than as the next ordinal severity level. It changes no cell, seed, sample size, primary outcome, treatment, policy, or stopping rule.
+
+Protocol-amendment file SHA-256:
+
+`987559dfc1ccc28a50f3299161bfe1ff39e352d5891fb9b488672867fbf44246`
+
 ## Frozen logical-time calibration
 
 The time basis is deterministic logical SIL time, not measured spacecraft-link latency and not MacBook/GitHub wall-clock duration.
@@ -41,7 +51,7 @@ Frozen campaign seeds remain exactly:
 - D32: `2400001-2400032`
 - E32: `2500001-2500032`
 
-The runtime rejects a campaign seed in development mode. Campaign mode rejects all non-campaign seeds and additionally requires an active, unconsumed authorization envelope bound to the exact repository commit and cryptographic runtime/protocol manifests.
+The runtime rejects a campaign seed in development mode. Campaign mode rejects all non-campaign seeds and additionally requires a repository-backed, active, unconsumed Phase-6 authorization envelope.
 
 ## Exact trial membership
 
@@ -65,6 +75,8 @@ The Phase-5 attempt ledger preserves the Study-1 governance pattern without reus
 - no automatic next-trial execution;
 - no post-hoc seed substitution.
 
+The Phase-6 campaign operator must use this exact-next-trial ledger boundary; direct development fixtures are not campaign evidence.
+
 ## Development runner
 
 The development runner uses synthetic deterministic Ed25519 producer keys and deterministic logical evidence. It exercises all 85 frozen cell types with only the development seed namespace.
@@ -75,15 +87,23 @@ Block-B contact trials may perform a deterministic follow-up evaluation when the
 
 ## Runtime authorization boundary
 
-Phase 5 defines the authorization schema but intentionally contains no active authorization. A future Phase-6 authorization must bind:
+Phase 5 defines the authorization schema but intentionally contains no `study2/PHASE6_CAMPAIGN_AUTHORIZATION.json`. Even a correctly constructed in-memory authorization is rejected while that repository-backed file is absent.
 
-- exact repository commit;
-- frozen protocol SHA-256;
+Future authorization bindings are derived by the runtime itself, not supplied by the caller. They include:
+
+- frozen protocol file SHA-256;
+- prospective protocol-amendment SHA-256;
 - cell-matrix SHA-256;
 - trial-manifest SHA-256;
 - Phase-5 runtime-freeze SHA-256;
-- container recipe SHA-256;
+- Dockerfile/container-recipe SHA-256;
+- a runtime-bundle SHA-256 over the Study-2 security package and frozen static runtime inputs;
+- a Phase-5 base commit for provenance;
 - explicit exact-campaign scope;
-- active=true and consumed=false.
+- `active=true` and `consumed=false`.
 
-Until such an authorization is merged and independently validated, campaign mode cannot execute a frozen Study-2 seed.
+The runtime-freeze canonical SHA-256 for this candidate is:
+
+`40e38ebc1dccc8b549d36bcbf6c2aca4a52ade7c6ecb87670224ef643d741434`
+
+Until a future Phase-6 authorization is committed, independently validated, and invoked through the campaign operator, campaign mode remains closed.
