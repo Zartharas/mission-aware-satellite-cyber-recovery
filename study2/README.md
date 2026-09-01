@@ -62,20 +62,27 @@ A valid signature is not treated as truth. In V5 a compromised producer may vali
 
 Ground truth, the adjudication oracle, analysis controls, seeds, treatment identity, provenance controls, and verifier compromise are outside the permitted adversary budget.
 
-## Validated pre-runtime assurance checkpoint
+## Hardened pre-runtime assurance checkpoint
 
-Implementation commit `7a62242826b3ec65281b8c84407e5bb0b101021a` passed GitHub Actions run `33529039158` / job `99927175807` with zero tracked drift:
+Implementation commit `bfb5ee01ec4c9d0010330a12e3c5f76da6b90d48` passed the dedicated Study-2 GitHub Actions run `33536459043` / job `99951852211`. The same hardened head passed the exhaustive repository run `33536458895` / job `99951851674` with the frozen Study-1 research suite and WP10 reconstruction intact.
+
+The hardened checkpoint establishes:
 
 - 48 Study-1 P7 conformance cases;
-- 37 deterministic Study-2 tests;
+- 41 deterministic Study-2 security/protocol tests;
 - 8 Hypothesis property tests;
-- 5/5 semantic security mutants killed;
+- 7/7 targeted semantic security mutants killed through production `verify_bundle()` and trusted-recovery-gate paths;
+- explicit frozen scenario/adversary-budget identity binding;
+- guaranteed V2 stale expiry or fail-closed rejection when the requested logical clock cannot represent expiry;
+- V3/V5 sequence allocation above the signing source's current maximum in the same recovery epoch;
 - Study1P7 TLA+: 48 distinct states;
 - TrustedRecovery TLA+: 385 distinct states;
 - AdversarialEvidence TLA+: 540 generated / 400 distinct states, depth 3;
-- no TLA+ error.
+- 611/611 frozen Study-1 research tests;
+- frozen WP10 reproduction/regression PASS;
+- zero tracked-file drift.
 
-These are assurance/model-checking results, not empirical Study-2 campaign observations or proof of operational spacecraft security.
+All four P1 review findings that prompted the hardening were addressed and resolved before merge eligibility. These are assurance/model-checking results, not empirical Study-2 campaign observations or proof of operational spacecraft security.
 
 ## Docker validation
 
@@ -86,7 +93,7 @@ docker build --file study2/Dockerfile --tag satellite-study2-assurance .
 docker run --rm satellite-study2-assurance
 ```
 
-The image performs compilation, Study-1 P7 conformance, protocol/hash freeze checks, deterministic security tests, property tests, semantic mutation checks, and three TLA+ model checks. It contains no command that launches a Study-1 or Study-2 NOS3/cFS campaign.
+The image performs compilation, Study-1 P7 conformance, protocol/hash freeze checks, deterministic security tests, property tests, production-bound semantic mutation checks, and three TLA+ model checks. It contains no command that launches a Study-1 or Study-2 NOS3/cFS campaign.
 
 ## Next boundary
 
