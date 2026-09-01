@@ -68,9 +68,9 @@ The final-commit sensitivity uses complete seed blocks `10002`–`10030`:
 - seeds: `29`
 - observations: `696`
 - execution commit: `7ed85d5cbeca8f903b3468bc6ccc1c56e29c2446`
-- P7 Pareto-front membership stable: all 9 groups
-- pairwise Pareto relations stable: all 9 groups
-- primary-metric directions stable: all 9 groups
+- P7 Pareto-front membership/non-membership classification stable across all 9 groups
+- pairwise Pareto relations stable across all 9 groups
+- primary-metric directions stable across all 9 groups
 
 This sensitivity is supportive only. The primary analysis remains all 720 frozen VALID observations.
 
@@ -80,8 +80,8 @@ WP10 analysis directories are retained outside the tracked raw-results boundary.
 
 WP11 will determine which sanitized analysis tables, scripts, manifests, or archives are appropriate for the public reproducibility release and Zenodo deposit.
 
-## Post-publication executable reconstruction
+## Post-Zenodo, pre-journal-submission executable reconstruction
 
-The local-output handling above describes the historical WP10 analysis state at the time of the original analysis. After Zenodo v1.0.0 publication and repository cleanup, the preserved WP10 output directories were recovered from the private preservation archive and re-verified. No original executable analysis-source candidates were present.
+The local-output handling above describes the historical WP10 analysis state at the time of the original analysis. After the campaign and Zenodo v1.0.0 publication, the preserved WP10 output directories were recovered from the private preservation archive and re-verified. No original executable analysis-source candidates were present.
 
-A separate post-publication reconstruction is now tracked under `analysis/`. It starts from the frozen 720-row derived extraction plus the retained P4 selection/provenance binding, and regression-validates the manuscript-facing statistical contracts against preserved authoritative WP10 outputs. It must not be cited or described as recovered original WP10 source. Zenodo v1.0.0 remains unchanged.
+A separate reconstruction, prepared after campaign/Zenodo v1.0.0 publication and before journal submission, is now tracked under `analysis/`. It starts from the frozen 720-row derived extraction plus the retained P4 selection/provenance binding, and regression-validates the manuscript-facing statistical contracts against preserved authoritative WP10 outputs. It must not be cited or described as recovered original WP10 source. Zenodo v1.0.0 remains unchanged.
