@@ -7,10 +7,18 @@ on:
       - "study2/**"
     paths:
       - "study2/**"
+      - "src/mission_recovery/events.py"
+      - "src/mission_recovery/policies.py"
+      - "configs/wp5_event_catalog.json"
+      - "configs/wp6_policy_rules.json"
       - ".github/workflows/validate-study2-security.yml"
   pull_request:
     paths:
       - "study2/**"
+      - "src/mission_recovery/events.py"
+      - "src/mission_recovery/policies.py"
+      - "configs/wp5_event_catalog.json"
+      - "configs/wp6_policy_rules.json"
       - ".github/workflows/validate-study2-security.yml"
 
 permissions:
