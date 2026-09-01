@@ -33,23 +33,28 @@ def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _validate_authorization_boundary() -> bool:
+def _validate_authorization_boundary() -> str:
     phase6_expected = os.environ.get("STUDY2_PHASE6_AUTH_EXPECTED") == "1"
-    if phase6_expected:
-        if not AUTHORIZATION_PATH.is_file():
+    if not AUTHORIZATION_PATH.exists():
+        if phase6_expected:
             raise SystemExit("Phase-6 authorization was expected but is absent")
-        payload = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
-        CampaignAuthorization(**payload).validate()
-        return True
-    if AUTHORIZATION_PATH.exists():
+        return "absent"
+    if not phase6_expected:
         raise SystemExit("pre-Phase-6 validation must not contain campaign authorization")
-    return False
+
+    payload = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+    auth = CampaignAuthorization(**payload)
+    if auth.active and not auth.consumed:
+        auth.validate()
+        return "active"
+    if not auth.active and auth.consumed:
+        auth.validate_bindings(require_active=False)
+        return "consumed"
+    raise SystemExit("Phase-6 authorization lifecycle state is invalid")
 
 
 def main() -> int:
-    frozen = json.loads(
-        (ROOT / "study2" / "PHASE5_RUNTIME_FREEZE.json").read_text(encoding="utf-8")
-    )
+    frozen = json.loads((ROOT / "study2" / "PHASE5_RUNTIME_FREEZE.json").read_text(encoding="utf-8"))
     if frozen != freeze_payload():
         raise SystemExit("Phase-5 runtime-freeze JSON differs from executable freeze")
     if file_sha256(ROOT / "study2" / "Dockerfile") != ASSURANCE_DOCKERFILE_SHA256:
@@ -72,7 +77,7 @@ def main() -> int:
     if any(amendment[key] is not False for key in expected_flags):
         raise SystemExit("protocol amendment changed frozen membership/outcomes or followed data")
 
-    phase6_authorization_present = _validate_authorization_boundary()
+    phase6_authorization_state = _validate_authorization_boundary()
 
     matrix = materialize_cell_matrix()
     if len(matrix["cells"]) != 85 or matrix_sha256(matrix) != frozen["cell_matrix_sha256"]:
@@ -80,10 +85,7 @@ def main() -> int:
     manifest = materialize_trial_manifest()
     if manifest["position_count"] != 3872:
         raise SystemExit("trial-manifest position count changed")
-    if (
-        trial_manifest_sha256(manifest) != EXPECTED_TRIAL_MANIFEST_SHA256
-        or trial_manifest_sha256(manifest) != frozen["trial_manifest_sha256"]
-    ):
+    if trial_manifest_sha256(manifest) != EXPECTED_TRIAL_MANIFEST_SHA256 or trial_manifest_sha256(manifest) != frozen["trial_manifest_sha256"]:
         raise SystemExit("trial-manifest canonical hash changed")
     campaign_seeds = {row["seed"] for row in manifest["positions"]}
     if len(campaign_seeds) != 224 or not all(is_campaign_seed(seed) for seed in campaign_seeds):
@@ -97,13 +99,8 @@ def main() -> int:
     if report["campaign_seed_consumed"] or report["campaign_observations_generated"]:
         raise SystemExit("Phase-5 development validation crossed campaign boundary")
 
-    protocol = json.loads(
-        (ROOT / "study2" / "STUDY2_PROTOCOL.json").read_text(encoding="utf-8")
-    )
-    if (
-        protocol["study2_campaign_runtime_authorized"] is not False
-        or protocol["runtime_gate"] != "CLOSED"
-    ):
+    protocol = json.loads((ROOT / "study2" / "STUDY2_PROTOCOL.json").read_text(encoding="utf-8"))
+    if protocol["study2_campaign_runtime_authorized"] is not False or protocol["runtime_gate"] != "CLOSED":
         raise SystemExit("frozen protocol baseline must remain CLOSED; Phase-6 authorization is separate")
 
     bindings = current_runtime_bindings()
@@ -121,7 +118,7 @@ def main() -> int:
     print("exact_cell_count=85")
     print("target_valid_observations=3872")
     print("development_cell_types_exercised=85")
-    print(f"phase6_authorization_present={str(phase6_authorization_present).lower()}")
+    print(f"phase6_authorization_state={phase6_authorization_state}")
     print("campaign_seed_consumed=false")
     print("campaign_observations_generated=false")
     print("study2_protocol_runtime_baseline_authorized=false")
