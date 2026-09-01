@@ -2,7 +2,7 @@
 
 ## Status and provenance
 
-This directory is a **post-publication reproduction implementation** of the frozen WP10 statistical analysis. It is **not** the original WP10 analysis source code.
+This directory is an **independently reconstructed reproduction implementation** of the frozen WP10 statistical analysis, prepared **after the campaign and Zenodo v1.0.0 publication but before journal submission**. It is **not** the original WP10 analysis source code.
 
 The original WP10 executable analysis source was not preserved in the recovered analysis-output directories. Before this package was written, the private preservation archive was re-verified, the authoritative WP10 output directories were selectively recovered, their output manifests were re-verified, and a source-code search over those recovered directories found zero `.py`, `.R`, `.sh`, or notebook analysis candidates. The reconstruction therefore starts from the frozen analysis inputs and validates its results against the preserved authoritative outputs.
 
@@ -62,7 +62,7 @@ This distinction is deliberate and prevents a missing RNG detail from being sile
 
 ## Python environment
 
-This statistical reconstruction requires **CPython 3.11.x**. Do not create its virtual environment with a newer default `python3` interpreter. The pinned scientific dependencies predate Python 3.14, and the pre-commit validation deliberately fails closed rather than compiling unsupported source builds. GitHub Actions also validates this reconstruction on Python 3.11.
+This statistical reconstruction requires **CPython 3.11.x**. Do not create its virtual environment with a newer default `python3` interpreter. The pinned scientific dependencies predate Python 3.14, and the validation deliberately fails closed rather than compiling unsupported source builds. GitHub Actions also validates this reconstruction on Python 3.11.
 
 Recovered historical WP10-C2 execution evidence records:
 
@@ -81,6 +81,7 @@ source .venv-analysis/bin/activate
 python -m pip install --upgrade pip
 python -m pip install --only-binary=:all: -r analysis/requirements.txt
 python analysis/reproduce_wp10.py --validate
+python -m unittest discover -s analysis/tests -p 'test_*.py'
 ```
 
 A successful validation ends with JSON containing:
