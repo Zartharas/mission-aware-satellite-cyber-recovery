@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "experiment_id": "S2-AEATR-001",
+  "title": "Adversarial Evidence-Aware Cyber Response and Trusted Recovery for Intermittently Connected Space Systems",
+  "status": "PROTOCOL_FROZEN_PRE_RUNTIME_RUNTIME_NOT_AUTHORIZED",
+  "base_main_commit": "d3af5cec7a3862e84021335c5f36a6fe3be154d8",
+  "study1_reproducibility_hardened_snapshot": "99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc",
+  "study1_mutation_authorized": false,
+  "study2_campaign_runtime_authorized": false,
+  "seed_namespace": "S2-AEATR-001-SEED",
+  "research_questions": {
+    "RQ1": "How do omission, staleness/replay, contradiction, manipulation, and bounded partial evidence-plane compromise change response and trusted-recovery behavior relative to complete/current evidence?",
+    "RQ2": "How do K0-K4 modeled contact regimes interact with authorization dependence and evidence qualification?",
+    "RQ3": "Can policies preserve bounded security and availability when benign faults and adversarial causes produce matched policy-visible observations?",
+    "RQ4": "Which policy-visible context dimensions contribute materially to bounded response behavior?",
+    "RQ5": "Does the evidence-aware selector improve security/availability trade-offs relative to prespecified non-adaptive baselines without a weighted global score?"
+  },
+  "factors": {
+    "evidence": ["V0", "V1", "V2", "V3", "V4", "V5"],
+    "adversary": ["A0", "A1", "A2", "A3"],
+    "contact": ["K0", "K1", "K2", "K3", "K4"],
+    "mission": ["M0", "M2", "M4"],
+    "event": ["E1", "E2", "E3", "E4"],
+    "cause": ["BENIGN", "ADVERSARIAL"]
+  },
+  "adversary_contract": {
+    "A0": "no evidence-plane producer compromise",
+    "A1": "exactly one policy-visible evidence producer controlled",
+    "A2": "exactly one producer controlled plus modeled contact unavailability; K0 prohibited",
+    "A3": "two or more policy-visible producers controlled while the verifier and independent trust anchor remain outside the adversary budget"
+  },
+  "immutable_runtime_inaccessible_fields": [
+    "experiment ground truth",
+    "adjudication/correctness oracle",
+    "seed",
+    "treatment identity",
+    "analysis controls",
+    "provenance controls"
+  ],
+  "policies": [
+    "S2_B0_FAIL_CLOSED",
+    "S2_B1_FAIL_OPERATIONAL",
+    "S2_B2_RISK_THRESHOLD",
+    "S2_S1_EVIDENCE_AWARE"
+  ],
+  "security_ablations": [
+    "S2_ABL_NO_FRESHNESS",
+    "S2_ABL_NO_CONTRADICTION",
+    "S2_ABL_NO_EPOCH",
+    "S2_ABL_NO_SIGNATURE_TRUST"
+  ],
+  "blocks": {
+    "A_PRIMARY_EVIDENCE_MECHANISM": {
+      "context": "E3 compromised-update/recovery context; M2; K0 except A2 is excluded; exact treatment-budget compatibility enforced",
+      "evidence": ["V0", "V1", "V2", "V3", "V4", "V5"],
+      "policies": ["S2_B0_FAIL_CLOSED", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE"],
+      "seed_blocks": 96,
+      "primary": true
+    },
+    "B_CONTACT_AUTHORIZATION": {
+      "context": "E3; M2; V0/A0",
+      "contact": ["K0", "K1", "K2", "K3", "K4"],
+      "policies": ["S2_B0_FAIL_CLOSED", "S2_B1_FAIL_OPERATIONAL", "S2_B2_RISK_THRESHOLD", "S2_S1_EVIDENCE_AWARE"],
+      "seed_blocks": 32,
+      "primary": false
+    },
+    "C_FAULT_ATTACK_AMBIGUITY": {
+      "families": ["telemetry_loss", "state_inconsistency", "contact_or_authorization_loss"],
+      "cause": ["BENIGN", "ADVERSARIAL"],
+      "policies": ["S2_B0_FAIL_CLOSED", "S2_B1_FAIL_OPERATIONAL", "S2_S1_EVIDENCE_AWARE"],
+      "seed_blocks": 32,
+      "primary": false
+    },
+    "D_CONTEXT_ABLATION": {
+      "contexts": ["unauthorized_command", "update_recovery", "replay", "evidence_loss"],
+      "selectors": ["S2_S1_EVIDENCE_AWARE", "PI_NO_MISSION", "PI_NO_EVIDENCE", "PI_NO_CONTACT", "PI_SECURITY_ONLY"],
+      "seed_blocks": 32,
+      "primary": false
+    }
+  },
+  "sample_size_rationale": {
+    "primary_binary_precision_target": "worst-case Wilson 95% half-width <= 0.10 for a per-cell Bernoulli rate",
+    "primary_seed_blocks": 96,
+    "worst_case_wilson_half_width_at_n96": 0.0981,
+    "secondary_seed_blocks": 32,
+    "secondary_role": "estimation/sensitivity; not individually powered for small binary effects",
+    "selection_rule": "chosen prospectively from a precision target rather than copying Study 1 replication"
+  },
+  "primary_outcomes": [
+    "unsafe_permissive_response_rate",
+    "false_conservative_response_rate",
+    "evidence_qualified_trusted_recovery",
+    "time_to_evidence_qualified_trusted_recovery",
+    "residual_unauthorized_state",
+    "legitimate_command_rejection_rate"
+  ],
+  "secondary_outcomes": [
+    "time_to_containment",
+    "ground_spacecraft_state_divergence",
+    "response_selection_stability",
+    "recovery_terminal_state"
+  ],
+  "analysis": {
+    "binary": "blocked effect estimates with 95% confidence intervals; paired methods when seed pairing is exact",
+    "time_to_event": "prespecified RMST with right-censoring at the frozen block horizon",
+    "contact": "ordered K0-K4 trend plus policy-by-contact interaction estimates",
+    "ambiguity": "paired benign-versus-adversarial contrasts on matched policy-visible observations",
+    "ablation": "paired contrast against S2_S1_EVIDENCE_AWARE within the same context/seed",
+    "multiple_comparisons": "Holm adjustment within each named secondary contrast family; primary estimands reported with effect sizes and confidence intervals",
+    "global_weighted_policy_score": "PROHIBITED"
+  },
+  "trial_validity": {
+    "invalid_if": [
+      "scenario/treatment/seed identity mismatch",
+      "treatment mutates immutable ground truth or analysis/provenance controls",
+      "adversary exceeds frozen budget",
+      "required evidence artifact cannot be cryptographically parsed or provenance-bound for reasons outside the assigned treatment",
+      "runtime version or configuration differs from frozen campaign manifest",
+      "hidden retry or seed substitution occurs"
+    ],
+    "invalid_attempts_retained": true,
+    "automatic_retry": false,
+    "post_hoc_seed_replacement": false
+  },
+  "censoring": {
+    "right_censor_time_to_event": true,
+    "horizons": "must be numerically frozen in Phase 5 runtime freeze before campaign authorization; changing a horizon after outcome generation is prohibited"
+  },
+  "stopping_rule": "execute exactly the frozen valid-target seed membership; no outcome-dependent early stopping",
+  "runtime_gate": "CLOSED"
+}
