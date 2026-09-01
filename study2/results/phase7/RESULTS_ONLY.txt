@@ -1,0 +1,1 @@
+This freeze contains analysis outputs/provenance only and changes no Study-2 runtime, campaign runner, selector, evidence treatment, formal model, or Study-1 empirical source.
