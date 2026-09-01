@@ -62,6 +62,14 @@ def main() -> int:
             fail(f"forbidden stale bibliography token {token!r}: {reason}")
 
     canonical: dict[str, tuple[str, ...]] = {
+        "thangavel2024trusted": (
+            "author={Thangavel, Kathiravan and Sabatini, Roberto and Gardi, Alessandro and Ranasinghe, Kavindu and Hilton, Samuel and Servidia, Pablo and Spiller, Dario}",
+            "journal={Progress in Aerospace Sciences}",
+            "volume={144}",
+            "pages={100960}",
+            "year={2024}",
+            "doi={10.1016/j.paerosci.2023.100960}",
+        ),
         "geletko2019nos3": (
             "NASA Operational Simulator for Small Satellites (NOS3): The STF-1 CubeSat Case Study",
             "author={Geletko, Dustin M. and Grubb, Matthew D. and Lucas, John P. and Morris, Justin R. and Spolaor, Max and Suder, Mark D. and Yokum, Steven C. and Zemerick, Scott A.}",
