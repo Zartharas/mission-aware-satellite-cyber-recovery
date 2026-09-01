@@ -1,0 +1,1 @@
+Do not replace generated result files under the same identity. Any future correction must use a new transparent correction record and preserve this freeze.
