@@ -1,8 +1,8 @@
 # Study 2 Phase 7 — Prespecified Analysis Results Freeze
 
-**Status:** `PRESPECIFIED_ANALYSIS_RESULTS_FREEZE_CANDIDATE`
+**Status:** `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_PENDING_CANONICAL_MERGE`
 
-This freeze records the deterministic Phase-7 analysis of the immutable Phase-6 Study-2 campaign. It does not generate new campaign data, alter the frozen trial population, rerun Study 1, or create a weighted/global policy score.
+This freeze records the deterministic Phase-7 analysis of the immutable Phase-6 Study-2 campaign. It does not generate new campaign data, alter the frozen trial population, rerun Study 1, or create a weighted/global policy score. Pull request `#70` is the canonical merge gate into `main`; until that merge occurs, the frozen branch identity remains the authoritative Phase-7 freeze candidate.
 
 ## Evidence and implementation boundary
 
@@ -15,14 +15,19 @@ This freeze records the deterministic Phase-7 analysis of the immutable Phase-6 
 
 The analysis produced **162 primary paired contrasts** and **432 prespecified secondary contrasts**. Recovery and containment time-to-event outcomes use the frozen 240-logical-second restriction. These are deterministic logical SIL seconds, not measured spacecraft or network wall-clock latency.
 
-## Independent arithmetic sanity audit
+## Independent reproduction and arithmetic audit
 
-Before freezing the results, the generated tables were independently recomputed directly from the immutable Phase-6 observations:
+Before freezing the results, the generated tables were independently recomputed directly from the immutable Phase-6 observations. A second, repository-retained independent auditor now provides a machine-reproducible check without importing or invoking the primary Phase-7 analyzer.
 
-- all 85 cell-level core outcome summaries matched;
-- all 162 primary paired effect estimates and paired standard deviations matched;
-- all 432 secondary paired/trend/interaction effect estimates, paired standard deviations, and raw p-values matched;
-- all 432 Holm-adjusted p-values matched.
+- independent auditor: `study2/scripts/audit_phase7_independent.py`
+- auditor SHA-256: `3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d`
+- independent CI run/job: `33558376612` / `100024673115`
+- CI conclusion: **PASS**
+- all 85 cell-level numerical summaries matched;
+- all 162 primary paired effect estimates, paired standard deviations, and 95% confidence intervals matched;
+- all 432 secondary paired/trend/interaction effect estimates, paired standard deviations, confidence intervals, and raw p-values matched;
+- all 432 Holm-adjusted p-values and rejection flags matched;
+- all 85 terminal-state distributions matched.
 
 No mismatch was found.
 
@@ -71,3 +76,7 @@ Holm rejection counts across the prespecified secondary families were:
 Secondary blocks use 32 paired seeds and remain estimation/sensitivity evidence; they were not prospectively powered for small effects.
 
 No global weighted score, global policy rank, operational spacecraft claim, RF claim, or real-link latency claim is supported by these results.
+
+## Freeze rule
+
+No statistical estimate, contrast definition, multiplicity result, or interpretation claim in this Phase-7 freeze may change without an explicit post-freeze amendment that preserves the frozen identity and explains the reason for the change. Study-1 empirical findings remain untouched.
