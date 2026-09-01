@@ -2,135 +2,112 @@
 
 ## Status
 
-`CURRENT_2026-08-31_SCOPE_REVIEW`
+`CURRENT_2026-09-01_TWO_STUDY_JOURNAL_REVIEW`
 
-This document is a research-planning aid, not an immigration-law designation or publisher acceptance prediction. Journal quartile/reputation may change over time; the live journal scope must be rechecked before each submission.
+This is the **current** venue-planning aid for the journal research article after canonical Study-2 Phase-7 closeout. Historical venue/design documents may preserve earlier Study-1-only planning assumptions, but they do not override this matrix or `publication/submission/computers-and-security/venue-fit.md`.
 
-## Study 1 — current frozen paper
+Journal scope, editorial policy, and reputation can change. The live journal pages and submission portal must be rechecked on the actual submission date.
 
-### Computers & Security — primary target
+## Current article — two separately frozen studies
 
-**Scope alignment:** very high.
+The journal article now combines two scientifically separate empirical studies without pooling their statistical populations:
 
-The journal emphasizes leading-edge information-security research with practical security value. Recent issues include space-sector attack-surface research, SatCom cybersecurity, satellite intrusion detection, and cyber-physical security-testbed work. Its current scope explicitly excludes cryptology as a principal component and currently states a moratorium on submissions where AI/ML is a significant scientific component. Study 1 remains compatible with that boundary because P7 is a frozen deterministic rule-based selector, not an AI/ML response model; AI-assisted manuscript/reproducibility preparation is disclosed separately as publication/research-process assistance rather than presented as the experimental security mechanism.
+- **Study 1:** 720 VALID observations across 24 frozen cells; 9 retained INVALID attempts outside statistical membership.
+- **Study 2:** 3,872 VALID observations across 85 frozen cells; 0 INVALID attempts; 162 primary paired contrasts; 432 prespecified secondary contrasts; independent reproduction with 0 mismatches.
 
-Current paper alignment:
+Study-1 science and Zenodo v1.0.0 remain unchanged. Study-2 is a separately frozen extension with adversarial evidence mechanisms, broader contact regimes, context ablations, and bounded adversary-budget stress.
 
-- applied cybersecurity response/recovery problem — strong;
-- controlled cyber-physical experimentation — strong;
-- practical security/availability implications — strong;
-- satellite-specific context — already represented in venue literature;
-- public reproducibility — strong;
-- deterministic/non-AI response mechanism — compatible with current scope;
-- threat/adversary framing — upgraded in current PR;
-- trust/evidence model — upgraded in current PR;
-- closest-work differentiation — upgraded in current PR.
+## Primary target — Computers & Security
 
-**Remaining Study 1 work before submission:** editorial integration, bibliography merge, final citation/claim audit, final live Guide for Authors/Aims & Scope check, and unresolved author attestations. No new campaign observations are required merely to increase sample size.
+**Current fit assessment:** strong, subject to live submission-day scope verification.
 
-Official journal page: https://shop.elsevier.com/journals/computers-and-security/0167-4048
+The article is centered on applied cybersecurity response/recovery rather than cryptology, intrusion-detection model development, or general aerospace performance. The two-study evidence directly addresses:
 
-## Study 2 — generalization/security methodology
+- authorization/contact-dependent containment and recovery;
+- evidence sufficiency and evidence integrity;
+- bounded producer compromise;
+- mission/command-availability trade-offs;
+- trusted-recovery qualification;
+- deterministic policy behavior under constrained observations;
+- reproducibility and retained negative/null results.
 
-### IEEE Transactions on Dependable and Secure Computing (TDSC) — primary higher-bar target
+### Current scope-sensitive points
 
-**Scope alignment:** high if Study 2 adds general security/dependability methodology.
+- Cryptology is not the scientific contribution.
+- The evaluated Study-1 and Study-2 response mechanisms are **frozen deterministic rule-based policies**, not AI/ML decision models.
+- Generative-AI assistance in manuscript/reproducibility work is disclosed as research/publication tooling and is not an experimental treatment.
+- The article must continue to foreground the transferable cybersecurity response/recovery problem rather than present itself as a satellite-engineering performance paper.
 
-TDSC focuses on foundations, methodologies, and mechanisms for systems that are both dependable and secure without compromising performance. Its official topics include online detection/recovery, availability/performability/survivability, attack models, experimental testbeds with fault/error/attack/workload generation, statistical methods, formal specification/verification, safety-critical aerospace computing, networks of satellites, and cyber-physical systems.
+See `publication/submission/computers-and-security/venue-fit.md` for the detailed current positioning.
 
-Required upgrade beyond Study 1:
+## Reviewer-sensitive Study-2 boundaries
 
-- formal adversary/observation model;
-- multiple evidence-failure mechanisms;
-- multiple connectivity regimes;
-- fault-versus-attack ambiguity;
-- selector ablation;
-- stronger policy baselines;
-- formal assurance/model checking;
-- broader estimands showing a methodology transferable beyond one frozen satellite campaign.
+Any venue positioning must preserve:
 
-Study 2 design candidate: `docs/44-study2-secure-response-generalization-design.md`.
+- Block-C BENIGN/ADVERSARIAL results as a **structural label-invariance/control check** only; the cause label does not change hidden truth or generated policy-visible evidence within an ambiguity family.
+- K4 as intermittent/flapping contact, not ordinal severity 4.
+- A2/K2 as a coupled producer-compromise/contact-loss profile, not an adversary-only effect.
+- logical SIL seconds as modeled time, not real spacecraft/network/ground/operator latency.
+- secondary n=32 blocks as sensitivity/estimation evidence rather than small-effect confirmatory evidence.
+- no weighted global policy score or global policy rank.
+- no operational spacecraft, RF, flightworthiness, or certification claim.
 
-Implementation-traced formal-assurance extraction: `docs/46-formal-assurance-traceability-candidate.md`.
+## Backup 1 — AIAA Journal of Aerospace Information Systems
 
-Official journal/topics pages:
+**Fit:** strong if Computers & Security rejects principally for domain/editorial fit.
 
-- https://www.computer.org/digital-library/journals/tq/cfp-dependable-secure-computing
-- https://www.computer.org/digital-library/journals/tq/tdsc-topics
+JAIS is compatible with aerospace computing/information systems, embedded software V&V, autonomy, resilience, system health, and mission assurance. A JAIS retarget should emphasize:
 
-### ACM Transactions on Privacy and Security (TOPS) — strong alternative
+- cFS/NOS3/Fortytwo research architecture;
+- contact-constrained response/recovery;
+- mission assurance and trusted-state recovery;
+- deterministic state-machine/policy logic;
+- reproducibility and assurance traceability.
 
-**Scope alignment:** high if the work is generalized as system security rather than solely aerospace engineering.
+Do not turn software-in-the-loop evidence into flight-validation claims.
 
-TOPS explicitly includes authentication/authorization, recovery and survivable operation, risk analysis, assurance/formal methods, specialized secure systems, application-specific threats/trade-offs, and integrity/availability/survivability policy trade-offs.
+## Backup 2 — IEEE Transactions on Aerospace and Electronic Systems
 
-Required upgrade beyond Study 1:
+**Fit:** plausible but stronger with a future separately frozen aerospace-validation phase.
 
-- explicit trust/adversary model;
-- formal security properties and policy semantics;
-- adversarial observation/evidence model;
-- assurance argument or formal verification;
-- generalizable secure-response mechanism/method rather than only a satellite-specific comparative result.
+TAES would benefit from additional orbital/access modeling, flight-like resource/performance characterization, richer mission phases, and representative RF-free HIL evidence. Those additions must be a new study, not post-hoc enlargement of either frozen population.
 
-Official topics page: https://www.tissec.hosting.acm.org/content/process/topics-of-interest/
+## Higher-bar security alternatives — IEEE TDSC / ACM TOPS
 
-## Study 3 — aerospace engineering validation
+Study 2 materially strengthens the security/dependability methodology compared with the former Study-1-only paper. Its bounded producer-compromise model, distinct evidence mechanisms, multiple contact regimes, selector/context ablations, formal-assurance foundation, and independent reproduction make TDSC/TOPS reasonable alternatives if the article is positioned around generalizable secure/dependable response methodology.
 
-### IEEE Transactions on Aerospace and Electronic Systems (TAES)
+A venue change must use the already frozen evidence. It must not trigger new observations, new endpoint weighting, a global policy rank, or weaker RQ3 interpretation.
 
-**Scope alignment:** high after increased aerospace-system realism.
+## Capability matrix
 
-TAES covers organization, design, development, integration, and operation of complex systems including spacecraft, telemetry, automated testing, and command/control. Its Fault-Tolerant Systems technical area explicitly includes roll-forward/roll-back recovery, fault detection/isolation, fault containment/robustness, and reliability analysis, with aerospace application expected.
+| Research capability | Computers & Security | JAIS | TAES | TDSC / TOPS |
+|---|---:|---:|---:|---:|
+| Study-1 720-run controlled SIL comparison | Core | Core | Foundation | Foundation |
+| Study-2 3,872-run adversarial-evidence extension | Core | Strong | Strong | Core |
+| Explicit trust/adversary boundary | Core | Strong | Strong | Core |
+| Multiple evidence-failure mechanisms | Core | Strong | Strong | Core |
+| Multiple modeled contact regimes | Core | Core | Core | Strong |
+| Context ablations | Strong | Strong | Useful | Core |
+| Independent statistical reproduction | Core | Strong | Strong | Core |
+| Formal assurance/model checking | Strong | Strong | Strong | Core differentiator |
+| Orbital/access realism | Not required for current claims | Useful | Core for stronger version | Useful |
+| Flight-like resource measurements | Not required | Useful | Core for stronger version | Limited/useful |
+| RF-free HIL subset | Future validation | Strong future value | Strong future value | Optional |
 
-Required upgrade beyond Study 2:
+## Current publication-program rule
 
-- modeled orbital/access contact schedules rather than one abstract outage;
-- flight-like resource/performance measurements;
-- spacecraft mission-phase profiles;
-- representative HIL validation;
-- systems-level V&V and transfer analysis;
-- continued avoidance of flight-certification claims.
+Do not expand either frozen study merely to increase sample size or improve publication optics.
 
-Official pages:
+- Study 1 remains exactly 720 VALID observations.
+- Study 2 remains exactly 3,872 VALID observations.
+- Any later orbital/HIL/operator validation requires a separate frozen protocol, evidence identity, analysis plan, and archive.
+- The immediate pre-submission scientific infrastructure task is **responsible-release publication of the exact Study-2 source-evidence package**, not additional experiment execution.
 
-- https://ieee-aess.org/publications/taes
-- https://ieee-aess.org/publications/transactions-aes/technical-areas-editors/descriptions
+## Decision rule
 
-### AIAA Journal of Aerospace Information Systems (JAIS)
-
-**Scope alignment:** very high for an aerospace-information-systems/HIL version.
-
-JAIS seeks original archival work in aerospace computing/information systems, aerospace systems and software engineering, embedded-system verification and validation, autonomous systems, systems health management, systems engineering, safety/resilience, and mission assurance. It explicitly seeks quantitative studies, original research, novel applications, and aerospace-specific case studies.
-
-Required upgrade beyond Study 1/2:
-
-- clearer response-software architecture and state-machine presentation;
-- V&V traceability;
-- mission-assurance/system-health linkage;
-- system-performance characterization;
-- optionally HIL validation with flight-like compute while remaining entirely researcher-controlled and RF-free.
-
-Official scope page: https://www.aiaa.org/publications/journals/Journal-Scopes-and-Content/
-
-## Compatibility matrix
-
-| Research capability | C&S Study 1 | TDSC Study 2 | TOPS Study 2 | TAES Study 3 | JAIS Study 3 |
-|---|---:|---:|---:|---:|---:|
-| Frozen multi-policy SIL campaign | Core | Foundation | Foundation | Foundation | Core |
-| Formal adversary model | Strongly useful | Required-level value | Required-level value | Useful | Useful |
-| Trust/evidence boundary model | Strongly useful | Core | Core | Useful | Useful |
-| SPARTA behavioral mapping | Strongly useful | Useful | Useful | Useful | Useful |
-| NIST incident-response mapping | Strongly useful | Useful | Useful | Limited | Limited |
-| Multiple evidence-failure mechanisms | Future | Core | Core | Useful | Useful |
-| Multiple contact regimes | Future | Core | Useful | Core | Core |
-| Fault/attack ambiguity | Future | Core | Useful | Core | Core |
-| Selector ablation | Future | Core | Core | Useful | Useful |
-| Strong non-adaptive baselines | Useful | Core | Core | Useful | Useful |
-| Formal verification/model checking | Optional | Core differentiator | Core differentiator | Strong | Strong |
-| Orbital/access realism | Not required | Useful | Limited | Core | Core |
-| Flight-like resource measurements | Not required | Useful | Limited | Core | Core |
-| HIL subset | Not required | Useful | Optional | Core | Core |
-
-## Publication-program rule
-
-Do not expand Study 1 after the fact simply to make it look larger. New adversarial, contact, fault, formal-verification, or HIL evidence should be produced under separately frozen Study 2/Study 3 designs. This preserves the integrity of the current 720-observation paper while creating genuinely distinct future contributions suitable for different high-quality venues.
+1. Complete PR-level two-study manuscript/repository validation.
+2. Responsible-release and DOI-archive the Study-2 source evidence.
+3. Recheck live Computers & Security scope/portal requirements and submit there first if the deterministic rule-based paper remains in scope.
+4. If rejected mainly for aerospace-domain fit, retarget to JAIS without changing frozen results.
+5. If a more security-methodology-focused venue is preferred, assess TDSC/TOPS using the existing Study-2 evidence and assurance record.
+6. Reserve TAES or a more engineering-heavy JAIS version for a new separately frozen aerospace/HIL validation study.
