@@ -1,0 +1,51 @@
+name: Execute Study 2 Phase 6 frozen campaign
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "study2/PHASE6_CAMPAIGN_AUTHORIZATION.json"
+
+permissions:
+  contents: read
+
+jobs:
+  phase6-campaign:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out exact authorized repository state
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Build hash-bound Study 2 image
+        run: docker build --file study2/Dockerfile --tag satellite-study2-assurance .
+
+      - name: Revalidate assurance with Phase 6 authorization present
+        run: docker run --rm -e STUDY2_PHASE6_AUTH_EXPECTED=1 satellite-study2-assurance
+
+      - name: Execute exact frozen Study 2 campaign once
+        run: |
+          output_dir="$RUNNER_TEMP/study2-phase6-evidence"
+          docker run --rm \
+            --entrypoint python \
+            -v "$RUNNER_TEMP:/runner-temp" \
+            satellite-study2-assurance \
+            study2/scripts/run_phase6_campaign.py \
+            --output-dir /runner-temp/study2-phase6-evidence
+
+      - name: Verify evidence file hashes before upload
+        run: |
+          cd "$RUNNER_TEMP/study2-phase6-evidence"
+          sha256sum observations.jsonl attempt_ledger.jsonl runtime_bindings.json campaign_summary.json evidence_hashes.json
+
+      - name: Upload immutable campaign evidence candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: study2-phase6-evidence-${{ github.sha }}
+          path: ${{ runner.temp }}/study2-phase6-evidence/
+          if-no-files-found: error
+          retention-days: 90
