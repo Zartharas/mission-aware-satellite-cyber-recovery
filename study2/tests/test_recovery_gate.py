@@ -31,6 +31,7 @@ class RecoveryGateTests(unittest.TestCase):
             public_keys=self.public,
             trusted_sources={"verifier"},
             now_s=now,
+            expected_epoch_by_subject={"sat-1": 2},
         )
 
     def test_all_applicable_current_evidence_allows_trusted_recovery(self):
