@@ -43,6 +43,8 @@ def _aggregate(summary_rows: list[dict[str, object]]) -> list[dict[str, object]]
         "unsafe_qualified_epoch_rate",
         "unsafe_qualified_exposure_s",
         "unsafe_qualified_episode_count",
+        "cache_unsafe_qualified_epochs",
+        "v5_affected_unsafe_qualified_epochs",
         "protective_epoch_rate",
         "action_transition_count",
     )
@@ -61,6 +63,9 @@ def _aggregate(summary_rows: list[dict[str, object]]) -> list[dict[str, object]]
             result[f"mean_{key}"] = sum(float(row[key]) for row in rows) / len(rows)
         result["trajectories_with_any_unsafe_qualification"] = sum(
             float(row["unsafe_qualified_epochs"]) > 0 for row in rows
+        )
+        result["trajectories_with_v5_affected_unsafe_qualification"] = sum(
+            float(row["v5_affected_unsafe_qualified_epochs"]) > 0 for row in rows
         )
         output.append(result)
     if len(output) != 30:
@@ -107,6 +112,7 @@ def main() -> int:
         "epoch_rows": 67620,
         "onset_phases_per_cell": 46,
         "random_campaign_seeds": False,
+        "false_qualification_origins": ["PRE_ONSET_CACHE", "V5_AFFECTED_RECORD"],
         "files": {
             "epochs.csv": _sha256(epoch_path),
             "trajectory_summary.csv": _sha256(summary_path),
