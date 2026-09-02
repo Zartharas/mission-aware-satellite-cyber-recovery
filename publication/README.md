@@ -10,7 +10,7 @@ Read the target-neutral journal manuscript components in this sequence:
 2. [`manuscript/01-introduction.md`](manuscript/01-introduction.md) — two-study problem framing, contributions, and scope
 3. [`manuscript/02-background-and-related-work.md`](manuscript/02-background-and-related-work.md) — related literature and novelty boundary
 4. [`manuscript/03-methods.md`](manuscript/03-methods.md) — frozen Study-1 methods and provenance
-5. [`manuscript/03-study2-methods-extension.md`](manuscript/03-study2-methods-extension.md) — separately frozen Study-2 design, runtime/evidence boundary, endpoints, and analysis
+5. [`manuscript/03-study2-methods-extension.md`](manuscript/03-study2-methods-extension.md) — separately frozen Study-2 design, runtime/evidence boundary, endpoints, analysis, and bounded pre-runtime formal/security assurance
 6. [`manuscript/04-results.md`](manuscript/04-results.md) — frozen Study-1 results
 7. [`manuscript/04-study2-results-extension.md`](manuscript/04-study2-results-extension.md) — frozen Study-2 RQ1–RQ5 results and interpretation limits
 8. [`manuscript/05-discussion.md`](manuscript/05-discussion.md) — cross-study interpretation, limitations, and implications
@@ -71,8 +71,12 @@ Tracked Study-1 figures remain under [`figures/`](figures/).
 
 - [`tables/table-r7-study2-prespecified-findings.csv`](tables/table-r7-study2-prespecified-findings.csv) — compact RQ1–RQ5 evidence summary
 - [`tables/table-s2-study2-secondary-holm.csv`](tables/table-s2-study2-secondary-holm.csv) — prespecified secondary-family Holm counts
+- [`tables/table-s3-study2-formal-assurance.csv`](tables/table-s3-study2-formal-assurance.csv) — pre-runtime TLA+/implementation assurance summary with explicit interpretation limits
+- [`tables/table-s4-sparta-v4.0.1-crosswalk.csv`](tables/table-s4-sparta-v4.0.1-crosswalk.csv) — publication-current SPARTA v4.0.1 behavioral/traceability crosswalk
 
-These Study-2 tables summarize the frozen Phase-7 record; they do not replace the authoritative machine-readable results/provenance under `../study2/`.
+R7/S2 summarize the frozen Phase-7 empirical/statistical record. S3 summarizes pre-runtime assurance that already existed before campaign execution. S4 is taxonomy/positioning traceability. None replaces the authoritative machine-readable results/provenance under `../study2/` or expands the frozen experimental scope.
+
+The detailed SPARTA mapping rules and non-claims are recorded in [`../docs/49-sparta-v4.0.1-research-traceability.md`](../docs/49-sparta-v4.0.1-research-traceability.md).
 
 ## 4. Data and reproducibility status
 
@@ -96,6 +100,7 @@ Any reuse or export must preserve all of the following:
 - Study-2 K4 is separate intermittent/flapping contact, not ordinal severity 4.
 - Study-2 A2/K2 is a coupled producer-compromise/contact-loss profile.
 - Study-2 secondary n=32 blocks are estimation/sensitivity evidence, not prospectively powered small-effect confirmatory evidence.
+- SPARTA v4.0.1 mappings are behavioral/taxonomy correspondence only; A0–A3 and K0–K4 are not SPARTA techniques and no compliance claim is supported.
 - No weighted global score, global policy rank, operational spacecraft claim, RF claim, real-link latency claim, flightworthiness claim, or certification claim is supported.
 
 ## 6. Submission package
