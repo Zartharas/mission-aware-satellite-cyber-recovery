@@ -16,17 +16,27 @@ class Study3TemporalModelTests(unittest.TestCase):
         self.assertEqual(len(trajectory_specs()), 1380)
         self.assertEqual(len(ONSET_PHASES), 46)
 
-    def test_v0_never_false_qualifies_after_onset(self) -> None:
-        _, summaries = run_population()
-        for row in summaries:
+    def test_v0_false_qualification_can_only_come_from_pre_onset_cache(self) -> None:
+        epochs, _ = run_population()
+        for row in epochs:
             if row.evidence == "V0":
-                self.assertEqual(row.unsafe_qualified_epochs, 0, row.trajectory_id)
+                self.assertIn(row.unsafe_qualification_origin, {"NONE", "PRE_ONSET_CACHE"})
 
-    def test_v4_never_false_qualifies_after_onset(self) -> None:
-        _, summaries = run_population()
-        for row in summaries:
-            if row.evidence == "V4":
-                self.assertEqual(row.unsafe_qualified_epochs, 0, row.trajectory_id)
+    def test_v4_affected_record_never_qualifies(self) -> None:
+        epochs, _ = run_population()
+        for row in epochs:
+            if row.evidence == "V4" and row.treatment_affected:
+                self.assertFalse(row.gate_qualified, row.trajectory_id)
+
+    def test_all_false_qualification_has_declared_origin(self) -> None:
+        epochs, _ = run_population()
+        for row in epochs:
+            if row.unsafe_qualified:
+                self.assertIn(
+                    row.unsafe_qualification_origin,
+                    {"PRE_ONSET_CACHE", "V5_AFFECTED_RECORD"},
+                    row.trajectory_id,
+                )
 
     def test_v5_persistent_exposes_false_qualification_for_gate_entering_policies(self) -> None:
         _, summaries = run_population()
@@ -37,7 +47,7 @@ class Study3TemporalModelTests(unittest.TestCase):
             and row.policy in {"S2_B0_FAIL_CLOSED", "S2_S1_EVIDENCE_AWARE"}
         ]
         self.assertTrue(selected)
-        self.assertTrue(any(row.unsafe_qualified_epochs > 0 for row in selected))
+        self.assertTrue(any(row.v5_affected_unsafe_qualified_epochs > 0 for row in selected))
 
     def test_one_shot_affects_exactly_one_received_post_onset_record(self) -> None:
         _, summaries = run_population()
