@@ -1,7 +1,7 @@
 {
-  "schema": 1,
+  "schema": 2,
   "experiment_id": "S3-K4E-001",
-  "status": "CAMPAIGN_IMPLEMENTATION_FROZEN_AUTHORIZED_SYNTHETIC_EXECUTION_ONLY",
+  "status": "CAMPAIGN_IMPLEMENTATION_FROZEN_AUTHORIZED_SYNTHETIC_EXECUTION_ONLY_AMENDMENT1",
   "design_merge_commit": "577d0a0d1f8eb603cc836ded40cb7e795af7d001",
   "validated_pr": 78,
   "validated_pr_head": "040471319e833546e0f52435ada9a4f660695382",
@@ -19,10 +19,23 @@
     "epoch_rows": 67620,
     "onset_phases_per_cell": 46
   },
-  "expected_deterministic_output_sha256_from_prefreeze_rehearsal": {
+  "expected_deterministic_output_sha256": {
     "epochs.csv": "644e871208289673525f3d11f869471d21e11b0c8f361044529e400457e514c3",
     "trajectory_summary.csv": "67af4a075ef8a123cb5e52e3d09cf063447a0bd7bdd5440c6e8e7e01262026da",
-    "cell_summary.csv": "acb6d7773d6b3fc065fc7505306fb2a46a950a7f013cb732ffa999ddbeed0378"
+    "cell_summary.csv": "dc653561333d48f90b1917f5c29863e1cded4d5a8b13ce11b0b5935fa6fe0322"
+  },
+  "amendment_1": {
+    "date": "2026-09-02",
+    "triggering_rejected_attempt": 1,
+    "workflow_run_id": 33650410329,
+    "change": "Replace only the expected SHA-256 for derived cell_summary.csv.",
+    "reason": "The original rehearsal hash was captured before run_campaign.py was updated to add the already-prespecified cache_unsafe_qualified_epochs and v5_affected_unsafe_qualified_epochs columns to the aggregate display. On rejected attempt 1, epochs.csv and trajectory_summary.csv matched their original pre-freeze hashes exactly; therefore trajectory membership and scientific states were unchanged.",
+    "scientific_design_changed": false,
+    "trajectory_membership_changed": false,
+    "endpoint_definition_changed": false,
+    "epoch_or_trajectory_expected_hash_changed": false,
+    "derived_aggregate_schema_only": true,
+    "attempt_1_retained_in": "study3/CAMPAIGN_ATTEMPT_LEDGER.json"
   },
   "execution_constraints": {
     "researcher_controlled_synthetic_only": true,
