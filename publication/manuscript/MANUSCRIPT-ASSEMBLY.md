@@ -28,7 +28,7 @@ Study 1 remains the original comparative response/recovery experiment. Study 2 i
 2. `01-introduction.md` — cybersecurity problem, two-study contributions, scope
 3. `02-background-and-related-work.md` — Mission Aware, FDIR/autonomy, cyber resilience, trusted recovery, venue-adjacent work, SPARTA correspondence, NIST lifecycle positioning
 4. `03-methods.md` — **Study-1** adversary/knowledge model, trust boundaries, design, policies, outcomes, validity, statistics, provenance, reproducibility
-5. `03-study2-methods-extension.md` — **Study-2** frozen protocol, adversary/evidence/contact factors, policy family, runtime/evidence boundary, endpoints, multiplicity, provenance
+5. `03-study2-methods-extension.md` — **Study-2** frozen protocol, adversary/evidence/contact factors, policy family, runtime/evidence boundary, endpoints, multiplicity, provenance, and bounded pre-runtime TLA+/implementation assurance
 6. `04-results.md` — **Study-1** evidence-locked P1–P5 results
 7. `04-study2-results-extension.md` — **Study-2** evidence-locked RQ1–RQ5 results and interpretation limits
 8. `05-discussion.md` — cross-study synthesis, cybersecurity implications, limitations, next research questions
@@ -95,9 +95,12 @@ The Phase-7 result ZIP is durable in Git history. The underlying Phase-6 source 
 
 - Table R7: `../tables/table-r7-study2-prespecified-findings.csv`
 - Supplementary Table S2: `../tables/table-s2-study2-secondary-holm.csv`
+- Supplementary Table S3: `../tables/table-s3-study2-formal-assurance.csv`
+- Supplementary Table S4: `../tables/table-s4-sparta-v4.0.1-crosswalk.csv`
 - Study-2 claim traceability: `study2-claim-traceability.csv`
+- SPARTA v4.0.1 detailed traceability/non-claims: `../../docs/49-sparta-v4.0.1-research-traceability.md`
 
-Study-2 publication tables are manuscript-facing summaries only. The Phase-7 freeze/provenance files remain authoritative for exact statistical identities.
+R7/S2 are manuscript-facing summaries of the frozen Phase-7 record. S3 summarizes pre-runtime assurance that predates campaign execution. S4 is taxonomy/positioning traceability and does not add empirical observations, techniques, causes, or effects to either frozen study. The Phase-7 freeze/provenance files remain authoritative for exact statistical identities.
 
 ## Scientific non-negotiables for any journal export
 
@@ -108,6 +111,8 @@ Study-2 publication tables are manuscript-facing summaries only. The Phase-7 fre
 - Do not compute or report a weighted global policy score or a global policy rank.
 - Do not make operational spacecraft, RF, real-link latency, human-operator timing, flightworthiness, or certification claims.
 - Deterministic rule-based selectors are not to be described as AI/ML scientific methods.
+- Formal/TLA+ assurance is bounded pre-runtime design/implementation assurance; it is not a proof of complete implementation equivalence, operational correctness, or flight assurance.
+- SPARTA mappings are behavioral/taxonomy correspondences, not SPARTA compliance, causal validation, or evidence that unmodeled attack-chain stages occurred.
 
 ### Study 1
 
@@ -136,7 +141,10 @@ Study-2 publication tables are manuscript-facing summaries only. The Phase-7 fre
 - K4 remains a separate intermittent/flapping-contact contrast, not ordinal severity 4;
 - A2/K2 remains a coupled producer-compromise/contact-loss profile, not an adversary-only causal contrast;
 - secondary n=32 blocks remain estimation/sensitivity evidence, not prospectively powered small-effect confirmatory tests;
-- context ablations support specific dependencies, not a universal dominant context variable.
+- context ablations support specific dependencies, not a universal dominant context variable;
+- A0–A3 are adversary-budget constructs, not SPARTA techniques;
+- K0–K4 are contact/authorization availability constructs, not SPARTA techniques and not evidence of RF jamming or communications attack;
+- V5 does not identify a particular producer-compromise initial-access route.
 
 ## Submission metadata and archive state
 
@@ -148,7 +156,9 @@ Completed before this closeout:
 2. the Computers & Security target package was reconciled to the two-study article;
 3. the exact integration head passed the repository release gate, bibliography audit, schema checks, full research unit tests, shell/Python validation, WP10 reproduction/regression, and zero tracked-file drift;
 4. the local canonical repository synchronized to `6bb0051628ec64ebd09a85435f88a6a0d2cfc382` and passed the clean-worktree audit with 611 research tests and zero drift;
-5. the exact Study-2 Phase-6 source-evidence ZIP passed responsible-release review with no campaign execution or frozen-science/source-evidence modification.
+5. the exact Study-2 Phase-6 source-evidence ZIP passed responsible-release review with no campaign execution or frozen-science/source-evidence modification;
+6. existing pre-runtime Study-2 TLA+/security assurance was promoted into bounded manuscript reporting in PR #76 without altering frozen science;
+7. a publication-current SPARTA v4.0.1 crosswalk was added as taxonomy/traceability only, preserving the frozen Study-1 event catalog and Study-2 experimental definitions.
 
 The current combined-paper submission cannot advance to final export until:
 
@@ -161,4 +171,4 @@ An institutional IRB/HRPP identifier remains conditional on a specific applicabl
 
 ## Assembly rule
 
-The component files above are the manuscript source of truth. Historical Study-1 work-package documents remain provenance and may retain stage-local wording. Current article status is governed by this assembly file, `../../tracker/RESEARCH_TRACKER.md`, the Study-2 Phase-6 release-review record, and the canonical Study-2 Phase-7 provenance/freeze records.
+The component files above are the manuscript source of truth. Historical Study-1 work-package documents remain provenance and may retain stage-local wording. Current article status is governed by this assembly file, `../../tracker/RESEARCH_TRACKER.md`, the Study-2 Phase-6 release-review record, the SPARTA publication traceability record, and the canonical Study-2 Phase-7 provenance/freeze records.
