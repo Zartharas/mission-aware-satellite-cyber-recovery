@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "experiment_id": "S7-LSO-001",
+  "authorization_status": "ACTIVE_FOR_ONE_CANONICAL_FINITE_EXECUTION",
+  "authorized_by": "Aman Singh",
+  "authorization_basis": "User explicitly authorized successful completion and closure of Phase 7 in the project conversation.",
+  "authorized_scope": {
+    "deterministic_learned_selector_training": true,
+    "exact_finite_population_observations": 1033,
+    "github_actions_execution": true,
+    "independent_audit": true
+  },
+  "prohibited_scope": {
+    "adversarial_attack_optimization": true,
+    "reinforcement_learning_exploration": true,
+    "operational_spacecraft_or_ground_system": true,
+    "rf_activity": true,
+    "real_credentials_or_keys": true,
+    "third_party_targeting": true
+  },
+  "consumed": false
+}
