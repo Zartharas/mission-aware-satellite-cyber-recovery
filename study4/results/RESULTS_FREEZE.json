@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "experiment_id": "S4-MPQ-001",
+  "status": "CANONICAL_RESULTS_FROZEN_PENDING_REPOSITORY_MERGE",
+  "design_merge_commit": "b33e409b77b5e9c257979b0d3dc0d5ea8feb0925",
+  "canonical_execution_commit": "42b64a7a6431f2130efceec389ce25fe9b1a2382",
+  "canonical_workflow_run_id": 33658900540,
+  "canonical_job_id": 100344267677,
+  "canonical_artifact": {
+    "artifact_id": 9857848543,
+    "name": "study4-mpq-001-evidence-42b64a7a6431f2130efceec389ce25fe9b1a2382",
+    "size_bytes": 19505,
+    "expires_at": "2026-12-01T17:05:17Z",
+    "zip_sha256": "09f20ecfd90baf739c4a3226631fddb4b5279779094d9c75a2ddd90f6f6b285e"
+  },
+  "membership": {"producers": 7, "provenance_domains": 3, "rules": 18, "blocks": 2, "observations": 4608, "threshold_rows": 36},
+  "file_sha256": {
+    "observations.csv": "fd50dd6153477428c03152ece34d26389f2a42c4750bbc6d9a8de0647eb5db4e",
+    "failure_curves.csv": "c14aabbe7d36b2951228259e7c48a13fafa26beb29b226b6b3e9e1dc3c282973",
+    "thresholds.csv": "35ed95161a671b4d56f28c4fdc9c5df9fa70fd1aa328159e1db4713902fc20d4",
+    "REPORT.json": "1a705adacbf4aa59524a3563923d8c4947e30636cac73dc1a452223459cf546c"
+  },
+  "attempt_history": {
+    "attempt_1_run_id": 33658642691,
+    "attempt_1_status": "REJECTED_BEFORE_EVIDENCE_ACCEPTANCE",
+    "attempt_2_run_id": 33658900540,
+    "attempt_2_status": "CANONICAL_ACCEPTED"
+  },
+  "primary_findings": {
+    "Q2_D1": {"safety_first_failure": 2, "safety_systematic_failure": 2, "availability_first_failure": 6, "availability_systematic_failure": 6},
+    "Q2_D2": {"safety_first_failure": 2, "safety_systematic_failure": 4, "availability_first_failure": 4, "availability_systematic_failure": 6},
+    "Q3_D1": {"safety_first_failure": 3, "safety_systematic_failure": 3, "availability_first_failure": 5, "availability_systematic_failure": 5},
+    "Q3_D3": {"safety_first_failure": 3, "safety_systematic_failure": 6, "availability_first_failure": 2, "availability_systematic_failure": 5},
+    "Q4_D1": {"safety_first_failure": 4, "safety_systematic_failure": 4, "availability_first_failure": 4, "availability_systematic_failure": 4},
+    "Q4_D3": {"safety_first_failure": 4, "safety_systematic_failure": 6, "availability_first_failure": 2, "availability_systematic_failure": 4},
+    "Q5_D1": {"safety_first_failure": 5, "safety_systematic_failure": 5, "availability_first_failure": 3, "availability_systematic_failure": 3},
+    "Q5_D3": {"safety_first_failure": 5, "safety_systematic_failure": 6, "availability_first_failure": 2, "availability_systematic_failure": 3}
+  },
+  "interpretation_guards": [
+    "This is an evidence-qualification model, not a Byzantine consensus protocol.",
+    "Compromise and unavailability subsets are exhaustively enumerated model states, not operational frequency estimates.",
+    "Provenance-domain diversity changes which subsets can satisfy a quorum; it does not prove producer independence in real systems.",
+    "Higher safety thresholds trade against honest-producer availability and are not a global policy ranking.",
+    "Studies 1-3 remain frozen and are not pooled with Study 4."
+  ]
+}
