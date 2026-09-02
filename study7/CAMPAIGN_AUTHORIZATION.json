@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "experiment_id": "S7-LSO-001",
-  "authorization_status": "ACTIVE_FOR_ONE_CANONICAL_FINITE_EXECUTION",
+  "authorization_status": "CONSUMED_AFTER_ACCEPTED_CANONICAL_EXECUTION",
   "authorized_by": "Aman Singh",
   "authorization_basis": "User explicitly authorized successful completion and closure of Phase 7 in the project conversation.",
   "authorized_scope": {
@@ -18,5 +18,10 @@
     "real_credentials_or_keys": true,
     "third_party_targeting": true
   },
-  "consumed": false
+  "consumed": true,
+  "accepted_execution": {
+    "execution_commit": "f1530b0b2e81a5916adaf7ce808075156424dfb5",
+    "workflow_run_id": 33689625480,
+    "artifact_id": 9869488192
+  }
 }
