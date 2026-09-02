@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "experiment_id": "S7-LSO-001",
+  "status": "CANONICAL_EXECUTION_FROZEN",
+  "design_merge_commit": "35565bfbbde7ec217e2a8deb20dbfc572d80c991",
+  "prefreeze_rehearsal": {
+    "workflow_run_id": 33689515277,
+    "scientific_evidence": false,
+    "artifact_uploaded": false
+  },
+  "expected_population": {
+    "observations": 1033,
+    "block_a": 512,
+    "block_b": 512,
+    "block_c": 9
+  },
+  "expected_deterministic_output_sha256": {
+    "observations.csv": "5d66fe1db266e3a98532d0d0e63d1bc1a5d24eed0e831b5c91bdaa94f60d00b5",
+    "policy_summary.csv": "bf6069e200be76f324032133b8bf5e20ad3df33d57a59d985d3e3d828304d34d",
+    "TRAINED_MODELS.json": "8adafec923d756d91ec68c563d608ba27f5d224fea1907d5753c33944d54b362",
+    "REPORT.json": "cd85ac132eeff15d72b9e995127d267cefbd49d033fc776885f0bfe7caef48c1"
+  },
+  "scientific_implementation_paths": [
+    "study7/STUDY7_PROTOCOL.json",
+    "study7/src/learned_selector_model.py",
+    "study7/tests/test_learned_selector_model.py",
+    "study7/analysis/analyze.py",
+    "study7/analysis/audit_independent.py"
+  ],
+  "execution_constraints": {
+    "attack_optimizer": false,
+    "reinforcement_learning": false,
+    "operational_spacecraft": false,
+    "external_system_targeting": false,
+    "hidden_truth_as_policy_input": false,
+    "current_computers_and_security_manuscript_change": false
+  }
+}
