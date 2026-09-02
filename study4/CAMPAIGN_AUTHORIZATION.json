@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "experiment_id": "S4-MPQ-001",
+  "authorization_status": "AUTHORIZED",
+  "authorization_source": "USER_EXPLICIT_AUTHORIZATION_IN_PROJECT_CHAT_2026-09-02",
+  "authorized_scope": "RESEARCHER_CONTROLLED_SYNTHETIC_COMBINATORIAL_EXECUTION_ONLY",
+  "prohibited_scope": [
+    "operational spacecraft",
+    "RF transmission or interference",
+    "real credentials or signing keys",
+    "third-party targeting",
+    "real infrastructure exploitation"
+  ],
+  "study1_modified": false,
+  "study2_modified": false,
+  "study3_modified": false
+}

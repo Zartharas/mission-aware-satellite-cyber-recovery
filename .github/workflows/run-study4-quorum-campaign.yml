@@ -1,0 +1,85 @@
+name: Run Study 4 quorum threshold campaign
+
+on:
+  push:
+    branches:
+      - "study4/quorum-threshold-campaign"
+    paths:
+      - "study4/STUDY4_CAMPAIGN_FREEZE.json"
+      - "study4/CAMPAIGN_AUTHORIZATION.json"
+      - "study4/analysis/audit_independent.py"
+      - ".github/workflows/run-study4-quorum-campaign.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  campaign:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Confirm frozen scientific implementation has not drifted
+        run: |
+          git diff --exit-code b33e409b77b5e9c257979b0d3dc0d5ea8feb0925 -- \
+            study4/STUDY4_PROTOCOL.json \
+            study4/src/quorum_model.py \
+            study4/tests/test_quorum_model.py \
+            study4/analysis/analyze.py
+      - name: Validate authorization and freeze
+        run: |
+          python -m json.tool study4/STUDY4_CAMPAIGN_FREEZE.json >/dev/null
+          python -m json.tool study4/CAMPAIGN_AUTHORIZATION.json >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=json.loads(Path('study4/STUDY4_CAMPAIGN_FREEZE.json').read_text())
+          a=json.loads(Path('study4/CAMPAIGN_AUTHORIZATION.json').read_text())
+          assert f['design_merge_commit']=='b33e409b77b5e9c257979b0d3dc0d5ea8feb0925'
+          assert a['authorization_status']=='AUTHORIZED'
+          assert f['expected_population']['observations']==4608
+          print('study4_campaign_binding=PASS')
+          PY
+      - name: Pre-campaign assurance
+        run: |
+          python -m compileall -q study4/src study4/tests study4/analysis
+          python -m unittest discover -s study4/tests -p 'test_*.py' -v
+      - name: Execute exact finite population
+        run: python study4/analysis/analyze.py study4_runtime
+      - name: Verify frozen hashes
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          f=json.loads(Path('study4/STUDY4_CAMPAIGN_FREEZE.json').read_text())
+          for name,expected in f['expected_deterministic_output_sha256'].items():
+              actual=hashlib.sha256((Path('study4_runtime')/name).read_bytes()).hexdigest()
+              print(f'{name}={actual}')
+              assert actual==expected,(name,actual,expected)
+          print('study4_checksum_binding=PASS')
+          PY
+      - name: Independently audit evidence
+        run: python study4/analysis/audit_independent.py study4_runtime | tee study4_runtime/INDEPENDENT_AUDIT.txt
+      - name: Record provenance
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p={'schema':1,'experiment_id':'S4-MPQ-001','execution_commit':os.environ['GITHUB_SHA'],'workflow_run_id':os.environ['GITHUB_RUN_ID'],'design_merge_commit':'b33e409b77b5e9c257979b0d3dc0d5ea8feb0925','independent_audit':'PASS','runtime':'SYNTHETIC_COMBINATORIAL'}
+          Path('study4_runtime/EXECUTION_PROVENANCE.json').write_text(json.dumps(p,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
+      - name: Upload Study 4 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: study4-mpq-001-evidence-${{ github.sha }}
+          path: study4_runtime/
+          retention-days: 90
+          if-no-files-found: error

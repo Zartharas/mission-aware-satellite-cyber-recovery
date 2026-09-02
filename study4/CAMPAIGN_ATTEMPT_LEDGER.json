@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "experiment_id": "S4-MPQ-001",
+  "attempts": [
+    {
+      "attempt": 1,
+      "workflow_run_id": 33658642691,
+      "job_id": 100343416276,
+      "execution_commit": "ab574e74ded14f1d5d8b38da8c681f8edd5c9729",
+      "status": "REJECTED_BEFORE_EVIDENCE_ACCEPTANCE",
+      "reason": "HASH_GATE_REJECTED_STALE_DERIVED_FAILURE_CURVES_AND_REPORT_BINDINGS",
+      "scientific_observations_sha_matched": true,
+      "primary_thresholds_sha_matched": true,
+      "failure_curves_actual_sha256": "c14aabbe7d36b2951228259e7c48a13fafa26beb29b226b6b3e9e1dc3c282973",
+      "report_actual_sha256": "1a705adacbf4aa59524a3563923d8c4947e30636cac73dc1a452223459cf546c",
+      "artifact_accepted": false
+    },
+    {
+      "attempt": 2,
+      "workflow_run_id": 33658900540,
+      "job_id": 100344267677,
+      "execution_commit": "42b64a7a6431f2130efceec389ce25fe9b1a2382",
+      "status": "CANONICAL_ACCEPTED",
+      "checksum_binding": "PASS",
+      "independent_audit": "PASS",
+      "artifact_id": 9857848543,
+      "artifact_accepted": true
+    }
+  ]
+}
