@@ -7,7 +7,8 @@
 - **Primary manuscript:** assembled from `../../manuscript/MANUSCRIPT-ASSEMBLY.md`
 - **Scientific structure:** two separately frozen empirical studies; no pooled statistical population
 - **Author-attestation gate:** PASS as of 2026-08-31
-- **Current state:** **two-study journal integration and Study-2 source-evidence release gate**
+- **Journal integration:** completed in PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`
+- **Current state:** **Study-2 source-evidence responsible-release / durable-archive gate; final export validation follows**
 
 This directory contains target-specific submission material only. It does not replace the target-neutral manuscript and must not become a second manually maintained copy of the paper.
 
@@ -71,7 +72,7 @@ Study-2 RQ3 is explicitly bounded as a **structural label-invariance/control res
 - `concise-abstract-candidate.md` — target-specific two-study abstract candidate
 - `cover-letter.md` — target-specific editorial cover letter
 - `ai-declaration.md` — author-approved generative-AI/reproducibility disclosure
-- `submission-checklist.md` — current integration, archive, live-policy, and export gates
+- `submission-checklist.md` — current archive, live-policy, and export gates
 - `venue-fit.md` — updated target and backup-journal decision logic
 
 ## Scientific boundary
@@ -90,12 +91,11 @@ Every target-specific export must preserve the controls in `../../manuscript/MAN
 
 ## Gate to actual submission
 
-The package is **not yet final-export ready**. Before submission:
+The package is **not yet final-export ready**. The two-study journal integration and target-package reconciliation are complete. Before submission:
 
-1. complete two-study manuscript integration and updated repository CI;
-2. complete responsible-release review and publish a durable DOI-bearing Study-2 source-evidence archive;
-3. insert the actual Study-2 DOI/archive identity into Data Availability and submission materials;
-4. recheck live Computers & Security scope, AI/ML wording, generative-AI policy, article type, portal fields, and file requirements;
-5. run exact-export citation/DOI/frozen-claim/scope audits.
+1. complete responsible-release review and publish a durable DOI-bearing Study-2 source-evidence archive;
+2. verify the published checksums and insert the actual Study-2 DOI/archive identity into Data Availability and submission materials;
+3. recheck live Computers & Security scope, AI/ML wording, generative-AI policy, article type, portal fields, and file requirements;
+4. run exact-export citation/DOI/frozen-claim/scope audits.
 
 No missing DOI, portal field, or formatting preference may be resolved by inventing scientific or institutional information.
