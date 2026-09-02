@@ -68,6 +68,7 @@ class EpochRecord:
     gate_qualified: bool
     unsafe_permissive: bool
     unsafe_qualified: bool
+    unsafe_qualification_origin: str
     protective: bool
 
 
@@ -89,6 +90,8 @@ class TrajectorySummary:
     unsafe_qualified_epoch_rate: float
     unsafe_qualified_exposure_s: int
     unsafe_qualified_episode_count: int
+    cache_unsafe_qualified_epochs: int
+    v5_affected_unsafe_qualified_epochs: int
     protective_epochs: int
     protective_epoch_rate: float
     action_transition_count: int
@@ -198,6 +201,14 @@ def run_trajectory(cell: Cell, onset_s: int) -> tuple[tuple[EpochRecord, ...], T
             and not hidden_authorization_valid
             and gate_qualified
         )
+        unsafe_qualification_origin = "NONE"
+        if unsafe_qualified and latest is not None:
+            if latest.received_at_s < onset_s:
+                unsafe_qualification_origin = "PRE_ONSET_CACHE"
+            elif latest.treatment_affected and cell.evidence == "V5":
+                unsafe_qualification_origin = "V5_AFFECTED_RECORD"
+            else:
+                unsafe_qualification_origin = "UNEXPECTED"
         protective = t_s >= onset_s and action in PROTECTIVE_ACTIONS
 
         epochs.append(
@@ -225,6 +236,7 @@ def run_trajectory(cell: Cell, onset_s: int) -> tuple[tuple[EpochRecord, ...], T
                 gate_qualified=gate_qualified,
                 unsafe_permissive=unsafe_permissive,
                 unsafe_qualified=unsafe_qualified,
+                unsafe_qualification_origin=unsafe_qualification_origin,
                 protective=protective,
             )
         )
@@ -236,6 +248,10 @@ def run_trajectory(cell: Cell, onset_s: int) -> tuple[tuple[EpochRecord, ...], T
     unsafe_permissive_epochs = sum(row.unsafe_permissive for row in post)
     unsafe_qualified_epochs = sum(row.unsafe_qualified for row in post)
     protective_epochs = sum(row.protective for row in post)
+    cache_unsafe_qualified_epochs = sum(row.unsafe_qualification_origin == "PRE_ONSET_CACHE" for row in post)
+    v5_affected_unsafe_qualified_epochs = sum(row.unsafe_qualification_origin == "V5_AFFECTED_RECORD" for row in post)
+    if cache_unsafe_qualified_epochs + v5_affected_unsafe_qualified_epochs != unsafe_qualified_epochs:
+        raise AssertionError("unsafe qualification has an unexpected origin")
     denominator = len(post)
 
     summary = TrajectorySummary(
@@ -255,6 +271,8 @@ def run_trajectory(cell: Cell, onset_s: int) -> tuple[tuple[EpochRecord, ...], T
         unsafe_qualified_epoch_rate=unsafe_qualified_epochs / denominator,
         unsafe_qualified_exposure_s=unsafe_qualified_epochs * EPOCH_S,
         unsafe_qualified_episode_count=episodes,
+        cache_unsafe_qualified_epochs=cache_unsafe_qualified_epochs,
+        v5_affected_unsafe_qualified_epochs=v5_affected_unsafe_qualified_epochs,
         protective_epochs=protective_epochs,
         protective_epoch_rate=protective_epochs / denominator,
         action_transition_count=transitions,
