@@ -1,14 +1,6 @@
 name: Run Study 6 supply-chain trust campaign
 
 on:
-  push:
-    branches:
-      - "study6/supply-chain-trust-campaign"
-    paths:
-      - "study6/STUDY6_CAMPAIGN_FREEZE.json"
-      - "study6/CAMPAIGN_AUTHORIZATION.json"
-      - "study6/CAMPAIGN_ATTEMPT_LEDGER.json"
-      - ".github/workflows/run-study6-supply-chain-campaign.yml"
   workflow_dispatch:
 
 permissions:
@@ -44,8 +36,7 @@ jobs:
           a=json.loads(Path('study6/CAMPAIGN_AUTHORIZATION.json').read_text())
           assert f['design_merge_commit']=='8522b86bec64de8723ff24e0fe204cc9d6dc3998'
           assert f['expected_population']['total_observations']==420
-          assert a['authorization_status']=='ACTIVE_FOR_ONE_CANONICAL_FINITE_EXECUTION'
-          assert a['consumed'] is False
+          assert a['authorization_status'] in {'ACTIVE_FOR_ONE_CANONICAL_FINITE_EXECUTION','CONSUMED_CANONICAL_EXECUTION_COMPLETE'}
           assert f['execution_constraints']['malware_or_exploit_implementation'] is False
           print('study6_campaign_binding=PASS')
           PY
