@@ -11,6 +11,7 @@ Use these first when validating or reconstructing the published environment:
 | `verify_environment.sh` | Report the local host/tool prerequisites used by the project. |
 | `validate_experiment_schema.py` | Validate the experiment schema and committed historical/frozen fixtures. |
 | `audit_repository_release_gate.py` | Run the current-state final-submission repository sanity audit without starting the simulator. |
+| `audit_repository_release_gate_clean_worktree.sh` | Run the release/bibliography audits from a disposable detached worktree so ignored local virtual environments, runtime artifacts, and historical results cannot contaminate a local validation. |
 | `prepare_nos3_candidate.sh` | Obtain the pinned NOS3 source tree into the ignored `external/` directory and record the source lock. |
 | `prepare_42_candidate.sh` | Obtain/build the pinned Fortytwo/42 dependency under the frozen container environment. |
 | `build_nominal_nos3.sh` | Build the pinned nominal NOS3 environment with network-disabled container execution. |
@@ -20,6 +21,12 @@ Use these first when validating or reconstructing the published environment:
 | `verify_testbed_runtime.sh` | Verify the retained testbed/runtime evidence contract. |
 
 The end-to-end setup order, expected PASS markers, platform notes, and safety boundaries are documented in [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md).
+
+### Local clean-worktree audit boundary
+
+`audit_repository_release_gate.py` is authoritative for the committed repository snapshot, but a long-lived local checkout can also contain intentionally ignored material such as `.venv-analysis/`, `results/`, and historical runtime evidence. Those files are not part of the tracked release surface and can contain third-party CSVs, source TODO/FIXME comments, or non-JSON probe material that should not be interpreted as repository release-gate failures.
+
+For local validation of a committed clean checkout, prefer `audit_repository_release_gate_clean_worktree.sh`. It first refuses ordinary tracked/untracked working-tree changes, then creates a disposable detached Git worktree at the exact current commit, installs validation dependencies outside that worktree, runs the release-gate and bibliography audits there, checks for audit-induced drift, and removes the disposable worktree. It does not delete, move, or rewrite ignored local research/runtime evidence in the source checkout.
 
 ### Historical-fixture messages versus current authorization
 
