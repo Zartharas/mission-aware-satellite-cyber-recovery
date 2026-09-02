@@ -42,14 +42,15 @@
     "new_record_only_when_contact_available": true,
     "latest_received_record_replaces_prior_record_even_if_signature_invalid": true,
     "record_fresh_when_age_seconds_lte": 5,
+    "pre_onset_record_may_remain_policy_fresh_for_one_post_onset_epoch": true,
     "no_new_record_outside_contact": true
   },
   "treatment_semantics": {
-    "V0": "post_onset claim value false; signature valid",
-    "V4_ONE_SHOT": "first received post-onset claim value changed false-to-true after signing; signature invalid; later claims truthful",
-    "V4_PERSISTENT": "every received post-onset claim value changed false-to-true after signing; signature invalid",
-    "V5_ONE_SHOT": "first received post-onset claim is false-to-truth but validly signed by compromised trusted producer; later claims truthful",
-    "V5_PERSISTENT": "every received post-onset claim is false-to-truth and validly signed by compromised trusted producer"
+    "V0": "post-onset received claim reports authorization=false and has a valid signature",
+    "V4_ONE_SHOT": "first received post-onset claim is changed from authorization=false to authorization=true after signing; signature is invalid; later received claims are truthful",
+    "V4_PERSISTENT": "every received post-onset claim is changed from authorization=false to authorization=true after signing; signatures are invalid",
+    "V5_ONE_SHOT": "first received post-onset claim states authorization=true while hidden truth=false and is validly signed by the compromised trusted producer; later received claims are truthful",
+    "V5_PERSISTENT": "every received post-onset claim states authorization=true while hidden truth=false and is validly signed by the compromised trusted producer"
   },
   "matrix": {
     "v0_cells": 6,
@@ -70,6 +71,14 @@
     "protective_epoch_rate",
     "action_transition_count"
   ],
+  "prespecified_false_qualification_decomposition": [
+    "cache_unsafe_qualified_epochs",
+    "v5_affected_unsafe_qualified_epochs"
+  ],
+  "allowed_false_qualification_origins": [
+    "PRE_ONSET_CACHE",
+    "V5_AFFECTED_RECORD"
+  ],
   "analysis": {
     "primary_population": "complete_finite_onset_phase_grid",
     "primary_reporting": "exact_finite_grid_summaries_and_paired_phase_differences",
@@ -80,11 +89,12 @@
   "assurance_properties": [
     "selector_oracle_isolation",
     "no_pre_onset_unsafe_qualification",
-    "v0_never_unsafe_qualifies",
-    "v4_affected_record_never_qualifies",
-    "v5_qualification_requires_present_fresh_valid_record",
+    "affected_v4_record_never_qualifies",
+    "v0_or_v4_false_qualification_only_from_still_fresh_pre_onset_cache",
+    "v5_affected_qualification_requires_present_fresh_valid_record",
+    "all_false_qualification_has_declared_origin",
     "k4_receive_only_inside_contact_window",
-    "one_shot_affects_at_most_one_received_post_onset_record",
+    "one_shot_affects_exactly_one_received_post_onset_record",
     "exact_trajectory_membership",
     "policy_visible_input_boundary",
     "prior_study_immutability"
