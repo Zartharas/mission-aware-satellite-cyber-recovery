@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "release_classification": "RESPONSIBLE_RELEASE_REVIEWED_PUBLIC_DATASET_PACKAGE",
+  "release_decision": "APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER",
+  "experiment_id": "S2-AEATR-001",
+  "canonical_repository": "Zartharas/mission-aware-satellite-cyber-recovery",
+  "canonical_repository_commit_at_review": "6bb0051628ec64ebd09a85435f88a6a0d2cfc382",
+  "source_artifact": {
+    "filename": "study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip",
+    "sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "github_actions_artifact_id": 9816191406,
+    "github_actions_run_id": 33547420437,
+    "observations_sha256": "8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854",
+    "attempt_ledger_sha256": "755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5",
+    "trial_manifest_sha256": "190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67",
+    "valid_observations": 3872,
+    "invalid_attempts": 0,
+    "cells": 85,
+    "modified_by_review": false
+  },
+  "security_privacy_review": {
+    "credentials_found": false,
+    "tokens_found": false,
+    "private_keys_found": false,
+    "urls_found": false,
+    "email_addresses_found": false,
+    "ip_addresses_found": false,
+    "absolute_local_paths_found": false,
+    "operational_spacecraft_data_found": false,
+    "proprietary_mission_telemetry_found": false,
+    "zip_path_traversal_found": false,
+    "human_subject_data_found": false
+  },
+  "integrity_review": {
+    "ledger_rows": 3872,
+    "observation_rows": 3872,
+    "ledger_observation_identity_mismatches": 0,
+    "observation_hash_mismatches": 0,
+    "file_hash_mismatches": 0,
+    "block_membership_matches_frozen_design": true
+  },
+  "authorization_note": {
+    "source_runtime_binding_state": {
+      "active": true,
+      "consumed": false
+    },
+    "canonical_post_campaign_state": {
+      "active": false,
+      "consumed": true
+    },
+    "interpretation": "The source value is a historical pre-run provenance snapshot, not current authorization."
+  },
+  "license_recommendation": "CC-BY-4.0",
+  "recommended_resource_type": "dataset",
+  "doi_status": "PENDING_EXTERNAL_DURABLE_ARCHIVE_PUBLICATION",
+  "campaign_runtime_performed_by_review": false,
+  "frozen_science_modified_by_review": false
+}
