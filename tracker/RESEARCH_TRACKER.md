@@ -4,7 +4,7 @@ Last updated: 2026-09-01
 
 ## Current focus
 
-**The repository now contains two separately frozen empirical studies supporting a journal research article. Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL` at the canonical main closeout state. Current work is the two-study journal-manuscript integration, claim-to-evidence reconciliation, responsible release of the Study-2 source-evidence package, and final Computers & Security submission preparation. No new Study-1 or Study-2 campaign execution is authorized by this tracker.**
+**The repository now contains two separately frozen empirical studies supporting a journal research article. Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. The two-study journal-manuscript integration is complete and merged to `main`; current work is responsible release of the Study-2 source-evidence package, durable DOI archiving, and final Computers & Security submission/export validation. No new Study-1 or Study-2 campaign execution is authorized by this tracker.**
 
 This is a **journal research workflow**, not a dissertation-revision workflow. The prior dissertation relationship remains a disclosure/prior-dissemination consideration only.
 
@@ -12,7 +12,8 @@ This is a **journal research workflow**, not a dissertation-revision workflow. T
 
 - Phase-7 results merge: `49c62cbed3fb8fc318e44d696faba1854ed6c21a`
 - Phase-7 canonical closeout main commit: `2bd3fb34ca709127e45ea9bffa8f516846d6c4b5`
-- active manuscript integration branch: `paper/study2-journal-integration`
+- journal integration PR: `#72`
+- journal integration merge commit: `6f9a1a5d26287120278913d453b26c78f267870f`
 - current journal assembly authority: `publication/manuscript/MANUSCRIPT-ASSEMBLY.md`
 - current Study-2 freeze authority: `study2/PHASE7_RESULTS_FREEZE.json`
 - current Study-2 provenance authority: `study2/PHASE7_PROVENANCE.json`
@@ -124,7 +125,7 @@ The Phase-7 **result** artifact is durably retained in Git history. The underlyi
 
 ## Current journal-manuscript state
 
-The active article is now a two-study paper:
+The two-study journal manuscript integration is complete and merged in PR #72:
 
 - `publication/manuscript/03-methods.md` — Study 1
 - `publication/manuscript/03-study2-methods-extension.md` — Study 2
@@ -145,7 +146,7 @@ The original WP0–WP11 program remains historically closed:
 | ID | Work package | Historical status | Current interpretation |
 |---|---|---|---|
 | WP0 | Research workspace | Complete | retained infrastructure/provenance |
-| WP1 | Literature and novelty | Complete — empirically reconciled | Study-1 framing retained; two-study novelty now handled in journal integration |
+| WP1 | Literature and novelty | Complete — empirically reconciled | Study-1 framing retained; two-study novelty is integrated in the current journal manuscript |
 | WP2 | Theoretical/conceptual model | Complete — empirically reconciled | Study-1 Mission Aware framing remains bounded |
 | WP3 | Threat and mission model | Complete — empirically reconciled | Study-1 claim boundaries retained |
 | WP4 | Testbed selection/architecture | Complete | historical Study-1 environment retained |
@@ -161,14 +162,20 @@ No `WP12` or `Phase 8` is created by this tracker. New downstream work is descri
 
 ## Current exact action
 
-1. Finish stale-current-state cleanup across README/publication/submission/reproducibility surfaces.
-2. Update the repository release-gate audit so CI enforces the two-study journal state and Study-2 frozen identities.
-3. Run full repository and Study-2 assurance CI on the exact journal-integration branch.
-4. Resolve any reviewer/CI findings without changing frozen statistics.
-5. Merge the journal-integration PR to `main` after green validation.
-6. Synchronize the local repository to the merged `main` with a dirty-tree-safe fast-forward procedure and rerun the local non-runtime audit.
-7. Complete Study-2 source-evidence responsible release and durable DOI publication.
-8. Only then proceed to final Computers & Security export/live-portal checks and exact-export claim/citation/DOI/scope audit.
+Completed:
+
+1. stale-current-state cleanup across README/publication/submission/reproducibility surfaces;
+2. release-gate hardening for the two-study journal state and Study-2 frozen identities;
+3. full repository CI on the exact journal-integration head;
+4. reviewer/CI correction of identified stale or misleading wording without changing frozen statistics;
+5. journal-integration merge to `main` as PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`.
+
+Current sequence:
+
+6. synchronize the local repository to the merged `main` with the dirty-tree-safe fast-forward procedure and rerun the local non-runtime audit;
+7. complete Study-2 source-evidence responsible release and durable DOI publication;
+8. insert the actual DOI/checksums into Data Availability and target materials;
+9. proceed to final Computers & Security live-portal checks and exact-export claim/citation/DOI/scope audit.
 
 ## Scientific and responsible-research boundaries
 
