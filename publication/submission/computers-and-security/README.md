@@ -30,7 +30,8 @@ This directory contains target-specific submission material only. It does not re
 - canonical Phase-7 result freeze and provenance under `../../../study2/`
 - independent reproduction: 0 mismatches
 - durable Phase-7 result ZIP in Git history
-- exact Phase-6 source-evidence ZIP passed responsible-release review; the remaining archive gate is DOI publication plus independent public-checksum verification
+- exact Phase-6 source-evidence ZIP passed responsible-release review
+- underlying Phase-6 source-evidence archive: **responsible-release-reviewed DOI publication still required before submission**, followed by independent public-checksum verification
 - responsible-release record and deposit metadata: `../../../study2/release/phase6/`
 
 The Study-1 Zenodo DOI must never be described as containing Study-2 source observations.
