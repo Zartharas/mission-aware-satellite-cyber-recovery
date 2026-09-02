@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "experiment_id": "S6-SCTR-001",
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "ACCEPTED_CANONICAL_EVIDENCE",
+      "execution_commit": "f50f4db03e27e223104df96b2dd32bea85fd6319",
+      "workflow_run_id": 33669329819,
+      "job_id": 100378738630,
+      "artifact_id": 9861838528,
+      "artifact_sha256": "24e3b0f8f79df383f19ff470671ad1c61738289a69c98b46f22ca2ec7e94e67d",
+      "implementation_drift_check": "PASS",
+      "authorization_binding": "PASS",
+      "pre_campaign_assurance": "PASS",
+      "frozen_hash_binding": "PASS",
+      "independent_audit": "PASS",
+      "tracked_file_drift": "PASS",
+      "artifact_accepted": true
+    }
+  ]
+}

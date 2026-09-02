@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "experiment_id": "S6-SCTR-001",
+  "status": "CANONICAL_RESULTS_FROZEN",
+  "design_merge_commit": "8522b86bec64de8723ff24e0fe204cc9d6dc3998",
+  "accepted_execution": {
+    "execution_commit": "f50f4db03e27e223104df96b2dd32bea85fd6319",
+    "workflow_run_id": 33669329819,
+    "job_id": 100378738630,
+    "artifact_id": 9861838528,
+    "artifact_name": "study6-sctr-001-evidence-f50f4db03e27e223104df96b2dd32bea85fd6319",
+    "artifact_sha256": "24e3b0f8f79df383f19ff470671ad1c61738289a69c98b46f22ca2ec7e94e67d",
+    "artifact_expires_at": "2026-12-01T18:47:00Z"
+  },
+  "population": {
+    "block_a": 36,
+    "block_b": 384,
+    "total": 420,
+    "sampling": false,
+    "monte_carlo": false
+  },
+  "frozen_output_sha256": {
+    "gate_state_matrix.csv": "e12372f02902702e6ea2ccf19913c8f848dcccea60811befbb76b970a6f2c027",
+    "benign_unavailability.csv": "455a70237cb883c3f88e8c819cc13f028afc266b19c34088a0362416af1995e1",
+    "gate_summary.csv": "fc2a87969c7e5813e829e48ee8f069a346c47b67066894e794d05db188230129",
+    "REPORT.json": "4a4b618c9b990587ea8348de71bb212fecaf3598b0f3e17412b3519ff94b28f9"
+  },
+  "gate_frontier": {
+    "G0_SIGNATURE_ONLY": {"unsafe_qualified_incorrect_states": 4, "incorrect_states_total": 5, "benign_loss_subsets": 32, "benign_subsets_total": 64},
+    "G1_SIGNATURE_TARGET_DIGEST": {"unsafe_qualified_incorrect_states": 3, "incorrect_states_total": 5, "benign_loss_subsets": 48, "benign_subsets_total": 64},
+    "G2_SIGNATURE_PROVENANCE": {"unsafe_qualified_incorrect_states": 3, "incorrect_states_total": 5, "benign_loss_subsets": 48, "benign_subsets_total": 64},
+    "G3_PROVENANCE_REPRODUCED_BUILD": {"unsafe_qualified_incorrect_states": 2, "incorrect_states_total": 5, "benign_loss_subsets": 56, "benign_subsets_total": 64},
+    "G4_PROVENANCE_SOURCE_REVIEW": {"unsafe_qualified_incorrect_states": 2, "incorrect_states_total": 5, "benign_loss_subsets": 56, "benign_subsets_total": 64},
+    "G5_COMPOSITE": {"unsafe_qualified_incorrect_states": 1, "incorrect_states_total": 5, "benign_loss_subsets": 63, "benign_subsets_total": 64}
+  },
+  "bounded_conclusion": "Stronger artifact-assurance gates close distinct trust gaps but increase benign evidence-availability sensitivity; even the composite gate accepts the fully approved/reproducible/reviewed but objectively incorrect source state. Provenance-qualified recovery is therefore not equivalent to objective baseline correctness in this finite model.",
+  "independent_audit": "PASS",
+  "objective_correctness_oracle_is_gate_input": false,
+  "malware_or_exploit_implemented": false,
+  "global_gate_ranking_claimed": false,
+  "prior_study_populations_modified": false
+}

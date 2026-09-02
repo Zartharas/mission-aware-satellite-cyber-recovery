@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "experiment_id": "S6-SCTR-001",
+  "status": "CANONICAL_FINITE_EXECUTION_AUTHORIZED",
+  "design_merge_commit": "8522b86bec64de8723ff24e0fe204cc9d6dc3998",
+  "expected_population": {
+    "block_a_observations": 36,
+    "block_b_observations": 384,
+    "total_observations": 420
+  },
+  "expected_deterministic_output_sha256": {
+    "gate_state_matrix.csv": "e12372f02902702e6ea2ccf19913c8f848dcccea60811befbb76b970a6f2c027",
+    "benign_unavailability.csv": "455a70237cb883c3f88e8c819cc13f028afc266b19c34088a0362416af1995e1",
+    "gate_summary.csv": "fc2a87969c7e5813e829e48ee8f069a346c47b67066894e794d05db188230129",
+    "REPORT.json": "4a4b618c9b990587ea8348de71bb212fecaf3598b0f3e17412b3519ff94b28f9"
+  },
+  "scientific_implementation_paths": [
+    "study6/STUDY6_PROTOCOL.json",
+    "study6/src/artifact_trust_model.py",
+    "study6/analysis/analyze.py",
+    "study6/analysis/audit_independent.py",
+    "study6/tests/test_artifact_trust_model.py"
+  ],
+  "execution_constraints": {
+    "abstract_boolean_model_only": true,
+    "malware_or_exploit_implementation": false,
+    "operational_spacecraft": false,
+    "rf": false,
+    "real_credentials_or_keys": false,
+    "third_party_target": false,
+    "prior_study_population_change": false
+  }
+}

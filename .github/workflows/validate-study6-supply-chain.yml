@@ -24,7 +24,11 @@ jobs:
         with:
           python-version: '3.11'
       - name: Validate Study 6 protocol
-        run: python -m json.tool study6/STUDY6_PROTOCOL.json >/dev/null
+        run: |
+          python -m json.tool study6/STUDY6_PROTOCOL.json >/dev/null
+          if [ -f study6/results/RESULTS_FREEZE.json ]; then
+            python -m json.tool study6/results/RESULTS_FREEZE.json >/dev/null
+          fi
       - name: Compile Study 6
         run: python -m compileall -q study6
       - name: Run Study 6 invariants
@@ -49,5 +53,23 @@ jobs:
           assert r['global_gate_ranking_claimed'] is False
           print('study6_report_boundary=PASS')
           PY
+      - name: Validate canonical closeout when present
+        run: |
+          if [ -f study6/results/CANONICAL_GATE_SUMMARY.csv ]; then
+            cmp study6/results/CANONICAL_GATE_SUMMARY.csv study6_runtime/gate_summary.csv
+            python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          f=json.loads(Path('study6/results/RESULTS_FREEZE.json').read_text())
+          assert f['status']=='CANONICAL_RESULTS_FROZEN'
+          assert f['population']['total']==420
+          assert f['independent_audit']=='PASS'
+          assert f['objective_correctness_oracle_is_gate_input'] is False
+          assert f['malware_or_exploit_implemented'] is False
+          actual=hashlib.sha256(Path('study6_runtime/gate_summary.csv').read_bytes()).hexdigest()
+          assert actual==f['frozen_output_sha256']['gate_summary.csv']
+          print('study6_canonical_closeout_binding=PASS')
+          PY
+          fi
       - name: Confirm no tracked-file drift
         run: git diff --exit-code
