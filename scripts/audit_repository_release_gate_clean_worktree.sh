@@ -2,10 +2,15 @@
 set -euo pipefail
 
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
-if [[ -z "$ROOT" || ! -d "$ROOT/.git" ]]; then
+if [[ -z "$ROOT" ]] || [[ "$(git -C "$ROOT" rev-parse --is-inside-work-tree 2>/dev/null || true)" != "true" ]]; then
   echo "FAIL: run this script from inside the mission-aware-satellite-cyber-recovery Git checkout" >&2
   exit 1
 fi
+
+git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1 || {
+  echo "FAIL: Git metadata cannot be resolved for this checkout" >&2
+  exit 1
+}
 
 cd "$ROOT"
 
