@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "experiment_id": "S5-CUCD-001",
+  "status": "CANONICAL_RESULTS_FROZEN_PENDING_REPOSITORY_MERGE",
+  "design_and_implementation_merge_commit": "872258b87ba016ac059930d110ff06a691246e73",
+  "validated_head_commit": "9149ea900a6681ff55cd5c702f6194d50bb0e89d",
+  "canonical_validation": {
+    "dedicated_workflow_run_id": 33663897775,
+    "dedicated_job_id": 100360780631,
+    "dedicated_status": "PASS",
+    "independent_audit_mismatches": 0,
+    "repository_workflow_run_id": 33663897772,
+    "repository_job_id": 100360780901,
+    "repository_status": "PASS",
+    "tracked_file_drift": 0
+  },
+  "external_source": {
+    "dataset": "CuCD-ID v3",
+    "dataset_doi": "10.17632/7n2d42pm3n.3",
+    "article_doi": "10.1016/j.dib.2026.112598",
+    "raw_third_party_files_committed": false,
+    "row_level_dataset_consumed_by_policy_bridge": false
+  },
+  "frozen_selector_dependency": {
+    "path": "study2/src/study2_security/selectors.py",
+    "sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
+  },
+  "membership": {
+    "external_labels": 5,
+    "controlled_recovery_contexts": 4,
+    "frozen_baseline_policies": 4,
+    "portability_observations": 80,
+    "input_sufficiency_rows": 8,
+    "transferability_rows": 5,
+    "attack_subtype_context_policy_groups": 16
+  },
+  "canonical_findings": {
+    "direct_recovery_input_coverage_count": 0,
+    "direct_recovery_input_coverage_total": 8,
+    "direct_recovery_input_coverage_fraction": 0.0,
+    "attack_subtype_invariant_groups": 16,
+    "attack_subtype_groups_total": 16,
+    "attack_subtype_action_invariance": true,
+    "action_counts_over_80": {
+      "HOLD_AND_REQUIRE_EVIDENCE": 20,
+      "PRESERVE_LIMITED_OPERATION": 14,
+      "PROCEED_TO_RECOVERY_GATE": 16,
+      "RESTRICT_AND_REQUEST_AUTHORIZATION": 30
+    },
+    "direct_external_attack_to_frozen_research_mechanism_mappings": 0
+  },
+  "interpretation_guards": [
+    "CuCD-ID materially broadens external scenario/taxonomy coverage but does not directly provide trusted-recovery state.",
+    "The published scenario label is used only as an offline oracle alarm in the response-portability subtest.",
+    "No IDS accuracy, recall, false-positive-rate, or attack-prevalence claim is made.",
+    "P0-P7 and Study-2 policies were not benchmarked on individual CuCD-ID packet rows.",
+    "Missing mission, authorization, trust, freshness, epoch, contradiction, or evidence-completeness state was not imputed from telemetry.",
+    "Action invariance means frozen selector response is driven by evidence/context rather than the four external attack subtype names under the controlled bridge.",
+    "Studies 1-4 remain frozen and are not pooled with Study 5."
+  ]
+}
