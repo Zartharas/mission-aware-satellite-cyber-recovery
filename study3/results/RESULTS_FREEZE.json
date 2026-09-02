@@ -1,0 +1,89 @@
+{
+  "attempt_history": {
+    "attempt_1_run_id": 33650410329,
+    "attempt_1_status": "REJECTED_BEFORE_EVIDENCE_ACCEPTANCE",
+    "attempt_2_run_id": 33650631676,
+    "attempt_2_status": "CANONICAL_ACCEPTED"
+  },
+  "canonical_artifact": {
+    "artifact_id": 9854607159,
+    "expires_at": "2026-12-01T15:45:36Z",
+    "name": "study3-k4e-001-evidence-c2372c5fab598ecec1070b1bc76b9ff5237f9c99",
+    "size_bytes": 294007,
+    "zip_sha256": "2cae36a016fd899ef921085fabbbc3599f75847417eb88ea47ec9860c26a683e"
+  },
+  "canonical_execution_commit": "c2372c5fab598ecec1070b1bc76b9ff5237f9c99",
+  "canonical_job_id": 100316425605,
+  "canonical_workflow_run_id": 33650631676,
+  "design_merge_commit": "577d0a0d1f8eb603cc836ded40cb7e795af7d001",
+  "experiment_id": "S3-K4E-001",
+  "file_sha256": {
+    "cell_summary.csv": "dc653561333d48f90b1917f5c29863e1cded4d5a8b13ce11b0b5935fa6fe0322",
+    "epochs.csv": "644e871208289673525f3d11f869471d21e11b0c8f361044529e400457e514c3",
+    "trajectory_summary.csv": "67af4a075ef8a123cb5e52e3d09cf063447a0bd7bdd5440c6e8e7e01262026da"
+  },
+  "independent_audit": {
+    "epoch_rule_mismatches": 0,
+    "qualification_origin_mismatches": 0,
+    "sha_mismatches": 0,
+    "status": "PASS",
+    "trajectory_mismatches": 0
+  },
+  "interpretation_guards": [
+    "unsafe_permissive_epoch_rate is a selector/gate-entry action metric and must not be reported as actual trusted recovery",
+    "unsafe_qualified measures policy-visible gate qualification while hidden authorization truth is false",
+    "logical seconds are deterministic model time, not operational latency",
+    "K4 is a synthetic flapping-contact schedule, not an orbital availability estimate",
+    "finite onset-phase results describe the frozen model grid and are not population-frequency estimates",
+    "Study 1 and Study 2 populations remain unchanged and are not pooled"
+  ],
+  "membership": {
+    "cells": 30,
+    "epoch_rows": 67620,
+    "onset_phases_per_cell": 46,
+    "trajectories": 1380
+  },
+  "primary_findings": {
+    "K0_V5_persistent_B0": {
+      "mean_unsafe_qualified_exposure_s": 122.5,
+      "trajectories_with_any_unsafe_qualification": 46
+    },
+    "K0_V5_persistent_B2": {
+      "mean_unsafe_qualified_exposure_s": 0.0,
+      "trajectories_with_any_unsafe_qualification": 0
+    },
+    "K0_V5_persistent_S1": {
+      "mean_unsafe_qualified_exposure_s": 122.5,
+      "trajectories_with_any_unsafe_qualification": 46
+    },
+    "K4_V0_B0_cache_boundary": {
+      "mean_cache_exposure_s": 0.3260869565217391,
+      "trajectories_with_any_unsafe_qualification": 3
+    },
+    "K4_V0_B2_cache_boundary": {
+      "mean_cache_exposure_s": 0.0,
+      "trajectories_with_any_unsafe_qualification": 0
+    },
+    "K4_V0_S1_cache_boundary": {
+      "mean_cache_exposure_s": 0.0,
+      "trajectories_with_any_unsafe_qualification": 0
+    },
+    "K4_V5_persistent_B0": {
+      "V5_increment_over_V0_s": 55.0,
+      "mean_unsafe_qualified_exposure_s": 55.32608695652174,
+      "trajectories_with_any_unsafe_qualification": 46
+    },
+    "K4_V5_persistent_B2": {
+      "V5_increment_over_V0_s": 0.0,
+      "mean_unsafe_qualified_exposure_s": 0.0,
+      "trajectories_with_any_unsafe_qualification": 0
+    },
+    "K4_V5_persistent_S1": {
+      "V5_increment_over_V0_s": 49.02173913043478,
+      "mean_unsafe_qualified_exposure_s": 49.02173913043478,
+      "trajectories_with_any_unsafe_qualification": 46
+    }
+  },
+  "schema": 1,
+  "status": "CANONICAL_RESULTS_FROZEN_PENDING_REPOSITORY_MERGE"
+}

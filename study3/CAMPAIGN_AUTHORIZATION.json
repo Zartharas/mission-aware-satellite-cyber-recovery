@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "experiment_id": "S3-K4E-001",
+  "authorization_status": "AUTHORIZED",
+  "authorization_date": "2026-09-02",
+  "authorization_basis": "User explicitly requested completion of Items 3-10 one at a time using the necessary research lifecycle, following prior approval to perform safe researcher-controlled synthetic follow-on work.",
+  "authorized_scope": [
+    "execute the exact 1,380-trajectory deterministic Study-3 finite population",
+    "write synthetic campaign evidence",
+    "run the independent auditor",
+    "produce aggregate results and provenance",
+    "integrate bounded findings into a separate companion-study publication record"
+  ],
+  "not_authorized": [
+    "operational spacecraft access",
+    "ground-station access",
+    "RF transmission, spoofing, jamming, or interference",
+    "real or non-public credentials",
+    "third-party targeting",
+    "proprietary mission telemetry",
+    "modification of frozen Study-1 or Study-2 populations or findings"
+  ],
+  "freeze_commit": "577d0a0d1f8eb603cc836ded40cb7e795af7d001",
+  "campaign_membership_substitution_allowed": false,
+  "hidden_retry_allowed": false
+}

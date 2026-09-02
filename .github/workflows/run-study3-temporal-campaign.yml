@@ -1,0 +1,112 @@
+name: Run Study 3 temporal campaign
+
+on:
+  push:
+    branches:
+      - "study3/k4-v4-v5-campaign"
+    paths:
+      - "study3/STUDY3_CAMPAIGN_FREEZE.json"
+      - "study3/CAMPAIGN_AUTHORIZATION.json"
+      - ".github/workflows/run-study3-temporal-campaign.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  campaign:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out full provenance history
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Confirm frozen scientific implementation has not drifted
+        run: |
+          git diff --exit-code 577d0a0d1f8eb603cc836ded40cb7e795af7d001 -- \
+            study3/STUDY3_PROTOCOL.json \
+            study3/src/temporal_model.py \
+            study3/scripts/run_campaign.py \
+            study3/analysis/audit_independent.py \
+            study3/tests/test_temporal_model.py
+
+      - name: Validate authorization and freeze binding
+        run: |
+          python -m json.tool study3/STUDY3_CAMPAIGN_FREEZE.json >/dev/null
+          python -m json.tool study3/CAMPAIGN_AUTHORIZATION.json >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          freeze=json.loads(Path('study3/STUDY3_CAMPAIGN_FREEZE.json').read_text())
+          auth=json.loads(Path('study3/CAMPAIGN_AUTHORIZATION.json').read_text())
+          assert freeze['design_merge_commit']=='577d0a0d1f8eb603cc836ded40cb7e795af7d001'
+          assert auth['authorization_status']=='AUTHORIZED'
+          assert auth['experiment_id']==freeze['experiment_id']=='S3-K4E-001'
+          assert freeze['expected_population']['trajectories']==1380
+          assert freeze['expected_population']['epoch_rows']==67620
+          print('study3_campaign_binding=PASS')
+          PY
+
+      - name: Run pre-campaign assurance
+        run: |
+          python -m compileall -q study3/src study3/scripts study3/analysis study3/tests
+          python -m unittest discover -s study3/tests -p 'test_*.py' -v
+          python study3/scripts/run_campaign.py --validate-only
+
+      - name: Execute exact frozen finite population
+        run: python study3/scripts/run_campaign.py --output study3_runtime
+
+      - name: Verify output checksums against frozen bindings
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          freeze=json.loads(Path('study3/STUDY3_CAMPAIGN_FREEZE.json').read_text())
+          for name,expected in freeze['expected_deterministic_output_sha256'].items():
+              path=Path('study3_runtime')/name
+              actual=hashlib.sha256(path.read_bytes()).hexdigest()
+              print(f'{name}={actual}')
+              assert actual==expected,(name,actual,expected)
+          print('study3_campaign_checksum_binding=PASS')
+          PY
+
+      - name: Independently audit campaign evidence
+        run: |
+          python study3/analysis/audit_independent.py --input study3_runtime | tee study3_runtime/INDEPENDENT_AUDIT.txt
+          grep -q '^study3_independent_audit=PASS$' study3_runtime/INDEPENDENT_AUDIT.txt
+
+      - name: Record execution provenance
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          payload={
+              'schema':1,
+              'experiment_id':'S3-K4E-001',
+              'execution_commit':os.environ['GITHUB_SHA'],
+              'workflow_run_id':os.environ['GITHUB_RUN_ID'],
+              'workflow_run_attempt':os.environ['GITHUB_RUN_ATTEMPT'],
+              'design_merge_commit':'577d0a0d1f8eb603cc836ded40cb7e795af7d001',
+              'independent_audit':'PASS',
+              'campaign_runtime':'RESEARCHER_CONTROLLED_SYNTHETIC',
+          }
+          Path('study3_runtime/EXECUTION_PROVENANCE.json').write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
+          PY
+
+      - name: Confirm execution did not modify tracked files
+        run: git diff --exit-code
+
+      - name: Upload Study 3 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: study3-k4e-001-evidence-${{ github.sha }}
+          path: study3_runtime/
+          if-no-files-found: error
+          retention-days: 90
