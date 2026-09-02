@@ -1,0 +1,3 @@
+experiment_id,trajectory_id,cell_id,contact,evidence,persistence,policy,onset_s,post_onset_epochs,affected_received_records,unsafe_permissive_epochs,unsafe_permissive_epoch_rate,unsafe_qualified_epochs,unsafe_qualified_epoch_rate,unsafe_qualified_exposure_s,unsafe_qualified_episode_count,cache_unsafe_qualified_epochs,v5_affected_unsafe_qualified_epochs,protective_epochs,protective_epoch_rate,action_transition_count
+S3-K4E-001,S3-K4E-001:K0_V0_NONE_S2_B0_FAIL_CLOSED:T010,K0_V0_NONE_S2_B0_FAIL_CLOSED,K0,V0,NONE,S2_B0_FAIL_CLOSED,10,47,0,47,1.0,0,0.0,0,0,0,0,0,0.0,0
+S3-K4E-001,S3-K4E-001:K0_V0_NONE_S2_B0_FAIL_CLOSED:T015,K0_V0_NONE_S2_B0_FAIL_CLOSED,K0,V0,NONE,S2_B0_FAIL_CLOSED,15,46,0,46,1.0,0,0.0,0,0,0,0,0,0.0,0
