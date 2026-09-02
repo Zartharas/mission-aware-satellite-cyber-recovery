@@ -4,11 +4,12 @@
 **Study-1 evidence audit:** `docs/35-wp10-g5-manuscript-evidence-audit.md` — PASS  
 **Study-2 statistical freeze:** `../../study2/docs/PHASE7_RESULTS_FREEZE.md` — `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`  
 **Study-2 independent reproduction:** PASS, 0 mismatches  
+**Study-2 Phase-6 responsible-release review:** PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`  
 **Journal integration merge:** PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`  
 **Primary target journal:** Computers & Security (Elsevier), Full Length Article  
 **Backup targets:** AIAA Journal of Aerospace Information Systems; IEEE Transactions on Aerospace and Electronic Systems  
 **Author-attestation gate:** PASS  
-**Current submission state:** **Study-2 source-evidence responsible-release / durable-archive gate; final export follows after DOI insertion and live-policy checks**
+**Current submission state:** **Study-2 durable DOI archive / public checksum verification / DOI insertion gate; final export follows after live-policy checks**
 
 ## Scientific architecture of the article
 
@@ -59,6 +60,7 @@ Study-2 quantitative authority is the canonical Phase-7 freeze and its immutable
 - `../../study2/docs/PHASE7_RESULTS_FREEZE.md`
 - `../../study2/evidence/phase7/INDEPENDENT_REPRODUCTION_AUDIT.json`
 - exact Phase-7 result ZIP retained under `../../study2/evidence/phase7/archive/`
+- responsible-release review record under `../../study2/release/phase6/`
 
 Frozen identities include:
 
@@ -71,7 +73,7 @@ Frozen identities include:
 - 432 prespecified secondary contrasts
 - independent reproduction mismatches: 0
 
-The Phase-7 result ZIP is durable in Git history. The underlying Phase-6 source evidence still requires responsible-release review and a DOI-bearing durable archive before actual journal submission. No Study-2 DOI is invented in advance.
+The Phase-7 result ZIP is durable in Git history. The underlying Phase-6 source evidence has completed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`. It still requires publication of the exact approved ZIP to a DOI-bearing durable archive and independent public-checksum verification before actual journal submission. No Study-2 DOI is invented in advance.
 
 ## Main publication displays
 
@@ -144,12 +146,14 @@ Completed before this closeout:
 
 1. the two-study manuscript integration and repository-level claim/citation controls were merged in PR #72;
 2. the Computers & Security target package was reconciled to the two-study article;
-3. the exact integration head passed the repository release gate, bibliography audit, schema checks, full research unit tests, shell/Python validation, WP10 reproduction/regression, and zero tracked-file drift.
+3. the exact integration head passed the repository release gate, bibliography audit, schema checks, full research unit tests, shell/Python validation, WP10 reproduction/regression, and zero tracked-file drift;
+4. the local canonical repository synchronized to `6bb0051628ec64ebd09a85435f88a6a0d2cfc382` and passed the clean-worktree audit with 611 research tests and zero drift;
+5. the exact Study-2 Phase-6 source-evidence ZIP passed responsible-release review with no campaign execution or frozen-science/source-evidence modification.
 
 The current combined-paper submission cannot advance to final export until:
 
-1. the Study-2 source-evidence package passes responsible-release review and receives a durable DOI-bearing archive;
-2. the actual DOI/archive identity and verified checksums are inserted into Data Availability and target materials;
+1. the exact approved Study-2 source-evidence ZIP receives a durable DOI-bearing archive;
+2. the publicly served source ZIP SHA-256 is independently verified and the actual DOI/archive identity is inserted into Data Availability and target materials;
 3. live Guide for Authors/Aims & Scope/Editorial Manager requirements are rechecked on the actual submission date;
 4. the exact submission export passes citation/DOI/frozen-claim/scope checks.
 
@@ -157,4 +161,4 @@ An institutional IRB/HRPP identifier remains conditional on a specific applicabl
 
 ## Assembly rule
 
-The component files above are the manuscript source of truth. Historical Study-1 work-package documents remain provenance and may retain stage-local wording. Current article status is governed by this assembly file, `../../tracker/RESEARCH_TRACKER.md`, and the canonical Study-2 Phase-7 provenance/freeze records.
+The component files above are the manuscript source of truth. Historical Study-1 work-package documents remain provenance and may retain stage-local wording. Current article status is governed by this assembly file, `../../tracker/RESEARCH_TRACKER.md`, the Study-2 Phase-6 release-review record, and the canonical Study-2 Phase-7 provenance/freeze records.
