@@ -23,8 +23,12 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
-      - name: Validate protocol
-        run: python -m json.tool study7/STUDY7_PROTOCOL.json >/dev/null
+      - name: Validate protocol and closeout metadata
+        run: |
+          python -m json.tool study7/STUDY7_PROTOCOL.json >/dev/null
+          if [ -f study7/results/RESULTS_FREEZE.json ]; then
+            python -m json.tool study7/results/RESULTS_FREEZE.json >/dev/null
+          fi
       - name: Compile Study 7
         run: python -m compileall -q study7
       - name: Run Study 7 invariants
@@ -53,5 +57,24 @@ jobs:
           assert r['current_computers_and_security_manuscript_modified'] is False
           print('study7_report_boundary=PASS')
           PY
+      - name: Validate canonical closeout when present
+        run: |
+          if [ -f study7/results/CANONICAL_POLICY_SUMMARY.csv ]; then
+            cmp study7/results/CANONICAL_POLICY_SUMMARY.csv study7_runtime/policy_summary.csv
+            python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          f=json.loads(Path('study7/results/RESULTS_FREEZE.json').read_text())
+          assert f['status']=='CANONICAL_RESULTS_FROZEN'
+          assert f['population']['total']==1033
+          assert f['independent_audit']=='PASS'
+          assert f['hidden_objective_authorization_is_policy_input'] is False
+          assert f['attack_optimizer_implemented'] is False
+          for name,expected in f['frozen_output_sha256'].items():
+              actual=hashlib.sha256((Path('study7_runtime')/name).read_bytes()).hexdigest()
+              assert actual==expected,(name,actual,expected)
+          print('study7_canonical_closeout_binding=PASS')
+          PY
+          fi
       - name: Confirm no tracked-file drift
         run: git diff --exit-code

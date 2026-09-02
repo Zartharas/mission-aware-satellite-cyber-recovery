@@ -1,0 +1,57 @@
+name: Rehearse Study 7 deterministic hashes
+
+on:
+  push:
+    branches:
+      - 'study7/learned-selector-campaign'
+    paths:
+      - 'study7/PREFREEZE_HASH_REHEARSAL.json'
+      - '.github/workflows/rehearse-study7-hashes.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  rehearse:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Confirm frozen design implementation
+        run: |
+          git diff --exit-code 35565bfbbde7ec217e2a8deb20dbfc572d80c991 -- \
+            study7/STUDY7_PROTOCOL.json \
+            study7/src/learned_selector_model.py \
+            study7/tests/test_learned_selector_model.py \
+            study7/analysis/analyze.py \
+            study7/analysis/audit_independent.py
+      - name: Validate rehearsal boundary
+        run: |
+          python -m json.tool study7/PREFREEZE_HASH_REHEARSAL.json >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('study7/PREFREEZE_HASH_REHEARSAL.json').read_text())
+          assert r['scientific_evidence'] is False
+          assert r['artifact_upload'] is False
+          assert r['campaign_membership_accepted'] is False
+          print('study7_rehearsal_boundary=PASS')
+          PY
+      - name: Run finite model and independent audit
+        run: |
+          python -m unittest discover -s study7/tests -p 'test_*.py' -v
+          python study7/analysis/analyze.py study7_rehearsal
+          python study7/analysis/audit_independent.py study7_rehearsal
+      - name: Print deterministic hashes
+        run: |
+          sha256sum \
+            study7_rehearsal/observations.csv \
+            study7_rehearsal/policy_summary.csv \
+            study7_rehearsal/TRAINED_MODELS.json \
+            study7_rehearsal/REPORT.json
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code

@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "experiment_id": "S7-LSO-001",
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "ACCEPTED_CANONICAL_EVIDENCE",
+      "execution_commit": "f1530b0b2e81a5916adaf7ce808075156424dfb5",
+      "workflow_run_id": 33689625480,
+      "job_id": 100445119980,
+      "artifact_id": 9869488192,
+      "artifact_sha256": "26b522d2692516aa1b4ae62d032a9a909dbaccd7ef1a74104080c39bdf3a091b",
+      "frozen_hashes_passed": true,
+      "independent_audit": "PASS",
+      "tracked_file_drift": false
+    }
+  ]
+}

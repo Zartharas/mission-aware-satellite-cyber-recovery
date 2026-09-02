@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "experiment_id": "S7-LSO-001",
+  "status": "CANONICAL_RESULTS_FROZEN",
+  "design_merge_commit": "35565bfbbde7ec217e2a8deb20dbfc572d80c991",
+  "accepted_execution_commit": "f1530b0b2e81a5916adaf7ce808075156424dfb5",
+  "workflow_run_id": 33689625480,
+  "job_id": 100445119980,
+  "artifact_id": 9869488192,
+  "artifact_sha256": "26b522d2692516aa1b4ae62d032a9a909dbaccd7ef1a74104080c39bdf3a091b",
+  "population": {
+    "total": 1033,
+    "block_a": 512,
+    "block_b": 512,
+    "block_c": 9
+  },
+  "trained_models": {
+    "L0_ERM_VISIBLE_ONLY": {
+      "quality_weight": 2,
+      "authorization_weight": 1,
+      "security_weight": -1,
+      "threshold": 12,
+      "training_errors": 0
+    },
+    "L1_ERM_WITH_INDEPENDENT_CORROBORATION": {
+      "quality_weight": 2,
+      "authorization_weight": 0,
+      "corroboration_weight": 1,
+      "security_weight": -1,
+      "threshold": 12,
+      "training_errors": 0
+    }
+  },
+  "canonical_findings": {
+    "visible_only_lattice_errors": 0,
+    "corroboration_lattice_errors": 2,
+    "corroboration_lattice_unsafe_proceed": 1,
+    "corroboration_lattice_false_conservative": 1,
+    "v5_independent_disagreement_unsafe_proceed": {
+      "D0_S1_VISIBLE_ONLY": 1,
+      "L0_ERM_VISIBLE_ONLY": 1,
+      "L1_ERM_WITH_INDEPENDENT_CORROBORATION": 0
+    },
+    "v5_correlated_false_corroboration_unsafe_proceed": {
+      "D0_S1_VISIBLE_ONLY": 1,
+      "L0_ERM_VISIBLE_ONLY": 1,
+      "L1_ERM_WITH_INDEPENDENT_CORROBORATION": 1
+    }
+  },
+  "frozen_output_sha256": {
+    "observations.csv": "5d66fe1db266e3a98532d0d0e63d1bc1a5d24eed0e831b5c91bdaa94f60d00b5",
+    "policy_summary.csv": "bf6069e200be76f324032133b8bf5e20ad3df33d57a59d985d3e3d828304d34d",
+    "TRAINED_MODELS.json": "8adafec923d756d91ec68c563d608ba27f5d224fea1907d5753c33944d54b362",
+    "REPORT.json": "cd85ac132eeff15d72b9e995127d267cefbd49d033fc776885f0bfe7caef48c1"
+  },
+  "independent_audit": "PASS",
+  "hidden_objective_authorization_is_policy_input": false,
+  "attack_optimizer_implemented": false,
+  "reinforcement_learning_implemented": false,
+  "global_model_ranking_claimed": false,
+  "current_computers_and_security_manuscript_modified": false
+}

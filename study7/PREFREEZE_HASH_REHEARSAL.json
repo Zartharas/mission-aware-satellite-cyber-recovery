@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "experiment_id": "S7-LSO-001",
+  "design_merge_commit": "35565bfbbde7ec217e2a8deb20dbfc572d80c991",
+  "purpose": "deterministic pre-freeze output hash rehearsal only",
+  "scientific_evidence": false,
+  "artifact_upload": false,
+  "campaign_membership_accepted": false,
+  "user_authorization_basis": "User explicitly authorized completion of Phase 7 in the project conversation."
+}
