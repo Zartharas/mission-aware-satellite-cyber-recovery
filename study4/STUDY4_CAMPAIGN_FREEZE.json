@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "experiment_id": "S4-MPQ-001",
+  "status": "CANONICAL_SYNTHETIC_EXECUTION_AUTHORIZED",
+  "design_merge_commit": "b33e409b77b5e9c257979b0d3dc0d5ea8feb0925",
+  "expected_population": {"rules": 18, "blocks": 2, "observations": 4608, "threshold_rows": 36},
+  "expected_deterministic_output_sha256": {
+    "observations.csv": "fd50dd6153477428c03152ece34d26389f2a42c4750bbc6d9a8de0647eb5db4e",
+    "failure_curves.csv": "20e8d1dbe1e0b09d55d6ad2935ea0beeb4ff28ec99f191cb1d2cde32d8ebf20f",
+    "thresholds.csv": "35ed95161a671b4d56f28c4fdc9c5df9fa70fd1aa328159e1db4713902fc20d4",
+    "REPORT.json": "a4b80794cd771d5967058f9124c694b5507c7f43ed2fd0b031f03619ae997ab3"
+  },
+  "execution_constraints": {
+    "synthetic_only": true,
+    "operational_spacecraft": false,
+    "rf": false,
+    "real_credentials": false,
+    "real_keys": false,
+    "third_party_target": false,
+    "random_seed_substitution": false,
+    "prior_study_population_change": false
+  }
+}
