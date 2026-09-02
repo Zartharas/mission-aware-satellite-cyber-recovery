@@ -1,0 +1,53 @@
+name: Validate Study 6 supply-chain trust
+
+on:
+  pull_request:
+    paths:
+      - 'study6/**'
+      - '.github/workflows/validate-study6-supply-chain.yml'
+  push:
+    branches:
+      - 'study6/supply-chain-trust-design'
+    paths:
+      - 'study6/**'
+      - '.github/workflows/validate-study6-supply-chain.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-study6:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Validate Study 6 protocol
+        run: python -m json.tool study6/STUDY6_PROTOCOL.json >/dev/null
+      - name: Compile Study 6
+        run: python -m compileall -q study6
+      - name: Run Study 6 invariants
+        run: python -m unittest discover -s study6/tests -p 'test_*.py' -v
+      - name: Execute exact finite population
+        run: python study6/analysis/analyze.py study6_runtime
+      - name: Independently audit Study 6 evidence
+        run: |
+          python study6/analysis/audit_independent.py study6_runtime | tee study6_runtime/INDEPENDENT_AUDIT.txt
+          grep -q '^study6_independent_audit=PASS$' study6_runtime/INDEPENDENT_AUDIT.txt
+      - name: Validate report boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('study6_runtime/REPORT.json').read_text())
+          assert r['finite_population_observations']==420
+          assert r['block_a_observations']==36
+          assert r['block_b_observations']==384
+          assert r['objective_correctness_oracle_is_gate_input'] is False
+          assert r['malware_or_exploit_implemented'] is False
+          assert r['global_gate_ranking_claimed'] is False
+          print('study6_report_boundary=PASS')
+          PY
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
