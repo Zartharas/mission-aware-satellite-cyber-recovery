@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "source_id": "CUCD_ID_V3",
+  "name": "CubeSat Cybersecurity Dataset for Intrusion Detection (CuCD-ID)",
+  "dataset_doi": "10.17632/7n2d42pm3n.3",
+  "article_doi": "10.1016/j.dib.2026.112598",
+  "dataset_license": "CC BY 4.0",
+  "dataset_version": 3,
+  "published_scenarios": {
+    "0": "COMMAND_FLOODING",
+    "1": "DATA_INJECTION",
+    "2": "DEFENCE_IMPAIRMENT",
+    "3": "NORMAL",
+    "4": "STORAGE_EXHAUSTION"
+  },
+  "published_files": {
+    "Data/Raw/consolidated_dataset_raw.csv": {
+      "rows": 25000,
+      "columns": 31,
+      "sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
+      "class_counts": {"0": 5000, "1": 5000, "2": 5000, "3": 5000, "4": 5000}
+    },
+    "Data/Augmented/noised_dataset.csv": {
+      "rows": 22465,
+      "columns": 23,
+      "sha256": "656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68",
+      "class_counts": {"0": 3622, "1": 4307, "2": 4709, "3": 4878, "4": 4949}
+    }
+  },
+  "published_sparta": {
+    "COMMAND_FLOODING": "EX-0013.01",
+    "DATA_INJECTION": "EX-0014.03",
+    "DEFENCE_IMPAIRMENT": "DE-0001",
+    "STORAGE_EXHAUSTION": "IMP-0003",
+    "NORMAL": null
+  },
+  "repository_policy": {
+    "raw_data_committed": false,
+    "row_level_dataset_consumed_by_study5": false,
+    "reason": "CuCD-ID does not contain the mission-response and trusted-recovery inputs required by the frozen selectors. Study 5 evaluates schema/taxonomy transferability and an explicitly oracle-triggered response-portability bridge instead of fabricating missing row-level policy inputs."
+  }
+}
