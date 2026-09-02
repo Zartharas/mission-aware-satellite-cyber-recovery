@@ -18,6 +18,25 @@
         "cell_summary.csv": "dc653561333d48f90b1917f5c29863e1cded4d5a8b13ce11b0b5935fa6fe0322"
       },
       "interpretation": "Epoch-level and trajectory-level hashes matched the pre-freeze bindings exactly. Only the derived aggregate table hash differed because its schema now includes the already-prespecified false-qualification-origin decomposition. No cell, onset phase, policy, treatment, endpoint definition, trajectory state, or trajectory summary changed."
+    },
+    {
+      "attempt": 2,
+      "execution_commit": "c2372c5fab598ecec1070b1bc76b9ff5237f9c99",
+      "workflow_run_id": 33650631676,
+      "job_id": 100316425605,
+      "status": "CANONICAL_ACCEPTED",
+      "reason": "amended derived-table hash binding validated; all scientific files matched and independent audit passed",
+      "scientific_execution_completed": true,
+      "independent_audit_executed": true,
+      "independent_audit_status": "PASS",
+      "artifact_uploaded": true,
+      "artifact_id": 9854607159,
+      "artifact_zip_sha256": "2cae36a016fd899ef921085fabbbc3599f75847417eb88ea47ec9860c26a683e",
+      "observed_output_sha256": {
+        "epochs.csv": "644e871208289673525f3d11f869471d21e11b0c8f361044529e400457e514c3",
+        "trajectory_summary.csv": "67af4a075ef8a123cb5e52e3d09cf063447a0bd7bdd5440c6e8e7e01262026da",
+        "cell_summary.csv": "dc653561333d48f90b1917f5c29863e1cded4d5a8b13ce11b0b5935fa6fe0322"
+      }
     }
   ],
   "hidden_attempts_allowed": false,
