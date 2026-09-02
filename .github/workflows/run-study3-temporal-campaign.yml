@@ -63,13 +63,13 @@ jobs:
       - name: Execute exact frozen finite population
         run: python study3/scripts/run_campaign.py --output study3_runtime
 
-      - name: Verify output checksums against pre-freeze bindings
+      - name: Verify output checksums against frozen bindings
         run: |
           python - <<'PY'
           import hashlib,json
           from pathlib import Path
           freeze=json.loads(Path('study3/STUDY3_CAMPAIGN_FREEZE.json').read_text())
-          for name,expected in freeze['expected_deterministic_output_sha256_from_prefreeze_rehearsal'].items():
+          for name,expected in freeze['expected_deterministic_output_sha256'].items():
               path=Path('study3_runtime')/name
               actual=hashlib.sha256(path.read_bytes()).hexdigest()
               print(f'{name}={actual}')
