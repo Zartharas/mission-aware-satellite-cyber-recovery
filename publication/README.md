@@ -25,7 +25,7 @@ Assembly and submission controls:
 - [`manuscript/citation-readiness.csv`](manuscript/citation-readiness.csv)
 - [`manuscript/submission-inputs.csv`](manuscript/submission-inputs.csv)
 
-**Current journal state:** Study-1 and Study-2 statistics are frozen, but the combined manuscript is still in **journal-integration and pre-submission evidence-release review**. It is not yet at the final export gate because the Study-2 source-evidence package still requires responsible-release review and a durable DOI-bearing archive, and the exact two-study manuscript must pass the updated claim/citation/scope audits.
+**Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The remaining pre-submission gate is **Study-2 source-evidence responsible release and durable DOI archiving**, followed by submission-day live-policy/portal verification and exact-export citation/DOI/frozen-claim/scope audits.
 
 ## 2. Frozen study boundaries
 
@@ -99,6 +99,6 @@ Any reuse or export must preserve all of the following:
 
 ## 6. Submission package
 
-The primary venue package is under [`submission/computers-and-security/`](submission/computers-and-security/). Its current task is to reconcile the target-specific abstract, highlights, cover letter, checklist, and venue-fit language to the two-study journal article and to recheck live publisher policy on the actual submission date.
+The primary venue package is under [`submission/computers-and-security/`](submission/computers-and-security/). Its two-study reconciliation is complete; remaining work is the Study-2 source-evidence archive/DOI gate plus live publisher-policy/portal checks and exact-export validation on the actual submission date.
 
 The manuscript source remains target-neutral. Do not maintain a second manually copied full manuscript in the submission directory.
