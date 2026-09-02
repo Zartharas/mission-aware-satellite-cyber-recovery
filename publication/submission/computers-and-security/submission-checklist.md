@@ -41,8 +41,9 @@
 - [x] Separate Study-2 claim traceability added; frozen Study-1 traceability is not rewritten.
 - [x] Study-2 RQ1–RQ5 manuscript summary table added.
 - [x] Study-2 secondary Holm-family table added.
-- [ ] Run updated repository release-gate audit and full CI against the exact integration branch.
-- [ ] Complete reviewer-style manuscript claim audit after all target-specific files are reconciled.
+- [x] Updated repository release-gate audit and full CI passed on the exact integration head before merge.
+- [x] Journal integration merged to `main` in PR #72 as `6f9a1a5d26287120278913d453b26c78f267870f`.
+- [x] Target-specific README, highlights, abstract candidate, cover letter, title page, AI declaration, checklist, and venue-fit language reconciled to the two-study article.
 
 ## Cybersecurity framing
 
@@ -67,10 +68,10 @@
 - [x] Five two-study research highlights prepared; each is <=85 characters.
 - [x] Target-specific concise abstract candidate updated to the two-study evidence.
 - [x] Cover letter updated to the two-study evidence and source-archive status.
-- [x] Target package README updated to the current integration gate.
-- [ ] Reconcile `venue-fit.md` and any remaining target-specific wording to the two-study article.
-- [ ] Recheck title-page title against the final adopted manuscript title.
-- [ ] Recheck AI declaration against the final exact manuscript and current Elsevier wording.
+- [x] Target package README updated to the completed integration / current archive gate.
+- [x] `venue-fit.md` reconciled to the two-study article.
+- [x] Title-page title reconciled with the adopted two-study manuscript title.
+- [x] AI declaration reconciled to the two-study manuscript and current Elsevier policy snapshot.
 
 ## Author metadata and attestations
 
@@ -116,6 +117,7 @@ These remain submission-day checks because publisher requirements can change:
 **Author-attestation gate: PASS.**  
 **Study-1 scientific freeze: PASS.**  
 **Study-2 Phase-7 statistical freeze and independent reproduction: PASS.**  
-**Current gate: TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE.**
+**Completed gate:** TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE — the journal-integration portion is complete through PR #72.  
+**Current gate:** **STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE / DURABLE DOI ARCHIVE.**
 
-Do not advance to final submission export until the Study-2 source-evidence archive is durably published, all current-state repository/CI checks pass, and the exact two-study manuscript and target-specific files pass final citation/DOI/frozen-claim/scope audits.
+Do not advance to final submission export until the Study-2 source-evidence archive is durably published, its actual DOI/checksums are inserted, and the exact submission export passes final citation/DOI/frozen-claim/scope audits.
