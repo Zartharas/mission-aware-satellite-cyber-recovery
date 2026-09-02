@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "experiment_id": "S6-SCTR-001",
+  "title": "Supply-Chain-Compromised Trusted Recovery",
+  "status": "PRE_RUNTIME_DESIGN_CANDIDATE",
+  "base_commit": "6415a391dc2337c51ce72442ac7d86a25b4fbc02",
+  "research_question": "When can artifact-provenance and release-verification gates still qualify an objectively incorrect recovery baseline, and what benign availability cost is introduced by stronger gates?",
+  "claim_boundary": {
+    "abstract_artifact_trust_model_only": true,
+    "malware_or_exploit_implementation": false,
+    "operational_spacecraft": false,
+    "rf": false,
+    "real_credentials_or_keys": false,
+    "third_party_targeting": false,
+    "flightworthiness_claim": false,
+    "global_gate_ranking": false
+  },
+  "external_positioning": {
+    "sparta": ["IA-0001.02", "IMP-0012"],
+    "slsa": "v1.2 Build/Source assurance concepts",
+    "tuf": "target metadata / cryptographic target-hash binding concepts",
+    "interpretation": "Standards and taxonomies motivate assurance dimensions; they do not validate this experiment or imply standards compliance."
+  },
+  "assurance_signals": [
+    "signature_valid",
+    "independent_target_digest_match",
+    "provenance_valid",
+    "independent_reproduced_build_match",
+    "source_review_attested",
+    "release_approved"
+  ],
+  "baseline_states": {
+    "CLEAN_APPROVED": {
+      "objective_baseline_correct": true,
+      "signature_valid": true,
+      "independent_target_digest_match": true,
+      "provenance_valid": true,
+      "independent_reproduced_build_match": true,
+      "source_review_attested": true,
+      "release_approved": true
+    },
+    "POST_RELEASE_TAMPER": {
+      "objective_baseline_correct": false,
+      "signature_valid": false,
+      "independent_target_digest_match": false,
+      "provenance_valid": false,
+      "independent_reproduced_build_match": false,
+      "source_review_attested": true,
+      "release_approved": true
+    },
+    "TRUSTED_SIGNER_COMPROMISE": {
+      "objective_baseline_correct": false,
+      "signature_valid": true,
+      "independent_target_digest_match": false,
+      "provenance_valid": false,
+      "independent_reproduced_build_match": false,
+      "source_review_attested": true,
+      "release_approved": false
+    },
+    "TRUSTED_BUILDER_COMPROMISE": {
+      "objective_baseline_correct": false,
+      "signature_valid": true,
+      "independent_target_digest_match": true,
+      "provenance_valid": true,
+      "independent_reproduced_build_match": false,
+      "source_review_attested": true,
+      "release_approved": true
+    },
+    "SOURCE_REVIEW_BYPASS": {
+      "objective_baseline_correct": false,
+      "signature_valid": true,
+      "independent_target_digest_match": true,
+      "provenance_valid": true,
+      "independent_reproduced_build_match": true,
+      "source_review_attested": false,
+      "release_approved": true
+    },
+    "APPROVED_BAD_SOURCE": {
+      "objective_baseline_correct": false,
+      "signature_valid": true,
+      "independent_target_digest_match": true,
+      "provenance_valid": true,
+      "independent_reproduced_build_match": true,
+      "source_review_attested": true,
+      "release_approved": true
+    }
+  },
+  "gates": {
+    "G0_SIGNATURE_ONLY": ["signature_valid"],
+    "G1_SIGNATURE_TARGET_DIGEST": ["signature_valid", "independent_target_digest_match"],
+    "G2_SIGNATURE_PROVENANCE": ["signature_valid", "provenance_valid"],
+    "G3_PROVENANCE_REPRODUCED_BUILD": ["signature_valid", "provenance_valid", "independent_reproduced_build_match"],
+    "G4_PROVENANCE_SOURCE_REVIEW": ["signature_valid", "provenance_valid", "source_review_attested"],
+    "G5_COMPOSITE": ["signature_valid", "independent_target_digest_match", "provenance_valid", "independent_reproduced_build_match", "source_review_attested", "release_approved"]
+  },
+  "blocks": {
+    "A_ADVERSARIAL_BASELINE": {
+      "population": "all 6 baseline states x all 6 gates",
+      "observations": 36,
+      "primary_endpoints": ["qualified", "unsafe_qualified", "correct_rejected"]
+    },
+    "B_BENIGN_ASSURANCE_UNAVAILABILITY": {
+      "population": "clean/correct baseline x every subset of 6 unavailable assurance signals x all 6 gates",
+      "subsets": 64,
+      "observations": 384,
+      "primary_endpoints": ["qualified", "benign_availability_loss"]
+    }
+  },
+  "total_observations": 420,
+  "analysis": {
+    "finite_population": true,
+    "sampling_or_monte_carlo": false,
+    "p_values": false,
+    "confidence_intervals": false,
+    "primary_outputs": [
+      "gate_state_matrix.csv",
+      "benign_unavailability.csv",
+      "gate_summary.csv",
+      "REPORT.json"
+    ],
+    "objective_correctness_oracle_is_gate_input": false,
+    "interpretation": "Exact finite-grid model findings only; no operational prevalence or exploitability inference."
+  }
+}
