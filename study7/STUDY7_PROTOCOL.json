@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "experiment_id": "S7-LSO-001",
+  "title": "Learned Selector Observability Under Adversarial Evidence and Independent Corroboration",
+  "base_main_commit": "0dfe7f4331fc1f8864344c95d39e0d8dcb74c8f4",
+  "study_type": "deterministic_finite_machine_learning_assurance_study",
+  "scientific_question": "Can a learned selector using the same policy-visible state as Study-2 S1 overcome the V5 signed-but-false observability limit, and what changes when genuinely independent corroboration becomes policy-visible?",
+  "policies": [
+    "D0_S1_VISIBLE_ONLY",
+    "L0_ERM_VISIBLE_ONLY",
+    "L1_ERM_WITH_INDEPENDENT_CORROBORATION"
+  ],
+  "visible_features": [
+    "signature_valid",
+    "source_trusted",
+    "fresh",
+    "epoch_valid",
+    "noncontradictory",
+    "minimum_evidence_complete",
+    "security_signal",
+    "authorization_available"
+  ],
+  "extended_feature": "independent_corroboration",
+  "learner": {
+    "type": "deterministic_empirical_risk_minimization_over_integer_linear_threshold_hypothesis_class",
+    "external_ml_library": false,
+    "visible_only_training_prototypes": 10,
+    "corroboration_training_prototypes": 13,
+    "tie_break": "minimum training error, then minimum absolute weight sum, then threshold and weights lexicographically",
+    "visible_only_hypothesis": "q*sum(quality6)+wa*authorization+ws*security >= threshold",
+    "corroboration_hypothesis": "q*sum(quality6)+wa*authorization+wc*independent_corroboration+ws*security >= threshold"
+  },
+  "blocks": {
+    "A_VISIBLE_LATTICE": {
+      "description": "all 2^8 policy-visible states with hidden authorization equal to visible authorization, evaluated by D0 and L0",
+      "states": 256,
+      "policies": 2,
+      "observations": 512
+    },
+    "B_CORROBORATION_LATTICE": {
+      "description": "all 2^9 extended visible states, with hidden authorization equal to visible authorization, evaluated by L1",
+      "states": 512,
+      "policies": 1,
+      "observations": 512
+    },
+    "C_HIDDEN_TRUTH_COLLISION": {
+      "description": "three hidden-truth scenarios sharing the same eight-feature base vector, crossed with all three policies",
+      "scenarios": 3,
+      "policies": 3,
+      "observations": 9
+    }
+  },
+  "expected_population": {
+    "observations": 1033
+  },
+  "primary_endpoints": [
+    "objective_decision_error",
+    "unsafe_proceed",
+    "false_conservative_hold",
+    "hidden_truth_collision_indistinguishability",
+    "independent_corroboration_resolution"
+  ],
+  "claim_boundaries": {
+    "not_reinforcement_learning": true,
+    "not_operational_spacecraft_autonomy": true,
+    "not_attack_optimization": true,
+    "not_model_superiority_claim": true,
+    "not_computers_and_security_manuscript_extension": true,
+    "separate_ai_ml_venue_required": true,
+    "hidden_objective_authorization_is_policy_input": false,
+    "studies_1_through_6_frozen_and_unpooled": true
+  }
+}
