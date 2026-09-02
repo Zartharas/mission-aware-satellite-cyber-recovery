@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "experiment_id": "S6-SCTR-001",
-  "authorization_status": "ACTIVE_FOR_ONE_CANONICAL_FINITE_EXECUTION",
+  "authorization_status": "CONSUMED_CANONICAL_EXECUTION_COMPLETE",
   "authorized_by": "Aman Singh",
   "authorization_basis": "User explicitly authorized continued work and successful closure of Item/Phase 6 in the project conversation.",
   "authorized_scope": {
@@ -18,5 +18,12 @@
     "third_party_targeting": true,
     "external_build_system_compromise": true
   },
-  "consumed": false
+  "accepted_execution": {
+    "execution_commit": "f50f4db03e27e223104df96b2dd32bea85fd6319",
+    "workflow_run_id": 33669329819,
+    "job_id": 100378738630,
+    "artifact_id": 9861838528,
+    "artifact_sha256": "24e3b0f8f79df383f19ff470671ad1c61738289a69c98b46f22ca2ec7e94e67d"
+  },
+  "consumed": true
 }
