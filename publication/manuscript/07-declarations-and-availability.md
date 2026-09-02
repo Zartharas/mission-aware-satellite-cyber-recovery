@@ -42,9 +42,12 @@ Study 2 has a separate frozen population of **3,872 VALID observations**, **0 IN
 - GitHub Actions artifact ID: `9816191406`;
 - artifact ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`;
 - observations SHA-256: `8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854`;
+- attempt-ledger SHA-256: `755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5`;
 - trial-manifest SHA-256: `190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67`.
 
-The source artifact is a campaign-evidence object, not merely a manuscript table. Because its original Actions retention is temporary, the **journal submission package is not considered archive-complete until a responsible-release-reviewed, DOI-bearing durable archive of the Study-2 source evidence is deposited and its DOI/checksum is inserted here**. The existing Study-1 Zenodo v1.0.0 record must not be described as containing Study 2.
+The exact source ZIP has completed responsible-release review with disposition **`APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`**. The review verified the 3,872-row ledger/observation membership and per-observation/file hash identities with zero mismatches and found no credentials, tokens, private keys, email addresses, URLs, IPv4 addresses, local absolute paths, human-subject data, operational spacecraft/RF data, proprietary mission telemetry, or unsafe ZIP paths. The review performed no campaign runtime and modified no frozen source-evidence record or scientific result. The repository-side review record is retained under `study2/release/phase6/`.
+
+The source artifact remains a campaign-evidence object, not merely a manuscript table. Because its original Actions retention is temporary, the **journal submission package is not considered archive-complete until the exact approved Study-2 source ZIP is deposited to a durable DOI-bearing archive, the publicly served ZIP checksum is independently verified, and the actual DOI/checksum identity is inserted here**. The existing Study-1 Zenodo v1.0.0 record must not be described as containing Study 2, and no Study-2 DOI is claimed before it actually exists.
 
 The frozen Study-2 Phase-7 statistical result ZIP is already retained durably in repository history at:
 
@@ -78,7 +81,7 @@ The canonical Phase-7 closeout state was merged at:
 
 `2bd3fb34ca709127e45ea9bffa8f516846d6c4b5`
 
-The final journal-submission repository snapshot will be recorded after Study-2 manuscript integration, source-evidence responsible-release archiving, and final submission-export validation. Later manuscript-only commits do not alter the frozen Study-1 or Study-2 statistical populations.
+The final journal-submission repository snapshot will be recorded after Study-2 source-evidence DOI publication/checksum verification and final submission-export validation. Later manuscript/release-documentation commits do not alter the frozen Study-1 or Study-2 statistical populations.
 
 Repository-level environment and test instructions are maintained in `docs/REPRODUCIBILITY_GUIDE.md`. Third-party research infrastructure remains subject to its upstream licenses; repository licensing is documented in `LICENSE` and `NOTICE.md`.
 
@@ -116,6 +119,6 @@ During preparation of this journal work, the author used **OpenAI ChatGPT** to a
 
 For Study 1, OpenAI ChatGPT was used after the experimental campaign and historical WP10 statistical findings had been frozen—and after the Study-1 data package was published as Zenodo v1.0.0—to assist with reconstructing, reviewing, and testing a public statistical reproducibility implementation from preserved derived inputs, outputs, and provenance records. That reconstruction did not generate campaign observations, consume campaign seeds, change statistical membership, alter frozen WP9 evidence, or change historical statistical outputs.
 
-For Study 2, ChatGPT-assisted workflow support was used after the campaign evidence and prospective Phase-7 analysis implementation were frozen to assist with executing the hash-bound analysis workflow, independently auditing/reproducing the generated statistical tables, reviewing claim boundaries, and integrating the frozen results into the journal manuscript. The independent reproduction used the immutable observation artifact and did not generate or replace observations, alter seeds, change exclusions, modify the frozen analyzer, or provide input to the experimental response policies.
+For Study 2, ChatGPT-assisted workflow support was used after the campaign evidence and prospective Phase-7 analysis implementation were frozen to assist with executing the hash-bound analysis workflow, independently auditing/reproducing the generated statistical tables, reviewing claim boundaries, responsible-release review/documentation, and integrating the frozen results into the journal manuscript. These activities used the immutable observation artifact and did not generate or replace observations, alter seeds, change exclusions, modify the frozen analyzer, provide input to the experimental response policies, or authorize a new campaign.
 
 The experimental Study-1 P7 and Study-2 response mechanisms are frozen deterministic rule-based research policies. They do not use generative AI or machine learning as a scientific response mechanism.
