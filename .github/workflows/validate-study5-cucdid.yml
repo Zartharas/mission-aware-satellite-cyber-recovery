@@ -1,0 +1,57 @@
+name: Validate Study 5 CuCD-ID portability
+
+on:
+  pull_request:
+    paths:
+      - 'study5/**'
+      - '.github/workflows/validate-study5-cucdid.yml'
+  push:
+    branches:
+      - 'study5/cucdid-cross-testbed-portability'
+    paths:
+      - 'study5/**'
+      - '.github/workflows/validate-study5-cucdid.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-study5:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Validate JSON and frozen selector dependency
+        run: |
+          python -m json.tool study5/STUDY5_PROTOCOL.json >/dev/null
+          python -m json.tool study5/EXTERNAL_SOURCE_MANIFEST.json >/dev/null
+          test "$(sha256sum study2/src/study2_security/selectors.py | awk '{print $1}')" = "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
+      - name: Compile Study 5
+        run: python -m compileall -q study5
+      - name: Run Study 5 invariants
+        run: python -m unittest discover -s study5/tests -p 'test_*.py' -v
+      - name: Execute finite portability population
+        run: python study5/analysis/analyze.py study5_runtime
+      - name: Independently audit portability evidence
+        run: |
+          python study5/analysis/audit_independent.py study5_runtime | tee study5_runtime/INDEPENDENT_AUDIT.txt
+          grep -q '^study5_independent_audit=PASS$' study5_runtime/INDEPENDENT_AUDIT.txt
+      - name: Validate report boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('study5_runtime/REPORT.json').read_text())
+          assert r['portability_observations']==80
+          assert r['direct_recovery_input_coverage_count']==0
+          assert r['direct_recovery_input_coverage_fraction']==0.0
+          assert r['attack_subtype_action_invariance'] is True
+          assert r['attack_subtype_invariant_groups']==16
+          assert r['row_level_cucdid_policy_benchmark_performed'] is False
+          assert r['ids_accuracy_claimed'] is False
+          print('study5_report_boundary=PASS')
+          PY
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code

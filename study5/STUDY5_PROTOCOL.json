@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "experiment_id": "S5-CUCD-001",
+  "title": "CuCD-ID cross-testbed transferability and oracle-alarm response portability",
+  "status": "DESIGN_FREEZE_CANDIDATE_NO_CANONICAL_RESULTS",
+  "base_main_commit": "09a3fa61276e348b58a852c156e7bfc64b25d32d",
+  "external_source": "CUCD_ID_V3",
+  "frozen_selector_dependency": {
+    "path": "study2/src/study2_security/selectors.py",
+    "sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "policies": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B1_FAIL_OPERATIONAL",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ]
+  },
+  "research_questions": {
+    "RQ1": "Can a CuCD-ID record instantiate the frozen recovery selector inputs without fabricating unavailable mission, authorization, trust, freshness, contradiction, epoch, or completeness state?",
+    "RQ2": "Which external CuCD-ID attack classes have direct, conceptual, or no correspondence to the frozen event/evidence taxonomy?",
+    "RQ3": "When the externally supplied scenario label is used only as an offline oracle alarm, do frozen response-policy decisions remain invariant to attack subtype under identical recovery-evidence context?"
+  },
+  "required_recovery_inputs": [
+    "signature_valid",
+    "source_trusted",
+    "fresh",
+    "epoch_valid",
+    "contradictory",
+    "minimum_evidence_complete",
+    "security_signal",
+    "authorization_available"
+  ],
+  "direct_cucdid_recovery_input_mapping": {},
+  "oracle_alarm_rule": "security_signal = (published scenario label != NORMAL); label is offline adjudication for this bridge and is not treated as a detector output or as a CuCD-ID policy-visible feature",
+  "controlled_evidence_contexts": {
+    "QUALIFIED_AUTH_AVAILABLE": {"signature_valid": true, "source_trusted": true, "fresh": true, "epoch_valid": true, "contradictory": false, "minimum_evidence_complete": true, "authorization_available": true},
+    "QUALIFIED_AUTH_UNAVAILABLE": {"signature_valid": true, "source_trusted": true, "fresh": true, "epoch_valid": true, "contradictory": false, "minimum_evidence_complete": true, "authorization_available": false},
+    "INCOMPLETE_EVIDENCE": {"signature_valid": true, "source_trusted": true, "fresh": true, "epoch_valid": true, "contradictory": false, "minimum_evidence_complete": false, "authorization_available": true},
+    "UNTRUSTED_SOURCE": {"signature_valid": true, "source_trusted": false, "fresh": true, "epoch_valid": true, "contradictory": false, "minimum_evidence_complete": true, "authorization_available": true}
+  },
+  "exact_population": {
+    "external_labels": 5,
+    "controlled_contexts": 4,
+    "policies": 4,
+    "portability_observations": 80,
+    "input_sufficiency_rows": 8,
+    "transferability_rows": 5
+  },
+  "primary_endpoints": [
+    "direct_recovery_input_coverage_count",
+    "direct_recovery_input_coverage_fraction",
+    "attack_subtype_action_invariance",
+    "action_distribution_by_context_and_policy"
+  ],
+  "interpretation_guards": [
+    "Study 5 does not estimate CuCD-ID intrusion-detection accuracy or recall.",
+    "Study 5 does not claim that P0-P7 or Study-2 policies were executed on CuCD-ID packet rows.",
+    "The CuCD-ID class label is used only as an offline oracle alarm in the portability subtest.",
+    "Dataset class counts are construction counts and are not attack-prevalence weights.",
+    "No mission/contact/trust input is imputed from CuCD-ID telemetry features.",
+    "Studies 1-4 remain frozen and are not pooled with Study 5.",
+    "No operational spacecraft, RF, real credential, or third-party target is involved."
+  ]
+}
