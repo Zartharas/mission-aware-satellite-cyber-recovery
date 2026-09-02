@@ -1,0 +1,44 @@
+name: Validate Study 3 temporal model
+
+on:
+  push:
+    branches:
+      - "study3/**"
+    paths:
+      - "study3/**"
+      - ".github/workflows/validate-study3-temporal.yml"
+  pull_request:
+    paths:
+      - "study3/**"
+      - ".github/workflows/validate-study3-temporal.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-study3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Validate protocol JSON
+        run: python -m json.tool study3/STUDY3_PROTOCOL.json >/dev/null
+
+      - name: Compile Study 3
+        run: python -m compileall -q study3/src study3/scripts study3/analysis study3/tests
+
+      - name: Run Study 3 assurance tests
+        run: python -m unittest discover -s study3/tests -p 'test_*.py' -v
+
+      - name: Validate exact finite population without writing campaign results
+        run: python study3/scripts/run_campaign.py --validate-only
+
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
