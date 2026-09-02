@@ -8,7 +8,8 @@
 - **Scientific structure:** two separately frozen empirical studies; no pooled statistical population
 - **Author-attestation gate:** PASS as of 2026-08-31
 - **Journal integration:** completed in PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`
-- **Current state:** **Study-2 source-evidence responsible-release / durable-archive gate; final export validation follows**
+- **Study-2 Phase-6 responsible-release review:** PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`
+- **Current state:** **Study-2 durable DOI archive / public checksum verification / DOI insertion gate; final export validation follows**
 
 This directory contains target-specific submission material only. It does not replace the target-neutral manuscript and must not become a second manually maintained copy of the paper.
 
@@ -29,7 +30,8 @@ This directory contains target-specific submission material only. It does not re
 - canonical Phase-7 result freeze and provenance under `../../../study2/`
 - independent reproduction: 0 mismatches
 - durable Phase-7 result ZIP in Git history
-- underlying Phase-6 source-evidence archive: hash-bound, but **responsible-release-reviewed DOI publication still required before submission**
+- exact Phase-6 source-evidence ZIP passed responsible-release review; the remaining archive gate is DOI publication plus independent public-checksum verification
+- responsible-release record and deposit metadata: `../../../study2/release/phase6/`
 
 The Study-1 Zenodo DOI must never be described as containing Study-2 source observations.
 
@@ -91,10 +93,10 @@ Every target-specific export must preserve the controls in `../../manuscript/MAN
 
 ## Gate to actual submission
 
-The package is **not yet final-export ready**. The two-study journal integration and target-package reconciliation are complete. Before submission:
+The package is **not yet final-export ready**. The two-study journal integration, target-package reconciliation, local canonical audit, and Study-2 Phase-6 responsible-release review are complete. Before submission:
 
-1. complete responsible-release review and publish a durable DOI-bearing Study-2 source-evidence archive;
-2. verify the published checksums and insert the actual Study-2 DOI/archive identity into Data Availability and submission materials;
+1. publish the exact approved Study-2 source-evidence ZIP to a new durable DOI-bearing archive;
+2. independently verify the publicly served source ZIP SHA-256 and insert the actual Study-2 DOI/archive identity into Data Availability and submission materials;
 3. recheck live Computers & Security scope, AI/ML wording, generative-AI policy, article type, portal fields, and file requirements;
 4. run exact-export citation/DOI/frozen-claim/scope audits.
 
