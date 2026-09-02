@@ -1,0 +1,99 @@
+name: Run Study 6 supply-chain trust campaign
+
+on:
+  push:
+    branches:
+      - "study6/supply-chain-trust-campaign"
+    paths:
+      - "study6/STUDY6_CAMPAIGN_FREEZE.json"
+      - "study6/CAMPAIGN_AUTHORIZATION.json"
+      - "study6/CAMPAIGN_ATTEMPT_LEDGER.json"
+      - ".github/workflows/run-study6-supply-chain-campaign.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  campaign:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Confirm frozen scientific implementation has not drifted
+        run: |
+          git diff --exit-code 8522b86bec64de8723ff24e0fe204cc9d6dc3998 -- \
+            study6/STUDY6_PROTOCOL.json \
+            study6/src/artifact_trust_model.py \
+            study6/tests/test_artifact_trust_model.py \
+            study6/analysis/analyze.py \
+            study6/analysis/audit_independent.py
+      - name: Validate authorization and freeze
+        run: |
+          python -m json.tool study6/STUDY6_CAMPAIGN_FREEZE.json >/dev/null
+          python -m json.tool study6/CAMPAIGN_AUTHORIZATION.json >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=json.loads(Path('study6/STUDY6_CAMPAIGN_FREEZE.json').read_text())
+          a=json.loads(Path('study6/CAMPAIGN_AUTHORIZATION.json').read_text())
+          assert f['design_merge_commit']=='8522b86bec64de8723ff24e0fe204cc9d6dc3998'
+          assert f['expected_population']['total_observations']==420
+          assert a['authorization_status']=='ACTIVE_FOR_ONE_CANONICAL_FINITE_EXECUTION'
+          assert a['consumed'] is False
+          assert f['execution_constraints']['malware_or_exploit_implementation'] is False
+          print('study6_campaign_binding=PASS')
+          PY
+      - name: Pre-campaign assurance
+        run: |
+          python -m compileall -q study6
+          python -m unittest discover -s study6/tests -p 'test_*.py' -v
+      - name: Execute exact finite population
+        run: python study6/analysis/analyze.py study6_runtime
+      - name: Verify frozen hashes
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          f=json.loads(Path('study6/STUDY6_CAMPAIGN_FREEZE.json').read_text())
+          for name,expected in f['expected_deterministic_output_sha256'].items():
+              actual=hashlib.sha256((Path('study6_runtime')/name).read_bytes()).hexdigest()
+              print(f'{name}={actual}')
+              assert actual==expected,(name,actual,expected)
+          print('study6_checksum_binding=PASS')
+          PY
+      - name: Independently audit evidence
+        run: |
+          python study6/analysis/audit_independent.py study6_runtime | tee study6_runtime/INDEPENDENT_AUDIT.txt
+          grep -q '^study6_independent_audit=PASS$' study6_runtime/INDEPENDENT_AUDIT.txt
+      - name: Record provenance
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p={
+            'schema':1,
+            'experiment_id':'S6-SCTR-001',
+            'execution_commit':os.environ['GITHUB_SHA'],
+            'workflow_run_id':os.environ['GITHUB_RUN_ID'],
+            'design_merge_commit':'8522b86bec64de8723ff24e0fe204cc9d6dc3998',
+            'independent_audit':'PASS',
+            'runtime':'ABSTRACT_FINITE_ARTIFACT_TRUST_MODEL',
+            'malware_or_exploit_implemented':False
+          }
+          Path('study6_runtime/EXECUTION_PROVENANCE.json').write_text(json.dumps(p,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
+      - name: Upload Study 6 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: study6-sctr-001-evidence-${{ github.sha }}
+          path: study6_runtime/
+          retention-days: 90
+          if-no-files-found: error
