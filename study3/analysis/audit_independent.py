@@ -136,11 +136,30 @@ def audit(root: Path) -> dict[str, int | str]:
             if claim is not False or not signature or affected:
                 errors.append(f"v0_record:{tid}:{t_s}")
         if is_new and affected and row["evidence"] == "V4":
-            if claim is not True or signature:
+            if claim is not True or signature or expected_gate:
                 errors.append(f"v4_record:{tid}:{t_s}")
         if is_new and affected and row["evidence"] == "V5":
             if claim is not True or not signature:
                 errors.append(f"v5_record:{tid}:{t_s}")
+
+        expected_origin = "NONE"
+        if expected_unsafe_qualified:
+            if row["record_age_s"] == "":
+                errors.append(f"origin_missing_record:{tid}:{t_s}")
+            else:
+                received_at = t_s - int(row["record_age_s"])
+                if received_at < onset:
+                    expected_origin = "PRE_ONSET_CACHE"
+                elif affected and row["evidence"] == "V5":
+                    expected_origin = "V5_AFFECTED_RECORD"
+                else:
+                    expected_origin = "UNEXPECTED"
+        if row["unsafe_qualification_origin"] != expected_origin:
+            errors.append(f"origin:{tid}:{t_s}:{row['unsafe_qualification_origin']}:{expected_origin}")
+        if expected_origin == "UNEXPECTED":
+            errors.append(f"unexpected_false_qualification_origin:{tid}:{t_s}")
+        if row["evidence"] in {"V0", "V4"} and expected_unsafe_qualified and expected_origin != "PRE_ONSET_CACHE":
+            errors.append(f"v0_v4_noncache_false_qualification:{tid}:{t_s}")
 
     if len(grouped) != 1380:
         errors.append(f"grouped_trajectory_count={len(grouped)}")
@@ -162,11 +181,13 @@ def audit(root: Path) -> dict[str, int | str]:
         unsafe_p = sum(_bool(row["unsafe_permissive"]) for row in post)
         unsafe_q_flags = [_bool(row["unsafe_qualified"]) for row in post]
         unsafe_q = sum(unsafe_q_flags)
+        cache_q = sum(row["unsafe_qualification_origin"] == "PRE_ONSET_CACHE" for row in post)
+        v5_q = sum(row["unsafe_qualification_origin"] == "V5_AFFECTED_RECORD" for row in post)
+        if cache_q + v5_q != unsafe_q:
+            errors.append(f"origin_decomposition:{tid}")
         protective = sum(_bool(row["protective"]) for row in post)
         episodes = sum(flag and (i == 0 or not unsafe_q_flags[i - 1]) for i, flag in enumerate(unsafe_q_flags))
         transitions = sum(post[i]["action"] != post[i - 1]["action"] for i in range(1, len(post)))
-        if rows[0]["evidence"] in {"V0", "V4"} and unsafe_q:
-            errors.append(f"forbidden_false_qualification:{tid}")
 
         expected = summary_by_id.get(tid)
         if expected is None:
@@ -179,6 +200,8 @@ def audit(root: Path) -> dict[str, int | str]:
             "unsafe_qualified_epochs": unsafe_q,
             "unsafe_qualified_exposure_s": unsafe_q * EPOCH_S,
             "unsafe_qualified_episode_count": episodes,
+            "cache_unsafe_qualified_epochs": cache_q,
+            "v5_affected_unsafe_qualified_epochs": v5_q,
             "protective_epochs": protective,
             "action_transition_count": transitions,
         }
@@ -202,6 +225,7 @@ def audit(root: Path) -> dict[str, int | str]:
         "experiment_id": "S3-K4E-001",
         "trajectory_mismatches": 0,
         "epoch_rule_mismatches": 0,
+        "qualification_origin_mismatches": 0,
         "sha_mismatches": 0,
         "trajectories": 1380,
         "epoch_rows": 67620,
