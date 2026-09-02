@@ -30,7 +30,7 @@ This repository now contains **two separately frozen empirical studies** support
 | Public/source evidence | Zenodo v1.0.0, DOI `10.5281/zenodo.22181540` | Phase-6 evidence is hash-bound; responsible-release-reviewed DOI archive is a pre-submission gate |
 | Statistical results | frozen WP10 record and reconstructed regression-tested reproduction package | canonical Phase-7 freeze with independent reproduction, **0 mismatches** |
 
-**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. The active work is **journal-manuscript integration, claim-to-evidence reconciliation, Study-2 source-evidence responsible release, and final submission preparation**. No new campaign execution is authorized by this current-state documentation.
+**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. The **journal-manuscript integration is complete and merged to `main` via PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`**. The active work is now **Study-2 source-evidence responsible release, durable DOI archiving, and final Computers & Security submission/export validation**. No new campaign execution is authorized by this current-state documentation.
 
 Study-2 canonical result/provenance records:
 
