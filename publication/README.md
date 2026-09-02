@@ -25,7 +25,7 @@ Assembly and submission controls:
 - [`manuscript/citation-readiness.csv`](manuscript/citation-readiness.csv)
 - [`manuscript/submission-inputs.csv`](manuscript/submission-inputs.csv)
 
-**Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The exact Study-2 Phase-6 source evidence has passed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`. The remaining pre-submission archive gate is **durable Study-2 DOI publication, public checksum verification, and DOI insertion**, followed by submission-day live-policy/portal verification and exact-export citation/DOI/frozen-claim/scope audits.
+**Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The exact Study-2 Phase-6 source evidence has passed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`. The remaining pre-submission archive object is the **responsible-release-reviewed DOI archive**: the review portion is complete, while durable Study-2 DOI publication, public checksum verification, and DOI insertion remain pending. Submission-day live-policy/portal verification and exact-export citation/DOI/frozen-claim/scope audits follow.
 
 ## 2. Frozen study boundaries
 
