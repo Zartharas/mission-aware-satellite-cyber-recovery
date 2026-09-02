@@ -27,10 +27,10 @@ This repository now contains **two separately frozen empirical studies** support
 | Invalid-attempt handling | 9 retained INVALID attempts; one additional quarantined never-ledgered interruption | **0 INVALID attempts** |
 | Main factors | cyber event, mission state, evidence condition, modeled contact | evidence mechanisms, adversary budget, contact regime, ambiguity controls, context ablations |
 | Time basis | frozen 30-s Study-1 analysis horizon where applicable | deterministic logical SIL time; 240-logical-second RMST restriction |
-| Public/source evidence | Zenodo v1.0.0, DOI `10.5281/zenodo.22181540` | Phase-6 evidence is hash-bound; responsible-release-reviewed DOI archive is a pre-submission gate |
+| Public/source evidence | Zenodo v1.0.0, DOI `10.5281/zenodo.22181540` | Phase-6 evidence passed responsible-release review; DOI publication/checksum verification remain pre-submission gates |
 | Statistical results | frozen WP10 record and reconstructed regression-tested reproduction package | canonical Phase-7 freeze with independent reproduction, **0 mismatches** |
 
-**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. The **journal-manuscript integration is complete and merged to `main` via PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`**. The active work is now **Study-2 source-evidence responsible release, durable DOI archiving, and final Computers & Security submission/export validation**. No new campaign execution is authorized by this current-state documentation.
+**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. The **journal-manuscript integration is complete and merged to `main` via PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`**. The exact Study-2 Phase-6 source evidence has now **passed responsible-release review** with decision `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`; the active work is **durable Study-2 DOI archiving, public checksum verification, DOI insertion, and final Computers & Security submission/export validation**. No new campaign execution is authorized by this current-state documentation.
 
 Study-2 canonical result/provenance records:
 
@@ -38,8 +38,9 @@ Study-2 canonical result/provenance records:
 - [`study2/PHASE7_RESULTS_FREEZE.json`](study2/PHASE7_RESULTS_FREEZE.json)
 - [`study2/PHASE7_PROVENANCE.json`](study2/PHASE7_PROVENANCE.json)
 - [`study2/evidence/phase7/`](study2/evidence/phase7/)
+- [`study2/release/phase6/`](study2/release/phase6/) — responsible-release review and DOI-deposit metadata
 
-The Study-2 analysis covers 162 primary paired contrasts and 432 prespecified secondary contrasts. The exact Phase-7 results ZIP is durably retained in repository history at `study2/evidence/phase7/archive/`. The underlying 3,872-observation Phase-6 evidence remains a separately governed source artifact; it must receive responsible-release review and a durable DOI-bearing archive before journal submission.
+The Study-2 analysis covers 162 primary paired contrasts and 432 prespecified secondary contrasts. The exact Phase-7 results ZIP is durably retained in repository history at `study2/evidence/phase7/archive/`. The underlying 3,872-observation Phase-6 evidence remains a separately governed source artifact. Its responsible-release review is complete; the exact approved ZIP still requires a durable DOI-bearing public archive and post-publication checksum verification before journal submission.
 
 ## Scientific interpretation boundaries
 
@@ -79,7 +80,9 @@ The Study-2 source campaign is identified by immutable hashes, including:
 - trial-manifest SHA-256: `190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67`
 - Phase-7 result ZIP SHA-256: `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
 
-A DOI for the Study-2 source-evidence package is **not yet claimed here**. Publishing that archive requires the separate responsible-release gate recorded in the journal manuscript.
+The exact Phase-6 source ZIP has passed responsible-release review with decision `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`; the review record and deposit metadata are retained under [`study2/release/phase6/`](study2/release/phase6/). No source-evidence record was changed by that review.
+
+A DOI for the Study-2 source-evidence package is **not yet claimed here**. The remaining archive gate is to publish the exact approved ZIP to a new durable DOI-bearing Study-2 dataset record, verify the publicly served ZIP checksum, and then insert the actual DOI/archive identity into the journal package. The Study-1 DOI must not be reused for Study 2.
 
 ## Publication package
 
@@ -99,7 +102,7 @@ Historical Study-1 figures and tables remain frozen publication artifacts. Study
 | Order | Location | Purpose |
 |---:|---|---|
 | 1 | [`publication/`](publication/README.md) | Current journal manuscript, displays, submission controls, and claim traceability |
-| 2 | [`study2/`](study2/README.md) | Study-2 protocol, campaign, Phase-7 freeze, provenance, and independent audit |
+| 2 | [`study2/`](study2/README.md) | Study-2 protocol, campaign, Phase-7 freeze, provenance, independent audit, and Phase-6 responsible-release record |
 | 3 | [`analysis/`](analysis/README.md) | Study-1 WP10 statistical reconstruction validated against preserved reference outputs |
 | 4 | [`docs/`](docs/) | Theory, methods, legal/ethical boundaries, historical work-package evidence, and release closeouts |
 | 5 | [`configs/`](configs/) | Frozen Study-1 experiment designs, schemas, adapters, and toolchain locks |
@@ -147,7 +150,7 @@ See [`SECURITY.md`](SECURITY.md), [`docs/05-legal-ethical-boundaries.md`](docs/0
 
 ## Citation
 
-`CITATION.cff` and Zenodo v1.0.0 currently identify the published **Study-1** evidence release. A future Study-2 DOI must be added only after the responsible-release package is actually published; no DOI is invented in advance.
+`CITATION.cff` and Zenodo v1.0.0 currently identify the published **Study-1** evidence release. The Study-2 responsible-release review is complete, but a Study-2 DOI must be added only after the approved source package is actually published and its public checksum is verified; no DOI is invented in advance.
 
 ## Author
 
