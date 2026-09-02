@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "experiment_id": "S3-K4E-001",
+  "status": "CAMPAIGN_IMPLEMENTATION_FROZEN_AUTHORIZED_SYNTHETIC_EXECUTION_ONLY",
+  "design_merge_commit": "577d0a0d1f8eb603cc836ded40cb7e795af7d001",
+  "validated_pr": 78,
+  "validated_pr_head": "040471319e833546e0f52435ada9a4f660695382",
+  "validation_runs": {
+    "study3_dedicated": 33649407649,
+    "repository_regression": 33649407677
+  },
+  "frozen_files": {
+    "study3/STUDY3_PROTOCOL.json": "ba798c3fddc5400cb45103c5fb2694b6ecfd475c",
+    "study3/src/temporal_model.py": "b13e62456c144db0e12808bf700586c1c844c33d"
+  },
+  "expected_population": {
+    "cells": 30,
+    "trajectories": 1380,
+    "epoch_rows": 67620,
+    "onset_phases_per_cell": 46
+  },
+  "expected_deterministic_output_sha256_from_prefreeze_rehearsal": {
+    "epochs.csv": "644e871208289673525f3d11f869471d21e11b0c8f361044529e400457e514c3",
+    "trajectory_summary.csv": "67af4a075ef8a123cb5e52e3d09cf063447a0bd7bdd5440c6e8e7e01262026da",
+    "cell_summary.csv": "acb6d7773d6b3fc065fc7505306fb2a46a950a7f013cb732ffa999ddbeed0378"
+  },
+  "execution_constraints": {
+    "researcher_controlled_synthetic_only": true,
+    "operational_spacecraft": false,
+    "rf_transmission_or_interference": false,
+    "real_credentials": false,
+    "third_party_targeting": false,
+    "automatic_retry_for_scientific_membership": false,
+    "post_hoc_trajectory_substitution": false,
+    "study1_or_study2_population_change": false
+  }
+}
