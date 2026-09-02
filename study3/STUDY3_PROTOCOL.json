@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "experiment_id": "S3-K4E-001",
+  "title": "Temporal Trust Qualification Under Intermittent Contact and Adversarial Evidence",
+  "status": "DESIGN_AND_IMPLEMENTATION_CANDIDATE_NO_CAMPAIGN_RESULT_YET",
+  "population_separation": {
+    "study1_membership_unchanged": 720,
+    "study2_membership_unchanged": 3872,
+    "pool_with_prior_studies": false
+  },
+  "time_basis": "DETERMINISTIC_LOGICAL_SIL_TIME_NOT_WALL_CLOCK",
+  "epoch_seconds": 5,
+  "horizon_seconds": 240,
+  "evidence_valid_for_seconds": 5,
+  "onset_phases_seconds": [10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235],
+  "contact_regimes": {
+    "K0": [[0,240]],
+    "K4": [[25,35],[75,90],[145,165],[220,240]]
+  },
+  "evidence_conditions": {
+    "V0": "truthful_current_authorization_claim",
+    "V4": "post_signature_value_manipulation_invalid_signature",
+    "V5": "compromised_trusted_producer_validly_signs_false_authorization_claim"
+  },
+  "persistence_modes": {
+    "V0": ["NONE"],
+    "V4": ["ONE_SHOT", "PERSISTENT"],
+    "V5": ["ONE_SHOT", "PERSISTENT"]
+  },
+  "policies": [
+    "S2_B0_FAIL_CLOSED",
+    "S2_B2_RISK_THRESHOLD",
+    "S2_S1_EVIDENCE_AWARE"
+  ],
+  "hidden_state": {
+    "authorization_valid_before_onset": true,
+    "authorization_valid_at_and_after_onset": false,
+    "security_signal_at_and_after_onset": true,
+    "hidden_truth_available_to_selector": false
+  },
+  "transport_cache_semantics": {
+    "new_record_only_when_contact_available": true,
+    "latest_received_record_replaces_prior_record_even_if_signature_invalid": true,
+    "record_fresh_when_age_seconds_lte": 5,
+    "no_new_record_outside_contact": true
+  },
+  "treatment_semantics": {
+    "V0": "post_onset claim value false; signature valid",
+    "V4_ONE_SHOT": "first received post-onset claim value changed false-to-true after signing; signature invalid; later claims truthful",
+    "V4_PERSISTENT": "every received post-onset claim value changed false-to-true after signing; signature invalid",
+    "V5_ONE_SHOT": "first received post-onset claim is false-to-truth but validly signed by compromised trusted producer; later claims truthful",
+    "V5_PERSISTENT": "every received post-onset claim is false-to-truth and validly signed by compromised trusted producer"
+  },
+  "matrix": {
+    "v0_cells": 6,
+    "v0_trajectories": 276,
+    "v4_v5_cells": 24,
+    "v4_v5_trajectories": 1104,
+    "total_cells": 30,
+    "total_trajectories": 1380,
+    "statistical_unit": "trajectory",
+    "within_trajectory_epochs_are_independent_observations": false,
+    "random_campaign_seeds": false
+  },
+  "primary_endpoints": [
+    "unsafe_permissive_epoch_rate",
+    "unsafe_qualified_epoch_rate",
+    "unsafe_qualified_exposure_s",
+    "unsafe_qualified_episode_count",
+    "protective_epoch_rate",
+    "action_transition_count"
+  ],
+  "analysis": {
+    "primary_population": "complete_finite_onset_phase_grid",
+    "primary_reporting": "exact_finite_grid_summaries_and_paired_phase_differences",
+    "p_value_gate": false,
+    "weighted_global_policy_score": false,
+    "global_policy_rank": false
+  },
+  "assurance_properties": [
+    "selector_oracle_isolation",
+    "no_pre_onset_unsafe_qualification",
+    "v0_never_unsafe_qualifies",
+    "v4_affected_record_never_qualifies",
+    "v5_qualification_requires_present_fresh_valid_record",
+    "k4_receive_only_inside_contact_window",
+    "one_shot_affects_at_most_one_received_post_onset_record",
+    "exact_trajectory_membership",
+    "policy_visible_input_boundary",
+    "prior_study_immutability"
+  ],
+  "study2_semantic_bindings": {
+    "selectors_py_git_blob": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+    "recovery_gate_py_git_blob": "2e9c41126eb9de480a013168c8547197bf9ae883",
+    "runtime_freeze_py_git_blob": "6fcd27a5cb6e90bc869b5d2f45cf468ff2d9b0b0",
+    "treatments_py_git_blob": "5b8fdbed5766c98415456c728005a150d1f496b5",
+    "protocol_py_git_blob": "a3d0541b6906e3f34562c7f9d3c8a67876c0a146"
+  },
+  "responsible_research": {
+    "operational_spacecraft": false,
+    "rf_transmission_or_interference": false,
+    "real_credentials": false,
+    "third_party_targeting": false,
+    "proprietary_mission_data": false,
+    "production_signing_keys": false
+  }
+}
