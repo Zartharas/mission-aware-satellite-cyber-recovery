@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "experiment_id": "S3-K4E-001",
+  "attempts": [
+    {
+      "attempt": 1,
+      "execution_commit": "43e111d0e80b7d111752ed4ce7e082e526e0d0d9",
+      "workflow_run_id": 33650410329,
+      "job_id": 100315687853,
+      "status": "REJECTED_BEFORE_EVIDENCE_ACCEPTANCE",
+      "reason": "derived_cell_summary_prefreeze_hash_stale_after_prespecified_origin_columns_were_added",
+      "scientific_execution_completed": true,
+      "independent_audit_executed": false,
+      "artifact_uploaded": false,
+      "observed_output_sha256": {
+        "epochs.csv": "644e871208289673525f3d11f869471d21e11b0c8f361044529e400457e514c3",
+        "trajectory_summary.csv": "67af4a075ef8a123cb5e52e3d09cf063447a0bd7bdd5440c6e8e7e01262026da",
+        "cell_summary.csv": "dc653561333d48f90b1917f5c29863e1cded4d5a8b13ce11b0b5935fa6fe0322"
+      },
+      "interpretation": "Epoch-level and trajectory-level hashes matched the pre-freeze bindings exactly. Only the derived aggregate table hash differed because its schema now includes the already-prespecified false-qualification-origin decomposition. No cell, onset phase, policy, treatment, endpoint definition, trajectory state, or trajectory summary changed."
+    }
+  ],
+  "hidden_attempts_allowed": false,
+  "automatic_retry_allowed": false
+}
