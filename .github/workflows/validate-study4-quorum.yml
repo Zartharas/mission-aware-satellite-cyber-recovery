@@ -1,0 +1,34 @@
+name: Validate Study 4 quorum model
+
+on:
+  pull_request:
+    paths:
+      - "study4/**"
+      - ".github/workflows/validate-study4-quorum.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-study4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Validate protocol JSON
+        run: python -m json.tool study4/STUDY4_PROTOCOL.json >/dev/null
+      - name: Compile Study 4
+        run: python -m compileall -q study4/src study4/tests study4/analysis
+      - name: Run Study 4 invariants
+        run: python -m unittest discover -s study4/tests -p 'test_*.py' -v
+      - name: Validate exact finite population without committing results
+        run: |
+          tmp="$(mktemp -d)"
+          python study4/analysis/analyze.py "$tmp"
+          test "$(($(wc -l < "$tmp/observations.csv")-1))" -eq 4608
+          test "$(($(wc -l < "$tmp/thresholds.csv")-1))" -eq 36
+          rm -rf "$tmp"
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
