@@ -36,6 +36,17 @@ The frozen Study-2 runtime re-evaluates future-contact recovery only for Block B
 
 The underlying authorization prerequisite is true before the onset phase and false from onset through the end of the trajectory. `V0` reports that change truthfully; `V4` and `V5` alter only the policy-visible authorization evidence according to the treatment definitions. The research-only hidden truth is never a selector input.
 
+### Fresh-cache boundary discovered during pre-freeze assurance
+
+The initial implementation-assurance run rejected an over-strong candidate invariant that assumed truthful V0 and signature-invalid V4 trajectories could never experience false policy-visible qualification. Because evidence remains valid for 5 logical seconds, a truthful **pre-onset** `authorization=true` record may still be fresh for one post-onset decision epoch after the hidden authorization state has changed. That is a temporal evidence-age boundary rather than adversarial producer deception.
+
+The protocol therefore prespecifies two allowed origins for post-onset false qualification:
+
+- `PRE_ONSET_CACHE` — a still-fresh record that was truthfully received before the state change;
+- `V5_AFFECTED_RECORD` — a fresh, validly signed false claim issued by the compromised trusted producer.
+
+An affected V4 record remains forbidden from qualifying because its signature is invalid. Any other false-qualification origin is an assurance failure.
+
 ### Exact trajectory population
 
 `V0` has no persistence dimension: `2 contacts × 1 evidence × 3 policies × 46 onset phases = 276 trajectories`.
@@ -55,7 +66,9 @@ There are no random campaign seeds. The onset-phase grid is exhaustively enumera
 5. `protective_epoch_rate` — post-onset fraction in `HOLD_AND_REQUIRE_EVIDENCE` or `RESTRICT_AND_REQUEST_AUTHORIZATION`.
 6. `action_transition_count` — number of post-onset policy-action transitions.
 
-The second endpoint is intentionally distinct from Study-2 unsafe-permissive classification. It measures false trust qualification at the recovery gate rather than merely selection of a permissive action.
+The false-qualification endpoint is additionally decomposed into `cache_unsafe_qualified_epochs` and `v5_affected_unsafe_qualified_epochs`. This prevents ordinary freshness-window exposure from being mislabeled as compromised-producer deception.
+
+The unsafe-qualified endpoint is intentionally distinct from Study-2 unsafe-permissive classification. It measures false trust qualification at the recovery gate rather than merely selection of a permissive action.
 
 ## Analysis
 
@@ -67,14 +80,15 @@ The implementation validator must exhaustively establish:
 
 1. hidden authorization truth is never used by the selector;
 2. no unsafe-qualified epoch occurs before the onset phase;
-3. truthful `V0` cannot produce an unsafe-qualified epoch after onset;
-4. an affected `V4` record cannot qualify because its signature is invalid;
+3. an affected `V4` record cannot qualify because its signature is invalid;
+4. any V0/V4 false qualification is attributable only to still-fresh pre-onset cache;
 5. a `V5` affected record can qualify only when it is present, fresh, and signed by the compromised-but-still-trusted producer;
-6. `K4` never receives a new record outside its frozen contact windows;
-7. one-shot treatment affects exactly one received post-onset record when such a record exists;
-8. every declared cell × onset phase produces exactly one terminal trajectory summary;
-9. the selector receives only policy-visible evidence/contact/security state;
-10. Study-1/Study-2 files are read-only dependencies and are not modified by Study-3 execution.
+6. every false-qualified epoch has exactly one declared origin (`PRE_ONSET_CACHE` or `V5_AFFECTED_RECORD`);
+7. `K4` never receives a new record outside its frozen contact windows;
+8. one-shot treatment affects exactly one received post-onset record;
+9. every declared cell × onset phase produces exactly one terminal trajectory summary;
+10. the selector receives only policy-visible evidence/contact/security state;
+11. Study-1/Study-2 files are read-only dependencies and are not modified by Study-3 execution.
 
 ## Responsible-research boundary
 
