@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "experiment_id": "S4-MPQ-001",
+  "status": "DESIGN_AND_IMPLEMENTATION_CANDIDATE_NO_CANONICAL_RESULT_YET",
+  "population_separation": {"study1_unchanged": true, "study2_unchanged": true, "study3_unchanged": true, "pool_with_prior_studies": false},
+  "producer_count": 7,
+  "provenance_domains": {"D1": ["P1","P2","P3"], "D2": ["P4","P5"], "D3": ["P6","P7"]},
+  "quorum_rules": {"total_vote_thresholds": [1,2,3,4,5,6,7], "domain_threshold_rule": "1..min(3,q_total)", "rule_count": 18, "threshold_denominator": "REGISTERED_PRODUCER_SET_NOT_RESPONDERS"},
+  "blocks": {
+    "SAFETY": {"hidden_authorization": false, "compromised_producer_visible_claim": true, "compromised_signature_valid": true, "honest_visible_claim": false, "all_producers_available": true},
+    "AVAILABILITY": {"hidden_authorization": true, "affected_producer_state": "UNAVAILABLE", "available_visible_claim": true, "all_signatures_valid": true, "malicious_producers": false}
+  },
+  "exact_population": {"subsets_per_block_per_rule": 128, "rules": 18, "blocks": 2, "observations": 4608, "random_seeds": false},
+  "primary_endpoints": ["unsafe_qualified", "false_conservative"],
+  "summary_endpoints": ["first_failure_count", "systematic_failure_count", "exact_subset_failure_rate_by_affected_count"],
+  "analysis_guards": {"p_value_gate": false, "global_policy_rank": false, "operational_frequency_inference": false},
+  "responsible_research": {"operational_spacecraft": false, "rf": false, "real_credentials": false, "real_keys": false, "third_party_target": false, "exploit_path": false}
+}
