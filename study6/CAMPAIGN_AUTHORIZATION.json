@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "experiment_id": "S6-SCTR-001",
+  "authorization_status": "ACTIVE_FOR_ONE_CANONICAL_FINITE_EXECUTION",
+  "authorized_by": "Aman Singh",
+  "authorization_basis": "User explicitly authorized continued work and successful closure of Item/Phase 6 in the project conversation.",
+  "authorized_scope": {
+    "abstract_boolean_artifact_trust_model": true,
+    "exact_population_observations": 420,
+    "github_actions_execution": true,
+    "independent_audit": true
+  },
+  "prohibited_scope": {
+    "malware_or_exploit_development": true,
+    "operational_spacecraft_or_ground_system": true,
+    "rf_activity": true,
+    "real_credentials_or_keys": true,
+    "third_party_targeting": true,
+    "external_build_system_compromise": true
+  },
+  "consumed": false
+}
