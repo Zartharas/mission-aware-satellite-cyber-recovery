@@ -120,7 +120,7 @@ These remain submission-day checks because publisher requirements can change:
 **Study-1 scientific freeze: PASS.**  
 **Study-2 Phase-7 statistical freeze and independent reproduction: PASS.**  
 **Study-2 Phase-6 responsible-release review: PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`.**  
-**Completed gate:** TWO-STUDY JOURNAL INTEGRATION / LOCAL CANONICAL AUDIT / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE-RELEASE REVIEW.  
+**Completed gate:** **TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE** — journal integration and the responsible-release review portion are complete; DOI publication and public-checksum verification remain under the current archive gate.  
 **Current gate:** **STUDY-2 DURABLE DOI ARCHIVE / PUBLIC CHECKSUM VERIFICATION / DOI INSERTION.**
 
 Do not advance to final submission export until the exact approved Study-2 source-evidence archive is durably published, the public source ZIP checksum is verified, its actual DOI/checksums are inserted, and the exact submission export passes final citation/DOI/frozen-claim/scope audits.
