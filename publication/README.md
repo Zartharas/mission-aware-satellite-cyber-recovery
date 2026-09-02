@@ -1,92 +1,104 @@
 # Publication Package
 
-This directory is the human-facing publication layer of the repository. The files retain stable names for provenance, but this index provides the recommended reading and reuse order.
+This directory is the human-facing publication layer for the **journal article**. The active manuscript reports **two separately frozen empirical studies**. Historical Study-1 publication artifacts retain stable paths for provenance, while Study 2 is integrated without pooling or rewriting the Study-1 population.
 
-## 1. Manuscript order
+## 1. Authoritative manuscript order
 
-Read the target-neutral manuscript components in this sequence:
+Read the target-neutral journal manuscript components in this sequence:
 
-1. [`manuscript/00-title-abstract.md`](manuscript/00-title-abstract.md) — title, abstract, keywords, running-title candidate
-2. [`manuscript/01-introduction.md`](manuscript/01-introduction.md) — problem, motivation, contributions, research framing
+1. [`manuscript/00-title-abstract.md`](manuscript/00-title-abstract.md) — combined title, abstract, keywords, running-title candidate
+2. [`manuscript/01-introduction.md`](manuscript/01-introduction.md) — two-study problem framing, contributions, and scope
 3. [`manuscript/02-background-and-related-work.md`](manuscript/02-background-and-related-work.md) — related literature and novelty boundary
-4. [`manuscript/03-methods.md`](manuscript/03-methods.md) — experimental design, testbed, treatments, metrics, analysis methods
-5. [`manuscript/04-results.md`](manuscript/04-results.md) — empirical results
-6. [`manuscript/05-discussion.md`](manuscript/05-discussion.md) — interpretation, limitations, implications
-7. [`manuscript/06-conclusion.md`](manuscript/06-conclusion.md) — bounded conclusions
-8. [`manuscript/07-declarations-and-availability.md`](manuscript/07-declarations-and-availability.md) — ethics, data/code availability, funding, declarations
+4. [`manuscript/03-methods.md`](manuscript/03-methods.md) — frozen Study-1 methods and provenance
+5. [`manuscript/03-study2-methods-extension.md`](manuscript/03-study2-methods-extension.md) — separately frozen Study-2 design, runtime/evidence boundary, endpoints, and analysis
+6. [`manuscript/04-results.md`](manuscript/04-results.md) — frozen Study-1 results
+7. [`manuscript/04-study2-results-extension.md`](manuscript/04-study2-results-extension.md) — frozen Study-2 RQ1–RQ5 results and interpretation limits
+8. [`manuscript/05-discussion.md`](manuscript/05-discussion.md) — cross-study interpretation, limitations, and implications
+9. [`manuscript/06-conclusion.md`](manuscript/06-conclusion.md) — combined bounded conclusions and remaining research path
+10. [`manuscript/07-declarations-and-availability.md`](manuscript/07-declarations-and-availability.md) — ethics, responsible-research boundary, data/code availability, funding, and declarations
 
 Assembly and submission controls:
 
 - [`manuscript/MANUSCRIPT-ASSEMBLY.md`](manuscript/MANUSCRIPT-ASSEMBLY.md)
-- [`manuscript/claim-traceability.csv`](manuscript/claim-traceability.csv)
+- [`manuscript/claim-traceability.csv`](manuscript/claim-traceability.csv) — historical/frozen Study-1 claim traceability
+- [`manuscript/study2-claim-traceability.csv`](manuscript/study2-claim-traceability.csv) — Study-2 claim-to-evidence boundaries
 - [`manuscript/citation-readiness.csv`](manuscript/citation-readiness.csv)
 - [`manuscript/submission-inputs.csv`](manuscript/submission-inputs.csv)
 
-The manuscript source remains target-neutral so scientific text is not duplicated across venues. For the primary Computers & Security package, the **author-attestation gate is complete** and the package is at the **final submission-export gate**. Remaining work is submission-day live publisher/portal verification, the final abstract/export-format decision, target reference/figure/table formatting, and citation/DOI/frozen-claim/scope audits against the exact export. These presentation tasks must not change the frozen Study-1 scientific record.
+**Current journal state:** Study-1 and Study-2 statistics are frozen, but the combined manuscript is still in **journal-integration and pre-submission evidence-release review**. It is not yet at the final export gate because the Study-2 source-evidence package still requires responsible-release review and a durable DOI-bearing archive, and the exact two-study manuscript must pass the updated claim/citation/scope audits.
 
-## 2. Figures
+## 2. Frozen study boundaries
 
-<table>
-  <tr>
-    <td width="50%"><img src="figures/figure-r1-p2-contact-effects.svg" alt="P2 modeled contact effects" /></td>
-    <td width="50%"><img src="figures/figure-r2-p3-trusted-recovery.svg" alt="P3 trusted recovery" /></td>
-  </tr>
-  <tr>
-    <td align="center"><strong>Figure R1</strong><br/>P2 modeled-contact effects</td>
-    <td align="center"><strong>Figure R2</strong><br/>P3 trusted-recovery behavior</td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="figures/figure-r3-p4-selection-pathway.svg" alt="P4 evidence-driven selection pathway" /></td>
-    <td width="50%"><img src="figures/figure-r4-p5-pareto-status.svg" alt="P5 Pareto status" /></td>
-  </tr>
-  <tr>
-    <td align="center"><strong>Figure R3</strong><br/>P4 evidence-driven selection pathway</td>
-    <td align="center"><strong>Figure R4</strong><br/>P5 condition-specific Pareto status</td>
-  </tr>
-</table>
+### Study 1
 
-The SVG files are the tracked publication graphics. Do not reinterpret the visual labels outside the corresponding Results/Discussion text; claim boundaries remain governed by the manuscript and WP10 evidence audit.
+- 24 frozen cells × 30 repetitions
+- 720 VALID statistical observations
+- 9 retained INVALID attempts outside statistical membership
+- 696-observation final-commit complete-block analysis is sensitivity only
+- DOI-bearing public evidence-of-record: Zenodo v1.0.0, `10.5281/zenodo.22181540`
 
-## 3. Tables
+### Study 2
 
-Use the tables in this order:
+- 85 frozen cells
+- 3,872 VALID observations
+- 0 INVALID attempts
+- 162 primary paired contrasts
+- 432 prespecified secondary contrasts
+- Phase-7 independent reproduction: 0 mismatches
+- canonical freeze: `study2/PHASE7_RESULTS_FREEZE.json`
+- canonical provenance: `study2/PHASE7_PROVENANCE.json`
+- Phase-7 result ZIP retained durably in Git history
+- source Phase-6 evidence remains hash-bound and requires a responsible-release-reviewed DOI archive before submission
 
-1. [`tables/table-r1-proposition-summary.csv`](tables/table-r1-proposition-summary.csv) — proposition-level summary
-2. [`tables/table-r2-p2-contact-effects.csv`](tables/table-r2-p2-contact-effects.csv) — P2 modeled-contact effects
-3. [`tables/table-r3-p3-p4-evidence-pathways.csv`](tables/table-r3-p3-p4-evidence-pathways.csv) — P3/P4 evidence and pathway results
-4. [`tables/table-r4-p5-pareto-status.csv`](tables/table-r4-p5-pareto-status.csv) — P5 Pareto status
-5. [`tables/table-r5-cybersecurity-positioning.csv`](tables/table-r5-cybersecurity-positioning.csv) — closest-work cybersecurity positioning
-6. [`tables/table-r6-security-property-mapping.csv`](tables/table-r6-security-property-mapping.csv) — security/dependability property mapping
-7. [`tables/table-s1-execution-provenance-sensitivity.csv`](tables/table-s1-execution-provenance-sensitivity.csv) — execution-provenance sensitivity analysis
+The two statistical populations are **not pooled**. Study 2 is a separately frozen empirical extension and does not change Study-1 observations, statistical estimates, or historical Zenodo v1.0.0.
 
-## 4. DOI-bearing research data
+## 3. Main publication displays
 
-The complete public raw campaign/integrity/reproducibility package is archived in Zenodo, not duplicated inside GitHub:
+### Study-1 frozen displays
 
-- **Version 1.0.0 DOI:** <https://doi.org/10.5281/zenodo.22181540>
-- **Concept DOI:** <https://doi.org/10.5281/zenodo.22181539>
+1. [`tables/table-r1-proposition-summary.csv`](tables/table-r1-proposition-summary.csv)
+2. [`tables/table-r2-p2-contact-effects.csv`](tables/table-r2-p2-contact-effects.csv)
+3. [`tables/table-r3-p3-p4-evidence-pathways.csv`](tables/table-r3-p3-p4-evidence-pathways.csv)
+4. [`tables/table-r4-p5-pareto-status.csv`](tables/table-r4-p5-pareto-status.csv)
+5. [`tables/table-r5-cybersecurity-positioning.csv`](tables/table-r5-cybersecurity-positioning.csv)
+6. [`tables/table-r6-security-property-mapping.csv`](tables/table-r6-security-property-mapping.csv)
+7. [`tables/table-s1-execution-provenance-sensitivity.csv`](tables/table-s1-execution-provenance-sensitivity.csv)
 
-For exact scientific reproducibility, cite the version DOI.
+Tracked Study-1 figures remain under [`figures/`](figures/).
 
-## 5. Key interpretation boundaries
+### Study-2 journal displays
 
-Keep these boundaries attached to any reuse of the publication artifacts:
+- [`tables/table-r7-study2-prespecified-findings.csv`](tables/table-r7-study2-prespecified-findings.csv) — compact RQ1–RQ5 evidence summary
+- [`tables/table-s2-study2-secondary-holm.csv`](tables/table-s2-study2-secondary-holm.csv) — prespecified secondary-family Holm counts
 
-- the primary statistical population is 720 VALID observations;
-- the 9 INVALID attempts are provenance, not statistical observations;
-- the 696-observation final-commit complete-block analysis is a sensitivity analysis only;
-- P1's null result is retained;
-- modeled-contact timing is not operational ground-contact timing;
-- P7's 5-of-9 point-estimate Pareto-front presence is not a success rate;
-- no weighted global P5 score or universal policy ranking is supported;
-- no simultaneous 95% Pareto-dominance claim is made;
-- `ENTER_SAFE_MODE` is an experimental effect, not a claim of native spacecraft safe-mode actuation;
-- the study used no operational spacecraft, ground station, RF interference, or real mission telemetry.
+These Study-2 tables summarize the frozen Phase-7 record; they do not replace the authoritative machine-readable results/provenance under `../study2/`.
 
-## 6. Reproduction and citation
+## 4. Data and reproducibility status
 
-- Environment/test instructions: [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md)
-- Final repository release-gate audit: [`../scripts/audit_repository_release_gate.py`](../scripts/audit_repository_release_gate.py)
-- Citation metadata: [`../CITATION.cff`](../CITATION.cff)
-- Zenodo publication closeout: [`../docs/40-zenodo-publication-closeout.md`](../docs/40-zenodo-publication-closeout.md)
-- Security/responsible disclosure: [`../SECURITY.md`](../SECURITY.md)
+**Study 1:** the public source-evidence archive is Zenodo v1.0.0, version DOI `10.5281/zenodo.22181540`, concept DOI `10.5281/zenodo.22181539`.
+
+**Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source artifact is cryptographically bound but not yet represented as a DOI-bearing public evidence release. A DOI must be recorded only after responsible-release publication actually occurs.
+
+See [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md) for the distinction between Study-1 reproduction, Study-2 independent audit, safe repository validation, and any future new replication.
+
+## 5. Journal interpretation boundaries
+
+Any reuse or export must preserve all of the following:
+
+- Study 1 = exactly 720 VALID observations; Study 2 = exactly 3,872 VALID observations; never report a pooled statistical population.
+- Study-1 P1 remains unsupported on its predeclared primary outcomes.
+- Study-1 C1 timing is modeled contact, not operational ground-contact timing.
+- Study-1 T1 is omission/reduction of selected policy-visible evidence, not stale/contradictory/forged evidence.
+- Study-1 P7 is deterministic rule-based, not AI/ML.
+- Study-2 V5 shows that evidence can remain policy-qualified while being false relative to the research-only adjudication truth under the bounded compromise model.
+- Study-2 Block-C BENIGN/ADVERSARIAL contrasts are a structural label-invariance/control result only; they do not establish empirical benign-versus-adversarial causal discrimination.
+- Study-2 K4 is separate intermittent/flapping contact, not ordinal severity 4.
+- Study-2 A2/K2 is a coupled producer-compromise/contact-loss profile.
+- Study-2 secondary n=32 blocks are estimation/sensitivity evidence, not prospectively powered small-effect confirmatory evidence.
+- No weighted global score, global policy rank, operational spacecraft claim, RF claim, real-link latency claim, flightworthiness claim, or certification claim is supported.
+
+## 6. Submission package
+
+The primary venue package is under [`submission/computers-and-security/`](submission/computers-and-security/). Its current task is to reconcile the target-specific abstract, highlights, cover letter, checklist, and venue-fit language to the two-study journal article and to recheck live publisher policy on the actual submission date.
+
+The manuscript source remains target-neutral. Do not maintain a second manually copied full manuscript in the submission directory.

@@ -1,11 +1,11 @@
 # Research Highlights — Computers & Security
 
-Publisher check: five bullets; each is no more than 85 characters including spaces. Wording avoids unexplained acronyms and minimizes specialist jargon.
+Publisher-length check: five bullets; each is no more than 85 characters including spaces. Wording avoids unexplained acronyms and internal study codes.
 
-- Satellite cyber response is evaluated across 720 controlled software runs.
-- Modeled contact loss delayed ground-authorized containment and recovery.
-- Evidence quality changed trusted recovery and response policy selection.
-- Security trade-offs depended on contact and evidence conditions.
-- Results show conditional trade-offs, not universal autonomy superiority.
+- Two frozen studies report 720 and 3,872 controlled software observations.
+- Adversarial evidence can pass recovery checks yet remain objectively false.
+- Modeled contact loss exposed authorization-dependent recovery trade-offs.
+- Context ablations revealed specific, not universal, response dependencies.
+- Results support conditional trade-offs, not a universal policy ranking.
 
-Character counts including spaces and punctuation: 74, 72, 72, 64, and 72 respectively.
+Character counts including spaces and punctuation: 73, 75, 73, 74, and 71 respectively.
