@@ -1,13 +1,14 @@
 # Target-Neutral Journal Manuscript Assembly
 
-**Assembly status:** Study-1 manuscript frozen; Study-2 Phase-7 evidence frozen; two-study journal integration in progress  
+**Assembly status:** Study-1 manuscript frozen; Study-2 Phase-7 evidence frozen; two-study journal integration merged and validated  
 **Study-1 evidence audit:** `docs/35-wp10-g5-manuscript-evidence-audit.md` — PASS  
 **Study-2 statistical freeze:** `../../study2/docs/PHASE7_RESULTS_FREEZE.md` — `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`  
 **Study-2 independent reproduction:** PASS, 0 mismatches  
+**Journal integration merge:** PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`  
 **Primary target journal:** Computers & Security (Elsevier), Full Length Article  
 **Backup targets:** AIAA Journal of Aerospace Information Systems; IEEE Transactions on Aerospace and Electronic Systems  
 **Author-attestation gate:** PASS  
-**Current submission state:** **two-study journal integration / Study-2 source-evidence release gate**
+**Current submission state:** **Study-2 source-evidence responsible-release / durable-archive gate; final export follows after DOI insertion and live-policy checks**
 
 ## Scientific architecture of the article
 
@@ -137,13 +138,20 @@ Study-2 publication tables are manuscript-facing summaries only. The Phase-7 fre
 
 ## Submission metadata and archive state
 
-The author-owned factual declarations remain closed. The primary target remains Computers & Security. The Study-1 Zenodo identifiers remain fixed and must be labeled Study-1 evidence. The current combined-paper submission cannot advance to final export until:
+The author-owned factual declarations remain closed. The primary target remains Computers & Security. The Study-1 Zenodo identifiers remain fixed and must be labeled Study-1 evidence.
 
-1. the two-study manuscript integration and claim/citation audits pass;
-2. the Study-2 source-evidence package passes responsible-release review and receives a durable DOI-bearing archive;
-3. the Computers & Security target package is reconciled to the two-study article;
-4. live Guide for Authors/Aims & Scope/Editorial Manager requirements are rechecked on the actual submission date;
-5. the exact submission export passes citation/DOI/frozen-claim/scope checks.
+Completed before this closeout:
+
+1. the two-study manuscript integration and repository-level claim/citation controls were merged in PR #72;
+2. the Computers & Security target package was reconciled to the two-study article;
+3. the exact integration head passed the repository release gate, bibliography audit, schema checks, full research unit tests, shell/Python validation, WP10 reproduction/regression, and zero tracked-file drift.
+
+The current combined-paper submission cannot advance to final export until:
+
+1. the Study-2 source-evidence package passes responsible-release review and receives a durable DOI-bearing archive;
+2. the actual DOI/archive identity and verified checksums are inserted into Data Availability and target materials;
+3. live Guide for Authors/Aims & Scope/Editorial Manager requirements are rechecked on the actual submission date;
+4. the exact submission export passes citation/DOI/frozen-claim/scope checks.
 
 An institutional IRB/HRPP identifier remains conditional on a specific applicable portal requirement and must not be invented.
 
