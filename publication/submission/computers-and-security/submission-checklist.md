@@ -25,8 +25,10 @@
 - [x] K4 retained as intermittent/flapping rather than ordinal severity 4.
 - [x] A2/K2 retained as coupled producer-compromise/contact-loss profile.
 - [x] Logical SIL time explicitly separated from real spacecraft/network/operator latency.
-- [ ] Complete responsible-release review of the Study-2 Phase-6 source-evidence package.
-- [ ] Publish the approved Study-2 source-evidence package to a durable DOI-bearing archive.
+- [x] Responsible-release review of the exact Study-2 Phase-6 source-evidence package completed: `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`.
+- [x] Responsible-release review recorded under `study2/release/phase6/`; review performed no campaign runtime and modified no frozen science/source-evidence record.
+- [ ] Publish the exact approved Study-2 source-evidence ZIP to a new durable DOI-bearing archive.
+- [ ] Independently verify the publicly served source ZIP SHA-256 against `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`.
 - [ ] Insert the actual published Study-2 DOI/archive identity into Data Availability and the target package. **Do not invent a DOI.**
 
 ## Two-study journal integration
@@ -117,7 +119,8 @@ These remain submission-day checks because publisher requirements can change:
 **Author-attestation gate: PASS.**  
 **Study-1 scientific freeze: PASS.**  
 **Study-2 Phase-7 statistical freeze and independent reproduction: PASS.**  
-**Completed gate:** TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE — the journal-integration portion is complete through PR #72.  
-**Current gate:** **STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE / DURABLE DOI ARCHIVE.**
+**Study-2 Phase-6 responsible-release review: PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`.**  
+**Completed gate:** **TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE** — journal integration and the responsible-release review portion are complete; DOI publication and public-checksum verification remain under the current archive gate.  
+**Current gate:** **STUDY-2 DURABLE DOI ARCHIVE / PUBLIC CHECKSUM VERIFICATION / DOI INSERTION.**
 
-Do not advance to final submission export until the Study-2 source-evidence archive is durably published, its actual DOI/checksums are inserted, and the exact submission export passes final citation/DOI/frozen-claim/scope audits.
+Do not advance to final submission export until the exact approved Study-2 source-evidence archive is durably published, the public source ZIP checksum is verified, its actual DOI/checksums are inserted, and the exact submission export passes final citation/DOI/frozen-claim/scope audits.

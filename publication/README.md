@@ -25,7 +25,7 @@ Assembly and submission controls:
 - [`manuscript/citation-readiness.csv`](manuscript/citation-readiness.csv)
 - [`manuscript/submission-inputs.csv`](manuscript/submission-inputs.csv)
 
-**Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The remaining pre-submission gate is **Study-2 source-evidence responsible release and durable DOI archiving**, followed by submission-day live-policy/portal verification and exact-export citation/DOI/frozen-claim/scope audits.
+**Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The exact Study-2 Phase-6 source evidence has passed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`. The remaining pre-submission archive object is the **responsible-release-reviewed DOI archive**: the review portion is complete, while durable Study-2 DOI publication, public checksum verification, and DOI insertion remain pending. Submission-day live-policy/portal verification and exact-export citation/DOI/frozen-claim/scope audits follow.
 
 ## 2. Frozen study boundaries
 
@@ -48,7 +48,8 @@ Assembly and submission controls:
 - canonical freeze: `study2/PHASE7_RESULTS_FREEZE.json`
 - canonical provenance: `study2/PHASE7_PROVENANCE.json`
 - Phase-7 result ZIP retained durably in Git history
-- source Phase-6 evidence remains hash-bound and requires a responsible-release-reviewed DOI archive before submission
+- exact Phase-6 source ZIP passed responsible-release review; release record and DOI-deposit metadata are under `study2/release/phase6/`
+- remaining archive requirement: publish the exact approved ZIP to a durable DOI-bearing Study-2 dataset and verify the public checksum before submission
 
 The two statistical populations are **not pooled**. Study 2 is a separately frozen empirical extension and does not change Study-1 observations, statistical estimates, or historical Zenodo v1.0.0.
 
@@ -77,7 +78,7 @@ These Study-2 tables summarize the frozen Phase-7 record; they do not replace th
 
 **Study 1:** the public source-evidence archive is Zenodo v1.0.0, version DOI `10.5281/zenodo.22181540`, concept DOI `10.5281/zenodo.22181539`.
 
-**Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source artifact is cryptographically bound but not yet represented as a DOI-bearing public evidence release. A DOI must be recorded only after responsible-release publication actually occurs.
+**Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source ZIP is cryptographically bound and has completed responsible-release review without any source-evidence or frozen-science modification. It is not yet represented as a DOI-bearing public evidence release. A DOI must be recorded only after the exact approved ZIP is published and the public checksum is independently verified.
 
 See [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md) for the distinction between Study-1 reproduction, Study-2 independent audit, safe repository validation, and any future new replication.
 
@@ -99,6 +100,6 @@ Any reuse or export must preserve all of the following:
 
 ## 6. Submission package
 
-The primary venue package is under [`submission/computers-and-security/`](submission/computers-and-security/). Its two-study reconciliation is complete; remaining work is the Study-2 source-evidence archive/DOI gate plus live publisher-policy/portal checks and exact-export validation on the actual submission date.
+The primary venue package is under [`submission/computers-and-security/`](submission/computers-and-security/). Its two-study reconciliation and Study-2 responsible-release review are complete; remaining work is the Study-2 DOI publication/public-checksum/DOI-insertion gate plus live publisher-policy/portal checks and exact-export validation on the actual submission date.
 
 The manuscript source remains target-neutral. Do not maintain a second manually copied full manuscript in the submission directory.

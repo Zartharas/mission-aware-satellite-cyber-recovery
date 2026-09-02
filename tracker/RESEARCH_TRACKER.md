@@ -4,7 +4,7 @@ Last updated: 2026-09-01
 
 ## Current focus
 
-**The repository now contains two separately frozen empirical studies supporting a journal research article. Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. The two-study journal-manuscript integration is complete and merged to `main`; current work is responsible release of the Study-2 source-evidence package, durable DOI archiving, and final Computers & Security submission/export validation. No new Study-1 or Study-2 campaign execution is authorized by this tracker.**
+**The repository contains two separately frozen empirical studies supporting a journal research article. Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. The two-study journal-manuscript integration is complete, the local canonical clean-worktree audit is complete, and the exact Study-2 Phase-6 source evidence has passed responsible-release review. Current work is durable Study-2 DOI archiving, public checksum verification, DOI insertion, and final Computers & Security submission/export validation. No new Study-1 or Study-2 campaign execution is authorized by this tracker.**
 
 This is a **journal research workflow**, not a dissertation-revision workflow. The prior dissertation relationship remains a disclosure/prior-dissemination consideration only.
 
@@ -14,9 +14,13 @@ This is a **journal research workflow**, not a dissertation-revision workflow. T
 - Phase-7 canonical closeout main commit: `2bd3fb34ca709127e45ea9bffa8f516846d6c4b5`
 - journal integration PR: `#72`
 - journal integration merge commit: `6f9a1a5d26287120278913d453b26c78f267870f`
+- post-integration current-state closeout PR: `#73`
+- local clean-worktree audit isolation PR: `#74`
+- canonical main before the present release-review documentation update: `6bb0051628ec64ebd09a85435f88a6a0d2cfc382`
 - current journal assembly authority: `publication/manuscript/MANUSCRIPT-ASSEMBLY.md`
 - current Study-2 freeze authority: `study2/PHASE7_RESULTS_FREEZE.json`
 - current Study-2 provenance authority: `study2/PHASE7_PROVENANCE.json`
+- current Study-2 Phase-6 release-review record: `study2/release/phase6/`
 
 Historical work-package and phase documents may retain stage-local status wording because they are provenance. They must not be read as the current repository state when a later canonical closeout exists.
 
@@ -119,9 +123,15 @@ No weighted global policy score or global policy rank is supported by Study 2.
 
 ## Study-2 archive state
 
-The Phase-7 **result** artifact is durably retained in Git history. The underlying Phase-6 **source-evidence** artifact is hash-bound but its original GitHub Actions retention is temporary.
+The Phase-7 **result** artifact is durably retained in Git history. The underlying Phase-6 **source-evidence** artifact is hash-bound, and its original GitHub Actions retention is temporary.
 
-**Pre-submission gate:** perform responsible-release review of the exact Study-2 source-evidence package, publish the approved package to a durable DOI-bearing archive, verify the published checksums, and insert the actual DOI/archive identity into the journal Data Availability statement. Do not invent a DOI and do not reuse the Study-1 Zenodo DOI.
+The exact source ZIP has now passed responsible-release review. The recorded decision is:
+
+`APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`
+
+The review verified 3,872 ledger rows against 3,872 observations; 0 ledger/observation identity mismatches; 0 recomputed observation-hash mismatches; 0 recorded file-hash mismatches; exact 85-cell/block membership; and no identified credentials, tokens, private keys, email addresses, URLs, IPv4 addresses, local absolute paths, operational spacecraft/RF/proprietary mission data, human-subject data, or unsafe ZIP paths. The review performed no campaign runtime and changed no frozen science or source-evidence record. Repository documentation is retained under `study2/release/phase6/`.
+
+**Remaining pre-submission archive gate:** publish the exact approved source ZIP to a new durable DOI-bearing Study-2 dataset record, verify the publicly served ZIP checksum, and insert the actual DOI/archive identity into the journal Data Availability statement and target package. Do not invent a DOI and do not reuse the Study-1 Zenodo DOI.
 
 ## Current journal-manuscript state
 
@@ -168,14 +178,17 @@ Completed:
 2. release-gate hardening for the two-study journal state and Study-2 frozen identities;
 3. full repository CI on the exact journal-integration head;
 4. reviewer/CI correction of identified stale or misleading wording without changing frozen statistics;
-5. journal-integration merge to `main` as PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`.
+5. journal-integration merge to `main` as PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`;
+6. post-integration status closeout through PR #73;
+7. local release-gate isolation through PR #74 and local exact-commit clean-worktree validation at `6bb0051628ec64ebd09a85435f88a6a0d2cfc382`, including 611 research tests, frozen WP10 reproduction, and zero drift;
+8. responsible-release review of the exact Study-2 Phase-6 source-evidence ZIP, disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`, with no campaign execution or frozen-science modification.
 
 Current sequence:
 
-6. synchronize the local repository to the merged `main` with the dirty-tree-safe fast-forward procedure and rerun the local non-runtime audit;
-7. complete Study-2 source-evidence responsible release and durable DOI publication;
-8. insert the actual DOI/checksums into Data Availability and target materials;
-9. proceed to final Computers & Security live-portal checks and exact-export claim/citation/DOI/scope audit.
+9. publish the exact approved Study-2 source-evidence package to a new durable DOI-bearing archive;
+10. independently verify the publicly served source ZIP SHA-256 against `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`;
+11. insert the actual DOI/checksums into Data Availability and target materials;
+12. proceed to final Computers & Security live-portal checks and exact-export claim/citation/DOI/scope audit.
 
 ## Scientific and responsible-research boundaries
 
