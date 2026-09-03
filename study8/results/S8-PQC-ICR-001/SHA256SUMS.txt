@@ -1,0 +1,6 @@
+cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf  study8/results/S8-PQC-ICR-001/canonical_observations.csv
+cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf  study8/results/S8-PQC-ICR-001/independent_reproduction.csv
+568546ca40136a45036947f9ccdc894fce250d59e7d6e38a8765ec335ad087fc  study8/results/S8-PQC-ICR-001/audit_mismatches.csv
+aa8f02cb0c7331abddcd072f2bba2ebd2c9509ded3081caeb78e1d432c9b5136  study8/results/S8-PQC-ICR-001/independent_audit_summary.json
+1786cc9cd31d4713ba83fb55d1b835a98ea2b069d0e6cd5dccddd9e51ddb7a79  study8/results/S8-PQC-ICR-001/provenance.json
+1f974495170ba7a9a7ba610b39d775a92b05b3c7baf7f2eae8ea2777aecc3419  study8/CAMPAIGN_AUTHORIZATION.json

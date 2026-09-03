@@ -1,0 +1,17 @@
+{
+  "all_rows_match": true,
+  "authorization_id": "S8-CANONICAL-001",
+  "canonical_github_run_id": 33712942896,
+  "canonical_run_attempt": 1,
+  "exact_row_matches": 3456,
+  "expected_population": 3456,
+  "experiment_id": "S8-PQC-ICR-001",
+  "factor_positions_unique": 3456,
+  "independent_rows": 3456,
+  "mismatch_count": 0,
+  "primary_rows": 3456,
+  "schema": 1,
+  "scientific_interpretation_performed": false,
+  "statistical_findings_frozen": false,
+  "status": "INDEPENDENT_ROW_BY_ROW_AUDIT_PASS"
+}
