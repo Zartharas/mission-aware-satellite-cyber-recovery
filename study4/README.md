@@ -1,7 +1,13 @@
 # Study 4 — Multi-Producer Evidence Quorum Thresholds
 
 **Experiment ID:** `S4-MPQ-001`  
-**Status:** `DESIGN_AND_IMPLEMENTATION_CANDIDATE_NO_CANONICAL_RESULT_YET`
+**Current status:** `CANONICAL_RESULTS_FROZEN_MERGED`  
+**Canonical results merge:** PR #81 / `09a3fa61276e348b58a852c156e7bfc64b25d32d`  
+**Canonical execution:** workflow run `33658900540` / commit `42b64a7a6431f2130efceec389ce25fe9b1a2382`  
+**Frozen population:** 4,608 exact observations across 18 rules × 2 blocks × 128 subsets  
+**Independent audit:** canonical evidence independently audited before merge; no mismatch is claimed in the accepted freeze record or merge provenance.  
+
+The stage-local status inside `results/RESULTS_FREEZE.json` records the pre-merge freeze gate and is preserved as historical provenance. This README is the current repository-status surface.
 
 Study 4 is a separate deterministic assurance study. Studies 1–3 remain frozen and are not pooled.
 
