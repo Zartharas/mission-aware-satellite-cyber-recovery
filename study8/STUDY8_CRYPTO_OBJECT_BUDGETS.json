@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "experiment_id": "S8-PQC-ICR-001",
+  "status": "STANDARD_OBJECT_BUDGET_CANDIDATE_RUNTIME_NOT_AUTHORIZED",
+  "sources": {
+    "ML-KEM": {
+      "standard": "NIST FIPS 203",
+      "publication": "https://csrc.nist.gov/pubs/fips/203/final",
+      "table": "Table 3, sizes in bytes of keys and ciphertexts of ML-KEM"
+    },
+    "ML-DSA": {
+      "standard": "NIST FIPS 204",
+      "publication": "https://csrc.nist.gov/pubs/fips/204/final",
+      "table": "Table 2, sizes in bytes of keys and signatures of ML-DSA"
+    }
+  },
+  "budget_semantics": {
+    "counted": "standardized cryptographic object bytes only",
+    "framing_bytes": 0,
+    "transport_header_bytes": 0,
+    "certificate_bytes": 0,
+    "rf_coding_overhead_bytes": 0,
+    "execution_latency": null,
+    "energy": null,
+    "private_keys_transmitted": false,
+    "note": "The four logical signature objects are an experimental transition-protocol abstraction, not a prescribed NIST or CCSDS protocol."
+  },
+  "profiles": {
+    "Q1": {
+      "kem": "ML-KEM-512",
+      "signature": "ML-DSA-44",
+      "standard_sizes_bytes": {
+        "kem_encapsulation_key": 800,
+        "kem_decapsulation_key_not_transmitted": 1632,
+        "kem_ciphertext": 768,
+        "kem_shared_secret": 32,
+        "signature_private_key_not_transmitted": 2560,
+        "signature_public_key": 1312,
+        "signature": 2420
+      },
+      "modeled_transition_objects_bytes": {
+        "recovery_authority_assertion_signature": 2420,
+        "successor_kem_encapsulation_key": 800,
+        "successor_signature_verification_key": 1312,
+        "kem_ciphertext": 768,
+        "transition_proof_signature": 2420,
+        "new_epoch_commit_signature": 2420,
+        "post_commit_confirmation_signature": 2420
+      },
+      "base_transition_crypto_bytes": 12560,
+      "largest_modeled_object_bytes": 2420
+    },
+    "Q3": {
+      "kem": "ML-KEM-768",
+      "signature": "ML-DSA-65",
+      "standard_sizes_bytes": {
+        "kem_encapsulation_key": 1184,
+        "kem_decapsulation_key_not_transmitted": 2400,
+        "kem_ciphertext": 1088,
+        "kem_shared_secret": 32,
+        "signature_private_key_not_transmitted": 4032,
+        "signature_public_key": 1952,
+        "signature": 3309
+      },
+      "modeled_transition_objects_bytes": {
+        "recovery_authority_assertion_signature": 3309,
+        "successor_kem_encapsulation_key": 1184,
+        "successor_signature_verification_key": 1952,
+        "kem_ciphertext": 1088,
+        "transition_proof_signature": 3309,
+        "new_epoch_commit_signature": 3309,
+        "post_commit_confirmation_signature": 3309
+      },
+      "base_transition_crypto_bytes": 17460,
+      "largest_modeled_object_bytes": 3309
+    },
+    "Q5": {
+      "kem": "ML-KEM-1024",
+      "signature": "ML-DSA-87",
+      "standard_sizes_bytes": {
+        "kem_encapsulation_key": 1568,
+        "kem_decapsulation_key_not_transmitted": 3168,
+        "kem_ciphertext": 1568,
+        "kem_shared_secret": 32,
+        "signature_private_key_not_transmitted": 4896,
+        "signature_public_key": 2592,
+        "signature": 4627
+      },
+      "modeled_transition_objects_bytes": {
+        "recovery_authority_assertion_signature": 4627,
+        "successor_kem_encapsulation_key": 1568,
+        "successor_signature_verification_key": 2592,
+        "kem_ciphertext": 1568,
+        "transition_proof_signature": 4627,
+        "new_epoch_commit_signature": 4627,
+        "post_commit_confirmation_signature": 4627
+      },
+      "base_transition_crypto_bytes": 24236,
+      "largest_modeled_object_bytes": 4627
+    }
+  }
+}
