@@ -28,7 +28,7 @@ CORE_REL = Path("scripts/audit_repository_release_gate_core.py")
 
 def git_paths(*args: str) -> set[Path]:
     result = subprocess.run(
-        ["git", *args, "-z"],
+        ["git", *args],
         cwd=ROOT,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -52,8 +52,8 @@ def remove_path(path: Path) -> None:
 
 
 def overlay_tracked_worktree(audit_root: Path) -> None:
-    index_paths = git_paths("ls-files")
-    head_paths = git_paths("ls-tree", "-r", "--name-only", "HEAD")
+    index_paths = git_paths("ls-files", "-z")
+    head_paths = git_paths("ls-tree", "-r", "--name-only", "-z", "HEAD")
 
     for rel in sorted(index_paths | head_paths, key=lambda item: item.as_posix()):
         source = ROOT / rel
