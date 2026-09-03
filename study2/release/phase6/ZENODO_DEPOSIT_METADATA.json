@@ -4,7 +4,7 @@
   "doi_state": "PENDING_EXTERNAL_DURABLE_ARCHIVE_PUBLICATION",
   "resource_type": "dataset",
   "title": "Mission-Aware Satellite Cyber Response and Trusted Recovery — Study 2 Phase-6 Source Evidence",
-  "publication_date": "2026-09-03",
+  "publication_date_instruction": "Use the actual Zenodo publication date when the authenticated external record is published; do not predeclare or backdate it in this repository handoff.",
   "creators": [
     {
       "name": "Singh, Aman",
