@@ -19,7 +19,7 @@ The resulting studies are related by research question and hash-bound dependenci
 | Study 1 | 720 VALID software-in-the-loop observations | Establish the initial mission/contact/evidence response and trusted-recovery comparison | frozen and DOI-backed | Paper 1 with Study 2 |
 | Study 2 | `S2-AEATR-001`, 3,872 VALID observations | Study 1 did not separately instantiate richer evidence-integrity, producer-compromise, ambiguity/control, and contact conditions | Phase-7 findings frozen; independent reproduction 0 mismatches | Paper 1 with Study 1; Study-2 source DOI is the remaining archive blocker |
 | Study 3 | `S3-K4E-001`, 1,380 trajectories / 67,620 epochs | Study 2 does not model one-shot/persistent false evidence across repeated K4 contact transitions | canonical results merged in PR #79 / `68a2c9a1394743e9a233e93586e86a6179a0793c`; independent audit PASS | candidate component of Paper 2 |
-| Study 4 | `S4-MPQ-001`, 4,608 exact observations | Study 3 has a single evidence-producer trust boundary and cannot quantify quorum/provenance-diversity trade-offs | canonical results merged in PR #81 / `09a3fa61276e348b58a852c156e7bfc64b25d32d` | candidate component of Paper 2 |
+| Study 4 | `S4-MPQ-001`, 4,608 exact observations | Study 3 has a single evidence-producer trust boundary and cannot quantify quorum/provenance-diversity trade-offs | canonical results merged in PR #81 / `09a3fa61276e348b58a852c156e7bfc64b25d32d`; independent audit PASS, 0 observation and 0 threshold mismatches | candidate component of Paper 2 |
 | Study 5 | `S5-CUCD-001`, 80 deterministic portability decisions plus sufficiency/transferability rows | Studies 1–4 do not test whether an external published satellite-cyber dataset supplies the state required by frozen recovery policies | canonical results merged in PR #83 / `6415a391dc2337c51ce72442ac7d86a25b4fbc02`; independent mismatches 0 | validation/portability stream; final vehicle deliberately deferred |
 | Study 6 | `S6-SCTR-001`, 420 exact observations | Studies 2–4 trust the recovery artifact itself; Study 6 moves the trust boundary upstream to artifact qualification | canonical results merged in PR #85 / `0dfe7f4331fc1f8864344c95d39e0d8dcb74c8f4`; independent audit PASS | candidate component of Paper 2 |
 | Study 7 | `S7-LSO-001`, 1,033 exact observations | Earlier selectors are deterministic rule-based mechanisms and cannot answer whether a learned selector over the same visible information can escape the V5 information boundary | canonical results merged in PR #87 / `f582c36cc5747a6703ec651bb957bbfea5852a7e`; independent audit PASS | separate AI/autonomy-compatible Paper 3 |
@@ -52,7 +52,7 @@ The synthesis should preserve all three frozen populations separately and use a 
 **Current venue-fit candidates, not commitments:**
 
 - *Acta Astronautica* — broad space-systems design/operation and satellite-technology scope;
-- *IEEE Systems Journal* — systems modeling/simulation, resilience, security, reliability/availability, and systems-of-systems framing;
+- *IEEE Systems Journal* — systems modeling/simulation, resilience, security, reliability/availability, mission assurance, standards, and systems-of-systems framing;
 - *Journal of Aerospace Information Systems* — aerospace computing/information, software verification and validation, autonomy, safety, and mission assurance.
 
 A fresh venue/literature review is required before manuscript freeze. No target is authorized by this roadmap.
@@ -115,4 +115,9 @@ Per-study scientific implementations and frozen environments should not be refac
 
 ## External scope sources checked for this roadmap
 
-The 2026-09-03 venue-fit check used current publisher/society scope pages for Acta Astronautica, Journal of Aerospace Information Systems, Aerospace Science and Technology, and International Journal of Satellite Communications and Networking. These sources support candidate fit only; they do not constitute acceptance predictions or final venue commitments.
+The 2026-09-03 venue-fit check used current publisher/society scope pages. These links are evidence for candidate fit only; they are not acceptance predictions or final venue commitments.
+
+- Acta Astronautica, Elsevier scope: <https://shop.elsevier.com/journals/acta-astronautica/0094-5765>
+- IEEE Systems Journal, IEEE Systems Council scope: <https://ieeesystemscouncil.org/publication/ieee-systems-journal>
+- Journal of Aerospace Information Systems, AIAA journal scopes: <https://www.aiaa.org/publications/journals/Journal-Scopes-and-Content/>
+- Aerospace Science and Technology, Elsevier scope: <https://shop.elsevier.com/journals/aerospace-science-and-technology/1270-9638>
