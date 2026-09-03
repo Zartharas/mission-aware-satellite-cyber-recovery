@@ -1,0 +1,108 @@
+name: Validate Study 8 publication development
+
+on:
+  push:
+    branches:
+      - publication/study8-companion-development
+    paths:
+      - 'publication/study8/**'
+      - 'study8/PUBLICATION_DEVELOPMENT_AUTHORIZATION.json'
+      - '.github/workflows/validate-study8-publication-development.yml'
+  pull_request:
+    paths:
+      - 'publication/study8/**'
+      - 'study8/PUBLICATION_DEVELOPMENT_AUTHORIZATION.json'
+      - '.github/workflows/validate-study8-publication-development.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-publication-projection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository with full provenance history
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Verify Study 8 remains technically closed
+        run: python study8/scripts/check_study8_technical_close.py
+
+      - name: Verify frozen results-freeze binding
+        run: python study8/analysis/scripts/check_phase8_6_results_freeze.py
+
+      - name: Validate publication projection against frozen findings
+        run: python publication/study8/scripts/check_publication_projection.py
+
+      - name: Validate publication-development control JSON
+        run: |
+          python -m json.tool study8/PUBLICATION_DEVELOPMENT_AUTHORIZATION.json >/dev/null
+          python -m json.tool publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json >/dev/null
+
+      - name: Validate publication tables and SVG figures
+        run: |
+          python - <<'PY'
+          import csv
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          root = Path('publication/study8')
+          for path in sorted((root / 'tables').glob('*.csv')):
+              with path.open('r', encoding='utf-8-sig', newline='') as handle:
+                  rows = list(csv.reader(handle))
+              if not rows:
+                  raise SystemExit(f'empty publication CSV: {path}')
+              width = len(rows[0])
+              for line, row in enumerate(rows[1:], start=2):
+                  if len(row) != width:
+                      raise SystemExit(f'ragged publication CSV: {path}:{line}')
+          for path in sorted((root / 'figures').glob('*.svg')):
+              ET.parse(path)
+          print('study8_publication_tables_figures=PASS')
+          PY
+
+      - name: Require frozen-science-only gate state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          auth = json.loads(Path('study8/PUBLICATION_DEVELOPMENT_AUTHORIZATION.json').read_text())
+          status = json.loads(Path('publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json').read_text())
+          forbidden = auth['prohibited_actions']
+          required_prohibited = (
+              'canonical_reexecution',
+              'statistical_reanalysis',
+              'new_scientific_execution',
+              'change_frozen_findings',
+              'change_frozen_protocol_or_design',
+              'post_hoc_hypothesis_rescue',
+              'publication_submission',
+          )
+          for key in required_prohibited:
+              if forbidden.get(key) is not True:
+                  raise SystemExit(f'publication authorization boundary drift: {key}')
+          gates = status['gate_state']
+          for key in (
+              'scientific_reexecution_authorized',
+              'statistical_reanalysis_authorized',
+              'frozen_science_modification_authorized',
+              'publication_submission_authorized',
+              'publisher_portal_action_authorized',
+              'manuscript_freeze_authorized',
+          ):
+              if gates.get(key) is not False:
+                  raise SystemExit(f'publication gate unexpectedly open: {key}')
+          print('study8_publication_gate_state=PASS')
+          PY
+
+      - name: Confirm validation produced no tracked-file drift
+        run: git diff --exit-code
