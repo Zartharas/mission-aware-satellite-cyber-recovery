@@ -21,7 +21,7 @@ No new test is added unless this layered review identifies a concrete uncovered 
 | Study | Targeted unit tests | Exhaustive / exact population check | Independent reproduction/audit | Hash/freeze gate | Audit disposition |
 |---|---:|---|---|---|---|
 | Study 3 | 9 test methods in `test_temporal_model.py` | exact 30 cells, 46 onset phases, 1,380 trajectories; canonical 67,620 epoch rows | `RESULTS_FREEZE.json`: PASS with 0 trajectory, epoch-rule, qualification-origin, and SHA mismatches | canonical artifact and three output SHA-256 identities frozen | **adequate for current frozen claim boundary; no extra test justified** |
-| Study 4 | 6 test methods in `test_quorum_model.py` | exact 18 rules × 2 blocks × 128 subsets = 4,608 observations | independent auditor `study4/analysis/audit_independent.py`; accepted campaign run `33658900540` step `Independently audit evidence` = SUCCESS | canonical artifact + four output SHA-256 identities frozen | **adequate for current finite combinatorial claim boundary; no extra test justified** |
+| Study 4 | 6 test methods in `test_quorum_model.py` | exact 18 rules × 2 blocks × 128 subsets = 4,608 observations | accepted run `33658900540`: `study4_independent_audit=PASS`, observation mismatches = 0, threshold mismatches = 0 | canonical artifact + four output SHA-256 identities frozen | **adequate for current finite combinatorial claim boundary; no extra test justified** |
 | Study 5 | 6 test methods in `test_bridge_model.py` | exact 80 label × context × policy decisions; explicit 8-row input sufficiency and 5-row transferability structures | canonical validation records independent audit mismatches = 0 | dedicated and repository validation PASS; selector dependency SHA frozen | **adequate for portability/input-sufficiency claim boundary; no extra test justified** |
 | Study 6 | 8 test methods in `test_artifact_trust_model.py` | exact 36 adversarial + 384 benign-unavailability = 420 observations | `independent_audit = PASS` | canonical artifact + four output SHA-256 identities frozen | **adequate for finite Boolean artifact-trust model; no extra test justified** |
 | Study 7 | 7 test methods in `test_learned_selector_model.py` | exact 512 + 512 + 9 = 1,033 observations | `independent_audit = PASS` | canonical artifact + four output SHA-256 identities frozen | **adequate for the frozen transparent linear-threshold learner; no extra test justified** |
@@ -54,7 +54,13 @@ The canonical freeze adds full-population result auditing with zero recorded mis
 - provenance diversity blocking a same-domain pair;
 - absolute quorum fail-closed behavior under unavailability.
 
-The accepted canonical workflow separately executes `study4/analysis/audit_independent.py`; run `33658900540` completed the `Independently audit evidence` step successfully. Because the finite population already enumerates all 128 affected-producer subsets for all rules and both blocks, adding numerous example-based unit cases would add limited assurance unless a specific invariant is found missing.
+The accepted canonical workflow separately executes `study4/analysis/audit_independent.py`. Run `33658900540` recorded:
+
+- `study4_independent_audit=PASS`;
+- `study4_observation_mismatches=0`;
+- `study4_threshold_mismatches=0`.
+
+The same run also verified the frozen output hashes and completed with no tracked-file drift. Because the finite population already enumerates all 128 affected-producer subsets for all rules and both blocks, adding numerous example-based unit cases would add limited assurance unless a specific invariant is found missing.
 
 ## Study 5
 
