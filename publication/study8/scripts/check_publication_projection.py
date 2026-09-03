@@ -197,8 +197,8 @@ def validate_manuscript() -> None:
 def validate_traceability_and_references() -> None:
     before = len(ERRORS)
     trace = csv_rows(PUB / "claim-traceability.csv")
-    require(len(trace) == 15, f"expected 15 claim-traceability rows, found {len(trace)}")
-    require(len({r["claim_id"] for r in trace}) == 15, "claim IDs are not unique")
+    require(len(trace) == 16, f"expected 16 claim-traceability rows, found {len(trace)}")
+    require(len({r["claim_id"] for r in trace}) == 16, "claim IDs are not unique")
 
     bib = (PUB / "references/references.bib").read_text(encoding="utf-8")
     keys = set(re.findall(r"(?m)^@\w+\{([^,]+),", bib))

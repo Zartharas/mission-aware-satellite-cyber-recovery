@@ -52,9 +52,9 @@ Any venue-specific IRB/HRPP wording will be finalized only if required by the se
 - Interpretation audit SHA-256: `620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413`
 - Study-8 science merge: `63106778559c3127a7d6e8765d52939b73a3f35b`
 
-## AI-use declaration placeholder
+## AI-use provenance for publication development
 
-The final declaration must be matched to the selected venue's live policy at submission time. Manuscript development may use language assistance, but frozen scientific results, exact statistics, hashes, and claim boundaries remain repository-controlled and independently auditable. Do not finalize publisher-specific wording until the submission gate.
+OpenAI ChatGPT was used for language/drafting assistance during manuscript development and publication-package review. The author retains responsibility for review and final approval. This assistance did not authorize or perform new Study-8 scientific execution, change frozen results, or alter the frozen statistical findings. The exact publisher-facing declaration must still be matched to the selected venue's live policy at the separate submission gate.
 
 ## Submission exclusivity
 

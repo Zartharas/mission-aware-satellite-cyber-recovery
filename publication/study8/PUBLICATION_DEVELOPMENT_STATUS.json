@@ -2,10 +2,10 @@
   "schema": 1,
   "status_id": "S8-PUBDEV-STATUS-001",
   "experiment_id": "S8-PQC-ICR-001",
-  "phase": "8.8-publication-development",
+  "phase": "8.9-final-manuscript-adversarial-review-and-freeze",
   "authorization_id": "S8-PUBDEV-001",
   "base_main_commit": "74a8b83de8bccafe591b799431a316ba20c3f124",
-  "status": "DRAFT_PACKAGE_CONSTRUCTED_FINAL_VALIDATION_IN_PROGRESS_AWAITING_AUTHOR_REVIEW",
+  "status": "PUBLICATION_PACKAGE_HASH_FROZEN_ADVERSARIAL_REVIEW_PASS_READY_FOR_PR_MERGE_REVIEW",
   "working_title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
   "scientific_source_bindings": {
     "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
@@ -72,8 +72,17 @@
     "frozen_science_modification_authorized": false,
     "publication_submission_authorized": false,
     "publisher_portal_action_authorized": false,
-    "manuscript_freeze_authorized": false,
-    "publication_development_pull_request_authorized": true
+    "manuscript_freeze_authorized": true,
+    "publication_development_pull_request_authorized": true,
+    "pull_request_merge_authorized": false
   },
-  "next_gate": "author review of the development PR followed by explicit manuscript/publication-package freeze authorization; submission remains a later separate authorization"
+  "next_gate": "explicit authorization to merge PR #92 after exact-head CI review; publisher submission remains a later separate authorization",
+  "publication_package_frozen": true,
+  "freeze_id": "S8-PUBFREEZE-001",
+  "freeze_authorization_id": "S8-PUBFREEZE-001",
+  "freeze_trigger_commit": "0c2aab95111abdc9535ec8ab347f6e0a6bbbd71c",
+  "freeze_completed_at_utc": "2026-09-03T16:35:11.010936Z",
+  "final_adversarial_review": "publication/study8/FINAL_ADVERSARIAL_REVIEW.md",
+  "freeze_manifest": "publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json",
+  "prepare_pull_request_for_merge_authorized": true
 }

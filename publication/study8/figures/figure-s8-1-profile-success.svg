@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540" role="img" aria-labelledby="title desc">
   <title id="title">Modeled trusted-recovery success by cryptographic profile</title>
-  <desc id="desc">Bar chart showing 93.75 percent success for PROFILE_512_44, 64.9306 percent for PROFILE_768_65, and 61.8056 percent for PROFILE_1024_87 across the frozen 3456-position deterministic population.</desc>
+  <desc id="desc">Bar chart showing 93.75 percent success for PROFILE_512_44, 64.9306 percent for PROFILE_768_65, and 61.8056 percent for PROFILE_1024_87 within each profile's 1,152 equally weighted frozen positions.</desc>
   <rect x="0" y="0" width="900" height="540" fill="white"/>
   <text x="450" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold">Modeled trusted-recovery success by cryptographic profile</text>
   <text x="450" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">Exact finite-population proportions; standardized cryptographic-object budgets only</text>

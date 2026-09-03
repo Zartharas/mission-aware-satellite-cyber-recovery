@@ -32,6 +32,10 @@
   "publication_submission_authorized": false,
   "publisher_portal_action_authorized": false,
   "single_use": true,
-  "consumed": false,
-  "status": "AUTHORIZED_SINGLE_USE_PUBLICATION_PACKAGE_FREEZE_PENDING_EXECUTION"
+  "consumed": true,
+  "status": "CONSUMED_PUBLICATION_PACKAGE_FREEZE_EXECUTED",
+  "consumed_at_utc": "2026-09-03T16:35:11.010936Z",
+  "consumed_trigger_commit": "0c2aab95111abdc9535ec8ab347f6e0a6bbbd71c",
+  "consumed_by_github_run_id": "33779486805",
+  "consumed_by_run_attempt": 1
 }
