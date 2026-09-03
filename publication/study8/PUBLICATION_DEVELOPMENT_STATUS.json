@@ -5,7 +5,7 @@
   "phase": "8.8-publication-development",
   "authorization_id": "S8-PUBDEV-001",
   "base_main_commit": "74a8b83de8bccafe591b799431a316ba20c3f124",
-  "status": "DRAFT_PACKAGE_CONSTRUCTED_VALIDATION_PENDING_AUTHOR_REVIEW",
+  "status": "DRAFT_PACKAGE_CONSTRUCTED_FINAL_VALIDATION_IN_PROGRESS_AWAITING_AUTHOR_REVIEW",
   "working_title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
   "scientific_source_bindings": {
     "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
@@ -28,6 +28,7 @@
   "development_artifacts": [
     "publication/study8/README.md",
     "publication/study8/venue-fit.md",
+    "publication/study8/literature-verification.md",
     "publication/study8/references/references.bib",
     "publication/study8/manuscript/manuscript.md",
     "publication/study8/tables/table-s8-1-design.csv",
@@ -38,8 +39,15 @@
     "publication/study8/figures/figure-s8-2-regime-success.svg",
     "publication/study8/claim-traceability.csv",
     "publication/study8/author-submission-metadata.md",
-    "publication/study8/scripts/check_publication_projection.py"
+    "publication/study8/scripts/check_publication_projection.py",
+    "publication/study8/scripts/check_publication_literature.py"
   ],
+  "publication_context": {
+    "verification_date": "2026-09-03",
+    "metadata_verification_record": "publication/study8/literature-verification.md",
+    "verified_literature_metadata": true,
+    "novelty_boundary_rechecked": true
+  },
   "venue_development": {
     "primary_candidate": "IEEE Systems Journal",
     "alternatives": [
