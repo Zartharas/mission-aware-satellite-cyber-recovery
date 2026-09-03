@@ -1,6 +1,6 @@
 # Study-2 Phase-6 Responsible Release
 
-**Status:** `RESPONSIBLE_RELEASE_REVIEW_PASS_DOI_DEPOSIT_PENDING`
+**Status:** `RESPONSIBLE_RELEASE_REVIEW_PASS_DOI_DEPOSIT_READY_EXTERNAL_PUBLICATION_PENDING`
 
 This directory records the responsible-release review of the exact frozen Study-2 Phase-6 source-evidence artifact for experiment `S2-AEATR-001`.
 
@@ -33,11 +33,27 @@ The responsible-release review concluded that the exact ZIP is suitable for publ
 
 See `RESPONSIBLE_RELEASE_REVIEW.md` and `RELEASE_MANIFEST.json` for the release boundary and exact identities.
 
+## DOI deposit readiness
+
+The exact GitHub Actions artifact remains available at the time of the 2026-09-03 remediation review:
+
+- workflow run: `33547420437`
+- artifact ID: `9816191406`
+- GitHub-reported digest: `sha256:195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- reported expiry: `2026-11-30T19:05:03Z`
+
+Repository-side DOI preparation is complete:
+
+- [`ZENODO_DEPOSIT_READY.md`](ZENODO_DEPOSIT_READY.md) — exact object, authenticated deposit procedure, and mandatory post-publication verification;
+- [`ZENODO_DEPOSIT_METADATA.json`](ZENODO_DEPOSIT_METADATA.json) — reviewed metadata handoff, explicitly not an API payload.
+
+The remaining DOI operation is external and account-authenticated: publish a new durable dataset record for the exact approved ZIP, then verify the publicly served bytes before recording the real DOI. No external DOI is claimed by repository preparation alone.
+
 ## Remaining journal gate
 
-The review is complete, but the Study-2 source archive is **not yet DOI-complete**. Before journal submission:
+The review and deposit preparation are complete, but the Study-2 source archive is **not yet DOI-complete**. Before journal submission:
 
-1. deposit the exact approved source ZIP to a new durable DOI-bearing Study-2 dataset record;
+1. publish the exact approved source ZIP to a new durable DOI-bearing Study-2 dataset record;
 2. verify the publicly served ZIP SHA-256 against the frozen source identity above;
 3. record the actual version DOI (and concept DOI if assigned);
 4. insert the verified DOI/checksum identity into manuscript Data Availability and target-specific submission materials;
