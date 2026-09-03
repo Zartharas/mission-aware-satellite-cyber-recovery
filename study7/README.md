@@ -1,6 +1,12 @@
 # Study 7 — Learned Selector Observability
 
-**Experiment:** `S7-LSO-001`
+**Experiment:** `S7-LSO-001`  
+**Current status:** `CANONICAL_RESULTS_FROZEN_MERGED`  
+**Canonical results merge:** PR #87 / `f582c36cc5747a6703ec651bb957bbfea5852a7e`  
+**Accepted execution:** run `33689625480` / commit `f1530b0b2e81a5916adaf7ce808075156424dfb5`  
+**Frozen population:** 1,033 exact observations (512 visible-state lattice + 512 corroboration lattice + 9 hidden-truth collision cases)  
+**Independent audit:** PASS  
+**Publication disposition:** separate AI/autonomy-compatible paper stream; not part of the current Computers & Security manuscript.  
 
 Study 7 is a separate companion study. It does not modify or pool Studies 1–6 and is not part of the current Computers & Security manuscript.
 
