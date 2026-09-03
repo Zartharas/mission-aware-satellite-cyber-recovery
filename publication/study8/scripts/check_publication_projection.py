@@ -174,7 +174,7 @@ def validate_manuscript() -> None:
         "1080/1152",
         "748/1152",
         "712/1152",
-        "1152/1152",
+        "Across all 1,152 matched non-profile positions",
         "12,560 bytes",
         "17,460 bytes",
         "24,236 bytes",
