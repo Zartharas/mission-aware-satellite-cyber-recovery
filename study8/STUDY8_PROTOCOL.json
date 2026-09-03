@@ -1,0 +1,246 @@
+{
+  "schema": 1,
+  "experiment_id": "S8-PQC-ICR-001",
+  "title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
+  "base_main_commit": "f582c36cc5747a6703ec651bb957bbfea5852a7e",
+  "phase": "8.0",
+  "status": "PHASE8_0_DESIGN_LOCKED_RUNTIME_NOT_AUTHORIZED",
+  "study_type": "deterministic_finite_modeled_contact_crypto_agility_recovery_study",
+  "publication_boundary": "separate_companion_publication_line",
+  "scientific_question": "How do cryptographic-transition strategies change the ability to restore trusted control within finite intermittent-contact budgets after credential or cryptographic-state compromise?",
+  "scientific_scope": {
+    "measured_domain": "logical_time_and_standard_defined_cryptographic_object_bytes",
+    "contact_domain": "synthetic_deterministic_contact_windows",
+    "cryptographic_execution_benchmarking": false,
+    "spacecraft_or_rf_measurement": false,
+    "operational_protocol_conformance_claim": false
+  },
+  "cryptographic_profiles": {
+    "PROFILE_512_44": {
+      "kem": "ML-KEM-512",
+      "signature": "ML-DSA-44"
+    },
+    "PROFILE_768_65": {
+      "kem": "ML-KEM-768",
+      "signature": "ML-DSA-65"
+    },
+    "PROFILE_1024_87": {
+      "kem": "ML-KEM-1024",
+      "signature": "ML-DSA-87"
+    }
+  },
+  "profile_label_semantics": "algorithm_pair_identifiers_only_not_NIST_security_category_labels",
+  "recovery_policies": {
+    "P0_HARD_CUTOVER": {
+      "description": "revoke predecessor control acceptance at recovery start, then stage and commit the successor epoch",
+      "predecessor_acceptance_at_recovery_start": false,
+      "successor_acceptance_before_commit": false,
+      "predecessor_revocation_event": "RECOVERY_START",
+      "successor_acceptance_event": "NEW_EPOCH_COMMITTED",
+      "trust_restored_requires": "POST_COMMIT_CONFIRMATION_COMPLETE"
+    },
+    "P1_STAGED_CUTOVER": {
+      "description": "retain predecessor control acceptance while successor material is staged; atomically revoke predecessor and accept successor at commit",
+      "predecessor_acceptance_at_recovery_start": true,
+      "successor_acceptance_before_commit": false,
+      "predecessor_revocation_event": "NEW_EPOCH_COMMITTED",
+      "successor_acceptance_event": "NEW_EPOCH_COMMITTED",
+      "trust_restored_requires": "POST_COMMIT_CONFIRMATION_COMPLETE"
+    },
+    "P2_HYBRID_OVERLAP": {
+      "description": "retain predecessor acceptance and begin bounded successor acceptance after transition proof; revoke predecessor at commit",
+      "predecessor_acceptance_at_recovery_start": true,
+      "successor_acceptance_before_commit": "AFTER_TRANSITION_PROOF_ACCEPTED",
+      "predecessor_revocation_event": "NEW_EPOCH_COMMITTED",
+      "successor_acceptance_event": "TRANSITION_PROOF_ACCEPTED",
+      "trust_restored_requires": "POST_COMMIT_CONFIRMATION_COMPLETE"
+    },
+    "P3_CONTACT_AWARE_STAGED": {
+      "description": "use staged-cutover semantics with an additional deterministic pre-commit contact-budget guard",
+      "predecessor_acceptance_at_recovery_start": true,
+      "successor_acceptance_before_commit": false,
+      "predecessor_revocation_event": "NEW_EPOCH_COMMITTED",
+      "successor_acceptance_event": "NEW_EPOCH_COMMITTED",
+      "commit_guard": "remaining_scheduled_contact_capacity_strictly_before_deadline_must_be_at_least_unsent_new_epoch_commit_signature_bytes_plus_unsent_post_commit_confirmation_signature_bytes",
+      "guard_visible_inputs": [
+        "frozen_contact_schedule",
+        "compromise_phase_offset",
+        "selected_deadline",
+        "selected_crypto_profile_object_sizes",
+        "bytes_already_delivered",
+        "current_protocol_state"
+      ],
+      "guard_forbidden_inputs": [
+        "future_disruption_schedule_events",
+        "future_outcomes",
+        "unobserved_adversary_actions"
+      ],
+      "trust_restored_requires": "POST_COMMIT_CONFIRMATION_COMPLETE"
+    }
+  },
+  "recovery_state_machine": [
+    "COMPROMISED",
+    "RECOVERY_AUTHORITY_ESTABLISHED",
+    "SUCCESSOR_CRYPTO_PROFILE_SELECTED",
+    "SUCCESSOR_KEY_MATERIAL_STAGED",
+    "TRANSITION_PROOF_ACCEPTED",
+    "NEW_EPOCH_COMMITTED",
+    "OLD_EPOCH_REVOKED",
+    "TRUST_RESTORED"
+  ],
+  "terminal_failure_states": [
+    "STALE_EPOCH_ACCEPTED",
+    "TRANSITION_PROOF_REJECTED",
+    "ROLLBACK_BLOCKED",
+    "EPOCH_DIVERGENCE",
+    "INSUFFICIENT_MATERIAL_TRANSFER",
+    "CONTACT_BUDGET_EXHAUSTED",
+    "RECOVERY_DEADLINE_EXCEEDED"
+  ],
+  "required_crypto_objects": [
+    "recovery_authority_assertion_signature",
+    "successor_kem_encapsulation_key",
+    "successor_signature_verification_key",
+    "kem_ciphertext",
+    "transition_proof_signature",
+    "new_epoch_commit_signature",
+    "post_commit_confirmation_signature"
+  ],
+  "common_transmission_scheduler": {
+    "priority": [
+      "recovery_authority_assertion_signature",
+      "successor_kem_encapsulation_key",
+      "successor_signature_verification_key",
+      "kem_ciphertext",
+      "transition_proof_signature",
+      "new_epoch_commit_signature",
+      "post_commit_confirmation_signature"
+    ],
+    "rule": "within each contact, repeatedly transmit the highest-priority ready incomplete object; newly unlocked objects may use remaining capacity in the same contact; partial bytes persist unless A1 discards them",
+    "same_required_object_bundle_for_all_policies": true
+  },
+  "adversary_model": {
+    "allowed": [
+      "drop_the_first_fragment_once_of_the_first_priority_object_tied_for_largest_modeled_crypto_object",
+      "delay_the_first_transition_proof_transmission_by_one_contact_opportunity",
+      "replay_a_previously_valid_stale_epoch_commit_at_the_first_commit_opportunity",
+      "reorder_or_duplicate_permitted_transition_messages_where_the_frozen_disruption_schedule_specifies_it",
+      "continue_presenting_predecessor_epoch_credentials_while_policy_semantics_still_accept_them"
+    ],
+    "forbidden": [
+      "forge_a_valid_ML_DSA_signature",
+      "recover_or_guess_private_keys",
+      "break_ML_KEM",
+      "claim_quantum_cryptanalysis",
+      "adapt_the_attack_schedule_to_observed_outcomes",
+      "modify_the_frozen_contact_schedule_or_deadline_during_execution"
+    ]
+  },
+  "factors": {
+    "cryptographic_profiles": 3,
+    "recovery_policies": 4,
+    "contact_regimes": 4,
+    "disruption_schedules": 4,
+    "compromise_phase_offsets": 6,
+    "recovery_deadlines": 3
+  },
+  "factor_values": {
+    "contact_regimes": [
+      "R1_FREQUENT_SMALL",
+      "R2_PERIODIC_MEDIUM",
+      "R3_SPARSE_LARGE",
+      "R4_CLUSTERED_MEDIUM"
+    ],
+    "disruption_schedules": [
+      "A0_NONE",
+      "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+      "A2_DELAY_FIRST_TRANSITION_PROOF_ONE_CONTACT",
+      "A3_STALE_EPOCH_REPLAY_AT_COMMIT"
+    ],
+    "compromise_phase_offsets": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "recovery_deadlines_slots": [
+      12,
+      24,
+      48
+    ],
+    "cryptographic_profiles": [
+      "PROFILE_512_44",
+      "PROFILE_768_65",
+      "PROFILE_1024_87"
+    ]
+  },
+  "expected_population": {
+    "formula": "3*4*4*4*6*3",
+    "observations": 3456,
+    "status": "FROZEN_AFTER_ADVERSARIAL_DESIGN_REVIEW"
+  },
+  "deadline_convention": "TRUST_RESTORED_is_on_time_only_if_completion_slot_is_strictly_less_than_deadline",
+  "terminal_state_precedence_at_or_before_deadline": [
+    "STALE_EPOCH_ACCEPTED_if_any_stale_epoch_commit_is_accepted",
+    "TRANSITION_PROOF_REJECTED_if_a_required_proof_is_cryptographically_or_semantically_rejected",
+    "ROLLBACK_BLOCKED_if_the_policy_invokes_required_fallback_and_it_cannot_complete",
+    "EPOCH_DIVERGENCE_if_new_epoch_commit_occurs_but_required_confirmation_is_not_completed_before_deadline",
+    "INSUFFICIENT_MATERIAL_TRANSFER_if_required_precommit_crypto_material_is_incomplete_at_deadline",
+    "CONTACT_BUDGET_EXHAUSTED_if_P3_commit_guard_blocks_commit_because_scheduled_remaining_capacity_before_deadline_is_insufficient",
+    "RECOVERY_DEADLINE_EXCEEDED_for_other_non_success_states_at_deadline"
+  ],
+  "primary_endpoint": "trusted_recovery_before_deadline_without_stale_or_compromised_epoch_acceptance",
+  "secondary_endpoints": [
+    "recovery_completion_slot",
+    "contacts_consumed",
+    "cryptographic_bytes_transferred",
+    "transition_attempts",
+    "legacy_exposure_slots",
+    "control_unavailable_slots",
+    "rollback_invoked",
+    "stale_epoch_acceptance",
+    "terminal_state"
+  ],
+  "claim_boundaries": {
+    "empirical_spacecraft_latency_claim_allowed": false,
+    "empirical_rf_performance_claim_allowed": false,
+    "empirical_onboard_pqc_performance_claim_allowed": false,
+    "power_or_energy_claim_allowed": false,
+    "operational_ccsds_pqc_conformance_claim_allowed": false,
+    "synthetic_logical_contact_model_allowed": true,
+    "nist_standard_object_sizes_allowed": true,
+    "study1_or_study2_pooling_allowed": false,
+    "studies1_through7_remain_frozen_and_unpooled": true,
+    "companion_publication_only": true
+  },
+  "gates": {
+    "runtime_authorized": false,
+    "canonical_execution_authorized": false,
+    "implementation_creation_authorized": false,
+    "results_directory_authorized": false,
+    "campaign_authorization_present": false,
+    "independent_adversarial_design_review": "PASS_SEPARATE_STATIC_REVIEW_TRACK_NOT_EXTERNAL_HUMAN_REVIEW"
+  },
+  "review_record": {
+    "review_id": "S8-DESIGN-AR-001",
+    "review_date": "2026-09-02",
+    "independence_boundary": "separate_static_adversarial_review_pass; not represented as an external human or separate laboratory replication",
+    "material_findings_repaired": [
+      "profile labels could be misread as NIST security categories",
+      "deadline boundary was ambiguous",
+      "A1 largest-object tie-break was ambiguous",
+      "policy acceptance/revocation semantics and P3 controller knowledge were underspecified",
+      "terminal failure precedence was underspecified"
+    ],
+    "static_checks": [
+      "3*4*4*4*6*3=3456",
+      "all_24_contact_regime_phase_schedules_unique",
+      "all_four_contact_regimes_equal_65536_bytes_per_complete_cycle",
+      "same_required_crypto_object_bundle_for_all_four_policies",
+      "NIST_FIPS203_and_FIPS204_sizes_match_frozen_budget"
+    ],
+    "disposition": "PASS_AFTER_DESIGN_ONLY_REPAIR"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "authorization_id": "S8-PRERUNTIME-MERGE-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "phase": "8.3-pre-runtime-merge",
+  "authorization_date_local": "2026-09-02",
+  "authorized_parent_head": "6d4f3367d2ba818eea95636c12c548235f7b12f6",
+  "pull_request_number": 88,
+  "final_independent_pre_runtime_review_authorized": true,
+  "merge_authorized": true,
+  "post_merge_ci_confirmation_required": true,
+  "canonical_execution_authorized": false,
+  "campaign_authorization_present": false,
+  "results_generation_authorized": false,
+  "scientific_interpretation_authorized": false,
+  "full_population_case_evaluation_authorized": false,
+  "bound_scientific_artifacts_may_change": false,
+  "separate_campaign_authorization_required_after_post_merge_ci": true,
+  "status": "FINAL_PRE_RUNTIME_REVIEW_AND_MERGE_AUTHORIZED_CANONICAL_EXECUTION_PROHIBITED"
+}

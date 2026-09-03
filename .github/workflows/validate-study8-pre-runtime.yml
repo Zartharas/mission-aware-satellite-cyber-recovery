@@ -1,0 +1,84 @@
+name: Validate Study 8 pre-runtime
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'study8/**'
+      - '.github/workflows/validate-study8-pre-runtime.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  pre-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Validate Study 8 JSON syntax
+        run: |
+          find study8 -type f -name '*.json' -print0 \
+            | sort -z \
+            | while IFS= read -r -d '' file; do
+                echo "json: $file"
+                python -m json.tool "$file" >/dev/null
+              done
+
+      - name: Validate closed Phase 8 gates
+        run: |
+          python study8/scripts/check_phase8_1_implementation_freeze.py
+          python study8/scripts/check_phase8_2_pre_runtime_gate.py
+
+      - name: Compile Study 8 construction code
+        run: |
+          python -m py_compile \
+            study8/src/contact_recovery_model.py \
+            study8/audit/independent_reference.py \
+            study8/tests/test_phase8_models.py \
+            study8/scripts/check_phase8_1_implementation_freeze.py \
+            study8/scripts/check_phase8_2_pre_runtime_gate.py \
+            study8/scripts/check_phase8_hash_binding.py
+
+      - name: Run authorized non-canonical development validation
+        run: python -m unittest discover -s study8/tests -p 'test_*.py' -v
+
+      - name: Confirm canonical artifacts remain absent
+        run: |
+          test ! -e study8/results
+          test ! -e study8/runtime
+          test ! -e study8/CAMPAIGN_AUTHORIZATION.json
+          echo 'canonical_artifacts_absent=PASS'
+
+      - name: Verify bound SHA-256 design and implementation bytes
+        run: python study8/scripts/check_phase8_hash_binding.py
+
+      - name: Report verified SHA-256 bindings
+        run: |
+          echo 'study8_hash_report_begin'
+          sha256sum \
+            study8/STUDY8_PROTOCOL.json \
+            study8/STUDY8_LITERATURE_REGISTER.md \
+            study8/STUDY8_CLAIM_BOUNDARY.md \
+            study8/STUDY8_CONTACT_MODEL.md \
+            study8/STUDY8_CRYPTO_OBJECT_BUDGETS.json \
+            study8/PHASE8_0_AMENDMENT_1.json \
+            study8/PHASE8_1_IMPLEMENTATION_AUTHORIZATION.json \
+            study8/src/contact_recovery_model.py \
+            study8/audit/independent_reference.py \
+            study8/tests/test_phase8_models.py \
+            study8/scripts/check_phase8_1_implementation_freeze.py
+          echo 'study8_hash_report_end'
+
+      - name: Confirm validation produced no tracked-file drift
+        run: git diff --exit-code

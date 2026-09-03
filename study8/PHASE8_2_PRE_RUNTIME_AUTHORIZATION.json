@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "authorization_id": "S8-PRERUNTIME-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "phase": "8.2-pre-runtime",
+  "authorization_date_local": "2026-09-02",
+  "parent_implementation_head": "539132668e3ad86d40a63031d1e188eeaa8df534",
+  "pull_request_number": 88,
+  "status": "PRE_RUNTIME_VALIDATION_AUTHORIZED_CANONICAL_EXECUTION_PROHIBITED",
+  "pre_runtime_pr_authorized": true,
+  "static_validation_authorized": true,
+  "development_fixture_execution_authorized": true,
+  "development_fixture_unique_case_count": 4,
+  "factor_population_shape_enumeration_authorized": true,
+  "full_population_case_evaluation_authorized": false,
+  "canonical_execution_authorized": false,
+  "campaign_authorization_present": false,
+  "results_generation_authorized": false,
+  "scientific_interpretation_authorized": false,
+  "hash_report_authorized": true,
+  "hash_binding_authorized": true,
+  "hash_binding_required_before_pre_runtime_gate_close": true,
+  "merge_authorized": false,
+  "forbidden_paths": [
+    "study8/results",
+    "study8/runtime",
+    "study8/CAMPAIGN_AUTHORIZATION.json"
+  ],
+  "boundary_note": "CI may evaluate only the four explicitly non-canonical development fixture cases. It may enumerate the 3456 factor positions for structural uniqueness/count checks but must not call the scientific case evaluator across that full population."
+}
