@@ -35,10 +35,50 @@ jobs:
                 python -m json.tool "$file" >/dev/null
               done
 
-      - name: Validate closed Phase 8 gates
+      - name: Determine Study 8 lifecycle stage
+        id: stage
+        run: |
+          if test -f study8/CAMPAIGN_AUTHORIZATION.json; then
+            echo 'post_runtime=true' >> "$GITHUB_OUTPUT"
+            echo 'study8_lifecycle=POST_RUNTIME'
+          else
+            echo 'post_runtime=false' >> "$GITHUB_OUTPUT"
+            echo 'study8_lifecycle=PRE_RUNTIME'
+          fi
+
+      - name: Validate closed Phase 8 pre-runtime gates
+        if: steps.stage.outputs.post_runtime != 'true'
         run: |
           python study8/scripts/check_phase8_1_implementation_freeze.py
           python study8/scripts/check_phase8_2_pre_runtime_gate.py
+
+      - name: Validate consumed canonical campaign lineage
+        if: steps.stage.outputs.post_runtime == 'true'
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          auth = json.loads(Path('study8/CAMPAIGN_AUTHORIZATION.json').read_text(encoding='utf-8'))
+          audit = json.loads(Path('study8/results/S8-PQC-ICR-001/independent_audit_summary.json').read_text(encoding='utf-8'))
+
+          assert auth['authorization_id'] == 'S8-CANONICAL-001'
+          assert auth['single_use'] is True
+          assert auth['consumed'] is True
+          assert auth['canonical_execution_completed'] is True
+          assert auth['independent_reproduction_completed'] is True
+          assert auth['rowwise_audit_completed'] is True
+          assert auth['rowwise_audit_mismatch_count'] == 0
+          assert auth['consumed_by_github_run_id'] == 33712942896
+          assert auth['consumed_by_run_attempt'] == 1
+
+          assert audit['primary_rows'] == 3456
+          assert audit['independent_rows'] == 3456
+          assert audit['exact_row_matches'] == 3456
+          assert audit['mismatch_count'] == 0
+          assert audit['all_rows_match'] is True
+          print('post_runtime_campaign_lineage=PASS')
+          PY
 
       - name: Compile Study 8 construction code
         run: |
@@ -54,11 +94,21 @@ jobs:
         run: python -m unittest discover -s study8/tests -p 'test_*.py' -v
 
       - name: Confirm canonical artifacts remain absent
+        if: steps.stage.outputs.post_runtime != 'true'
         run: |
           test ! -e study8/results
           test ! -e study8/runtime
           test ! -e study8/CAMPAIGN_AUTHORIZATION.json
           echo 'canonical_artifacts_absent=PASS'
+
+      - name: Confirm post-runtime canonical artifacts are audited
+        if: steps.stage.outputs.post_runtime == 'true'
+        run: |
+          test -f study8/CAMPAIGN_AUTHORIZATION.json
+          test -f study8/results/S8-PQC-ICR-001/canonical_observations.csv
+          test -f study8/results/S8-PQC-ICR-001/independent_reproduction.csv
+          test -f study8/results/S8-PQC-ICR-001/independent_audit_summary.json
+          echo 'post_runtime_canonical_artifacts_audited=PASS'
 
       - name: Verify bound SHA-256 design and implementation bytes
         run: python study8/scripts/check_phase8_hash_binding.py
