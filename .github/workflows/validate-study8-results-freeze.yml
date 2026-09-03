@@ -6,6 +6,11 @@ on:
     paths:
       - 'study8/**'
       - '.github/workflows/validate-study8-results-freeze.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'study8/**'
+      - '.github/workflows/validate-study8-results-freeze.yml'
 
 permissions:
   contents: read
@@ -35,17 +40,21 @@ jobs:
                 python -m json.tool "$file" >/dev/null
               done
 
-      - name: Compile Phase 8.6 checkers
+      - name: Compile Study 8 freeze and closeout checkers
         run: |
           python -m py_compile \
             study8/analysis/scripts/check_phase8_6_freeze_candidate.py \
-            study8/analysis/scripts/check_phase8_6_results_freeze.py
+            study8/analysis/scripts/check_phase8_6_results_freeze.py \
+            study8/scripts/check_study8_technical_close.py
 
       - name: Verify Phase 8.6 source candidate
         run: python study8/analysis/scripts/check_phase8_6_freeze_candidate.py
 
       - name: Verify hash-bound Phase 8.6 results freeze
         run: python study8/analysis/scripts/check_phase8_6_results_freeze.py
+
+      - name: Verify Study 8 technical close
+        run: python study8/scripts/check_study8_technical_close.py
 
       - name: Confirm scientific evidence is unchanged from Phase 8.5 audited head
         run: |
