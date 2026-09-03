@@ -1,0 +1,40 @@
+{
+  "amendment_id": "S8-DESIGN-AMEND-001",
+  "campaign_authorization_present": false,
+  "canonical_execution_authorized": false,
+  "contact_regimes_changed": false,
+  "cryptographic_object_budgets_changed": false,
+  "date_local": "2026-09-02",
+  "disruption_schedules_changed": false,
+  "experiment_id": "S8-PQC-ICR-001",
+  "factor_lattice_changed": false,
+  "parent_design_lock_commit": "b5172e1d4ba79b60b8fccbd119f087a33c6fd037",
+  "phase": "8.1-pre-runtime",
+  "population_observations_after": 3456,
+  "population_observations_before": 3456,
+  "repairs": {
+    "a2_contact_semantics": {
+      "finding": "A2 did not state whether remaining capacity in the contact where proof becomes ready counts as the withheld opportunity.",
+      "repair": "the contact in which transition proof first becomes ready is the single withheld eligible contact; proof bytes cannot use its remaining capacity"
+    },
+    "p3_terminal_overlap": {
+      "finding": "the generic insufficient-transfer predicate and the specific P3 guard-block predicate can overlap.",
+      "repair": "when the P3 guard actively blocks commit, CONTACT_BUDGET_EXHAUSTED is the specific terminal classification; otherwise generic incomplete pre-commit transfer may classify as INSUFFICIENT_MATERIAL_TRANSFER"
+    },
+    "policy_alias_endpoint": {
+      "claim_boundary": "logical slot-index separation only; not empirical exposure time, operational risk, or latency",
+      "definition": "for P2 only, max(0, min(commit_slot_or_deadline, deadline) - proof_accepted_slot); zero when proof is not accepted or for non-P2 policies",
+      "finding": "P1_STAGED_CUTOVER and P2_HYBRID_OVERLAP were observationally aliased under the Phase-8.0 endpoint set because successor pre-commit acceptance was not measured.",
+      "repair": "add dual_epoch_overlap_slots as a secondary modeled policy-state endpoint"
+    },
+    "truncated_schedule_multiplicity": {
+      "finding": "R1 phase offsets 1/4 and 2/5 produce identical pre-deadline contact-slot sets at D12 and D24 even though their full 48-slot schedules are distinct.",
+      "repair": "retain all six equally weighted phase-factor positions; record the multiplicity explicitly and do not claim all deadline-truncated schedules are unique"
+    }
+  },
+  "results_generation_authorized": false,
+  "runtime_authorized": false,
+  "schema": 1,
+  "status": "PRE_RUNTIME_DESIGN_AMENDMENT_LOCKED_NO_POPULATION_CHANGE",
+  "trigger": "implementation_construction_adversarial_review"
+}
