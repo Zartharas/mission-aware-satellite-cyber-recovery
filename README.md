@@ -32,6 +32,8 @@ This repository contains **two separately frozen empirical studies supporting th
 
 ### Study 8 — separately frozen companion study
 
+Study 8 is a **separate companion study** and is not a third population in the existing Study-1/Study-2 journal article.
+
 Study 8 (`S8-PQC-ICR-001`) evaluates trusted post-compromise recovery under finite logical contact budgets while varying cryptographic-transition policy, standardized ML-KEM/ML-DSA object-byte burden, contact regime, bounded modeled disruption, compromise-phase offset, and logical deadline.
 
 - frozen factorial population: **3,456 modeled observations**;
