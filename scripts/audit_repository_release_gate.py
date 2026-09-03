@@ -8,10 +8,10 @@ must not influence a publication/release decision.
 
 This wrapper creates a detached temporary worktree at HEAD, overlays the caller's
 Git-tracked working-tree state (including tracked modifications, staged additions,
-and tracked deletions), runs the historical/canonical core audit, and then runs the
-current Study-8 publication-state overlay. Untracked and ignored files are excluded by
-construction. No scientific runtime is started and no tracked repository file is
-modified.
+and tracked deletions), runs the historical/canonical core audit, then runs the
+current Study-8 publication-state overlay and the Repository Review v3 remediation
+current-state audit. Untracked and ignored files are excluded by construction. No
+scientific runtime is started and no tracked repository file is modified.
 """
 
 from __future__ import annotations
@@ -26,6 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CORE_REL = Path("scripts/audit_repository_release_gate_core.py")
 S8_CURRENT_REL = Path("scripts/audit_study8_publication_current_state.py")
+REVIEW_V3_REL = Path("scripts/audit_repository_review_v3_remediation.py")
 
 
 def git_paths(*args: str) -> set[Path]:
@@ -122,6 +123,8 @@ def main() -> int:
                 if run_gate(audit_root, CORE_REL, "core") != 0:
                     return 1
                 if run_gate(audit_root, S8_CURRENT_REL, "study8_publication_current_state") != 0:
+                    return 1
+                if run_gate(audit_root, REVIEW_V3_REL, "repository_review_v3_remediation") != 0:
                     return 1
                 print("release_gate_wrapper=PASS")
                 return 0
