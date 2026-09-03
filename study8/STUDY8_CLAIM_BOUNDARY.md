@@ -2,7 +2,7 @@
 
 **Experiment:** `S8-PQC-ICR-001`  
 **Phase:** 8.0  
-**Status:** `BOUNDARY_LOCK_CANDIDATE_RUNTIME_NOT_AUTHORIZED`
+**Status:** `BOUNDARY_LOCKED_RUNTIME_NOT_AUTHORIZED`
 
 ## Permitted scientific quantities
 
@@ -42,7 +42,7 @@ Logical slots have no conversion factor to seconds or milliseconds.
 
 ## Standards boundary
 
-FIPS 203 and FIPS 204 are used only for standardized algorithm/object definitions and byte sizes. NIST standardization does not make the Phase-8 transition protocol NIST-approved.
+FIPS 203 and FIPS 204 are used only for standardized algorithm/object definitions and byte sizes. NIST standardization does not make the Phase-8 transition protocol NIST-approved. The profile identifiers name exact ML-KEM/ML-DSA pairs and must not be described as matched NIST security-category profiles.
 
 CCSDS algorithm independence supports an architectural crypto-agility question. It does not establish ML-KEM or ML-DSA as a CCSDS-approved operational space-link suite.
 

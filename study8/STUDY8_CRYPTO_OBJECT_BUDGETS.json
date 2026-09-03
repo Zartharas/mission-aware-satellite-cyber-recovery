@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "experiment_id": "S8-PQC-ICR-001",
-  "status": "STANDARD_OBJECT_BUDGET_CANDIDATE_RUNTIME_NOT_AUTHORIZED",
+  "status": "STANDARD_OBJECT_BUDGET_LOCKED_RUNTIME_NOT_AUTHORIZED",
   "sources": {
     "ML-KEM": {
       "standard": "NIST FIPS 203",
@@ -25,8 +25,9 @@
     "private_keys_transmitted": false,
     "note": "The four logical signature objects are an experimental transition-protocol abstraction, not a prescribed NIST or CCSDS protocol."
   },
+  "profile_label_semantics": "profile names identify exact algorithm pairs and do not assert matched NIST security categories",
   "profiles": {
-    "Q1": {
+    "PROFILE_512_44": {
       "kem": "ML-KEM-512",
       "signature": "ML-DSA-44",
       "standard_sizes_bytes": {
@@ -50,7 +51,7 @@
       "base_transition_crypto_bytes": 12560,
       "largest_modeled_object_bytes": 2420
     },
-    "Q3": {
+    "PROFILE_768_65": {
       "kem": "ML-KEM-768",
       "signature": "ML-DSA-65",
       "standard_sizes_bytes": {
@@ -74,7 +75,7 @@
       "base_transition_crypto_bytes": 17460,
       "largest_modeled_object_bytes": 3309
     },
-    "Q5": {
+    "PROFILE_1024_87": {
       "kem": "ML-KEM-1024",
       "signature": "ML-DSA-87",
       "standard_sizes_bytes": {
@@ -98,5 +99,11 @@
       "base_transition_crypto_bytes": 24236,
       "largest_modeled_object_bytes": 4627
     }
+  },
+  "review_record": {
+    "review_id": "S8-DESIGN-AR-001",
+    "finding": "original Q1/Q3/Q5 labels could imply aligned NIST security categories; renamed to exact algorithm-pair identifiers",
+    "disposition": "REPAIRED",
+    "all_policies_use_same_required_object_bundle": true
   }
 }

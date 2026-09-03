@@ -1,7 +1,7 @@
 # Study 8 Synthetic Contact Model
 
 **Experiment:** `S8-PQC-ICR-001`  
-**Phase:** 8.0 design candidate  
+**Phase:** 8.0 design locked  
 **Model type:** deterministic finite logical-time/contact-budget model  
 **Runtime status:** not authorized
 
@@ -79,7 +79,7 @@ The offsets are design factors only; they do not correspond to orbital phase, cl
 
 ## Recovery deadlines
 
-Three logical deadlines are candidates:
+Three logical deadlines are frozen:
 
 ```text
 D12 = 12 slots
@@ -87,7 +87,27 @@ D24 = 24 slots
 D48 = 48 slots
 ```
 
-A recovery is on time only when `TRUST_RESTORED` is reached strictly within the selected finite horizon according to the frozen implementation convention. The exact boundary convention (`< deadline` versus `<= deadline`) must be fixed in the independent design review before implementation.
+A recovery is on time only when `TRUST_RESTORED` is reached at a completion slot strictly less than the selected deadline. Thus `D12` permits completion slots `0..11`, `D24` permits `0..23`, and `D48` permits `0..47`.
+
+## Common deterministic transmission scheduler
+
+All four recovery policies use the same required cryptographic-object bundle and the same byte scheduler. Policy treatment changes epoch-acceptance/revocation semantics and, for P3, the pre-commit guard; it does not change the required NIST-derived byte burden.
+
+Frozen object priority:
+
+```text
+1 recovery_authority_assertion_signature
+2 successor_kem_encapsulation_key
+3 successor_signature_verification_key
+4 kem_ciphertext
+5 transition_proof_signature
+6 new_epoch_commit_signature
+7 post_commit_confirmation_signature
+```
+
+Within each contact, the model repeatedly transfers bytes from the highest-priority ready incomplete object. When an object completes and unlocks a dependent object, that newly ready object may consume remaining capacity in the same logical contact. Partial bytes persist into later contacts unless A1 discards them.
+
+The scheduler is an experimental logical mechanism, not a claim about CCSDS packetization, RF framing, or implementation behavior.
 
 ## Disruption schedules
 
@@ -97,7 +117,7 @@ No adversarial transport disruption.
 
 ### A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT
 
-Identify the largest cryptographic object in the selected Q-profile. The first contact allocation carrying bytes of that object is discarded once. The contact capacity consumed by those bytes is not restored. The object must retransmit the lost bytes in later contact capacity.
+Identify the largest cryptographic-object size in the selected profile. If multiple modeled objects tie for that size, select the earliest object in the frozen common transmission priority. The first contact allocation carrying bytes of that selected object is discarded once. The contact capacity consumed by those bytes is not restored. The object must retransmit the lost bytes in later contact capacity.
 
 This is a transport-disruption abstraction, not cryptanalysis.
 
@@ -123,3 +143,9 @@ A conforming implementation must:
 6. treat A3 as replay of a valid stale object rather than a forgery;
 7. terminate deterministically at either `TRUST_RESTORED` or one frozen terminal failure state;
 8. emit enough provenance to independently reconstruct every observation.
+
+## P3 visibility boundary
+
+`P3_CONTACT_AWARE_STAGED` may inspect only the frozen contact schedule, compromise phase offset, selected logical deadline, selected profile object sizes, bytes already delivered, and current protocol state. It may not inspect future A1/A2/A3 disruption events or any unobserved future outcome.
+
+The pre-commit guard passes only when scheduled contact capacity strictly before the deadline is sufficient for the unsent bytes of the new-epoch commit signature plus the post-commit confirmation signature.
