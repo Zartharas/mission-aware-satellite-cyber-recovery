@@ -35,11 +35,17 @@ jobs:
                 python -m json.tool "$file" >/dev/null
               done
 
-      - name: Compile Phase 8.6 checker
-        run: python -m py_compile study8/analysis/scripts/check_phase8_6_freeze_candidate.py
+      - name: Compile Phase 8.6 checkers
+        run: |
+          python -m py_compile \
+            study8/analysis/scripts/check_phase8_6_freeze_candidate.py \
+            study8/analysis/scripts/check_phase8_6_results_freeze.py
 
-      - name: Verify Phase 8.6 freeze candidate
+      - name: Verify Phase 8.6 source candidate
         run: python study8/analysis/scripts/check_phase8_6_freeze_candidate.py
+
+      - name: Verify hash-bound Phase 8.6 results freeze
+        run: python study8/analysis/scripts/check_phase8_6_results_freeze.py
 
       - name: Confirm scientific evidence is unchanged from Phase 8.5 audited head
         run: |
@@ -65,22 +71,13 @@ jobs:
             study8/analysis/results/independent_findings.json
           echo 'independent_findings_byte_identity=PASS'
 
-      - name: Report candidate SHA-256 freeze bindings
+      - name: Verify SHA-256 sums file
+        run: sha256sum -c study8/analysis/RESULTS_FREEZE_SHA256SUMS.txt
+
+      - name: Report verified SHA-256 freeze bindings
         run: |
           echo 'study8_results_freeze_hash_report_begin'
-          sha256sum \
-            study8/results/S8-PQC-ICR-001/canonical_observations.csv \
-            study8/CAMPAIGN_AUTHORIZATION.json \
-            study8/analysis/PHASE8_5_ANALYSIS_AUTHORIZATION.json \
-            study8/analysis/PHASE8_5_STATISTICAL_ANALYSIS_PLAN.json \
-            study8/analysis/src/analyze_phase8.py \
-            study8/analysis/audit/independent_statistical_reproduction.py \
-            study8/analysis/audit/audit_phase8_findings.py \
-            study8/analysis/results/primary_findings.json \
-            study8/analysis/results/independent_findings.json \
-            study8/analysis/results/findings_audit.json \
-            study8/analysis/results/analysis_provenance.json \
-            study8/analysis/results/interpretation_audit.json
+          cat study8/analysis/RESULTS_FREEZE_SHA256SUMS.txt
           echo 'study8_results_freeze_hash_report_end'
 
       - name: Confirm validation produced no tracked-file drift
