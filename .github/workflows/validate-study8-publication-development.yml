@@ -42,6 +42,9 @@ jobs:
       - name: Validate publication projection against frozen findings
         run: python publication/study8/scripts/check_publication_projection.py
 
+      - name: Validate verified publication literature metadata
+        run: python publication/study8/scripts/check_publication_literature.py
+
       - name: Validate publication-development control JSON
         run: |
           python -m json.tool study8/PUBLICATION_DEVELOPMENT_AUTHORIZATION.json >/dev/null
