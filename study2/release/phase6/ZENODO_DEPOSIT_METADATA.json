@@ -40,10 +40,10 @@
     "github_actions_artifact_id": 9816191406
   },
   "release_decision": "APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER",
-  "prohibitions": {
-    "reuse_study1_doi": false,
-    "invent_doi_before_publication": false,
-    "modify_or_rezip_source_evidence": false,
-    "claim_operational_spacecraft_validation": false
+  "governance": {
+    "reuse_study1_doi_allowed": false,
+    "invent_doi_before_publication_allowed": false,
+    "modify_or_rezip_source_evidence_allowed": false,
+    "claim_operational_spacecraft_validation_allowed": false
   }
 }
