@@ -1,0 +1,16 @@
+{
+  "analyzed_rows": 3456,
+  "byte_identical_findings": true,
+  "experiment_id": "S8-PQC-ICR-001",
+  "findings_interpretation_completed": false,
+  "independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+  "object_identical_findings": true,
+  "plan_id": "S8-SAP-001",
+  "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+  "results_merge_authorized": false,
+  "sampling_inference_performed": false,
+  "schema": 1,
+  "source_dataset_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "statistical_findings_frozen": false,
+  "status": "INDEPENDENT_STATISTICAL_REPRODUCTION_PASS_FINDINGS_NOT_FROZEN"
+}
