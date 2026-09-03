@@ -1,6 +1,8 @@
 # Publication Package
 
-This directory is the human-facing publication layer for the **journal article**. The active manuscript reports **two separately frozen empirical studies**. Historical Study-1 publication artifacts retain stable paths for provenance, while Study 2 is integrated without pooling or rewriting the Study-1 population.
+This directory is the human-facing publication layer for the **existing Study-1/Study-2 journal article**. The active manuscript reports **two separately frozen empirical studies**. Historical Study-1 publication artifacts retain stable paths for provenance, while Study 2 is integrated without pooling or rewriting the Study-1 population.
+
+**Study 8 (`S8-PQC-ICR-001`) is technically closed but is not part of this manuscript.** It is a separately frozen deterministic modeled companion-study stream under [`../study8/`](../study8/README.md). A later explicit publication-integration gate is required before a Study-8 companion-paper package is created. Do not silently insert Study-8 results into the manuscript indexed here.
 
 ## 1. Authoritative manuscript order
 
@@ -26,6 +28,8 @@ Assembly and submission controls:
 - [`manuscript/submission-inputs.csv`](manuscript/submission-inputs.csv)
 
 **Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The exact Study-2 Phase-6 source evidence has passed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`. The remaining pre-submission archive object is the **responsible-release-reviewed DOI archive**: the review portion is complete, while durable Study-2 DOI publication, public checksum verification, and DOI insertion remain pending. Submission-day live-policy/portal verification and exact-export citation/DOI/frozen-claim/scope audits follow.
+
+In parallel, Study 8 is now technically closed at `main` commit `63106778559c3127a7d6e8765d52939b73a3f35b` after PR #89 and successful post-merge run `33761681328`. That close does **not** alter the two-study manuscript indexed here and does not itself authorize Study-8 publication integration.
 
 ## 2. Frozen study boundaries
 
@@ -53,6 +57,20 @@ Assembly and submission controls:
 
 The two statistical populations are **not pooled**. Study 2 is a separately frozen empirical extension and does not change Study-1 observations, statistical estimates, or historical Zenodo v1.0.0.
 
+### Study 8 — outside this manuscript
+
+Study 8 is retained under [`../study8/`](../study8/README.md) as a separate deterministic finite modeled study:
+
+- 3,456 canonical modeled observations;
+- 3,456 independent implementation-level recomputations;
+- 0 row mismatches;
+- all four policies: `635/864` trusted-recovery success;
+- prespecified `P3 - P1`: `0/1` (`0.000000` percentage points);
+- canonical observations SHA-256: `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`;
+- primary/independent findings SHA-256: `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`.
+
+These records are **not** a third population in the current journal article. Future Study-8 publication work must use a dedicated companion-paper package and preserve the finite-model/no-operational-performance claim boundary.
+
 ## 3. Main publication displays
 
 ### Study-1 frozen displays
@@ -78,17 +96,21 @@ R7/S2 summarize the frozen Phase-7 empirical/statistical record. S3 summarizes p
 
 The detailed SPARTA mapping rules and non-claims are recorded in [`../docs/49-sparta-v4.0.1-research-traceability.md`](../docs/49-sparta-v4.0.1-research-traceability.md).
 
+No Study-8 figure/table is part of this directory yet. Creating those displays is future companion-paper publication work and must derive from the frozen `../study8/analysis/` and `../study8/results/` records without changing them.
+
 ## 4. Data and reproducibility status
 
 **Study 1:** the public source-evidence archive is Zenodo v1.0.0, version DOI `10.5281/zenodo.22181540`, concept DOI `10.5281/zenodo.22181539`.
 
 **Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source ZIP is cryptographically bound and has completed responsible-release review without any source-evidence or frozen-science modification. It is not yet represented as a DOI-bearing public evidence release. A DOI must be recorded only after the exact approved ZIP is published and the public checksum is independently verified.
 
-See [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md) for the distinction between Study-1 reproduction, Study-2 independent audit, safe repository validation, and any future new replication.
+**Study 8:** canonical/statistical evidence is hash-frozen in Git. Use `../study8/analysis/RESULTS_FREEZE_MANIFEST.json` and `../study8/STUDY8_TECHNICAL_CLOSE.json`. Study 8 has no DOI/publication identity yet, and one must not be invented before an actual release/publication gate.
+
+See [`../docs/REPRODUCIBILITY_GUIDE.md`](../docs/REPRODUCIBILITY_GUIDE.md) for the distinction between Study-1 reproduction, Study-2 independent audit, safe Study-8 frozen-result verification, general repository validation, and any future new replication.
 
 ## 5. Journal interpretation boundaries
 
-Any reuse or export must preserve all of the following:
+Any reuse or export of the existing journal article must preserve all of the following:
 
 - Study 1 = exactly 720 VALID observations; Study 2 = exactly 3,872 VALID observations; never report a pooled statistical population.
 - Study-1 P1 remains unsupported on its predeclared primary outcomes.
@@ -102,9 +124,20 @@ Any reuse or export must preserve all of the following:
 - Study-2 secondary n=32 blocks are estimation/sensitivity evidence, not prospectively powered small-effect confirmatory evidence.
 - SPARTA v4.0.1 mappings are behavioral/taxonomy correspondence only; A0–A3 and K0–K4 are not SPARTA techniques and no compliance claim is supported.
 - No weighted global score, global policy rank, operational spacecraft claim, RF claim, real-link latency claim, flightworthiness claim, or certification claim is supported.
+- Study-8 results must not be presented as part of this two-study article unless a later explicit integration decision changes the manuscript scope.
+
+For future Study-8 companion-paper work, additionally preserve:
+
+- `P3 - P1 = 0/1` as the frozen negative primary result;
+- the 3,456 positions as a complete deterministic finite factorial population, not a sample;
+- no sampling p-values or sampling confidence intervals;
+- logical slots as model indices rather than operational time;
+- standardized ML-KEM/ML-DSA object bytes as modeled byte burden rather than measured onboard execution performance.
 
 ## 6. Submission package
 
-The primary venue package is under [`submission/computers-and-security/`](submission/computers-and-security/). Its two-study reconciliation and Study-2 responsible-release review are complete; remaining work is the Study-2 DOI publication/public-checksum/DOI-insertion gate plus live publisher-policy/portal checks and exact-export validation on the actual submission date.
+The primary venue package under [`submission/computers-and-security/`](submission/computers-and-security/) belongs to the existing Study-1/Study-2 article. Its two-study reconciliation and Study-2 responsible-release review are complete; remaining work is the Study-2 DOI publication/public-checksum/DOI-insertion gate plus live publisher-policy/portal checks and exact-export validation on the actual submission date.
 
-The manuscript source remains target-neutral. Do not maintain a second manually copied full manuscript in the submission directory.
+Do **not** reuse that submission package for Study 8 by simply adding Study-8 text or files. The Study-8 companion paper requires a separate publication/submission package after an explicit publication-integration gate.
+
+The existing manuscript source remains target-neutral. Do not maintain a second manually copied full manuscript in the submission directory.
