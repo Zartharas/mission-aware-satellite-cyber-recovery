@@ -47,9 +47,10 @@ def main() -> None:
     assert auth["analysis_reexecution_authorized"] is False
     assert auth["scientific_files_may_change"] is False
 
-    assert phase5_auth["analysis_authorized"] is True
+    assert phase5_auth["statistical_analysis_authorized"] is True
     assert phase5_auth["results_merge_authorized"] is False
     assert phase5_auth["statistical_findings_freeze_authorized"] is False
+    assert phase5_auth["sampling_inference_authorized"] is False
 
     assert plan["plan_id"] == "S8-SAP-001"
     assert plan["population_semantics"] == "complete_deterministic_finite_population"
