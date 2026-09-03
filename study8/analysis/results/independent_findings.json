@@ -1,0 +1,1343 @@
+{
+  "claim_boundary": "modeled logical contact/recovery behavior and standardized cryptographic-object byte budgets only",
+  "cryptographic_profile_analysis": {
+    "contrasts": [
+      {
+        "decimal_6": "-0.288194",
+        "denominator": 288,
+        "fraction": "-83/288",
+        "left": "PROFILE_768_65",
+        "left_successes": 748,
+        "left_total": 1152,
+        "numerator": -83,
+        "percentage_points_6": "-28.819444",
+        "right": "PROFILE_512_44",
+        "right_successes": 1080,
+        "right_total": 1152
+      },
+      {
+        "decimal_6": "-0.319444",
+        "denominator": 72,
+        "fraction": "-23/72",
+        "left": "PROFILE_1024_87",
+        "left_successes": 712,
+        "left_total": 1152,
+        "numerator": -23,
+        "percentage_points_6": "-31.944444",
+        "right": "PROFILE_512_44",
+        "right_successes": 1080,
+        "right_total": 1152
+      },
+      {
+        "decimal_6": "-0.031250",
+        "denominator": 32,
+        "fraction": "-1/32",
+        "left": "PROFILE_1024_87",
+        "left_successes": 712,
+        "left_total": 1152,
+        "numerator": -1,
+        "percentage_points_6": "-3.125000",
+        "right": "PROFILE_768_65",
+        "right_successes": 748,
+        "right_total": 1152
+      }
+    ],
+    "marginal_success_by_profile": {
+      "PROFILE_1024_87": {
+        "decimal_6": "0.618056",
+        "denominator": 144,
+        "fraction": "89/144",
+        "numerator": 89,
+        "successes": 712,
+        "total": 1152
+      },
+      "PROFILE_512_44": {
+        "decimal_6": "0.937500",
+        "denominator": 16,
+        "fraction": "15/16",
+        "numerator": 15,
+        "successes": 1080,
+        "total": 1152
+      },
+      "PROFILE_768_65": {
+        "decimal_6": "0.649306",
+        "denominator": 288,
+        "fraction": "187/288",
+        "numerator": 187,
+        "successes": 748,
+        "total": 1152
+      }
+    },
+    "paired_ordered_profile_check": {
+      "non_increasing_success_pattern_count": 1152,
+      "non_increasing_success_pattern_proportion": {
+        "decimal_6": "1.000000",
+        "denominator": 1,
+        "fraction": "1/1",
+        "numerator": 1,
+        "successes": 1152,
+        "total": 1152
+      },
+      "pattern_counts": {
+        "000": 72,
+        "100": 332,
+        "110": 36,
+        "111": 712
+      },
+      "positions": 1152
+    }
+  },
+  "experiment_id": "S8-PQC-ICR-001",
+  "inference_policy": {
+    "bootstrap": false,
+    "permutation_tests": false,
+    "sampling_confidence_intervals": false,
+    "sampling_p_values": false
+  },
+  "plan_id": "S8-SAP-001",
+  "population_semantics": "complete_deterministic_finite_population",
+  "population_validation": {
+    "canonical_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+    "full_cartesian_lattice_exact": true,
+    "non_p2_dual_epoch_overlap_zero": true,
+    "policy_counts": {
+      "P0_HARD_CUTOVER": 864,
+      "P1_STAGED_CUTOVER": 864,
+      "P2_HYBRID_OVERLAP": 864,
+      "P3_CONTACT_AWARE_STAGED": 864
+    },
+    "row_count": 3456,
+    "unique_factor_positions": 3456,
+    "unique_observation_ids": 3456
+  },
+  "primary": {
+    "P3_minus_P1_success_risk_difference": {
+      "decimal_6": "0.000000",
+      "denominator": 1,
+      "fraction": "0/1",
+      "left_successes": 635,
+      "left_total": 864,
+      "numerator": 0,
+      "percentage_points_6": "0.000000",
+      "right_successes": 635,
+      "right_total": 864
+    },
+    "policy_success": {
+      "P0_HARD_CUTOVER": {
+        "decimal_6": "0.734954",
+        "denominator": 864,
+        "fraction": "635/864",
+        "numerator": 635,
+        "successes": 635,
+        "total": 864
+      },
+      "P1_STAGED_CUTOVER": {
+        "decimal_6": "0.734954",
+        "denominator": 864,
+        "fraction": "635/864",
+        "numerator": 635,
+        "successes": 635,
+        "total": 864
+      },
+      "P2_HYBRID_OVERLAP": {
+        "decimal_6": "0.734954",
+        "denominator": 864,
+        "fraction": "635/864",
+        "numerator": 635,
+        "successes": 635,
+        "total": 864
+      },
+      "P3_CONTACT_AWARE_STAGED": {
+        "decimal_6": "0.734954",
+        "denominator": 864,
+        "fraction": "635/864",
+        "numerator": 635,
+        "successes": 635,
+        "total": 864
+      }
+    }
+  },
+  "results_merge_authorized": false,
+  "schema": 1,
+  "secondary_by_policy": {
+    "P0_HARD_CUTOVER": {
+      "contacts_consumed": {
+        "max": 7,
+        "mean": {
+          "decimal_6": "2.864583",
+          "denominator": 96,
+          "fraction": "275/96",
+          "numerator": 275
+        },
+        "median": {
+          "decimal_6": "2.000000",
+          "denominator": 1,
+          "fraction": "2/1",
+          "numerator": 2
+        },
+        "min": 1,
+        "n": 864,
+        "sum": 2475
+      },
+      "control_unavailable_slots": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "12.195602",
+          "denominator": 864,
+          "fraction": "10537/864",
+          "numerator": 10537
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 10537
+      },
+      "cryptographic_bytes_transferred": {
+        "max": 28863,
+        "mean": {
+          "decimal_6": "16985.531250",
+          "denominator": 32,
+          "fraction": "543537/32",
+          "numerator": 543537
+        },
+        "median": {
+          "decimal_6": "16384.000000",
+          "denominator": 1,
+          "fraction": "16384/1",
+          "numerator": 16384
+        },
+        "min": 5300,
+        "n": 864,
+        "sum": 14675499
+      },
+      "dual_epoch_overlap_slots": {
+        "max": 0,
+        "mean": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "median": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 0
+      },
+      "legacy_exposure_slots": {
+        "max": 0,
+        "mean": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "median": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 0
+      },
+      "recovery_completion_slot_successes_only": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "13.703937",
+          "denominator": 635,
+          "fraction": "8702/635",
+          "numerator": 8702
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 635,
+        "sum": 8702
+      },
+      "rollback_invoked": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "stale_epoch_acceptance": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "terminal_state": {
+        "EPOCH_DIVERGENCE": {
+          "decimal_6": "0.060185",
+          "denominator": 216,
+          "fraction": "13/216",
+          "numerator": 13,
+          "successes": 52,
+          "total": 864
+        },
+        "INSUFFICIENT_MATERIAL_TRANSFER": {
+          "decimal_6": "0.204861",
+          "denominator": 288,
+          "fraction": "59/288",
+          "numerator": 59,
+          "successes": 177,
+          "total": 864
+        },
+        "TRUST_RESTORED": {
+          "decimal_6": "0.734954",
+          "denominator": 864,
+          "fraction": "635/864",
+          "numerator": 635,
+          "successes": 635,
+          "total": 864
+        }
+      },
+      "transition_attempts": {
+        "max": 2,
+        "mean": {
+          "decimal_6": "1.040509",
+          "denominator": 864,
+          "fraction": "899/864",
+          "numerator": 899
+        },
+        "median": {
+          "decimal_6": "1.000000",
+          "denominator": 1,
+          "fraction": "1/1",
+          "numerator": 1
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 899
+      }
+    },
+    "P1_STAGED_CUTOVER": {
+      "contacts_consumed": {
+        "max": 7,
+        "mean": {
+          "decimal_6": "2.864583",
+          "denominator": 96,
+          "fraction": "275/96",
+          "numerator": 275
+        },
+        "median": {
+          "decimal_6": "2.000000",
+          "denominator": 1,
+          "fraction": "2/1",
+          "numerator": 2
+        },
+        "min": 1,
+        "n": 864,
+        "sum": 2475
+      },
+      "control_unavailable_slots": {
+        "max": 0,
+        "mean": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "median": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 0
+      },
+      "cryptographic_bytes_transferred": {
+        "max": 28863,
+        "mean": {
+          "decimal_6": "16985.531250",
+          "denominator": 32,
+          "fraction": "543537/32",
+          "numerator": 543537
+        },
+        "median": {
+          "decimal_6": "16384.000000",
+          "denominator": 1,
+          "fraction": "16384/1",
+          "numerator": 16384
+        },
+        "min": 5300,
+        "n": 864,
+        "sum": 14675499
+      },
+      "dual_epoch_overlap_slots": {
+        "max": 0,
+        "mean": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "median": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 0
+      },
+      "legacy_exposure_slots": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "12.195602",
+          "denominator": 864,
+          "fraction": "10537/864",
+          "numerator": 10537
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 10537
+      },
+      "recovery_completion_slot_successes_only": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "13.703937",
+          "denominator": 635,
+          "fraction": "8702/635",
+          "numerator": 8702
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 635,
+        "sum": 8702
+      },
+      "rollback_invoked": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "stale_epoch_acceptance": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "terminal_state": {
+        "EPOCH_DIVERGENCE": {
+          "decimal_6": "0.060185",
+          "denominator": 216,
+          "fraction": "13/216",
+          "numerator": 13,
+          "successes": 52,
+          "total": 864
+        },
+        "INSUFFICIENT_MATERIAL_TRANSFER": {
+          "decimal_6": "0.204861",
+          "denominator": 288,
+          "fraction": "59/288",
+          "numerator": 59,
+          "successes": 177,
+          "total": 864
+        },
+        "TRUST_RESTORED": {
+          "decimal_6": "0.734954",
+          "denominator": 864,
+          "fraction": "635/864",
+          "numerator": 635,
+          "successes": 635,
+          "total": 864
+        }
+      },
+      "transition_attempts": {
+        "max": 2,
+        "mean": {
+          "decimal_6": "1.040509",
+          "denominator": 864,
+          "fraction": "899/864",
+          "numerator": 899
+        },
+        "median": {
+          "decimal_6": "1.000000",
+          "denominator": 1,
+          "fraction": "1/1",
+          "numerator": 1
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 899
+      }
+    },
+    "P2_HYBRID_OVERLAP": {
+      "contacts_consumed": {
+        "max": 7,
+        "mean": {
+          "decimal_6": "2.864583",
+          "denominator": 96,
+          "fraction": "275/96",
+          "numerator": 275
+        },
+        "median": {
+          "decimal_6": "2.000000",
+          "denominator": 1,
+          "fraction": "2/1",
+          "numerator": 2
+        },
+        "min": 1,
+        "n": 864,
+        "sum": 2475
+      },
+      "control_unavailable_slots": {
+        "max": 0,
+        "mean": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "median": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 0
+      },
+      "cryptographic_bytes_transferred": {
+        "max": 28863,
+        "mean": {
+          "decimal_6": "16985.531250",
+          "denominator": 32,
+          "fraction": "543537/32",
+          "numerator": 543537
+        },
+        "median": {
+          "decimal_6": "16384.000000",
+          "denominator": 1,
+          "fraction": "16384/1",
+          "numerator": 16384
+        },
+        "min": 5300,
+        "n": 864,
+        "sum": 14675499
+      },
+      "dual_epoch_overlap_slots": {
+        "max": 15,
+        "mean": {
+          "decimal_6": "3.403935",
+          "denominator": 864,
+          "fraction": "2941/864",
+          "numerator": 2941
+        },
+        "median": {
+          "decimal_6": "3.000000",
+          "denominator": 1,
+          "fraction": "3/1",
+          "numerator": 3
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 2941
+      },
+      "legacy_exposure_slots": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "12.195602",
+          "denominator": 864,
+          "fraction": "10537/864",
+          "numerator": 10537
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 10537
+      },
+      "recovery_completion_slot_successes_only": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "13.703937",
+          "denominator": 635,
+          "fraction": "8702/635",
+          "numerator": 8702
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 635,
+        "sum": 8702
+      },
+      "rollback_invoked": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "stale_epoch_acceptance": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "terminal_state": {
+        "EPOCH_DIVERGENCE": {
+          "decimal_6": "0.060185",
+          "denominator": 216,
+          "fraction": "13/216",
+          "numerator": 13,
+          "successes": 52,
+          "total": 864
+        },
+        "INSUFFICIENT_MATERIAL_TRANSFER": {
+          "decimal_6": "0.204861",
+          "denominator": 288,
+          "fraction": "59/288",
+          "numerator": 59,
+          "successes": 177,
+          "total": 864
+        },
+        "TRUST_RESTORED": {
+          "decimal_6": "0.734954",
+          "denominator": 864,
+          "fraction": "635/864",
+          "numerator": 635,
+          "successes": 635,
+          "total": 864
+        }
+      },
+      "transition_attempts": {
+        "max": 2,
+        "mean": {
+          "decimal_6": "1.040509",
+          "denominator": 864,
+          "fraction": "899/864",
+          "numerator": 899
+        },
+        "median": {
+          "decimal_6": "1.000000",
+          "denominator": 1,
+          "fraction": "1/1",
+          "numerator": 1
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 899
+      }
+    },
+    "P3_CONTACT_AWARE_STAGED": {
+      "contacts_consumed": {
+        "max": 7,
+        "mean": {
+          "decimal_6": "2.843750",
+          "denominator": 32,
+          "fraction": "91/32",
+          "numerator": 91
+        },
+        "median": {
+          "decimal_6": "2.000000",
+          "denominator": 1,
+          "fraction": "2/1",
+          "numerator": 2
+        },
+        "min": 1,
+        "n": 864,
+        "sum": 2457
+      },
+      "control_unavailable_slots": {
+        "max": 0,
+        "mean": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "median": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 0
+      },
+      "cryptographic_bytes_transferred": {
+        "max": 28863,
+        "mean": {
+          "decimal_6": "16551.819444",
+          "denominator": 72,
+          "fraction": "1191731/72",
+          "numerator": 1191731
+        },
+        "median": {
+          "decimal_6": "14982.000000",
+          "denominator": 1,
+          "fraction": "14982/1",
+          "numerator": 14982
+        },
+        "min": 5300,
+        "n": 864,
+        "sum": 14300772
+      },
+      "dual_epoch_overlap_slots": {
+        "max": 0,
+        "mean": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "median": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "numerator": 0
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 0
+      },
+      "legacy_exposure_slots": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "12.497685",
+          "denominator": 432,
+          "fraction": "5399/432",
+          "numerator": 5399
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 10798
+      },
+      "recovery_completion_slot_successes_only": {
+        "max": 28,
+        "mean": {
+          "decimal_6": "13.703937",
+          "denominator": 635,
+          "fraction": "8702/635",
+          "numerator": 8702
+        },
+        "median": {
+          "decimal_6": "12.000000",
+          "denominator": 1,
+          "fraction": "12/1",
+          "numerator": 12
+        },
+        "min": 0,
+        "n": 635,
+        "sum": 8702
+      },
+      "rollback_invoked": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "stale_epoch_acceptance": {
+        "decimal_6": "0.000000",
+        "denominator": 1,
+        "fraction": "0/1",
+        "numerator": 0,
+        "successes": 0,
+        "total": 864
+      },
+      "terminal_state": {
+        "CONTACT_BUDGET_EXHAUSTED": {
+          "decimal_6": "0.171296",
+          "denominator": 216,
+          "fraction": "37/216",
+          "numerator": 37,
+          "successes": 148,
+          "total": 864
+        },
+        "INSUFFICIENT_MATERIAL_TRANSFER": {
+          "decimal_6": "0.093750",
+          "denominator": 32,
+          "fraction": "3/32",
+          "numerator": 3,
+          "successes": 81,
+          "total": 864
+        },
+        "TRUST_RESTORED": {
+          "decimal_6": "0.734954",
+          "denominator": 864,
+          "fraction": "635/864",
+          "numerator": 635,
+          "successes": 635,
+          "total": 864
+        }
+      },
+      "transition_attempts": {
+        "max": 2,
+        "mean": {
+          "decimal_6": "0.923611",
+          "denominator": 144,
+          "fraction": "133/144",
+          "numerator": 133
+        },
+        "median": {
+          "decimal_6": "1.000000",
+          "denominator": 1,
+          "fraction": "1/1",
+          "numerator": 1
+        },
+        "min": 0,
+        "n": 864,
+        "sum": 798
+      }
+    }
+  },
+  "source_dataset": "study8/results/S8-PQC-ICR-001/canonical_observations.csv",
+  "source_dataset_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "statistical_findings_frozen": false,
+  "stratified_P3_minus_P1": {
+    "deadline": {
+      "12": {
+        "P1": {
+          "decimal_6": "0.326389",
+          "denominator": 144,
+          "fraction": "47/144",
+          "numerator": 47,
+          "successes": 94,
+          "total": 288
+        },
+        "P3": {
+          "decimal_6": "0.326389",
+          "denominator": 144,
+          "fraction": "47/144",
+          "numerator": 47,
+          "successes": 94,
+          "total": 288
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 94,
+          "left_total": 288,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 94,
+          "right_total": 288
+        }
+      },
+      "24": {
+        "P1": {
+          "decimal_6": "0.878472",
+          "denominator": 288,
+          "fraction": "253/288",
+          "numerator": 253,
+          "successes": 253,
+          "total": 288
+        },
+        "P3": {
+          "decimal_6": "0.878472",
+          "denominator": 288,
+          "fraction": "253/288",
+          "numerator": 253,
+          "successes": 253,
+          "total": 288
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 253,
+          "left_total": 288,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 253,
+          "right_total": 288
+        }
+      },
+      "48": {
+        "P1": {
+          "decimal_6": "1.000000",
+          "denominator": 1,
+          "fraction": "1/1",
+          "numerator": 1,
+          "successes": 288,
+          "total": 288
+        },
+        "P3": {
+          "decimal_6": "1.000000",
+          "denominator": 1,
+          "fraction": "1/1",
+          "numerator": 1,
+          "successes": 288,
+          "total": 288
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 288,
+          "left_total": 288,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 288,
+          "right_total": 288
+        }
+      }
+    },
+    "disruption": {
+      "A0_NONE": {
+        "P1": {
+          "decimal_6": "0.754630",
+          "denominator": 216,
+          "fraction": "163/216",
+          "numerator": 163,
+          "successes": 163,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.754630",
+          "denominator": 216,
+          "fraction": "163/216",
+          "numerator": 163,
+          "successes": 163,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 163,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 163,
+          "right_total": 216
+        }
+      },
+      "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT": {
+        "P1": {
+          "decimal_6": "0.740741",
+          "denominator": 27,
+          "fraction": "20/27",
+          "numerator": 20,
+          "successes": 160,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.740741",
+          "denominator": 27,
+          "fraction": "20/27",
+          "numerator": 20,
+          "successes": 160,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 160,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 160,
+          "right_total": 216
+        }
+      },
+      "A2_DELAY_FIRST_TRANSITION_PROOF_ONE_CONTACT": {
+        "P1": {
+          "decimal_6": "0.722222",
+          "denominator": 18,
+          "fraction": "13/18",
+          "numerator": 13,
+          "successes": 156,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.722222",
+          "denominator": 18,
+          "fraction": "13/18",
+          "numerator": 13,
+          "successes": 156,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 156,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 156,
+          "right_total": 216
+        }
+      },
+      "A3_STALE_EPOCH_REPLAY_AT_COMMIT": {
+        "P1": {
+          "decimal_6": "0.722222",
+          "denominator": 18,
+          "fraction": "13/18",
+          "numerator": 13,
+          "successes": 156,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.722222",
+          "denominator": 18,
+          "fraction": "13/18",
+          "numerator": 13,
+          "successes": 156,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 156,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 156,
+          "right_total": 216
+        }
+      }
+    },
+    "profile": {
+      "PROFILE_1024_87": {
+        "P1": {
+          "decimal_6": "0.618056",
+          "denominator": 144,
+          "fraction": "89/144",
+          "numerator": 89,
+          "successes": 178,
+          "total": 288
+        },
+        "P3": {
+          "decimal_6": "0.618056",
+          "denominator": 144,
+          "fraction": "89/144",
+          "numerator": 89,
+          "successes": 178,
+          "total": 288
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 178,
+          "left_total": 288,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 178,
+          "right_total": 288
+        }
+      },
+      "PROFILE_512_44": {
+        "P1": {
+          "decimal_6": "0.937500",
+          "denominator": 16,
+          "fraction": "15/16",
+          "numerator": 15,
+          "successes": 270,
+          "total": 288
+        },
+        "P3": {
+          "decimal_6": "0.937500",
+          "denominator": 16,
+          "fraction": "15/16",
+          "numerator": 15,
+          "successes": 270,
+          "total": 288
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 270,
+          "left_total": 288,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 270,
+          "right_total": 288
+        }
+      },
+      "PROFILE_768_65": {
+        "P1": {
+          "decimal_6": "0.649306",
+          "denominator": 288,
+          "fraction": "187/288",
+          "numerator": 187,
+          "successes": 187,
+          "total": 288
+        },
+        "P3": {
+          "decimal_6": "0.649306",
+          "denominator": 288,
+          "fraction": "187/288",
+          "numerator": 187,
+          "successes": 187,
+          "total": 288
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 187,
+          "left_total": 288,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 187,
+          "right_total": 288
+        }
+      }
+    },
+    "regime": {
+      "R1_FREQUENT_SMALL": {
+        "P1": {
+          "decimal_6": "0.791667",
+          "denominator": 24,
+          "fraction": "19/24",
+          "numerator": 19,
+          "successes": 171,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.791667",
+          "denominator": 24,
+          "fraction": "19/24",
+          "numerator": 19,
+          "successes": 171,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 171,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 171,
+          "right_total": 216
+        }
+      },
+      "R2_PERIODIC_MEDIUM": {
+        "P1": {
+          "decimal_6": "0.800926",
+          "denominator": 216,
+          "fraction": "173/216",
+          "numerator": 173,
+          "successes": 173,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.800926",
+          "denominator": 216,
+          "fraction": "173/216",
+          "numerator": 173,
+          "successes": 173,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 173,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 173,
+          "right_total": 216
+        }
+      },
+      "R3_SPARSE_LARGE": {
+        "P1": {
+          "decimal_6": "0.768519",
+          "denominator": 108,
+          "fraction": "83/108",
+          "numerator": 83,
+          "successes": 166,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.768519",
+          "denominator": 108,
+          "fraction": "83/108",
+          "numerator": 83,
+          "successes": 166,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 166,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 166,
+          "right_total": 216
+        }
+      },
+      "R4_CLUSTERED_MEDIUM": {
+        "P1": {
+          "decimal_6": "0.578704",
+          "denominator": 216,
+          "fraction": "125/216",
+          "numerator": 125,
+          "successes": 125,
+          "total": 216
+        },
+        "P3": {
+          "decimal_6": "0.578704",
+          "denominator": 216,
+          "fraction": "125/216",
+          "numerator": 125,
+          "successes": 125,
+          "total": 216
+        },
+        "P3_minus_P1": {
+          "decimal_6": "0.000000",
+          "denominator": 1,
+          "fraction": "0/1",
+          "left_successes": 125,
+          "left_total": 216,
+          "numerator": 0,
+          "percentage_points_6": "0.000000",
+          "right_successes": 125,
+          "right_total": 216
+        }
+      }
+    }
+  },
+  "supporting_policy_contrasts": [
+    {
+      "decimal_6": "0.000000",
+      "denominator": 1,
+      "fraction": "0/1",
+      "left": "P0_HARD_CUTOVER",
+      "left_successes": 635,
+      "left_total": 864,
+      "numerator": 0,
+      "percentage_points_6": "0.000000",
+      "right": "P1_STAGED_CUTOVER",
+      "right_successes": 635,
+      "right_total": 864
+    },
+    {
+      "decimal_6": "0.000000",
+      "denominator": 1,
+      "fraction": "0/1",
+      "left": "P0_HARD_CUTOVER",
+      "left_successes": 635,
+      "left_total": 864,
+      "numerator": 0,
+      "percentage_points_6": "0.000000",
+      "right": "P2_HYBRID_OVERLAP",
+      "right_successes": 635,
+      "right_total": 864
+    },
+    {
+      "decimal_6": "0.000000",
+      "denominator": 1,
+      "fraction": "0/1",
+      "left": "P0_HARD_CUTOVER",
+      "left_successes": 635,
+      "left_total": 864,
+      "numerator": 0,
+      "percentage_points_6": "0.000000",
+      "right": "P3_CONTACT_AWARE_STAGED",
+      "right_successes": 635,
+      "right_total": 864
+    },
+    {
+      "decimal_6": "0.000000",
+      "denominator": 1,
+      "fraction": "0/1",
+      "left": "P1_STAGED_CUTOVER",
+      "left_successes": 635,
+      "left_total": 864,
+      "numerator": 0,
+      "percentage_points_6": "0.000000",
+      "right": "P2_HYBRID_OVERLAP",
+      "right_successes": 635,
+      "right_total": 864
+    },
+    {
+      "decimal_6": "0.000000",
+      "denominator": 1,
+      "fraction": "0/1",
+      "left": "P1_STAGED_CUTOVER",
+      "left_successes": 635,
+      "left_total": 864,
+      "numerator": 0,
+      "percentage_points_6": "0.000000",
+      "right": "P3_CONTACT_AWARE_STAGED",
+      "right_successes": 635,
+      "right_total": 864
+    },
+    {
+      "decimal_6": "0.000000",
+      "denominator": 1,
+      "fraction": "0/1",
+      "left": "P2_HYBRID_OVERLAP",
+      "left_successes": 635,
+      "left_total": 864,
+      "numerator": 0,
+      "percentage_points_6": "0.000000",
+      "right": "P3_CONTACT_AWARE_STAGED",
+      "right_successes": 635,
+      "right_total": 864
+    }
+  ]
+}

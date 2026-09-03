@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "request_id": "S8-CANONICAL-RUN-001",
+  "authorization_id": "S8-CANONICAL-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "requested_population_observations": 3456,
+  "execute_primary_population": true,
+  "execute_independent_reproduction": true,
+  "require_exact_rowwise_parity": true,
+  "allow_scientific_interpretation": false,
+  "allow_statistical_findings_freeze": false,
+  "allow_results_merge": false,
+  "expected_parent_main_commit": "96cedec1a1969fd75305f7b6abc8e09139dd766d",
+  "expected_branch": "study8/canonical-s8-pqc-icr-001",
+  "status": "ONE_TIME_CANONICAL_RUN_REQUEST"
+}

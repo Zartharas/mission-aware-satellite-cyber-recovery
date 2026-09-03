@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "plan_id": "S8-SAP-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "phase": "8.5-statistical-analysis",
+  "plan_status": "LOCKED_BEFORE_OUTCOME_VALUE_INSPECTION",
+  "source_evidence_commit": "a31c574e4887e3b92b72dad84933905feb100ef8",
+  "source_dataset": "study8/results/S8-PQC-ICR-001/canonical_observations.csv",
+  "source_dataset_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "population_semantics": "complete deterministic finite factorial population, not a probabilistic sample",
+  "population_size": 3456,
+  "factor_structure": {
+    "profile": 3,
+    "policy": 4,
+    "regime": 4,
+    "disruption": 4,
+    "phase_offset": 6,
+    "deadline": 3
+  },
+  "primary_endpoint": "trusted_recovery_success",
+  "primary_estimand": {
+    "name": "marginal_policy_success_proportion",
+    "definition": "For each recovery policy, the exact number of trusted_recovery_success=1 observations divided by all 864 equally weighted frozen factor positions for that policy.",
+    "denominator_per_policy": 864
+  },
+  "primary_contrast": {
+    "name": "P3_minus_P1_success_risk_difference",
+    "left": "P3_CONTACT_AWARE_STAGED",
+    "right": "P1_STAGED_CUTOVER",
+    "definition": "Exact finite-population difference in marginal trusted-recovery success proportions, P3 minus P1, expressed as a fraction and percentage-point difference.",
+    "rationale": "P3 adds the deterministic contact-budget guard to staged-cutover semantics, making P1 the closest policy comparator for isolating the modeled contact-awareness contribution."
+  },
+  "supporting_policy_contrasts": [
+    "P0_HARD_CUTOVER minus P1_STAGED_CUTOVER",
+    "P2_HYBRID_OVERLAP minus P1_STAGED_CUTOVER",
+    "all six unordered pairwise policy success risk differences"
+  ],
+  "prespecified_stratified_primary_contrasts": [
+    {
+      "contrast": "P3_CONTACT_AWARE_STAGED minus P1_STAGED_CUTOVER",
+      "stratify_by": "regime"
+    },
+    {
+      "contrast": "P3_CONTACT_AWARE_STAGED minus P1_STAGED_CUTOVER",
+      "stratify_by": "profile"
+    },
+    {
+      "contrast": "P3_CONTACT_AWARE_STAGED minus P1_STAGED_CUTOVER",
+      "stratify_by": "disruption"
+    },
+    {
+      "contrast": "P3_CONTACT_AWARE_STAGED minus P1_STAGED_CUTOVER",
+      "stratify_by": "deadline"
+    }
+  ],
+  "cryptographic_profile_estimands": {
+    "marginal_success_proportion_by_profile": true,
+    "contrasts": [
+      "PROFILE_768_65 minus PROFILE_512_44",
+      "PROFILE_1024_87 minus PROFILE_512_44",
+      "PROFILE_1024_87 minus PROFILE_768_65"
+    ],
+    "paired_pattern_check": "Within each identical policy/regime/disruption/phase_offset/deadline position, record whether success across PROFILE_512_44, PROFILE_768_65, PROFILE_1024_87 is non-increasing as standardized cryptographic-object size increases; report counts only, without causal or physical-performance interpretation."
+  },
+  "secondary_endpoint_summaries": {
+    "recovery_completion_slot": "Among trusted-recovery successes only, report exact n and arithmetic mean as integer sum/count plus median, minimum, and maximum by policy; do not reinterpret slots as physical time.",
+    "contacts_consumed": "Report n, integer sum, exact mean as sum/count, median, minimum, and maximum by policy over all observations.",
+    "cryptographic_bytes_transferred": "Report n, integer sum, exact mean as sum/count, median, minimum, and maximum by policy over all observations; bytes are modeled cryptographic-object transfer budget only.",
+    "transition_attempts": "Report n, integer sum, exact mean as sum/count, median, minimum, and maximum by policy over all observations.",
+    "legacy_exposure_slots": "Report n, integer sum, exact mean as sum/count, median, minimum, and maximum by policy over all observations; logical slots only.",
+    "control_unavailable_slots": "Report n, integer sum, exact mean as sum/count, median, minimum, and maximum by policy over all observations; logical slots only.",
+    "dual_epoch_overlap_slots": "Report n, integer sum, exact mean as sum/count, median, minimum, and maximum for P2; verify the endpoint is zero for non-P2 policies; logical policy-state slots only.",
+    "rollback_invoked": "Report exact count and proportion by policy.",
+    "stale_epoch_acceptance": "Report exact count and proportion by policy.",
+    "terminal_state": "Report exact count and proportion for every terminal-state label by policy."
+  },
+  "heterogeneity_reporting": {
+    "required": true,
+    "rule": "For each prespecified P3-minus-P1 stratum, report exact numerator/denominator success proportions for both policies and exact risk difference. Report sign reversals or zero contrasts descriptively; do not perform significance testing."
+  },
+  "validation_requirements": [
+    "SHA-256 of canonical_observations.csv must equal the frozen canonical hash before analysis",
+    "row count must equal 3456",
+    "observation_id must be unique",
+    "the full frozen Cartesian factor structure must be present exactly once",
+    "each policy must contain exactly 864 positions",
+    "trusted_recovery_success must be binary",
+    "non-P2 dual_epoch_overlap_slots must be zero",
+    "independent statistical implementation must not import the primary statistical implementation",
+    "primary and independent machine-readable findings must be exactly equal after canonical JSON serialization"
+  ],
+  "inference_policy": {
+    "sampling_p_values": false,
+    "sampling_confidence_intervals": false,
+    "bootstrap": false,
+    "permutation_tests": false,
+    "reason": "The frozen object of inference is the entire deterministic finite population of modeled positions rather than a random sample from a superpopulation."
+  },
+  "missing_value_policy": {
+    "primary_endpoint": "missing prohibited",
+    "factor_fields": "missing prohibited",
+    "recovery_completion_slot": "may be absent only when trusted_recovery_success=0; success-only summary uses observed successful completion slots",
+    "other_prespecified_secondary_endpoints": "missing prohibited unless explicitly encoded by the frozen model contract"
+  },
+  "claim_boundary": "All findings remain bounded to modeled logical contact/recovery behavior and NIST-standardized cryptographic-object byte budgets. No spacecraft latency, RF throughput, onboard compute, energy, flight, ground-station, or operational CCSDS/PQC performance claim is permitted.",
+  "freeze_boundary": {
+    "statistical_findings_freeze_authorized": false,
+    "results_merge_authorized": false,
+    "publication_authorized": false
+  }
+}

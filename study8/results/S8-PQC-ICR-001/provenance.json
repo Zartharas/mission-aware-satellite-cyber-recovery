@@ -1,0 +1,19 @@
+{
+  "audit_mismatches_sha256": "568546ca40136a45036947f9ccdc894fce250d59e7d6e38a8765ec335ad087fc",
+  "authorization_snapshot_sha256_before_consumption": "5e713dae6f5362d6523a5f2589be0e74f338bac74cedf6d04692ad8395445d85",
+  "authorized_parent_main_commit": "96cedec1a1969fd75305f7b6abc8e09139dd766d",
+  "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "experiment_id": "S8-PQC-ICR-001",
+  "generated_at_utc": "2026-09-03T03:52:26.939136Z",
+  "github_run_attempt": 1,
+  "github_run_id": 33712942896,
+  "independent_audit_summary_sha256": "aa8f02cb0c7331abddcd072f2bba2ebd2c9509ded3081caeb78e1d432c9b5136",
+  "independent_auditor_sha256": "2da3da6b50bee2a4e45af5676c8ec48d38dd606ea75417ed9dcf7116c6a0eddd",
+  "independent_reproduction_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "primary_implementation_sha256": "c9a594d5ecd779cf241380cc9487ecf6ac1eb4f567bc6725a2b3c6a0ffd16c7d",
+  "python_version": "3.11.16",
+  "schema": 1,
+  "scientific_interpretation_performed": false,
+  "trigger_head": "c551f5f49a3c360b37936d428a5e5bf3dab11185"
+}

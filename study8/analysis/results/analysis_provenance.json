@@ -1,0 +1,18 @@
+{
+  "analysis_authorization_id": "S8-ANALYSIS-001",
+  "analysis_trigger_head": "e661e070e481d8a0fea14ec96f777a7253de1f10",
+  "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "experiment_id": "S8-PQC-ICR-001",
+  "findings_audit_sha256": "9bf6da0cdb6a49a0c1bd2bb441f37adfd6a7bd392a44054d86d7043c7faca7ab",
+  "github_run_attempt": 1,
+  "github_run_id": 33713616663,
+  "independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+  "plan_id": "S8-SAP-001",
+  "plan_lock_commit": "4ecbe51fda3d053a4b950a2ad7c95439146b14ae",
+  "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+  "results_merge_authorized": false,
+  "sampling_inference_performed": false,
+  "schema": 1,
+  "source_evidence_commit": "a31c574e4887e3b92b72dad84933905feb100ef8",
+  "statistical_findings_frozen": false
+}

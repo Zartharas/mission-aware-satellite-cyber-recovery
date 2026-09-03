@@ -1,0 +1,84 @@
+name: Validate Study 8 results freeze
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'study8/**'
+      - '.github/workflows/validate-study8-results-freeze.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  results-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Validate Study 8 JSON syntax
+        run: |
+          find study8 -type f -name '*.json' -print0 \
+            | sort -z \
+            | while IFS= read -r -d '' file; do
+                echo "json: $file"
+                python -m json.tool "$file" >/dev/null
+              done
+
+      - name: Compile Phase 8.6 checkers
+        run: |
+          python -m py_compile \
+            study8/analysis/scripts/check_phase8_6_freeze_candidate.py \
+            study8/analysis/scripts/check_phase8_6_results_freeze.py
+
+      - name: Verify Phase 8.6 source candidate
+        run: python study8/analysis/scripts/check_phase8_6_freeze_candidate.py
+
+      - name: Verify hash-bound Phase 8.6 results freeze
+        run: python study8/analysis/scripts/check_phase8_6_results_freeze.py
+
+      - name: Confirm scientific evidence is unchanged from Phase 8.5 audited head
+        run: |
+          git diff --exit-code 171b2c6282c207a69f0c718f19cd06f91a31ee17 -- \
+            study8/results/S8-PQC-ICR-001/canonical_observations.csv \
+            study8/CAMPAIGN_AUTHORIZATION.json \
+            study8/analysis/PHASE8_5_ANALYSIS_AUTHORIZATION.json \
+            study8/analysis/PHASE8_5_STATISTICAL_ANALYSIS_PLAN.json \
+            study8/analysis/src/analyze_phase8.py \
+            study8/analysis/audit/independent_statistical_reproduction.py \
+            study8/analysis/audit/audit_phase8_findings.py \
+            study8/analysis/results/primary_findings.json \
+            study8/analysis/results/independent_findings.json \
+            study8/analysis/results/findings_audit.json \
+            study8/analysis/results/analysis_provenance.json \
+            study8/analysis/results/interpretation_audit.json
+          echo 'phase8_5_scientific_evidence_unchanged=PASS'
+
+      - name: Require primary and independent findings byte identity
+        run: |
+          cmp \
+            study8/analysis/results/primary_findings.json \
+            study8/analysis/results/independent_findings.json
+          echo 'independent_findings_byte_identity=PASS'
+
+      - name: Verify SHA-256 sums file
+        run: sha256sum -c study8/analysis/RESULTS_FREEZE_SHA256SUMS.txt
+
+      - name: Report verified SHA-256 freeze bindings
+        run: |
+          echo 'study8_results_freeze_hash_report_begin'
+          cat study8/analysis/RESULTS_FREEZE_SHA256SUMS.txt
+          echo 'study8_results_freeze_hash_report_end'
+
+      - name: Confirm validation produced no tracked-file drift
+        run: git diff --exit-code

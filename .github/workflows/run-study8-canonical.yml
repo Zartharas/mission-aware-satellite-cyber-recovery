@@ -1,0 +1,105 @@
+name: Run Study 8 canonical campaign
+
+on:
+  push:
+    branches:
+      - study8/canonical-s8-pqc-icr-001
+    paths:
+      - 'study8/runtime/CANONICAL_RUN_REQUEST.json'
+      - '.github/workflows/run-study8-canonical.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  canonical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out exact campaign trigger
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Compile canonical gate and runner
+        run: |
+          python -m py_compile \
+            study8/scripts/check_phase8_canonical_gate.py \
+            study8/runtime/run_phase8_canonical.py \
+            study8/src/contact_recovery_model.py \
+            study8/audit/independent_reference.py
+
+      - name: Verify single-use hash-bound canonical gate
+        run: |
+          python study8/scripts/check_phase8_hash_binding.py
+          python study8/scripts/check_phase8_canonical_gate.py
+
+      - name: Execute exactly 3,456 canonical cases and independent reproduction
+        id: canonical
+        shell: bash
+        run: |
+          set +e
+          python study8/runtime/run_phase8_canonical.py --execute-canonical
+          rc=$?
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          echo "canonical_runner_exit_code=$rc"
+          exit 0
+
+      - name: Upload immutable run evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: study8-canonical-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: |
+            study8/CAMPAIGN_AUTHORIZATION.json
+            study8/results/S8-PQC-ICR-001/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Verify scientific files remained hash-bound
+        if: always()
+        run: python study8/scripts/check_phase8_hash_binding.py
+
+      - name: Commit consumed authorization and generated evidence
+        if: always()
+        shell: bash
+        run: |
+          git add study8/CAMPAIGN_AUTHORIZATION.json study8/results/S8-PQC-ICR-001
+          bad=0
+          while IFS= read -r file; do
+            case "$file" in
+              study8/CAMPAIGN_AUTHORIZATION.json|study8/results/S8-PQC-ICR-001/*) ;;
+              *) echo "forbidden_staged_path=$file"; bad=1 ;;
+            esac
+          done < <(git diff --cached --name-only)
+          test "$bad" -eq 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Study8: record canonical campaign $GITHUB_RUN_ID independent audit"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Require exact independent parity
+        if: always()
+        shell: bash
+        run: |
+          test "${{ steps.canonical.outputs.rc }}" = "0"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('study8/results/S8-PQC-ICR-001/independent_audit_summary.json')
+          d = json.loads(p.read_text(encoding='utf-8'))
+          assert d['primary_rows'] == 3456
+          assert d['independent_rows'] == 3456
+          assert d['exact_row_matches'] == 3456
+          assert d['mismatch_count'] == 0
+          assert d['all_rows_match'] is True
+          assert d['scientific_interpretation_performed'] is False
+          assert d['statistical_findings_frozen'] is False
+          print('phase8_canonical_independent_audit=PASS')
+          PY

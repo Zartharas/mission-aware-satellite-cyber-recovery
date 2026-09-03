@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "audit_id": "S8-FINDINGS-AUDIT-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "plan_id": "S8-SAP-001",
+  "analysis_run_id": 33713616663,
+  "analysis_evidence_commit": "b9c1c2c1ca59cc5bdc04e3226b1858577d3ea0f3",
+  "canonical_dataset_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "primary_and_independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+  "independent_statistical_reproduction_pass": true,
+  "primary_finding": {
+    "policy_success_each": "635/864",
+    "policy_success_decimal": "0.734954",
+    "P3_minus_P1_risk_difference": "0/1",
+    "P3_minus_P1_percentage_points": "0.000000",
+    "all_six_pairwise_policy_success_differences_zero": true,
+    "P3_minus_P1_zero_in_every_prespecified_regime_profile_disruption_deadline_stratum": true,
+    "interpretation": "Within the frozen modeled finite population, recovery policy did not change the primary trusted-recovery success proportion. The contact-aware P3 guard did not improve the primary success endpoint relative to P1."
+  },
+  "cryptographic_profile_finding": {
+    "PROFILE_512_44_success": "1080/1152",
+    "PROFILE_512_44_decimal": "0.937500",
+    "PROFILE_768_65_success": "748/1152",
+    "PROFILE_768_65_decimal": "0.649306",
+    "PROFILE_1024_87_success": "712/1152",
+    "PROFILE_1024_87_decimal": "0.618056",
+    "PROFILE_768_65_minus_PROFILE_512_44_percentage_points": "-28.819444",
+    "PROFILE_1024_87_minus_PROFILE_512_44_percentage_points": "-31.944444",
+    "PROFILE_1024_87_minus_PROFILE_768_65_percentage_points": "-3.125000",
+    "matched_nonprofile_positions": 1152,
+    "non_increasing_success_with_increasing_profile_object_budget_positions": 1152,
+    "pattern_counts": {
+      "000": 72,
+      "100": 332,
+      "110": 36,
+      "111": 712
+    },
+    "interpretation": "In this finite contact-capacity model, larger standardized cryptographic-object bundles were consistently associated with no better and often worse trusted-recovery success. This is a modeled byte-budget/contact interaction, not a cryptographic execution-speed or spacecraft-performance result."
+  },
+  "deadline_finding_for_P1_and_P3": {
+    "deadline_12_success": "94/288",
+    "deadline_12_decimal": "0.326389",
+    "deadline_24_success": "253/288",
+    "deadline_24_decimal": "0.878472",
+    "deadline_48_success": "288/288",
+    "deadline_48_decimal": "1.000000",
+    "interpretation": "The frozen logical recovery horizon strongly conditions modeled recovery feasibility for P1 and P3."
+  },
+  "contact_regime_finding_for_P1_and_P3": {
+    "R1_FREQUENT_SMALL": "171/216",
+    "R2_PERIODIC_MEDIUM": "173/216",
+    "R3_SPARSE_LARGE": "166/216",
+    "R4_CLUSTERED_MEDIUM": "125/216",
+    "interpretation": "Despite equal complete-cycle byte capacity by design, contact timing/geometry changes modeled recovery success; the clustered regime is lowest in the prespecified P1/P3 comparison."
+  },
+  "policy_state_tradeoffs": {
+    "P0_HARD_CUTOVER": "Same primary success and transfer/contact burden as P1/P2, zero legacy exposure, but mean logical control unavailability 10537/864 slots.",
+    "P1_STAGED_CUTOVER": "Same primary success with zero control unavailability and mean legacy exposure 10537/864 logical slots.",
+    "P2_HYBRID_OVERLAP": "Same primary success and P1-like legacy exposure, plus mean dual-epoch overlap 2941/864 logical slots; no primary success benefit in the frozen model.",
+    "P3_CONTACT_AWARE_STAGED": "Same primary success as P1, zero control unavailability, mean legacy exposure 5399/432 logical slots, mean contacts lower than P1 by 1/48, mean modeled cryptographic bytes lower by 124909/288, and mean transition attempts lower by 101/864."
+  },
+  "failure_state_observation": {
+    "P1_and_P2": {
+      "EPOCH_DIVERGENCE": 52,
+      "INSUFFICIENT_MATERIAL_TRANSFER": 177
+    },
+    "P3": {
+      "CONTACT_BUDGET_EXHAUSTED": 148,
+      "INSUFFICIENT_MATERIAL_TRANSFER": 81
+    },
+    "boundary": "These are aggregate terminal-state distributions. No post-hoc row-level failure-transition mapping is claimed under S8-SAP-001."
+  },
+  "adversarial_review": {
+    "primary_hypothesis_rescue_attempted": false,
+    "sampling_significance_claim_attempted": false,
+    "operational_latency_or_rf_claim_attempted": false,
+    "material_limitations": [
+      "The policy factor is null on the primary success endpoint in this frozen model.",
+      "P3 changes modeled resource/failure-state behavior but does not create contact capacity and does not improve primary success.",
+      "P2 overlap changes policy-state exposure but yields no primary success advantage here.",
+      "The strong cryptographic-profile result is attributable to standardized object-size budgets interacting with the synthetic contact model and must not be presented as measured PQC algorithm performance.",
+      "The 3,456 observations are the complete deterministic modeled population, so no superpopulation sampling inference is supported."
+    ]
+  },
+  "scientific_interpretation_completed": true,
+  "statistical_findings_frozen": false,
+  "results_merge_authorized": false,
+  "publication_authorized": false,
+  "status": "PHASE8_5_FINDINGS_AUDIT_PASS_NEGATIVE_PRIMARY_FINDING_RESULTS_NOT_FROZEN"
+}
