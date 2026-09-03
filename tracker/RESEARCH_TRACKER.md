@@ -4,9 +4,9 @@ Last updated: 2026-09-03
 
 ## Current focus
 
-**The repository contains two separately frozen empirical studies supporting the existing journal research article plus a separately frozen deterministic modeled companion study, Study 8 (`S8-PQC-ICR-001`). Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 remains `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. Study 8 is now `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED` after a frozen 3,456-position canonical campaign, independent reproduction with 0 mismatches, prespecified statistical analysis, independent statistical reproduction, SHA-256 results freeze, exact-head merge through PR #89, and successful post-merge `main` CI. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this tracker.**
+**The repository contains two separately frozen empirical studies supporting the existing journal research article plus a separately frozen deterministic modeled companion study, Study 8 (`S8-PQC-ICR-001`). Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 remains `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. Study 8 has completed technical close, frozen publication development, final manuscript adversarial review, publication-package SHA-256 freeze, PR #92 merge, and successful post-merge validation. Its current state is `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this tracker.**
 
-The existing `publication/` directory remains the **Study-1/Study-2 journal-article package**. Study 8 is a separate companion-paper research stream and must not be silently inserted into that manuscript. A later explicit publication-integration gate is required before Study-8 manuscript or submission work begins.
+The existing Study-1/Study-2 journal article remains separate under `publication/manuscript/`. Study 8 now has a dedicated companion-paper package under `publication/study8/`; it must not be silently inserted into the two-study manuscript or pooled with either empirical population.
 
 This is a **journal/research publication workflow**, not a dissertation-revision workflow. The prior dissertation relationship remains a disclosure/prior-dissemination consideration only.
 
@@ -27,17 +27,32 @@ This is a **journal/research publication workflow**, not a dissertation-revision
 
 ### Study 8 companion study
 
+Scientific close:
+
 - experiment ID: `S8-PQC-ICR-001`
 - results-freeze PR: `#89`
 - final validated PR head: `1356b73d1edc01c8618c9290460f4fbf22c458df`
 - canonical science/results merge commit on `main`: `63106778559c3127a7d6e8765d52939b73a3f35b`
-- post-merge repository validation run: `33761681328` — attempt `1` — `SUCCESS`
-- current Study-8 technical-close authority: `study8/STUDY8_TECHNICAL_CLOSE.json`
-- current Study-8 human closeout: `study8/docs/PHASE8_7_TECHNICAL_CLOSE.md`
-- current Study-8 results-freeze authority: `study8/analysis/RESULTS_FREEZE_MANIFEST.json`
-- current Study-8 checksum authority: `study8/analysis/RESULTS_FREEZE_SHA256SUMS.txt`
+- post-science-merge repository validation run: `33761681328` — attempt `1` — `SUCCESS`
+- technical-close authority: `study8/STUDY8_TECHNICAL_CLOSE.json`
+- results-freeze authority: `study8/analysis/RESULTS_FREEZE_MANIFEST.json`
 
-Historical work-package and phase documents may retain stage-local status wording because they are provenance. They must not be read as the current repository state when a later canonical closeout exists.
+Publication-package close:
+
+- publication-development authorization: `S8-PUBDEV-001`
+- publication-freeze authorization: `S8-PUBFREEZE-001`
+- frozen package commit: `cbad15227bf99d1b7b19d95b0581196d78208f95`
+- final exact-content review head: `75c98356751087dd648684ade7cb973c166cbce0`
+- companion publication PR: `#92`
+- companion publication squash merge commit on `main`: `87bcec000d278aeffef1222ce814098c93ada362`
+- post-merge Study-8 results-freeze validation: `33781901833` — `SUCCESS`
+- post-merge repository validation: `33781901724` — `SUCCESS`
+- current publication-state authority: `publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`
+- publication freeze authority: `publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`
+- publication checksum authority: `publication/study8/SHA256SUMS.txt`
+- current status: `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
+
+Historical work-package and phase documents may retain stage-local status wording because they are provenance. In particular, the Phase-8.7 technical-close record retains `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`; that was correct at technical close and must not be read as the current publication state.
 
 ## Study 1 — frozen scientific record
 
@@ -148,11 +163,11 @@ The review verified 3,872 ledger rows against 3,872 observations; 0 ledger/obser
 
 **Remaining pre-submission archive gate for the existing journal article:** publish the exact approved source ZIP to a new durable DOI-bearing archive, verify the publicly served ZIP checksum, and insert the actual DOI/archive identity into the journal Data Availability statement and target package. Do not invent a DOI and do not reuse the Study-1 Zenodo DOI.
 
-## Study 8 — canonical technical close
+## Study 8 — canonical science and publication closeout
 
 Experiment ID: `S8-PQC-ICR-001`
 
-Study 8 is a deterministic finite modeled contact/crypto-agility/recovery study. It is not pooled with Study 1 or Study 2 and is not currently part of the existing two-study journal manuscript.
+Study 8 is a deterministic finite modeled contact/crypto-agility/recovery study. It is not pooled with Study 1 or Study 2 and is not part of the existing two-study journal manuscript.
 
 ### Study-8 canonical population and audit
 
@@ -200,7 +215,8 @@ Across all 1,152 matched non-profile positions, trusted-recovery success is non-
 - no sampling p-values, sampling confidence intervals, bootstrap inference, or permutation inference are supported;
 - logical slots are model indices, not spacecraft/network/operator wall-clock time;
 - standardized ML-KEM/ML-DSA object bytes are modeled cryptographic-object burdens, not measured onboard PQC execution cost;
-- no operational spacecraft, RF-link, ground-station, energy, flightworthiness, certification, or production claim is supported.
+- no operational spacecraft, RF-link, ground-station, energy, flightworthiness, certification, or production claim is supported;
+- same-repository independently written reproduction is not external laboratory or independent-human replication.
 
 ### Study-8 technical-close provenance
 
@@ -208,9 +224,23 @@ Across all 1,152 matched non-profile positions, trusted-recovery success is non-
 - exact validated head: `1356b73d1edc01c8618c9290460f4fbf22c458df`
 - squash merge commit on `main`: `63106778559c3127a7d6e8765d52939b73a3f35b`
 - post-merge repository validation: run `33761681328`, attempt `1`, `SUCCESS`
-- status: `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`
+- historical Phase-8.7 status: `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`
 
 The Phase-8.6 results-freeze manifest remains immutable and therefore still contains its historical pre-merge `results_merge_authorized=false`. The later Phase-8.7 merge authorization is preserved by PR #89 review/merge provenance and the merge commit; the frozen Phase-8.6 file is intentionally not rewritten.
+
+### Study-8 publication-package provenance
+
+- development authorization: `S8-PUBDEV-001`
+- freeze authorization: `S8-PUBFREEZE-001`
+- frozen package commit: `cbad15227bf99d1b7b19d95b0581196d78208f95`
+- final reviewed head: `75c98356751087dd648684ade7cb973c166cbce0`
+- publication PR: `#92`
+- squash merge commit: `87bcec000d278aeffef1222ce814098c93ada362`
+- post-merge results-freeze CI: `33781901833` `SUCCESS`
+- post-merge repository CI: `33781901724` `SUCCESS`
+- current status: `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
+
+The publication freeze binds exactly 11 artifacts under `publication/study8/`. They are not modified by this repository-state closeout.
 
 ## Current journal-manuscript state
 
@@ -226,7 +256,7 @@ The existing two-study journal manuscript integration is complete and merged in 
 - `publication/tables/table-r7-study2-prespecified-findings.csv` — Study-2 findings summary
 - `publication/tables/table-s2-study2-secondary-holm.csv` — Study-2 secondary-family multiplicity summary
 
-The Study-1 and Study-2 populations must remain separate throughout that manuscript. Study 8 is **not yet integrated into `publication/`** and will require a separate companion-paper publication gate.
+The Study-1 and Study-2 populations must remain separate throughout that manuscript. Study 8 has its own dedicated frozen companion package under `publication/study8/` and is not inserted into that two-study manuscript.
 
 ## Historical Study-1 work packages
 
@@ -272,22 +302,28 @@ Completed for Study 8:
 14. Phase 8.5 prespecified finite-population statistical analysis plus independent statistical reproduction and interpretation audit;
 15. Phase 8.6 12-file SHA-256 results freeze preserving the negative primary finding;
 16. Phase 8.7 final review, exact-head PR #89 merge to `63106778559c3127a7d6e8765d52939b73a3f35b`, and successful post-merge run `33761681328`;
-17. current-state Study-8 repository indexing/technical-close synchronization before publication work.
+17. repository indexing/technical-close synchronization and local release-gate portability hardening;
+18. Phase 8.8 frozen-science-only companion manuscript development, literature/venue verification, four tables, two figures, and claim traceability;
+19. Phase 8.9 final manuscript adversarial review and 11-file publication-package SHA-256 freeze;
+20. exact-content review and CI on head `75c98356751087dd648684ade7cb973c166cbce0`;
+21. authorized PR #92 squash merge to `87bcec000d278aeffef1222ce814098c93ada362`;
+22. post-merge Study-8 results-freeze run `33781901833` and repository-wide run `33781901724`, both `SUCCESS`;
+23. current-state repository closeout so active documentation no longer reports pre-publication-integration or pre-merge status.
 
 ### Next actions — separate gates
 
 **Existing Study-1/Study-2 journal article:**
 
-18. publish the exact approved Study-2 source-evidence package to a new durable DOI-bearing archive;
-19. independently verify the publicly served source ZIP SHA-256 against `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`;
-20. insert the actual DOI/checksums into Data Availability and target materials;
-21. proceed to final Computers & Security live-portal checks and exact-export claim/citation/DOI/scope audit.
+24. publish the exact approved Study-2 source-evidence package to a new durable DOI-bearing archive;
+25. independently verify the publicly served source ZIP SHA-256 against `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`;
+26. insert the actual DOI/checksums into Data Availability and target materials;
+27. proceed to final Computers & Security live-portal checks and exact-export claim/citation/DOI/scope audit.
 
 **Study-8 companion paper:**
 
-22. only after repository synchronization is complete, open a separate publication-integration gate;
-23. build a dedicated Study-8 manuscript/package from the frozen science without changing or rerunning it;
-24. perform literature/venue/current-guideline verification, tables/figures, claim traceability, data/code availability, and submission-package review as publication work rather than new experimental science.
+28. after a new explicit authorization, perform venue-specific submission-package preparation against live venue requirements using only the frozen companion package;
+29. keep final venue commitment, publisher submission, and publisher-portal actions separately gated;
+30. do not change the 11 hash-frozen publication artifacts or any frozen Study-8 scientific artifact without a new, explicit amendment/re-freeze process.
 
 ## Scientific and responsible-research boundaries
 
@@ -305,4 +341,5 @@ Preserve throughout publication and future work:
 - Study 8 remains a separate deterministic finite modeled population and is not pooled with either empirical study;
 - Study-8 negative primary policy result remains frozen;
 - Study-8 standardized cryptographic-object byte effects must not be restated as measured onboard PQC CPU/energy/RF performance;
+- same-repository independently written Study-8 reproduction must not be represented as external laboratory or independent-human replication;
 - any new experimental execution is a new replication/validation study with its own frozen identity.
