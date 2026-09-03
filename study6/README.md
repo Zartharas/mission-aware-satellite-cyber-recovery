@@ -1,6 +1,11 @@
 # Study 6 — Supply-Chain-Compromised Trusted Recovery
 
-Experiment: `S6-SCTR-001`
+**Experiment:** `S6-SCTR-001`  
+**Current status:** `CANONICAL_RESULTS_FROZEN_MERGED`  
+**Canonical results merge:** PR #85 / `0dfe7f4331fc1f8864344c95d39e0d8dcb74c8f4`  
+**Accepted execution:** run `33669329819` / commit `f50f4db03e27e223104df96b2dd32bea85fd6319`  
+**Frozen population:** 420 exact observations (36 adversarial artifact states + 384 benign assurance-signal unavailability states)  
+**Independent audit:** PASS  
 
 ## Purpose
 
