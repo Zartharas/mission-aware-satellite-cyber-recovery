@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "metadata_class": "ZENODO_DEPOSIT_HANDOFF_NOT_API_PAYLOAD",
+  "doi_state": "PENDING_EXTERNAL_DURABLE_ARCHIVE_PUBLICATION",
+  "resource_type": "dataset",
+  "title": "Mission-Aware Satellite Cyber Response and Trusted Recovery — Study 2 Phase-6 Source Evidence",
+  "publication_date": "2026-09-03",
+  "creators": [
+    {
+      "name": "Singh, Aman",
+      "orcid": "0009-0008-9752-3743",
+      "affiliation": "Independent Researcher"
+    }
+  ],
+  "description": "Exact responsible-release-reviewed Phase-6 source-evidence package for Study 2 (S2-AEATR-001) of the Mission-Aware Satellite Cyber Response and Trusted Recovery research program. The frozen package contains 3,872 VALID observations, 0 INVALID attempts, and 85 frozen cells. It is released for reproducibility and independent verification of the separately frozen Study-2 statistical results. The evidence uses controlled defensive software simulation/modeling and contains no operational spacecraft data, RF targeting, real credentials, proprietary mission telemetry, or human-subject data. This dataset is distinct from the Study-1 Zenodo record and must receive its own DOI.",
+  "license": "CC-BY-4.0",
+  "keywords": [
+    "satellite cybersecurity",
+    "mission-aware cybersecurity",
+    "trusted recovery",
+    "cyber resilience",
+    "software-in-the-loop",
+    "NOS3",
+    "cFS",
+    "reproducible research",
+    "evidence integrity",
+    "producer compromise"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery",
+      "relation": "isSupplementedBy",
+      "resource_type": "software"
+    }
+  ],
+  "exact_file": {
+    "filename": "study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip",
+    "sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "github_actions_run_id": 33547420437,
+    "github_actions_artifact_id": 9816191406
+  },
+  "release_decision": "APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER",
+  "prohibitions": {
+    "reuse_study1_doi": false,
+    "invent_doi_before_publication": false,
+    "modify_or_rezip_source_evidence": false,
+    "claim_operational_spacecraft_validation": false
+  }
+}
