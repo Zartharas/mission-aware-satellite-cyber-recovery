@@ -47,7 +47,8 @@ jobs:
             study8/audit/independent_reference.py \
             study8/tests/test_phase8_models.py \
             study8/scripts/check_phase8_1_implementation_freeze.py \
-            study8/scripts/check_phase8_2_pre_runtime_gate.py
+            study8/scripts/check_phase8_2_pre_runtime_gate.py \
+            study8/scripts/check_phase8_hash_binding.py
 
       - name: Run authorized non-canonical development validation
         run: python -m unittest discover -s study8/tests -p 'test_*.py' -v
@@ -59,7 +60,10 @@ jobs:
           test ! -e study8/CAMPAIGN_AUTHORIZATION.json
           echo 'canonical_artifacts_absent=PASS'
 
-      - name: Report candidate SHA-256 bindings
+      - name: Verify bound SHA-256 design and implementation bytes
+        run: python study8/scripts/check_phase8_hash_binding.py
+
+      - name: Report verified SHA-256 bindings
         run: |
           echo 'study8_hash_report_begin'
           sha256sum \
