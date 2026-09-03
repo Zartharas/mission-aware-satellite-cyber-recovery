@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "authorization_id": "S8-PUBDEV-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "phase": "8.8-publication-development",
+  "authorized_parent_main_commit": "74a8b83de8bccafe591b799431a316ba20c3f124",
+  "authorization_basis": "Explicit author authorization in project conversation on 2026-09-03 to develop the Study-8 companion publication using only frozen Study-8 scientific evidence.",
+  "status": "AUTHORIZED_PUBLICATION_DEVELOPMENT_FROZEN_SCIENCE_ONLY",
+  "frozen_science": {
+    "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+    "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "interpretation_audit_sha256": "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413",
+    "science_merge_commit": "63106778559c3127a7d6e8765d52939b73a3f35b",
+    "technical_close_record": "study8/STUDY8_TECHNICAL_CLOSE.json"
+  },
+  "authorized_actions": {
+    "draft_companion_manuscript": true,
+    "construct_tables_from_frozen_findings": true,
+    "construct_figures_from_frozen_findings": true,
+    "build_claim_traceability": true,
+    "update_contextual_literature_for_publication": true,
+    "evaluate_publication_venues": true,
+    "prepare_non_submission_publication_materials": true,
+    "create_publication_development_pull_request": true
+  },
+  "prohibited_actions": {
+    "canonical_reexecution": true,
+    "statistical_reanalysis": true,
+    "new_scientific_execution": true,
+    "change_frozen_findings": true,
+    "change_frozen_protocol_or_design": true,
+    "post_hoc_hypothesis_rescue": true,
+    "sampling_p_values_or_confidence_intervals": true,
+    "pool_study8_with_studies1_through7": true,
+    "publication_submission": true,
+    "publisher_portal_submission": true,
+    "claim_operational_spacecraft_or_rf_performance": true
+  },
+  "publication_claim_boundary": "The publication may report and interpret only frozen modeled logical-contact/recovery quantities and NIST-standardized cryptographic-object byte budgets. Contextual literature may establish relevance and prior work but may not be used to transform modeled results into measured spacecraft, RF-link, onboard-compute, energy, flight, ground-station, or operational CCSDS/PQC performance claims.",
+  "next_gate_after_development": "author review and manuscript/publication-package freeze; submission remains separately authorized"
+}

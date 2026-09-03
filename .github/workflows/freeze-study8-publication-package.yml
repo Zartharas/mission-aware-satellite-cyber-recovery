@@ -1,0 +1,83 @@
+name: Freeze Study 8 publication package
+
+on:
+  push:
+    branches:
+      - publication/study8-companion-development
+    paths:
+      - 'study8/PHASE8_9_PUBLICATION_PACKAGE_FREEZE_AUTHORIZATION.json'
+
+permissions:
+  contents: write
+
+jobs:
+  freeze-publication-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out exact authorization trigger
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Verify frozen Study 8 technical close before publication freeze
+        run: python study8/scripts/check_study8_technical_close.py
+
+      - name: Verify frozen Study 8 results binding before publication freeze
+        run: python study8/analysis/scripts/check_phase8_6_results_freeze.py
+
+      - name: Execute single-use publication-only adversarial corrections and hash freeze
+        run: python publication/study8/scripts/finalize_publication_freeze.py --execute-freeze
+
+      - name: Revalidate publication projection after corrections
+        run: python publication/study8/scripts/check_publication_projection.py
+
+      - name: Revalidate publication literature metadata
+        run: python publication/study8/scripts/check_publication_literature.py
+
+      - name: Validate generated publication freeze
+        run: python publication/study8/scripts/check_publication_freeze.py
+
+      - name: Confirm only publication/freeze-governance files changed
+        run: |
+          python - <<'PY'
+          import subprocess
+
+          allowed_prefixes = (
+              'publication/study8/',
+              'study8/PHASE8_9_PUBLICATION_PACKAGE_FREEZE_AUTHORIZATION.json',
+          )
+          changed = subprocess.check_output(['git', 'status', '--porcelain'], text=True).splitlines()
+          paths = []
+          for line in changed:
+              path = line[3:]
+              if ' -> ' in path:
+                  path = path.split(' -> ', 1)[1]
+              paths.append(path)
+          bad = [p for p in paths if not any(p == prefix or p.startswith(prefix) for prefix in allowed_prefixes)]
+          if bad:
+              raise SystemExit(f'publication freeze touched prohibited paths: {bad}')
+          print(f'publication_freeze_changed_paths={len(paths)}')
+          print('publication_freeze_path_scope=PASS')
+          PY
+
+      - name: Commit frozen publication package evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add publication/study8 study8/PHASE8_9_PUBLICATION_PACKAGE_FREEZE_AUTHORIZATION.json
+          git diff --cached --quiet && { echo 'expected publication freeze changes are absent'; exit 1; }
+          git commit -m "Study8 publication: freeze adversarially reviewed package ${GITHUB_RUN_ID}"
+          git push origin HEAD:publication/study8-companion-development
+
+      - name: Report freeze boundary
+        run: |
+          echo 'study8_publication_package_freeze=COMPLETE'
+          echo 'pull_request_merge=NOT_AUTHORIZED'
+          echo 'publication_submission=NOT_AUTHORIZED'

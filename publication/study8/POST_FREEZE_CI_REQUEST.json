@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "request_id": "S8-PUB-POSTFREEZE-CI-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "freeze_id": "S8-PUBFREEZE-001",
+  "frozen_package_commit": "cbad15227bf99d1b7b19d95b0581196d78208f95",
+  "freeze_workflow_run_id": 33779486805,
+  "freeze_workflow_conclusion": "success",
+  "reason": "The successful freeze workflow committed the frozen package as github-actions[bot]. PR-triggered validation runs created from that bot-authored synchronize event were recorded by GitHub as action_required rather than executing. This user-authored governance-only request triggers ordinary post-freeze validation without changing any hash-frozen publication artifact or Study-8 scientific artifact.",
+  "hash_frozen_artifacts_modified": false,
+  "scientific_artifacts_modified": false,
+  "scientific_reexecution_authorized": false,
+  "statistical_reanalysis_authorized": false,
+  "pull_request_merge_authorized": false,
+  "publication_submission_authorized": false,
+  "status": "POST_FREEZE_CI_REQUESTED"
+}

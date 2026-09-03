@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "freeze_id": "S8-PUBFREEZE-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "phase": "8.9-final-manuscript-adversarial-review-and-freeze",
+  "authorization_id": "S8-PUBFREEZE-001",
+  "trigger_commit": "0c2aab95111abdc9535ec8ab347f6e0a6bbbd71c",
+  "completed_at_utc": "2026-09-03T16:35:11.010936Z",
+  "scientific_source_bindings": {
+    "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+    "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "interpretation_audit_sha256": "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413",
+    "science_merge_commit": "63106778559c3127a7d6e8765d52939b73a3f35b"
+  },
+  "required_pre_freeze_ci": {
+    "publication_validation_run_id": 33779389455,
+    "publication_validation_head": "f9ef0af42f1ee68762f65c18c100168475514920",
+    "publication_validation_conclusion": "success",
+    "prior_full_repository_validation_run_id": 33778076217,
+    "prior_full_repository_validation_head": "5d241567e933d2c850bf486e9f709c452e1abcae",
+    "prior_full_repository_validation_conclusion": "success"
+  },
+  "frozen_files": {
+    "publication/study8/manuscript/manuscript.md": "efbe78c43c44cde057637fc1744746d0ab4da8aed71e30d709aedd7dbdef13d6",
+    "publication/study8/references/references.bib": "af1620cd587b7d877e4983d54900beb046b937a8174596b52c1391ce031a906b",
+    "publication/study8/claim-traceability.csv": "4223211b246aa122df796bccd369ca24495ed9db182303432588988d382bf09a",
+    "publication/study8/author-submission-metadata.md": "43d65a4803643243d737af2a2d71e1240f5c1b3b7964a99d96058f2c4fd3a084",
+    "publication/study8/tables/table-s8-1-design.csv": "5d9607171eb7109ebf9c27d56fe5108584c4849028e6391b2ba6c5a887ad42c2",
+    "publication/study8/tables/table-s8-2-primary-profile.csv": "1670646a670067983f20101211cb963573d74adb3a967f1179c38144e1fac8c8",
+    "publication/study8/tables/table-s8-3-p3-vs-p1-strata.csv": "4216c2eabb04738f4582bd64c81ac9711ec6284f2bced4da0468a90da3d5259c",
+    "publication/study8/tables/table-s8-4-policy-tradeoffs.csv": "ccd7bdada5352539fd15e116f2dcbedb043c4dd23c04f00fce5b421e58de1e0a",
+    "publication/study8/figures/figure-s8-1-profile-success.svg": "d12708add68e8dd542a5230d66c26f8cdb8b19be2c4e9f8637d90ca4b1915a4d",
+    "publication/study8/figures/figure-s8-2-regime-success.svg": "f7faf48e351da975c43fe7acc765192674cfdf57dc8b4cfc6e0cb5647aa0166e",
+    "publication/study8/FINAL_ADVERSARIAL_REVIEW.md": "9bcea66a525bc7742c1b9322ea8c9b28987a346dca0dd1de6b00e5dc2f6059c8"
+  },
+  "frozen_file_count": 11,
+  "scientific_reexecution_performed": false,
+  "statistical_reanalysis_performed": false,
+  "frozen_science_modified": false,
+  "pull_request_merge_authorized": false,
+  "publication_submission_authorized": false,
+  "status": "PUBLICATION_PACKAGE_HASH_FROZEN_ADVERSARIAL_REVIEW_PASS"
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560" role="img" aria-labelledby="title desc">
+  <title id="title">Modeled P1 and P3 trusted-recovery success by contact regime</title>
+  <desc id="desc">All four contact regimes have 65,536 nominal bytes per complete cycle. P1 and P3 are identical within every regime: R1 79.1667 percent, R2 80.0926 percent, R3 76.8519 percent, R4 57.8704 percent.</desc>
+  <rect x="0" y="0" width="980" height="560" fill="white"/>
+  <text x="490" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold">Modeled trusted-recovery success by contact regime</text>
+  <text x="490" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">P1 and P3 are identical in every regime; all regimes have 65,536 nominal bytes per complete cycle</text>
+  <line x1="125" y1="460" x2="910" y2="460" stroke="black" stroke-width="1.5"/>
+  <line x1="125" y1="90" x2="125" y2="460" stroke="black" stroke-width="1.5"/>
+  <g font-family="Arial, sans-serif" font-size="13" fill="black">
+    <line x1="120" y1="460" x2="910" y2="460" stroke="#cccccc"/><text x="110" y="465" text-anchor="end">0%</text>
+    <line x1="120" y1="386" x2="910" y2="386" stroke="#e0e0e0"/><text x="110" y="391" text-anchor="end">20%</text>
+    <line x1="120" y1="312" x2="910" y2="312" stroke="#e0e0e0"/><text x="110" y="317" text-anchor="end">40%</text>
+    <line x1="120" y1="238" x2="910" y2="238" stroke="#e0e0e0"/><text x="110" y="243" text-anchor="end">60%</text>
+    <line x1="120" y1="164" x2="910" y2="164" stroke="#e0e0e0"/><text x="110" y="169" text-anchor="end">80%</text>
+    <line x1="120" y1="90" x2="910" y2="90" stroke="#e0e0e0"/><text x="110" y="95" text-anchor="end">100%</text>
+  </g>
+  <rect x="180" y="167.08" width="125" height="292.92" fill="#666666"/>
+  <rect x="365" y="163.66" width="125" height="296.34" fill="#666666"/>
+  <rect x="550" y="175.65" width="125" height="284.35" fill="#666666"/>
+  <rect x="735" y="245.88" width="125" height="214.12" fill="#666666"/>
+  <g font-family="Arial, sans-serif" fill="black" text-anchor="middle">
+    <text x="242.5" y="157" font-size="16" font-weight="bold">79.1667%</text>
+    <text x="427.5" y="154" font-size="16" font-weight="bold">80.0926%</text>
+    <text x="612.5" y="166" font-size="16" font-weight="bold">76.8519%</text>
+    <text x="797.5" y="236" font-size="16" font-weight="bold">57.8704%</text>
+    <text x="242.5" y="486" font-size="14">R1 frequent-small</text>
+    <text x="427.5" y="486" font-size="14">R2 periodic-medium</text>
+    <text x="612.5" y="486" font-size="14">R3 sparse-large</text>
+    <text x="797.5" y="486" font-size="14">R4 clustered-medium</text>
+    <text x="242.5" y="508" font-size="12">171/216</text>
+    <text x="427.5" y="508" font-size="12">173/216</text>
+    <text x="612.5" y="508" font-size="12">166/216</text>
+    <text x="797.5" y="508" font-size="12">125/216</text>
+  </g>
+  <text x="490" y="538" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">Synthetic logical contact structure only; no orbital-geometry, RF-throughput, or physical-duration interpretation.</text>
+</svg>
