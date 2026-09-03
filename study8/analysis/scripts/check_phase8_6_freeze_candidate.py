@@ -14,6 +14,7 @@ EXPECTED_ANALYSIS_RUN_ID = 33713616663
 EXPECTED_ANALYSIS_HEAD = "e661e070e481d8a0fea14ec96f777a7253de1f10"
 EXPECTED_ANALYSIS_EVIDENCE_COMMIT = "b9c1c2c1ca59cc5bdc04e3226b1858577d3ea0f3"
 EXPECTED_PLAN_LOCK = "4ecbe51fda3d053a4b950a2ad7c95439146b14ae"
+EXPECTED_POPULATION_SEMANTICS = "complete deterministic finite factorial population, not a probabilistic sample"
 
 
 def load(path: Path) -> dict:
@@ -53,7 +54,7 @@ def main() -> None:
     assert phase5_auth["sampling_inference_authorized"] is False
 
     assert plan["plan_id"] == "S8-SAP-001"
-    assert plan["population_semantics"] == "complete_deterministic_finite_population"
+    assert plan["population_semantics"] == EXPECTED_POPULATION_SEMANTICS
     assert plan["inference_policy"]["sampling_p_values"] is False
     assert plan["inference_policy"]["sampling_confidence_intervals"] is False
     assert plan["inference_policy"]["bootstrap"] is False
