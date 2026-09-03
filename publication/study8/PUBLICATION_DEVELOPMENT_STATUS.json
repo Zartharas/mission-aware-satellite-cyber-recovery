@@ -1,11 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "status_id": "S8-PUBDEV-STATUS-001",
   "experiment_id": "S8-PQC-ICR-001",
-  "phase": "8.9-final-manuscript-adversarial-review-and-freeze",
+  "phase": "8.10-post-publication-package-merge-repository-closeout",
   "authorization_id": "S8-PUBDEV-001",
   "base_main_commit": "74a8b83de8bccafe591b799431a316ba20c3f124",
-  "status": "PUBLICATION_PACKAGE_HASH_FROZEN_ADVERSARIAL_REVIEW_PASS_READY_FOR_PR_MERGE_REVIEW",
+  "status": "PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED",
   "working_title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
   "scientific_source_bindings": {
     "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
@@ -55,7 +55,8 @@
       "International Journal of Satellite Communications and Networking"
     ],
     "explicit_non_target_for_study8": "Computers & Security",
-    "final_venue_committed": false
+    "final_venue_committed": false,
+    "venue_specific_submission_preparation_authorized": false
   },
   "claim_boundary": {
     "logical_slots_only": true,
@@ -74,9 +75,28 @@
     "publisher_portal_action_authorized": false,
     "manuscript_freeze_authorized": true,
     "publication_development_pull_request_authorized": true,
-    "pull_request_merge_authorized": false
+    "pull_request_merge_authorized": false,
+    "pull_request_merge_completed": true,
+    "pull_request_merge_authorization_consumed": true
   },
-  "next_gate": "explicit authorization to merge PR #92 after exact-head CI review; publisher submission remains a later separate authorization",
+  "pull_request_merge_authorization_semantics": "pull_request_merge_authorized=false means no pending merge authorization remains after the authorized PR #92 merge completed; it does not negate the completed merge recorded below.",
+  "publication_package_merge": {
+    "completed": true,
+    "pull_request": 92,
+    "reviewed_head": "75c98356751087dd648684ade7cb973c166cbce0",
+    "frozen_package_commit": "cbad15227bf99d1b7b19d95b0581196d78208f95",
+    "main_merge_commit": "87bcec000d278aeffef1222ce814098c93ada362",
+    "merged_at_utc": "2026-09-03T16:59:30Z",
+    "post_merge_results_freeze_ci": {
+      "run_id": 33781901833,
+      "conclusion": "success"
+    },
+    "post_merge_repository_ci": {
+      "run_id": 33781901724,
+      "conclusion": "success"
+    }
+  },
+  "next_gate": "explicit authorization for venue-specific submission-package preparation; publisher submission remains a later separate authorization",
   "publication_package_frozen": true,
   "freeze_id": "S8-PUBFREEZE-001",
   "freeze_authorization_id": "S8-PUBFREEZE-001",
