@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "study_id": "S8-PQC-ICR-001",
+  "working_title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
+  "study_type": "deterministic_finite_modeled_contact_crypto_agility_recovery_study",
+  "technical_close_date_local": "2026-09-03",
+  "status": "TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED",
+  "repository_scope": "Study 8 is a separately frozen modeled companion study. It is not part of the existing Study-1/Study-2 journal manuscript unless a later publication-integration gate explicitly authorizes that change.",
+  "science_merge": {
+    "pull_request": 89,
+    "validated_head": "1356b73d1edc01c8618c9290460f4fbf22c458df",
+    "main_commit": "63106778559c3127a7d6e8765d52939b73a3f35b",
+    "post_merge_ci": {
+      "workflow": "Validate research configurations",
+      "run_id": 33761681328,
+      "run_attempt": 1,
+      "conclusion": "success"
+    }
+  },
+  "canonical_population": {
+    "expected_rows": 3456,
+    "primary_rows": 3456,
+    "independent_rows": 3456,
+    "exact_row_matches": 3456,
+    "mismatch_count": 0
+  },
+  "frozen_sha256": {
+    "canonical_observations_csv": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+    "primary_findings_json": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "independent_findings_json": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "interpretation_audit_json": "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413"
+  },
+  "frozen_primary_finding": {
+    "policy_success_each": "635/864",
+    "policy_success_decimal_6": "0.734954",
+    "P3_minus_P1_risk_difference": "0/1",
+    "P3_minus_P1_percentage_points_6": "0.000000",
+    "negative_primary_finding_preserved": true,
+    "hypothesis_rescue_permitted": false
+  },
+  "frozen_profile_result": {
+    "PROFILE_512_44": "1080/1152",
+    "PROFILE_768_65": "748/1152",
+    "PROFILE_1024_87": "712/1152",
+    "matched_position_non_increasing_success_with_increasing_object_budget": "1152/1152"
+  },
+  "inference_boundary": "The 3,456 positions are the complete deterministic finite factorial population defined by the frozen protocol, not a probabilistic sample. Sampling p-values, bootstrap inference, permutation inference, and sampling confidence intervals are not supported.",
+  "claim_boundary": "Results describe modeled logical contact/recovery behavior and standardized cryptographic-object byte budgets only. They are not measured spacecraft, RF-link, onboard PQC execution, CPU, energy, flight, ground-station, operator, or operational CCSDS/PQC performance.",
+  "freeze_authorities": {
+    "results_freeze_manifest": "study8/analysis/RESULTS_FREEZE_MANIFEST.json",
+    "results_freeze_sha256sums": "study8/analysis/RESULTS_FREEZE_SHA256SUMS.txt",
+    "canonical_audit": "study8/results/S8-PQC-ICR-001/independent_audit_summary.json",
+    "primary_findings": "study8/analysis/results/primary_findings.json",
+    "interpretation_audit": "study8/analysis/results/interpretation_audit.json"
+  },
+  "historical_phase8_6_note": "RESULTS_FREEZE_MANIFEST.json records results_merge_authorized=false because it is the immutable Phase-8.6 pre-merge freeze artifact. The later Phase-8.7 merge authorization is preserved in PR #89 review/merge provenance and merge commit 63106778559c3127a7d6e8765d52939b73a3f35b; the frozen Phase-8.6 artifact is intentionally not rewritten.",
+  "publication": {
+    "publication_integration_authorized": false,
+    "publication_package_created": false,
+    "venue_selected_for_study8": false,
+    "next_gate": "separate manuscript/publication integration using frozen Study-8 science"
+  },
+  "execution": {
+    "canonical_reexecution_authorized": false,
+    "analysis_reexecution_authorized": false,
+    "new_scientific_execution_authorized": false
+  }
+}
