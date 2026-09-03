@@ -1,0 +1,22 @@
+{
+  "authorization_date_local": "2026-09-02",
+  "authorization_scope": "construct_primary_implementation_independent_auditor_tests_and_static_freeze_checker_only",
+  "campaign_authorization_present": false,
+  "canonical_execution_authorized": false,
+  "consumed": true,
+  "consumption_semantics": "consumed by creation of the Phase 8.1 implementation/auditor construction commit; not reusable as campaign authorization",
+  "design_lock_commit": "b5172e1d4ba79b60b8fccbd119f087a33c6fd037",
+  "development_fixture_definition_authorized": true,
+  "development_fixture_execution_authorized": false,
+  "experiment_id": "S8-PQC-ICR-001",
+  "implementation_construction_authorized": true,
+  "independent_auditor_construction_authorized": true,
+  "phase": "8.1",
+  "pre_runtime_design_amendment_commit": "50a5a92d56f9af910624c530e8ca513357266a00",
+  "pre_runtime_design_amendment_id": "S8-DESIGN-AMEND-001",
+  "pre_runtime_pr_authorized": false,
+  "results_generation_authorized": false,
+  "schema": 1,
+  "scientific_interpretation_authorized": false,
+  "study1_or_study2_pooling_authorized": false
+}
