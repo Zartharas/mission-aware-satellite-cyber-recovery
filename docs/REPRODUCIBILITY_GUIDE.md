@@ -1,6 +1,6 @@
 # Reproducibility Guide
 
-This guide separates **safe repository validation**, **Study-1 statistical reproduction**, **Study-2 result verification**, **bounded testbed validation**, and **new scientific replication**. The purpose is to make the journal research reproducible without accidentally rewriting either frozen experimental record.
+This guide separates **safe repository validation**, **Study-1 statistical reproduction**, **Study-2 result verification**, **Study-8 frozen-result verification**, **bounded testbed validation**, and **new scientific replication**. The purpose is to make the research reproducible without accidentally rewriting any frozen experimental or modeled record.
 
 ## 1. Current frozen evidence map
 
@@ -30,7 +30,30 @@ Frozen Study-2 identities include:
 - Phase-7 result ZIP SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
 - independent auditor SHA-256 `3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d`
 
-The exact Phase-7 result ZIP is durably retained in repository history under `study2/evidence/phase7/archive/`. The underlying Phase-6 source evidence remains hash-bound but still requires a responsible-release-reviewed DOI-bearing archive before journal submission. Do not reuse the Study-1 DOI for Study 2 and do not invent a Study-2 DOI.
+The exact Phase-7 result ZIP is durably retained in repository history under `study2/evidence/phase7/archive/`. The underlying Phase-6 source evidence remains hash-bound but still requires a responsible-release-reviewed DOI-bearing archive before the existing journal submission. Do not reuse the Study-1 DOI for Study 2 and do not invent a Study-2 DOI.
+
+### Study 8
+
+Study 8 (`S8-PQC-ICR-001`) is a **complete deterministic finite modeled population**, not a probabilistic sample. It contains exactly **3,456 canonical observations** and a separately written implementation-level reproduction of all **3,456** factor positions with **0 mismatches**.
+
+Current technical-close/freeze records:
+
+- [`../study8/README.md`](../study8/README.md)
+- [`../study8/STUDY8_TECHNICAL_CLOSE.json`](../study8/STUDY8_TECHNICAL_CLOSE.json)
+- [`../study8/docs/PHASE8_7_TECHNICAL_CLOSE.md`](../study8/docs/PHASE8_7_TECHNICAL_CLOSE.md)
+- [`../study8/analysis/RESULTS_FREEZE_MANIFEST.json`](../study8/analysis/RESULTS_FREEZE_MANIFEST.json)
+- [`../study8/results/S8-PQC-ICR-001/independent_audit_summary.json`](../study8/results/S8-PQC-ICR-001/independent_audit_summary.json)
+
+Frozen Study-8 identities include:
+
+- canonical observations SHA-256 `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`
+- primary findings SHA-256 `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
+- independent findings SHA-256 `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
+- interpretation audit SHA-256 `620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413`
+- science/results merge commit `63106778559c3127a7d6e8765d52939b73a3f35b`
+- post-merge repository validation run `33761681328` — `SUCCESS`
+
+Study 8 is a separate companion-paper research stream. It is not part of the existing Study-1/Study-2 journal manuscript unless a later publication-integration gate explicitly authorizes that change.
 
 ## 2. Reproducibility levels
 
@@ -39,10 +62,11 @@ The exact Phase-7 result ZIP is durably retained in repository history under `st
 | A — repository validation | Validate current-state documents, schemas, publication controls, Python/shell sources, and tests | No | No |
 | A1 — Study-1 statistical reproduction | Recompute/regression-check frozen Study-1 WP10 manuscript contracts from tracked derived inputs | No | No |
 | A2 — Study-2 Phase-7 verification | Verify frozen Study-2 provenance/results and, when the immutable Phase-6 source ZIP is available, run the independent auditor | No | No |
+| A3 — Study-8 technical-close verification | Verify frozen Study-8 design/implementation hashes, results-freeze hashes, 3,456/3,456 audit identity, and technical-close status | No | No |
 | B — bounded testbed preflight | Rebuild pinned NOS3/Fortytwo/cFS environment and verify isolated runtime liveness | Yes | No scored campaign |
-| C — new scientific replication | Execute new observations under a separately frozen protocol | Yes | Yes — new evidence, not either frozen study |
+| C — new scientific replication | Execute new observations under a separately frozen protocol | Yes | Yes — new evidence, not any frozen study |
 
-Start with Level A. Normal repository inspection does not require NOS3, Docker, or a campaign operator.
+Start with Level A. Normal repository inspection does not require NOS3, Docker, a historical Study-1/Study-2 operator, or the Study-8 canonical runner.
 
 ## 3. Clone and create an isolated validation environment
 
@@ -72,13 +96,13 @@ python -m unittest discover -s tests -p 'test_*.py'
 Compile tracked Python sources:
 
 ```bash
-python -m compileall -q src scripts tests analysis study2
+python -m compileall -q src scripts tests analysis study2 study8
 ```
 
 Parse every tracked shell script without executing it:
 
 ```bash
-find scripts study2 -type f -name '*.sh' -print0 \
+find scripts study2 study8 -type f -name '*.sh' -print0 \
   | sort -z \
   | while IFS= read -r -d '' script; do
       echo "bash -n: $script"
@@ -177,7 +201,54 @@ Reproducibility includes claim discipline, not only arithmetic identity:
 
 These boundaries are part of the frozen journal evidence contract.
 
-## 8. Frozen reference testbed environment
+## 8. Level A3 — verify frozen Study-8 results and technical close
+
+Study-8 verification is intentionally **read-only**. Do not run `study8/runtime/run_phase8_canonical.py` or the historical statistical-analysis workflow as a clone smoke test.
+
+Run the three safe integrity gates:
+
+```bash
+python study8/scripts/check_phase8_hash_binding.py
+python study8/analysis/scripts/check_phase8_6_results_freeze.py
+python study8/scripts/check_study8_technical_close.py
+```
+
+The technical-close checker verifies, among other frozen contracts:
+
+- all 12 Phase-8.6 bound source/evidence SHA-256 values;
+- canonical population = 3,456;
+- independent implementation-level reproduction = 3,456 rows;
+- exact row matches = 3,456;
+- mismatches = 0;
+- all four policy-success fractions = `635/864`;
+- prespecified `P3 - P1` risk difference = `0/1`;
+- finite-population inference policy forbids sampling p-values/CIs/bootstrap/permutation inference;
+- publication integration and scientific re-execution remain unauthorized.
+
+The primary and independent findings must remain byte-identical at SHA-256:
+
+```text
+26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e
+```
+
+The canonical observations must remain:
+
+```text
+cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf
+```
+
+### Study-8 interpretation checks during reproduction
+
+- `P3 - P1 = 0/1` is a negative primary policy result; do not convert it into a superiority claim.
+- the profile result concerns standardized cryptographic-object byte burden interacting with the frozen logical contact model; it is not measured onboard PQC CPU/energy/latency.
+- logical slots are model indices, not real contact seconds or milliseconds.
+- the 3,456 positions are a complete deterministic finite factorial population, not a sample from a superpopulation.
+- no sampling significance inference is supported.
+- no operational spacecraft, RF, flightworthiness, certification, or production claim is supported.
+
+Study-8 publication work should consume the frozen files; it must not recreate the canonical campaign to obtain a more favorable result.
+
+## 9. Frozen reference testbed environment
 
 The retained Study-1 toolchain lock records the validated baseline as:
 
@@ -195,7 +266,7 @@ The retained Study-1 toolchain lock records the validated baseline as:
 
 See [`../configs/toolchain-lock.json`](../configs/toolchain-lock.json) and the retained lock files under [`../artifacts/`](../artifacts/).
 
-## 9. Level B — bounded testbed preflight
+## 10. Level B — bounded testbed preflight
 
 Level B validates infrastructure/liveness; it is not a scored scientific trial.
 
@@ -219,15 +290,15 @@ NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS
 
 Run Level B from a disposable/working clone because preparation/build steps can regenerate local evidence/lock material.
 
-## 10. Do not use historical campaign operators as smoke tests
+## 11. Do not use historical campaign operators as smoke tests
 
-Historical Study-1 and Study-2 campaign tooling remains in Git because it is part of scientific provenance. It is **not** a normal installation test.
+Historical Study-1, Study-2, and Study-8 campaign tooling remains in Git because it is part of scientific provenance. It is **not** a normal installation test.
 
-Do not use a historical campaign operator to validate a clone. Use Level A for repository validation and Level B for infrastructure validation.
+Do not use a historical campaign operator to validate a clone. Use Level A for repository validation, Level A1/A2/A3 for frozen evidence verification, and Level B for infrastructure validation.
 
-Any intentional new execution must be treated as a new replication or validation study with its own protocol, seeds, run IDs, environment identity, evidence archive, and analysis membership. It must not overwrite or append to either frozen population.
+Any intentional new execution must be treated as a new replication or validation study with its own protocol, seeds/factor positions, run IDs, environment identity, evidence archive, and analysis membership. It must not overwrite or append to any frozen population.
 
-## 11. Verify the published Study-1 Zenodo archive
+## 12. Verify the published Study-1 Zenodo archive
 
 Download the Study-1 Zenodo v1.0.0 files and verify the included checksum manifest:
 
@@ -237,7 +308,9 @@ shasum -a 256 -c RELEASE_CHECKSUMS.sha256
 
 See [`40-zenodo-publication-closeout.md`](40-zenodo-publication-closeout.md) for the frozen Study-1 release identities.
 
-## 12. Journal manuscript reproduction boundary
+## 13. Publication boundaries
+
+### Existing Study-1/Study-2 journal article
 
 The authoritative article assembly is [`../publication/manuscript/MANUSCRIPT-ASSEMBLY.md`](../publication/manuscript/MANUSCRIPT-ASSEMBLY.md). Study-1 and Study-2 Methods/Results are separate components so future editing cannot silently merge populations or change historical findings.
 
@@ -249,8 +322,14 @@ A successful clone validation does not make the current branch a submitted journ
 4. the live target-journal requirements are rechecked;
 5. the exact export passes final frozen-claim/DOI/scope review.
 
-## 13. Safety boundary
+### Study-8 companion paper
 
-Do not adapt these instructions to operational spacecraft, production TT&C systems, live RF links, real credentials, proprietary mission telemetry, or unauthorized targets. The reported work is controlled defensive software-in-the-loop research.
+Study 8 is technically closed but **publication integration has not started**. A later publication gate may create a dedicated companion-paper manuscript and displays from the frozen Study-8 records. It must not silently modify the existing two-study journal manuscript, rerun the Study-8 canonical campaign, rerun statistics to search for a preferable result, or broaden the frozen claim/inference boundary.
+
+No Study-8 DOI, venue acceptance, or publication identity is claimed until those events actually occur.
+
+## 14. Safety boundary
+
+Do not adapt these instructions to operational spacecraft, production TT&C systems, live RF links, real credentials, proprietary mission telemetry, or unauthorized targets. The reported work is controlled defensive software simulation/modeling research.
 
 See [`../SECURITY.md`](../SECURITY.md), [`05-legal-ethical-boundaries.md`](05-legal-ethical-boundaries.md), and [`13-laboratory-rules-of-engagement.md`](13-laboratory-rules-of-engagement.md).
