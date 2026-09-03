@@ -5,7 +5,7 @@
 **Canonical results merge:** PR #81 / `09a3fa61276e348b58a852c156e7bfc64b25d32d`  
 **Canonical execution:** workflow run `33658900540` / commit `42b64a7a6431f2130efceec389ce25fe9b1a2382`  
 **Frozen population:** 4,608 exact observations across 18 rules × 2 blocks × 128 subsets  
-**Independent audit:** canonical evidence independently audited before merge; no mismatch is claimed in the accepted freeze record or merge provenance.  
+**Independent audit:** PASS — `study4_observation_mismatches=0`; `study4_threshold_mismatches=0`  
 
 The stage-local status inside `results/RESULTS_FREEZE.json` records the pre-merge freeze gate and is preserved as historical provenance. This README is the current repository-status surface.
 
