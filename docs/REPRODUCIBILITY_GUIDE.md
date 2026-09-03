@@ -74,7 +74,7 @@ Study 8 remains a separate companion-paper research stream and is not part of th
 | A — repository validation | Validate current-state documents, schemas, publication controls, Python/shell sources, and tests | No | No |
 | A1 — Study-1 statistical reproduction | Recompute/regression-check frozen Study-1 WP10 manuscript contracts from tracked derived inputs | No | No |
 | A2 — Study-2 Phase-7 verification | Verify frozen Study-2 provenance/results and, when the immutable Phase-6 source ZIP is available, run the independent auditor | No | No |
-| A3 — Study-8 technical-close/publication verification | Verify frozen Study-8 design/implementation hashes, results-freeze hashes, 3,456/3,456 audit identity, technical close, and 11-file publication-package freeze/merge state | No | No |
+| A3 — Study-8 technical-close verification + publication-package verification | Verify frozen Study-8 design/implementation hashes, results-freeze hashes, 3,456/3,456 audit identity, technical close, and 11-file publication-package freeze/merge state | No | No |
 | B — bounded testbed preflight | Rebuild pinned NOS3/Fortytwo/cFS environment and verify isolated runtime liveness | Yes | No scored campaign |
 | C — new scientific replication | Execute new observations under a separately frozen protocol | Yes | Yes — new evidence, not any frozen study |
 
