@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Fail-closed repository sanity audit for the journal-integration/submission gate.
+"""Fail-closed repository sanity audit for journal/submission and frozen-study state.
 
 Historical work-package and phase documents may retain stage-local status text because
-that text is provenance. Current state is governed by the active tracker, manuscript
-assembly, Study-2 canonical freeze/provenance, and target submission package checked
-here.
+that text is provenance. Current state is governed by the active tracker, the existing
+Study-1/Study-2 manuscript assembly, Study-2 canonical freeze/provenance, the Study-8
+technical close/results freeze, and the target submission package checked here.
 
 This audit never starts NOS3/cFS, executes a campaign trial, consumes a campaign seed,
 or mutates scientific evidence.
@@ -58,6 +58,16 @@ S2_RESULT_ARCHIVE = (
     "study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip"
 )
 
+# Study-8 canonical/technical-close identities.
+S8_EXPERIMENT_ID = "S8-PQC-ICR-001"
+S8_STATUS = "TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED"
+S8_ROWS = 3456
+S8_CANONICAL_SHA = "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf"
+S8_FINDINGS_SHA = "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e"
+S8_INTERPRETATION_SHA = "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413"
+S8_SCIENCE_MERGE = "63106778559c3127a7d6e8765d52939b73a3f35b"
+S8_POST_MERGE_CI = 33761681328
+
 PROVENANCE_COMMITS = (
     # Study 1.
     "aae2239753119c92e7633db3b6c73aee94c7b6dd",
@@ -69,6 +79,8 @@ PROVENANCE_COMMITS = (
     "18207460fc5d419ad6a940f00db2df8610a5e5a0",
     S2_RESULTS_MERGE,
     S2_CANONICAL_CLOSEOUT,
+    # Study 8.
+    S8_SCIENCE_MERGE,
 )
 
 ACTIVE_MARKDOWN = (
@@ -89,6 +101,8 @@ ACTIVE_MARKDOWN = (
     "publication/manuscript/07-declarations-and-availability.md",
     "study2/README.md",
     "study2/docs/PHASE7_RESULTS_FREEZE.md",
+    "study8/README.md",
+    "study8/docs/PHASE8_7_TECHNICAL_CLOSE.md",
     "publication/submission/computers-and-security/README.md",
     "publication/submission/computers-and-security/submission-checklist.md",
     "publication/submission/computers-and-security/title-page.md",
@@ -487,6 +501,67 @@ def validate_study2_identities() -> None:
         ok("Study-2 canonical freeze/provenance/archive identities cross-checked")
 
 
+def validate_study8_identities() -> None:
+    close = json.loads(read("study8/STUDY8_TECHNICAL_CLOSE.json"))
+    tracker = read("tracker/RESEARCH_TRACKER.md")
+    before = len(ERRORS)
+
+    if close.get("study_id") != S8_EXPERIMENT_ID:
+        fail("Study-8 technical-close experiment ID drift")
+    if close.get("status") != S8_STATUS:
+        fail(f"Study-8 technical-close status drift: {close.get('status')!r}")
+
+    science_merge = close.get("science_merge", {})
+    if science_merge.get("main_commit") != S8_SCIENCE_MERGE:
+        fail("Study-8 science merge commit drift")
+    post_ci = science_merge.get("post_merge_ci", {})
+    if post_ci.get("run_id") != S8_POST_MERGE_CI or post_ci.get("conclusion") != "success":
+        fail("Study-8 post-merge CI identity/conclusion drift")
+
+    population = close.get("canonical_population", {})
+    for key in ("expected_rows", "primary_rows", "independent_rows", "exact_row_matches"):
+        if population.get(key) != S8_ROWS:
+            fail(f"Study-8 {key} drift: {population.get(key)!r}")
+    if population.get("mismatch_count") != 0:
+        fail("Study-8 row mismatch count is not zero")
+
+    frozen = close.get("frozen_sha256", {})
+    for key, expected in (
+        ("canonical_observations_csv", S8_CANONICAL_SHA),
+        ("primary_findings_json", S8_FINDINGS_SHA),
+        ("independent_findings_json", S8_FINDINGS_SHA),
+        ("interpretation_audit_json", S8_INTERPRETATION_SHA),
+    ):
+        if frozen.get(key) != expected:
+            fail(f"Study-8 frozen SHA drift: {key}")
+
+    for token, label in (
+        (S8_STATUS, "Study-8 technical-close status"),
+        (S8_CANONICAL_SHA, "Study-8 canonical observations SHA"),
+        (S8_FINDINGS_SHA, "Study-8 findings SHA"),
+        (S8_INTERPRETATION_SHA, "Study-8 interpretation-audit SHA"),
+        (S8_SCIENCE_MERGE, "Study-8 science merge commit"),
+    ):
+        if token not in tracker:
+            fail(f"research tracker missing {label}: {token}")
+
+    result = subprocess.run(
+        [sys.executable, "study8/scripts/check_study8_technical_close.py"],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        fail("Study-8 technical-close integrity checker failed:\n" + result.stdout.rstrip())
+    elif "study8_technical_close=PASS" not in result.stdout:
+        fail("Study-8 technical-close checker did not emit PASS marker")
+
+    if len(ERRORS) == before:
+        ok("Study-8 technical-close/results-freeze identities cross-checked")
+
+
 def validate_git_provenance() -> None:
     before = len(ERRORS)
     for sha in PROVENANCE_COMMITS:
@@ -533,7 +608,9 @@ def validate_current_state() -> None:
         required=(
             "two separately frozen empirical studies",
             "3,872 VALID observations",
-            "journal-manuscript integration",
+            "Study 8",
+            S8_STATUS,
+            "separate companion study",
             "structural label-invariance",
         ),
         forbidden=("the package is at the **final submission-export gate**",),
@@ -545,6 +622,8 @@ def validate_current_state() -> None:
             "03-study2-methods-extension.md",
             "04-study2-results-extension.md",
             "responsible-release-reviewed DOI archive",
+            "Study 8",
+            "companion-paper",
         ),
     )
     require_text(
@@ -560,10 +639,12 @@ def validate_current_state() -> None:
     require_text(
         "tracker/RESEARCH_TRACKER.md",
         required=(
-            "Last updated: 2026-09-01",
+            "Last updated: 2026-09-03",
             S2_STATUS,
             S2_CANONICAL_CLOSEOUT,
-            "two-study journal-manuscript integration",
+            S8_STATUS,
+            S8_SCIENCE_MERGE,
+            "Study-8 companion paper",
         ),
         forbidden=("Current action: final submission-export gate",),
     )
@@ -580,7 +661,17 @@ def validate_current_state() -> None:
             "Study-2 Phase-7 verification",
             S2_RESULT_ZIP_SHA,
             "responsible-release-reviewed DOI-bearing archive",
+            "Study-8 technical-close verification",
+            S8_CANONICAL_SHA,
         ),
+    )
+    require_text(
+        "study8/README.md",
+        required=(S8_STATUS, S8_SCIENCE_MERGE, S8_CANONICAL_SHA, "P3 - P1 = 0/1"),
+    )
+    require_text(
+        "study8/docs/PHASE8_7_TECHNICAL_CLOSE.md",
+        required=("Study 8 is technically closed", S8_SCIENCE_MERGE, str(S8_POST_MERGE_CI), S8_FINDINGS_SHA),
     )
     require_text(
         "publication/submission/computers-and-security/submission-checklist.md",
@@ -598,42 +689,20 @@ def validate_current_state() -> None:
             "responsible-release-reviewed DOI publication still required",
         ),
     )
-    require_text(
-        "publication/submission/computers-and-security/highlights.md",
-        required=("720 and 3,872",),
-    )
-    require_text(
-        "publication/submission/computers-and-security/title-page.md",
-        required=("Two Controlled Software-in-the-Loop Studies",),
-    )
-    require_text(
-        "publication/manuscript/03-study2-methods-extension.md",
-        required=("3,872", "85", "logical SIL"),
-    )
-    require_text(
-        "publication/manuscript/04-study2-results-extension.md",
-        required=("structural label-invariance", "54", "0"),
-    )
+    require_text("publication/submission/computers-and-security/highlights.md", required=("720 and 3,872",))
+    require_text("publication/submission/computers-and-security/title-page.md", required=("Two Controlled Software-in-the-Loop Studies",))
+    require_text("publication/manuscript/03-study2-methods-extension.md", required=("3,872", "85", "logical SIL"))
+    require_text("publication/manuscript/04-study2-results-extension.md", required=("structural label-invariance", "54", "0"))
     require_text(
         "publication/manuscript/07-declarations-and-availability.md",
-        required=(
-            "Study 2 has a separate frozen population",
-            "responsible-release-reviewed, DOI-bearing durable archive",
-            S2_RESULT_ZIP_SHA,
-        ),
+        required=("Study 2 has a separate frozen population", "responsible-release-reviewed, DOI-bearing durable archive", S2_RESULT_ZIP_SHA),
     )
-    require_text(
-        "release/UPLOAD_CHECKLIST.md",
-        required=("Historical procedural checklist", "Zenodo v1.0.0"),
-    )
-    require_text(
-        "data/README.md",
-        required=("screening/rights register", "not part of the frozen 720-observation statistical population"),
-    )
+    require_text("release/UPLOAD_CHECKLIST.md", required=("Historical procedural checklist", "Zenodo v1.0.0"))
+    require_text("data/README.md", required=("screening/rights register", "not part of the frozen 720-observation statistical population"))
 
 
 def main() -> int:
-    print("=== JOURNAL INTEGRATION / SUBMISSION REPOSITORY RELEASE-GATE AUDIT ===")
+    print("=== REPOSITORY RELEASE / FROZEN-STUDY STATE AUDIT ===")
     validate_json()
     validate_yaml()
     validate_toml()
@@ -646,6 +715,7 @@ def main() -> int:
     validate_submission_inputs()
     validate_study1_identities()
     validate_study2_identities()
+    validate_study8_identities()
     validate_git_provenance()
     validate_no_unresolved_markers()
     validate_current_state()
