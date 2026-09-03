@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "status_id": "S8-PUBDEV-STATUS-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "phase": "8.8-publication-development",
+  "authorization_id": "S8-PUBDEV-001",
+  "base_main_commit": "74a8b83de8bccafe591b799431a316ba20c3f124",
+  "status": "DRAFT_PACKAGE_CONSTRUCTED_VALIDATION_PENDING_AUTHOR_REVIEW",
+  "working_title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
+  "scientific_source_bindings": {
+    "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+    "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+    "interpretation_audit_sha256": "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413",
+    "science_merge_commit": "63106778559c3127a7d6e8765d52939b73a3f35b"
+  },
+  "frozen_findings_projected": {
+    "population_rows": 3456,
+    "policy_success_each": "635/864",
+    "P3_minus_P1_risk_difference": "0/1",
+    "profile_success": {
+      "PROFILE_512_44": "1080/1152",
+      "PROFILE_768_65": "748/1152",
+      "PROFILE_1024_87": "712/1152"
+    },
+    "matched_profile_non_increasing_success_positions": "1152/1152"
+  },
+  "development_artifacts": [
+    "publication/study8/README.md",
+    "publication/study8/venue-fit.md",
+    "publication/study8/references/references.bib",
+    "publication/study8/manuscript/manuscript.md",
+    "publication/study8/tables/table-s8-1-design.csv",
+    "publication/study8/tables/table-s8-2-primary-profile.csv",
+    "publication/study8/tables/table-s8-3-p3-vs-p1-strata.csv",
+    "publication/study8/tables/table-s8-4-policy-tradeoffs.csv",
+    "publication/study8/figures/figure-s8-1-profile-success.svg",
+    "publication/study8/figures/figure-s8-2-regime-success.svg",
+    "publication/study8/claim-traceability.csv",
+    "publication/study8/author-submission-metadata.md",
+    "publication/study8/scripts/check_publication_projection.py"
+  ],
+  "venue_development": {
+    "primary_candidate": "IEEE Systems Journal",
+    "alternatives": [
+      "Acta Astronautica",
+      "International Journal of Satellite Communications and Networking"
+    ],
+    "explicit_non_target_for_study8": "Computers & Security",
+    "final_venue_committed": false
+  },
+  "claim_boundary": {
+    "logical_slots_only": true,
+    "physical_time_conversion_allowed": false,
+    "spacecraft_or_rf_measurement_claim_allowed": false,
+    "onboard_pqc_execution_claim_allowed": false,
+    "operational_ccsds_pqc_conformance_claim_allowed": false,
+    "sampling_inference_allowed": false,
+    "studies1_through7_pooling_allowed": false
+  },
+  "gate_state": {
+    "scientific_reexecution_authorized": false,
+    "statistical_reanalysis_authorized": false,
+    "frozen_science_modification_authorized": false,
+    "publication_submission_authorized": false,
+    "publisher_portal_action_authorized": false,
+    "manuscript_freeze_authorized": false,
+    "publication_development_pull_request_authorized": true
+  },
+  "next_gate": "author review of the development PR followed by explicit manuscript/publication-package freeze authorization; submission remains a later separate authorization"
+}
