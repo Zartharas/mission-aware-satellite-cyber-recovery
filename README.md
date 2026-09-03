@@ -9,7 +9,7 @@
 [![Research data](https://img.shields.io/badge/data-CC%20BY%204.0-blue)](LICENSE)
 [![Code](https://img.shields.io/badge/code-MIT-green)](LICENSE)
 
-[Study 1 dataset](https://doi.org/10.5281/zenodo.22181540) · [Manuscript](publication/README.md) · [Study 2](study2/README.md) · [Study 8](study8/README.md) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
+[Study 1 dataset](https://doi.org/10.5281/zenodo.22181540) · [Publication packages](publication/README.md) · [Study 2](study2/README.md) · [Study 8](study8/README.md) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
 
 </div>
 
@@ -17,7 +17,7 @@
 
 ## Research at a glance
 
-This repository contains **two separately frozen empirical studies supporting the current journal article** plus a **separately frozen deterministic modeled companion study (Study 8)**. Their observations are never pooled into one statistical population.
+This repository contains **two separately frozen empirical studies supporting the current Study-1/Study-2 journal article** plus a **separately frozen deterministic modeled companion study (Study 8)**. Their observations are never pooled into one statistical population.
 
 | Item | Study 1 | Study 2 |
 |---|---|---|
@@ -42,11 +42,16 @@ Study 8 (`S8-PQC-ICR-001`) evaluates trusted post-compromise recovery under fini
 - prespecified primary contrast `P3 - P1`: `0/1` (`0.000000` percentage points);
 - canonical observations SHA-256: `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`;
 - primary/independent findings SHA-256: `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`;
-- technical close: PR `#89`, `main` commit `63106778559c3127a7d6e8765d52939b73a3f35b`, post-merge CI run `33761681328` `SUCCESS`.
+- science technical close: PR `#89`, `main` commit `63106778559c3127a7d6e8765d52939b73a3f35b`, post-merge CI run `33761681328` `SUCCESS`;
+- companion publication package: PR `#92`, `main` commit `87bcec000d278aeffef1222ce814098c93ada362`;
+- post-publication-merge Study-8 results-freeze CI `33781901833` `SUCCESS`;
+- post-publication-merge repository CI `33781901724` `SUCCESS`.
 
-Study 8 is a **deterministic finite modeled study**, not an empirical spacecraft/RF performance experiment. Its publication integration has not started and must remain separate from the existing Study-1/Study-2 journal manuscript unless a later gate explicitly authorizes integration.
+Study 8 is a **deterministic finite modeled study**, not an empirical spacecraft/RF performance experiment. Its dedicated companion manuscript/package under [`publication/study8/`](publication/study8/README.md) has been developed from frozen science only, adversarially reviewed, hash-frozen, and merged. It remains separate from the existing Study-1/Study-2 journal manuscript.
 
-**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`; the two-study journal-manuscript integration is complete, while durable Study-2 DOI archiving/public checksum verification remain pre-submission work for that article. Study 8 is now `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED` after exact-head results-freeze merge and successful post-merge validation. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this current-state documentation.
+**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`; the two-study journal-manuscript integration is complete, while durable Study-2 DOI archiving/public checksum verification remain pre-submission work for that article. Study 8 is now `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this current-state documentation.
+
+The historical Phase-8.7 technical-close record retains `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED` because that was the correct stage-local state at technical close. It is provenance, not the current Study-8 publication state.
 
 Study-2 canonical result/provenance records:
 
@@ -63,6 +68,9 @@ Study-8 current-state/freeze records:
 - [`study8/docs/PHASE8_7_TECHNICAL_CLOSE.md`](study8/docs/PHASE8_7_TECHNICAL_CLOSE.md)
 - [`study8/analysis/RESULTS_FREEZE_MANIFEST.json`](study8/analysis/RESULTS_FREEZE_MANIFEST.json)
 - [`study8/results/S8-PQC-ICR-001/independent_audit_summary.json`](study8/results/S8-PQC-ICR-001/independent_audit_summary.json)
+- [`publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`](publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json)
+- [`publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json)
+- [`publication/study8/SHA256SUMS.txt`](publication/study8/SHA256SUMS.txt)
 
 The Study-2 analysis covers 162 primary paired contrasts and 432 prespecified secondary contrasts. The exact Phase-7 results ZIP is durably retained in repository history at `study2/evidence/phase7/archive/`. The underlying 3,872-observation Phase-6 evidence remains a separately governed source artifact. Its responsible-release review is complete; the exact approved ZIP still requires a durable DOI-bearing public archive and post-publication checksum verification before the existing journal submission.
 
@@ -81,6 +89,7 @@ The repository intentionally preserves negative and conditional findings rather 
 - Study 8 contains exactly 3,456 deterministic modeled positions; it is not a probabilistic sample and supports no sampling p-values or sampling confidence intervals.
 - Study-8 `P3 - P1` trusted-recovery success is exactly zero in the frozen population; no policy-success superiority claim is supported.
 - Study-8 logical slots and standardized cryptographic-object bytes are modeling quantities, not measured spacecraft/RF/PQC execution latency, CPU, energy, or flight performance.
+- Same-repository independently written Study-8 reproduction is not external laboratory or independent-human replication.
 - The work makes no operational spacecraft, real-RF, flightworthiness, or certification claim.
 
 ## Evidence and archive status
@@ -120,11 +129,13 @@ Study-8 canonical and statistical evidence is retained directly in Git with a fr
 - independent findings SHA-256: `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
 - interpretation audit SHA-256: `620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413`
 
-The authoritative freeze is [`study8/analysis/RESULTS_FREEZE_MANIFEST.json`](study8/analysis/RESULTS_FREEZE_MANIFEST.json). No Study-8 DOI or publication release is claimed before a separate publication/release gate actually creates one.
+The authoritative scientific freeze is [`study8/analysis/RESULTS_FREEZE_MANIFEST.json`](study8/analysis/RESULTS_FREEZE_MANIFEST.json). The separate publication freeze is [`publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json), which binds 11 publication artifacts without changing the science. No Study-8 DOI or published-journal identity is claimed before a later release/submission outcome actually creates one.
 
-## Publication package
+## Publication packages
 
-Use [`publication/README.md`](publication/README.md) as the current **Study-1/Study-2 journal article** index. The authoritative journal source is componentized so those two frozen studies remain distinguishable:
+Use [`publication/README.md`](publication/README.md) as the publication-layer index.
+
+### Existing Study-1/Study-2 article
 
 - Study-1 Methods: `publication/manuscript/03-methods.md`
 - Study-2 Methods extension: `publication/manuscript/03-study2-methods-extension.md`
@@ -133,17 +144,19 @@ Use [`publication/README.md`](publication/README.md) as the current **Study-1/St
 - Cross-study Discussion: `publication/manuscript/05-discussion.md`
 - Combined bounded Conclusion: `publication/manuscript/06-conclusion.md`
 
-**Study 8 is not yet integrated into `publication/`.** Its future companion-paper package must be created under a separate publication gate from the frozen `study8/` evidence, without altering the existing two-study article or the frozen Study-8 science.
+### Study-8 companion paper
 
-Historical Study-1 figures and tables remain frozen publication artifacts. Study-2 publication tables and claim traceability are maintained separately so later editing cannot silently rewrite Study-1 evidence.
+The hash-frozen companion package is indexed by [`publication/study8/README.md`](publication/study8/README.md) and contains the integrated manuscript, Study-8 bibliography, four tables, two SVG figures, claim traceability, author/submission metadata, and adversarial-review/freeze controls.
+
+Historical Study-1 figures and tables remain frozen publication artifacts. Study-2 publication tables and claim traceability remain separate so later editing cannot silently rewrite Study-1 evidence. Study 8 remains a separate modeled population and manuscript.
 
 ## Repository map — recommended reading order
 
 | Order | Location | Purpose |
 |---:|---|---|
-| 1 | [`publication/`](publication/README.md) | Current Study-1/Study-2 journal manuscript, displays, submission controls, and claim traceability |
+| 1 | [`publication/`](publication/README.md) | Study-1/Study-2 journal package plus the separately indexed frozen Study-8 companion package |
 | 2 | [`study2/`](study2/README.md) | Study-2 protocol, campaign, Phase-7 freeze, provenance, independent audit, and Phase-6 responsible-release record |
-| 3 | [`study8/`](study8/README.md) | Study-8 design, canonical 3,456-position evidence, independent reproduction, statistical freeze, and technical close |
+| 3 | [`study8/`](study8/README.md) | Study-8 design, canonical 3,456-position evidence, independent reproduction, statistical freeze, technical close, and publication-package pointers |
 | 4 | [`analysis/`](analysis/README.md) | Study-1 WP10 statistical reconstruction validated against preserved reference outputs |
 | 5 | [`docs/`](docs/) | Theory, methods, legal/ethical boundaries, historical work-package evidence, and release closeouts |
 | 6 | [`configs/`](configs/) | Frozen Study-1 experiment designs, schemas, adapters, and toolchain locks |
@@ -153,7 +166,7 @@ Historical Study-1 figures and tables remain frozen publication artifacts. Study
 | 10 | [`tracker/`](tracker/) | Current research state plus historical work-package decisions |
 | 11 | [`release/`](release/) | Study-1 responsible-release controls and Zenodo publication record |
 
-Historical files intentionally retain stage-local wording when that wording is part of provenance. Current state is governed by this README, `tracker/RESEARCH_TRACKER.md`, `study2/PHASE7_PROVENANCE.json`, `study8/STUDY8_TECHNICAL_CLOSE.json`, and `publication/manuscript/MANUSCRIPT-ASSEMBLY.md` for the existing two-study article.
+Historical files intentionally retain stage-local wording when that wording is part of provenance. Current state is governed by this README, `tracker/RESEARCH_TRACKER.md`, `study2/PHASE7_PROVENANCE.json`, `publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`, and the applicable frozen scientific/publication manifests.
 
 ## Quick start: safe repository validation
 
@@ -175,6 +188,7 @@ python -m unittest discover -s tests -p 'test_*.py'
 python study8/scripts/check_phase8_hash_binding.py
 python study8/analysis/scripts/check_phase8_6_results_freeze.py
 python study8/scripts/check_study8_technical_close.py
+python publication/study8/scripts/check_publication_freeze.py
 ```
 
 For Study-1 statistical reproduction, Study-2 result verification, and the frozen Study-8 verification boundary, see [`docs/REPRODUCIBILITY_GUIDE.md`](docs/REPRODUCIBILITY_GUIDE.md).
@@ -194,7 +208,7 @@ See [`SECURITY.md`](SECURITY.md), [`docs/05-legal-ethical-boundaries.md`](docs/0
 
 ## Citation
 
-`CITATION.cff` and Zenodo v1.0.0 currently identify the published **Study-1** evidence release. The Study-2 responsible-release review is complete, but a Study-2 DOI must be added only after the approved source package is actually published and its public checksum is verified. Study 8 has no DOI/publication identity yet; one must not be invented before a separate release/publication gate.
+`CITATION.cff` and Zenodo v1.0.0 currently identify the published **Study-1** evidence release. The Study-2 responsible-release review is complete, but a Study-2 DOI must be added only after the approved source package is actually published and its public checksum is verified. Study 8 has a frozen manuscript/package but no DOI, venue acceptance, or publisher submission identity yet; none may be invented before those events occur.
 
 ## Author
 

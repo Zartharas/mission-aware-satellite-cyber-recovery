@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the repository release gate against Git-tracked working-tree content only.
+"""Run repository release gates against Git-tracked working-tree content only.
 
 The core release-gate audit intentionally traverses its repository root. Developer
 clones can also contain ignored virtual environments, cached dependency data, and
@@ -8,9 +8,10 @@ must not influence a publication/release decision.
 
 This wrapper creates a detached temporary worktree at HEAD, overlays the caller's
 Git-tracked working-tree state (including tracked modifications, staged additions,
-and tracked deletions), and runs the core audit there. Untracked and ignored files are
-therefore excluded by construction. No scientific runtime is started and no tracked
-repository file is modified.
+and tracked deletions), runs the historical/canonical core audit, and then runs the
+current Study-8 publication-state overlay. Untracked and ignored files are excluded by
+construction. No scientific runtime is started and no tracked repository file is
+modified.
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE_REL = Path("scripts/audit_repository_release_gate_core.py")
+S8_CURRENT_REL = Path("scripts/audit_study8_publication_current_state.py")
 
 
 def git_paths(*args: str) -> set[Path]:
@@ -80,6 +82,21 @@ def overlay_tracked_worktree(audit_root: Path) -> None:
             continue
 
 
+def run_gate(audit_root: Path, rel: Path, label: str) -> int:
+    script = audit_root / rel
+    if not script.is_file():
+        print(f"release_gate_wrapper=FAIL\nmissing_{label}={rel}", file=sys.stderr)
+        return 1
+    result = subprocess.run(
+        [sys.executable, str(script)],
+        cwd=audit_root,
+        check=False,
+    )
+    if result.returncode != 0:
+        print(f"release_gate_wrapper=FAIL\nfailed_gate={label}", file=sys.stderr)
+    return result.returncode
+
+
 def main() -> int:
     try:
         with tempfile.TemporaryDirectory(prefix="repository-release-gate-") as temp_parent:
@@ -102,20 +119,12 @@ def main() -> int:
 
             try:
                 overlay_tracked_worktree(audit_root)
-                core = audit_root / CORE_REL
-                if not core.is_file():
-                    print(
-                        f"release_gate_wrapper=FAIL\nmissing_core={CORE_REL}",
-                        file=sys.stderr,
-                    )
+                if run_gate(audit_root, CORE_REL, "core") != 0:
                     return 1
-
-                result = subprocess.run(
-                    [sys.executable, str(core)],
-                    cwd=audit_root,
-                    check=False,
-                )
-                return result.returncode
+                if run_gate(audit_root, S8_CURRENT_REL, "study8_publication_current_state") != 0:
+                    return 1
+                print("release_gate_wrapper=PASS")
+                return 0
             finally:
                 subprocess.run(
                     ["git", "worktree", "remove", "--force", str(audit_root)],

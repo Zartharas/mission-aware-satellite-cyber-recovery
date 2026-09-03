@@ -1,6 +1,6 @@
 # Reproducibility Guide
 
-This guide separates **safe repository validation**, **Study-1 statistical reproduction**, **Study-2 result verification**, **Study-8 frozen-result verification**, **bounded testbed validation**, and **new scientific replication**. The purpose is to make the research reproducible without accidentally rewriting any frozen experimental or modeled record.
+This guide separates **safe repository validation**, **Study-1 statistical reproduction**, **Study-2 result verification**, **Study-8 frozen-result and publication-package verification**, **bounded testbed validation**, and **new scientific replication**. The purpose is to make the research reproducible without accidentally rewriting any frozen experimental or modeled record.
 
 ## 1. Current frozen evidence map
 
@@ -36,7 +36,7 @@ The exact Phase-7 result ZIP is durably retained in repository history under `st
 
 Study 8 (`S8-PQC-ICR-001`) is a **complete deterministic finite modeled population**, not a probabilistic sample. It contains exactly **3,456 canonical observations** and a separately written implementation-level reproduction of all **3,456** factor positions with **0 mismatches**.
 
-Current technical-close/freeze records:
+Scientific technical-close/freeze records:
 
 - [`../study8/README.md`](../study8/README.md)
 - [`../study8/STUDY8_TECHNICAL_CLOSE.json`](../study8/STUDY8_TECHNICAL_CLOSE.json)
@@ -44,16 +44,28 @@ Current technical-close/freeze records:
 - [`../study8/analysis/RESULTS_FREEZE_MANIFEST.json`](../study8/analysis/RESULTS_FREEZE_MANIFEST.json)
 - [`../study8/results/S8-PQC-ICR-001/independent_audit_summary.json`](../study8/results/S8-PQC-ICR-001/independent_audit_summary.json)
 
-Frozen Study-8 identities include:
+Frozen Study-8 scientific identities include:
 
 - canonical observations SHA-256 `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`
 - primary findings SHA-256 `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
 - independent findings SHA-256 `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
 - interpretation audit SHA-256 `620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413`
 - science/results merge commit `63106778559c3127a7d6e8765d52939b73a3f35b`
-- post-merge repository validation run `33761681328` — `SUCCESS`
+- post-science-merge repository validation run `33761681328` — `SUCCESS`
 
-Study 8 is a separate companion-paper research stream. It is not part of the existing Study-1/Study-2 journal manuscript unless a later publication-integration gate explicitly authorizes that change.
+The dedicated Study-8 companion publication package is also frozen and merged without changing those scientific identities:
+
+- current publication state: `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
+- publication status: [`../publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`](../publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json)
+- publication freeze manifest: [`../publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](../publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json)
+- publication checksums: [`../publication/study8/SHA256SUMS.txt`](../publication/study8/SHA256SUMS.txt)
+- frozen package commit: `cbad15227bf99d1b7b19d95b0581196d78208f95`
+- publication PR: `#92`
+- publication merge commit: `87bcec000d278aeffef1222ce814098c93ada362`
+- post-merge results-freeze CI: `33781901833` — `SUCCESS`
+- post-merge repository CI: `33781901724` — `SUCCESS`
+
+Study 8 remains a separate companion-paper research stream and is not part of the existing Study-1/Study-2 journal manuscript.
 
 ## 2. Reproducibility levels
 
@@ -62,7 +74,7 @@ Study 8 is a separate companion-paper research stream. It is not part of the exi
 | A — repository validation | Validate current-state documents, schemas, publication controls, Python/shell sources, and tests | No | No |
 | A1 — Study-1 statistical reproduction | Recompute/regression-check frozen Study-1 WP10 manuscript contracts from tracked derived inputs | No | No |
 | A2 — Study-2 Phase-7 verification | Verify frozen Study-2 provenance/results and, when the immutable Phase-6 source ZIP is available, run the independent auditor | No | No |
-| A3 — Study-8 technical-close verification | Verify frozen Study-8 design/implementation hashes, results-freeze hashes, 3,456/3,456 audit identity, and technical-close status | No | No |
+| A3 — Study-8 technical-close verification + publication-package verification | Verify frozen Study-8 design/implementation hashes, results-freeze hashes, 3,456/3,456 audit identity, technical close, and 11-file publication-package freeze/merge state | No | No |
 | B — bounded testbed preflight | Rebuild pinned NOS3/Fortytwo/cFS environment and verify isolated runtime liveness | Yes | No scored campaign |
 | C — new scientific replication | Execute new observations under a separately frozen protocol | Yes | Yes — new evidence, not any frozen study |
 
@@ -96,7 +108,7 @@ python -m unittest discover -s tests -p 'test_*.py'
 Compile tracked Python sources:
 
 ```bash
-python -m compileall -q src scripts tests analysis study2 study8
+python -m compileall -q src scripts tests analysis study2 study8 publication/study8/scripts
 ```
 
 Parse every tracked shell script without executing it:
@@ -114,7 +126,7 @@ find scripts study2 study8 -type f -name '*.sh' -print0 \
 
 A safe repository validation passes when:
 
-- current-state release-gate audit exits zero;
+- current-state release-gate audit exits zero, including the Study-8 publication current-state overlay;
 - bibliography metadata audit exits zero;
 - experiment schema validation exits zero;
 - all Python unit tests pass;
@@ -201,19 +213,21 @@ Reproducibility includes claim discipline, not only arithmetic identity:
 
 These boundaries are part of the frozen journal evidence contract.
 
-## 8. Level A3 — verify frozen Study-8 results and technical close
+## 8. Level A3 — verify frozen Study-8 results, publication package, and current state
 
-Study-8 verification is intentionally **read-only**. Do not run `study8/runtime/run_phase8_canonical.py` or the historical statistical-analysis workflow as a clone smoke test.
+Study-8 verification is intentionally **read-only**. Do not run `study8/runtime/run_phase8_canonical.py`, the historical statistical-analysis workflow, or the historical publication-freeze executor as a clone smoke test.
 
-Run the three safe integrity gates:
+Run the safe integrity gates:
 
 ```bash
 python study8/scripts/check_phase8_hash_binding.py
 python study8/analysis/scripts/check_phase8_6_results_freeze.py
 python study8/scripts/check_study8_technical_close.py
+python publication/study8/scripts/check_publication_freeze.py
+python scripts/audit_repository_release_gate.py
 ```
 
-The technical-close checker verifies, among other frozen contracts:
+The technical-close checker verifies the historical scientific close, including:
 
 - all 12 Phase-8.6 bound source/evidence SHA-256 values;
 - canonical population = 3,456;
@@ -222,8 +236,9 @@ The technical-close checker verifies, among other frozen contracts:
 - mismatches = 0;
 - all four policy-success fractions = `635/864`;
 - prespecified `P3 - P1` risk difference = `0/1`;
-- finite-population inference policy forbids sampling p-values/CIs/bootstrap/permutation inference;
-- publication integration and scientific re-execution remain unauthorized.
+- finite-population inference policy forbids sampling p-values/CIs/bootstrap/permutation inference.
+
+Its historical technical-close status predates publication development. The current repository release gate separately verifies that publication development, freeze, PR #92 merge, and post-merge CI are complete while scientific re-execution remains prohibited.
 
 The primary and independent findings must remain byte-identical at SHA-256:
 
@@ -237,6 +252,16 @@ The canonical observations must remain:
 cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf
 ```
 
+The publication-freeze checker additionally verifies:
+
+- exactly 11 publication artifacts remain hash-identical to `PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`;
+- publication PR #92 is recorded as completed;
+- final reviewed head = `75c98356751087dd648684ade7cb973c166cbce0`;
+- `main` publication merge commit = `87bcec000d278aeffef1222ce814098c93ada362`;
+- post-merge Study-8 results-freeze run `33781901833` = `SUCCESS`;
+- post-merge repository run `33781901724` = `SUCCESS`;
+- publication submission and scientific re-execution remain prohibited.
+
 ### Study-8 interpretation checks during reproduction
 
 - `P3 - P1 = 0/1` is a negative primary policy result; do not convert it into a superiority claim.
@@ -245,8 +270,9 @@ cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf
 - the 3,456 positions are a complete deterministic finite factorial population, not a sample from a superpopulation.
 - no sampling significance inference is supported.
 - no operational spacecraft, RF, flightworthiness, certification, or production claim is supported.
+- same-repository independently written reproduction is not external laboratory or independent-human replication.
 
-Study-8 publication work should consume the frozen files; it must not recreate the canonical campaign to obtain a more favorable result.
+Study-8 venue adaptation must consume the frozen publication package; it must not recreate the canonical campaign or rerun statistics to obtain a more favorable result.
 
 ## 9. Frozen reference testbed environment
 
@@ -324,9 +350,11 @@ A successful clone validation does not make the current branch a submitted journ
 
 ### Study-8 companion paper
 
-Study 8 is technically closed but **publication integration has not started**. A later publication gate may create a dedicated companion-paper manuscript and displays from the frozen Study-8 records. It must not silently modify the existing two-study journal manuscript, rerun the Study-8 canonical campaign, rerun statistics to search for a preferable result, or broaden the frozen claim/inference boundary.
+Study 8 is technically closed and its dedicated companion publication package is now **hash-frozen, merged to `main`, and post-merge validated**. The current package is indexed at [`../publication/study8/README.md`](../publication/study8/README.md).
 
-No Study-8 DOI, venue acceptance, or publication identity is claimed until those events actually occur.
+The next gate is venue-specific submission-package preparation using the frozen package. That work must not silently modify the existing two-study journal manuscript, rerun the Study-8 canonical campaign, rerun statistics to search for a preferable result, or broaden the frozen claim/inference boundary.
+
+No Study-8 DOI, venue acceptance, publisher submission, or publication identity is claimed until those events actually occur.
 
 ## 14. Safety boundary
 
