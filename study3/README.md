@@ -1,8 +1,14 @@
 # Study 3 — Temporal Trust Qualification Under Intermittent Contact
 
 **Experiment ID:** `S3-K4E-001`  
-**Status:** `DESIGN_AND_IMPLEMENTATION_CANDIDATE_NO_CAMPAIGN_RESULT_YET`  
+**Current status:** `CANONICAL_RESULTS_FROZEN_MERGED`  
+**Canonical results merge:** PR #79 / `68a2c9a1394743e9a233e93586e86a6179a0793c`  
+**Canonical execution:** workflow run `33650631676` / commit `c2372c5fab598ecec1070b1bc76b9ff5237f9c99`  
+**Frozen population:** 1,380 trajectories / 67,620 epoch rows / 30 cells / 46 onset phases per cell  
+**Independent audit:** PASS — 0 trajectory mismatches, 0 epoch-rule mismatches, 0 qualification-origin mismatches, 0 SHA mismatches  
 **Relationship to prior work:** separate follow-on study; Study 1 and Study 2 remain frozen and are never pooled with this population.
+
+The stage-local status inside `results/RESULTS_FREEZE.json` records the pre-merge freeze gate and is preserved as historical provenance. This README is the current repository-status surface.
 
 ## Research question
 
