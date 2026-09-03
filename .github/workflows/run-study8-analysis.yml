@@ -1,0 +1,117 @@
+name: Run Study 8 statistical analysis
+
+on:
+  push:
+    branches:
+      - study8/phase8-5-statistical-analysis
+    paths:
+      - '.github/workflows/run-study8-analysis.yml'
+      - 'study8/analysis/PHASE8_5_ANALYSIS_AUTHORIZATION.json'
+      - 'study8/analysis/PHASE8_5_STATISTICAL_ANALYSIS_PLAN.json'
+      - 'study8/analysis/src/**'
+      - 'study8/analysis/audit/**'
+      - 'study8/analysis/scripts/**'
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact analysis trigger
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Compile Phase 8.5 analysis code
+        run: |
+          python -m py_compile \
+            study8/analysis/scripts/check_phase8_5_analysis_gate.py \
+            study8/analysis/src/analyze_phase8.py \
+            study8/analysis/audit/independent_statistical_reproduction.py \
+            study8/analysis/audit/audit_phase8_findings.py
+
+      - name: Verify prespecified finite-population analysis gate
+        run: python study8/analysis/scripts/check_phase8_5_analysis_gate.py
+
+      - name: Run primary prespecified analysis
+        run: python study8/analysis/src/analyze_phase8.py
+
+      - name: Run independent statistical reproduction
+        run: python study8/analysis/audit/independent_statistical_reproduction.py
+
+      - name: Require exact independent findings parity
+        run: python study8/analysis/audit/audit_phase8_findings.py
+
+      - name: Record analysis provenance
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          def h(path):
+              return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+          out = Path("study8/analysis/results/analysis_provenance.json")
+          data = {
+              "schema": 1,
+              "experiment_id": "S8-PQC-ICR-001",
+              "plan_id": "S8-SAP-001",
+              "analysis_authorization_id": "S8-ANALYSIS-001",
+              "source_evidence_commit": "a31c574e4887e3b92b72dad84933905feb100ef8",
+              "plan_lock_commit": "4ecbe51fda3d053a4b950a2ad7c95439146b14ae",
+              "analysis_trigger_head": os.environ["GITHUB_SHA"],
+              "github_run_id": int(os.environ["GITHUB_RUN_ID"]),
+              "github_run_attempt": int(os.environ["GITHUB_RUN_ATTEMPT"]),
+              "canonical_observations_sha256": h("study8/results/S8-PQC-ICR-001/canonical_observations.csv"),
+              "primary_findings_sha256": h("study8/analysis/results/primary_findings.json"),
+              "independent_findings_sha256": h("study8/analysis/results/independent_findings.json"),
+              "findings_audit_sha256": h("study8/analysis/results/findings_audit.json"),
+              "sampling_inference_performed": False,
+              "statistical_findings_frozen": False,
+              "results_merge_authorized": False
+          }
+          out.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print(f"phase8_analysis_provenance_sha256={h(out)}")
+          PY
+
+      - name: Commit audited analysis evidence only
+        run: |
+          git add study8/analysis/results
+          bad=0
+          while IFS= read -r file; do
+            case "$file" in
+              study8/analysis/results/*) ;;
+              *) echo "forbidden_staged_path=$file"; bad=1 ;;
+            esac
+          done < <(git diff --cached --name-only)
+          test "$bad" -eq 0
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Study8: record audited Phase 8.5 statistical analysis"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Confirm findings remain unfrozen and unmerged
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a = json.loads(Path("study8/analysis/results/findings_audit.json").read_text())
+          assert a["status"] == "INDEPENDENT_STATISTICAL_REPRODUCTION_PASS_FINDINGS_NOT_FROZEN"
+          assert a["statistical_findings_frozen"] is False
+          assert a["results_merge_authorized"] is False
+          print("phase8_5_analysis_audit=PASS")
+          print("statistical_findings_freeze=PROHIBITED")
+          print("results_merge=PROHIBITED")
+          PY
