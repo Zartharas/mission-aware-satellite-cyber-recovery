@@ -30,8 +30,8 @@ jobs:
       - name: Install Word renderer dependency
         run: python -m pip install --disable-pip-version-check python-docx==1.1.2
 
-      - name: Build JAIS target manuscript and audit
-        run: python publication/submission/journal-of-aerospace-information-systems/build_jais_export.py
+      - name: Build compact JAIS target manuscript and audit
+        run: python publication/submission/journal-of-aerospace-information-systems/build_jais_compact_export.py
 
       - name: Render JAIS Word manuscript
         run: python publication/submission/journal-of-aerospace-information-systems/make_jais_docx.py
