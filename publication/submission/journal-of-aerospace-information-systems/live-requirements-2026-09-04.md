@@ -11,7 +11,21 @@ Current JAIS scope describes original archival research addressing aerospace-spe
 
 **Paper-1 implication:** scope fit is credible when the manuscript is positioned as satellite cyber response/trusted recovery under aerospace-specific contact, authorization, mission-continuity, evidence, and software-recovery constraints.
 
-## 2. Minimum manuscript presentation and abstract
+## 2. Manuscript title and author-format requirements
+
+**Official sources:** AIAA, *Journal Author* and *Manuscript Titles, Authorship, and Footnotes*  
+https://www.aiaa.org/publications/journals/Journal-Author/  
+https://www.aiaa.org/publications/journals/Journal-Author/manuscript-titles-authorship-and-footnotes/
+
+Current AIAA journal-author guidance states that the manuscript title should be concise, have a maximum of 12 words, and contain no acronyms or abbreviations. Current author-format guidance also describes affiliation information using company/institution, city, state, and ZIP code, and uses ScholarOne's corresponding-author designation for submission/publication contact.
+
+**Paper-1 implication:** the authoritative 17-word research/manuscript title cannot be used unchanged as the JAIS submission title. The target-specific 12-word title is:
+
+**Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**
+
+The authoritative full title remains preserved separately. No ZIP code is inferred for the Independent Researcher affiliation; add one only if the live workflow/template requires it and the author verifies the value.
+
+## 3. Minimum manuscript presentation and abstract
 
 **Official source:** AIAA, *Journal Author*  
 https://www.aiaa.org/publications/journals/Journal-Author/
@@ -20,7 +34,7 @@ Current minimum journal-manuscript guidance states that manuscripts are in Engli
 
 **Paper-1 implication:** a separate JAIS abstract candidate is required; the existing 250-word Computers & Security abstract cannot be used unchanged.
 
-## 3. Abstract detail
+## 4. Abstract detail
 
 **Official source:** AIAA, *Preparation of an Abstract and Biography*  
 https://www.aiaa.org/publications/journals/Journal-Author/Preparation-of-an-Abstract-and-Biography/
@@ -29,7 +43,7 @@ Current guidance requires a one-paragraph abstract between 100 and 200 words and
 
 **Paper-1 implication:** `jais-abstract.md` is maintained as a 189-word one-paragraph target-specific candidate.
 
-## 4. Regular/Full Article length guideline
+## 5. Regular/Full Article length guideline
 
 **Official source:** AIAA, *Journal Page Limits and Word Count Guidelines*  
 https://www.aiaa.org/wp-content/uploads/2024/12/journalpagelimitsandwordcountguidelines_Sept_2024.pdf
@@ -38,7 +52,7 @@ Current published guideline for Regular/Full Articles is approximately 7–10 pu
 
 **Paper-1 implication:** final compliance must be evaluated on the exact JAIS export, including figure/table equivalent space.
 
-## 5. Reference style
+## 6. Reference style
 
 **Official source:** AIAA, *Reference Style and Format*  
 https://www.aiaa.org/publications/journals/reference-style-and-format/
@@ -47,7 +61,7 @@ Current AIAA requirements include numbered references cited in numerical order, 
 
 **Paper-1 implication:** final JAIS export requires citation-order conversion plus a DOI/completeness/original-source audit.
 
-## 6. ScholarOne submission information publicly confirmed
+## 7. ScholarOne submission information publicly confirmed
 
 **Official source:** AIAA, *Submission of AIAA Conference Papers to Journals*  
 https://www.aiaa.org/publications/journals/Submission-of-AIAA-Conference-Papers-to-Journals/
@@ -56,7 +70,7 @@ Current guidance for journal submission through ScholarOne states that authors f
 
 **Paper-1 implication:** the exact reviewer count and exact live field wording remain portal-only and must not be inferred.
 
-## 7. Funding field
+## 8. Funding field
 
 **Official source:** AIAA, *Journal Author*  
 https://www.aiaa.org/publications/journals/Journal-Author/
@@ -65,7 +79,7 @@ Current guidance instructs authors to list funding sources and grant numbers in 
 
 **Paper-1 value:** no external funding.
 
-## 8. Artificial-intelligence policy
+## 9. Artificial-intelligence policy
 
 **Official source:** AIAA, *Ethical Standards for Publication of Aeronautics and Astronautics Research*  
 https://www.aiaa.org/publications/Publish-with-AIAA/Ethical-Standards-for-Publication-of-Aeronautics-and-Astronautics-Research/
@@ -74,7 +88,7 @@ Current AIAA policy requires qualifying artificial-intelligence use in manuscrip
 
 **Paper-1 implication:** retain a transparent in-manuscript disclosure and complete the exact live ScholarOne disclosure field. Artificial-intelligence assistance remains separate from the frozen deterministic experimental response mechanisms.
 
-## 9. Public-release and copyright/clearance attestation
+## 10. Public-release and copyright/clearance attestation
 
 **Official source:** AIAA, *Copyright Clearance and Assignment*  
 https://www.aiaa.org/publications/publish-with-aiaa/copyright-clearance-and-assignment/
@@ -83,7 +97,7 @@ AIAA states that during submission authors are presented with clearance and no-i
 
 **Paper-1 value:** the work is unclassified, uses no classified/proprietary mission telemetry, and requires no external company or government classification review for public release.
 
-## 10. Posting/self-archiving policy
+## 11. Posting/self-archiving policy
 
 **Official source:** AIAA, *Publication Policies*  
 https://www.aiaa.org/publications/Publish-with-AIAA/Publication-Policies/
@@ -92,7 +106,7 @@ Current AIAA policy permits authors to post draft manuscripts and research resul
 
 **Paper-1 implication:** existing public repository and research-archive materials do not by themselves prevent preparation of a JAIS submission; final accepted/published-version posting must follow the applicable AIAA copyright/self-archiving rules.
 
-## 11. Supplemental material
+## 12. Supplemental material
 
 **Official source:** AIAA, *Supplemental Materials for AIAA Journals*  
 https://www.aiaa.org/publications/journals/Supplemental-Materials-for-Journals/
@@ -106,6 +120,8 @@ AIAA encourages relevant supplemental files such as datasets, extensive tables, 
 The public sources above do not reliably expose the current production JAIS values for:
 
 - exact article-type dropdown wording;
+- exact title/abstract validation behavior;
+- exact Independent Researcher affiliation/postal-code fields;
 - exact suggested-reviewer count and required/optional status;
 - excluded-reviewer workflow;
 - subject classifications/taxonomy;
@@ -123,5 +139,6 @@ These remain intentionally unresolved until the live production JAIS ScholarOne 
 ## Gate result
 
 **JAIS/AIAA public scope and author-requirements verification:** PASS.  
+**JAIS target title/abstract public-format gate:** PASS.  
 **Exact production ScholarOne field lock:** PENDING.  
 **Scientific changes authorized by this verification:** NONE.
