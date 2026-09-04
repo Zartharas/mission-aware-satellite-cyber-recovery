@@ -30,7 +30,15 @@ Frozen Study-2 identities include:
 - Phase-7 result ZIP SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
 - independent auditor SHA-256 `3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d`
 
-The exact Phase-7 result ZIP is durably retained in repository history under `study2/evidence/phase7/archive/`. The underlying Phase-6 source evidence remains hash-bound but still requires a responsible-release-reviewed DOI-bearing archive before the existing journal submission. Do not reuse the Study-1 DOI for Study 2 and do not invent a Study-2 DOI.
+The exact Phase-7 result ZIP is durably retained in repository history under `study2/evidence/phase7/archive/`. The underlying Phase-6 source evidence is now publicly archived on Zenodo as version **1.0.0**:
+
+- version DOI: <https://doi.org/10.5281/zenodo.22289114>
+- concept DOI: <https://doi.org/10.5281/zenodo.22289113>
+- exact public ZIP: `study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip`
+- public-download SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- public-byte verification: PASS
+
+The Study-1 and Study-2 Zenodo records are separate evidence objects and must not be conflated.
 
 ### Study 8
 
@@ -73,7 +81,7 @@ Study 8 remains a separate companion-paper research stream and is not part of th
 |---|---|---:|---:|
 | A — repository validation | Validate current-state documents, schemas, publication controls, Python/shell sources, and tests | No | No |
 | A1 — Study-1 statistical reproduction | Recompute/regression-check frozen Study-1 WP10 manuscript contracts from tracked derived inputs | No | No |
-| A2 — Study-2 Phase-7 verification | Verify frozen Study-2 provenance/results and, when the immutable Phase-6 source ZIP is available, run the independent auditor | No | No |
+| A2 — Study-2 Phase-7 verification | Verify frozen Study-2 provenance/results and, using the published immutable Phase-6 source ZIP, run the independent auditor | No | No |
 | A3 — Study-8 technical-close verification + publication-package verification | Verify frozen Study-8 design/implementation hashes, results-freeze hashes, 3,456/3,456 audit identity, technical close, and 11-file publication-package freeze/merge state | No | No |
 | B — bounded testbed preflight | Rebuild pinned NOS3/Fortytwo/cFS environment and verify isolated runtime liveness | Yes | No scored campaign |
 | C — new scientific replication | Execute new observations under a separately frozen protocol | Yes | Yes — new evidence, not any frozen study |
@@ -126,7 +134,7 @@ find scripts study2 study8 -type f -name '*.sh' -print0 \
 
 A safe repository validation passes when:
 
-- current-state release-gate audit exits zero, including the Study-8 publication current-state overlay;
+- current-state release-gate audit exits zero, including the Study-8 publication current-state overlay and Study-2 Zenodo publication/current-state checks;
 - bibliography metadata audit exits zero;
 - experiment schema validation exits zero;
 - all Python unit tests pass;
@@ -195,9 +203,24 @@ study2/scripts/audit_phase7_independent.py
 
 It does **not** import or invoke the primary Phase-7 analyzer. It independently recomputes the frozen numerical cell summaries, primary contrasts, secondary contrasts, Holm adjustments/rejections, and terminal-state distributions from the immutable Phase-6 observations.
 
-Running that auditor requires the exact Phase-6 source-evidence ZIP plus the exact Phase-7 result ZIP. The original Phase-6 Actions artifact is hash-bound but temporary; the journal package therefore requires a durable responsible-release-reviewed source archive before submission. Once that archive is published, this guide should be updated with the actual DOI/download identity rather than a placeholder.
+The exact Phase-6 source-evidence ZIP is publicly available from Zenodo record `22289114` / version DOI `10.5281/zenodo.22289114`. Before using it, verify that the downloaded file is exactly:
 
-Do not regenerate Study-2 campaign observations merely to satisfy this prerequisite.
+```text
+study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip
+```
+
+and that SHA-256 is exactly:
+
+```text
+195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133
+```
+
+The publication/checksum closeout is recorded at:
+
+- [`../study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json`](../study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json)
+- [`../study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.md`](../study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.md)
+
+Running the independent auditor requires that exact Phase-6 source-evidence ZIP plus the exact Phase-7 result ZIP. Do not regenerate Study-2 campaign observations to satisfy this prerequisite and do not substitute a re-zipped or edited source package.
 
 ## 7. Study-2 interpretation checks during reproduction
 
@@ -340,13 +363,15 @@ See [`40-zenodo-publication-closeout.md`](40-zenodo-publication-closeout.md) for
 
 The authoritative article assembly is [`../publication/manuscript/MANUSCRIPT-ASSEMBLY.md`](../publication/manuscript/MANUSCRIPT-ASSEMBLY.md). Study-1 and Study-2 Methods/Results are separate components so future editing cannot silently merge populations or change historical findings.
 
+The Study-2 responsible-release/DOI archive gate is complete: the exact approved Phase-6 ZIP is published as Zenodo v1.0.0 under version DOI `10.5281/zenodo.22289114`, and its publicly served SHA-256 was independently verified against the frozen source identity.
+
 A successful clone validation does not make the current branch a submitted journal version. The final submission snapshot must be recorded only after:
 
-1. two-study manuscript integration passes CI and claim/citation audits;
-2. Study-2 source evidence passes responsible-release review and is durably DOI archived;
-3. the actual Study-2 DOI is inserted into Data Availability;
-4. the live target-journal requirements are rechecked;
-5. the exact export passes final frozen-claim/DOI/scope review.
+1. the live target-journal Guide for Authors, Aims & Scope, AI/ML/generative-AI policies, article type, portal fields, and file requirements are rechecked on the actual submission-preparation date;
+2. the exact submission export passes final citation/DOI/reference, frozen-claim, and scope-fit review;
+3. the final submission repository snapshot is recorded after those checks pass.
+
+Actual publisher submission and publisher-portal actions remain separately authorized.
 
 ### Study-8 companion paper
 
