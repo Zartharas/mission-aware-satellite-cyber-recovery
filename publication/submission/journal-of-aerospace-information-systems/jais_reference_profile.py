@@ -23,7 +23,7 @@ def _clean(text: str) -> str:
 
     text = text.replace(
         "Current satellite incident-response guidance likewise recognizes that containment and recovery can depend on contact opportunities and approval gates [@chunawala2026satelliteir]. The present experiments therefore model contact as a controlled factor, not as orbital geometry, antenna availability, radio propagation, or operator latency.",
-        "Spacecraft recovery and autonomy literature establishes that operation may continue without immediate ground intervention. The present experiments therefore model contact as a controlled factor, not as orbital geometry, antenna availability, radio propagation, or operator latency.",
+        "The present experiments therefore model contact as a controlled factor, not as orbital geometry, antenna availability, radio propagation, or operator latency.",
     )
     text = text.replace(
         "The frozen event families are related to SPARTA only as behavioral correspondences: unauthorized valid commanding, replayed commands, compromised synthetic updates, and telemetry/evidence degradation map to documented spacecraft-security behaviors without claiming reproduction of complete operational attack chains [@sparta_fact_sheet_2025]. The experiments do not model real ground-station compromise, supply-chain compromise, key theft, or radio-frequency attack mechanisms.",
