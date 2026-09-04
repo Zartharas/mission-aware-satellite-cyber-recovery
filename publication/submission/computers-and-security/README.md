@@ -9,7 +9,8 @@
 - **Author-attestation gate:** PASS as of 2026-08-31
 - **Journal integration:** completed in PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`
 - **Study-2 Phase-6 responsible-release review:** PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`
-- **Current state:** **Study-2 durable DOI archive / public checksum verification / DOI insertion gate; final export validation follows**
+- **Study-2 public archive:** Zenodo v1.0.0 — version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`, public ZIP SHA-256 verified
+- **Current state:** **Study-2 DOI/archive gate complete; live-policy review and exact final-export validation remain before submission**
 
 This directory contains target-specific submission material only. It does not replace the target-neutral manuscript and must not become a second manually maintained copy of the paper.
 
@@ -31,8 +32,9 @@ This directory contains target-specific submission material only. It does not re
 - independent reproduction: 0 mismatches
 - durable Phase-7 result ZIP in Git history
 - exact Phase-6 source-evidence ZIP passed responsible-release review
-- underlying Phase-6 source-evidence archive: **responsible-release-reviewed DOI publication still required before submission**, followed by independent public-checksum verification
-- responsible-release record and deposit metadata: `../../../study2/release/phase6/`
+- public source-evidence archive: Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`
+- public ZIP SHA-256 independently verified as `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- publication-verification authority: `../../../study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json`
 
 The Study-1 Zenodo DOI must never be described as containing Study-2 source observations.
 
@@ -94,11 +96,12 @@ Every target-specific export must preserve the controls in `../../manuscript/MAN
 
 ## Gate to actual submission
 
-The package is **not yet final-export ready**. The two-study journal integration, target-package reconciliation, local canonical audit, and Study-2 Phase-6 responsible-release review are complete. Before submission:
+The Study-2 archive blocker is now closed. The former historical gate wording — `responsible-release-reviewed DOI publication still required` — is retained here only to make the transition explicit; it is **not** the current state.
 
-1. publish the exact approved Study-2 source-evidence ZIP to a new durable DOI-bearing archive;
-2. independently verify the publicly served source ZIP SHA-256 and insert the actual Study-2 DOI/archive identity into Data Availability and submission materials;
-3. recheck live Computers & Security scope, AI/ML wording, generative-AI policy, article type, portal fields, and file requirements;
-4. run exact-export citation/DOI/frozen-claim/scope audits.
+Before actual submission:
 
-No missing DOI, portal field, or formatting preference may be resolved by inventing scientific or institutional information.
+1. recheck live Computers & Security scope, AI/ML wording, generative-AI policy, article type, portal fields, and file requirements;
+2. run exact-export citation/DOI/reference, frozen-claim, and scope-fit audits;
+3. record the final submission repository snapshot only after those exact-export checks pass.
+
+No missing portal field or formatting preference may be resolved by inventing scientific or institutional information.
