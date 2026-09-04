@@ -27,9 +27,9 @@
 - [x] Logical SIL time explicitly separated from real spacecraft/network/operator latency.
 - [x] Responsible-release review of the exact Study-2 Phase-6 source-evidence package completed: `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`.
 - [x] Responsible-release review recorded under `study2/release/phase6/`; review performed no campaign runtime and modified no frozen science/source-evidence record.
-- [ ] Publish the exact approved Study-2 source-evidence ZIP to a new durable DOI-bearing archive.
-- [ ] Independently verify the publicly served source ZIP SHA-256 against `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`.
-- [ ] Insert the actual published Study-2 DOI/archive identity into Data Availability and the target package. **Do not invent a DOI.**
+- [x] Exact approved Study-2 source-evidence ZIP published as Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`.
+- [x] Publicly served source ZIP independently verified against SHA-256 `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`.
+- [x] Actual published Study-2 DOI/archive identity inserted into Data Availability and the target package.
 
 ## Two-study journal integration
 
@@ -39,7 +39,7 @@
 - [x] `04-study2-results-extension.md` added to the authoritative manuscript sequence.
 - [x] Discussion rewritten to replace obsolete “Study 2 is future work” language with cross-study synthesis.
 - [x] Conclusion reconciled to both frozen studies.
-- [x] Data Availability distinguishes the Study-1 Zenodo DOI from the pending Study-2 source archive.
+- [x] Data Availability distinguishes the separate Study-1 and Study-2 Zenodo archives and their version/concept DOIs.
 - [x] Separate Study-2 claim traceability added; frozen Study-1 traceability is not rewritten.
 - [x] Study-2 RQ1–RQ5 manuscript summary table added.
 - [x] Study-2 secondary Holm-family table added.
@@ -70,7 +70,7 @@
 - [x] Five two-study research highlights prepared; each is <=85 characters.
 - [x] Target-specific concise abstract candidate updated to the two-study evidence.
 - [x] Cover letter updated to the two-study evidence and source-archive status.
-- [x] Target package README updated to the completed integration / current archive gate.
+- [x] Target package README updated to the completed integration / current archive state.
 - [x] `venue-fit.md` reconciled to the two-study article.
 - [x] Title-page title reconciled with the adopted two-study manuscript title.
 - [x] AI declaration reconciled to the two-study manuscript and current Elsevier policy snapshot.
@@ -120,7 +120,8 @@ These remain submission-day checks because publisher requirements can change:
 **Study-1 scientific freeze: PASS.**  
 **Study-2 Phase-7 statistical freeze and independent reproduction: PASS.**  
 **Study-2 Phase-6 responsible-release review: PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`.**  
-**Completed gate:** **TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE** — journal integration and the responsible-release review portion are complete; DOI publication and public-checksum verification remain under the current archive gate.  
-**Current gate:** **STUDY-2 DURABLE DOI ARCHIVE / PUBLIC CHECKSUM VERIFICATION / DOI INSERTION.**
+**Study-2 durable DOI archive/public checksum:** PASS — version DOI `10.5281/zenodo.22289114`; public ZIP SHA-256 matches the frozen Phase-6 source identity.  
+**Completed gate:** **TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE** — journal integration, responsible-release review, DOI publication, public-byte verification, and DOI insertion are complete.  
+**Current gate:** **SUBMISSION-DAY LIVE POLICY / EXACT FINAL EXPORT VALIDATION.**
 
-Do not advance to final submission export until the exact approved Study-2 source-evidence archive is durably published, the public source ZIP checksum is verified, its actual DOI/checksums are inserted, and the exact submission export passes final citation/DOI/frozen-claim/scope audits.
+Do not advance to actual publisher submission until the live Computers & Security requirements are rechecked and the exact submission export passes final citation/DOI/reference, frozen-claim, and scope-fit audits.

@@ -5,11 +5,12 @@
 **Reproducible software-in-the-loop journal research on cyber response and trusted recovery under mission, contact, evidence, and bounded-compromise constraints.**
 
 [![Study 1 Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22181540.svg)](https://doi.org/10.5281/zenodo.22181540)
+[![Study 2 Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22289114.svg)](https://doi.org/10.5281/zenodo.22289114)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--9752--3743-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0008-9752-3743)
 [![Research data](https://img.shields.io/badge/data-CC%20BY%204.0-blue)](LICENSE)
 [![Code](https://img.shields.io/badge/code-MIT-green)](LICENSE)
 
-[Study 1 dataset](https://doi.org/10.5281/zenodo.22181540) · [Publication packages](publication/README.md) · [Study 2](study2/README.md) · [Study 8](study8/README.md) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
+[Study 1 dataset](https://doi.org/10.5281/zenodo.22181540) · [Study 2 dataset](https://doi.org/10.5281/zenodo.22289114) · [Publication packages](publication/README.md) · [Study 2](study2/README.md) · [Study 8](study8/README.md) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
 
 </div>
 
@@ -27,7 +28,7 @@ This repository contains **two separately frozen empirical studies supporting th
 | Invalid-attempt handling | 9 retained INVALID attempts; one additional quarantined never-ledgered interruption | **0 INVALID attempts** |
 | Main factors | cyber event, mission state, evidence condition, modeled contact | evidence mechanisms, adversary budget, contact regime, ambiguity controls, context ablations |
 | Time basis | frozen 30-s Study-1 analysis horizon where applicable | deterministic logical SIL time; 240-logical-second RMST restriction |
-| Public/source evidence | Zenodo v1.0.0, DOI `10.5281/zenodo.22181540` | Phase-6 evidence passed responsible-release review; DOI publication/checksum verification remain pre-submission gates |
+| Public/source evidence | Zenodo v1.0.0, DOI `10.5281/zenodo.22181540` | Zenodo v1.0.0, DOI `10.5281/zenodo.22289114`; public ZIP SHA-256 verified |
 | Statistical results | frozen WP10 record and reconstructed regression-tested reproduction package | canonical Phase-7 freeze with independent reproduction, **0 mismatches** |
 
 ### Study 8 — separately frozen companion study
@@ -49,7 +50,7 @@ Study 8 (`S8-PQC-ICR-001`) evaluates trusted post-compromise recovery under fini
 
 Study 8 is a **deterministic finite modeled study**, not an empirical spacecraft/RF performance experiment. Its dedicated companion manuscript/package under [`publication/study8/`](publication/study8/README.md) has been developed from frozen science only, adversarially reviewed, hash-frozen, and merged. It remains separate from the existing Study-1/Study-2 journal manuscript.
 
-**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`; the two-study journal-manuscript integration is complete, while durable Study-2 DOI archiving/public checksum verification remain pre-submission work for that article. Study 8 is now `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this current-state documentation.
+**Current repository state:** Study-1 science is frozen. Study-2 Phase 7 is `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`; the two-study journal-manuscript integration is complete, and the Study-2 durable DOI archive/public checksum gate is complete as Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`. The remaining Study-1/Study-2 article gate is submission-day live-policy/portal review plus exact final-export validation. Study 8 is now `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this current-state documentation.
 
 The historical Phase-8.7 technical-close record retains `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED` because that was the correct stage-local state at technical close. It is provenance, not the current Study-8 publication state.
 
@@ -59,7 +60,7 @@ Study-2 canonical result/provenance records:
 - [`study2/PHASE7_RESULTS_FREEZE.json`](study2/PHASE7_RESULTS_FREEZE.json)
 - [`study2/PHASE7_PROVENANCE.json`](study2/PHASE7_PROVENANCE.json)
 - [`study2/evidence/phase7/`](study2/evidence/phase7/)
-- [`study2/release/phase6/`](study2/release/phase6/) — responsible-release review and DOI-deposit metadata
+- [`study2/release/phase6/`](study2/release/phase6/) — responsible-release review, Zenodo publication, and public-byte verification
 
 Study-8 current-state/freeze records:
 
@@ -72,7 +73,7 @@ Study-8 current-state/freeze records:
 - [`publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json)
 - [`publication/study8/SHA256SUMS.txt`](publication/study8/SHA256SUMS.txt)
 
-The Study-2 analysis covers 162 primary paired contrasts and 432 prespecified secondary contrasts. The exact Phase-7 results ZIP is durably retained in repository history at `study2/evidence/phase7/archive/`. The underlying 3,872-observation Phase-6 evidence remains a separately governed source artifact. Its responsible-release review is complete; the exact approved ZIP still requires a durable DOI-bearing public archive and post-publication checksum verification before the existing journal submission.
+The Study-2 analysis covers 162 primary paired contrasts and 432 prespecified secondary contrasts. The exact Phase-7 results ZIP is durably retained in repository history at `study2/evidence/phase7/archive/`. The underlying 3,872-observation Phase-6 evidence remains a separately governed source artifact. Its responsible-release review is complete, and the exact approved ZIP is publicly archived on Zenodo as version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`; the publicly served ZIP SHA-256 exactly matches the frozen Phase-6 source identity.
 
 ## Scientific interpretation boundaries
 
@@ -116,9 +117,25 @@ The Study-2 source campaign is identified by immutable hashes, including:
 - trial-manifest SHA-256: `190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67`
 - Phase-7 result ZIP SHA-256: `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
 
-The exact Phase-6 source ZIP has passed responsible-release review with decision `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`; the review record and deposit metadata are retained under [`study2/release/phase6/`](study2/release/phase6/). No source-evidence record was changed by that review.
+The exact Phase-6 source ZIP passed responsible-release review with decision `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`; no source-evidence record was changed by that review or by publication.
 
-A DOI for the Study-2 source-evidence package is **not yet claimed here**. The remaining archive gate is to publish the exact approved ZIP to a new durable DOI-bearing Study-2 dataset record, verify the publicly served ZIP checksum, and then insert the actual DOI/archive identity into the journal package. The Study-1 DOI must not be reused for Study 2.
+The exact approved Study-2 source-evidence package is publicly archived on Zenodo as **Version 1.0.0**:
+
+> **Singh, A. (2026). _Mission-Aware Satellite Cyber Response and Trusted Recovery — Study 2 Phase-6 Source Evidence_ (Version 1.0.0) [Dataset]. Zenodo.**  
+> <https://doi.org/10.5281/zenodo.22289114>
+
+Version DOI: `10.5281/zenodo.22289114`  
+Concept DOI: `10.5281/zenodo.22289113`
+
+The published file is exactly:
+
+`study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip`
+
+Its post-publication public-download SHA-256 is:
+
+`195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+
+This exactly matches the frozen Phase-6 source identity. Publication verification is retained under [`study2/release/phase6/`](study2/release/phase6/). The Study-1 and Study-2 Zenodo records are separate evidence objects and must not be conflated.
 
 ### Study 8
 
@@ -155,7 +172,7 @@ Historical Study-1 figures and tables remain frozen publication artifacts. Study
 | Order | Location | Purpose |
 |---:|---|---|
 | 1 | [`publication/`](publication/README.md) | Study-1/Study-2 journal package plus the separately indexed frozen Study-8 companion package |
-| 2 | [`study2/`](study2/README.md) | Study-2 protocol, campaign, Phase-7 freeze, provenance, independent audit, and Phase-6 responsible-release record |
+| 2 | [`study2/`](study2/README.md) | Study-2 protocol, campaign, Phase-7 freeze, provenance, independent audit, and Phase-6 responsible-release/publication record |
 | 3 | [`study8/`](study8/README.md) | Study-8 design, canonical 3,456-position evidence, independent reproduction, statistical freeze, technical close, and publication-package pointers |
 | 4 | [`analysis/`](analysis/README.md) | Study-1 WP10 statistical reconstruction validated against preserved reference outputs |
 | 5 | [`docs/`](docs/) | Theory, methods, legal/ethical boundaries, historical work-package evidence, and release closeouts |
@@ -166,7 +183,7 @@ Historical Study-1 figures and tables remain frozen publication artifacts. Study
 | 10 | [`tracker/`](tracker/) | Current research state plus historical work-package decisions |
 | 11 | [`release/`](release/) | Study-1 responsible-release controls and Zenodo publication record |
 
-Historical files intentionally retain stage-local wording when that wording is part of provenance. Current state is governed by this README, `tracker/RESEARCH_TRACKER.md`, `study2/PHASE7_PROVENANCE.json`, `publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`, and the applicable frozen scientific/publication manifests.
+Historical files intentionally retain stage-local wording when that wording is part of provenance. Current state is governed by this README, `tracker/RESEARCH_TRACKER.md`, `study2/PHASE7_PROVENANCE.json`, `study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json`, `publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`, and the applicable frozen scientific/publication manifests.
 
 ## Quick start: safe repository validation
 
@@ -208,7 +225,7 @@ See [`SECURITY.md`](SECURITY.md), [`docs/05-legal-ethical-boundaries.md`](docs/0
 
 ## Citation
 
-`CITATION.cff` and Zenodo v1.0.0 currently identify the published **Study-1** evidence release. The Study-2 responsible-release review is complete, but a Study-2 DOI must be added only after the approved source package is actually published and its public checksum is verified. Study 8 has a frozen manuscript/package but no DOI, venue acceptance, or publisher submission identity yet; none may be invented before those events occur.
+`CITATION.cff` continues to identify the Study-1 evidence release as the repository's preferred citation. The separate Study-2 source-evidence dataset is now published and verified at version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`; cite that record when referring specifically to Study-2 Phase-6 source evidence. Study 8 has a frozen manuscript/package but no DOI, venue acceptance, or publisher submission identity yet; none may be invented before those events occur.
 
 ## Author
 

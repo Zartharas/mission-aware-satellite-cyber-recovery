@@ -45,11 +45,24 @@ Study 2 has a separate frozen population of **3,872 VALID observations**, **0 IN
 - attempt-ledger SHA-256: `755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5`;
 - trial-manifest SHA-256: `190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67`.
 
-The exact source ZIP has completed responsible-release review with disposition **`APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`**. The review verified the 3,872-row ledger/observation membership and per-observation/file hash identities with zero mismatches and found no credentials, tokens, private keys, email addresses, URLs, IPv4 addresses, local absolute paths, human-subject data, operational spacecraft/RF data, proprietary mission telemetry, or unsafe ZIP paths. The review performed no campaign runtime and modified no frozen source-evidence record or scientific result. The repository-side review record is retained under `study2/release/phase6/`.
+The exact source ZIP completed responsible-release review with disposition **`APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`**. The review verified the 3,872-row ledger/observation membership and per-observation/file hash identities with zero mismatches and found no credentials, tokens, private keys, email addresses, URLs, IPv4 addresses, local absolute paths, human-subject data, operational spacecraft/RF data, proprietary mission telemetry, or unsafe ZIP paths. The review performed no campaign runtime and modified no frozen source-evidence record or scientific result. The repository-side review record is retained under `study2/release/phase6/`.
 
-The source artifact remains a campaign-evidence object, not merely a manuscript table. The responsible-release review portion is complete; because the original Actions retention is temporary, the remaining archive requirement is a **responsible-release-reviewed, DOI-bearing durable archive** containing the exact approved Study-2 source ZIP. The journal submission package is not considered archive-complete until that ZIP is deposited, the publicly served ZIP checksum is independently verified, and the actual DOI/checksum identity is inserted here. The existing Study-1 Zenodo v1.0.0 record must not be described as containing Study 2, and no Study-2 DOI is claimed before it actually exists.
+The responsible-release-reviewed, DOI-bearing durable archive is now publicly available on Zenodo as **Version 1.0.0**:
 
-The frozen Study-2 Phase-7 statistical result ZIP is already retained durably in repository history at:
+**Version DOI:** <https://doi.org/10.5281/zenodo.22289114>  
+**Concept DOI:** <https://doi.org/10.5281/zenodo.22289113>
+
+The public record contains the exact approved source-evidence ZIP:
+
+`study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip`
+
+The publicly served ZIP was independently downloaded after publication and recomputed as:
+
+`195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+
+This exactly matches the frozen Phase-6 artifact identity. The Study-2 Zenodo archive is therefore the public source-evidence record for `S2-AEATR-001`; it is separate from the Study-1 Zenodo record and does not alter either frozen statistical population. Publication/checksum verification is recorded under `study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json` and `study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.md`.
+
+The frozen Study-2 Phase-7 statistical result ZIP is also retained durably in repository history at:
 
 `study2/evidence/phase7/archive/study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip`
 
@@ -57,7 +70,7 @@ Its SHA-256 is:
 
 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
 
-That ZIP contains the frozen cell summaries, primary contrasts, secondary contrasts, terminal-state summaries, generated analysis report, analysis summary, and output-hash manifest. It is an analysis-output archive and does not substitute for the separate source-evidence archive required above.
+That ZIP contains the frozen cell summaries, primary contrasts, secondary contrasts, terminal-state summaries, generated analysis report, analysis summary, and output-hash manifest. It is an analysis-output archive and does not substitute for the separate public source-evidence archive above.
 
 ## Code availability
 
@@ -81,7 +94,7 @@ The canonical Phase-7 closeout state was merged at:
 
 `2bd3fb34ca709127e45ea9bffa8f516846d6c4b5`
 
-The final journal-submission repository snapshot will be recorded after Study-2 source-evidence DOI publication/checksum verification and final submission-export validation. Later manuscript/release-documentation commits do not alter the frozen Study-1 or Study-2 statistical populations.
+The final journal-submission repository snapshot will be recorded after final submission-export and submission-day live-policy validation. The Study-2 source-evidence DOI/public-checksum gate is complete. Later manuscript/release-documentation commits do not alter the frozen Study-1 or Study-2 statistical populations.
 
 Repository-level environment and test instructions are maintained in `docs/REPRODUCIBILITY_GUIDE.md`. Third-party research infrastructure remains subject to its upstream licenses; repository licensing is documented in `LICENSE` and `NOTICE.md`.
 

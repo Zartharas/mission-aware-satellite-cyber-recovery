@@ -1,12 +1,12 @@
 # Research Tracker
 
-Last updated: 2026-09-03
+Last updated: 2026-09-04
 
 ## Current focus
 
-**The repository contains two separately frozen empirical studies supporting the existing journal research article plus a separately frozen deterministic modeled companion study, Study 8 (`S8-PQC-ICR-001`). Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 remains `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`. Study 8 has completed technical close, frozen publication development, final manuscript adversarial review, publication-package SHA-256 freeze, PR #92 merge, and successful post-merge validation. Its current state is `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this tracker.**
+**The repository contains two separately frozen empirical studies supporting the existing journal research article plus a separately frozen deterministic modeled companion study, Study 8 (`S8-PQC-ICR-001`). Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 remains `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`, and its exact Phase-6 source-evidence package is now publicly archived and public-byte verified on Zenodo as version DOI `10.5281/zenodo.22289114`. Study 8 has completed technical close, frozen publication development, final manuscript adversarial review, publication-package SHA-256 freeze, PR #92 merge, and successful post-merge validation. Its current state is `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this tracker.**
 
-The existing Study-1/Study-2 journal article remains separate under `publication/manuscript/`. Study 8 now has a dedicated companion-paper package under `publication/study8/`; it must not be silently inserted into the two-study manuscript or pooled with either empirical population.
+The existing Study-1/Study-2 journal article remains separate under `publication/manuscript/`. Its Study-2 DOI/archive gate is complete; the next article gate is submission-day live-policy/portal verification plus exact final-export validation. Study 8 has a dedicated companion-paper package under `publication/study8/`; it must not be silently inserted into the two-study manuscript or pooled with either empirical population.
 
 This is a **journal/research publication workflow**, not a dissertation-revision workflow. The prior dissertation relationship remains a disclosure/prior-dissemination consideration only.
 
@@ -23,7 +23,10 @@ This is a **journal/research publication workflow**, not a dissertation-revision
 - current journal assembly authority: `publication/manuscript/MANUSCRIPT-ASSEMBLY.md`
 - current Study-2 freeze authority: `study2/PHASE7_RESULTS_FREEZE.json`
 - current Study-2 provenance authority: `study2/PHASE7_PROVENANCE.json`
-- current Study-2 Phase-6 release-review record: `study2/release/phase6/`
+- current Study-2 Phase-6 release/publication record: `study2/release/phase6/`
+- Study-2 Zenodo version DOI: `10.5281/zenodo.22289114`
+- Study-2 Zenodo concept DOI: `10.5281/zenodo.22289113`
+- Study-2 public-archive verification authority: `study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json`
 
 ### Study 8 companion study
 
@@ -113,6 +116,8 @@ Study-2 campaign and analysis are complete:
 - Phase-7 analyzer SHA-256: `351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd`
 - Phase-7 result ZIP SHA-256: `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
 - independent auditor SHA-256: `3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d`
+- Zenodo version DOI: `10.5281/zenodo.22289114`
+- Zenodo concept DOI: `10.5281/zenodo.22289113`
 
 The exact Phase-7 result ZIP is durably retained in repository history under `study2/evidence/phase7/archive/`.
 
@@ -153,15 +158,23 @@ No weighted global policy score or global policy rank is supported by Study 2.
 
 ## Study-2 archive state
 
-The Phase-7 **result** artifact is durably retained in Git history. The underlying Phase-6 **source-evidence** artifact is hash-bound, and its original GitHub Actions retention is temporary.
+The Phase-7 **result** artifact is durably retained in Git history. The underlying Phase-6 **source-evidence** artifact is hash-bound and is now durably public as a separate Zenodo dataset.
 
-The exact source ZIP has now passed responsible-release review. The recorded decision is:
+The exact source ZIP passed responsible-release review with recorded decision:
 
 `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`
 
 The review verified 3,872 ledger rows against 3,872 observations; 0 ledger/observation identity mismatches; 0 recomputed observation-hash mismatches; 0 recorded file-hash mismatches; exact 85-cell/block membership; and no identified credentials, tokens, private keys, email addresses, URLs, IPv4 addresses, local absolute paths, operational spacecraft/RF/proprietary mission data, human-subject data, or unsafe ZIP paths. The review performed no campaign runtime and changed no frozen science or source-evidence record. Repository documentation is retained under `study2/release/phase6/`.
 
-**Remaining pre-submission archive gate for the existing journal article:** publish the exact approved source ZIP to a new durable DOI-bearing archive, verify the publicly served ZIP checksum, and insert the actual DOI/archive identity into the journal Data Availability statement and target package. Do not invent a DOI and do not reuse the Study-1 Zenodo DOI.
+The exact approved source ZIP is published as Zenodo v1.0.0:
+
+- record: `https://zenodo.org/records/22289114`
+- version DOI: `10.5281/zenodo.22289114`
+- concept DOI: `10.5281/zenodo.22289113`
+- public ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- public-byte verification: `PASS`
+
+The DOI/archive blocker for the existing journal article is therefore closed. The next gate is submission-day live-policy/portal verification plus exact final-export citation/DOI/reference, frozen-claim, and scope-fit validation. The Study-1 and Study-2 Zenodo records remain separate evidence objects.
 
 ## Study 8 — canonical science and publication closeout
 
@@ -290,40 +303,42 @@ Completed for the existing Study-1/Study-2 article:
 5. journal-integration merge to `main` as PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`;
 6. post-integration status closeout through PR #73;
 7. local release-gate isolation through PR #74 and local exact-commit clean-worktree validation at `6bb0051628ec64ebd09a85435f88a6a0d2cfc382`, including 611 research tests, frozen WP10 reproduction, and zero drift;
-8. responsible-release review of the exact Study-2 Phase-6 source-evidence ZIP, disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`, with no campaign execution or frozen-science modification.
+8. responsible-release review of the exact Study-2 Phase-6 source-evidence ZIP, disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`, with no campaign execution or frozen-science modification;
+9. publication of the exact approved Study-2 Phase-6 ZIP as Zenodo v1.0.0 under version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`, followed by independent public-download SHA-256 verification with an exact match;
+10. insertion of the verified Study-2 DOI/checksum identity into Data Availability and target-specific publication controls without changing frozen science.
 
 Completed for Study 8:
 
-9. Phase 8.0 standards/literature review, protocol/contact/population lock, and adversarial design review;
-10. Phase 8.1 primary implementation plus independently written reference implementation, with design amendment before runtime;
-11. Phase 8.2 pre-runtime CI, non-canonical fixture parity, and SHA-256 implementation binding;
-12. Phase 8.3 exact-head pre-runtime merge and successful post-merge CI;
-13. Phase 8.4 single-use canonical execution of exactly 3,456 observations plus 3,456 independent recomputations with 0 mismatches;
-14. Phase 8.5 prespecified finite-population statistical analysis plus independent statistical reproduction and interpretation audit;
-15. Phase 8.6 12-file SHA-256 results freeze preserving the negative primary finding;
-16. Phase 8.7 final review, exact-head PR #89 merge to `63106778559c3127a7d6e8765d52939b73a3f35b`, and successful post-merge run `33761681328`;
-17. repository indexing/technical-close synchronization and local release-gate portability hardening;
-18. Phase 8.8 frozen-science-only companion manuscript development, literature/venue verification, four tables, two figures, and claim traceability;
-19. Phase 8.9 final manuscript adversarial review and 11-file publication-package SHA-256 freeze;
-20. exact-content review and CI on head `75c98356751087dd648684ade7cb973c166cbce0`;
-21. authorized PR #92 squash merge to `87bcec000d278aeffef1222ce814098c93ada362`;
-22. post-merge Study-8 results-freeze run `33781901833` and repository-wide run `33781901724`, both `SUCCESS`;
-23. current-state repository closeout so active documentation no longer reports pre-publication-integration or pre-merge status.
+11. Phase 8.0 standards/literature review, protocol/contact/population lock, and adversarial design review;
+12. Phase 8.1 primary implementation plus independently written reference implementation, with design amendment before runtime;
+13. Phase 8.2 pre-runtime CI, non-canonical fixture parity, and SHA-256 implementation binding;
+14. Phase 8.3 exact-head pre-runtime merge and successful post-merge CI;
+15. Phase 8.4 single-use canonical execution of exactly 3,456 observations plus 3,456 independent recomputations with 0 mismatches;
+16. Phase 8.5 prespecified finite-population statistical analysis plus independent statistical reproduction and interpretation audit;
+17. Phase 8.6 12-file SHA-256 results freeze preserving the negative primary finding;
+18. Phase 8.7 final review, exact-head PR #89 merge to `63106778559c3127a7d6e8765d52939b73a3f35b`, and successful post-merge run `33761681328`;
+19. repository indexing/technical-close synchronization and local release-gate portability hardening;
+20. Phase 8.8 frozen-science-only companion manuscript development, literature/venue verification, four tables, two figures, and claim traceability;
+21. Phase 8.9 final manuscript adversarial review and 11-file publication-package SHA-256 freeze;
+22. exact-content review and CI on head `75c98356751087dd648684ade7cb973c166cbce0`;
+23. authorized PR #92 squash merge to `87bcec000d278aeffef1222ce814098c93ada362`;
+24. post-merge Study-8 results-freeze run `33781901833` and repository-wide run `33781901724`, both `SUCCESS`;
+25. current-state repository closeout so active documentation no longer reports pre-publication-integration or pre-merge status.
 
 ### Next actions — separate gates
 
 **Existing Study-1/Study-2 journal article:**
 
-24. publish the exact approved Study-2 source-evidence package to a new durable DOI-bearing archive;
-25. independently verify the publicly served source ZIP SHA-256 against `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`;
-26. insert the actual DOI/checksums into Data Availability and target materials;
-27. proceed to final Computers & Security live-portal checks and exact-export claim/citation/DOI/scope audit.
+26. recheck the live Computers & Security Guide for Authors, Aims & Scope, AI/ML wording, generative-AI policy, article type, and Editorial Manager file/metadata requirements on the actual submission-preparation date;
+27. build the exact final submission export and run citation/DOI/reference, frozen-claim, and scope-fit audits against that export;
+28. record the final submission repository snapshot only after those checks pass;
+29. keep actual publisher submission and publisher-portal actions under a separate explicit authorization.
 
 **Study-8 companion paper:**
 
-28. after a new explicit authorization, perform venue-specific submission-package preparation against live venue requirements using only the frozen companion package;
-29. keep final venue commitment, publisher submission, and publisher-portal actions separately gated;
-30. do not change the 11 hash-frozen publication artifacts or any frozen Study-8 scientific artifact without a new, explicit amendment/re-freeze process.
+30. after a new explicit authorization, perform venue-specific submission-package preparation against live venue requirements using only the frozen companion package;
+31. keep final venue commitment, publisher submission, and publisher-portal actions separately gated;
+32. do not change the 11 hash-frozen publication artifacts or any frozen Study-8 scientific artifact without a new, explicit amendment/re-freeze process.
 
 ## Scientific and responsible-research boundaries
 
