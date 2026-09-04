@@ -30,20 +30,25 @@ jobs:
       - name: Install Word renderer dependency
         run: python -m pip install --disable-pip-version-check python-docx==1.1.2
 
-      - name: Build compact JAIS target manuscript and audit
-        run: python publication/submission/journal-of-aerospace-information-systems/build_jais_compact_export.py
+      - name: Build final JAIS target manuscript and export audit
+        run: python publication/submission/journal-of-aerospace-information-systems/build_jais_final_export.py
+
+      - name: Audit AIAA reference archivality and completeness
+        run: python publication/submission/journal-of-aerospace-information-systems/audit_jais_references.py
 
       - name: Render JAIS Word manuscript
         run: python publication/submission/journal-of-aerospace-information-systems/make_jais_docx.py
 
-      - name: Show audit
-        run: cat publication/submission/journal-of-aerospace-information-systems/upload-packet/generated/JAIS_EXPORT_AUDIT.md
+      - name: Show export and reference audits
+        run: |
+          cat publication/submission/journal-of-aerospace-information-systems/upload-packet/generated/JAIS_EXPORT_AUDIT.md
+          cat publication/submission/journal-of-aerospace-information-systems/upload-packet/generated/JAIS_REFERENCE_AUDIT.md
 
       - name: Hash generated files
         shell: bash
         run: |
           cd publication/submission/journal-of-aerospace-information-systems/upload-packet/generated
-          sha256sum JAIS_MANUSCRIPT.md JAIS_MANUSCRIPT.docx JAIS_EXPORT_AUDIT.json JAIS_EXPORT_AUDIT.md JAIS_REFERENCE_MAP.csv > SHA256SUMS.txt
+          sha256sum JAIS_MANUSCRIPT.md JAIS_MANUSCRIPT.docx JAIS_EXPORT_AUDIT.json JAIS_EXPORT_AUDIT.md JAIS_REFERENCE_MAP.csv JAIS_REFERENCE_AUDIT.json JAIS_REFERENCE_AUDIT.md > SHA256SUMS.txt
           cat SHA256SUMS.txt
 
       - name: Upload generated JAIS packet
