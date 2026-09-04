@@ -103,7 +103,7 @@ Every target-specific export must preserve the controls in `../../manuscript/MAN
 
 ## Gate to actual submission
 
-The Study-2 archive blocker is closed and Publication Phase 1 is active. The first live scope/policy pass is complete. The current gate is **exact journal-guide/portal confirmation plus exact final-export validation**.
+The Study-2 archive blocker is now closed and Publication Phase 1 is active. The first live scope/policy pass is complete. The current gate is **exact journal-guide/portal confirmation plus exact final-export validation**.
 
 Before actual submission:
 
