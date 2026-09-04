@@ -1,8 +1,16 @@
 # Title Page — Journal of Aerospace Information Systems
 
-## Manuscript title
+## JAIS submission title
+
+**Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**
+
+AIAA title check: **12 words**, with no acronym or abbreviation.
+
+## Authoritative research/manuscript title
 
 **Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints: Two Controlled Software-in-the-Loop Studies**
+
+The shorter JAIS title is a venue-specific editorial title required by AIAA's current title-length guidance. It does not change the manuscript's scientific identity, study membership, results, or claims.
 
 ## Author
 
@@ -11,11 +19,15 @@ Independent Researcher
 The Woodlands, Texas, United States  
 ORCID: https://orcid.org/0009-0008-9752-3743
 
+AIAA's current author-format guidance describes affiliation information including city, state, and ZIP code. No ZIP code is inferred in this package. Add it only if the live JAIS workflow/template requires it and the author verifies the value.
+
 ## Corresponding author
 
 Aman Kumar Singh  
 Email: asingh65430@ucumberlands.edu  
 Preferred correspondence method: email
+
+AIAA uses the corresponding-author designation in ScholarOne for submission/publication contact and permits a corresponding-author footnote in the manuscript.
 
 ## Target journal
 
