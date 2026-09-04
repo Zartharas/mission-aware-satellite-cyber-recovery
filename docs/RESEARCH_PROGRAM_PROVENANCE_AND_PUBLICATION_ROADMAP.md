@@ -17,7 +17,7 @@ The resulting studies are related by research question and hash-bound dependenci
 | Study | Experiment / evidence | Why the prior study could not answer it | Canonical state | Publication disposition |
 |---|---|---|---|---|
 | Study 1 | 720 VALID software-in-the-loop observations | Establish the initial mission/contact/evidence response and trusted-recovery comparison | frozen and DOI-backed | Paper 1 with Study 2 |
-| Study 2 | `S2-AEATR-001`, 3,872 VALID observations | Study 1 did not separately instantiate richer evidence-integrity, producer-compromise, ambiguity/control, and contact conditions | Phase-7 findings frozen; independent reproduction 0 mismatches | Paper 1 with Study 1; Study-2 source DOI is the remaining archive blocker |
+| Study 2 | `S2-AEATR-001`, 3,872 VALID observations | Study 1 did not separately instantiate richer evidence-integrity, producer-compromise, ambiguity/control, and contact conditions | Phase-7 findings frozen; independent reproduction 0 mismatches; source archive DOI/checksum verified | Paper 1 with Study 1; DOI blocker closed |
 | Study 3 | `S3-K4E-001`, 1,380 trajectories / 67,620 epochs | Study 2 does not model one-shot/persistent false evidence across repeated K4 contact transitions | canonical results merged in PR #79 / `68a2c9a1394743e9a233e93586e86a6179a0793c`; independent audit PASS | candidate component of Paper 2 |
 | Study 4 | `S4-MPQ-001`, 4,608 exact observations | Study 3 has a single evidence-producer trust boundary and cannot quantify quorum/provenance-diversity trade-offs | canonical results merged in PR #81 / `09a3fa61276e348b58a852c156e7bfc64b25d32d`; independent audit PASS, 0 observation and 0 threshold mismatches | candidate component of Paper 2 |
 | Study 5 | `S5-CUCD-001`, 80 deterministic portability decisions plus sufficiency/transferability rows | Studies 1–4 do not test whether an external published satellite-cyber dataset supplies the state required by frozen recovery policies | canonical results merged in PR #83 / `6415a391dc2337c51ce72442ac7d86a25b4fbc02`; independent mismatches 0 | validation/portability stream; final vehicle deliberately deferred |
@@ -33,7 +33,9 @@ The resulting studies are related by research question and hash-bound dependenci
 
 The two populations remain statistically separate inside one manuscript. The current Computers & Security package is already structured around this boundary.
 
-**Blocking item:** the exact responsible-release-reviewed Study-2 Phase-6 source ZIP must receive its own durable DOI, and the publicly served bytes must be re-verified before the DOI is inserted into Data Availability.
+**Archive state:** the exact responsible-release-reviewed Study-2 Phase-6 source ZIP is publicly archived on Zenodo as version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`, and the publicly served ZIP SHA-256 has been independently verified against the frozen source identity. The DOI/archive blocker is closed.
+
+The remaining Paper-1 gate is submission-day live-policy/portal verification plus exact final-export citation/DOI/reference, frozen-claim, and scope-fit auditing.
 
 No Study-3–8 finding should be added to Paper 1 as a new statistical result. Follow-on studies may be cited later as separate research outputs if and when they become public.
 
@@ -101,7 +103,7 @@ The program should therefore be described as a sequence of separately frozen bou
 
 ## Publication-order recommendation
 
-1. Complete the Study-2 DOI and close Paper 1 submission preparation.
+1. Close Paper 1 submission preparation now that the Study-2 DOI/archive gate is complete: perform live Computers & Security policy/portal verification and exact final-export audits.
 2. Continue Study-8 venue-specific preparation from its already frozen companion package.
 3. Perform a dedicated literature/novelty/venue review for the proposed Studies 3+4+6 synthesis before authorizing Paper 2 development.
 4. Decide Study-5 integration versus standalone validation vehicle after Paper 1 is submitted.
