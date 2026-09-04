@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "experiment_id": "S2-AEATR-001",
+  "state": "PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED",
+  "record_id": 22289114,
+  "record_url": "https://zenodo.org/records/22289114",
+  "version_doi": "10.5281/zenodo.22289114",
+  "concept_doi": "10.5281/zenodo.22289113",
+  "publication_date": "2026-09-04",
+  "version": "1.0.0",
+  "resource_type": "dataset",
+  "license": "cc-by-4.0",
+  "creator": {
+    "name": "Singh, Aman",
+    "orcid": "0009-0008-9752-3743",
+    "affiliation": "Independent Researcher"
+  },
+  "public_file": {
+    "filename": "study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip",
+    "expected_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "public_download_sha256": "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133",
+    "sha256_match": true
+  },
+  "verification": {
+    "method": "Zenodo REST API metadata read plus public file download and independent SHA-256 recomputation",
+    "record_id_match": true,
+    "doi_match": true,
+    "filename_match": true,
+    "public_bytes_match_frozen_source": true,
+    "result": "PASS"
+  },
+  "scientific_execution_performed": false,
+  "frozen_science_modified": false,
+  "study1_doi_reused": false
+}
