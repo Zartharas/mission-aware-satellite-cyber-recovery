@@ -89,6 +89,28 @@ def nested(data: dict, keys: tuple[str, ...]):
     return value
 
 
+def check_text(
+    rel: str,
+    errors: list[str],
+    required: tuple[str, ...] = (),
+    forbidden: tuple[str, ...] = (),
+) -> None:
+    path = ROOT / rel
+    if not path.is_file():
+        fail(f"missing current-state document: {rel}", errors)
+        return
+    text = path.read_text(encoding="utf-8")
+    before = len(errors)
+    for marker in required:
+        if marker not in text:
+            fail(f"{rel} missing current-state marker: {marker}", errors)
+    for marker in forbidden:
+        if marker in text:
+            fail(f"{rel} contains stale active wording: {marker}", errors)
+    if len(errors) == before:
+        ok(f"current publication state: {rel}")
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -180,6 +202,55 @@ def main() -> int:
         else:
             ok(f"remediation document present: {rel}")
 
+    check_text(
+        "docs/RESEARCH_PROGRAM_PROVENANCE_AND_PUBLICATION_ROADMAP.md",
+        errors,
+        required=(
+            "**Current-state document — 2026-09-04**",
+            STUDY2_VERSION_DOI,
+            "The DOI/archive blocker is closed.",
+        ),
+        forbidden=("**Current-state document — 2026-09-03**",),
+    )
+    check_text(
+        "publication/submission/computers-and-security/venue-fit.md",
+        errors,
+        required=(
+            STUDY2_VERSION_DOI,
+            STUDY2_CONCEPT_DOI,
+            "public ZIP SHA-256 has been verified against the frozen source identity",
+            "Treat the two-study journal integration and Study-2 DOI/public-byte archive gate as complete.",
+        ),
+        forbidden=(
+            "Study-2 source evidence is currently hash-bound but not yet DOI published",
+            "do not submit until the Study-2 responsible-release package is reviewed and durably archived",
+        ),
+    )
+    check_text(
+        "docs/45-venue-compatibility-and-upgrade-matrix.md",
+        errors,
+        required=(
+            "CURRENT_2026-09-04_TWO_STUDY_JOURNAL_REVIEW_DOI_ARCHIVE_CLOSED",
+            STUDY2_VERSION_DOI,
+            "The Study-2 DOI/public-byte archive gate is complete.",
+            "The remaining Paper-1 pre-submission work is live Computers & Security policy/portal verification plus exact final-export",
+        ),
+        forbidden=(
+            "CURRENT_2026-09-01_TWO_STUDY_JOURNAL_REVIEW",
+            "The immediate pre-submission scientific infrastructure task is **responsible-release publication of the exact Study-2 source-evidence package**",
+        ),
+    )
+    check_text(
+        "docs/47-computers-and-security-author-attestation-closeout.md",
+        errors,
+        required=(
+            "Historical gate record; factual attestations remain valid.",
+            "the then-current pre-submission gate was",
+            "Current state is governed by the active manuscript assembly",
+        ),
+        forbidden=("The current pre-submission gate is",),
+    )
+
     study2_readme = ROOT / "study2/release/phase6/README.md"
     if not study2_readme.is_file():
         fail("missing Study-2 Phase-6 release README", errors)
@@ -258,6 +329,7 @@ def main() -> int:
         print("repository_review_v3_remediation=FAIL")
         return 1
     print("repository_review_v3_remediation=PASS")
+    print("active_publication_state=PASS_STALE_STATE_CLEAN")
     print("study2_doi_state=PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED")
     print(f"study2_version_doi={STUDY2_VERSION_DOI}")
     print(f"study2_concept_doi={STUDY2_CONCEPT_DOI}")
