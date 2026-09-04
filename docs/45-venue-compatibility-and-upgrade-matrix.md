@@ -2,9 +2,9 @@
 
 ## Status
 
-`CURRENT_2026-09-01_TWO_STUDY_JOURNAL_REVIEW`
+`CURRENT_2026-09-04_TWO_STUDY_JOURNAL_REVIEW_DOI_ARCHIVE_CLOSED`
 
-This is the **current** venue-planning aid for the journal research article after canonical Study-2 Phase-7 closeout. Historical venue/design documents may preserve earlier Study-1-only planning assumptions, but they do not override this matrix or `publication/submission/computers-and-security/venue-fit.md`.
+This is the **current** venue-planning aid for the journal research article after canonical Study-2 Phase-7 closeout and verified public archival of the exact Study-2 Phase-6 source-evidence package. Historical venue/design documents may preserve earlier Study-1-only or pre-publication planning assumptions, but they do not override this matrix or `publication/submission/computers-and-security/venue-fit.md`.
 
 Journal scope, editorial policy, and reputation can change. The live journal pages and submission portal must be rechecked on the actual submission date.
 
@@ -15,7 +15,7 @@ The journal article now combines two scientifically separate empirical studies w
 - **Study 1:** 720 VALID observations across 24 frozen cells; 9 retained INVALID attempts outside statistical membership.
 - **Study 2:** 3,872 VALID observations across 85 frozen cells; 0 INVALID attempts; 162 primary paired contrasts; 432 prespecified secondary contrasts; independent reproduction with 0 mismatches.
 
-Study-1 science and Zenodo v1.0.0 remain unchanged. Study-2 is a separately frozen extension with adversarial evidence mechanisms, broader contact regimes, context ablations, and bounded adversary-budget stress.
+Study-1 science and Zenodo v1.0.0 remain unchanged. Study-2 is a separately frozen extension with adversarial evidence mechanisms, broader contact regimes, context ablations, and bounded adversary-budget stress. Its exact responsible-release-reviewed Phase-6 source ZIP is now publicly archived as Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`, with the public ZIP SHA-256 verified against the frozen source identity.
 
 ## Primary target — Computers & Security
 
@@ -101,13 +101,13 @@ Do not expand either frozen study merely to increase sample size or improve publ
 - Study 1 remains exactly 720 VALID observations.
 - Study 2 remains exactly 3,872 VALID observations.
 - Any later orbital/HIL/operator validation requires a separate frozen protocol, evidence identity, analysis plan, and archive.
-- The immediate pre-submission scientific infrastructure task is **responsible-release publication of the exact Study-2 source-evidence package**, not additional experiment execution.
+- The Study-2 DOI/public-byte archive gate is complete. The remaining Paper-1 pre-submission work is live Computers & Security policy/portal verification plus exact final-export citation/DOI/reference, frozen-claim, and scope-fit auditing; no additional experiment execution is required.
 
 ## Decision rule
 
-1. Complete PR-level two-study manuscript/repository validation.
-2. Responsible-release and DOI-archive the Study-2 source evidence.
-3. Recheck live Computers & Security scope/portal requirements and submit there first if the deterministic rule-based paper remains in scope.
+1. Treat the two-study manuscript/repository integration and Study-2 DOI/public-byte archive as complete.
+2. Recheck live Computers & Security scope, policy, portal fields, and file requirements; run exact final-export audits.
+3. Submit to Computers & Security first if the deterministic rule-based paper remains in scope.
 4. If rejected mainly for aerospace-domain fit, retarget to JAIS without changing frozen results.
 5. If a more security-methodology-focused venue is preferred, assess TDSC/TOPS using the existing Study-2 evidence and assurance record.
 6. Reserve TAES or a more engineering-heavy JAIS version for a new separately frozen aerospace/HIL validation study.
