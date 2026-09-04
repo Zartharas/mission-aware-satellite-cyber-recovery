@@ -31,6 +31,16 @@ Working article type: **Regular/Full Article**.
 
 AIAA currently recommends approximately 7–10 published pages or 10,000–12,000 equivalent words for Regular/Full Articles. Equivalent space from figures and tables counts toward the guideline. The editor may request shortening or expansion.
 
+### Title
+
+Current AIAA journal-author guidance limits the manuscript title to **12 words maximum** and prohibits acronyms/abbreviations in the title.
+
+JAIS target title:
+
+**Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**
+
+This title is exactly 12 words. The longer authoritative research/manuscript title remains preserved separately and is not scientifically replaced by the venue-facing compression.
+
 ### Manuscript presentation
 
 AIAA's current minimum journal-manuscript requirements include:
@@ -50,7 +60,7 @@ For a full-length paper, the abstract must:
 - contain no numerical references;
 - contain no acronyms or abbreviations.
 
-A JAIS-specific abstract candidate is maintained in `jais-abstract.md`. The target-specific abstract does not replace or retroactively alter the frozen scientific record.
+A JAIS-specific 189-word abstract candidate is maintained in `jais-abstract.md`. The target-specific abstract does not replace or retroactively alter the frozen scientific record.
 
 ### References
 
@@ -70,13 +80,13 @@ Current AIAA author guidance publicly confirms that the ScholarOne workflow requ
 
 - complete author/contact information;
 - confirmation that the paper is not classified and is not submitted elsewhere;
-- coauthor verification before a submission is complete, where applicable;
+- author verification before a submission is complete;
 - suggested reviewer names and contact information as requested by the system;
 - funding sources and grant numbers in the ScholarOne funding field;
 - disclosure of qualifying artificial-intelligence use upon submission;
 - upload of the double-spaced manuscript.
 
-For this single-author manuscript, no coauthor verification is applicable unless the live workflow unexpectedly requires another author action.
+Current AIAA author-format guidance also describes affiliation information including institution/company, city, state, and ZIP code. No ZIP code is inferred in this package; add it only if required and author-verified.
 
 ### Artificial-intelligence disclosure
 
@@ -87,6 +97,8 @@ AIAA requires qualifying artificial-intelligence use in manuscript preparation t
 The following remain intentionally pending until the live JAIS ScholarOne workflow is inspected:
 
 - exact article-type dropdown wording;
+- exact title/abstract validation behavior;
+- exact Independent Researcher affiliation/postal-code fields;
 - exact number of required or optional suggested reviewers;
 - exact reviewer-exclusion workflow;
 - subject classifications or keyword taxonomy used by ScholarOne;
