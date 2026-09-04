@@ -7,6 +7,7 @@ from pathlib import Path
 
 import build_jais_export as base
 import build_jais_compact_export as compact
+import jais_aiaa_reference as aiaa_reference
 import jais_reference_profile as reference_profile
 
 HERE = Path(__file__).resolve().parent
@@ -26,6 +27,7 @@ def main() -> int:
     # authoritative manuscript components or target-neutral bibliography.
     compact.profile = reference_profile
     base.read_text = _read_with_jais_references
+    base.format_reference = aiaa_reference.format_reference
     return compact.main()
 
 
