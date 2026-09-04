@@ -1,6 +1,8 @@
 # JAIS ScholarOne Entry Sheet — Paper 1
 
-**Status:** prepared values plus explicit portal-only unknowns. Exact live ScholarOne wording remains authoritative.
+**Status:** `PREPARED_VALUES__AUTHENTICATED_SCHOLARONE_SCHEMA_PENDING`
+
+Exact live ScholarOne wording remains authoritative. Do not infer or substitute portal-only values.
 
 ## Journal and article
 
@@ -16,7 +18,9 @@ AIAA title check: 12 words; no acronym/abbreviation.
 
 ## Abstract
 
-Use the 189-word one-paragraph text in `../jais-abstract.md` after live ScholarOne validation.
+Use the final **171-word**, one-paragraph, third-person JAIS abstract in `../jais-abstract.md`.
+
+Exact live ScholarOne title/abstract validation behavior: **PENDING LIVE PORTAL**.
 
 ## Candidate keywords
 
@@ -45,7 +49,7 @@ Exact keyword count, controlled vocabulary, and classification requirements: **P
 - Email: asingh65430@ucumberlands.edu
 - ORCID: 0009-0008-9752-3743
 
-AIAA author verification is expected through ScholarOne. Exact sole-author verification behavior: **PENDING LIVE PORTAL**.
+AIAA author verification is expected through ScholarOne. Exact sole-author verification behavior and affiliation/postal fields: **PENDING LIVE PORTAL**.
 
 ## Funding
 
@@ -113,7 +117,7 @@ The evaluated Study-1 and Study-2 response mechanisms are deterministic rule-bas
 
 Full target-specific disclosure: `../ai-disclosure.md`
 
-Exact ScholarOne AI question/response field: **PENDING LIVE PORTAL**.
+Exact ScholarOne artificial-intelligence question/response field: **PENDING LIVE PORTAL**.
 
 ## Suggested reviewers
 
@@ -129,12 +133,17 @@ Do not infer topical classifications or an editor choice from memory.
 
 ## Upload-item designations
 
-- Core manuscript: required by public AIAA guidance; exact final export pending
-- Cover letter: prepared; exact ScholarOne file/text requirement pending
-- Separate figures: not assumed necessary at initial peer review unless portal requests them
-- Supplemental files: optional; no default upload planned
-- Title page: metadata source prepared; separate upload requirement pending
+- Core manuscript: **CONTENT READY** as `JAIS_MANUSCRIPT.docx`; use only the visual-QA artifact identified in `MANUSCRIPT_CONTENT_READY.md` after the exact ScholarOne manuscript designation is confirmed.
+- Frozen visual-QA manuscript SHA-256: `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`.
+- Cover letter: prepared; exact ScholarOne file/text requirement pending.
+- Separate figures: not assumed necessary at initial peer review unless portal requests them.
+- Supplemental files: optional; no default upload planned.
+- Title page: metadata source prepared; separate upload requirement pending.
 
 ## Submission stop
 
-Do not press the final ScholarOne submission action until the final package freeze and separate submission authorization are recorded.
+Do not press the final ScholarOne submission action until:
+
+1. the authenticated portal fields/designations are captured and reconciled;
+2. the exact upload package is frozen against that schema; and
+3. the author separately gives explicit authorization for the final publisher submission.
