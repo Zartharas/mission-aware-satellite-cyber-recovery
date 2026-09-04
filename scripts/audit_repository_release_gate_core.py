@@ -3,8 +3,9 @@
 
 Historical work-package and phase documents may retain stage-local status text because
 that text is provenance. Current state is governed by the active tracker, the existing
-Study-1/Study-2 manuscript assembly, Study-2 canonical freeze/provenance, the Study-8
-technical close/results freeze, and the target submission package checked here.
+Study-1/Study-2 manuscript assembly, Study-2 canonical freeze/provenance and public
+archive verification, the Study-8 technical close/results freeze, and the target
+submission package checked here.
 
 This audit never starts NOS3/cFS, executes a campaign trial, consumes a campaign seed,
 or mutates scientific evidence.
@@ -37,7 +38,7 @@ S1_LEDGER_SHA = "92893a2fd8746f410bffd4dca5101bc3f533ada2ff82f98681788cf0c24ce6f
 S1_CAMPAIGN_TREE_SHA = "ad1e127b4431b6b334955129fcba82f76b18e5b43585395ac8c37300cac087b1"
 S1_REPRO_COMMIT = "99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc"
 
-# Study-2 canonical identities.
+# Study-2 canonical/public identities.
 S2_EXPERIMENT_ID = "S2-AEATR-001"
 S2_STATUS = "PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL"
 S2_VALID = 3872
@@ -53,10 +54,14 @@ S2_RESULT_ZIP_SHA = "0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b782
 S2_AUDITOR_SHA = "3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d"
 S2_RESULTS_MERGE = "49c62cbed3fb8fc318e44d696faba1854ed6c21a"
 S2_CANONICAL_CLOSEOUT = "2bd3fb34ca709127e45ea9bffa8f516846d6c4b5"
+S2_VERSION_DOI = "10.5281/zenodo.22289114"
+S2_CONCEPT_DOI = "10.5281/zenodo.22289113"
+S2_RECORD_ID = 22289114
 S2_RESULT_ARCHIVE = (
     "study2/evidence/phase7/archive/"
     "study2-phase7-results-60f64327c45efda24cbb5b342f9d0eac908e1934.zip"
 )
+S2_PUBLICATION_VERIFICATION = "study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json"
 
 # Study-8 canonical/technical-close identities.
 S8_EXPERIMENT_ID = "S8-PQC-ICR-001"
@@ -101,6 +106,8 @@ ACTIVE_MARKDOWN = (
     "publication/manuscript/07-declarations-and-availability.md",
     "study2/README.md",
     "study2/docs/PHASE7_RESULTS_FREEZE.md",
+    "study2/release/phase6/README.md",
+    "study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.md",
     "study8/README.md",
     "study8/docs/PHASE8_7_TECHNICAL_CLOSE.md",
     "publication/submission/computers-and-security/README.md",
@@ -368,6 +375,7 @@ def validate_submission_inputs() -> None:
         "S09": "AUTHOR_APPROVED_POLICY_RECHECK_REQUIRED",
         "S13": "RESOLVED",
         "S14": "RESOLVED",
+        "S15": "RESOLVED",
     }
     before = len(ERRORS)
     for key, status in expected.items():
@@ -377,8 +385,12 @@ def validate_submission_inputs() -> None:
     s12 = rows.get("S12", {})
     if s12.get("status") != "USER_OR_INSTITUTION_INPUT_IF_REQUIRED":
         fail("S12 IRB/HRPP field must remain conditional; do not invent an identifier")
+    s15_notes = rows.get("S15", {}).get("notes", "")
+    for token in (S2_VERSION_DOI, S2_CONCEPT_DOI, S2_PHASE6_ZIP_SHA):
+        if token not in s15_notes:
+            fail(f"S15 Study-2 archive input missing verified identity: {token}")
     if len(ERRORS) == before:
-        ok("author attestations and conditional IRB/HRPP state checked")
+        ok("author attestations, Study-2 archive input, and conditional IRB/HRPP state checked")
 
 
 def validate_study1_identities() -> None:
@@ -412,6 +424,7 @@ def validate_study1_identities() -> None:
 def validate_study2_identities() -> None:
     freeze = json.loads(read("study2/PHASE7_RESULTS_FREEZE.json"))
     provenance = json.loads(read("study2/PHASE7_PROVENANCE.json"))
+    verification = json.loads(read(S2_PUBLICATION_VERIFICATION))
     declarations = read("publication/manuscript/07-declarations-and-availability.md")
     tracker = read("tracker/RESEARCH_TRACKER.md")
     before = len(ERRORS)
@@ -479,12 +492,44 @@ def validate_study2_identities() -> None:
     elif sha256_file(archive) != S2_RESULT_ZIP_SHA:
         fail("Study-2 durable result ZIP SHA-256 mismatch")
 
+    expected_verification = {
+        "experiment_id": S2_EXPERIMENT_ID,
+        "state": "PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED",
+        "record_id": S2_RECORD_ID,
+        "version_doi": S2_VERSION_DOI,
+        "concept_doi": S2_CONCEPT_DOI,
+        "publication_date": "2026-09-04",
+        "version": "1.0.0",
+        "resource_type": "dataset",
+        "license": "cc-by-4.0",
+        "scientific_execution_performed": False,
+        "frozen_science_modified": False,
+        "study1_doi_reused": False,
+    }
+    for key, expected in expected_verification.items():
+        if verification.get(key) != expected:
+            fail(f"Study-2 public-archive verification {key} drift")
+    public_file = verification.get("public_file", {})
+    if public_file.get("expected_sha256") != S2_PHASE6_ZIP_SHA:
+        fail("Study-2 public archive expected SHA drift")
+    if public_file.get("public_download_sha256") != S2_PHASE6_ZIP_SHA:
+        fail("Study-2 public archive download SHA mismatch")
+    if public_file.get("sha256_match") is not True:
+        fail("Study-2 public archive SHA-match flag is not true")
+    verification_state = verification.get("verification", {})
+    if verification_state.get("result") != "PASS":
+        fail("Study-2 public archive verification result is not PASS")
+    if verification_state.get("public_bytes_match_frozen_source") is not True:
+        fail("Study-2 public archive bytes are not bound to frozen Phase-6 source")
+
     for token, label in (
         (S2_PHASE6_ZIP_SHA, "Study-2 Phase-6 artifact SHA"),
         (S2_OBSERVATIONS_SHA, "Study-2 observations SHA"),
         (S2_TRIAL_MANIFEST_SHA, "Study-2 trial-manifest SHA"),
         (S2_RESULT_ZIP_SHA, "Study-2 Phase-7 result SHA"),
         (S2_CANONICAL_CLOSEOUT, "Study-2 canonical closeout commit"),
+        (S2_VERSION_DOI, "Study-2 Zenodo version DOI"),
+        (S2_CONCEPT_DOI, "Study-2 Zenodo concept DOI"),
     ):
         if token not in tracker:
             fail(f"research tracker missing {label}: {token}")
@@ -493,12 +538,14 @@ def validate_study2_identities() -> None:
         (S2_OBSERVATIONS_SHA, "Study-2 observations SHA"),
         (S2_TRIAL_MANIFEST_SHA, "Study-2 trial-manifest SHA"),
         (S2_RESULT_ZIP_SHA, "Study-2 Phase-7 result SHA"),
+        (S2_VERSION_DOI, "Study-2 Zenodo version DOI"),
+        (S2_CONCEPT_DOI, "Study-2 Zenodo concept DOI"),
     ):
         if token not in declarations:
             fail(f"declarations missing {label}: {token}")
 
     if len(ERRORS) == before:
-        ok("Study-2 canonical freeze/provenance/archive identities cross-checked")
+        ok("Study-2 canonical freeze/provenance/public-archive identities cross-checked")
 
 
 def validate_study8_identities() -> None:
@@ -608,12 +655,20 @@ def validate_current_state() -> None:
         required=(
             "two separately frozen empirical studies",
             "3,872 VALID observations",
+            S2_VERSION_DOI,
+            S2_PHASE6_ZIP_SHA,
+            "public-download SHA-256",
             "Study 8",
             S8_STATUS,
             "separate companion study",
             "structural label-invariance",
         ),
-        forbidden=("the package is at the **final submission-export gate**",),
+        forbidden=(
+            "the package is at the **final submission-export gate**",
+            "DOI publication/checksum verification remain pre-submission gates",
+            "still requires a durable DOI-bearing public archive",
+            "A DOI for the Study-2 source-evidence package is **not yet claimed here**",
+        ),
     )
     require_text(
         "publication/README.md",
@@ -621,10 +676,13 @@ def validate_current_state() -> None:
             "two separately frozen empirical studies",
             "03-study2-methods-extension.md",
             "04-study2-results-extension.md",
-            "responsible-release-reviewed DOI archive",
+            S2_VERSION_DOI,
+            S2_CONCEPT_DOI,
+            "public-byte verified",
             "Study 8",
             "companion-paper",
         ),
+        forbidden=("remaining pre-submission archive object",),
     )
     require_text(
         "publication/manuscript/MANUSCRIPT-ASSEMBLY.md",
@@ -632,6 +690,8 @@ def validate_current_state() -> None:
             "two separately frozen empirical studies",
             "Study 1 = exactly 720 VALID observations",
             "Study 2 = exactly 3,872 VALID observations",
+            S2_VERSION_DOI,
+            "Study-2 DOI/archive gate is complete",
             "structural label-invariance/control result",
         ),
         forbidden=("Study 2/Study 3 proposals kept scientifically separate",),
@@ -639,30 +699,44 @@ def validate_current_state() -> None:
     require_text(
         "tracker/RESEARCH_TRACKER.md",
         required=(
-            "Last updated: 2026-09-03",
+            "Last updated: 2026-09-04",
             S2_STATUS,
             S2_CANONICAL_CLOSEOUT,
+            S2_VERSION_DOI,
+            S2_CONCEPT_DOI,
+            "DOI/archive blocker for the existing journal article is therefore closed",
             S8_STATUS,
             S8_SCIENCE_MERGE,
             "Study-8 companion paper",
         ),
-        forbidden=("Current action: final submission-export gate",),
+        forbidden=(
+            "Current action: final submission-export gate",
+            "Remaining pre-submission archive gate for the existing journal article",
+        ),
     )
     require_text(
         "tracker/work_packages.csv",
         required=(
             "Historical WP10 is closed",
-            "Study-2 source-evidence responsible release is a separate current pre-submission gate",
+            S2_VERSION_DOI,
+            "DOI/public-byte gate is also complete",
         ),
+        forbidden=("Study-2 source-evidence responsible release is a separate current pre-submission gate",),
     )
     require_text(
         "docs/REPRODUCIBILITY_GUIDE.md",
         required=(
             "Study-2 Phase-7 verification",
             S2_RESULT_ZIP_SHA,
-            "responsible-release-reviewed DOI-bearing archive",
+            S2_VERSION_DOI,
+            S2_PHASE6_ZIP_SHA,
+            "public-byte verification: PASS",
             "Study-8 technical-close verification",
             S8_CANONICAL_SHA,
+        ),
+        forbidden=(
+            "still requires a responsible-release-reviewed DOI-bearing archive",
+            "Once that archive is published, this guide should be updated",
         ),
     )
     require_text(
@@ -678,16 +752,23 @@ def validate_current_state() -> None:
         required=(
             "TWO-STUDY JOURNAL INTEGRATION / STUDY-2 SOURCE-EVIDENCE RESPONSIBLE RELEASE",
             "3,872 VALID observations",
+            S2_VERSION_DOI,
+            "SUBMISSION-DAY LIVE POLICY / EXACT FINAL EXPORT VALIDATION",
         ),
-        forbidden=("Study 2 generalization design is separate from the frozen Study 1 population and remains design-only/not runtime-authorized",),
+        forbidden=(
+            "Study 2 generalization design is separate from the frozen Study 1 population and remains design-only/not runtime-authorized",
+            "Publish the exact approved Study-2 source-evidence ZIP to a new durable DOI-bearing archive",
+        ),
     )
     require_text(
         "publication/submission/computers-and-security/README.md",
         required=(
             "two separately frozen empirical studies",
             "structural label-invariance/control result",
-            "responsible-release-reviewed DOI publication still required",
+            S2_VERSION_DOI,
+            "Study-2 archive blocker is now closed",
         ),
+        forbidden=("responsible-release-reviewed DOI publication still required",),
     )
     require_text("publication/submission/computers-and-security/highlights.md", required=("720 and 3,872",))
     require_text("publication/submission/computers-and-security/title-page.md", required=("Two Controlled Software-in-the-Loop Studies",))
@@ -695,7 +776,14 @@ def validate_current_state() -> None:
     require_text("publication/manuscript/04-study2-results-extension.md", required=("structural label-invariance", "54", "0"))
     require_text(
         "publication/manuscript/07-declarations-and-availability.md",
-        required=("Study 2 has a separate frozen population", "responsible-release-reviewed, DOI-bearing durable archive", S2_RESULT_ZIP_SHA),
+        required=(
+            "Study 2 has a separate frozen population",
+            S2_VERSION_DOI,
+            S2_CONCEPT_DOI,
+            S2_PHASE6_ZIP_SHA,
+            S2_RESULT_ZIP_SHA,
+        ),
+        forbidden=("no Study-2 DOI is claimed before it actually exists",),
     )
     require_text("release/UPLOAD_CHECKLIST.md", required=("Historical procedural checklist", "Zenodo v1.0.0"))
     require_text("data/README.md", required=("screening/rights register", "not part of the frozen 720-observation statistical population"))
