@@ -2,7 +2,7 @@
 
 Dear Editors of the *Journal of Aerospace Information Systems*,
 
-I am submitting the manuscript **“Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints: Two Controlled Software-in-the-Loop Studies”** for consideration as a **Regular/Full Article**.
+I am submitting the manuscript **“Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints”** for consideration as a **Regular/Full Article**.
 
 The article addresses an aerospace information-systems and mission-assurance problem: after a cyber event has been established, a satellite response mechanism must contain unauthorized activity while preserving mission and command availability and permitting recovery only when available evidence supports a trusted state. Intermittent contact, command authority, evidence integrity, and recovery timing are therefore treated as explicit system constraints rather than background assumptions.
 
