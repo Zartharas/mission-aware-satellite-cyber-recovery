@@ -10,9 +10,12 @@
 - **Journal integration:** completed in PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`
 - **Study-2 Phase-6 responsible-release review:** PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`
 - **Study-2 public archive:** Zenodo v1.0.0 — version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`, public ZIP SHA-256 verified
-- **Current state:** **Study-2 DOI/archive gate complete; live-policy review and exact final-export validation remain before submission**
+- **Publication Phase 1:** STARTED — first live-policy verification recorded 2026-09-04
+- **Current state:** **live scope/policy pass completed with portal/export checks still pending before submission**
 
 This directory contains target-specific submission material only. It does not replace the target-neutral manuscript and must not become a second manually maintained copy of the paper.
+
+The current live-policy record is `LIVE_POLICY_VERIFICATION_2026-09-04.md`.
 
 ## Current scientific package
 
@@ -48,15 +51,18 @@ Venue-adjacent Computers & Security work already cited in the manuscript include
 
 ## Current journal-scope and policy checks
 
-Policy/scope snapshot rechecked on **2026-09-01**:
+First Publication-Phase-1 live-policy pass completed on **2026-09-04** and recorded in `LIVE_POLICY_VERIFICATION_2026-09-04.md`:
 
-- Computers & Security continues to emphasize practical information-security research and excludes cryptology as a principal component.
+- Computers & Security continues to emphasize practical information-security research and excludes cryptology when it is a principal component.
 - The current journal page still displays the AI/ML moratorium language for submissions in which AI/ML is a significant scientific component. Neither Study 1 nor Study 2 uses AI/ML as the response mechanism; the evaluated selectors are frozen deterministic rule-based policies.
-- AI-assisted manuscript preparation and reproducibility/code-review work are publication-process disclosures, not scientific response mechanisms.
-- Elsevier's current generative-AI journal policy requires substantive manuscript-preparation use to be disclosed and research-process/code assistance to be described in the appropriate Methods context. The repository retains a separate author-approved disclosure.
-- General Elsevier highlights guidance uses 3–5 bullets with a maximum of 85 characters each; the current five highlights satisfy that constraint.
+- Current 2026 Computers & Security articles continue to use the `Full Length Article` label; exact Editorial Manager article-type taxonomy remains a live-portal check.
+- AI-assisted manuscript preparation and reproducibility/code-review work are publication-process/research-process disclosures, not scientific response mechanisms.
+- Elsevier's current generative-AI journal policy requires substantive manuscript-preparation use to be disclosed and research-process/code assistance to be described in the appropriate methodology context. The repository retains an author-approved disclosure and Methods/reproducibility boundaries.
+- Current Elsevier highlights guidance uses 3–5 bullets with a maximum of 85 characters each and generally places highlights at the final-files stage; the current five highlights satisfy the length constraint. Journal-specific portal behavior remains to be confirmed.
+- Elsevier's general prior-publication policy does not treat an academic thesis/dissertation as prior publication. The ProQuest/dissertation relationship remains transparently disclosed, and any Computers & Security-specific exception still requires live-guide confirmation.
+- Current Elsevier Your Paper Your Way guidance supports flexible initial formatting when essential manuscript elements are present. Exact Computers & Security guide/portal requirements remain authoritative for the final export.
 
-The live Computers & Security Guide for Authors, Aims & Scope, and Editorial Manager fields remain authoritative on the actual submission date.
+The live Computers & Security Guide for Authors and Editorial Manager fields remain authoritative on the actual submission date. Exact portal metadata/file requirements have not been inferred or invented.
 
 ## Integrated journal framing
 
@@ -79,6 +85,7 @@ Study-2 RQ3 is explicitly bounded as a **structural label-invariance/control res
 - `ai-declaration.md` — author-approved generative-AI/reproducibility disclosure
 - `submission-checklist.md` — current archive, live-policy, and export gates
 - `venue-fit.md` — updated target and backup-journal decision logic
+- `LIVE_POLICY_VERIFICATION_2026-09-04.md` — first Publication-Phase-1 live policy/scope verification record
 
 ## Scientific boundary
 
@@ -96,12 +103,13 @@ Every target-specific export must preserve the controls in `../../manuscript/MAN
 
 ## Gate to actual submission
 
-The Study-2 archive blocker is now closed. The current gate is **submission-day live-policy / exact final-export validation**.
+The Study-2 archive blocker is closed and Publication Phase 1 is active. The first live scope/policy pass is complete. The current gate is **exact journal-guide/portal confirmation plus exact final-export validation**.
 
 Before actual submission:
 
-1. recheck live Computers & Security scope, AI/ML wording, generative-AI policy, article type, portal fields, and file requirements;
-2. run exact-export citation/DOI/reference, frozen-claim, and scope-fit audits;
-3. record the final submission repository snapshot only after those exact-export checks pass.
+1. confirm the exact current Computers & Security Guide-for-Authors requirements and live Editorial Manager fields/file behavior;
+2. reconcile the exact article type, abstract choice/limit, highlights stage, data/code statements, competing-interest workflow, and any reviewer/IRB metadata fields without inventing information;
+3. run exact-export citation/DOI/reference, frozen-claim, and scope-fit audits;
+4. record the final submission repository snapshot only after those exact-export checks pass.
 
-No missing portal field or formatting preference may be resolved by inventing scientific or institutional information.
+Actual publisher submission remains a separate explicit authorization gate.
