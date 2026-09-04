@@ -1,6 +1,6 @@
 # Research Program Provenance and Publication Roadmap
 
-**Current-state document — 2026-09-03**
+**Current-state document — 2026-09-04**
 
 This document explains why the research program contains multiple separately frozen studies, how each study follows a limitation or trust-boundary question raised by prior work, and how the completed evidence is intended to become a small number of citable publications rather than one paper per study.
 
