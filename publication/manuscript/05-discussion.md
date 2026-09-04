@@ -84,6 +84,8 @@ The two studies share important limitations and also have study-specific ones.
 
 **Bounded scenario coverage.** Study 1 covered its frozen E1–E4 events and selected mission/evidence/contact cells. Study 2 expanded evidence, contact, adversary, and context factors but remains a bounded synthetic model. Neither campaign establishes behavior for untested attack chains, mission phases, architectures, or evidence producers.
 
+**Bounded formal verification.** The SANY/TLC analyses model-check selected invariants over deliberately abstract state spaces (`Study1P7`: 48 distinct states; `TrustedRecovery`: 385 distinct states; `AdversarialEvidence`: 540 generated / 400 distinct states, depth 3). They strengthen assurance for the encoded abstractions but do not constitute exhaustive verification of the Python implementation, all reachable operational states, spacecraft correctness, flightworthiness, or certification.
+
 **Deterministic policy mechanisms.** The mission-aware/evidence-aware selectors are frozen rule-based mechanisms, not learned or continuously adapting agents. This supports reproducibility and internal validity but prevents generalization to all autonomous or AI/ML-based systems.
 
 **Evidence-model abstraction.** Study-1 T1 is omission/reduction only. Study 2 adds stale/replay, contradiction, post-signature manipulation, and bounded producer compromise, but still uses deterministic synthetic evidence and deterministic producer keys. The studies do not evaluate real key theft, supply-chain compromise, hardware roots of trust, cryptographic algorithm strength, or operational attestation infrastructure.

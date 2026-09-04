@@ -1,7 +1,15 @@
 # Study 5 — CuCD-ID cross-testbed portability
 
 **Experiment:** `S5-CUCD-001`  
-**Status:** design freeze candidate; no canonical result is claimed until the dedicated and repository-wide gates pass.
+**Current status:** `CANONICAL_RESULTS_FROZEN_MERGED`  
+**Canonical results merge:** PR #83 / `6415a391dc2337c51ce72442ac7d86a25b4fbc02`  
+**Validated canonical head:** `9149ea900a6681ff55cd5c702f6194d50bb0e89d`  
+**Dedicated validation:** run `33663897775` — PASS  
+**Repository validation:** run `33663897772` — PASS  
+**Independent audit mismatches:** 0  
+**Frozen portability population:** 80 deterministic context × policy decisions; 8 input-sufficiency rows; 5 transferability rows.  
+
+The stage-local status inside `results/RESULTS_FREEZE.json` records the pre-merge freeze gate and is preserved as historical provenance. This README is the current repository-status surface.
 
 ## Purpose
 
