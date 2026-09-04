@@ -96,7 +96,7 @@ Every target-specific export must preserve the controls in `../../manuscript/MAN
 
 ## Gate to actual submission
 
-The Study-2 archive blocker is now closed. The former historical gate wording — `responsible-release-reviewed DOI publication still required` — is retained here only to make the transition explicit; it is **not** the current state.
+The Study-2 archive blocker is now closed. The current gate is **submission-day live-policy / exact final-export validation**.
 
 Before actual submission:
 
