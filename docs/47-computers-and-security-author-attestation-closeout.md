@@ -66,6 +66,6 @@ After this author-attestation closeout, Study 2 was separately frozen, executed,
 - independent reproduction mismatches: 0;
 - canonical Phase-7 closeout on `main`: `2bd3fb34ca709127e45ea9bffa8f516846d6c4b5`.
 
-The author attestations above were carried forward into the two-study journal package, but the old **final-export** status was not. The current pre-submission gate is the two-study manuscript/claim integration plus responsible-release publication of the Study-2 source-evidence archive.
+The author attestations above were carried forward into the two-study journal package, but the old **final-export** status was not. At the time of this attestation closeout, the then-current pre-submission gate was the two-study manuscript/claim integration plus responsible-release publication of the Study-2 source-evidence archive. Current state is governed by the active manuscript assembly, Computers & Security submission checklist, and research tracker cited above.
 
 No campaign runtime, campaign-seed consumption, evidence mutation, or new statistical calculation is authorized by this historical attestation document.
