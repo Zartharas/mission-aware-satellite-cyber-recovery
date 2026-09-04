@@ -72,7 +72,7 @@ Avoid positioning the article as:
 
 **Novelty-overstatement risk.** Satellite testbeds, safe mode, rollback, Mission Aware, cyber resilience, and attack/fault ambiguity are established topics. Mitigation: retain the narrower contribution: controlled post-detection response/recovery evidence under contact/evidence/adversary constraints with explicit trusted-recovery semantics and reproducibility governance.
 
-**Archive-completeness risk.** Study-1 source evidence is DOI archived; Study-2 source evidence is currently hash-bound but not yet DOI published. Mitigation: do not submit until the Study-2 responsible-release package is reviewed and durably archived; do not mislabel the Study-1 DOI as Study-2 evidence.
+**Archive-identity risk.** Study-1 and Study-2 source evidence are now separately DOI archived. Study-2 Phase-6 source evidence is published as Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`, and its public ZIP SHA-256 has been verified against the frozen source identity. Mitigation: preserve the distinct Study-1 and Study-2 DOI identities and recheck the exact DOI/checksum references in the final submission export.
 
 ## Backup 1: AIAA Journal of Aerospace Information Systems
 
@@ -94,8 +94,8 @@ That reassessment should use the existing frozen Study-2 evidence. A venue chang
 
 ## Decision rule
 
-1. Complete the current two-study journal integration, responsible-release the Study-2 source evidence, and pass exact-branch CI/claim audits.
-2. Recheck the live Computers & Security Guide/Aims/portal and submit there first if the deterministic rule-based article remains in scope.
+1. Treat the two-study journal integration and Study-2 DOI/public-byte archive gate as complete.
+2. Recheck the live Computers & Security Guide/Aims/portal, run the exact final-export citation/DOI/reference/frozen-claim/scope audits, and submit there first if the deterministic rule-based article remains in scope.
 3. If desk-rejected principally for aerospace-domain fit, consider JAIS without changing either frozen study.
 4. If a higher-security-methodology venue is preferred after review, reassess TDSC/TOPS using the already frozen Study-2 evidence rather than enlarging the data post hoc.
 5. Reserve TAES/expanded JAIS positioning for a separately frozen aerospace-validation/HIL study.
