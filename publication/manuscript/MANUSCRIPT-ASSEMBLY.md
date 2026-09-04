@@ -5,11 +5,12 @@
 **Study-2 statistical freeze:** `../../study2/docs/PHASE7_RESULTS_FREEZE.md` — `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`  
 **Study-2 independent reproduction:** PASS, 0 mismatches  
 **Study-2 Phase-6 responsible-release review:** PASS — `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`  
+**Study-2 public archive:** Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`, public ZIP SHA-256 verified  
 **Journal integration merge:** PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`  
 **Primary target journal:** Computers & Security (Elsevier), Full Length Article  
 **Backup targets:** AIAA Journal of Aerospace Information Systems; IEEE Transactions on Aerospace and Electronic Systems  
 **Author-attestation gate:** PASS  
-**Current submission state:** **Study-2 durable DOI archive / public checksum verification / DOI insertion gate; final export follows after live-policy checks**
+**Current submission state:** **Study-2 DOI/archive gate complete; live-policy check and exact final-export validation remain before submission**
 
 ## Scientific architecture of the article
 
@@ -60,7 +61,7 @@ Study-2 quantitative authority is the canonical Phase-7 freeze and its immutable
 - `../../study2/docs/PHASE7_RESULTS_FREEZE.md`
 - `../../study2/evidence/phase7/INDEPENDENT_REPRODUCTION_AUDIT.json`
 - exact Phase-7 result ZIP retained under `../../study2/evidence/phase7/archive/`
-- responsible-release review record under `../../study2/release/phase6/`
+- responsible-release/publication verification record under `../../study2/release/phase6/`
 
 Frozen identities include:
 
@@ -73,7 +74,7 @@ Frozen identities include:
 - 432 prespecified secondary contrasts
 - independent reproduction mismatches: 0
 
-The Phase-7 result ZIP is durable in Git history. The underlying Phase-6 source evidence has completed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`. It still requires publication of the exact approved ZIP to a DOI-bearing durable archive and independent public-checksum verification before actual journal submission. No Study-2 DOI is invented in advance.
+The Phase-7 result ZIP is durable in Git history. The underlying Phase-6 source evidence completed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER` and is now published as Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`. The publicly served ZIP SHA-256 was independently recomputed after publication and exactly matches the frozen Phase-6 artifact SHA-256 `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`.
 
 ## Main publication displays
 
@@ -158,17 +159,17 @@ Completed before this closeout:
 4. the local canonical repository synchronized to `6bb0051628ec64ebd09a85435f88a6a0d2cfc382` and passed the clean-worktree audit with 611 research tests and zero drift;
 5. the exact Study-2 Phase-6 source-evidence ZIP passed responsible-release review with no campaign execution or frozen-science/source-evidence modification;
 6. existing pre-runtime Study-2 TLA+/security assurance was promoted into bounded manuscript reporting in PR #76 without altering frozen science;
-7. a publication-current SPARTA v4.0.1 crosswalk was added as taxonomy/traceability only, preserving the frozen Study-1 event catalog and Study-2 experimental definitions.
+7. a publication-current SPARTA v4.0.1 crosswalk was added as taxonomy/traceability only, preserving the frozen Study-1 event catalog and Study-2 experimental definitions;
+8. the exact approved Study-2 Phase-6 source ZIP was published as Zenodo v1.0.0 under version DOI `10.5281/zenodo.22289114`, and the public ZIP SHA-256 was independently verified against the frozen source identity.
 
-The current combined-paper submission cannot advance to final export until:
+The Study-2 DOI/archive gate is complete. The combined-paper submission can advance to the final submission-preparation gate, which requires:
 
-1. the exact approved Study-2 source-evidence ZIP receives a durable DOI-bearing archive;
-2. the publicly served source ZIP SHA-256 is independently verified and the actual DOI/archive identity is inserted into Data Availability and target materials;
-3. live Guide for Authors/Aims & Scope/Editorial Manager requirements are rechecked on the actual submission date;
-4. the exact submission export passes citation/DOI/frozen-claim/scope checks.
+1. live Guide for Authors/Aims & Scope/Editorial Manager requirements to be rechecked on the actual submission date;
+2. the exact submission export to pass citation/DOI/reference, frozen-claim, and scope-fit checks;
+3. the final submission repository snapshot to be recorded only after those checks pass.
 
 An institutional IRB/HRPP identifier remains conditional on a specific applicable portal requirement and must not be invented.
 
 ## Assembly rule
 
-The component files above are the manuscript source of truth. Historical Study-1 work-package documents remain provenance and may retain stage-local wording. Current article status is governed by this assembly file, `../../tracker/RESEARCH_TRACKER.md`, the Study-2 Phase-6 release-review record, the SPARTA publication traceability record, and the canonical Study-2 Phase-7 provenance/freeze records.
+The component files above are the manuscript source of truth. Historical Study-1 work-package documents remain provenance and may retain stage-local wording. Current article status is governed by this assembly file, `../../tracker/RESEARCH_TRACKER.md`, the Study-2 Phase-6 release/publication-verification record, the SPARTA publication traceability record, and the canonical Study-2 Phase-7 provenance/freeze records.
