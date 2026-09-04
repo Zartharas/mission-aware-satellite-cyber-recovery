@@ -30,7 +30,7 @@ Assembly and submission controls:
 - [`manuscript/citation-readiness.csv`](manuscript/citation-readiness.csv)
 - [`manuscript/submission-inputs.csv`](manuscript/submission-inputs.csv)
 
-**Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The exact Study-2 Phase-6 source evidence has passed responsible-release review with disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`. The remaining pre-submission archive object is the **responsible-release-reviewed DOI archive**: durable Study-2 DOI publication, public checksum verification, and DOI insertion remain pending. Submission-day live-policy/portal verification and exact-export citation/DOI/frozen-claim/scope audits follow.
+**Current journal state:** the two-study journal integration and target-package reconciliation were merged through PR #72 at `6f9a1a5d26287120278913d453b26c78f267870f`. Study-1 and Study-2 statistics remain frozen. The exact Study-2 Phase-6 source evidence passed responsible-release review and the **responsible-release-reviewed DOI archive is now published and public-byte verified** as Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`. The remaining pre-submission work is live publisher-policy/portal verification and exact-export citation/DOI/frozen-claim/scope validation.
 
 ## 2. Study-8 companion paper — frozen and merged publication package
 
@@ -71,8 +71,11 @@ This merge did **not** alter the Study-1/Study-2 manuscript and did not rerun or
 - canonical freeze: `study2/PHASE7_RESULTS_FREEZE.json`
 - canonical provenance: `study2/PHASE7_PROVENANCE.json`
 - Phase-7 result ZIP retained durably in Git history
-- exact Phase-6 source ZIP passed responsible-release review; release record and DOI-deposit metadata are under `study2/release/phase6/`
-- remaining archive requirement: publish the exact approved ZIP to a durable DOI-bearing Study-2 dataset and verify the public checksum before submission
+- exact Phase-6 source ZIP passed responsible-release review and is publicly archived as Zenodo v1.0.0
+- version DOI: `10.5281/zenodo.22289114`
+- concept DOI: `10.5281/zenodo.22289113`
+- public ZIP SHA-256 independently verified as `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- release/publication verification authority: `study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json`
 
 The two empirical statistical populations are **not pooled**. Study 2 is a separately frozen empirical extension and does not change Study-1 observations, statistical estimates, or historical Zenodo v1.0.0.
 
@@ -123,7 +126,7 @@ The hash-frozen Study-8 package contains four tables and two SVG figures under [
 
 **Study 1:** the public source-evidence archive is Zenodo v1.0.0, version DOI `10.5281/zenodo.22181540`, concept DOI `10.5281/zenodo.22181539`.
 
-**Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source ZIP is cryptographically bound and has completed responsible-release review without any source-evidence or frozen-science modification. It is not yet represented as a DOI-bearing public evidence release. A DOI must be recorded only after the exact approved ZIP is published and the public checksum is independently verified.
+**Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source ZIP is cryptographically bound, responsible-release reviewed, and now publicly archived on Zenodo as version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`. The publicly served source ZIP was independently re-downloaded and its SHA-256 exactly matched `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`.
 
 **Study 8:** canonical/statistical evidence and the companion publication package are independently hash-frozen in Git. Use `../study8/analysis/RESULTS_FREEZE_MANIFEST.json`, `../study8/STUDY8_TECHNICAL_CLOSE.json`, and [`study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json). Study 8 has no DOI/publication identity yet, and one must not be invented before an actual release/publication gate.
 
@@ -158,7 +161,7 @@ The Study-8 companion package must additionally preserve:
 
 ## 7. Submission packages
 
-The primary venue package under [`submission/computers-and-security/`](submission/computers-and-security/) belongs only to the existing Study-1/Study-2 article. Its two-study reconciliation and Study-2 responsible-release review are complete; remaining work is the Study-2 DOI publication/public-checksum/DOI-insertion gate plus live publisher-policy/portal checks and exact-export validation on the actual submission date.
+The primary venue package under [`submission/computers-and-security/`](submission/computers-and-security/) belongs only to the existing Study-1/Study-2 article. Its two-study reconciliation, Study-2 responsible-release review, DOI publication, and public-checksum verification are complete. Remaining work is live publisher-policy/portal verification and exact-export validation on the actual submission date.
 
 Do **not** reuse that submission package for Study 8. Study 8 now has a dedicated frozen companion-paper package under [`study8/`](study8/README.md); the next authorized work, when explicitly opened, is a separate venue-specific Study-8 submission package.
 
