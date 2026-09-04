@@ -1,6 +1,6 @@
 # Journal of Aerospace Information Systems — Phase 1 Submission Package
 
-**Status:** `PRIMARY_TARGET_AUTHORIZED__LIVE_PUBLIC_REQUIREMENTS_VERIFIED__SCHOLARONE_FIELD_LOCK_PENDING`
+**Status:** `JAIS_MANUSCRIPT_CONTENT_READY__SCHOLARONE_FIELD_LOCK_PENDING`
 
 **Authorized target:** AIAA *Journal of Aerospace Information Systems* (JAIS)  
 **Authorization date:** 2026-09-04  
@@ -17,112 +17,82 @@ This target switch is editorial only. It does not reopen or alter the frozen sci
 - Study 8 is not part of Paper 1 and must not be imported into this manuscript or target package.
 - No venue change may alter frozen results, exclusions, statistical identities, claim boundaries, or provenance.
 
-## Current JAIS fit
+## JAIS fit and public requirements
 
-AIAA's current JAIS scope explicitly covers original archival research addressing aerospace-specific problems in aerospace computing, information, networks and communication systems. Relevant listed areas include aerospace systems and software engineering, verification and validation of embedded systems, autonomous systems, systems engineering, and safety and mission assurance.
+AIAA's current JAIS scope covers original archival research addressing aerospace-specific problems in aerospace computing, information, networks and communication systems. Relevant listed areas include aerospace systems and software engineering, verification and validation of embedded systems, autonomous systems, systems engineering, and safety and mission assurance.
 
 Paper 1 is positioned as a controlled satellite cyber-response and trusted-recovery study under contact, authorization, evidence-integrity, and bounded adversarial conditions. The aerospace setting is integral because intermittent contact, command authority, software recovery, mission continuity, and evidence availability are experimental factors rather than decorative application context.
 
-## Current public AIAA requirements verified on 2026-09-04
+Working article type: **Regular/Full Article**, subject to exact authenticated ScholarOne label confirmation.
 
-### Article type and length
+Current public AIAA requirements verified on 2026-09-04 include:
 
-Working article type: **Regular/Full Article**.
+- title maximum 12 words with no acronyms/abbreviations;
+- one-paragraph 100–200 word abstract without numerical references/acronyms/abbreviations;
+- 10-point, double-spaced, single-column manuscript presentation;
+- Regular/Full Article recommendation of approximately 10,000–12,000 equivalent words, including display space;
+- references numbered in citation order with complete bibliographic information and DOI URLs where available;
+- complete author/contact information, funding information, reviewer information as requested by ScholarOne, author verification, and qualifying artificial-intelligence disclosure.
 
-AIAA currently recommends approximately 7–10 published pages or 10,000–12,000 equivalent words for Regular/Full Articles. Equivalent space from figures and tables counts toward the guideline. The editor may request shortening or expansion.
+## Final JAIS manuscript state
 
-### Title
-
-Current AIAA journal-author guidance limits the manuscript title to **12 words maximum** and prohibits acronyms/abbreviations in the title.
-
-JAIS target title:
+Target title:
 
 **Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**
 
-This title is exactly 12 words. The longer authoritative research/manuscript title remains preserved separately and is not scientifically replaced by the venue-facing compression.
+- title: exactly 12 words — PASS;
+- final JAIS abstract: 171 words, one paragraph, third person — PASS;
+- text words excluding table cells: 7,058;
+- AIAA table-equivalent words: 1,250;
+- estimated AIAA equivalent length: 8,308 / 12,000 — PASS;
+- numbered references: 20, no missing keys — PASS;
+- AIAA reference archivality/completeness audit — PASS;
+- frozen Study-1/Study-2 scientific-boundary audit — PASS;
+- Study-8 exclusion — PASS;
+- exact CI-generated 25-page Word manuscript visual QA — PASS;
+- broader repository validation — PASS.
 
-### Manuscript presentation
+Frozen manuscript identity:
 
-AIAA's current minimum journal-manuscript requirements include:
+- generation commit: `506c3d26d812709efec86c856514d541343c0b57`;
+- JAIS workflow run: `33907150553`;
+- workflow artifact ID: `9949926197`;
+- `JAIS_MANUSCRIPT.docx` SHA-256: `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`;
+- artifact ZIP SHA-256: `8f8171f4f2619595631829b5c17c58a8e88cacbe9604e05413562181d53a213f`.
 
-- English using American spelling;
-- 10-point type;
-- double-spaced text;
-- single-column presentation;
-- concise presentation consistent with the article type.
+The detailed record is maintained at `upload-packet/MANUSCRIPT_CONTENT_READY.md`.
 
-### Abstract
+## Portal-only fields intentionally pending
 
-For a full-length paper, the abstract must:
-
-- be one paragraph;
-- contain 100–200 words;
-- contain no numerical references;
-- contain no acronyms or abbreviations.
-
-A JAIS-specific 189-word abstract candidate is maintained in `jais-abstract.md`. The target-specific abstract does not replace or retroactively alter the frozen scientific record.
-
-### References
-
-AIAA currently requires:
-
-- references numbered and cited in numerical order in the text;
-- original sources rather than secondary sources where possible;
-- complete bibliographic information;
-- DOI URLs for references when available;
-- public/readily accessible references in the numbered reference list.
-
-The final JAIS export therefore requires a target-specific citation-order conversion and DOI/reference audit.
-
-### ScholarOne items publicly confirmed
-
-Current AIAA author guidance publicly confirms that the ScholarOne workflow requires or requests:
-
-- complete author/contact information;
-- confirmation that the paper is not classified and is not submitted elsewhere;
-- author verification before a submission is complete;
-- suggested reviewer names and contact information as requested by the system;
-- funding sources and grant numbers in the ScholarOne funding field;
-- disclosure of qualifying artificial-intelligence use upon submission;
-- upload of the double-spaced manuscript.
-
-Current AIAA author-format guidance also describes affiliation information including institution/company, city, state, and ZIP code. No ZIP code is inferred in this package; add it only if required and author-verified.
-
-### Artificial-intelligence disclosure
-
-AIAA requires qualifying artificial-intelligence use in manuscript preparation to be disclosed in ScholarOne. AIAA also requires a brief description in the paper when such tools were used for writing or permitted figure preparation. Paper 1 already contains a detailed generative-artificial-intelligence declaration; the JAIS export must retain an AIAA-compliant in-manuscript disclosure and complete the corresponding ScholarOne disclosure without portraying artificial intelligence as an experimental response mechanism.
-
-## Portal-only fields not yet inferred
-
-The following remain intentionally pending until the live JAIS ScholarOne workflow is inspected:
+The supplied production endpoint confirms JAIS uses ScholarOne, but the authenticated field schema must be inspected directly. The following remain intentionally pending rather than inferred:
 
 - exact article-type dropdown wording;
 - exact title/abstract validation behavior;
-- exact Independent Researcher affiliation/postal-code fields;
-- exact number of required or optional suggested reviewers;
-- exact reviewer-exclusion workflow;
-- subject classifications or keyword taxonomy used by ScholarOne;
-- exact upload-item labels and ordering;
-- exact conflict-of-interest question wording;
-- exact ethics or institutional-review question wording, if any;
-- exact data/code availability fields, if any;
-- exact prior-dissemination or related-manuscript questions;
-- exact artificial-intelligence disclosure field wording;
-- any JAIS-specific editor-selection or special-issue fields.
+- Independent Researcher affiliation and postal fields;
+- subject classifications/keyword taxonomy;
+- exact suggested-reviewer count and required/optional status;
+- reviewer-exclusion workflow, if offered;
+- upload-item labels/designations and ordering;
+- conflict-of-interest wording;
+- ethics or institutional-review wording, if any;
+- data/code availability fields, if any;
+- prior-dissemination/related-manuscript questions, if any;
+- artificial-intelligence disclosure field wording;
+- copyright/clearance attestations;
+- editor/special-issue fields, if any;
+- final review/build/submit sequence.
 
 No portal-only value may be invented from memory.
 
 ## Phase 1 sequence
 
 1. Verify live public JAIS/AIAA scope and author requirements. **PASS**
-2. Build the JAIS target package from the frozen two-study manuscript. **IN PROGRESS**
-3. Inspect the live ScholarOne workflow without submitting and lock exact portal fields. **PENDING**
-4. Prepare the exact JAIS manuscript export and AIAA reference conversion. **PENDING**
-5. Run final citation/DOI/reference audit. **PENDING**
-6. Run final Study-1/Study-2 frozen-claim audit. **PENDING**
-7. Run final JAIS scope-fit and equivalent-word-count audit. **PENDING**
-8. Freeze the submission-ready package and repository snapshot. **PENDING**
-9. Actual publisher submission requires separate explicit authorization. **BLOCKED UNTIL AUTHORIZED**
+2. Build the JAIS target package from the frozen two-study manuscript. **PASS**
+3. Prepare exact JAIS manuscript export and AIAA reference conversion. **PASS**
+4. Run citation/DOI/reference, frozen-claim, scope, equivalent-length, repository-validation, and visual-layout audits. **PASS**
+5. Inspect authenticated ScholarOne without submitting and lock exact portal fields. **NEXT / PENDING**
+6. Reconcile portal values and file designations, then freeze the exact submission package/repository snapshot. **PENDING**
+7. Obtain separate explicit authorization for actual publisher submission. **BLOCKED UNTIL AUTHORIZED**
 
 ## Governing rule
 
