@@ -1,63 +1,80 @@
 # JAIS Paper 1 Upload Packet
 
-**Status:** `STAGING_PACKET__FINAL_MANUSCRIPT_AND_LIVE_SCHOLARONE_LOCK_PENDING`
+**Status:** `JAIS_MANUSCRIPT_CONTENT_READY__SCHOLARONE_FIELD_LOCK_PENDING`
 
 This folder is the operational handoff point for the AIAA *Journal of Aerospace Information Systems* submission. It does not create a publisher submission and it does not alter frozen Study 1 or Study 2 science.
 
-## What is actually required or expected for initial submission
+## Core manuscript upload
 
-### Core manuscript upload
+The publisher-facing JAIS manuscript has now completed its export, reference, scientific-boundary, repository-validation, and visual-layout gates.
 
-AIAA's current public journal guidance requires upload of a **double-spaced manuscript** through ScholarOne. The manuscript must meet the current AIAA journal requirements, including English/American spelling, 10-point type, single-column presentation, a title of no more than 12 words with no acronyms/abbreviations, and a one-paragraph 100-200 word abstract with no numerical references, acronyms, or abbreviations.
+**Frozen generation record:**
 
-**Current Paper-1 status:** the exact final JAIS manuscript export is still pending AIAA reference conversion, final formatting, equivalent-word-count review, citation/DOI audit, and frozen-claim audit. Do not upload an interim manuscript as the final submission.
+- generation commit: `506c3d26d812709efec86c856514d541343c0b57`;
+- workflow run: `33907150553`;
+- workflow artifact ID: `9949926197`;
+- manuscript filename: `JAIS_MANUSCRIPT.docx`;
+- manuscript SHA-256: `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`;
+- artifact ZIP SHA-256: `8f8171f4f2619595631829b5c17c58a8e88cacbe9604e05413562181d53a213f`.
 
-### Cover letter
+The exact record and completed checks are maintained in `MANUSCRIPT_CONTENT_READY.md`.
 
-A JAIS-specific cover letter is prepared at:
+Current manuscript audit state:
 
-`../cover-letter.md`
+- 12-word JAIS title — PASS;
+- 171-word, one-paragraph, third-person AIAA abstract — PASS;
+- 10-point Times New Roman, double-spaced, single-column Word presentation — PASS;
+- numerical AIAA citation/reference order — PASS;
+- 20 reviewed numbered references with DOI URLs where available — PASS;
+- equivalent length: 8,308 / 12,000 words — PASS;
+- frozen Study-1/Study-2 claim boundaries — PASS;
+- Study-8 exclusion — PASS;
+- exact CI-generated 25-page Word-manuscript visual QA — PASS;
+- broader repository validation and frozen WP10 reproduction — PASS.
 
-Whether ScholarOne requests it as a file, a text field, or an optional item must be confirmed in the live workflow. Do not assume a file designation that the portal does not show.
+Do not substitute the target-neutral manuscript or an older JAIS artifact for this frozen publisher-facing manuscript.
 
-### ScholarOne metadata and declarations
+## Cover letter
 
-The following are primarily portal-entry items rather than separate upload files:
+A JAIS-specific cover letter is prepared at `../cover-letter.md`.
 
-- article type;
-- title;
-- abstract;
-- keywords/classifications;
-- author/contact and affiliation information;
-- funding;
-- competing-interest declaration;
+Whether ScholarOne requests it as a file, text field, or optional item must be confirmed in the authenticated production workflow. Do not assume a file designation that the portal does not show.
+
+## ScholarOne metadata and declarations
+
+The remaining pre-freeze blocker is the **exact authenticated ScholarOne schema**. The following must be captured from the production workflow rather than inferred:
+
+- exact article-type dropdown label;
+- title and abstract validation behavior;
+- keyword/classification controls;
+- author/contact, affiliation, and postal fields;
+- funding and competing-interest fields;
 - unclassified/public-release and exclusivity attestations;
-- artificial-intelligence disclosure;
-- suggested reviewers and any reviewer exclusions;
+- artificial-intelligence disclosure field;
+- suggested-reviewer count/rules and reviewer exclusions, if offered;
 - ethics/human-subject questions, if presented;
 - data/code or prior-dissemination fields, if presented;
-- copyright/clearance attestations.
+- copyright/clearance attestations;
+- file-upload item labels, designations, and ordering;
+- final review/build/submit steps.
 
-Prepared values and unresolved fields are maintained in:
+Prepared values and unresolved fields are maintained in `../scholarone-field-map.md` and summarized for entry in `PORTAL_ENTRY_VALUES.md`.
 
-`../scholarone-field-map.md`
+## Figures and tables
 
-and summarized for convenient entry in:
+For peer review, the manuscript contains editable tables. The JAIS-facing display form of the wide result tables is derived deterministically from the frozen manuscript-facing CSVs; the source tables and frozen numerical Results are unchanged.
 
-`PORTAL_ENTRY_VALUES.md`
+Separate production-grade artwork is not part of the initial packet unless the authenticated ScholarOne workflow explicitly requests it.
 
-### Figures and tables
+## Supplemental material
 
-AIAA allows figures to be positioned in the manuscript or grouped at the end. PDF artwork is acceptable for peer review. Separate production-grade image files are principally an acceptance/production concern unless ScholarOne explicitly requests them at initial submission.
-
-Tables should remain editable rather than embedded as images.
-
-### Supplemental material
-
-Supplemental material is optional. AIAA states that the article must stand on its own and that acceptance is based on the article itself. The public Zenodo and GitHub research records should therefore **not** be redundantly uploaded as supplemental files by default. See `OPTIONAL_SUPPLEMENTAL.md`.
+Current initial-submission decision: **none planned by default**. The article stands on its own, while the public Zenodo and GitHub records provide the research evidence and reproducibility materials. See `OPTIONAL_SUPPLEMENTAL.md`.
 
 ## Source-of-truth file map
 
+- Content-ready manuscript identity: `MANUSCRIPT_CONTENT_READY.md`
+- Upload manifest: `UPLOAD_MANIFEST.md`
+- Portal entry sheet: `PORTAL_ENTRY_VALUES.md`
 - Target package overview: `../README.md`
 - Current AIAA requirements evidence: `../live-requirements-2026-09-04.md`
 - JAIS abstract: `../jais-abstract.md`
@@ -71,18 +88,16 @@ Supplemental material is optional. AIAA states that the article must stand on it
 ## Frozen-science boundary
 
 - Study 1 remains 720 VALID observations across 24 frozen cells.
-- Study 2 remains 3,872 VALID observations across 85 frozen cells.
+- Study 2 remains 3,872 VALID observations across 85 frozen cells with zero INVALID attempts.
 - The two populations remain separate and are not pooled.
 - Study 8 is excluded from Paper 1.
 - No new Paper-1 experiment is required or authorized by this packaging work.
 
 ## Stop rule
 
-This packet is for preparation and upload readiness only. Do not complete the final ScholarOne submission until:
+The manuscript-content gate is closed. **Do not complete the final ScholarOne submission yet.** Next:
 
-1. the production ScholarOne fields are captured and locked;
-2. the final JAIS manuscript export exists;
-3. AIAA reference/citation/DOI and equivalent-word audits pass;
-4. Study-1 and Study-2 frozen-claim audits pass;
-5. the final package is frozen; and
-6. the author separately authorizes actual submission.
+1. inspect the authenticated production ScholarOne workflow without submitting;
+2. record and reconcile every exact portal field/designation;
+3. freeze the exact upload package and repository snapshot against that schema; and
+4. obtain separate explicit author authorization for the final publisher submission.
