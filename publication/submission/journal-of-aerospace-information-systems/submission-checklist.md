@@ -103,13 +103,14 @@
 ## JAIS target files
 
 - [x] `README.md` created.
+- [x] `live-requirements-2026-09-04.md` created.
 - [x] `jais-abstract.md` created.
 - [x] `title-page.md` created.
 - [x] `cover-letter.md` created.
 - [x] `ai-disclosure.md` created.
 - [x] `submission-checklist.md` created.
 - [ ] `scholarone-field-map.md` complete after public + live portal reconciliation.
-- [ ] `venue-fit.md` finalized.
+- [x] `venue-fit.md` created and reconciled to the frozen two-study article.
 - [ ] Exact final JAIS manuscript export created.
 
 ## Final scientific and publication audits
