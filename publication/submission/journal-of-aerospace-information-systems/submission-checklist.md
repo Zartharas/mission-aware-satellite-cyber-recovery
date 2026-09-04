@@ -43,14 +43,21 @@
 - [x] Working article type: Regular/Full Article.
 - [ ] Confirm exact live ScholarOne article-type dropdown label.
 
+## AIAA title and abstract requirements
+
+- [x] Current AIAA title requirement recorded: maximum 12 words, no acronyms/abbreviations.
+- [x] JAIS target title prepared at exactly 12 words: **Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**.
+- [x] Authoritative research/manuscript title retained separately; target-title compression does not alter scientific identity.
+- [x] JAIS abstract requirement recorded: one paragraph, 100–200 words, no numerical references, no acronyms/abbreviations.
+- [x] 189-word JAIS abstract candidate prepared.
+- [ ] Confirm live ScholarOne title/abstract validation behavior.
+
 ## AIAA public manuscript requirements
 
 - [x] English/American spelling requirement recorded.
 - [x] 10-point, double-spaced, single-column minimum presentation requirement recorded.
 - [x] Regular/Full Article guideline recorded as approximately 7–10 published pages or 10,000–12,000 equivalent words.
 - [x] Figure/table equivalent-space rule recorded.
-- [x] JAIS abstract requirement recorded: one paragraph, 100–200 words, no numerical references, no acronyms/abbreviations.
-- [x] 189-word JAIS abstract candidate prepared.
 - [x] AIAA numerical-order reference requirement recorded.
 - [x] DOI-URL expectation for references recorded.
 - [ ] Convert exact final manuscript references to AIAA numerical order.
@@ -69,9 +76,12 @@
 - [x] Manuscript is not simultaneously under consideration elsewhere.
 - [x] Work is unclassified and no external classification/public-release review is required.
 - [x] Current AIAA guidance confirms complete author/contact information is required.
-- [x] Current AIAA guidance confirms author verification before submission completion; no coauthor verification applies to the sole-author manuscript unless the live system specifies otherwise.
+- [x] Current AIAA guidance describes affiliation information including city, state, and ZIP code.
+- [x] No ZIP code has been inferred; add only if required and author-verified.
+- [x] Current AIAA guidance confirms author verification before submission completion.
 - [x] Current AIAA guidance confirms suggested reviewer names/contact information are requested as specified by ScholarOne.
 - [x] Current AIAA guidance confirms funding information belongs in the ScholarOne funding field.
+- [ ] Confirm exact affiliation/postal-code fields for an Independent Researcher.
 - [ ] Confirm exact number and required/optional status of suggested reviewers.
 - [ ] Confirm exact excluded-reviewer workflow, if offered.
 - [ ] Confirm exact subject classifications/keywords taxonomy.
@@ -121,7 +131,7 @@
 - [ ] Cross-study non-pooling audit.
 - [ ] Study-8 exclusion audit.
 - [ ] JAIS scope-fit audit.
-- [ ] AIAA abstract-format audit.
+- [ ] AIAA title/abstract-format audit.
 - [ ] Equivalent-word-count and figure/table audit.
 - [ ] Artificial-intelligence disclosure consistency audit.
 - [ ] Data/code/archive identity audit.
@@ -133,6 +143,7 @@
 **Study-2 statistical freeze and independent reproduction:** PASS.  
 **Study-2 durable source-evidence archive:** PASS.  
 **JAIS live public scope/author-requirements check:** PASS.  
+**JAIS target title/abstract preparation:** PASS.  
 **JAIS target package creation:** IN PROGRESS.  
 **ScholarOne exact portal-field lock:** PENDING.  
 **Exact JAIS final export:** PENDING.  
