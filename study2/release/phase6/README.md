@@ -1,10 +1,10 @@
 # Study-2 Phase-6 Responsible Release
 
-**Status:** `RESPONSIBLE_RELEASE_REVIEW_PASS_DOI_DEPOSIT_READY_EXTERNAL_PUBLICATION_PENDING`
+**Status:** `PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED`
 
-This directory records the responsible-release review of the exact frozen Study-2 Phase-6 source-evidence artifact for experiment `S2-AEATR-001`.
+This directory records the responsible-release review and durable public-archive closeout for the exact frozen Study-2 Phase-6 source-evidence artifact for experiment `S2-AEATR-001`.
 
-The source evidence itself is intentionally **not committed to GitHub**. The evidence-of-record for the planned public release remains the exact frozen ZIP:
+The source evidence itself remains intentionally **not committed to GitHub**. The evidence-of-record is the exact frozen ZIP:
 
 `study2-phase6-evidence-24ed05f4d52611754ac91ad1a74c5bcf242245ac.zip`
 
@@ -12,7 +12,7 @@ SHA-256:
 
 `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
 
-The responsible-release review concluded that the exact ZIP is suitable for public durable archiving with a provenance/safety wrapper. No source-evidence record was edited, regenerated, redacted, normalized, or re-zipped by the review.
+The responsible-release review concluded that the exact ZIP was suitable for public durable archiving with a provenance/safety wrapper. No source-evidence record was edited, regenerated, redacted, normalized, or re-zipped by the review or publication step.
 
 ## Review result
 
@@ -33,30 +33,41 @@ The responsible-release review concluded that the exact ZIP is suitable for publ
 
 See `RESPONSIBLE_RELEASE_REVIEW.md` and `RELEASE_MANIFEST.json` for the release boundary and exact identities.
 
-## DOI deposit readiness
+## Published Zenodo dataset
 
-The exact GitHub Actions artifact remains available at the time of the 2026-09-03 remediation review:
+The exact approved ZIP is now published as a separate Study-2 Zenodo dataset:
 
-- workflow run: `33547420437`
-- artifact ID: `9816191406`
-- GitHub-reported digest: `sha256:195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
-- reported expiry: `2026-11-30T19:05:03Z`
+- record: `https://zenodo.org/records/22289114`
+- version DOI: `10.5281/zenodo.22289114`
+- concept DOI: `10.5281/zenodo.22289113`
+- version: `1.0.0`
+- publication date: `2026-09-04`
+- resource type: `Dataset`
+- license: `CC BY 4.0`
 
-Repository-side DOI preparation is complete:
+The publicly served ZIP was independently re-downloaded and recomputed as:
 
-- [`ZENODO_DEPOSIT_READY.md`](ZENODO_DEPOSIT_READY.md) — exact object, authenticated deposit procedure, and mandatory post-publication verification;
-- [`ZENODO_DEPOSIT_METADATA.json`](ZENODO_DEPOSIT_METADATA.json) — reviewed metadata handoff, explicitly not an API payload.
+`195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
 
-The remaining DOI operation is external and account-authenticated: publish a new durable dataset record for the exact approved ZIP, then verify the publicly served bytes before recording the real DOI. No external DOI is claimed by repository preparation alone.
+This exactly matches the frozen Phase-6 source identity.
 
-## Remaining journal gate
+Current verification authorities:
 
-The review and deposit preparation are complete, but the Study-2 source archive is **not yet DOI-complete**. Before journal submission:
+- [`ZENODO_PUBLICATION_VERIFICATION.md`](ZENODO_PUBLICATION_VERIFICATION.md) — human-readable publication/checksum closeout;
+- [`ZENODO_PUBLICATION_VERIFICATION.json`](ZENODO_PUBLICATION_VERIFICATION.json) — machine-readable DOI/public-file identity record.
 
-1. publish the exact approved source ZIP to a new durable DOI-bearing Study-2 dataset record;
-2. verify the publicly served ZIP SHA-256 against the frozen source identity above;
-3. record the actual version DOI (and concept DOI if assigned);
-4. insert the verified DOI/checksum identity into manuscript Data Availability and target-specific submission materials;
-5. rerun the repository and exact-export audits.
+Historical pre-publication handoff records are retained unchanged as provenance:
 
-Do not reuse the Study-1 DOI and do not invent a Study-2 DOI before publication.
+- [`ZENODO_DEPOSIT_READY.md`](ZENODO_DEPOSIT_READY.md);
+- [`ZENODO_DEPOSIT_METADATA.json`](ZENODO_DEPOSIT_METADATA.json).
+
+## Journal gate
+
+The Study-2 durable DOI archive and public-byte verification gate is **complete**. The remaining journal work is publication-package integration and final submission-day validation:
+
+1. insert the verified Study-2 version DOI/checksum identity into Data Availability and target-specific submission materials;
+2. rerun repository and exact-export audits;
+3. recheck live journal/portal requirements on the actual submission date;
+4. create the final submission export only after those checks pass.
+
+The Study-1 DOI remains a separate Study-1 evidence record and is not reused for Study 2.
