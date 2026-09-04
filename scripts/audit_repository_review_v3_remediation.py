@@ -53,6 +53,10 @@ STALE_ACTIVE_PHRASES = {
 }
 
 STUDY2_SHA = "195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133"
+STUDY2_VERSION_DOI = "10.5281/zenodo.22289114"
+STUDY2_CONCEPT_DOI = "10.5281/zenodo.22289113"
+STUDY2_RECORD_ID = 22289114
+STUDY2_VERSION = "1.0.0"
 
 
 def fail(message: str, errors: list[str]) -> None:
@@ -182,18 +186,22 @@ def main() -> int:
     else:
         text = study2_readme.read_text(encoding="utf-8")
         for marker in (
-            "RESPONSIBLE_RELEASE_REVIEW_PASS_DOI_DEPOSIT_READY_EXTERNAL_PUBLICATION_PENDING",
+            "PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED",
             STUDY2_SHA,
+            STUDY2_VERSION_DOI,
+            STUDY2_CONCEPT_DOI,
+            "ZENODO_PUBLICATION_VERIFICATION.md",
+            "ZENODO_PUBLICATION_VERIFICATION.json",
             "ZENODO_DEPOSIT_READY.md",
             "ZENODO_DEPOSIT_METADATA.json",
         ):
             if marker not in text:
-                fail(f"Study-2 release README missing deposit-ready marker: {marker}", errors)
+                fail(f"Study-2 release README missing publication marker: {marker}", errors)
 
     metadata = load_json("study2/release/phase6/ZENODO_DEPOSIT_METADATA.json", errors)
     if metadata:
         if metadata.get("doi_state") != "PENDING_EXTERNAL_DURABLE_ARCHIVE_PUBLICATION":
-            fail("Study-2 DOI state must remain pending until external publication", errors)
+            fail("historical Study-2 deposit handoff DOI state drifted", errors)
         if nested(metadata, ("exact_file", "sha256")) != STUDY2_SHA:
             fail("Study-2 deposit metadata SHA does not match frozen source ZIP", errors)
         governance = metadata.get("governance", {})
@@ -205,15 +213,54 @@ def main() -> int:
         ):
             if governance.get(key) is not False:
                 fail(f"Study-2 deposit governance must keep {key}=false", errors)
-        if not errors:
-            ok("Study-2 DOI handoff is deposit-ready without fabricating a DOI")
+
+    verification = load_json("study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json", errors)
+    if verification:
+        expected = {
+            "experiment_id": "S2-AEATR-001",
+            "state": "PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED",
+            "record_id": STUDY2_RECORD_ID,
+            "version_doi": STUDY2_VERSION_DOI,
+            "concept_doi": STUDY2_CONCEPT_DOI,
+            "publication_date": "2026-09-04",
+            "version": STUDY2_VERSION,
+            "resource_type": "dataset",
+            "license": "cc-by-4.0",
+            "scientific_execution_performed": False,
+            "frozen_science_modified": False,
+            "study1_doi_reused": False,
+        }
+        for key, expected_value in expected.items():
+            if verification.get(key) != expected_value:
+                fail(
+                    f"Study-2 Zenodo verification {key}: "
+                    f"expected {expected_value!r} got {verification.get(key)!r}",
+                    errors,
+                )
+        public_file = verification.get("public_file", {})
+        if public_file.get("expected_sha256") != STUDY2_SHA:
+            fail("Study-2 Zenodo expected SHA drift", errors)
+        if public_file.get("public_download_sha256") != STUDY2_SHA:
+            fail("Study-2 Zenodo public-download SHA mismatch", errors)
+        if public_file.get("sha256_match") is not True:
+            fail("Study-2 Zenodo SHA match flag is not true", errors)
+        audit = verification.get("verification", {})
+        if audit.get("result") != "PASS":
+            fail("Study-2 Zenodo publication verification is not PASS", errors)
+        if audit.get("public_bytes_match_frozen_source") is not True:
+            fail("Study-2 public Zenodo bytes are not bound to frozen source", errors)
+
+    if not errors:
+        ok("Study-2 Zenodo publication and public-byte identity verified")
 
     print(f"checks_failed={len(errors)}")
     if errors:
         print("repository_review_v3_remediation=FAIL")
         return 1
     print("repository_review_v3_remediation=PASS")
-    print("study2_doi_state=PENDING_EXTERNAL_AUTHENTICATED_PUBLICATION")
+    print("study2_doi_state=PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED")
+    print(f"study2_version_doi={STUDY2_VERSION_DOI}")
+    print(f"study2_concept_doi={STUDY2_CONCEPT_DOI}")
     print("studies3_7_current_state=PASS")
     print("formal_verification_limitation=PASS")
     print("publication_roadmap=PASS")
