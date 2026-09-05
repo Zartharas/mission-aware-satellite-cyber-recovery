@@ -4,40 +4,68 @@
 
 Exact live ScholarOne wording remains authoritative. Do not infer or substitute portal-only values.
 
-## Journal and article
+## Journal and manuscript type
 
 - Journal: AIAA *Journal of Aerospace Information Systems*
 - Exact ScholarOne manuscript-type label: **Full Paper**
 - Live authenticated portal verification: **CONFIRMED 2026-09-04**
-- Other manuscript types displayed by the live portal: Technical Note; Technical Comment; Survey Paper; Lecture; History of Key Technologies; Announcement; Introduction.
 - Paper-1 selection: **Full Paper**
 
-## Title
+## Step 1 — Type, Title, & Abstract
+
+Live requirements:
+
+- **Title** — REQUIRED; maximum 12 words.
+- **Abstract** — OPTIONAL portal text entry; maximum 200 words.
+
+### Title
 
 **Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**
 
-AIAA title check: 12 words; no acronym/abbreviation.
+12 words; no acronym/abbreviation.
 
-## Abstract
+### Abstract
 
 Use the final **171-word**, one-paragraph, third-person JAIS abstract in `../jais-abstract.md`.
 
-Exact live ScholarOne title/abstract validation behavior: **PENDING LIVE PORTAL**.
+Even though the portal text-entry field is optional, Paper 1 retains the abstract in the manuscript and should enter it in ScholarOne unless the live Step-1 screen indicates a reason not to.
 
-## Candidate keywords
+## Step 2 — File Upload
 
-These are the current manuscript keywords and are not yet a locked ScholarOne taxonomy selection:
+Live requirements:
 
-- satellite cybersecurity
-- mission-aware cybersecurity
-- cyber resilience
-- trusted recovery
-- software-in-the-loop
-- cyber incident response
+- Number of files: REQUIRED; minimum **1**, maximum **5**.
+- Maximum total file size: **390 MB**.
+- Available optional designations: **Main Document**, **Image**, **TeX/LaTeX Suppl File**, **Supplemental Materials**, **Updated Copyright Form**.
 
-Exact keyword count, controlled vocabulary, and classification requirements: **PENDING LIVE PORTAL**.
+Paper-1 intended upload:
 
-## Author
+- `JAIS_MANUSCRIPT.docx` as **Main Document**, subject to confirmation on the live upload screen.
+- Frozen visual-QA manuscript SHA-256: `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`.
+- No separate Image upload planned.
+- No TeX/LaTeX supplemental file planned.
+- No Supplemental Materials planned by default.
+- No Updated Copyright Form planned unless ScholarOne requests one.
+
+## Step 3 — Attributes
+
+Live requirement:
+
+- **Subject Index Category** — REQUIRED; minimum **1**, maximum **3**, select from list.
+
+Paper-1 selection: **PENDING LIVE CATEGORY LIST**.
+
+Do not infer category labels. Capture the actual list and choose 1–3 after review.
+
+## Step 4 — Authors & Institutions
+
+Live requirements:
+
+- **Authors** — REQUIRED; at least one.
+- **Submitting Agent** — enabled.
+- **ORCID for Submitting Author** — OPTIONAL.
+
+Paper-1 prepared values:
 
 - Name: Aman Kumar Singh
 - Credentials used in manuscript package: MS, DSc
@@ -51,41 +79,82 @@ Exact keyword count, controlled vocabulary, and classification requirements: **P
 - Email: asingh65430@ucumberlands.edu
 - ORCID: 0009-0008-9752-3743
 
-AIAA author verification is expected through ScholarOne. Exact sole-author verification behavior and affiliation/postal fields: **PENDING LIVE PORTAL**.
+Exact institution/postal fields and submitting-agent behavior: **PENDING LIVE STEP 4**.
 
-## Funding
+## Step 5 — Reviewers & Editors
+
+Live requirements:
+
+- **Preferred Reviewers** — REQUIRED; minimum **3**.
+- **Opposed Reviewers** — OPTIONAL.
+- **Preferred Editors** — OPTIONAL.
+- **Opposed Editors** — OPTIONAL.
+
+Paper-1 status:
+
+- At least three preferred reviewers must be selected.
+- Reviewer names, affiliations, contact information, and conflict checks: **PENDING**.
+- Do not invent reviewers or choose anyone before the exact reviewer-entry/conflict instructions are visible.
+- Opposed reviewers/editors and preferred editors should remain blank unless there is a supported reason to use them.
+
+## Step 6 — Details & Comments
+
+Live requirements:
+
+- **Cover Letter** — REQUIRED; text entry or file upload.
+- **Funding Information** — OPTIONAL.
+- **Clearance** — REQUIRED.
+- **Artificial Intelligence-Content** — REQUIRED.
+- **No-Infringement Statement** — REQUIRED.
+- **Publication History** — REQUIRED.
+- **AI-Content** — REQUIRED.
+- **I have read Ethical Standards for Publication of Aeronautics and Astronautics Research.** — REQUIRED.
+- **Artificial Intelligence-Language** — REQUIRED.
+- **AI-Language** — REQUIRED.
+- **AI Confirmation Statement** — REQUIRED.
+
+### Cover letter
+
+Prepared at `../cover-letter.md`.
+
+Use either portal text entry or file upload according to the live Step-6 control.
+
+### Funding
 
 Paper-1 value: **No external funding.**
 
-No grant number exists for this research. Do not invent one.
+No grant number exists.
 
-## Competing interests
+### Clearance / public release
 
-Paper-1 value: **The author declares no competing financial or non-financial interests.**
+Prepared factual boundary:
 
-Exact ScholarOne declaration/attestation wording: **PENDING LIVE PORTAL**.
+- Classified research: No.
+- External company/government classification review required: No.
+- Operational/classified/proprietary mission telemetry used: No.
+- Research is researcher-controlled and unclassified using public/research software and synthetic research data.
 
-## Classification and public release
+Use the exact live Clearance wording before selecting an answer.
 
-- Classified research: No
-- External company/government classification review required: No
-- Operational/classified/proprietary mission telemetry used: No
-- Public-release boundary: researcher-controlled, unclassified research using public/research software and synthetic research data
+### Publication history
 
-Use the exact live AIAA clearance/rights wording presented by ScholarOne; do not substitute this summary for a legal attestation whose wording differs.
+The broader research program developed from doctoral work whose dissertation manuscript is archived through ProQuest. Paper 1 reports the separately frozen controlled empirical studies and additional Study-2 experimentation/analysis documented in the manuscript.
 
-## Submission exclusivity
+Capture the exact `Publication History` wording/options before responding.
 
-Paper-1 value: **The manuscript is not simultaneously under consideration elsewhere.**
+### Artificial intelligence
 
-## Human participants / ethics
+Qualifying use must be disclosed. OpenAI ChatGPT assisted with manuscript organization, source checking, editorial refinement, consistency review, reproducibility documentation, repository/audit workflow support, and journal-submission preparation. The author reviewed the outputs and remains fully responsible for the manuscript.
 
-- Human participants: None
-- Human-subject data: None
-- Operational human/operator behavior study: None
-- IRB/HRPP identifier: None has been created for Paper 1; do not invent one
+The evaluated Study-1 and Study-2 response mechanisms are deterministic rule-based software mechanisms and do not use generative artificial intelligence or machine learning as the scientific response mechanism.
 
-If ScholarOne presents an ethics or institutional-review question, record the exact wording before finalizing the response.
+Full target-specific disclosure: `../ai-disclosure.md`.
+
+The portal presents multiple required AI fields (`Artificial Intelligence-Content`, `AI-Content`, `Artificial Intelligence-Language`, `AI-Language`, and `AI Confirmation Statement`). Do not assume these are duplicates or answer them generically; capture their exact wording/options first.
+
+### No-infringement and Ethical Standards
+
+These are required attestations. Read the exact live wording before confirming them.
 
 ## Data and code availability
 
@@ -105,42 +174,24 @@ https://github.com/Zartharas/mission-aware-satellite-cyber-recovery
 
 The two study populations remain separate and are not pooled.
 
-## Prior dissemination
+## Human participants / ethics
 
-The broader research program developed from doctoral work whose dissertation manuscript is archived through ProQuest. Paper 1 is a journal research article built around the frozen controlled empirical studies and the additional Study-2 experimentation and analysis documented in the manuscript.
+- Human participants: None
+- Human-subject data: None
+- Operational human/operator behavior study: None
+- IRB/HRPP identifier: None has been created for Paper 1; do not invent one
 
-If ScholarOne asks about thesis/dissertation, prior publication, preprints, or related manuscripts, capture the exact field wording before responding.
+No dedicated human-subject field was listed on the live requirements overview. If a later screen presents one, capture the exact wording before responding.
 
-## Artificial-intelligence disclosure
+## Remaining live captures
 
-Qualifying use must be disclosed because OpenAI ChatGPT assisted with manuscript organization, source checking, editorial refinement, consistency review, reproducibility documentation, repository/audit workflow support, and journal-submission preparation. The author reviewed the outputs and remains fully responsible for the manuscript.
-
-The evaluated Study-1 and Study-2 response mechanisms are deterministic rule-based software mechanisms and do not use generative artificial intelligence or machine learning as the scientific response mechanism.
-
-Full target-specific disclosure: `../ai-disclosure.md`
-
-Exact ScholarOne artificial-intelligence question/response field: **PENDING LIVE PORTAL**.
-
-## Suggested reviewers
-
-Reviewer names, affiliations, and contact information: **PENDING**.
-
-Do not invent reviewers. Confirm the live required/optional count and any exclusion rules before selecting candidates.
-
-## Editor / classifications / special issue
-
-All selections: **PENDING LIVE PORTAL**.
-
-Do not infer topical classifications or an editor choice from memory.
-
-## Upload-item designations
-
-- Core manuscript: **CONTENT READY** as `JAIS_MANUSCRIPT.docx`; use only the visual-QA artifact identified in `MANUSCRIPT_CONTENT_READY.md` after the exact ScholarOne manuscript designation is confirmed.
-- Frozen visual-QA manuscript SHA-256: `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`.
-- Cover letter: prepared; exact ScholarOne file/text requirement pending.
-- Separate figures: not assumed necessary at initial peer review unless portal requests them.
-- Supplemental files: optional; no default upload planned.
-- Title page: metadata source prepared; separate upload requirement pending.
+1. Step-1 actual Title/Abstract entry controls and validation.
+2. Step-2 exact file designation behavior.
+3. Step-3 Subject Index Category list and 1–3 Paper-1 choices.
+4. Step-4 exact affiliation/postal/submitting-agent controls.
+5. Step-5 reviewer data requirements and three or more reviewer candidates.
+6. Step-6 exact wording/options for Clearance, AI fields, No-Infringement, Publication History, and Ethical Standards acknowledgment.
+7. Any additional fields or final proof/preview pages.
 
 ## Submission stop
 
