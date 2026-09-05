@@ -40,8 +40,8 @@
 - [x] Current JAIS scope rechecked on 2026-09-04.
 - [x] Scope includes aerospace systems/software engineering, embedded-system verification and validation, autonomous systems, systems engineering, and safety and mission assurance.
 - [x] Paper 1 is framed as aerospace cyber response/trusted recovery under contact, authorization, and adversarial-evidence constraints.
-- [x] Working article type: Regular/Full Article.
-- [ ] Confirm exact live ScholarOne article-type dropdown label.
+- [x] Exact authenticated ScholarOne manuscript-type label confirmed on 2026-09-04: **Full Paper**.
+- [x] Paper-1 live ScholarOne manuscript-type selection: **Full Paper**.
 
 ## AIAA title and abstract requirements
 
@@ -150,12 +150,13 @@
 **Study-2 statistical freeze and independent reproduction:** PASS.  
 **Study-2 durable source-evidence archive:** PASS.  
 **JAIS live public scope/author-requirements check:** PASS.  
+**Live ScholarOne manuscript type:** `Full Paper` — LOCKED.  
 **JAIS target title/abstract:** PASS.  
 **Exact JAIS manuscript export/reference/length/visual gate:** PASS.  
 **Repository validation:** PASS.  
-**Manuscript-content gate:** `JAIS_MANUSCRIPT_CONTENT_READY__SCHOLARONE_FIELD_LOCK_PENDING`.  
-**ScholarOne exact authenticated portal-field lock:** PENDING.  
+**Manuscript-content gate:** `JAIS_MANUSCRIPT_CONTENT_READY__SCHOLARONE_FIELD_LOCK_IN_PROGRESS`.  
+**ScholarOne remaining authenticated portal fields:** PENDING.  
 **Submission-ready package freeze:** PENDING PORTAL LOCK.  
 **Actual publisher submission:** NOT YET AUTHORIZED.
 
-Next action: enter the authenticated JAIS ScholarOne production workflow without completing submission, capture the exact fields/designations, reconcile them to `scholarone-field-map.md` and `upload-packet/PORTAL_ENTRY_VALUES.md`, then freeze the exact upload package. Actual final submission still requires separate explicit author authorization.
+Next action: continue through the authenticated JAIS ScholarOne production workflow without completing submission, capture each exact field/designation, reconcile it to `scholarone-field-map.md` and `upload-packet/PORTAL_ENTRY_VALUES.md`, then freeze the exact upload package. Actual final submission still requires separate explicit author authorization.
