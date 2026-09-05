@@ -46,6 +46,8 @@ Routing priority for manuscript fit is: Information Security first, Computer Sys
 
 ## Step 4 - Authors and Institutions
 
+**Canonical manuscript metadata**
+
 **Author:** Aman Kumar Singh  
 **Degrees shown in manuscript:** M.S., D.Sc.  
 **Role:** Sole author; corresponding author  
@@ -54,8 +56,16 @@ Routing priority for manuscript fit is: Information Security first, Computer Sys
 **State:** Texas  
 **ZIP:** 77380  
 **Country:** United States  
-**Email:** asingh65430@ucumberlands.edu  
+**Corresponding email in manuscript:** asingh65430@ucumberlands.edu  
 **ORCID:** 0009-0008-9752-3743
+
+**Live ScholarOne observation, 2026-09-05:**
+
+- `Author` is selected for the required Submitting Agent question. This is correct for a sole-author submission even though ScholarOne uses generic wording that mentions co-authors.
+- The selected author row identifies Aman Kumar Singh as `Corresponding Author` and shows the linked ORCID successfully.
+- The live ScholarOne author row displays a different account/contact email from the corresponding email frozen in the manuscript.
+- The `Independent Researcher` institution record is selected, but the row also displays additional personal-address/contact metadata and a warning indicator next to the institution.
+- Do **not** change the frozen manuscript merely to mirror account-profile metadata. Before leaving Step 4, inspect the author-row `Actions` menu to determine whether ScholarOne permits submission-specific editing of the corresponding email and institution record. Prefer consistency with the manuscript where the portal permits it, and avoid unnecessary personal-address metadata in publisher-facing affiliation fields unless ScholarOne requires it.
 
 Use the exact account/profile format required by ScholarOne for degrees and name fields. Do not invent an institutional department.
 
