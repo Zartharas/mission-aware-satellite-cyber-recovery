@@ -21,6 +21,8 @@ EM_DASH = "\u2014"
 TARGETED_REPLACEMENTS = {
     "The narrower anticipated mechanism\u2014nominal behavioral restoration without sufficient verification\u2014was not observed in A13.":
         "The narrower anticipated mechanism, nominal behavioral restoration without sufficient verification, was not observed in A13.",
+    "During preparation of this journal work, the author used OpenAI ChatGPT to assist with manuscript organization, source checking, editorial refinement, consistency review, reproducibility documentation, repository and audit workflow support, and preparation of journal-submission materials. The author reviewed and edited all resulting content, checked scientific quantities and source claims against the frozen research record and cited sources, and takes full responsibility for the manuscript. For Study 1, this assistance occurred after the experimental campaign and historical statistical findings were frozen and after the evidence package had been archived. For Study 2, the assistance occurred after the campaign evidence and prospective analysis implementation were frozen. It did not generate or replace observations, alter seeds or exclusions, change either frozen statistical population, modify the frozen Study-2 analyzer, or provide input to the evaluated deterministic response policies.":
+        "During preparation of this article, I used OpenAI ChatGPT for editorial and research-support tasks, including manuscript organization, source checking, language refinement, consistency review, reproducibility documentation, repository and audit workflow support, and preparation of submission materials. I reviewed and revised the resulting text, checked scientific quantities and source claims against the frozen research record and cited sources, and take full responsibility for the manuscript. For Study 1, this assistance was used only after the experimental campaign and historical statistical findings had been frozen and after the evidence package had been archived. For Study 2, it was used only after the campaign evidence and prospective analysis implementation had been frozen. It did not generate or replace observations, alter seeds or exclusions, change either frozen statistical population, modify the frozen Study 2 analyzer, or provide input to the evaluated deterministic response policies.",
 }
 
 
@@ -45,9 +47,9 @@ def normalize_docx(path: Path) -> int:
     doc = Document(path)
     changed = 0
     for paragraph in iter_paragraphs(doc):
-        if EM_DASH not in paragraph.text:
-            continue
         replacement = normalize_text(paragraph.text)
+        if replacement == paragraph.text:
+            continue
         if paragraph.runs:
             paragraph.runs[0].text = replacement
             for run in paragraph.runs[1:]:
