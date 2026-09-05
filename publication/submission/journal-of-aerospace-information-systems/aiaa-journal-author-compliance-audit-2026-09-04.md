@@ -1,66 +1,86 @@
-# AIAA Journal Author Compliance Audit — 2026-09-04
+# AIAA Journal Author Compliance Audit - 2026-09-04
 
 **Target:** AIAA *Journal of Aerospace Information Systems* (JAIS)  
 **Manuscript type:** Full Paper  
-**Status:** `SUBMISSION_HOLD__AIAA_MANUSCRIPT_COMPLIANCE_CORRECTIONS_REQUIRED`
+**Status:** `RESOLVED__PUBLISHER_FILES_QA_FROZEN__SCHOLARONE_FIELD_COMPLETION_PENDING`
 
 This audit was performed against the current AIAA Journal Author page and its linked manuscript-preparation resources, including the figure/table, abstract, authorship/footnote, reference, supplemental-material, style, mathematics, nomenclature, page/word-count, and ethical-standards guidance.
 
 ## Initial-submission figures/images rule
 
 - AIAA does **not** require a minimum number of figures or images in a Full Paper.
-- For an original submission, the main manuscript file must contain all main manuscript content, including any figures and tables used in the paper.
-- Separate `Image` uploads are therefore not required for initial peer review when figures are already embedded in the main manuscript.
-- Artwork in PDF form is acceptable for peer review. After acceptance, more complex artwork/images should be supplied in production-quality standard formats such as PNG or TIFF; line art should be at least 600 dpi and images at least 300 dpi.
-- Tables must remain editable and must not be inserted as images.
+- Figures, when used, must be numbered and cited in the text. Artwork in PDF form is acceptable for peer review; production-quality image requirements apply after acceptance as appropriate.
+- Paper 1 contains no figures or embedded image objects. Therefore, no separate ScholarOne `Image` upload is required.
+- The five manuscript tables remain editable Word tables and are not images.
 
-## Current manuscript findings
+## Corrections completed
 
-### PASS
+The compliance hold was closed after the following corrections and checks:
 
-- 12-word title with no acronym/abbreviation.
-- 171-word, one-paragraph, third-person abstract with no numerical references.
-- English/American spelling profile.
-- 10-point, double-spaced, single-column Word presentation.
-- 25-page 10-point serif manuscript falls within AIAA's regular-article double-spaced page equivalency guideline.
-- Introduction states purpose/significance relative to prior work.
-- No equation-image issue; the current paper contains no displayed equations requiring equation-format remediation.
-- References are numbered in citation order and the JAIS reference audit excludes dynamic/non-archival web references from the formal list.
-- Five tables are included as editable Word tables rather than images.
-- No figure/image is currently used or cited in the manuscript. This is permitted by AIAA; no minimum figure count is stated.
-- Supplemental material is optional and is not required for acceptance.
-- No reprinted figures are present in the current manuscript.
+1. **Author affiliation ZIP code - PASS**  
+   The author verified ZIP code `77380`. The manuscript affiliation now reads `Independent Researcher, The Woodlands, Texas 77380`.
 
-### REQUIRED CORRECTIONS BEFORE UPLOAD
+2. **First-page author footnote - PASS**  
+   A true first-page author footnote is structurally present and identifies the author as an Independent Researcher and corresponding author, with the corresponding email address.
 
-1. **Author affiliation ZIP code**  
-   AIAA requires the affiliation line to include institution/company, city, state, and ZIP code for U.S. authors. The current manuscript says `Independent Researcher, The Woodlands, Texas, United States` and omits the ZIP code. The exact author-verified ZIP code is required; it must not be inferred.
+3. **AI disclosure placement - PASS**  
+   The manuscript now includes an `Acknowledgments` section before the references with a brief, transparent description of OpenAI ChatGPT use. The statement preserves author responsibility and makes clear that the tool did not generate experimental observations, change frozen populations/exclusions, modify the frozen Study 2 analyzer, or operate the evaluated response policies.
 
-2. **First-page author footnote treatment**  
-   AIAA's author guidance places job title/department information in first-page author footnotes and encourages the corresponding-author designation with email there. The JAIS export should use an AIAA-style first-page author footnote suitable for an Independent Researcher rather than relying only on standalone body lines.
+4. **Table citations - PASS**  
+   All five tables are cited in running text in numerical order.
 
-3. **AI disclosure placement**  
-   AIAA's current Ethical Standards state that when AI is used in the writing process or permitted figure construction, a brief description of that AI use must appear in the **Acknowledgments** section. The current manuscript contains a dedicated artificial-intelligence disclosure section but no Acknowledgments section. The JAIS export must add an Acknowledgments section before the references with the required brief AI-use statement, while retaining accurate ScholarOne disclosure.
+5. **AIAA table formatting - PASS**  
+   The final tables are editable and use horizontal journal-style rules without vertical/full-grid borders.
 
-4. **Table 5 citation**  
-   AIAA requires every table to be cited in the text in numerical order. Tables 1 through 4 are cited in the current body. Table 5 is present only as a caption/display and is not explicitly cited in running text. Add a text citation to Table 5 at the appropriate Study-2 results location.
+6. **AIAA style-language pass - PASS**  
+   The final manuscript contains zero em dashes and received a target-specific AIAA editorial pass without altering frozen scientific values or claim boundaries.
 
-5. **AIAA table rule formatting**  
-   AIAA states that tables should not use border lines or vertical rules between columns; the preferred journal style uses a double rule above/below the body and a single rule under column headings. The current Word export uses the Word `Table Grid` style, which introduces vertical/full-grid borders and therefore requires venue-specific table-border remediation.
+7. **Final author-facing cleanup - PASS**  
+   The Results numbering is continuous in the JAIS-facing manuscript, and display-only table headers were converted from raw internal field-like labels to readable publication-facing labels without changing underlying values.
 
-6. **AIAA style-language pass**  
-   AIAA's style guidance asks authors to avoid dashes in scholarly prose and to use `although`/`whereas` instead of contrastive `while` where simultaneity is not intended, along with other house-style preferences. Em dashes have already been removed, but the final JAIS exporter needs one additional AIAA house-style pass before freeze.
+## Final manuscript QA
 
-## Figures/images decision for Paper 1
+- Title: 12 words - PASS.
+- Abstract: 171 words, one paragraph, no numerical citations/acronyms/abbreviations - PASS.
+- English/American spelling, 10-point, double-spaced, single-column - PASS.
+- Five editable tables, no figures/images - PASS.
+- No tracked changes - PASS.
+- No Word comments - PASS.
+- Accessibility audit: 0 high, 0 medium, 0 low findings - PASS.
+- First-page footnote structural report - PASS.
+- Final Word render: 25 pages - PASS.
+- Every final manuscript page visually reviewed after the final corrections - PASS.
+- Final cover-letter render: 1 page and visually reviewed - PASS.
 
-No new figure is required solely for AIAA compliance. The current Paper 1 contains no figures and does not cite any. That is acceptable under the published AIAA rules. If a figure is later added for scientific clarity, it must be cited in numerical order, have a concise caption, use legible lettering, be embedded in the main manuscript for the original submission, and meet AIAA production-resolution requirements if accepted.
+## Frozen-science QA
 
-## Supplemental-material decision
+- Study 1 remains exactly 720 VALID observations across 24 frozen cells; nine INVALID attempts remain provenance only - PASS.
+- Study 2 remains exactly 3,872 VALID observations across 85 frozen cells with zero INVALID attempts - PASS.
+- Study 1 and Study 2 remain separate and unpooled - PASS.
+- Study 1 P1 null boundary preserved - PASS.
+- Study 2 Block C structural label-invariance boundary preserved - PASS.
+- K4 intermittent/flapping-contact boundary preserved - PASS.
+- A2/K2 coupled producer-compromise/contact-loss boundary preserved - PASS.
+- Deterministic logical software-time boundary preserved - PASS.
+- No weighted global policy rank - PASS.
+- Study 8 excluded - PASS.
+- No operational flight-readiness, radio-frequency performance, or certification claim - PASS.
 
-Supplemental materials remain optional. Because the article must stand on its own and the Study-1/Study-2 research records already have public repository/archive identities, no supplemental upload is required by default. Any supplement would need to be final, self-contained, appropriately named/cited, and submitted concurrently if we choose to include it.
+## Canonical package
 
-## Stop rule
+The single canonical publisher-facing package is maintained at:
 
-Do **not** upload `JAIS_MANUSCRIPT_SUBMISSION_READY.docx` while this audit is in HOLD status. Correct the listed manuscript-compliance items, regenerate the Word file, rerun export/reference/style/scientific gates, perform a full render-and-visual QA of the regenerated DOCX, and freeze a new SHA-256 before continuing ScholarOne Step 2.
+`publication/Paper_1_Studies_1_2/Journal_of_Aerospace_Information_Systems/`
 
-The only author-specific value currently needed to complete the first-page correction is the exact ZIP code for the Independent Researcher affiliation in The Woodlands, Texas.
+Canonical publisher file identities:
+
+- `JAIS_MANUSCRIPT.docx`: SHA-256 `197d3eb4895bbedbb5594c7bdd2b0d00d8f552c60c0840790b6f23074b8519b9`
+- `JAIS_COVER_LETTER.docx`: SHA-256 `76463e88cb75c44a064431e6f9f4f12bcca473c23005495f8fb86e36c83db982`
+
+The package README, ScholarOne values sheet, compliance checklist, and checksum file record the remaining portal-only requirements.
+
+## Remaining gate
+
+The manuscript compliance hold is closed. Remaining work is ScholarOne metadata/attestation completion, including Subject Index Category selection, at least three conflict-screened preferred reviewers, exact Clearance/AI/No-Infringement/Publication History responses, and final proof review.
+
+Actual publisher submission remains **NOT AUTHORIZED** until the author separately gives explicit authorization to press the final Submit button.
