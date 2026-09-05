@@ -1,6 +1,6 @@
 # JAIS Paper 1 Upload Manifest
 
-**Package state:** `CONTENT_READY__SCHOLARONE_FIELD_LOCK_PENDING`
+**Package state:** `CONTENT_READY__SCHOLARONE_FIELD_LOCK_IN_PROGRESS`
 
 This manifest distinguishes files intended for the publisher workflow from internal preparation evidence. It does not authorize publisher submission.
 
@@ -8,24 +8,25 @@ This manifest distinguishes files intended for the publisher workflow from inter
 
 | Item | Current source | Status | Initial-submission handling |
 |---|---|---|---|
-| Final JAIS manuscript | workflow artifact `9949926197` / `JAIS_MANUSCRIPT.docx` | **CONTENT READY** | Core upload after exact ScholarOne file designation is confirmed |
-| Manuscript SHA-256 | `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64` | **FROZEN** | Verify local upload copy against this identity |
-| Cover letter | `../cover-letter.md` | **PREPARED** | Upload or paste only as ScholarOne requests |
-| Title | `../title-page.md` | **PREPARED** | Enter through ScholarOne; 12-word JAIS title |
-| Abstract | `../jais-abstract.md` | **PREPARED** | Enter through ScholarOne; final abstract is 171 words |
-| Author metadata | `../title-page.md`, `PORTAL_ENTRY_VALUES.md` | **PREPARED/PARTIAL** | Enter through ScholarOne; exact postal fields remain portal-dependent |
-| Funding | `PORTAL_ENTRY_VALUES.md` | **PREPARED** | No external funding; enter exact portal response |
+| Final JAIS manuscript | workflow artifact `9962030843` / `JAIS_MANUSCRIPT.docx` | **CONTENT READY** | Upload in ScholarOne Step 2 as **Main Document** |
+| Manuscript SHA-256 | `e6a1d5023031296da658e6959fe6dc135d42592094267d06c6d4f7d8a2efc2bc` | **FROZEN** | Verify the exact upload copy against this identity |
+| Cover letter | `../cover-letter.md` | **PREPARED / HUMANIZED** | Required in Step 6; paste or upload only through the Cover Letter control |
+| Title | `../title-page.md` | **PREPARED** | Entered through ScholarOne; 12-word JAIS title |
+| Abstract | `../jais-abstract.md` | **PREPARED** | Entered through ScholarOne; final abstract is 171 words |
+| Author metadata | `../title-page.md`, `PORTAL_ENTRY_VALUES.md` | **PREPARED/PARTIAL** | Enter through ScholarOne; exact institution/postal behavior remains to be captured |
+| Funding | `PORTAL_ENTRY_VALUES.md` | **PREPARED** | No external funding |
 | Competing interests | `PORTAL_ENTRY_VALUES.md` | **PREPARED** | No competing financial or non-financial interests |
-| AI disclosure | `../ai-disclosure.md` | **PREPARED** | In-manuscript disclosure retained; reconcile exact ScholarOne field |
-| Suggested reviewers | none selected | **PENDING LIVE REQUIREMENT** | Select only after exact count/rules are confirmed |
-| Rights/clearance attestations | research record summarized in portal sheet | **PENDING LIVE WORDING** | Complete only against exact ScholarOne/AIAA language |
+| AI disclosure | `../ai-disclosure.md` | **PREPARED / HUMANIZED / TRANSPARENT** | In-manuscript disclosure retained; reconcile exact Step-6 AI questions |
+| Preferred reviewers | none selected | **REQUIRED / PENDING** | Minimum three; select only after conflict and field review |
+| Rights/clearance attestations | research record summarized in portal sheet | **REQUIRED / PENDING EXACT WORDING** | Complete only against exact ScholarOne/AIAA language |
 
-## B. Manuscript audit identity
+## B. Final manuscript audit identity
 
-Generation commit: `506c3d26d812709efec86c856514d541343c0b57`  
-JAIS export workflow run: `33907150553` — PASS  
-Repository validation workflow run: `33907154052` — PASS  
-Artifact ZIP SHA-256: `8f8171f4f2619595631829b5c17c58a8e88cacbe9604e05413562181d53a213f`
+Generation commit: `6e0f801fc8c8ac2a498a7cac9234bbbfa0ba7bc3`  
+JAIS export workflow run: `33941696440` - PASS  
+Workflow artifact ID: `9962030843`  
+Artifact ZIP SHA-256: `9b85281ed7a1a5eeb190bb72d61667128e30334d3913a46c3720745f09855685`  
+Final DOCX SHA-256: `e6a1d5023031296da658e6959fe6dc135d42592094267d06c6d4f7d8a2efc2bc`
 
 Final measured state:
 
@@ -38,45 +39,63 @@ Final measured state:
 - unresolved citations: none;
 - scientific/export gate: PASS;
 - AIAA reference gate: PASS;
-- 25-page CI-generated Word visual QA: PASS.
+- submission-facing style gate: PASS;
+- final manuscript em-dash count: 0;
+- tracked changes: none;
+- Word comments: none;
+- accessibility audit: 0 high, 0 medium, 0 low findings;
+- final 25-page Word visual QA: PASS.
 
 Full identity/audit record: `MANUSCRIPT_CONTENT_READY.md`.
 
-## C. Figures and tables
+## C. ScholarOne Step 2 upload decision
 
-The peer-review manuscript contains editable tables. Wide Tables 3–5 use a JAIS-facing compact display generated deterministically from the frozen manuscript-facing CSV values. The source CSVs and numerical Results are not changed.
+The authenticated Step-2 instructions state that an original submission should provide either a PDF or Word DOCX containing all main manuscript content, including figures and tables, and that the main body should be designated **Main Document**. Files uploaded on Step 2 are included in the reviewer proof.
 
-Separate production-grade artwork is not required by this staging packet unless the authenticated ScholarOne workflow requests it or the manuscript is accepted.
+Therefore upload **one file only** on Step 2:
 
-## D. Supplemental material
+- `JAIS_MANUSCRIPT.docx` -> **Main Document**
+
+Do not upload the cover letter, title-page source, audit reports, workflow ZIP, Zenodo archives, repository evidence, or internal checklists on Step 2.
+
+## D. Figures and tables
+
+The peer-review manuscript contains editable tables. Wide Tables 3-5 use a JAIS-facing compact display generated deterministically from frozen manuscript-facing CSV values. The source CSVs and numerical Results are unchanged.
+
+No separate image upload is planned for the initial submission.
+
+## E. Supplemental material
 
 Current initial-submission decision: **NONE planned by default.**
 
 See `OPTIONAL_SUPPLEMENTAL.md`.
 
-## E. Internal/supporting files — DO NOT UPLOAD BY DEFAULT
+## F. Internal/supporting files - DO NOT UPLOAD BY DEFAULT
 
 The following are preparation/governance evidence and are not journal supplements unless an editor specifically requests them:
 
 - `MANUSCRIPT_CONTENT_READY.md`
 - `../README.md`
 - `../live-requirements-2026-09-04.md`
+- `../scholarone-live-requirements-2026-09-04.md`
 - `../submission-checklist.md`
 - `../scholarone-field-map.md`
 - `../venue-fit.md`
 - generated audit JSON/CSV files
+- GitHub Actions export ZIPs
 - internal repository audit records
 - raw or frozen experiment evidence already published through Zenodo
 - internal claim-traceability or release-gate files
 
-## F. Remaining requirements before `SUBMISSION_READY`
+## G. Remaining requirements before `SUBMISSION_READY`
 
-The scientific/manuscript-content items below are already closed: final export, AIAA title/abstract/format, citation-order conversion, DOI/reference audit, equivalent-word audit, Study-1 claim boundary, Study-2 claim boundary, cross-study non-pooling, Study-8 exclusion, AI-disclosure inclusion, archive identities, repository validation, and Word visual QA.
+The scientific/manuscript-content items are closed. The package may move to `SUBMISSION_READY` only after:
 
-The package may move to `SUBMISSION_READY` only after:
-
-1. authenticated live JAIS ScholarOne field/designation lock;
-2. reconciliation of exact article type, classifications/keywords, author/affiliation fields, reviewers, declarations, data/code, ethics/rights, and upload designations;
-3. verification that the local upload copy matches the frozen manuscript SHA-256;
-4. final repository/package snapshot freeze against the locked portal schema; and
-5. separate explicit author authorization to submit.
+1. complete authenticated JAIS ScholarOne field lock;
+2. selection of 1-3 Subject Index Categories;
+3. verification of author/institution controls;
+4. entry and conflict review of at least three preferred reviewers;
+5. exact Step-6 clearance, publication-history, no-infringement, ethics, and AI responses;
+6. final ScholarOne proof/preview verification;
+7. final repository/package snapshot freeze; and
+8. separate explicit author authorization to submit.
