@@ -86,29 +86,32 @@ The live `Add Reviewer` dialog contains these fields:
 
 For recommended reviewers, select `I recommend this Reviewer`. Use institution-reflecting email addresses where available. Do not invent phone numbers, departments, affiliations, or email addresses.
 
-### Preferred reviewer candidate pool - pending author conflict confirmation
+### Preferred reviewer candidate pool - author conflict check completed
 
-The following candidates were identified from current public institutional/official sources because their expertise aligns closely with the manuscript. They are **not yet locked** until the author confirms no real, potential, or perceived conflict of interest or disqualifying personal/professional relationship.
+On 2026-09-05, the author confirmed that the research was conducted independently and that he has not collaborated with or sought research guidance from any professor or technical person involved in the work. On that basis, there is no known direct research/advisory relationship with the three proposed reviewers below. The author remains the sole human author; AI assistance is handled separately through the manuscript and ScholarOne AI disclosures and is not treated as authorship or as a reviewer relationship.
 
 1. **Gregory Falco**  
    Institution: Cornell University  
    Department: Sibley School of Mechanical and Aerospace Engineering / Systems Engineering Program  
    Email: `gfalco@cornell.edu`  
-   Fit: space cybersecurity, autonomous secure/resilient space infrastructure, aerospace systems security.
+   Fit: space cybersecurity, autonomous secure/resilient space infrastructure, aerospace systems security.  
+   Preference: `I recommend this Reviewer`
 
 2. **Wayne Henry**  
    Institution: Air Force Institute of Technology  
-   Department: Electrical Engineering / Center for Cyberspace Research  
+   Department: Department of Electrical and Computer Engineering  
    Email: `wayne.henry@afit.edu`  
-   Fit: space-system cybersecurity, cyber operations, computer/network security, cyber-physical security.
+   Fit: space-system cybersecurity, cyber operations, computer/network security, cyber-physical security.  
+   Preference: `I recommend this Reviewer`
 
 3. **Brandon Bailey**  
    Institution: The Aerospace Corporation  
    Department: Cybersecurity and Advanced Platforms Subdivision / Cyber Assessment & Research Department  
    Email: `brandon.bailey@aero.org`  
-   Fit: spacecraft and ground-system cybersecurity, SPARTA, cyber assessment, resilient space infrastructure.
+   Fit: spacecraft and ground-system cybersecurity, SPARTA, cyber assessment, resilient space infrastructure.  
+   Preference: `I recommend this Reviewer`
 
-**Author conflict check required before entry:** confirm that none of the proposed reviewers has been a recent collaborator, advisor/student, supervisor/subordinate, close personal or professional associate, or participant in a relationship that could create a real or perceived conflict or bias.
+**Reviewer-entry note:** Institution and Department are optional in the live form but should be populated as above. Leave Phone Number blank. If the author later recognizes any employment, financial, personal, supervisory, recent coauthorship, or other relationship that could create an actual or perceived conflict with a proposed reviewer, stop and replace that candidate before final submission.
 
 **Opposed Reviewers:** optional; none by default unless the author identifies a reason.  
 **Preferred Associate Editor:** required by the live Step-5 page; PENDING LIVE `Add Editor` dialog/list.  
