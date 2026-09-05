@@ -1,4 +1,4 @@
-# Title Page — Journal of Aerospace Information Systems
+# Title Page - Journal of Aerospace Information Systems
 
 ## JAIS submission title
 
@@ -19,7 +19,7 @@ Independent Researcher
 The Woodlands, Texas, United States  
 ORCID: https://orcid.org/0009-0008-9752-3743
 
-AIAA's current author-format guidance describes affiliation information including city, state, and ZIP code. No ZIP code is inferred in this package. Add it only if the live JAIS workflow/template requires it and the author verifies the value.
+AIAA's current author-format guidance describes affiliation information including city, state, and ZIP code. No ZIP code is inferred in this package. Add it only if the live JAIS workflow requires it and the author verifies the value.
 
 ## Corresponding author
 
@@ -27,19 +27,21 @@ Aman Kumar Singh
 Email: asingh65430@ucumberlands.edu  
 Preferred correspondence method: email
 
-AIAA uses the corresponding-author designation in ScholarOne for submission/publication contact and permits a corresponding-author footnote in the manuscript.
+AIAA uses the corresponding-author designation in ScholarOne for submission and publication contact and permits a corresponding-author footnote in the manuscript.
 
 ## Target journal
 
 AIAA *Journal of Aerospace Information Systems*
 
-## Article type
+## Manuscript type
 
-**Regular/Full Article** — working target classification based on current public AIAA article-type guidance. Confirm the exact ScholarOne dropdown wording before submission.
+**Full Paper**
+
+This is the exact authenticated ScholarOne manuscript-type label confirmed for the JAIS submission workflow.
 
 ## Author contributions
 
-**Aman Kumar Singh:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing – original draft; Writing – review & editing; Visualization; Project administration.
+**Aman Kumar Singh:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing - original draft; Writing - review and editing; Visualization; Project administration.
 
 `Funding acquisition` is intentionally omitted because the research reports no external funding. `Supervision` is not assigned because this is a single-author independent research program.
 
@@ -47,7 +49,7 @@ AIAA *Journal of Aerospace Information Systems*
 
 This research was conducted independently and received no external funding.
 
-The live ScholarOne funding field must be completed consistently with this statement.
+The live ScholarOne funding field must be completed consistently with this statement if funding information is entered.
 
 ## Competing interests
 
@@ -55,7 +57,7 @@ The author declares no competing financial or non-financial interests.
 
 ## Acknowledgments and artificial-intelligence disclosure placement
 
-There are no non-artificial-intelligence acknowledgments to add. AIAA requires qualifying artificial-intelligence use to be disclosed in ScholarOne and briefly described in the paper. The authoritative manuscript already contains a detailed disclosure. The final JAIS export must retain an AIAA-compliant in-manuscript disclosure, whether in the declarations section or another placement required by the live template/workflow, without changing the frozen science.
+There are no non-artificial-intelligence acknowledgments to add. AIAA requires qualifying artificial-intelligence use to be disclosed in ScholarOne and briefly described in the paper. The JAIS manuscript contains the required disclosure in its declarations section. The portal response must remain consistent with that statement.
 
 ## Submission ethics attestation
 
@@ -65,4 +67,4 @@ The research is unclassified, uses no classified or proprietary mission telemetr
 
 ## Research-package note
 
-The journal article reports two separately frozen software-in-the-loop studies. Study 1 contains 720 VALID observations; Study 2 contains 3,872 VALID observations. The populations are analyzed separately and are not reported as one pooled statistical dataset. Study 8 is outside this Paper-1 submission.
+The journal article reports two separately frozen software-in-the-loop studies. Study 1 contains 720 VALID observations; Study 2 contains 3,872 VALID observations. The populations are analyzed separately and are not reported as one pooled statistical dataset. Study 8 is outside this Paper 1 submission.
