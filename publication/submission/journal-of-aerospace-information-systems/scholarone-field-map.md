@@ -10,8 +10,10 @@ This file separates fields confirmed by current public AIAA guidance from fields
 |---|---|---|
 | Journal | AIAA Journal of Aerospace Information Systems | Primary target authorized |
 | Manuscript type | **Full Paper** — exact authenticated ScholarOne label confirmed 2026-09-04 | **LOCKED: Full Paper** |
-| Title | REQUIRED; maximum 12 words | Prepared 12-word JAIS title — PASS |
-| Abstract portal entry | OPTIONAL; maximum 200 words | Final 171-word JAIS abstract prepared |
+| Title | REQUIRED; maximum 12 words | Prepared 12-word JAIS title; live counter shows **12 OUT OF 12 WORDS** |
+| Abstract portal entry | OPTIONAL; maximum 200 words | Final 171-word JAIS abstract entered; live counter shows **171 OUT OF 200 WORDS** |
+| Virtual Collection | Live Step-1 selector present; portal says Virtual Collections designated as “invited” are by invitation only | No collection has been identified for Paper 1; leave unselected unless a specific applicable collection is intentionally chosen |
+| Plain Language Summary | Live Step-1 text area present; described as a short, non-technical/lay summary that may be made available through Kudos after publication | No required asterisk observed in captured Step-1 screen; optionality/validation to be confirmed by save/continue behavior |
 | File count | REQUIRED; minimum 1, maximum 5 | Plan: one Main Document unless live upload screen requires otherwise |
 | Total upload size | Maximum 390 MB | Frozen manuscript is well within limit |
 | Main Document designation | OPTIONAL on requirements overview | Intended designation for audited `JAIS_MANUSCRIPT.docx`; confirm behavior on upload screen |
@@ -58,6 +60,16 @@ Authenticated JAIS ScholarOne manuscript-type choices displayed:
 
 Paper 1 uses **Full Paper**.
 
+### Live Step-1 evidence — 2026-09-04
+
+The authenticated `Step 1: Type, Title, & Abstract` screen showed:
+
+- Title field with Paper-1 target title populated and counter `12 OUT OF 12 WORDS`.
+- A red validation message `Title is missing.` remained visible despite the populated 12-word value. This is recorded as a portal validation-state anomaly; the title content itself matches the locked target title and word limit. Re-trigger field validation before advancing.
+- Abstract field populated with the final JAIS abstract and counter `171 OUT OF 200 WORDS`.
+- A Virtual Collection selector with help text stating that Virtual Collections previously were called Special Issue/Special Section and that collections designated “invited” are by invitation only.
+- A Plain Language Summary field with help text describing a short, non-technical or lay summary that may be made available through Kudos after publication.
+
 ## Manuscript metadata prepared
 
 | Field concept | Prepared value |
@@ -80,26 +92,28 @@ Paper 1 uses **Full Paper**.
 
 The requirements overview has resolved high-level required/optional status. The following exact values/options still need to be copied from the production JAIS ScholarOne workflow before final submission freeze:
 
-1. Exact title and abstract entry behavior on Step 1.
-2. Exact file-upload behavior/designation workflow on Step 2, including confirmation that the audited Word manuscript should be designated `Main Document`.
-3. Exact Subject Index Category list and Paper-1 selection of 1–3 categories on Step 3.
-4. Exact affiliation/institution/postal fields for an Independent Researcher on Step 4.
-5. Exact submitting-agent and author-verification behavior on Step 4.
-6. Exact reviewer-entry fields, conflict instructions, and at least three preferred-reviewer identities on Step 5.
-7. Exact opposed-reviewer fields, if used.
-8. Exact preferred/opposed editor choices and whether leaving them blank is permitted.
-9. Exact Clearance wording and answer choices.
-10. Exact Artificial Intelligence-Content wording/options.
-11. Exact No-Infringement Statement wording/attestation.
-12. Exact Publication History wording/options.
-13. Exact AI-Content wording/options.
-14. Exact Ethical Standards acknowledgment behavior.
-15. Exact Artificial Intelligence-Language wording/options.
-16. Exact AI-Language wording/options.
-17. Exact AI Confirmation Statement wording/options.
-18. Any additional data/code, ethics, prior-publication, open-access, copyright, or rights fields revealed within or after Step 6.
-19. Final proof/preview behavior and generated submission PDF checks.
-20. Final submission action wording.
+1. Resolve the Step-1 title validation-state anomaly and confirm Step 1 saves/advances successfully.
+2. Confirm whether Plain Language Summary is optional in actual validation and whether a word/character limit is enforced.
+3. Confirm Virtual Collection may remain unselected for this ordinary Full Paper submission.
+4. Exact file-upload behavior/designation workflow on Step 2, including confirmation that the audited Word manuscript should be designated `Main Document`.
+5. Exact Subject Index Category list and Paper-1 selection of 1–3 categories on Step 3.
+6. Exact affiliation/institution/postal fields for an Independent Researcher on Step 4.
+7. Exact submitting-agent and author-verification behavior on Step 4.
+8. Exact reviewer-entry fields, conflict instructions, and at least three preferred-reviewer identities on Step 5.
+9. Exact opposed-reviewer fields, if used.
+10. Exact preferred/opposed editor choices and whether leaving them blank is permitted.
+11. Exact Clearance wording and answer choices.
+12. Exact Artificial Intelligence-Content wording/options.
+13. Exact No-Infringement Statement wording/attestation.
+14. Exact Publication History wording/options.
+15. Exact AI-Content wording/options.
+16. Exact Ethical Standards acknowledgment behavior.
+17. Exact Artificial Intelligence-Language wording/options.
+18. Exact AI-Language wording/options.
+19. Exact AI Confirmation Statement wording/options.
+20. Any additional data/code, ethics, prior-publication, open-access, copyright, or rights fields revealed within or after Step 6.
+21. Final proof/preview behavior and generated submission PDF checks.
+22. Final submission action wording.
 
 ## Capture rule
 
