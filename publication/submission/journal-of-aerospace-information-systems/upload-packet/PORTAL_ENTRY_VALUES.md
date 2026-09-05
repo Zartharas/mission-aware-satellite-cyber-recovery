@@ -52,20 +52,44 @@ This candidate is submission metadata only and does not replace the scientific a
 
 ## Step 2 — File Upload
 
-Live requirements:
+Live Step-2 instructions now confirm:
 
 - Number of files: REQUIRED; minimum **1**, maximum **5**.
-- Maximum total file size: **390 MB**.
-- Available optional designations: **Main Document**, **Image**, **TeX/LaTeX Suppl File**, **Supplemental Materials**, **Updated Copyright Form**.
+- Maximum total file size: approximately **390 MB**.
+- For an **original submission**, provide either a **PDF or Word DOCX** containing all main manuscript content, including figures and tables.
+- The main body of the manuscript should be designated **Main Document**.
+- All files uploaded on this page will be included in the proofs sent to reviewers.
 
-Paper-1 intended upload:
+### Paper-1 upload
 
-- `JAIS_MANUSCRIPT.docx` as **Main Document**, subject to confirmation on the live upload screen.
-- Frozen visual-QA manuscript SHA-256: `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`.
-- No separate Image upload planned.
-- No TeX/LaTeX supplemental file planned.
-- No Supplemental Materials planned by default.
-- No Updated Copyright Form planned unless ScholarOne requests one.
+Upload **exactly one file** on this step:
+
+- File: **`JAIS_MANUSCRIPT.docx`**
+- File Designation: **`Main Document`**
+- Frozen visual-QA SHA-256: `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`
+
+Procedure:
+
+1. Click `Select File 1...`.
+2. Choose the frozen `JAIS_MANUSCRIPT.docx`.
+3. Set File Designation to `Main Document`.
+4. Leave File 2–5 empty.
+5. Click `Upload Selected Files`.
+6. Confirm the uploaded-files table shows the expected filename and `Main Document` designation.
+7. Click `Save & Continue`.
+
+Do **not** upload on Step 2:
+
+- audit ZIP or CI artifact ZIP;
+- audit reports/checksums;
+- internal repository governance/traceability files;
+- title-page source file;
+- cover letter;
+- Zenodo archives or raw evidence;
+- supplemental materials;
+- separate images.
+
+The cover letter belongs in Step 6, where ScholarOne explicitly requires it.
 
 ## Step 3 — Attributes
 
@@ -205,14 +229,12 @@ No dedicated human-subject field was listed on the live requirements overview. I
 
 ## Remaining live captures
 
-1. Resolve Step-1 title validation and confirm Step 1 saves successfully.
-2. Confirm Plain Language Summary optionality/limits and that Virtual Collection may remain unselected.
-3. Step-2 exact file designation behavior.
-4. Step-3 Subject Index Category list and 1–3 Paper-1 choices.
-5. Step-4 exact affiliation/postal/submitting-agent controls.
-6. Step-5 reviewer data requirements and three or more reviewer candidates.
-7. Step-6 exact wording/options for Clearance, AI fields, No-Infringement, Publication History, and Ethical Standards acknowledgment.
-8. Any additional fields or final proof/preview pages.
+1. Confirm Step 2 accepts the frozen manuscript and displays the expected `Main Document` designation.
+2. Step-3 Subject Index Category list and 1–3 Paper-1 choices.
+3. Step-4 exact affiliation/postal/submitting-agent controls.
+4. Step-5 reviewer data requirements and three or more reviewer candidates.
+5. Step-6 exact wording/options for Clearance, AI fields, No-Infringement, Publication History, and Ethical Standards acknowledgment.
+6. Any additional fields or final proof/preview pages.
 
 ## Submission stop
 
