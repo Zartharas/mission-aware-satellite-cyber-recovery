@@ -24,6 +24,12 @@ TEXT_TARGETS = [
 ]
 
 EM_DASH = "\u2014"
+OLD_TARGET_RESIDUE = (
+    "primary target remains Computers & Security",
+    "for consideration by Computers & Security",
+    "submitted to Computers & Security",
+    "Computers & Security submission package",
+)
 
 
 def iter_paragraphs(container):
@@ -65,7 +71,7 @@ def main() -> int:
     checks["manuscript_ai_disclosure_present"] = "OpenAI ChatGPT" in manuscript
     checks["no_tracked_changes"] = not has_tracked
     checks["no_word_comments"] = not has_comments
-    checks["no_computers_and_security_target_residue"] = "Computers & Security" not in manuscript
+    checks["no_old_target_submission_language"] = not any(phrase in manuscript for phrase in OLD_TARGET_RESIDUE)
 
     result = {
         "checks": checks,
@@ -101,6 +107,8 @@ def main() -> int:
     ])
     OUTPUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
+    for name, passed in checks.items():
+        print(f"{name}={passed}")
     print(f"submission_style_gate_pass={result['style_gate_pass']}")
     print(f"manuscript_em_dash_count={result['manuscript_em_dash_count']}")
     print(f"tracked_changes_present={has_tracked}")
