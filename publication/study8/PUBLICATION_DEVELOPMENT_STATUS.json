@@ -1,11 +1,11 @@
 {
-  "schema": 3,
+  "schema": 2,
   "status_id": "S8-PUBDEV-STATUS-001",
   "experiment_id": "S8-PQC-ICR-001",
   "phase": "8.11-acta-astronautica-venue-lock-and-submission-package-preparation",
   "authorization_id": "S8-PUBDEV-001",
   "base_main_commit": "74a8b83de8bccafe591b799431a316ba20c3f124",
-  "status": "ACTA_ASTRONAUTICA_SELECTED__VENUE_SPECIFIC_SUBMISSION_PACKAGE_PREPARATION_AUTHORIZED",
+  "status": "PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED",
   "working_title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
   "scientific_source_bindings": {
     "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
@@ -43,7 +43,7 @@
     "publication/study8/scripts/check_publication_literature.py"
   ],
   "publication_context": {
-    "literature_verification_date": "2026-09-03",
+    "verification_date": "2026-09-03",
     "metadata_verification_record": "publication/study8/literature-verification.md",
     "verified_literature_metadata": true,
     "novelty_boundary_rechecked": true,
