@@ -70,7 +70,7 @@ The separate publisher-facing Acta workspace is:
 
 `publication/Paper_4_Study_8/Acta_Astronautica/`
 
-Acta-specific manuscript projection, formatting, declarations, cover letter, file generation, QA, and later submission records belong in that folder. The hash-frozen source package under `publication/study8/` remains authoritative and must not be overwritten for venue formatting. Publisher submission and Editorial Manager actions remain later explicit authorization gates.
+This is the **venue-specific Study-8 submission package** workspace. Acta-specific manuscript projection, formatting, declarations, cover letter, file generation, QA, and later submission records belong in that folder. The hash-frozen source package under `publication/study8/` remains authoritative and must not be overwritten for venue formatting. Publisher submission and Editorial Manager actions remain later explicit authorization gates.
 
 ## 3. Frozen study boundaries
 
@@ -200,4 +200,4 @@ The author-approved primary venue is **Acta Astronautica**. Its separate publish
 
 `publication/Paper_4_Study_8/Acta_Astronautica/`
 
-Venue-specific package preparation is authorized. Scientific reexecution, statistical reanalysis, publisher submission, and publisher-portal action are not authorized. Final publisher submission requires a later separate explicit author authorization after the exact manuscript, declarations, hashes, portal fields, and final proof have been audited.
+This venue-specific Study-8 submission package is the only workspace to use for Acta-specific publisher files and later portal records. Venue-specific package preparation is authorized. Scientific reexecution, statistical reanalysis, publisher submission, and publisher-portal action are not authorized. Final publisher submission requires a later separate explicit author authorization after the exact manuscript, declarations, hashes, portal fields, and final proof have been audited.
