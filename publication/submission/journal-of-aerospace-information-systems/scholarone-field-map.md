@@ -14,9 +14,11 @@ This file separates fields confirmed by current public AIAA guidance from fields
 | Abstract portal entry | OPTIONAL; maximum 200 words | Final 171-word JAIS abstract entered; live counter shows **171 OUT OF 200 WORDS** |
 | Virtual Collection | Live Step-1 selector present; portal says Virtual Collections designated as “invited” are by invitation only | No collection has been identified for Paper 1; leave unselected unless a specific applicable collection is intentionally chosen |
 | Plain Language Summary | Live Step-1 text area present; described as a short, non-technical/lay summary that may be made available through Kudos after publication | No required asterisk observed in captured Step-1 screen; optionality/validation to be confirmed by save/continue behavior |
-| File count | REQUIRED; minimum 1, maximum 5 | Plan: one Main Document unless live upload screen requires otherwise |
+| File count | REQUIRED; minimum 1, maximum 5 | **LOCKED: upload one manuscript file for Paper 1** |
 | Total upload size | Maximum 390 MB | Frozen manuscript is well within limit |
-| Main Document designation | OPTIONAL on requirements overview | Intended designation for audited `JAIS_MANUSCRIPT.docx`; confirm behavior on upload screen |
+| Original-submission manuscript format | Live Step-2 instructions allow either a PDF or Word DOCX containing all main manuscript content, including figures and tables | **LOCKED: use audited Word DOCX** |
+| Main Document designation | Live Step-2 instructions explicitly state that the main body of the manuscript should be designated `Main Document` | **LOCKED: `JAIS_MANUSCRIPT.docx` → Main Document** |
+| Reviewer-proof inclusion | Live Step-2 instructions state that all files listed on the upload page will be included in the proofs sent to reviewers | Upload only the audited manuscript on Step 2; do not place internal audit/support files here |
 | Image | OPTIONAL file designation | None planned separately |
 | TeX/LaTeX Suppl File | OPTIONAL file designation | None planned |
 | Supplemental Materials | OPTIONAL file designation | None planned by default |
@@ -70,6 +72,25 @@ The authenticated `Step 1: Type, Title, & Abstract` screen showed:
 - A Virtual Collection selector with help text stating that Virtual Collections previously were called Special Issue/Special Section and that collections designated “invited” are by invitation only.
 - A Plain Language Summary field with help text describing a short, non-technical or lay summary that may be made available through Kudos after publication.
 
+### Live Step-2 evidence — 2026-09-04
+
+The authenticated `Step 2: File Upload` screen showed:
+
+- Validation notice that the minimum number of files has not yet been uploaded.
+- For an **original submission**, the portal instructs the author to provide either a **PDF or Word DOCX** containing all main manuscript content, including figures and tables.
+- The portal asks the author to choose a file designation that best describes each upload.
+- The instructions explicitly state that the main body of the manuscript should be designated **`Main Document`**.
+- Five upload slots are visible, consistent with the previously captured 1–5-file limit.
+- The portal states that **all files listed on this page will be included in the proofs sent to reviewers**.
+
+Paper-1 upload decision:
+
+- Upload exactly one file: `JAIS_MANUSCRIPT.docx`.
+- Designate it **Main Document**.
+- Use frozen visual-QA SHA-256 `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64`.
+- Do not upload the audit ZIP, audit reports, repository governance files, title-page source, cover letter, Zenodo evidence, or supplemental material on Step 2.
+- Cover letter remains for Step 6 where ScholarOne explicitly requests it.
+
 ## Manuscript metadata prepared
 
 | Field concept | Prepared value |
@@ -90,30 +111,27 @@ The authenticated `Step 1: Type, Title, & Abstract` screen showed:
 
 ## Live-portal field-level capture remaining
 
-The requirements overview has resolved high-level required/optional status. The following exact values/options still need to be copied from the production JAIS ScholarOne workflow before final submission freeze:
+The requirements overview and Steps 1–2 have resolved manuscript type, title/abstract counters, and the manuscript-upload designation. The following exact values/options still need to be copied from the production JAIS ScholarOne workflow before final submission freeze:
 
-1. Resolve the Step-1 title validation-state anomaly and confirm Step 1 saves/advances successfully.
-2. Confirm whether Plain Language Summary is optional in actual validation and whether a word/character limit is enforced.
-3. Confirm Virtual Collection may remain unselected for this ordinary Full Paper submission.
-4. Exact file-upload behavior/designation workflow on Step 2, including confirmation that the audited Word manuscript should be designated `Main Document`.
-5. Exact Subject Index Category list and Paper-1 selection of 1–3 categories on Step 3.
-6. Exact affiliation/institution/postal fields for an Independent Researcher on Step 4.
-7. Exact submitting-agent and author-verification behavior on Step 4.
-8. Exact reviewer-entry fields, conflict instructions, and at least three preferred-reviewer identities on Step 5.
-9. Exact opposed-reviewer fields, if used.
-10. Exact preferred/opposed editor choices and whether leaving them blank is permitted.
-11. Exact Clearance wording and answer choices.
-12. Exact Artificial Intelligence-Content wording/options.
-13. Exact No-Infringement Statement wording/attestation.
-14. Exact Publication History wording/options.
-15. Exact AI-Content wording/options.
-16. Exact Ethical Standards acknowledgment behavior.
-17. Exact Artificial Intelligence-Language wording/options.
-18. Exact AI-Language wording/options.
-19. Exact AI Confirmation Statement wording/options.
-20. Any additional data/code, ethics, prior-publication, open-access, copyright, or rights fields revealed within or after Step 6.
-21. Final proof/preview behavior and generated submission PDF checks.
-22. Final submission action wording.
+1. Confirm Step 2 successfully accepts the exact audited `JAIS_MANUSCRIPT.docx` as `Main Document` and displays the expected uploaded filename/designation.
+2. Exact Subject Index Category list and Paper-1 selection of 1–3 categories on Step 3.
+3. Exact affiliation/institution/postal fields for an Independent Researcher on Step 4.
+4. Exact submitting-agent and author-verification behavior on Step 4.
+5. Exact reviewer-entry fields, conflict instructions, and at least three preferred-reviewer identities on Step 5.
+6. Exact opposed-reviewer fields, if used.
+7. Exact preferred/opposed editor choices and whether leaving them blank is permitted.
+8. Exact Clearance wording and answer choices.
+9. Exact Artificial Intelligence-Content wording/options.
+10. Exact No-Infringement Statement wording/attestation.
+11. Exact Publication History wording/options.
+12. Exact AI-Content wording/options.
+13. Exact Ethical Standards acknowledgment behavior.
+14. Exact Artificial Intelligence-Language wording/options.
+15. Exact AI-Language wording/options.
+16. Exact AI Confirmation Statement wording/options.
+17. Any additional data/code, ethics, prior-publication, open-access, copyright, or rights fields revealed within or after Step 6.
+18. Final proof/preview behavior and generated submission PDF checks.
+19. Final submission action wording.
 
 ## Capture rule
 
