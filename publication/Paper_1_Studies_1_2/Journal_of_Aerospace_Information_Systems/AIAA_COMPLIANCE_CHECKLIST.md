@@ -3,58 +3,53 @@
 **Target:** AIAA Journal of Aerospace Information Systems  
 **Article type:** Full Paper  
 **Manuscript QA state:** PASS  
-**Portal completion state:** PENDING  
-**Publisher submission state:** NOT SUBMITTED
-
-This checklist records the final manuscript review against the current AIAA Journal Author instructions and linked AIAA guidance. It is a preparation record, not a publisher attestation.
+**Portal completion state:** PASS  
+**Publisher submission state:** `SUBMITTED_2026-09-05`  
+**Manuscript ID:** `2026-09-I012066`
 
 ## Manuscript and formatting
 
 - [x] English language and American spelling.
 - [x] 10-point manuscript body.
-- [x] Double-spaced manuscript.
-- [x] Single-column layout.
-- [x] Title is 12 words, within the 12-word maximum, and contains no acronym/abbreviation.
+- [x] Double-spaced, single-column layout.
+- [x] Title is exactly 12 words and contains no acronym/abbreviation.
 - [x] Abstract is 171 words, one paragraph, third person, and contains no numerical reference citation or acronym/abbreviation.
-- [x] Full author name appears below the title.
-- [x] U.S. affiliation includes Independent Researcher, The Woodlands, Texas 77380.
-- [x] First-page author footnote identifies the author role and corresponding-author email.
-- [x] Introduction states the purpose and significance relative to prior work.
-- [x] Acronyms used in the manuscript are defined in narrative text on first use as applicable.
-- [x] No displayed-equation formatting issue is present; the submission contains no displayed equations requiring remediation.
-- [x] Conclusions discuss the findings without introducing new scientific concepts or claims.
+- [x] Full author name, Independent Researcher affiliation, The Woodlands, Texas 77380, and corresponding-author footnote are present.
+- [x] No tracked changes or Word comments.
+- [x] No em dashes.
+- [x] Accessibility audit: 0 high, 0 medium, 0 low findings.
 
 ## Figures and tables
 
-- [x] No figure/image is present or required for this paper. Current AIAA guidance does not state a minimum figure count.
-- [x] No separate `Image` upload is required for the initial submission because there are no figures.
-- [x] Five tables are editable Word tables, not images.
-- [x] Tables are numbered consecutively.
-- [x] Every table is cited in the text in numerical order.
-- [x] Table headings/captions are concise and readable.
+- [x] No figure/image is required or present.
+- [x] Five tables are editable Word tables.
+- [x] Tables are numbered and cited in numerical order.
 - [x] Table formatting uses horizontal journal-style rules without vertical/full-grid borders.
-- [x] Repeating headers remain readable when tables continue across pages.
+- [x] Continuation headers remain readable.
 
 ## References
 
-- [x] Reference citations are numerical and introduced in first-citation order.
-- [x] Reference list contains 20 entries corresponding to cited sources.
-- [x] Reference list does not abbreviate author lists with `et al.`.
+- [x] Numerical citations are in first-citation order.
+- [x] Reference list contains 20 cited entries.
 - [x] DOI URLs are supplied where available.
-- [x] Dynamic/non-archival web pages were excluded from the formal reference list; reviewed persistent publication/report sources remain.
-- [x] Study-specific archive/data DOIs are disclosed separately in the manuscript availability information.
+- [x] No `et al.` abbreviation is used in the formal reference list.
+- [x] Archival/persistent sources were preferred where available.
 
 ## Ethics, disclosures, and availability
 
-- [x] Funding statement: no external funding.
-- [x] Competing-interest statement: none.
-- [x] Author-contribution statement included.
-- [x] Data/code availability section included with public repository and Study 1 / Study 2 archives.
-- [x] Acknowledgments section includes a brief, transparent description of OpenAI ChatGPT use as required by current AIAA AI policy.
-- [x] AI disclosure does not attribute scientific authorship, experimental generation, treatment selection, frozen-population modification, or response-policy operation to the AI tool.
-- [x] No human participants or human-subject data were used.
-- [x] No operational spacecraft, operational ground station, operational credential, classified data, proprietary mission telemetry, or radio-frequency transmission/interference was used.
-- [x] No third-party figures are reproduced in the manuscript.
+- [x] No external funding.
+- [x] No competing financial or non-financial interests.
+- [x] Author contribution statement included.
+- [x] Data/code availability section included.
+- [x] OpenAI ChatGPT use disclosed in Acknowledgments.
+- [x] ScholarOne AI content and AI language questions answered Yes with detailed explanations.
+- [x] AI confirmation statement accepted.
+- [x] No human participants or human-subject data.
+- [x] No operational spacecraft, operational ground station, operational credentials, classified data, proprietary mission telemetry, or radio-frequency transmission/interference.
+- [x] Clearance attestation accepted.
+- [x] No-Infringement Statement accepted.
+- [x] AIAA Ethical Standards acknowledgment accepted.
+- [x] AIAA Manuscript History answered No for prior AIAA journal/conference submission.
 
 ## Frozen-science integrity
 
@@ -68,36 +63,42 @@ This checklist records the final manuscript review against the current AIAA Jour
 - [x] Deterministic logical software-time limitation is preserved.
 - [x] No weighted global policy rank is introduced.
 - [x] Study 8 is excluded.
-- [x] No operational flight-readiness, radio-frequency performance, or certification claim is introduced.
+- [x] No operational flight-readiness, radio-frequency performance, operator-latency, or certification claim is introduced.
 
-## Final DOCX QA
+## ScholarOne portal completion
 
-- [x] Manuscript DOCX rendered successfully to 25 pages after the final corrections.
-- [x] All 25 final rendered pages visually reviewed; no clipping, overlap, broken tables, missing glyphs, or footer/header defects found.
-- [x] Cover-letter DOCX rendered successfully to one page and visually reviewed.
-- [x] Manuscript contains no tracked changes.
-- [x] Manuscript contains no Word comments.
-- [x] Manuscript contains zero em dashes.
-- [x] Manuscript accessibility audit: 0 high, 0 medium, 0 low findings.
-- [x] Cover-letter accessibility audit: 0 high, 0 medium, 0 low findings.
-- [x] True first-page footnote is structurally present and linked.
-- [x] Manuscript contains no embedded media/image files.
+- [x] Full Paper selected.
+- [x] Correct 12-word title entered.
+- [x] Corrected 171-word abstract entered.
+- [x] Plain Language Summary entered.
+- [x] `JAIS_MANUSCRIPT.docx` accepted as Main Document.
+- [x] Three Subject Index Categories selected.
+- [x] Sole author, Independent Researcher affiliation, ZIP 77380, and ORCID verified.
+- [x] Three preferred reviewers entered and conflict-screened.
+- [x] Editors section left blank; live workflow accepted Step 5 as complete.
+- [x] Cover-letter text entered and `JAIS_COVER_LETTER.docx` attached.
+- [x] Funding entered as No.
+- [x] 25 manuscript pages entered.
+- [x] 0 color figures entered.
+- [x] 8025 AIAA-equivalent words entered.
+- [x] Publication/exclusivity, clearance, no-infringement, ethics, and AI attestations completed.
+- [x] AIAA Manuscript History completed.
+- [x] Final ScholarOne proof generated and audited.
+- [x] Explicit author authorization obtained before final Submit.
+- [x] ScholarOne submission completed successfully.
 
-## Live ScholarOne requirements still pending
+## Final proof and submission record
 
-- [ ] Select 1 to 3 Subject Index Categories from the live list.
-- [ ] Enter at least 3 preferred reviewers after conflict screening.
-- [ ] Resolve exact Clearance wording/options.
-- [ ] Resolve each required AI field using its exact wording/options.
-- [ ] Resolve exact No-Infringement attestation.
-- [ ] Resolve exact Publication History question, including the dissertation/ProQuest relationship.
-- [ ] Accept the exact AIAA Ethical Standards attestation.
-- [ ] Review the generated ScholarOne proof and all metadata.
-- [ ] Obtain separate explicit author authorization before pressing final Submit.
+- [x] Final proof: 26 pages total, one ScholarOne cover sheet plus 25 manuscript pages.
+- [x] Final proof visual QA: PASS.
+- [x] Final proof SHA-256: `47fc96b00ef7a3c7ac280a71b1397320f5b10ef75412805c8f76c6d0dbf63888`.
+- [x] ScholarOne confirmation screen received.
+- [x] Author Dashboard shows `Submitted`.
+- [x] Outlook confirmation email received.
+- [x] Manuscript ID: `2026-09-I012066`.
 
-## Official AIAA sources used for this audit
+## Current gate
 
-- AIAA Journal Author: https://www.aiaa.org/publications/journals/Journal-Author
-- Guidelines for Journal Figures and Tables: https://aiaa.org/publications/journals/journal-author/guidelines-for-journal-figures-and-tables/
-- Reference Style and Format: https://aiaa.org/publications/journals/reference-style-and-format/
-- Ethical Standards for Publication of Aeronautics and Astronautics Research: https://aiaa.org/publications/publish-with-aiaa/ethical-standards-for-publication-of-aeronautics-and-astronautics-research/
+`SUBMITTED__EDITORIAL_AND_PEER_REVIEW_WORKFLOW`
+
+Do not modify the submitted manuscript or frozen Study 1 / Study 2 science unless JAIS explicitly requests a revision.
