@@ -63,7 +63,7 @@ Routing priority for manuscript fit is: Information Security first, Computer Sys
 
 - `Author` is selected for the required Submitting Agent question. This is correct for a sole-author submission even though ScholarOne uses generic wording that mentions co-authors.
 - The selected author row identifies Aman Kumar Singh as `Corresponding Author` and shows the linked ORCID successfully.
-- The live ScholarOne author row uses the author's ScholarOne account/contact email for submission correspondence, while the manuscript footnote uses the frozen corresponding-author publication email. AIAA treats the ScholarOne corresponding-author role as the submission contact and separately permits a corresponding-author email in the manuscript footnote; these addresses need not be identical when both are valid and intentional.
+- The live ScholarOne author row uses the author's ScholarOne account/contact email for submission correspondence, while the manuscript footnote uses the frozen corresponding-author publication email. These addresses need not be identical when both are valid and intentional.
 - The `Independent Researcher` institution record is selected. The live profile contains additional address/contact metadata and a yellow institution indicator, but Step 4 validates with a green completion check and no specific institution error is shown.
 - Do not invent a department for an independent researcher and do not modify the frozen manuscript solely to mirror account-profile metadata.
 
@@ -84,37 +84,29 @@ The live `Add Reviewer` dialog contains these fields:
 - **Phone Number** - optional; leave blank by default
 - **Preference** - required: `I recommend this Reviewer` or `I oppose this Reviewer`
 
-For recommended reviewers, select `I recommend this Reviewer`. Use institution-reflecting email addresses where available. Do not invent phone numbers, departments, affiliations, or email addresses.
+### Preferred reviewers - LOCKED IN LIVE SCHOLARONE
 
-### Preferred reviewer candidate pool - author conflict check completed
-
-On 2026-09-05, the author confirmed that the research was conducted independently and that he has not collaborated with or sought research guidance from any professor or technical person involved in the work. On that basis, there is no known direct research/advisory relationship with the three proposed reviewers below. The author remains the sole human author; AI assistance is handled separately through the manuscript and ScholarOne AI disclosures and is not treated as authorship or as a reviewer relationship.
+On 2026-09-05, ScholarOne successfully saved all three required preferred reviewers and displayed `RECOMMENDED: 3 OUT OF 3 MIN`.
 
 1. **Gregory Falco**  
    Institution: Cornell University  
-   Department: Sibley School of Mechanical and Aerospace Engineering / Systems Engineering Program  
    Email: `gfalco@cornell.edu`  
-   Fit: space cybersecurity, autonomous secure/resilient space infrastructure, aerospace systems security.  
-   Preference: `I recommend this Reviewer`
+   Preference: `Recommended`
 
 2. **Wayne Henry**  
    Institution: Air Force Institute of Technology  
-   Department: Department of Electrical and Computer Engineering  
    Email: `wayne.henry@afit.edu`  
-   Fit: space-system cybersecurity, cyber operations, computer/network security, cyber-physical security.  
-   Preference: `I recommend this Reviewer`
+   Preference: `Recommended`
 
 3. **Brandon Bailey**  
    Institution: The Aerospace Corporation  
-   Department: Cybersecurity and Advanced Platforms Subdivision / Cyber Assessment & Research Department  
    Email: `brandon.bailey@aero.org`  
-   Fit: spacecraft and ground-system cybersecurity, SPARTA, cyber assessment, resilient space infrastructure.  
-   Preference: `I recommend this Reviewer`
+   Preference: `Recommended`
 
-**Reviewer-entry note:** Institution and Department are optional in the live form but should be populated as above. Leave Phone Number blank. If the author later recognizes any employment, financial, personal, supervisory, recent coauthorship, or other relationship that could create an actual or perceived conflict with a proposed reviewer, stop and replace that candidate before final submission.
+The author confirmed no known collaboration, advisory relationship, supervision relationship, or other direct research relationship with these candidates. The author remains the sole human author; AI assistance is handled separately through the manuscript and ScholarOne AI disclosures and is not treated as authorship or reviewer relationship.
 
 **Opposed Reviewers:** optional; none by default unless the author identifies a reason.  
-**Preferred Associate Editor:** required by the live Step-5 page; PENDING LIVE `Add Editor` dialog/list.  
+**Preferred Associate Editor:** required by the live Step-5 page; PENDING LIVE `Editors` section verification/selection.  
 **Opposed Editors:** optional; none by default unless the author identifies a reason.
 
 ## Step 6 - Details and Comments
