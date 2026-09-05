@@ -23,12 +23,15 @@ Optional in the live portal. Leave blank by default unless the author elects to 
 
 ## Step 2 - File Upload
 
-**Upload exactly one file at this step:**
+**Canonical Step-2 upload:**
 
 - File: `JAIS_MANUSCRIPT.docx`
 - File designation: `Main Document`
 
 No separate image file is needed because the manuscript contains no figures. No supplemental materials are planned by default.
+
+**Live ScholarOne observation, 2026-09-05:**  
+The portal successfully accepted `JAIS_MANUSCRIPT.docx` as `Main Document`. `JAIS_COVER_LETTER.docx` was also temporarily uploaded at this step under `Supplemental Materials`. That designation should **not** be retained. Remove the cover letter from Step 2 and provide it only through the dedicated required Cover Letter field in Step 6. This avoids treating the cover letter as reviewer-facing supplemental material.
 
 ## Step 3 - Attributes
 
@@ -61,7 +64,8 @@ Minimum 3 required. Candidates must be technically relevant and screened for con
 
 ## Step 6 - Details and Comments
 
-**Cover Letter:** `JAIS_COVER_LETTER.docx`
+**Cover Letter:** `JAIS_COVER_LETTER.docx`  
+Use the dedicated Step-6 Cover Letter field. Do not upload the cover letter as Step-2 Supplemental Materials.
 
 **Funding Information:** No external funding.
 
