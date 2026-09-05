@@ -35,8 +35,14 @@ The portal successfully accepted `JAIS_MANUSCRIPT.docx` as `Main Document`. `JAI
 
 ## Step 3 - Attributes
 
-**Subject Index Category:** PENDING LIVE LIST  
-ScholarOne requires at least 1 and no more than 3. Do not guess categories before reviewing the live option list.
+**Subject Index Category: LOCKED FROM LIVE SCHOLARONE**  
+ScholarOne requires at least 1 and no more than 3. The following three categories were selected from the live portal taxonomy and are retained for this manuscript:
+
+1. `13400 Information Security < 13000 FLIGHT SIMULATOR SYSTEMS`
+2. `12500 Computer Systems < 12000 COMPUTING, INFORMATION, AND COMMUNICATION`
+3. `14300 Software Engineering < 14000 REAL-TIME SYSTEMS`
+
+Routing priority for manuscript fit is: Information Security first, Computer Systems second, Software Engineering third. The parent-category labels are ScholarOne taxonomy hierarchy labels and should not be manually altered.
 
 ## Step 4 - Authors and Institutions
 
