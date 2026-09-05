@@ -73,6 +73,9 @@ artifacts/incidents/
 artifacts/*.jsonl
 artifacts/*.tmp
 
+# Generated JAIS publisher artifacts are reproducible CI/local outputs
+publication/submission/journal-of-aerospace-information-systems/upload-packet/generated/
+
 # External software checkouts
 external/
 nos3/
