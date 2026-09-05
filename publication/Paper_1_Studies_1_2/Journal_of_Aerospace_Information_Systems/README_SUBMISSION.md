@@ -2,55 +2,61 @@
 
 **Target venue:** AIAA Journal of Aerospace Information Systems (JAIS)  
 **ScholarOne manuscript type:** Full Paper  
-**Package gate:** `PUBLISHER_FILES_QA_FROZEN__SCHOLARONE_FIELD_COMPLETION_PENDING`  
-**Publisher submission status:** NOT SUBMITTED
+**Publisher submission status:** `SUBMITTED__EDITORIAL_AND_PEER_REVIEW_WORKFLOW`  
+**Manuscript ID:** `2026-09-I012066`  
+**Submission date:** 2026-09-05
 
 ## Canonical package rule
 
-This directory is the single canonical publisher-facing package for Paper 1, which reports Study 1 and Study 2 as separate frozen populations. Do not create or upload alternate manuscript copies unless this package is deliberately superseded and re-frozen.
+This directory is the single canonical publisher-facing package and submission record for Paper 1. Paper 1 reports Study 1 and Study 2 as separate frozen populations. Do not create alternate manuscript copies or reopen the frozen science unless JAIS explicitly requests a revision.
 
-## Files
+## Publisher-facing files
 
-| File | Purpose | Upload to ScholarOne? |
+| File | Purpose | Submission use |
 |---|---|---|
-| `JAIS_MANUSCRIPT.docx` | Final AIAA/JAIS manuscript | **Yes. Step 2: Main Document** |
-| `JAIS_COVER_LETTER.docx` | Final one-page cover letter | **Yes. Step 6: Cover Letter** |
-| `SCHOLARONE_SUBMISSION_VALUES.md` | Exact prepared portal values and pending portal-only decisions | No |
-| `AIAA_COMPLIANCE_CHECKLIST.md` | Final AIAA/JAIS manuscript compliance record | No |
-| `SHA256SUMS.txt` | Immutable file identities for this package | No |
-| `README_SUBMISSION.md` | Package instructions and stop rules | No |
+| `JAIS_MANUSCRIPT.docx` | Submitted manuscript | ScholarOne Step 2: Main Document |
+| `JAIS_COVER_LETTER.docx` | Submitted cover letter | ScholarOne Step 6: attached cover letter |
+| `SCHOLARONE_SUBMISSION_VALUES.md` | Final locked portal values | Internal record |
+| `AIAA_COMPLIANCE_CHECKLIST.md` | Final manuscript and portal QA record | Internal record |
+| `SHA256SUMS.txt` | Canonical file identities | Internal integrity record |
+| `README_SUBMISSION.md` | Current package status and rules | Internal record |
 
-## Initial-submission upload rule
+## Submission confirmation
 
-For ScholarOne Step 2, upload only `JAIS_MANUSCRIPT.docx` and designate it **Main Document**. The manuscript already contains all main content and five editable tables. It contains no figures or image objects, and current AIAA instructions do not require a minimum number of figures. Therefore, no separate `Image` file is required for this paper.
+ScholarOne confirmed successful submission on 2026-09-05.
 
-Do not upload internal audit records, raw experiment evidence, Zenodo archives, repository test artifacts, old manuscript versions, separate title/abstract copies, or supplemental material unless an editor specifically requests them.
+- Manuscript ID: `2026-09-I012066`
+- Dashboard status: `Submitted`
+- Dashboard message: manuscript submitted for peer review
+- Co-authors: none
+- Final ScholarOne proof: 26 pages total, one ScholarOne cover sheet plus the 25-page manuscript
+- Final ScholarOne proof SHA-256: `47fc96b00ef7a3c7ac280a71b1397320f5b10ef75412805c8f76c6d0dbf63888`
+- Outlook confirmation email received from the Journal of Aerospace Information Systems / ScholarOne service on 2026-09-05 at 21:31:14 UTC
 
-For ScholarOne Step 6, use `JAIS_COVER_LETTER.docx` for the required Cover Letter item.
+Supporting records in this directory include:
+
+- `SUBMISSION_CONFIRMED_2026-09-05.md`
+- `SUBMISSION_CONFIRMATION_EMAIL_2026-09-05.md`
+- `FINAL_SUBMISSION_AUTHORIZATION_2026-09-05.md`
+- `SCHOLARONE_FINAL_PROOF_QA_2026-09-05.md`
+- `SCHOLARONE_FINAL_PORTAL_STATE_2026-09-05.md`
+- `SCHOLARONE_STEP5_EDITOR_RESOLUTION_2026-09-05.md`
 
 ## Locked scientific boundaries
 
-- Study 1: 720 VALID observations across 24 frozen cells. Nine INVALID attempts remain provenance only.
+- Study 1: 720 VALID observations across 24 frozen cells; nine INVALID attempts remain provenance only.
 - Study 2: 3,872 VALID observations across 85 frozen cells with zero INVALID attempts.
 - Study 1 and Study 2 remain separate and are not pooled.
 - Study 1 mission-state dependence was not demonstrated on the predeclared primary outcomes.
 - Study 2 Block C remains a structural label-invariance control, not a causal benign/adversarial discrimination experiment.
-- K4 means intermittent/flapping contact, not an ordinal severity level.
+- K4 means intermittent/flapping contact, not ordinal severity 4.
 - A2/K2 is a coupled producer-compromise/contact-loss condition.
-- Timing values are deterministic logical software time, not measured spacecraft, orbital, network, operator, or radio-frequency latency.
+- Study 2 timing values are deterministic logical software time, not measured spacecraft, orbital, network, operator, or radio-frequency latency.
 - No operational flight-readiness, radio-frequency performance, certification, universal policy superiority, or weighted global policy-rank claim is made.
 - Study 8 is excluded from Paper 1.
 
-## Remaining ScholarOne work
+## Post-submission rule
 
-The publisher files are frozen, but submission metadata is not yet fully locked. The following still require the live ScholarOne wording/options:
+Paper 1 is now frozen at the submitted state. Do not modify the submitted manuscript, Study 1, Study 2, statistical populations, exclusions, claims, or submission package unless JAIS issues an explicit editorial or reviewer request requiring a revision.
 
-- Subject Index Category: 1 to 3 required selections.
-- Preferred Reviewers: at least 3 required, with conflict screening before entry.
-- Exact Clearance response.
-- Exact Artificial Intelligence field responses.
-- Exact No-Infringement attestation.
-- Exact Publication History response, including the ProQuest dissertation relationship.
-- Exact AIAA ethical-standards acknowledgment and any remaining legal/rights questions.
-
-Draft saving and moving between ScholarOne steps are allowed. **Do not press the final Submit button until the portal fields are fully reconciled and the author separately gives explicit authorization to submit.**
+Future JAIS correspondence should reference manuscript ID `2026-09-I012066`.
