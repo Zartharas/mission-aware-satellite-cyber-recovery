@@ -61,22 +61,26 @@ Routing priority for manuscript fit is: Information Security first, Computer Sys
 
 **Live ScholarOne observation, 2026-09-05:**
 
-- `Author` is selected for the required Submitting Agent question. This is correct for a sole-author submission even though ScholarOne uses generic wording that mentions co-authors.
-- The selected author row identifies Aman Kumar Singh as `Corresponding Author` and shows the linked ORCID successfully.
-- The live ScholarOne author row displays a different account/contact email from the corresponding email frozen in the manuscript.
-- The `Independent Researcher` institution record is selected, but the row also displays additional personal-address/contact metadata and a warning indicator next to the institution.
-- Do **not** change the frozen manuscript merely to mirror account-profile metadata. Before leaving Step 4, inspect the author-row `Actions` menu to determine whether ScholarOne permits submission-specific editing of the corresponding email and institution record. Prefer consistency with the manuscript where the portal permits it, and avoid unnecessary personal-address metadata in publisher-facing affiliation fields unless ScholarOne requires it.
-
-Use the exact account/profile format required by ScholarOne for degrees and name fields. Do not invent an institutional department.
+- `Author` is selected for the required Submitting Agent question. This is correct for the sole-author submission.
+- The selected author is identified as `Corresponding Author`, and the ORCID link is verified.
+- The ScholarOne Edit Author dialog confirms the author's name fields, prefix, ORCID, Independent Researcher affiliation, United States, Texas, and The Woodlands.
+- ScholarOne uses the author's account/contact email for submission correspondence, while the manuscript footnote uses the separately frozen corresponding-author email for publication/post-publication contact. AIAA guidance permits this distinction; do not reopen the frozen manuscript merely to force the two emails to match if both addresses are valid and intentionally monitored.
+- `Independent Researcher` shows a warning icon in the ScholarOne institution control, but the live portal provides no explanatory validation error and Step 4 is accepted with a green completion check. Do not remove the affiliation or invent a department absent an explicit portal error.
+- The portal profile contains additional contact/address fields. Do not reproduce unnecessary personal-address information in the manuscript or submission notes unless ScholarOne explicitly requires it.
 
 ## Step 5 - Reviewers and Editors
 
-**Preferred Reviewers:** PENDING  
-Minimum 3 required. Candidates must be technically relevant and screened for conflicts before entry. Do not invent names, email addresses, or affiliations.
+**LIVE SCHOLARONE REQUIREMENT, 2026-09-05:**  
+The Step-5 page states: `You must suggest at least three reviewers and one associate editor before completing the submission of your manuscript.`
 
-**Opposed Reviewers:** Optional; none by default unless the author identifies a reason.  
-**Preferred Editors:** Optional; pending live options.  
-**Opposed Editors:** Optional; none by default unless the author identifies a reason.
+**Preferred / Recommended Reviewers:** PENDING  
+Minimum 3 required. For each reviewer, ScholarOne specifically requests the reviewer's institution name or an email address that reflects the institutional affiliation. Candidates must be technically relevant and screened for conflicts before entry. Do not invent names, email addresses, or affiliations.
+
+**Associate Editor:** PENDING LIVE EDITOR LIST  
+At least 1 associate editor must be suggested. This supersedes the earlier high-level requirements screen that appeared to make preferred editors optional. Select only from the live ScholarOne editor workflow after reviewing the available names and their technical fit.
+
+**Non-preferred / Opposed Reviewers:** Optional; none by default unless the author identifies a reason.  
+**Non-preferred / Opposed Editors:** Optional; none by default unless the author identifies a reason.
 
 ## Step 6 - Details and Comments
 
