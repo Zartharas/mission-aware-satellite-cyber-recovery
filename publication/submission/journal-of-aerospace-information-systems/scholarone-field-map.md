@@ -1,17 +1,17 @@
 # JAIS ScholarOne Field Map
 
-**Status:** `PUBLICLY_VERIFIED_FIELDS_RECORDED__LIVE_PORTAL_ONLY_FIELDS_PENDING`
+**Status:** `AUTHENTICATED_SCHOLARONE_FIELD_LOCK_IN_PROGRESS`
 
-This file separates fields confirmed by current public AIAA guidance from fields that must be read directly from the live JAIS ScholarOne submission workflow. Portal-only requirements are intentionally not inferred.
+This file separates fields confirmed by current public AIAA guidance from fields read directly from the live JAIS ScholarOne submission workflow. Portal-only requirements are not inferred.
 
-## Publicly confirmed submission information
+## Publicly confirmed and live-locked submission information
 
-| Area | Publicly verified requirement | Paper-1 value/status |
+| Area | Verified requirement / live portal label | Paper-1 value/status |
 |---|---|---|
 | Journal | AIAA Journal of Aerospace Information Systems | Primary target authorized |
-| Article type | Regular/Full Article exists in current AIAA guidance | Working choice; exact dropdown label pending |
+| Manuscript type | **Full Paper** — exact authenticated ScholarOne label confirmed 2026-09-04 | **LOCKED: Full Paper** |
 | Manuscript title | Maximum 12 words; no acronyms/abbreviations | `Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints` — 12 words |
-| Manuscript file | Double-spaced manuscript uploaded through ScholarOne | Final JAIS export pending |
+| Manuscript file | Double-spaced manuscript uploaded through ScholarOne | Content ready; exact upload-item designation still pending |
 | Author identity | Complete author/contact information required | Aman Kumar Singh; sole author |
 | Affiliation | Current AIAA author guidance includes institution/company, city, state, and ZIP code | Independent Researcher, The Woodlands, Texas, United States; ZIP not inferred and pending only if required |
 | Corresponding author | ScholarOne uses a corresponding-author contact designation | Aman Kumar Singh |
@@ -22,13 +22,28 @@ This file separates fields confirmed by current public AIAA guidance from fields
 | Funding | Funding sources/grant numbers entered in ScholarOne | No external funding |
 | Artificial intelligence | Qualifying use disclosed upon ScholarOne submission | Disclosure required; exact field wording pending |
 
+### Live manuscript-type evidence
+
+Authenticated JAIS ScholarOne displayed the following manuscript-type choices on 2026-09-04:
+
+- Full Paper
+- Technical Note
+- Technical Comment
+- Survey Paper
+- Lecture
+- History of Key Technologies
+- Announcement
+- Introduction
+
+Paper 1 uses **Full Paper**. This replaces the earlier provisional wording “Regular/Full Article.”
+
 ## Manuscript metadata prepared
 
 | Field concept | Prepared value |
 |---|---|
 | JAIS title | Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints |
 | Authoritative source title | Mission-Aware Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints: Two Controlled Software-in-the-Loop Studies |
-| JAIS abstract | 189-word one-paragraph target candidate in `jais-abstract.md` |
+| JAIS abstract | Final 171-word one-paragraph, third-person target abstract in `jais-abstract.md` |
 | Keywords | Existing manuscript keywords available; exact ScholarOne count/taxonomy pending |
 | Funding | No external funding |
 | Competing interests | No competing financial or non-financial interests |
@@ -38,12 +53,13 @@ This file separates fields confirmed by current public AIAA guidance from fields
 | Operational/classified data | None |
 | Prior dissertation relationship | ProQuest relationship disclosed transparently |
 | Artificial-intelligence use | Full target-specific disclosure in `ai-disclosure.md` |
+| Publisher manuscript | `JAIS_MANUSCRIPT.docx`, frozen visual-QA SHA-256 `30910535075c3c8d13f501d721e46dd8537774c2d366ca858cdd71222d9edf64` |
 
-## Live-portal capture required
+## Live-portal capture remaining
 
-The following must be copied from the production JAIS ScholarOne workflow before final submission freeze:
+The following must still be copied from the production JAIS ScholarOne workflow before final submission freeze:
 
-1. Exact manuscript-type dropdown labels and selected value.
+1. ~~Exact manuscript-type dropdown labels and selected value.~~ **LOCKED: Full Paper.**
 2. Exact title text-box validation behavior and whether the public 12-word maximum is enforced automatically.
 3. Exact abstract text-box restrictions and validation behavior.
 4. Exact keyword count and whether keywords are free text or controlled terms.
@@ -80,4 +96,4 @@ Do not enter an institutional-review identifier, grant number, reviewer identity
 
 ## Submission stop rule
 
-Opening and inspecting the ScholarOne workflow is authorized for Phase 1. Final submission is not. Stop before any action that transmits the manuscript as a completed publisher submission until the submission-ready package is frozen and separate authorization is given.
+Opening, inspecting, and completing draft ScholarOne fields is authorized for this pre-submission phase. Do not press the final action that transmits the manuscript as a completed publisher submission until the submission-ready package is frozen and separate explicit authorization is given.
