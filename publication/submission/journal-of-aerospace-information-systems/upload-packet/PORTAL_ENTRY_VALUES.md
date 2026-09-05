@@ -1,14 +1,16 @@
 # JAIS ScholarOne Entry Sheet — Paper 1
 
-**Status:** `PREPARED_VALUES__AUTHENTICATED_SCHOLARONE_SCHEMA_PENDING`
+**Status:** `PREPARED_VALUES__AUTHENTICATED_SCHOLARONE_FIELD_LOCK_IN_PROGRESS`
 
 Exact live ScholarOne wording remains authoritative. Do not infer or substitute portal-only values.
 
 ## Journal and article
 
 - Journal: AIAA *Journal of Aerospace Information Systems*
-- Working article type: Regular/Full Article
-- Exact ScholarOne article-type label: **PENDING LIVE PORTAL**
+- Exact ScholarOne manuscript-type label: **Full Paper**
+- Live authenticated portal verification: **CONFIRMED 2026-09-04**
+- Other manuscript types displayed by the live portal: Technical Note; Technical Comment; Survey Paper; Lecture; History of Key Technologies; Announcement; Introduction.
+- Paper-1 selection: **Full Paper**
 
 ## Title
 
