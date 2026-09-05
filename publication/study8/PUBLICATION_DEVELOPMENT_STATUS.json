@@ -2,7 +2,7 @@
   "schema": 2,
   "status_id": "S8-PUBDEV-STATUS-001",
   "experiment_id": "S8-PQC-ICR-001",
-  "phase": "8.11-acta-astronautica-venue-lock-and-submission-package-preparation",
+  "phase": "8.10-post-publication-package-merge-repository-closeout",
   "authorization_id": "S8-PUBDEV-001",
   "base_main_commit": "74a8b83de8bccafe591b799431a316ba20c3f124",
   "status": "PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED",
@@ -46,23 +46,17 @@
     "verification_date": "2026-09-03",
     "metadata_verification_record": "publication/study8/literature-verification.md",
     "verified_literature_metadata": true,
-    "novelty_boundary_rechecked": true,
-    "live_venue_review_date": "2026-09-05"
+    "novelty_boundary_rechecked": true
   },
   "venue_development": {
-    "selected_venue": "Acta Astronautica",
-    "publisher": "Elsevier on behalf of the International Academy of Astronautics",
-    "primary_candidate": "Acta Astronautica",
+    "primary_candidate": "IEEE Systems Journal",
     "alternatives": [
-      "IEEE Systems Journal",
+      "Acta Astronautica",
       "International Journal of Satellite Communications and Networking"
     ],
     "explicit_non_target_for_study8": "Computers & Security",
-    "final_venue_committed": true,
-    "venue_selection_date": "2026-09-05",
-    "venue_selection_authorized_by_author": true,
-    "venue_specific_submission_preparation_authorized": true,
-    "submission_directory": "publication/Paper_4_Study_8/Acta_Astronautica/"
+    "final_venue_committed": false,
+    "venue_specific_submission_preparation_authorized": false
   },
   "claim_boundary": {
     "logical_slots_only": true,
@@ -77,7 +71,6 @@
     "scientific_reexecution_authorized": false,
     "statistical_reanalysis_authorized": false,
     "frozen_science_modification_authorized": false,
-    "venue_specific_submission_package_preparation_authorized": true,
     "publication_submission_authorized": false,
     "publisher_portal_action_authorized": false,
     "manuscript_freeze_authorized": true,
@@ -103,15 +96,7 @@
       "conclusion": "success"
     }
   },
-  "venue_specific_package": {
-    "created": true,
-    "path": "publication/Paper_4_Study_8/Acta_Astronautica/",
-    "venue_selection_lock": "publication/Paper_4_Study_8/Acta_Astronautica/VENUE_SELECTION_LOCK_2026-09-05.md",
-    "live_requirements_record": "publication/Paper_4_Study_8/Acta_Astronautica/LIVE_REQUIREMENTS_2026-09-05.md",
-    "submission_checklist": "publication/Paper_4_Study_8/Acta_Astronautica/SUBMISSION_CHECKLIST.md",
-    "publisher_submission_completed": false
-  },
-  "next_gate": "prepare and audit the Acta Astronautica venue-specific manuscript and publisher-facing package; publisher submission and Editorial Manager actions remain separately unauthorized",
+  "next_gate": "explicit authorization for venue-specific submission-package preparation; publisher submission remains a later separate authorization",
   "publication_package_frozen": true,
   "freeze_id": "S8-PUBFREEZE-001",
   "freeze_authorization_id": "S8-PUBFREEZE-001",
