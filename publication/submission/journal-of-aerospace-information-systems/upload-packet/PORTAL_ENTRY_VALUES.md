@@ -13,22 +13,42 @@ Exact live ScholarOne wording remains authoritative. Do not infer or substitute 
 
 ## Step 1 — Type, Title, & Abstract
 
-Live requirements:
+Live requirements and controls now observed:
 
 - **Title** — REQUIRED; maximum 12 words.
 - **Abstract** — OPTIONAL portal text entry; maximum 200 words.
+- **Virtual Collection** — selector present. Portal help text states Virtual Collections were previously called Special Issue/Special Section and collections designated as “invited” are by invitation only.
+- **Plain Language Summary** — text area present with help text requesting a short, non-technical/lay summary that may be made available through Kudos after publication. No required asterisk was visible in the captured screen; save/continue validation still needs to confirm optionality.
 
 ### Title
 
 **Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**
 
-12 words; no acronym/abbreviation.
+Live counter: **12 OUT OF 12 WORDS**.
+
+Portal anomaly observed: the populated title field simultaneously displayed the red message **`Title is missing.`**. Re-trigger validation by editing/re-entering the title and tabbing/clicking away before advancing. Do not change the locked title wording merely to clear the UI state.
 
 ### Abstract
 
 Use the final **171-word**, one-paragraph, third-person JAIS abstract in `../jais-abstract.md`.
 
-Even though the portal text-entry field is optional, Paper 1 retains the abstract in the manuscript and should enter it in ScholarOne unless the live Step-1 screen indicates a reason not to.
+Live counter: **171 OUT OF 200 WORDS**.
+
+Even though the portal text-entry field is optional, Paper 1 should retain the abstract in ScholarOne for metadata consistency unless the live workflow gives a contrary instruction.
+
+### Virtual Collection
+
+Paper 1 has not been identified as a submission to a named Virtual Collection or invited collection. Leave the selector unselected unless the author is intentionally targeting a specific applicable collection.
+
+### Plain Language Summary
+
+Current recommendation: leave blank while confirming whether ScholarOne treats it as optional. If the author chooses to provide one, use a short lay summary that does not introduce new claims.
+
+Prepared optional candidate:
+
+> Satellites may need to respond to cyber incidents when communication with the ground is delayed or when security evidence is incomplete or misleading. Using controlled software simulations, this study shows that safe recovery depends on the quality of available evidence, authorization, contact opportunities, and the response policy, rather than any one policy being best in all situations.
+
+This candidate is submission metadata only and does not replace the scientific abstract.
 
 ## Step 2 — File Upload
 
@@ -185,13 +205,14 @@ No dedicated human-subject field was listed on the live requirements overview. I
 
 ## Remaining live captures
 
-1. Step-1 actual Title/Abstract entry controls and validation.
-2. Step-2 exact file designation behavior.
-3. Step-3 Subject Index Category list and 1–3 Paper-1 choices.
-4. Step-4 exact affiliation/postal/submitting-agent controls.
-5. Step-5 reviewer data requirements and three or more reviewer candidates.
-6. Step-6 exact wording/options for Clearance, AI fields, No-Infringement, Publication History, and Ethical Standards acknowledgment.
-7. Any additional fields or final proof/preview pages.
+1. Resolve Step-1 title validation and confirm Step 1 saves successfully.
+2. Confirm Plain Language Summary optionality/limits and that Virtual Collection may remain unselected.
+3. Step-2 exact file designation behavior.
+4. Step-3 Subject Index Category list and 1–3 Paper-1 choices.
+5. Step-4 exact affiliation/postal/submitting-agent controls.
+6. Step-5 reviewer data requirements and three or more reviewer candidates.
+7. Step-6 exact wording/options for Clearance, AI fields, No-Infringement, Publication History, and Ethical Standards acknowledgment.
+8. Any additional fields or final proof/preview pages.
 
 ## Submission stop
 
