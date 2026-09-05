@@ -32,6 +32,14 @@ For Paper 1, the canonical submitted-state authority is:
 
 Historical venue-preparation records under `publication/submission/` remain provenance only when they conflict with the canonical submitted-state package.
 
+For Study 8, the hash-frozen source publication package remains:
+
+- `publication/study8/`
+
+The author-approved Acta Astronautica publisher-facing workspace is:
+
+- `publication/Paper_4_Study_8/Acta_Astronautica/`
+
 **Publication phase** in this document means the recommended operational order for publication work. It is not the same as the existing portfolio paper numbering. In particular, Study 8 remains the roadmap's separate **Paper 4**, but because its companion manuscript/package is already hash-frozen, it is recommended as **Publication Phase 2** operationally.
 
 ## Overall publication-phase map
@@ -64,14 +72,18 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       Roadmap portfolio label:
 |       Paper 4
 |
-|       Current venue hierarchy:
+|       Selected primary venue:
+|       Acta Astronautica
+|
+|       Fallbacks:
 |       1. IEEE Systems Journal
-|       2. Acta Astronautica
-|       3. International Journal of Satellite Communications and Networking
+|       2. International Journal of Satellite Communications and Networking
 |
 |       Current state:
-|       science closed; companion manuscript/package hash-frozen and merged;
-|       live venue review and venue-specific submission preparation are next gates
+|       science closed; source companion manuscript/package hash-frozen and merged;
+|       Acta venue selected 2026-09-05;
+|       separate Acta submission-package preparation authorized;
+|       publisher submission and portal action remain separately gated
 |
 +-- PUBLICATION PHASE 3
 |   |
@@ -181,21 +193,25 @@ Study 8 remains a **separate companion study** and is not a third statistical po
 
 **Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems**
 
-### Current venue hierarchy
+### Selected venue
 
-The repository's pre-live-review planning hierarchy remains:
+Following the live 2026 venue review and explicit author approval on 2026-09-05:
 
-1. **IEEE Systems Journal**
-2. **Acta Astronautica**
-3. **International Journal of Satellite Communications and Networking**
+1. **Acta Astronautica** - selected primary target
+2. **IEEE Systems Journal** - fallback 1
+3. **International Journal of Satellite Communications and Networking** - fallback 2
 
-This hierarchy is a planning aid, not a committed venue decision. It must be rechecked against current official venue scope, policies, article requirements, fees, and contribution fit before target lock.
+The selected venue does not change the frozen design, population, results, statistical plan, or claim boundaries.
 
 ### Current state
 
-The Study-8 science is technically closed and its companion publication package is separately hash-frozen and merged. The negative primary policy-success result remains visible and must not be rescued or reframed as superiority.
+The Study-8 science is technically closed and its companion source publication package is separately hash-frozen and merged. The negative primary policy-success result remains visible and must not be rescued or reframed as superiority.
 
-The next authorized work is live venue review followed, after venue approval, by a separate venue-specific submission-package projection from the frozen Study-8 publication package. Actual publisher submission and publisher-portal action remain later explicit gates.
+The Acta-specific publisher-facing workspace is:
+
+`publication/Paper_4_Study_8/Acta_Astronautica/`
+
+Venue-specific package preparation is authorized from the frozen source package. Scientific reexecution, statistical reanalysis, publisher submission, and publisher-portal action remain unauthorized. Final submission requires a later separate explicit author authorization after the exact publisher-facing files, declarations, hashes, portal fields, and final proof have been audited.
 
 ## Publication Phase 3 - Paper 2: Studies 3 + 4 + 6
 
@@ -278,7 +294,7 @@ The final publication vehicle remains deliberately deferred. Paper 1 submission 
 ## Recommended operational order
 
 1. **Phase 1:** Paper 1 is complete at the submission gate and remains frozen while JAIS editorial/peer review proceeds.
-2. **Phase 2:** perform the live Study-8 venue review, obtain target approval, then prepare a venue-specific package from the already frozen publication package.
+2. **Phase 2:** prepare and audit the Acta Astronautica venue-specific Study-8 package from the already frozen publication package; do not submit until separately authorized.
 3. **Phase 3:** perform the literature/novelty/venue review and develop the Studies 3 + 4 + 6 synthesis if authorized.
 4. **Phase 4:** perform the learned-selector/AI literature and venue review and develop Study-7 Paper 3 if authorized.
 5. **Phase 5:** decide whether Study 5 belongs inside a larger follow-on paper or merits a focused validation/reproducibility vehicle.
@@ -290,7 +306,7 @@ This order is intended to minimize simultaneous manuscript churn and prevent pub
 - Never pool separately frozen study populations unless a new, prospectively authorized analysis explicitly permits it.
 - Never rerun or enlarge a frozen study merely to improve publication optics or respond to venue preference.
 - Preserve negative, null, and conditional findings.
-- Treat candidate venues as planning aids until a live venue/policy review is completed.
+- Treat candidate venues as planning aids until a live venue/policy review is completed and the author explicitly selects a target.
 - Publisher submission is a separate explicit authorization gate for every new submission.
 - Historical freeze/handoff documents retain their stage-local states and are not rewritten to appear current.
 - Historical venue-preparation directories may be retained for provenance, but current-state documents must identify the canonical live or submitted package.
@@ -301,7 +317,7 @@ This order is intended to minimize simultaneous manuscript churn and prevent pub
 | Publication phase | Publication unit | Studies | Primary/current venue direction | Current next gate |
 |---|---|---|---|---|
 | 1 | Paper 1 | Study 1 + Study 2 | JAIS, manuscript `2026-09-I012066` | Editorial/peer review pending; revise only if JAIS requests |
-| 2 | Study-8 companion / roadmap Paper 4 | Study 8 | Live venue review required; prior hierarchy starts with IEEE Systems Journal | Venue selection, then separate venue-specific package authorization |
+| 2 | Study-8 companion / roadmap Paper 4 | Study 8 | Acta Astronautica selected; IEEE Systems Journal and IJSCCN fallbacks | Acta-specific package preparation and audit; submission separately gated |
 | 3 | Paper 2 synthesis | Studies 3 + 4 + 6 | IEEE Systems Journal / Acta Astronautica / JAIS candidates | Dedicated literature/novelty/venue review |
 | 4 | Paper 3 | Study 7 | JAIS / Aerospace Science and Technology candidates | Fresh AI/autonomy literature + venue review |
 | 5 | Study-5 disposition | Study 5 | Deferred | Decide integration vs focused research note |

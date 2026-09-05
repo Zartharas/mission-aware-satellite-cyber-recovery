@@ -46,11 +46,11 @@ Historical Computers & Security and JAIS preparation directories under `publicat
 
 Study 1 and Study 2 remain frozen and separate. Do not modify the submitted manuscript, scientific populations, exclusions, statistical results, or publisher-facing package unless JAIS explicitly requests a revision.
 
-## 2. Study-8 companion paper - frozen and merged publication package
+## 2. Study-8 companion paper - frozen source package with Acta submission workspace
 
-Study 8 (`S8-PQC-ICR-001`) remains outside the Study-1/Study-2 JAIS manuscript. Its dedicated companion-paper package has been developed, adversarially reviewed, hash-frozen, and merged under [`study8/`](study8/README.md).
+Study 8 (`S8-PQC-ICR-001`) remains outside the Study-1/Study-2 JAIS manuscript. Its dedicated companion-paper source package has been developed, adversarially reviewed, hash-frozen, and merged under [`study8/`](study8/README.md).
 
-Current Study-8 publication-package state:
+Current Study-8 frozen publication-package state:
 
 - status: `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
 - publication-package PR: `#92`
@@ -64,7 +64,13 @@ Current Study-8 publication-package state:
 
 The Study-8 package did **not** alter the Study-1/Study-2 manuscript and did not rerun or modify Study-8 science.
 
-The next authorized Study-8 work is a **live venue review**. After the author approves a target venue, a separate venue-specific publisher projection may be prepared from the frozen Study-8 publication package. Actual publisher submission and publisher-portal action remain later explicit authorization gates.
+Following a live venue review, the author selected **Acta Astronautica** as the primary venue on 2026-09-05. The current fallback order is IEEE Systems Journal, then International Journal of Satellite Communications and Networking.
+
+The separate publisher-facing Acta workspace is:
+
+`publication/Paper_4_Study_8/Acta_Astronautica/`
+
+This is the **venue-specific Study-8 submission package** workspace. Acta-specific manuscript projection, formatting, declarations, cover letter, file generation, QA, and later submission records belong in that folder. The hash-frozen source package under `publication/study8/` remains authoritative and must not be overwritten for venue formatting. Publisher submission and Editorial Manager actions remain later explicit authorization gates.
 
 ## 3. Frozen study boundaries
 
@@ -90,6 +96,7 @@ The next authorized Study-8 work is a **live venue review**. After the author ap
 - exact Phase-6 source ZIP passed responsible-release review and is publicly archived as Zenodo v1.0.0
 - version DOI: `10.5281/zenodo.22289114`
 - concept DOI: `10.5281/zenodo.22289113`
+- public-byte verified: PASS
 - public ZIP SHA-256 independently verified as `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
 - release/publication verification authority: `study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json`
 
@@ -142,7 +149,7 @@ The hash-frozen Study-8 package contains four tables and two SVG figures under [
 
 **Study 1:** the public source-evidence archive is Zenodo v1.0.0, version DOI `10.5281/zenodo.22181540`, concept DOI `10.5281/zenodo.22181539`.
 
-**Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source ZIP is cryptographically bound, responsible-release reviewed, and now publicly archived on Zenodo as version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`. The publicly served source ZIP was independently re-downloaded and its SHA-256 exactly matched `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`.
+**Study 2:** the exact Phase-7 statistical result ZIP is durably retained in repository history with SHA-256 `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`. The underlying Phase-6 source ZIP is cryptographically bound, responsible-release reviewed, and now publicly archived on Zenodo as version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`. The public-byte verified source ZIP was independently re-downloaded and its SHA-256 exactly matched `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`.
 
 **Study 8:** canonical/statistical evidence and the companion publication package are independently hash-frozen in Git. Use `../study8/analysis/RESULTS_FREEZE_MANIFEST.json`, `../study8/STUDY8_TECHNICAL_CLOSE.json`, and [`study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json). Study 8 has no DOI/publication identity yet, and one must not be invented before an actual release/publication gate.
 
@@ -187,6 +194,10 @@ Paper 1 is already submitted to JAIS as manuscript `2026-09-I012066`. The older 
 
 ### Study 8
 
-Do **not** reuse any Paper-1 submission package for Study 8. Study 8 has a dedicated frozen companion-paper package under [`study8/`](study8/README.md).
+Do **not** reuse any Paper-1 submission package for Study 8. The authoritative frozen Study-8 source package remains under [`study8/`](study8/README.md).
 
-The current Study-8 gate is live venue selection. After venue approval, prepare a separate venue-specific submission package from the frozen Study-8 publication package. Publisher submission and publisher-portal action remain separately gated and require later explicit author authorization.
+The author-approved primary venue is **Acta Astronautica**. Its separate publisher-facing workspace is:
+
+`publication/Paper_4_Study_8/Acta_Astronautica/`
+
+This venue-specific Study-8 submission package is the only workspace to use for Acta-specific publisher files and later portal records. Venue-specific package preparation is authorized. Scientific reexecution, statistical reanalysis, publisher submission, and publisher-portal action are not authorized. Final publisher submission requires a later separate explicit author authorization after the exact manuscript, declarations, hashes, portal fields, and final proof have been audited.
