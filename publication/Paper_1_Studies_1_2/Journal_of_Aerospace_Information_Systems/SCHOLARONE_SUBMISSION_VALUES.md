@@ -61,26 +61,58 @@ Routing priority for manuscript fit is: Information Security first, Computer Sys
 
 **Live ScholarOne observation, 2026-09-05:**
 
-- `Author` is selected for the required Submitting Agent question. This is correct for the sole-author submission.
-- The selected author is identified as `Corresponding Author`, and the ORCID link is verified.
-- The ScholarOne Edit Author dialog confirms the author's name fields, prefix, ORCID, Independent Researcher affiliation, United States, Texas, and The Woodlands.
-- ScholarOne uses the author's account/contact email for submission correspondence, while the manuscript footnote uses the separately frozen corresponding-author email for publication/post-publication contact. AIAA guidance permits this distinction; do not reopen the frozen manuscript merely to force the two emails to match if both addresses are valid and intentionally monitored.
-- `Independent Researcher` shows a warning icon in the ScholarOne institution control, but the live portal provides no explanatory validation error and Step 4 is accepted with a green completion check. Do not remove the affiliation or invent a department absent an explicit portal error.
-- The portal profile contains additional contact/address fields. Do not reproduce unnecessary personal-address information in the manuscript or submission notes unless ScholarOne explicitly requires it.
+- `Author` is selected for the required Submitting Agent question. This is correct for a sole-author submission even though ScholarOne uses generic wording that mentions co-authors.
+- The selected author row identifies Aman Kumar Singh as `Corresponding Author` and shows the linked ORCID successfully.
+- The live ScholarOne author row uses the author's ScholarOne account/contact email for submission correspondence, while the manuscript footnote uses the frozen corresponding-author publication email. AIAA treats the ScholarOne corresponding-author role as the submission contact and separately permits a corresponding-author email in the manuscript footnote; these addresses need not be identical when both are valid and intentional.
+- The `Independent Researcher` institution record is selected. The live profile contains additional address/contact metadata and a yellow institution indicator, but Step 4 validates with a green completion check and no specific institution error is shown.
+- Do not invent a department for an independent researcher and do not modify the frozen manuscript solely to mirror account-profile metadata.
 
 ## Step 5 - Reviewers and Editors
 
-**LIVE SCHOLARONE REQUIREMENT, 2026-09-05:**  
-The Step-5 page states: `You must suggest at least three reviewers and one associate editor before completing the submission of your manuscript.`
+**Live ScholarOne requirement, 2026-09-05:**  
+The live Step-5 page states that the author must suggest **at least three reviewers and one associate editor** before completing submission.
 
-**Preferred / Recommended Reviewers:** PENDING  
-Minimum 3 required. For each reviewer, ScholarOne specifically requests the reviewer's institution name or an email address that reflects the institutional affiliation. Candidates must be technically relevant and screened for conflicts before entry. Do not invent names, email addresses, or affiliations.
+### Reviewer entry form
 
-**Associate Editor:** PENDING LIVE EDITOR LIST  
-At least 1 associate editor must be suggested. This supersedes the earlier high-level requirements screen that appeared to make preferred editors optional. Select only from the live ScholarOne editor workflow after reviewing the available names and their technical fit.
+The live `Add Reviewer` dialog contains these fields:
 
-**Non-preferred / Opposed Reviewers:** Optional; none by default unless the author identifies a reason.  
-**Non-preferred / Opposed Editors:** Optional; none by default unless the author identifies a reason.
+- **First/Given Name** - required
+- **Last/Family Name** - required
+- **Email** - required
+- **Institution** - optional in the form, but should be supplied when verified
+- **Department** - optional
+- **Phone Number** - optional; leave blank by default
+- **Preference** - required: `I recommend this Reviewer` or `I oppose this Reviewer`
+
+For recommended reviewers, select `I recommend this Reviewer`. Use institution-reflecting email addresses where available. Do not invent phone numbers, departments, affiliations, or email addresses.
+
+### Preferred reviewer candidate pool - pending author conflict confirmation
+
+The following candidates were identified from current public institutional/official sources because their expertise aligns closely with the manuscript. They are **not yet locked** until the author confirms no real, potential, or perceived conflict of interest or disqualifying personal/professional relationship.
+
+1. **Gregory Falco**  
+   Institution: Cornell University  
+   Department: Sibley School of Mechanical and Aerospace Engineering / Systems Engineering Program  
+   Email: `gfalco@cornell.edu`  
+   Fit: space cybersecurity, autonomous secure/resilient space infrastructure, aerospace systems security.
+
+2. **Wayne Henry**  
+   Institution: Air Force Institute of Technology  
+   Department: Electrical Engineering / Center for Cyberspace Research  
+   Email: `wayne.henry@afit.edu`  
+   Fit: space-system cybersecurity, cyber operations, computer/network security, cyber-physical security.
+
+3. **Brandon Bailey**  
+   Institution: The Aerospace Corporation  
+   Department: Cybersecurity and Advanced Platforms Subdivision / Cyber Assessment & Research Department  
+   Email: `brandon.bailey@aero.org`  
+   Fit: spacecraft and ground-system cybersecurity, SPARTA, cyber assessment, resilient space infrastructure.
+
+**Author conflict check required before entry:** confirm that none of the proposed reviewers has been a recent collaborator, advisor/student, supervisor/subordinate, close personal or professional associate, or participant in a relationship that could create a real or perceived conflict or bias.
+
+**Opposed Reviewers:** optional; none by default unless the author identifies a reason.  
+**Preferred Associate Editor:** required by the live Step-5 page; PENDING LIVE `Add Editor` dialog/list.  
+**Opposed Editors:** optional; none by default unless the author identifies a reason.
 
 ## Step 6 - Details and Comments
 
