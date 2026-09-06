@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
-"""Apply pre-format compliance corrections for TAES Paper 2.
+"""Apply the remaining pre-format compliance corrections for TAES Paper 2.
 
-This helper performs only two controlled manuscript-preparation updates:
-1. update TUF reference [11] from stale v1.0.33 metadata to the official
-   v1.0.36 release record;
-2. bind the controlled IEEE AI-use acknowledgment into deterministic assembly.
-
-The helper is deliberately idempotent and can resume from the safe partial state
-created by the first revision, in which the TUF correction was already applied
-but acknowledgment registration had not yet occurred.
+This helper is deliberately narrow and idempotent. It may update only TUF
+bibliographic metadata in the live source, literature ledger, and rerunnable
+bibliography helper. The controlled IEEE AI-use acknowledgment is bound directly
+by TAES_ASSEMBLE_MANUSCRIPT.py and is only verified here.
 
 It does not rerun or alter Study 3, Study 4, or Study 6 science.
 """
@@ -40,8 +36,8 @@ NEW_REF = '[11] The Update Framework. "The Update Framework Specification, v1.0.
 
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
 
@@ -77,8 +73,6 @@ def verify_start_state() -> None:
             )
 
     manuscript_hash = sha256(MANUSCRIPT)
-    allowed = {BASELINE_MANUSCRIPT, PARTIAL_TUF_MANUSCRIPT}
-    # A previously completed run is also acceptable if the disclosure is already assembled.
     manuscript_text = read(MANUSCRIPT)
     already_complete = (
         "## Acknowledgment" in manuscript_text
@@ -86,7 +80,7 @@ def verify_start_state() -> None:
         and NEW_REF in manuscript_text
         and "v1.0.33" not in manuscript_text
     )
-    if manuscript_hash not in allowed and not already_complete:
+    if manuscript_hash not in {BASELINE_MANUSCRIPT, PARTIAL_TUF_MANUSCRIPT} and not already_complete:
         raise SystemExit(
             "ERROR: manuscript is neither the canonical baseline, the known safe partial-TUF state, "
             f"nor an already-compliant assembled state: {manuscript_hash}"
@@ -125,7 +119,6 @@ def patch_ledger() -> None:
 
 def patch_bibliography_helper() -> None:
     text = read(BIB_HELPER)
-    # Accept either the original helper or the already-corrected partial state.
     text = text.replace("v1.0.33", "v1.0.36")
     text = text.replace(
         "https://theupdateframework.io/spec/",
@@ -143,67 +136,35 @@ def patch_bibliography_helper() -> None:
     write(BIB_HELPER, text)
 
 
-def add_ack_to_components(text: str) -> str:
-    component = '    "TAES_ACKNOWLEDGMENT_AI_DISCLOSURE.md",\n'
-    if component in text:
-        return text
+def verify_assembler_and_ack() -> None:
+    assembler = read(ASSEMBLER)
+    ack = read(ACK)
+    assembler_markers = [
+        '"TAES_ACKNOWLEDGMENT_AI_DISCLOSURE.md"',
+        '"## Acknowledgment\\n\\n" + acknowledgment',
+        '"## Acknowledgment"',
+        'print("ieee_ai_disclosure_binding=PASS")',
+    ]
+    for marker in assembler_markers:
+        if marker not in assembler:
+            raise SystemExit(f"ERROR: canonical assembler AI-disclosure binding missing: {marker}")
 
-    start = text.find("COMPONENTS = [\n")
-    if start < 0:
-        raise SystemExit("ERROR: COMPONENTS block start missing")
-    end = text.find("\n]\n\nFIGURE_FILES", start)
-    if end < 0:
-        raise SystemExit("ERROR: COMPONENTS block end missing")
-    block = text[start:end]
-    anchor = '    "TAES_SECTION_IX_CONCLUSION.md",\n'
-    if block.count(anchor) != 1:
-        raise SystemExit("ERROR: Section IX anchor not unique inside COMPONENTS block")
-    block = block.replace(anchor, anchor + component, 1)
-    return text[:start] + block + text[end:]
-
-
-def patch_assembler() -> None:
-    text = read(ASSEMBLER)
-    text = add_ack_to_components(text)
-
-    extraction_new = '''    later_sections = [normalize_section(read(name)) for name in SECTION_FILES[1:]]\n\n    ack_doc = read("TAES_ACKNOWLEDGMENT_AI_DISCLOSURE.md")\n    ack_lines = []\n    for line in ack_doc.splitlines():\n        stripped = line.strip()\n        if stripped == "# Acknowledgment":\n            continue\n        if stripped.startswith("> Control note:"):\n            continue\n        ack_lines.append(line)\n    acknowledgment = "\\n".join(ack_lines).strip()\n    if not acknowledgment:\n        raise SystemExit("ERROR: AI-use acknowledgment body is empty")\n\n    assembled_parts = ['''
-    extraction_old = '    later_sections = [normalize_section(read(name)) for name in SECTION_FILES[1:]]\n\n    assembled_parts = ['
-    if extraction_new not in text:
-        if text.count(extraction_old) != 1:
-            raise SystemExit("ERROR: acknowledgment extraction anchor missing or ambiguous")
-        text = text.replace(extraction_old, extraction_new, 1)
-
-    parts_new = '        *later_sections,\n        "## Acknowledgment\\n\\n" + acknowledgment,\n        references,\n    ]'
-    parts_old = '        *later_sections,\n        references,\n    ]'
-    if parts_new not in text:
-        if text.count(parts_old) != 1:
-            raise SystemExit("ERROR: acknowledgment assembly-order anchor missing or ambiguous")
-        text = text.replace(parts_old, parts_new, 1)
-
-    req_new = '        "## IX. Conclusion",\n        "## Acknowledgment",\n        "## References",'
-    req_old = '        "## IX. Conclusion",\n        "## References",'
-    if req_new not in text:
-        if text.count(req_old) != 1:
-            raise SystemExit("ERROR: acknowledgment required-marker anchor missing or ambiguous")
-        text = text.replace(req_old, req_new, 1)
-
-    print_new = '    print("retired_table_v_check=PASS")\n    print("ieee_ai_disclosure_binding=PASS")\n'
-    print_old = '    print("retired_table_v_check=PASS")\n'
-    if print_new not in text:
-        if text.count(print_old) != 1:
-            raise SystemExit("ERROR: acknowledgment PASS-output anchor missing or ambiguous")
-        text = text.replace(print_old, print_new, 1)
-
-    write(ASSEMBLER, text)
+    ack_markers = [
+        "OpenAI ChatGPT (GPT-5.6 Sol)",
+        "Abstract and Sections I-IX",
+        "substantive drafting and editorial level",
+        "It was not used to generate or modify the frozen experimental results.",
+        "assumes responsibility for the final manuscript",
+    ]
+    for marker in ack_markers:
+        if marker not in ack:
+            raise SystemExit(f"ERROR: required AI-disclosure marker missing: {marker}")
 
 
-def verify() -> None:
+def verify_final_sources() -> None:
     core = read(CORE)
     ledger = read(LEDGER)
     bib_helper = read(BIB_HELPER)
-    assembler = read(ASSEMBLER)
-    ack = read(ACK)
-
     if OLD_REF in core or "v1.0.33" in core:
         raise SystemExit("ERROR: stale TUF v1.0.33 remains in live manuscript source")
     if NEW_REF not in core:
@@ -212,25 +173,6 @@ def verify() -> None:
         raise SystemExit("ERROR: literature ledger was not corrected to TUF v1.0.36")
     if "v1.0.33" in bib_helper:
         raise SystemExit("ERROR: rerunnable bibliography helper can still regress TUF to v1.0.33")
-    if '"TAES_ACKNOWLEDGMENT_AI_DISCLOSURE.md"' not in assembler:
-        raise SystemExit("ERROR: assembler does not bind AI-use acknowledgment component")
-    if '"## Acknowledgment\\n\\n" + acknowledgment' not in assembler:
-        raise SystemExit("ERROR: assembler does not insert Acknowledgment before references")
-    if '"## Acknowledgment"' not in assembler:
-        raise SystemExit("ERROR: assembler does not require Acknowledgment section")
-    if 'print("ieee_ai_disclosure_binding=PASS")' not in assembler:
-        raise SystemExit("ERROR: assembler does not report AI-disclosure binding")
-
-    required_ack = [
-        "OpenAI ChatGPT (GPT-5.6 Sol)",
-        "Abstract and Sections I-IX",
-        "substantive drafting and editorial level",
-        "It was not used to generate or modify the frozen experimental results.",
-        "assumes responsibility for the final manuscript",
-    ]
-    for marker in required_ack:
-        if marker not in ack:
-            raise SystemExit(f"ERROR: required AI-disclosure marker missing: {marker}")
 
 
 if __name__ == "__main__":
@@ -238,11 +180,11 @@ if __name__ == "__main__":
     patch_core()
     patch_ledger()
     patch_bibliography_helper()
-    patch_assembler()
-    verify()
+    verify_assembler_and_ack()
+    verify_final_sources()
     print("TAES_PRE_FORMAT_COMPLIANCE_FIXES=PASS")
     print("resume_mode=BASELINE_OR_SAFE_PARTIAL_STATE")
     print("tuf_reference=V1.0.36_OFFICIAL_RELEASE_RECORD")
-    print("ieee_ai_disclosure=BOUND_AS_CONTROLLED_COMPONENT")
+    print("ieee_ai_disclosure=BOUND_BY_CANONICAL_ASSEMBLER")
     print("science_files_changed=NONE")
     print("NOTE: Re-run TAES_ASSEMBLE_MANUSCRIPT.py and length audit before committing.")
