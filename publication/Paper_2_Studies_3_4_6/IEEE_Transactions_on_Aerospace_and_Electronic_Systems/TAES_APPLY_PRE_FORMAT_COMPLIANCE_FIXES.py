@@ -115,9 +115,10 @@ def patch_bibliography_helper() -> None:
         "the official specification repository release history identifies v1.0.36 as the latest release as of 2026-09-06;",
     )
     text = text.replace("Official specification page:", "Official release record:")
-    old_final_ref = '[11] The Update Framework. \\\"The Update Framework Specification, v1.0.36.\\\" Accessed: Sep. 6, 2026. [Online]. Available: https://github.com/theupdateframework/specification/releases/tag/v1.0.36'
-    new_final_ref = '[11] The Update Framework. \\\"The Update Framework Specification, v1.0.36.\\\" Aug. 10, 2026. [Online]. Available: https://github.com/theupdateframework/specification/releases/tag/v1.0.36'
-    text = replace_once(text, old_final_ref, new_final_ref, "rerunnable helper TUF release date")
+
+    old_date = "Accessed: Sep. 6, 2026. [Online]. Available: https://github.com/theupdateframework/specification/releases/tag/v1.0.36"
+    new_date = "Aug. 10, 2026. [Online]. Available: https://github.com/theupdateframework/specification/releases/tag/v1.0.36"
+    text = replace_once(text, old_date, new_date, "rerunnable helper TUF release date")
     write(BIB_HELPER, text)
 
 
@@ -140,9 +141,10 @@ def patch_assembler() -> None:
     req_replacement = '        "## IX. Conclusion",\n        "## Acknowledgment",\n        "## References",'
     text = replace_once(text, req_marker, req_replacement, "acknowledgment required marker")
 
-    print_marker = '    print("retired_table_v_check=PASS")\n'
-    print_replacement = '    print("retired_table_v_check=PASS")\n    print("ieee_ai_disclosure_binding=PASS")\n'
-    text = replace_once(text, print_marker, print_replacement, "acknowledgment PASS output")
+    if 'print("ieee_ai_disclosure_binding=PASS")' not in text:
+        print_marker = '    print("retired_table_v_check=PASS")\n'
+        print_replacement = '    print("retired_table_v_check=PASS")\n    print("ieee_ai_disclosure_binding=PASS")\n'
+        text = replace_once(text, print_marker, print_replacement, "acknowledgment PASS output")
 
     write(ASSEMBLER, text)
 
