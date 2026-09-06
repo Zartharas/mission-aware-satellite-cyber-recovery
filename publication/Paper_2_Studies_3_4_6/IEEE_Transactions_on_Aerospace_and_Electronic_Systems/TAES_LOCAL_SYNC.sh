@@ -3,10 +3,9 @@ set -euo pipefail
 
 REPO_EXPECTED="Zartharas/mission-aware-satellite-cyber-recovery"
 RELATIVE_PACKAGE="publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems"
-DESTINATION="${1:-$HOME/Downloads/TAES_Paper_2_Submission}"
 
 printf '%s\n' "============================================================"
-printf '%s\n' "TAES PAPER 2 LOCAL SYNC AND PORTAL-STAGING HELPER"
+printf '%s\n' "TAES PAPER 2 REPOSITORY SYNC AND VERIFY"
 printf '%s\n' "============================================================"
 
 if ! REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"; then
@@ -23,15 +22,13 @@ echo "expected_repo=$REPO_EXPECTED"
 
 if [[ -n "$(git status --porcelain)" ]]; then
   echo "ERROR: Local repository has uncommitted changes."
-  echo "Commit, stash, or otherwise resolve them before running this sync helper."
+  echo "Commit, stash, or otherwise resolve them before syncing."
   git status --short
   exit 2
 fi
 
 git fetch origin main
-
 git switch main
-
 git pull --ff-only origin main
 
 PACKAGE="$REPO_ROOT/$RELATIVE_PACKAGE"
@@ -48,53 +45,28 @@ if [[ -n "$(git status --porcelain -- "$RELATIVE_PACKAGE")" ]]; then
   exit 4
 fi
 
-mkdir -p "$DESTINATION"
-rsync -a --delete --exclude 'PORTAL_UPLOAD/' "$PACKAGE/" "$DESTINATION/"
-
-PORTAL_DIR="$DESTINATION/PORTAL_UPLOAD"
-mkdir -p "$PORTAL_DIR"
-find "$PORTAL_DIR" -mindepth 1 -maxdepth 1 -type f -delete
-
-UPLOAD_CANDIDATES=(
-  "TAES_MANUSCRIPT.pdf"
-  "TAES_SUPPLEMENTARY_MATERIAL.zip"
-  "TAES_SUPPLEMENTARY_README.pdf"
-  "TAES_SUPPLEMENTARY_README.txt"
-)
-
-for name in "${UPLOAD_CANDIDATES[@]}"; do
-  if [[ -f "$PACKAGE/$name" ]]; then
-    cp -p "$PACKAGE/$name" "$PORTAL_DIR/$name"
-  fi
-done
-
-(
-  cd "$DESTINATION"
-  find . -type f \
-    ! -path './PORTAL_UPLOAD/*' \
-    ! -name 'LOCAL_SYNC_SHA256.txt' \
-    -print0 \
-    | sort -z \
-    | xargs -0 shasum -a 256 \
-    > LOCAL_SYNC_SHA256.txt
-)
-
 echo
 echo "canonical_package=$PACKAGE"
-echo "local_copy=$DESTINATION"
-echo "portal_upload_staging=$PORTAL_DIR"
+echo "storage_rule=ONE_CANONICAL_COPY_IN_REPOSITORY_ONLY"
 echo
 echo "Tracked TAES package status:"
 git status --short -- "$RELATIVE_PACKAGE"
 
 echo
-echo "Local portal-upload candidates currently present:"
-find "$PORTAL_DIR" -maxdepth 1 -type f -print | sort
-
-echo
-echo "Local sync SHA-256 manifest:"
-echo "$DESTINATION/LOCAL_SYNC_SHA256.txt"
+echo "Publisher-facing files currently present in canonical package:"
+for name in \
+  TAES_MANUSCRIPT.pdf \
+  TAES_SUPPLEMENTARY_MATERIAL.zip \
+  TAES_SUPPLEMENTARY_README.pdf \
+  TAES_SUPPLEMENTARY_README.txt \
+  TAES_COVER_LETTER.pdf \
+  TAES_COVER_LETTER.docx; do
+  if [[ -f "$PACKAGE/$name" ]]; then
+    printf '%s\n' "$PACKAGE/$name"
+  fi
+done
 
 echo
 echo "SYNC_RESULT=PASS"
-echo "NOTE: PORTAL_UPLOAD may remain empty until final publisher-facing files are created and frozen."
+echo "NOTE: Do not create a Downloads mirror or separate portal-staging copy."
+echo "NOTE: When submission files are frozen, upload them directly from the canonical package folder above."
