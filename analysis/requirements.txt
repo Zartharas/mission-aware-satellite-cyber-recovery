@@ -1,5 +1,5 @@
 # Requires CPython 3.11.x. NumPy/statsmodels are recovered historical pins; SciPy/pandas are reconstruction pins.
 numpy==1.26.4
-scipy==1.11.4
+scipy==1.18.1
 pandas==2.1.4
 statsmodels==0.14.0
