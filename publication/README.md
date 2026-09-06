@@ -4,14 +4,14 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For the current cross-publication state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository currently contains two submitted publication lines plus separately frozen studies for later papers:
+The repository currently contains two submitted publication lines plus one venue-locked unsent publication line and separately frozen studies for later papers:
 
 1. **Paper 1:** Studies 1 + 2, submitted to the AIAA Journal of Aerospace Information Systems.
 2. **Roadmap Paper 4:** Study 8, submitted to Acta Astronautica.
-3. **Next publication-development priority:** Paper 2, Studies 3 + 4 + 6.
+3. **Paper 2:** Studies 3 + 4 + 6, venue-locked for development at IEEE Transactions on Aerospace and Electronic Systems.
 4. **Later:** Paper 3, Study 7, plus the deferred Study-5 publication disposition.
 
-Paper 1 contains **two separately frozen empirical studies**. Study 8 is a separate **companion-paper** line. Separately frozen study populations must never be silently pooled.
+Separately frozen study populations must never be silently pooled.
 
 ## 1. Paper 1 - Studies 1 + 2
 
@@ -109,27 +109,49 @@ The five submitted publisher-facing files remain immutable unless Acta explicitl
 
 Historical Acta preparation files such as `README_SUBMISSION.md`, `ACTA_PACKAGE_STATUS.json`, `SUBMISSION_CHECKLIST.md`, `EDITORIAL_MANAGER_SUBMISSION_VALUES.md`, `UPLOAD_FILES.md`, `SHA256SUMS.txt`, and `ACTA_PACKAGE_FREEZE_MANIFEST.json` intentionally retain their pre-submission freeze-002 wording. They are provenance, not the live publisher-status authority.
 
-## 3. Next publication-development priority - Paper 2
+## 3. Paper 2 - Studies 3 + 4 + 6
 
-The next unsent publication unit is the proposed synthesis of **Studies 3 + 4 + 6**.
+Paper 2 is the current unsent publication-development priority and is now venue-locked for manuscript development.
 
-Working theme:
+**Target journal:** IEEE Transactions on Aerospace and Electronic Systems (TAES)  
+**Manuscript type:** Regular Paper  
+**Primary Technical Area:** Aerospace Information Systems  
+**Venue-lock date:** 2026-09-06  
+**Current state:** `VENUE_LOCKED__MANUSCRIPT_DEVELOPMENT_IN_PROGRESS__NOT_SUBMITTED`
 
-**Evidence-plane trust composition for intermittent-contact trusted recovery.**
+Canonical TAES development and future submission package:
 
-The three study populations must remain separate inside the synthesis.
+`publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
 
-Before manuscript development:
+Current scientific identity:
 
-1. verify the frozen design, evidence, results, and provenance for Studies 3, 4, and 6 independently;
-2. identify all null, negative, conditional, structural-zero, and scope-limiting findings;
-3. perform a fresh literature and novelty review;
-4. perform a claim-boundary audit;
-5. perform a live venue review before selecting a target;
-6. assess Study 5 only as a clearly separated portability/external-validity component;
-7. obtain explicit author approval before venue lock or venue-specific package preparation.
+**Layered residual trust boundaries in satellite cyber-recovery qualification.**
 
-Historical venue candidates include IEEE Systems Journal, Acta Astronautica, and AIAA Journal of Aerospace Information Systems. They are not current commitments and must be rechecked live.
+The earlier working phrase **Evidence-plane trust composition for intermittent-contact trusted recovery** is retained only as historical development language and is no longer the preferred title/contribution framing.
+
+### Frozen populations
+
+- Study 3 / `S3-K4E-001`: 1,380 deterministic trajectories.
+- Study 4 / `S4-MPQ-001`: 4,608 exact observations.
+- Study 6 / `S6-SCTR-001`: 420 exact observations.
+
+These populations remain separate. There is no scientifically meaningful pooled Paper-2 `N = 6,408`.
+
+### Study 5 disposition
+
+Study 5 / `S5-CUCD-001` is deferred from the Paper-2 core. Its `0/8` direct recovery-input coverage finding remains a valuable portability/external-validity boundary, but its oracle-alarm bridge is not external empirical validation of Studies 3, 4, or 6.
+
+### Completed development gates
+
+- independent scientific/provenance audit for Studies 3, 4, and 6;
+- three-study coherence review;
+- adversarial interpretation audit;
+- fresh literature, novelty, and self-overlap review;
+- Study-5 disposition;
+- live venue review;
+- explicit TAES venue lock.
+
+TAES-specific manuscript development is authorized. Portal submission is not authorized until the final manuscript, upload files, portal values, compliance checks, visual QA, and file hashes are frozen and the author gives separate explicit final submission authorization.
 
 ## 4. Later publication lines
 
@@ -145,12 +167,9 @@ Before publication development, perform a fresh AI/autonomy literature review, n
 
 ### Study 5 disposition
 
-Study 5 / `S5-CUCD-001` is an external-validity/portability boundary study, not a detector-performance experiment.
+Study 5 / `S5-CUCD-001` is an external-validity/portability boundary study, not a detector-performance experiment, and is deferred from the Paper-2 core.
 
-Possible publication vehicles remain:
-
-- integration as a clearly separated portability/external-validity section in a larger follow-on paper, potentially Paper 2; or
-- a focused validation/reproducibility paper or research note.
+Possible later publication vehicles include a focused validation/reproducibility paper or research note, or a future synthesis in which its portability role is explicitly separated.
 
 Do not claim IDS accuracy, recall, false-positive rate, or per-packet recovery-policy effectiveness from Study 5 because those outcomes were not measured.
 
@@ -202,6 +221,13 @@ Any reuse or revision must preserve the following:
 - Study-8 logical slots are model indices, not operational time.
 - Study-8 standardized ML-KEM/ML-DSA object bytes are modeled burden, not measured onboard execution performance.
 - Same-repository independently written reproduction is reproducibility, not external empirical replication.
+- Paper 2 uses Studies 3, 4, and 6 only and keeps their populations separate.
+- Only Study 3 directly models intermittent contact in Paper 2.
+- Study-4 producer unavailability is not orbital contact loss or mission availability.
+- Study-6 assurance-signal unavailability is not contact loss.
+- Study-4 provenance domains are synthetic independence classes.
+- Study 4 is not a Byzantine-consensus experiment.
+- Study 6 is an abstract artifact-trust model, not an operational supply-chain attack experiment.
 - No weighted global score, global policy rank, operational spacecraft, RF, flightworthiness, CPU, energy, ground-station, or certification claim is supported without new frozen evidence.
 
 ## 7. Repository authority for publication work
@@ -211,8 +237,9 @@ Use this order when records disagree:
 1. per-study scientific freeze/provenance records;
 2. exact submitted-state package for an already submitted paper;
 3. `docs/CURRENT_PUBLICATION_STATE.md`;
-4. `docs/PUBLICATION_PHASE_MAP.md`;
-5. this publication index;
-6. historical preparation, venue-fit, freeze, authorization, and handoff records.
+4. current venue-specific development/submission package for an unsent paper;
+5. `docs/PUBLICATION_PHASE_MAP.md`;
+6. this publication index;
+7. historical preparation, venue-fit, freeze, authorization, and handoff records.
 
 Every future publisher submission requires a separate explicit final author authorization.
