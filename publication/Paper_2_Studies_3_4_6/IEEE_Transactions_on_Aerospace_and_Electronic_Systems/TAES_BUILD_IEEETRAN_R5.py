@@ -156,17 +156,22 @@ def _target_endpoint_paragraph(tex: str) -> str:
         "Study 3 frozen-primary-endpoints paragraph",
     )
     paragraph = parts[idx]
-    # Encourage breaks only between endpoint tokens. The endpoint strings and
-    # punctuation remain unchanged.
-    old = r"}, \texttt{"
-    hits = paragraph.count(old)
-    if hits < 5:
+    # Six endpoints are joined by four comma-only separators plus one final
+    # comma-and separator. Encourage breaks only between endpoint tokens. The
+    # endpoint strings, punctuation, and conjunction remain visibly unchanged.
+    comma_sep = r"}, \texttt{"
+    final_sep = r"}, and \texttt{"
+    comma_hits = paragraph.count(comma_sep)
+    final_hits = paragraph.count(final_sep)
+    if comma_hits != 4 or final_hits != 1:
         raise SystemExit(
-            f"ERROR: revision-5 expected at least five endpoint separators; found {hits}"
+            "ERROR: revision-5 endpoint separator structure mismatch: "
+            f"comma_only={comma_hits} final_and={final_hits}; expected 4 and 1"
         )
-    paragraph = paragraph.replace(old, r"},\linebreak[2] \texttt{")
+    paragraph = paragraph.replace(comma_sep, r"},\linebreak[2] \texttt{")
+    paragraph = paragraph.replace(final_sep, r"},\linebreak[2] and \texttt{", 1)
     global _TARGETED_BREAKS
-    _TARGETED_BREAKS += hits
+    _TARGETED_BREAKS += comma_hits + final_hits
     parts[idx] = paragraph
     return "\n\n".join(parts)
 
