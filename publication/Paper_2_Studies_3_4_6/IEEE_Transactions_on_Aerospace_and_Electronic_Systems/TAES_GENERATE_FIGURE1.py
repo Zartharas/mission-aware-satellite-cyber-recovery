@@ -5,6 +5,10 @@ Figure 1 is a manuscript-level qualitative synthesis of three separately frozen
 experiments. It deliberately uses three parallel panels with no connecting
 arrows so that the graphic cannot imply an integrated experimental pipeline.
 
+Revision 2 replaces Matplotlib's automatic wrapping with explicit line wrapping
+and adds a post-layout overflow check. This prevents long text from silently
+crossing panel boundaries at two-column width.
+
 Outputs:
   TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf  (primary vector master)
   TAES_FIGURE1_RESIDUAL_BOUNDARIES.png  (300-dpi visual-QA preview)
@@ -15,6 +19,7 @@ This script does not read, rerun, or modify any study result.
 from __future__ import annotations
 
 import hashlib
+import textwrap
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -29,7 +34,8 @@ PDF_OUT = ROOT / "TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf"
 PNG_OUT = ROOT / "TAES_FIGURE1_RESIDUAL_BOUNDARIES.png"
 
 FIG_W = 7.16
-FIG_H = 4.65
+FIG_H = 5.15
+WRAP_WIDTH = 33
 
 
 def sha256(path: Path) -> str:
@@ -48,8 +54,19 @@ def choose_font() -> str:
     return "DejaVu Sans"
 
 
-def add_wrapped_text(ax, x, y, text, *, size=8.4, weight="normal", va="top"):
-    ax.text(
+def wrap_text(text: str, width: int = WRAP_WIDTH) -> str:
+    return "\n".join(
+        textwrap.wrap(
+            text,
+            width=width,
+            break_long_words=False,
+            break_on_hyphens=False,
+        )
+    )
+
+
+def add_text(ax, registry, x, y, text, *, size=7.6, weight="normal", va="top", label=""):
+    artist = ax.text(
         x,
         y,
         text,
@@ -58,20 +75,21 @@ def add_wrapped_text(ax, x, y, text, *, size=8.4, weight="normal", va="top"):
         va=va,
         fontsize=size,
         fontweight=weight,
-        linespacing=1.18,
-        wrap=True,
+        linespacing=1.20,
     )
+    registry.append((artist, ax, label or text[:40]))
+    return artist
 
 
-def draw_panel(ax, title, subtitle, visible, truth, residual, effect):
+def draw_panel(ax, registry, title, subtitle, visible, truth, residual, effect):
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
     outer = FancyBboxPatch(
-        (0.015, 0.02), 0.97, 0.96,
+        (0.01, 0.015), 0.98, 0.97,
         boxstyle="round,pad=0.012,rounding_size=0.018",
-        linewidth=1.15,
+        linewidth=1.0,
         edgecolor="black",
         facecolor="white",
         transform=ax.transAxes,
@@ -80,34 +98,55 @@ def draw_panel(ax, title, subtitle, visible, truth, residual, effect):
     ax.add_patch(outer)
 
     header = Rectangle(
-        (0.03, 0.835), 0.94, 0.125,
+        (0.03, 0.855), 0.94, 0.105,
         linewidth=0,
-        facecolor="0.90",
+        facecolor="0.91",
         transform=ax.transAxes,
     )
     ax.add_patch(header)
 
-    add_wrapped_text(ax, 0.055, 0.935, title, size=9.3, weight="bold")
-    add_wrapped_text(ax, 0.055, 0.875, subtitle, size=8.3)
+    add_text(ax, registry, 0.055, 0.938, title, size=9.2, weight="bold", label=f"{title}:title")
+    add_text(ax, registry, 0.055, 0.892, subtitle, size=7.9, label=f"{title}:subtitle")
 
     sections = [
-        ("Gate-visible evidence", visible),
-        ("Research-only truth", truth),
-        ("Residual boundary", residual),
-        ("Effect of stronger composition", effect),
+        ("Gate-visible evidence", wrap_text(visible), 0.805, 7.3),
+        ("Research-only truth", wrap_text(truth), 0.615, 7.4),
+        ("Residual boundary", wrap_text(residual), 0.455, 7.3),
+        ("Effect of stronger composition", wrap_text(effect), 0.255, 7.3),
     ]
-    ys = [0.795, 0.575, 0.425, 0.235]
-    body_sizes = [7.9, 8.0, 7.9, 7.8]
-    for (heading, body), y, body_size in zip(sections, ys, body_sizes):
-        add_wrapped_text(ax, 0.055, y, heading, size=8.2, weight="bold")
-        add_wrapped_text(ax, 0.055, y - 0.055, body, size=body_size)
+
+    for heading, body, y, body_size in sections:
+        add_text(ax, registry, 0.055, y, heading, size=7.8, weight="bold", label=f"{title}:{heading}")
+        add_text(ax, registry, 0.055, y - 0.045, body, size=body_size, label=f"{title}:{heading}:body")
+
+
+def verify_panel_text_bounds(fig, registry) -> None:
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    failures = []
+
+    for artist, ax, label in registry:
+        text_box = artist.get_window_extent(renderer=renderer)
+        axes_box = ax.get_window_extent(renderer=renderer)
+        tolerance = 1.5
+        if (
+            text_box.x0 < axes_box.x0 - tolerance
+            or text_box.x1 > axes_box.x1 + tolerance
+            or text_box.y0 < axes_box.y0 - tolerance
+            or text_box.y1 > axes_box.y1 + tolerance
+        ):
+            failures.append(label)
+
+    if failures:
+        joined = ", ".join(failures)
+        raise SystemExit(f"ERROR: Figure 1 panel text overflow detected: {joined}")
 
 
 def main() -> None:
     font_name = choose_font()
     plt.rcParams.update({
         "font.family": font_name,
-        "font.size": 8.5,
+        "font.size": 8.0,
         "axes.linewidth": 0.8,
         "pdf.fonttype": 42,
         "ps.fonttype": 42,
@@ -115,44 +154,50 @@ def main() -> None:
 
     fig = plt.figure(figsize=(FIG_W, FIG_H), facecolor="white")
 
-    # Global anti-overclaim banner.
     fig.text(
-        0.5, 0.965,
-        "Three separately frozen experiments | qualitative synthesis only | no pooled population | no experimental data flow",
-        ha="center", va="top", fontsize=9.0, fontweight="bold",
+        0.5, 0.978,
+        "Three separately frozen experiments | qualitative synthesis only",
+        ha="center", va="top", fontsize=8.7, fontweight="bold",
+    )
+    fig.text(
+        0.5, 0.948,
+        "No pooled population | no experimental data flow between panels",
+        ha="center", va="top", fontsize=8.0,
     )
 
     gs = fig.add_gridspec(
         1, 3,
-        left=0.025, right=0.975, bottom=0.105, top=0.91,
+        left=0.025, right=0.975, bottom=0.09, top=0.90,
         wspace=0.055,
     )
 
-    ax1 = fig.add_subplot(gs[0, 0])
+    registry = []
+
     draw_panel(
-        ax1,
+        fig.add_subplot(gs[0, 0]),
+        registry,
         "Study 3",
         "Temporal runtime evidence",
         "Signature validity; freshness; received authorization evidence; contact-dependent record availability; security signal.",
         "Hidden authorization truth.",
         "Fresh, validly signed V5 evidence can remain false; a truthful pre-onset cache can briefly lag a state change.",
-        "K4 contact-aware restriction reduces selected modeled exposure, but persistent V5 qualification remains for B0/S1.",
+        "K4 restriction reduces selected modeled exposure but does not eliminate persistent V5 qualification for B0/S1.",
     )
 
-    ax2 = fig.add_subplot(gs[0, 1])
     draw_panel(
-        ax2,
+        fig.add_subplot(gs[0, 1]),
+        registry,
         "Study 4",
         "Producer composition",
         "Signed producer claims; vote threshold; synthetic provenance-domain count.",
         "Hidden authorization truth.",
-        "Same-size compromised subsets can differ in whether the qualification rule is satisfied.",
-        "Provenance can delay systematic unsafe qualification and cause earlier benign rejection for selected subsets; null effects remain.",
+        "Same-size compromised subsets can differ because their provenance-domain composition differs.",
+        "Provenance can delay systematic unsafe qualification, cause earlier benign rejection for selected subsets, and have null threshold effects.",
     )
 
-    ax3 = fig.add_subplot(gs[0, 2])
     draw_panel(
-        ax3,
+        fig.add_subplot(gs[0, 2]),
+        registry,
         "Study 6",
         "Recovery-artifact assurance",
         "Signature; digest; provenance; reproduced-build match; source-review attestation; release approval.",
@@ -162,10 +207,12 @@ def main() -> None:
     )
 
     fig.text(
-        0.5, 0.038,
-        "Parallel panels summarize separate finite models; this is not an integrated recovery architecture, and only Study 3 models contact.",
-        ha="center", va="bottom", fontsize=8.3,
+        0.5, 0.032,
+        "Parallel panels are a qualitative manuscript synthesis, not an integrated recovery architecture. Only Study 3 models contact.",
+        ha="center", va="bottom", fontsize=7.7,
     )
+
+    verify_panel_text_bounds(fig, registry)
 
     fixed_date = datetime(2026, 9, 6, 0, 0, 0, tzinfo=timezone.utc)
     pdf_meta = {
@@ -184,9 +231,11 @@ def main() -> None:
     plt.close(fig)
 
     print("TAES_FIGURE1_GENERATION=PASS")
+    print("layout_revision=2")
     print(f"font={font_name}")
     print(f"figure_width_in={FIG_W}")
     print(f"figure_height_in={FIG_H}")
+    print("panel_text_overflow_check=PASS")
     print(f"pdf={PDF_OUT}")
     print(f"pdf_sha256={sha256(PDF_OUT)}")
     print(f"png={PNG_OUT}")
