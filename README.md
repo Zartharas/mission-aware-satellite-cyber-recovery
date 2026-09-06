@@ -33,7 +33,7 @@ Study 7 remains the later Paper-3 line. Study 5 remains a deferred portability/e
 
 ## Research at a glance
 
-The repository contains separately frozen studies. Their statistical populations and evidence identities are not silently pooled.
+The repository contains **two separately frozen empirical studies** supporting Paper 1 plus a **separate companion study**, Study 8, that is deterministic and modeled. Their statistical populations and evidence identities are not silently pooled.
 
 ### Study 1
 
@@ -57,6 +57,7 @@ The repository contains separately frozen studies. Their statistical populations
 - version DOI: `10.5281/zenodo.22289114`
 - concept DOI: `10.5281/zenodo.22289113`
 - public Phase-6 ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- public-download SHA-256 verification: exact match to the frozen Phase-6 source identity
 
 Study 1 and Study 2 are reported together in Paper 1 but remain separate empirical populations.
 
@@ -71,6 +72,8 @@ Study 8 (`S8-PQC-ICR-001`) is a separate deterministic finite modeled study of t
 - canonical observations SHA-256: `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`
 - primary/independent findings SHA-256: `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
 - interpretation audit SHA-256: `620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413`
+
+The historical Phase-8.7 technical-close status string was `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`. It remains valid as stage-local provenance only. The current Study-8 publisher state is the later Acta submission recorded below.
 
 Frozen source publication package:
 
