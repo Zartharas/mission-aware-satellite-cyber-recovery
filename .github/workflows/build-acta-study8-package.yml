@@ -87,7 +87,7 @@ jobs:
           paras = [p.text.strip() for p in doc.paragraphs]
           ai = paras.index('Abstract')
           abstract = paras[ai+1]
-          assert len(re.findall(r"\b[\w'-]+\b", abstract)) == 226
+          assert len(abstract.split()) == 226
           kp = next(x for x in paras if x.startswith('Keywords:'))
           assert len([x for x in kp.split(':',1)[1].split(';') if x.strip()]) == 6
           assert len(doc.tables) == 4
