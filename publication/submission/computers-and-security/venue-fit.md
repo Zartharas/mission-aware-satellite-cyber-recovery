@@ -1,103 +1,91 @@
-# Venue Fit and Backup Strategy
+# Historical Venue Fit and Backup Strategy - Paper 1
 
-## Primary: Computers & Security (Elsevier)
+**Status:** `ARCHIVED_AFTER_SUCCESSFUL_JAIS_SUBMISSION`  
+**Current Paper-1 manuscript ID:** `2026-09-I012066`  
+**Submitted venue:** AIAA Journal of Aerospace Information Systems  
+**Submission date:** 2026-09-05
 
-### Why the two-study article fits
+This file preserves the earlier Computers & Security venue-fit analysis as planning provenance. It is **not** the current Paper-1 venue or submission authority.
 
-Computers & Security targets the information-security community and emphasizes research with practical security relevance. The manuscript's core contribution is a controlled **post-detection response/recovery** investigation rather than cryptology, intrusion-detection model development, or general aerospace performance analysis.
+Current Paper-1 authority:
 
-The article now reports two separately frozen studies. Study 1 establishes the baseline comparative response/recovery method under mission-state, modeled-contact, and evidence-sufficiency conditions. Study 2 prospectively raises the security bar with stale/replay evidence, contradiction, post-signature manipulation, bounded producer compromise, multiple contact regimes, context ablations, and adversary-budget stress. The two populations remain separate: 720 VALID observations in Study 1 and 3,872 VALID observations in Study 2.
+`publication/Paper_1_Studies_1_2/Journal_of_Aerospace_Information_Systems/`
 
-The topic has direct venue adjacency. Recent Computers & Security work includes space-sector attack-surface analysis, SatCom cybersecurity, satellite intrusion detection, cyber-physical security testbeds, and intrusion-response research. These establish a credible applied-security neighborhood without implying that each prior implementation lacks every dimension considered here.
+Current cross-publication authority:
 
-The manuscript is differentiated by the joint evaluation of response/recovery policies under common cyber-physical constraints; explicit evidence-integrity and authorization/contact factors; separate security, mission, command-availability, and recovery outcomes; independent result reproduction for Study 2; and strict retention of negative/null/conditional findings.
+`docs/CURRENT_PUBLICATION_STATE.md`
 
-### Current scope constraints that matter
+## Historical primary assessment: Computers & Security
 
-The journal's current page was rechecked on **2026-09-01**.
+Computers & Security was initially assessed as a strong information-security venue because the manuscript's core contribution is a controlled post-detection response/recovery investigation rather than cryptology, intrusion-detection model development, or general aerospace performance analysis.
 
-**Cryptology.** Cryptology remains excluded as a principal component. This manuscript uses cryptographic/evidence checks as bounded system mechanisms and provenance controls; it does not contribute a new cryptographic algorithm or protocol.
+The paper reports two separately frozen studies:
 
-**AI/ML moratorium.** The current journal page still displays the moratorium language for submissions in which AI/ML is a significant scientific component. Neither Study 1 nor Study 2 uses AI/ML as the response mechanism. Their evaluated selectors and baselines are **frozen deterministic rule-based policies**. This distinction must stay explicit in the title/abstract, Methods, cover letter, and submission metadata so “mission-aware,” “context-aware,” or “adaptive” wording is not mistaken for learned autonomy.
+- Study 1: 720 VALID observations.
+- Study 2: 3,872 VALID observations.
 
-AI-assisted manuscript preparation, source checking, reproducibility reconstruction/review, and code testing are separately disclosed under Elsevier publication policy; they are not experimental treatment mechanisms.
+The two populations remain separate.
 
-### Desk-review positioning
+The historical positioning emphasized:
 
-Lead with the transferable cybersecurity decision problem:
+- authorization/contact-dependent containment and recovery;
+- evidence sufficiency and evidence integrity;
+- bounded producer compromise;
+- mission/command-availability tradeoffs;
+- trusted-recovery qualification;
+- deterministic policy behavior under constrained observations;
+- independent Study-2 reproduction;
+- retention of negative, null, and conditional findings.
 
-- detection/event establishment is a precondition;
-- the evaluated problem begins at response selection and recovery;
-- authorization/contact availability can change containment/recovery behavior;
-- evidence integrity and evidence sufficiency can change response selection;
-- authenticated/current policy-visible evidence can still be false under bounded producer compromise;
-- containment, evidence-qualified recovery, and objective correctness are distinct concepts;
-- conservative security behavior can impose mission/command-availability cost;
-- negative, equivalent, and adverse policy outcomes are retained;
-- no weighted global score or global policy rank is used.
+## Historical scope-sensitive points
 
-The satellite setting is materially important because intermittent contact, command authority, recovery windows, mission continuity, and evidence availability make response/recovery decisions nontrivial. The methodological lessons remain relevant to cyber-resilience and other cyber-physical systems.
+The earlier review noted that:
 
-Avoid positioning the article as:
+- cryptology is not the scientific contribution;
+- Study-1 and Study-2 response mechanisms are deterministic rule-based policies, not AI/ML decision models;
+- generative-AI assistance belongs to research/manuscript tooling disclosures rather than experimental treatment;
+- the manuscript should foreground the transferable cybersecurity response/recovery problem rather than claim spacecraft engineering performance.
 
-- a new Mission Aware theory;
-- a new satellite IDS;
-- a satellite threat taxonomy;
-- an AI/ML autonomy paper;
-- a cryptographic-protocol paper;
-- an empirical proof that benign and adversarial causes are distinguishable or indistinguishable from matched observations;
-- a flight-autonomy certification study;
-- a real-RF or operational-spacecraft experiment;
-- a universal policy-superiority result.
+Those framing boundaries remain scientifically useful even though Computers & Security was not the final submitted venue.
 
-### Study-2 reviewer-sensitive boundaries
+## Reviewer-sensitive Study-2 boundaries preserved in the submitted paper
 
-**RQ3 structural-control boundary.** All 54 Block-C BENIGN/ADVERSARIAL contrasts are zero, but the frozen runtime changes only the cause label within each ambiguity family; hidden truth and generated policy-visible evidence remain the same. This is a structural label-invariance/control check, not empirical causal-discrimination evidence.
+- Block-C BENIGN/ADVERSARIAL contrasts are a structural label-invariance/control check only.
+- K4 is intermittent/flapping contact, not ordinal severity 4.
+- A2/K2 is a coupled producer-compromise/contact-loss profile.
+- logical SIL seconds are modeled time, not real spacecraft/network/ground/operator latency.
+- secondary n=32 blocks are sensitivity/estimation evidence rather than small-effect confirmatory evidence.
+- no weighted global policy score or global policy rank is supported.
 
-**K4 boundary.** K4 is intermittent/flapping contact and is not ordinal severity 4.
+## Archive identity
 
-**A2/K2 boundary.** A2/K2 combines producer compromise with modeled contact loss and cannot support an unconfounded adversary-only effect claim.
+Study-1 and Study-2 evidence remain separately DOI archived.
 
-**Logical-time boundary.** Study-2 times are deterministic logical SIL seconds, not real spacecraft, network, ground-station, or operator latency.
+Study 2:
 
-**Multiplicity/sample boundary.** Secondary n=32 blocks are sensitivity/estimation evidence. They were not prospectively powered for small-effect confirmatory inference.
+- version DOI: `10.5281/zenodo.22289114`
+- concept DOI: `10.5281/zenodo.22289113`
+- public ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- public ZIP SHA-256 verified against the frozen source identity
 
-### Primary submission risks and mitigations
+Treat the two-study journal integration and Study-2 DOI/public-byte archive gate as complete.
 
-**Domain-specificity risk.** A desk editor could view the paper as aerospace systems engineering. Mitigation: foreground the post-detection security response/recovery problem, trust/evidence boundaries, adversarial evidence mechanisms, incident-response positioning, and practical security dependencies.
+## Historical backups
 
-**AI/ML scope-confusion risk.** “Mission-aware” or “context-aware” can be misread as learned autonomy. Mitigation: explicitly state that all evaluated policies are deterministic and rule-based and that generative-AI assistance belongs only to research/manuscript tooling disclosures.
+### AIAA Journal of Aerospace Information Systems
 
-**Simulation-validity risk.** Both studies are software-in-the-loop. Mitigation: emphasize controlled internal validity, frozen protocols, retained provenance, independent Study-2 reproduction, and bounded claims; reserve orbital/HIL validation for a separate future study.
+JAIS was the historical first backup for domain/editorial fit. It ultimately became the submitted venue without changing either frozen study.
 
-**Novelty-overstatement risk.** Satellite testbeds, safe mode, rollback, Mission Aware, cyber resilience, and attack/fault ambiguity are established topics. Mitigation: retain the narrower contribution: controlled post-detection response/recovery evidence under contact/evidence/adversary constraints with explicit trusted-recovery semantics and reproducibility governance.
+### IEEE Transactions on Aerospace and Electronic Systems
 
-**Archive-identity risk.** Study-1 and Study-2 source evidence are now separately DOI archived. Study-2 Phase-6 source evidence is published as Zenodo v1.0.0, version DOI `10.5281/zenodo.22289114`, concept DOI `10.5281/zenodo.22289113`, and its public ZIP SHA-256 has been verified against the frozen source identity. Mitigation: preserve the distinct Study-1 and Study-2 DOI identities and recheck the exact DOI/checksum references in the final submission export.
+TAES remained a possible future target for work with stronger separately frozen aerospace-system realism. The current Paper-1 SIL evidence was not inflated into HIL, RF, or flight-validation claims.
 
-## Backup 1: AIAA Journal of Aerospace Information Systems
+### IEEE TDSC / ACM TOPS
 
-Use this target if Computers & Security rejects principally for venue/domain fit rather than scientific quality. JAIS is compatible with aerospace computing, embedded-system verification/validation, autonomous systems, resilience, and mission assurance.
+These remained higher-bar security-methodology alternatives. No alternative venue was used to justify post-hoc observations, weighted scoring, or global policy ranking.
 
-Backup positioning should emphasize spacecraft mission assurance, contact-constrained onboard/ground response, cFS/NOS3/Fortytwo integration, response-software architecture, V&V traceability, and trusted recovery. Preserve all cybersecurity limitations and do not convert SIL evidence into flight validation.
+## Final decision outcome
 
-## Backup 2: IEEE Transactions on Aerospace and Electronic Systems
+The historical Computers & Security first-choice decision rule is closed. Paper 1 was submitted to JAIS as manuscript `2026-09-I012066` on 2026-09-05.
 
-TAES remains a higher-bar aerospace-systems alternative if later work adds stronger aerospace-system realism. A future separately frozen validation study could add modeled orbital/access schedules, resource/performance characterization, richer mission phases, and representative RF-free HIL evidence.
-
-Do not inflate the present two SIL studies into flight certification or HIL validation.
-
-## Higher-bar security alternatives: IEEE TDSC / ACM TOPS
-
-Study 2 materially strengthens the security-methodology case relative to the earlier Study-1-only package, especially through bounded producer compromise, evidence-integrity mechanisms, context ablations, and independent reproduction. TDSC/TOPS can therefore be reassessed if Computers & Security rejects for editorial/venue reasons rather than scientific weakness.
-
-That reassessment should use the existing frozen Study-2 evidence. A venue change must not trigger new post-hoc observations, a weighted score, a global policy ranking, or weaker RQ3 interpretation boundaries.
-
-## Decision rule
-
-1. Treat the two-study journal integration and Study-2 DOI/public-byte archive gate as complete.
-2. Recheck the live Computers & Security Guide/Aims/portal, run the exact final-export citation/DOI/reference/frozen-claim/scope audits, and submit there first if the deterministic rule-based article remains in scope.
-3. If desk-rejected principally for aerospace-domain fit, consider JAIS without changing either frozen study.
-4. If a higher-security-methodology venue is preferred after review, reassess TDSC/TOPS using the already frozen Study-2 evidence rather than enlarging the data post hoc.
-5. Reserve TAES/expanded JAIS positioning for a separately frozen aerospace-validation/HIL study.
-
-No rejection, reviewer request, or venue change may retroactively alter the frozen 720-observation Study-1 population, the frozen 3,872-observation Study-2 population, or their prespecified statistical identities.
+Do not use this file to initiate a new Paper-1 submission or retargeting workflow while the JAIS submission is active. Any future venue change would require the current JAIS submission to be formally closed first and would still have to preserve both frozen populations exactly.

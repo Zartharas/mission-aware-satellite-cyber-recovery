@@ -3,17 +3,29 @@
 **Experiment:** `S8-PQC-ICR-001`  
 **Publication-development authorization:** `S8-PUBDEV-001`  
 **Publication-freeze authorization:** `S8-PUBFREEZE-001`  
-**Current status:** `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
+**Frozen source-package status:** `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`  
+**Current publisher status:** `ACTA_SUBMITTED__WITH_EDITOR`  
+**Acta manuscript ID:** `AA-D-26-02872`
 
-## Working title
+## Manuscript title
 
 **Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems**
 
-This directory is the separate Study-8 companion-paper publication package. It does not modify, pool with, or silently extend the existing Study-1/Study-2 journal manuscript.
+This directory is the separate target-neutral Study-8 companion-paper source package. It does not modify, pool with, or silently extend the Study-1/Study-2 journal manuscript.
 
-## Current publication-package closeout
+The venue-specific submitted Acta Astronautica package and current publisher status are maintained separately under:
 
-The manuscript package was developed from frozen Study-8 evidence only, adversarially reviewed, and hash-frozen under `S8-PUBFREEZE-001`.
+`publication/Paper_4_Study_8/Acta_Astronautica/`
+
+Current submitted-state authority:
+
+- [`../Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`](../Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md)
+- [`../Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`](../Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json)
+- [`../Paper_4_Study_8/Acta_Astronautica/SUBMISSION_CONFIRMED_2026-09-06.md`](../Paper_4_Study_8/Acta_Astronautica/SUBMISSION_CONFIRMED_2026-09-06.md)
+
+## Frozen publication-package closeout
+
+The source manuscript package was developed from frozen Study-8 evidence only, adversarially reviewed, and hash-frozen under `S8-PUBFREEZE-001`.
 
 Publication package provenance:
 
@@ -21,10 +33,24 @@ Publication package provenance:
 - final exact-content review head: `75c98356751087dd648684ade7cb973c166cbce0`
 - publication-package PR: `#92`
 - squash merge commit on `main`: `87bcec000d278aeffef1222ce814098c93ada362`
-- post-merge Study-8 results-freeze run: `33781901833` — `SUCCESS`
-- post-merge repository validation run: `33781901724` — `SUCCESS`
+- post-merge Study-8 results-freeze run: `33781901833` - `SUCCESS`
+- post-merge repository validation run: `33781901724` - `SUCCESS`
 
-The authoritative current machine-readable state is [`PUBLICATION_DEVELOPMENT_STATUS.json`](PUBLICATION_DEVELOPMENT_STATUS.json). The historical Phase-8.9 freeze records intentionally retain the authorization state that existed before PR #92 was merged; they are provenance and are not the current merge state.
+The machine-readable frozen source-package state remains [`PUBLICATION_DEVELOPMENT_STATUS.json`](PUBLICATION_DEVELOPMENT_STATUS.json). Its historical next-gate wording is intentionally preserved because that file is the authoritative closeout record for the source-package freeze stage, not the later publisher submission state.
+
+## Acta Astronautica submission
+
+After a live venue review, Acta Astronautica was selected as the primary venue. The Acta package was editorially reviewed and refrozen as `S8-ACTA-PKGFREEZE-002` without changing Study 8 science.
+
+The author explicitly authorized final submission, and the manuscript was submitted on `2026-09-06` as:
+
+- journal: **Acta Astronautica**
+- article type: **Research paper**
+- manuscript ID: `AA-D-26-02872`
+- current Editorial Manager status: `With Editor`
+- exact submitted-package source commit: `f5e9a1d4553737e534821bf647463abfd44fa0dd`
+
+No target-neutral frozen source artifact was changed by venue formatting, portal entry, or submission.
 
 ## Frozen scientific sources
 
@@ -69,18 +95,20 @@ The Phase-8.9 manifest binds exactly 11 publication artifacts:
 - `figures/figure-s8-2-regime-success.svg`
 - `FINAL_ADVERSARIAL_REVIEW.md`
 
-See [`PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](PUBLICATION_PACKAGE_FREEZE_MANIFEST.json) and [`SHA256SUMS.txt`](SHA256SUMS.txt). This repository-state closeout does not modify any of those 11 files.
+See [`PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](PUBLICATION_PACKAGE_FREEZE_MANIFEST.json) and [`SHA256SUMS.txt`](SHA256SUMS.txt). The submitted-state closeout does not modify any of those 11 files.
 
 ## Other publication controls
 
-- `venue-fit.md` — venue assessment; IEEE Systems Journal is the current shaping candidate, not a committed submission venue
-- `literature-verification.md` — current literature/standards metadata verification record
-- `scripts/check_publication_projection.py` — checks publication numbers against frozen findings without executing scientific analysis
-- `scripts/check_publication_literature.py` — checks verified literature metadata
-- `scripts/check_publication_freeze.py` — verifies the hash-frozen package and current merge state
+- `venue-fit.md` - historical initial venue assessment plus current Acta selection/submission note
+- `literature-verification.md` - literature/standards metadata verification record
+- `scripts/check_publication_projection.py` - checks publication numbers against frozen findings without executing scientific analysis
+- `scripts/check_publication_literature.py` - checks verified literature metadata
+- `scripts/check_publication_freeze.py` - verifies the hash-frozen source package and merge state
 
-## Next gate
+## Current gate
 
-The next gate is **venue-specific submission-package preparation**: choose/lock a venue, adapt formatting and submission materials to live venue requirements, and validate the exact venue package against the frozen manuscript/evidence boundaries.
+Paper 4 / Study 8 is submitted to Acta Astronautica as manuscript `AA-D-26-02872` and should remain frozen while editorial and peer review proceeds.
 
-Publisher submission, publisher-portal actions, scientific re-execution, statistical reanalysis, and frozen-science modification remain **not authorized**.
+Do not modify the submitted manuscript, publisher-facing binaries, canonical campaign, statistical results, or claim boundary unless Acta explicitly requests a revision.
+
+For new publication development, proceed to the next unsent publication unit in `docs/PUBLICATION_PHASE_MAP.md`, currently the Studies 3 + 4 + 6 synthesis.

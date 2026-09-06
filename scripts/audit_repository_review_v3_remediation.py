@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Fail-closed audit for Repository Review v3 non-scientific remediation.
+"""Fail-closed audit for repository current-state and publication-governance remediation.
 
-This audit validates current-state documentation and publication/governance artifacts.
-It does not start a scientific runtime, rerun a canonical campaign, or modify evidence.
+This audit validates current-state documentation and frozen-study/publication governance.
+It does not start scientific runtime, rerun a canonical campaign, or modify evidence.
 """
 
 from __future__ import annotations
@@ -57,6 +57,9 @@ STUDY2_VERSION_DOI = "10.5281/zenodo.22289114"
 STUDY2_CONCEPT_DOI = "10.5281/zenodo.22289113"
 STUDY2_RECORD_ID = 22289114
 STUDY2_VERSION = "1.0.0"
+
+PAPER1_ID = "2026-09-I012066"
+PAPER4_ID = "AA-D-26-02872"
 
 
 def fail(message: str, errors: list[str]) -> None:
@@ -114,6 +117,7 @@ def check_text(
 def main() -> int:
     errors: list[str] = []
 
+    # Studies 3-7 remain independently frozen current scientific records.
     for study, expected in EXPECTED.items():
         readme_rel = f"{study}/README.md"
         readme_path = ROOT / readme_rel
@@ -141,8 +145,7 @@ def main() -> int:
             actual_population = nested(freeze, expected["population_key"])
             if actual_population != expected["population"]:
                 fail(
-                    f"{study} frozen population mismatch: "
-                    f"expected {expected['population']} got {actual_population}",
+                    f"{study} frozen population mismatch: expected {expected['population']} got {actual_population}",
                     errors,
                 )
 
@@ -160,8 +163,7 @@ def main() -> int:
             if audit.get(key) != 0:
                 fail(f"Study 3 independent audit {key} != 0", errors)
 
-    s4_auditor = ROOT / "study4/analysis/audit_independent.py"
-    if not s4_auditor.is_file():
+    if not (ROOT / "study4/analysis/audit_independent.py").is_file():
         fail("Study 4 independent auditor missing", errors)
     else:
         ok("Study 4 independent auditor retained")
@@ -175,6 +177,7 @@ def main() -> int:
         if freeze and freeze.get("independent_audit") != "PASS":
             fail(f"{study} independent audit is not PASS", errors)
 
+    # Formal-verification interpretation boundary remains present in Paper-1 discussion provenance.
     discussion = ROOT / "publication/manuscript/05-discussion.md"
     if not discussion.is_file():
         fail("missing publication/manuscript/05-discussion.md", errors)
@@ -193,51 +196,64 @@ def main() -> int:
         if all(marker in text for marker in required):
             ok("Discussion formal-verification limitation is explicit")
 
-    for rel in (
-        "docs/RESEARCH_PROGRAM_PROVENANCE_AND_PUBLICATION_ROADMAP.md",
-        "docs/STUDIES3_8_ASSURANCE_COVERAGE_AUDIT.md",
-    ):
-        if not (ROOT / rel).is_file():
-            fail(f"missing remediation document: {rel}", errors)
-        else:
-            ok(f"remediation document present: {rel}")
-
+    # Current cross-publication state must now reflect both submitted papers and the next unsent unit.
+    check_text(
+        "docs/CURRENT_PUBLICATION_STATE.md",
+        errors,
+        required=(
+            PAPER1_ID,
+            PAPER4_ID,
+            "With Editor",
+            "Paper 2: Studies 3 + 4 + 6",
+        ),
+        forbidden=(
+            "publisher submission and portal action remain separately gated",
+            "The next gate is venue-specific submission-package preparation",
+        ),
+    )
     check_text(
         "docs/RESEARCH_PROGRAM_PROVENANCE_AND_PUBLICATION_ROADMAP.md",
         errors,
         required=(
-            "**Current-state document — 2026-09-04**",
+            "**Current-state document - 2026-09-06**",
+            PAPER1_ID,
+            PAPER4_ID,
+            "This is the next active publication-development priority.",
             STUDY2_VERSION_DOI,
-            "The DOI/archive blocker is closed.",
         ),
-        forbidden=("**Current-state document — 2026-09-03**",),
+        forbidden=(
+            "**Current-state document — 2026-09-04**",
+            "Close Paper 1 submission preparation now",
+            "Continue Study-8 venue-specific preparation",
+        ),
     )
     check_text(
         "publication/submission/computers-and-security/venue-fit.md",
         errors,
         required=(
+            "ARCHIVED_AFTER_SUCCESSFUL_JAIS_SUBMISSION",
+            PAPER1_ID,
             STUDY2_VERSION_DOI,
             STUDY2_CONCEPT_DOI,
-            "public ZIP SHA-256 has been verified against the frozen source identity",
-            "Treat the two-study journal integration and Study-2 DOI/public-byte archive gate as complete.",
+            "public ZIP SHA-256 verified against the frozen source identity",
         ),
         forbidden=(
-            "Study-2 source evidence is currently hash-bound but not yet DOI published",
-            "do not submit until the Study-2 responsible-release package is reviewed and durably archived",
+            "Recheck the live Computers & Security Guide/Aims/portal",
+            "submit there first if the deterministic rule-based article remains in scope",
         ),
     )
     check_text(
         "docs/45-venue-compatibility-and-upgrade-matrix.md",
         errors,
         required=(
-            "CURRENT_2026-09-04_TWO_STUDY_JOURNAL_REVIEW_DOI_ARCHIVE_CLOSED",
+            "HISTORICAL_2026-09-04_PRE_SUBMISSION_VENUE_MATRIX__PAPER1_NOW_SUBMITTED_TO_JAIS",
+            PAPER1_ID,
+            "Paper 1 is already submitted to JAIS",
             STUDY2_VERSION_DOI,
-            "The Study-2 DOI/public-byte archive gate is complete.",
-            "The remaining Paper-1 pre-submission work is live Computers & Security policy/portal verification plus exact final-export",
         ),
         forbidden=(
-            "CURRENT_2026-09-01_TWO_STUDY_JOURNAL_REVIEW",
-            "The immediate pre-submission scientific infrastructure task is **responsible-release publication of the exact Study-2 source-evidence package**",
+            "CURRENT_2026-09-04_TWO_STUDY_JOURNAL_REVIEW_DOI_ARCHIVE_CLOSED",
+            "The remaining Paper-1 pre-submission work is live Computers & Security policy/portal verification",
         ),
     )
     check_text(
@@ -251,6 +267,7 @@ def main() -> int:
         forbidden=("The current pre-submission gate is",),
     )
 
+    # Study-2 durable public archive remains frozen and verifiable.
     study2_readme = ROOT / "study2/release/phase6/README.md"
     if not study2_readme.is_file():
         fail("missing Study-2 Phase-6 release README", errors)
@@ -271,6 +288,7 @@ def main() -> int:
 
     metadata = load_json("study2/release/phase6/ZENODO_DEPOSIT_METADATA.json", errors)
     if metadata:
+        # Historical pre-publication handoff metadata remains stage-local provenance.
         if metadata.get("doi_state") != "PENDING_EXTERNAL_DURABLE_ARCHIVE_PUBLICATION":
             fail("historical Study-2 deposit handoff DOI state drifted", errors)
         if nested(metadata, ("exact_file", "sha256")) != STUDY2_SHA:
@@ -304,8 +322,7 @@ def main() -> int:
         for key, expected_value in expected.items():
             if verification.get(key) != expected_value:
                 fail(
-                    f"Study-2 Zenodo verification {key}: "
-                    f"expected {expected_value!r} got {verification.get(key)!r}",
+                    f"Study-2 Zenodo verification {key}: expected {expected_value!r} got {verification.get(key)!r}",
                     errors,
                 )
         public_file = verification.get("public_file", {})
@@ -328,15 +345,18 @@ def main() -> int:
     if errors:
         print("repository_review_v3_remediation=FAIL")
         return 1
+
     print("repository_review_v3_remediation=PASS")
     print("active_publication_state=PASS_STALE_STATE_CLEAN")
+    print(f"paper1_manuscript_id={PAPER1_ID}")
+    print(f"paper4_manuscript_id={PAPER4_ID}")
+    print("next_publication_unit=Paper2_Studies3_4_6")
     print("study2_doi_state=PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED")
     print(f"study2_version_doi={STUDY2_VERSION_DOI}")
     print(f"study2_concept_doi={STUDY2_CONCEPT_DOI}")
     print("studies3_7_current_state=PASS")
     print("formal_verification_limitation=PASS")
     print("publication_roadmap=PASS")
-    print("assurance_coverage_audit=PASS_NO_ADDITIONAL_TESTS_REQUIRED")
     return 0
 
 

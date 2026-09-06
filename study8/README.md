@@ -1,11 +1,13 @@
-# Study 8 — Contact-Aware Cryptographic Agility and Trusted Recovery
+# Study 8 - Contact-Aware Cryptographic Agility and Trusted Recovery
 
 **Experiment:** `S8-PQC-ICR-001`  
-**Working title:** *Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems*  
+**Manuscript title:** *Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems*  
 **Study type:** deterministic finite modeled contact/crypto-agility/recovery study  
-**Current repository status:** `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
+**Frozen source-package status:** `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`  
+**Current publisher status:** `ACTA_SUBMITTED__WITH_EDITOR`  
+**Acta manuscript ID:** `AA-D-26-02872`
 
-Study 8 is a separately frozen companion study in this repository. It remains outside the existing Study-1/Study-2 journal manuscript and has its own dedicated publication package under [`../publication/study8/`](../publication/study8/README.md).
+Study 8 is a separately frozen companion study in this repository. It remains outside the Study-1/Study-2 journal manuscript and has its own frozen source publication package under [`../publication/study8/`](../publication/study8/README.md) plus a venue-specific submitted-state package under [`../publication/Paper_4_Study_8/Acta_Astronautica/`](../publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md).
 
 ## Scientific technical close
 
@@ -32,11 +34,11 @@ Authoritative scientific closeout records:
 - [`analysis/RESULTS_FREEZE_SHA256SUMS.txt`](analysis/RESULTS_FREEZE_SHA256SUMS.txt)
 - [`results/S8-PQC-ICR-001/independent_audit_summary.json`](results/S8-PQC-ICR-001/independent_audit_summary.json)
 
-The Phase-8.7 technical-close record intentionally retains its historical status `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`. That status describes the technical-close gate at the time it was written; it is **not** the current repository publication state.
+The Phase-8.7 technical-close record intentionally retains its historical status `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`. That status describes the technical-close gate at the time it was written; it is not the current publication state.
 
-## Publication-package closeout
+## Frozen companion publication package
 
-The dedicated companion-paper package was subsequently developed from the frozen science only, adversarially reviewed, hash-frozen, and merged through PR `#92`.
+The target-neutral companion-paper package was developed from frozen science only, adversarially reviewed, hash-frozen, and merged through PR `#92`.
 
 ```text
 frozen package commit:   cbad15227bf99d1b7b19d95b0581196d78208f95
@@ -47,7 +49,7 @@ results-freeze CI:       33781901833 SUCCESS
 repository-wide CI:      33781901724 SUCCESS
 ```
 
-Current publication records:
+Frozen source-package records:
 
 - [`../publication/study8/README.md`](../publication/study8/README.md)
 - [`../publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`](../publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json)
@@ -55,7 +57,31 @@ Current publication records:
 - [`../publication/study8/SHA256SUMS.txt`](../publication/study8/SHA256SUMS.txt)
 - [`../publication/study8/FINAL_ADVERSARIAL_REVIEW.md`](../publication/study8/FINAL_ADVERSARIAL_REVIEW.md)
 
-The Phase-8.9 freeze manifest binds exactly 11 publication artifacts. This current-state closeout does not modify those frozen files.
+The Phase-8.9 source freeze binds exactly 11 publication artifacts. Those frozen files remain unchanged.
+
+## Acta Astronautica submission
+
+The Acta-specific publisher package was built and editorially refrozen as `S8-ACTA-PKGFREEZE-002`. The exact submitted publisher-facing files came from repository commit:
+
+```text
+f5e9a1d4553737e534821bf647463abfd44fa0dd
+```
+
+The author explicitly authorized final submission, and the manuscript was submitted to **Acta Astronautica** on **2026-09-06**. Editorial Manager assigned:
+
+```text
+manuscript ID: AA-D-26-02872
+article type:  Research paper
+status:        With Editor
+```
+
+Current submitted-state authority:
+
+- [`../publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`](../publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md)
+- [`../publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`](../publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json)
+- [`../publication/Paper_4_Study_8/Acta_Astronautica/SUBMISSION_CONFIRMED_2026-09-06.md`](../publication/Paper_4_Study_8/Acta_Astronautica/SUBMISSION_CONFIRMED_2026-09-06.md)
+
+Historical `S8-ACTA-PKGFREEZE-002` preparation files retain their stage-local pre-submission wording by design. Do not rewrite those frozen records merely to make them look current.
 
 ## Frozen scientific record
 
@@ -169,4 +195,6 @@ The historical campaign/analysis/freeze executors remain provenance. Their prese
 
 ## Next gate
 
-The next Study-8 work is **venue-specific submission-package preparation** using the already frozen companion manuscript/package. Final venue commitment, publisher submission, publisher-portal actions, new canonical execution, statistical reanalysis, and frozen-science modification remain separately gated and are not authorized by this current-state record.
+Study 8 is now submitted and should remain frozen while Acta Astronautica editorial and peer review proceeds. Do not modify the submitted manuscript, publisher-facing files, canonical campaign, statistics, or frozen claim boundary unless the journal explicitly requests a revision.
+
+For new publication development, proceed to the next unsent publication unit in [`../docs/PUBLICATION_PHASE_MAP.md`](../docs/PUBLICATION_PHASE_MAP.md), currently the Studies 3 + 4 + 6 synthesis.
