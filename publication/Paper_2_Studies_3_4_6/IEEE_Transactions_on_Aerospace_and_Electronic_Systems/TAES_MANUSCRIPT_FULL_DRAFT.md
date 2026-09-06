@@ -619,6 +619,10 @@ Across the three studies, the central systems finding is that stronger trust com
 
 The reported findings remain bounded to exact finite models. Only Study 3 models intermittent contact, logical time is not operational spacecraft time, synthetic provenance domains do not establish real independence, and Study 6 does not evaluate a real supply-chain compromise. No pooled population, global policy ranking, flight-safety claim, mission-availability claim, or operational recovery probability is inferred. Within those boundaries, the three studies provide a reproducible characterization of residual trust at the temporal evidence, producer-composition, and recovery-artifact layers of satellite cyber-recovery qualification.
 
+## Acknowledgment
+
+OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial level to assist with text in the Abstract and Sections I-IX, literature organization and bibliography formatting, and generation of publication-preparation scripts and the Fig. 1 layout code. It was not used to generate or modify the frozen experimental results. The author independently reviewed and verified the resulting text, citations, claims, calculations, and repository-bound evidence and assumes responsibility for the final manuscript.
+
 ## References
 
 [1] R. Thummala, E. Rice, and G. Falco, "Why is space cybersecurity unique?," in Proc. 4th Workshop Security Space Satellite Syst. (SpaceSec), San Diego, CA, USA, Feb. 23, 2026, doi: 10.14722/spacesec.2026.23055.
@@ -641,7 +645,7 @@ The reported findings remain bounded to exact finite models. Only Study 3 models
 
 [10] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, "in-toto: Providing farm-to-table guarantees for bits and bytes," in Proc. 28th USENIX Security Symp. (USENIX Security 19), Santa Clara, CA, USA, Aug. 2019, pp. 1393-1410.
 
-[11] The Update Framework. "The Update Framework Specification, v1.0.33." Accessed: Sep. 6, 2026. [Online]. Available: https://theupdateframework.io/spec/
+[11] The Update Framework. "The Update Framework Specification, v1.0.36." Aug. 10, 2026. [Online]. Available: https://github.com/theupdateframework/specification/releases/tag/v1.0.36
 
 [12] SLSA. "Source: Requirements for producing source," SLSA Specification, v1.2. Accessed: Sep. 6, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/source-requirements
 

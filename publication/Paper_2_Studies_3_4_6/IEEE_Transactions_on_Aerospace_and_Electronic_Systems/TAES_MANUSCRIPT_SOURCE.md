@@ -122,7 +122,7 @@ The common synthesis is limited to observability. Stronger evidence composition 
 
 [10] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, "in-toto: Providing farm-to-table guarantees for bits and bytes," in Proc. 28th USENIX Security Symp. (USENIX Security 19), Santa Clara, CA, USA, Aug. 2019, pp. 1393-1410.
 
-[11] The Update Framework. "The Update Framework Specification, v1.0.33." Accessed: Sep. 6, 2026. [Online]. Available: https://theupdateframework.io/spec/
+[11] The Update Framework. "The Update Framework Specification, v1.0.36." Aug. 10, 2026. [Online]. Available: https://github.com/theupdateframework/specification/releases/tag/v1.0.36
 
 [12] SLSA. "Source: Requirements for producing source," SLSA Specification, v1.2. Accessed: Sep. 6, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/source-requirements
 

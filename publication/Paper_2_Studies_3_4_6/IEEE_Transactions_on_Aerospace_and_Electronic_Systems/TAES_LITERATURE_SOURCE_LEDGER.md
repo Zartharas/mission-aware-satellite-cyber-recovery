@@ -149,12 +149,12 @@ Novelty implication:
 
 ### [11] The Update Framework
 
-The Update Framework, "The Update Framework Specification, v1.0.33," latest stable specification.
+The Update Framework, "The Update Framework Specification, v1.0.36," latest stable specification release.
 
-Official specification page: https://theupdateframework.io/spec/
+Official release record: https://github.com/theupdateframework/specification/releases/tag/v1.0.36
 
 Live-verified status and support:
-- the official specification page identifies v1.0.33 as the latest stable specification as of 2026-09-06;
+- the official specification repository release history identifies v1.0.36 as the latest release as of 2026-09-06;
 - signed metadata, trusted roles, target hashes, thresholds, versions, and expiration are established update-security mechanisms.
 
 Novelty implication:

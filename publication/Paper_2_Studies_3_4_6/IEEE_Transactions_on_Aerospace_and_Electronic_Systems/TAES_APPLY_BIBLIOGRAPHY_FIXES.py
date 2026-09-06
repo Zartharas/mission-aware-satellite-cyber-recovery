@@ -60,7 +60,7 @@ FINAL_REFERENCES = """## References Used in Sections II and III
 
 [10] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, \"in-toto: Providing farm-to-table guarantees for bits and bytes,\" in Proc. 28th USENIX Security Symp. (USENIX Security 19), Santa Clara, CA, USA, Aug. 2019, pp. 1393-1410.
 
-[11] The Update Framework. \"The Update Framework Specification, v1.0.33.\" Accessed: Sep. 6, 2026. [Online]. Available: https://theupdateframework.io/spec/
+[11] The Update Framework. \"The Update Framework Specification, v1.0.36.\" Aug. 10, 2026. [Online]. Available: https://github.com/theupdateframework/specification/releases/tag/v1.0.36
 
 [12] SLSA. \"Source: Requirements for producing source,\" SLSA Specification, v1.2. Accessed: Sep. 6, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/source-requirements
 
@@ -141,12 +141,12 @@ def patch_ledger() -> None:
 
     replacement = """### [11] The Update Framework
 
-The Update Framework, \"The Update Framework Specification, v1.0.33,\" latest stable specification.
+The Update Framework, \"The Update Framework Specification, v1.0.36,\" latest stable specification.
 
-Official specification page: https://theupdateframework.io/spec/
+Official release record: https://github.com/theupdateframework/specification/releases/tag/v1.0.36
 
 Live-verified status and support:
-- the official specification page identifies v1.0.33 as the latest stable specification as of 2026-09-06;
+- the official specification repository release history identifies v1.0.36 as the latest release as of 2026-09-06;
 - signed metadata, trusted roles, target hashes, thresholds, versions, and expiration are established update-security mechanisms.
 
 Novelty implication:
@@ -215,7 +215,7 @@ def verify() -> None:
         raise SystemExit("ERROR: SLSA threat reference [13] was not propagated")
     if core.count("\n[13] ") != 1:
         raise SystemExit("ERROR: final bibliography does not contain exactly one [13] entry")
-    if "v1.0.33" not in core or "v1.0.33" not in ledger:
+    if "v1.0.36" not in core or "v1.0.36" not in ledger:
         raise SystemExit("ERROR: verified TUF version was not propagated")
     if "vol. 37, no. 3, pp. 247-277, May 2024" not in core:
         raise SystemExit("ERROR: corrected Alpos et al. issue/month metadata missing")
@@ -234,6 +234,6 @@ if __name__ == "__main__":
     print("reference_count=13")
     print("slsa_source_reference=12")
     print("slsa_threat_reference=13")
-    print("tuf_stable_version=v1.0.33")
+    print("tuf_stable_version=v1.0.36")
     print("alpos_issue_month=no.3_May_2024")
     print("NOTE: Re-run TAES_ASSEMBLE_MANUSCRIPT.py after this helper.")
