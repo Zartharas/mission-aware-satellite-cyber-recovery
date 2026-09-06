@@ -6,7 +6,7 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "VENUE_LOCKED_FIGURES_TABLES_COMPLETE_TAES_FORMAT_GATE_ACTIVE",
+  "status": "VENUE_LOCKED_PRE_FORMAT_COMPLIANCE_FIXES_PENDING_LOCAL_APPLY",
   "submission_authorized": false,
   "portal_submission_completed": false,
   "manuscript_id": null,
@@ -39,7 +39,10 @@
     "abstract_word_count": 214,
     "component_scientific_claim_audit": "TAES_SCIENTIFIC_CLAIM_AUDIT_2026-09-06.md__PASS_WITH_EDITORIAL_CORRECTIONS_APPLIED",
     "component_citation_prior_art_audit": "TAES_CITATION_PRIOR_ART_AUDIT_2026-09-06.md__PASS",
-    "final_ieee_bibliography_audit": "TAES_FINAL_IEEE_BIBLIOGRAPHY_AUDIT_2026-09-06.md__PASS_APPLIED_AND_TRACKED",
+    "final_ieee_bibliography_audit": "TAES_FINAL_IEEE_BIBLIOGRAPHY_AUDIT_2026-09-06.md__HISTORICAL_PASS__TUF_V1.0.36_FOLLOWUP_CORRECTION_REQUIRED",
+    "tuf_reference_correction_audit": "TAES_TUF_REFERENCE_CORRECTION_AUDIT_2026-09-06.md__CORRECTION_REQUIRED_BEFORE_FORMATTED_PDF_BUILD",
+    "tuf_reference_target": "V1.0.36_OFFICIAL_RELEASE_RECORD",
+    "ieee_ai_disclosure_component": "TAES_ACKNOWLEDGMENT_AI_DISCLOSURE.md__TRACKED_PENDING_ASSEMBLY_BINDING",
     "first_assembled_draft_sha256": "dcbc2aac36ac06be16fd89a073c0997c3e604e5381df759c103d328f28b021b7",
     "first_assembled_draft_status": "SUPERSEDED",
     "pre_bibliography_assembled_draft_sha256": "fef07a35d1517222d8fff6734bd4e4d07ba92bebbc37e65d8bd3699543f885f6",
@@ -62,16 +65,17 @@
     "figure1_integrated_body_words_including_abstract": 11615,
     "figure1_integrated_total_words_including_references": 11958,
     "assembled_manuscript_audit": "TAES_ASSEMBLED_MANUSCRIPT_AUDIT_2026-09-06.md__PASS_SCIENTIFICALLY_EDITORIAL_CORRECTIONS_APPLIED",
-    "assembly_status": "PASS_FIGURE1_INTEGRATED_TRACKED_CANONICAL",
-    "reassembly_required": false,
+    "assembly_status": "FIGURE1_TRACKED_BASELINE_SUPERSEDED_BY_REQUIRED_PRE_FORMAT_COMPLIANCE_CORRECTIONS__REASSEMBLY_REQUIRED",
+    "reassembly_required": true,
     "reference_count": 13,
     "citation_first_use_order": [1,2,3,4,5,6,7,8,9,10,11,12,13],
     "assembled_scientific_claim_audit": "PASS_NO_SCIENTIFIC_DEFECT",
-    "assembled_citation_audit": "PASS_FINAL_IEEE_BIBLIOGRAPHY_FORMATTING_COMPLETE",
+    "assembled_citation_audit": "TUF_V1.0.36_CORRECTION_PENDING_LOCAL_APPLY",
     "taes_length_and_redundancy_edit_pass": "PASS_2298_WORD_REDUCTION_SCIENCE_PRESERVED",
     "figures_and_tables_review_pass": "PASS_FIGURE1_REV2_CANONICALLY_TRACKED_TABLES_I_IV_RETAINED",
-    "taes_format_audit_pass": "ACTIVE",
-    "style_and_taes_format_audit": "ACTIVE"
+    "taes_format_environment_audit": "PASS_TOOLCHAIN_READY_2026-09-06",
+    "taes_format_audit_pass": "BLOCKED_PENDING_PRE_FORMAT_COMPLIANCE_REASSEMBLY",
+    "style_and_taes_format_audit": "BLOCKED_PENDING_PRE_FORMAT_COMPLIANCE_REASSEMBLY"
   },
   "publisher_facing_files": {
     "manuscript_pdf": "NOT_CREATED",
@@ -91,12 +95,14 @@
   "notes": [
     "The bibliography-finalized manuscript remains preserved historically at commit 90bab7b563a360228602b18ab447d00613e1412f with SHA-256 6695737686171f7c5e235c1541504350a9f7af4724e554b290b4ca2389425f05.",
     "The compressed pre-figure manuscript remains preserved historically at commit 41a18e6e4cb8672645d7ebf018e6ff77c5bebf20 with SHA-256 c49697da4f1f9225b078308107cbdbc260ce9110274919edd08d87419f5dc99c.",
-    "The Figure-1-integrated manuscript is canonically tracked at commit cd78f9867e7811fd19c880736bf2ea5526c20d43 with SHA-256 dde7d9c6ab4efb1c6f567937dd1c28c904baeb713dc960b716eae1b15ef5e709.",
-    "The current manuscript contains 11,958 words including references; the abstract remains 214 words and IEEE reference first-use order remains 1 through 13.",
-    "Figure 1 revision 2 is canonically tracked with the manuscript. Tables I-IV remain in the main paper and qualitative Table V is retired.",
-    "The figures-and-tables gate is complete. The active gate is TAES two-column formatting and format audit before publisher-facing PDF visual QA.",
+    "The Figure-1-integrated manuscript is preserved historically at commit cd78f9867e7811fd19c880736bf2ea5526c20d43 with SHA-256 dde7d9c6ab4efb1c6f567937dd1c28c904baeb713dc960b716eae1b15ef5e709.",
+    "The formatting environment audit passed with pandoc, pdflatex, latexmk, kpsewhich, pdfinfo, pdffonts, and IEEEtran.cls available.",
+    "Before the first formatted PDF build, reference [11] must be corrected from TUF v1.0.33 to the official v1.0.36 release record because the project website index is lagging the official specification repository release history.",
+    "Before the first formatted PDF build, the controlled IEEE AI-use acknowledgment must be bound into the assembled manuscript because substantive AI drafting and figure/code assistance were used.",
+    "These pre-format corrections do not alter any frozen Study 3, Study 4, or Study 6 result or interpretation.",
+    "Figure 1 revision 2 remains canonically tracked. Tables I-IV remain in the main paper and qualitative Table V remains retired.",
     "Live TAES instructions reviewed on 2026-09-06 require a two-column, single-spaced PDF with 10-point font, 1 in top/bottom margins, 0.7 in side margins, 3.45 in columns, and 0.2 in column spacing.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, bibliography finalization, compression, figures/tables completion, or formatting work alone."
+    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, bibliography work, compression, figures/tables completion, compliance corrections, or formatting work alone."
   ]
 }
