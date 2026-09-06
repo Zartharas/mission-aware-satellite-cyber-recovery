@@ -1,4 +1,4 @@
-# Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Quorums, and Artifact Assurance
+# Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance
 
 > Development status: Sections II and III drafted from the frozen Study 3, Study 4, and Study 6 records and the live literature review dated 2026-09-06. This status note is not part of the final manuscript. Section numbering is provisional until the complete manuscript is assembled.
 
@@ -114,7 +114,7 @@ The populations are therefore reported separately:
 - Study 4: 4,608 exact rule-by-subset observations;
 - Study 6: 420 exact artifact-state and assurance-unavailability observations.
 
-There is no pooled Paper-2 statistical population. In particular, the arithmetic sum `1,380 + 4,608 + 420 = 6,408` is not reported as a manuscript `N`, because the units, interventions, outcome definitions, and state spaces differ. No pooled success rate, pooled confidence interval, pooled p-value, or global policy ranking is defined.
+There is no pooled Paper-2 statistical population. Because the units, interventions, outcome definitions, and state spaces differ, the three counts are not summed or reported as a manuscript sample size. No pooled success rate, pooled confidence interval, pooled p-value, or global policy ranking is defined.
 
 This rule also constrains the cross-study synthesis. Section VII will compare mechanisms and residual boundaries qualitatively. It will not estimate a common treatment effect or an end-to-end recovery probability.
 
