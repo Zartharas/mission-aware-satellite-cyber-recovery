@@ -54,7 +54,7 @@ FINAL_REFERENCES = """## References Used in Sections II and III
 
 [7] D. Malkhi and M. Reiter, \"Byzantine quorum systems,\" Distrib. Comput., vol. 11, no. 4, pp. 203-213, Oct. 1998, doi: 10.1007/s004460050050.
 
-[8] O. Alpos, C. Cachin, B. Tackmann, and L. Zanolini, \"Asymmetric distributed trust,\" Distrib. Comput., vol. 37, pp. 247-277, Sep. 2024, doi: 10.1007/s00446-024-00469-1.
+[8] O. Alpos, C. Cachin, B. Tackmann, and L. Zanolini, \"Asymmetric distributed trust,\" Distrib. Comput., vol. 37, no. 3, pp. 247-277, May 2024, doi: 10.1007/s00446-024-00469-1.
 
 [9] F. Rezabek, D. Malkhi, and A. Yahalom, \"Space Fabric: A satellite-enhanced trusted execution architecture,\" 2026, arXiv:2603.23745.
 
@@ -217,6 +217,8 @@ def verify() -> None:
         raise SystemExit("ERROR: final bibliography does not contain exactly one [13] entry")
     if "v1.0.33" not in core or "v1.0.33" not in ledger:
         raise SystemExit("ERROR: verified TUF version was not propagated")
+    if "vol. 37, no. 3, pp. 247-277, May 2024" not in core:
+        raise SystemExit("ERROR: corrected Alpos et al. issue/month metadata missing")
     if "dash-form numeric IEEE citation range detected" not in assembler:
         raise SystemExit("ERROR: assembler citation-range guard missing")
 
@@ -233,4 +235,5 @@ if __name__ == "__main__":
     print("slsa_source_reference=12")
     print("slsa_threat_reference=13")
     print("tuf_stable_version=v1.0.33")
+    print("alpos_issue_month=no.3_May_2024")
     print("NOTE: Re-run TAES_ASSEMBLE_MANUSCRIPT.py after this helper.")
