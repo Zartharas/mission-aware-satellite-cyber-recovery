@@ -53,23 +53,58 @@ Study 8 remains a complete deterministic finite modeled population of 3,456 posi
 
 ## Next unsent publication work
 
-The next publication-development priority is **Paper 2: Studies 3 + 4 + 6**.
+The next publication-development priority remains **Paper 2: Studies 3 + 4 + 6**.
 
-Working theme:
+### Venue lock
 
-**Evidence-plane trust composition for intermittent-contact trusted recovery.**
+**Target journal:** IEEE Transactions on Aerospace and Electronic Systems (TAES)  
+**Manuscript type:** Regular Paper  
+**Primary Technical Area:** Aerospace Information Systems  
+**Venue-lock date:** 2026-09-06  
+**Current state:** `VENUE_LOCKED__MANUSCRIPT_DEVELOPMENT_IN_PROGRESS__NOT_SUBMITTED`
 
-Required starting sequence:
+Canonical TAES development and future submission package:
 
-1. verify the frozen scientific state and provenance of Studies 3, 4, and 6 independently;
-2. do not pool their statistical populations;
-3. perform a fresh literature, novelty, overlap, claim-boundary, and live venue review;
-4. decide whether Study 5 belongs as a clearly separated portability/external-validity component or remains deferred;
-5. obtain explicit author approval before locking a venue or beginning a venue-specific package;
-6. preserve all null, negative, and conditional findings;
-7. do not rerun or enlarge frozen studies to improve publication optics.
+`publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
 
-Candidate venues remain planning inputs only until rechecked live. Historical candidates include IEEE Systems Journal, Acta Astronautica, and AIAA Journal of Aerospace Information Systems.
+Current scientific identity:
+
+**Layered residual trust boundaries in satellite cyber-recovery qualification.**
+
+The earlier phrase **Evidence-plane trust composition for intermittent-contact trusted recovery** remains historical development language and is no longer the preferred title/contribution framing.
+
+### Paper-2 population and study disposition
+
+- Study 3 / `S3-K4E-001`: 1,380 deterministic trajectories.
+- Study 4 / `S4-MPQ-001`: 4,608 exact observations.
+- Study 6 / `S6-SCTR-001`: 420 exact observations.
+- These three populations remain separate and must never be pooled into a Paper-2 `N = 6,408`.
+- Study 5 / `S5-CUCD-001` is deferred from the Paper-2 core. It must not be represented as external empirical validation of Studies 3, 4, or 6.
+
+### Completed publication-development gates
+
+1. frozen scientific state and provenance verified independently for Studies 3, 4, and 6;
+2. three-study coherence reviewed and accepted with mandatory qualifications;
+3. adversarial claim/interpretation audit completed;
+4. fresh literature, novelty, overlap, and terminology review completed;
+5. Study-5 disposition completed and deferred from the core;
+6. live venue review completed;
+7. author explicitly selected TAES for venue-specific manuscript development.
+
+### Current work authorized
+
+TAES-specific manuscript development, formatting preparation, compliance control, reproducibility planning, and submission-package preparation are authorized.
+
+No portal submission is authorized yet. Before submission:
+
+1. complete and audit the manuscript;
+2. preserve all null, negative, conditional, and structural findings;
+3. do not rerun or enlarge frozen studies for publication optics;
+4. create the TAES two-column manuscript PDF;
+5. complete citation, originality, AI-disclosure, formatting, and visual QA;
+6. freeze any supplementary materials selected for peer review;
+7. freeze portal values and SHA-256 file identities;
+8. obtain separate explicit final author authorization.
 
 ## Later publication work
 
@@ -81,7 +116,7 @@ Before manuscript development, perform a fresh AI/autonomy literature and live v
 
 ### Study 5
 
-Study 5 / `S5-CUCD-001` remains a portability/external-validity boundary study. Its final publication vehicle is not yet locked.
+Study 5 / `S5-CUCD-001` remains a portability/external-validity boundary study and is deferred from the Paper-2 core. Its final publication vehicle is not yet locked.
 
 Do not claim IDS accuracy, recall, false-positive rate, or packet-level recovery effectiveness from Study 5 because those outcomes were not measured.
 
@@ -92,9 +127,10 @@ When documents disagree, use this order:
 1. per-study scientific freeze/provenance records;
 2. exact submitted-state package for an already submitted paper;
 3. this `docs/CURRENT_PUBLICATION_STATE.md` cross-publication handoff;
-4. `docs/PUBLICATION_PHASE_MAP.md` for operational sequencing;
-5. current repository/publication READMEs;
-6. historical preparation, venue-fit, authorization, freeze, and handoff documents.
+4. current venue-specific development/submission package for an unsent paper;
+5. `docs/PUBLICATION_PHASE_MAP.md` for operational sequencing;
+6. current repository/publication READMEs;
+7. historical preparation, venue-fit, authorization, freeze, and handoff documents.
 
 For Study 8 specifically, `publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json` intentionally remains the historical source-package freeze authority. It is not the live publisher-status authority after Acta submission.
 
