@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "target_journal": "IEEE Transactions on Aerospace and Electronic Systems",
+  "journal_abbreviation": "TAES",
+  "manuscript_type": "Regular Paper",
+  "primary_technical_area": "Aerospace Information Systems",
+  "venue_lock_date": "2026-09-06",
+  "status": "VENUE_LOCKED_MANUSCRIPT_DEVELOPMENT_IN_PROGRESS_NOT_SUBMITTED",
+  "submission_authorized": false,
+  "portal_submission_completed": false,
+  "manuscript_id": null,
+  "core_studies": [
+    {
+      "study": 3,
+      "experiment_id": "S3-K4E-001",
+      "population": 1380,
+      "unit": "deterministic trajectories"
+    },
+    {
+      "study": 4,
+      "experiment_id": "S4-MPQ-001",
+      "population": 4608,
+      "unit": "exact rule-by-subset observations"
+    },
+    {
+      "study": 6,
+      "experiment_id": "S6-SCTR-001",
+      "population": 420,
+      "unit": "exact gate-state and gate-unavailability observations"
+    }
+  ],
+  "pooled_population_allowed": false,
+  "study5_core_inclusion": false,
+  "working_scientific_identity": "Layered residual trust boundaries in satellite cyber-recovery qualification",
+  "publisher_facing_files": {
+    "manuscript_pdf": "NOT_CREATED",
+    "supplementary_material": "NOT_DECIDED",
+    "supplementary_readme": "NOT_CREATED",
+    "cover_letter": "NOT_PUBLICLY_REQUIRED_BY_REVIEWED_TAES_INSTRUCTIONS__LIVE_PORTAL_RECHECK_REQUIRED"
+  },
+  "control_files_created": [
+    "README_SUBMISSION.md",
+    "TAES_AIMS_SCOPE_REQUIREMENTS.md",
+    "TAES_COMPLIANCE_CHECKLIST.md",
+    "TAES_PORTAL_FIELD_MAP.md",
+    "TAES_MANUSCRIPT_DEVELOPMENT.md",
+    "TAES_ORIGINALITY_AI_SUPPLEMENTARY_CONTROL.md",
+    "UPLOAD_FILES.md",
+    "TAES_LOCAL_SYNC.sh"
+  ],
+  "mandatory_final_gates": [
+    "scientific_claim_audit_pass",
+    "citation_audit_pass",
+    "taes_format_audit_pass",
+    "pdf_visual_qa_pass",
+    "portal_field_audit_pass",
+    "upload_manifest_and_sha256_frozen",
+    "explicit_final_author_submission_authorization"
+  ],
+  "official_sources_reviewed_date": "2026-09-06",
+  "notes": [
+    "TAES initial Regular Paper submission requires a PDF in the specified two-column single-spaced format.",
+    "TAES performs Editor-in-Chief, Senior Editor, and Associate Editor prescreening before formal review.",
+    "Any supplementary material intended to accompany the article must be submitted for peer review with the original article.",
+    "IEEE AI-generated article content must be disclosed in Acknowledgments with system, affected sections/content, and level of use.",
+    "No portal submission is authorized by venue lock alone."
+  ]
+}
