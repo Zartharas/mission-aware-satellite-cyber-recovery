@@ -30,8 +30,8 @@ jobs:
         run: |
           set -euo pipefail
           sha256sum .acta_editorial_patch/payload_*.txt
-          wc -c .acta_editorial_patch/payload_*.txt
           cat .acta_editorial_patch/payload_*.txt > /tmp/patch.b64
+          echo 'd368cbc0538f434b64d52fe715ac9238405a4e3bf547f322b3730451f2a8ff69  /tmp/patch.b64' | sha256sum -c -
           python - <<'PY'
           import base64, zlib
           from pathlib import Path
