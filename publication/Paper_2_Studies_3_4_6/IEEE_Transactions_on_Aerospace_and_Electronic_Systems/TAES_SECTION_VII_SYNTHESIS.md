@@ -84,10 +84,10 @@ Third, evidence requirements should be evaluated together with the conditions un
 
 Fourth, recovery-artifact assurance should identify the highest-level trust assumption that remains outside the gate. Provenance, reproduced builds, source review, and release approval each provide useful evidence, but a system still needs a justified basis for trusting the process or authority that ultimately defines acceptable source and behavior.
 
-These are design implications, not prescriptive flight requirements. The studies provide finite-model evidence about qualification boundaries, not evidence that a particular spacecraft architecture, quorum size, contact policy, or artifact gate should be adopted operationally.
+These are design implications, not prescriptive flight requirements. The studies provide finite-model evidence about qualification boundaries, not evidence that a particular spacecraft architecture, producer-composition rule, contact policy, or artifact gate should be adopted operationally.
 
 ## H. Synthesis Result
 
 Taken together, the three studies support a layered residual-trust interpretation of satellite cyber-recovery qualification. Temporal evidence qualification can fail when fresh, authentic evidence diverges from hidden authorization truth. Producer composition can shift the subset boundary at which false claims satisfy a recovery rule, with conditional gains and benign-loss costs from provenance requirements. Artifact assurance can close selected integrity and process failures while leaving a residual state that is indistinguishable under the frozen visible signals.
 
-The synthesis therefore does not identify a globally best policy, quorum, or gate. Its contribution is to make the residual assumption explicit at each layer. Stronger evidence composition can move or narrow a qualification boundary, but it does not automatically convert policy-visible trust evidence into direct observation of hidden or objective truth.
+The synthesis therefore does not identify a globally best policy, producer-composition rule, or artifact gate. Its contribution is to make the residual assumption explicit at each layer. Stronger evidence composition can move or narrow a qualification boundary, but it does not automatically convert policy-visible trust evidence into direct observation of hidden or objective truth.
