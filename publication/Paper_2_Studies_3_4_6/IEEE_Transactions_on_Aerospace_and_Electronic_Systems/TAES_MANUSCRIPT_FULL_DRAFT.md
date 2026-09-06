@@ -475,17 +475,13 @@ Studies 3, 4, and 6 were designed, executed, and frozen separately. Their popula
 
 ### B. Three Qualification Layers
 
-Table V summarizes the three layers and their distinct residual mechanisms.
+Fig. 1 summarizes the three layers as parallel, separately frozen experiments. The panels do not share a common measurement scale and do not represent experimental data flow or a causal sequence.
 
-**Table V. Cross-study residual-boundary comparison**
+![Figure 1](TAES_FIGURE1_RESIDUAL_BOUNDARIES.png)
 
-| Layer | Study | What the gate can observe | Research-only truth outside the gate | Principal residual boundary | Effect of stronger composition in frozen model |
-|---|---|---|---|---|---|
-| Temporal runtime evidence | Study 3 | Signature validity, freshness, received authorization evidence, contact-dependent record availability, security signal | Hidden authorization truth | Fresh valid evidence can remain false; truthful cache can briefly lag a state change | Contact-aware restriction reduces selected K4 exposure but does not eliminate persistent V5 qualification for B0/S1 |
-| Producer composition | Study 4 | Signed claims, vote threshold, synthetic provenance-domain count | Hidden authorization truth | Some compromised subsets satisfy the rule while others of the same size do not | Provenance can delay systematic unsafe qualification but can also cause earlier false-conservative rejection |
-| Recovery artifact | Study 6 | Signature, digest, provenance, reproduced-build, review, approval | Objective baseline correctness | All visible assurance signals can be true for `APPROVED_BAD_SOURCE` | Additional signals close specified modeled states while increasing sensitivity to benign assurance-signal loss |
+**Fig. 1.** Parallel residual trust boundaries across the three separately frozen studies. The panels summarize a qualitative manuscript-level synthesis only; no experimental data flow or integrated three-layer architecture connects Studies 3, 4, and 6. Only Study 3 models contact.
 
-The rows do not share a common measurement scale. Table V is therefore a qualitative mechanism comparison, not a basis for combining numeric outcomes.
+The figure preserves the same bounded comparison previously shown in Table V: Study 3 contrasts gate-visible temporal evidence with hidden authorization truth, Study 4 contrasts producer-composition rules with hidden authorization truth, and Study 6 contrasts artifact-assurance signals with objective baseline correctness. The figure is therefore a qualitative mechanism comparison, not a basis for combining numeric outcomes.
 
 ### C. Integrity Does Not Exhaust Semantic Trust
 
