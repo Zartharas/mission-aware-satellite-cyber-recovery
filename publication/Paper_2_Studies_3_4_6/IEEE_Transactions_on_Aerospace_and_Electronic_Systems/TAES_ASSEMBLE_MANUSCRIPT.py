@@ -144,18 +144,25 @@ def main() -> None:
     if "—" in assembled:
         raise SystemExit("ERROR: em dash detected in assembled manuscript")
 
-    # These guards target affirmative manuscript constructs. Limitation text is
-    # allowed to mention terms such as "external replication" in order to state
-    # explicitly that the present same-repository audits are not external replication.
+    # Guard only genuinely affirmative overclaims. Explicit limitation language
+    # such as "does not identify a globally best policy" is intentionally valid.
     prohibited_exact = [
         "N = 6,408",
         "N=6,408",
-        "globally best policy",
-        "globally best gate",
     ]
     for phrase in prohibited_exact:
         if phrase in assembled:
             raise SystemExit(f"ERROR: prohibited exact manuscript phrase detected: {phrase}")
+
+    affirmative_superiority_patterns = [
+        r"\b(?:is|was|remains|represents|identifies|establishes)\s+(?:the\s+)?globally best\s+(?:policy|gate|quorum|rule)\b",
+        r"\bwe\s+(?:identify|establish|show|demonstrate)\s+(?:a|the)\s+globally best\s+(?:policy|gate|quorum|rule)\b",
+    ]
+    for pattern in affirmative_superiority_patterns:
+        if re.search(pattern, assembled, flags=re.IGNORECASE):
+            raise SystemExit(
+                "ERROR: affirmative global-superiority claim detected in assembled manuscript"
+            )
 
     required_markers = [
         "## I. Introduction",
