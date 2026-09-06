@@ -6,7 +6,7 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "VENUE_LOCKED_ASSEMBLED_AUDIT_PASS_WITH_EDITORIAL_CORRECTIONS_REASSEMBLY_REQUIRED",
+  "status": "VENUE_LOCKED_REGENERATED_ASSEMBLED_DRAFT_VERIFIED_READY_TO_TRACK",
   "submission_authorized": false,
   "portal_submission_completed": false,
   "manuscript_id": null,
@@ -36,13 +36,18 @@
     "section_8_validity_implications": "TAES_SECTION_VIII_VALIDITY.md__DRAFTED_2026-09-06",
     "section_9_conclusion": "TAES_SECTION_IX_CONCLUSION.md__DRAFTED_AND_V4_WORDING_TIGHTENED_2026-09-06",
     "abstract_and_index_terms": "TAES_ABSTRACT_KEYWORDS.md__DRAFTED_AND_V4_WORDING_TIGHTENED_2026-09-06",
+    "abstract_word_count": 214,
     "component_scientific_claim_audit": "TAES_SCIENTIFIC_CLAIM_AUDIT_2026-09-06.md__PASS_WITH_EDITORIAL_CORRECTIONS_APPLIED",
     "component_citation_prior_art_audit": "TAES_CITATION_PRIOR_ART_AUDIT_2026-09-06.md__PASS_WITH_BIBLIOGRAPHIC_FINALIZATION_PENDING",
     "first_assembled_draft_sha256": "dcbc2aac36ac06be16fd89a073c0997c3e604e5381df759c103d328f28b021b7",
+    "first_assembled_draft_status": "SUPERSEDED_BY_REGENERATED_VERIFIED_DRAFT",
+    "regenerated_assembled_draft_sha256": "fef07a35d1517222d8fff6734bd4e4d07ba92bebbc37e65d8bd3699543f885f6",
     "assembled_manuscript_audit": "TAES_ASSEMBLED_MANUSCRIPT_AUDIT_2026-09-06.md__PASS_SCIENTIFICALLY_EDITORIAL_CORRECTIONS_APPLIED",
-    "assembly_status": "REASSEMBLY_REQUIRED_AFTER_EDITORIAL_CONTROL_CORRECTIONS",
-    "assembled_scientific_claim_audit": "PASS_ON_FIRST_ASSEMBLED_DRAFT_WITH_NO_SCIENTIFIC_DEFECT",
-    "assembled_citation_audit": "FIRST_USE_ORDER_CORRECTED_IN_COMPONENTS_RECHECK_REQUIRED_AFTER_REASSEMBLY",
+    "assembly_status": "PASS_REGENERATED_VERIFIED_READY_TO_TRACK",
+    "reassembly_required": false,
+    "citation_first_use_order": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "assembled_scientific_claim_audit": "PASS_NO_SCIENTIFIC_DEFECT",
+    "assembled_citation_audit": "PASS_FIRST_USE_ORDER_RECHECKED_BIBLIOGRAPHIC_FINALIZATION_PENDING",
     "style_and_taes_format_audit": "PENDING"
   },
   "publisher_facing_files": {
@@ -52,10 +57,10 @@
     "cover_letter": "NOT_PUBLICLY_REQUIRED_BY_REVIEWED_TAES_INSTRUCTIONS__LIVE_PORTAL_RECHECK_REQUIRED"
   },
   "mandatory_final_gates": [
-    "single_manuscript_reassembly_complete",
-    "regenerated_assembled_manuscript_recheck_pass",
+    "track_regenerated_assembled_draft_and_component_manifest",
     "final_ieee_bibliography_formatting_pass",
     "taes_length_and_redundancy_edit_pass",
+    "figures_and_tables_review_pass",
     "taes_format_audit_pass",
     "pdf_visual_qa_pass",
     "portal_field_audit_pass",
@@ -65,11 +70,12 @@
   ],
   "official_sources_reviewed_date": "2026-09-06",
   "notes": [
-    "The first assembled manuscript passed the scientific audit but exposed editorial-control issues: combined-population arithmetic wording, nonsequential IEEE first-use citation numbering, and title/synthesis terminology around producer quorums.",
-    "Those issues were corrected in the tracked manuscript components and assembler. No Study-3, Study-4, or Study-6 scientific rerun or result change is required.",
-    "The assembler now rejects any combined Paper-2 population total and audits sequential IEEE reference first-use order.",
-    "The first local assembled draft and manifest remain untracked and are superseded once the corrected components are reassembled.",
+    "The first assembled manuscript passed scientific audit and exposed only editorial-control issues: combined-population arithmetic wording, nonsequential IEEE first-use citation numbering, and producer-quorum title/synthesis terminology.",
+    "Those issues were corrected without changing any frozen Study-3, Study-4, or Study-6 result.",
+    "The regenerated local assembled draft passed the repository assembler with abstract_word_count=214 and citation_first_use_order=1,2,3,4,5,6,7,8,9,10,11,12.",
+    "The verified regenerated assembled SHA-256 is fef07a35d1517222d8fff6734bd4e4d07ba92bebbc37e65d8bd3699543f885f6.",
+    "The regenerated assembled draft and component manifest are local derived files ready to be tracked after pulling these metadata updates.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "No portal submission is authorized by venue lock, manuscript drafting, or audit completion alone."
+    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, or audit completion alone."
   ]
 }
