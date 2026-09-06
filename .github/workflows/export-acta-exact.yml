@@ -41,3 +41,5 @@ jobs:
           name: acta-study8-exact-workspace-export
           path: publication/Paper_4_Study_8/Acta_Astronautica/
           if-no-files-found: error
+
+# Final unchanged export after freeze-record reconciliation.
