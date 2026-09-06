@@ -37,6 +37,23 @@ The three independently frozen layers are:
 
 The manuscript may synthesize these studies conceptually, but it must never claim that they constitute one integrated experiment or one jointly evaluated architecture.
 
+## Current manuscript development state
+
+The canonical manuscript development source is:
+
+- `TAES_MANUSCRIPT_SOURCE.md`
+
+The durable external-literature and novelty ledger is:
+
+- `TAES_LITERATURE_SOURCE_LEDGER.md`
+
+Current drafted manuscript sections:
+
+- Section II, Related Work and Scientific Positioning: drafted 2026-09-06;
+- Section III, Common Trust-Qualification Framework and Study Separation: drafted 2026-09-06.
+
+These are development drafts, not frozen submission text. Study-specific Sections IV through VI, the cross-study synthesis, validity/implications, conclusion, final Introduction rewrite, and final Abstract remain pending.
+
 ## TAES venue basis
 
 TAES publishes original work on the organization, design, development, integration, and operation of complex aerospace and electronic systems. The selected primary Technical Area is Aerospace Information Systems because the current TAES description expressly includes aerospace systems and software engineering, verification and validation, safety and mission assurance, information technology, embedded and real-time computing, and distributed computing.
@@ -51,12 +68,14 @@ The manuscript should remain assigned to Aerospace Information Systems unless th
 
 ## Submission-package files
 
-Current development-control files:
+Current development and control files:
 
 - `TAES_AIMS_SCOPE_REQUIREMENTS.md`
 - `TAES_COMPLIANCE_CHECKLIST.md`
 - `TAES_PORTAL_FIELD_MAP.md`
 - `TAES_MANUSCRIPT_DEVELOPMENT.md`
+- `TAES_LITERATURE_SOURCE_LEDGER.md`
+- `TAES_MANUSCRIPT_SOURCE.md`
 - `TAES_ORIGINALITY_AI_SUPPLEMENTARY_CONTROL.md`
 - `TAES_PACKAGE_STATUS.json`
 - `UPLOAD_FILES.md`
