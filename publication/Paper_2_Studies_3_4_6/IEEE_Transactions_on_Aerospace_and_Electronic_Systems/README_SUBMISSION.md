@@ -11,7 +11,9 @@
 
 This directory is the single canonical venue-specific development and future publisher-facing package for Paper 2. Paper 2 uses Studies 3, 4, and 6 only. Their frozen populations remain separate and must never be pooled into one statistical population.
 
-Do not create an alternate TAES manuscript outside this directory as an independent source of truth. Local working copies should be produced by pulling this repository and, when needed, using `TAES_LOCAL_SYNC.sh` to stage an upload copy.
+All TAES development files, final manuscript files, supplementary files if any, checksums, portal records, and later submission-confirmation records must remain in this directory. Do not maintain a Downloads mirror, desktop copy, separate `PORTAL_UPLOAD` staging directory, or any other independently edited source of truth.
+
+The local Git clone under the repository root is the working copy. Use `TAES_LOCAL_SYNC.sh` only to fast-forward the repository and verify this canonical directory in place. When final publisher-facing files are frozen, upload them directly from this directory.
 
 No scientific rerun, enlargement, endpoint change, hidden correction, null-result removal, or post-hoc integrated experiment is authorized for venue fit.
 
@@ -60,7 +62,7 @@ Current development-control files:
 - `UPLOAD_FILES.md`
 - `TAES_LOCAL_SYNC.sh`
 
-Future publisher-facing files will be added only after manuscript development and quality control. At minimum, the initial TAES submission requires a manuscript PDF in the prescribed two-column format. Any supplementary material intended to accompany the article must also be supplied for peer review during initial submission.
+Future publisher-facing files will be added directly to this same directory only after manuscript development and quality control. At minimum, the initial TAES submission requires a manuscript PDF in the prescribed two-column format. Any supplementary material intended to accompany the article must also be supplied for peer review during initial submission.
 
 ## Official sources reviewed on 2026-09-06
 
