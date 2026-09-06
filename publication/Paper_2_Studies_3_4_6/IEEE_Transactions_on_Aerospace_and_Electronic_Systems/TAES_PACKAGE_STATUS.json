@@ -10,6 +10,10 @@
   "submission_authorized": false,
   "portal_submission_completed": false,
   "manuscript_id": null,
+  "canonical_storage_rule": "ONE_CANONICAL_COPY_IN_REPOSITORY_PUBLICATION_FOLDER_ONLY",
+  "canonical_directory": "publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/",
+  "downloads_mirror_allowed": false,
+  "separate_portal_staging_directory_allowed": false,
   "core_studies": [
     {
       "study": 3,
@@ -64,6 +68,7 @@
     "TAES performs Editor-in-Chief, Senior Editor, and Associate Editor prescreening before formal review.",
     "Any supplementary material intended to accompany the article must be submitted for peer review with the original article.",
     "IEEE AI-generated article content must be disclosed in Acknowledgments with system, affected sections/content, and level of use.",
+    "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
     "No portal submission is authorized by venue lock alone."
   ]
 }
