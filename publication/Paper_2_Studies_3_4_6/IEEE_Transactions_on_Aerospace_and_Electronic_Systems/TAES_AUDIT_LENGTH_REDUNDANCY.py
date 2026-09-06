@@ -28,6 +28,7 @@ SECTION_ORDER = [
     "VII. Cross-Study Residual Trust Boundaries",
     "VIII. Validity, Aerospace Interpretation Boundaries, and Future Evaluation",
     "IX. Conclusion",
+    "Acknowledgment",
     "References",
 ]
 
@@ -40,7 +41,7 @@ SECTION_RE = re.compile(
     r"VI\. Recovery-Artifact Assurance and Residual Incorrect States|"
     r"VII\. Cross-Study Residual Trust Boundaries|"
     r"VIII\. Validity, Aerospace Interpretation Boundaries, and Future Evaluation|"
-    r"IX\. Conclusion|References)\s*$",
+    r"IX\. Conclusion|Acknowledgment|References)\s*$",
     flags=re.MULTILINE,
 )
 
