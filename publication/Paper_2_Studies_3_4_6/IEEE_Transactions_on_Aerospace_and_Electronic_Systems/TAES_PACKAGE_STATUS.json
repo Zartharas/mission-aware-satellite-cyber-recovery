@@ -37,6 +37,20 @@
   "pooled_population_allowed": false,
   "study5_core_inclusion": false,
   "working_scientific_identity": "Layered residual trust boundaries in satellite cyber-recovery qualification",
+  "manuscript_development": {
+    "canonical_source": "TAES_MANUSCRIPT_SOURCE.md",
+    "literature_source_ledger": "TAES_LITERATURE_SOURCE_LEDGER.md",
+    "section_1_introduction": "PENDING_REWRITE_AFTER_CORE_SECTIONS",
+    "section_2_related_work": "DRAFTED_2026-09-06",
+    "section_3_common_framework": "DRAFTED_2026-09-06",
+    "section_4_study3": "PENDING",
+    "section_5_study4": "PENDING",
+    "section_6_study6": "PENDING",
+    "section_7_cross_study_synthesis": "PENDING",
+    "section_8_validity_implications": "PENDING",
+    "section_9_conclusion": "PENDING",
+    "abstract": "PENDING_FINAL_MANUSCRIPT"
+  },
   "publisher_facing_files": {
     "manuscript_pdf": "NOT_CREATED",
     "supplementary_material": "NOT_DECIDED",
@@ -49,6 +63,8 @@
     "TAES_COMPLIANCE_CHECKLIST.md",
     "TAES_PORTAL_FIELD_MAP.md",
     "TAES_MANUSCRIPT_DEVELOPMENT.md",
+    "TAES_LITERATURE_SOURCE_LEDGER.md",
+    "TAES_MANUSCRIPT_SOURCE.md",
     "TAES_ORIGINALITY_AI_SUPPLEMENTARY_CONTROL.md",
     "UPLOAD_FILES.md",
     "TAES_LOCAL_SYNC.sh"
@@ -69,6 +85,7 @@
     "Any supplementary material intended to accompany the article must be submitted for peer review with the original article.",
     "IEEE AI-generated article content must be disclosed in Acknowledgments with system, affected sections/content, and level of use.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
+    "Sections II and III are development drafts and remain subject to scientific and citation audit before submission.",
     "No portal submission is authorized by venue lock alone."
   ]
 }
