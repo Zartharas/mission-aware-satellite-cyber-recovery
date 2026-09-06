@@ -1,68 +1,55 @@
-# Study 8 Venue Fit — Publication Development
+# Study 8 Venue Fit - Publication Development and Final Selection
 
-**Verification date:** 2026-09-03  
-**Status:** `VENUE_CANDIDATES_EVALUATED_NOT_SUBMISSION_AUTHORIZED`
+**Initial verification date:** 2026-09-03  
+**Final venue selection date:** 2026-09-05  
+**Submission date:** 2026-09-06  
+**Current disposition:** `ACTA_ASTRONAUTICA_SELECTED_AND_SUBMITTED`  
+**Acta manuscript ID:** `AA-D-26-02872`
 
-## Recommended order
+This file preserves the initial comparative venue assessment while recording the later author-approved selection and completed submission. The initial ranking below is historical planning provenance and must not be mistaken for the current publisher state.
 
-### 1. IEEE Systems Journal — primary candidate
+## Historical initial assessment
 
-Current IEEE Systems Journal scope explicitly includes systems-level modeling, analysis, simulation, mission assurance, robustness, reliability, availability, communications, security, standards, and complex cyber-physical systems. That combination closely matches Study 8's systems-level question: how a finite post-compromise cryptographic transition behaves under interacting contact, byte-budget, deadline, disruption, and policy constraints.
+### 1. IEEE Systems Journal - initial primary shaping candidate
 
-Why the paper fits:
+The initial September 3 assessment ranked IEEE Systems Journal first because its systems-level modeling, analysis, simulation, mission assurance, robustness, reliability, availability, communications, security, standards, and cyber-physical-systems scope aligned well with the Study 8 systems question.
 
-- the contribution is systems-level rather than cryptanalytic;
-- the full deterministic factorial model is an analysis/simulation contribution;
-- the paper studies availability, security-state, interoperability/transition, and mission-assurance-adjacent design tradeoffs without claiming flight performance;
-- a negative primary result plus deterministic resource/state tradeoffs is suitable for a systems-analysis paper when reported transparently;
-- the current regular-paper limit is up to 12 pages during review, making a compact manuscript with four main tables and two figures feasible.
+That early ranking guided venue-neutral manuscript shaping only. It was **not** a submission commitment.
 
-Current source: https://ieeesystemscouncil.org/publication/ieee-systems-journal  
-Author instructions: https://ieeesystemscouncil.org/publication/ieee-systems-journal/instructions-for-authors
+### 2. Acta Astronautica - strong aerospace-domain candidate
 
-**Development disposition:** primary manuscript-shaping target. Final commitment remains a later author gate.
+Acta Astronautica was identified as a strong domain-specific fit because satellite/space-system context is central to the manuscript and the study addresses transition architecture and constrained-contact behavior rather than only algorithm benchmarking.
 
-### 2. Acta Astronautica — strong domain-specific alternative
+The venue comparison also identified the need for especially explicit claim boundaries because Study 8 does not provide spacecraft hardware, RF, flight, energy, or operational-performance evidence.
 
-Acta Astronautica accepts original contributions in space engineering and technology, including satellite technology and communications. It has prior satellite-cybersecurity papers and, in September 2026, published a systematic survey specifically on post-quantum cryptography for space systems (Kim, 2026). That makes the journal highly relevant to the domain and establishes that PQC-for-space is within editorial scope.
+### 3. International Journal of Satellite Communications and Networking - direct communications fallback
 
-Why the paper fits:
+IJSCCN was retained as a direct-scope fallback because contact opportunities, transition objects, protocols, and constrained-network behavior are central to the study.
 
-- satellite/space-system context is central rather than incidental;
-- the study addresses transition architecture and constrained-contact behavior rather than only algorithm benchmarking;
-- the deterministic model can be positioned as a space-systems design analysis;
-- the claim boundary must be especially explicit because the journal also publishes hardware, flight, and physical-performance work that Study 8 does not provide.
+## Final author-approved venue decision
 
-Current scope source: https://shop.elsevier.com/journals/acta-astronautica/0094-5765  
-Recent PQC-space precedent: Kim, 2026, DOI `10.1016/j.actaastro.2026.04.041`.
+A later live venue review on 2026-09-05 changed the operational ranking to:
 
-**Development disposition:** strongest aerospace-domain alternative.
+1. **Acta Astronautica** - selected primary venue
+2. **IEEE Systems Journal** - fallback 1
+3. **International Journal of Satellite Communications and Networking** - fallback 2
 
-### 3. International Journal of Satellite Communications and Networking — direct communications alternative
+The author explicitly approved Acta Astronautica as the primary target. That decision did not change the frozen Study 8 science, results, statistical plan, or claim boundary.
 
-The journal covers the theory, practice, and operation of satellite systems and networks, including satellite networks, performance analysis, standards/regulation, interoperability, and network protocols. In 2026 it published Ghosh and Nath's lattice-based post-quantum satellite communication paper, providing direct topical precedent.
+## Completed submission
 
-Why the paper fits:
+The Acta-specific package was prepared, editorially reviewed, visually audited, and frozen as `S8-ACTA-PKGFREEZE-002`. The author later gave separate explicit final-submission authorization.
 
-- contact opportunity, transition objects, protocols, and constrained-network behavior are central;
-- the paper can be framed as protocol/system performance analysis using a synthetic finite logical-contact model;
-- the results directly complement current satellite PQC migration work by focusing on post-compromise transition feasibility rather than generic deployment feasibility.
+The manuscript was submitted to **Acta Astronautica** on **2026-09-06** and assigned:
 
-Current scope: https://onlinelibrary.wiley.com/page/journal/15420981/homepage/productinformation.html  
-Recent topical precedent: Ghosh and Nath, 2026, DOI `10.1002/sat.70041`.
+- manuscript ID: `AA-D-26-02872`
+- article type: `Research paper`
+- current status: `With Editor`
 
-**Development disposition:** direct-scope fallback if systems/aerospace venues reject the modeled abstraction.
+Current submitted-state authority:
 
-## Venue explicitly not recommended for Study 8
+`publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`
 
-### Computers & Security
+## Current rule
 
-The existing Study-1/Study-2 paper is separately targeted to Computers & Security, but the current journal scope explicitly states that submissions in which cryptology is a principal component are not considered. Study 8's central treatment object is a cryptographic transition built from ML-KEM/ML-DSA standardized objects. Even though the contribution is systems-level rather than cryptanalytic, routing this companion paper there creates avoidable desk-rejection risk.
-
-Current source: https://shop.elsevier.com/journals/computers-and-security/0167-4048
-
-**Disposition:** do not merge Study 8 into the existing Computers & Security submission package; retain the separate companion-publication line.
-
-## Manuscript-shaping decision
-
-The development draft will use **IEEE Systems Journal as the primary formatting/length target while remaining venue-neutral in scientific claims**. No publisher-specific template, copyright transfer, portal submission, or final venue commitment is authorized in this phase.
+Do not reopen venue selection for Study 8 while `AA-D-26-02872` is active at Acta Astronautica. Fallback venues remain historical contingency options only and should be reconsidered only if the Acta submission is formally closed without publication.
