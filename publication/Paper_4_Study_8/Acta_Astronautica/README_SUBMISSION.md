@@ -26,7 +26,7 @@ Primary result preserved: **P3 - P1 = 0/1 = 0.000000 percentage points**.
 
 ## Exact-package QA
 
-The publisher-facing binaries were captured from GitHub Actions run `34006672084`, artifact `9981149286`, and the exact artifact bytes were rendered and visually inspected after download. All three DOCX accessibility audits returned zero findings. The manuscript contains 226 abstract words, six keywords, 17 numbered references, and four tables. No comments or tracked revisions are present.
+The publisher-facing binaries were captured from GitHub Actions run `34008481863`, artifact `9981703538`, and the exact artifact bytes were rendered and visually inspected after download. All three DOCX accessibility audits returned zero findings. The manuscript contains 226 abstract words, six keywords, 17 numbered references, and four tables. No comments or tracked revisions are present.
 
 ## Gate
 
