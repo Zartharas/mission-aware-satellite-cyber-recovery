@@ -3,7 +3,8 @@
 
 This script does not fetch data, rerun studies, or alter frozen science. It only
 combines already tracked manuscript-development components in the canonical
-TAES publication directory.
+TAES publication directory and binds approved figure assets into the component
+manifest.
 """
 
 from __future__ import annotations
@@ -31,6 +32,11 @@ COMPONENTS = [
     "TAES_SECTION_VII_SYNTHESIS.md",
     "TAES_SECTION_VIII_VALIDITY.md",
     "TAES_SECTION_IX_CONCLUSION.md",
+]
+
+FIGURE_FILES = [
+    "TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf",
+    "TAES_FIGURE1_RESIDUAL_BOUNDARIES.png",
 ]
 
 SECTION_FILES = [
@@ -111,6 +117,11 @@ def main() -> None:
     for name in COMPONENTS:
         read(name)
 
+    for name in FIGURE_FILES:
+        path = ROOT / name
+        if not path.is_file():
+            raise SystemExit(f"ERROR: missing approved figure asset: {path}")
+
     abstract_doc = read("TAES_ABSTRACT_KEYWORDS.md")
     abstract_block = extract_section(abstract_doc, "## Abstract", "## Index Terms")
 
@@ -170,6 +181,25 @@ def main() -> None:
     if re.search(r"\[\d+\]\s*-\s*\[\d+\]", assembled):
         raise SystemExit("ERROR: dash-form numeric IEEE citation range detected")
 
+    # Figure 1 is the approved qualitative replacement for the retired Table V.
+    required_figure_markers = [
+        "![Figure 1](TAES_FIGURE1_RESIDUAL_BOUNDARIES.png)",
+        "**Fig. 1.** Parallel residual trust boundaries across the three separately frozen studies.",
+        "Only Study 3 models contact.",
+    ]
+    for marker in required_figure_markers:
+        if marker not in assembled:
+            raise SystemExit(f"ERROR: required Figure 1 marker missing: {marker}")
+
+    retired_table_v_markers = [
+        "### Table V. Cross-study residual-boundary comparison",
+        "**Table V. Cross-study residual-boundary comparison**",
+        "| Layer | Study | What the gate can observe |",
+    ]
+    for marker in retired_table_v_markers:
+        if marker in assembled:
+            raise SystemExit(f"ERROR: retired qualitative Table V detected: {marker}")
+
     # Guard only genuinely affirmative superiority claims. Explicit limitation
     # language such as "does not identify a globally best policy" is valid.
     affirmative_superiority_patterns = [
@@ -213,15 +243,22 @@ def main() -> None:
     for name in COMPONENTS:
         path = ROOT / name
         manifest_lines.append(f"{sha256(path)}  {name}")
+    for name in FIGURE_FILES:
+        path = ROOT / name
+        manifest_lines.append(f"{sha256(path)}  {name}")
     manifest_lines.append(f"{sha256(OUTPUT)}  {OUTPUT.name}")
     MANIFEST.write_text("\n".join(manifest_lines) + "\n", encoding="utf-8")
 
     print("TAES_MANUSCRIPT_ASSEMBLY=PASS")
     print(f"abstract_word_count={len(abstract_words)}")
     print(f"citation_first_use_order={','.join(str(n) for n in first_use)}")
+    print("figure1_asset_binding=PASS")
+    print("retired_table_v_check=PASS")
     print(f"assembled_file={OUTPUT}")
     print(f"assembled_sha256={sha256(OUTPUT)}")
     print(f"component_manifest={MANIFEST}")
+    for name in FIGURE_FILES:
+        print(f"{name}_sha256={sha256(ROOT / name)}")
     print("NOTE: This is a development draft, not a frozen publisher-facing PDF.")
 
 
