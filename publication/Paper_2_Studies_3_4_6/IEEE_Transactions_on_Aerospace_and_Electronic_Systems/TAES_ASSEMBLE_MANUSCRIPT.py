@@ -51,13 +51,18 @@ def read(name: str) -> str:
     return path.read_text(encoding="utf-8").replace("\r\n", "\n")
 
 
-def between(text: str, start: str, end: str) -> str:
-    try:
-        a = text.index(start) + len(start)
-        b = text.index(end, a)
-    except ValueError as exc:
-        raise SystemExit(f"ERROR: assembly marker missing: {exc}") from exc
-    return text[a:b].strip()
+def extract_section(text: str, heading: str, next_heading: str) -> str:
+    """Extract Markdown section body using headings, not fragile note text."""
+    start_marker = heading + "\n"
+    next_marker = "\n" + next_heading
+    start = text.find(start_marker)
+    if start < 0:
+        raise SystemExit(f"ERROR: manuscript heading missing: {heading}")
+    start += len(start_marker)
+    end = text.find(next_marker, start)
+    if end < 0:
+        raise SystemExit(f"ERROR: next manuscript heading missing: {next_heading}")
+    return text[start:end].strip()
 
 
 def normalize_section(text: str) -> str:
@@ -89,8 +94,20 @@ def main() -> None:
         read(name)
 
     abstract_doc = read("TAES_ABSTRACT_KEYWORDS.md")
-    abstract = between(abstract_doc, "## Abstract\n\n", "\n\n**Word count:")
-    index_terms = between(abstract_doc, "## Index Terms\n\n", "\n\n## Abstract claim controls")
+    abstract_block = extract_section(abstract_doc, "## Abstract", "## Index Terms")
+
+    # Audit metadata may appear under the abstract during development. Exclude
+    # it from the publisher-facing abstract without depending on its exact wording.
+    abstract_lines = []
+    for line in abstract_block.splitlines():
+        if re.match(r"^\*\*.*word count.*\*\*", line.strip(), flags=re.IGNORECASE):
+            continue
+        abstract_lines.append(line)
+    abstract = "\n".join(abstract_lines).strip()
+
+    index_terms = extract_section(
+        abstract_doc, "## Index Terms", "## Abstract claim controls"
+    ).strip()
 
     abstract_words = re.findall(r"\b[\w'-]+\b", abstract)
     if not 150 <= len(abstract_words) <= 250:
