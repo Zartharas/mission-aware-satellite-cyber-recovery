@@ -6,8 +6,18 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "VENUE_LOCKED_COMPLIANCE_CORRECTED_IEEEtran_DEVELOPMENT_BUILD_ACTIVE",
+  "status": "FORMAT_AND_VISUAL_QA_PASS_AUTHOR_AUTHORIZATION_GRANTED_REMAINING_SUBMISSION_GATES_PENDING",
   "submission_authorized": false,
+  "explicit_final_author_submission_authorization": true,
+  "explicit_final_author_submission_authorization_date": "2026-09-06",
+  "explicit_final_author_submission_authorization_record": "TAES_FINAL_AUTHOR_SUBMISSION_AUTHORIZATION_2026-09-06.md",
+  "effective_portal_submission_authorization": false,
+  "effective_portal_submission_blockers": [
+    "portal_field_audit_pass",
+    "supplementary_material_decision_frozen",
+    "upload_manifest_and_sha256_frozen",
+    "publisher_facing_file_freeze_and_length_decision"
+  ],
   "portal_submission_completed": false,
   "manuscript_id": null,
   "canonical_storage_rule": "ONE_CANONICAL_COPY_IN_REPOSITORY_PUBLICATION_FOLDER_ONLY",
@@ -81,12 +91,18 @@
     "taes_length_and_redundancy_edit_pass": "PASS_2298_WORD_REDUCTION_SCIENCE_PRESERVED",
     "figures_and_tables_review_pass": "PASS_FIGURE1_REV2_CANONICALLY_TRACKED_TABLES_I_IV_RETAINED",
     "taes_format_environment_audit": "PASS_TOOLCHAIN_READY_2026-09-06",
-    "ieeetran_builder": "TAES_BUILD_IEEETRAN.py__TRACKED",
-    "taes_format_audit_pass": "ACTIVE_DETERMINISTIC_IEEETRAN_DEVELOPMENT_BUILD",
-    "style_and_taes_format_audit": "ACTIVE_DETERMINISTIC_IEEETRAN_DEVELOPMENT_BUILD"
+    "ieeetran_builder": "TAES_BUILD_IEEETRAN.py__TRACKED_WITH_R7_FORMATTING_WRAPPER",
+    "r7_development_pdf_sha256": "b4726622cb2769055c0541b773ccddcbf84163462e3fdbe16d6fc6933b7b60be",
+    "r7_page_count": 18,
+    "r7_overfull_hbox_count": 0,
+    "r7_underfull_hbox_count": 30,
+    "r7_font_embedding": "PASS_13_OF_13_EMBEDDED",
+    "taes_format_audit_pass": "PASS_R7_IEEETRAN_FORMAT_QA_2026-09-06",
+    "pdf_visual_qa_pass": "PASS_ALL_18_PAGES_R7_2026-09-06",
+    "style_and_taes_format_audit": "PASS_R7_FORMAT_AND_VISUAL_QA_2026-09-06"
   },
   "publisher_facing_files": {
-    "manuscript_pdf": "NOT_CREATED__DEVELOPMENT_IEEEtran_BUILD_PENDING",
+    "manuscript_pdf": "NOT_FROZEN__R7_DEVELOPMENT_PDF_FORMAT_AND_VISUAL_QA_PASS",
     "supplementary_material": "NOT_DECIDED",
     "supplementary_readme": "NOT_CREATED",
     "cover_letter": "NOT_PUBLICLY_REQUIRED_BY_REVIEWED_TAES_INSTRUCTIONS__LIVE_PORTAL_RECHECK_REQUIRED"
@@ -109,10 +125,11 @@
     "Reference [11] now identifies the official TUF v1.0.36 release record, and the stale v1.0.33 manuscript reference is retired without rewriting historical audit records.",
     "The IEEE AI-use acknowledgment is bound in the canonical manuscript and states that GPT-5.6 Sol assisted substantive drafting/editorial work, bibliography organization, publication scripts, and Fig. 1 layout code, while frozen experimental results were not generated or modified by the AI.",
     "The formatting environment audit passed with pandoc, pdflatex, latexmk, kpsewhich, pdfinfo, pdffonts, and IEEEtran.cls available.",
-    "TAES_BUILD_IEEETRAN.py is the active deterministic development builder. It binds the canonical manuscript and Figure 1 hashes, preserves Tables I-IV, uses the vector Figure 1 master, enforces the TAES text geometry, and reports page count, font embedding, and TeX layout warnings.",
-    "Development IEEEtran artifacts are not publisher-facing and must not be frozen or submitted until format audit and PDF visual QA pass.",
+    "R7 IEEEtran formatting QA and all-18-page PDF visual QA both passed. The exact development PDF SHA-256 is b4726622cb2769055c0541b773ccddcbf84163462e3fdbe16d6fc6933b7b60be and the stable page count is 18.",
+    "The author explicitly granted final submission authorization on 2026-09-06. This satisfies the author-approval gate but does not waive the remaining portal-field, supplementary-material, upload-manifest/hash, and publisher-facing file-freeze controls.",
+    "The R7 development PDF is not yet frozen as publisher-facing because the 18-page editorial/overlength decision and remaining package gates are pending.",
     "Live TAES instructions reviewed on 2026-09-06 require a two-column, single-spaced PDF with 10-point font, 1 in top/bottom margins, 0.7 in side margins, 3.45 in columns, and 0.2 in column spacing.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, bibliography work, compression, figures/tables completion, compliance corrections, or formatting work alone."
+    "Effective portal submission remains blocked until every mandatory final package gate is recorded as passed or frozen."
   ]
 }
