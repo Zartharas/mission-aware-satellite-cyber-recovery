@@ -38,6 +38,26 @@ jobs:
       - name: Generate publisher-facing binaries only
         run: python /tmp/build_acta_package.py
 
+      - name: Mark manuscript table header rows for accessibility
+        shell: bash
+        run: |
+          python - <<'PY'
+          from docx import Document
+          from docx.oxml import OxmlElement
+          from docx.oxml.ns import qn
+          from pathlib import Path
+          p=Path('publication/Paper_4_Study_8/Acta_Astronautica/ACTA_ASTRONAUTICA_MANUSCRIPT.docx')
+          d=Document(p)
+          for table in d.tables:
+              trPr=table.rows[0]._tr.get_or_add_trPr()
+              if trPr.find(qn('w:tblHeader')) is None:
+                  hdr=OxmlElement('w:tblHeader')
+                  hdr.set(qn('w:val'),'true')
+                  trPr.append(hdr)
+          d.save(p)
+          print(f'table_headers_marked={len(d.tables)}')
+          PY
+
       - name: Sanity-check generated package
         shell: bash
         run: |
@@ -58,6 +78,9 @@ jobs:
                   assert 'word/comments.xml' not in names
                   xml=z.read('word/document.xml')
                   assert b'<w:ins' not in xml and b'<w:del' not in xml
+          with ZipFile(root/'ACTA_ASTRONAUTICA_MANUSCRIPT.docx') as z:
+              xml=z.read('word/document.xml')
+              assert xml.count(b'w:tblHeader') >= 4
           print('docx_structure_checks=PASS')
           PY
           sha256sum \
