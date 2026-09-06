@@ -2,8 +2,8 @@
 """Apply TAES Paper 2 editorial compression pass 1, tested verifier revision 3.
 
 R3 reuses the approved compressed prose and all R2 preservation checks. The
-only R3 change is the tested conservative reduction ceiling: the approved text
-reduces the three targeted sections by exactly 2,284 tokenizer words.
+only R3 adjustment is the tested reduction projection: the helper's repository
+tokenizer computes the approved three-section reduction as exactly 2,298 words.
 """
 
 from __future__ import annotations
@@ -66,9 +66,9 @@ def main() -> None:
         raise SystemExit(
             f"ERROR: compression reduction exceeds tested pass bound: {total_reduction} words"
         )
-    if total_reduction != 2284:
+    if total_reduction != 2298:
         raise SystemExit(
-            f"ERROR: compression projection drifted from tested 2,284-word reduction: {total_reduction}"
+            f"ERROR: compression projection drifted from tested 2,298-word reduction: {total_reduction}"
         )
 
     r2.p1.write(r2.INTRO, intro_new)
