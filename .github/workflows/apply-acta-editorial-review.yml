@@ -29,6 +29,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          sha256sum .acta_editorial_patch/payload_*.txt
+          wc -c .acta_editorial_patch/payload_*.txt
           cat .acta_editorial_patch/payload_*.txt > /tmp/patch.b64
           python - <<'PY'
           import base64, zlib
