@@ -6,7 +6,7 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "VENUE_LOCKED_BIBLIOGRAPHY_FINALIZED_LENGTH_REDUNDANCY_GATE_ACTIVE",
+  "status": "VENUE_LOCKED_COMPRESSED_MANUSCRIPT_TRACKED_FIGURES_TABLES_GATE_ACTIVE",
   "submission_authorized": false,
   "portal_submission_completed": false,
   "manuscript_id": null,
@@ -26,13 +26,13 @@
   "manuscript_development": {
     "core_source_for_sections_2_3": "TAES_MANUSCRIPT_SOURCE.md",
     "literature_source_ledger": "TAES_LITERATURE_SOURCE_LEDGER.md",
-    "section_1_introduction": "TAES_SECTION_I_INTRODUCTION.md__DRAFTED_AND_IEEE_FIRST_USE_CITATION_ORDER_CORRECTED_2026-09-06",
+    "section_1_introduction": "TAES_SECTION_I_INTRODUCTION.md__COMPRESSED_PASS1_TRACKED_2026-09-06",
     "section_2_related_work": "TAES_MANUSCRIPT_SOURCE.md__DRAFTED_2026-09-06",
-    "section_3_common_framework": "TAES_MANUSCRIPT_SOURCE.md__DRAFTED_AND_COMBINED_POPULATION_TOTAL_REMOVED_2026-09-06",
+    "section_3_common_framework": "TAES_MANUSCRIPT_SOURCE.md__COMPRESSED_PASS1_TRACKED_2026-09-06",
     "section_4_study3": "TAES_SECTION_IV_STUDY3.md__DRAFTED_2026-09-06",
     "section_5_study4": "TAES_SECTION_V_STUDY4.md__DRAFTED_2026-09-06",
     "section_6_study6": "TAES_SECTION_VI_STUDY6.md__DRAFTED_2026-09-06",
-    "section_7_cross_study_synthesis": "TAES_SECTION_VII_SYNTHESIS.md__DRAFTED_AND_PRODUCER_COMPOSITION_TERMINOLOGY_ALIGNED_2026-09-06",
+    "section_7_cross_study_synthesis": "TAES_SECTION_VII_SYNTHESIS.md__COMPRESSED_PASS1_TRACKED_2026-09-06",
     "section_8_validity_implications": "TAES_SECTION_VIII_VALIDITY.md__DRAFTED_2026-09-06",
     "section_9_conclusion": "TAES_SECTION_IX_CONCLUSION.md__DRAFTED_AND_V4_WORDING_TIGHTENED_2026-09-06",
     "abstract_and_index_terms": "TAES_ABSTRACT_KEYWORDS.md__DRAFTED_AND_V4_WORDING_TIGHTENED_2026-09-06",
@@ -46,14 +46,20 @@
     "pre_bibliography_tracked_commit": "bf69976fca7b85a83c93578cd0568b2c3904cf0f",
     "bibliography_finalized_assembled_draft_sha256": "6695737686171f7c5e235c1541504350a9f7af4724e554b290b4ca2389425f05",
     "bibliography_finalized_tracked_commit": "90bab7b563a360228602b18ab447d00613e1412f",
+    "compressed_assembled_draft_sha256": "c49697da4f1f9225b078308107cbdbc260ce9110274919edd08d87419f5dc99c",
+    "compressed_tracked_commit": "41a18e6e4cb8672645d7ebf018e6ff77c5bebf20",
+    "compressed_body_words_including_abstract": 11672,
+    "compressed_total_words_including_references": 12015,
+    "compression_pass1_audit": "TAES_COMPRESSION_PASS1_AUDIT_2026-09-06.md__PASS_PREFERRED_EDITORIAL_VERSION",
     "assembled_manuscript_audit": "TAES_ASSEMBLED_MANUSCRIPT_AUDIT_2026-09-06.md__PASS_SCIENTIFICALLY_EDITORIAL_CORRECTIONS_APPLIED",
-    "assembly_status": "PASS_BIBLIOGRAPHY_FINALIZED_TRACKED_CANONICAL",
+    "assembly_status": "PASS_COMPRESSED_TRACKED_CANONICAL",
     "reassembly_required": false,
     "reference_count": 13,
     "citation_first_use_order": [1,2,3,4,5,6,7,8,9,10,11,12,13],
     "assembled_scientific_claim_audit": "PASS_NO_SCIENTIFIC_DEFECT",
     "assembled_citation_audit": "PASS_FINAL_IEEE_BIBLIOGRAPHY_FORMATTING_COMPLETE",
-    "taes_length_and_redundancy_edit_pass": "ACTIVE",
+    "taes_length_and_redundancy_edit_pass": "PASS_2298_WORD_REDUCTION_SCIENCE_PRESERVED",
+    "figures_and_tables_review_pass": "ACTIVE",
     "style_and_taes_format_audit": "PENDING"
   },
   "publisher_facing_files": {
@@ -63,7 +69,6 @@
     "cover_letter": "NOT_PUBLICLY_REQUIRED_BY_REVIEWED_TAES_INSTRUCTIONS__LIVE_PORTAL_RECHECK_REQUIRED"
   },
   "mandatory_final_gates": [
-    "taes_length_and_redundancy_edit_pass",
     "figures_and_tables_review_pass",
     "taes_format_audit_pass",
     "pdf_visual_qa_pass",
@@ -74,11 +79,11 @@
   ],
   "official_sources_reviewed_date": "2026-09-06",
   "notes": [
-    "The bibliography-finalized manuscript is canonically tracked at commit 90bab7b563a360228602b18ab447d00613e1412f with SHA-256 6695737686171f7c5e235c1541504350a9f7af4724e554b290b4ca2389425f05.",
-    "The final bibliography contains 13 one-source-per-number IEEE references and introduces them sequentially from [1] through [13].",
-    "The bibliography pass changed citation structure and bibliographic metadata only; no Study-3, Study-4, or Study-6 result, endpoint, population, or scientific interpretation was changed.",
-    "The next active gate is TAES-focused length and redundancy editing, followed by figures/tables review before journal formatting and PDF QA.",
+    "The bibliography-finalized manuscript remains preserved historically at commit 90bab7b563a360228602b18ab447d00613e1412f with SHA-256 6695737686171f7c5e235c1541504350a9f7af4724e554b290b4ca2389425f05.",
+    "The preferred compressed manuscript is canonically tracked at commit 41a18e6e4cb8672645d7ebf018e6ff77c5bebf20 with SHA-256 c49697da4f1f9225b078308107cbdbc260ce9110274919edd08d87419f5dc99c.",
+    "Compression reduced the manuscript from 14,313 to 12,015 words including references while preserving frozen scientific results, the 214-word abstract, IEEE citation order, and all comprehensive Section-VIII validity controls.",
+    "The TAES length-and-redundancy gate is complete. The active gate is figures and tables review before journal formatting and PDF QA.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, tracking, bibliography finalization, or editorial completion alone."
+    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, tracking, bibliography finalization, compression, or figures/tables review alone."
   ]
 }
