@@ -6,7 +6,7 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "VENUE_LOCKED_COMPONENT_COMPLETE_MANUSCRIPT_DRAFT_NOT_SUBMISSION_READY",
+  "status": "VENUE_LOCKED_COMPONENT_COMPLETE_AUDITED_DRAFT_PENDING_SINGLE_SOURCE_ASSEMBLY",
   "submission_authorized": false,
   "portal_submission_completed": false,
   "manuscript_id": null,
@@ -23,6 +23,7 @@
   "study5_core_inclusion": false,
   "working_scientific_identity": "Layered residual trust boundaries in satellite cyber-recovery qualification",
   "working_title": "Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Quorums, and Artifact Assurance",
+  "title_review_note": "Producer Composition is preferred over Producer Quorums for final title because Study 4 is a recovery-evidence qualification model rather than a Byzantine quorum protocol.",
   "manuscript_development": {
     "core_source_for_sections_2_3": "TAES_MANUSCRIPT_SOURCE.md",
     "literature_source_ledger": "TAES_LITERATURE_SOURCE_LEDGER.md",
@@ -34,11 +35,13 @@
     "section_6_study6": "TAES_SECTION_VI_STUDY6.md__DRAFTED_2026-09-06",
     "section_7_cross_study_synthesis": "TAES_SECTION_VII_SYNTHESIS.md__DRAFTED_2026-09-06",
     "section_8_validity_implications": "TAES_SECTION_VIII_VALIDITY.md__DRAFTED_2026-09-06",
-    "section_9_conclusion": "TAES_SECTION_IX_CONCLUSION.md__DRAFTED_2026-09-06",
-    "abstract_and_index_terms": "TAES_ABSTRACT_KEYWORDS.md__DRAFTED_2026-09-06",
-    "assembly_status": "PENDING_SINGLE_MANUSCRIPT_ASSEMBLY_AND_LINE_BY_LINE_AUDIT",
-    "scientific_claim_audit": "PENDING",
-    "citation_audit": "PENDING",
+    "section_9_conclusion": "TAES_SECTION_IX_CONCLUSION.md__DRAFTED_AND_V4_WORDING_TIGHTENED_2026-09-06",
+    "abstract_and_index_terms": "TAES_ABSTRACT_KEYWORDS.md__DRAFTED_AND_V4_WORDING_TIGHTENED_2026-09-06",
+    "component_scientific_claim_audit": "TAES_SCIENTIFIC_CLAIM_AUDIT_2026-09-06.md__PASS_WITH_EDITORIAL_CORRECTIONS_APPLIED",
+    "component_citation_prior_art_audit": "TAES_CITATION_PRIOR_ART_AUDIT_2026-09-06.md__PASS_WITH_BIBLIOGRAPHIC_FINALIZATION_PENDING",
+    "assembly_status": "PENDING_SINGLE_MANUSCRIPT_ASSEMBLY",
+    "assembled_scientific_claim_audit": "PENDING_AFTER_ASSEMBLY",
+    "assembled_citation_audit": "PENDING_AFTER_ASSEMBLY",
     "style_and_taes_format_audit": "PENDING"
   },
   "publisher_facing_files": {
@@ -49,8 +52,8 @@
   },
   "mandatory_final_gates": [
     "single_manuscript_assembly_complete",
-    "scientific_claim_audit_pass",
-    "citation_audit_pass",
+    "assembled_scientific_claim_audit_pass",
+    "assembled_citation_audit_pass",
     "taes_format_audit_pass",
     "pdf_visual_qa_pass",
     "portal_field_audit_pass",
@@ -60,13 +63,13 @@
   ],
   "official_sources_reviewed_date": "2026-09-06",
   "notes": [
-    "All nine planned manuscript sections and the abstract/index-term draft now exist as controlled components in the canonical TAES package.",
-    "Component-complete does not mean submission ready; assembly and scientific/citation audits remain mandatory.",
+    "All nine planned manuscript sections and the abstract/index-term draft exist as controlled components in the canonical TAES package.",
+    "A component-level scientific claim audit passed; the only editorial correction required was tightening V4 wording in the abstract and conclusion so manipulated records, rather than the entire V4 treatment, are described as rejected.",
+    "A live citation/prior-art audit passed with final IEEE bibliography formatting still required. The TUF citation was kept version-neutral because the verified official page did not expose a numeric stable version.",
+    "Component-level PASS does not mean submission ready. Assembly and repeat audits against the assembled manuscript remain mandatory.",
     "TAES initial Regular Paper submission requires a PDF in the specified two-column single-spaced format.",
-    "TAES performs Editor-in-Chief, Senior Editor, and Associate Editor prescreening before formal review.",
-    "Any supplementary material intended to accompany the article must be submitted for peer review with the original article.",
     "IEEE AI-generated article content must be disclosed in Acknowledgments with system, affected sections/content, and level of use.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "No portal submission is authorized by venue lock or component completion alone."
+    "No portal submission is authorized by venue lock, manuscript drafting, or component audit alone."
   ]
 }
