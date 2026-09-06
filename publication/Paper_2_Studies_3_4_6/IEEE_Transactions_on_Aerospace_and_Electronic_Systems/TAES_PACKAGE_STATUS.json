@@ -6,7 +6,7 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "VENUE_LOCKED_ASSEMBLED_DRAFT_TRACKED_EDITORIAL_AND_FORMATTING_GATES_PENDING",
+  "status": "VENUE_LOCKED_BIBLIOGRAPHY_FINALIZED_LENGTH_REDUNDANCY_GATE_ACTIVE",
   "submission_authorized": false,
   "portal_submission_completed": false,
   "manuscript_id": null,
@@ -38,17 +38,22 @@
     "abstract_and_index_terms": "TAES_ABSTRACT_KEYWORDS.md__DRAFTED_AND_V4_WORDING_TIGHTENED_2026-09-06",
     "abstract_word_count": 214,
     "component_scientific_claim_audit": "TAES_SCIENTIFIC_CLAIM_AUDIT_2026-09-06.md__PASS_WITH_EDITORIAL_CORRECTIONS_APPLIED",
-    "component_citation_prior_art_audit": "TAES_CITATION_PRIOR_ART_AUDIT_2026-09-06.md__PASS_WITH_BIBLIOGRAPHIC_FINALIZATION_PENDING",
+    "component_citation_prior_art_audit": "TAES_CITATION_PRIOR_ART_AUDIT_2026-09-06.md__PASS",
+    "final_ieee_bibliography_audit": "TAES_FINAL_IEEE_BIBLIOGRAPHY_AUDIT_2026-09-06.md__PASS_APPLIED_AND_TRACKED",
     "first_assembled_draft_sha256": "dcbc2aac36ac06be16fd89a073c0997c3e604e5381df759c103d328f28b021b7",
-    "first_assembled_draft_status": "SUPERSEDED_BY_REGENERATED_VERIFIED_DRAFT",
-    "regenerated_assembled_draft_sha256": "fef07a35d1517222d8fff6734bd4e4d07ba92bebbc37e65d8bd3699543f885f6",
-    "tracked_assembled_draft_commit": "bf69976fca7b85a83c93578cd0568b2c3904cf0f",
+    "first_assembled_draft_status": "SUPERSEDED",
+    "pre_bibliography_assembled_draft_sha256": "fef07a35d1517222d8fff6734bd4e4d07ba92bebbc37e65d8bd3699543f885f6",
+    "pre_bibliography_tracked_commit": "bf69976fca7b85a83c93578cd0568b2c3904cf0f",
+    "bibliography_finalized_assembled_draft_sha256": "6695737686171f7c5e235c1541504350a9f7af4724e554b290b4ca2389425f05",
+    "bibliography_finalized_tracked_commit": "90bab7b563a360228602b18ab447d00613e1412f",
     "assembled_manuscript_audit": "TAES_ASSEMBLED_MANUSCRIPT_AUDIT_2026-09-06.md__PASS_SCIENTIFICALLY_EDITORIAL_CORRECTIONS_APPLIED",
-    "assembly_status": "PASS_REGENERATED_VERIFIED_TRACKED_CANONICAL",
+    "assembly_status": "PASS_BIBLIOGRAPHY_FINALIZED_TRACKED_CANONICAL",
     "reassembly_required": false,
-    "citation_first_use_order": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "reference_count": 13,
+    "citation_first_use_order": [1,2,3,4,5,6,7,8,9,10,11,12,13],
     "assembled_scientific_claim_audit": "PASS_NO_SCIENTIFIC_DEFECT",
-    "assembled_citation_audit": "PASS_FIRST_USE_ORDER_RECHECKED_BIBLIOGRAPHIC_FINALIZATION_PENDING",
+    "assembled_citation_audit": "PASS_FINAL_IEEE_BIBLIOGRAPHY_FORMATTING_COMPLETE",
+    "taes_length_and_redundancy_edit_pass": "ACTIVE",
     "style_and_taes_format_audit": "PENDING"
   },
   "publisher_facing_files": {
@@ -58,7 +63,6 @@
     "cover_letter": "NOT_PUBLICLY_REQUIRED_BY_REVIEWED_TAES_INSTRUCTIONS__LIVE_PORTAL_RECHECK_REQUIRED"
   },
   "mandatory_final_gates": [
-    "final_ieee_bibliography_formatting_pass",
     "taes_length_and_redundancy_edit_pass",
     "figures_and_tables_review_pass",
     "taes_format_audit_pass",
@@ -70,13 +74,11 @@
   ],
   "official_sources_reviewed_date": "2026-09-06",
   "notes": [
-    "The first assembled manuscript passed scientific audit and exposed only editorial-control issues: combined-population arithmetic wording, nonsequential IEEE first-use citation numbering, and producer-quorum title/synthesis terminology.",
-    "Those issues were corrected without changing any frozen Study-3, Study-4, or Study-6 result.",
-    "The regenerated assembled draft passed the repository assembler with abstract_word_count=214 and citation_first_use_order=1,2,3,4,5,6,7,8,9,10,11,12.",
-    "The verified regenerated assembled SHA-256 is fef07a35d1517222d8fff6734bd4e4d07ba92bebbc37e65d8bd3699543f885f6.",
-    "The regenerated assembled manuscript and component manifest were committed canonically at bf69976fca7b85a83c93578cd0568b2c3904cf0f.",
-    "The manuscript is now ready for bibliography finalization, TAES-focused length and redundancy editing, and figures/tables review before journal formatting and PDF QA.",
+    "The bibliography-finalized manuscript is canonically tracked at commit 90bab7b563a360228602b18ab447d00613e1412f with SHA-256 6695737686171f7c5e235c1541504350a9f7af4724e554b290b4ca2389425f05.",
+    "The final bibliography contains 13 one-source-per-number IEEE references and introduces them sequentially from [1] through [13].",
+    "The bibliography pass changed citation structure and bibliographic metadata only; no Study-3, Study-4, or Study-6 result, endpoint, population, or scientific interpretation was changed.",
+    "The next active gate is TAES-focused length and redundancy editing, followed by figures/tables review before journal formatting and PDF QA.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, tracking, or audit completion alone."
+    "No portal submission is authorized by venue lock, manuscript drafting, assembly verification, tracking, bibliography finalization, or editorial completion alone."
   ]
 }
