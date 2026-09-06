@@ -1,0 +1,87 @@
+name: Build Acta Study 8 package binaries
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    env:
+      MPLBACKEND: Agg
+      ACTA_OUT: publication/Paper_4_Study_8/Acta_Astronautica
+    steps:
+      - name: Check out package branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install package-generation dependencies
+        run: python -m pip install 'python-docx==1.2.0' 'matplotlib==3.10.8'
+
+      - name: Reconstruct temporary package builder
+        shell: bash
+        run: |
+          cat .github/acta-build/part_* | base64 -d | gzip -dc > /tmp/build_acta_package.py
+          python -m py_compile /tmp/build_acta_package.py
+
+      - name: Generate publisher-facing binaries only
+        run: python /tmp/build_acta_package.py
+
+      - name: Sanity-check generated package
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s "$ACTA_OUT/ACTA_ASTRONAUTICA_MANUSCRIPT.docx"
+          test -s "$ACTA_OUT/ACTA_ASTRONAUTICA_COVER_LETTER.docx"
+          test -s "$ACTA_OUT/ACTA_ASTRONAUTICA_HIGHLIGHTS.docx"
+          test -s "$ACTA_OUT/FIGURE_1_PROFILE_SUCCESS.pdf"
+          test -s "$ACTA_OUT/FIGURE_2_CONTACT_REGIME_SUCCESS.pdf"
+          python - <<'PY'
+          from zipfile import ZipFile
+          from pathlib import Path
+          root=Path('publication/Paper_4_Study_8/Acta_Astronautica')
+          for name in ['ACTA_ASTRONAUTICA_MANUSCRIPT.docx','ACTA_ASTRONAUTICA_COVER_LETTER.docx','ACTA_ASTRONAUTICA_HIGHLIGHTS.docx']:
+              with ZipFile(root/name) as z:
+                  names=set(z.namelist())
+                  assert 'word/document.xml' in names
+                  assert 'word/comments.xml' not in names
+                  xml=z.read('word/document.xml')
+                  assert b'<w:ins' not in xml and b'<w:del' not in xml
+          print('docx_structure_checks=PASS')
+          PY
+          sha256sum \
+            "$ACTA_OUT/ACTA_ASTRONAUTICA_MANUSCRIPT.docx" \
+            "$ACTA_OUT/ACTA_ASTRONAUTICA_COVER_LETTER.docx" \
+            "$ACTA_OUT/ACTA_ASTRONAUTICA_HIGHLIGHTS.docx" \
+            "$ACTA_OUT/FIGURE_1_PROFILE_SUCCESS.pdf" \
+            "$ACTA_OUT/FIGURE_2_CONTACT_REGIME_SUCCESS.pdf"
+
+      - name: Commit generated binaries to package branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            "$ACTA_OUT/ACTA_ASTRONAUTICA_MANUSCRIPT.docx" \
+            "$ACTA_OUT/ACTA_ASTRONAUTICA_COVER_LETTER.docx" \
+            "$ACTA_OUT/ACTA_ASTRONAUTICA_HIGHLIGHTS.docx" \
+            "$ACTA_OUT/FIGURE_1_PROFILE_SUCCESS.pdf" \
+            "$ACTA_OUT/FIGURE_2_CONTACT_REGIME_SUCCESS.pdf"
+          if git diff --cached --quiet; then
+            echo 'No binary changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Generate Acta Study 8 publisher-facing binaries [skip acta-build]'
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
