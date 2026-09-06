@@ -1,37 +1,30 @@
 {
   "schema": 1,
-  "status_id": "S8-ACTA-PACKAGE-STATUS-001",
+  "status_id": "S8-ACTA-PACKAGE-STATUS-002",
   "experiment_id": "S8-PQC-ICR-001",
   "roadmap_publication_label": "Paper 4",
   "venue": "Acta Astronautica",
-  "publisher": "Elsevier on behalf of the International Academy of Astronautics",
   "venue_selection_date": "2026-09-05",
   "venue_selection_authorized_by_author": true,
-  "status": "VENUE_SELECTED__SUBMISSION_PACKAGE_PREPARATION_AUTHORIZED",
+  "status": "SUBMISSION_PACKAGE_HASH_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "source_publication_package": "publication/study8/",
   "source_publication_status": "PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED",
-  "scientific_source_bindings": {
-    "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
-    "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
-    "independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
-    "interpretation_audit_sha256": "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413",
-    "publication_freeze_id": "S8-PUBFREEZE-001"
-  },
-  "frozen_primary_result": {
-    "policy_success_each": "635/864",
-    "P3_minus_P1_risk_difference": "0/1"
-  },
-  "fallback_venues": [
-    "IEEE Systems Journal",
-    "International Journal of Satellite Communications and Networking"
-  ],
-  "gate_state": {
-    "venue_specific_submission_package_preparation_authorized": true,
-    "scientific_reexecution_authorized": false,
-    "statistical_reanalysis_authorized": false,
-    "frozen_science_modification_authorized": false,
-    "publisher_submission_authorized": false,
-    "publisher_portal_action_authorized": false
-  },
-  "next_gate": "prepare and audit the Acta Astronautica venue-specific manuscript and publisher-facing files; final publisher submission requires a later separate explicit author authorization"
+  "package_freeze_id": "S8-ACTA-PKGFREEZE-001",
+  "publisher_submission_authorized": false,
+  "publisher_portal_action_authorized": false,
+  "scientific_reexecution_authorized": false,
+  "statistical_reanalysis_authorized": false,
+  "frozen_science_modification_authorized": false,
+  "primary_result": "P3 - P1 = 0/1 = 0.000000 percentage points",
+  "next_gate": "authenticated live Editorial Manager field capture and publisher proof audit, followed by separate explicit author authorization before submission",
+  "package_visual_qa": "PASS_EXACT_GITHUB_ARTIFACT",
+  "docx_a11y": "PASS_ZERO_FINDINGS",
+  "tracked_changes_and_comments": "NONE",
+  "abstract_word_count": 226,
+  "reference_count": 17,
+  "highlight_count": 5,
+  "keyword_count": 6,
+  "github_actions_qa_run": 34008481863,
+  "github_actions_artifact_id": 9981703538,
+  "github_actions_artifact_sha256": "bfb6132c3cf08960f79fbefe40930cd0b22cfda3c0e78cf3f4eb97707979d656"
 }
