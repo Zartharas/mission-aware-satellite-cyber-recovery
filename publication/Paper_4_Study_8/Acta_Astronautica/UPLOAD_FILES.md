@@ -1,4 +1,6 @@
-# Files to upload after final submission authorization
+# Files to Upload After Final Submission Authorization
+
+Current package freeze: `S8-ACTA-PKGFREEZE-002`
 
 1. `ACTA_ASTRONAUTICA_MANUSCRIPT.docx` - manuscript
 2. `ACTA_ASTRONAUTICA_COVER_LETTER.docx` - cover letter
@@ -6,4 +8,4 @@
 4. `FIGURE_1_PROFILE_SUCCESS.pdf` - Figure 1 vector artwork
 5. `FIGURE_2_CONTACT_REGIME_SUCCESS.pdf` - Figure 2 vector artwork
 
-Do not upload audit/control files unless the portal explicitly requests them.
+Do not upload audit or control files unless the portal explicitly requests them. Verify the five files against `SHA256SUMS.txt` before portal upload.
