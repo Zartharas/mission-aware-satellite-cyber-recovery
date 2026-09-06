@@ -78,7 +78,7 @@ This state is deliberately important. All six gate-visible signals are true, inc
 
 The result should not be overstated. `APPROVED_BAD_SOURCE` is a structural observability boundary of the frozen model, not an information-theoretic impossibility result. The study does not prove that no assurance mechanism could detect bad source. A different model could include additional evidence, such as independent semantic validation, formal verification, behavioral testing, or other assurance signals. Those signals were not part of the frozen Study-6 design and are not added post hoc to remove the residual state.
 
-The result also overlaps conceptually with established supply-chain guidance. SLSA v1.2 explicitly recognizes that an intentionally malicious software producer cannot be directly mitigated through SLSA controls and that the consumer must establish a basis for trusting the producer [12]. The contribution here is therefore not the discovery of that principle. It is the exact residual-state mapping of the frozen recovery-artifact gate composition.
+The result also overlaps conceptually with established supply-chain guidance. SLSA v1.2 explicitly recognizes that an intentionally malicious software producer cannot be directly mitigated through SLSA controls and that the consumer must establish a basis for trusting the producer [13]. The contribution here is therefore not the discovery of that principle. It is the exact residual-state mapping of the frozen recovery-artifact gate composition.
 
 ## H. Exact Gate Frontier
 
@@ -109,7 +109,7 @@ The term "availability" is therefore used cautiously. Study 6 measures qualifica
 
 ## J. Relationship to Provenance and Update-Security Prior Art
 
-The Study-6 gates intentionally use assurance concepts that are already established in software-supply-chain and update-security systems. in-toto provides verifiable supply-chain step metadata [10]. TUF uses signed metadata, target hashes, trusted roles, thresholds, and expiration to secure software updates [11]. SLSA defines source and build assurance levels and threat boundaries [12]. SPARTA also motivates integrity-protected and validated recovery baselines in the spacecraft context [4].
+The Study-6 gates intentionally use assurance concepts that are already established in software-supply-chain and update-security systems. in-toto provides verifiable supply-chain step metadata [10]. TUF uses signed metadata, target hashes, trusted roles, thresholds, and expiration to secure software updates [11]. SLSA defines source assurance requirements and documents supply-chain threat boundaries [12], [13]. SPARTA also motivates integrity-protected and validated recovery baselines in the spacecraft context [4].
 
 Study 6 neither replaces nor validates those systems. It also does not claim standards compliance. The model asks a different question: if a recovery-qualification policy can observe selected assurance signals corresponding to these broad concepts, which prespecified incorrect artifact states remain observationally indistinguishable from acceptable artifacts under each gate?
 

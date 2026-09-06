@@ -166,6 +166,10 @@ def main() -> None:
     if "6,408" in assembled:
         raise SystemExit("ERROR: combined Paper-2 population total detected")
 
+    # Current IEEE reference style writes numeric citation ranges out individually.
+    if re.search(r"\[\d+\]\s*-\s*\[\d+\]", assembled):
+        raise SystemExit("ERROR: dash-form numeric IEEE citation range detected")
+
     # Guard only genuinely affirmative superiority claims. Explicit limitation
     # language such as "does not identify a globally best policy" is valid.
     affirmative_superiority_patterns = [

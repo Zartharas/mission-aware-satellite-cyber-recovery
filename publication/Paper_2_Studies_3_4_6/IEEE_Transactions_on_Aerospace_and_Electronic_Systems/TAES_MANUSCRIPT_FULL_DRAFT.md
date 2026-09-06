@@ -10,7 +10,7 @@ Trusted cyber recovery for satellite systems can depend on policy-visible eviden
 
 Cyber recovery in satellite systems can require trust decisions under conditions that differ from continuously connected terrestrial environments. Communication gaps can limit when evidence is refreshed or when a ground operator can intervene, while postlaunch physical access is constrained and mission continuity can remain important during cyber response [1]. These characteristics make recovery not only a restoration problem but also a qualification problem: before a policy permits a recovery path, it must determine whether the available runtime evidence, the sources producing that evidence, and the recovery artifact itself are sufficiently trustworthy for the modeled decision.
 
-Space-specific research already frames these decisions in terms of internal trust boundaries and testable cyber-resilience requirements [2], [3], while SPARTA recognizes integrity-protected trusted recovery baselines and cyber-safe recovery concepts [4]. Remote-attestation architectures distinguish evidence from the policy that appraises it and treat freshness as an explicit concern [5], and current RATS work also studies composition across multiple Verifiers in complex attestation topologies [6]. Quorum systems formalize how trust and failure assumptions interact with the sets of participants required for a decision [7], [8], and recent satellite trusted-execution research has used Byzantine-tolerant endorsement quorums as part of its architecture [9]. Software-supply-chain mechanisms use signatures, hashes, provenance, controlled build processes, reproducibility, review, and release metadata to establish properties of software artifacts [10]-[12]. The present work does not introduce these mechanisms.
+Space-specific research already frames these decisions in terms of internal trust boundaries and testable cyber-resilience requirements [2], [3], while SPARTA recognizes integrity-protected trusted recovery baselines and cyber-safe recovery concepts [4]. Remote-attestation architectures distinguish evidence from the policy that appraises it and treat freshness as an explicit concern [5], and current RATS work also studies composition across multiple Verifiers in complex attestation topologies [6]. Quorum systems formalize how trust and failure assumptions interact with the sets of participants required for a decision [7], [8], and recent satellite trusted-execution research has used Byzantine-tolerant endorsement quorums as part of its architecture [9]. Software-supply-chain mechanisms use signatures, hashes, provenance, controlled build processes, reproducibility, review, and release metadata to establish properties of software artifacts [10], [11], [12]. SLSA also documents threat boundaries for intentionally malicious producers [13]. The present work does not introduce these mechanisms.
 
 The unresolved systems question addressed here is narrower: **what residual trust boundary remains when a recovery-qualification policy relies on evidence that can satisfy its visible checks while differing from a research-only authorization or correctness state?** The answer depends on where the trust boundary is placed. Runtime evidence can be authentic and fresh but semantically false if the trusted producer itself is compromised. Multiple evidence producers can reduce dependence on one source, but the resulting boundary depends on vote count, assumed provenance diversity, and producer unavailability. Recovery-artifact assurance can close several integrity and process failures while still depending on a higher-level assumption about the correctness of the approved source.
 
@@ -74,13 +74,13 @@ Study 4 asks a more limited recovery-qualification question. Given a fixed regis
 
 Software-supply-chain security already provides several mechanisms relevant to recovery-artifact qualification. in-toto uses cryptographically verifiable metadata to provide evidence about the sequence of steps used to produce software [10]. The Update Framework uses trusted roles, signed metadata, cryptographic hashes, expiration, versioning, and configurable signature thresholds to secure software update distribution and limit the effects of key compromise [11]. SLSA defines source and build assurance requirements intended to increase confidence that software was created through expected, auditable processes [12]. These mechanisms establish provenance, target binding, controlled build processes, and authenticated release metadata as prior art.
 
-The current SLSA v1.2 threat model is especially relevant to the interpretation of Study 6. SLSA explicitly states that an intentionally malicious software producer cannot be directly mitigated by SLSA controls alone and that consumers need some independent basis for trusting the producer [12]. Therefore, Study 6's `APPROVED_BAD_SOURCE` state must not be presented as the discovery that provenance or process compliance cannot prove benevolent source intent. That limitation is already recognized in contemporary supply-chain assurance.
+The current SLSA v1.2 threat model is especially relevant to the interpretation of Study 6. SLSA explicitly states that an intentionally malicious software producer cannot be directly mitigated by SLSA controls alone and that consumers need some independent basis for trusting the producer [13]. Therefore, Study 6's `APPROVED_BAD_SOURCE` state must not be presented as the discovery that provenance or process compliance cannot prove benevolent source intent. That limitation is already recognized in contemporary supply-chain assurance.
 
 Study 6 instead provides an exact residual-state map for a frozen six-state, six-gate artifact model. It asks which prespecified incorrect recovery-artifact states remain qualified as signature, digest, provenance, reproduced-build, source-review, and approval signals are composed, and it separately enumerates the benign qualification loss produced when required assurance signals become unavailable. Equal aggregate counts are preserved when different gates leave different residual states. The resulting contribution is not a new provenance mechanism. It is a finite characterization of which modeled trust assumptions each gate closes and which assumption remains outside the gate's observability.
 
 ### E. Scientific Positioning and Gap Addressed
 
-The literature reviewed above establishes the main primitives that appear in this paper. Space cybersecurity already treats communication gaps, autonomy, continuity, trusted baselines, and internal trust boundaries as important concerns [1]-[4]. RATS already formalizes Evidence, appraisal, Relying Parties, and freshness [5], [6]. Distributed-systems research already formalizes quorum trust and availability relationships [7], [8], and current satellite trust architectures already use endorsement quorums [9]. Software-supply-chain research already provides provenance, signed update metadata, target binding, reproducible-process concepts, and explicit limits on what those controls can establish about producer intent [10]-[12].
+The literature reviewed above establishes the main primitives that appear in this paper. Space cybersecurity already treats communication gaps, autonomy, continuity, trusted baselines, and internal trust boundaries as important concerns [1], [2], [3], [4]. RATS already formalizes Evidence, appraisal, Relying Parties, and freshness [5], [6]. Distributed-systems research already formalizes quorum trust and availability relationships [7], [8], and current satellite trust architectures already use endorsement quorums [9]. Software-supply-chain research already provides provenance, signed update metadata, target binding, reproducible-process concepts, and explicit limits on what those controls can establish about producer intent [10], [11], [12], [13].
 
 Accordingly, this paper does not claim novelty for any of those individual mechanisms. Its contribution is the exact characterization of three distinct residual recovery-qualification boundaries under separately frozen finite models. Study 3 isolates temporal evidence validity and trusted-producer semantics under a frozen continuous or intermittent-contact schedule. Study 4 isolates producer-count and synthetic provenance-domain composition under exhaustive compromise and benign-unavailability subsets. Study 6 isolates recovery-artifact assurance composition under prespecified incorrect states and exhaustive benign assurance-signal loss.
 
@@ -469,7 +469,7 @@ This state is deliberately important. All six gate-visible signals are true, inc
 
 The result should not be overstated. `APPROVED_BAD_SOURCE` is a structural observability boundary of the frozen model, not an information-theoretic impossibility result. The study does not prove that no assurance mechanism could detect bad source. A different model could include additional evidence, such as independent semantic validation, formal verification, behavioral testing, or other assurance signals. Those signals were not part of the frozen Study-6 design and are not added post hoc to remove the residual state.
 
-The result also overlaps conceptually with established supply-chain guidance. SLSA v1.2 explicitly recognizes that an intentionally malicious software producer cannot be directly mitigated through SLSA controls and that the consumer must establish a basis for trusting the producer [12]. The contribution here is therefore not the discovery of that principle. It is the exact residual-state mapping of the frozen recovery-artifact gate composition.
+The result also overlaps conceptually with established supply-chain guidance. SLSA v1.2 explicitly recognizes that an intentionally malicious software producer cannot be directly mitigated through SLSA controls and that the consumer must establish a basis for trusting the producer [13]. The contribution here is therefore not the discovery of that principle. It is the exact residual-state mapping of the frozen recovery-artifact gate composition.
 
 ### H. Exact Gate Frontier
 
@@ -500,7 +500,7 @@ The term "availability" is therefore used cautiously. Study 6 measures qualifica
 
 ### J. Relationship to Provenance and Update-Security Prior Art
 
-The Study-6 gates intentionally use assurance concepts that are already established in software-supply-chain and update-security systems. in-toto provides verifiable supply-chain step metadata [10]. TUF uses signed metadata, target hashes, trusted roles, thresholds, and expiration to secure software updates [11]. SLSA defines source and build assurance levels and threat boundaries [12]. SPARTA also motivates integrity-protected and validated recovery baselines in the spacecraft context [4].
+The Study-6 gates intentionally use assurance concepts that are already established in software-supply-chain and update-security systems. in-toto provides verifiable supply-chain step metadata [10]. TUF uses signed metadata, target hashes, trusted roles, thresholds, and expiration to secure software updates [11]. SLSA defines source assurance requirements and documents supply-chain threat boundaries [12], [13]. SPARTA also motivates integrity-protected and validated recovery baselines in the spacecraft context [4].
 
 Study 6 neither replaces nor validates those systems. It also does not claim standards compliance. The model asks a different question: if a recovery-qualification policy can observe selected assurance signals corresponding to these broad concepts, which prespecified incorrect artifact states remain observationally indistinguishable from acceptable artifacts under each gate?
 
@@ -706,26 +706,28 @@ The reported findings remain bounded to exact finite models. Only Study 3 models
 
 ## References
 
-[1] R. Thummala, E. Rice, and G. Falco, "Why is Space Cybersecurity Unique?" NDSS SpaceSec, 2026.
+[1] R. Thummala, E. Rice, and G. Falco, "Why is space cybersecurity unique?," in Proc. 4th Workshop Security Space Satellite Syst. (SpaceSec), San Diego, CA, USA, Feb. 23, 2026, doi: 10.14722/spacesec.2026.23055.
 
-[2] J. Vanlyssel, G.-C. Roman, K. Cook, S. Rahaman, and A. Anwar, "Trust Without Boundaries: An Architectural Analysis of Satellite Flight Software," arXiv:2608.14532, Aug. 2026.
+[2] J. Vanlyssel, G.-C. Roman, K. Cook, S. Rahaman, and A. Anwar, "Trust without boundaries: An architectural analysis of satellite flight software," 2026, arXiv:2608.14532.
 
-[3] J. Curbo and G. Falco, "Testable Cyber Requirements for Space Flight Software," in Proc. 2025 IEEE Aerospace Conference, 2025, doi: 10.1109/AERO63441.2025.11068629.
+[3] J. Curbo and G. Falco, "Testable cyber requirements for space flight software," in Proc. 2025 IEEE Aerosp. Conf., Big Sky, MT, USA, 2025, pp. 1-20, doi: 10.1109/AERO63441.2025.11068629.
 
-[4] The Aerospace Corporation, "Space Attack Research and Tactic Analysis (SPARTA)," online resource, accessed Sep. 2026.
+[4] The Aerospace Corporation. "Space Attack Research & Tactic Analysis (SPARTA)." Accessed: Sep. 6, 2026. [Online]. Available: https://sparta.aerospace.org/
 
-[5] H. Birkholz, D. Thaler, M. Richardson, N. Smith, and W. Pan, "Remote ATtestation procedureS (RATS) Architecture," RFC 9334, Jan. 2023, doi: 10.17487/RFC9334.
+[5] H. Birkholz, D. Thaler, M. Richardson, N. Smith, and W. Pan, "Remote ATtestation procedureS (RATS) architecture," RFC 9334, Jan. 2023, doi: 10.17487/RFC9334.
 
-[6] Y. Deshpande, J. Zhang, H. Labiod, and H. Birkholz, "Remote Attestation with Multiple Verifiers," draft-ietf-rats-multi-verifier-00, IETF RATS Working Group, May 2026, work in progress.
+[6] Y. Deshpande, J. Zhang, H. Labiod, and H. Birkholz, "Remote attestation with multiple verifiers," IETF, Internet-Draft draft-ietf-rats-multi-verifier-00, May 2026, work in progress. [Online]. Available: https://datatracker.ietf.org/doc/draft-ietf-rats-multi-verifier/
 
-[7] D. Malkhi and M. Reiter, "Byzantine quorum systems," Distributed Computing, vol. 11, no. 4, pp. 203-213, 1998, doi: 10.1007/s004460050050.
+[7] D. Malkhi and M. Reiter, "Byzantine quorum systems," Distrib. Comput., vol. 11, no. 4, pp. 203-213, Oct. 1998, doi: 10.1007/s004460050050.
 
-[8] O. Alpos, C. Cachin, B. Tackmann, and L. Zanolini, "Asymmetric distributed trust," Distributed Computing, vol. 37, pp. 247-277, 2024, doi: 10.1007/s00446-024-00469-1.
+[8] O. Alpos, C. Cachin, B. Tackmann, and L. Zanolini, "Asymmetric distributed trust," Distrib. Comput., vol. 37, no. 3, pp. 247-277, May 2024, doi: 10.1007/s00446-024-00469-1.
 
-[9] F. Rezabek, D. Malkhi, and A. Yahalom, "Space Fabric: A Satellite-Enhanced Trusted Execution Architecture," arXiv:2603.23745, Mar. 2026.
+[9] F. Rezabek, D. Malkhi, and A. Yahalom, "Space Fabric: A satellite-enhanced trusted execution architecture," 2026, arXiv:2603.23745.
 
-[10] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, "in-toto: Providing farm-to-table guarantees for bits and bytes," in Proc. 28th USENIX Security Symposium, 2019.
+[10] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, "in-toto: Providing farm-to-table guarantees for bits and bytes," in Proc. 28th USENIX Security Symp. (USENIX Security 19), Santa Clara, CA, USA, Aug. 2019, pp. 1393-1410.
 
-[11] The Update Framework, "The Update Framework Specification," current specification, 2026.
+[11] The Update Framework. "The Update Framework Specification, v1.0.33." Accessed: Sep. 6, 2026. [Online]. Available: https://theupdateframework.io/spec/
 
-[12] SLSA, "SLSA v1.2 Source Requirements" and "Threats & Mitigations," current approved specification, 2026.
+[12] SLSA. "Source: Requirements for producing source," SLSA Specification, v1.2. Accessed: Sep. 6, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/source-requirements
+
+[13] SLSA. "Threats & mitigations," SLSA Specification, v1.2. Accessed: Sep. 6, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/threats

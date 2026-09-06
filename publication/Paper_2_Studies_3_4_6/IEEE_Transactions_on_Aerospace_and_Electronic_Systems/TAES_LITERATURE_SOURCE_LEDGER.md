@@ -149,34 +149,41 @@ Novelty implication:
 
 ### [11] The Update Framework
 
-The Update Framework, "The Update Framework Specification," latest stable specification.
+The Update Framework, "The Update Framework Specification, v1.0.33," latest stable specification.
 
-Official source repository: https://github.com/theupdateframework/specification
+Official specification page: https://theupdateframework.io/spec/
 
-Specification source: https://github.com/theupdateframework/specification/blob/master/tuf-spec.md
-
-Live-verification rule:
-- the official repository states that `master` always points to the latest stable version and `draft` to the latest development version;
-- the retrieved official page did not expose the current stable numeric version, so the manuscript remains version-neutral rather than asserting an unverified version number.
-
-Use in manuscript:
+Live-verified status and support:
+- the official specification page identifies v1.0.33 as the latest stable specification as of 2026-09-06;
 - signed metadata, trusted roles, target hashes, thresholds, versions, and expiration are established update-security mechanisms.
 
 Novelty implication:
 - Study 6 does not introduce target-hash binding, threshold-signature concepts, or trusted update roles.
 
-### [12] SLSA v1.2
+### [12] SLSA v1.2 Source Requirements
 
-SLSA, "SLSA v1.2: Source Requirements" and "Threats & Mitigations," approved v1.2 specification.
+SLSA, "Source: Requirements for producing source," approved v1.2 specification.
 
-Sources:
-- https://slsa.dev/spec/v1.2/source-requirements
-- https://slsa.dev/spec/v1.2/threats
+Official source: https://slsa.dev/spec/v1.2/source-requirements
 
 Live-verified support:
-- Source Requirements is marked Approved;
-- the Source track provides increasing levels of trust in how source revisions are created;
-- the threat model explicitly states that intentionally malicious software produced by the producer cannot be directly mitigated through SLSA controls and consumers must establish a basis for trusting the producer.
+- the page is marked Approved;
+- the Source track defines increasing levels of trustworthiness and completeness in how source revisions are created;
+- source provenance and controlled review are established assurance mechanisms.
+
+Novelty implication:
+- Study 6 does not introduce source provenance or source-process assurance requirements.
+
+### [13] SLSA v1.2 Threats & Mitigations
+
+SLSA, "Threats & mitigations," approved v1.2 specification.
+
+Official source: https://slsa.dev/spec/v1.2/threats
+
+Live-verified support:
+- the page is marked Approved;
+- the threat model explicitly states that intentionally malicious software produced by the producer cannot be directly mitigated through SLSA controls;
+- consumers must establish some independent basis for trusting the producer.
 
 Novelty implication:
 - Study 6's `APPROVED_BAD_SOURCE` state must not be presented as the discovery that provenance or process conformance can fail to establish benevolent source intent.
