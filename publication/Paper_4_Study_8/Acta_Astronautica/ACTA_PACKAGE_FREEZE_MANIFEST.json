@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "freeze_id": "S8-ACTA-PKGFREEZE-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "venue": "Acta Astronautica",
+  "date": "2026-09-05",
+  "status": "SUBMISSION_PACKAGE_HASH_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+  "source_package": "publication/study8/",
+  "source_publication_freeze_id": "S8-PUBFREEZE-001",
+  "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+  "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+  "interpretation_audit_sha256": "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413",
+  "github_actions_qa": {
+    "run_id": 34006672084,
+    "artifact_id": 9981149286,
+    "artifact_sha256": "54ec16dad727174cf9f5868421cbe7d88a2379afdb4f6cea0fd3627c85ac6235"
+  },
+  "files": {
+    "ACTA_ASTRONAUTICA_MANUSCRIPT.docx": "46b631d4fc7481b2a263479f8a23e32d0aa56b6c8a3c916ee5c3725288e44513",
+    "ACTA_ASTRONAUTICA_COVER_LETTER.docx": "2cb0fb5898c8529e4084fb5077aeedb3a48d2fa6b8fc14fa4f3423c67212aace",
+    "ACTA_ASTRONAUTICA_HIGHLIGHTS.docx": "ff48ba40e6d33bedb40d55432dc0ee23bf5e69b1691a6e88c79c5bd6386da1b9",
+    "FIGURE_1_PROFILE_SUCCESS.pdf": "041b67a75daeb3a07336beb7d8f02f3a41455f1489e0d14ece13eb5e97a91a63",
+    "FIGURE_2_CONTACT_REGIME_SUCCESS.pdf": "e527830c31fc25f28e3eae8272b4e00e92722ac451ef3d363d475a41e978bcbb",
+    "ACTA_PACKAGE_STATUS.json": "bba0c3b294fb2ce6f08bf71afe249d61a5fcfc8ee1c0aea5dc20641e7ec71372",
+    "README_SUBMISSION.md": "1a549f09423cf09f57651d5028a920362a2618b4db74ae4d361706f6817459bb",
+    "SUBMISSION_CHECKLIST.md": "e6f1951276e5abd1037cb107cb19476dc03cd540a0bc0ae452ce5483e69a6780",
+    "ACTA_COMPLIANCE_CHECKLIST.md": "ac94146f9acbb83352169578950f5446a12760029cef0dd650de135071fe23ef",
+    "SCIENTIFIC_AUDIT.md": "428450aee85050f421109e843114f9bdf7c25afebd3f7963064ab4dbbe2b805a",
+    "REFERENCE_AUDIT.md": "248b3c2b619d2618575b0c95554f2bd7be01f1ad028261fdf23b36176e7806c5",
+    "FIGURE_SOURCE_BINDING.md": "3ba077026a5732fcacbd1939a800a45b9938733869db95dbc2f996430c8098ee",
+    "EDITORIAL_MANAGER_SUBMISSION_VALUES.md": "a02b5ba9c8690f6fe3ecc0255efe4a84c0de4a8f9b1b307406429f87db191ae2",
+    "PACKAGE_AUTHORIZATION_2026-09-05.md": "05f03368304713369112d493bd8a550c3a2e779e30272c2ca7535d8fe35e14d2",
+    "FINAL_PROOF_QA.md": "67f919ab043fa40edaf5857fff9214a56c71f5f9d17682f78f4549036cc6077f",
+    "UPLOAD_FILES.md": "9b431db823a37aac208af43d4d997e1eec7b751d13bb72d536faa5a30de121ff"
+  },
+  "publisher_submission_authorized": false,
+  "publisher_portal_action_authorized": false,
+  "scientific_reexecution_authorized": false,
+  "statistical_reanalysis_authorized": false,
+  "frozen_science_modification_authorized": false
+}
