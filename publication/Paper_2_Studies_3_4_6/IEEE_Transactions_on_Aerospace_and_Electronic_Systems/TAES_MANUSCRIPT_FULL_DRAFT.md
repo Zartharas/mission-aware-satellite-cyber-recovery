@@ -8,15 +8,13 @@ Trusted cyber recovery for satellite systems can depend on policy-visible eviden
 
 ## I. Introduction
 
-Cyber recovery in satellite systems can require trust decisions under conditions that differ from continuously connected terrestrial environments. Communication gaps can limit when evidence is refreshed or when a ground operator can intervene, while postlaunch physical access is constrained and mission continuity can remain important during cyber response [1]. These characteristics make recovery not only a restoration problem but also a qualification problem: before a policy permits a recovery path, it must determine whether the available runtime evidence, the sources producing that evidence, and the recovery artifact itself are sufficiently trustworthy for the modeled decision.
+Cyber recovery in satellite systems can require trust decisions under communication gaps, constrained postlaunch access, and mission-continuity pressure [1]. Recovery is therefore not only a restoration problem but also a qualification problem: before a policy permits a recovery path, it must decide whether the available runtime evidence, the producers supplying that evidence, and the recovery artifact are sufficiently trustworthy for the modeled decision.
 
-Space-specific research already frames these decisions in terms of internal trust boundaries and testable cyber-resilience requirements [2], [3], while SPARTA recognizes integrity-protected trusted recovery baselines and cyber-safe recovery concepts [4]. Remote-attestation architectures distinguish evidence from the policy that appraises it and treat freshness as an explicit concern [5], and current RATS work also studies composition across multiple Verifiers in complex attestation topologies [6]. Quorum systems formalize how trust and failure assumptions interact with the sets of participants required for a decision [7], [8], and recent satellite trusted-execution research has used Byzantine-tolerant endorsement quorums as part of its architecture [9]. Software-supply-chain mechanisms use signatures, hashes, provenance, controlled build processes, reproducibility, review, and release metadata to establish properties of software artifacts [10], [11], [12]. SLSA also documents threat boundaries for intentionally malicious producers [13]. The present work does not introduce these mechanisms.
+Prior work already establishes the main mechanisms used here. Satellite research examines internal trust boundaries and testable cyber-resilience requirements [2], [3], while SPARTA describes integrity-protected trusted recovery baselines [4]. RATS distinguishes evidence from appraisal and treats freshness as an explicit concern [5], with current work also considering multiple-Verifier composition [6]. Quorum systems formalize trust and failure assumptions [7], [8], and recent satellite trusted-execution work uses Byzantine-tolerant endorsement quorums [9]. Software-supply-chain systems provide provenance, signed metadata, hashes, controlled build processes, and source assurance [10], [11], [12], while SLSA also documents limits involving intentionally malicious producers [13]. This paper does not claim novelty for those mechanisms.
 
-The unresolved systems question addressed here is narrower: **what residual trust boundary remains when a recovery-qualification policy relies on evidence that can satisfy its visible checks while differing from a research-only authorization or correctness state?** The answer depends on where the trust boundary is placed. Runtime evidence can be authentic and fresh but semantically false if the trusted producer itself is compromised. Multiple evidence producers can reduce dependence on one source, but the resulting boundary depends on vote count, assumed provenance diversity, and producer unavailability. Recovery-artifact assurance can close several integrity and process failures while still depending on a higher-level assumption about the correctness of the approved source.
+The narrower question is: **what residual trust boundary remains when a recovery-qualification policy can satisfy its visible checks while a relevant research-only authorization or correctness state differs?** Runtime evidence can be authentic and fresh but semantically false if a trusted producer is compromised. Multiple producers can reduce dependence on one source, but the boundary then depends on vote count, provenance assumptions, and producer availability. Artifact assurance can close several integrity and process failures while still depending on a higher-level assumption about approved source correctness.
 
-This paper investigates those boundaries through three separately frozen deterministic studies. The studies do not form one integrated experiment and their populations are never pooled. Study 3 evaluates temporal recovery-evidence qualification over 1,380 trajectories under continuous and synthetic intermittent contact, truthful evidence, post-signature manipulation, and false but validly signed claims from a compromised trusted producer. Study 4 evaluates 4,608 exact rule-by-subset observations across 18 total-vote and synthetic provenance-domain rules under separate producer-compromise and benign producer-unavailability populations. Study 6 evaluates 420 exact observations across six recovery-artifact states, six assurance gates, and every subset of benign assurance-signal unavailability.
-
-The three studies share one analytical structure without sharing a common statistical unit. A frozen qualification policy acts only on prespecified policy-visible evidence. The research design retains a hidden authorization state or objective artifact-correctness oracle that is not supplied to the policy. This separation permits the experiments to identify states in which visible evidence remains qualified while research-only truth is false, and, where prospectively defined, states in which stricter evidence requirements reject a true or correct condition under benign evidence loss. In this paper, the term **residual trust boundary** refers only to these remaining finite-model states and corresponding qualification boundaries. It is not a universal impossibility theorem or a claim about all spacecraft recovery architectures.
+Three separately frozen deterministic studies examine those boundaries without forming one integrated experiment or pooled population. Study 3 evaluates 1,380 temporal trajectories under continuous and synthetic intermittent contact. Study 4 evaluates 4,608 exact rule-by-subset observations across 18 vote and synthetic provenance-domain rules. Study 6 evaluates 420 exact observations across six artifact states, six assurance gates, and benign assurance-signal unavailability. Each study retains its own unit, interventions, endpoints, and model boundary.
 
 The research questions are:
 
@@ -26,23 +24,18 @@ The research questions are:
 
 **RQ3:** When the recovery artifact is subjected to progressively composed assurance requirements, which prespecified incorrect artifact states remain qualified, and what benign qualification loss results when required assurance signals become unavailable?
 
-A final systems-level question guides the synthesis: **how do these independently measured residual qualification boundaries relate across temporal runtime evidence, producer composition, and recovery-artifact assurance?** The synthesis is qualitative and mechanism based. It does not estimate a common treatment effect, pooled success rate, or end-to-end recovery probability.
+A systems-level synthesis then asks how these independently measured boundaries relate across temporal runtime evidence, producer composition, and recovery-artifact assurance. The synthesis is qualitative and mechanism based; it does not estimate a common treatment effect, pooled success rate, or end-to-end recovery probability.
 
-The paper makes four bounded contributions.
+The paper makes four bounded contributions:
 
-1. **Temporal qualification boundary.** Study 3 exactly characterizes false qualification across the frozen onset, contact, persistence, and policy grid. It separates a short truthful pre-onset cache boundary from false qualification caused by a compromised trusted producer that continues to generate fresh and validly signed false evidence. The contrast with post-signature manipulation also distinguishes semantic trusted-producer failure from altered records whose signatures become invalid.
+1. **Temporal qualification boundary.** Study 3 separates a short truthful pre-onset cache boundary from false qualification caused by a compromised trusted producer that continues to generate fresh and validly signed false evidence, while the post-signature-manipulation control distinguishes semantic producer failure from invalidly signed alteration.
+2. **Producer-composition boundary.** Study 4 provides an exhaustive first-versus-systematic failure map across 18 vote and provenance-domain rules, including conditional benefits, benign-loss costs, and null provenance effects.
+3. **Artifact-assurance boundary.** Study 6 maps the incorrect artifact states that survive progressively composed assurance gates and the corresponding rejection of the objectively correct baseline under benign signal loss.
+4. **Residual-boundary synthesis.** Across the three studies, stronger evidence composition closes or narrows specified failure pathways without automatically making policy-visible evidence equivalent to hidden or objective truth.
 
-2. **Producer-composition boundary.** Study 4 provides an exhaustive first-versus-systematic failure map across 18 total-vote and synthetic provenance-domain rules. The results show when provenance requirements change which compromised subsets can qualify, when they delay systematic unsafe qualification, when they introduce earlier false-conservative rejection under benign producer loss, and when they have no additional threshold effect.
+The interpretation remains model bounded. Only Study 3 models contact, and logical time is not operational spacecraft time. Study 4's provenance domains are synthetic, and Study 6 is a Boolean assurance model rather than a real supply-chain experiment. The studies do not measure flight safety, mission availability, RF performance, computing cost, or operational recovery probability; Section VIII states the complete validity and aerospace interpretation limits.
 
-3. **Artifact-assurance boundary.** Study 6 maps the specific incorrect recovery-artifact states that survive signature, digest, provenance, reproduced-build, source-review, and composite gates. It also exhaustively quantifies rejection of the objectively correct baseline under benign assurance-signal unavailability, preserving the different residual state identities of gates with equal aggregate counts.
-
-4. **Residual-boundary synthesis.** Across the three separately frozen studies, the manuscript shows that composing stronger trust evidence can close or narrow specified failure pathways without automatically making policy-visible evidence equivalent to hidden or objective truth. The synthesis identifies the residual trust assumption at each layer rather than ranking a universal best policy, producer-composition rule, or artifact gate.
-
-Several results constrain stronger interpretations and are intentionally retained. In Study 3, the `B2` policy has structural-zero false qualification in the frozen persistent-`V5` cells, but the design does not support a claim of universal immunity or global superiority. The synthetic K4 schedule reduces modeled mean exposure for selected persistent-`V5` comparisons but does not establish that intermittent contact improves security. In Study 4, provenance diversity produces conditional and null effects rather than a monotonic benefit, and the safety and benign-unavailability blocks are separate. In Study 6, the six-signal composite gate still qualifies `APPROVED_BAD_SOURCE`, while stronger gates become increasingly sensitive to benign assurance-signal loss. These results are central because they show where each visible trust mechanism stops adding discrimination within its frozen model.
-
-The manuscript is also deliberately bounded in its aerospace interpretation. Only Study 3 directly models contact, and its logical seconds are not converted to orbital, network, processor, or operator time. Study 4's producer unavailability is not spacecraft contact loss or mission availability. Study 6's assurance-signal unavailability is not contact loss, and its Boolean variables do not represent an operational software-supply-chain compromise. None of the studies measures flight safety, RF performance, mission availability, energy, CPU, thermal behavior, or operational recovery probability.
-
-The remainder of the paper is organized as follows. Section II positions the work relative to spacecraft cybersecurity, remote attestation and freshness, quorum trust, and software-supply-chain assurance. Section III defines the common trust-qualification abstraction while preserving study separation. Sections IV, V, and VI present the temporal evidence, producer-composition, and recovery-artifact studies, respectively. Section VII synthesizes their residual trust boundaries without pooling outcomes. Section VIII discusses validity, aerospace interpretation limits, reproducibility, and future evaluation. Section IX concludes.
+Section II positions the work against prior art. Section III defines the common qualification abstraction while preserving study separation. Sections IV through VI present the three studies, Section VII synthesizes their residual boundaries, Section VIII addresses validity and future evaluation, and Section IX concludes.
 
 ## II. Related Work and Scientific Positioning
 
@@ -90,15 +83,13 @@ In the reviewed literature, we did not identify a directly matching spacecraft c
 
 ### A. Policy-Visible Evidence and Research-Only Truth
 
-The three studies use different mechanisms, but they share one analytical structure. A qualification policy acts only on a prespecified set of visible evidence. The research design separately retains a hidden or objective adjudication variable that is not available to the policy. This separation allows the experiment to determine when policy-visible evidence supports qualification even though the research-only truth says that qualification is incorrect.
-
-For study `j`, let `E_j` denote the vector of policy-visible evidence and let
+The studies use different mechanisms but share one analytical structure. For study `j`, let `E_j` denote the policy-visible evidence and let
 
 `Q_j(E_j) in {0,1}`
 
-represent the frozen qualification decision, where `1` means that the modeled recovery evidence or artifact satisfies the study-specific gate. Let `T_j in {0,1}` denote the corresponding research-only adjudication state, where `1` means that the hidden authorization state or objective artifact correctness supports qualification. `T_j` is used for evaluation only and is never supplied to `Q_j`.
+represent the frozen qualification decision. Let `T_j in {0,1}` denote the corresponding research-only adjudication state, where `1` means that hidden authorization or objective artifact correctness supports qualification. `T_j` is used only for evaluation and is never supplied to `Q_j`.
 
-The generic unsafe-qualification condition is therefore
+The generic unsafe-qualification condition is
 
 `U_j = 1[Q_j(E_j) = 1 and T_j = 0]`.
 
@@ -106,13 +97,11 @@ Where a study separately evaluates benign evidence loss, the complementary false
 
 `C_j = 1[Q_j(E_j) = 0 and T_j = 1]`.
 
-These expressions are a manuscript-level abstraction, not new experimental endpoints. Each study retains its own frozen endpoint definitions, units, state space, and reporting rules. In Study 3, for example, unsafe qualification is evaluated across temporal epochs and summarized at the trajectory level, whereas Study 4 evaluates exact producer subsets and Study 6 evaluates exact artifact states and assurance-signal subsets.
+These expressions are manuscript-level abstractions, not new experimental endpoints. Each study retains its frozen unit, endpoint definitions, state space, and reporting rules. Here, **residual trust boundary** means the remaining modeled states in which visible evidence satisfies qualification while research-only adjudication is false, together with any study-specific boundary at which stronger visible-evidence requirements cause false-conservative rejection. The term is descriptive of the registered finite models, not a universal impossibility theorem.
 
-Within this paper, a **residual trust boundary** means the remaining set of frozen modeled states for which the visible evidence satisfies the qualification rule while the research-only adjudication state is false, together with the study-specific boundary at which stricter visible-evidence requirements begin producing false-conservative rejection under benign evidence loss. This is a descriptive term for the finite experiments. It is not an impossibility theorem, a universal security boundary, or a claim about all spacecraft recovery architectures.
+### B. Study-Specific Realizations
 
-### B. Study-Specific Realizations of the Common Structure
-
-Table I summarizes how the common abstraction is instantiated without merging the studies.
+Table I maps the shared abstraction to the three studies without merging them.
 
 | Study | Qualification layer | Research-only adjudication | Principal policy-visible evidence | Frozen population | Contact model |
 |---|---|---|---|---:|---|
@@ -120,65 +109,31 @@ Table I summarizes how the common abstraction is instantiated without merging th
 | Study 4, `S4-MPQ-001` | Producer composition | Hidden authorization truth | Signed producer claims, total-vote threshold, synthetic provenance-domain count | 4,608 exact rule-by-subset observations | No |
 | Study 6, `S6-SCTR-001` | Recovery-artifact assurance | Objective baseline correctness | Signature, independent target digest, provenance, independent reproduced build, source-review attestation, release approval | 420 exact observations | No |
 
-Only Study 3 directly models intermittent contact. Study 4 producer unavailability and Study 6 assurance-signal unavailability are different abstractions and are not interpreted as contact loss, orbital visibility, or mission availability.
+In Study 3, `Q_3` evaluates received evidence under frozen signature, freshness, policy, and contact semantics while `T_3` is hidden authorization truth. The design distinguishes truthful cache-origin false qualification from false but validly signed evidence generated by a compromised trusted producer. Full timing, treatment, and policy details are given in Section IV.
 
-#### 1) Study 3: temporal evidence qualification
+In Study 4, `Q_4` applies total-vote and synthetic provenance-domain requirements to seven signed producer claims, while `T_4` is hidden authorization truth. Producer compromise and benign producer unavailability are evaluated in separate exhaustive blocks. Full producer assignments and rule definitions are given in Section V.
 
-Study 3 uses deterministic logical time with a 240-logical-second horizon, five-logical-second epochs, and five-logical-second evidence validity. The complete onset grid contains 46 onset phases from 10 through 235 logical seconds. K0 provides continuous modeled contact over the horizon. K4 is a frozen synthetic flapping-contact schedule with windows `[25,35]`, `[75,90]`, `[145,165]`, and `[220,240]` logical seconds. These windows are model inputs, not orbital passes.
+In Study 6, `Q_6` composes visible artifact-assurance signals while `T_6` is objective baseline correctness. Incorrect artifact states and benign assurance-signal unavailability are evaluated separately. Full state, signal, and gate definitions are given in Section VI.
 
-The hidden authorization state is true before onset and false at and after onset. The selector cannot observe this hidden truth. The visible evidence treatments distinguish truthful current authorization evidence (`V0`), post-signature value manipulation with an invalid signature (`V4`), and a compromised trusted producer that validly signs a false authorization claim (`V5`). `V4` and `V5` are evaluated under one-shot and persistent modes. The frozen matrix contains 30 cells and 1,380 trajectories. Its 67,620 epoch states are repeated states within trajectories and are not independent statistical observations.
+Only Study 3 directly models intermittent contact. Study 4 producer unavailability and Study 6 assurance-signal unavailability are distinct constructs and are not contact loss or mission availability.
 
-The design also prespecifies the origin of false qualification. `PRE_ONSET_CACHE` identifies a still-fresh truthful record generated before hidden authorization changed. `V5_AFFECTED_RECORD` identifies false qualification associated with a validly signed false record from the compromised trusted producer. This decomposition is central to the paper because it separates ordinary freshness lag from adversarial semantic falsity.
+### C. Exact Finite Populations and Non-Pooling
 
-#### 2) Study 4: multi-producer qualification
+All three studies are deterministic finite experiments rather than random samples from an operational population. Their populations remain separate because their units, interventions, and outcomes differ: Study 3 uses trajectories, Study 4 uses rule-by-subset observations, and Study 6 uses artifact-state and assurance-unavailability observations. No pooled Paper-2 `N`, success rate, confidence interval, p-value, common effect size, or global policy ranking is defined.
 
-Study 4 uses seven modeled evidence producers assigned to three synthetic provenance domains: `D1={P1,P2,P3}`, `D2={P4,P5}`, and `D3={P6,P7}`. Eighteen qualification rules combine total vote thresholds from one through seven with a required domain count from one through `min(3,q)`. The denominator is the registered producer set, not the set of responders.
-
-The safety block sets hidden authorization false. Compromised producers emit a visible `true` claim with a valid signature, honest producers emit `false`, and all producers are available. The benign availability block sets hidden authorization true. Affected producers are unavailable, all available claims are true and validly signed, and no producer is malicious. These blocks are evaluated separately. The design does not model simultaneous malicious compromise and benign producer loss.
-
-Every one of the 128 producer subsets is evaluated for every rule in each block, yielding `18 x 2 x 128 = 4,608` exact observations. The primary study-specific endpoints are `unsafe_qualified` and `false_conservative`. The main summaries are the first affected-producer count at which a failure exists, the affected-producer count at which failure is systematic across all subsets of that size, and the exact subset failure rate by affected-producer count. Because the population is exhaustive, subset fractions describe the finite state space and are not probabilities of operational compromise or outage.
-
-#### 3) Study 6: recovery-artifact assurance
-
-Study 6 evaluates six prespecified artifact states against six assurance gates. `CLEAN_APPROVED` is objectively correct and has all six visible assurance signals true. Five additional states are objectively incorrect: `POST_RELEASE_TAMPER`, `TRUSTED_SIGNER_COMPROMISE`, `TRUSTED_BUILDER_COMPROMISE`, `SOURCE_REVIEW_BYPASS`, and `APPROVED_BAD_SOURCE`. Objective correctness is a research-only oracle and is never an input to a gate.
-
-The visible signals are signature validity, independent target-digest match, provenance validity, independent reproduced-build match, source-review attestation, and release approval. The gates range from `G0_SIGNATURE_ONLY` to `G5_COMPOSITE`, which requires all six visible signals. The adversarial-baseline block contains all six artifact states crossed with all six gates, for 36 observations. A separate benign-unavailability block uses the objectively correct baseline and exhausts all 64 subsets of unavailable assurance signals across all six gates, for 384 observations. The total frozen population is therefore 420 exact observations.
-
-The model does not implement malware, a real build compromise, real signing keys, or an operational spacecraft supply chain. Terms such as "independent digest" and "independent reproduced build" identify modeled assurance variables, not proof that independent organizations or infrastructure were deployed.
-
-### C. Exact Finite Populations and Non-Pooling Rule
-
-All three studies are deterministic finite experiments. None is treated as a random sample from an operational population. Study 3 exhausts its frozen onset-phase grid. Study 4 exhausts every affected-producer subset for every registered quorum/provenance rule in each of two separately defined blocks. Study 6 exhausts its prespecified artifact states and all subsets of assurance-signal unavailability.
-
-The populations are therefore reported separately:
-
-- Study 3: 1,380 deterministic trajectories;
-- Study 4: 4,608 exact rule-by-subset observations;
-- Study 6: 420 exact artifact-state and assurance-unavailability observations.
-
-There is no pooled Paper-2 statistical population. Because the units, interventions, outcome definitions, and state spaces differ, the three counts are not summed or reported as a manuscript sample size. No pooled success rate, pooled confidence interval, pooled p-value, or global policy ranking is defined.
-
-This rule also constrains the cross-study synthesis. Section VII will compare mechanisms and residual boundaries qualitatively. It will not estimate a common treatment effect or an end-to-end recovery probability.
+Section VII therefore compares mechanisms and residual boundaries qualitatively rather than estimating a common treatment effect or end-to-end recovery probability.
 
 ### D. Qualification Is Not Recovery Completion
 
-The unit of analysis throughout the paper is qualification evidence, not completed spacecraft recovery. A gate can be permissive or qualified in the model without establishing that a recovery action was executed successfully, restored mission capability, or produced a safe operational spacecraft state. Study 3's `unsafe_permissive` metric is specifically a selector or gate-entry action metric. Its stronger `unsafe_qualified` endpoint means that the recovery gate remains policy-visible qualified while hidden authorization truth is false.
+The modeled endpoint is qualification, not completed spacecraft recovery. A permissive or qualified gate does not establish that a recovery action executed successfully, restored mission capability, or produced a safe operational state. Likewise, Study 4's availability terminology refers to false-conservative qualification under benign producer loss, and Study 6's benign availability loss refers to rejection under missing assurance signals. Neither is mission availability. Section VIII provides the full construct and external-validity boundaries.
 
-Similarly, Study 4's safety terminology refers to resistance to unsafe qualification in the finite model, not spacecraft physical safety. Its availability terminology refers to false-conservative rejection under modeled benign producer unavailability, not mission availability. Study 6's benign assurance-unavailability endpoint refers to rejection caused by missing modeled assurance signals, not contact loss or operational service availability.
+### E. Frozen Provenance and Reproducibility
 
-These distinctions are maintained because translating the modeled quantities into flight safety, mission availability, contact opportunity, recovery latency, RF performance, or operator workload would require evidence that the frozen studies did not collect.
-
-### E. Frozen Provenance and Reproducibility Controls
-
-Each study was executed from a frozen design and bound to repository provenance. Study 3's canonical campaign contains 30 cells, 1,380 trajectories, and 67,620 epoch states. Its independent auditor reported zero trajectory, epoch-rule, false-qualification-origin, and SHA mismatches. Study 4's 4,608-observation exact population was independently reconstructed with zero observation and threshold mismatches. Study 6's accepted execution was independently audited with zero mismatches, matching frozen output hashes and no tracked-file drift.
-
-These audits support reproducibility of the frozen repository experiments. They are not external empirical replication because the independent implementations and audits remain within the same research repository and program. The manuscript therefore uses "independent audit," "independent reconstruction," or "same-repository reproducibility" rather than "external replication."
+Each study is bound to a frozen design and repository execution. Independent same-repository audits reported zero mismatches for Study 3 trajectories and origin rules, Study 4 reconstructed observations and thresholds, and Study 6 frozen outputs. These controls support reproducibility of the reported finite experiments; they are not external empirical replication.
 
 ### F. Cross-Study Interpretation Rule
 
-The common framework permits one bounded synthesis. In each study, qualification is constrained by what the policy can observe. Study 3 can verify signature validity and freshness but cannot directly observe the hidden semantic truth of a compromised trusted producer's claim. Study 4 can require more votes and more synthetic provenance domains, but its result remains conditional on which producer subsets satisfy those visible structural requirements. Study 6 can compose increasingly demanding artifact-assurance signals, but a state in which all six visible signals are true remains qualified even when the research-only objective correctness oracle is false.
-
-The resulting systems interpretation is not that stronger qualification fails, nor that more evidence is undesirable. Stronger composition closes specific modeled failure pathways in each study. The narrower conclusion is that the residual boundary moves with the evidence structure and with the assumptions that remain outside the gate's observation set. The following sections evaluate those movements separately before any cross-study synthesis is made.
+The common synthesis is limited to observability. Stronger evidence composition can close specific modeled failure pathways, but qualification remains constrained by what the gate can observe and by trust assumptions that remain outside that observation set. Sections IV through VI establish those boundaries separately before Section VII compares them.
 
 ## IV. Temporal Evidence Qualification Under Intermittent Contact
 
@@ -516,19 +471,11 @@ The same composition increases sensitivity to benign assurance-signal loss. The 
 
 ### A. Scope of the Synthesis
 
-Studies 3, 4, and 6 were designed, executed, and frozen as separate experiments. Their populations, mechanisms, and endpoints are not pooled in this section. The purpose of the synthesis is narrower: to compare what each experiment shows about a recovery-qualification decision that depends on policy-visible evidence while some relevant truth remains outside the gate's direct observation set.
+Studies 3, 4, and 6 were designed, executed, and frozen separately. Their populations, mechanisms, and endpoints are not pooled. The synthesis compares only how policy-visible evidence leaves different residual qualification boundaries; it is a manuscript-level interpretation, not a prospectively tested integrated architecture or fourth experiment.
 
-This layered interpretation was developed after the individual studies were frozen. It is therefore a manuscript-level systems synthesis, not a prospectively tested integrated architecture or a fourth experiment. No end-to-end recovery probability, combined success rate, common effect size, or pooled statistical population is defined.
+### B. Three Qualification Layers
 
-### B. Three Distinct Qualification Layers
-
-The three studies expose residual boundaries at different points in a recovery decision chain.
-
-Study 3 operates at the **temporal runtime-evidence layer**. The gate observes record properties such as signature validity, freshness, and policy-visible authorization evidence while research-only authorization truth can change independently. Its principal residual boundary appears when a trusted producer continues to issue fresh and validly signed false evidence. A smaller nonadversarial boundary appears when a truthful pre-onset record remains fresh briefly after hidden authorization changes.
-
-Study 4 operates at the **producer-composition layer**. The gate observes signed producer claims, total vote count, and synthetic provenance-domain representation. Hidden authorization truth is fixed separately in the malicious-compromise and benign-unavailability blocks. The residual boundary depends on which producer subsets can satisfy the rule, and provenance requirements can change systematic failure even when the first possible failure count is unchanged.
-
-Study 6 operates at the **recovery-artifact assurance layer**. The gate observes selected artifact-assurance signals while objective baseline correctness remains a research-only oracle. Stronger gates close specific modeled signer, builder, review, or post-release tamper states, but the fully approved bad-source state remains qualified because every gate-visible signal is true.
+Table V summarizes the three layers and their distinct residual mechanisms.
 
 **Table V. Cross-study residual-boundary comparison**
 
@@ -538,73 +485,45 @@ Study 6 operates at the **recovery-artifact assurance layer**. The gate observes
 | Producer composition | Study 4 | Signed claims, vote threshold, synthetic provenance-domain count | Hidden authorization truth | Some compromised subsets satisfy the rule while others of the same size do not | Provenance can delay systematic unsafe qualification but can also cause earlier false-conservative rejection |
 | Recovery artifact | Study 6 | Signature, digest, provenance, reproduced-build, review, approval | Objective baseline correctness | All visible assurance signals can be true for `APPROVED_BAD_SOURCE` | Additional signals close specified modeled states while increasing sensitivity to benign assurance-signal loss |
 
-Table V is a qualitative comparison. The rows do not share a common measurement scale, and no numeric outcome is combined across them.
+The rows do not share a common measurement scale. Table V is therefore a qualitative mechanism comparison, not a basis for combining numeric outcomes.
 
-### C. Integrity and Authenticity Do Not Exhaust Semantic Trust
+### C. Integrity Does Not Exhaust Semantic Trust
 
-The strongest common pattern is the distinction between evidence integrity and the semantic truth needed for a recovery decision.
+Study 3 separates post-signature alteration from false content produced inside the modeled trust boundary. `V4` invalidates the affected signature and the manipulated record does not qualify. `V5` remains validly signed by the trusted producer and can remain qualified even when hidden authorization truth is false.
 
-Study 3 makes this distinction directly through the contrast between `V4` and `V5`. Post-signature alteration in `V4` invalidates the signature, and the affected record never qualifies. In `V5`, the false record is validly signed by the trusted producer and can remain qualified. The experiment therefore separates detectable record alteration from false content generated inside the modeled trust boundary.
+Study 6 exposes an analogous upstream boundary. Additional digest, provenance, reproduced-build, review, and approval signals close specific modeled incorrect states, yet `APPROVED_BAD_SOURCE` remains qualified because every frozen gate-visible signal is true while objective correctness is false.
 
-Study 6 shows an analogous upstream distinction. Signature-only qualification rejects ordinary post-release tampering but cannot identify several prespecified incorrect artifacts whose visible signature state remains valid. Additional digest, provenance, reproduced-build, review, and approval signals close more of those modeled states. Even the composite gate, however, cannot distinguish `APPROVED_BAD_SOURCE` because the research-only correctness failure is not represented in any visible signal.
+The implication is bounded: integrity, freshness, provenance, and process evidence establish only the properties represented by those signals and their trust anchors. They do not automatically reveal a semantic mismatch that the gate cannot observe.
 
-These results do not imply that signatures, provenance, or other assurance mechanisms are ineffective. Each closes specific modeled failure pathways. The narrower implication is that an assurance property can establish only the property represented by the evidence and trust anchors on which it depends. A policy cannot infer a research-only semantic truth solely because the visible evidence is authentic, fresh, or process-conformant.
+### D. Stronger Composition Moves the Boundary
 
-### D. Composition Moves the Boundary Rather Than Producing Universal Dominance
+Study 4 shows that additional provenance structure can delay systematic unsafe qualification without always changing first failure. For example, `Q3_D3` leaves first unsafe failure at three compromised producers but moves systematic failure from three under `Q3_D1` to six. The same constraint makes benign false-conservative rejection possible after two unavailable producers rather than five. Other provenance additions produce no threshold change, so diversity is not monotonically beneficial in the frozen model.
 
-The three studies also caution against interpreting additional evidence requirements as a universally monotonic improvement.
+Study 6 shows a different frontier. Stronger gates reduce the prespecified incorrect states that remain qualified from four under signature-only checking to one under the six-signal composite gate, while benign-loss subsets increase from 32/64 to 63/64. Equal counts can still hide different residual mechanisms, as `G3` and `G4` each leave two incorrect states but not the same two.
 
-In Study 4, adding provenance-domain requirements can substantially delay systematic unsafe qualification for selected vote thresholds. `Q3_D3`, for example, moves systematic safety failure from three compromised producers under `Q3_D1` to six while leaving first failure at three. That added constraint also makes benign false-conservative rejection possible after only two unavailable producers instead of five. Other provenance additions produce no threshold change, including `Q4_D1` versus `Q4_D2`, `Q5_D1` versus `Q5_D2`, and all domain variants at `Q6` and `Q7`.
+Study 3 is not folded into that availability frontier because it has different endpoints. Its contact-aware restriction reduces selected K4 exposure while persistent `V5` qualification remains present for `B0` and `S1`. Across all three studies, stronger composition changes a boundary condition rather than establishing universal dominance.
 
-Study 6 shows a related but distinct frontier. Adding assurance signals reduces the number of prespecified incorrect artifact states that remain qualified, from four under signature-only checking to one under the six-signal composite gate. The number of benign assurance-unavailability subsets causing rejection rises from 32 of 64 to 63 of 64. Equal aggregate counts can also conceal different residual mechanisms, as shown by the different state sets left by `G3` and `G4`.
+### E. Residual Identity Matters
 
-Study 3 does not contain the same benign-unavailability endpoint and therefore is not folded into a common safety-versus-availability statistic. Its evidence-aware/contact-aware policy can reduce modeled exposure in selected K4 comparisons, but the study does not support a cross-study claim that every stronger policy produces the same type of availability tradeoff.
+Aggregate count or duration is insufficient to identify the remaining trust assumption. Study 4 distinguishes first from systematic failure because same-size producer subsets can differ in provenance composition. Study 6 preserves residual state identity because gates with equal unsafe counts can fail on different artifact states. Study 3 preserves false-qualification origin because a truthful pre-onset cache and a compromised-producer record represent different mechanisms.
 
-The common systems lesson is therefore conditional: adding structure to qualification can close or narrow selected failure regions, but the resulting residual boundary depends on which evidence dimensions are added and which failure assumptions remain outside the gate.
-
-### E. First Failure, Systematic Failure, and Residual-State Identity
-
-A second cross-study insight is that aggregate counts alone can hide the mechanism that remains.
-
-Study 4 distinguishes first failure from systematic failure because subset composition matters. A three-producer compromise under `Q3_D3` can be sufficient if all three provenance domains are represented, but other three-producer subsets remain blocked. The first threshold therefore describes possibility, whereas the systematic threshold describes inevitability across subsets of that size.
-
-Study 6 provides the analogous lesson in state identity. `G3` and `G4` each qualify two of five incorrect states, but `G3` leaves `SOURCE_REVIEW_BYPASS` while `G4` leaves `TRUSTED_BUILDER_COMPROMISE`; both leave `APPROVED_BAD_SOURCE`. The equal count does not make the gates equivalent.
-
-Study 3 similarly benefits from origin identity. The same generic endpoint, unsafe qualification, can arise from a truthful pre-onset cache record or from a false record generated by the compromised trusted producer. The prespecified origin decomposition prevents these mechanisms from being merged.
-
-Across the three studies, the identity of the residual mechanism is therefore as important as the count or duration of the residual state. This is why the manuscript emphasizes origin, subset structure, and surviving artifact states rather than collapsing results into a single scalar measure.
+This is why the manuscript reports origin, subset structure, and surviving artifact states rather than collapsing the studies into one scalar trust score.
 
 ### F. Observability as the Common Constraint
 
-The common abstraction can be stated in terms of observability. A recovery gate evaluates only what has been represented in its policy-visible evidence.
+The common principle is observability. Study 3 cannot directly observe that a trusted signer is semantically lying; Study 4 cannot observe a compromise oracle beyond the signed claims and structural provenance labels supplied to the rule; Study 6 cannot observe objective correctness when every required assurance signal remains true.
 
-In Study 3, hidden authorization truth is intentionally unavailable to the selector. A compromised trusted producer can therefore produce a valid visible claim that disagrees with hidden truth. The gate can reject an invalid signature, but it cannot directly observe that the trusted signer is semantically lying.
-
-In Study 4, the gate observes producer claims and structural provenance labels, not an oracle identifying which producers are compromised. Quorum and provenance rules change how many and which visible claims are required, but qualification still depends on the assumed relationship between producer identity, provenance class, and trustworthiness.
-
-In Study 6, the gate observes assurance signals rather than objective correctness. When `APPROVED_BAD_SOURCE` makes every visible assurance signal true, the gate has no frozen variable that distinguishes the artifact from the objectively correct state.
-
-This does not establish a universal impossibility result. It identifies a model-specific principle: within each frozen experiment, a mismatch that is not represented in policy-visible evidence cannot be corrected by rearranging evidence that remains observationally identical with respect to that mismatch.
+Within each frozen model, changing the arrangement or quantity of visible evidence can narrow the set of qualifying failures, but it cannot discriminate a mismatch that remains observationally identical under the gate's variables. This is a model-specific systems result, not a universal impossibility theorem.
 
 ### G. Aerospace Systems Implications
 
-The experiments do not evaluate a deployed spacecraft architecture, but they identify several design questions relevant to aerospace information systems.
+The experiments suggest four design questions for aerospace information systems. First, recovery requirements should distinguish evidence integrity from authority and semantic trust. Second, multi-source evidence should document what operational failure separation a claimed provenance domain represents. Third, stronger evidence requirements should be assessed together with the benign conditions under which required evidence can become unavailable. Fourth, artifact assurance should identify the highest-level trust assumption that remains outside the gate.
 
-First, recovery requirements should distinguish **evidence integrity** from **evidence authority and semantic trust**. A design that checks only whether evidence is signed and fresh should document what assumptions are made about the signer remaining semantically trustworthy.
-
-Second, multi-source recovery evidence should state what producer diversity is intended to represent. Study 4 uses synthetic provenance domains precisely because real independence was not measured. An operational architecture would need to justify whether producer diversity corresponds to separate organizations, software stacks, hardware roots, sensing paths, administrative authorities, supply chains, or some other failure-separation assumption.
-
-Third, evidence requirements should be evaluated together with the conditions under which required evidence may be unavailable. Studies 4 and 6 show that stricter qualification can reduce selected unsafe states while increasing false-conservative rejection under their respective benign-loss models. In an operational mission, the acceptable balance would depend on mission phase, hazard state, autonomy requirements, and available recovery alternatives. Those mission tradeoffs were not measured here.
-
-Fourth, recovery-artifact assurance should identify the highest-level trust assumption that remains outside the gate. Provenance, reproduced builds, source review, and release approval each provide useful evidence, but a system still needs a justified basis for trusting the process or authority that ultimately defines acceptable source and behavior.
-
-These are design implications, not prescriptive flight requirements. The studies provide finite-model evidence about qualification boundaries, not evidence that a particular spacecraft architecture, producer-composition rule, contact policy, or artifact gate should be adopted operationally.
+These implications are not prescriptive flight requirements. Mission-specific adoption would require mapping the abstract producers, provenance domains, timing semantics, gates, and failure states to an actual architecture and validating that mapping under operational conditions.
 
 ### H. Synthesis Result
 
-Taken together, the three studies support a layered residual-trust interpretation of satellite cyber-recovery qualification. Temporal evidence qualification can fail when fresh, authentic evidence diverges from hidden authorization truth. Producer composition can shift the subset boundary at which false claims satisfy a recovery rule, with conditional gains and benign-loss costs from provenance requirements. Artifact assurance can close selected integrity and process failures while leaving a residual state that is indistinguishable under the frozen visible signals.
-
-The synthesis therefore does not identify a globally best policy, producer-composition rule, or artifact gate. Its contribution is to make the residual assumption explicit at each layer. Stronger evidence composition can move or narrow a qualification boundary, but it does not automatically convert policy-visible trust evidence into direct observation of hidden or objective truth.
+Taken together, the studies support a layered residual-trust interpretation of satellite cyber-recovery qualification. Temporal evidence, producer composition, and artifact assurance each close some modeled failure pathways while leaving a different residual assumption outside direct observation. The synthesis therefore does not identify a globally best policy, producer-composition rule, or artifact gate. Its contribution is to make the remaining trust assumption explicit at each layer without pooling the three experiments.
 
 ## VIII. Validity, Aerospace Interpretation Boundaries, and Future Evaluation
 
