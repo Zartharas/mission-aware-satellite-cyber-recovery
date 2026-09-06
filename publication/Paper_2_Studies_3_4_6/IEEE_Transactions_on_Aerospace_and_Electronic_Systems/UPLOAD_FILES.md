@@ -5,6 +5,8 @@
 
 This file is the future upload manifest. Do not upload files from this directory merely because they exist. Only files marked `FROZEN_FOR_SUBMISSION` after final QA and explicit author authorization may be uploaded.
 
+All publisher-facing upload files will live directly in this canonical TAES directory. Do not create a separate Downloads copy, desktop copy, or `PORTAL_UPLOAD` staging directory. At submission time, select the frozen files directly from this repository folder in the local Git clone.
+
 ## Initial-submission files
 
 ### Required by public TAES instructions
