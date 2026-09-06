@@ -3,7 +3,7 @@
 **Target venue:** IEEE Transactions on Aerospace and Electronic Systems (TAES)  
 **Manuscript type:** Regular Paper  
 **Primary Technical Area:** Aerospace Information Systems  
-**Development status:** `VENUE_LOCKED__COMPONENT_COMPLETE_MANUSCRIPT_DRAFT__NOT_SUBMISSION_READY`  
+**Development status:** `VENUE_LOCKED__REGENERATED_ASSEMBLED_DRAFT_VERIFIED__NOT_SUBMISSION_READY`  
 **Venue lock date:** 2026-09-06  
 **Submission status:** `NOT_SUBMITTED`
 
@@ -23,7 +23,7 @@ No scientific rerun, enlargement, endpoint change, hidden correction, null-resul
 - Study 4 / `S4-MPQ-001`: 4,608 exact rule-by-subset observations.
 - Study 6 / `S6-SCTR-001`: 420 exact artifact-state and assurance-unavailability observations.
 - Study 5 is deferred from the Paper-2 core and must not be presented as external validation of Studies 3, 4, or 6.
-- There is no scientifically meaningful pooled Paper-2 `N = 6,408`.
+- The three study populations must always be reported separately. Do not combine them into a manuscript sample size, pooled success rate, pooled confidence interval, pooled p-value, or global ranking.
 
 ## Working scientific identity
 
@@ -31,19 +31,19 @@ No scientific rerun, enlargement, endpoint change, hidden correction, null-resul
 
 Working title:
 
-**Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Quorums, and Artifact Assurance**
+**Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance**
 
 The three independently frozen layers are:
 
 1. temporal evidence qualification under Study 3;
-2. multi-producer quorum and synthetic provenance-domain qualification under Study 4;
+2. multi-producer vote and synthetic provenance-domain qualification under Study 4;
 3. recovery-artifact assurance qualification under Study 6.
 
 The manuscript may synthesize these studies conceptually, but it must never claim that they constitute one integrated experiment or one jointly evaluated architecture.
 
 ## Current manuscript component set
 
-The manuscript is component-complete at the development-draft level. It is not yet submission ready.
+The manuscript is component-complete and has been assembled and regenerated after the first assembled-manuscript audit. The regenerated local development draft passed the assembly controls with a 214-word abstract and sequential IEEE citation first-use order from [1] through [12]. It remains a development draft and is not yet submission ready.
 
 - `TAES_ABSTRACT_KEYWORDS.md`: abstract and index-term draft.
 - `TAES_SECTION_I_INTRODUCTION.md`: Section I, Introduction.
@@ -55,8 +55,9 @@ The manuscript is component-complete at the development-draft level. It is not y
 - `TAES_SECTION_VIII_VALIDITY.md`: Section VIII, Validity, Aerospace Interpretation Boundaries, and Future Evaluation.
 - `TAES_SECTION_IX_CONCLUSION.md`: Section IX, Conclusion.
 - `TAES_LITERATURE_SOURCE_LEDGER.md`: durable literature, prior-art, and novelty-control ledger.
+- `TAES_ASSEMBLED_MANUSCRIPT_AUDIT_2026-09-06.md`: first assembled-manuscript scientific and editorial audit.
 
-The next manuscript gate is **single-source assembly plus line-by-line scientific and citation audit**. Component completion does not authorize formatting, package freeze, or portal submission.
+The next manuscript gate is to track the verified regenerated assembled draft and component-hash manifest in the canonical repository, then perform TAES-focused compression, bibliography finalization, figure/table review, and IEEE formatting. Assembly verification does not authorize package freeze or portal submission.
 
 ## TAES venue basis
 
@@ -101,15 +102,16 @@ The IEEE Xplore Recent Issue URL supplied by the author is retained as a venue-m
 
 Before a TAES manuscript PDF can be frozen:
 
-1. assemble the manuscript components into one canonical manuscript source;
-2. perform a line-by-line scientific claim audit against frozen Study 3, 4, and 6 records;
-3. perform a citation and prior-art audit;
+1. track the verified regenerated assembled manuscript source and component-hash manifest;
+2. perform TAES-focused length and redundancy editing without weakening scientific claim controls;
+3. finalize and verify IEEE bibliography entries and citation formatting;
 4. perform terminology and style QA, including the no-em-dash rule;
-5. format in the required TAES two-column manuscript style;
-6. perform page-by-page PDF visual QA;
-7. finalize the supplementary-material decision;
-8. recheck the live Atypon ReX portal and lock portal values;
-9. generate SHA-256 identities for frozen upload files;
-10. obtain explicit final author submission authorization.
+5. review and finalize figures and tables;
+6. format in the required TAES two-column manuscript style;
+7. perform page-by-page PDF visual QA;
+8. finalize the supplementary-material decision;
+9. recheck the live Atypon ReX portal and lock portal values;
+10. generate SHA-256 identities for frozen upload files;
+11. obtain explicit final author submission authorization.
 
-Venue lock and manuscript drafting do not authorize portal submission.
+Venue lock, manuscript drafting, and assembled-draft verification do not authorize portal submission.
