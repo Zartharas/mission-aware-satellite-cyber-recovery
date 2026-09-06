@@ -2,9 +2,10 @@
 
 **Disposition:** PASS for package freeze. Publisher submission remains separately gated.
 
-Authoritative QA source: exact GitHub Actions artifact `9981149286` from run `34006672084`.
+Authoritative QA source: exact GitHub Actions artifact `9981703538` from run `34008481863`.
 
 - Manuscript: 8 rendered pages individually inspected.
+- Exact manuscript SHA-256: `b292b24311f5000e5a068a68ba4865aa1f38684017fec0686e6bd0d646da0959`.
 - Cover letter: 1 rendered page individually inspected.
 - Highlights: 1 rendered page individually inspected.
 - Figure 1 and Figure 2: separate vector PDFs rendered and individually inspected.
