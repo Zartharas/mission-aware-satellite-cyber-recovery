@@ -29,11 +29,16 @@ Canonical statistical closeout:
 - `study2/PHASE7_PROVENANCE.json`
 - independent reproduction with 0 mismatches
 
+The exact frozen Phase-7 result ZIP retained in Git has SHA-256:
+
+`0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
+
 Public Phase-6 source-evidence archive:
 
 - version DOI: `10.5281/zenodo.22289114`
 - concept DOI: `10.5281/zenodo.22289113`
 - public ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- public-byte verification: PASS
 
 ### Study 8
 
@@ -104,24 +109,30 @@ Study-1 reconstruction tooling may reproduce the frozen statistical summaries fr
 
 Study-1 reproduction is not permission to rerun the original study with new conditions.
 
-## 4. Study-2 verification and reproduction
+## 4. Study-2 Phase-7 verification
 
-Study-2 verification should use the canonical Phase-7 results/provenance files and the independently reproduced result record.
+Study-2 Phase-7 verification should use the canonical Phase-7 results/provenance files and the independently reproduced result record.
+
+The exact Phase-7 result ZIP SHA-256 is:
+
+`0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
 
 The public Phase-6 ZIP can be re-downloaded and SHA-256 checked against:
 
 `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
 
+Its public-byte verification: PASS.
+
 Do not regenerate a different Phase-6 archive and describe it as the published evidence-of-record.
 
-## 5. Study-8 verification
+## 5. Study-8 technical-close verification and submitted-state verification
 
 Study 8 has two distinct frozen layers:
 
 1. **scientific/results freeze** under `study8/`;
 2. **target-neutral publication freeze** under `publication/study8/`.
 
-It also has a later venue-specific submitted package under:
+The Study-8 technical-close verification remains historical scientific provenance. The later venue-specific submitted package is under:
 
 `publication/Paper_4_Study_8/Acta_Astronautica/`
 
@@ -136,6 +147,7 @@ python scripts/audit_study8_publication_current_state.py
 That check should confirm:
 
 - source publication freeze remains intact;
+- canonical observations SHA-256 remains `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`;
 - manuscript ID is `AA-D-26-02872`;
 - publisher state is `With Editor`;
 - exact submitted file hashes match `S8-ACTA-PKGFREEZE-002`;
