@@ -4,9 +4,9 @@
 This wrapper preserves the canonical manuscript, Tables I-IV, Figure 1, and all
 frozen scientific content. It changes only LaTeX typesetting behavior for simple
 inline code/identifier tokens: unbreakable ``\\texttt{...}`` identifiers are
-rendered with ``\\nolinkurl{...}`` so TeX may break them at underscores and
-selected punctuation. This is intended to remove mechanical overfull hboxes
-without abbreviating or editing the visible identifiers.
+rendered with the ``url`` package's native ``\\path{...}`` command so TeX may
+break them at underscores and selected punctuation while preserving monospaced
+styling and the exact visible identifier text.
 
 The underlying deterministic build, geometry checks, font checks, hashes, page
 count, and development-only controls remain those in TAES_BUILD_IEEETRAN.py.
@@ -63,7 +63,7 @@ def make_tex_r2(md: str) -> str:
     controls = r"""\usepackage{url}
 \urlstyle{tt}
 \def\UrlBreaks{\do\_\do\-\do\/\do\.\do\:\do\;\do\,}
-\newcommand{\TAEScode}[1]{\nolinkurl{#1}}
+\newcommand{\TAEScode}[1]{\path{#1}}
 """
     tex = tex.replace(anchor, controls.rstrip(), 1)
     return tex
@@ -109,6 +109,7 @@ def main() -> None:
     base.main()
     print("TAES_IEEETRAN_BUILD_REVISION=2")
     print(f"breakable_code_tokens={_REPLACEMENT_COUNT}")
+    print("breakable_code_macro=URL_PACKAGE_PATH")
     print("science_or_manuscript_source_changed=NO")
     print_overfull_hbox_context()
 
