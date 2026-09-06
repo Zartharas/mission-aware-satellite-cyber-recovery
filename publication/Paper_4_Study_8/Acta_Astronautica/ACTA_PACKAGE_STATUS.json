@@ -4,46 +4,27 @@
   "experiment_id": "S8-PQC-ICR-001",
   "roadmap_publication_label": "Paper 4",
   "venue": "Acta Astronautica",
-  "publisher": "Elsevier on behalf of the International Academy of Astronautics",
   "venue_selection_date": "2026-09-05",
   "venue_selection_authorized_by_author": true,
   "status": "SUBMISSION_PACKAGE_HASH_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "source_publication_package": "publication/study8/",
   "source_publication_status": "PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED",
-  "source_publication_freeze_id": "S8-PUBFREEZE-001",
   "package_freeze_id": "S8-ACTA-PKGFREEZE-001",
-  "scientific_source_bindings": {
-    "canonical_observations_sha256": "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
-    "primary_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
-    "independent_findings_sha256": "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
-    "interpretation_audit_sha256": "620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413"
-  },
-  "frozen_primary_result": {
-    "policy_success_each": "635/864",
-    "policy_success_percent_each": "73.4954%",
-    "P3_minus_P1_risk_difference": "0/1",
-    "P3_minus_P1_percentage_points": "0.000000"
-  },
-  "package_qa": {
-    "visual_qa": "PASS_ALL_EXACT_RENDERED_FILES",
-    "manuscript_pages": 8,
-    "cover_letter_pages": 1,
-    "highlights_pages": 1,
-    "figure_1_pages": 1,
-    "figure_2_pages": 1,
-    "abstract_word_count": 234,
-    "reference_count": 17,
-    "highlight_count": 5,
-    "docx_accessibility": "PASS_ZERO_FINDINGS",
-    "tracked_changes_and_comments": "NONE"
-  },
-  "gate_state": {
-    "venue_specific_submission_package_preparation_authorized": true,
-    "scientific_reexecution_authorized": false,
-    "statistical_reanalysis_authorized": false,
-    "frozen_science_modification_authorized": false,
-    "publisher_submission_authorized": false,
-    "publisher_portal_action_authorized": false
-  },
-  "next_gate": "authenticated live Editorial Manager field capture and generated publisher-proof audit, followed by a separate explicit author authorization before submission"
+  "publisher_submission_authorized": false,
+  "publisher_portal_action_authorized": false,
+  "scientific_reexecution_authorized": false,
+  "statistical_reanalysis_authorized": false,
+  "frozen_science_modification_authorized": false,
+  "primary_result": "P3 - P1 = 0/1 = 0.000000 percentage points",
+  "next_gate": "authenticated live Editorial Manager field capture and publisher proof audit, followed by separate explicit author authorization before submission",
+  "package_visual_qa": "PASS_EXACT_GITHUB_ARTIFACT",
+  "docx_a11y": "PASS_ZERO_FINDINGS",
+  "tracked_changes_and_comments": "NONE",
+  "abstract_word_count": 226,
+  "reference_count": 17,
+  "highlight_count": 5,
+  "keyword_count": 6,
+  "github_actions_qa_run": 34006672084,
+  "github_actions_artifact_id": 9981149286,
+  "github_actions_artifact_sha256": "54ec16dad727174cf9f5868421cbe7d88a2379afdb4f6cea0fd3627c85ac6235"
 }
