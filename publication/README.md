@@ -11,7 +11,7 @@ The repository currently contains two submitted publication lines plus separatel
 3. **Next publication-development priority:** Paper 2, Studies 3 + 4 + 6.
 4. **Later:** Paper 3, Study 7, plus the deferred Study-5 publication disposition.
 
-Separately frozen study populations must never be silently pooled.
+Paper 1 contains **two separately frozen empirical studies**. Study 8 is a separate **companion-paper** line. Separately frozen study populations must never be silently pooled.
 
 ## 1. Paper 1 - Studies 1 + 2
 
@@ -28,7 +28,7 @@ Canonical submitted-state package:
 
 `publication/Paper_1_Studies_1_2/Journal_of_Aerospace_Information_Systems/`
 
-The target-neutral manuscript components remain retained as publication-development provenance under `publication/manuscript/`.
+The target-neutral manuscript components remain retained as publication-development provenance under `publication/manuscript/`. In particular, the separately frozen Study-2 integration remains documented in `03-study2-methods-extension.md` and `04-study2-results-extension.md`.
 
 ### Study 1 boundary
 
@@ -52,6 +52,7 @@ The target-neutral manuscript components remain retained as publication-developm
 - version DOI: `10.5281/zenodo.22289114`
 - concept DOI: `10.5281/zenodo.22289113`
 - public Phase-6 ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
+- public-byte verified: PASS against the frozen source identity
 
 Study 1 and Study 2 are not pooled into one statistical population. No submitted Paper-1 manuscript or publisher-facing file should change unless JAIS explicitly requests a revision.
 
