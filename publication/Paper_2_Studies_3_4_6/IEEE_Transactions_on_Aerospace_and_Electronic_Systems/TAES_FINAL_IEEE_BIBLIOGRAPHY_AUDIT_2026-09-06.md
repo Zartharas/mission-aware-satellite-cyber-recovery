@@ -22,7 +22,7 @@ Official IEEE source:
 https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-the-text-of-your-article/ieee-editorial-style-manual/
 
 IEEE Reference Guide:
-https://docs.google.com/document/d/e/2PACX-1vSBoV_hTIURPZKtQkxI6bAONJtjyDLxQIUvCHi-XPzD8NKLcxRfZrpvQLFrjWZ3M6FFR_Obau3R-t63/pub
+https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf
 
 ## 2. Bibliographic findings
 
@@ -51,7 +51,7 @@ Several bibliography entries were intentionally concise during drafting. The fin
 - IEEE Aerospace Conference location and pages 1-20 for Curbo and Falco;
 - pages 1393-1410 and Santa Clara conference location for in-toto;
 - publication month for Byzantine quorum systems;
-- issue date for Asymmetric distributed trust;
+- issue no. 3 and May 2024 publication month for Asymmetric distributed trust;
 - current accessed dates and URLs for SPARTA, TUF, and SLSA.
 
 ### Finding D: TUF stable version now visible
@@ -69,7 +69,7 @@ The following authoritative or primary sources were reviewed on 2026-09-06:
 5. RFC Editor RFC 9334
 6. IETF Datatracker `draft-ietf-rats-multi-verifier-00`
 7. bibliographic record for Malkhi and Reiter, DOI `10.1007/s004460050050`
-8. Springer record for Alpos, Cachin, Tackmann, and Zanolini, DOI `10.1007/s00446-024-00469-1`
+8. Springer version-of-record page for Alpos, Cachin, Tackmann, and Zanolini, DOI `10.1007/s00446-024-00469-1`, corroborated for issue 3 by indexed bibliographic metadata
 9. arXiv record `2603.23745`
 10. USENIX Security 2019 record for in-toto
 11. official TUF specification page
