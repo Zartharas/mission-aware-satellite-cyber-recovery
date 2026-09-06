@@ -67,6 +67,18 @@ jobs:
             "$ACTA_OUT/FIGURE_1_PROFILE_SUCCESS.pdf" \
             "$ACTA_OUT/FIGURE_2_CONTACT_REGIME_SUCCESS.pdf"
 
+      - name: Capture exact generated binaries for external QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: acta-study8-exact-package
+          compression-level: 0
+          path: |
+            ${{ env.ACTA_OUT }}/ACTA_ASTRONAUTICA_MANUSCRIPT.docx
+            ${{ env.ACTA_OUT }}/ACTA_ASTRONAUTICA_COVER_LETTER.docx
+            ${{ env.ACTA_OUT }}/ACTA_ASTRONAUTICA_HIGHLIGHTS.docx
+            ${{ env.ACTA_OUT }}/FIGURE_1_PROFILE_SUCCESS.pdf
+            ${{ env.ACTA_OUT }}/FIGURE_2_CONTACT_REGIME_SUCCESS.pdf
+
       - name: Commit generated binaries to package branch
         shell: bash
         run: |
