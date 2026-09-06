@@ -1,15 +1,15 @@
 # TAES Paper 2 Literature Source Ledger
 
-**Status:** `ACTIVE_MANUSCRIPT_SOURCE_LEDGER`  
+**Status:** `ACTIVE_MANUSCRIPT_SOURCE_LEDGER__LIVE_RECHECKED_2026-09-06`  
 **Target:** IEEE Transactions on Aerospace and Electronic Systems (TAES)  
 **Paper:** Studies 3 + 4 + 6 only  
 **Last live literature review:** 2026-09-06
 
 ## Purpose
 
-This ledger records the external sources used to position Paper 2. It is not itself a manuscript section. The manuscript may cite only claims supported by the cited source, and Internet-Drafts and preprints must be identified as such. Standards, frameworks, and taxonomies are prior art or contextual motivation only. They do not validate the frozen studies and do not establish standards compliance.
+This ledger records the external sources used to position Paper 2. It is not itself a manuscript section. The manuscript may cite only claims supported by the cited source. Internet-Drafts and preprints must be identified as such. Standards, frameworks, and taxonomies are prior art or contextual motivation only. They do not validate the frozen studies and do not establish standards compliance.
 
-## Core sources for Sections II and III
+## Core sources for Sections I and II
 
 ### [1] Space-cybersecurity operating context
 
@@ -17,10 +17,10 @@ R. Thummala, E. Rice, and G. Falco, "Why is Space Cybersecurity Unique?" NDSS Sp
 
 Official landing page: https://www.ndss-symposium.org/ndss-paper/auto-draft-645/
 
-Use in manuscript:
+Live-verified support:
 - communication gaps can mandate autonomous decisions;
-- mission continuity and availability are first-order space-security concerns;
-- permanent loss of physical access and coupled mission constraints distinguish the aerospace context.
+- mission continuity and availability are treated as first-order space-security concerns;
+- permanent loss of hardware access and tight subsystem dependencies are identified as distinctive interacting constraints.
 
 Do not use this source to claim that Study 3's K4 schedule represents an orbit or operational contact geometry.
 
@@ -30,10 +30,10 @@ J. Vanlyssel, G.-C. Roman, K. Cook, S. Rahaman, and A. Anwar, "Trust Without Bou
 
 Source: https://arxiv.org/abs/2608.14532
 
-Use in manuscript:
-- onboard flight-software components can inherit broad legitimate authority;
-- a compromised trusted component can abuse legitimate architectural privileges;
-- internal trust boundaries are an active satellite-security research problem.
+Live-verified support:
+- modular flight-software components can operate with broad legitimate authority;
+- a compromised component can abuse legitimate architectural privileges;
+- internal satellite flight-software trust boundaries are an active research problem.
 
 Do not present the preprint as peer-reviewed evidence.
 
@@ -41,9 +41,9 @@ Do not present the preprint as peer-reviewed evidence.
 
 J. Curbo and G. Falco, "Testable Cyber Requirements for Space Flight Software," in Proc. 2025 IEEE Aerospace Conference, 2025, doi: 10.1109/AERO63441.2025.11068629.
 
-Use in manuscript:
-- secure-by-design and cyber-resilience requirements for spacecraft flight software are established context;
-- substantiated integrity, adaptive response, segmentation, and related controls motivate testable security properties.
+Live verification:
+- title, authors, conference, year, and DOI were corroborated through the authors' publication page and 2025 IEEE Aerospace Conference proceedings metadata;
+- secure-by-design and cyber-resilience requirements for spacecraft flight software are established context.
 
 Do not imply that the present studies implement or validate the authors' architecture.
 
@@ -53,11 +53,12 @@ The Aerospace Corporation, "Space Attack Research and Tactic Analysis (SPARTA),"
 
 Main source: https://sparta.aerospace.org/
 
-Relevant countermeasure source: https://sparta.aerospace.org/countermeasures/SPARTA
+Direct cyber-safe-mode source: https://sparta.aerospace.org/countermeasures/CM0044
 
-Use in manuscript:
-- cyber-safe recovery and integrity-protected validated baselines are established spacecraft-security concepts;
-- trusted baseline maintenance, authentication, integrity verification, and recoverable software are established design motivations.
+Live-verified support:
+- cyber-safe mode uses an integrity-protected, validated software and configuration baseline;
+- updates, where permitted, use separately authorized and integrity-verified maintenance that preserves a recoverable trusted version;
+- cyber-safe recovery is therefore established spacecraft-security context.
 
 Do not claim SPARTA compliance or validation.
 
@@ -67,10 +68,10 @@ H. Birkholz, D. Thaler, M. Richardson, N. Smith, and W. Pan, "Remote ATtestation
 
 Official source: https://www.rfc-editor.org/rfc/rfc9334.html
 
-Use in manuscript:
-- Evidence, Verifier, Relying Party, Attestation Results, and appraisal policies are established concepts;
+Live-verified support:
+- Evidence, Attester, Verifier, Relying Party, Attestation Results, and appraisal policies are established concepts;
 - freshness is an explicit appraisal concern;
-- freshness narrows recency but cannot guarantee instantaneous synchronization with changing state.
+- RFC 9334 explicitly notes a race condition in which the Attester state can change immediately after Evidence or an Attestation Result is generated, so freshness narrows recentness rather than guaranteeing instantaneous synchronization.
 
 Novelty implication:
 - Paper 2 must not claim evidence appraisal or freshness as new concepts.
@@ -81,19 +82,22 @@ Y. Deshpande, J. Zhang, H. Labiod, and H. Birkholz, "Remote Attestation with Mul
 
 Official source: https://datatracker.ietf.org/doc/draft-ietf-rats-multi-verifier/
 
-Use in manuscript:
-- current RATS work composes multiple Verifiers for complex or composite attestation systems;
-- partial Evidence and partial Attestation Results can be coordinated across Verifiers.
+Live-verified status and support:
+- active RATS Working Group Internet-Draft, published 5 May 2026;
+- describes hierarchical, cascaded, and hybrid multi-Verifier patterns;
+- multiple Verifiers can appraise Partial Evidence and produce Partial Attestation Results that are combined into aggregated results.
 
 Required distinction:
-- Study 4 models multiple evidence producers and q-of-N/provenance qualification rules, not multiple Verifiers appraising a composite Attester.
+- Study 4 models multiple evidence producers and q-of-N/provenance qualification rules, not multiple Verifiers appraising a Composite Attester.
 
 ### [7] Byzantine quorum systems
 
 D. Malkhi and M. Reiter, "Byzantine quorum systems," Distributed Computing, vol. 11, no. 4, pp. 203-213, 1998, doi: 10.1007/s004460050050.
 
-Use in manuscript:
-- quorum systems and consistency/availability tradeoffs under arbitrary faults are established distributed-systems theory.
+Live-verified bibliographic record:
+- Distributed Computing 11(4), 203-213, 1998;
+- DOI confirmed;
+- quorum systems for consistency and availability under Byzantine repository failures are established prior art.
 
 Required distinction:
 - Study 4 is a recovery-evidence qualification experiment, not a Byzantine consensus, replicated-state-machine, or distributed-agreement protocol.
@@ -104,8 +108,10 @@ O. Alpos, C. Cachin, B. Tackmann, and L. Zanolini, "Asymmetric distributed trust
 
 Official source: https://link.springer.com/article/10.1007/s00446-024-00469-1
 
-Use in manuscript:
-- heterogeneous or subjective trust assumptions in quorum systems are established prior art.
+Live-verified support:
+- published 28 May 2024 in volume 37, pages 247-277;
+- quorum systems are explicitly described as an abstraction for capturing trust assumptions;
+- asymmetric/subjective trust assumptions are established prior art.
 
 Novelty implication:
 - Paper 2 must not claim to introduce heterogeneous trust or quorum trust theory.
@@ -116,8 +122,9 @@ F. Rezabek, D. Malkhi, and A. Yahalom, "Space Fabric: A Satellite-Enhanced Trust
 
 Source: https://arxiv.org/abs/2603.23745
 
-Use in manuscript:
-- satellite trust architectures using Byzantine-tolerant endorsement quorums and diversified trust anchors already exist in the current literature.
+Live-verified support:
+- architecture binds workload execution to a satellite using a Byzantine-tolerant endorsement quorum of distributed ground stations;
+- the architecture also uses two secure elements that both co-sign attestation evidence.
 
 Novelty implication:
 - "satellite + quorum + diversified trust" is not by itself a novel contribution of Study 4.
@@ -125,44 +132,54 @@ Novelty implication:
 Required distinction:
 - Space Fabric is a trusted-execution and attestation architecture; Study 4 is an exact finite recovery-evidence qualification threshold model.
 
+Do not present this preprint as peer-reviewed evidence.
+
 ### [10] in-toto
 
-S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, "in-toto: Providing farm-to-table guarantees for bits and bytes," in Proc. 28th USENIX Security Symposium, 2019.
+S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, "in-toto: Providing farm-to-table guarantees for bits and bytes," in Proc. 28th USENIX Security Symposium, pp. 1393-1410, 2019.
 
 Official source: https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias
 
-Use in manuscript:
-- cryptographically verifiable software-supply-chain provenance is established prior art.
+Live-verified support:
+- USENIX Security 2019 proceedings record and page range confirmed;
+- in-toto provides cryptographic verification of the software supply chain.
 
 Novelty implication:
-- Study 6 does not introduce supply-chain provenance.
+- Study 6 does not introduce software-supply-chain provenance.
 
 ### [11] The Update Framework
 
-The Update Framework, "The Update Framework Specification," current specification, version shown by the source as 1.0.35 on 2026-07-15.
+The Update Framework, "The Update Framework Specification," latest stable specification.
 
-Source: https://github.com/theupdateframework/specification/blob/master/tuf-spec.md
+Official source repository: https://github.com/theupdateframework/specification
+
+Specification source: https://github.com/theupdateframework/specification/blob/master/tuf-spec.md
+
+Live-verification rule:
+- the official repository states that `master` always points to the latest stable version and `draft` to the latest development version;
+- the retrieved official page did not expose the current stable numeric version, so the manuscript remains version-neutral rather than asserting an unverified version number.
 
 Use in manuscript:
-- secure update metadata, threshold signatures, trusted roles, hashes, versions, and expiration are established update-security mechanisms.
+- signed metadata, trusted roles, target hashes, thresholds, versions, and expiration are established update-security mechanisms.
 
 Novelty implication:
 - Study 6 does not introduce target-hash binding, threshold-signature concepts, or trusted update roles.
 
 ### [12] SLSA v1.2
 
-SLSA, "SLSA v1.2: Source Requirements" and "Threats & Mitigations," current approved v1.2 specification.
+SLSA, "SLSA v1.2: Source Requirements" and "Threats & Mitigations," approved v1.2 specification.
 
 Sources:
 - https://slsa.dev/spec/v1.2/source-requirements
 - https://slsa.dev/spec/v1.2/threats
 
-Use in manuscript:
-- provenance and controlled source/build processes are established supply-chain assurance concepts;
-- SLSA explicitly states that an intentionally malicious software producer cannot be directly mitigated through SLSA controls and that consumers need an independent basis for trusting the producer.
+Live-verified support:
+- Source Requirements is marked Approved;
+- the Source track provides increasing levels of trust in how source revisions are created;
+- the threat model explicitly states that intentionally malicious software produced by the producer cannot be directly mitigated through SLSA controls and consumers must establish a basis for trusting the producer.
 
 Novelty implication:
-- Study 6's `APPROVED_BAD_SOURCE` state must not be presented as the discovery that provenance cannot establish benevolent source intent.
+- Study 6's `APPROVED_BAD_SOURCE` state must not be presented as the discovery that provenance or process conformance can fail to establish benevolent source intent.
 
 ## Current-context source not required for the core reference list
 
@@ -172,7 +189,7 @@ A. Sokolov, "Composing Application-Layer Action Evidence with Remote Attestation
 
 Source: https://datatracker.ietf.org/doc/draft-sokolov-rats-aep-composition/05/
 
-This source shows current interest in composing application action evidence with platform attestation and freshness binding. Because it is an individual Internet-Draft rather than an adopted Working Group document, it should be cited only if the final manuscript needs this very recent context.
+This source shows current interest in composing application action evidence with platform attestation and freshness binding. Because it is an individual Internet-Draft rather than an adopted Working Group document, cite it only if the final manuscript specifically needs this current context.
 
 ## Novelty firewall derived from the reviewed literature
 
