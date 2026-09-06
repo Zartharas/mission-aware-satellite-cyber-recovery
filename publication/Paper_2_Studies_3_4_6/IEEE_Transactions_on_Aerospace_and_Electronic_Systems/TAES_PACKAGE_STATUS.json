@@ -6,7 +6,7 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "VENUE_LOCKED_MANUSCRIPT_DEVELOPMENT_IN_PROGRESS_NOT_SUBMITTED",
+  "status": "VENUE_LOCKED_COMPONENT_COMPLETE_MANUSCRIPT_DRAFT_NOT_SUBMISSION_READY",
   "submission_authorized": false,
   "portal_submission_completed": false,
   "manuscript_id": null,
@@ -15,41 +15,31 @@
   "downloads_mirror_allowed": false,
   "separate_portal_staging_directory_allowed": false,
   "core_studies": [
-    {
-      "study": 3,
-      "experiment_id": "S3-K4E-001",
-      "population": 1380,
-      "unit": "deterministic trajectories"
-    },
-    {
-      "study": 4,
-      "experiment_id": "S4-MPQ-001",
-      "population": 4608,
-      "unit": "exact rule-by-subset observations"
-    },
-    {
-      "study": 6,
-      "experiment_id": "S6-SCTR-001",
-      "population": 420,
-      "unit": "exact gate-state and gate-unavailability observations"
-    }
+    {"study": 3, "experiment_id": "S3-K4E-001", "population": 1380, "unit": "deterministic trajectories"},
+    {"study": 4, "experiment_id": "S4-MPQ-001", "population": 4608, "unit": "exact rule-by-subset observations"},
+    {"study": 6, "experiment_id": "S6-SCTR-001", "population": 420, "unit": "exact gate-state and gate-unavailability observations"}
   ],
   "pooled_population_allowed": false,
   "study5_core_inclusion": false,
   "working_scientific_identity": "Layered residual trust boundaries in satellite cyber-recovery qualification",
+  "working_title": "Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Quorums, and Artifact Assurance",
   "manuscript_development": {
-    "canonical_source": "TAES_MANUSCRIPT_SOURCE.md",
+    "core_source_for_sections_2_3": "TAES_MANUSCRIPT_SOURCE.md",
     "literature_source_ledger": "TAES_LITERATURE_SOURCE_LEDGER.md",
-    "section_1_introduction": "PENDING_REWRITE_AFTER_CORE_SECTIONS",
-    "section_2_related_work": "DRAFTED_2026-09-06",
-    "section_3_common_framework": "DRAFTED_2026-09-06",
-    "section_4_study3": "PENDING",
-    "section_5_study4": "PENDING",
-    "section_6_study6": "PENDING",
-    "section_7_cross_study_synthesis": "PENDING",
-    "section_8_validity_implications": "PENDING",
-    "section_9_conclusion": "PENDING",
-    "abstract": "PENDING_FINAL_MANUSCRIPT"
+    "section_1_introduction": "TAES_SECTION_I_INTRODUCTION.md__DRAFTED_2026-09-06",
+    "section_2_related_work": "TAES_MANUSCRIPT_SOURCE.md__DRAFTED_2026-09-06",
+    "section_3_common_framework": "TAES_MANUSCRIPT_SOURCE.md__DRAFTED_2026-09-06",
+    "section_4_study3": "TAES_SECTION_IV_STUDY3.md__DRAFTED_2026-09-06",
+    "section_5_study4": "TAES_SECTION_V_STUDY4.md__DRAFTED_2026-09-06",
+    "section_6_study6": "TAES_SECTION_VI_STUDY6.md__DRAFTED_2026-09-06",
+    "section_7_cross_study_synthesis": "TAES_SECTION_VII_SYNTHESIS.md__DRAFTED_2026-09-06",
+    "section_8_validity_implications": "TAES_SECTION_VIII_VALIDITY.md__DRAFTED_2026-09-06",
+    "section_9_conclusion": "TAES_SECTION_IX_CONCLUSION.md__DRAFTED_2026-09-06",
+    "abstract_and_index_terms": "TAES_ABSTRACT_KEYWORDS.md__DRAFTED_2026-09-06",
+    "assembly_status": "PENDING_SINGLE_MANUSCRIPT_ASSEMBLY_AND_LINE_BY_LINE_AUDIT",
+    "scientific_claim_audit": "PENDING",
+    "citation_audit": "PENDING",
+    "style_and_taes_format_audit": "PENDING"
   },
   "publisher_facing_files": {
     "manuscript_pdf": "NOT_CREATED",
@@ -57,35 +47,26 @@
     "supplementary_readme": "NOT_CREATED",
     "cover_letter": "NOT_PUBLICLY_REQUIRED_BY_REVIEWED_TAES_INSTRUCTIONS__LIVE_PORTAL_RECHECK_REQUIRED"
   },
-  "control_files_created": [
-    "README_SUBMISSION.md",
-    "TAES_AIMS_SCOPE_REQUIREMENTS.md",
-    "TAES_COMPLIANCE_CHECKLIST.md",
-    "TAES_PORTAL_FIELD_MAP.md",
-    "TAES_MANUSCRIPT_DEVELOPMENT.md",
-    "TAES_LITERATURE_SOURCE_LEDGER.md",
-    "TAES_MANUSCRIPT_SOURCE.md",
-    "TAES_ORIGINALITY_AI_SUPPLEMENTARY_CONTROL.md",
-    "UPLOAD_FILES.md",
-    "TAES_LOCAL_SYNC.sh"
-  ],
   "mandatory_final_gates": [
+    "single_manuscript_assembly_complete",
     "scientific_claim_audit_pass",
     "citation_audit_pass",
     "taes_format_audit_pass",
     "pdf_visual_qa_pass",
     "portal_field_audit_pass",
+    "supplementary_material_decision_frozen",
     "upload_manifest_and_sha256_frozen",
     "explicit_final_author_submission_authorization"
   ],
   "official_sources_reviewed_date": "2026-09-06",
   "notes": [
+    "All nine planned manuscript sections and the abstract/index-term draft now exist as controlled components in the canonical TAES package.",
+    "Component-complete does not mean submission ready; assembly and scientific/citation audits remain mandatory.",
     "TAES initial Regular Paper submission requires a PDF in the specified two-column single-spaced format.",
     "TAES performs Editor-in-Chief, Senior Editor, and Associate Editor prescreening before formal review.",
     "Any supplementary material intended to accompany the article must be submitted for peer review with the original article.",
     "IEEE AI-generated article content must be disclosed in Acknowledgments with system, affected sections/content, and level of use.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "Sections II and III are development drafts and remain subject to scientific and citation audit before submission.",
-    "No portal submission is authorized by venue lock alone."
+    "No portal submission is authorized by venue lock or component completion alone."
   ]
 }
