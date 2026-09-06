@@ -1,0 +1,50 @@
+name: Export exact Acta package bytes
+
+on:
+  push:
+    branches:
+      - publication/study8-acta-package-freeze
+    paths:
+      - .github/workflows/export-acta-exact.yml
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+      - name: Record exact hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd publication/Paper_4_Study_8/Acta_Astronautica
+          sha256sum \
+            ACTA_ASTRONAUTICA_MANUSCRIPT.docx \
+            ACTA_ASTRONAUTICA_COVER_LETTER.docx \
+            ACTA_ASTRONAUTICA_HIGHLIGHTS.docx \
+            FIGURE_1_PROFILE_SUCCESS.pdf \
+            FIGURE_2_CONTACT_REGIME_SUCCESS.pdf \
+            > ACTA_EXACT_EXPORT_SHA256SUMS.txt
+          git hash-object \
+            ACTA_ASTRONAUTICA_MANUSCRIPT.docx \
+            ACTA_ASTRONAUTICA_COVER_LETTER.docx \
+            ACTA_ASTRONAUTICA_HIGHLIGHTS.docx \
+            FIGURE_1_PROFILE_SUCCESS.pdf \
+            FIGURE_2_CONTACT_REGIME_SUCCESS.pdf \
+            > ACTA_EXACT_EXPORT_GIT_BLOBS.txt
+      - name: Upload exact unchanged publisher files
+        uses: actions/upload-artifact@v4
+        with:
+          name: acta-study8-exact-branch-export
+          path: |
+            publication/Paper_4_Study_8/Acta_Astronautica/ACTA_ASTRONAUTICA_MANUSCRIPT.docx
+            publication/Paper_4_Study_8/Acta_Astronautica/ACTA_ASTRONAUTICA_COVER_LETTER.docx
+            publication/Paper_4_Study_8/Acta_Astronautica/ACTA_ASTRONAUTICA_HIGHLIGHTS.docx
+            publication/Paper_4_Study_8/Acta_Astronautica/FIGURE_1_PROFILE_SUCCESS.pdf
+            publication/Paper_4_Study_8/Acta_Astronautica/FIGURE_2_CONTACT_REGIME_SUCCESS.pdf
+            publication/Paper_4_Study_8/Acta_Astronautica/ACTA_EXACT_EXPORT_SHA256SUMS.txt
+            publication/Paper_4_Study_8/Acta_Astronautica/ACTA_EXACT_EXPORT_GIT_BLOBS.txt
+          if-no-files-found: error
