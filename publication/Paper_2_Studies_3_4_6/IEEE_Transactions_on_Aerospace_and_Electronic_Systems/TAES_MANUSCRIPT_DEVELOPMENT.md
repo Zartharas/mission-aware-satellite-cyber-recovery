@@ -10,7 +10,7 @@
 
 Current working title candidate:
 
-**Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Quorums, and Artifact Assurance**
+**Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance**
 
 This title is not frozen. It must be reviewed against the completed manuscript, current literature, TAES discoverability, and TAES guidance before submission.
 
@@ -48,7 +48,7 @@ Study 3 provides an exact finite characterization of false qualification caused 
 
 ### C2 - Producer-composition boundary
 
-Study 4 provides an exact all-subset characterization of first and systematic qualification failure thresholds across 18 combinations of absolute quorum and synthetic provenance-domain requirements under separate compromise and benign producer-unavailability populations.
+Study 4 provides an exact all-subset characterization of first and systematic qualification failure thresholds across 18 combinations of absolute vote and synthetic provenance-domain requirements under separate compromise and benign producer-unavailability populations.
 
 ### C3 - Artifact-assurance boundary
 
