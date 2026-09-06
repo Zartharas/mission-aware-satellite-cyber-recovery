@@ -89,6 +89,24 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def citation_first_use_order(text: str) -> list[int]:
+    """Return reference numbers in the order each is first cited before References."""
+    body = text.split("\n## References", 1)[0]
+    seen: list[int] = []
+    token = re.compile(r"\[(\d+)\](?:-\[(\d+)\])?")
+    for match in token.finditer(body):
+        first = int(match.group(1))
+        last = int(match.group(2)) if match.group(2) else first
+        if last < first:
+            raise SystemExit(
+                f"ERROR: descending citation range detected: [{first}]-[{last}]"
+            )
+        for number in range(first, last + 1):
+            if number not in seen:
+                seen.append(number)
+    return seen
+
+
 def main() -> None:
     for name in COMPONENTS:
         read(name)
@@ -144,16 +162,12 @@ def main() -> None:
     if "—" in assembled:
         raise SystemExit("ERROR: em dash detected in assembled manuscript")
 
-    # Guard only genuinely affirmative overclaims. Explicit limitation language
-    # such as "does not identify a globally best policy" is intentionally valid.
-    prohibited_exact = [
-        "N = 6,408",
-        "N=6,408",
-    ]
-    for phrase in prohibited_exact:
-        if phrase in assembled:
-            raise SystemExit(f"ERROR: prohibited exact manuscript phrase detected: {phrase}")
+    # The three frozen populations must never be collapsed into a Paper-2 total.
+    if "6,408" in assembled:
+        raise SystemExit("ERROR: combined Paper-2 population total detected")
 
+    # Guard only genuinely affirmative superiority claims. Explicit limitation
+    # language such as "does not identify a globally best policy" is valid.
     affirmative_superiority_patterns = [
         r"\b(?:is|was|remains|represents|identifies|establishes)\s+(?:the\s+)?globally best\s+(?:policy|gate|quorum|rule)\b",
         r"\bwe\s+(?:identify|establish|show|demonstrate)\s+(?:a|the)\s+globally best\s+(?:policy|gate|quorum|rule)\b",
@@ -180,6 +194,15 @@ def main() -> None:
         if marker not in assembled:
             raise SystemExit(f"ERROR: required assembled section missing: {marker}")
 
+    first_use = citation_first_use_order(assembled)
+    if first_use:
+        expected = list(range(1, max(first_use) + 1))
+        if first_use != expected:
+            raise SystemExit(
+                "ERROR: IEEE reference numbers are not introduced in sequential first-use order: "
+                f"observed={first_use}, expected={expected}"
+            )
+
     OUTPUT.write_text(assembled, encoding="utf-8")
 
     manifest_lines = []
@@ -191,6 +214,7 @@ def main() -> None:
 
     print("TAES_MANUSCRIPT_ASSEMBLY=PASS")
     print(f"abstract_word_count={len(abstract_words)}")
+    print(f"citation_first_use_order={','.join(str(n) for n in first_use)}")
     print(f"assembled_file={OUTPUT}")
     print(f"assembled_sha256={sha256(OUTPUT)}")
     print(f"component_manifest={MANIFEST}")
