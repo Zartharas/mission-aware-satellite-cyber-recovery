@@ -127,10 +127,12 @@ def main() -> None:
     if "—" in assembled:
         raise SystemExit("ERROR: em dash detected in assembled manuscript")
 
+    # These guards target affirmative manuscript constructs. Limitation text is
+    # allowed to mention terms such as "external replication" in order to state
+    # explicitly that the present same-repository audits are not external replication.
     prohibited_exact = [
         "N = 6,408",
         "N=6,408",
-        "external replication",
         "globally best policy",
         "globally best gate",
     ]
