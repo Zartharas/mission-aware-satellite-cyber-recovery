@@ -3,8 +3,8 @@
 
 This script does not fetch data, rerun studies, or alter frozen science. It only
 combines already tracked manuscript-development components in the canonical
-TAES publication directory and binds approved figure assets into the component
-manifest.
+TAES publication directory, binds the controlled IEEE AI-use acknowledgment,
+and binds approved figure assets into the component manifest.
 """
 
 from __future__ import annotations
@@ -32,6 +32,7 @@ COMPONENTS = [
     "TAES_SECTION_VII_SYNTHESIS.md",
     "TAES_SECTION_VIII_VALIDITY.md",
     "TAES_SECTION_IX_CONCLUSION.md",
+    "TAES_ACKNOWLEDGMENT_AI_DISCLOSURE.md",
 ]
 
 FIGURE_FILES = [
@@ -85,6 +86,23 @@ def normalize_section(text: str) -> str:
         else:
             out.append(line)
     return "\n".join(out).strip()
+
+
+def acknowledgment_body() -> str:
+    """Return the publisher-facing AI-use disclosure without its control note."""
+    ack_doc = read("TAES_ACKNOWLEDGMENT_AI_DISCLOSURE.md")
+    lines: list[str] = []
+    for line in ack_doc.splitlines():
+        stripped = line.strip()
+        if stripped == "# Acknowledgment":
+            continue
+        if stripped.startswith("> Control note:"):
+            continue
+        lines.append(line)
+    body = "\n".join(lines).strip()
+    if not body:
+        raise SystemExit("ERROR: AI-use acknowledgment body is empty")
+    return body
 
 
 def sha256(path: Path) -> str:
@@ -157,6 +175,7 @@ def main() -> None:
     )
 
     later_sections = [normalize_section(read(name)) for name in SECTION_FILES[1:]]
+    acknowledgment = acknowledgment_body()
 
     assembled_parts = [
         f"# {TITLE}",
@@ -165,6 +184,7 @@ def main() -> None:
         section_i,
         sections_ii_iii,
         *later_sections,
+        "## Acknowledgment\n\n" + acknowledgment,
         references,
     ]
 
@@ -200,6 +220,22 @@ def main() -> None:
         if marker in assembled:
             raise SystemExit(f"ERROR: retired qualitative Table V detected: {marker}")
 
+    # Bind the required IEEE AI-generated-content disclosure and keep the
+    # development-only control note out of the assembled manuscript.
+    required_ai_markers = [
+        "## Acknowledgment",
+        "OpenAI ChatGPT (GPT-5.6 Sol)",
+        "Abstract and Sections I-IX",
+        "substantive drafting and editorial level",
+        "It was not used to generate or modify the frozen experimental results.",
+        "assumes responsibility for the final manuscript",
+    ]
+    for marker in required_ai_markers:
+        if marker not in assembled:
+            raise SystemExit(f"ERROR: required IEEE AI-disclosure marker missing: {marker}")
+    if "Control note:" in assembled:
+        raise SystemExit("ERROR: development-only AI-disclosure control note leaked into manuscript")
+
     # Guard only genuinely affirmative superiority claims. Explicit limitation
     # language such as "does not identify a globally best policy" is valid.
     affirmative_superiority_patterns = [
@@ -222,6 +258,7 @@ def main() -> None:
         "## VII. Cross-Study Residual Trust Boundaries",
         "## VIII. Validity, Aerospace Interpretation Boundaries, and Future Evaluation",
         "## IX. Conclusion",
+        "## Acknowledgment",
         "## References",
     ]
     for marker in required_markers:
@@ -254,6 +291,7 @@ def main() -> None:
     print(f"citation_first_use_order={','.join(str(n) for n in first_use)}")
     print("figure1_asset_binding=PASS")
     print("retired_table_v_check=PASS")
+    print("ieee_ai_disclosure_binding=PASS")
     print(f"assembled_file={OUTPUT}")
     print(f"assembled_sha256={sha256(OUTPUT)}")
     print(f"component_manifest={MANIFEST}")
