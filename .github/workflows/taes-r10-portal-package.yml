@@ -1,0 +1,89 @@
+name: TAES R10 portal package
+
+on:
+  push:
+    branches:
+      - paper2-taes-r10-portal-adaptation
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-taes-r10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install document toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            pandoc \
+            latexmk \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            poppler-utils
+
+      - name: Build and audit R10 portal package
+        working-directory: publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems
+        run: |
+          python3 TAES_BUILD_IEEETRAN_R10.py | tee TAES_R10_GITHUB_ACTION_BUILD_OUTPUT.txt
+
+      - name: Verify exact archive membership
+        working-directory: publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems
+        run: |
+          python3 - <<'PY'
+          import zipfile
+          from pathlib import Path
+
+          archive = Path('TAES_MAIN_MANUSCRIPT_LATEX_R10.zip')
+          expected = [
+              'TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf',
+              'TAES_MANUSCRIPT.tex',
+          ]
+          with zipfile.ZipFile(archive) as zf:
+              observed = sorted(zf.namelist())
+          assert observed == expected, (observed, expected)
+          print('r10_archive_membership=PASS')
+          print('archive_members=' + ','.join(observed))
+          PY
+
+      - name: Verify conflict statement and sole-author controls
+        working-directory: publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          tex = Path('TAES_MANUSCRIPT_R10.tex').read_text(encoding='utf-8')
+          assert tex.count(r'\section*{Conflict of Interest}') == 1
+          assert tex.count('The author declares no conflict of interest.') == 1
+          assert tex.count(r'\author{Aman Kumar Singh') == 1
+          assert r'\and' not in tex
+          assert 'OpenAI ChatGPT (GPT-5.6 Sol)' in tex
+          print('coi_statement=PASS')
+          print('sole_author_control=PASS')
+          print('ai_acknowledgment_presence=PASS')
+          PY
+
+      - name: Upload R10 QA and portal artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: taes-r10-portal-package
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_MAIN_MANUSCRIPT_LATEX_R10.zip
+            publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_MANUSCRIPT_R10.tex
+            publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_MANUSCRIPT_R10.pdf
+            publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_R10_PORTAL_PACKAGE_AUDIT.txt
+            publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_R10_SHA256SUMS.txt
+            publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_R10_GITHUB_ACTION_BUILD_OUTPUT.txt
+            publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_MANUSCRIPT_IEEETRAN_DEV.log
