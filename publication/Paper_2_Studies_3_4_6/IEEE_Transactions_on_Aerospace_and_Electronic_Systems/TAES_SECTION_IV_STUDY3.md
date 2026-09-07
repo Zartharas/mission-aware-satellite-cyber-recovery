@@ -2,47 +2,35 @@
 
 ## A. Study Question and Design
 
-Study 3 (`S3-K4E-001`) evaluates when runtime recovery evidence remains policy-qualified after the research-only authorization state has changed. The experiment isolates three factors that can affect that boundary: contact availability, the semantic condition of the received authorization evidence, and whether an affected record appears once or persists across later receptions. The study is deterministic and uses logical model time rather than wall-clock or flight time.
+Study 3 (`S3-K4E-001`) evaluates when runtime recovery evidence remains policy-qualified after research-only authorization has changed. It varies contact availability, evidence semantics, and whether an affected post-onset record occurs once or persists. The model is deterministic and uses logical time rather than wall-clock or flight time.
 
-The horizon is 240 logical seconds, evaluated in five-logical-second epochs. Evidence remains fresh for five logical seconds. The complete onset grid contains 46 prespecified authorization-change phases from 10 through 235 logical seconds in five-second increments. Before onset, hidden authorization truth is `true`. At and after onset, hidden authorization truth is `false`, and the security signal is `true`. The selector never receives hidden authorization truth as an input.
+The horizon is 240 logical seconds in five-logical-second epochs, with five logical seconds of evidence validity. The onset grid contains 46 prespecified phases from 10 through 235 logical seconds in five-second increments. Hidden authorization is `true` before onset and `false` at and after onset; the post-onset security signal is `true`. Hidden authorization is never supplied to the selector.
 
-Two contact regimes are evaluated. `K0` provides continuous modeled contact from 0 through 240 logical seconds. `K4` provides the frozen synthetic contact windows `[25,35]`, `[75,90]`, `[145,165]`, and `[220,240]`. New records are received only during modeled contact, and outside contact the selector can use only the latest previously received record subject to the frozen freshness rule. K4 is therefore a deterministic flapping-contact treatment. It is not an orbital pass schedule or an estimate of operational access.
+`K0` provides continuous modeled contact from 0 through 240. `K4` provides synthetic windows `[25,35]`, `[75,90]`, `[145,165]`, and `[220,240]`. New records arrive only during modeled contact; otherwise the selector can use the latest received record subject to freshness. K4 is a deterministic contact treatment, not an orbital pass schedule or operational-access estimate.
 
 The evidence treatments are:
 
-1. `V0`, truthful current authorization evidence. A post-onset received record reports authorization `false` and carries a valid signature.
-2. `V4`, post-signature value manipulation. The post-onset authorization value is changed from `false` to `true` after signing, which makes the signature invalid.
-3. `V5`, compromised trusted-producer evidence. The producer emits authorization `true` while hidden truth is `false`, but the false claim is validly signed by the trusted producer.
+1. `V0`: truthful evidence. A post-onset record reports authorization `false` with a valid signature.
+2. `V4`: post-signature value manipulation. The signed post-onset value is changed from `false` to `true`, invalidating the signature.
+3. `V5`: compromised trusted-producer evidence. The producer reports authorization `true` while hidden truth is `false`, and validly signs the false claim.
 
-`V4` and `V5` are each evaluated under one-shot and persistent modes. A one-shot treatment affects the first received post-onset record and later received records return to truthful behavior. A persistent treatment affects every received post-onset record. `V0` has no persistence treatment because its records remain truthful.
-
-Three frozen policy semantics are evaluated: `S2_B0_FAIL_CLOSED`, `S2_B2_RISK_THRESHOLD`, and `S2_S1_EVIDENCE_AWARE`. These identifiers are retained because Study 3 reuses the frozen selector semantics, but no Study-2 statistical result is imported into the present analysis. The Study-3 population is defined solely by the Study-3 protocol and execution.
-
-The resulting matrix contains 30 cells and 46 onset trajectories per cell, for 1,380 deterministic trajectories. Across those trajectories the execution records 67,620 epoch states. The trajectory is the study unit. Epochs within a trajectory are repeated model states and are not treated as independent observations.
+`V4` and `V5` are each evaluated as one-shot and persistent treatments; `V0` remains truthful. The frozen policy semantics are `S2_B0_FAIL_CLOSED`, `S2_B2_RISK_THRESHOLD`, and `S2_S1_EVIDENCE_AWARE`. The identifiers reuse frozen selector semantics, but no Study-2 result is imported. Thirty cells crossed with 46 onset phases yield 1,380 trajectories and 67,620 epoch states. The trajectory is the study unit; epochs within a trajectory are repeated model states.
 
 ## B. Endpoints and Origin Decomposition
 
-The frozen primary endpoints are `unsafe_permissive_epoch_rate`, `unsafe_qualified_epoch_rate`, `unsafe_qualified_exposure_s`, `unsafe_qualified_episode_count`, `protective_epoch_rate`, and `action_transition_count`. This paper emphasizes `unsafe_qualified` because it is the stronger qualification endpoint. It indicates that the recovery gate is policy-visible qualified while the research-only hidden authorization state is false. `unsafe_permissive` is only a selector or gate-entry action metric and is not evidence that a recovery action was completed.
+Primary endpoints are `unsafe_permissive_epoch_rate`, `unsafe_qualified_epoch_rate`, `unsafe_qualified_exposure_s`, `unsafe_qualified_episode_count`, `protective_epoch_rate`, and `action_transition_count`. This paper emphasizes `unsafe_qualified`: the gate is policy-visible qualified while hidden authorization is false. `unsafe_permissive` is only a selector or gate-entry action metric, not completed recovery.
 
-The design also prespecifies two allowed origins for false qualification. `PRE_ONSET_CACHE` denotes a truthful record received before the authorization change that remains policy-fresh for a later epoch. `V5_AFFECTED_RECORD` denotes a validly signed false record generated by the compromised trusted producer. A Study-3 false-qualified epoch must map to one of these declared origins. This decomposition prevents ordinary freshness lag from being counted as adversarial semantic falsity.
-
-Because the onset grid is complete for the frozen design, results are reported as exact finite-grid summaries and paired phase differences rather than sampling estimates. There is no p-value gate, weighted policy score, or global policy rank.
+False-qualified epochs must map to one of two prespecified origins. `PRE_ONSET_CACHE` is a truthful record received before onset that remains policy-fresh afterward; `V5_AFFECTED_RECORD` is a validly signed false record from the compromised trusted producer. This separates ordinary freshness lag from adversarial semantic falsity. Because the frozen onset grid is complete, results are exact finite-grid summaries and paired phase differences, with no p-value gate, weighted policy score, or global policy rank.
 
 ## C. Persistent False-but-Valid Evidence Under Continuous Contact
 
-Persistent `V5` produces the clearest semantic trust boundary. Under continuous `K0` contact, both `B0` and `S1` were unsafe-qualified in all 46 onset trajectories. Mean unsafe-qualified exposure was 122.5 logical seconds for each policy. In contrast, `B2` remained at 0 of 46 trajectories with mean unsafe-qualified exposure of zero in this frozen cell.
+Under persistent `V5/K0`, both `B0` and `S1` were unsafe-qualified in all 46 onset trajectories, with mean exposure 122.5 logical seconds. `B2` remained 0/46 with zero mean exposure in this frozen cell. The V5 records are validly signed; the mismatch exists because the trusted producer itself signs a claim that is false relative to hidden authorization. Signature validity therefore authenticates the modeled producer and record integrity without exposing producer-origin semantic falsity.
 
-The important distinction is not that a signature was broken. The `V5` records are validly signed. The mismatch arises because the trusted producer itself is modeled as compromised and therefore signs a claim that is false relative to hidden authorization truth. Signature validity authenticates the modeled producer and record integrity, but it does not expose the research-only semantic falsity of a claim that the trusted producer is itself willing to sign.
-
-The `B2` structural zero is preserved as a study result but is not interpreted as universal immunity or global superiority. It follows from the frozen policy semantics and treatment grid. The study does not define a weighted objective that would justify ranking `B2` as the best policy across recovery goals.
+The `B2` zero is structural to the frozen policy and treatment grid, not evidence of universal immunity or global superiority.
 
 ## D. Persistent V5 Under the Frozen K4 Contact Schedule
 
-Intermittent `K4` contact changes the duration of exposure but does not eliminate the persistent `V5` boundary for the two gate-entering policies. `B0` remained unsafe-qualified in 46 of 46 onset trajectories with mean exposure of 55.326 logical seconds. `S1` also remained unsafe-qualified in 46 of 46 trajectories with mean exposure of 49.022 logical seconds. Relative to their truthful `V0` controls, the corresponding `V5`-attributable mean increments were 55.0 and 49.022 logical seconds. `B2` remained 0 of 46.
-
-The difference between `B0` and `S1` under persistent `V5/K4` was approximately 6.304 logical seconds of mean unsafe-qualified exposure. The frozen `S1` contact-aware restriction therefore adds a boundary relative to `B0`, but it does not make `S1` immune. During modeled contact windows the compromised producer can continue supplying fresh, validly signed false evidence that satisfies the policy-visible evidence requirements.
-
-This result must not be reversed into the claim that intermittent contact improves security. K4 mechanically limits when new records can be received and thereby changes exposure under the frozen cache and contact semantics. The study supports the narrower statement that the specified K4 schedule reduced modeled mean false-qualification exposure relative to K0 for the persistent `V5` cells while leaving the false-qualification condition present across the complete onset grid.
+Under persistent `V5/K4`, `B0` remained unsafe-qualified in 46/46 trajectories with mean exposure 55.326 logical seconds and a 55.0-logical-second increment over truthful `V0`. `S1` remained unsafe-qualified in 46/46 with mean exposure 49.022 logical seconds, equal to its V5-attributable increment. `B2` remained 0/46. The B0-S1 mean difference was approximately 6.304 logical seconds, so the frozen S1 contact-aware restriction reduced exposure relative to B0 but did not eliminate the V5 boundary.
 
 ### Table II. Selected Study-3 residual-boundary results
 
@@ -58,32 +46,22 @@ This result must not be reversed into the claim that intermittent contact improv
 | Truthful `V0`, `K4`, `S1` | 0/46 | 0 | No truthful-V0 false qualification in frozen K4 grid |
 | Truthful `V0`, `K4`, `B2` | 0/46 | 0 | No truthful-V0 false qualification in frozen K4 grid |
 
-The exposure values in Table II are logical model time. They are not spacecraft response time, communication latency, operator latency, or ground-contact duration.
+K4 mechanically limits record reception under the registered cache semantics; the result does not establish that intermittent contact improves security. Table II values are logical model time, not spacecraft response time, communication latency, operator latency, or ground-contact duration.
 
 ## E. Post-Signature Manipulation and the Cryptographic Boundary
 
-`V4` provides an important negative control against overinterpreting the `V5` result. Under `V4`, the authorization value is modified after signing, so the affected record has an invalid signature. The affected `V4` records never qualified. Persistent `V4` therefore adds no `V4`-attributable false qualification.
+Under `V4`, post-signature modification invalidates the affected record's signature, and affected V4 records never qualify. Any B0/K4 false qualification in V4 cells comes instead from a previously received truthful record and is assigned to `PRE_ONSET_CACHE`, not to the manipulated record.
 
-Any false qualification observed for `V4` under `B0/K4` is instead attributable to the same pre-onset cache mechanism present under truthful `V0`: a previously received truthful record can remain fresh for one post-onset epoch after hidden authorization has changed. The prespecified origin decomposition assigns those epochs to `PRE_ONSET_CACHE`, not to the manipulated `V4` record.
-
-The contrast between `V4` and `V5` bounds the cryptographic interpretation. The study supports the claim that signature validation rejects the modeled post-signature alteration. It also supports the claim that a valid signature alone does not establish semantic truth when the trusted producer itself is the source of the false claim. It does not support a claim that cryptography in general failed or that the experiment performed cryptanalysis, key extraction, or a real signing-system attack.
+The V4-V5 contrast therefore supports two bounded claims: signature validation rejects the modeled post-signature alteration, while a valid signature alone does not establish semantic truth when the trusted producer signs the false claim. The experiment does not evaluate cryptanalysis, key extraction, or a real signing-system attack.
 
 ## F. Freshness and the Truthful Cache Boundary
 
-The truthful `V0/K4` control exposes a smaller nonadversarial boundary. Under `B0`, 3 of 46 onset trajectories contained unsafe qualification, with mean exposure of 0.326 logical seconds across the complete onset grid. The frozen origin decomposition attributes these epochs to `PRE_ONSET_CACHE`. A record generated while authorization was still true remains within the five-logical-second freshness threshold for a short interval after hidden authorization changes.
-
-`S1` and `B2` had no truthful-`V0` false qualification under K4. The `B0` result is therefore schedule-, epoch-, freshness-, and policy-specific. It should not be interpreted as a general estimate of cache staleness in spacecraft systems. Its value in this study is methodological: it shows that false qualification can arise from an ordinary freshness boundary even when evidence is truthful, and it prevents that mechanism from being conflated with the stronger `V5` compromised-producer treatment.
-
-This result is also consistent with the architectural limitation recognized by RFC 9334: evidence freshness can bound recentness without guaranteeing instantaneous synchronization to an underlying state change [5]. The present experiment quantifies that issue only for the frozen five-second epoch and validity semantics.
+Under truthful `V0/K4/B0`, 3/46 onset trajectories contained unsafe qualification, with mean exposure 0.326 logical seconds, all attributed to `PRE_ONSET_CACHE`. `S1` and `B2` had no truthful-V0 false qualification under K4. The result is schedule-, epoch-, freshness-, and policy-specific and is not an estimate of spacecraft cache staleness. It demonstrates that ordinary freshness lag can produce false qualification without being conflated with V5 producer-origin false evidence, consistent with RFC 9334's freshness limitation [5].
 
 ## G. One-Shot V5 and Temporal Persistence
 
-The one-shot treatment separates a transient trusted-producer false claim from persistent compromise behavior. Under `K0`, one-shot `V5` produced mean unsafe-qualified exposure of five logical seconds for both `B0` and `S1` and affected all 46 onset phases. Under `K4`, all 46 `B0` and `S1` onset trajectories eventually received the one-shot compromised record; `S1` retained five logical seconds of `V5` exposure, while `B0` additionally contains the separately identified cache boundary.
-
-The difference between one-shot and persistent `V5` is therefore temporal rather than cryptographic. Both treatments use a validly signed false claim from the trusted producer. Persistence determines whether the false claim is confined to one received record or renewed whenever post-onset contact permits another record to arrive. This is the main reason Study 3 is stronger than a static observation that a compromised signer can lie: the experiment characterizes how false-but-valid evidence persists or recurs under the frozen contact and cache semantics.
+One-shot `V5/K0` produced five logical seconds of mean unsafe-qualified exposure for both `B0` and `S1` across all 46 onset phases. Under K4, all 46 B0 and S1 trajectories eventually received the one-shot compromised record; S1 retained five logical seconds of V5 exposure, while B0 also contains the separately identified cache boundary. One-shot and persistent V5 are cryptographically the same false-but-valid producer claim; persistence determines whether the claim appears once or is renewed after later contact.
 
 ## H. Study-3 Residual Trust Boundary
 
-Study 3 exposes two distinct residual boundaries. The smaller boundary is ordinary freshness lag: a truthful pre-onset record can remain qualified briefly after hidden authorization changes. The stronger boundary appears when the trusted producer itself is compromised: fresh and validly signed evidence can continue satisfying the gate while being false relative to hidden truth. Contact-aware restrictions reduce exposure in selected K4 comparisons, but do not eliminate that second boundary for `B0` or `S1` under persistent `V5`.
-
-These findings are exact properties of the frozen deterministic grid. They do not estimate the prevalence of producer compromise, the probability of unsafe recovery, or operational mission risk. Logical time is not converted into orbit, RF, network, or operator time. The next study removes the temporal contact mechanism entirely and asks a different question: how the qualification boundary changes when trust is composed across multiple modeled evidence producers and synthetic provenance domains.
+Study 3 therefore separates two residual boundaries: brief truthful freshness lag and false but validly signed evidence from a compromised trusted producer. Contact-aware restrictions reduce selected K4 exposure but do not eliminate persistent V5 qualification for `B0` or `S1`. These are exact properties of the frozen grid, not estimates of compromise prevalence, unsafe-recovery probability, operational mission risk, or real spacecraft timing.

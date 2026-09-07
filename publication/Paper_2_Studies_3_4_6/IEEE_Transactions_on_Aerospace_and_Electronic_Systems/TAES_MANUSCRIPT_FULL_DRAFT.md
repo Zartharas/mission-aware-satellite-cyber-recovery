@@ -139,47 +139,35 @@ The common synthesis is limited to observability. Stronger evidence composition 
 
 ### A. Study Question and Design
 
-Study 3 (`S3-K4E-001`) evaluates when runtime recovery evidence remains policy-qualified after the research-only authorization state has changed. The experiment isolates three factors that can affect that boundary: contact availability, the semantic condition of the received authorization evidence, and whether an affected record appears once or persists across later receptions. The study is deterministic and uses logical model time rather than wall-clock or flight time.
+Study 3 (`S3-K4E-001`) evaluates when runtime recovery evidence remains policy-qualified after research-only authorization has changed. It varies contact availability, evidence semantics, and whether an affected post-onset record occurs once or persists. The model is deterministic and uses logical time rather than wall-clock or flight time.
 
-The horizon is 240 logical seconds, evaluated in five-logical-second epochs. Evidence remains fresh for five logical seconds. The complete onset grid contains 46 prespecified authorization-change phases from 10 through 235 logical seconds in five-second increments. Before onset, hidden authorization truth is `true`. At and after onset, hidden authorization truth is `false`, and the security signal is `true`. The selector never receives hidden authorization truth as an input.
+The horizon is 240 logical seconds in five-logical-second epochs, with five logical seconds of evidence validity. The onset grid contains 46 prespecified phases from 10 through 235 logical seconds in five-second increments. Hidden authorization is `true` before onset and `false` at and after onset; the post-onset security signal is `true`. Hidden authorization is never supplied to the selector.
 
-Two contact regimes are evaluated. `K0` provides continuous modeled contact from 0 through 240 logical seconds. `K4` provides the frozen synthetic contact windows `[25,35]`, `[75,90]`, `[145,165]`, and `[220,240]`. New records are received only during modeled contact, and outside contact the selector can use only the latest previously received record subject to the frozen freshness rule. K4 is therefore a deterministic flapping-contact treatment. It is not an orbital pass schedule or an estimate of operational access.
+`K0` provides continuous modeled contact from 0 through 240. `K4` provides synthetic windows `[25,35]`, `[75,90]`, `[145,165]`, and `[220,240]`. New records arrive only during modeled contact; otherwise the selector can use the latest received record subject to freshness. K4 is a deterministic contact treatment, not an orbital pass schedule or operational-access estimate.
 
 The evidence treatments are:
 
-1. `V0`, truthful current authorization evidence. A post-onset received record reports authorization `false` and carries a valid signature.
-2. `V4`, post-signature value manipulation. The post-onset authorization value is changed from `false` to `true` after signing, which makes the signature invalid.
-3. `V5`, compromised trusted-producer evidence. The producer emits authorization `true` while hidden truth is `false`, but the false claim is validly signed by the trusted producer.
+1. `V0`: truthful evidence. A post-onset record reports authorization `false` with a valid signature.
+2. `V4`: post-signature value manipulation. The signed post-onset value is changed from `false` to `true`, invalidating the signature.
+3. `V5`: compromised trusted-producer evidence. The producer reports authorization `true` while hidden truth is `false`, and validly signs the false claim.
 
-`V4` and `V5` are each evaluated under one-shot and persistent modes. A one-shot treatment affects the first received post-onset record and later received records return to truthful behavior. A persistent treatment affects every received post-onset record. `V0` has no persistence treatment because its records remain truthful.
-
-Three frozen policy semantics are evaluated: `S2_B0_FAIL_CLOSED`, `S2_B2_RISK_THRESHOLD`, and `S2_S1_EVIDENCE_AWARE`. These identifiers are retained because Study 3 reuses the frozen selector semantics, but no Study-2 statistical result is imported into the present analysis. The Study-3 population is defined solely by the Study-3 protocol and execution.
-
-The resulting matrix contains 30 cells and 46 onset trajectories per cell, for 1,380 deterministic trajectories. Across those trajectories the execution records 67,620 epoch states. The trajectory is the study unit. Epochs within a trajectory are repeated model states and are not treated as independent observations.
+`V4` and `V5` are each evaluated as one-shot and persistent treatments; `V0` remains truthful. The frozen policy semantics are `S2_B0_FAIL_CLOSED`, `S2_B2_RISK_THRESHOLD`, and `S2_S1_EVIDENCE_AWARE`. The identifiers reuse frozen selector semantics, but no Study-2 result is imported. Thirty cells crossed with 46 onset phases yield 1,380 trajectories and 67,620 epoch states. The trajectory is the study unit; epochs within a trajectory are repeated model states.
 
 ### B. Endpoints and Origin Decomposition
 
-The frozen primary endpoints are `unsafe_permissive_epoch_rate`, `unsafe_qualified_epoch_rate`, `unsafe_qualified_exposure_s`, `unsafe_qualified_episode_count`, `protective_epoch_rate`, and `action_transition_count`. This paper emphasizes `unsafe_qualified` because it is the stronger qualification endpoint. It indicates that the recovery gate is policy-visible qualified while the research-only hidden authorization state is false. `unsafe_permissive` is only a selector or gate-entry action metric and is not evidence that a recovery action was completed.
+Primary endpoints are `unsafe_permissive_epoch_rate`, `unsafe_qualified_epoch_rate`, `unsafe_qualified_exposure_s`, `unsafe_qualified_episode_count`, `protective_epoch_rate`, and `action_transition_count`. This paper emphasizes `unsafe_qualified`: the gate is policy-visible qualified while hidden authorization is false. `unsafe_permissive` is only a selector or gate-entry action metric, not completed recovery.
 
-The design also prespecifies two allowed origins for false qualification. `PRE_ONSET_CACHE` denotes a truthful record received before the authorization change that remains policy-fresh for a later epoch. `V5_AFFECTED_RECORD` denotes a validly signed false record generated by the compromised trusted producer. A Study-3 false-qualified epoch must map to one of these declared origins. This decomposition prevents ordinary freshness lag from being counted as adversarial semantic falsity.
-
-Because the onset grid is complete for the frozen design, results are reported as exact finite-grid summaries and paired phase differences rather than sampling estimates. There is no p-value gate, weighted policy score, or global policy rank.
+False-qualified epochs must map to one of two prespecified origins. `PRE_ONSET_CACHE` is a truthful record received before onset that remains policy-fresh afterward; `V5_AFFECTED_RECORD` is a validly signed false record from the compromised trusted producer. This separates ordinary freshness lag from adversarial semantic falsity. Because the frozen onset grid is complete, results are exact finite-grid summaries and paired phase differences, with no p-value gate, weighted policy score, or global policy rank.
 
 ### C. Persistent False-but-Valid Evidence Under Continuous Contact
 
-Persistent `V5` produces the clearest semantic trust boundary. Under continuous `K0` contact, both `B0` and `S1` were unsafe-qualified in all 46 onset trajectories. Mean unsafe-qualified exposure was 122.5 logical seconds for each policy. In contrast, `B2` remained at 0 of 46 trajectories with mean unsafe-qualified exposure of zero in this frozen cell.
+Under persistent `V5/K0`, both `B0` and `S1` were unsafe-qualified in all 46 onset trajectories, with mean exposure 122.5 logical seconds. `B2` remained 0/46 with zero mean exposure in this frozen cell. The V5 records are validly signed; the mismatch exists because the trusted producer itself signs a claim that is false relative to hidden authorization. Signature validity therefore authenticates the modeled producer and record integrity without exposing producer-origin semantic falsity.
 
-The important distinction is not that a signature was broken. The `V5` records are validly signed. The mismatch arises because the trusted producer itself is modeled as compromised and therefore signs a claim that is false relative to hidden authorization truth. Signature validity authenticates the modeled producer and record integrity, but it does not expose the research-only semantic falsity of a claim that the trusted producer is itself willing to sign.
-
-The `B2` structural zero is preserved as a study result but is not interpreted as universal immunity or global superiority. It follows from the frozen policy semantics and treatment grid. The study does not define a weighted objective that would justify ranking `B2` as the best policy across recovery goals.
+The `B2` zero is structural to the frozen policy and treatment grid, not evidence of universal immunity or global superiority.
 
 ### D. Persistent V5 Under the Frozen K4 Contact Schedule
 
-Intermittent `K4` contact changes the duration of exposure but does not eliminate the persistent `V5` boundary for the two gate-entering policies. `B0` remained unsafe-qualified in 46 of 46 onset trajectories with mean exposure of 55.326 logical seconds. `S1` also remained unsafe-qualified in 46 of 46 trajectories with mean exposure of 49.022 logical seconds. Relative to their truthful `V0` controls, the corresponding `V5`-attributable mean increments were 55.0 and 49.022 logical seconds. `B2` remained 0 of 46.
-
-The difference between `B0` and `S1` under persistent `V5/K4` was approximately 6.304 logical seconds of mean unsafe-qualified exposure. The frozen `S1` contact-aware restriction therefore adds a boundary relative to `B0`, but it does not make `S1` immune. During modeled contact windows the compromised producer can continue supplying fresh, validly signed false evidence that satisfies the policy-visible evidence requirements.
-
-This result must not be reversed into the claim that intermittent contact improves security. K4 mechanically limits when new records can be received and thereby changes exposure under the frozen cache and contact semantics. The study supports the narrower statement that the specified K4 schedule reduced modeled mean false-qualification exposure relative to K0 for the persistent `V5` cells while leaving the false-qualification condition present across the complete onset grid.
+Under persistent `V5/K4`, `B0` remained unsafe-qualified in 46/46 trajectories with mean exposure 55.326 logical seconds and a 55.0-logical-second increment over truthful `V0`. `S1` remained unsafe-qualified in 46/46 with mean exposure 49.022 logical seconds, equal to its V5-attributable increment. `B2` remained 0/46. The B0-S1 mean difference was approximately 6.304 logical seconds, so the frozen S1 contact-aware restriction reduced exposure relative to B0 but did not eliminate the V5 boundary.
 
 **Table II. Selected Study-3 residual-boundary results**
 
@@ -195,67 +183,45 @@ This result must not be reversed into the claim that intermittent contact improv
 | Truthful `V0`, `K4`, `S1` | 0/46 | 0 | No truthful-V0 false qualification in frozen K4 grid |
 | Truthful `V0`, `K4`, `B2` | 0/46 | 0 | No truthful-V0 false qualification in frozen K4 grid |
 
-The exposure values in Table II are logical model time. They are not spacecraft response time, communication latency, operator latency, or ground-contact duration.
+K4 mechanically limits record reception under the registered cache semantics; the result does not establish that intermittent contact improves security. Table II values are logical model time, not spacecraft response time, communication latency, operator latency, or ground-contact duration.
 
 ### E. Post-Signature Manipulation and the Cryptographic Boundary
 
-`V4` provides an important negative control against overinterpreting the `V5` result. Under `V4`, the authorization value is modified after signing, so the affected record has an invalid signature. The affected `V4` records never qualified. Persistent `V4` therefore adds no `V4`-attributable false qualification.
+Under `V4`, post-signature modification invalidates the affected record's signature, and affected V4 records never qualify. Any B0/K4 false qualification in V4 cells comes instead from a previously received truthful record and is assigned to `PRE_ONSET_CACHE`, not to the manipulated record.
 
-Any false qualification observed for `V4` under `B0/K4` is instead attributable to the same pre-onset cache mechanism present under truthful `V0`: a previously received truthful record can remain fresh for one post-onset epoch after hidden authorization has changed. The prespecified origin decomposition assigns those epochs to `PRE_ONSET_CACHE`, not to the manipulated `V4` record.
-
-The contrast between `V4` and `V5` bounds the cryptographic interpretation. The study supports the claim that signature validation rejects the modeled post-signature alteration. It also supports the claim that a valid signature alone does not establish semantic truth when the trusted producer itself is the source of the false claim. It does not support a claim that cryptography in general failed or that the experiment performed cryptanalysis, key extraction, or a real signing-system attack.
+The V4-V5 contrast therefore supports two bounded claims: signature validation rejects the modeled post-signature alteration, while a valid signature alone does not establish semantic truth when the trusted producer signs the false claim. The experiment does not evaluate cryptanalysis, key extraction, or a real signing-system attack.
 
 ### F. Freshness and the Truthful Cache Boundary
 
-The truthful `V0/K4` control exposes a smaller nonadversarial boundary. Under `B0`, 3 of 46 onset trajectories contained unsafe qualification, with mean exposure of 0.326 logical seconds across the complete onset grid. The frozen origin decomposition attributes these epochs to `PRE_ONSET_CACHE`. A record generated while authorization was still true remains within the five-logical-second freshness threshold for a short interval after hidden authorization changes.
-
-`S1` and `B2` had no truthful-`V0` false qualification under K4. The `B0` result is therefore schedule-, epoch-, freshness-, and policy-specific. It should not be interpreted as a general estimate of cache staleness in spacecraft systems. Its value in this study is methodological: it shows that false qualification can arise from an ordinary freshness boundary even when evidence is truthful, and it prevents that mechanism from being conflated with the stronger `V5` compromised-producer treatment.
-
-This result is also consistent with the architectural limitation recognized by RFC 9334: evidence freshness can bound recentness without guaranteeing instantaneous synchronization to an underlying state change [5]. The present experiment quantifies that issue only for the frozen five-second epoch and validity semantics.
+Under truthful `V0/K4/B0`, 3/46 onset trajectories contained unsafe qualification, with mean exposure 0.326 logical seconds, all attributed to `PRE_ONSET_CACHE`. `S1` and `B2` had no truthful-V0 false qualification under K4. The result is schedule-, epoch-, freshness-, and policy-specific and is not an estimate of spacecraft cache staleness. It demonstrates that ordinary freshness lag can produce false qualification without being conflated with V5 producer-origin false evidence, consistent with RFC 9334's freshness limitation [5].
 
 ### G. One-Shot V5 and Temporal Persistence
 
-The one-shot treatment separates a transient trusted-producer false claim from persistent compromise behavior. Under `K0`, one-shot `V5` produced mean unsafe-qualified exposure of five logical seconds for both `B0` and `S1` and affected all 46 onset phases. Under `K4`, all 46 `B0` and `S1` onset trajectories eventually received the one-shot compromised record; `S1` retained five logical seconds of `V5` exposure, while `B0` additionally contains the separately identified cache boundary.
-
-The difference between one-shot and persistent `V5` is therefore temporal rather than cryptographic. Both treatments use a validly signed false claim from the trusted producer. Persistence determines whether the false claim is confined to one received record or renewed whenever post-onset contact permits another record to arrive. This is the main reason Study 3 is stronger than a static observation that a compromised signer can lie: the experiment characterizes how false-but-valid evidence persists or recurs under the frozen contact and cache semantics.
+One-shot `V5/K0` produced five logical seconds of mean unsafe-qualified exposure for both `B0` and `S1` across all 46 onset phases. Under K4, all 46 B0 and S1 trajectories eventually received the one-shot compromised record; S1 retained five logical seconds of V5 exposure, while B0 also contains the separately identified cache boundary. One-shot and persistent V5 are cryptographically the same false-but-valid producer claim; persistence determines whether the claim appears once or is renewed after later contact.
 
 ### H. Study-3 Residual Trust Boundary
 
-Study 3 exposes two distinct residual boundaries. The smaller boundary is ordinary freshness lag: a truthful pre-onset record can remain qualified briefly after hidden authorization changes. The stronger boundary appears when the trusted producer itself is compromised: fresh and validly signed evidence can continue satisfying the gate while being false relative to hidden truth. Contact-aware restrictions reduce exposure in selected K4 comparisons, but do not eliminate that second boundary for `B0` or `S1` under persistent `V5`.
-
-These findings are exact properties of the frozen deterministic grid. They do not estimate the prevalence of producer compromise, the probability of unsafe recovery, or operational mission risk. Logical time is not converted into orbit, RF, network, or operator time. The next study removes the temporal contact mechanism entirely and asks a different question: how the qualification boundary changes when trust is composed across multiple modeled evidence producers and synthetic provenance domains.
+Study 3 therefore separates two residual boundaries: brief truthful freshness lag and false but validly signed evidence from a compromised trusted producer. Contact-aware restrictions reduce selected K4 exposure but do not eliminate persistent V5 qualification for `B0` or `S1`. These are exact properties of the frozen grid, not estimates of compromise prevalence, unsafe-recovery probability, operational mission risk, or real spacecraft timing.
 
 ## V. Multi-Producer Qualification and Provenance-Domain Constraints
 
 ### A. Study Question and Exact Population
 
-Study 4 (`S4-MPQ-001`) evaluates how recovery qualification changes when evidence is supplied by multiple modeled producers rather than by a single producer. The study asks two separate questions. First, how many compromised producers are required before false authorization can satisfy a qualification rule? Second, how many benign producer losses can occur before a true authorization state is rejected conservatively? The experiment varies both absolute vote count and a synthetic provenance-domain requirement.
+Study 4 (`S4-MPQ-001`) evaluates how absolute vote count and synthetic provenance-domain requirements change recovery qualification under two separate conditions: malicious producer compromise and benign producer unavailability.
 
-Seven modeled producers, `P1` through `P7`, are assigned to three frozen provenance domains: `D1={P1,P2,P3}`, `D2={P4,P5}`, and `D3={P6,P7}`. These domains are synthetic independence classes. They do not establish that the modeled producers correspond to independent organizations, hardware, software stacks, supply chains, or operators.
+Seven producers `P1`-`P7` are assigned to frozen domains `D1={P1,P2,P3}`, `D2={P4,P5}`, and `D3={P6,P7}`. These are synthetic independence classes, not demonstrated organizational, hardware, software, supply-chain, or operator independence. A rule `Qq_Dd` requires `q` qualifying claims and `d` represented domains, with `q=1..7` and `d=1..min(3,q)`, yielding 18 rules. The denominator is always the registered seven-producer set.
 
-A qualification rule is denoted `Qq_Dd`, where `q` is the required number of qualifying producer claims and `d` is the required number of represented provenance domains. Total-vote thresholds range from one through seven. The domain threshold ranges from one through `min(3,q)`, producing 18 prespecified rules. The denominator is always the registered seven-producer set, not the number of producers that happen to respond.
+In the safety block, hidden authorization is false; all producers are available; compromised producers emit validly signed authorization-true claims and honest producers emit false. `unsafe_qualified` is true when the compromised subset satisfies the rule. In the benign availability block, hidden authorization is true; affected producers are unavailable; all available producers emit validly signed true claims; and `false_conservative` is true when the rule rejects because insufficient votes or domains remain.
 
-The study contains two separate exhaustive blocks. In the **safety block**, hidden authorization truth is false, all producers are available, compromised producers emit a visible authorization-true claim with a valid signature, and honest producers emit authorization false. The endpoint `unsafe_qualified` is true when the compromised subset satisfies the rule despite hidden authorization being false.
-
-In the **benign availability block**, hidden authorization truth is true, affected producers are unavailable, all available producers emit a true claim with valid signatures, and no producer is malicious. The endpoint `false_conservative` is true when the rule rejects the true authorization state because too few producers or provenance domains remain available.
-
-Every subset of the seven producers is evaluated. There are 128 subsets per block per rule. The complete population is therefore `18 x 2 x 128 = 4,608` exact observations. The compromise and benign-unavailability blocks are not combined, and the study does not evaluate simultaneous malicious compromise plus benign producer loss.
+Every producer subset is evaluated: 128 subsets per block per rule, for `18 x 2 x 128 = 4,608` exact observations. The two blocks are not combined and do not model simultaneous compromise plus benign loss.
 
 ### B. First and Systematic Failure Definitions
 
-For each rule and block, the analysis records two thresholds.
-
-The **first failure count** is the smallest number of affected producers for which at least one subset of that size causes the endpoint to fail. It identifies when failure becomes possible.
-
-The **systematic failure count** is the smallest number of affected producers for which every subset of that size causes failure. It identifies when failure becomes unavoidable within the frozen producer assignment.
-
-The distinction is necessary whenever provenance diversity matters. A rule can first fail at a given compromised-producer count because one cross-domain subset satisfies the rule, while other same-size subsets remain blocked. The systematic threshold captures when subset composition no longer matters because every subset of that size crosses the boundary.
-
-Because the study exhausts all subsets, these thresholds and subset proportions are finite combinatorial properties. They are not estimates of operational compromise probability, outage probability, or mission availability.
+For each rule and block, the **first failure count** is the smallest affected-producer count for which at least one subset fails; the **systematic failure count** is the smallest count for which every subset fails. The distinction captures subset dependence introduced by provenance composition. Because all subsets are enumerated, these are finite combinatorial properties, not compromise, outage, or mission-availability probabilities.
 
 ### C. Exact Threshold Map
 
-Table III reports the complete frozen threshold map. Safety entries are shown as `first/systematic` compromised-producer counts. Availability entries are shown as `first/systematic` unavailable-producer counts.
+Table III gives the complete frozen map as `first/systematic` counts.
 
 **Table III. Study-4 first and systematic failure thresholds**
 
@@ -280,69 +246,39 @@ Table III reports the complete frozen threshold map. Safety entries are shown as
 | `Q7_D2` | 7/7 | 1/1 |
 | `Q7_D3` | 7/7 | 1/1 |
 
-The table exposes two separate effects. Raising the absolute vote threshold increases the number of compromised producers required to qualify false authorization, but reduces tolerance to benign producer loss. Adding provenance-domain requirements can further delay systematic unsafe qualification for selected vote thresholds, but can also make false-conservative rejection possible after fewer unavailable producers.
+Absolute vote count sets the basic compromise boundary while moving benign-loss tolerance in the opposite direction. Provenance can further delay systematic unsafe qualification for selected thresholds, but can also cause earlier false-conservative rejection.
 
 ### D. Absolute Vote Count Sets the Basic Compromise Boundary
 
-Without an added provenance constraint beyond one represented domain, the safety threshold follows the absolute vote count directly. `Q1_D1` fails with one compromised producer, `Q2_D1` with two, `Q3_D1` with three, and so on through `Q7_D1`, which requires all seven producers to be compromised before false authorization qualifies.
-
-The corresponding benign-unavailability boundary moves in the opposite direction. `Q1_D1` continues to qualify a true authorization state until all seven producers are unavailable. `Q4_D1` first and systematically fails after four producers are unavailable. `Q7_D1` becomes false-conservative after loss of any single producer. The finite model therefore exposes the expected tension between requiring more positive claims for resistance to compromise and requiring fewer unavailable producers for continued qualification.
-
-This pattern is not presented as new quorum theory. Quorum safety and availability relationships are well established [7], [8]. The Study-4 contribution is the exact mapping of those structural effects onto the frozen recovery-evidence qualification problem, including the additional domain-composition rules and the distinction between first and systematic failure.
+With only one required domain, unsafe qualification follows the vote threshold directly: `Q1_D1` through `Q7_D1` require one through seven compromised producers. Benign tolerance moves oppositely: `Q1_D1` can tolerate six unavailable producers, `Q4_D1` fails at 4/4, and `Q7_D1` rejects after any single loss. This familiar quorum tradeoff is prior art [7], [8]; Study 4 contributes the exact mapping for the frozen recovery-evidence model and its provenance variants.
 
 ### E. Provenance Diversity Changes Systematic Failure Without Necessarily Changing First Failure
 
-The clearest provenance effect appears at `Q3`. Under `Q3_D1`, three compromised producers are sufficient for both first and systematic unsafe qualification. Every three-producer compromise contains enough positive votes because no cross-domain requirement is imposed.
-
-Under `Q3_D3`, the first unsafe qualification still occurs at three compromised producers, but only a three-producer subset spanning all three provenance domains can satisfy the rule. Same-domain or two-domain triples remain blocked. Systematic unsafe qualification does not occur until six of the seven producers are compromised. Thus the provenance requirement leaves the first possible failure count unchanged at three while moving systematic failure from three to six.
-
-The same structural effect appears at `Q4_D3` and `Q5_D3`. `Q4_D3` first fails for unsafe qualification at four compromised producers but does not fail systematically until six. `Q5_D3` first fails at five and becomes systematic at six.
-
-This distinction matters because a single threshold such as "fails at three" would obscure the subset dependence introduced by provenance composition. First and systematic counts are therefore reported together whenever interpretation depends on which provenance domains are represented in the affected subset.
+`Q3_D3` shows the clearest provenance effect. First unsafe failure remains at three compromised producers, as under `Q3_D1`, but a three-producer subset must span all three domains; systematic failure moves from 3 under `Q3_D1` to 6 under `Q3_D3`. The same pattern appears at `Q4_D3` (4/6) and `Q5_D3` (5/6). Reporting first and systematic counts together prevents a single threshold from hiding this subset dependence.
 
 ### F. Provenance Diversity Also Creates Earlier Benign Rejection for Selected Rules
 
-The stronger safety boundary carries a corresponding qualification-availability cost. Under `Q3_D1`, benign producer unavailability first causes false-conservative rejection at five unavailable producers and is systematic at five. Under `Q3_D3`, the first false-conservative failure occurs after only two unavailable producers because a subset can remove an entire provenance domain even while five producers remain. Systematic false-conservative rejection still occurs at five.
-
-`Q4_D3` has the same qualitative pattern. `Q4_D1` first and systematically fails after four unavailable producers. `Q4_D3` can first fail after only two unavailable producers while becoming systematic at four. `Q5_D3` can also first fail after two unavailable producers, whereas `Q5_D1` first fails at three.
-
-These results do not mean that provenance diversity reduces mission availability. The endpoint is narrower: under the frozen registered-producer denominator and domain assignment, selected benign producer-loss subsets can make the recovery-evidence gate reject a true authorization state earlier because the required diversity of visible evidence is no longer present.
+The same structure can reduce benign qualification tolerance. `Q3_D1` fails at 5/5 unavailable producers, whereas `Q3_D3` first fails at two and becomes systematic at five because two losses can remove an entire domain. `Q4_D3` similarly changes benign failure from 4/4 under `Q4_D1` to 2/4, and `Q5_D3` first fails at two versus three under `Q5_D1`. These are qualification effects under the frozen denominator and domain assignment, not mission-availability measurements.
 
 ### G. Null and Equal-Threshold Results
 
-The provenance requirement does not always change the qualification boundary. These null results are important because they prevent a monotonic "more provenance is always better" interpretation.
-
-At `Q4`, `Q4_D1` and `Q4_D2` have identical first and systematic thresholds in both blocks: safety 4/4 and benign availability 4/4. Requiring two domains adds no threshold effect under this particular producer allocation and vote requirement.
-
-At `Q5`, `Q5_D1` and `Q5_D2` are also identical: safety 5/5 and benign availability 3/3. Again, the two-domain requirement does not alter the frozen thresholds.
-
-At `Q6`, all three domain variants are identical. Safety fails at 6/6 and benign availability at 2/2 for `D1`, `D2`, and `D3`. At `Q7`, every domain variant is also identical at safety 7/7 and benign availability 1/1 because requiring all seven producers necessarily includes all three provenance domains.
-
-These equal-threshold cases show that the effect of provenance constraints is conditional on the interaction among vote threshold, domain allocation, and affected subset composition. The experiment does not support the claim that increasing provenance-domain requirements universally improves resistance to unsafe qualification.
+Provenance is not monotonically beneficial. `Q4_D1` and `Q4_D2` are identical in both blocks at 4/4; `Q5_D1` and `Q5_D2` are identical at safety 5/5 and benign availability 3/3; all `Q6` variants are 6/6 and 2/2; and all `Q7` variants are 7/7 and 1/1. The effect of domain requirements is therefore conditional on vote threshold, domain allocation, and subset composition.
 
 ### H. The Q4 Boundary as a Symmetric Reference Case
 
-`Q4_D1` provides a useful finite-model reference because the first and systematic thresholds are symmetric across the two separately evaluated blocks. Four compromised producers are required for unsafe qualification, and four unavailable producers cause false-conservative rejection. Adding a three-domain requirement in `Q4_D3` changes that structure: safety first failure remains four, systematic safety failure moves to six, benign availability first failure moves to two, and systematic availability failure remains four.
-
-This comparison illustrates why a single vote threshold does not fully describe the qualification rule once provenance constraints are added. Absolute vote count establishes the base boundary, while provenance composition determines which same-size subsets can satisfy that boundary.
+`Q4_D1` is symmetric at 4/4 in both separately evaluated blocks, whereas `Q4_D3` preserves first unsafe failure at four, moves systematic unsafe failure to six, moves first benign failure to two, and leaves systematic benign failure at four. This compact case illustrates why vote count alone does not describe a provenance-constrained rule.
 
 ### I. High Vote Thresholds and the Loss-Tolerance Boundary
 
-At high vote thresholds, compromise tolerance increases while benign loss tolerance becomes restrictive. `Q5_D1` requires five compromised producers for unsafe qualification but rejects true authorization after three producers become unavailable. `Q6` requires six compromised producers for unsafe qualification and becomes false-conservative after two unavailable producers. `Q7` requires all seven producers to be compromised before false authorization can qualify, but any single unavailable producer prevents qualification of the true state.
-
-The finite grid therefore does not identify a globally best rule. A higher threshold can reduce the modeled unsafe-qualification region while increasing the modeled false-conservative region. The study contains no utility weights, operational failure probabilities, or mission costs that would justify collapsing those two objectives into a single score.
+At high thresholds, compromise resistance increases while benign-loss tolerance tightens: `Q5_D1`, `Q6`, and `Q7` require five, six, and seven compromised producers respectively, but become false-conservative after three, two, and one unavailable producers. With no utility weights, operational probabilities, or mission costs, the grid does not define a globally best rule.
 
 ### J. Relationship to Distributed Trust Prior Art
 
-The Study-4 model deliberately stops short of Byzantine consensus or distributed agreement. Producers do not run a protocol to reach agreement with one another. The model does not analyze message scheduling, leaders, forks, liveness, replicated state, network partitions, or Byzantine broadcast. Instead, a recovery gate receives modeled producer claims and applies a deterministic qualification rule.
-
-The connection to quorum-system literature [7], [8] is therefore conceptual and structural. That literature establishes that fault assumptions and quorum structure govern consistency and availability properties in distributed systems. Study 4 uses a simpler finite qualification abstraction to ask how total vote count and synthetic provenance-domain composition affect one recovery-authorization decision boundary. Likewise, the existence of satellite architectures using endorsement quorums [9] means that satellite quorum trust itself is not claimed as novel.
+Study 4 is a deterministic qualification model, not Byzantine consensus or distributed agreement: producers do not run an agreement protocol, and the model does not analyze leaders, forks, liveness, partitions, replicated state, or Byzantine broadcast. Quorum literature [7], [8] and satellite endorsement-quorum work [9] provide structural prior art; the contribution here is the frozen recovery-qualification threshold map.
 
 ### K. Study-4 Residual Trust Boundary
 
-Study 4 shows that producer composition can move the residual qualification boundary without eliminating the underlying dependence on trusted producer structure. Absolute vote count sets the minimum compromised-producer count needed for false qualification. Provenance-domain requirements can prevent selected same-size compromised subsets from qualifying and can therefore delay systematic failure. The same requirements can also reject a true authorization state after fewer benign producer losses when domain diversity disappears.
-
-The result is a finite safety-versus-qualification-availability frontier, not a global policy ranking. The synthetic provenance domains are model labels rather than demonstrated real independence, and the 128 subsets in each block are model states rather than probabilities. Study 4 also contains no contact model. The next study moves to a third boundary, asking which incorrect recovery artifacts remain qualified when progressively stronger artifact-assurance signals are required.
+Absolute vote count sets the basic compromise boundary, while synthetic provenance constraints change which same-size subsets qualify, delaying systematic failure in selected cells and causing earlier benign rejection in others. The 128 subsets are model states rather than probabilities, the domains are labels rather than demonstrated real independence, and Study 4 contains no contact model. The result is a conditional qualification frontier, not a global policy ranking.
 
 ## VI. Recovery-Artifact Assurance and Residual Incorrect States
 
@@ -607,17 +543,11 @@ These extensions are opportunities for external validation and broader generaliz
 
 ## IX. Conclusion
 
-This paper examines trusted cyber-recovery qualification through three separately frozen deterministic studies rather than through a single integrated experiment. The common analytical question is whether policy-visible evidence is sufficient to support qualification when a relevant research-only truth remains outside the gate's direct observation set.
+Paper 2 characterizes trusted cyber-recovery qualification through three separately frozen deterministic studies rather than one integrated experiment. Study 3 separates brief truthful pre-onset cache exposure from false but validly signed `V5` evidence issued by a compromised trusted producer; persistent V5 remains qualified for `B0` and `S1` across all 46 onset phases under both `K0` and synthetic `K4`, although K4 reduces modeled exposure. Affected `V4` post-signature-manipulated records have invalid signatures and do not qualify.
 
-Study 3 identifies a temporal trust boundary. The affected post-signature-manipulated `V4` records have invalid signatures and do not qualify, while a compromised trusted producer can continue to issue false `V5` authorization evidence that remains both fresh and validly signed. Under persistent `V5`, `B0` and `S1` remain unsafe-qualified across all 46 onset trajectories under both continuous `K0` and synthetic intermittent `K4` contact, although K4 reduces mean modeled exposure. The separate truthful `V0` control shows a smaller pre-onset cache boundary, allowing adversarial false evidence and ordinary freshness lag to remain distinguishable.
+Study 4 shows that absolute vote count establishes the basic compromise boundary while synthetic provenance-domain requirements change which same-size subsets can satisfy it. Selected requirements delay systematic unsafe qualification but cause earlier benign false-conservative rejection, while other domain requirements have null threshold effects. Study 6 similarly shows that composed artifact-assurance signals close specific incorrect states: the six-signal gate leaves only `APPROVED_BAD_SOURCE`, while stronger gates increase rejection under benign assurance-signal loss.
 
-Study 4 identifies a producer-composition boundary. Absolute vote count establishes the basic number of compromised producers needed for false qualification, while synthetic provenance-domain requirements change which same-size subsets can satisfy the rule. For selected thresholds, provenance requirements substantially delay systematic unsafe qualification without changing first failure, but they can also make false-conservative rejection possible after fewer benign producer losses. Other domain requirements produce no threshold change. The result is therefore a conditional qualification frontier rather than evidence that provenance diversity is universally beneficial or that one producer-composition rule is globally best.
-
-Study 6 identifies a recovery-artifact assurance boundary. Signature-only qualification leaves four of five prespecified incorrect states qualified. Adding digest, provenance, reproduced-build, source-review, and approval evidence closes specific modeled pathways, while the composite gate leaves only `APPROVED_BAD_SOURCE`. At the same time, stronger gates reject the correct baseline under increasingly many benign assurance-signal-loss subsets. The residual approved-bad-source state is a boundary of the frozen visible signals, not a universal impossibility result or an operational attack rate.
-
-Across the three studies, the central systems finding is that stronger trust composition can move or narrow a recovery-qualification boundary without automatically making policy-visible evidence equivalent to hidden or objective truth. The identity of the remaining trust assumption matters as much as the aggregate count or duration of residual qualification. For aerospace information systems, this result motivates explicit documentation of what each recovery gate verifies, what trust assumption remains outside its observability, and what benign evidence-loss conditions the system is prepared to tolerate.
-
-The reported findings remain bounded to exact finite models. Only Study 3 models intermittent contact, logical time is not operational spacecraft time, synthetic provenance domains do not establish real independence, and Study 6 does not evaluate a real supply-chain compromise. No pooled population, global policy ranking, flight-safety claim, mission-availability claim, or operational recovery probability is inferred. Within those boundaries, the three studies provide a reproducible characterization of residual trust at the temporal evidence, producer-composition, and recovery-artifact layers of satellite cyber-recovery qualification.
+Across the three studies, stronger trust composition moves or narrows modeled qualification boundaries without making policy-visible evidence equivalent to hidden or objective truth. Residual identity matters as much as aggregate count or duration. The results remain bounded to finite models: only Study 3 models contact, logical time is not operational spacecraft time, synthetic domains do not establish real independence, Study 6 is not a real supply-chain experiment, and no pooled population, global policy ranking, flight-safety claim, mission-availability claim, or operational recovery probability is inferred.
 
 ## Acknowledgment
 
