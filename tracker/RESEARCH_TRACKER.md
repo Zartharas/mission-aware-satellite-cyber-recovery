@@ -1,348 +1,180 @@
 # Research Tracker
 
-Last updated: 2026-09-04
+Last updated: 2026-09-07
 
 ## Current focus
 
-**The repository contains two separately frozen empirical studies supporting the existing journal research article plus a separately frozen deterministic modeled companion study, Study 8 (`S8-PQC-ICR-001`). Study-1 science remains frozen at 720 VALID observations. Study-2 Phase 7 remains `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`, and its exact Phase-6 source-evidence package is now publicly archived and public-byte verified on Zenodo as version DOI `10.5281/zenodo.22289114`. Study 8 has completed technical close, frozen publication development, final manuscript adversarial review, publication-package SHA-256 freeze, PR #92 merge, and successful post-merge validation. Its current state is `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`. No new Study-1, Study-2, or Study-8 scientific execution is authorized by this tracker.**
+The repository now contains three submitted publication lines:
 
-The existing Study-1/Study-2 journal article remains separate under `publication/manuscript/`. Its Study-2 DOI/archive gate is complete; the next article gate is submission-day live-policy/portal verification plus exact final-export validation. Study 8 has a dedicated companion-paper package under `publication/study8/`; it must not be silently inserted into the two-study manuscript or pooled with either empirical population.
+1. Paper 1: Studies 1 + 2, submitted to the AIAA Journal of Aerospace Information Systems as manuscript `2026-09-I012066` on 2026-09-05.
+2. Roadmap Paper 4: Study 8, submitted to Acta Astronautica as manuscript `AA-D-26-02872` on 2026-09-06; current recorded publisher state is `With Editor`.
+3. Paper 2: Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07 as initial-submission revision R10, Research Exchange UUID `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
 
-This is a **journal/research publication workflow**, not a dissertation-revision workflow. The prior dissertation relationship remains a disclosure/prior-dissemination consideration only.
+All three submitted publication lines are frozen pending journal action. No new scientific execution, result substitution, manuscript modification, or publisher-facing package modification is authorized for those papers unless the corresponding journal requests a revision.
 
-## Current canonical repository state
+The next repository publication action is **not** automatic Paper-3 manuscript drafting. It is a read-only candidate audit over the remaining eligible studies and experiments from clean `main`.
 
-### Existing Study-1/Study-2 journal article
+This is a journal/research publication workflow, not a dissertation-revision workflow.
 
-- Study-2 Phase-7 results merge: `49c62cbed3fb8fc318e44d696faba1854ed6c21a`
-- Study-2 Phase-7 canonical closeout main commit: `2bd3fb34ca709127e45ea9bffa8f516846d6c4b5`
-- journal integration PR: `#72`
-- journal integration merge commit: `6f9a1a5d26287120278913d453b26c78f267870f`
-- post-integration current-state closeout PR: `#73`
-- local clean-worktree audit isolation PR: `#74`
-- current journal assembly authority: `publication/manuscript/MANUSCRIPT-ASSEMBLY.md`
-- current Study-2 freeze authority: `study2/PHASE7_RESULTS_FREEZE.json`
-- current Study-2 provenance authority: `study2/PHASE7_PROVENANCE.json`
-- current Study-2 Phase-6 release/publication record: `study2/release/phase6/`
-- Study-2 Zenodo version DOI: `10.5281/zenodo.22289114`
-- Study-2 Zenodo concept DOI: `10.5281/zenodo.22289113`
-- Study-2 public-archive verification authority: `study2/release/phase6/ZENODO_PUBLICATION_VERIFICATION.json`
+## Canonical current-state authorities
 
-### Study 8 companion study
+Use these current-state records before older preparation or work-package documents:
 
-Scientific close:
+1. `docs/CURRENT_PUBLICATION_STATE.md`
+2. `tracker/PUBLICATION_STATE.csv`
+3. this `tracker/RESEARCH_TRACKER.md`
+4. `docs/PUBLICATION_PHASE_MAP.md`
+5. `publication/README.md`
 
-- experiment ID: `S8-PQC-ICR-001`
-- results-freeze PR: `#89`
-- final validated PR head: `1356b73d1edc01c8618c9290460f4fbf22c458df`
-- canonical science/results merge commit on `main`: `63106778559c3127a7d6e8765d52939b73a3f35b`
-- post-science-merge repository validation run: `33761681328` — attempt `1` — `SUCCESS`
-- technical-close authority: `study8/STUDY8_TECHNICAL_CLOSE.json`
-- results-freeze authority: `study8/analysis/RESULTS_FREEZE_MANIFEST.json`
+For scientific facts, per-study freeze/provenance records remain authoritative. For submitted papers, exact submitted-state packages and publisher-status records take precedence over older venue-preparation files.
 
-Publication-package close:
+## Submitted publication state
 
-- publication-development authorization: `S8-PUBDEV-001`
-- publication-freeze authorization: `S8-PUBFREEZE-001`
-- frozen package commit: `cbad15227bf99d1b7b19d95b0581196d78208f95`
-- final exact-content review head: `75c98356751087dd648684ade7cb973c166cbce0`
-- companion publication PR: `#92`
-- companion publication squash merge commit on `main`: `87bcec000d278aeffef1222ce814098c93ada362`
-- post-merge Study-8 results-freeze validation: `33781901833` — `SUCCESS`
-- post-merge repository validation: `33781901724` — `SUCCESS`
-- current publication-state authority: `publication/study8/PUBLICATION_DEVELOPMENT_STATUS.json`
-- publication freeze authority: `publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`
-- publication checksum authority: `publication/study8/SHA256SUMS.txt`
-- current status: `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
+### Paper 1 - Studies 1 + 2
 
-Historical work-package and phase documents may retain stage-local status wording because they are provenance. In particular, the Phase-8.7 technical-close record retains `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`; that was correct at technical close and must not be read as the current publication state.
+**Journal:** AIAA Journal of Aerospace Information Systems  
+**Title:** Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints  
+**Manuscript ID:** `2026-09-I012066`  
+**Submitted:** 2026-09-05  
+**State:** `SUBMITTED__EDITORIAL_AND_PEER_REVIEW_WORKFLOW`
 
-## Study 1 — frozen scientific record
+Canonical submitted-state package:
 
-Study 1 remains unchanged:
+`publication/Paper_1_Studies_1_2/Journal_of_Aerospace_Information_Systems/`
 
-- frozen design: 24 cells × 30 valid repetitions;
-- statistical population: **720 VALID observations**;
-- retained INVALID attempts: **9** outside statistical membership;
-- one additional interrupted never-ledgered attempt retained/quarantined outside membership;
-- 696-observation final-commit complete-block analysis: sensitivity only;
-- no additional Study-1 runtime is required or authorized.
+Paper-1 scientific populations remain separate:
 
-### Study-1 immutable identities
+- Study 1: 720 VALID observations across 24 frozen cells; 9 retained INVALID attempts outside statistical membership.
+- Study 2 / `S2-AEATR-001`: 3,872 VALID observations across 85 cells; 0 INVALID attempts; 162 primary paired contrasts; 432 prespecified secondary contrasts; independent reproduction with 0 mismatches.
 
-- 720-valid analysis-membership SHA-256: `a2bf0c8f352f4386e74a500d97ea8f73e0c39d03bfe10ac0ebcf02470af9f70e`
-- authoritative attempt-history ledger SHA-256: `92893a2fd8746f410bffd4dca5101bc3f533ada2ff82f98681788cf0c24ce6fd`
-- deterministic campaign-tree SHA-256: `ad1e127b4431b6b334955129fcba82f76b18e5b43585395ac8c37300cac087b1`
-- Study-1 reproducibility-hardened code snapshot: `99892bd9bb0828bdb3d0a28caf40dbc18fcbc4dc`
-- Zenodo version DOI: `10.5281/zenodo.22181540`
-- Zenodo concept DOI: `10.5281/zenodo.22181539`
+Study-1 Zenodo version DOI: `10.5281/zenodo.22181540`.
+Study-2 Zenodo version DOI: `10.5281/zenodo.22289114`.
 
-The Zenodo v1.0.0 record is the **Study-1 evidence-of-record** and must not be described as containing Study-2 or Study-8 observations.
+No pooled Paper-1 statistical population is defined.
 
-### Study-1 principal journal boundaries
+### Roadmap Paper 4 - Study 8
 
-- P1 remains unsupported on the predeclared M01/M02/M03/M06 outcomes.
-- C1 is modeled/synthetic contact, not real ground-contact timing.
-- T1 is omission/reduction of selected policy-visible evidence, not a stale/contradictory/forged-evidence factorial.
-- P7 is a frozen deterministic rule-based selector, not AI/ML.
-- the 696-observation final-commit analysis is sensitivity only.
-- no weighted global P5 score or universal policy ranking is supported.
-- no operational spacecraft, RF, operator-timing, flightworthiness, or certification claim is supported.
+**Journal:** Acta Astronautica  
+**Title:** Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems  
+**Manuscript ID:** `AA-D-26-02872`  
+**Submitted:** 2026-09-06  
+**Current recorded publisher state:** `With Editor`
 
-Historical Study-1 campaign/provenance details remain in `docs/26-wp9-r069-campaign-closeout.md`, `docs/27-wp9-cryptographic-integrity-freeze.md`, and the WP10 evidence/audit documents. The tracker no longer duplicates all per-position incident detail because those immutable records remain authoritative.
+Canonical submitted-state authority:
 
-## Study 2 — canonical Phase-7 closeout
+- `publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`
+- `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Experiment ID: `S2-AEATR-001`
+Study 8 / `S8-PQC-ICR-001` remains a deterministic finite modeled population of 3,456 positions. Same-repository independently written reproduction matched 3,456/3,456 rows with 0 mismatches.
 
-Study-2 campaign and analysis are complete:
-
-- **3,872 VALID observations**;
-- **0 INVALID attempts**;
-- **85 cells**;
-- 162 primary paired contrasts;
-- 432 prespecified secondary contrasts;
-- independent reproduction mismatches: **0**;
-- status: `PRESPECIFIED_ANALYSIS_RESULTS_FROZEN_CANONICAL`.
-
-### Study-2 immutable identities
-
-- Phase-6 artifact ID: `9816191406`
-- Phase-6 artifact ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
-- observations SHA-256: `8dcc850c561d7e3c0bf7478263b534cae83cbbb55183c313e879dd7d61127854`
-- attempt-ledger SHA-256: `755d6541263ac31589934200ea5071cdbcacae1ea197d044bbd3e6f7f7d1dbc5`
-- trial-manifest SHA-256: `190612473717b7768ceccb4596a20d90cd7d532bf7581330ce94d609cb752e67`
-- Phase-7 analysis-implementation main commit: `18207460fc5d419ad6a940f00db2df8610a5e5a0`
-- Phase-7 analyzer SHA-256: `351039f0d6d79eb605c7dc027a5427da862b0f544815f862a85bc997df56c8bd`
-- Phase-7 result ZIP SHA-256: `0136123a53d150437fefc8ace342af63b11d980cf8cab32ef7a4f03b78267417`
-- independent auditor SHA-256: `3e738e2c27d621073a8c1bba49044df3fc83d099abdd244894537f4c4b22142d`
-- Zenodo version DOI: `10.5281/zenodo.22289114`
-- Zenodo concept DOI: `10.5281/zenodo.22289113`
-
-The exact Phase-7 result ZIP is durably retained in repository history under `study2/evidence/phase7/archive/`.
-
-### Study-2 principal frozen findings/boundaries
-
-**RQ1 — evidence mechanisms and bounded compromise**
-
-- V1 omission, V2 stale/replay, V3 contradiction, and V4 post-signature manipulation changed B0/S1 behavior relative to V0 and reduced adjudicated unsafe-permissive rate by 1.0 under the frozen Block-A prerequisites.
-- Under V5, B0/S1 reached evidence-qualified recovery while adjudicated unsafe-permissive remained 1.0. Policy-visible authenticated/current evidence therefore cannot be equated with objective correctness under the bounded producer-compromise model.
-- B0 and S1 had identical primary endpoint estimates within Block A; comparisons against B2 are endpoint-specific trade-offs, not a global rank.
-
-**RQ2 — contact/authorization**
-
-- S1 evidence-qualified recovery occurred at 10/25/65/185/30 logical SIL seconds for K0/K1/K2/K3/K4 with unsafe-permissive rate 0.
-- B0 produced an unsafe-permissive increase of +1.0 versus K0 at each non-K0 contact profile.
-- K4 is an intermittent/flapping profile and is not ordinal severity 4.
-- logical SIL seconds are not real spacecraft/network/operator latency.
-
-**RQ3 — ambiguity control**
-
-- all 54 C-family BENIGN/ADVERSARIAL contrasts were zero;
-- 0/54 Holm-adjusted contrasts were rejected;
-- the frozen cause label does **not** change hidden truth or generated policy-visible evidence within each ambiguity family;
-- therefore this is a **structural label-invariance/control result**, not empirical evidence of discrimination or non-discrimination between genuinely different benign and adversarial causal mechanisms.
-
-**RQ4 — context ablations**
-
-- specific mission/contact/security-context ablations changed specific endpoints;
-- these n=32 blocks are secondary sensitivity/estimation evidence, not small-effect confirmatory evidence;
-- the results do not identify a universal dominant context variable.
-
-**RQ5 — adversary-budget stress**
-
-- A3/K0 produced residual unauthorized state in all evaluated policies while B0/S1 could still reach evidence-qualified recovery;
-- A2/K2 is a **coupled producer-compromise/contact-loss profile** and cannot be reported as an unconfounded adversary-only effect.
-
-No weighted global policy score or global policy rank is supported by Study 2.
-
-## Study-2 archive state
-
-The Phase-7 **result** artifact is durably retained in Git history. The underlying Phase-6 **source-evidence** artifact is hash-bound and is now durably public as a separate Zenodo dataset.
-
-The exact source ZIP passed responsible-release review with recorded decision:
-
-`APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`
-
-The review verified 3,872 ledger rows against 3,872 observations; 0 ledger/observation identity mismatches; 0 recomputed observation-hash mismatches; 0 recorded file-hash mismatches; exact 85-cell/block membership; and no identified credentials, tokens, private keys, email addresses, URLs, IPv4 addresses, local absolute paths, operational spacecraft/RF/proprietary mission data, human-subject data, or unsafe ZIP paths. The review performed no campaign runtime and changed no frozen science or source-evidence record. Repository documentation is retained under `study2/release/phase6/`.
-
-The exact approved source ZIP is published as Zenodo v1.0.0:
-
-- record: `https://zenodo.org/records/22289114`
-- version DOI: `10.5281/zenodo.22289114`
-- concept DOI: `10.5281/zenodo.22289113`
-- public ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
-- public-byte verification: `PASS`
-
-The DOI/archive blocker for the existing journal article is therefore closed. The next gate is submission-day live-policy/portal verification plus exact final-export citation/DOI/reference, frozen-claim, and scope-fit validation. The Study-1 and Study-2 Zenodo records remain separate evidence objects.
-
-## Study 8 — canonical science and publication closeout
-
-Experiment ID: `S8-PQC-ICR-001`
-
-Study 8 is a deterministic finite modeled contact/crypto-agility/recovery study. It is not pooled with Study 1 or Study 2 and is not part of the existing two-study journal manuscript.
-
-### Study-8 canonical population and audit
-
-- frozen population: **3,456 modeled observations**;
-- primary canonical rows: **3,456**;
-- independent implementation-level recomputation rows: **3,456**;
-- exact row matches: **3,456**;
-- row mismatches: **0**.
-
-### Study-8 immutable identities
-
-- canonical observations SHA-256: `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`
-- primary findings SHA-256: `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
-- independent findings SHA-256: `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
-- interpretation audit SHA-256: `620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413`
-- results-freeze manifest: `study8/analysis/RESULTS_FREEZE_MANIFEST.json`
-- results-freeze checksums: `study8/analysis/RESULTS_FREEZE_SHA256SUMS.txt`
-
-### Study-8 frozen findings
-
-Primary trusted-recovery success is exactly tied across all four policies:
-
-- `P0_HARD_CUTOVER`: `635/864`
-- `P1_STAGED_CUTOVER`: `635/864`
-- `P2_HYBRID_OVERLAP`: `635/864`
-- `P3_CONTACT_AWARE_STAGED`: `635/864`
-
-The prespecified primary contrast is:
+Frozen primary policy result:
 
 `P3 - P1 = 0/1 = 0.000000 percentage points`
 
-This negative primary result is frozen. No hypothesis rescue or policy-success superiority claim is supported.
+The negative primary result is immutable and must not be rescued or reframed as policy superiority.
 
-Profile-level success is:
+### Paper 2 - Studies 3 + 4 + 6
 
-- `PROFILE_512_44`: `1080/1152`
-- `PROFILE_768_65`: `748/1152`
-- `PROFILE_1024_87`: `712/1152`
+**Journal:** IEEE Transactions on Aerospace and Electronic Systems  
+**Article type:** Regular Paper  
+**Primary Technical Area:** Aerospace Information Systems  
+**Title:** Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance  
+**Submitted:** 2026-09-07  
+**Research Exchange submission UUID:** `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`  
+**Formal TAES manuscript ID:** pending / not yet shown in the captured post-submission state  
+**State:** `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`
 
-Across all 1,152 matched non-profile positions, trusted-recovery success is non-increasing as the modeled standardized cryptographic-object budget increases.
+Canonical submitted-state package:
 
-### Study-8 inference and claim boundaries
+`publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
 
-- the 3,456 positions are the complete deterministic finite factorial population, not a probabilistic sample;
-- no sampling p-values, sampling confidence intervals, bootstrap inference, or permutation inference are supported;
-- logical slots are model indices, not spacecraft/network/operator wall-clock time;
-- standardized ML-KEM/ML-DSA object bytes are modeled cryptographic-object burdens, not measured onboard PQC execution cost;
-- no operational spacecraft, RF-link, ground-station, energy, flightworthiness, certification, or production claim is supported;
-- same-repository independently written reproduction is not external laboratory or independent-human replication.
+Current state authority:
 
-### Study-8 technical-close provenance
+- `TAES_PACKAGE_STATUS.json`
+- `TAES_INITIAL_SUBMISSION_RECORD_2026-09-07.md`
+- `TAES_REVIEWER_PDF_INITIAL_SUBMISSION_2026-09-07.pdf`
 
-- final results-freeze PR: `#89`
-- exact validated head: `1356b73d1edc01c8618c9290460f4fbf22c458df`
-- squash merge commit on `main`: `63106778559c3127a7d6e8765d52939b73a3f35b`
-- post-merge repository validation: run `33761681328`, attempt `1`, `SUCCESS`
-- historical Phase-8.7 status: `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`
+Exact reviewer PDF SHA-256:
 
-The Phase-8.6 results-freeze manifest remains immutable and therefore still contains its historical pre-merge `results_merge_authorized=false`. The later Phase-8.7 merge authorization is preserved by PR #89 review/merge provenance and the merge commit; the frozen Phase-8.6 file is intentionally not rewritten.
+`34c4691381fe521bbd161f34878a33c82799abae18bd62dafab5ac7b2e05327c`
 
-### Study-8 publication-package provenance
+Exact normalized initial-submission record SHA-256:
 
-- development authorization: `S8-PUBDEV-001`
-- freeze authorization: `S8-PUBFREEZE-001`
-- frozen package commit: `cbad15227bf99d1b7b19d95b0581196d78208f95`
-- final reviewed head: `75c98356751087dd648684ade7cb973c166cbce0`
-- publication PR: `#92`
-- squash merge commit: `87bcec000d278aeffef1222ce814098c93ada362`
-- post-merge results-freeze CI: `33781901833` `SUCCESS`
-- post-merge repository CI: `33781901724` `SUCCESS`
-- current status: `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`
+`3a23567db6c68d4e7541b9d7cfa65acda6f6c4e0f980ca67d7b06c669d7b346d`
 
-The publication freeze binds exactly 11 artifacts under `publication/study8/`. They are not modified by this repository-state closeout.
+Paper-2 populations remain separate:
 
-## Current journal-manuscript state
+- Study 3 / `S3-K4E-001`: 1,380 deterministic trajectories.
+- Study 4 / `S4-MPQ-001`: 4,608 exact rule-by-subset observations.
+- Study 6 / `S6-SCTR-001`: 420 exact observations.
 
-The existing two-study journal manuscript integration is complete and merged in PR #72:
+No pooled Paper-2 `N = 6,408` is scientifically defined.
 
-- `publication/manuscript/03-methods.md` — Study 1
-- `publication/manuscript/03-study2-methods-extension.md` — Study 2
-- `publication/manuscript/04-results.md` — Study 1
-- `publication/manuscript/04-study2-results-extension.md` — Study 2
-- `publication/manuscript/05-discussion.md` — cross-study synthesis
-- `publication/manuscript/06-conclusion.md` — combined bounded conclusion
-- `publication/manuscript/study2-claim-traceability.csv` — Study-2 claim boundary register
-- `publication/tables/table-r7-study2-prespecified-findings.csv` — Study-2 findings summary
-- `publication/tables/table-s2-study2-secondary-holm.csv` — Study-2 secondary-family multiplicity summary
+The historical branch `paper2/taes-10-page-compression` is frozen as:
 
-The Study-1 and Study-2 populations must remain separate throughout that manuscript. Study 8 has its own dedicated frozen companion package under `publication/study8/` and is not inserted into that two-study manuscript.
+`SUPERSEDED_UNSUBMITTED__R10_INITIAL_SUBMISSION_COMPLETED_2026-09-07`
 
-## Historical Study-1 work packages
+It is historical publication-development provenance only. It was not the package submitted to TAES.
 
-The original WP0–WP11 program remains historically closed:
+## Remaining eligible publication candidates
 
-| ID | Work package | Historical status | Current interpretation |
-|---|---|---|---|
-| WP0 | Research workspace | Complete | retained infrastructure/provenance |
-| WP1 | Literature and novelty | Complete — empirically reconciled | Study-1 framing retained; two-study novelty is integrated in the current journal manuscript |
-| WP2 | Theoretical/conceptual model | Complete — empirically reconciled | Study-1 Mission Aware framing remains bounded |
-| WP3 | Threat and mission model | Complete — empirically reconciled | Study-1 claim boundaries retained |
-| WP4 | Testbed selection/architecture | Complete | historical Study-1 environment retained |
-| WP5 | Deterministic event library | Complete | historical Study-1 event implementation retained |
-| WP6 | Response-policy implementation | Complete | historical Study-1 policy implementation retained |
-| WP7 | Trusted-recovery implementation | Complete | historical Study-1 recovery implementation retained |
-| WP8 | Pilot | Complete | historical pilot record retained |
-| WP9 | Frozen Study-1 campaign | Complete | 720/720 valid; integrity freeze PASS |
-| WP10 | Study-1 analysis/manuscript | Complete | historical Study-1 analysis closed; current two-study article integration is outside this historical WP numbering |
-| WP11 | Study-1 responsible artifact release | Complete | Zenodo v1.0.0 published |
+### Study 7 / S7-LSO-001
 
-No `WP12` is created for the historical Study-1 program. Study 8 uses its own explicit `Phase 8.x` records under `study8/`; those records are a separate research stream and do not reopen or renumber the closed Study-1 work packages.
+Study 7 remains a separately frozen learned-selector study with 1,033 observations.
+
+Historical working theme:
+
+**Observability limits of learned recovery selectors under trusted-producer compromise.**
+
+The study is a credible next-paper candidate but is not automatically selected. Before publication development it requires fresh AI/autonomy literature review, novelty and overlap audit, claim-boundary review, reproducibility review, and live venue review.
+
+Do not frame its frozen results as generic ML superiority.
+
+### Study 5 / S5-CUCD-001
+
+Study 5 remains a portability/external-validity boundary study and was not part of Paper 2.
+
+Its final publication vehicle is still deferred. It must not be represented as external empirical validation of Studies 3, 4, or 6 and must not be reported as measuring IDS accuracy, recall, false-positive rate, or packet-level recovery effectiveness because those outcomes were not measured.
+
+### Other remaining studies
+
+Any other repository study or experiment may enter the next-paper candidate audit only if it is demonstrably complete, provenance-bound, scientifically independent, and not already consumed as experimental evidence by Papers 1, 2, or 4.
 
 ## Current exact action
 
-Completed for the existing Study-1/Study-2 article:
+The next publication gate is:
 
-1. stale-current-state cleanup across README/publication/submission/reproducibility surfaces;
-2. release-gate hardening for the two-study journal state and Study-2 frozen identities;
-3. full repository CI on the exact journal-integration head;
-4. reviewer/CI correction of identified stale or misleading wording without changing frozen statistics;
-5. journal-integration merge to `main` as PR #72 / `6f9a1a5d26287120278913d453b26c78f267870f`;
-6. post-integration status closeout through PR #73;
-7. local release-gate isolation through PR #74 and local exact-commit clean-worktree validation at `6bb0051628ec64ebd09a85435f88a6a0d2cfc382`, including 611 research tests, frozen WP10 reproduction, and zero drift;
-8. responsible-release review of the exact Study-2 Phase-6 source-evidence ZIP, disposition `APPROVED_FOR_PUBLIC_DURABLE_ARCHIVE_WITH_PROVENANCE_WRAPPER`, with no campaign execution or frozen-science modification;
-9. publication of the exact approved Study-2 Phase-6 ZIP as Zenodo v1.0.0 under version DOI `10.5281/zenodo.22289114` / concept DOI `10.5281/zenodo.22289113`, followed by independent public-download SHA-256 verification with an exact match;
-10. insertion of the verified Study-2 DOI/checksum identity into Data Availability and target-specific publication controls without changing frozen science.
+`READ_ONLY_REMAINING_STUDY_PUBLICATION_CANDIDATE_AUDIT`
 
-Completed for Study 8:
+Required steps:
 
-11. Phase 8.0 standards/literature review, protocol/contact/population lock, and adversarial design review;
-12. Phase 8.1 primary implementation plus independently written reference implementation, with design amendment before runtime;
-13. Phase 8.2 pre-runtime CI, non-canonical fixture parity, and SHA-256 implementation binding;
-14. Phase 8.3 exact-head pre-runtime merge and successful post-merge CI;
-15. Phase 8.4 single-use canonical execution of exactly 3,456 observations plus 3,456 independent recomputations with 0 mismatches;
-16. Phase 8.5 prespecified finite-population statistical analysis plus independent statistical reproduction and interpretation audit;
-17. Phase 8.6 12-file SHA-256 results freeze preserving the negative primary finding;
-18. Phase 8.7 final review, exact-head PR #89 merge to `63106778559c3127a7d6e8765d52939b73a3f35b`, and successful post-merge run `33761681328`;
-19. repository indexing/technical-close synchronization and local release-gate portability hardening;
-20. Phase 8.8 frozen-science-only companion manuscript development, literature/venue verification, four tables, two figures, and claim traceability;
-21. Phase 8.9 final manuscript adversarial review and 11-file publication-package SHA-256 freeze;
-22. exact-content review and CI on head `75c98356751087dd648684ade7cb973c166cbce0`;
-23. authorized PR #92 squash merge to `87bcec000d278aeffef1222ce814098c93ada362`;
-24. post-merge Study-8 results-freeze run `33781901833` and repository-wide run `33781901724`, both `SUCCESS`;
-25. current-state repository closeout so active documentation no longer reports pre-publication-integration or pre-merge status.
+1. verify clean canonical `main` and its HEAD SHA;
+2. inventory every remaining study or experiment not consumed by Papers 1, 2, or 4;
+3. verify frozen populations, endpoints, null/negative findings, provenance, reproducibility, and validity limits;
+4. evaluate scientific coherence and whether any studies can be combined without violating independence;
+5. perform fresh literature, novelty, and self-overlap review;
+6. rank candidate publication units by evidence strength, aerospace relevance, cybersecurity contribution, methodological defensibility, reviewer risk, and venue fit;
+7. identify the strongest candidate plus at least one credible alternative;
+8. perform a devil's-advocate review before venue recommendation;
+9. create a new publication branch only after the candidate boundary is explicitly selected and the author authorizes the write phase.
 
-### Next actions — separate gates
+No new manuscript drafting, study rerun, new statistics, or venue-specific package creation is authorized by this tracker before that candidate audit.
 
-**Existing Study-1/Study-2 journal article:**
+## Historical Study-1 work-package register
 
-26. recheck the live Computers & Security Guide for Authors, Aims & Scope, AI/ML wording, generative-AI policy, article type, and Editorial Manager file/metadata requirements on the actual submission-preparation date;
-27. build the exact final submission export and run citation/DOI/reference, frozen-claim, and scope-fit audits against that export;
-28. record the final submission repository snapshot only after those checks pass;
-29. keep actual publisher submission and publisher-portal actions under a separate explicit authorization.
+`tracker/work_packages.csv` remains the historical WP0-WP11 Study-1 register. Those work packages are closed and should not be renumbered or rewritten into a publication state machine.
 
-**Study-8 companion paper:**
+The old WP0-WP11 state remains useful provenance, but it is not the current cross-publication tracker.
 
-30. after a new explicit authorization, perform venue-specific submission-package preparation against live venue requirements using only the frozen companion package;
-31. keep final venue commitment, publisher submission, and publisher-portal actions separately gated;
-32. do not change the 11 hash-frozen publication artifacts or any frozen Study-8 scientific artifact without a new, explicit amendment/re-freeze process.
+Current publication-level machine-readable state is now maintained separately in:
+
+`tracker/PUBLICATION_STATE.csv`
+
+This separation prevents closed Study-1 engineering work packages from being confused with current journal submission state.
 
 ## Scientific and responsible-research boundaries
 
-Preserve throughout publication and future work:
+Preserve throughout all future publication and revision work:
 
 - controlled defensive software simulation/modeling only;
 - no real spacecraft access;
@@ -350,11 +182,30 @@ Preserve throughout publication and future work:
 - no real ground-contact, network, or operator timing claim;
 - immutable research truth never acts as a runtime policy oracle;
 - unexpected treatment-valid outcomes remain evidence rather than being removed for presentation;
-- no post-hoc seed replacement, outcome-dependent exclusion, or new campaign execution to improve journal or companion-paper results;
-- no weighted global score or global policy rank;
-- Study-1 and Study-2 frozen populations remain separate;
-- Study 8 remains a separate deterministic finite modeled population and is not pooled with either empirical study;
-- Study-8 negative primary policy result remains frozen;
-- Study-8 standardized cryptographic-object byte effects must not be restated as measured onboard PQC CPU/energy/RF performance;
-- same-repository independently written Study-8 reproduction must not be represented as external laboratory or independent-human replication;
-- any new experimental execution is a new replication/validation study with its own frozen identity.
+- no post-hoc seed replacement, outcome-dependent exclusion, or new campaign execution to improve publication results;
+- no weighted global score or universal global policy rank unless prospectively defined by a new study;
+- Study 1 and Study 2 remain separate populations;
+- Study 8 remains a separate deterministic finite modeled population;
+- Paper 2 uses Studies 3, 4, and 6 only and keeps their populations separate;
+- only Study 3 directly models intermittent contact in Paper 2;
+- Study-4 producer unavailability is not orbital contact loss or mission availability;
+- Study-6 assurance-signal unavailability is not contact loss;
+- Study-4 provenance domains are synthetic independence classes;
+- Study 4 is not a Byzantine-consensus experiment;
+- Study 6 is an abstract artifact-trust model, not an operational supply-chain attack experiment;
+- same-repository independently written reproduction is reproducibility, not external empirical replication;
+- logical model time is not operational spacecraft time;
+- modeled cryptographic-object bytes are not measured onboard CPU, energy, or RF cost;
+- no operational spacecraft, RF, flightworthiness, ground-station, certification, or production claim is supported without new frozen evidence.
+
+## Repository-governance rule after submissions
+
+After each publisher submission gate, update the cross-repository current-state layer in the same closeout cycle:
+
+- `docs/CURRENT_PUBLICATION_STATE.md`
+- `docs/PUBLICATION_PHASE_MAP.md`
+- `publication/README.md`
+- `tracker/RESEARCH_TRACKER.md`
+- `tracker/PUBLICATION_STATE.csv`
+
+Venue-package closeout alone is not sufficient if these global current-state surfaces still advertise a superseded publication state.
