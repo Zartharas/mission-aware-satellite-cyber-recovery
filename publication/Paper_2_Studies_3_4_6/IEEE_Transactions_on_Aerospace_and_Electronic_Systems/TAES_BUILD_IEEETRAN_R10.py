@@ -1,0 +1,191 @@
+#!/usr/bin/env python3
+"""Build the TAES R10 portal-adapted LaTeX package.
+
+R10 is a submission-interface adaptation of the frozen R9 manuscript. It uses
+exactly the R9 generated LaTeX and inserts one unnumbered Conflict of Interest
+section immediately before the existing Acknowledgment. No canonical Markdown,
+frozen experiment, result, citation, table, figure, title, abstract, index term,
+or scientific claim is modified.
+
+The sole author explicitly confirmed on 2026-09-07 that there is no conflict of
+interest to disclose.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import shutil
+import zipfile
+from pathlib import Path
+
+import TAES_BUILD_IEEETRAN as base
+import TAES_BUILD_IEEETRAN_R8 as r8
+import TAES_BUILD_IEEETRAN_R9 as r9
+
+COI_HEADING = r"\section*{Conflict of Interest}"
+COI_SENTENCE = "The author declares no conflict of interest."
+COI_BLOCK = COI_HEADING + "\n" + COI_SENTENCE + "\n\n"
+ACK_MARKER = r"\section*{Acknowledgment}" + "\n"
+
+PORTAL_TEX = base.ROOT / "TAES_MANUSCRIPT_R10.tex"
+PORTAL_PDF = base.ROOT / "TAES_MANUSCRIPT_R10.pdf"
+PORTAL_AUDIT = base.ROOT / "TAES_R10_PORTAL_PACKAGE_AUDIT.txt"
+PORTAL_HASHES = base.ROOT / "TAES_R10_SHA256SUMS.txt"
+PORTAL_ZIP = base.ROOT / "TAES_MAIN_MANUSCRIPT_LATEX_R10.zip"
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def make_tex_r10(md: str) -> str:
+    r9_tex = r9.make_tex_r9(md)
+
+    if r9_tex.count(ACK_MARKER) != 1:
+        raise SystemExit(
+            f"ERROR: R10 expected one Acknowledgment insertion marker; found {r9_tex.count(ACK_MARKER)}"
+        )
+    if COI_HEADING in r9_tex or COI_SENTENCE in r9_tex:
+        raise SystemExit("ERROR: R9 baseline unexpectedly already contains the R10 conflict declaration")
+
+    r10_tex = r9_tex.replace(ACK_MARKER, COI_BLOCK + ACK_MARKER, 1)
+
+    # Principal no-science-change control: deleting the one authorized R10 block
+    # must recover the exact R9 generated LaTeX byte-for-byte.
+    rollback = r10_tex.replace(COI_BLOCK, "", 1)
+    if rollback != r9_tex:
+        raise SystemExit("ERROR: R10 differs from R9 by more than the authorized conflict declaration")
+
+    if r10_tex.count(COI_HEADING) != 1 or r10_tex.count(COI_SENTENCE) != 1:
+        raise SystemExit("ERROR: R10 conflict declaration is missing or duplicated")
+    if r10_tex.count(r"\author{Aman Kumar Singh") != 1:
+        raise SystemExit("ERROR: sole-author identity is not present exactly once in generated LaTeX")
+    if r"\and" in r10_tex:
+        raise SystemExit("ERROR: generated LaTeX contains a coauthor separator")
+
+    return r10_tex
+
+
+def write_package(result: dict[str, str | int | float | bool]) -> None:
+    shutil.copy2(base.OUT_TEX, PORTAL_TEX)
+    shutil.copy2(base.OUT_PDF, PORTAL_PDF)
+
+    for path in [PORTAL_ZIP, PORTAL_HASHES, PORTAL_AUDIT]:
+        if path.exists():
+            path.unlink()
+
+    # The Research Exchange main-manuscript archive contains only the source
+    # needed for this manuscript: the generated main .tex and the approved
+    # Figure 1 PDF. IEEEtran and the listed LaTeX packages are standard system
+    # dependencies and are intentionally not vendored into the archive.
+    with zipfile.ZipFile(PORTAL_ZIP, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        zf.write(PORTAL_TEX, arcname="TAES_MANUSCRIPT.tex")
+        zf.write(base.FIG_PDF, arcname=base.FIG_PDF.name)
+
+    hashes = {
+        "TAES_MANUSCRIPT_R10.tex": sha256(PORTAL_TEX),
+        "TAES_MANUSCRIPT_R10.pdf": sha256(PORTAL_PDF),
+        base.FIG_PDF.name: sha256(base.FIG_PDF),
+        "TAES_MAIN_MANUSCRIPT_LATEX_R10.zip": sha256(PORTAL_ZIP),
+    }
+    PORTAL_HASHES.write_text(
+        "".join(f"{digest}  {name}\n" for name, digest in hashes.items()),
+        encoding="utf-8",
+    )
+
+    layout_clean = (
+        result["overfull_hbox_count"] == 0
+        and result["overfull_vbox_count"] == 0
+        and result["latex_warning_count"] == 0
+        and result["font_embedding_all_yes"] is True
+    )
+    if not layout_clean:
+        raise SystemExit("ERROR: R10 layout/font warning gate failed")
+
+    audit = [
+        "TAES_R10_PORTAL_PACKAGE_AUDIT",
+        "date=2026-09-07",
+        "paper=PAPER2_STUDIES_3_4_6",
+        "journal=IEEE Transactions on Aerospace and Electronic Systems",
+        "author=Aman Kumar Singh",
+        "sole_author=YES",
+        "corresponding_author=YES",
+        "conflict_of_interest_author_confirmed=NONE_TO_DISCLOSE_2026-09-07",
+        f"canonical_r9_markdown_sha256={r8.EXPECTED_COMPRESSED_MANUSCRIPT}",
+        f"canonical_r9_tracking_commit={r8.EXPECTED_MANUSCRIPT_TRACKING_COMMIT}",
+        "canonical_markdown_changed=NO",
+        "science_changed=NO",
+        "statistics_changed=NO",
+        "study_population_changed=NO",
+        "title_changed=NO",
+        "abstract_changed=NO",
+        "index_terms_changed=NO",
+        "bibliography_changed=NO",
+        "figure_changed=NO",
+        "ai_acknowledgment_changed=NO",
+        "authorized_portal_change=ADD_ONE_CONFLICT_OF_INTEREST_DECLARATION_ONLY",
+        "coi_heading_count=1",
+        "coi_sentence_count=1",
+        "r9_generated_tex_equivalence_after_removing_coi=PASS_BYTE_FOR_BYTE",
+        f"figure1_pdf_sha256={sha256(base.FIG_PDF)}",
+        f"r10_tex_sha256={hashes['TAES_MANUSCRIPT_R10.tex']}",
+        f"r10_pdf_sha256={hashes['TAES_MANUSCRIPT_R10.pdf']}",
+        f"r10_zip_sha256={hashes['TAES_MAIN_MANUSCRIPT_LATEX_R10.zip']}",
+        f"pages={result['pages']}",
+        f"estimated_pages_over_10={result['estimated_pages_over_10']}",
+        f"page_size={result['page_size']}",
+        f"overfull_hbox_count={result['overfull_hbox_count']}",
+        f"overfull_vbox_count={result['overfull_vbox_count']}",
+        f"underfull_hbox_count={result['underfull_hbox_count']}",
+        f"underfull_vbox_count={result['underfull_vbox_count']}",
+        f"latex_warning_count={result['latex_warning_count']}",
+        f"font_count={result['font_count']}",
+        f"font_embedding_all_yes={'PASS' if result['font_embedding_all_yes'] else 'FAIL'}",
+        f"layout_warning_gate={'PASS' if layout_clean else 'FAIL'}",
+        "main_manuscript_portal_file=TAES_MAIN_MANUSCRIPT_LATEX_R10.zip",
+        "main_manuscript_archive_members=TAES_MANUSCRIPT.tex,TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf",
+        "supplementary_material=NONE_INITIAL_REVIEW",
+        "final_submit_action=PENDING_PORTAL_PROOF_QA",
+    ]
+    PORTAL_AUDIT.write_text("\n".join(audit) + "\n", encoding="utf-8")
+
+
+def main() -> None:
+    # The canonical Markdown remains untouched, so its provenance binding stays
+    # at the original Pass-2 R2 tracking commit and SHA-256.
+    r8.verify_manuscript_tracking_commit()
+    base.EXPECTED_MANUSCRIPT = r8.EXPECTED_COMPRESSED_MANUSCRIPT
+    base.make_tex = make_tex_r10
+
+    result = base.build_and_audit()
+    write_package(result)
+
+    print("TAES_R10_PORTAL_BUILD=PASS")
+    print("science_changed=NO")
+    print("canonical_markdown_changed=NO")
+    print("r9_generated_tex_equivalence_after_removing_coi=PASS_BYTE_FOR_BYTE")
+    print("sole_author=YES")
+    print("conflict_of_interest=NONE_TO_DISCLOSE")
+    print(f"pages={result['pages']}")
+    print(f"estimated_pages_over_10={result['estimated_pages_over_10']}")
+    print(f"overfull_hbox_count={result['overfull_hbox_count']}")
+    print(f"overfull_vbox_count={result['overfull_vbox_count']}")
+    print(f"latex_warning_count={result['latex_warning_count']}")
+    print(f"font_embedding_all_yes={'PASS' if result['font_embedding_all_yes'] else 'FAIL'}")
+    print(f"portal_tex={PORTAL_TEX.name}")
+    print(f"portal_tex_sha256={sha256(PORTAL_TEX)}")
+    print(f"qa_pdf={PORTAL_PDF.name}")
+    print(f"qa_pdf_sha256={sha256(PORTAL_PDF)}")
+    print(f"portal_zip={PORTAL_ZIP.name}")
+    print(f"portal_zip_sha256={sha256(PORTAL_ZIP)}")
+    print(f"audit={PORTAL_AUDIT.name}")
+    print(f"hashes={PORTAL_HASHES.name}")
+    print("final_submit_action=PENDING_PORTAL_PROOF_QA")
+
+
+if __name__ == "__main__":
+    main()
