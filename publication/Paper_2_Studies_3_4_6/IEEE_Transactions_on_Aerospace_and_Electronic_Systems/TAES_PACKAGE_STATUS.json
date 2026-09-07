@@ -6,17 +6,14 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "R9_16_PAGE_PUBLISHER_FACING_CANDIDATE_FROZEN__PREPORTAL_READY",
-  "submission_authorized": false,
+  "status": "R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING",
+  "submission_authorized": true,
   "explicit_final_author_submission_authorization": true,
   "explicit_final_author_submission_authorization_date": "2026-09-06",
   "explicit_final_author_submission_authorization_record": "TAES_FINAL_AUTHOR_SUBMISSION_AUTHORIZATION_2026-09-06.md",
-  "effective_portal_submission_authorization": false,
-  "effective_portal_submission_blockers": [
-    "authenticated_atypon_rex_live_field_capture",
-    "portal_generated_submission_proof_qa_before_submit_action"
-  ],
-  "portal_submission_completed": false,
+  "effective_portal_submission_authorization": true,
+  "effective_portal_submission_blockers": [],
+  "portal_submission_completed": true,
   "manuscript_id": null,
   "canonical_storage_rule": "ONE_CANONICAL_COPY_IN_REPOSITORY_PUBLICATION_FOLDER_ONLY",
   "canonical_directory": "publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/",
@@ -142,10 +139,10 @@
     "upload_manifest": "TAES_INITIAL_SUBMISSION_UPLOAD_MANIFEST_2026-09-06.json__SHA256_FROZEN"
   },
   "publisher_facing_files": {
-    "manuscript_pdf": "TAES_MANUSCRIPT.pdf__FROZEN_R9_16_PAGES__SHA256_a7624fa416ebe4ba4d0b9e46da25b5dcb4d85e23e63291f4bdf497d5ba6cb319",
-    "supplementary_material": "FROZEN_NONE_FOR_INITIAL_REVIEW",
-    "supplementary_readme": "NOT_APPLICABLE",
-    "cover_letter": "NOT_PUBLICLY_REQUIRED__LIVE_PORTAL_RECHECK"
+    "main_latex_archive": "TAES_MAIN_MANUSCRIPT_LATEX_R10.zip__SHA256_51bf43443fabd77205679fe463ad75117e7444bdbb76e466be162400077cfb95",
+    "manuscript_pdf": "TAES_MANUSCRIPT_R10.pdf__16_PAGES__SHA256_51d0526e13c552f1c1bd80227dc69814d012e8db87bb41ab730f0bc3bc49c1d7",
+    "cover_letter": "TAES_COVER_LETTER.pdf__SHA256_cae09cae347dde3df7d0d85acc465381634b1658d620e769e0f43f0820ac111d",
+    "supplementary_material": "NONE_FOR_INITIAL_REVIEW"
   },
   "mandatory_final_gates": [
     "taes_format_audit_pass",
@@ -176,6 +173,25 @@
     "R9 IEEEtran formatting QA and all-16-page visual QA passed. The frozen publisher-facing PDF is TAES_MANUSCRIPT.pdf with SHA-256 a7624fa416ebe4ba4d0b9e46da25b5dcb4d85e23e63291f4bdf497d5ba6cb319.",
     "The supplementary-material decision is frozen as no separate supplementary upload for initial review unless the live portal, editor, or reviewer requires specific material.",
     "The initial upload manifest is frozen and contains only TAES_MANUSCRIPT.pdf as the required portal upload file.",
-    "Effective portal submission remains blocked only for authenticated live-field capture and portal-generated proof QA before the final Submit action."
-  ]
+    "Effective portal submission remains blocked only for authenticated live-field capture and portal-generated proof QA before the final Submit action.",
+    "Paper 2 was submitted to IEEE TAES through Research Exchange on 2026-09-07.",
+    "Research Exchange submission UUID: cd1dfa89-4a24-4451-bdd4-af31ce3367f4.",
+    "The formal TAES manuscript ID was not yet shown in the captured post-submission portal state.",
+    "R10 is the immutable initial-submission baseline; later editorial revisions must be versioned separately.",
+    "The paper2/taes-10-page-compression branch is an unsubmitted superseded historical packaging alternative and is not the reviewer-facing initial submission."
+  ],
+  "submission_date": "2026-09-07",
+  "submission_platform": "IEEE Author Portal / Research Exchange (Atypon ReX)",
+  "research_exchange_submission_uuid": "cd1dfa89-4a24-4451-bdd4-af31ce3367f4",
+  "submission_revision": "R10",
+  "submission_status": "SUBMITTED__AWAITING_EDITORIAL_PROCESSING",
+  "initial_submission_record": "TAES_INITIAL_SUBMISSION_RECORD_2026-09-07.md",
+  "reviewer_pdf": {
+    "filename": "TAES_REVIEWER_PDF_INITIAL_SUBMISSION_2026-09-07.pdf",
+    "sha256": "34c4691381fe521bbd161f34878a33c82799abae18bd62dafab5ac7b2e05327c",
+    "pages_total": 18,
+    "portal_wrapper_pages": 2,
+    "manuscript_pages": 16
+  },
+  "initial_submission_record_sha256": "3a23567db6c68d4e7541b9d7cfa65acda6f6c4e0f980ca67d7b06c669d7b346d"
 }

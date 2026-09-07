@@ -1,11 +1,38 @@
 # Paper 2 (Studies 3, 4, and 6) - TAES Development and Submission Package
 
-**Target venue:** IEEE Transactions on Aerospace and Electronic Systems (TAES)  
-**Manuscript type:** Regular Paper  
-**Primary Technical Area:** Aerospace Information Systems  
-**Development status:** `VENUE_LOCKED__REGENERATED_ASSEMBLED_DRAFT_VERIFIED__NOT_SUBMISSION_READY`  
-**Venue lock date:** 2026-09-06  
-**Submission status:** `NOT_SUBMITTED`
+**Target venue:** IEEE Transactions on Aerospace and Electronic Systems (TAES)
+**Manuscript type:** Regular Paper
+**Primary Technical Area:** Aerospace Information Systems
+**Development status:** `R10_INITIAL_SUBMISSION_COMPLETE__SCIENCE_FROZEN`
+**Venue lock date:** 2026-09-06
+**Submission status:** `SUBMITTED__2026-09-07__AWAITING_EDITORIAL_PROCESSING`
+
+## Initial submission - 2026-09-07
+
+Paper 2 was submitted as a TAES Regular Paper on 2026-09-07 through IEEE Author
+Portal / Research Exchange (Atypon ReX).
+
+- Research Exchange submission UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
+- Formal TAES manuscript ID: pending / not yet shown in the captured portal state
+- Submission revision: R10
+- Sole author and corresponding author: Aman Kumar Singh
+- Submitted manuscript: Studies 3, 4, and 6 only
+- Initial-submission record: `TAES_INITIAL_SUBMISSION_RECORD_2026-09-07.md`
+- Reviewer PDF: `TAES_REVIEWER_PDF_INITIAL_SUBMISSION_2026-09-07.pdf`
+- Separate supplementary material: none for initial review
+
+The R10 initial-submission package is frozen. Do not edit or overwrite it. Any
+TAES revision must be versioned as a new revision package after an editorial
+request.
+
+The branch `paper2/taes-10-page-compression` preserves an earlier unsubmitted
+8-page-main + 12-page-supplement packaging alternative. It is historical only
+and was not the package sent to TAES.
+
+Historical development and pre-submission control files retained below are
+provenance records and may contain superseded status labels. This Initial
+submission section and `TAES_PACKAGE_STATUS.json` are the current status
+controls.
 
 ## Canonical package rule
 
