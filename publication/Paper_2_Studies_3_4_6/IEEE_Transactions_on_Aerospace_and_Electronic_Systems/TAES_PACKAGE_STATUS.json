@@ -6,17 +6,15 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "FORMAT_AND_VISUAL_QA_PASS_AUTHOR_AUTHORIZATION_GRANTED_REMAINING_SUBMISSION_GATES_PENDING",
+  "status": "R9_16_PAGE_PUBLISHER_FACING_CANDIDATE_FROZEN__PREPORTAL_READY",
   "submission_authorized": false,
   "explicit_final_author_submission_authorization": true,
   "explicit_final_author_submission_authorization_date": "2026-09-06",
   "explicit_final_author_submission_authorization_record": "TAES_FINAL_AUTHOR_SUBMISSION_AUTHORIZATION_2026-09-06.md",
   "effective_portal_submission_authorization": false,
   "effective_portal_submission_blockers": [
-    "portal_field_audit_pass",
-    "supplementary_material_decision_frozen",
-    "upload_manifest_and_sha256_frozen",
-    "publisher_facing_file_freeze_and_length_decision"
+    "authenticated_atypon_rex_live_field_capture",
+    "portal_generated_submission_proof_qa_before_submit_action"
   ],
   "portal_submission_completed": false,
   "manuscript_id": null,
@@ -25,9 +23,24 @@
   "downloads_mirror_allowed": false,
   "separate_portal_staging_directory_allowed": false,
   "core_studies": [
-    {"study": 3, "experiment_id": "S3-K4E-001", "population": 1380, "unit": "deterministic trajectories"},
-    {"study": 4, "experiment_id": "S4-MPQ-001", "population": 4608, "unit": "exact rule-by-subset observations"},
-    {"study": 6, "experiment_id": "S6-SCTR-001", "population": 420, "unit": "exact gate-state and gate-unavailability observations"}
+    {
+      "study": 3,
+      "experiment_id": "S3-K4E-001",
+      "population": 1380,
+      "unit": "deterministic trajectories"
+    },
+    {
+      "study": 4,
+      "experiment_id": "S4-MPQ-001",
+      "population": 4608,
+      "unit": "exact rule-by-subset observations"
+    },
+    {
+      "study": 6,
+      "experiment_id": "S6-SCTR-001",
+      "population": 420,
+      "unit": "exact gate-state and gate-unavailability observations"
+    }
   ],
   "pooled_population_allowed": false,
   "study5_core_inclusion": false,
@@ -84,7 +97,21 @@
     "assembly_status": "PASS_COMPLIANCE_CORRECTED_TRACKED_CANONICAL",
     "reassembly_required": false,
     "reference_count": 13,
-    "citation_first_use_order": [1,2,3,4,5,6,7,8,9,10,11,12,13],
+    "citation_first_use_order": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
     "assembled_scientific_claim_audit": "PASS_NO_SCIENTIFIC_DEFECT",
     "assembled_citation_audit": "PASS_TUF_V1.0.36_CORRECTED_AND_TRACKED",
     "ieee_ai_disclosure_audit": "PASS_ACKNOWLEDGMENT_BOUND_AND_TRACKED",
@@ -97,15 +124,28 @@
     "r7_overfull_hbox_count": 0,
     "r7_underfull_hbox_count": 30,
     "r7_font_embedding": "PASS_13_OF_13_EMBEDDED",
-    "taes_format_audit_pass": "PASS_R7_IEEETRAN_FORMAT_QA_2026-09-06",
-    "pdf_visual_qa_pass": "PASS_ALL_18_PAGES_R7_2026-09-06",
-    "style_and_taes_format_audit": "PASS_R7_FORMAT_AND_VISUAL_QA_2026-09-06"
+    "taes_format_audit_pass": "PASS_R9_IEEETRAN_FORMAT_QA_2026-09-06",
+    "pdf_visual_qa_pass": "PASS_ALL_16_PAGES_R9_2026-09-06",
+    "style_and_taes_format_audit": "PASS_R9_FORMAT_AND_VISUAL_QA_2026-09-06",
+    "current_canonical_assembled_sha256": "802e6658e9e1325ec4f4a785c5da1b3856fbfadb950dadb6f6a57aec0acacd48",
+    "current_canonical_tracking_commit": "710a72af05fb418a0d82a659198a677b9e2a8948",
+    "current_total_words_including_references": 10119,
+    "compression_pass2_r2": "PASS_1918_WORD_CONTROLLED_REDUCTION_SCIENCE_PRESERVED",
+    "r9_builder": "TAES_BUILD_IEEETRAN_R9.py",
+    "r9_development_pdf_sha256": "a7624fa416ebe4ba4d0b9e46da25b5dcb4d85e23e63291f4bdf497d5ba6cb319",
+    "r9_page_count": 16,
+    "r9_overfull_hbox_count": 0,
+    "r9_font_embedding": "PASS_13_OF_13_EMBEDDED",
+    "publisher_facing_freeze": "TAES_R9_PUBLISHER_FACING_FREEZE_2026-09-06.md",
+    "supplementary_material_decision": "TAES_SUPPLEMENTARY_MATERIAL_DECISION_2026-09-06.md__NO_SEPARATE_INITIAL_UPLOAD",
+    "portal_field_audit": "TAES_PORTAL_FIELD_AUDIT_R1_2026-09-06.md__PASS_PREPORTAL_READY_FOR_LIVE_CAPTURE",
+    "upload_manifest": "TAES_INITIAL_SUBMISSION_UPLOAD_MANIFEST_2026-09-06.json__SHA256_FROZEN"
   },
   "publisher_facing_files": {
-    "manuscript_pdf": "NOT_FROZEN__R7_DEVELOPMENT_PDF_FORMAT_AND_VISUAL_QA_PASS",
-    "supplementary_material": "NOT_DECIDED",
-    "supplementary_readme": "NOT_CREATED",
-    "cover_letter": "NOT_PUBLICLY_REQUIRED_BY_REVIEWED_TAES_INSTRUCTIONS__LIVE_PORTAL_RECHECK_REQUIRED"
+    "manuscript_pdf": "TAES_MANUSCRIPT.pdf__FROZEN_R9_16_PAGES__SHA256_a7624fa416ebe4ba4d0b9e46da25b5dcb4d85e23e63291f4bdf497d5ba6cb319",
+    "supplementary_material": "FROZEN_NONE_FOR_INITIAL_REVIEW",
+    "supplementary_readme": "NOT_APPLICABLE",
+    "cover_letter": "NOT_PUBLICLY_REQUIRED__LIVE_PORTAL_RECHECK"
   },
   "mandatory_final_gates": [
     "taes_format_audit_pass",
@@ -130,6 +170,12 @@
     "The R7 development PDF is not yet frozen as publisher-facing because the 18-page editorial/overlength decision and remaining package gates are pending.",
     "Live TAES instructions reviewed on 2026-09-06 require a two-column, single-spaced PDF with 10-point font, 1 in top/bottom margins, 0.7 in side margins, 3.45 in columns, and 0.2 in column spacing.",
     "All development and submission files stay in the canonical repository publication directory; no Downloads mirror is maintained.",
-    "Effective portal submission remains blocked until every mandatory final package gate is recorded as passed or frozen."
+    "Effective portal submission remains blocked until every mandatory final package gate is recorded as passed or frozen.",
+    "The current canonical manuscript is the controlled Pass-2 R2 version tracked at commit 710a72af05fb418a0d82a659198a677b9e2a8948 with SHA-256 802e6658e9e1325ec4f4a785c5da1b3856fbfadb950dadb6f6a57aec0acacd48.",
+    "The current manuscript contains 10,119 words including references and renders to 16 TAES-formatted pages in R9.",
+    "R9 IEEEtran formatting QA and all-16-page visual QA passed. The frozen publisher-facing PDF is TAES_MANUSCRIPT.pdf with SHA-256 a7624fa416ebe4ba4d0b9e46da25b5dcb4d85e23e63291f4bdf497d5ba6cb319.",
+    "The supplementary-material decision is frozen as no separate supplementary upload for initial review unless the live portal, editor, or reviewer requires specific material.",
+    "The initial upload manifest is frozen and contains only TAES_MANUSCRIPT.pdf as the required portal upload file.",
+    "Effective portal submission remains blocked only for authenticated live-field capture and portal-generated proof QA before the final Submit action."
   ]
 }
