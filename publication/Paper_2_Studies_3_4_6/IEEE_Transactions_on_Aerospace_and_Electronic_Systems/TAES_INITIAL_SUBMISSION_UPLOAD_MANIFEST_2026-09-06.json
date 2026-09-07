@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "journal": "IEEE Transactions on Aerospace and Electronic Systems",
+  "manuscript_type": "Regular Paper",
+  "freeze_date": "2026-09-06",
+  "status": "INITIAL_UPLOAD_SET_SHA256_FROZEN__PORTAL_NOT_YET_SUBMITTED",
+  "canonical_manuscript": {
+    "path": "publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_MANUSCRIPT_FULL_DRAFT.md",
+    "sha256": "802e6658e9e1325ec4f4a785c5da1b3856fbfadb950dadb6f6a57aec0acacd48",
+    "tracking_commit": "710a72af05fb418a0d82a659198a677b9e2a8948",
+    "total_words_including_references": 10119
+  },
+  "publisher_facing_manuscript": {
+    "portal_filename": "TAES_MANUSCRIPT.pdf",
+    "source_build_filename_before_rename": "TAES_MANUSCRIPT_IEEETRAN_DEV.pdf",
+    "sha256": "a7624fa416ebe4ba4d0b9e46da25b5dcb4d85e23e63291f4bdf497d5ba6cb319",
+    "pages": 16,
+    "page_size": "612 x 792 pts (US Letter)",
+    "format_revision": "R9",
+    "visual_qa": "PASS_ALL_16_PAGES",
+    "font_embedding": "PASS_13_OF_13_EMBEDDED",
+    "overfull_hbox_count": 0,
+    "latex_warning_count": 0
+  },
+  "figure_assets_bound_inside_pdf": [
+    {
+      "filename": "TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf",
+      "sha256": "4872707261c8a8b6b747e76b9166b4ad7ae426e43d7bd9ffe272e4c5ea6f4ff8",
+      "separate_portal_upload": false
+    },
+    {
+      "filename": "TAES_FIGURE1_RESIDUAL_BOUNDARIES.png",
+      "sha256": "7d22964bdae052b35b4680e1b09f3209f1c99bb1d157a0f995dcd2a6445e6698",
+      "separate_portal_upload": false
+    }
+  ],
+  "supplementary_material": {
+    "decision": "NO_SEPARATE_SUPPLEMENTARY_UPLOAD_FOR_INITIAL_REVIEW",
+    "files": []
+  },
+  "cover_letter": {
+    "public_taes_requirement": "NOT_IDENTIFIED_AS_MANDATORY",
+    "upload": "ONLY_IF_LIVE_PORTAL_REQUIRES_OR_AUTHOR_CHOOSES_AFTER_PORTAL_CAPTURE"
+  },
+  "initial_portal_upload_files": [
+    {
+      "filename": "TAES_MANUSCRIPT.pdf",
+      "role": "Main Manuscript",
+      "sha256": "a7624fa416ebe4ba4d0b9e46da25b5dcb4d85e23e63291f4bdf497d5ba6cb319",
+      "required": true
+    }
+  ],
+  "excluded_from_initial_upload": [
+    "TAES_MANUSCRIPT_FULL_DRAFT.md",
+    "TAES_MANUSCRIPT_IEEETRAN_DEV.tex",
+    "TAES_IEEETRAN_BUILD_AUDIT.txt",
+    "TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf",
+    "TAES_FIGURE1_RESIDUAL_BOUNDARIES.png",
+    "study result directories and frozen evidence archives unless specifically requested by editor or portal"
+  ],
+  "authorization": {
+    "explicit_final_author_submission_authorization": true,
+    "authorization_date": "2026-09-06",
+    "record": "TAES_FINAL_AUTHOR_SUBMISSION_AUTHORIZATION_2026-09-06.md"
+  },
+  "controls": {
+    "single_canonical_publication_directory": true,
+    "downloads_mirror_allowed": false,
+    "separate_portal_staging_directory_allowed": false,
+    "hash_reverification_required_immediately_before_upload": true,
+    "portal_generated_proof_qa_required_before_final_submit_click": true,
+    "scientific_change_after_freeze_requires_new_manifest": true
+  }
+}
