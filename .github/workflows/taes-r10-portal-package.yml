@@ -30,11 +30,13 @@ jobs:
             texlive-latex-recommended \
             texlive-latex-extra \
             texlive-fonts-recommended \
+            texlive-publishers \
             poppler-utils
 
       - name: Build and audit R10 portal package
         working-directory: publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems
         run: |
+          set -o pipefail
           python3 TAES_BUILD_IEEETRAN_R10.py | tee TAES_R10_GITHUB_ACTION_BUILD_OUTPUT.txt
 
       - name: Verify exact archive membership
