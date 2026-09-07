@@ -35,6 +35,7 @@ TEX="$DIR/TAES_10P_R3_SUPPLEMENTARY_MATERIAL_R9_DEV.tex"
 LOG="$DIR/TAES_10P_R3_SUPPLEMENTARY_MATERIAL_R9_DEV.log"
 AUDIT="$DIR/TAES_10P_R3_SUPPLEMENTARY_R9_BUILD_AUDIT.txt"
 PATCH_AUDIT="$DIR/TAES_10P_R3_SUPPLEMENTARY_R9_CROSSREF_FIX_AUDIT.txt"
+SCIENCE_AUDIT="$DIR/TAES_10P_R3_SHORT_TRACK_SCIENCE_PRESERVATION_R1_AUDIT.txt"
 SOURCE="$DIR/TAES_10P_R3_SUPPLEMENTARY_MATERIAL.md"
 README="$DIR/TAES_10P_R3_SUPPLEMENTARY_README.txt"
 MAIN="$DIR/TAES_10P_R3_MANUSCRIPT_IEEETRAN_R8_DEV.pdf"
@@ -68,7 +69,7 @@ pdffonts "$PDF"
 echo "=== SHA256 ==="
 shasum -a 256 "$SOURCE" "$README" "$FIG" "$MAIN" "$R9" "$TEX" "$PDF" "$LOG" "$AUDIT" "$PATCH_AUDIT"
 
-echo "=== FINAL GATE ASSERTIONS ==="
+echo "=== BUILD GATE ASSERTIONS ==="
 grep -Fx 'TAES_10P_R3_SUPPLEMENTARY_BUILD=PASS_COMPILED_DEVELOPMENT_ONLY' "$AUDIT"
 grep -Fx 'supplement_build_revision=9' "$AUDIT"
 grep -Fx 'table_cross_reference_gate=PASS_S1_S2_S3_NO_LEGACY_II_III_IV' "$AUDIT"
@@ -81,7 +82,29 @@ grep -Fx 'experimental_results_changed=NO' "$AUDIT"
 grep -Fx 'science_files_changed=NONE' "$AUDIT"
 grep -Fx 'study_rerun=NO' "$AUDIT"
 
+echo "=== READ-ONLY SCIENCE-PRESERVATION AUDIT ==="
+python3 "$DIR/TAES_AUDIT_SHORT_TRACK_SCIENCE_PRESERVATION_R1.py"
+
+if [[ ! -f "$SCIENCE_AUDIT" ]]; then
+  echo "ERROR: science-preservation audit file missing"
+  exit 1
+fi
+
+grep -Fx 'TAES_SHORT_TRACK_SCIENCE_PRESERVATION=PASS' "$SCIENCE_AUDIT"
+grep -Fx 'study3_population_and_key_results=PASS_PRESERVED' "$SCIENCE_AUDIT"
+grep -Fx 'study4_complete_18_rule_map=PASS_PRESERVED_IN_SUPPLEMENT' "$SCIENCE_AUDIT"
+grep -Fx 'study6_complete_gate_frontier=PASS_PRESERVED' "$SCIENCE_AUDIT"
+grep -Fx 'tracked_changes_outside_paper2_taes_directory=NONE' "$SCIENCE_AUDIT"
+grep -Fx 'experimental_results_changed=NO' "$SCIENCE_AUDIT"
+grep -Fx 'frozen_study_sources_changed=NO' "$SCIENCE_AUDIT"
+grep -Fx 'study_rerun=NO' "$SCIENCE_AUDIT"
+grep -Fx 'pooled_population_introduced=NO' "$SCIENCE_AUDIT"
+
+echo "=== SCIENCE-PRESERVATION AUDIT ==="
+cat "$SCIENCE_AUDIT"
+
 echo "TAES_SUPPLEMENT_R9_CORRECTED_FINAL_GATE=PASS"
 echo "corrected_supplement_pdf=$PDF"
 echo "corrected_supplement_pdf_sha256=$(shasum -a 256 "$PDF" | awk '{print $1}')"
 echo "corrected_supplement_source_sha256=$(shasum -a 256 "$SOURCE" | awk '{print $1}')"
+echo "science_preservation_audit_sha256=$(shasum -a 256 "$SCIENCE_AUDIT" | awk '{print $1}')"
