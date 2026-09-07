@@ -5,7 +5,7 @@
   "manuscript_type": "Regular Paper",
   "technical_area": "Aerospace Information Systems",
   "branch": "paper2/taes-10-page-compression",
-  "status": "FROZEN_SHORT_TRACK_PACKAGE__PORTAL_ACTION_PENDING",
+  "status": "SUPERSEDED_UNSUBMITTED__R10_INITIAL_SUBMISSION_COMPLETED_2026-09-07",
   "freeze_date": "2026-09-07",
   "short_track_main": {
     "file": "TAES_10P_R3_MANUSCRIPT_IEEETRAN_R8_DEV.pdf",
@@ -65,15 +65,23 @@
   "portal": {
     "submission_completed": false,
     "manuscript_id": null,
-    "live_field_capture_required": true,
-    "portal_generated_proof_qa_required": true,
-    "submit_action_authorized_only_after_proof_qa": true
+    "live_field_capture_required": false,
+    "portal_generated_proof_qa_required": false,
+    "submit_action_authorized_only_after_proof_qa": false
   },
   "freeze_records": {
     "supplement_visual_regression_commit": "db6b103f977958e8f1f06d1c183a2f92833a7d6e",
     "superseding_supplement_decision_commit": "56ffb14a25557834ed3de8043f70fb52fb2d29b1",
     "short_track_package_freeze_commit": "1a80c99bdfc2be38c7c1004d7669b12607719a5b"
   },
-  "next_state": "ADOPT_SHORT_TRACK_AND_PERFORM_LIVE_PORTAL_FIELD_AND_PROOF_QA",
-  "content_changes_allowed": false
+  "next_state": "HISTORICAL_ONLY__NO_PORTAL_ACTION",
+  "content_changes_allowed": false,
+  "disposition": {
+    "date": "2026-09-07",
+    "record": "TAES_10P_SHORT_TRACK_DISPOSITION_2026-09-07.md",
+    "submitted": false,
+    "superseded_by_submission_revision": "R10",
+    "superseded_by_submission_uuid": "cd1dfa89-4a24-4451-bdd4-af31ce3367f4",
+    "historical_only": true
+  }
 }
