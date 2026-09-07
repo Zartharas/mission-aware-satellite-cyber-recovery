@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "journal": "IEEE Transactions on Aerospace and Electronic Systems",
+  "manuscript_type": "Regular Paper",
+  "primary_technical_area": "Aerospace Information Systems",
+  "freeze_date": "2026-09-07",
+  "status": "R10_LIVE_PORTAL_UPLOAD_SET_FROZEN__FINAL_SUBMIT_PENDING_PORTAL_PROOF_QA",
+  "author": {
+    "name": "Aman Kumar Singh",
+    "sole_author": true,
+    "corresponding_author": true,
+    "affiliation": "Independent Researcher"
+  },
+  "main_manuscript": {
+    "portal_filename": "TAES_MAIN_MANUSCRIPT_LATEX_R10.zip",
+    "role": "Main Manuscript",
+    "format": "LaTeX archive",
+    "sha256": "51bf43443fabd77205679fe463ad75117e7444bdbb76e466be162400077cfb95",
+    "archive_members_exact": [
+      "TAES_MANUSCRIPT.tex",
+      "TAES_FIGURE1_RESIDUAL_BOUNDARIES.pdf"
+    ],
+    "qa_pdf": {
+      "filename": "TAES_MANUSCRIPT_R10.pdf",
+      "sha256": "51d0526e13c552f1c1bd80227dc69814d012e8db87bb41ab730f0bc3bc49c1d7",
+      "pages": 16,
+      "visual_qa": "PASS_ALL_16_PAGES",
+      "font_embedding": "PASS_13_OF_13",
+      "overfull_hbox_count": 0,
+      "latex_warning_count": 0
+    },
+    "authorized_difference_from_r9": "ONE_CONFLICT_OF_INTEREST_SECTION_ONLY",
+    "r9_equivalence_after_removing_coi": "PASS_BYTE_FOR_BYTE"
+  },
+  "conflict_of_interest": {
+    "author_confirmation": "NONE_TO_DISCLOSE_2026-09-07",
+    "manuscript_statement": "The author declares no conflict of interest.",
+    "portal_checkbox": "None of the authors have a conflict of interest to disclose",
+    "separate_coi_file_upload": false
+  },
+  "cover_letter": {
+    "portal_filename": "TAES_COVER_LETTER.pdf",
+    "role": "Cover letter / Comments",
+    "sha256": "cae09cae347dde3df7d0d85acc465381634b1658d620e769e0f43f0820ac111d",
+    "pages": 1,
+    "visual_qa": "PASS"
+  },
+  "not_uploaded_at_initial_submission": {
+    "tracked_changes": true,
+    "supplementary_material_for_review": true,
+    "previously_rejected_files": true,
+    "separate_image": true,
+    "previously_published_statement": true,
+    "previously_published_files": true,
+    "latex_supplementary_file": true,
+    "paper1_jais_manuscript": true
+  },
+  "supplementary_material": {
+    "decision": "NO_SEPARATE_SUPPLEMENTARY_UPLOAD_FOR_INITIAL_REVIEW",
+    "files": []
+  },
+  "controls": {
+    "science_changed": false,
+    "canonical_markdown_changed": false,
+    "study_rerun": false,
+    "statistical_reanalysis": false,
+    "authorship_changed": false,
+    "final_submit_requires_portal_generated_proof_qa": true
+  }
+}
