@@ -20,11 +20,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install document toolchain
+      - name: Install LaTeX and PDF toolchain
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            pandoc \
+            ca-certificates \
+            curl \
             latexmk \
             texlive-latex-base \
             texlive-latex-recommended \
@@ -32,6 +33,28 @@ jobs:
             texlive-fonts-recommended \
             texlive-publishers \
             poppler-utils
+
+      - name: Install exact approved Pandoc 3.11
+        run: |
+          set -euo pipefail
+          curl -fL \
+            https://github.com/jgm/pandoc/releases/download/3.11/pandoc-3.11-1-amd64.deb \
+            -o /tmp/pandoc-3.11-1-amd64.deb
+          echo "89d4c9d97818c62a97157f0072844e4602c6cee795bf84abd1aee7273abcda99  /tmp/pandoc-3.11-1-amd64.deb" \
+            | sha256sum -c -
+          sudo dpkg -i /tmp/pandoc-3.11-1-amd64.deb
+          test "$(pandoc --version | head -n 1)" = "pandoc 3.11"
+          echo "pandoc_version=$(pandoc --version | head -n 1)"
+
+      - name: Verify required TeX dependencies
+        run: |
+          set -euo pipefail
+          test -n "$(kpsewhich IEEEtran.cls)"
+          test -n "$(kpsewhich pcrr7t.tfm)"
+          echo "IEEEtran_cls=$(kpsewhich IEEEtran.cls)"
+          echo "courier_metric=$(kpsewhich pcrr7t.tfm)"
+          pdflatex --version | head -n 1
+          latexmk -v | head -n 1
 
       - name: Build and audit R10 portal package
         working-directory: publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems
