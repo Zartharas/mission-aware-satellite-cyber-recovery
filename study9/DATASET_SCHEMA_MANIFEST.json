@@ -1,7 +1,7 @@
 {
-  "schema": 1,
+  "schema": 2,
   "study_id": "S9-RTSI-001",
-  "status": "CANDIDATE_MANIFEST_NO_SCHEMA_LOCK",
+  "status": "SOURCE_VERIFICATION_RECORDED_POPULATION_NOT_YET_FROZEN",
   "verification_date": "2026-09-13",
   "rules": {
     "study5_manifest_reuse_as_study9_evidence": false,
@@ -9,74 +9,196 @@
     "field_level_schema_required_before_mapping": true,
     "source_artifact_hash_required_before_row_analysis": true,
     "attack_labels_count_as_operational_recovery_state": false,
-    "missing_fields_may_be_imputed": false
+    "missing_fields_may_be_imputed": false,
+    "repository_license_may_be_assumed_to_cover_separately_hosted_dataset": false,
+    "source_reported_hash_may_be_treated_as_study9_byte_verification": false
   },
   "datasets": [
     {
       "dataset_id": "CUCD_ID_V3",
-      "candidate_status": "CANDIDATE_PRELIMINARY_PASS_ARTIFACT_REVERIFY_REQUIRED",
+      "candidate_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION",
       "dataset_title": "CubeSat Cybersecurity Dataset for Intrusion Detection (CuCD-ID): Labelled NOS3/cFS Telemetry (raw + augmented) with COSMOS Reproduction Scripts",
       "dataset_doi": "10.17632/7n2d42pm3n.3",
+      "dataset_version": 3,
+      "dataset_published_date": "2026-02-10",
       "primary_article_doi": "10.1016/j.dib.2026.112598",
       "primary_article_year": 2026,
       "source_environment": "NOS3/cFS software-in-the-loop with OpenC3 COSMOS v4 scenario generation",
+      "source_environment_class": "software_in_the_loop",
       "published_characteristics": {
         "raw_rows": 25000,
         "raw_columns": 31,
         "augmented_rows": 22465,
         "augmented_columns": 23,
         "scenario_count": 5,
-        "data_role": "intrusion-detection-oriented command and telemetry records"
+        "data_role": "intrusion-detection-oriented command and telemetry records",
+        "all_telemetry_simulated": true
       },
       "dataset_license_reported_by_dataset_host": "CC BY 4.0",
-      "source_artifact_files": [],
-      "source_artifact_sha256": {},
+      "dataset_access_status": "PUBLIC_HOST_VERIFIED",
+      "schema_evidence_status": "PRIMARY_ARTICLE_FIELD_LEVEL_SCHEMA_VERIFIED",
+      "source_artifact_files": [
+        {
+          "path": "Data/Raw/consolidated_dataset_raw.csv",
+          "rows": 25000,
+          "columns": 31,
+          "published_sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
+          "study9_byte_hash_verified": false
+        },
+        {
+          "path": "Data/Augmented/noised_dataset.csv",
+          "rows": 22465,
+          "columns": 23,
+          "published_sha256": "656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68",
+          "study9_byte_hash_verified": false
+        },
+        {
+          "path": "Data/Metadata/label_schema.json",
+          "role": "published integer-to-class label mapping",
+          "study9_byte_hash_verified": false
+        }
+      ],
+      "published_field_evidence": {
+        "families": [
+          "CCSDS header metadata",
+          "circular time",
+          "20-second sliding-window traffic statistics",
+          "error counters",
+          "system/process memory metrics",
+          "class label"
+        ],
+        "augmented_removed_invariant_fields": [
+          "HeaderVersion",
+          "MsgType",
+          "HasSecondaryHeader",
+          "SegmentationFlag",
+          "SequenceCount",
+          "CommandErrorCounter",
+          "IngestErrors",
+          "MemoryPageFaults"
+        ],
+        "label_field": "Label",
+        "label_mapping": {
+          "0": "Command Flooding",
+          "1": "Data Injection",
+          "2": "Defence Impairment",
+          "3": "Normal",
+          "4": "Storage Exhaustion"
+        }
+      },
       "field_schema": [],
       "schema_locked": false,
       "artifact_locked": false,
-      "notes": "Study 9 must independently refetch and rehash the selected v3 artifacts. Existing frozen Study 5 hashes and mappings are historical context only and are not imported as new evidence."
+      "population_inclusion_locked": false,
+      "remaining_pre_analysis_gates": [
+        "independently fetch selected v3 artifacts",
+        "recompute artifact SHA-256 values and compare with published values",
+        "freeze exact machine-readable field schema used by Study 9",
+        "freeze final primary dataset population before row-level endpoint computation"
+      ],
+      "notes": "CuCD-ID v3 passes the source-selection gate. Published hashes are recorded as source evidence only and are not represented as Study 9 byte-level recomputation. Frozen Study 5 evidence is not imported."
     },
     {
       "dataset_id": "AEGISSAT_2025",
-      "candidate_status": "CANDIDATE_PENDING_DIRECT_ARTIFACT_VERIFICATION",
+      "candidate_status": "HOLD_PENDING_DIRECT_ZENODO_ARTIFACT_LICENSE_SCHEMA_VERIFICATION",
       "dataset_title": "AegisSat: Telemetry dataset of a physical CubeSat environment with labeled attacks",
       "dataset_doi": "10.5281/zenodo.14960983",
       "primary_article_title": "AegisSat: A Satellite Cybersecurity Testbed",
       "primary_publication": "NDSS SpaceSec 2025",
       "primary_article_year": 2025,
       "source_environment": "physical Earth-based CubeSat with environment emulator and controlled cyberattack experiments",
+      "source_environment_class": "physical_cubesat_plus_environment_emulator",
       "published_characteristics": {
         "experiment_scale": "hundreds of experiments reported by the primary paper",
-        "data_role": "telemetry and labelled attack data"
+        "telemetry_cadence": "1 Hz reported by the primary paper",
+        "data_role": "satellite telemetry, ground-issued commands, and labelled attack information",
+        "representative_feature_families": [
+          "thermal control",
+          "payload state",
+          "CPU and RAM usage",
+          "EPS measurements",
+          "OBC state",
+          "processor measurements"
+        ]
       },
       "dataset_license_reported_by_direct_host": null,
+      "dataset_access_status": "DIRECT_DEPOSITED_ARTIFACT_NOT_RESOLVED",
+      "schema_evidence_status": "PRIMARY_PAPER_PARTIAL_SCHEMA_ONLY",
       "source_artifact_files": [],
       "source_artifact_sha256": {},
       "field_schema": [],
       "schema_locked": false,
       "artifact_locked": false,
-      "notes": "The DOI and publication establish a candidate identity, but direct Zenodo artifact, license, version, file inventory, and schema verification are still required before inclusion."
+      "population_inclusion_locked": false,
+      "independence_assessment": "Scientifically distinct physical/emulation provenance; no evidence identified in the verification phase that it is derived from CuCD-ID or UNSW-IoTSAT.",
+      "remaining_pre_inclusion_gates": [
+        "resolve the exact Zenodo record and immutable version identity directly",
+        "verify dataset license from the deposited record",
+        "enumerate deposited files",
+        "record file sizes and hashes or equivalent immutable file identities",
+        "enumerate the complete released field schema and experiment identifiers"
+      ],
+      "notes": "Retained as a high-value candidate under governance hold. The hold is not a scientific rejection."
     },
     {
       "dataset_id": "UNSW_IOTSAT_2026",
-      "candidate_status": "CANDIDATE_PRELIMINARY_PASS_REPOSITORY_BINDING_REQUIRED",
+      "candidate_status": "HOLD_PENDING_PUBLIC_DATASET_ARTIFACT_AND_DATASET_LICENSE_VERIFICATION",
       "dataset_title": "UNSW-IoTSAT: A hybrid testbed-derived dataset for enabling cybersecurity research in the smart satellite domain",
       "primary_article_doi": "10.1016/j.csa.2026.100133",
       "primary_article_year": 2026,
       "source_repository": "https://github.com/Osama-Abdelhameed/UNSW-IoTSAT",
+      "source_repository_commit": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
+      "source_repository_license": "MIT",
       "source_environment": "hybrid cyber-physical smart-satellite testbed with CCSDS-oriented communications, IoT sensor data, RF-layer impairments, and controlled cyberattacks",
+      "source_environment_class": "hybrid_cyber_physical_testbed",
       "published_characteristics": {
-        "record_count_description": "over 404000 labelled records",
+        "records": 404798,
+        "main_release_features": 109,
+        "ccsds_companion_features": 3,
+        "documented_total_features": 112,
+        "origin_counts": {
+          "MEASURED": 13,
+          "SIMULATED": 9,
+          "COMPUTED": 82,
+          "LABEL": 8
+        },
         "data_role": "normal and attack telemetry/security records"
       },
-      "source_repository_commit": null,
       "dataset_license_reported_by_direct_host": null,
+      "dataset_access_status": "PUBLIC_REPOSITORY_PRESENT_SEPARATE_DATASET_LINK_REQUIRED_MICROSOFT_UNSW_SIGN_IN_DURING_VERIFICATION",
+      "schema_evidence_status": "PUBLIC_REPOSITORY_FEATURE_DOCUMENTATION_VERIFIED",
       "source_artifact_files": [],
       "source_artifact_sha256": {},
       "field_schema": [],
       "schema_locked": false,
       "artifact_locked": false,
-      "notes": "The primary article states that the dataset and generation code are publicly available. Study 9 must bind a specific repository commit or release and verify licenses, files, hashes, and field schema before inclusion."
+      "population_inclusion_locked": false,
+      "repository_schema_provenance": {
+        "feature_documentation_commit_bound": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
+        "origin_classes": [
+          "MEASURED",
+          "SIMULATED",
+          "COMPUTED",
+          "LABEL"
+        ],
+        "attack_label_fields_documented": [
+          "Attack_Flag",
+          "Attack_Type",
+          "Attack_Subtype",
+          "Attack_Severity",
+          "Attack_Duration",
+          "Attack_Source_Type",
+          "Detection_Confidence"
+        ]
+      },
+      "independence_assessment": "Independently developed UNSW hybrid cyber-physical testbed; no evidence identified in the verification phase that it is derived from CuCD-ID or AegisSat.",
+      "remaining_pre_inclusion_gates": [
+        "resolve reproducibly public access to the released dataset artifact",
+        "verify dataset-specific license or rights statement independently of the repository MIT license",
+        "bind immutable dataset version and file identities",
+        "record released file inventory and hashes"
+      ],
+      "notes": "Repository code and documentation are MIT licensed. Study 9 does not assume that the MIT license covers separately hosted dataset bytes. Strong schema documentation alone does not clear the artifact-access and dataset-license gates."
     }
   ]
 }
