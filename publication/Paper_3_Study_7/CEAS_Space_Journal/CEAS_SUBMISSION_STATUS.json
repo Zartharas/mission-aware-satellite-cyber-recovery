@@ -1,0 +1,19 @@
+{
+  "publication_id": "PAPER_3",
+  "study": "S7-LSO-001",
+  "journal": "CEAS Space Journal",
+  "title": "Observability Limits of Learned Satellite Cyber-Recovery Decisions Under Compromised Evidence",
+  "article_type": "Research",
+  "topic": "Artificial Intelligence in Space",
+  "peer_review": "Single anonymous",
+  "submission_id": "6db04a31-8223-4aaf-af02-e4bafe06ef89",
+  "submission_version": "v.1.0",
+  "submission_date": "2026-09-13",
+  "current_status": "SUBMITTED__TECHNICAL_CHECK",
+  "frozen": true,
+  "canonical_submission_record": "publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md",
+  "portal_package": "publication/Paper_3_Study_7/CEAS_Space_Journal/PORTAL_UPLOAD_PACKAGE/",
+  "zenodo_version_doi": "10.5281/zenodo.22732060",
+  "zenodo_concept_doi": "10.5281/zenodo.22732059",
+  "next_action": "Wait for CEAS technical-check/editorial action; revise only if requested"
+}
