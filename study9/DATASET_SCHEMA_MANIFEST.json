@@ -100,12 +100,15 @@
     },
     {
       "dataset_id": "AEGISSAT_2025",
-      "candidate_status": "HOLD_PENDING_DIRECT_ZENODO_ARTIFACT_LICENSE_SCHEMA_VERIFICATION",
+      "candidate_status": "PROVISIONAL_SELECTION_PASS_PENDING_ZENODO_FILE_MANIFEST_AND_LICENSE_VERIFICATION",
       "dataset_title": "AegisSat: Telemetry dataset of a physical CubeSat environment with labeled attacks",
       "dataset_doi": "10.5281/zenodo.14960983",
       "primary_article_title": "AegisSat: A Satellite Cybersecurity Testbed",
       "primary_publication": "NDSS SpaceSec 2025",
       "primary_article_year": 2025,
+      "source_repository": "https://github.com/texydo/satellite_security_testbed",
+      "source_repository_commit": "24c00de5ee729b91805724cbf82068562e7a4b6d",
+      "source_repository_license": "MIT",
       "source_environment": "physical Earth-based CubeSat with environment emulator and controlled cyberattack experiments",
       "source_environment_class": "physical_cubesat_plus_environment_emulator",
       "published_characteristics": {
@@ -122,23 +125,61 @@
         ]
       },
       "dataset_license_reported_by_direct_host": null,
-      "dataset_access_status": "DIRECT_DEPOSITED_ARTIFACT_NOT_RESOLVED",
-      "schema_evidence_status": "PRIMARY_PAPER_PARTIAL_SCHEMA_ONLY",
+      "dataset_access_status": "ZENODO_DOI_AND_REPOSITORY_BOUND_DIRECT_ZENODO_FILE_MANIFEST_RATE_LIMITED_DURING_VERIFICATION",
+      "schema_evidence_status": "PRIMARY_PAPER_PLUS_IMPLEMENTATION_DERIVED_PERSISTENCE_INTERFACE_VERIFIED_DEPOSITED_SCHEMA_NOT_YET_LOCKED",
       "source_artifact_files": [],
       "source_artifact_sha256": {},
+      "repository_persistence_interface": {
+        "implementation_path": "src/Manager/utils/ManagerClass.py",
+        "implementation_commit": "24c00de5ee729b91805724cbf82068562e7a4b6d",
+        "mongo_document_fields": [
+          "run_id",
+          "TLE File Name",
+          "TLE",
+          "Epoch_Time",
+          "UTC_time",
+          "cosmos_data",
+          "command",
+          "pi_metrics",
+          "satState",
+          "attacks"
+        ],
+        "optional_fields": [
+          "cosmos_data",
+          "command",
+          "pi_metrics",
+          "attacks"
+        ],
+        "cosmos_data_structure": "packet-keyed dictionaries produced by formatCosmosData from packet attribute tuples",
+        "representative_graph_telemetry_fields": [
+          "EPS_BATTERY_TOTAL_VOLTAGE",
+          "EPS_BATTERY_CURRENT",
+          "EPS_SOLAR_PANEL_1_TEMPERATURE",
+          "EPS_SOLAR_PANEL_2_TEMPERATURE",
+          "EPS_SOLAR_PANEL_1_OUTPUT_CURRENT",
+          "EPS_SOLAR_PANEL_2_OUTPUT_CURRENT",
+          "EPS_SOLAR_PANEL_1_VOLTAGE",
+          "EPS_SOLAR_PANEL_2_VOLTAGE",
+          "OBC_PROCESSOR_TEMPERATURE",
+          "OBC_PROCESSOR_VOLTAGE",
+          "TPL_CURRENT_TEMPERATURE",
+          "RECEIVED_COUNT"
+        ],
+        "evidence_boundary": "Implementation-derived generating/persistence schema evidence only. It is not treated as proof that the exact Zenodo deposit contains every field or uses an identical serialized schema."
+      },
       "field_schema": [],
       "schema_locked": false,
       "artifact_locked": false,
       "population_inclusion_locked": false,
       "independence_assessment": "Scientifically distinct physical/emulation provenance; no evidence identified in the verification phase that it is derived from CuCD-ID or UNSW-IoTSAT.",
       "remaining_pre_inclusion_gates": [
-        "resolve the exact Zenodo record and immutable version identity directly",
-        "verify dataset license from the deposited record",
-        "enumerate deposited files",
-        "record file sizes and hashes or equivalent immutable file identities",
-        "enumerate the complete released field schema and experiment identifiers"
+        "verify the exact Zenodo deposited-file manifest",
+        "verify dataset license from the Zenodo deposited record rather than inferring it from the repository MIT license",
+        "record deposited file sizes and checksums or equivalent immutable file identities",
+        "bind the exact deposited dataset version used by Study 9",
+        "reconcile the deposited dataset field schema with the implementation-derived persistence interface before semantic mapping"
       ],
-      "notes": "Retained as a high-value candidate under governance hold. The hold is not a scientific rejection."
+      "notes": "AegisSat receives a provisional selection pass because the research identity, correct public repository, exact repository commit, Zenodo DOI chain, software license, and implementation-derived persistence interface are now bound. Direct Zenodo record retrieval returned HTTP 429 during verification, so deposited file inventory, dataset license, file identities/checksums, and exact deposited schema remain pending and are not inferred."
     },
     {
       "dataset_id": "UNSW_IOTSAT_2026",
