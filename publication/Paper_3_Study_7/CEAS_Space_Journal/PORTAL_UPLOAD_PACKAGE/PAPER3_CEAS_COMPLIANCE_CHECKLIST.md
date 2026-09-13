@@ -1,7 +1,7 @@
 # Paper 3 - CEAS Space Journal Final Compliance Checklist
 
-**Status:** `PRE_SUBMISSION_QA__AI_GATE_CLOSED__ARCHIVE_DOI_AND_FINAL_SUBMIT_GATES_OPEN`  
-**Open gates:** publish the prepared durable Study-7 archive and record its persistent identifier/DOI; final author authorization to click Submit.
+**Status:** `PRE_SUBMISSION_QA__ARCHIVE_DOI_INTEGRATED__FINAL_PORTAL_AND_SUBMIT_GATES_OPEN`
+**Open gates:** live CEAS portal QA/proof review; final author authorization to click Submit.
 
 ## Journal and article type
 - [x] Target is CEAS Space Journal.
@@ -54,8 +54,8 @@
 - [x] Accepted workflow run and execution commit identified.
 - [x] Frozen SHA-256 identities recorded in repository.
 - [x] Durable archive package created from the exact accepted Study-7 GitHub Actions artifact; original artifact SHA-256 `26b522d2692516aa1b4ae62d032a9a909dbaccd7ef1a74104080c39bdf3a091b` reverified.
-- [ ] **OPEN:** publish that prepared archive in a durable repository and obtain the persistent identifier/DOI.
-- [ ] After DOI is available, update Data Availability and dataset citation if applicable, regenerate DOCX/PDF, rerun render QA, and regenerate final hashes.
+- [x] Durable archive published on Zenodo as version 1.0.0; version DOI `10.5281/zenodo.22732060`; concept DOI `10.5281/zenodo.22732059`.
+- [x] Data Availability and dataset citation updated with the Zenodo DOI; final DOCX/PDF regenerated, re-rendered, and re-hashed.
 
 ## Cover letter
 - [x] Cover letter identifies manuscript as Original Research Article.

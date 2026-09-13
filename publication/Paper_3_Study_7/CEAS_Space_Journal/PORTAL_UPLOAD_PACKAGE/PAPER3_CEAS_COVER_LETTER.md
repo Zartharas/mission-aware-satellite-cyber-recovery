@@ -1,8 +1,8 @@
 # CEAS Space Journal Cover Letter - Paper 3
 
-**Date:** September 12, 2026  
-**Editor:** Professor Franco Bernelli, Editor-in-Chief  
-**Article type:** Original Research Article / Original Paper  
+**Date:** September 12, 2026
+**Editor:** Professor Franco Bernelli, Editor-in-Chief
+**Article type:** Original Research Article / Original Paper
 
 Dear Professor Bernelli and Editors,
 
@@ -25,13 +25,13 @@ The present manuscript is original, has not been published previously, and is no
 
 OpenAI ChatGPT, accessed through the ChatGPT web interface, was used during Study 7 development and manuscript preparation as an interactive research, coding, verification, and writing assistant. Before the results freeze, it assisted with protocol refinement, code and test drafting, repository and audit documentation, and verification-oriented review; after the freeze, it assisted with manuscript structuring and drafting, literature-source verification, compliance checking, and language refinement. The author made and approved all research decisions, controlled the repository and experimental execution, reviewed and accepted AI-assisted code and text, verified the frozen outputs and numerical claims, and remains solely accountable for the manuscript. This use is disclosed in Methods Section 3.5.
 
-The manuscript includes the required Statements and Declarations, including funding, competing interests, author contributions, ethics/consent, data availability, and code availability. The public repository contains the protocol, implementation, frozen result records, and separately implemented audit materials.
+The manuscript includes the required Statements and Declarations, including funding, competing interests, author contributions, ethics/consent, data availability, and code availability. The public repository contains the protocol, implementation, frozen result records, and separately implemented audit materials. The exact accepted Study-7 evidence is permanently archived on Zenodo at https://doi.org/10.5281/zenodo.22732060 (concept DOI https://doi.org/10.5281/zenodo.22732059).
 
 Thank you for considering this work for *CEAS Space Journal*. I believe its focus on the assurance boundary of learned cyber-recovery decisions will be relevant to readers working on spacecraft autonomy, cybersecurity, fault management, dependable AI, and mission assurance.
 
-Sincerely,  
-**Aman Kumar Singh, M.S., D.Sc.**  
-Independent Researcher  
-The Woodlands, Texas, United States  
-ORCID: 0009-0008-9752-3743  
+Sincerely,
+**Aman Kumar Singh, M.S., D.Sc.**
+Independent Researcher
+The Woodlands, Texas, United States
+ORCID: 0009-0008-9752-3743
 Email: asingh65430@ucumberlands.edu

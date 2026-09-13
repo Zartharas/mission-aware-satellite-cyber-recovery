@@ -1,9 +1,9 @@
 # Paper 3 CEAS Manuscript QA Record
 
-**Target journal:** CEAS Space Journal  
-**Article type:** Original Research Article  
-**Manuscript:** Observability Limits of Learned Satellite Cyber-Recovery Decisions Under Compromised Evidence  
-**QA status:** `PASS__CEAS_R3_AI_PROVENANCE_RESOLVED__RENDERED_AND_VERIFIED`
+**Target journal:** CEAS Space Journal
+**Article type:** Original Research Article
+**Manuscript:** Observability Limits of Learned Satellite Cyber-Recovery Decisions Under Compromised Evidence
+**QA status:** `PASS__CEAS_FINAL_DOI_INTEGRATED__RENDERED_ACCESSIBILITY_AUDITED__FINAL_HASHES_RECORDED`
 
 ## Scientific and novelty controls
 
@@ -45,8 +45,27 @@
 - Manuscript DOCX accessibility audit: 0 high, 0 medium, 0 low findings.
 - Cover-letter DOCX accessibility audit: 0 high, 0 medium, 0 low findings.
 
+## Durable archive integration
+
+- Zenodo version 1.0.0 publication confirmed by the author on 2026-09-12 local time / 2026-09-13 Zenodo publication date.
+- Version DOI: `10.5281/zenodo.22732060`.
+- Concept DOI: `10.5281/zenodo.22732059`.
+- Manuscript Data Availability statement updated to cite the permanent dataset as reference [9].
+- Cover letter and portal values updated with the permanent archive identifiers.
+
+## Final DOI and render verification
+
+- Zenodo version DOI `10.5281/zenodo.22732060` and concept DOI `10.5281/zenodo.22732059` are integrated into the manuscript, cover letter, portal values, and provenance record.
+- Final manuscript DOCX rendered successfully to 7 pages after DOI integration; all 7 pages were visually inspected with no clipping, overlap, broken tables, missing glyphs, or pagination defects.
+- Final manuscript PDF independently rendered successfully to 7 pages.
+- Final cover-letter DOCX rendered successfully to 2 pages after DOI integration; both pages were visually inspected with no layout defects.
+- Final cover-letter PDF independently rendered successfully to 2 pages.
+- Final manuscript DOCX accessibility audit: 0 high, 0 medium, 0 low findings.
+- Final cover-letter DOCX accessibility audit: 0 high, 0 medium, 0 low findings.
+
 ## Remaining pre-submission controls
 
-- Create durable archival deposit for the exact accepted Study-7 evidence bytes and obtain a persistent identifier/DOI.
-- After the archival identifier is available, update Data Availability / dataset citation if appropriate, regenerate manuscript binaries, re-run visual QA, and regenerate final hashes.
+- Complete live CEAS portal field-by-field QA.
+- Perform the final personal conflict check for any reviewer suggestions actually entered.
+- Inspect the publisher-generated proof if the portal produces one.
 - Publisher submission remains subject to explicit author authorization.
