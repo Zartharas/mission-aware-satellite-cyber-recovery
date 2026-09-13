@@ -6,6 +6,18 @@
 **Article type:** Original Research Article  
 **Package status:** `ASSEMBLY_IN_PROGRESS__NOT_YET_SUBMISSION_READY`  
 
+## Local publication root
+
+Use the following exact local repository publication directory for all Paper-3 CEAS submission work:
+
+`/Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/publication`
+
+The CEAS portal-upload package therefore resolves locally to:
+
+`/Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery/publication/Paper_3_Study_7/CEAS_Space_Journal/PORTAL_UPLOAD_PACKAGE`
+
+All shell commands, generated manuscript artifacts, compliance checks, hashes, and upload instructions for this submission should use that publication root unless the author explicitly changes the local repository location.
+
 ## Purpose
 
 This directory is the single staging location for the final files and portal-ready values used for the CEAS Space Journal submission of Paper 3.
