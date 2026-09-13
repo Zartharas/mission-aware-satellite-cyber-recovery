@@ -6,11 +6,12 @@
 
 [![Study 1 Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22181540.svg)](https://doi.org/10.5281/zenodo.22181540)
 [![Study 2 Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22289114.svg)](https://doi.org/10.5281/zenodo.22289114)
+[![Study 7 Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22732060.svg)](https://doi.org/10.5281/zenodo.22732060)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--9752--3743-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0008-9752-3743)
 [![Research data](https://img.shields.io/badge/data-CC%20BY%204.0-blue)](LICENSE)
 [![Code](https://img.shields.io/badge/code-MIT-green)](LICENSE)
 
-[Current publication state](docs/CURRENT_PUBLICATION_STATE.md) · [Publication phase map](docs/PUBLICATION_PHASE_MAP.md) · [Publication packages](publication/README.md) · [Study 2](study2/README.md) · [Study 8](study8/README.md) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
+[Current publication state](docs/CURRENT_PUBLICATION_STATE.md) · [Publication phase map](docs/PUBLICATION_PHASE_MAP.md) · [Publication packages](publication/README.md) · [Reproduce](docs/REPRODUCIBILITY_GUIDE.md) · [Security](SECURITY.md) · [Citation](CITATION.cff)
 
 </div>
 
@@ -20,131 +21,90 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-Two publication lines are now submitted:
+The repository now has **four submitted publication lines**:
 
-| Publication | Studies | Journal | Manuscript ID | Submitted | Current state |
+| Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
-| Paper 1 | Study 1 + Study 2 | AIAA Journal of Aerospace Information Systems | `2026-09-I012066` | 2026-09-05 | Editorial/peer-review workflow pending |
-| Roadmap Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `With Editor` |
+| Paper 1 | Studies 1 + 2 | AIAA Journal of Aerospace Information Systems | `2026-09-I012066` | 2026-09-05 | Editorial/peer-review workflow |
+| Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `With Editor` |
+| Paper 2 | Studies 3 + 4 + 6 | IEEE Transactions on Aerospace and Electronic Systems | `cd1dfa89-4a24-4451-bdd4-af31ce3367f4` | 2026-09-07 | Editorial processing |
+| Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Technical check` |
 
-The next unsent publication-development priority is **Paper 2: Studies 3 + 4 + 6**, starting with frozen-state verification plus a fresh literature, novelty, claim-boundary, and live venue review.
+All four submitted lines are frozen. Do not modify publisher-facing packages or rerun frozen studies unless the corresponding journal requests a technical correction or revision.
 
-Study 7 remains the later Paper-3 line. Study 5 remains a deferred portability/external-validity publication decision.
+## Research and publication boundaries
 
-## Research at a glance
+The program intentionally keeps separately frozen studies and publication populations distinct.
 
-The repository contains **two separately frozen empirical studies** supporting Paper 1 plus a **separate companion study**, Study 8, that is deterministic and modeled. Their statistical populations and evidence identities are not silently pooled.
+- **Study 1:** 720 VALID observations across 24 frozen cells.
+- **Study 2 / S2-AEATR-001:** 3,872 VALID observations across 85 cells.
+- **Study 3 / S3-K4E-001:** 1,380 deterministic trajectories.
+- **Study 4 / S4-MPQ-001:** 4,608 exact rule-by-subset observations.
+- **Study 6 / S6-SCTR-001:** 420 exact observations.
+- **Study 7 / S7-LSO-001:** 1,033 exact modeled observations.
+- **Study 8 / S8-PQC-ICR-001:** 3,456 deterministic modeled positions.
 
-### Study 1
+These populations are not silently pooled across papers.
 
-- frozen design: 24 cells x 30 valid repetitions
-- statistical population: **720 VALID observations**
-- retained invalid attempts: 9 outside statistical membership
-- 696-observation final-commit complete-block analysis: sensitivity only
-- public evidence-of-record: Zenodo v1.0.0
-- version DOI: `10.5281/zenodo.22181540`
-- concept DOI: `10.5281/zenodo.22181539`
+## Submitted publication packages
 
-### Study 2
+### Paper 1 - Studies 1 + 2
 
-- experiment: `S2-AEATR-001`
-- frozen design: 85 cells
-- statistical population: **3,872 VALID observations**
-- invalid attempts: 0
-- primary paired contrasts: 162
-- prespecified secondary contrasts: 432
-- independent reproduction: 0 mismatches
-- version DOI: `10.5281/zenodo.22289114`
-- concept DOI: `10.5281/zenodo.22289113`
-- public Phase-6 ZIP SHA-256: `195860bd44b38ccf170f02cb1cb392583217296d08640c99b18b52286403e133`
-- public-download SHA-256 verification: exact match to the frozen Phase-6 source identity
+`publication/Paper_1_Studies_1_2/Journal_of_Aerospace_Information_Systems/`
 
-Study 1 and Study 2 are reported together in Paper 1 but remain separate empirical populations.
+Manuscript ID: `2026-09-I012066`.
 
-### Study 8
-
-Study 8 (`S8-PQC-ICR-001`) is a separate deterministic finite modeled study of trusted post-compromise cryptographic transition under finite logical contact budgets.
-
-- frozen population: **3,456 modeled positions**
-- same-repository independently written reproduction: **3,456/3,456 exact row matches, 0 mismatches**
-- all four policies: `635/864` trusted-recovery success
-- prespecified primary contrast `P3 - P1`: `0/1 = 0.000000 percentage points`
-- canonical observations SHA-256: `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`
-- primary/independent findings SHA-256: `26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e`
-- interpretation audit SHA-256: `620827f83fb566ff6ceae1b66c8f51f61ef8e5bbdabbb1c4b5a48b5187a82413`
-
-The historical Phase-8.7 technical-close status string was `TECHNICALLY_CLOSED_PUBLICATION_INTEGRATION_NOT_STARTED`. It remains valid as stage-local provenance only. The current Study-8 publisher state is the later Acta submission recorded below.
-
-Frozen source publication package:
-
-`publication/study8/`
-
-Current Acta submitted-state package:
+### Paper 4 - Study 8
 
 `publication/Paper_4_Study_8/Acta_Astronautica/`
 
-Canonical Acta status file:
+Manuscript ID: `AA-D-26-02872`.
 
-`publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
+### Paper 2 - Studies 3 + 4 + 6
 
-The exact submitted package is `S8-ACTA-PKGFREEZE-002` from commit `f5e9a1d4553737e534821bf647463abfd44fa0dd`.
+`publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
+
+Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
+
+### Paper 3 - Study 7
+
+`publication/Paper_3_Study_7/CEAS_Space_Journal/`
+
+Submission ID: `6db04a31-8223-4aaf-af02-e4bafe06ef89`.
+
+Current authority:
+
+- `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`
+- `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md`
+- `publication/Paper_3_Study_7/CEAS_Space_Journal/README_CURRENT.md`
+
+Study-7 durable evidence:
+
+- version DOI: `10.5281/zenodo.22732060`
+- concept DOI: `10.5281/zenodo.22732059`
+
+The historical Paper-3 `Journal_of_Aerospace_Information_Systems/` directory was never submitted and is retained only as superseded venue-development provenance.
+
+## Next publication-development work
+
+Paper 3 is no longer a candidate. Study 7 is consumed by the submitted CEAS paper.
+
+The next publication gate is a **read-only audit of remaining eligible work**, beginning with Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+
+No next venue or manuscript is currently locked. Fresh literature, novelty, overlap, claim-boundary, reproducibility, and live-venue review are required before creating a new publication branch.
 
 ## Scientific interpretation boundaries
 
 The repository intentionally preserves negative, null, conditional, and scope-limited findings.
 
 - Never pool separately frozen study populations without a prospectively authorized analysis.
-- Study-1 P1 remains unsupported on its predeclared primary outcomes.
-- Study-1 C1 timing is modeled contact, not operational ground-contact timing.
-- Study-1 T1 is omission/reduction of selected policy-visible evidence, not stale/contradictory/forged evidence.
-- Study-1 P7 is deterministic rule-based, not AI/ML.
-- Study-2 Block-C BENIGN/ADVERSARIAL contrasts are structural label-invariance controls, not causal benign-versus-adversarial discrimination evidence.
-- Study-2 K4 is intermittent/flapping contact, not ordinal severity 4.
-- Study-2 A2/K2 is a coupled producer-compromise/contact-loss profile.
-- Study 8 is a complete deterministic finite population, not a probabilistic sample.
-- Study-8 `P3 - P1` is exactly zero and supports no policy-success superiority claim.
-- Study-8 logical slots are model indices, not seconds or spacecraft latency.
-- Standardized cryptographic-object bytes are modeled burden, not measured onboard CPU, energy, RF, or flight performance.
-- Same-repository independently written reproduction is reproducibility, not external replication.
+- Logical model time is not operational spacecraft time.
+- Modeled cryptographic-object bytes are not measured onboard CPU, energy, RF, or flight performance.
+- Same-repository separately implemented reproduction is reproducibility, not external empirical replication.
+- Study 4 is not a Byzantine-consensus experiment.
+- Study 6 is an abstract artifact-trust model, not an operational supply-chain attack experiment.
+- Study 7 is an observability/information-sufficiency assurance study, not a global ML-superiority result.
 - No operational spacecraft, RF, flightworthiness, certification, or production-performance claim is supported without new frozen evidence.
-
-## Submitted publication packages
-
-### Paper 1
-
-Canonical package:
-
-`publication/Paper_1_Studies_1_2/Journal_of_Aerospace_Information_Systems/`
-
-Do not modify the submitted Paper-1 manuscript or publisher-facing package unless JAIS explicitly requests a revision.
-
-### Roadmap Paper 4 / Study 8
-
-Canonical current-state package:
-
-`publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`
-
-Acta manuscript ID: `AA-D-26-02872`.
-
-Do not modify the submitted manuscript, figures, or frozen Study-8 science unless Acta explicitly requests a revision.
-
-Historical freeze-002 preparation files in the Acta directory intentionally retain their pre-submission stage wording. Use `README_CURRENT.md` and `ACTA_SUBMISSION_STATUS.json` for the live publisher state.
-
-## Next publication-development work
-
-The operational sequence is maintained in [`docs/PUBLICATION_PHASE_MAP.md`](docs/PUBLICATION_PHASE_MAP.md).
-
-Current next priority:
-
-1. audit the frozen scientific state of Studies 3, 4, and 6 separately;
-2. identify null, negative, conditional, structural-zero, and claim-limiting findings;
-3. perform a fresh literature and novelty review;
-4. perform a claim-boundary audit;
-5. perform a live venue review before selecting a target;
-6. evaluate Study 5 only as a clearly separated portability/external-validity component;
-7. obtain explicit author approval before venue lock or venue-specific package preparation.
-
-No frozen study should be rerun or enlarged merely to improve publication optics.
 
 ## Repository map
 
@@ -152,25 +112,17 @@ No frozen study should be rerun or enlarged merely to improve publication optics
 |---|---|
 | [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) | Canonical current cross-publication handoff |
 | [`docs/PUBLICATION_PHASE_MAP.md`](docs/PUBLICATION_PHASE_MAP.md) | Operational publication sequencing |
-| [`publication/`](publication/README.md) | Submitted packages, frozen publication sources, and publication controls |
-| [`study2/`](study2/README.md) | Study-2 protocol, campaign, freeze, provenance, audit, and public release |
-| [`study8/`](study8/README.md) | Study-8 design, evidence, reproduction, results freeze, and submission pointers |
+| [`publication/`](publication/README.md) | Submitted packages and publication controls |
+| [`tracker/PUBLICATION_STATE.csv`](tracker/PUBLICATION_STATE.csv) | Machine-readable publication state |
+| [`tracker/RESEARCH_TRACKER.md`](tracker/RESEARCH_TRACKER.md) | Narrative research-program state |
 | [`analysis/`](analysis/README.md) | Study-1 statistical reconstruction and validation |
 | [`docs/`](docs/) | Theory, methods, governance, provenance, and publication closeouts |
 | [`configs/`](configs/) | Frozen experiment designs, schemas, adapters, and toolchain locks |
-| [`src/mission_recovery/`](src/mission_recovery/) | Study-1 research implementation |
 | [`tests/`](tests/) | Unit, contract, regression, and governance tests |
 | [`scripts/`](scripts/) | Validation, audit, runtime, campaign, and release tooling |
-| [`tracker/`](tracker/) | Detailed research-program history and task provenance |
 
 ## Safe validation
 
 Normal repository validation must not rerun frozen canonical campaigns or rewrite frozen statistical outputs.
-
-Use the repository release gate and the per-study freeze checkers. For Study 8 current publication/submission state, run:
-
-```bash
-python scripts/audit_study8_publication_current_state.py
-```
 
 Every future publisher submission requires a separate explicit final author authorization.
