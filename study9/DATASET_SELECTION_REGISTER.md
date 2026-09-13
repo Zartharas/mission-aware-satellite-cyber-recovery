@@ -3,17 +3,17 @@
 **Study:** `S9-RTSI-001`  
 **Phase:** 9.0 prospective design  
 **Verification date:** 2026-09-13  
-**Status:** `CANDIDATE_SCREEN_OPEN_NO_DATASET_INCLUDED`
+**Status:** `SOURCE_VERIFICATION_RECORDED_POPULATION_NOT_YET_FROZEN`
 
 ## Purpose
 
-This register records the candidate-source screen before any Study 9 dataset ingestion or row-level analysis. A candidate appears here because it is scientifically relevant enough to investigate. Appearance in this register does not mean that it has been included in the canonical Study 9 population.
+This register records the candidate-source screen before any Study 9 dataset ingestion or row-level analysis. A candidate appears here because it is scientifically relevant enough to investigate. Selection status is based on artifact identity, schema evidence, legal terms, provenance, accessibility, and source-population independence rather than on any Study 9 endpoint result.
 
-The selection gate is deliberately stricter than Study 5. Study 9 must independently verify artifact identity, schema, legal terms, provenance, and population independence before a dataset is admitted.
+The selection gate is deliberately stricter than Study 5. Study 9 must independently verify source evidence rather than importing the frozen Study 5 manifest as new Study 9 evidence.
 
 ## Inclusion gate
 
-A dataset must satisfy every required gate in `STUDY9_PROTOCOL.json` before inclusion:
+A dataset must satisfy every required gate in `STUDY9_PROTOCOL.json` before it enters the frozen primary Study 9 population:
 
 1. public and stably identifiable source artifact;
 2. primary-source evidence of space or satellite cybersecurity relevance;
@@ -23,13 +23,65 @@ A dataset must satisfy every required gate in `STUDY9_PROTOCOL.json` before incl
 6. independent population provenance, or explicit modeling of shared provenance;
 7. no need for unauthorized operational interaction or fabricated recovery state.
 
-## Initial candidate screen
+A source may pass the selection gate before its bytes are ingested into this repository. Byte-level hash verification is still required before row-level analysis of that source.
 
-| Candidate | Primary source and provenance | Environment | Preliminary scientific relevance | Current gate state | Required pre-inclusion work |
+## Direct-source verification disposition
+
+| Candidate | Verified provenance | Verified schema/access evidence | Legal/access state | Independence assessment | Current disposition |
 | --- | --- | --- | --- | --- | --- |
-| **CuCD-ID v3** | Mendeley Data DOI `10.17632/7n2d42pm3n.3`; Data in Brief DOI `10.1016/j.dib.2026.112598` | NOS3/cFS software-in-the-loop with OpenC3 COSMOS ground-side scenario generation | Public labelled CubeSat command and telemetry data with CCSDS-derived and engineered features; directly relevant to the question of whether IDS-oriented telemetry exposes recovery-decision state | `CANDIDATE_PRELIMINARY_PASS_ARTIFACT_REVERIFY_REQUIRED` | Independently fetch v3 for Study 9, record file list and hashes, freeze exact field names/types, verify dataset license from the dataset host, and do not reuse the frozen Study 5 manifest as Study 9 evidence |
-| **AegisSat** | SpaceSec 2025 paper, *AegisSat: A Satellite Cybersecurity Testbed*; dataset DOI reported as `10.5281/zenodo.14960983` | Physical Earth-based CubeSat plus environmental emulator and attack manager; telemetry and labelled attack experiments | Offers materially different testbed provenance from CuCD-ID and may expose physical/system state absent from software-only data | `CANDIDATE_PENDING_DIRECT_ARTIFACT_VERIFICATION` | Resolve the current Zenodo record directly, verify license and artifact files, bind an exact dataset version, enumerate schema and experiment identifiers, and determine whether released files are sufficient for reproducible field-level mapping |
-| **UNSW-IoTSAT** | Cyber Security and Applications DOI `10.1016/j.csa.2026.100133`; public source repository identified by the article as `Osama-Abdelhameed/UNSW-IoTSAT` | Hybrid cyber-physical smart-satellite testbed with CCSDS-oriented communications, IoT sensor data, RF-layer impairments, and attack scenarios | Provides a third independently developed public space-cyber source and directly demonstrates target-venue interest in satellite cybersecurity datasets | `CANDIDATE_PRELIMINARY_PASS_REPOSITORY_BINDING_REQUIRED` | Freeze a specific public repository commit or release, verify license and dataset artifacts, enumerate schema and labels, record file hashes, and confirm independence from the other included testbeds |
+| **CuCD-ID v3** | Mendeley Data DOI `10.17632/7n2d42pm3n.3`, published 2026-02-10; Data in Brief DOI `10.1016/j.dib.2026.112598` | Primary article documents raw `Data/Raw/consolidated_dataset_raw.csv` as 25,000 rows × 31 columns and augmented `Data/Augmented/noised_dataset.csv` as 22,465 rows × 23 columns, with field-level schema described in the article; published SHA-256 values are recorded in `DATASET_SCHEMA_MANIFEST.json` | Dataset host reports **CC BY 4.0** and public Mendeley access | Independent NOS3/cFS software-in-the-loop population relative to the other screened testbeds | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION` |
+| **AegisSat** | SpaceSec 2025 paper *AegisSat: A Satellite Cybersecurity Testbed*; dataset DOI indexed as `10.5281/zenodo.14960983` | Primary paper documents a physical Earth-based CubeSat/environment-emulator testbed, 1 Hz telemetry, command and attack records, hundreds of experiments, and representative EPS/OBC fields; complete deposited file inventory and full released field schema were not directly resolved in this verification | Exact Zenodo record license, deposited-file inventory, immutable file identities, and file hashes remain unresolved | Scientifically distinct physical/emulation provenance; no evidence found that it is derived from CuCD-ID or UNSW-IoTSAT | `HOLD_PENDING_DIRECT_ZENODO_ARTIFACT_LICENSE_SCHEMA_VERIFICATION` |
+| **UNSW-IoTSAT** | Cyber Security and Applications DOI `10.1016/j.csa.2026.100133`; public repository `Osama-Abdelhameed/UNSW-IoTSAT`; repository `main` bound during verification to commit `48ccc99ebd182d886eb18d2b94e95baba5a2a89a` | Repository feature documentation reports 404,798 records, 109 main-release features plus 3 CCSDS companion features, and explicit `MEASURED`, `SIMULATED`, `COMPUTED`, and `LABEL` origins | Repository software/documentation is MIT licensed, but the separately hosted dataset link redirected to a Microsoft/UNSW sign-in flow during verification; dataset-specific license and anonymous artifact access therefore remain unresolved | Independently developed UNSW hybrid cyber-physical testbed; no evidence found that it is derived from CuCD-ID or AegisSat | `HOLD_PENDING_PUBLIC_DATASET_ARTIFACT_AND_DATASET_LICENSE_VERIFICATION` |
+
+## CuCD-ID v3 selection rationale
+
+CuCD-ID v3 clears the source-selection gate because its versioned DOI, public host, dataset license, testbed provenance, table dimensions, schema documentation, and published artifact hashes are available from the dataset host and primary Data in Brief article.
+
+The two primary tabular artifacts are reported by the primary article as:
+
+- `Data/Raw/consolidated_dataset_raw.csv`: 25,000 rows × 31 columns; published SHA-256 `2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2`.
+- `Data/Augmented/noised_dataset.csv`: 22,465 rows × 23 columns; published SHA-256 `656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68`.
+
+These hashes are **source-reported values**, not Study 9 byte-level recomputations. Study 9 must independently verify downloaded bytes against them before any row-level analysis. The frozen Study 5 copy of the same values is not treated as Study 9 evidence.
+
+Current disposition: `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION`.
+
+## AegisSat hold rationale
+
+AegisSat is scientifically attractive because its physical CubeSat plus environmental-emulator provenance is materially different from CuCD-ID. The primary paper provides sufficient evidence to retain it as a serious candidate but not enough, by itself, to substitute for direct verification of the deposited Zenodo artifact.
+
+Before inclusion, Study 9 must resolve directly from the deposited record:
+
+- exact accessible Zenodo record and immutable version identity;
+- dataset license;
+- deposited file inventory;
+- file sizes and hashes or equivalent immutable identities;
+- complete released field schema and experiment identifiers needed for reproducible field-level mapping.
+
+Current disposition: `HOLD_PENDING_DIRECT_ZENODO_ARTIFACT_LICENSE_SCHEMA_VERIFICATION`.
+
+This is a governance hold, not a scientific rejection.
+
+## UNSW-IoTSAT hold rationale
+
+UNSW-IoTSAT has strong schema documentation. The repository explicitly distinguishes measured, simulated, computed, and label-derived variables, which is valuable for Study 9 because attack labels can be kept outside the primary operational recovery-state mapping.
+
+The repository state observed during verification is bound to:
+
+`48ccc99ebd182d886eb18d2b94e95baba5a2a89a`
+
+The repository `LICENSE` is MIT. That license is evidence for the repository software/documentation and is **not assumed to license the separately hosted dataset bytes**.
+
+The dataset link exposed from the public repository redirected to a Microsoft/UNSW authentication flow during this verification. The primary article describes the dataset as publicly available, but Study 9 requires directly reproducible artifact access and dataset-specific legal terms before inclusion.
+
+Before inclusion, Study 9 must resolve:
+
+- anonymous or otherwise reproducibly public access to the released dataset artifact;
+- dataset-specific license or rights statement;
+- immutable dataset version/file identity;
+- released file inventory and hashes.
+
+Current disposition: `HOLD_PENDING_PUBLIC_DATASET_ARTIFACT_AND_DATASET_LICENSE_VERIFICATION`.
 
 ## Screened dependency risk
 
@@ -46,9 +98,12 @@ Current disposition: `EXCLUDED_FROM_PRIMARY_INDEPENDENT_SCREEN_SHARED_AEGISSAT_P
 - A candidate may not be removed because its semantic coverage is poor, its results are null, or it weakens a preferred narrative.
 - A new candidate may not be added after endpoint inspection merely to improve coverage or publication attractiveness.
 - Negative and null mapping results remain valid Study 9 outcomes.
+- A HOLD status may be cleared only by resolving the stated pre-analysis evidence deficiency, not by relaxing the inclusion criteria.
 
 ## Current decision
 
-No dataset is included yet.
+- **CuCD-ID v3:** selection gate passed; retained for the prospective primary population, pending final population freeze and independent byte-level verification before row analysis.
+- **AegisSat:** hold pending direct Zenodo artifact, license, file, and full schema verification.
+- **UNSW-IoTSAT:** hold pending reproducibly public dataset artifact access and dataset-specific license verification.
 
-The next authorized design-stage task is direct artifact and schema verification only. Dataset download into this research repository, analysis-code creation, semantic mapping execution, and result generation remain unauthorized until a later explicit gate.
+The primary Study 9 dataset population is **not yet frozen**. Dataset ingestion into this research repository, implementation creation, semantic mapping execution, endpoint computation, results generation, manuscript creation, and submission remain unauthorized under `STUDY9_PROTOCOL.json`.
