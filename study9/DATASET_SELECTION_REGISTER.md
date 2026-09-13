@@ -31,7 +31,7 @@ A source may pass the selection gate before its bytes are ingested into this rep
 | --- | --- | --- | --- | --- | --- |
 | **CuCD-ID v3** | Mendeley Data DOI `10.17632/7n2d42pm3n.3`, published 2026-02-10; Data in Brief DOI `10.1016/j.dib.2026.112598` | Primary article documents raw `Data/Raw/consolidated_dataset_raw.csv` as 25,000 rows × 31 columns and augmented `Data/Augmented/noised_dataset.csv` as 22,465 rows × 23 columns, with field-level schema described in the article; published SHA-256 values are recorded in `DATASET_SCHEMA_MANIFEST.json` | Dataset host reports **CC BY 4.0** and public Mendeley access | Independent NOS3/cFS software-in-the-loop population relative to the other screened testbeds | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION` |
 | **AegisSat** | SpaceSec 2025 paper *AegisSat: A Satellite Cybersecurity Testbed*; correct public repository `texydo/satellite_security_testbed`; repository bound to commit `24c00de5ee729b91805724cbf82068562e7a4b6d`; repository identifies Zenodo DOI `10.5281/zenodo.14960983` | Repository implementation exposes the MongoDB persistence interface used for runs, including `run_id`, `TLE File Name`, `TLE`, `Epoch_Time`, `UTC_time`, optional `cosmos_data`, `command`, `pi_metrics`, `satState`, and optional `attacks`; COSMOS telemetry is persisted as packet-keyed field dictionaries. Primary paper documents the physical CubeSat/environment-emulator setting, 1 Hz telemetry, commands, attacks, and hundreds of experiments | Repository software is MIT licensed. Direct Zenodo record retrieval was rate-limited during verification, so the deposited dataset license, exact file manifest, file sizes, and checksums remain unverified and are not inferred from the repository license | Scientifically distinct physical/emulation provenance; no evidence found that it is derived from CuCD-ID or UNSW-IoTSAT | `PROVISIONAL_SELECTION_PASS_PENDING_ZENODO_FILE_MANIFEST_AND_LICENSE_VERIFICATION` |
-| **UNSW-IoTSAT** | Cyber Security and Applications DOI `10.1016/j.csa.2026.100133`; public repository `Osama-Abdelhameed/UNSW-IoTSAT`; repository `main` bound during verification to commit `48ccc99ebd182d886eb18d2b94e95baba5a2a89a` | Repository feature documentation reports 404,798 records, 109 main-release features plus 3 CCSDS companion features, and explicit `MEASURED`, `SIMULATED`, `COMPUTED`, and `LABEL` origins | Repository software/documentation is MIT licensed, but the separately hosted dataset link redirected to a Microsoft/UNSW sign-in flow during verification; dataset-specific license and anonymous artifact access therefore remain unresolved | Independently developed UNSW hybrid cyber-physical testbed; no evidence found that it is derived from CuCD-ID or AegisSat | `HOLD_PENDING_PUBLIC_DATASET_ARTIFACT_AND_DATASET_LICENSE_VERIFICATION` |
+| **UNSW-IoTSAT** | Cyber Security and Applications DOI `10.1016/j.csa.2026.100133`; public repository `Osama-Abdelhameed/UNSW-IoTSAT` bound to commit `48ccc99ebd182d886eb18d2b94e95baba5a2a89a`; author-linked SharePoint/OneDrive release package independently audited and byte-hash bound | Release package contains 404,798-row base, CCSDS-companion, and engineered CSVs plus JSON and schema documentation. `UNSW_IoTSAT.csv` is selected as the canonical native artifact; CCSDS preserves the 49 base fields semantically but its three added fields are label-conditioned derivatives. The JSON export is unterminated and the engineered CSV changes 139 original-field cells across 17 columns, so both are excluded from primary mapping | Dataset bytes were obtained from the author-linked release package and independently hashed. The package contains no standalone dataset license, and the repository MIT license is not assumed to cover separately hosted dataset bytes | Independently developed UNSW hybrid cyber-physical testbed; no evidence found that it is derived from CuCD-ID or AegisSat | `TECHNICAL_SELECTION_PASS_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS_PENDING_DATASET_LICENSE_CLARIFICATION` |
 
 ## CuCD-ID v3 selection rationale
 
@@ -64,32 +64,49 @@ The remaining pre-inclusion work is therefore narrow and artifact-specific:
 - bind the exact deposited dataset version used for Study 9;
 - reconcile the deposited dataset's actual field schema with the implementation-derived persistence interface before mapping.
 
-Direct retrieval of the Zenodo record returned an HTTP 429 rate-limit response during this verification, so these fields remain explicitly pending rather than inferred.
+Direct retrieval of the Zenodo record returned an HTTP 429 rate-limit response during this verification, and the record was later reported unavailable during Zenodo maintenance. These fields remain explicitly pending rather than inferred.
 
 Current disposition: `PROVISIONAL_SELECTION_PASS_PENDING_ZENODO_FILE_MANIFEST_AND_LICENSE_VERIFICATION`.
 
 This is no longer a broad provenance/schema hold. It is a narrow deposited-artifact gate.
 
-## UNSW-IoTSAT hold rationale
+## UNSW-IoTSAT technical-pass rationale
 
-UNSW-IoTSAT has strong schema documentation. The repository explicitly distinguishes measured, simulated, computed, and label-derived variables, which is valuable for Study 9 because attack labels can be kept outside the primary operational recovery-state mapping.
+The author-linked SharePoint/OneDrive release package was obtained and audited read-only. The downloaded package `OneDrive_2026-09-13.zip` is byte-bound by SHA-256:
 
-The repository state observed during verification is bound to:
+`21f747325041e633df135aed2e12de4de518a5c4e62ded2270d7bbd0523c9d9d`
 
-`48ccc99ebd182d886eb18d2b94e95baba5a2a89a`
+The package contains six artifacts. The canonical native Study 9 candidate is `UNSW_IoTSAT.csv`, which contains 404,798 rows × 49 columns and has SHA-256:
 
-The repository `LICENSE` is MIT. That license is evidence for the repository software/documentation and is **not assumed to license the separately hosted dataset bytes**.
+`06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521`
 
-The dataset link exposed from the public repository redirected to a Microsoft/UNSW authentication flow during this verification. The primary article describes the dataset as publicly available, but Study 9 requires directly reproducible artifact access and dataset-specific legal terms before inclusion.
+The 52-column `UNSW_IoTSAT_with_CCSDS_fields.csv` preserves all 49 base fields semantically across all 404,798 aligned rows. Its three added CCSDS fields are generated by the repository augmentation code using attack labels (`Attack_Type`, `Attack_Subtype`, and `Attack_Severity`) and therefore are **label-conditioned derivatives**. They may be retained as documentation/derived companion evidence but cannot count as `OPERATIONAL_NATIVE` recovery state in primary Study 9 endpoints.
 
-Before inclusion, Study 9 must resolve:
+Two release representations are excluded from primary mapping:
 
-- anonymous or otherwise reproducibly public access to the released dataset artifact;
-- dataset-specific license or rights statement;
-- immutable dataset version/file identity;
-- released file inventory and hashes.
+- `UNSW_IoTSAT.json` is an unterminated top-level JSON array. Its final non-whitespace byte is `}` rather than `]`.
+- `UNSW_IoTSAT_With_Feature_Engineering.csv` preserves row count and column layout but changes 139 original base-field cells across 17 original columns after feature-engineering/coercion. It is therefore a derived artifact, not the canonical native representation.
 
-Current disposition: `HOLD_PENDING_PUBLIC_DATASET_ARTIFACT_AND_DATASET_LICENSE_VERIFICATION`.
+A separate full-release reconciliation identified a systematic tail-field quality defect. Across all 404,798 base rows, `Vertical_Category` does not contain a documented category in 404,796 rows, and two rows have unparseable `Velocity_Up_ms`. The observed tail patterns are:
+
+- 290,792 rows: numeric `Vertical_Category`, numeric `Horizontal_Speed_ms`, datetime-like `Reception_Time`, numeric `Data_Quality_Score`;
+- 113,876 rows: numeric `Vertical_Category`, datetime-like `Horizontal_Speed_ms`, numeric `Reception_Time`, numeric `Data_Quality_Score`;
+- 130 rows: all four fields numeric.
+
+Repository source code provides a plausible implementation-level explanation: the receiver explicitly produces `stable` as a valid `Vertical_Category`, while the ground-station combiner removes literal `stable` values before row normalization. Study 9 does not repair, infer, or re-align affected values. Instead, the entire affected four-field block is preregistered as unusable for primary semantic mapping:
+
+- `Vertical_Category`
+- `Horizontal_Speed_ms`
+- `Reception_Time`
+- `Data_Quality_Score`
+
+These exclusions are conservative artifact-quality controls and are not Study 9 endpoint results.
+
+The package contains no standalone dataset license. The repository `LICENSE` is MIT, but Study 9 does not infer that it licenses separately hosted dataset bytes. Dataset-specific legal-use clarification therefore remains the sole unresolved UNSW-IoTSAT inclusion gate.
+
+Current disposition: `TECHNICAL_SELECTION_PASS_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS_PENDING_DATASET_LICENSE_CLARIFICATION`.
+
+Detailed artifact hashes, defect counts, exclusion rules, and provenance are preserved in `UNSW_IOTSAT_ARTIFACT_VERIFICATION.json`.
 
 ## Screened dependency risk
 
@@ -102,16 +119,17 @@ Current disposition: `EXCLUDED_FROM_PRIMARY_INDEPENDENT_SCREEN_SHARED_AEGISSAT_P
 ## Selection rules that prevent post-result cherry-picking
 
 - The primary dataset set must be frozen before any row-level Study 9 endpoint is computed.
-- Failure of a candidate to pass provenance, schema, license, or accessibility checks is a valid exclusion and must be documented rather than repaired through undocumented substitution.
+- Failure of a candidate to pass provenance, schema, license, accessibility, or preregistered artifact-quality checks is a valid exclusion and must be documented rather than repaired through undocumented substitution.
 - A candidate may not be removed because its semantic coverage is poor, its results are null, or it weakens a preferred narrative.
 - A new candidate may not be added after endpoint inspection merely to improve coverage or publication attractiveness.
 - Negative and null mapping results remain valid Study 9 outcomes.
-- A HOLD or provisional status may be cleared only by resolving the stated pre-analysis evidence deficiency, not by relaxing the inclusion criteria.
+- A HOLD, provisional, or technical-pass status may be cleared only by resolving the stated pre-analysis evidence deficiency, not by relaxing the inclusion criteria.
+- Source defects are preserved as evidence. Study 9 does not silently repair, re-align, or impute affected source fields.
 
 ## Current decision
 
 - **CuCD-ID v3:** selection gate passed; retained for the prospective primary population, pending final population freeze and independent byte-level verification before row analysis.
 - **AegisSat:** provisional selection pass; correct GitHub repository and commit, DOI chain, implementation-derived persistence interface, and software license are bound; exact Zenodo deposited-file manifest, dataset license, file identities/checksums, and deposited-schema reconciliation remain pending.
-- **UNSW-IoTSAT:** hold pending reproducibly public dataset artifact access and dataset-specific license verification.
+- **UNSW-IoTSAT:** technical selection pass with canonical base-CSV binding and preregistered artifact/field exclusions; dataset-specific license clarification remains pending.
 
 The primary Study 9 dataset population is **not yet frozen**. Dataset ingestion into this research repository, implementation creation, semantic mapping execution, endpoint computation, results generation, manuscript creation, and submission remain unauthorized under `STUDY9_PROTOCOL.json`.
