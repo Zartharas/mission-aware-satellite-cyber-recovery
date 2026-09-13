@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "CANDIDATE_MANIFEST_NO_SCHEMA_LOCK",
+  "verification_date": "2026-09-13",
+  "rules": {
+    "study5_manifest_reuse_as_study9_evidence": false,
+    "artifact_identity_required_before_inclusion": true,
+    "field_level_schema_required_before_mapping": true,
+    "source_artifact_hash_required_before_row_analysis": true,
+    "attack_labels_count_as_operational_recovery_state": false,
+    "missing_fields_may_be_imputed": false
+  },
+  "datasets": [
+    {
+      "dataset_id": "CUCD_ID_V3",
+      "candidate_status": "CANDIDATE_PRELIMINARY_PASS_ARTIFACT_REVERIFY_REQUIRED",
+      "dataset_title": "CubeSat Cybersecurity Dataset for Intrusion Detection (CuCD-ID): Labelled NOS3/cFS Telemetry (raw + augmented) with COSMOS Reproduction Scripts",
+      "dataset_doi": "10.17632/7n2d42pm3n.3",
+      "primary_article_doi": "10.1016/j.dib.2026.112598",
+      "primary_article_year": 2026,
+      "source_environment": "NOS3/cFS software-in-the-loop with OpenC3 COSMOS v4 scenario generation",
+      "published_characteristics": {
+        "raw_rows": 25000,
+        "raw_columns": 31,
+        "augmented_rows": 22465,
+        "augmented_columns": 23,
+        "scenario_count": 5,
+        "data_role": "intrusion-detection-oriented command and telemetry records"
+      },
+      "dataset_license_reported_by_dataset_host": "CC BY 4.0",
+      "source_artifact_files": [],
+      "source_artifact_sha256": {},
+      "field_schema": [],
+      "schema_locked": false,
+      "artifact_locked": false,
+      "notes": "Study 9 must independently refetch and rehash the selected v3 artifacts. Existing frozen Study 5 hashes and mappings are historical context only and are not imported as new evidence."
+    },
+    {
+      "dataset_id": "AEGISSAT_2025",
+      "candidate_status": "CANDIDATE_PENDING_DIRECT_ARTIFACT_VERIFICATION",
+      "dataset_title": "AegisSat: Telemetry dataset of a physical CubeSat environment with labeled attacks",
+      "dataset_doi": "10.5281/zenodo.14960983",
+      "primary_article_title": "AegisSat: A Satellite Cybersecurity Testbed",
+      "primary_publication": "NDSS SpaceSec 2025",
+      "primary_article_year": 2025,
+      "source_environment": "physical Earth-based CubeSat with environment emulator and controlled cyberattack experiments",
+      "published_characteristics": {
+        "experiment_scale": "hundreds of experiments reported by the primary paper",
+        "data_role": "telemetry and labelled attack data"
+      },
+      "dataset_license_reported_by_direct_host": null,
+      "source_artifact_files": [],
+      "source_artifact_sha256": {},
+      "field_schema": [],
+      "schema_locked": false,
+      "artifact_locked": false,
+      "notes": "The DOI and publication establish a candidate identity, but direct Zenodo artifact, license, version, file inventory, and schema verification are still required before inclusion."
+    },
+    {
+      "dataset_id": "UNSW_IOTSAT_2026",
+      "candidate_status": "CANDIDATE_PRELIMINARY_PASS_REPOSITORY_BINDING_REQUIRED",
+      "dataset_title": "UNSW-IoTSAT: A hybrid testbed-derived dataset for enabling cybersecurity research in the smart satellite domain",
+      "primary_article_doi": "10.1016/j.csa.2026.100133",
+      "primary_article_year": 2026,
+      "source_repository": "https://github.com/Osama-Abdelhameed/UNSW-IoTSAT",
+      "source_environment": "hybrid cyber-physical smart-satellite testbed with CCSDS-oriented communications, IoT sensor data, RF-layer impairments, and controlled cyberattacks",
+      "published_characteristics": {
+        "record_count_description": "over 404000 labelled records",
+        "data_role": "normal and attack telemetry/security records"
+      },
+      "source_repository_commit": null,
+      "dataset_license_reported_by_direct_host": null,
+      "source_artifact_files": [],
+      "source_artifact_sha256": {},
+      "field_schema": [],
+      "schema_locked": false,
+      "artifact_locked": false,
+      "notes": "The primary article states that the dataset and generation code are publicly available. Study 9 must bind a specific repository commit or release and verify licenses, files, hashes, and field schema before inclusion."
+    }
+  ]
+}
