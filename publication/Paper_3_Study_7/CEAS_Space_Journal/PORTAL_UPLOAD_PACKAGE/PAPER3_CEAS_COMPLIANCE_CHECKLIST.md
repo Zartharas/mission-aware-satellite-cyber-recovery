@@ -6,6 +6,7 @@
 ## Journal and article type
 - [x] Target is CEAS Space Journal.
 - [x] Scope fit checked against current CEAS aims: space systems, cybersecurity for space systems, and artificial intelligence in space.
+- [x] Live portal topic selected for final entry: `Artificial Intelligence in Space`.
 - [x] Article is prepared as an Original Research Article / Original Paper, not a Short Communication.
 
 ## Manuscript source and formatting
@@ -20,6 +21,8 @@
 - [x] References use numbered citations and include recent relevant CEAS work.
 - [x] Render QA passed: seven pages, no clipping/overlap/broken glyphs.
 - [x] Accessibility QA passed for the current manuscript.
+- [x] Final editorial lint found no em dash, en dash, zero-width character, leaked tool citation, or hidden tracked-change/comment artifact in the publisher-facing DOCX files.
+- [x] DOCX metadata scrubbed of `python-docx` generator markings; author/title metadata now identify Aman Kumar Singh and the manuscript/cover-letter titles.
 
 ## Scientific integrity and novelty
 - [x] Study 7 is the only new experimental evidence.
@@ -37,7 +40,6 @@
 - [x] Methods Section 3.5 discloses both pre-freeze Study-7 development assistance and post-freeze manuscript assistance.
 - [x] Disclosure states the author made and approved all research decisions, controlled repository/execution, reviewed AI-assisted code/tests/text, and verified the frozen outputs.
 - [x] Repository audit is described as separately implemented / implementation-independent, not as an independent human replication.
-- [x] No Claude, Codex, or other generative-AI system was used for Study 7, per author confirmation.
 
 ## Statements and declarations
 - [x] Funding statement included.

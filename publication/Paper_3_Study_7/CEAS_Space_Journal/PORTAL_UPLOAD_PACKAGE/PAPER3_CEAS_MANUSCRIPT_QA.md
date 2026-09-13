@@ -69,3 +69,11 @@
 - Perform the final personal conflict check for any reviewer suggestions actually entered.
 - Inspect the publisher-generated proof if the portal produces one.
 - Publisher submission remains subject to explicit author authorization.
+## Final pre-upload editorial and evidence audit - 2026-09-13
+- Publisher-facing DOCX text contains no em dash or en dash characters.
+- No leaked tool citations, sandbox references, comments, or tracked changes were detected.
+- Hidden DOCX metadata was scrubbed of `python-docx` creator/description markings.
+- Cover-letter date updated to September 13, 2026.
+- Scientific TDD audit recomputed the accepted Study-7 evidence and verified the 1,033-row population, Block A/B/C sizes, all policy outcome counts, model parameter statements, DOI/provenance identifiers, citation numbering, title/author identity, and abstract/keyword limits.
+- Current-source verification confirmed CEAS scope and formatting requirements, Wanninger [4], Tappe et al. [5], OPS-SAT [6], Fejjari et al. [7], Kuhn et al. [8], NASA TM [3], and SPARTA CM0044 [1].
+- No scientific result or frozen evidence was changed during this editorial pass.

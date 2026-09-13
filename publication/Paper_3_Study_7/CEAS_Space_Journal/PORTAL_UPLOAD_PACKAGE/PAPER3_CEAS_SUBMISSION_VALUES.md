@@ -3,6 +3,8 @@
 **Status:** `PORTAL_VALUES_PREPARED__FINAL_SUBMIT_NOT_AUTHORIZED`
 **Journal:** CEAS Space Journal
 **Article category:** Select `Original Paper` if that is the portal label; this corresponds to the journal guideline category `(Original) Research Article`. Do **not** select `Correspondence`, which is reserved for Short Communications.
+**Topic:** `Artificial Intelligence in Space` (best match from the live CEAS topic list; `Space Systems` is a secondary fit).
+**Collection:** Leave blank unless specifically invited to a collection.
 
 ## Manuscript identity
 
@@ -23,6 +25,8 @@ Cyber-recovery decisions can remain unsafe even when the evidence presented to a
 ## Author
 
 **Author:** Aman Kumar Singh
+**Portal given names:** Aman Kumar
+**Portal family name:** Singh
 **Role:** Sole author; corresponding author
 **Affiliation:** Independent Researcher
 **City:** The Woodlands
@@ -49,7 +53,8 @@ The author has no relevant financial or non-financial interests to disclose.
 
 ## Author contribution
 
-Aman Kumar Singh is solely responsible for the conception and design of the study, implementation, experimental execution, analysis and verification, interpretation of results, manuscript preparation, and final approval of the submitted work.
+**Portal statement (use initials as requested by SNAPP):**
+A.K.S. conceived and designed the study; developed the protocol and software; performed and verified the experimental execution and analysis; interpreted the results; prepared the manuscript; and reviewed and approved the final submitted version.
 
 ## Ethics and consent
 
@@ -74,9 +79,18 @@ The protocol, implementation, analysis code, and separately implemented audit co
 **Methods disclosure already included in the manuscript:**
 OpenAI ChatGPT, accessed through the ChatGPT web interface, was used during Study 7 development and manuscript preparation as an interactive research, coding, verification, and writing assistant. Before the results freeze, it assisted with protocol refinement, code and test drafting, repository and audit documentation, and verification-oriented review. After the results freeze, it assisted with manuscript structuring and drafting, literature-source discovery and verification, compliance checking, and language refinement. The author made and approved all research decisions, controlled the repository and experimental execution, reviewed and accepted code and test changes, verified the frozen outputs and numerical claims against the repository evidence, and reviewed and edited all AI-assisted text. ChatGPT was not an author and did not alter the accepted 1,033-observation population or frozen outputs after acceptance. All scientific claims and the submitted manuscript remain the sole responsibility of the author.
 
-Author-confirmed provenance on 2026-09-12: ChatGPT web was the only generative-AI system used. Its role included pre-freeze study-development assistance and post-freeze manuscript assistance as described above. No Claude, Codex, or other generative-AI system was used for Study 7. Do not describe the repository audit as an independent human replication; it is a separately implemented, implementation-independent repository check.
+Author-confirmed provenance: ChatGPT web was the only generative-AI system used. Its role included pre-freeze study-development assistance and post-freeze manuscript assistance as described above. Do not describe the repository audit as an independent human replication; it is a separately implemented, implementation-independent repository check.
 
 ## Originality and exclusivity
+
+**Dual-publication portal question:** Select `Yes` because the supporting Study-7 research data are publicly deposited on Zenodo. The manuscript itself has not been published and is not under consideration elsewhere.
+
+**Dual-publication explanation:**
+The supporting research data for Study 7 have been deposited publicly on Zenodo to support transparency and reproducibility: Singh, A. (2026), "Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence," Version 1.0.0, DOI: 10.5281/zenodo.22732060 (concept DOI: 10.5281/zenodo.22732059). The Zenodo record contains the underlying research data, frozen model and provenance records, and audit materials only. The present manuscript has not been published previously and is not currently under consideration by another journal. The Zenodo dataset is cited explicitly in the manuscript and Data Availability statement.
+
+**Third-party material:** Select `No`; the manuscript contains no reused third-party figures, tables, images, or supplementary material requiring permission.
+
+**Data used/generated:** Select `Yes`.
 
 **Has this Paper-3 manuscript been published previously?** No.
 **Is this Paper-3 manuscript currently under consideration elsewhere?** No.
@@ -84,7 +98,7 @@ Author-confirmed provenance on 2026-09-12: ChatGPT web was the only generative-A
 
 ## Related-manuscript disclosure
 
-Paper 3 is a separate Study-7 manuscript. It does not reuse the experimental populations, tables, figures, or numerical results of the following related manuscripts currently under consideration elsewhere. (1) AIAA Journal of Aerospace Information Systems manuscript 2026-09-I012066, “Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints,” reports Studies 1 and 2. (2) IEEE Transactions on Aerospace and Electronic Systems manuscript “Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance” reports Studies 3, 4, and 6. (3) Acta Astronautica manuscript AA-D-26-02872, “Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems,” reports Study 8. (4) “Measuring Software Supply-Chain Assurance for Spacecraft Flight Software: A Controlled, Comparative Evaluation,” currently under review at the Journal of Space Safety Engineering, is based on the separate verifiable-spacecraft-lifecycle repository and evaluates S0-S5 software supply-chain assurance on spacecraft flight-software stacks. The present manuscript uses only Study 7 as new experimental evidence. Study-2 V5 is cited only as antecedent motivation through its public Zenodo archive. No manuscript listed above is a prior or concurrent submission of this Paper-3 manuscript.
+Paper 3 is a separate Study-7 manuscript. It does not reuse the experimental populations, tables, figures, or numerical results of the following related manuscripts currently under consideration elsewhere. (1) AIAA Journal of Aerospace Information Systems manuscript 2026-09-I012066, "Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints," reports Studies 1 and 2. (2) IEEE Transactions on Aerospace and Electronic Systems manuscript "Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance" reports Studies 3, 4, and 6. (3) Acta Astronautica manuscript AA-D-26-02872, "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems," reports Study 8. (4) "Measuring Software Supply-Chain Assurance for Spacecraft Flight Software: A Controlled, Comparative Evaluation," currently under review at the Journal of Space Safety Engineering, is based on the separate verifiable-spacecraft-lifecycle repository and evaluates S0-S5 software supply-chain assurance on spacecraft flight-software stacks. The present manuscript uses only Study 7 as new experimental evidence. Study-2 V5 is cited only as antecedent motivation through its public Zenodo archive. No manuscript listed above is a prior or concurrent submission of this Paper-3 manuscript.
 
 ## Suggested reviewers
 
