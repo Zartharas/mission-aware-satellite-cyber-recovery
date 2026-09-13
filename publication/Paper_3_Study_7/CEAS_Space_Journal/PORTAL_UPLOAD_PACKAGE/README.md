@@ -4,7 +4,7 @@
 **Study:** `S7-LSO-001`  
 **Target journal:** CEAS Space Journal  
 **Article type:** Original Research Article  
-**Package status:** `ASSEMBLY_IN_PROGRESS__NOT_YET_SUBMISSION_READY`  
+**Package status:** `MANUSCRIPT_R1_QA_PASS__SUBMISSION_PACKAGE_ASSEMBLY_CONTINUES`  
 
 ## Local publication root
 
@@ -25,6 +25,26 @@ This directory is the single staging location for the final files and portal-rea
 Development records, scientific audits, venue analyses, and historical manuscript drafts remain outside this folder. Only files that are intended to be uploaded to the publisher portal, or that directly support accurate portal entry, should be placed here.
 
 After pulling the repository locally, the author should be able to open this directory and find the complete submission package without searching elsewhere in the repository.
+
+## Current manuscript state
+
+CEAS manuscript R1 has been converted from the audited Study-7 manuscript into an Original Research Article format and has passed the manuscript QA gate.
+
+Current verified manuscript properties:
+
+- abstract: 197 words;
+- keywords: 6;
+- decimal headings, maximum three levels;
+- three Arabic-numbered tables;
+- Wanninger CEAS FDIR and Tappe et al. CEAS AI diagnosis/reconfiguration papers cited and explicitly distinguished;
+- AI-assisted manuscript preparation disclosure included in Methods section 3.5;
+- Statements and Declarations included;
+- data/code availability statements included;
+- DOCX render: 7 pages, visual QA PASS;
+- PDF render: 7 pages, visual QA PASS;
+- DOCX accessibility audit: 0 high / 0 medium / 0 low findings.
+
+The exact R1 manuscript binary hashes are recorded in `PAPER3_CEAS_SHA256SUMS.txt`. The binary `.docx` and `.pdf` are staged locally for transfer into this directory; the in-chat GitHub write path used for this development track directly records only text control files.
 
 ## Planned portal package
 
@@ -82,7 +102,7 @@ This folder is a staging surface only. Its existence does **not** authorize publ
 Before final upload:
 
 - the CEAS manuscript must pass scientific, formatting, citation, and related-work QA;
-- the accepted Study-7 evidence must have a durable archival identifier where planned;
+- the accepted Study-7 evidence should have a durable archival identifier where planned;
 - the exact AI-use declaration must match actual provenance;
 - all related active manuscripts must be disclosed as required;
 - final binary hashes must be recorded;
