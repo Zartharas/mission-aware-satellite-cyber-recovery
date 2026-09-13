@@ -1,165 +1,129 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-09-07
+**Current-state reference:** 2026-09-13
 
-This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It summarizes how separately frozen studies are grouped into publication units and which publication work should happen next.
+This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
-This is a publication/governance document only. It does not change any frozen design, observation, analysis, statistical result, evidence identity, claim boundary, package freeze, or submitted publisher file.
-
-For the canonical cross-publication state, read [`CURRENT_PUBLICATION_STATE.md`](CURRENT_PUBLICATION_STATE.md) first.
+For canonical current state, read [`CURRENT_PUBLICATION_STATE.md`](CURRENT_PUBLICATION_STATE.md) first.
 
 ## Scope boundary
 
-This map applies only to this repository and its Studies 1-8. Related repositories remain separate research workstreams and are not pooled into this program.
+This map applies only to this repository and its Studies 1-8. Unrelated repositories and external research programs remain separate and are not pooled into this publication program.
 
 ## Overall publication-phase map
 
 ```text
 MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |
-+-- PUBLICATION PHASE 1 - COMPLETE AT SUBMISSION GATE
-|   |
-|   +-- PAPER 1
-|       +-- Study 1
-|       +-- Study 2
++-- PHASE 1 - SUBMITTED
+|   +-- PAPER 1: Studies 1 + 2
 |       Journal: AIAA Journal of Aerospace Information Systems
 |       Manuscript ID: 2026-09-I012066
 |       Submitted: 2026-09-05
-|       State: editorial/peer-review workflow pending
 |
-+-- PUBLICATION PHASE 2 - COMPLETE AT SUBMISSION GATE
-|   |
-|   +-- ROADMAP PAPER 4
-|       +-- Study 8 / S8-PQC-ICR-001
++-- PHASE 2 - SUBMITTED
+|   +-- PAPER 4: Study 8
 |       Journal: Acta Astronautica
 |       Manuscript ID: AA-D-26-02872
 |       Submitted: 2026-09-06
 |       State: With Editor
 |
-+-- PUBLICATION PHASE 3 - COMPLETE AT SUBMISSION GATE
-|   |
-|   +-- PAPER 2
-|       +-- Study 3 / S3-K4E-001
-|       +-- Study 4 / S4-MPQ-001
-|       +-- Study 6 / S6-SCTR-001
++-- PHASE 3 - SUBMITTED
+|   +-- PAPER 2: Studies 3 + 4 + 6
 |       Journal: IEEE Transactions on Aerospace and Electronic Systems
-|       Article type: Regular Paper
 |       Submitted: 2026-09-07
 |       Research Exchange UUID: cd1dfa89-4a24-4451-bdd4-af31ce3367f4
-|       State: R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING
 |
-+-- PUBLICATION PHASE 4 - NEXT ACTIVE GATE
-    |
++-- PHASE 4 - SUBMITTED
+|   +-- PAPER 3: Study 7 / S7-LSO-001
+|       Journal: CEAS Space Journal
+|       Submission ID: 6db04a31-8223-4aaf-af02-e4bafe06ef89
+|       Submitted: 2026-09-13
+|       State: Technical check
+|
++-- PHASE 5 - NEXT ACTIVE GATE
     +-- REMAINING-CANDIDATE AUDIT
-        +-- Study 7 / S7-LSO-001
         +-- Study 5 / S5-CUCD-001
-        +-- any other still-eligible repository study not consumed by Papers 1, 2, or 4
+        +-- any other still-eligible repository study not consumed by Papers 1, 2, 3, or 4
         State: READ_ONLY_CANDIDATE_SELECTION_REQUIRED
-        Next gate: evidence-first candidate matrix + novelty/overlap + live venue review
 ```
 
-## Publication Phase 1 - Paper 1: Studies 1 + 2
+## Phase 1 - Paper 1
 
-Paper 1 combines two separately frozen empirical studies without pooling their statistical populations.
+Paper 1 combines Studies 1 and 2 without pooling their statistical populations.
 
 - Study 1: 720 VALID observations across 24 frozen cells.
-- Study 2: `S2-AEATR-001`, 3,872 VALID observations across 85 cells, 0 INVALID attempts, 162 primary paired contrasts, 432 prespecified secondary contrasts, and independent reproduction with 0 mismatches.
+- Study 2 / `S2-AEATR-001`: 3,872 VALID observations across 85 cells.
+- Venue: AIAA Journal of Aerospace Information Systems.
+- Manuscript ID: `2026-09-I012066`.
+- Submitted: 2026-09-05.
 
-**Submitted venue:** AIAA Journal of Aerospace Information Systems.
+No Paper-1 scientific or publisher-facing artifact should change unless JAIS requests a revision.
 
-- title: **Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints**
-- manuscript ID: `2026-09-I012066`
-- submission date: `2026-09-05`
-- state: `SUBMITTED__EDITORIAL_AND_PEER_REVIEW_WORKFLOW`
+## Phase 2 - Paper 4
 
-No Study-1 or Study-2 scientific execution, statistical revision, manuscript modification, or publisher-package modification is authorized unless JAIS explicitly requests a revision.
+- Study: Study 8 / `S8-PQC-ICR-001`.
+- Frozen population: 3,456 deterministic modeled positions.
+- Venue: Acta Astronautica.
+- Manuscript ID: `AA-D-26-02872`.
+- Submitted: 2026-09-06.
+- Current state: `With Editor`.
 
-## Publication Phase 2 - Roadmap Paper 4: Study 8
+No Study-8 scientific or publisher-facing artifact should change unless Acta requests a revision.
 
-Study 8 is a separate deterministic modeled study and is not a third statistical population in Paper 1.
+## Phase 3 - Paper 2
 
-- experiment: `S8-PQC-ICR-001`
-- canonical modeled positions: 3,456
-- same-repository independently written reproduction: 3,456/3,456 exact row matches, 0 mismatches
-- prespecified primary contrast `P3 - P1`: exactly `0/1 = 0.000000 percentage points`
+- Studies: 3, 4, and 6 only.
+- Venue: IEEE Transactions on Aerospace and Electronic Systems.
+- Submitted: 2026-09-07.
+- Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
+- State: `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`.
 
-**Submitted venue:** Acta Astronautica.
+The three scientific populations remain separate and there is no pooled Paper-2 sample size.
 
-- title: **Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems**
-- manuscript ID: `AA-D-26-02872`
-- submission date: `2026-09-06`
-- current publisher status: `With Editor`
+## Phase 4 - Paper 3
 
-No Study-8 scientific or publisher-facing artifact should change unless Acta explicitly requests a revision.
+Paper 3 is complete at the initial-submission gate.
 
-## Publication Phase 3 - Paper 2: Studies 3 + 4 + 6
+- Study: Study 7 / `S7-LSO-001` only.
+- Frozen population: 1,033 exact modeled observations.
+- Venue: CEAS Space Journal.
+- Title: **Observability Limits of Learned Satellite Cyber-Recovery Decisions Under Compromised Evidence**.
+- Article type: Research.
+- Topic: Artificial Intelligence in Space.
+- Peer review: Single anonymous.
+- Submission ID: `6db04a31-8223-4aaf-af02-e4bafe06ef89`.
+- Submission version: `v.1.0`.
+- Submitted: 2026-09-13.
+- Current state: `SUBMITTED__TECHNICAL_CHECK`.
+- Current authority: `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`.
 
-Paper 2 is complete at the initial-submission gate.
+Zenodo Study-7 evidence:
 
-**Submitted venue:** IEEE Transactions on Aerospace and Electronic Systems.
+- version DOI: `10.5281/zenodo.22732060`
+- concept DOI: `10.5281/zenodo.22732059`
 
-- title: **Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance**
-- article type: Regular Paper
-- primary Technical Area: Aerospace Information Systems
-- submission date: `2026-09-07`
-- Research Exchange submission UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
-- formal TAES manuscript ID: pending / not yet shown in the captured post-submission state
-- submission revision: R10
-- state: `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`
+The historical Paper-3 JAIS folder was not submitted and is superseded venue-development provenance only.
 
-The frozen scientific populations remain separate:
+No Paper-3 scientific or publisher-facing artifact should change unless CEAS requests a technical correction or revision.
 
-- Study 3 / `S3-K4E-001`: 1,380 deterministic trajectories.
-- Study 4 / `S4-MPQ-001`: 4,608 exact rule-by-subset observations.
-- Study 6 / `S6-SCTR-001`: 420 exact observations.
+## Phase 5 - Remaining-candidate audit
 
-There is no pooled Paper-2 statistical population.
+The next publication is not preselected.
 
-The historical 10-page short-track alternative was not submitted and is explicitly superseded. It remains provenance only.
+Known remaining work includes Study 5 / `S5-CUCD-001` plus any other repository experiment that is complete, provenance-bound, scientifically independent, and not already consumed by Papers 1, 2, 3, or 4.
 
-No Paper-2 study result, manuscript, exact reviewer PDF, or publisher-facing submission artifact should change unless TAES explicitly requests a revision.
+The next-paper audit must include fresh literature review, novelty/self-overlap analysis, claim-boundary review, reproducibility review, and live venue review before any new publication branch is created.
 
-## Publication Phase 4 - Remaining-candidate audit
+Study 5 remains a portability/external-validity boundary study and must not be misrepresented as measuring detector accuracy, recall, false-positive rate, or packet-level recovery effectiveness.
 
-The next publication is not preselected by this phase map.
+## Recommended operational order from 2026-09-13
 
-Before creating a new manuscript or venue branch, perform a read-only candidate audit over every remaining eligible study or experiment.
-
-At minimum, evaluate:
-
-### Study 7 / S7-LSO-001
-
-Study 7 remains scientifically separate because learned selectors are a materially different mechanism from the deterministic selectors evaluated in earlier work.
-
-Frozen population: 1,033 observations.
-
-Historical working theme:
-
-**Observability limits of learned recovery selectors under trusted-producer compromise.**
-
-This is a candidate, not an automatic next paper. A fresh AI/autonomy literature review, novelty audit, overlap analysis, claim-boundary review, and live venue review are required.
-
-### Study 5 / S5-CUCD-001
-
-Study 5 remains a portability/external-validity boundary study. It is not a detector-performance experiment and was not part of Paper 2.
-
-Its final publication vehicle remains deferred. It may support a focused validation/reproducibility vehicle or another scientifically justified publication structure, but only after fresh candidate comparison.
-
-Do not claim IDS accuracy, recall, false-positive rate, or packet-level recovery-policy effectiveness from Study 5 because those outcomes were not measured.
-
-### Other remaining studies
-
-Any other repository study may enter the candidate audit only if it is demonstrably complete, provenance-bound, scientifically independent of the three submitted publication lines, and not already consumed as experimental evidence.
-
-## Recommended operational order from 2026-09-07
-
-1. Keep Paper 1 frozen while JAIS review proceeds.
-2. Keep Roadmap Paper 4 / Study 8 frozen while Acta review proceeds.
-3. Keep Paper 2 R10 frozen while TAES editorial processing proceeds.
-4. Start the next publication with a read-only repository and study-candidate audit from clean `main`.
-5. Rank remaining candidates by scientific coherence, novelty, evidence strength, reproducibility, publication independence, reviewer risk, and live venue fit.
-6. Create a new publication branch only after the candidate and publication boundary are explicitly selected.
-7. Keep actual publisher submission as a separate explicit authorization gate.
+1. Keep Papers 1, 2, 3, and 4 frozen while their journal workflows proceed.
+2. Record publisher status changes without modifying submitted scientific packages.
+3. Start the next publication only with a read-only audit of remaining eligible studies from clean `main`.
+4. Select a candidate publication boundary before creating any new venue branch.
+5. Keep actual publisher submission as a separate explicit author-authorization gate.
 
 ## Governance rules
 
@@ -167,15 +131,16 @@ Any other repository study may enter the candidate audit only if it is demonstra
 - Never rerun or enlarge a frozen study merely to improve publication optics or venue fit.
 - Preserve negative, null, conditional, and structural findings.
 - Submitted packages are immutable unless the journal requests revision.
-- Historical freeze, compression, handoff, and work-package documents retain stage-local wording and are not rewritten to appear current.
-- Current-state documents must identify the actual live/submitted package and must be reconciled after each submission gate.
-- New orbital, HIL, operator, RF, spacecraft-performance, CPU, energy, or flight-validation claims require separately designed and frozen evidence.
+- Historical preparation and venue-development records remain provenance and are not rewritten to pretend they were submitted.
+- Current-state documents must identify the actual live/submitted package and be reconciled after each submission gate.
+- New orbital, HIL, operator, RF, spacecraft-performance, CPU, energy, or certification claims require separately designed and frozen evidence.
 
 ## Quick reference
 
 | Phase | Publication unit | Studies | Current venue/state | Next gate |
 |---|---|---|---|---|
-| 1 | Paper 1 | Study 1 + Study 2 | JAIS `2026-09-I012066`, submitted | Editorial/peer review; revise only if requested |
-| 2 | Roadmap Paper 4 | Study 8 | Acta `AA-D-26-02872`, `With Editor` | Editorial/peer review; revise only if requested |
-| 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, R10 submitted 2026-09-07 | Editorial processing; revise only if requested |
-| 4 | Next independent candidate | Remaining eligible studies | Not venue-locked | Read-only candidate audit and live venue review |
+| 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
+| 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, With Editor | Wait for journal action |
+| 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
+| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, Technical check | Wait for journal action |
+| 5 | Next independent candidate | Remaining eligible studies | Not venue-locked | Read-only candidate audit |
