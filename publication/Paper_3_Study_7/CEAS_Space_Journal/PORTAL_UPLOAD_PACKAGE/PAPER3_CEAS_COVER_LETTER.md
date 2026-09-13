@@ -19,7 +19,6 @@ For transparency, this manuscript belongs to a broader independent satellite-cyb
 - **AIAA Journal of Aerospace Information Systems manuscript 2026-09-I012066:** Studies 1 and 2; response/recovery under contact and adversarial-evidence constraints. Study-2 V5 is antecedent motivation only.
 - **IEEE Transactions on Aerospace and Electronic Systems:** Studies 3, 4, and 6; temporal evidence, producer composition, and artifact assurance.
 - **Acta Astronautica manuscript AA-D-26-02872:** Study 8; contact-aware cryptographic agility.
-- **Journal of Space Safety Engineering manuscript "Measuring Software Supply-Chain Assurance for Spacecraft Flight Software: A Controlled, Comparative Evaluation":** separate repository and software supply-chain experiment; no Study-7 data, model, or endpoints.
 
 The present manuscript is original, has not been published previously, and is not under consideration by another journal. No text, tables, figures, or experimental observations from the related manuscripts are reused as Paper-3 evidence beyond properly cited background or antecedent material.
 
