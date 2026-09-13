@@ -179,11 +179,11 @@
         "bind the exact deposited dataset version used by Study 9",
         "reconcile the deposited dataset field schema with the implementation-derived persistence interface before semantic mapping"
       ],
-      "notes": "AegisSat receives a provisional selection pass because the research identity, correct public repository, exact repository commit, Zenodo DOI chain, software license, and implementation-derived persistence interface are now bound. Direct Zenodo record retrieval returned HTTP 429 during verification, so deposited file inventory, dataset license, file identities/checksums, and exact deposited schema remain pending and are not inferred."
+      "notes": "AegisSat receives a provisional selection pass because the research identity, correct public repository, exact repository commit, Zenodo DOI chain, software license, and implementation-derived persistence interface are now bound. Direct Zenodo record retrieval returned HTTP 429 during verification and the record was later reported unavailable during Zenodo maintenance, so deposited file inventory, dataset license, file identities/checksums, and exact deposited schema remain pending and are not inferred."
     },
     {
       "dataset_id": "UNSW_IOTSAT_2026",
-      "candidate_status": "HOLD_PENDING_PUBLIC_DATASET_ARTIFACT_AND_DATASET_LICENSE_VERIFICATION",
+      "candidate_status": "TECHNICAL_SELECTION_PASS_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS_PENDING_DATASET_LICENSE_CLARIFICATION",
       "dataset_title": "UNSW-IoTSAT: A hybrid testbed-derived dataset for enabling cybersecurity research in the smart satellite domain",
       "primary_article_doi": "10.1016/j.csa.2026.100133",
       "primary_article_year": 2026,
@@ -206,13 +206,128 @@
         "data_role": "normal and attack telemetry/security records"
       },
       "dataset_license_reported_by_direct_host": null,
-      "dataset_access_status": "PUBLIC_REPOSITORY_PRESENT_SEPARATE_DATASET_LINK_REQUIRED_MICROSOFT_UNSW_SIGN_IN_DURING_VERIFICATION",
-      "schema_evidence_status": "PUBLIC_REPOSITORY_FEATURE_DOCUMENTATION_VERIFIED",
-      "source_artifact_files": [],
-      "source_artifact_sha256": {},
+      "dataset_access_status": "AUTHOR_LINKED_SHAREPOINT_ONEDRIVE_RELEASE_PACKAGE_OBTAINED_AND_BYTE_HASH_BOUND_DATASET_LICENSE_NOT_PRESENT_IN_PACKAGE",
+      "schema_evidence_status": "RELEASE_PACKAGE_AND_REPOSITORY_SCHEMA_VERIFIED_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS",
+      "download_package": {
+        "local_container_filename": "OneDrive_2026-09-13.zip",
+        "size_bytes": 1431174739,
+        "sha256": "21f747325041e633df135aed2e12de4de518a5c4e62ded2270d7bbd0523c9d9d",
+        "zip_integrity_bad_member": null,
+        "member_count": 6,
+        "note": "Local download-container filename is not treated as an upstream dataset version identifier; byte identity is bound by SHA-256."
+      },
+      "canonical_artifact": {
+        "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
+        "rows": 404798,
+        "columns": 49,
+        "size_bytes": 145079423,
+        "sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+        "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
+        "study9_byte_hash_verified": true
+      },
+      "source_artifact_files": [
+        {
+          "path": "UNSW-IoTSAT dataset/FEATURE_DOCUMENTATION.md",
+          "size_bytes": 22810,
+          "sha256": "98d5a71eb3637d3cf71976655a24bb3f788c38da7b60f4703d27638b6a305b38",
+          "role": "DOCUMENTATION_ONLY",
+          "study9_byte_hash_verified": true
+        },
+        {
+          "path": "UNSW-IoTSAT dataset/FEATURES.csv",
+          "rows": 112,
+          "columns": 8,
+          "size_bytes": 17398,
+          "sha256": "95ccd70edd114bbf879ec163c4e801f4b5f3dd87a7767d434dcf15f2930cb476",
+          "role": "SCHEMA_DOCUMENTATION_ONLY",
+          "study9_byte_hash_verified": true
+        },
+        {
+          "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
+          "rows": 404798,
+          "columns": 49,
+          "size_bytes": 145079423,
+          "sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+          "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
+          "study9_byte_hash_verified": true
+        },
+        {
+          "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.json",
+          "size_bytes": 664617049,
+          "sha256": "b11775b7100e23430d6ef9ac0f21c15b3d946683fa043340de7547d3cc360ff5",
+          "role": "EXCLUDED_FROM_PRIMARY_MAPPING_INVALID_SERIALIZATION",
+          "serialization_defect": "top-level array is unterminated; final non-whitespace byte is '}' rather than ']'",
+          "study9_byte_hash_verified": true
+        },
+        {
+          "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT_with_CCSDS_fields.csv",
+          "rows": 404798,
+          "columns": 52,
+          "size_bytes": 150632208,
+          "sha256": "c117d04d7bfb8fa06413e2855c72fa8001dc0d8b58ffff4314cf41e08c4e8854",
+          "role": "DERIVED_COMPANION_NOT_OPERATIONAL_NATIVE",
+          "semantic_base_fields_preserved": true,
+          "study9_byte_hash_verified": true
+        },
+        {
+          "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT_With_Feature_Engineering.csv",
+          "rows": 404798,
+          "columns": 109,
+          "size_bytes": 470804757,
+          "sha256": "34a921079ecb908868e6038336b927cdc4683492a58dc026542affec9cbef1e5",
+          "role": "EXCLUDED_FROM_PRIMARY_MAPPING_DERIVED_AND_BASE_VALUES_MODIFIED",
+          "semantic_base_fields_preserved": false,
+          "modified_original_cells": 139,
+          "modified_original_columns": 17,
+          "study9_byte_hash_verified": true
+        }
+      ],
+      "source_artifact_sha256": {
+        "FEATURE_DOCUMENTATION.md": "98d5a71eb3637d3cf71976655a24bb3f788c38da7b60f4703d27638b6a305b38",
+        "FEATURES.csv": "95ccd70edd114bbf879ec163c4e801f4b5f3dd87a7767d434dcf15f2930cb476",
+        "UNSW_IoTSAT.csv": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+        "UNSW_IoTSAT.json": "b11775b7100e23430d6ef9ac0f21c15b3d946683fa043340de7547d3cc360ff5",
+        "UNSW_IoTSAT_with_CCSDS_fields.csv": "c117d04d7bfb8fa06413e2855c72fa8001dc0d8b58ffff4314cf41e08c4e8854",
+        "UNSW_IoTSAT_With_Feature_Engineering.csv": "34a921079ecb908868e6038336b927cdc4683492a58dc026542affec9cbef1e5"
+      },
+      "preregistered_primary_mapping_exclusions": {
+        "excluded_artifacts": [
+          "UNSW-IoTSAT dataset/UNSW_IoTSAT.json",
+          "UNSW-IoTSAT dataset/UNSW_IoTSAT_With_Feature_Engineering.csv"
+        ],
+        "excluded_base_fields": [
+          "Vertical_Category",
+          "Horizontal_Speed_ms",
+          "Reception_Time",
+          "Data_Quality_Score"
+        ],
+        "handling_rule": "Do not repair, re-align, infer, or impute these source fields. Exclude the entire four-field block from primary semantic mapping regardless of row-local appearance.",
+        "tail_field_defect_counts": {
+          "numeric_vertical_numeric_horizontal_datetime_reception_numeric_quality": 290792,
+          "numeric_vertical_datetime_horizontal_numeric_reception_numeric_quality": 113876,
+          "all_four_numeric": 130,
+          "vertical_category_not_documented_category": 404796,
+          "velocity_up_unparseable": 2
+        }
+      },
+      "ccsds_companion_boundary": {
+        "added_fields": [
+          "CCSDS_MC_Frame_Count",
+          "CCSDS_Packet_Sequence_Count",
+          "CCSDS_APID"
+        ],
+        "derivation_uses_offline_attack_labels": [
+          "Attack_Type",
+          "Attack_Subtype",
+          "Attack_Severity"
+        ],
+        "primary_operational_evidence_role": "NOT_OPERATIONAL_NATIVE",
+        "may_count_toward_recovery_state_coverage": false,
+        "reason": "Repository augmentation code derives the companion fields using attack-label-conditioned logic; Study 9 prohibits attack labels from creating operational recovery state."
+      },
       "field_schema": [],
       "schema_locked": false,
-      "artifact_locked": false,
+      "artifact_locked": true,
       "population_inclusion_locked": false,
       "repository_schema_provenance": {
         "feature_documentation_commit_bound": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
@@ -234,12 +349,11 @@
       },
       "independence_assessment": "Independently developed UNSW hybrid cyber-physical testbed; no evidence identified in the verification phase that it is derived from CuCD-ID or AegisSat.",
       "remaining_pre_inclusion_gates": [
-        "resolve reproducibly public access to the released dataset artifact",
-        "verify dataset-specific license or rights statement independently of the repository MIT license",
-        "bind immutable dataset version and file identities",
-        "record released file inventory and hashes"
+        "obtain or verify a dataset-specific license or rights statement independently of the repository MIT license",
+        "freeze final primary dataset population only after all selected datasets clear their remaining inclusion gates"
       ],
-      "notes": "Repository code and documentation are MIT licensed. Study 9 does not assume that the MIT license covers separately hosted dataset bytes. Strong schema documentation alone does not clear the artifact-access and dataset-license gates."
+      "verification_record": "study9/UNSW_IOTSAT_ARTIFACT_VERIFICATION.json",
+      "notes": "Technical selection pass only. Canonical base CSV and artifact hashes are bound. Invalid JSON and engineered CSV are excluded from primary mapping. Four defective base fields are preregistered for whole-field exclusion. CCSDS-added fields are label-conditioned derivatives and cannot count as operational-native recovery state. Dataset-specific license clarification remains pending; population is not frozen."
     }
   ]
 }
