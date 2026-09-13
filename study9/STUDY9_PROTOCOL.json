@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "experiment_id": "S9-RTSI-001",
+  "title": "Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets",
+  "status": "PROSPECTIVE_DESIGN_OPEN_NO_ANALYSIS_AUTHORIZED",
+  "base_main_commit": "49323c6f78d8a9ae14e09573a4b126b5bf0fda10",
+  "scientific_scope": "deterministic semantic-interface sufficiency and downstream decision identifiability across independently sourced public space-cyber datasets",
+  "publication_strategy": {
+    "intended_venue": "Cyber Security and Applications",
+    "venue_is_not_a_scientific_endpoint": true,
+    "post_result_protocol_tuning_for_venue_fit_prohibited": true
+  },
+  "frozen_downstream_interface_dependency": {
+    "path": "study2/src/study2_security/selectors.py",
+    "sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "role": "bounded downstream decision interface only",
+    "modification_authorized": false
+  },
+  "research_questions": {
+    "RQ1": "Across preregistered public space-cyber datasets, which recovery decision variables are directly observable, deterministically derivable by a predeclared rule, ambiguous, or absent without using attack labels as operational truth?",
+    "RQ2": "Conditioned only on qualifying dataset-native operationally visible state, when is the downstream recovery action uniquely identifiable versus ambiguous across admissible completions of missing decision state?",
+    "RQ3": "What minimal additional sidecar or interface state is sufficient to make the downstream recovery action uniquely identifiable without imputing unavailable mission, trust, freshness, epoch, contradiction, or authorization semantics?",
+    "RQ4": "Which missing recovery-state semantics are common across independently generated public space-cyber datasets and which are dataset-specific?"
+  },
+  "required_recovery_state_variables": [
+    "signature_valid",
+    "source_trusted",
+    "fresh",
+    "epoch_valid",
+    "contradictory",
+    "minimum_evidence_complete",
+    "security_signal",
+    "authorization_available"
+  ],
+  "candidate_dataset_screen": [
+    "CUCD_ID_V3",
+    "AEGISSAT_2025",
+    "UNSW_IOTSAT_2026"
+  ],
+  "dataset_inclusion_criteria": [
+    "publicly accessible research artifact or dataset with stable source identity",
+    "spacecraft, satellite, CubeSat, or satellite-communications cybersecurity relevance established by the primary source",
+    "documented telemetry, command, network, system, or security-event schema sufficient for field-level semantic review",
+    "version, release, commit, DOI, or equivalent provenance can be recorded before analysis",
+    "legal terms permit the intended noncommercial academic analysis and reproducibility record",
+    "source population is sufficiently independent from other included primary datasets for cross-source comparison, or dependence is explicitly modeled before inclusion",
+    "no operational credential, private mission data, or unauthorized target interaction is required"
+  ],
+  "dataset_exclusion_criteria": [
+    "schema or provenance cannot be resolved before analysis",
+    "artifact is inaccessible or cannot be version-bound",
+    "source is only a derivative of an already included testbed population and independence cannot be represented transparently",
+    "required use would conflict with license or access conditions",
+    "inclusion would require fabricating missing recovery semantics",
+    "source provides only narrative attack descriptions with no analyzable security-relevant data interface"
+  ],
+  "mapping_classes": [
+    "DIRECT",
+    "DERIVABLE_BY_PREDECLARED_RULE",
+    "AMBIGUOUS",
+    "ABSENT"
+  ],
+  "primary_endpoints": [
+    "per_dataset_recovery_state_mapping_matrix",
+    "per_dataset_operational_direct_coverage_count_and_fraction",
+    "per_dataset_operational_direct_or_derivable_coverage_count_and_fraction",
+    "cross_dataset_common_missing_state_set",
+    "row_level_admissible_action_set_size",
+    "row_level_unique_action_identifiability_fraction",
+    "minimal_additional_state_required_for_unique_action_identifiability"
+  ],
+  "secondary_endpoints": [
+    "mapping_outcomes_stratified_by_source_feature_family",
+    "action_identifiability_stratified_by_dataset_native_scenario_or_attack_label_for_description_only",
+    "sensitivity_to_permitted_predeclared_derivation_rules"
+  ],
+  "label_handling": {
+    "dataset_attack_or_scenario_labels_may_be_used_for": [
+      "descriptive stratification",
+      "source-population accounting",
+      "post hoc explanation of observed semantic coverage after primary endpoints are computed"
+    ],
+    "dataset_attack_or_scenario_labels_may_not_be_used_for": [
+      "counting security_signal as operationally directly observed",
+      "deriving mission authorization",
+      "deriving source trust",
+      "deriving cryptographic validity",
+      "deriving freshness or epoch validity",
+      "deriving contradiction state",
+      "deriving evidence completeness",
+      "selecting the downstream recovery action in a primary endpoint"
+    ]
+  },
+  "missing_state_rule": "Unavailable decision state remains unknown. It is not defaulted, inferred from lexical similarity, imputed from attack class, or replaced by analyst expectation.",
+  "action_identifiability_rule": "For each analyzed native record or native state representation, enumerate all downstream recovery actions reachable across every admissible assignment of unresolved required recovery-state variables. An action is uniquely identifiable only when the admissible action set has cardinality one.",
+  "minimal_sidecar_rule": "A minimal additional-state set is a smallest subset of unresolved recovery variables whose explicit values reduce the admissible downstream action set to cardinality one under the frozen interface. Ties must all be retained rather than selecting one preferred subset.",
+  "analysis_population_rule": "Each included dataset is analyzed as its own finite source population. Datasets are not pooled into a single empirical population for inferential claims.",
+  "statistics_rule": "Primary reporting uses deterministic finite-population counts, proportions, set intersections, set unions, and exact combinatorial summaries. No p-value, confidence interval, or population-generalization claim is required unless a later protocol amendment introduces an actual sampling model before results are observed.",
+  "independence_rule": "Shared testbed, simulator, collection campaign, or derived-dataset provenance must be recorded. A derivative source is not counted as an independent testbed population merely because it has a different publication title or preprocessing pipeline.",
+  "stopping_rules": [
+    "dataset selection is frozen before row-level analysis begins",
+    "schema manifests and source artifact identities are frozen before semantic mapping is executed",
+    "mapping rubric and derivation rules are frozen before inspecting row-level endpoint results",
+    "no candidate is added or removed after endpoint inspection except through a documented protocol deviation that is reported separately and does not rewrite the preregistered primary population"
+  ],
+  "interpretation_guards": [
+    "Study 9 does not estimate intrusion-detection accuracy, recall, precision, F1, false-positive rate, or false-negative rate unless a later separately preregistered experiment explicitly does so.",
+    "Study 9 does not claim detector or classifier transferability merely from semantic interoperability results.",
+    "Study 9 does not claim operational spacecraft recovery, mission assurance, flight validation, or on-orbit effectiveness.",
+    "Dataset attack labels are not treated as operational alarms in primary endpoints.",
+    "Correlation between a native feature and a missing recovery variable is not semantic observability.",
+    "A published dataset's construction counts are not attack-prevalence estimates.",
+    "Study 5 remains frozen and is not pooled with Study 9.",
+    "Submitted Papers 1 through 4 remain frozen and unmodified.",
+    "No result may be described as externally validated solely because multiple public datasets were analyzed.",
+    "No AI or learned method superiority claim is permitted unless directly measured in a separately authorized experiment."
+  ],
+  "authorization": {
+    "prospective_design_authorized": true,
+    "source_selection_design_authorized": true,
+    "dataset_ingestion_authorized": false,
+    "implementation_creation_authorized": false,
+    "row_level_analysis_authorized": false,
+    "canonical_execution_authorized": false,
+    "results_directory_authorized": false,
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false
+  }
+}
