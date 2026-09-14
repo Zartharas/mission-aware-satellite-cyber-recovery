@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "POLICY_SCOPE_FROZEN_NO_ROW_ANALYSIS",
+  "freeze_date": "2026-09-13",
+  "freeze_basis_branch": "study9/recovery-state-semantic-interoperability",
+  "freeze_basis_commit": "922b80061977b96f77d612c9460016ea6cde51cd",
+  "frozen_selector_dependency": {
+    "path": "study2/src/study2_security/selectors.py",
+    "sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "modification_authorized": false
+  },
+  "study2_policy_enum_order": [
+    "S2_B0_FAIL_CLOSED",
+    "S2_B1_FAIL_OPERATIONAL",
+    "S2_B2_RISK_THRESHOLD",
+    "S2_S1_EVIDENCE_AWARE",
+    "S2_ABL_NO_FRESHNESS",
+    "S2_ABL_NO_CONTRADICTION",
+    "S2_ABL_NO_EPOCH",
+    "S2_ABL_NO_SIGNATURE_TRUST"
+  ],
+  "primary_policies": [
+    "S2_B0_FAIL_CLOSED",
+    "S2_B1_FAIL_OPERATIONAL",
+    "S2_B2_RISK_THRESHOLD",
+    "S2_S1_EVIDENCE_AWARE"
+  ],
+  "excluded_mechanistic_ablations": [
+    "S2_ABL_NO_FRESHNESS",
+    "S2_ABL_NO_CONTRADICTION",
+    "S2_ABL_NO_EPOCH",
+    "S2_ABL_NO_SIGNATURE_TRUST"
+  ],
+  "policy_roles": {
+    "S2_B0_FAIL_CLOSED": "PRIMARY_SUBSTANTIVE_POLICY",
+    "S2_B1_FAIL_OPERATIONAL": "PRIMARY_SUBSTANTIVE_POLICY",
+    "S2_B2_RISK_THRESHOLD": "PRIMARY_SUBSTANTIVE_POLICY",
+    "S2_S1_EVIDENCE_AWARE": "PRIMARY_SUBSTANTIVE_POLICY",
+    "S2_ABL_NO_FRESHNESS": "EXCLUDED_MECHANISTIC_ABLATION",
+    "S2_ABL_NO_CONTRADICTION": "EXCLUDED_MECHANISTIC_ABLATION",
+    "S2_ABL_NO_EPOCH": "EXCLUDED_MECHANISTIC_ABLATION",
+    "S2_ABL_NO_SIGNATURE_TRUST": "EXCLUDED_MECHANISTIC_ABLATION"
+  },
+  "primary_analysis_rule": {
+    "all_primary_policies_evaluated": true,
+    "evaluated_separately": true,
+    "canonical_default_policy": null,
+    "policy_pooling_permitted": false,
+    "policy_averaging_permitted": false,
+    "policies_treated_as_interchangeable_replicates": false,
+    "policy_superiority_or_preference_claim_permitted": false,
+    "semantic_coverage_is_policy_independent": true,
+    "action_identifiability_is_policy_stratified": true,
+    "minimal_sidecar_is_policy_stratified": true
+  },
+  "primary_stratification": {
+    "dataset_ids": [
+      "CUCD_ID_V3",
+      "AEGISSAT_2025",
+      "UNSW_IOTSAT_2026"
+    ],
+    "dataset_count": 3,
+    "primary_policy_count": 4,
+    "dataset_policy_stratum_count": 12,
+    "stratum_key": [
+      "dataset_id",
+      "policy"
+    ],
+    "cross_stratum_pooling_for_primary_endpoints": false
+  },
+  "ablation_boundary": {
+    "included_in_primary_analysis": false,
+    "may_be_added_as_future_sensitivity_analysis": true,
+    "future_sensitivity_requires_separate_prospective_authorization": true,
+    "reason": "Each NO_* policy deliberately bypasses one frozen evidence check and therefore changes the decision mechanism rather than providing an interchangeable primary-policy replicate."
+  },
+  "endpoint_policy_scope": {
+    "per_dataset_recovery_state_mapping_matrix": "POLICY_INDEPENDENT",
+    "per_dataset_operational_direct_coverage_count_and_fraction": "POLICY_INDEPENDENT",
+    "per_dataset_operational_direct_or_derivable_coverage_count_and_fraction": "POLICY_INDEPENDENT",
+    "cross_dataset_common_missing_state_set": "POLICY_INDEPENDENT",
+    "row_level_admissible_action_set_size": "DATASET_X_PRIMARY_POLICY_STRATIFIED",
+    "row_level_unique_action_identifiability_fraction": "DATASET_X_PRIMARY_POLICY_STRATIFIED",
+    "minimal_additional_state_required_for_unique_action_identifiability": "DATASET_X_PRIMARY_POLICY_STRATIFIED"
+  },
+  "execution_boundary": {
+    "real_dataset_rows_opened": false,
+    "row_level_analysis_executed": false,
+    "canonical_execution_executed": false,
+    "results_created": false,
+    "study9_endpoints_computed": false
+  },
+  "change_rule": "After this freeze, changing the primary policy set, policy order, ablation exclusion, stratification rule, or endpoint policy scope requires a documented prospective protocol deviation and must not rewrite this record retroactively after real endpoint inspection."
+}
