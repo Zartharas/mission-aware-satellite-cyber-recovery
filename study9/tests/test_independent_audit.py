@@ -9,15 +9,19 @@ for path in (ROOT / "study9" / "src", ROOT / "study2" / "src"):
         sys.path.insert(0, str(path))
 
 import unittest
+from unittest.mock import patch
 
 from study9_semantic.canonical_engine import analysis_to_record, analyze_native_state_groups
+from study9_semantic.canonical_runner import _mapping_and_coverage
 from study9_semantic.completions import PartialObservation
-from study9_semantic.contracts import REQUIRED_VARIABLES
+from study9_semantic.contracts import REQUIRED_VARIABLES, load_frozen_contracts
 from study9_semantic.independent_audit import (
     audit_analyze_native_state_groups,
     audit_collapse_native_states,
     audit_guaranteed_minimal_sidecar_sets,
+    audit_mapping_and_coverage,
     audit_minimal_sidecar_sets,
+    audit_project_native_row,
     audit_reachable_actions,
 )
 from study9_semantic.selector_adapter import selector_types
@@ -27,6 +31,7 @@ from study9_semantic.sidecar import (
     reachable_actions,
 )
 from study9_semantic.state_groups import collapse_native_states
+from study9_semantic.state_projection import build_projection_plan, project_native_row
 
 
 class IndependentAuditTests(unittest.TestCase):
@@ -153,6 +158,38 @@ class IndependentAuditTests(unittest.TestCase):
         )
         audit = audit_analyze_native_state_groups("UNSW_IOTSAT_2026", audit_groups)
         self.assertEqual(canonical["policy_strata"], audit["policy_strata"])
+
+    def test_independent_raw_row_projection_matches_canonical_frozen_rule(self):
+        contracts = load_frozen_contracts(ROOT)
+        plan = build_projection_plan("UNSW_IOTSAT_2026", contracts)
+        for value, expected in (("0", False), ("1", True), ("0.0", False), ("1.000", True)):
+            row = {"Position_Anomaly": value, "Attack_Flag": "1"}
+            canonical = project_native_row(plan, row)
+            audit = audit_project_native_row("UNSW_IOTSAT_2026", row, contracts)
+            self.assertEqual(canonical, audit)
+            self.assertEqual(audit.known_dict()["security_signal"], expected)
+
+    def test_corrupted_canonical_projector_is_detectably_independent(self):
+        contracts = load_frozen_contracts(ROOT)
+        plan = build_projection_plan("UNSW_IOTSAT_2026", contracts)
+        row = {"Position_Anomaly": "0", "Attack_Flag": "1"}
+        audit = audit_project_native_row("UNSW_IOTSAT_2026", row, contracts)
+        with patch("study9_semantic.state_projection.normalize_binary_numeric", return_value=True):
+            corrupted = project_native_row(plan, row)
+        self.assertNotEqual(corrupted, audit)
+        self.assertTrue(corrupted.known_dict()["security_signal"])
+        self.assertFalse(audit.known_dict()["security_signal"])
+
+    def test_independent_policy_independent_mapping_and_coverage_matches_canonical(self):
+        contracts = load_frozen_contracts(ROOT)
+        canonical_mapping, canonical_coverage = _mapping_and_coverage(contracts)
+        audit_mapping, audit_coverage = audit_mapping_and_coverage(contracts)
+        self.assertEqual(canonical_mapping, audit_mapping)
+        self.assertEqual(canonical_coverage, audit_coverage)
+        by_id = {row["dataset_id"]: row for row in audit_coverage["per_dataset"]}
+        self.assertEqual(by_id["CUCD_ID_V3"]["operational_direct_coverage"], {"numerator": 0, "denominator": 8})
+        self.assertEqual(by_id["AEGISSAT_2025"]["operational_direct_coverage"], {"numerator": 0, "denominator": 8})
+        self.assertEqual(by_id["UNSW_IOTSAT_2026"]["operational_direct_coverage"], {"numerator": 1, "denominator": 8})
 
 
 if __name__ == "__main__":
