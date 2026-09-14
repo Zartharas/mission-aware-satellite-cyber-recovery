@@ -24,6 +24,26 @@ The findings were:
 
 The audit record itself is additive and remains a historical pre-result record. The remediation state is recorded prospectively in `STUDY9_PROTOCOL.json` and the implementation history rather than rewriting the audit findings.
 
+## Pre-real-data performance remediation
+
+`study9/PRE_REAL_DATA_PERFORMANCE_REMEDIATION.json` records a performance defect discovered during the first actual-clone run of the hardened synthetic integration suite at commit `6c6968c08c186927bdab8bf1371c80dd809db29c`.
+
+The suite remained CPU-bound for more than twenty minutes on `test_full_synthetic_runner_detects_corrupted_canonical_projection`. The interrupt traceback showed the hot path repeatedly entering `selector_adapter._selector_module() -> load_frozen_contracts() -> validate_contracts()` from exhaustive sidecar evaluation. The independent audit used the same repeated frozen-contract initialization pattern in its own selector loader.
+
+The defect was computational redundancy, not a scientific endpoint defect. The remediation therefore does **not** change the completion space, policy set, mapping semantics, sidecar definition, source population, or selector logic.
+
+The canonical selector adapter now:
+
+- validates and loads the frozen Study 2 selector once per Python process;
+- memoizes the deterministic mapping from `(policy, complete eight-Boolean state)` to Study 2 action;
+- exposes an explicit cache-clear hook for tests.
+
+The independent audit implements the same optimization **separately**, with its own selector/module cache and its own policy-state action cache. It does not use the canonical cache.
+
+The guaranteed-sidecar algorithm still enumerates every required subset, every revealed Boolean assignment, and every remaining admissible completion exactly as frozen. No completion sampling, heuristic pruning, approximate search, or policy reduction was introduced.
+
+Performance regression tests are intentionally machine-independent. They verify bounded selector/contract initialization counts rather than asserting a wall-clock duration. The exhaustive canonical selector-equivalence test still covers all 256 complete Boolean states across all eight `Study2Policy` values.
+
 ## Independently reconstructed raw-row projection
 
 `independent_audit.py` now reconstructs native recovery state directly from raw rows without importing or calling `state_projection.py`.
@@ -121,7 +141,9 @@ verified source -> canonical raw-row projection -> lossless grouping -> four pol
 
 The synthetic pipeline runs twice against the same temporary inputs and requires every output artifact to be byte-identical across runs. It verifies the SHA-256 output manifest and confirms the independently reconstructed mapping/coverage outputs equal the canonical mapping/coverage outputs.
 
-A separate synthetic integration test deliberately inverts the canonical UNSW `security_signal` projection. Because the independent audit now projects raw rows separately, the runner detects a canonical/audit native-state grouping mismatch and produces no result directory.
+A separate synthetic integration test deliberately inverts the canonical UNSW `security_signal` projection. Because the independent audit projects raw rows separately, the runner detects a canonical/audit native-state grouping mismatch and produces no result directory.
+
+A bounded-initialization integration test clears both selector caches, executes the complete synthetic runner, and requires exactly one frozen-contract initialization on the canonical selector path and exactly one on the independently implemented audit selector path.
 
 These tests do not access any Study 9 real source bytes.
 
@@ -190,7 +212,7 @@ PYTHONPATH="study9/src:study2/src" \
 python3 -m unittest discover -s study9/tests -p 'test_*.py' -v
 ```
 
-The suite covers frozen governance, temporary direct/ZIP input verification, projection, label exclusion, multiplicity conservation, completion enumeration, selector equivalence, policy-stratified endpoint weighting, guaranteed-sidecar semantics, deterministic serialization, independent reconstruction, the closed execution guard, adversarial-audit bindings, atomic phase-transition rejection, and the full synthetic eight-artifact runner path.
+The suite covers frozen governance, temporary direct/ZIP input verification, projection, label exclusion, multiplicity conservation, completion enumeration, exhaustive selector equivalence, policy-stratified endpoint weighting, guaranteed-sidecar semantics, deterministic serialization, independent reconstruction, the closed execution guard, adversarial-audit bindings, atomic phase-transition rejection, bounded selector initialization, and the full synthetic eight-artifact runner path.
 
 Synthetic fixture files are created only in temporary directories and are not Study 9 source data.
 
@@ -212,6 +234,8 @@ Among other invariants, `contracts.py` rejects the implementation if:
 - the run-manifest reproducibility identity path set changes;
 - canonical execution flags are changed partially;
 - a future fully open execution phase lacks the separate canonical-run code freeze or its implementation hashes drift.
+
+The separate performance-remediation tests additionally fail if exhaustive cached selector behavior diverges from the frozen selector or if either selector path repeatedly initializes frozen contracts after its cache is cleared.
 
 ## Not authorized in this phase
 
