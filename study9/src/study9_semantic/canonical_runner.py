@@ -7,9 +7,20 @@ import tempfile
 from typing import Mapping
 
 from .canonical_engine import analysis_to_record, analyze_native_state_groups
-from .contracts import FROZEN_DATASET_IDS, FrozenContracts, load_frozen_contracts
+from .contracts import (
+    FROZEN_DATASET_IDS,
+    RUN_IDENTITY_BASE_PATHS,
+    FrozenContracts,
+    load_frozen_contracts,
+    sha256_file,
+)
 from .deterministic_io import build_output_sha256_manifest, canonical_json_bytes
-from .independent_audit import audit_analyze_native_state_groups, audit_collapse_native_states
+from .independent_audit import (
+    audit_analyze_native_state_groups,
+    audit_collapse_native_states,
+    audit_mapping_and_coverage,
+    audit_project_native_row,
+)
 from .input_identity import InputIdentitySpec, iter_verified_rows, verify_csv_source
 from .mapping import materialize_mapping_matrix, records_for_dataset
 from .state_groups import NativeStateGroup, collapse_native_states
@@ -196,6 +207,35 @@ def _sidecar_record(analysis_records: list[dict[str, object]]) -> dict[str, obje
     }
 
 
+def _reproducibility_identity(contracts: FrozenContracts) -> dict[str, object]:
+    paths = list(RUN_IDENTITY_BASE_PATHS)
+    code_freeze = contracts.protocol.get("canonical_run_code_freeze", {})
+    if code_freeze.get("frozen") is True:
+        record_path = code_freeze.get("freeze_record")
+        if not isinstance(record_path, str) or not record_path:
+            raise CanonicalRunError("canonical run code-freeze record path is missing")
+        paths.append(record_path)
+
+    if len(paths) != len(set(paths)):
+        raise CanonicalRunError("reproducibility identity path set contains duplicates")
+    files: list[dict[str, object]] = []
+    for relative in paths:
+        path = contracts.repo_root / relative
+        if not path.is_file():
+            raise CanonicalRunError(f"reproducibility identity file is missing: {relative}")
+        files.append(
+            {
+                "path": relative,
+                "size_bytes": path.stat().st_size,
+                "sha256": sha256_file(path),
+            }
+        )
+    return {
+        "algorithm": "sha256",
+        "files": files,
+    }
+
+
 def _write_artifacts_atomically(output_dir: Path, artifacts: Mapping[str, bytes]) -> None:
     if output_dir.exists():
         raise CanonicalRunError(f"output directory already exists: {output_dir}")
@@ -223,6 +263,8 @@ def run_canonical_sources(
     """Execute the future canonical pipeline only after all real-execution gates are open."""
     contracts = load_frozen_contracts()
     assert_real_execution_authorized(contracts)
+
+    execution_identity = _reproducibility_identity(contracts)
 
     # No supplied external path is inspected before the authorization guard above.
     specs = _build_specs(
@@ -254,7 +296,10 @@ def run_canonical_sources(
 
         audit_groups = audit_collapse_native_states(
             dataset_id,
-            (project_native_row(plan, row) for row in iter_verified_rows(spec, verification)),
+            (
+                audit_project_native_row(dataset_id, row, contracts)
+                for row in iter_verified_rows(spec, verification)
+            ),
             expected_row_count=verification.row_count,
         )
         if verify_csv_source(spec) != verification:
@@ -278,6 +323,12 @@ def run_canonical_sources(
         audit_summaries[dataset_id] = audit_summary
 
     mapping_record, coverage_record = _mapping_and_coverage(contracts)
+    audit_mapping_record, audit_coverage_record = audit_mapping_and_coverage(contracts)
+    if mapping_record != audit_mapping_record:
+        raise CanonicalRunError("canonical/audit policy-independent mapping mismatch")
+    if coverage_record != audit_coverage_record:
+        raise CanonicalRunError("canonical/audit policy-independent coverage mismatch")
+
     group_record = {
         "datasets": [
             {
@@ -292,12 +343,17 @@ def run_canonical_sources(
     sidecar_record = _sidecar_record(analysis_records)
     audit_record = {
         "status": "MATCH",
+        "policy_independent": {
+            "mapping_matrix": audit_mapping_record,
+            "coverage_summary": audit_coverage_record,
+        },
         "datasets": [audit_summaries[dataset_id] for dataset_id in FROZEN_DATASET_IDS],
     }
     run_manifest = {
         "study_id": contracts.protocol["experiment_id"],
         "dataset_order": list(FROZEN_DATASET_IDS),
         "primary_policy_order": list(contracts.policy_scope["primary_policies"]),
+        "reproducibility_identity": execution_identity,
         "inputs": [
             {
                 "dataset_id": dataset_id,
@@ -327,6 +383,16 @@ def run_canonical_sources(
         raise CanonicalRunError(
             f"canonical output artifact set/order drift: {tuple(artifacts)!r} != {expected_outputs!r}"
         )
+
+    final_verified = {
+        dataset_id: verify_csv_source(specs[dataset_id])
+        for dataset_id in FROZEN_DATASET_IDS
+    }
+    if final_verified != verified:
+        raise CanonicalRunError("one or more source identities changed before atomic output")
+    if _reproducibility_identity(contracts) != execution_identity:
+        raise CanonicalRunError("governance or implementation identity changed during execution")
+
     _write_artifacts_atomically(Path(output_dir), artifacts)
     return {
         "output_dir": str(output_dir),
