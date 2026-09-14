@@ -29,22 +29,34 @@ A source may pass the selection gate before its bytes are ingested into this rep
 
 | Candidate | Verified provenance | Verified schema/access evidence | Legal/access state | Independence assessment | Current disposition |
 | --- | --- | --- | --- | --- | --- |
-| **CuCD-ID v3** | Mendeley Data DOI `10.17632/7n2d42pm3n.3`, published 2026-02-10; Data in Brief DOI `10.1016/j.dib.2026.112598` | Primary article documents raw `Data/Raw/consolidated_dataset_raw.csv` as 25,000 rows × 31 columns and augmented `Data/Augmented/noised_dataset.csv` as 22,465 rows × 23 columns, with field-level schema described in the article; published SHA-256 values are recorded in `DATASET_SCHEMA_MANIFEST.json` | Dataset host reports **CC BY 4.0** and public Mendeley access | Independent NOS3/cFS software-in-the-loop population relative to the other screened testbeds | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION` |
+| **CuCD-ID v3** | Mendeley Data DOI `10.17632/7n2d42pm3n.3`, published 2026-02-10; Data in Brief DOI `10.1016/j.dib.2026.112598`; downloaded Version 3 package independently audited and byte-hash bound | Exact package contains 13 files. Raw `Data/Raw/consolidated_dataset_raw.csv` is 25,000 rows × 31 columns and augmented `Data/Augmented/noised_dataset.csv` is 22,465 rows × 23 columns. Both Study 9 recomputed SHA-256 values exactly match the published Version 3 checksums. Zero row-width, blank, nonnumeric, or nonfinite-value defects were observed in either CSV | Dataset host reports **CC BY 4.0** and public Mendeley access | Independent NOS3/cFS software-in-the-loop population relative to the other screened testbeds | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE` |
 | **AegisSat** | SpaceSec 2025 paper *AegisSat: A Satellite Cybersecurity Testbed*; public repository `texydo/satellite_security_testbed` bound to commit `24c00de5ee729b91805724cbf82068562e7a4b6d`; Zenodo DOI `10.5281/zenodo.14960983`; exact deposited `AegisSat-AD.csv` independently audited | Zenodo deposit contains one CSV with 137,965 rows × 176 columns and zero row-width mismatches. The schema directly reconciles with the verified persistence interface through run/TLE provenance, epoch/UTC time, flattened COSMOS telemetry, command, and attack fields. Local bytes match the Zenodo MD5 exactly; Study 9 also binds an independent SHA-256 | Zenodo reports **CC BY 4.0**. Exact file manifest and checksum are verified | Scientifically distinct physical/emulation provenance; no evidence found that it is derived from CuCD-ID or UNSW-IoTSAT | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE` |
 | **UNSW-IoTSAT** | Cyber Security and Applications DOI `10.1016/j.csa.2026.100133`; public repository `Osama-Abdelhameed/UNSW-IoTSAT` bound to commit `48ccc99ebd182d886eb18d2b94e95baba5a2a89a`; author-linked SharePoint/OneDrive release package independently audited and byte-hash bound | Release package contains 404,798-row base, CCSDS-companion, and engineered CSVs plus JSON and schema documentation. `UNSW_IoTSAT.csv` is selected as the canonical native artifact; CCSDS preserves the 49 base fields semantically but its three added fields are label-conditioned derivatives. The JSON export is unterminated and the engineered CSV changes 139 original-field cells across 17 columns, so both are excluded from primary mapping | The pinned project repository contains an MIT `LICENSE`, displays an MIT license badge in the README, and directly links the public UNSW SharePoint dataset. Study 9 adopts MIT as an author-approved project-distribution licensing assumption for this release. The downloaded package contains no separate license file, so this is recorded as a governance interpretation rather than independently verified dataset-specific license text | Independently developed UNSW hybrid cyber-physical testbed; no evidence found that it is derived from CuCD-ID or AegisSat | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE` |
 
-## CuCD-ID v3 selection rationale
+## CuCD-ID v3 selection-pass rationale
 
-CuCD-ID v3 clears the source-selection gate because its versioned DOI, public host, dataset license, testbed provenance, table dimensions, schema documentation, and published artifact hashes are available from the dataset host and primary Data in Brief article.
+CuCD-ID v3 has a complete verified article-to-Mendeley-to-byte chain. The canonical source is Mendeley Data Version 3, DOI `10.17632/7n2d42pm3n.3`, paired with the Data in Brief article DOI `10.1016/j.dib.2026.112598`.
 
-The two primary tabular artifacts are reported by the primary article as:
+The downloaded Version 3 package was independently audited read-only. The ZIP contains 13 files, passes ZIP integrity testing, and is byte-bound by Study 9 SHA-256:
 
-- `Data/Raw/consolidated_dataset_raw.csv`: 25,000 rows × 31 columns; published SHA-256 `2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2`.
-- `Data/Augmented/noised_dataset.csv`: 22,465 rows × 23 columns; published SHA-256 `656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68`.
+`da3d95886feae0bc913a9e5beec1368571f51c80ecc811e40f6cc29edf33f2f0`
 
-These hashes are **source-reported values**, not Study 9 byte-level recomputations. Study 9 must independently verify downloaded bytes against them before any row-level analysis. The frozen Study 5 copy of the same values is not treated as Study 9 evidence.
+The two tabular artifacts independently verify as:
 
-Current disposition: `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION`.
+- `Data/Raw/consolidated_dataset_raw.csv`: 25,000 rows × 31 columns; Study 9 SHA-256 `2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2`; exact match to the published Version 3 checksum.
+- `Data/Augmented/noised_dataset.csv`: 22,465 rows × 23 columns; Study 9 SHA-256 `656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68`; exact match to the published Version 3 checksum.
+
+Both CSVs have zero row-width mismatches, zero blank values, zero nonnumeric values, and zero NaN/Inf values. The raw artifact contains exactly 5,000 rows for each of the five integer labels in `label_schema.json`: command flooding, data injection, defence impairment, normal, and storage exhaustion.
+
+For Study 9, `consolidated_dataset_raw.csv` is the canonical native data artifact. `noised_dataset.csv` is retained as a deterministic derived/augmented companion and cannot replace the native raw artifact for primary operational-state mapping. The augmentation implementation uses fixed seed `7`, drops eight invariant fields, and applies documented noise transformations. The `Label` field is `OFFLINE_GROUND_TRUTH_ONLY` and cannot create `security_signal` or any other operational recovery-state variable.
+
+Two package-level reproducibility/documentation defects are preserved rather than repaired. `Data/Metadata/checksums.txt` stores bare digest lines while `Code/Validation/validate_and_load.py` expects digest-plus-path entries, so its checksum parser can skip hash verification; Study 9 therefore relies on its independent byte recomputation. The root README refers to `/Code/Scripts/`, while the actual scenario directory is `Code/Cosmos_Scripts/`. Neither defect changes artifact identity or the independently verified CSV hashes.
+
+Selection verification does not perform semantic mapping. The frozen Study 5 copy of CuCD-ID is not treated as Study 9 evidence, and no missing recovery state is inferred from labels, field names, correlations, or scenario semantics.
+
+Current disposition: `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE`.
+
+Detailed artifact hashes, raw and augmented schemas, label boundary, augmentation provenance, and quality notes are preserved in `CUCD_ID_V3_ARTIFACT_VERIFICATION.json`.
 
 ## AegisSat selection-pass rationale
 
@@ -135,7 +147,7 @@ Current disposition: `EXCLUDED_FROM_PRIMARY_INDEPENDENT_SCREEN_SHARED_AEGISSAT_P
 
 ## Current decision
 
-- **CuCD-ID v3:** selection gate passed; retained for the prospective primary population, pending final population freeze and independent byte-level verification before row analysis.
+- **CuCD-ID v3:** selection gate passed; exact Version 3 package, raw/augmented SHA-256 values, dimensions, schemas, and augmentation/label boundaries are independently verified; retained pending final population freeze.
 - **AegisSat:** selection gate passed; exact Zenodo deposit, CC BY 4.0 license, deposited file checksum, Study 9 SHA-256, dimensions, and deposited-schema reconciliation are bound; retained pending final population freeze.
 - **UNSW-IoTSAT:** selection gate passed under the recorded MIT project-distribution governance interpretation, with canonical base-CSV binding and preregistered artifact/field exclusions; retained pending final population freeze.
 
