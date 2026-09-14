@@ -101,7 +101,7 @@
     },
     {
       "dataset_id": "AEGISSAT_2025",
-      "candidate_status": "PROVISIONAL_SELECTION_PASS_PENDING_ZENODO_FILE_MANIFEST_AND_LICENSE_VERIFICATION",
+      "candidate_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
       "dataset_title": "AegisSat: Telemetry dataset of a physical CubeSat environment with labeled attacks",
       "dataset_doi": "10.5281/zenodo.14960983",
       "primary_article_title": "AegisSat: A Satellite Cybersecurity Testbed",
@@ -125,11 +125,35 @@
           "processor measurements"
         ]
       },
-      "dataset_license_reported_by_direct_host": null,
-      "dataset_access_status": "ZENODO_DOI_AND_REPOSITORY_BOUND_DIRECT_ZENODO_FILE_MANIFEST_RATE_LIMITED_DURING_VERIFICATION",
-      "schema_evidence_status": "PRIMARY_PAPER_PLUS_IMPLEMENTATION_DERIVED_PERSISTENCE_INTERFACE_VERIFIED_DEPOSITED_SCHEMA_NOT_YET_LOCKED",
-      "source_artifact_files": [],
-      "source_artifact_sha256": {},
+      "dataset_license_reported_by_direct_host": "CC BY 4.0",
+      "dataset_access_status": "ZENODO_RECORD_AND_EXACT_DEPOSITED_FILE_VERIFIED_LOCAL_BYTES_CHECKSUM_MATCHED",
+      "schema_evidence_status": "ZENODO_DEPOSITED_CSV_SCHEMA_VERIFIED_AND_RECONCILED_WITH_IMPLEMENTATION_PERSISTENCE_INTERFACE",
+      "canonical_artifact": {
+        "path": "AegisSat-AD.csv",
+        "rows": 137965,
+        "columns": 176,
+        "size_bytes": 190028590,
+        "md5": "f5b53ba9d080fe1795def09bdecd7cb9",
+        "sha256": "dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e",
+        "zenodo_md5_match": true,
+        "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
+        "study9_byte_hash_verified": true
+      },
+      "source_artifact_files": [
+        {
+          "path": "AegisSat-AD.csv",
+          "rows": 137965,
+          "columns": 176,
+          "size_bytes": 190028590,
+          "zenodo_checksum": "md5:f5b53ba9d080fe1795def09bdecd7cb9",
+          "sha256": "dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e",
+          "row_width_mismatches": 0,
+          "study9_byte_hash_verified": true
+        }
+      ],
+      "source_artifact_sha256": {
+        "AegisSat-AD.csv": "dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e"
+      },
       "repository_persistence_interface": {
         "implementation_path": "src/Manager/utils/ManagerClass.py",
         "implementation_commit": "24c00de5ee729b91805724cbf82068562e7a4b6d",
@@ -166,21 +190,68 @@
           "TPL_CURRENT_TEMPERATURE",
           "RECEIVED_COUNT"
         ],
-        "evidence_boundary": "Implementation-derived generating/persistence schema evidence only. It is not treated as proof that the exact Zenodo deposit contains every field or uses an identical serialized schema."
+        "deposit_reconciliation": {
+          "directly_represented": [
+            "run_id",
+            "TLE File Name",
+            "TLE",
+            "Epoch_Time",
+            "UTC_time/UTC_Time",
+            "flattened cosmos_data",
+            "command",
+            "attacks"
+          ],
+          "optional_fields_not_exposed_as_standalone_deposit_columns": [
+            "pi_metrics",
+            "satState"
+          ],
+          "boundary": "Optional persistence fields absent as standalone CSV columns are treated as export-representation differences. Study 9 does not infer unexported values."
+        }
+      },
+      "deposited_schema": {
+        "rows": 137965,
+        "columns": 176,
+        "row_width_mismatches": 0,
+        "field_families": [
+          "record and run provenance",
+          "TLE identity and orbital elements",
+          "epoch and UTC time",
+          "TPL packet telemetry and CCSDS metadata",
+          "payload-status packet telemetry and CCSDS metadata",
+          "EPS packet telemetry and CCSDS metadata",
+          "OBC packet telemetry and CCSDS metadata",
+          "OBC processor packet telemetry and CCSDS metadata",
+          "command",
+          "CPUHighTarget attack experiment annotations"
+        ],
+        "full_header_bound_in_verification_record": "study9/AEGISSAT_ARTIFACT_VERIFICATION.json"
+      },
+      "attack_annotation_boundary": {
+        "fields": [
+          "attacks.cpuhightarget.duration",
+          "attacks.cpuhightarget.target"
+        ],
+        "evidence_role": "OFFLINE_GROUND_TRUTH_OR_EXPERIMENT_METADATA_ONLY",
+        "may_count_toward_recovery_state_coverage": false,
+        "reason": "CPUHighTarget is an explicit attack class in the pinned cyber subsystem; Study 9 prohibits attack annotations from creating operational recovery state."
+      },
+      "semantic_adjudication_boundary": {
+        "timestamps_do_not_automatically_establish_freshness": true,
+        "epoch_or_sequence_fields_do_not_automatically_establish_epoch_validity": true,
+        "command_presence_does_not_automatically_establish_authorization_available": true,
+        "ccsds_identifiers_do_not_automatically_establish_source_trusted": true
       },
       "field_schema": [],
       "schema_locked": false,
-      "artifact_locked": false,
+      "artifact_locked": true,
       "population_inclusion_locked": false,
       "independence_assessment": "Scientifically distinct physical/emulation provenance; no evidence identified in the verification phase that it is derived from CuCD-ID or UNSW-IoTSAT.",
       "remaining_pre_inclusion_gates": [
-        "verify the exact Zenodo deposited-file manifest",
-        "verify dataset license from the Zenodo deposited record rather than inferring it from the repository MIT license",
-        "record deposited file sizes and checksums or equivalent immutable file identities",
-        "bind the exact deposited dataset version used by Study 9",
-        "reconcile the deposited dataset field schema with the implementation-derived persistence interface before semantic mapping"
+        "freeze exact machine-readable field-to-recovery-state adjudication schema before mapping",
+        "freeze final primary dataset population only after all selected datasets clear their remaining pre-analysis gates"
       ],
-      "notes": "AegisSat receives a provisional selection pass because the research identity, correct public repository, exact repository commit, Zenodo DOI chain, software license, and implementation-derived persistence interface are now bound. Direct Zenodo record retrieval returned HTTP 429 during verification and the record was later reported unavailable during Zenodo maintenance, so deposited file inventory, dataset license, file identities/checksums, and exact deposited schema remain pending and are not inferred."
+      "verification_record": "study9/AEGISSAT_ARTIFACT_VERIFICATION.json",
+      "notes": "Selection gate passed. Zenodo record 14960983 reports CC BY 4.0 and exactly one deposited file, AegisSat-AD.csv. Local bytes match the Zenodo MD5; SHA-256, dimensions, zero row-width mismatches, and deposited schema are bound. Attack annotation fields remain outside operational-native recovery evidence. Population is not frozen and semantic mapping remains unauthorized."
     },
     {
       "dataset_id": "UNSW_IOTSAT_2026",
