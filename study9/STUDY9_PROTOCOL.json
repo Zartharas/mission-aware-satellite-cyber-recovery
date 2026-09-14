@@ -2,7 +2,7 @@
   "schema": 2,
   "experiment_id": "S9-RTSI-001",
   "title": "Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets",
-  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_EXECUTION_DESIGN_FROZEN_LOADER_RUNNER_IMPLEMENTED_NO_ANALYSIS",
+  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_EXECUTION_DESIGN_FROZEN_LOADER_RUNNER_HARDENED_NO_ANALYSIS",
   "base_main_commit": "49323c6f78d8a9ae14e09573a4b126b5bf0fda10",
   "scientific_scope": "deterministic semantic-interface sufficiency and downstream decision identifiability across independently sourced public space-cyber datasets",
   "publication_strategy": {
@@ -104,6 +104,8 @@
     "primary policy scope and dataset-by-policy stratification are frozen before real row-level execution",
     "canonical input identity, state-collapse, multiplicity weighting, guaranteed-sidecar, deterministic-output, and independent-audit rules are frozen before real row-level execution",
     "guarded loader/runner implementation is synthetic-tested before any real-data authorization is opened",
+    "pre-real-data adversarial audit remediations, including independent raw-row projection and full synthetic runner integration, are implemented and actual-clone tested before any real-data authorization is opened",
+    "the exact tested canonical-run code state is separately frozen before the future execution phase may be opened",
     "no candidate is added or removed after endpoint inspection except through a documented protocol deviation that is reported separately and does not rewrite the preregistered primary population"
   ],
   "interpretation_guards": [
@@ -120,7 +122,10 @@
     "Primary Study 9 policies are evaluated separately; policy pooling, averaging, interchangeable-replicate treatment, and policy-superiority claims are prohibited.",
     "Unavailable actual values of ambiguous or absent recovery state may not be supplied to the canonical minimal-sidecar endpoint.",
     "Lossless native-state collapse is an exact computational equivalence with multiplicity preservation, not sampling, deduplication, or row exclusion.",
-    "Loader/runner implementation does not itself authorize real source access; authorization is checked before any user-supplied dataset path is inspected."
+    "Loader/runner implementation does not itself authorize real source access; authorization is checked before any user-supplied dataset path is inspected.",
+    "The independent audit must reconstruct raw-row projection and policy-independent coverage without calling the canonical projector or canonical mapping implementation.",
+    "Canonical result provenance must bind the exact governance and runtime implementation files by SHA-256 in run_manifest.json.",
+    "Real execution authorization must transition atomically; piecemeal flag changes are invalid."
   ],
   "authorization": {
     "prospective_design_authorized": true,
@@ -128,6 +133,7 @@
     "dataset_ingestion_authorized": false,
     "implementation_creation_authorized": true,
     "loader_runner_implementation_authorized": true,
+    "pre_real_data_adversarial_hardening_authorized": true,
     "row_level_analysis_authorized": false,
     "canonical_execution_authorized": false,
     "results_directory_authorized": false,
@@ -214,6 +220,45 @@
     "study9_endpoints_computed": false,
     "change_rule": "After this freeze, changing input identities, state construction, collapse equivalence, multiplicity weighting, admissible completion semantics, guaranteed-sidecar semantics, endpoint stratification, label boundaries, deterministic output requirements, or independent-audit requirements requires a documented prospective protocol deviation and must not rewrite the frozen execution-design record retroactively after real endpoint inspection."
   },
+  "pre_real_data_adversarial_audit": {
+    "completed": true,
+    "audit_date": "2026-09-14",
+    "audit_record": "study9/PRE_REAL_DATA_ADVERSARIAL_AUDIT.json",
+    "audit_basis_commit": "f7723ffd7d2e9a6127f260f83d5a0d36cf7ffff1",
+    "finding_count": 5,
+    "actual_clone_test_count_at_audit": 57,
+    "actual_clone_result_at_audit": "PASS",
+    "independent_raw_row_projection_implemented": true,
+    "independent_policy_independent_mapping_and_coverage_implemented": true,
+    "full_synthetic_end_to_end_runner_test_implemented": true,
+    "run_manifest_reproducibility_identity_implemented": true,
+    "atomic_future_execution_phase_transition_implemented": true,
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false
+  },
+  "execution_phase_transition_contract": {
+    "atomic_transition_required": true,
+    "partial_transition_permitted": false,
+    "closed_protocol_status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_EXECUTION_DESIGN_FROZEN_LOADER_RUNNER_HARDENED_NO_ANALYSIS",
+    "future_open_protocol_status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_EXECUTION_DESIGN_FROZEN_CANONICAL_EXECUTION_AUTHORIZED",
+    "canonical_execution_authorization_flags": [
+      "dataset_ingestion_authorized",
+      "row_level_analysis_authorized",
+      "canonical_execution_authorized",
+      "results_directory_authorized"
+    ],
+    "implementation_phase_execution_flags": [
+      "real_dataset_rows_may_be_opened",
+      "study9_endpoints_may_be_computed",
+      "results_directory_may_be_created",
+      "canonical_execution_authorized"
+    ],
+    "future_open_requires_canonical_run_code_freeze": true,
+    "future_code_freeze_record": "study9/CANONICAL_RUN_CODE_FREEZE.json",
+    "future_open_requires_synthetic_only_false": true,
+    "future_open_requires_loader_runner_synthetic_test_only_false": true,
+    "manuscript_and_submission_remain_separate_authorizations": true
+  },
   "implementation_phase": {
     "authorized": true,
     "authorization_date": "2026-09-13",
@@ -242,9 +287,39 @@
       "study9/src/study9_semantic/deterministic_io.py",
       "study9/src/study9_semantic/canonical_runner.py"
     ],
+    "pre_real_data_adversarial_hardening_implemented": true,
+    "independent_raw_row_projection_implemented": true,
+    "independent_policy_independent_mapping_and_coverage_implemented": true,
+    "full_synthetic_end_to_end_runner_test_implemented": true,
+    "run_manifest_reproducibility_identity_required": true,
+    "atomic_execution_phase_transition_required": true,
+    "run_manifest_reproducibility_identity_paths": [
+      "study9/STUDY9_PROTOCOL.json",
+      "study9/PRIMARY_POPULATION_FREEZE.json",
+      "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+      "study9/POLICY_SCOPE_FREEZE.json",
+      "study9/CANONICAL_EXECUTION_DESIGN_FREEZE.json",
+      "study9/PRE_REAL_DATA_ADVERSARIAL_AUDIT.json",
+      "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+      "study9/DATASET_SCHEMA_MANIFEST.json",
+      "study9/src/study9_semantic/completions.py",
+      "study9/src/study9_semantic/contracts.py",
+      "study9/src/study9_semantic/mapping.py",
+      "study9/src/study9_semantic/selector_adapter.py",
+      "study9/src/study9_semantic/sidecar.py",
+      "study9/src/study9_semantic/input_identity.py",
+      "study9/src/study9_semantic/state_projection.py",
+      "study9/src/study9_semantic/state_groups.py",
+      "study9/src/study9_semantic/canonical_engine.py",
+      "study9/src/study9_semantic/deterministic_io.py",
+      "study9/src/study9_semantic/independent_audit.py",
+      "study9/src/study9_semantic/canonical_runner.py",
+      "study2/src/study2_security/selectors.py"
+    ],
     "policy_scope_rule": "The four frozen substantive Study 2 policies are primary and must be evaluated separately. The four NO_* policies remain excluded mechanistic ablations. The implementation must not encode a canonical default policy.",
     "execution_design_rule": "Canonical real-data execution must use hash-verified inputs, frozen state construction, lossless state collapse with exact multiplicity, full admissible completion enumeration, the guaranteed minimal-sidecar endpoint without actual missing values, deterministic outputs, and an independently implemented audit. Real-data execution remains separately unauthorized.",
     "loader_runner_rule": "The loader and runner may be exercised only on synthetic temporary fixtures while real-data authorization remains closed. run_canonical_sources must check authorization before constructing external source specs, probing user-supplied dataset paths, or creating output directories.",
+    "pre_real_data_hardening_rule": "The independent audit must reconstruct raw-row projection and policy-independent mapping/coverage separately from canonical implementations; the full post-guard pipeline must be synthetic-tested end-to-end; run_manifest.json must bind exact governance/runtime SHA-256 identities; and the future real-execution transition must be atomic and preceded by a canonical-run code freeze.",
     "submitted_papers_1_through_4_may_be_modified": false
   }
 }
