@@ -12,13 +12,19 @@ import copy
 import unittest
 
 from study9_semantic.contracts import (
+    CANONICAL_EXECUTION_AUTHORIZATION_FLAGS,
+    CLOSED_PROTOCOL_STATUS,
     ContractViolation,
     EXCLUDED_ABLATION_VALUES,
     FROZEN_DATASET_IDS,
     FULL_POLICY_ENUM_VALUES,
     GUARANTEED_SIDECAR_DEFINITION_ID,
+    IMPLEMENTATION_EXECUTION_FLAGS,
+    OPEN_PROTOCOL_STATUS,
+    PRE_REAL_DATA_AUDIT_STATUS,
     PRIMARY_POLICY_VALUES,
     REQUIRED_VARIABLES,
+    RUN_IDENTITY_BASE_PATHS,
     STATE_COLLAPSE_RULE_ID,
     load_frozen_contracts,
     validate_contracts,
@@ -35,6 +41,7 @@ class ContractTests(unittest.TestCase):
         self.assertFalse(contracts.protocol["authorization"]["row_level_analysis_authorized"])
         self.assertFalse(contracts.protocol["authorization"]["canonical_execution_authorized"])
         self.assertFalse(contracts.protocol["authorization"]["dataset_ingestion_authorized"])
+        self.assertEqual(contracts.protocol["status"], CLOSED_PROTOCOL_STATUS)
 
     def test_tampered_contract_is_rejected(self):
         contracts = load_frozen_contracts(ROOT)
@@ -129,6 +136,59 @@ class ContractTests(unittest.TestCase):
         ] = "0" * 64
         with self.assertRaises(ContractViolation):
             validate_contracts(tampered)
+
+    def test_pre_real_data_adversarial_audit_is_bound_and_closed(self):
+        contracts = load_frozen_contracts(ROOT)
+        audit = contracts.pre_real_data_audit
+        self.assertEqual(audit["status"], PRE_REAL_DATA_AUDIT_STATUS)
+        self.assertEqual(audit["audit_basis_commit"], "f7723ffd7d2e9a6127f260f83d5a0d36cf7ffff1")
+        self.assertEqual(audit["actual_clone_validation"]["test_count"], 57)
+        self.assertEqual(audit["actual_clone_validation"]["result"], "PASS")
+        self.assertFalse(audit["execution_boundary"]["real_dataset_rows_opened"])
+        self.assertFalse(audit["execution_boundary"]["study9_endpoints_computed"])
+        self.assertTrue(
+            contracts.protocol["pre_real_data_adversarial_audit"][
+                "independent_raw_row_projection_implemented"
+            ]
+        )
+
+    def test_pre_real_data_audit_tamper_is_rejected(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.pre_real_data_audit["required_remediations"]["independent_raw_row_projection"] = False
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_run_manifest_identity_path_set_is_exact(self):
+        contracts = load_frozen_contracts(ROOT)
+        self.assertEqual(
+            tuple(contracts.protocol["implementation_phase"]["run_manifest_reproducibility_identity_paths"]),
+            RUN_IDENTITY_BASE_PATHS,
+        )
+        self.assertIn("study9/PRE_REAL_DATA_ADVERSARIAL_AUDIT.json", RUN_IDENTITY_BASE_PATHS)
+        self.assertIn("study9/src/study9_semantic/canonical_runner.py", RUN_IDENTITY_BASE_PATHS)
+        self.assertIn("study2/src/study2_security/selectors.py", RUN_IDENTITY_BASE_PATHS)
+
+    def test_partial_future_execution_transition_is_rejected(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.protocol["authorization"][CANONICAL_EXECUTION_AUTHORIZATION_FLAGS[0]] = True
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_coherent_future_open_state_requires_separate_code_freeze(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.protocol["status"] = OPEN_PROTOCOL_STATUS
+        for flag in CANONICAL_EXECUTION_AUTHORIZATION_FLAGS:
+            tampered.protocol["authorization"][flag] = True
+        for flag in IMPLEMENTATION_EXECUTION_FLAGS:
+            tampered.protocol["implementation_phase"][flag] = True
+        tampered.protocol["implementation_phase"]["synthetic_only"] = False
+        tampered.protocol["implementation_phase"]["loader_runner_synthetic_test_only"] = False
+        with self.assertRaises(ContractViolation) as caught:
+            validate_contracts(tampered)
+        self.assertIn("canonical-run code", str(caught.exception))
 
 
 if __name__ == "__main__":
