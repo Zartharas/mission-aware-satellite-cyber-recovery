@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import hashlib
 import json
 from pathlib import Path
+import sys
 from typing import Any
 
 
@@ -56,12 +57,20 @@ FULL_POLICY_ENUM_VALUES = tuple(value for _, value in FULL_POLICY_ENUM_ITEMS)
 
 PROTOCOL_STATUS = (
     "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_"
-    "EXECUTION_DESIGN_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS"
+    "EXECUTION_DESIGN_FROZEN_LOADER_RUNNER_IMPLEMENTED_NO_ANALYSIS"
 )
 EXECUTION_DESIGN_STATUS = "CANONICAL_EXECUTION_DESIGN_FROZEN_NO_ROW_ANALYSIS"
 STATE_COLLAPSE_RULE_ID = "EIGHT_STATE_SELECTOR_INPUT_EQUIVALENCE_WITH_EXACT_MULTIPLICITY_V1"
 GUARANTEED_SIDECAR_DEFINITION_ID = (
     "ALL_REVEALED_ASSIGNMENTS_YIELD_SINGLETON_REACHABLE_ACTION_SET_V1"
+)
+LOADER_RUNNER_MODULES = (
+    "study9/src/study9_semantic/input_identity.py",
+    "study9/src/study9_semantic/state_projection.py",
+    "study9/src/study9_semantic/state_groups.py",
+    "study9/src/study9_semantic/canonical_engine.py",
+    "study9/src/study9_semantic/deterministic_io.py",
+    "study9/src/study9_semantic/canonical_runner.py",
 )
 
 REAL_EXECUTION_FLAGS = (
@@ -572,6 +581,104 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"protocol execution-design boundary violated: {key}")
 
 
+def _validate_loader_runner_phase(contracts: FrozenContracts) -> None:
+    authorization = contracts.protocol.get("authorization", {})
+    if authorization.get("loader_runner_implementation_authorized") is not True:
+        raise ContractViolation("loader/runner implementation authorization is not recorded")
+
+    phase = contracts.protocol.get("implementation_phase", {})
+    required_true = (
+        "loader_runner_implemented",
+        "loader_runner_synthetic_test_only",
+        "loader_runner_standard_library_only",
+        "loader_runner_external_paths_required",
+        "loader_runner_hard_authorization_guard_before_source_path_access",
+    )
+    for key in required_true:
+        if phase.get(key) is not True:
+            raise ContractViolation(f"loader/runner implementation requirement must be true: {key}")
+    if phase.get("loader_runner_hardcoded_local_paths_permitted") is not False:
+        raise ContractViolation("hard-coded local dataset paths must remain prohibited")
+    _require_exact_sequence(
+        "loader/runner module set",
+        phase.get("loader_runner_modules"),
+        LOADER_RUNNER_MODULES,
+    )
+
+    parsed_modules: dict[str, ast.Module] = {}
+    for relative in LOADER_RUNNER_MODULES:
+        path = contracts.repo_root / relative
+        if not path.is_file():
+            raise ContractViolation(f"loader/runner module missing: {relative}")
+        try:
+            source = path.read_text(encoding="utf-8")
+            tree = ast.parse(source, filename=str(path))
+        except (OSError, SyntaxError) as exc:
+            raise ContractViolation(f"cannot inspect loader/runner module {relative}: {exc}") from exc
+        parsed_modules[relative] = tree
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Constant) and isinstance(node.value, str):
+                if "/Users/" in node.value:
+                    raise ContractViolation(f"hard-coded local user path found in {relative}")
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    root = alias.name.split(".", 1)[0]
+                    if root not in sys.stdlib_module_names:
+                        raise ContractViolation(
+                            f"non-standard-library absolute import in {relative}: {alias.name}"
+                        )
+            elif isinstance(node, ast.ImportFrom) and node.level == 0:
+                root = (node.module or "").split(".", 1)[0]
+                if root not in sys.stdlib_module_names and root != "__future__":
+                    raise ContractViolation(
+                        f"non-standard-library absolute import in {relative}: {node.module}"
+                    )
+
+    runner_relative = "study9/src/study9_semantic/canonical_runner.py"
+    runner_tree = parsed_modules[runner_relative]
+    runner = next(
+        (
+            node
+            for node in runner_tree.body
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and node.name == "run_canonical_sources"
+        ),
+        None,
+    )
+    if runner is None:
+        raise ContractViolation("run_canonical_sources not found in guarded canonical runner")
+    body = list(runner.body)
+    if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
+        if isinstance(body[0].value.value, str):
+            body = body[1:]
+    if len(body) < 2:
+        raise ContractViolation("canonical runner does not contain the required guard sequence")
+    first = body[0]
+    second = body[1]
+    if not (
+        isinstance(first, ast.Assign)
+        and len(first.targets) == 1
+        and isinstance(first.targets[0], ast.Name)
+        and first.targets[0].id == "contracts"
+        and isinstance(first.value, ast.Call)
+        and isinstance(first.value.func, ast.Name)
+        and first.value.func.id == "load_frozen_contracts"
+    ):
+        raise ContractViolation("canonical runner must load frozen contracts first")
+    if not (
+        isinstance(second, ast.Expr)
+        and isinstance(second.value, ast.Call)
+        and isinstance(second.value.func, ast.Name)
+        and second.value.func.id == "assert_real_execution_authorized"
+        and len(second.value.args) == 1
+        and isinstance(second.value.args[0], ast.Name)
+        and second.value.args[0].id == "contracts"
+    ):
+        raise ContractViolation(
+            "canonical runner authorization guard must immediately follow frozen-contract loading"
+        )
+
+
 def validate_contracts(contracts: FrozenContracts) -> None:
     protocol = contracts.protocol
     population = contracts.population
@@ -595,11 +702,13 @@ def validate_contracts(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"{name} study id mismatch")
 
     if protocol.get("status") != PROTOCOL_STATUS:
-        raise ContractViolation("protocol implementation/execution-design status is not locked")
+        raise ContractViolation("protocol loader/runner implementation status is not locked")
 
     authorization = protocol.get("authorization", {})
     if authorization.get("implementation_creation_authorized") is not True:
         raise ContractViolation("implementation creation is not authorized")
+    if authorization.get("loader_runner_implementation_authorized") is not True:
+        raise ContractViolation("loader/runner implementation is not authorized")
     if authorization.get("policy_scope_freeze_authorized") is not True:
         raise ContractViolation("policy-scope freeze is not authorized")
     if authorization.get("canonical_execution_design_freeze_authorized") is not True:
@@ -615,6 +724,10 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         raise ContractViolation("real dataset row access is not authorized")
     if implementation_phase.get("study9_endpoints_may_be_computed") is not False:
         raise ContractViolation("Study 9 endpoint computation is not authorized")
+    if implementation_phase.get("results_directory_may_be_created") is not False:
+        raise ContractViolation("Study 9 results-directory creation is not authorized")
+    if implementation_phase.get("canonical_execution_authorized") is not False:
+        raise ContractViolation("canonical execution is not authorized")
     if implementation_phase.get("canonical_policy_scope_frozen") is not True:
         raise ContractViolation("canonical policy scope must be frozen")
     if implementation_phase.get("canonical_execution_design_frozen") is not True:
@@ -732,6 +845,7 @@ def validate_contracts(contracts: FrozenContracts) -> None:
 
     _validate_policy_scope(contracts)
     _validate_execution_design(contracts)
+    _validate_loader_runner_phase(contracts)
 
     semantic_execution = semantic.get("execution_boundary", {})
     for key, value in semantic_execution.items():
