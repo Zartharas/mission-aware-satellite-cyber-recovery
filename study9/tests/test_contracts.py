@@ -16,8 +16,10 @@ from study9_semantic.contracts import (
     EXCLUDED_ABLATION_VALUES,
     FROZEN_DATASET_IDS,
     FULL_POLICY_ENUM_VALUES,
+    GUARANTEED_SIDECAR_DEFINITION_ID,
     PRIMARY_POLICY_VALUES,
     REQUIRED_VARIABLES,
+    STATE_COLLAPSE_RULE_ID,
     load_frozen_contracts,
     validate_contracts,
 )
@@ -31,6 +33,8 @@ class ContractTests(unittest.TestCase):
         self.assertTrue(all(row["schema_locked"] for row in contracts.manifest["datasets"]))
         self.assertEqual(contracts.semantic["permitted_deterministic_derivation_rules"], [])
         self.assertFalse(contracts.protocol["authorization"]["row_level_analysis_authorized"])
+        self.assertFalse(contracts.protocol["authorization"]["canonical_execution_authorized"])
+        self.assertFalse(contracts.protocol["authorization"]["dataset_ingestion_authorized"])
 
     def test_tampered_contract_is_rejected(self):
         contracts = load_frozen_contracts(ROOT)
@@ -76,6 +80,53 @@ class ContractTests(unittest.TestCase):
         tampered = copy.deepcopy(contracts)
         policies = tampered.policy_scope["primary_policies"]
         policies[0], policies[1] = policies[1], policies[0]
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_execution_design_freeze_is_exact_and_closed(self):
+        contracts = load_frozen_contracts(ROOT)
+        design = contracts.execution_design
+        self.assertEqual(
+            design["lossless_state_collapse"]["rule_id"],
+            STATE_COLLAPSE_RULE_ID,
+        )
+        self.assertEqual(
+            design["guaranteed_minimal_sidecar"]["definition_id"],
+            GUARANTEED_SIDECAR_DEFINITION_ID,
+        )
+        self.assertFalse(
+            design["guaranteed_minimal_sidecar"]["actual_unresolved_values_may_be_substituted"]
+        )
+        self.assertTrue(
+            design["lossless_state_collapse"][
+                "sum_of_group_multiplicities_must_equal_verified_dataset_row_count"
+            ]
+        )
+        self.assertFalse(design["execution_boundary"]["real_dataset_rows_opened"])
+        self.assertFalse(design["execution_boundary"]["study9_endpoints_computed"])
+
+    def test_execution_design_rejects_actual_missing_value_substitution(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.execution_design["guaranteed_minimal_sidecar"][
+            "actual_unresolved_values_may_be_substituted"
+        ] = True
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_execution_design_rejects_state_collapse_drift(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.execution_design["lossless_state_collapse"]["rule_id"] = "ALTERED_RULE"
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_execution_design_rejects_input_identity_tamper(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.execution_design["input_identity_contracts"][0][
+            "canonical_artifact_sha256"
+        ] = "0" * 64
         with self.assertRaises(ContractViolation):
             validate_contracts(tampered)
 
