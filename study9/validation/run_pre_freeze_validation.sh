@@ -106,12 +106,12 @@ docker run --rm \
   --tmpfs /tmp:rw,noexec,nosuid,size=64m \
   --user "$(id -u):$(id -g)" \
   --mount "type=bind,source=$CUCD,target=/inputs/cucd.zip,readonly" \
-  --mount "type=bind,source=$AEGISSAT,target=/inputs/aegissat.csv,readonly" \
+  --mount "type=bind,source=$AEGISSAT,target=/inputs/AegisSat-AD.csv,readonly" \
   --mount "type=bind,source=$UNSW,target=/inputs/unsw.zip,readonly" \
   --mount "type=bind,source=$OUTPUT/docker,target=/output" \
   "$IMAGE_TAG" \
   --cucd-zip /inputs/cucd.zip \
-  --aegissat-csv /inputs/aegissat.csv \
+  --aegissat-csv /inputs/AegisSat-AD.csv \
   --unsw-zip /inputs/unsw.zip \
   --output /output \
   --environment-label docker-linux
