@@ -1,7 +1,8 @@
 {
-  "schema": 1,
+  "schema": 2,
   "study_id": "S9-RTSI-001",
-  "status": "PROSPECTIVE_RUBRIC_DRAFT_BEFORE_SCHEMA_LOCK",
+  "status": "SEMANTIC_ADJUDICATION_FROZEN_NO_ROW_ANALYSIS",
+  "semantic_adjudication_freeze_record": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
   "mapping_classes": {
     "DIRECT": {
       "definition": "A dataset-native operational field has the same decision-relevant semantic meaning as the recovery-state variable and supplies its value at the required decision time without substantive inference.",
@@ -35,7 +36,7 @@
         "a timestamp exists but no trusted reference establishes freshness at the recovery decision point",
         "a source identifier exists but does not establish source trust",
         "an error counter suggests degraded evidence but does not establish minimum evidence completeness",
-        "multiple fields are correlated with an attack scenario but do not establish authorization or cryptographic validity"
+        "a CRC outcome constrains frame integrity but does not establish cryptographic signature validity"
       ]
     },
     "ABSENT": {
@@ -48,6 +49,30 @@
     "OFFLINE_GROUND_TRUTH_ONLY",
     "EXPERIMENT_METADATA_ONLY",
     "DOCUMENTATION_ONLY"
+  ],
+  "frozen_target_semantics": {
+    "signature_valid": "cryptographic signature verification outcome under a known source public key",
+    "source_trusted": "membership of the evidence source in the verifier's trusted-source set",
+    "fresh": "evidence issue time and validity interval contain the decision time",
+    "epoch_valid": "evidence epoch equals the expected epoch for the subject",
+    "contradictory": "accepted current claims for the same subject, key, and epoch contain competing values",
+    "minimum_evidence_complete": "all ten frozen recovery criteria are present in the current accepted evidence state",
+    "security_signal": "dataset-native operational security or anomaly guard signal visible to the selector, excluding offline attack truth",
+    "authorization_available": "authorization or authorized-contact path required by the recovery decision is available at the decision point"
+  },
+  "permitted_deterministic_derivation_rules": [],
+  "derivation_registry_rule": "The primary semantic mapping may not use a deterministic derivation unless it appears in the frozen semantic-adjudication record. The registry is intentionally empty.",
+  "frozen_direct_rule_exceptions": [
+    {
+      "dataset_id": "UNSW_IOTSAT_2026",
+      "field": "Position_Anomaly",
+      "recovery_state_variable": "security_signal",
+      "mapping_class": "DIRECT",
+      "evidence_visibility_role": "OPERATIONAL_NATIVE",
+      "normalization": "0 -> false; 1 -> true",
+      "basis": "Pinned UNSW feature documentation defines Position_Anomaly as a native computed 0/1 coarse position-spoofing guard.",
+      "claim_boundary": "This mapping does not establish attack truth, detector accuracy, or general attack coverage."
+    }
   ],
   "coverage_rules": {
     "direct_coverage_numerator": "count of required recovery-state variables classified DIRECT with evidence_visibility_role=OPERATIONAL_NATIVE",
@@ -70,25 +95,33 @@
   "adjudication_rules": [
     "lexical similarity between a dataset field and a recovery variable is insufficient by itself",
     "an attack label cannot establish security_signal for a primary operational endpoint because the label is offline ground truth",
+    "a documented native detector or security-guard flag may establish security_signal when the field itself expresses the operational signal and requires only allowed normalization",
     "a source address or identifier does not establish source_trusted unless trust is itself represented or deterministically established by a frozen rule",
-    "a checksum or error counter does not automatically establish signature_valid",
-    "a timestamp does not automatically establish fresh without a decision-time reference and freshness rule",
-    "a version or sequence number does not automatically establish epoch_valid without an epoch-validity rule",
-    "multiple apparently inconsistent native fields do not automatically establish contradictory unless the contradiction relation is predeclared",
-    "presence of telemetry does not automatically establish minimum_evidence_complete",
+    "a CRC, checksum, or generic error counter does not establish signature_valid",
+    "a timestamp does not establish fresh without a decision-time reference and validity rule",
+    "a version, TLE epoch, or sequence number does not establish epoch_valid without an expected evidence epoch and comparison rule",
+    "multiple apparently inconsistent native fields do not establish contradictory unless the same-subject/same-key/same-epoch competing-claim relation is represented",
+    "presence of telemetry or a quality score does not establish minimum_evidence_complete",
     "normal or attack scenario membership does not establish authorization_available",
+    "presence of a command or command code does not establish authorization_available",
     "when evidence supports more than one plausible class, choose the less assertive class and preserve the ambiguity rationale"
   ],
   "quality_controls": [
-    "all candidate schemas must be frozen before canonical mapping",
-    "all permitted derivation rules must be committed before row-level endpoint inspection",
+    "all primary population identities are frozen before canonical mapping",
+    "all semantic contracts and permitted derivation rules are frozen before row-level endpoint inspection",
     "mapping output must be machine-checkable against the frozen schema manifest",
-    "every DIRECT or DERIVABLE mapping must reference at least one native field",
-    "every DERIVABLE mapping must include a nonempty predeclared rule",
+    "every DIRECT or DERIVABLE mapping must reference at least one qualifying native field",
+    "every DERIVABLE mapping must include a nonempty rule present in the frozen derivation registry",
     "every AMBIGUOUS mapping must state why the value is not uniquely determined",
     "every ABSENT mapping must be reproducible from the frozen schema inventory",
     "a separately implemented audit should reconstruct mapping counts and downstream admissible-action calculations without reading canonical result files"
   ],
+  "execution_boundary": {
+    "row_level_mapping_executed": false,
+    "coverage_counts_computed": false,
+    "admissible_action_sets_computed": false,
+    "study9_endpoints_computed": false
+  },
   "prohibited_claims_from_mapping_alone": [
     "detector transferability",
     "intrusion-detection performance",
