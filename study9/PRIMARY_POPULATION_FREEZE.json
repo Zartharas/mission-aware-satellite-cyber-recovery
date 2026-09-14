@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "PRIMARY_POPULATION_FROZEN_SEMANTIC_ADJUDICATION_NOT_YET_FROZEN",
+  "freeze_date": "2026-09-13",
+  "freeze_basis_branch": "study9/recovery-state-semantic-interoperability",
+  "freeze_basis_commit": "d9e5718eef334aa46a4210aa214c8a6f6875785f",
+  "pre_freeze_validation_record": "study9/PRE_FREEZE_VALIDATION_EVIDENCE.json",
+  "pre_freeze_validation_core_sha256": "bbcfe1c8f3605b252c9bf5bfd55c32f7fbd024e61b3d9bcee2f973707e7e8cf5",
+  "primary_population_members": [
+    {
+      "dataset_id": "CUCD_ID_V3",
+      "population_role": "INDEPENDENT_PRIMARY_SOURCE_POPULATION",
+      "dataset_doi": "10.17632/7n2d42pm3n.3",
+      "dataset_version": 3,
+      "canonical_artifact": "Data/Raw/consolidated_dataset_raw.csv",
+      "rows": 25000,
+      "columns": 31,
+      "canonical_sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
+      "source_package_sha256": "da3d95886feae0bc913a9e5beec1368571f51c80ecc811e40f6cc29edf33f2f0",
+      "primary_exclusions": [
+        "Data/Augmented/noised_dataset.csv is a derived companion, not the canonical native artifact.",
+        "Label is OFFLINE_GROUND_TRUTH_ONLY and cannot create operational recovery state."
+      ]
+    },
+    {
+      "dataset_id": "AEGISSAT_2025",
+      "population_role": "INDEPENDENT_PRIMARY_SOURCE_POPULATION",
+      "dataset_doi": "10.5281/zenodo.14960983",
+      "source_repository_commit": "24c00de5ee729b91805724cbf82068562e7a4b6d",
+      "canonical_artifact": "AegisSat-AD.csv",
+      "rows": 137965,
+      "columns": 176,
+      "canonical_sha256": "dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e",
+      "canonical_md5": "f5b53ba9d080fe1795def09bdecd7cb9",
+      "primary_exclusions": [
+        "attacks.cpuhightarget.duration and attacks.cpuhightarget.target remain OFFLINE_GROUND_TRUTH_OR_EXPERIMENT_METADATA_ONLY.",
+        "Attack annotations cannot create security_signal or another operational recovery-state variable."
+      ]
+    },
+    {
+      "dataset_id": "UNSW_IOTSAT_2026",
+      "population_role": "INDEPENDENT_PRIMARY_SOURCE_POPULATION",
+      "primary_article_doi": "10.1016/j.csa.2026.100133",
+      "source_repository_commit": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
+      "source_package_sha256": "21f747325041e633df135aed2e12de4de518a5c4e62ded2270d7bbd0523c9d9d",
+      "canonical_artifact": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
+      "rows": 404798,
+      "columns": 49,
+      "canonical_sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+      "license_boundary": "MIT project-distribution governance interpretation; separate dataset-specific license text was not independently located in the downloaded package.",
+      "primary_exclusions": [
+        "UNSW-IoTSAT dataset/UNSW_IoTSAT.json is excluded from primary mapping because its top-level JSON array is unterminated.",
+        "UNSW-IoTSAT dataset/UNSW_IoTSAT_With_Feature_Engineering.csv is excluded from primary mapping because it is derived and modifies original-field values.",
+        "Vertical_Category, Horizontal_Speed_ms, Reception_Time, and Data_Quality_Score are excluded wholesale from primary semantic mapping.",
+        "CCSDS_MC_Frame_Count, CCSDS_Packet_Sequence_Count, and CCSDS_APID in the CCSDS companion are label-conditioned derivatives and cannot count as OPERATIONAL_NATIVE."
+      ]
+    }
+  ],
+  "population_independence": {
+    "datasets_analyzed_as_separate_finite_populations": true,
+    "empirical_pooling_prohibited": true,
+    "lighTellite_excluded_from_independent_primary_population": "shared AegisSat testbed provenance",
+    "known_shared_source_population_between_frozen_members": false
+  },
+  "post_freeze_membership_rule": {
+    "add_or_remove_after_endpoint_inspection": false,
+    "allowed_exception": "Only a documented protocol deviation may alter membership; the preregistered primary population record must not be rewritten retroactively.",
+    "poor_or_null_semantic_coverage_is_not_an_exclusion_reason": true
+  },
+  "lock_state": {
+    "source_artifact_identity_locked": true,
+    "primary_population_membership_locked": true,
+    "field_to_recovery_state_semantic_adjudication_locked": false,
+    "row_level_mapping_executed": false,
+    "study9_endpoints_computed": false
+  },
+  "authorization_boundary": {
+    "dataset_ingestion_into_research_repository_authorized": false,
+    "implementation_creation_authorized": false,
+    "row_level_analysis_authorized": false,
+    "canonical_execution_authorized": false,
+    "results_directory_authorized": false,
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false
+  },
+  "next_required_gate": "Freeze exact field-to-recovery-state adjudication and any permitted deterministic derivation rules before semantic mapping or endpoint computation."
+}
