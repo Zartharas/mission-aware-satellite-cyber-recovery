@@ -127,7 +127,8 @@
     "The independent audit must reconstruct raw-row projection and policy-independent coverage without calling the canonical projector or canonical mapping implementation.",
     "Canonical result provenance must bind the exact governance and runtime implementation files by SHA-256 in run_manifest.json.",
     "Real execution authorization must transition atomically; piecemeal flag changes are invalid.",
-    "Selector memoization may eliminate repeated deterministic computation only; it may not prune, sample, approximate, or otherwise alter the exhaustive completion or guaranteed-sidecar semantics."
+    "Selector memoization may eliminate repeated deterministic computation only; it may not prune, sample, approximate, or otherwise alter the exhaustive completion or guaranteed-sidecar semantics.",
+    "The canonical-run code freeze binds the actual-clone-tested computational runtime only; it does not freeze scientific results and does not authorize real-data access or execution."
   ],
   "authorization": {
     "prospective_design_authorized": true,
@@ -137,6 +138,7 @@
     "loader_runner_implementation_authorized": true,
     "pre_real_data_adversarial_hardening_authorized": true,
     "pre_real_data_performance_remediation_authorized": true,
+    "canonical_run_code_freeze_authorized": true,
     "row_level_analysis_authorized": false,
     "canonical_execution_authorized": false,
     "results_directory_authorized": false,
@@ -249,9 +251,28 @@
     "independent_selector_cache_separate": true,
     "exhaustive_completion_semantics_preserved": true,
     "guaranteed_sidecar_semantics_preserved": true,
-    "actual_clone_validation_pending": true,
+    "actual_clone_validation_pending": false,
+    "actual_clone_validation_head": "039bca319987ceebdba52f080fb0f87b1d4e67ed",
+    "actual_clone_full_suite_test_count": 69,
+    "actual_clone_full_suite_result": "PASS",
+    "actual_clone_runner_suite_test_count": 6,
+    "actual_clone_runner_suite_result": "PASS",
     "real_dataset_rows_opened": false,
     "study9_endpoints_computed": false
+  },
+  "canonical_run_code_freeze": {
+    "frozen": true,
+    "freeze_date": "2026-09-14",
+    "freeze_record": "study9/CANONICAL_RUN_CODE_FREEZE.json",
+    "tested_commit": "039bca319987ceebdba52f080fb0f87b1d4e67ed",
+    "computational_file_count": 12,
+    "actual_clone_full_suite_test_count": 69,
+    "actual_clone_canonical_runner_test_count": 6,
+    "actual_clone_result": "PASS",
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false,
+    "results_directory_created": false,
+    "change_rule": "Any frozen computational byte change requires a new prospective code freeze and complete actual-clone validation before canonical real-data execution may be authorized."
   },
   "execution_phase_transition_contract": {
     "atomic_transition_required": true,
@@ -290,6 +311,9 @@
     "canonical_execution_authorized": false,
     "canonical_policy_scope_frozen": true,
     "canonical_execution_design_frozen": true,
+    "canonical_run_code_frozen": true,
+    "canonical_run_code_freeze_record": "study9/CANONICAL_RUN_CODE_FREEZE.json",
+    "canonical_run_code_tested_commit": "039bca319987ceebdba52f080fb0f87b1d4e67ed",
     "loader_runner_implemented": true,
     "loader_runner_synthetic_test_only": true,
     "loader_runner_standard_library_only": true,
@@ -342,6 +366,7 @@
     "loader_runner_rule": "The loader and runner may be exercised only on synthetic temporary fixtures while real-data authorization remains closed. run_canonical_sources must check authorization before constructing external source specs, probing user-supplied dataset paths, or creating output directories.",
     "pre_real_data_hardening_rule": "The independent audit must reconstruct raw-row projection and policy-independent mapping/coverage separately from canonical implementations; the full post-guard pipeline must be synthetic-tested end-to-end; run_manifest.json must bind exact governance/runtime SHA-256 identities; and the future real-execution transition must be atomic and preceded by a canonical-run code freeze.",
     "pre_real_data_performance_rule": "Repeated frozen-contract and deterministic selector work may be memoized separately within the canonical and independent paths, but exhaustive admissible-completion and guaranteed-sidecar enumeration must remain exact and unchanged.",
+    "canonical_run_code_freeze_rule": "The exact actual-clone-tested computational runtime is frozen by SHA-256 and byte size before real-data authorization; contracts.py validates the freeze but is not part of its own self-referential computational hash set.",
     "submitted_papers_1_through_4_may_be_modified": false
   }
 }
