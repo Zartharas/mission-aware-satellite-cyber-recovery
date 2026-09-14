@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 from decimal import Decimal, InvalidOperation
+from functools import lru_cache
 from itertools import combinations, product
 import sys
 from typing import Iterable, Mapping
@@ -16,7 +17,9 @@ from .contracts import (
 )
 
 
+@lru_cache(maxsize=1)
 def _selectors():
+    """Load and validate the frozen Study 2 selector once for the audit path."""
     contracts = load_frozen_contracts()
     src = contracts.repo_root / "study2" / "src"
     if str(src) not in sys.path:
@@ -24,6 +27,25 @@ def _selectors():
     from study2_security import selectors
 
     return selectors
+
+
+@lru_cache(maxsize=None)
+def _audit_select_action_cached(policy_value: str, state_values: tuple[bool, ...]) -> str:
+    """Independent deterministic selector cache; does not use selector_adapter.py."""
+    if len(state_values) != len(REQUIRED_VARIABLES):
+        raise ValueError("audit cached state does not contain all required variables")
+    selectors = _selectors()
+    policy = selectors.Study2Policy(policy_value)
+    obs = selectors.ObservationSummary(
+        **dict(zip(REQUIRED_VARIABLES, state_values, strict=True))
+    )
+    return selectors.select_action(policy, obs).value
+
+
+def clear_audit_caches() -> None:
+    """Clear independent-audit caches for tests and process-boundary control."""
+    _audit_select_action_cached.cache_clear()
+    _selectors.cache_clear()
 
 
 def _validate(known: Mapping[str, bool], unresolved: tuple[str, ...]) -> None:
@@ -83,7 +105,9 @@ def audit_project_native_row(
                 or fields != ("Position_Anomaly",)
                 or item.get("value_rule") != "0 -> false; 1 -> true"
             ):
-                raise ValueError(f"unexpected frozen DIRECT mapping in independent audit: {dataset_id}:{variable}")
+                raise ValueError(
+                    f"unexpected frozen DIRECT mapping in independent audit: {dataset_id}:{variable}"
+                )
             if "Position_Anomaly" not in row:
                 raise ValueError("independent audit missing frozen UNSW Position_Anomaly field")
             known[variable] = _audit_normalize_binary_numeric(row["Position_Anomaly"])
@@ -96,11 +120,7 @@ def audit_project_native_row(
         else:
             raise ValueError(f"unknown frozen mapping class in independent audit: {mapping_class}")
 
-    ordered_known = {
-        name: known[name]
-        for name in REQUIRED_VARIABLES
-        if name in known
-    }
+    ordered_known = {name: known[name] for name in REQUIRED_VARIABLES if name in known}
     ordered_unresolved = tuple(name for name in REQUIRED_VARIABLES if name in unresolved)
     _validate(ordered_known, ordered_unresolved)
     return PartialObservation.build(known=ordered_known, unresolved=ordered_unresolved)
@@ -148,7 +168,10 @@ def audit_mapping_and_coverage(
             )
             if mapping_class == "DIRECT" and role == "OPERATIONAL_NATIVE":
                 direct += 1
-            if mapping_class in {"DIRECT", "DERIVABLE_BY_PREDECLARED_RULE"} and role == "OPERATIONAL_NATIVE":
+            if (
+                mapping_class in {"DIRECT", "DERIVABLE_BY_PREDECLARED_RULE"}
+                and role == "OPERATIONAL_NATIVE"
+            ):
                 direct_or_derivable += 1
             if mapping_class in {"AMBIGUOUS", "ABSENT"}:
                 unresolved.add(variable)
@@ -206,12 +229,14 @@ def audit_reachable_actions(
 ) -> frozenset[str]:
     _validate(known, unresolved)
     selectors = _selectors()
-    if not isinstance(policy, selectors.Study2Policy):
-        policy = selectors.Study2Policy(policy)
+    if isinstance(policy, selectors.Study2Policy):
+        policy_value = policy.value
+    else:
+        policy_value = selectors.Study2Policy(policy).value
     actions: set[str] = set()
     for state in _states_recursive(dict(known), unresolved):
-        obs = selectors.ObservationSummary(**state)
-        actions.add(selectors.select_action(policy, obs).value)
+        state_values = tuple(state[name] for name in REQUIRED_VARIABLES)
+        actions.add(_audit_select_action_cached(policy_value, state_values))
     return frozenset(actions)
 
 
