@@ -1,6 +1,6 @@
 # Study 9 synthetic implementation phase
 
-This directory documents the implementation-only phase for **S9-RTSI-001** after the primary population and semantic-adjudication contracts were frozen.
+This directory documents the implementation-only phase for **S9-RTSI-001** after the primary population, semantic-adjudication contracts, and primary policy scope were frozen.
 
 ## Scope
 
@@ -8,7 +8,7 @@ The implementation under `study9/src/study9_semantic/` is deliberately **synthet
 
 The code provides:
 
-- fail-closed validation of the frozen population, semantic freeze, rubric, schema manifest, and Study 2 selector hash;
+- fail-closed validation of the frozen population, semantic freeze, policy-scope freeze, rubric, schema manifest, and Study 2 selector hash;
 - materialization of the frozen 3-dataset x 8-variable semantic mapping contract;
 - deterministic enumeration of admissible binary completions for unresolved state;
 - a thin adapter to the frozen Study 2 selector;
@@ -26,7 +26,7 @@ PYTHONPATH="study9/src:study2/src" \
 python3 -m unittest discover -s study9/tests -p 'test_*.py' -v
 ```
 
-The test suite includes exhaustive adapter equivalence over all 256 binary eight-variable states and every `Study2Policy` enum value. It also verifies the frozen 24-record semantic matrix, label exclusions, fail-closed governance bindings, completion enumeration, minimal-sidecar tie retention, and canonical-versus-independent synthetic reconstruction.
+The test suite includes exhaustive adapter equivalence over all 256 binary eight-variable states and every `Study2Policy` enum value. It also verifies the frozen 24-record semantic matrix, label exclusions, fail-closed governance bindings, completion enumeration, minimal-sidecar tie retention, canonical-versus-independent synthetic reconstruction, the exact primary policy set, and exclusion of mechanistic ablations.
 
 ## Fail-closed behavior
 
@@ -38,17 +38,37 @@ The test suite includes exhaustive adapter equivalence over all 256 binary eight
 - the semantic freeze and schema manifest disagree about a mapping;
 - a deterministic derivation rule appears in the currently empty frozen registry;
 - the frozen Study 2 selector byte hash changes;
+- the `Study2Policy` enum names, values, or order change;
+- a primary policy is missing, reordered, or replaced by a mechanistic ablation;
+- an excluded `NO_*` ablation is admitted to the primary policy set;
+- policy pooling, policy averaging, or a canonical default policy is introduced;
 - any real-data, row-level, canonical-execution, results, manuscript, or submission authorization becomes true without a later protocol phase.
 
-## Policy-scope boundary
+## Frozen primary policy scope
 
-This implementation intentionally has **no default Study 2 policy**. The adapter and combinatorial functions require a policy argument.
+`study9/POLICY_SCOPE_FREEZE.json` freezes four substantive Study 2 policies as the primary policy set, in this order:
 
-Study 9 has not yet frozen which Study 2 policy or policy set is canonical for real action-identifiability endpoints. Synthetic tests may exercise all selector enum values solely to verify adapter equivalence. Before any real row-level execution, the canonical policy scope must be prospectively frozen or amended in the Study 9 protocol.
+1. `S2_B0_FAIL_CLOSED`
+2. `S2_B1_FAIL_OPERATIONAL`
+3. `S2_B2_RISK_THRESHOLD`
+4. `S2_S1_EVIDENCE_AWARE`
+
+All four are primary and must be evaluated **separately**. There is no canonical default policy, no preferred policy, and no policy-superiority claim in Study 9.
+
+The following four Study 2 policies are frozen outside the primary analysis as mechanistic ablations:
+
+- `S2_ABL_NO_FRESHNESS`
+- `S2_ABL_NO_CONTRADICTION`
+- `S2_ABL_NO_EPOCH`
+- `S2_ABL_NO_SIGNATURE_TRUST`
+
+Each `NO_*` policy bypasses one evidence check and therefore changes the mechanism under study. A future ablation sensitivity analysis would require separate prospective authorization before real endpoint inspection.
+
+Semantic-mapping and semantic-coverage endpoints remain **policy-independent**. Downstream action-set, unique-action-identifiability, and minimal-sidecar endpoints are prospectively stratified by dataset and primary policy, yielding **3 datasets x 4 policies = 12 primary analysis strata**. Those strata must not be pooled, averaged, or treated as interchangeable replicates for primary claims.
 
 ## Not authorized in this phase
 
-This phase does not authorize:
+Policy-scope freeze does not authorize:
 
 - reading or processing real dataset rows;
 - dataset ingestion into the repository;
@@ -57,6 +77,7 @@ This phase does not authorize:
 - real unique-action-identifiability computation;
 - real minimal-sidecar computation;
 - creation of `study9/results/`;
+- execution of the four excluded mechanistic ablations as a Study 9 sensitivity analysis;
 - modification of Study 2;
 - modification of submitted Papers 1 through 4;
 - manuscript drafting or journal submission.
