@@ -110,6 +110,9 @@ def _mapping_and_coverage(contracts: FrozenContracts) -> tuple[list[dict[str, ob
             "evidence_visibility_role": row.evidence_visibility_role,
             "native_field_names": list(row.native_field_names),
             "derivation_rule_if_any": row.derivation_rule_if_any,
+            "semantic_rationale": row.semantic_rationale,
+            "uncertainty_or_ambiguity_note": row.uncertainty_or_ambiguity_note,
+            "value_rule": row.value_rule,
             "excluded_fields": list(row.excluded_fields),
             "excluded_as_substitutes": list(row.excluded_as_substitutes),
         }
@@ -243,7 +246,6 @@ def run_canonical_sources(
             (project_native_row(plan, row) for row in iter_verified_rows(spec, verification)),
             expected_row_count=verification.row_count,
         )
-        # Re-verify after the semantic pass to fail closed on source mutation during execution.
         if verify_csv_source(spec) != verification:
             raise CanonicalRunError(f"source identity changed during canonical pass: {dataset_id}")
         groups_by_dataset[dataset_id] = canonical_groups
@@ -255,6 +257,8 @@ def run_canonical_sources(
             (project_native_row(plan, row) for row in iter_verified_rows(spec, verification)),
             expected_row_count=verification.row_count,
         )
+        if verify_csv_source(spec) != verification:
+            raise CanonicalRunError(f"source identity changed during independent audit pass: {dataset_id}")
         audit_summary = audit_analyze_native_state_groups(dataset_id, audit_groups)
         canonical_group_signature = _group_record(canonical_groups)
         audit_group_signature = [
@@ -318,6 +322,11 @@ def run_canonical_sources(
     artifacts = {name: canonical_json_bytes(value) for name, value in values.items()}
     output_manifest = build_output_sha256_manifest(artifacts)
     artifacts["output_sha256_manifest.json"] = canonical_json_bytes(output_manifest)
+    expected_outputs = tuple(contracts.execution_design["future_canonical_result_artifacts"])
+    if tuple(artifacts) != expected_outputs:
+        raise CanonicalRunError(
+            f"canonical output artifact set/order drift: {tuple(artifacts)!r} != {expected_outputs!r}"
+        )
     _write_artifacts_atomically(Path(output_dir), artifacts)
     return {
         "output_dir": str(output_dir),
