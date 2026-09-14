@@ -22,11 +22,17 @@ from study9_semantic.canonical_runner import (
 )
 from study9_semantic.completions import PartialObservation
 from study9_semantic.contracts import RUN_IDENTITY_BASE_PATHS, load_frozen_contracts
+from study9_semantic.independent_audit import clear_audit_caches
 from study9_semantic.input_identity import InputIdentitySpec
+from study9_semantic.selector_adapter import clear_selector_caches
 from study9_semantic.state_projection import project_native_row as real_project_native_row
 
 
 class CanonicalRunnerGuardTests(unittest.TestCase):
+    def tearDown(self):
+        clear_selector_caches()
+        clear_audit_caches()
+
     def test_current_protocol_refuses_real_execution(self):
         contracts = load_frozen_contracts(ROOT)
         with self.assertRaises(RealExecutionNotAuthorized):
@@ -152,7 +158,10 @@ class CanonicalRunnerGuardTests(unittest.TestCase):
             self.assertEqual(result_a["artifact_count"], 8)
             self.assertEqual(result_a["audit_status"], "MATCH")
             self.assertEqual(result_b["audit_status"], "MATCH")
-            self.assertEqual(tuple(path.name for path in sorted(output_a.iterdir())), tuple(sorted(expected_outputs)))
+            self.assertEqual(
+                tuple(path.name for path in sorted(output_a.iterdir())),
+                tuple(sorted(expected_outputs)),
+            )
             for name in expected_outputs:
                 self.assertEqual((output_a / name).read_bytes(), (output_b / name).read_bytes())
 
@@ -181,6 +190,39 @@ class CanonicalRunnerGuardTests(unittest.TestCase):
                 data = (output_a / item["path"]).read_bytes()
                 self.assertEqual(item["size_bytes"], len(data))
                 self.assertEqual(item["sha256"], hashlib.sha256(data).hexdigest())
+
+    def test_full_synthetic_runner_initializes_each_selector_path_once(self):
+        contracts = load_frozen_contracts(ROOT)
+        clear_selector_caches()
+        clear_audit_caches()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            specs = self._synthetic_specs(root)
+            output = root / "bounded-init-run"
+            with patch(
+                "study9_semantic.canonical_runner.assert_real_execution_authorized",
+                return_value=None,
+            ), patch(
+                "study9_semantic.canonical_runner._build_specs",
+                return_value=specs,
+            ), patch(
+                "study9_semantic.selector_adapter.load_frozen_contracts",
+                return_value=contracts,
+            ) as canonical_loader, patch(
+                "study9_semantic.independent_audit.load_frozen_contracts",
+                return_value=contracts,
+            ) as audit_loader:
+                result = run_canonical_sources(
+                    cucd_zip=root / "ignored-cucd.zip",
+                    aegissat_csv=root / "ignored-aegis.csv",
+                    unsw_zip=root / "ignored-unsw.zip",
+                    output_dir=output,
+                )
+
+            self.assertEqual(result["artifact_count"], 8)
+            self.assertEqual(result["audit_status"], "MATCH")
+            self.assertEqual(canonical_loader.call_count, 1)
+            self.assertEqual(audit_loader.call_count, 1)
 
     def test_full_synthetic_runner_detects_corrupted_canonical_projection(self):
         def corrupted_projector(plan, row):
