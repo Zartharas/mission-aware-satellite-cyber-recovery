@@ -1,6 +1,6 @@
 # Study 9 implementation phase
 
-This directory documents the pre-real-data implementation phase for **S9-RTSI-001** after the primary population, semantic-adjudication contract, primary policy scope, canonical execution design, guarded loader/runner, and pre-real-data adversarial audit were established.
+This directory documents the pre-real-data implementation phase for **S9-RTSI-001** after the primary population, semantic-adjudication contract, primary policy scope, canonical execution design, guarded loader/runner, pre-real-data adversarial audit, performance remediation, and canonical-run code freeze were established.
 
 ## Current boundary
 
@@ -43,6 +43,33 @@ The independent audit implements the same optimization **separately**, with its 
 The guaranteed-sidecar algorithm still enumerates every required subset, every revealed Boolean assignment, and every remaining admissible completion exactly as frozen. No completion sampling, heuristic pruning, approximate search, or policy reduction was introduced.
 
 Performance regression tests are intentionally machine-independent. They verify bounded selector/contract initialization counts rather than asserting a wall-clock duration. The exhaustive canonical selector-equivalence test still covers all 256 complete Boolean states across all eight `Study2Policy` values.
+
+The remediated implementation at commit `039bca319987ceebdba52f080fb0f87b1d4e67ed` subsequently passed the actual-clone runner suite **6/6** and the complete Study 9 suite **69/69**, with both commands returning zero and the working tree clean. This closes the performance-remediation validation rather than leaving it pending.
+
+## Canonical-run code freeze
+
+`study9/CANONICAL_RUN_CODE_FREEZE.json` freezes the exact computational runtime that produced the successful pre-real-data actual-clone validation at commit `039bca319987ceebdba52f080fb0f87b1d4e67ed`.
+
+The record binds SHA-256 and byte size for twelve computational files:
+
+- the eleven Study 9 modules that implement completion enumeration, semantic mapping, selector adaptation, sidecar analysis, source identity verification, state projection, state grouping, canonical endpoint analysis, deterministic output, independent audit, and canonical orchestration;
+- the frozen Study 2 selector used as the bounded downstream decision interface.
+
+`contracts.py` is deliberately **not** included in its own computational hash set because this governance step modifies `contracts.py` to enforce the freeze. That avoids a circular self-hash. The validator remains included in the future `run_manifest.json` reproducibility identity, so its execution-time bytes are still recorded with the run.
+
+The freeze is an **implementation freeze only**. It does not freeze scientific results, because no real Study 9 endpoint has yet been computed. It also does not authorize real data access, row-level analysis, result-directory creation, manuscript creation, or submission.
+
+`contracts.py` now validates the code freeze in both the current closed phase and any future authorized execution phase. It fails closed if:
+
+- the freeze is not bound to the tested commit;
+- the 69/69 full-suite or 6/6 runner-suite evidence is altered;
+- a frozen computational path is added, removed, or reordered;
+- a frozen file's byte size changes;
+- a frozen file's SHA-256 changes;
+- the code-freeze execution boundary claims real rows, endpoints, or results already existed;
+- the performance-remediation validation is returned to a pending state.
+
+Any later byte change to a frozen computational file requires a new prospective code-freeze record and complete actual-clone validation before real canonical execution can be authorized.
 
 ## Independently reconstructed raw-row projection
 
@@ -129,7 +156,7 @@ The canonical endpoint never asks for, predicts, imputes, or substitutes unavail
 
 ## Full synthetic end-to-end runner test
 
-The runner test suite now contains an end-to-end integration test using only temporary synthetic files. It creates:
+The runner test suite contains an end-to-end integration test using only temporary synthetic files. It creates:
 
 - a tiny ZIP-backed CuCD-like CSV;
 - a tiny direct Aegis-like CSV;
@@ -163,7 +190,7 @@ The runtime identity includes every Study 9 semantic module used by canonical or
 
 The runner captures this identity immediately after the authorization gate and recomputes it immediately before atomic output. Any governance or implementation byte change during execution fails closed.
 
-When the future canonical-run code freeze exists, its record is also added to the run identity.
+The canonical-run code-freeze record is also added to the future run identity after the freeze is active.
 
 ## Deterministic outputs
 
@@ -195,13 +222,13 @@ All four execution authorization flags are false:
 
 The corresponding four implementation-phase execution booleans are also false, `synthetic_only=true`, and `loader_runner_synthetic_test_only=true`.
 
+The canonical-run code freeze already exists in this closed phase. That is intentional: implementation is frozen before execution is authorized.
+
 ### Future open canonical phase
 
-A future open transition is valid only when all four authorization flags and all four implementation-phase execution flags move to true together. The protocol status must simultaneously move to the prospectively declared canonical-execution-authorized status, `synthetic_only` and `loader_runner_synthetic_test_only` must become false, and a separate `study9/CANONICAL_RUN_CODE_FREEZE.json` must already exist.
+A future open transition is valid only when all four authorization flags and all four implementation-phase execution flags move to true together. The protocol status must simultaneously move to the prospectively declared canonical-execution-authorized status, and `synthetic_only` plus `loader_runner_synthetic_test_only` must become false.
 
-That code-freeze record must bind the exact actual-clone-tested commit and SHA-256 of every runtime implementation module. `contracts.py` verifies those hashes before an open phase can load successfully.
-
-Any mixed or piecemeal transition fails closed. Manuscript creation and submission remain separate authorizations even after a future canonical execution phase is opened.
+The existing `study9/CANONICAL_RUN_CODE_FREEZE.json` remains mandatory and must continue to match every frozen computational file exactly. Any mixed or piecemeal transition fails closed. Manuscript creation and submission remain separate authorizations even after a future canonical execution phase is opened.
 
 ## Run the synthetic test suite
 
@@ -212,7 +239,7 @@ PYTHONPATH="study9/src:study2/src" \
 python3 -m unittest discover -s study9/tests -p 'test_*.py' -v
 ```
 
-The suite covers frozen governance, temporary direct/ZIP input verification, projection, label exclusion, multiplicity conservation, completion enumeration, exhaustive selector equivalence, policy-stratified endpoint weighting, guaranteed-sidecar semantics, deterministic serialization, independent reconstruction, the closed execution guard, adversarial-audit bindings, atomic phase-transition rejection, bounded selector initialization, and the full synthetic eight-artifact runner path.
+The suite covers frozen governance, temporary direct/ZIP input verification, projection, label exclusion, multiplicity conservation, completion enumeration, exhaustive selector equivalence, policy-stratified endpoint weighting, guaranteed-sidecar semantics, deterministic serialization, independent reconstruction, the closed execution guard, adversarial-audit bindings, atomic phase-transition rejection, bounded selector initialization, full synthetic eight-artifact runner behavior, and canonical-run code-freeze integrity/tamper checks.
 
 Synthetic fixture files are created only in temporary directories and are not Study 9 source data.
 
@@ -232,14 +259,15 @@ Among other invariants, `contracts.py` rejects the implementation if:
 - the runner authorization guard is no longer immediately after frozen-contract loading;
 - the adversarial-audit finding set or remediation bindings are altered;
 - the run-manifest reproducibility identity path set changes;
-- canonical execution flags are changed partially;
-- a future fully open execution phase lacks the separate canonical-run code freeze or its implementation hashes drift.
+- a frozen canonical-run computational byte size or SHA-256 changes;
+- the actual-clone code-freeze evidence is altered;
+- canonical execution flags are changed partially.
 
 The separate performance-remediation tests additionally fail if exhaustive cached selector behavior diverges from the frozen selector or if either selector path repeatedly initializes frozen contracts after its cache is cleared.
 
 ## Not authorized in this phase
 
-The current hardening phase does **not** authorize:
+The current code-frozen phase does **not** authorize:
 
 - reading or processing real dataset rows;
 - probing the user's real dataset paths through `run_canonical_sources()`;
@@ -252,4 +280,4 @@ The current hardening phase does **not** authorize:
 - drafting the Study 9 manuscript as a result-bearing manuscript;
 - journal submission.
 
-The next governance step, after this expanded synthetic suite passes on the actual clone, is to freeze the exact tested canonical-run code head. Only after that separate freeze should real-data execution authorization be considered.
+The next step, after this code-freeze governance update itself passes the actual-clone suite, is a **separate explicit real-data execution authorization gate**. Only that later atomic transition may permit the canonical runner to open the three frozen source populations and create the deterministic result artifacts.
