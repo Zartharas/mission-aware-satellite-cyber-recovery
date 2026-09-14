@@ -2,7 +2,7 @@
   "schema": 2,
   "experiment_id": "S9-RTSI-001",
   "title": "Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets",
-  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_FROZEN_NO_ANALYSIS_AUTHORIZED",
+  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS",
   "base_main_commit": "49323c6f78d8a9ae14e09573a4b126b5bf0fda10",
   "scientific_scope": "deterministic semantic-interface sufficiency and downstream decision identifiability across independently sourced public space-cyber datasets",
   "publication_strategy": {
@@ -119,7 +119,7 @@
     "prospective_design_authorized": true,
     "source_selection_design_authorized": true,
     "dataset_ingestion_authorized": false,
-    "implementation_creation_authorized": false,
+    "implementation_creation_authorized": true,
     "row_level_analysis_authorized": false,
     "canonical_execution_authorized": false,
     "results_directory_authorized": false,
@@ -163,5 +163,21 @@
     "admissible_action_sets_computed": false,
     "study9_endpoints_computed": false,
     "change_rule": "After this freeze, changing target semantics, mapping classes, eligible fields, exclusions, or derivation rules requires a documented protocol deviation and must not rewrite the frozen semantic-adjudication record retroactively after endpoint inspection."
+  },
+  "implementation_phase": {
+    "authorized": true,
+    "authorization_date": "2026-09-13",
+    "authorization_basis_commit": "d877e2d833b00597bec9befb8e21b2bfb2374503",
+    "synthetic_only": true,
+    "frozen_governance_metadata_may_be_read": true,
+    "frozen_study2_selector_may_be_invoked_on_synthetic_states": true,
+    "real_dataset_rows_may_be_opened": false,
+    "dataset_bytes_may_be_ingested_into_repository": false,
+    "study9_endpoints_may_be_computed": false,
+    "results_directory_may_be_created": false,
+    "canonical_execution_authorized": false,
+    "canonical_policy_scope_frozen": false,
+    "policy_scope_rule": "Implementation must require an explicit Study2Policy argument and must not encode a canonical default. Canonical policy scope must be frozen prospectively before real row-level execution.",
+    "submitted_papers_1_through_4_may_be_modified": false
   }
 }
