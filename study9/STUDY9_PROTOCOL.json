@@ -105,6 +105,7 @@
     "canonical input identity, state-collapse, multiplicity weighting, guaranteed-sidecar, deterministic-output, and independent-audit rules are frozen before real row-level execution",
     "guarded loader/runner implementation is synthetic-tested before any real-data authorization is opened",
     "pre-real-data adversarial audit remediations, including independent raw-row projection and full synthetic runner integration, are implemented and actual-clone tested before any real-data authorization is opened",
+    "pre-real-data performance remediation must preserve exhaustive semantics and pass actual-clone validation before the canonical-run code freeze",
     "the exact tested canonical-run code state is separately frozen before the future execution phase may be opened",
     "no candidate is added or removed after endpoint inspection except through a documented protocol deviation that is reported separately and does not rewrite the preregistered primary population"
   ],
@@ -125,7 +126,8 @@
     "Loader/runner implementation does not itself authorize real source access; authorization is checked before any user-supplied dataset path is inspected.",
     "The independent audit must reconstruct raw-row projection and policy-independent coverage without calling the canonical projector or canonical mapping implementation.",
     "Canonical result provenance must bind the exact governance and runtime implementation files by SHA-256 in run_manifest.json.",
-    "Real execution authorization must transition atomically; piecemeal flag changes are invalid."
+    "Real execution authorization must transition atomically; piecemeal flag changes are invalid.",
+    "Selector memoization may eliminate repeated deterministic computation only; it may not prune, sample, approximate, or otherwise alter the exhaustive completion or guaranteed-sidecar semantics."
   ],
   "authorization": {
     "prospective_design_authorized": true,
@@ -134,6 +136,7 @@
     "implementation_creation_authorized": true,
     "loader_runner_implementation_authorized": true,
     "pre_real_data_adversarial_hardening_authorized": true,
+    "pre_real_data_performance_remediation_authorized": true,
     "row_level_analysis_authorized": false,
     "canonical_execution_authorized": false,
     "results_directory_authorized": false,
@@ -236,6 +239,20 @@
     "real_dataset_rows_opened": false,
     "study9_endpoints_computed": false
   },
+  "pre_real_data_performance_remediation": {
+    "recorded": true,
+    "record_date": "2026-09-14",
+    "record": "study9/PRE_REAL_DATA_PERFORMANCE_REMEDIATION.json",
+    "trigger_basis_commit": "6c6968c08c186927bdab8bf1371c80dd809db29c",
+    "classification": "computational_redundancy_not_scientific_logic_error",
+    "canonical_selector_cache_separate": true,
+    "independent_selector_cache_separate": true,
+    "exhaustive_completion_semantics_preserved": true,
+    "guaranteed_sidecar_semantics_preserved": true,
+    "actual_clone_validation_pending": true,
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false
+  },
   "execution_phase_transition_contract": {
     "atomic_transition_required": true,
     "partial_transition_permitted": false,
@@ -293,6 +310,10 @@
     "full_synthetic_end_to_end_runner_test_implemented": true,
     "run_manifest_reproducibility_identity_required": true,
     "atomic_execution_phase_transition_required": true,
+    "pre_real_data_performance_remediation_implemented": true,
+    "performance_remediation_record": "study9/PRE_REAL_DATA_PERFORMANCE_REMEDIATION.json",
+    "canonical_and_independent_selector_caches_separate": true,
+    "exhaustive_completion_and_sidecar_enumeration_preserved": true,
     "run_manifest_reproducibility_identity_paths": [
       "study9/STUDY9_PROTOCOL.json",
       "study9/PRIMARY_POPULATION_FREEZE.json",
@@ -320,6 +341,7 @@
     "execution_design_rule": "Canonical real-data execution must use hash-verified inputs, frozen state construction, lossless state collapse with exact multiplicity, full admissible completion enumeration, the guaranteed minimal-sidecar endpoint without actual missing values, deterministic outputs, and an independently implemented audit. Real-data execution remains separately unauthorized.",
     "loader_runner_rule": "The loader and runner may be exercised only on synthetic temporary fixtures while real-data authorization remains closed. run_canonical_sources must check authorization before constructing external source specs, probing user-supplied dataset paths, or creating output directories.",
     "pre_real_data_hardening_rule": "The independent audit must reconstruct raw-row projection and policy-independent mapping/coverage separately from canonical implementations; the full post-guard pipeline must be synthetic-tested end-to-end; run_manifest.json must bind exact governance/runtime SHA-256 identities; and the future real-execution transition must be atomic and preceded by a canonical-run code freeze.",
+    "pre_real_data_performance_rule": "Repeated frozen-contract and deterministic selector work may be memoized separately within the canonical and independent paths, but exhaustive admissible-completion and guaranteed-sidecar enumeration must remain exact and unchanged.",
     "submitted_papers_1_through_4_may_be_modified": false
   }
 }
