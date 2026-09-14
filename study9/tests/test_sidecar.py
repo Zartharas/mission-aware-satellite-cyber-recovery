@@ -9,11 +9,17 @@ for path in (ROOT / "study9" / "src", ROOT / "study2" / "src"):
         sys.path.insert(0, str(path))
 
 import unittest
+from unittest.mock import patch
 
 from study9_semantic.completions import PartialObservation
 from study9_semantic.contracts import REQUIRED_VARIABLES
 from study9_semantic.selector_adapter import selector_types
-from study9_semantic.sidecar import action_set_cardinality, minimal_sidecar_sets, reachable_actions
+from study9_semantic.sidecar import (
+    action_set_cardinality,
+    guaranteed_minimal_sidecar_sets,
+    minimal_sidecar_sets,
+    reachable_actions,
+)
 
 
 class SidecarTests(unittest.TestCase):
@@ -48,6 +54,62 @@ class SidecarTests(unittest.TestCase):
             winners,
             (("security_signal",), ("authorization_available",)),
         )
+
+    def test_guaranteed_sidecar_requires_both_for_every_possible_assignment(self):
+        Study2Policy, _, _ = selector_types()
+        partial = self._qualified_partial()
+        self.assertEqual(
+            guaranteed_minimal_sidecar_sets(Study2Policy.EVIDENCE_AWARE, partial),
+            (("security_signal", "authorization_available"),),
+        )
+
+    def test_guaranteed_sidecar_is_stricter_than_assignment_conditioned_helper(self):
+        Study2Policy, _, _ = selector_types()
+        partial = self._qualified_partial()
+        assignment_conditioned = minimal_sidecar_sets(
+            Study2Policy.EVIDENCE_AWARE,
+            partial,
+            {"security_signal": False, "authorization_available": True},
+        )
+        guaranteed = guaranteed_minimal_sidecar_sets(Study2Policy.EVIDENCE_AWARE, partial)
+        self.assertEqual(
+            assignment_conditioned,
+            (("security_signal",), ("authorization_available",)),
+        )
+        self.assertEqual(
+            guaranteed,
+            (("security_signal", "authorization_available"),),
+        )
+
+    def test_guaranteed_sidecar_can_be_empty_when_action_is_already_unique(self):
+        Study2Policy, _, _ = selector_types()
+        unresolved = ("authorization_available",)
+        known = {
+            name: (False if name in ("contradictory", "security_signal") else True)
+            for name in REQUIRED_VARIABLES
+            if name not in unresolved
+        }
+        partial = PartialObservation.build(known=known, unresolved=unresolved)
+        self.assertEqual(
+            guaranteed_minimal_sidecar_sets(Study2Policy.EVIDENCE_AWARE, partial),
+            ((),),
+        )
+
+    def test_guaranteed_sidecar_retains_all_minimum_cardinality_ties(self):
+        Study2Policy, _, _ = selector_types()
+        partial = self._qualified_partial()
+
+        def fake_cardinality(_policy, candidate):
+            return 2 if len(candidate.unresolved) == 2 else 1
+
+        with patch(
+            "study9_semantic.sidecar.action_set_cardinality",
+            side_effect=fake_cardinality,
+        ):
+            self.assertEqual(
+                guaranteed_minimal_sidecar_sets(Study2Policy.EVIDENCE_AWARE, partial),
+                (("security_signal",), ("authorization_available",)),
+            )
 
 
 if __name__ == "__main__":
