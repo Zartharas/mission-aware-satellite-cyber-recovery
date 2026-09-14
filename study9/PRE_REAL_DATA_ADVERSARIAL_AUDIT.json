@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "PRE_REAL_DATA_ADVERSARIAL_AUDIT_FROZEN_REMEDIATION_REQUIRED_NO_REAL_DATA",
+  "audit_date": "2026-09-14",
+  "audit_basis_branch": "study9/recovery-state-semantic-interoperability",
+  "audit_basis_commit": "f7723ffd7d2e9a6127f260f83d5a0d36cf7ffff1",
+  "actual_clone_validation": {
+    "head": "f7723ffd7d2e9a6127f260f83d5a0d36cf7ffff1",
+    "test_count": 57,
+    "result": "PASS",
+    "real_dataset_rows_opened": false
+  },
+  "findings": [
+    {
+      "finding_id": "PRAA-01",
+      "severity": "HIGH",
+      "title": "Independent audit shared canonical raw-row projection",
+      "observation": "The canonical and independent grouping paths both consumed PartialObservation values produced by project_native_row().",
+      "risk": "A defect in field selection or direct-value normalization could agree with itself and evade the independent audit.",
+      "required_disposition": "Implement a separately coded raw-row projection path in independent_audit.py that does not import or call state_projection.py."
+    },
+    {
+      "finding_id": "PRAA-02",
+      "severity": "HIGH",
+      "title": "Policy-independent primary coverage lacked independent reconstruction",
+      "observation": "Mapping matrix, operational direct coverage, direct-or-derivable coverage, and common-missing-state outputs were produced only by the canonical mapping path.",
+      "risk": "A canonical mapping or coverage defect could be emitted without a separately reconstructed primary-endpoint comparison.",
+      "required_disposition": "Independently reconstruct and compare all policy-independent primary mapping and coverage outputs."
+    },
+    {
+      "finding_id": "PRAA-03",
+      "severity": "HIGH",
+      "title": "Post-guard canonical orchestration lacked end-to-end synthetic execution",
+      "observation": "Canonical runner tests proved the authorization guard order but did not execute the complete verified-source to eight-artifact path.",
+      "risk": "Integration defects after the authorization guard could remain latent until the first real-data run.",
+      "required_disposition": "Run the complete canonical pipeline on tiny temporary synthetic CSV and ZIP fixtures, verify all eight artifacts, independent-audit agreement, and repeated-run byte determinism."
+    },
+    {
+      "finding_id": "PRAA-04",
+      "severity": "HIGH",
+      "title": "Future execution transition could not be represented by isolated flag edits",
+      "observation": "The current contract loader intentionally requires the synthetic closed state, so isolated execution-flag changes would fail contract validation.",
+      "risk": "An ad hoc transition could create inconsistent authorization and implementation-phase state or pressure weakening of existing guards.",
+      "required_disposition": "Define an atomic closed-versus-open execution-phase contract; partial transitions must fail closed and the future open phase must require a separate canonical-run code freeze."
+    },
+    {
+      "finding_id": "PRAA-05",
+      "severity": "MEDIUM",
+      "title": "Run manifest did not bind governance and implementation identities",
+      "observation": "The future run manifest recorded input identities and policy/dataset order but not SHA-256 identities of the governance records and executable modules used for the run.",
+      "risk": "A result bundle could be harder to reproduce or attribute to the exact pre-result governance and implementation state.",
+      "required_disposition": "Record deterministic SHA-256 identities for the governing records and runtime implementation modules, verify them are unchanged before output, and include them in run_manifest.json."
+    }
+  ],
+  "required_remediations": {
+    "independent_raw_row_projection": true,
+    "independent_policy_independent_mapping_and_coverage": true,
+    "full_synthetic_end_to_end_runner_test": true,
+    "run_manifest_governance_and_implementation_sha256_identity": true,
+    "atomic_future_execution_phase_transition": true
+  },
+  "future_execution_phase_transition": {
+    "atomic_transition_required": true,
+    "partial_transition_permitted": false,
+    "canonical_execution_authorization_flags": [
+      "dataset_ingestion_authorized",
+      "row_level_analysis_authorized",
+      "canonical_execution_authorized",
+      "results_directory_authorized"
+    ],
+    "implementation_phase_execution_flags": [
+      "real_dataset_rows_may_be_opened",
+      "study9_endpoints_may_be_computed",
+      "results_directory_may_be_created",
+      "canonical_execution_authorized"
+    ],
+    "future_open_requires_canonical_run_code_freeze": true,
+    "future_code_freeze_record": "study9/CANONICAL_RUN_CODE_FREEZE.json",
+    "future_open_requires_synthetic_only_false": true,
+    "future_open_requires_loader_runner_synthetic_test_only_false": true,
+    "manuscript_creation_and_submission_remain_separate_authorizations": true
+  },
+  "execution_boundary": {
+    "real_dataset_rows_opened": false,
+    "real_dataset_paths_probed": false,
+    "study9_endpoints_computed": false,
+    "results_directory_created": false,
+    "manuscript_creation_executed": false,
+    "submission_executed": false
+  },
+  "change_rule": "This record preserves the pre-real-data adversarial findings observed before any Study 9 real-row endpoint inspection. The findings must not be removed or rewritten based on later results; their remediation state is recorded prospectively in the protocol and implementation history."
+}
