@@ -10,9 +10,12 @@ for path in (ROOT / "study9" / "src", ROOT / "study2" / "src"):
 
 import unittest
 
+from study9_semantic.canonical_engine import analysis_to_record, analyze_native_state_groups
 from study9_semantic.completions import PartialObservation
 from study9_semantic.contracts import REQUIRED_VARIABLES
 from study9_semantic.independent_audit import (
+    audit_analyze_native_state_groups,
+    audit_collapse_native_states,
     audit_guaranteed_minimal_sidecar_sets,
     audit_minimal_sidecar_sets,
     audit_reachable_actions,
@@ -23,6 +26,7 @@ from study9_semantic.sidecar import (
     minimal_sidecar_sets,
     reachable_actions,
 )
+from study9_semantic.state_groups import collapse_native_states
 
 
 class IndependentAuditTests(unittest.TestCase):
@@ -89,6 +93,66 @@ class IndependentAuditTests(unittest.TestCase):
                         unresolved=tuple(unresolved),
                     ),
                 )
+
+    def _finite_population(self):
+        unresolved = ("security_signal", "authorization_available")
+        qualified_known = {
+            name: (False if name == "contradictory" else True)
+            for name in REQUIRED_VARIABLES
+            if name not in unresolved
+        }
+        ambiguous = PartialObservation.build(known=qualified_known, unresolved=unresolved)
+        complete = PartialObservation.build(
+            known={
+                "signature_valid": True,
+                "source_trusted": True,
+                "fresh": True,
+                "epoch_valid": True,
+                "contradictory": False,
+                "minimum_evidence_complete": True,
+                "security_signal": False,
+                "authorization_available": True,
+            },
+            unresolved=(),
+        )
+        return [ambiguous] * 5 + [complete] * 2
+
+    def test_independent_grouping_matches_canonical_exact_multiplicities(self):
+        partials = self._finite_population()
+        canonical = collapse_native_states(
+            "UNSW_IOTSAT_2026", partials, expected_row_count=7
+        )
+        audit = audit_collapse_native_states(
+            "UNSW_IOTSAT_2026", partials, expected_row_count=7
+        )
+        canonical_signature = tuple(
+            (group.dataset_id, group.known, group.unresolved, group.multiplicity)
+            for group in canonical
+        )
+        audit_signature = tuple(
+            (
+                row["dataset_id"],
+                row["known"],
+                row["unresolved"],
+                row["multiplicity"],
+            )
+            for row in audit
+        )
+        self.assertEqual(canonical_signature, audit_signature)
+
+    def test_independent_policy_endpoint_summary_matches_canonical(self):
+        partials = self._finite_population()
+        canonical_groups = collapse_native_states(
+            "UNSW_IOTSAT_2026", partials, expected_row_count=7
+        )
+        audit_groups = audit_collapse_native_states(
+            "UNSW_IOTSAT_2026", partials, expected_row_count=7
+        )
+        canonical = analysis_to_record(
+            analyze_native_state_groups("UNSW_IOTSAT_2026", canonical_groups)
+        )
+        audit = audit_analyze_native_state_groups("UNSW_IOTSAT_2026", audit_groups)
+        self.assertEqual(canonical["policy_strata"], audit["policy_strata"])
 
 
 if __name__ == "__main__":
