@@ -52,18 +52,26 @@ FULL_POLICY_ENUM_ITEMS = (
     ("NO_EPOCH", "S2_ABL_NO_EPOCH"),
     ("NO_SIGNATURE_TRUST", "S2_ABL_NO_SIGNATURE_TRUST"),
 )
-
 FULL_POLICY_ENUM_VALUES = tuple(value for _, value in FULL_POLICY_ENUM_ITEMS)
 
-PROTOCOL_STATUS = (
+CLOSED_PROTOCOL_STATUS = (
     "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_"
-    "EXECUTION_DESIGN_FROZEN_LOADER_RUNNER_IMPLEMENTED_NO_ANALYSIS"
+    "EXECUTION_DESIGN_FROZEN_LOADER_RUNNER_HARDENED_NO_ANALYSIS"
 )
+OPEN_PROTOCOL_STATUS = (
+    "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_"
+    "EXECUTION_DESIGN_FROZEN_CANONICAL_EXECUTION_AUTHORIZED"
+)
+PROTOCOL_STATUS = CLOSED_PROTOCOL_STATUS
 EXECUTION_DESIGN_STATUS = "CANONICAL_EXECUTION_DESIGN_FROZEN_NO_ROW_ANALYSIS"
+PRE_REAL_DATA_AUDIT_STATUS = (
+    "PRE_REAL_DATA_ADVERSARIAL_AUDIT_FROZEN_REMEDIATION_REQUIRED_NO_REAL_DATA"
+)
 STATE_COLLAPSE_RULE_ID = "EIGHT_STATE_SELECTOR_INPUT_EQUIVALENCE_WITH_EXACT_MULTIPLICITY_V1"
 GUARANTEED_SIDECAR_DEFINITION_ID = (
     "ALL_REVEALED_ASSIGNMENTS_YIELD_SINGLETON_REACHABLE_ACTION_SET_V1"
 )
+
 LOADER_RUNNER_MODULES = (
     "study9/src/study9_semantic/input_identity.py",
     "study9/src/study9_semantic/state_projection.py",
@@ -73,18 +81,54 @@ LOADER_RUNNER_MODULES = (
     "study9/src/study9_semantic/canonical_runner.py",
 )
 
-REAL_EXECUTION_FLAGS = (
+RUN_IDENTITY_GOVERNANCE_PATHS = (
+    "study9/STUDY9_PROTOCOL.json",
+    "study9/PRIMARY_POPULATION_FREEZE.json",
+    "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+    "study9/POLICY_SCOPE_FREEZE.json",
+    "study9/CANONICAL_EXECUTION_DESIGN_FREEZE.json",
+    "study9/PRE_REAL_DATA_ADVERSARIAL_AUDIT.json",
+    "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+    "study9/DATASET_SCHEMA_MANIFEST.json",
+)
+RUN_IDENTITY_IMPLEMENTATION_PATHS = (
+    "study9/src/study9_semantic/completions.py",
+    "study9/src/study9_semantic/contracts.py",
+    "study9/src/study9_semantic/mapping.py",
+    "study9/src/study9_semantic/selector_adapter.py",
+    "study9/src/study9_semantic/sidecar.py",
+    "study9/src/study9_semantic/input_identity.py",
+    "study9/src/study9_semantic/state_projection.py",
+    "study9/src/study9_semantic/state_groups.py",
+    "study9/src/study9_semantic/canonical_engine.py",
+    "study9/src/study9_semantic/deterministic_io.py",
+    "study9/src/study9_semantic/independent_audit.py",
+    "study9/src/study9_semantic/canonical_runner.py",
+    "study2/src/study2_security/selectors.py",
+)
+RUN_IDENTITY_BASE_PATHS = RUN_IDENTITY_GOVERNANCE_PATHS + RUN_IDENTITY_IMPLEMENTATION_PATHS
+
+CANONICAL_EXECUTION_AUTHORIZATION_FLAGS = (
     "dataset_ingestion_authorized",
     "row_level_analysis_authorized",
     "canonical_execution_authorized",
     "results_directory_authorized",
+)
+IMPLEMENTATION_EXECUTION_FLAGS = (
+    "real_dataset_rows_may_be_opened",
+    "study9_endpoints_may_be_computed",
+    "results_directory_may_be_created",
+    "canonical_execution_authorized",
+)
+DOWNSTREAM_AUTHORIZATION_FLAGS = (
     "manuscript_creation_authorized",
     "submission_authorized",
 )
+REAL_EXECUTION_FLAGS = CANONICAL_EXECUTION_AUTHORIZATION_FLAGS + DOWNSTREAM_AUTHORIZATION_FLAGS
 
 
 class ContractViolation(RuntimeError):
-    """Raised when implementation metadata diverges from the frozen protocol."""
+    """Raised when implementation metadata diverges from frozen/prospective governance."""
 
 
 @dataclass(frozen=True)
@@ -95,15 +139,13 @@ class FrozenContracts:
     semantic: dict[str, Any]
     policy_scope: dict[str, Any]
     execution_design: dict[str, Any]
+    pre_real_data_audit: dict[str, Any]
     rubric: dict[str, Any]
     manifest: dict[str, Any]
 
 
 def repository_root(start: Path | None = None) -> Path:
-    if start is not None:
-        root = Path(start).resolve()
-    else:
-        root = Path(__file__).resolve().parents[3]
+    root = Path(start).resolve() if start is not None else Path(__file__).resolve().parents[3]
     if not (root / "study9" / "STUDY9_PROTOCOL.json").is_file():
         raise ContractViolation(f"repository root not found at {root}")
     return root
@@ -121,10 +163,20 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
+    try:
+        with path.open("rb") as handle:
+            for block in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(block)
+    except OSError as exc:
+        raise ContractViolation(f"cannot hash required file {path}: {exc}") from exc
     return digest.hexdigest()
+
+
+def _require_exact_sequence(name: str, observed: Any, expected: tuple[str, ...]) -> None:
+    if tuple(observed or ()) != expected:
+        raise ContractViolation(
+            f"{name} mismatch: observed={tuple(observed or ())!r} expected={expected!r}"
+        )
 
 
 def _dataset_ids_from_manifest(manifest: dict[str, Any]) -> tuple[str, ...]:
@@ -151,20 +203,11 @@ def _dataset_ids_from_semantic(semantic: dict[str, Any]) -> tuple[str, ...]:
     return tuple(ids)
 
 
-def _require_exact_sequence(name: str, observed: Any, expected: tuple[str, ...]) -> None:
-    if tuple(observed or ()) != expected:
-        raise ContractViolation(
-            f"{name} mismatch: observed={tuple(observed or ())!r} expected={expected!r}"
-        )
-
-
 def _study2_policy_enum_items(selector_path: Path) -> tuple[tuple[str, str], ...]:
     try:
-        source = selector_path.read_text(encoding="utf-8")
-        tree = ast.parse(source, filename=str(selector_path))
+        tree = ast.parse(selector_path.read_text(encoding="utf-8"), filename=str(selector_path))
     except (OSError, SyntaxError) as exc:
         raise ContractViolation(f"cannot inspect frozen Study2Policy enum: {exc}") from exc
-
     for node in tree.body:
         if isinstance(node, ast.ClassDef) and node.name == "Study2Policy":
             items: list[tuple[str, str]] = []
@@ -172,9 +215,11 @@ def _study2_policy_enum_items(selector_path: Path) -> tuple[tuple[str, str], ...
                 if not isinstance(statement, ast.Assign) or len(statement.targets) != 1:
                     continue
                 target = statement.targets[0]
-                if not isinstance(target, ast.Name):
-                    continue
-                if isinstance(statement.value, ast.Constant) and isinstance(statement.value.value, str):
+                if (
+                    isinstance(target, ast.Name)
+                    and isinstance(statement.value, ast.Constant)
+                    and isinstance(statement.value.value, str)
+                ):
                     items.append((target.id, statement.value.value))
             return tuple(items)
     raise ContractViolation("Study2Policy enum not found in frozen selector")
@@ -184,15 +229,9 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
     protocol = contracts.protocol
     policy_scope = contracts.policy_scope
     semantic = contracts.semantic
-
     if policy_scope.get("status") != "POLICY_SCOPE_FROZEN_NO_ROW_ANALYSIS":
         raise ContractViolation("policy-scope freeze status mismatch")
-
-    _require_exact_sequence(
-        "policy-scope primary policies",
-        policy_scope.get("primary_policies"),
-        PRIMARY_POLICY_VALUES,
-    )
+    _require_exact_sequence("policy-scope primary policies", policy_scope.get("primary_policies"), PRIMARY_POLICY_VALUES)
     _require_exact_sequence(
         "policy-scope excluded ablations",
         policy_scope.get("excluded_mechanistic_ablations"),
@@ -203,7 +242,6 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
         policy_scope.get("study2_policy_enum_order"),
         FULL_POLICY_ENUM_VALUES,
     )
-
     roles = policy_scope.get("policy_roles", {})
     if tuple(roles) != FULL_POLICY_ENUM_VALUES:
         raise ContractViolation("policy-role ordering/set mismatch")
@@ -215,23 +253,21 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"ablation role mismatch: {value}")
 
     rule = policy_scope.get("primary_analysis_rule", {})
-    expected_true = (
+    for key in (
         "all_primary_policies_evaluated",
         "evaluated_separately",
         "semantic_coverage_is_policy_independent",
         "action_identifiability_is_policy_stratified",
         "minimal_sidecar_is_policy_stratified",
-    )
-    for key in expected_true:
+    ):
         if rule.get(key) is not True:
             raise ContractViolation(f"policy primary-analysis rule must be true: {key}")
-    expected_false = (
+    for key in (
         "policy_pooling_permitted",
         "policy_averaging_permitted",
         "policies_treated_as_interchangeable_replicates",
         "policy_superiority_or_preference_claim_permitted",
-    )
-    for key in expected_false:
+    ):
         if rule.get(key) is not False:
             raise ContractViolation(f"policy primary-analysis rule must be false: {key}")
     if rule.get("canonical_default_policy") is not None:
@@ -243,12 +279,12 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
         stratification.get("dataset_ids"),
         FROZEN_DATASET_IDS,
     )
-    if stratification.get("dataset_count") != 3:
-        raise ContractViolation("policy-scope dataset count mismatch")
-    if stratification.get("primary_policy_count") != 4:
-        raise ContractViolation("policy-scope primary-policy count mismatch")
-    if stratification.get("dataset_policy_stratum_count") != 12:
-        raise ContractViolation("policy-scope dataset-policy stratum count mismatch")
+    if (
+        stratification.get("dataset_count") != 3
+        or stratification.get("primary_policy_count") != 4
+        or stratification.get("dataset_policy_stratum_count") != 12
+    ):
+        raise ContractViolation("policy-scope stratification count mismatch")
     if stratification.get("cross_stratum_pooling_for_primary_endpoints") is not False:
         raise ContractViolation("cross-stratum pooling must remain prohibited")
 
@@ -287,15 +323,9 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"policy-scope execution boundary violated: {key}")
 
     protocol_scope = protocol.get("policy_scope_freeze", {})
-    if protocol_scope.get("frozen") is not True:
-        raise ContractViolation("protocol policy scope is not frozen")
-    if protocol_scope.get("freeze_record") != "study9/POLICY_SCOPE_FREEZE.json":
-        raise ContractViolation("protocol policy-scope freeze-record binding mismatch")
-    _require_exact_sequence(
-        "protocol primary policies",
-        protocol_scope.get("primary_policies"),
-        PRIMARY_POLICY_VALUES,
-    )
+    if protocol_scope.get("frozen") is not True or protocol_scope.get("freeze_record") != "study9/POLICY_SCOPE_FREEZE.json":
+        raise ContractViolation("protocol policy-scope binding mismatch")
+    _require_exact_sequence("protocol primary policies", protocol_scope.get("primary_policies"), PRIMARY_POLICY_VALUES)
     _require_exact_sequence(
         "protocol excluded ablations",
         protocol_scope.get("excluded_mechanistic_ablations"),
@@ -303,10 +333,8 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
     )
     if protocol_scope.get("dataset_policy_stratum_count") != 12:
         raise ContractViolation("protocol policy-scope stratum count mismatch")
-    if protocol_scope.get("policy_pooling_permitted") is not False:
-        raise ContractViolation("protocol policy pooling must remain prohibited")
-    if protocol_scope.get("policy_averaging_permitted") is not False:
-        raise ContractViolation("protocol policy averaging must remain prohibited")
+    if protocol_scope.get("policy_pooling_permitted") is not False or protocol_scope.get("policy_averaging_permitted") is not False:
+        raise ContractViolation("protocol policy pooling/averaging must remain prohibited")
     if protocol_scope.get("canonical_default_policy") is not None:
         raise ContractViolation("protocol canonical default policy must remain null")
 
@@ -316,7 +344,6 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
         raise ContractViolation("policy/semantic selector path mismatch")
     if policy_selector.get("sha256") != semantic_selector.get("selector_sha256"):
         raise ContractViolation("policy/semantic selector SHA-256 mismatch")
-
     selector_path = contracts.repo_root / str(policy_selector.get("path"))
     actual_enum_items = _study2_policy_enum_items(selector_path)
     if actual_enum_items != FULL_POLICY_ENUM_ITEMS:
@@ -331,30 +358,25 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
     semantic = contracts.semantic
     policy_scope = contracts.policy_scope
     manifest = contracts.manifest
-
     if execution_design.get("status") != EXECUTION_DESIGN_STATUS:
         raise ContractViolation("canonical execution-design freeze status mismatch")
 
     dependencies = execution_design.get("frozen_dependencies", {})
-    if dependencies.get("primary_population_freeze") != "study9/PRIMARY_POPULATION_FREEZE.json":
-        raise ContractViolation("execution design population-freeze binding mismatch")
-    if dependencies.get("semantic_adjudication_freeze") != "study9/SEMANTIC_ADJUDICATION_FREEZE.json":
-        raise ContractViolation("execution design semantic-freeze binding mismatch")
-    if dependencies.get("policy_scope_freeze") != "study9/POLICY_SCOPE_FREEZE.json":
-        raise ContractViolation("execution design policy-freeze binding mismatch")
-    if dependencies.get("schema_manifest") != "study9/DATASET_SCHEMA_MANIFEST.json":
-        raise ContractViolation("execution design manifest binding mismatch")
-
+    expected_dependencies = {
+        "primary_population_freeze": "study9/PRIMARY_POPULATION_FREEZE.json",
+        "semantic_adjudication_freeze": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+        "policy_scope_freeze": "study9/POLICY_SCOPE_FREEZE.json",
+        "schema_manifest": "study9/DATASET_SCHEMA_MANIFEST.json",
+    }
+    for key, value in expected_dependencies.items():
+        if dependencies.get(key) != value:
+            raise ContractViolation(f"execution design dependency binding mismatch: {key}")
     semantic_selector = semantic.get("frozen_downstream_interface", {})
     policy_selector = policy_scope.get("frozen_selector_dependency", {})
-    if dependencies.get("selector_path") != semantic_selector.get("selector_path"):
-        raise ContractViolation("execution/semantic selector path mismatch")
-    if dependencies.get("selector_sha256") != semantic_selector.get("selector_sha256"):
-        raise ContractViolation("execution/semantic selector SHA-256 mismatch")
-    if dependencies.get("selector_path") != policy_selector.get("path"):
-        raise ContractViolation("execution/policy selector path mismatch")
-    if dependencies.get("selector_sha256") != policy_selector.get("sha256"):
-        raise ContractViolation("execution/policy selector SHA-256 mismatch")
+    if dependencies.get("selector_path") != semantic_selector.get("selector_path") or dependencies.get("selector_path") != policy_selector.get("path"):
+        raise ContractViolation("execution selector path mismatch")
+    if dependencies.get("selector_sha256") != semantic_selector.get("selector_sha256") or dependencies.get("selector_sha256") != policy_selector.get("sha256"):
+        raise ContractViolation("execution selector SHA-256 mismatch")
 
     identities = execution_design.get("input_identity_contracts")
     if not isinstance(identities, list):
@@ -369,16 +391,14 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
         dataset_id = identity["dataset_id"]
         manifest_row = manifest_by_id[dataset_id]
         canonical = manifest_row.get("canonical_artifact", {})
-        expected_outer_sha = manifest_row.get("download_package", {}).get("sha256")
         expected = {
-            "outer_container_sha256": expected_outer_sha,
+            "outer_container_sha256": manifest_row.get("download_package", {}).get("sha256"),
             "canonical_artifact_path": canonical.get("path"),
             "canonical_artifact_sha256": canonical.get("sha256"),
             "expected_rows": canonical.get("rows"),
             "expected_columns": canonical.get("columns"),
         }
-        observed = {key: identity.get(key) for key in expected}
-        if observed != expected:
+        if {key: identity.get(key) for key in expected} != expected:
             raise ContractViolation(f"execution input identity drift: {dataset_id}")
 
     input_rule = execution_design.get("input_validation_rule", {})
@@ -395,11 +415,7 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
         raise ContractViolation("dataset bytes must not be committed to repository")
 
     state = execution_design.get("primary_state_construction", {})
-    _require_exact_sequence(
-        "execution required variable order",
-        state.get("required_variable_order"),
-        REQUIRED_VARIABLES,
-    )
+    _require_exact_sequence("execution required variable order", state.get("required_variable_order"), REQUIRED_VARIABLES)
     _require_exact_sequence(
         "execution known mapping classes",
         state.get("known_state_mapping_classes"),
@@ -444,17 +460,10 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"lossless state-collapse prohibition violated: {key}")
 
     completion = execution_design.get("admissible_completion_rule", {})
-    for key in (
-        "unresolved_variables_are_binary",
-        "enumerate_complete_cartesian_boolean_assignments",
-    ):
+    for key in ("unresolved_variables_are_binary", "enumerate_complete_cartesian_boolean_assignments"):
         if completion.get(key) is not True:
             raise ContractViolation(f"admissible-completion requirement must be true: {key}")
-    for key in (
-        "sampling_or_pruning_permitted",
-        "probability_model_permitted",
-        "attack_label_conditioning_permitted",
-    ):
+    for key in ("sampling_or_pruning_permitted", "probability_model_permitted", "attack_label_conditioning_permitted"):
         if completion.get(key) is not False:
             raise ContractViolation(f"admissible-completion prohibition violated: {key}")
 
@@ -477,23 +486,11 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"guaranteed-sidecar requirement must be true: {key}")
 
     endpoint = execution_design.get("primary_endpoint_execution_contract", {})
-    _require_exact_sequence(
-        "execution primary policy order",
-        endpoint.get("primary_policy_order"),
-        PRIMARY_POLICY_VALUES,
-    )
-    _require_exact_sequence(
-        "execution dataset order",
-        endpoint.get("dataset_order"),
-        FROZEN_DATASET_IDS,
-    )
+    _require_exact_sequence("execution primary policy order", endpoint.get("primary_policy_order"), PRIMARY_POLICY_VALUES)
+    _require_exact_sequence("execution dataset order", endpoint.get("dataset_order"), FROZEN_DATASET_IDS)
     if endpoint.get("dataset_policy_stratum_count") != 12:
         raise ContractViolation("execution dataset-policy stratum count mismatch")
-    for key in (
-        "policy_pooling_permitted",
-        "policy_averaging_permitted",
-        "cross_dataset_row_pooling_permitted",
-    ):
+    for key in ("policy_pooling_permitted", "policy_averaging_permitted", "cross_dataset_row_pooling_permitted"):
         if endpoint.get(key) is not False:
             raise ContractViolation(f"execution endpoint pooling prohibition violated: {key}")
 
@@ -541,7 +538,6 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
     if audit.get("canonical_and_audit_mismatch_behavior") != "FAIL_CLOSED_NO_RESULTS_FREEZE":
         raise ContractViolation("canonical/audit mismatch must fail closed")
 
-    execution = execution_design.get("execution_boundary", {})
     for key in (
         "real_dataset_rows_opened",
         "dataset_ingestion_executed",
@@ -552,23 +548,17 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
         "manuscript_creation_executed",
         "submission_executed",
     ):
-        if execution.get(key) is not False:
+        if execution_design.get("execution_boundary", {}).get(key) is not False:
             raise ContractViolation(f"execution-design boundary violated: {key}")
 
     protocol_design = protocol.get("canonical_execution_design_freeze", {})
-    if protocol_design.get("frozen") is not True:
-        raise ContractViolation("protocol canonical execution design is not frozen")
-    if protocol_design.get("freeze_record") != "study9/CANONICAL_EXECUTION_DESIGN_FREEZE.json":
-        raise ContractViolation("protocol execution-design freeze-record binding mismatch")
+    if protocol_design.get("frozen") is not True or protocol_design.get("freeze_record") != "study9/CANONICAL_EXECUTION_DESIGN_FREEZE.json":
+        raise ContractViolation("protocol canonical execution-design binding mismatch")
     if protocol_design.get("state_collapse_rule_id") != STATE_COLLAPSE_RULE_ID:
         raise ContractViolation("protocol state-collapse rule id mismatch")
     if protocol_design.get("guaranteed_sidecar_definition_id") != GUARANTEED_SIDECAR_DEFINITION_ID:
         raise ContractViolation("protocol guaranteed-sidecar definition id mismatch")
-    for key in (
-        "lossless_state_collapse_enabled",
-        "exact_multiplicity_weighting_required",
-        "independent_audit_required",
-    ):
+    for key in ("lossless_state_collapse_enabled", "exact_multiplicity_weighting_required", "independent_audit_required"):
         if protocol_design.get(key) is not True:
             raise ContractViolation(f"protocol execution-design requirement must be true: {key}")
     for key in (
@@ -581,28 +571,213 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"protocol execution-design boundary violated: {key}")
 
 
+def _validate_pre_real_data_audit(contracts: FrozenContracts) -> None:
+    audit = contracts.pre_real_data_audit
+    protocol = contracts.protocol
+    if audit.get("status") != PRE_REAL_DATA_AUDIT_STATUS:
+        raise ContractViolation("pre-real-data adversarial-audit status mismatch")
+    if audit.get("audit_basis_commit") != "f7723ffd7d2e9a6127f260f83d5a0d36cf7ffff1":
+        raise ContractViolation("pre-real-data adversarial-audit basis commit mismatch")
+    clone = audit.get("actual_clone_validation", {})
+    if clone.get("head") != audit.get("audit_basis_commit") or clone.get("test_count") != 57 or clone.get("result") != "PASS":
+        raise ContractViolation("pre-real-data actual-clone validation binding mismatch")
+    if clone.get("real_dataset_rows_opened") is not False:
+        raise ContractViolation("pre-real-data audit must precede real-row access")
+    findings = audit.get("findings")
+    if not isinstance(findings, list) or [item.get("finding_id") for item in findings] != [
+        "PRAA-01", "PRAA-02", "PRAA-03", "PRAA-04", "PRAA-05"
+    ]:
+        raise ContractViolation("pre-real-data adversarial finding set/order mismatch")
+    remediations = audit.get("required_remediations", {})
+    for key in (
+        "independent_raw_row_projection",
+        "independent_policy_independent_mapping_and_coverage",
+        "full_synthetic_end_to_end_runner_test",
+        "run_manifest_governance_and_implementation_sha256_identity",
+        "atomic_future_execution_phase_transition",
+    ):
+        if remediations.get(key) is not True:
+            raise ContractViolation(f"pre-real-data remediation requirement missing: {key}")
+
+    future = audit.get("future_execution_phase_transition", {})
+    if future.get("atomic_transition_required") is not True or future.get("partial_transition_permitted") is not False:
+        raise ContractViolation("pre-real-data phase transition must be atomic")
+    _require_exact_sequence(
+        "audit future canonical authorization flags",
+        future.get("canonical_execution_authorization_flags"),
+        CANONICAL_EXECUTION_AUTHORIZATION_FLAGS,
+    )
+    _require_exact_sequence(
+        "audit future implementation execution flags",
+        future.get("implementation_phase_execution_flags"),
+        IMPLEMENTATION_EXECUTION_FLAGS,
+    )
+    if future.get("future_open_requires_canonical_run_code_freeze") is not True:
+        raise ContractViolation("future open phase must require canonical-run code freeze")
+    if future.get("future_code_freeze_record") != "study9/CANONICAL_RUN_CODE_FREEZE.json":
+        raise ContractViolation("future code-freeze path mismatch")
+    if future.get("future_open_requires_synthetic_only_false") is not True:
+        raise ContractViolation("future open phase must leave synthetic-only mode")
+    if future.get("future_open_requires_loader_runner_synthetic_test_only_false") is not True:
+        raise ContractViolation("future open phase must leave loader-runner synthetic-only mode")
+    if future.get("manuscript_creation_and_submission_remain_separate_authorizations") is not True:
+        raise ContractViolation("manuscript/submission authorization must remain separate")
+
+    for key in (
+        "real_dataset_rows_opened",
+        "real_dataset_paths_probed",
+        "study9_endpoints_computed",
+        "results_directory_created",
+        "manuscript_creation_executed",
+        "submission_executed",
+    ):
+        if audit.get("execution_boundary", {}).get(key) is not False:
+            raise ContractViolation(f"pre-real-data audit execution boundary violated: {key}")
+
+    bound = protocol.get("pre_real_data_adversarial_audit", {})
+    if bound.get("completed") is not True:
+        raise ContractViolation("protocol does not mark pre-real-data audit complete")
+    if bound.get("audit_record") != "study9/PRE_REAL_DATA_ADVERSARIAL_AUDIT.json":
+        raise ContractViolation("protocol pre-real-data audit record binding mismatch")
+    if bound.get("audit_basis_commit") != audit.get("audit_basis_commit"):
+        raise ContractViolation("protocol pre-real-data audit basis mismatch")
+    if bound.get("finding_count") != 5 or bound.get("actual_clone_test_count_at_audit") != 57 or bound.get("actual_clone_result_at_audit") != "PASS":
+        raise ContractViolation("protocol pre-real-data audit evidence mismatch")
+    for key in (
+        "independent_raw_row_projection_implemented",
+        "independent_policy_independent_mapping_and_coverage_implemented",
+        "full_synthetic_end_to_end_runner_test_implemented",
+        "run_manifest_reproducibility_identity_implemented",
+        "atomic_future_execution_phase_transition_implemented",
+    ):
+        if bound.get(key) is not True:
+            raise ContractViolation(f"protocol pre-real-data remediation not recorded: {key}")
+    if bound.get("real_dataset_rows_opened") is not False or bound.get("study9_endpoints_computed") is not False:
+        raise ContractViolation("protocol pre-real-data boundary must remain closed")
+
+
+def _validate_future_code_freeze(contracts: FrozenContracts) -> None:
+    protocol = contracts.protocol
+    binding = protocol.get("canonical_run_code_freeze", {})
+    if binding.get("frozen") is not True:
+        raise ContractViolation("future open phase requires frozen canonical-run code")
+    if binding.get("freeze_record") != "study9/CANONICAL_RUN_CODE_FREEZE.json":
+        raise ContractViolation("canonical-run code-freeze record binding mismatch")
+    tested_commit = binding.get("tested_commit")
+    if not isinstance(tested_commit, str) or len(tested_commit) != 40 or any(ch not in "0123456789abcdef" for ch in tested_commit):
+        raise ContractViolation("canonical-run tested commit must be a lowercase 40-hex SHA")
+    record_path = contracts.repo_root / binding["freeze_record"]
+    if not record_path.is_file():
+        raise ContractViolation("canonical-run code-freeze record does not exist")
+    record = _load_json(record_path)
+    if record.get("study_id") != STUDY_ID or record.get("status") != "CANONICAL_RUN_CODE_FROZEN_FOR_REAL_EXECUTION":
+        raise ContractViolation("canonical-run code-freeze record status/study mismatch")
+    if record.get("tested_commit") != tested_commit:
+        raise ContractViolation("canonical-run tested-commit binding mismatch")
+    module_hashes = record.get("implementation_sha256")
+    if not isinstance(module_hashes, dict) or tuple(module_hashes) != RUN_IDENTITY_IMPLEMENTATION_PATHS:
+        raise ContractViolation("canonical-run code-freeze implementation path set/order mismatch")
+    for relative in RUN_IDENTITY_IMPLEMENTATION_PATHS:
+        expected = module_hashes.get(relative)
+        if not isinstance(expected, str) or len(expected) != 64:
+            raise ContractViolation(f"canonical-run code-freeze hash missing: {relative}")
+        if sha256_file(contracts.repo_root / relative) != expected:
+            raise ContractViolation(f"canonical-run implementation hash drift: {relative}")
+
+
+def _validate_execution_phase_alignment(contracts: FrozenContracts) -> None:
+    protocol = contracts.protocol
+    transition = protocol.get("execution_phase_transition_contract", {})
+    if transition.get("atomic_transition_required") is not True or transition.get("partial_transition_permitted") is not False:
+        raise ContractViolation("execution phase transition must be atomic")
+    if transition.get("closed_protocol_status") != CLOSED_PROTOCOL_STATUS or transition.get("future_open_protocol_status") != OPEN_PROTOCOL_STATUS:
+        raise ContractViolation("execution phase status contract drift")
+    _require_exact_sequence(
+        "protocol execution authorization flags",
+        transition.get("canonical_execution_authorization_flags"),
+        CANONICAL_EXECUTION_AUTHORIZATION_FLAGS,
+    )
+    _require_exact_sequence(
+        "protocol implementation execution flags",
+        transition.get("implementation_phase_execution_flags"),
+        IMPLEMENTATION_EXECUTION_FLAGS,
+    )
+    if transition.get("future_open_requires_canonical_run_code_freeze") is not True:
+        raise ContractViolation("future open phase must require canonical-run code freeze")
+    if transition.get("future_code_freeze_record") != "study9/CANONICAL_RUN_CODE_FREEZE.json":
+        raise ContractViolation("future execution code-freeze path mismatch")
+    if transition.get("future_open_requires_synthetic_only_false") is not True:
+        raise ContractViolation("future open phase synthetic-only transition rule missing")
+    if transition.get("future_open_requires_loader_runner_synthetic_test_only_false") is not True:
+        raise ContractViolation("future open phase loader-runner transition rule missing")
+    if transition.get("manuscript_and_submission_remain_separate_authorizations") is not True:
+        raise ContractViolation("manuscript/submission must remain separate authorizations")
+
+    authorization = protocol.get("authorization", {})
+    phase = protocol.get("implementation_phase", {})
+    auth_values = tuple(authorization.get(name) for name in CANONICAL_EXECUTION_AUTHORIZATION_FLAGS)
+    phase_values = tuple(phase.get(name) for name in IMPLEMENTATION_EXECUTION_FLAGS)
+    closed = all(value is False for value in auth_values + phase_values)
+    opened = all(value is True for value in auth_values + phase_values)
+    if not (closed or opened):
+        raise ContractViolation(
+            "partial canonical execution transition detected; all authorization and implementation flags must move atomically"
+        )
+
+    for flag in DOWNSTREAM_AUTHORIZATION_FLAGS:
+        if authorization.get(flag) is not False:
+            raise ContractViolation(f"downstream authorization must remain false during Study 9 execution phase: {flag}")
+    if phase.get("dataset_bytes_may_be_ingested_into_repository") is not False:
+        raise ContractViolation("dataset bytes must remain outside repository in every execution phase")
+
+    status = protocol.get("status")
+    if closed:
+        if status != CLOSED_PROTOCOL_STATUS:
+            raise ContractViolation("closed execution flags require the closed hardened protocol status")
+        if phase.get("synthetic_only") is not True:
+            raise ContractViolation("closed phase must remain synthetic-only")
+        if phase.get("loader_runner_synthetic_test_only") is not True:
+            raise ContractViolation("closed phase loader/runner must remain synthetic-test only")
+        return
+
+    if status != OPEN_PROTOCOL_STATUS:
+        raise ContractViolation("open execution flags require the canonical-execution-authorized status")
+    if phase.get("synthetic_only") is not False:
+        raise ContractViolation("open phase requires synthetic_only=false")
+    if phase.get("loader_runner_synthetic_test_only") is not False:
+        raise ContractViolation("open phase requires loader_runner_synthetic_test_only=false")
+    _validate_future_code_freeze(contracts)
+
+
 def _validate_loader_runner_phase(contracts: FrozenContracts) -> None:
     authorization = contracts.protocol.get("authorization", {})
     if authorization.get("loader_runner_implementation_authorized") is not True:
         raise ContractViolation("loader/runner implementation authorization is not recorded")
+    if authorization.get("pre_real_data_adversarial_hardening_authorized") is not True:
+        raise ContractViolation("pre-real-data adversarial hardening authorization is not recorded")
 
     phase = contracts.protocol.get("implementation_phase", {})
-    required_true = (
+    for key in (
         "loader_runner_implemented",
-        "loader_runner_synthetic_test_only",
         "loader_runner_standard_library_only",
         "loader_runner_external_paths_required",
         "loader_runner_hard_authorization_guard_before_source_path_access",
-    )
-    for key in required_true:
+        "pre_real_data_adversarial_hardening_implemented",
+        "independent_raw_row_projection_implemented",
+        "independent_policy_independent_mapping_and_coverage_implemented",
+        "full_synthetic_end_to_end_runner_test_implemented",
+        "run_manifest_reproducibility_identity_required",
+        "atomic_execution_phase_transition_required",
+    ):
         if phase.get(key) is not True:
-            raise ContractViolation(f"loader/runner implementation requirement must be true: {key}")
+            raise ContractViolation(f"loader/runner hardening requirement must be true: {key}")
     if phase.get("loader_runner_hardcoded_local_paths_permitted") is not False:
         raise ContractViolation("hard-coded local dataset paths must remain prohibited")
+    _require_exact_sequence("loader/runner module set", phase.get("loader_runner_modules"), LOADER_RUNNER_MODULES)
     _require_exact_sequence(
-        "loader/runner module set",
-        phase.get("loader_runner_modules"),
-        LOADER_RUNNER_MODULES,
+        "run-manifest reproducibility identity paths",
+        phase.get("run_manifest_reproducibility_identity_paths"),
+        RUN_IDENTITY_BASE_PATHS,
     )
 
     parsed_modules: dict[str, ast.Module] = {}
@@ -617,44 +792,43 @@ def _validate_loader_runner_phase(contracts: FrozenContracts) -> None:
             raise ContractViolation(f"cannot inspect loader/runner module {relative}: {exc}") from exc
         parsed_modules[relative] = tree
         for node in ast.walk(tree):
-            if isinstance(node, ast.Constant) and isinstance(node.value, str):
-                if "/Users/" in node.value:
-                    raise ContractViolation(f"hard-coded local user path found in {relative}")
+            if isinstance(node, ast.Constant) and isinstance(node.value, str) and "/Users/" in node.value:
+                raise ContractViolation(f"hard-coded local user path found in {relative}")
             if isinstance(node, ast.Import):
                 for alias in node.names:
                     root = alias.name.split(".", 1)[0]
                     if root not in sys.stdlib_module_names:
-                        raise ContractViolation(
-                            f"non-standard-library absolute import in {relative}: {alias.name}"
-                        )
+                        raise ContractViolation(f"non-standard-library absolute import in {relative}: {alias.name}")
             elif isinstance(node, ast.ImportFrom) and node.level == 0:
                 root = (node.module or "").split(".", 1)[0]
                 if root not in sys.stdlib_module_names and root != "__future__":
-                    raise ContractViolation(
-                        f"non-standard-library absolute import in {relative}: {node.module}"
-                    )
+                    raise ContractViolation(f"non-standard-library absolute import in {relative}: {node.module}")
 
-    runner_relative = "study9/src/study9_semantic/canonical_runner.py"
-    runner_tree = parsed_modules[runner_relative]
+    independent_path = contracts.repo_root / "study9/src/study9_semantic/independent_audit.py"
+    independent_tree = ast.parse(independent_path.read_text(encoding="utf-8"), filename=str(independent_path))
+    forbidden_independent_modules = {"state_projection", "mapping", "state_groups", "canonical_engine"}
+    for node in ast.walk(independent_tree):
+        if isinstance(node, ast.ImportFrom) and node.level > 0:
+            leaf = (node.module or "").split(".")[-1]
+            if leaf in forbidden_independent_modules:
+                raise ContractViolation(f"independent audit imports forbidden canonical module: {leaf}")
+
     runner = next(
         (
             node
-            for node in runner_tree.body
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-            and node.name == "run_canonical_sources"
+            for node in parsed_modules["study9/src/study9_semantic/canonical_runner.py"].body
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == "run_canonical_sources"
         ),
         None,
     )
     if runner is None:
         raise ContractViolation("run_canonical_sources not found in guarded canonical runner")
     body = list(runner.body)
-    if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
-        if isinstance(body[0].value.value, str):
-            body = body[1:]
+    if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant) and isinstance(body[0].value.value, str):
+        body = body[1:]
     if len(body) < 2:
         raise ContractViolation("canonical runner does not contain the required guard sequence")
-    first = body[0]
-    second = body[1]
+    first, second = body[:2]
     if not (
         isinstance(first, ast.Assign)
         and len(first.targets) == 1
@@ -674,9 +848,7 @@ def _validate_loader_runner_phase(contracts: FrozenContracts) -> None:
         and isinstance(second.value.args[0], ast.Name)
         and second.value.args[0].id == "contracts"
     ):
-        raise ContractViolation(
-            "canonical runner authorization guard must immediately follow frozen-contract loading"
-        )
+        raise ContractViolation("canonical runner authorization guard must immediately follow frozen-contract loading")
 
 
 def validate_contracts(contracts: FrozenContracts) -> None:
@@ -685,6 +857,7 @@ def validate_contracts(contracts: FrozenContracts) -> None:
     semantic = contracts.semantic
     policy_scope = contracts.policy_scope
     execution_design = contracts.execution_design
+    pre_real_data_audit = contracts.pre_real_data_audit
     rubric = contracts.rubric
     manifest = contracts.manifest
 
@@ -695,39 +868,27 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         ("semantic", semantic),
         ("policy_scope", policy_scope),
         ("execution_design", execution_design),
+        ("pre_real_data_audit", pre_real_data_audit),
         ("rubric", rubric),
         ("manifest", manifest),
     ):
         if record.get("study_id") != STUDY_ID:
             raise ContractViolation(f"{name} study id mismatch")
 
-    if protocol.get("status") != PROTOCOL_STATUS:
-        raise ContractViolation("protocol loader/runner implementation status is not locked")
-
+    if protocol.get("status") not in {CLOSED_PROTOCOL_STATUS, OPEN_PROTOCOL_STATUS}:
+        raise ContractViolation("protocol execution-phase status is not recognized")
     authorization = protocol.get("authorization", {})
-    if authorization.get("implementation_creation_authorized") is not True:
-        raise ContractViolation("implementation creation is not authorized")
-    if authorization.get("loader_runner_implementation_authorized") is not True:
-        raise ContractViolation("loader/runner implementation is not authorized")
-    if authorization.get("policy_scope_freeze_authorized") is not True:
-        raise ContractViolation("policy-scope freeze is not authorized")
-    if authorization.get("canonical_execution_design_freeze_authorized") is not True:
-        raise ContractViolation("canonical execution-design freeze is not authorized")
-    for flag in REAL_EXECUTION_FLAGS:
-        if authorization.get(flag) is not False:
-            raise ContractViolation(f"real-execution authorization must remain false: {flag}")
+    for key in (
+        "implementation_creation_authorized",
+        "loader_runner_implementation_authorized",
+        "pre_real_data_adversarial_hardening_authorized",
+        "policy_scope_freeze_authorized",
+        "canonical_execution_design_freeze_authorized",
+    ):
+        if authorization.get(key) is not True:
+            raise ContractViolation(f"required implementation/governance authorization missing: {key}")
 
     implementation_phase = protocol.get("implementation_phase", {})
-    if implementation_phase.get("synthetic_only") is not True:
-        raise ContractViolation("implementation phase must remain synthetic-only")
-    if implementation_phase.get("real_dataset_rows_may_be_opened") is not False:
-        raise ContractViolation("real dataset row access is not authorized")
-    if implementation_phase.get("study9_endpoints_may_be_computed") is not False:
-        raise ContractViolation("Study 9 endpoint computation is not authorized")
-    if implementation_phase.get("results_directory_may_be_created") is not False:
-        raise ContractViolation("Study 9 results-directory creation is not authorized")
-    if implementation_phase.get("canonical_execution_authorized") is not False:
-        raise ContractViolation("canonical execution is not authorized")
     if implementation_phase.get("canonical_policy_scope_frozen") is not True:
         raise ContractViolation("canonical policy scope must be frozen")
     if implementation_phase.get("canonical_execution_design_frozen") is not True:
@@ -736,18 +897,13 @@ def validate_contracts(contracts: FrozenContracts) -> None:
     population_freeze = protocol.get("primary_population_freeze", {})
     if population_freeze.get("frozen") is not True:
         raise ContractViolation("primary population is not frozen")
-    _require_exact_sequence(
-        "primary population",
-        population_freeze.get("members"),
-        FROZEN_DATASET_IDS,
-    )
+    _require_exact_sequence("primary population", population_freeze.get("members"), FROZEN_DATASET_IDS)
 
     if semantic.get("status") != "SEMANTIC_ADJUDICATION_FROZEN_NO_ROW_ANALYSIS":
         raise ContractViolation("semantic adjudication freeze status mismatch")
     if semantic.get("permitted_deterministic_derivation_rules") != []:
         raise ContractViolation("semantic derivation registry must remain empty")
-    target_semantics = semantic.get("target_semantics", {})
-    if tuple(target_semantics) != REQUIRED_VARIABLES:
+    if tuple(semantic.get("target_semantics", {})) != REQUIRED_VARIABLES:
         raise ContractViolation("target semantic variable order/set mismatch")
 
     population_members = tuple(
@@ -756,11 +912,8 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         if isinstance(row, dict)
     )
     _require_exact_sequence("population-freeze datasets", population_members, FROZEN_DATASET_IDS)
-
-    semantic_ids = _dataset_ids_from_semantic(semantic)
-    manifest_ids = _dataset_ids_from_manifest(manifest)
-    _require_exact_sequence("semantic dataset contracts", semantic_ids, FROZEN_DATASET_IDS)
-    _require_exact_sequence("manifest datasets", manifest_ids, FROZEN_DATASET_IDS)
+    _require_exact_sequence("semantic dataset contracts", _dataset_ids_from_semantic(semantic), FROZEN_DATASET_IDS)
+    _require_exact_sequence("manifest datasets", _dataset_ids_from_manifest(manifest), FROZEN_DATASET_IDS)
 
     if rubric.get("status") != "SEMANTIC_ADJUDICATION_FROZEN_NO_ROW_ANALYSIS":
         raise ContractViolation("mapping rubric is not frozen")
@@ -775,50 +928,34 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         raise ContractViolation("schema manifest freeze-record binding mismatch")
 
     for dataset in manifest["datasets"]:
-        if dataset.get("artifact_locked") is not True:
-            raise ContractViolation(f"artifact not locked: {dataset.get('dataset_id')}")
-        if dataset.get("population_inclusion_locked") is not True:
-            raise ContractViolation(f"population inclusion not locked: {dataset.get('dataset_id')}")
-        if dataset.get("schema_locked") is not True:
-            raise ContractViolation(f"semantic schema not locked: {dataset.get('dataset_id')}")
+        dataset_id = dataset.get("dataset_id")
+        for lock in ("artifact_locked", "population_inclusion_locked", "schema_locked"):
+            if dataset.get(lock) is not True:
+                raise ContractViolation(f"dataset lock is not active: {dataset_id}:{lock}")
         fields = dataset.get("field_schema")
         if not isinstance(fields, list) or len(fields) != len(REQUIRED_VARIABLES):
-            raise ContractViolation(f"field_schema must contain 8 rows: {dataset.get('dataset_id')}")
+            raise ContractViolation(f"field_schema must contain 8 rows: {dataset_id}")
         _require_exact_sequence(
-            f"{dataset.get('dataset_id')} field-schema variables",
+            f"{dataset_id} field-schema variables",
             [row.get("recovery_state_variable") for row in fields],
             REQUIRED_VARIABLES,
         )
         if dataset.get("permitted_deterministic_derivation_rules") != []:
-            raise ContractViolation(
-                f"dataset derivation registry must remain empty: {dataset.get('dataset_id')}"
-            )
-
-        semantic_dataset = next(
-            row for row in semantic["dataset_contracts"]
-            if row["dataset_id"] == dataset["dataset_id"]
-        )
-        semantic_rows = semantic_dataset["variable_contracts"]
-        for manifest_row, semantic_row in zip(fields, semantic_rows, strict=True):
+            raise ContractViolation(f"dataset derivation registry must remain empty: {dataset_id}")
+        semantic_dataset = next(row for row in semantic["dataset_contracts"] if row["dataset_id"] == dataset_id)
+        for manifest_row, semantic_row in zip(fields, semantic_dataset["variable_contracts"], strict=True):
             expected = {
                 "recovery_state_variable": semantic_row["recovery_state_variable"],
                 "mapping_class": semantic_row["frozen_mapping_class"],
                 "evidence_visibility_role": semantic_row["evidence_visibility_role"],
                 "native_field_names": semantic_row.get("native_field_names", []),
             }
-            for optional in (
-                "excluded_fields",
-                "excluded_as_substitutes",
-                "value_rule",
-                "claim_boundary",
-            ):
+            for optional in ("excluded_fields", "excluded_as_substitutes", "value_rule", "claim_boundary"):
                 if optional in semantic_row:
                     expected[optional] = semantic_row[optional]
-            observed = {key: manifest_row.get(key) for key in expected}
-            if observed != expected:
+            if {key: manifest_row.get(key) for key in expected} != expected:
                 raise ContractViolation(
-                    f"manifest/semantic mapping drift for "
-                    f"{dataset['dataset_id']}:{manifest_row.get('recovery_state_variable')}"
+                    f"manifest/semantic mapping drift for {dataset_id}:{manifest_row.get('recovery_state_variable')}"
                 )
 
     direct_rows = [
@@ -839,13 +976,13 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         raise ContractViolation("frozen selector SHA-256 missing")
     actual_sha256 = sha256_file(contracts.repo_root / selector_path)
     if actual_sha256 != expected_sha256:
-        raise ContractViolation(
-            f"frozen selector SHA-256 mismatch: {actual_sha256} != {expected_sha256}"
-        )
+        raise ContractViolation(f"frozen selector SHA-256 mismatch: {actual_sha256} != {expected_sha256}")
 
     _validate_policy_scope(contracts)
     _validate_execution_design(contracts)
+    _validate_pre_real_data_audit(contracts)
     _validate_loader_runner_phase(contracts)
+    _validate_execution_phase_alignment(contracts)
 
     semantic_execution = semantic.get("execution_boundary", {})
     for key, value in semantic_execution.items():
@@ -863,6 +1000,7 @@ def load_frozen_contracts(repo_root: Path | None = None) -> FrozenContracts:
         semantic=_load_json(root / "study9" / "SEMANTIC_ADJUDICATION_FREEZE.json"),
         policy_scope=_load_json(root / "study9" / "POLICY_SCOPE_FREEZE.json"),
         execution_design=_load_json(root / "study9" / "CANONICAL_EXECUTION_DESIGN_FREEZE.json"),
+        pre_real_data_audit=_load_json(root / "study9" / "PRE_REAL_DATA_ADVERSARIAL_AUDIT.json"),
         rubric=_load_json(root / "study9" / "RECOVERY_STATE_MAPPING_RUBRIC.json"),
         manifest=_load_json(root / "study9" / "DATASET_SCHEMA_MANIFEST.json"),
     )
