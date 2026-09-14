@@ -1,8 +1,8 @@
 {
-  "schema": 1,
+  "schema": 2,
   "experiment_id": "S9-RTSI-001",
   "title": "Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets",
-  "status": "PRIMARY_POPULATION_FROZEN_NO_ANALYSIS_AUTHORIZED",
+  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_FROZEN_NO_ANALYSIS_AUTHORIZED",
   "base_main_commit": "49323c6f78d8a9ae14e09573a4b126b5bf0fda10",
   "scientific_scope": "deterministic semantic-interface sufficiency and downstream decision identifiability across independently sourced public space-cyber datasets",
   "publication_strategy": {
@@ -125,7 +125,8 @@
     "results_directory_authorized": false,
     "manuscript_creation_authorized": false,
     "submission_authorized": false,
-    "primary_population_freeze_authorized": true
+    "primary_population_freeze_authorized": true,
+    "semantic_adjudication_freeze_authorized": true
   },
   "primary_population_freeze": {
     "frozen": true,
@@ -138,8 +139,29 @@
     "freeze_record": "study9/PRIMARY_POPULATION_FREEZE.json",
     "pre_freeze_validation_record": "study9/PRE_FREEZE_VALIDATION_EVIDENCE.json",
     "pre_freeze_validation_core_sha256": "bbcfe1c8f3605b252c9bf5bfd55c32f7fbd024e61b3d9bcee2f973707e7e8cf5",
-    "semantic_adjudication_frozen": false,
+    "semantic_adjudication_frozen": true,
     "row_level_analysis_authorized": false,
     "membership_change_rule": "After this freeze, adding or removing a primary population requires a documented protocol deviation and must not rewrite the frozen primary-population record retroactively."
+  },
+  "semantic_adjudication_freeze": {
+    "frozen": true,
+    "freeze_date": "2026-09-13",
+    "freeze_record": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+    "mapping_rubric": "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+    "schema_manifest": "study9/DATASET_SCHEMA_MANIFEST.json",
+    "required_variable_count": 8,
+    "permitted_deterministic_derivation_rule_count": 0,
+    "direct_operational_native_exception": {
+      "dataset_id": "UNSW_IOTSAT_2026",
+      "field": "Position_Anomaly",
+      "recovery_state_variable": "security_signal",
+      "normalization": "0 -> false; 1 -> true",
+      "claim_boundary": "Operational coarse position-spoofing guard only; not attack truth or detector-performance evidence."
+    },
+    "row_level_mapping_executed": false,
+    "coverage_counts_computed": false,
+    "admissible_action_sets_computed": false,
+    "study9_endpoints_computed": false,
+    "change_rule": "After this freeze, changing target semantics, mapping classes, eligible fields, exclusions, or derivation rules requires a documented protocol deviation and must not rewrite the frozen semantic-adjudication record retroactively after endpoint inspection."
   }
 }
