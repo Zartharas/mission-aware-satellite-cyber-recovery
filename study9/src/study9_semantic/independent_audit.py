@@ -1,12 +1,19 @@
 from __future__ import annotations
 
 from collections import Counter
+from decimal import Decimal, InvalidOperation
 from itertools import combinations, product
 import sys
 from typing import Iterable, Mapping
 
 from .completions import PartialObservation
-from .contracts import FROZEN_DATASET_IDS, PRIMARY_POLICY_VALUES, REQUIRED_VARIABLES, load_frozen_contracts
+from .contracts import (
+    FROZEN_DATASET_IDS,
+    PRIMARY_POLICY_VALUES,
+    REQUIRED_VARIABLES,
+    FrozenContracts,
+    load_frozen_contracts,
+)
 
 
 def _selectors():
@@ -28,6 +35,151 @@ def _validate(known: Mapping[str, bool], unresolved: tuple[str, ...]) -> None:
         raise ValueError("duplicate unresolved variable")
     if any(type(value) is not bool for value in known.values()):
         raise ValueError("known values must be boolean")
+
+
+def _audit_normalize_binary_numeric(value: object) -> bool:
+    """Independent 0/1 normalization; does not call state_projection.py."""
+    if isinstance(value, bool):
+        raise ValueError("boolean source values are not accepted as numeric 0/1 evidence")
+    text = str(value).strip()
+    if not text:
+        raise ValueError("direct recovery-state value is empty")
+    try:
+        number = Decimal(text)
+    except InvalidOperation as exc:
+        raise ValueError(f"direct recovery-state value is not numeric 0/1: {value!r}") from exc
+    if not number.is_finite():
+        raise ValueError(f"direct recovery-state value is not finite: {value!r}")
+    if number == Decimal(0):
+        return False
+    if number == Decimal(1):
+        return True
+    raise ValueError(f"direct recovery-state value is outside frozen 0/1 domain: {value!r}")
+
+
+def audit_project_native_row(
+    dataset_id: str,
+    row: Mapping[str, object],
+    contracts: FrozenContracts | None = None,
+) -> PartialObservation:
+    """Independently reconstruct frozen native state directly from one raw row."""
+    if dataset_id not in FROZEN_DATASET_IDS:
+        raise ValueError(f"unknown frozen dataset: {dataset_id}")
+    frozen = contracts or load_frozen_contracts()
+    dataset = next(
+        item for item in frozen.semantic["dataset_contracts"] if item["dataset_id"] == dataset_id
+    )
+
+    known: dict[str, bool] = {}
+    unresolved: list[str] = []
+    for item in dataset["variable_contracts"]:
+        variable = item["recovery_state_variable"]
+        mapping_class = item["frozen_mapping_class"]
+        if mapping_class == "DIRECT":
+            fields = tuple(item.get("native_field_names", ()))
+            if (
+                dataset_id != "UNSW_IOTSAT_2026"
+                or variable != "security_signal"
+                or fields != ("Position_Anomaly",)
+                or item.get("value_rule") != "0 -> false; 1 -> true"
+            ):
+                raise ValueError(f"unexpected frozen DIRECT mapping in independent audit: {dataset_id}:{variable}")
+            if "Position_Anomaly" not in row:
+                raise ValueError("independent audit missing frozen UNSW Position_Anomaly field")
+            known[variable] = _audit_normalize_binary_numeric(row["Position_Anomaly"])
+        elif mapping_class == "DERIVABLE_BY_PREDECLARED_RULE":
+            raise ValueError(
+                "independent audit encountered DERIVABLE mapping although frozen derivation registry is empty"
+            )
+        elif mapping_class in {"AMBIGUOUS", "ABSENT"}:
+            unresolved.append(variable)
+        else:
+            raise ValueError(f"unknown frozen mapping class in independent audit: {mapping_class}")
+
+    ordered_known = {
+        name: known[name]
+        for name in REQUIRED_VARIABLES
+        if name in known
+    }
+    ordered_unresolved = tuple(name for name in REQUIRED_VARIABLES if name in unresolved)
+    _validate(ordered_known, ordered_unresolved)
+    return PartialObservation.build(known=ordered_known, unresolved=ordered_unresolved)
+
+
+def audit_mapping_and_coverage(
+    contracts: FrozenContracts | None = None,
+) -> tuple[list[dict[str, object]], dict[str, object]]:
+    """Independently reconstruct policy-independent mapping and coverage endpoints."""
+    frozen = contracts or load_frozen_contracts()
+    mapping_record: list[dict[str, object]] = []
+    per_dataset: list[dict[str, object]] = []
+    unresolved_sets: list[set[str]] = []
+
+    for dataset_id in FROZEN_DATASET_IDS:
+        dataset = next(
+            item for item in frozen.semantic["dataset_contracts"] if item["dataset_id"] == dataset_id
+        )
+        variable_rows = dataset["variable_contracts"]
+        observed_order = tuple(item["recovery_state_variable"] for item in variable_rows)
+        if observed_order != REQUIRED_VARIABLES:
+            raise ValueError(f"independent mapping variable-order drift: {dataset_id}")
+
+        direct = 0
+        direct_or_derivable = 0
+        unresolved: set[str] = set()
+        for item in variable_rows:
+            mapping_class = item["frozen_mapping_class"]
+            role = item["evidence_visibility_role"]
+            variable = item["recovery_state_variable"]
+            mapping_record.append(
+                {
+                    "dataset_id": dataset_id,
+                    "recovery_state_variable": variable,
+                    "mapping_class": mapping_class,
+                    "evidence_visibility_role": role,
+                    "native_field_names": list(item.get("native_field_names", [])),
+                    "derivation_rule_if_any": item.get("derivation_rule_if_any"),
+                    "semantic_rationale": item["rationale"],
+                    "uncertainty_or_ambiguity_note": item.get("uncertainty_or_ambiguity_note"),
+                    "value_rule": item.get("value_rule"),
+                    "excluded_fields": list(item.get("excluded_fields", [])),
+                    "excluded_as_substitutes": list(item.get("excluded_as_substitutes", [])),
+                }
+            )
+            if mapping_class == "DIRECT" and role == "OPERATIONAL_NATIVE":
+                direct += 1
+            if mapping_class in {"DIRECT", "DERIVABLE_BY_PREDECLARED_RULE"} and role == "OPERATIONAL_NATIVE":
+                direct_or_derivable += 1
+            if mapping_class in {"AMBIGUOUS", "ABSENT"}:
+                unresolved.add(variable)
+
+        unresolved_sets.append(unresolved)
+        per_dataset.append(
+            {
+                "dataset_id": dataset_id,
+                "required_variable_count": len(variable_rows),
+                "operational_direct_coverage": {
+                    "numerator": direct,
+                    "denominator": len(variable_rows),
+                },
+                "operational_direct_or_derivable_coverage": {
+                    "numerator": direct_or_derivable,
+                    "denominator": len(variable_rows),
+                },
+                "unresolved_variables": [
+                    name for name in REQUIRED_VARIABLES if name in unresolved
+                ],
+            }
+        )
+
+    common_missing = set.intersection(*unresolved_sets)
+    coverage = {
+        "per_dataset": per_dataset,
+        "cross_dataset_common_missing_state_set": [
+            name for name in REQUIRED_VARIABLES if name in common_missing
+        ],
+    }
+    return mapping_record, coverage
 
 
 def _states_recursive(
