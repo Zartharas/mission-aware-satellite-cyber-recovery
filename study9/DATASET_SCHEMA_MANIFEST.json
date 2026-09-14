@@ -11,7 +11,8 @@
     "attack_labels_count_as_operational_recovery_state": false,
     "missing_fields_may_be_imputed": false,
     "repository_license_may_be_assumed_to_cover_separately_hosted_dataset": false,
-    "source_reported_hash_may_be_treated_as_study9_byte_verification": false
+    "source_reported_hash_may_be_treated_as_study9_byte_verification": false,
+    "author_approved_project_distribution_license_assumption_may_be_recorded_with_explicit_boundary": true
   },
   "datasets": [
     {
@@ -183,7 +184,7 @@
     },
     {
       "dataset_id": "UNSW_IOTSAT_2026",
-      "candidate_status": "TECHNICAL_SELECTION_PASS_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS_PENDING_DATASET_LICENSE_CLARIFICATION",
+      "candidate_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
       "dataset_title": "UNSW-IoTSAT: A hybrid testbed-derived dataset for enabling cybersecurity research in the smart satellite domain",
       "primary_article_doi": "10.1016/j.csa.2026.100133",
       "primary_article_year": 2026,
@@ -206,7 +207,21 @@
         "data_role": "normal and attack telemetry/security records"
       },
       "dataset_license_reported_by_direct_host": null,
-      "dataset_access_status": "AUTHOR_LINKED_SHAREPOINT_ONEDRIVE_RELEASE_PACKAGE_OBTAINED_AND_BYTE_HASH_BOUND_DATASET_LICENSE_NOT_PRESENT_IN_PACKAGE",
+      "dataset_license_governance_interpretation": {
+        "study9_license": "MIT",
+        "basis": [
+          "Pinned source repository contains an MIT LICENSE file.",
+          "Pinned repository README displays an MIT license badge.",
+          "The same README directly links the UNSW SharePoint dataset used for the audited release.",
+          "The release was obtained through the author-provided public dataset path.",
+          "The independent author of Study 9 explicitly approved treating the release under the MIT project-distribution context."
+        ],
+        "separate_dataset_license_file_present_in_download_package": false,
+        "independently_verified_dataset_specific_license_text": false,
+        "legal_advice_claimed": false,
+        "citation_required_in_eventual_manuscript": true
+      },
+      "dataset_access_status": "AUTHOR_LINKED_PUBLIC_SHAREPOINT_ONEDRIVE_RELEASE_PACKAGE_OBTAINED_AND_BYTE_HASH_BOUND",
       "schema_evidence_status": "RELEASE_PACKAGE_AND_REPOSITORY_SCHEMA_VERIFIED_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS",
       "download_package": {
         "local_container_filename": "OneDrive_2026-09-13.zip",
@@ -349,11 +364,10 @@
       },
       "independence_assessment": "Independently developed UNSW hybrid cyber-physical testbed; no evidence identified in the verification phase that it is derived from CuCD-ID or AegisSat.",
       "remaining_pre_inclusion_gates": [
-        "obtain or verify a dataset-specific license or rights statement independently of the repository MIT license",
         "freeze final primary dataset population only after all selected datasets clear their remaining inclusion gates"
       ],
       "verification_record": "study9/UNSW_IOTSAT_ARTIFACT_VERIFICATION.json",
-      "notes": "Technical selection pass only. Canonical base CSV and artifact hashes are bound. Invalid JSON and engineered CSV are excluded from primary mapping. Four defective base fields are preregistered for whole-field exclusion. CCSDS-added fields are label-conditioned derivatives and cannot count as operational-native recovery state. Dataset-specific license clarification remains pending; population is not frozen."
+      "notes": "Selection gate passed under the recorded MIT project-distribution governance interpretation. Canonical base CSV and artifact hashes are bound. Invalid JSON and engineered CSV are excluded from primary mapping. Four defective base fields are preregistered for whole-field exclusion. CCSDS-added fields are label-conditioned derivatives and cannot count as operational-native recovery state. Population is not frozen."
     }
   ]
 }
