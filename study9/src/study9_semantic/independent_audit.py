@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from itertools import combinations
+from itertools import combinations, product
 import sys
 from typing import Mapping
 
@@ -68,6 +68,7 @@ def audit_minimal_sidecar_sets(
     unresolved: tuple[str, ...],
     actual_unresolved_values: Mapping[str, bool],
 ) -> tuple[tuple[str, ...], ...]:
+    """Independent assignment-conditioned synthetic helper."""
     _validate(known, unresolved)
     if set(actual_unresolved_values) != set(unresolved):
         raise ValueError("actual values must exactly match unresolved variables")
@@ -79,6 +80,38 @@ def audit_minimal_sidecar_sets(
                 next_known[name] = actual_unresolved_values[name]
             remaining = tuple(name for name in unresolved if name not in subset)
             if len(audit_reachable_actions(policy, known=next_known, unresolved=remaining)) == 1:
+                winners.append(subset)
+        if winners:
+            return tuple(winners)
+    raise RuntimeError("full revelation should always identify one deterministic action")
+
+
+def audit_guaranteed_minimal_sidecar_sets(
+    policy,
+    *,
+    known: Mapping[str, bool],
+    unresolved: tuple[str, ...],
+) -> tuple[tuple[str, ...], ...]:
+    """Independent guaranteed-sidecar reconstruction without actual missing values."""
+    _validate(known, unresolved)
+    for size in range(len(unresolved) + 1):
+        winners: list[tuple[str, ...]] = []
+        for subset in combinations(unresolved, size):
+            sufficient_for_every_assignment = True
+            for bits in product((False, True), repeat=len(subset)):
+                next_known = dict(known)
+                next_known.update(dict(zip(subset, bits, strict=True)))
+                remaining = tuple(name for name in unresolved if name not in subset)
+                if len(
+                    audit_reachable_actions(
+                        policy,
+                        known=next_known,
+                        unresolved=remaining,
+                    )
+                ) != 1:
+                    sufficient_for_every_assignment = False
+                    break
+            if sufficient_for_every_assignment:
                 winners.append(subset)
         if winners:
             return tuple(winners)
