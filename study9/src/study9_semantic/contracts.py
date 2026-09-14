@@ -54,6 +54,16 @@ FULL_POLICY_ENUM_ITEMS = (
 
 FULL_POLICY_ENUM_VALUES = tuple(value for _, value in FULL_POLICY_ENUM_ITEMS)
 
+PROTOCOL_STATUS = (
+    "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_"
+    "EXECUTION_DESIGN_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS"
+)
+EXECUTION_DESIGN_STATUS = "CANONICAL_EXECUTION_DESIGN_FROZEN_NO_ROW_ANALYSIS"
+STATE_COLLAPSE_RULE_ID = "EIGHT_STATE_SELECTOR_INPUT_EQUIVALENCE_WITH_EXACT_MULTIPLICITY_V1"
+GUARANTEED_SIDECAR_DEFINITION_ID = (
+    "ALL_REVEALED_ASSIGNMENTS_YIELD_SINGLETON_REACHABLE_ACTION_SET_V1"
+)
+
 REAL_EXECUTION_FLAGS = (
     "dataset_ingestion_authorized",
     "row_level_analysis_authorized",
@@ -75,6 +85,7 @@ class FrozenContracts:
     population: dict[str, Any]
     semantic: dict[str, Any]
     policy_scope: dict[str, Any]
+    execution_design: dict[str, Any]
     rubric: dict[str, Any]
     manifest: dict[str, Any]
 
@@ -305,11 +316,268 @@ def _validate_policy_scope(contracts: FrozenContracts) -> None:
         )
 
 
+def _validate_execution_design(contracts: FrozenContracts) -> None:
+    protocol = contracts.protocol
+    execution_design = contracts.execution_design
+    semantic = contracts.semantic
+    policy_scope = contracts.policy_scope
+    manifest = contracts.manifest
+
+    if execution_design.get("status") != EXECUTION_DESIGN_STATUS:
+        raise ContractViolation("canonical execution-design freeze status mismatch")
+
+    dependencies = execution_design.get("frozen_dependencies", {})
+    if dependencies.get("primary_population_freeze") != "study9/PRIMARY_POPULATION_FREEZE.json":
+        raise ContractViolation("execution design population-freeze binding mismatch")
+    if dependencies.get("semantic_adjudication_freeze") != "study9/SEMANTIC_ADJUDICATION_FREEZE.json":
+        raise ContractViolation("execution design semantic-freeze binding mismatch")
+    if dependencies.get("policy_scope_freeze") != "study9/POLICY_SCOPE_FREEZE.json":
+        raise ContractViolation("execution design policy-freeze binding mismatch")
+    if dependencies.get("schema_manifest") != "study9/DATASET_SCHEMA_MANIFEST.json":
+        raise ContractViolation("execution design manifest binding mismatch")
+
+    semantic_selector = semantic.get("frozen_downstream_interface", {})
+    policy_selector = policy_scope.get("frozen_selector_dependency", {})
+    if dependencies.get("selector_path") != semantic_selector.get("selector_path"):
+        raise ContractViolation("execution/semantic selector path mismatch")
+    if dependencies.get("selector_sha256") != semantic_selector.get("selector_sha256"):
+        raise ContractViolation("execution/semantic selector SHA-256 mismatch")
+    if dependencies.get("selector_path") != policy_selector.get("path"):
+        raise ContractViolation("execution/policy selector path mismatch")
+    if dependencies.get("selector_sha256") != policy_selector.get("sha256"):
+        raise ContractViolation("execution/policy selector SHA-256 mismatch")
+
+    identities = execution_design.get("input_identity_contracts")
+    if not isinstance(identities, list):
+        raise ContractViolation("execution design input identities must be a list")
+    _require_exact_sequence(
+        "execution input datasets",
+        [row.get("dataset_id") for row in identities if isinstance(row, dict)],
+        FROZEN_DATASET_IDS,
+    )
+    manifest_by_id = {row["dataset_id"]: row for row in manifest["datasets"]}
+    for identity in identities:
+        dataset_id = identity["dataset_id"]
+        manifest_row = manifest_by_id[dataset_id]
+        canonical = manifest_row.get("canonical_artifact", {})
+        expected_outer_sha = manifest_row.get("download_package", {}).get("sha256")
+        expected = {
+            "outer_container_sha256": expected_outer_sha,
+            "canonical_artifact_path": canonical.get("path"),
+            "canonical_artifact_sha256": canonical.get("sha256"),
+            "expected_rows": canonical.get("rows"),
+            "expected_columns": canonical.get("columns"),
+        }
+        observed = {key: identity.get(key) for key in expected}
+        if observed != expected:
+            raise ContractViolation(f"execution input identity drift: {dataset_id}")
+
+    input_rule = execution_design.get("input_validation_rule", {})
+    for key in (
+        "verify_outer_container_hash_when_declared_before_member_use",
+        "verify_canonical_artifact_sha256_before_semantic_row_processing",
+        "verify_expected_row_and_column_counts",
+    ):
+        if input_rule.get(key) is not True:
+            raise ContractViolation(f"execution input validation must be true: {key}")
+    if input_rule.get("hash_or_shape_mismatch_behavior") != "FAIL_CLOSED_NO_ENDPOINT_OUTPUT":
+        raise ContractViolation("execution input mismatch behavior must fail closed")
+    if input_rule.get("dataset_bytes_may_be_committed_to_repository") is not False:
+        raise ContractViolation("dataset bytes must not be committed to repository")
+
+    state = execution_design.get("primary_state_construction", {})
+    _require_exact_sequence(
+        "execution required variable order",
+        state.get("required_variable_order"),
+        REQUIRED_VARIABLES,
+    )
+    _require_exact_sequence(
+        "execution known mapping classes",
+        state.get("known_state_mapping_classes"),
+        ("DIRECT", "DERIVABLE_BY_PREDECLARED_RULE"),
+    )
+    _require_exact_sequence(
+        "execution unresolved mapping classes",
+        state.get("unresolved_state_mapping_classes"),
+        ("AMBIGUOUS", "ABSENT"),
+    )
+    if state.get("permitted_deterministic_derivation_rule_count") != 0:
+        raise ContractViolation("execution derivation-rule count must remain zero")
+    for key in (
+        "missing_or_ambiguous_state_may_be_defaulted",
+        "missing_or_ambiguous_state_may_be_imputed",
+        "attack_or_scenario_label_may_supply_operational_state",
+    ):
+        if state.get(key) is not False:
+            raise ContractViolation(f"execution state-construction prohibition violated: {key}")
+    if state.get("invalid_direct_value_behavior") != "FAIL_CLOSED_NO_ENDPOINT_OUTPUT":
+        raise ContractViolation("invalid direct value must fail closed")
+    if state.get("unsw_position_anomaly_normalization") != "0 -> false; 1 -> true":
+        raise ContractViolation("UNSW Position_Anomaly normalization drift")
+
+    collapse = execution_design.get("lossless_state_collapse", {})
+    if collapse.get("rule_id") != STATE_COLLAPSE_RULE_ID:
+        raise ContractViolation("state-collapse rule id mismatch")
+    for key in (
+        "enabled_for_canonical_primary_execution",
+        "multiplicity_must_be_positive_integer",
+        "sum_of_group_multiplicities_must_equal_verified_dataset_row_count",
+    ):
+        if collapse.get(key) is not True:
+            raise ContractViolation(f"lossless state-collapse requirement must be true: {key}")
+    for key in (
+        "raw_fields_outside_qualifying_direct_or_derivable_state_may_enter_key",
+        "attack_or_scenario_labels_may_enter_key",
+        "policy_may_enter_native_state_group_key",
+        "result_driven_grouping_changes_permitted",
+    ):
+        if collapse.get(key) is not False:
+            raise ContractViolation(f"lossless state-collapse prohibition violated: {key}")
+
+    completion = execution_design.get("admissible_completion_rule", {})
+    for key in (
+        "unresolved_variables_are_binary",
+        "enumerate_complete_cartesian_boolean_assignments",
+    ):
+        if completion.get(key) is not True:
+            raise ContractViolation(f"admissible-completion requirement must be true: {key}")
+    for key in (
+        "sampling_or_pruning_permitted",
+        "probability_model_permitted",
+        "attack_label_conditioning_permitted",
+    ):
+        if completion.get(key) is not False:
+            raise ContractViolation(f"admissible-completion prohibition violated: {key}")
+
+    sidecar = execution_design.get("guaranteed_minimal_sidecar", {})
+    if sidecar.get("definition_id") != GUARANTEED_SIDECAR_DEFINITION_ID:
+        raise ContractViolation("guaranteed-sidecar definition id mismatch")
+    for key in (
+        "actual_unresolved_values_required",
+        "actual_unresolved_values_may_be_substituted",
+        "assignment_conditioned_synthetic_helper_is_primary_endpoint",
+    ):
+        if sidecar.get(key) is not False:
+            raise ContractViolation(f"guaranteed-sidecar no-imputation boundary violated: {key}")
+    for key in (
+        "all_minimum_cardinality_ties_must_be_retained",
+        "full_revelation_must_be_sufficient_for_deterministic_selector",
+        "policy_stratified",
+    ):
+        if sidecar.get(key) is not True:
+            raise ContractViolation(f"guaranteed-sidecar requirement must be true: {key}")
+
+    endpoint = execution_design.get("primary_endpoint_execution_contract", {})
+    _require_exact_sequence(
+        "execution primary policy order",
+        endpoint.get("primary_policy_order"),
+        PRIMARY_POLICY_VALUES,
+    )
+    _require_exact_sequence(
+        "execution dataset order",
+        endpoint.get("dataset_order"),
+        FROZEN_DATASET_IDS,
+    )
+    if endpoint.get("dataset_policy_stratum_count") != 12:
+        raise ContractViolation("execution dataset-policy stratum count mismatch")
+    for key in (
+        "policy_pooling_permitted",
+        "policy_averaging_permitted",
+        "cross_dataset_row_pooling_permitted",
+    ):
+        if endpoint.get(key) is not False:
+            raise ContractViolation(f"execution endpoint pooling prohibition violated: {key}")
+
+    label = execution_design.get("label_boundary", {})
+    for key in (
+        "offline_ground_truth_may_influence_primary_state",
+        "offline_ground_truth_may_influence_state_collapse",
+        "offline_ground_truth_may_influence_primary_selector_action",
+        "offline_ground_truth_may_influence_primary_sidecar_endpoint",
+    ):
+        if label.get(key) is not False:
+            raise ContractViolation(f"execution label boundary violated: {key}")
+    if label.get("descriptive_secondary_use_requires_primary_endpoints_to_be_frozen_first") is not True:
+        raise ContractViolation("descriptive label use must remain downstream of primary freeze")
+
+    deterministic = execution_design.get("deterministic_output_contract", {})
+    if deterministic.get("randomness_permitted") is not False:
+        raise ContractViolation("canonical execution must not use randomness")
+    for key in (
+        "stable_dataset_order_required",
+        "stable_policy_order_required",
+        "stable_required_variable_order_required",
+        "exact_counts_must_be_stored_as_integers",
+        "fractions_must_store_integer_numerator_and_denominator",
+        "canonical_json_utf8",
+        "canonical_json_sorted_keys",
+        "canonical_json_trailing_newline",
+        "output_sha256_manifest_required",
+    ):
+        if deterministic.get(key) is not True:
+            raise ContractViolation(f"deterministic output requirement must be true: {key}")
+    if deterministic.get("source_dataset_bytes_in_results_permitted") is not False:
+        raise ContractViolation("source dataset bytes must not appear in results")
+
+    audit = execution_design.get("independent_audit_contract", {})
+    for key in (
+        "required",
+        "must_use_separately_implemented_completion_and_sidecar_logic",
+        "must_not_read_canonical_result_files_as_inputs",
+        "must_reconstruct_group_multiplicities_from_hash_verified_source_artifacts",
+        "must_reconstruct_primary_endpoint_counts_independently",
+    ):
+        if audit.get(key) is not True:
+            raise ContractViolation(f"independent-audit requirement must be true: {key}")
+    if audit.get("canonical_and_audit_mismatch_behavior") != "FAIL_CLOSED_NO_RESULTS_FREEZE":
+        raise ContractViolation("canonical/audit mismatch must fail closed")
+
+    execution = execution_design.get("execution_boundary", {})
+    for key in (
+        "real_dataset_rows_opened",
+        "dataset_ingestion_executed",
+        "row_level_analysis_executed",
+        "canonical_execution_executed",
+        "results_directory_created",
+        "study9_endpoints_computed",
+        "manuscript_creation_executed",
+        "submission_executed",
+    ):
+        if execution.get(key) is not False:
+            raise ContractViolation(f"execution-design boundary violated: {key}")
+
+    protocol_design = protocol.get("canonical_execution_design_freeze", {})
+    if protocol_design.get("frozen") is not True:
+        raise ContractViolation("protocol canonical execution design is not frozen")
+    if protocol_design.get("freeze_record") != "study9/CANONICAL_EXECUTION_DESIGN_FREEZE.json":
+        raise ContractViolation("protocol execution-design freeze-record binding mismatch")
+    if protocol_design.get("state_collapse_rule_id") != STATE_COLLAPSE_RULE_ID:
+        raise ContractViolation("protocol state-collapse rule id mismatch")
+    if protocol_design.get("guaranteed_sidecar_definition_id") != GUARANTEED_SIDECAR_DEFINITION_ID:
+        raise ContractViolation("protocol guaranteed-sidecar definition id mismatch")
+    for key in (
+        "lossless_state_collapse_enabled",
+        "exact_multiplicity_weighting_required",
+        "independent_audit_required",
+    ):
+        if protocol_design.get(key) is not True:
+            raise ContractViolation(f"protocol execution-design requirement must be true: {key}")
+    for key in (
+        "actual_missing_values_may_be_substituted_for_sidecar",
+        "attack_labels_may_influence_primary_execution",
+        "real_dataset_rows_opened",
+        "study9_endpoints_computed",
+    ):
+        if protocol_design.get(key) is not False:
+            raise ContractViolation(f"protocol execution-design boundary violated: {key}")
+
+
 def validate_contracts(contracts: FrozenContracts) -> None:
     protocol = contracts.protocol
     population = contracts.population
     semantic = contracts.semantic
     policy_scope = contracts.policy_scope
+    execution_design = contracts.execution_design
     rubric = contracts.rubric
     manifest = contracts.manifest
 
@@ -319,23 +587,23 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         ("population", population),
         ("semantic", semantic),
         ("policy_scope", policy_scope),
+        ("execution_design", execution_design),
         ("rubric", rubric),
         ("manifest", manifest),
     ):
         if record.get("study_id") != STUDY_ID:
             raise ContractViolation(f"{name} study id mismatch")
 
-    if protocol.get("status") != (
-        "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_FROZEN_"
-        "IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS"
-    ):
-        raise ContractViolation("protocol implementation/policy-freeze status is not locked")
+    if protocol.get("status") != PROTOCOL_STATUS:
+        raise ContractViolation("protocol implementation/execution-design status is not locked")
 
     authorization = protocol.get("authorization", {})
     if authorization.get("implementation_creation_authorized") is not True:
         raise ContractViolation("implementation creation is not authorized")
     if authorization.get("policy_scope_freeze_authorized") is not True:
         raise ContractViolation("policy-scope freeze is not authorized")
+    if authorization.get("canonical_execution_design_freeze_authorized") is not True:
+        raise ContractViolation("canonical execution-design freeze is not authorized")
     for flag in REAL_EXECUTION_FLAGS:
         if authorization.get(flag) is not False:
             raise ContractViolation(f"real-execution authorization must remain false: {flag}")
@@ -349,6 +617,8 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         raise ContractViolation("Study 9 endpoint computation is not authorized")
     if implementation_phase.get("canonical_policy_scope_frozen") is not True:
         raise ContractViolation("canonical policy scope must be frozen")
+    if implementation_phase.get("canonical_execution_design_frozen") is not True:
+        raise ContractViolation("canonical execution design must be frozen")
 
     population_freeze = protocol.get("primary_population_freeze", {})
     if population_freeze.get("frozen") is not True:
@@ -461,6 +731,7 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         )
 
     _validate_policy_scope(contracts)
+    _validate_execution_design(contracts)
 
     semantic_execution = semantic.get("execution_boundary", {})
     for key, value in semantic_execution.items():
@@ -477,6 +748,7 @@ def load_frozen_contracts(repo_root: Path | None = None) -> FrozenContracts:
         population=_load_json(root / "study9" / "PRIMARY_POPULATION_FREEZE.json"),
         semantic=_load_json(root / "study9" / "SEMANTIC_ADJUDICATION_FREEZE.json"),
         policy_scope=_load_json(root / "study9" / "POLICY_SCOPE_FREEZE.json"),
+        execution_design=_load_json(root / "study9" / "CANONICAL_EXECUTION_DESIGN_FREEZE.json"),
         rubric=_load_json(root / "study9" / "RECOVERY_STATE_MAPPING_RUBRIC.json"),
         manifest=_load_json(root / "study9" / "DATASET_SCHEMA_MANIFEST.json"),
     )
