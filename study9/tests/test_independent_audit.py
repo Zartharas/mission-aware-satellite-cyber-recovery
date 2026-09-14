@@ -23,8 +23,9 @@ from study9_semantic.independent_audit import (
     audit_minimal_sidecar_sets,
     audit_project_native_row,
     audit_reachable_actions,
+    clear_audit_caches,
 )
-from study9_semantic.selector_adapter import selector_types
+from study9_semantic.selector_adapter import clear_selector_caches, selector_types
 from study9_semantic.sidecar import (
     guaranteed_minimal_sidecar_sets,
     minimal_sidecar_sets,
@@ -35,6 +36,10 @@ from study9_semantic.state_projection import build_projection_plan, project_nati
 
 
 class IndependentAuditTests(unittest.TestCase):
+    def tearDown(self):
+        clear_audit_caches()
+        clear_selector_caches()
+
     def test_independent_completion_path_matches_canonical_on_synthetic_fixtures(self):
         Study2Policy, _, _ = selector_types()
         fixtures = [
@@ -54,6 +59,30 @@ class IndependentAuditTests(unittest.TestCase):
                     reachable_actions(policy, partial),
                     audit_reachable_actions(policy, known=known, unresolved=tuple(unresolved)),
                 )
+
+    def test_independent_selector_cache_is_separate_bounded_and_equivalent(self):
+        frozen_contracts = load_frozen_contracts(ROOT)
+        clear_audit_caches()
+        clear_selector_caches()
+        unresolved = tuple(REQUIRED_VARIABLES)
+        partial = PartialObservation.build(known={}, unresolved=unresolved)
+
+        with patch(
+            "study9_semantic.selector_adapter.load_frozen_contracts",
+            return_value=frozen_contracts,
+        ) as canonical_loader, patch(
+            "study9_semantic.independent_audit.load_frozen_contracts",
+            return_value=frozen_contracts,
+        ) as audit_loader:
+            Study2Policy, _, _ = selector_types()
+            for policy in Study2Policy:
+                self.assertEqual(
+                    reachable_actions(policy, partial),
+                    audit_reachable_actions(policy, known={}, unresolved=unresolved),
+                )
+
+            self.assertEqual(canonical_loader.call_count, 1)
+            self.assertEqual(audit_loader.call_count, 1)
 
     def test_independent_minimal_sidecar_matches_canonical(self):
         Study2Policy, _, _ = selector_types()
@@ -187,9 +216,18 @@ class IndependentAuditTests(unittest.TestCase):
         self.assertEqual(canonical_mapping, audit_mapping)
         self.assertEqual(canonical_coverage, audit_coverage)
         by_id = {row["dataset_id"]: row for row in audit_coverage["per_dataset"]}
-        self.assertEqual(by_id["CUCD_ID_V3"]["operational_direct_coverage"], {"numerator": 0, "denominator": 8})
-        self.assertEqual(by_id["AEGISSAT_2025"]["operational_direct_coverage"], {"numerator": 0, "denominator": 8})
-        self.assertEqual(by_id["UNSW_IOTSAT_2026"]["operational_direct_coverage"], {"numerator": 1, "denominator": 8})
+        self.assertEqual(
+            by_id["CUCD_ID_V3"]["operational_direct_coverage"],
+            {"numerator": 0, "denominator": 8},
+        )
+        self.assertEqual(
+            by_id["AEGISSAT_2025"]["operational_direct_coverage"],
+            {"numerator": 0, "denominator": 8},
+        )
+        self.assertEqual(
+            by_id["UNSW_IOTSAT_2026"]["operational_direct_coverage"],
+            {"numerator": 1, "denominator": 8},
+        )
 
 
 if __name__ == "__main__":
