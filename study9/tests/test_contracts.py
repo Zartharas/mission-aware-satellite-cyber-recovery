@@ -9,11 +9,17 @@ for path in (ROOT / "study9" / "src", ROOT / "study2" / "src"):
         sys.path.insert(0, str(path))
 
 import copy
+import json
 import unittest
+from unittest.mock import patch
 
+import study9_semantic.contracts as contracts_module
 from study9_semantic.contracts import (
     CANONICAL_EXECUTION_AUTHORIZATION_FLAGS,
+    CANONICAL_RUN_CODE_FREEZE_PATH,
+    CANONICAL_RUN_TESTED_COMMIT,
     CLOSED_PROTOCOL_STATUS,
+    CODE_FREEZE_COMPUTATIONAL_PATHS,
     ContractViolation,
     EXCLUDED_ABLATION_VALUES,
     FROZEN_DATASET_IDS,
@@ -27,6 +33,7 @@ from study9_semantic.contracts import (
     RUN_IDENTITY_BASE_PATHS,
     STATE_COLLAPSE_RULE_ID,
     load_frozen_contracts,
+    sha256_file,
     validate_contracts,
 )
 
@@ -166,8 +173,67 @@ class ContractTests(unittest.TestCase):
             RUN_IDENTITY_BASE_PATHS,
         )
         self.assertIn("study9/PRE_REAL_DATA_ADVERSARIAL_AUDIT.json", RUN_IDENTITY_BASE_PATHS)
+        self.assertIn("study9/src/study9_semantic/contracts.py", RUN_IDENTITY_BASE_PATHS)
         self.assertIn("study9/src/study9_semantic/canonical_runner.py", RUN_IDENTITY_BASE_PATHS)
         self.assertIn("study2/src/study2_security/selectors.py", RUN_IDENTITY_BASE_PATHS)
+
+    def test_canonical_run_code_freeze_is_bound_exact_and_closed(self):
+        contracts = load_frozen_contracts(ROOT)
+        binding = contracts.protocol["canonical_run_code_freeze"]
+        self.assertTrue(binding["frozen"])
+        self.assertEqual(binding["freeze_record"], CANONICAL_RUN_CODE_FREEZE_PATH)
+        self.assertEqual(binding["tested_commit"], CANONICAL_RUN_TESTED_COMMIT)
+        self.assertEqual(binding["computational_file_count"], len(CODE_FREEZE_COMPUTATIONAL_PATHS))
+        self.assertEqual(binding["actual_clone_full_suite_test_count"], 69)
+        self.assertEqual(binding["actual_clone_canonical_runner_test_count"], 6)
+        self.assertEqual(binding["actual_clone_result"], "PASS")
+        record = json.loads((ROOT / CANONICAL_RUN_CODE_FREEZE_PATH).read_text(encoding="utf-8"))
+        self.assertEqual(
+            tuple(item["path"] for item in record["computational_identity"]["files"]),
+            CODE_FREEZE_COMPUTATIONAL_PATHS,
+        )
+        self.assertNotIn("study9/src/study9_semantic/contracts.py", CODE_FREEZE_COMPUTATIONAL_PATHS)
+        self.assertFalse(record["execution_boundary"]["real_dataset_rows_opened"])
+        self.assertFalse(record["execution_boundary"]["study9_endpoints_computed"])
+        self.assertFalse(record["execution_boundary"]["results_directory_created"])
+
+    def test_canonical_run_code_freeze_rejects_tested_commit_tamper(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.protocol["canonical_run_code_freeze"]["tested_commit"] = "0" * 40
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_canonical_run_code_freeze_rejects_runtime_hash_drift(self):
+        contracts = load_frozen_contracts(ROOT)
+        target = ROOT / CODE_FREEZE_COMPUTATIONAL_PATHS[0]
+
+        def altered_sha(path: Path) -> str:
+            if path == target:
+                return "0" * 64
+            return sha256_file(path)
+
+        with patch.object(contracts_module, "sha256_file", side_effect=altered_sha):
+            with self.assertRaises(ContractViolation) as caught:
+                validate_contracts(contracts)
+        self.assertIn("computational SHA-256 drift", str(caught.exception))
+
+    def test_canonical_run_code_freeze_rejects_recorded_byte_size_tamper(self):
+        contracts = load_frozen_contracts(ROOT)
+        record_path = ROOT / CANONICAL_RUN_CODE_FREEZE_PATH
+        original_load_json = contracts_module._load_json
+
+        def altered_load(path: Path):
+            value = original_load_json(path)
+            if path == record_path:
+                value = copy.deepcopy(value)
+                value["computational_identity"]["files"][0]["size_bytes"] += 1
+            return value
+
+        with patch.object(contracts_module, "_load_json", side_effect=altered_load):
+            with self.assertRaises(ContractViolation) as caught:
+                validate_contracts(contracts)
+        self.assertIn("byte-size drift", str(caught.exception))
 
     def test_partial_future_execution_transition_is_rejected(self):
         contracts = load_frozen_contracts(ROOT)
@@ -176,19 +242,17 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ContractViolation):
             validate_contracts(tampered)
 
-    def test_coherent_future_open_state_requires_separate_code_freeze(self):
+    def test_coherent_future_open_state_accepts_existing_code_freeze(self):
         contracts = load_frozen_contracts(ROOT)
-        tampered = copy.deepcopy(contracts)
-        tampered.protocol["status"] = OPEN_PROTOCOL_STATUS
+        future = copy.deepcopy(contracts)
+        future.protocol["status"] = OPEN_PROTOCOL_STATUS
         for flag in CANONICAL_EXECUTION_AUTHORIZATION_FLAGS:
-            tampered.protocol["authorization"][flag] = True
+            future.protocol["authorization"][flag] = True
         for flag in IMPLEMENTATION_EXECUTION_FLAGS:
-            tampered.protocol["implementation_phase"][flag] = True
-        tampered.protocol["implementation_phase"]["synthetic_only"] = False
-        tampered.protocol["implementation_phase"]["loader_runner_synthetic_test_only"] = False
-        with self.assertRaises(ContractViolation) as caught:
-            validate_contracts(tampered)
-        self.assertIn("canonical-run code", str(caught.exception))
+            future.protocol["implementation_phase"][flag] = True
+        future.protocol["implementation_phase"]["synthetic_only"] = False
+        future.protocol["implementation_phase"]["loader_runner_synthetic_test_only"] = False
+        validate_contracts(future)
 
 
 if __name__ == "__main__":
