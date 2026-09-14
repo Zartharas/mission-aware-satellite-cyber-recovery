@@ -2,7 +2,7 @@
   "schema": 2,
   "experiment_id": "S9-RTSI-001",
   "title": "Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets",
-  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS",
+  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS",
   "base_main_commit": "49323c6f78d8a9ae14e09573a4b126b5bf0fda10",
   "scientific_scope": "deterministic semantic-interface sufficiency and downstream decision identifiability across independently sourced public space-cyber datasets",
   "publication_strategy": {
@@ -101,6 +101,7 @@
     "dataset selection is frozen before row-level analysis begins",
     "schema manifests and source artifact identities are frozen before semantic mapping is executed",
     "mapping rubric and derivation rules are frozen before inspecting row-level endpoint results",
+    "primary policy scope and dataset-by-policy stratification are frozen before real row-level execution",
     "no candidate is added or removed after endpoint inspection except through a documented protocol deviation that is reported separately and does not rewrite the preregistered primary population"
   ],
   "interpretation_guards": [
@@ -113,7 +114,8 @@
     "Study 5 remains frozen and is not pooled with Study 9.",
     "Submitted Papers 1 through 4 remain frozen and unmodified.",
     "No result may be described as externally validated solely because multiple public datasets were analyzed.",
-    "No AI or learned method superiority claim is permitted unless directly measured in a separately authorized experiment."
+    "No AI or learned method superiority claim is permitted unless directly measured in a separately authorized experiment.",
+    "Primary Study 9 policies are evaluated separately; policy pooling, averaging, interchangeable-replicate treatment, and policy-superiority claims are prohibited."
   ],
   "authorization": {
     "prospective_design_authorized": true,
@@ -126,7 +128,8 @@
     "manuscript_creation_authorized": false,
     "submission_authorized": false,
     "primary_population_freeze_authorized": true,
-    "semantic_adjudication_freeze_authorized": true
+    "semantic_adjudication_freeze_authorized": true,
+    "policy_scope_freeze_authorized": true
   },
   "primary_population_freeze": {
     "frozen": true,
@@ -164,6 +167,31 @@
     "study9_endpoints_computed": false,
     "change_rule": "After this freeze, changing target semantics, mapping classes, eligible fields, exclusions, or derivation rules requires a documented protocol deviation and must not rewrite the frozen semantic-adjudication record retroactively after endpoint inspection."
   },
+  "policy_scope_freeze": {
+    "frozen": true,
+    "freeze_date": "2026-09-13",
+    "freeze_record": "study9/POLICY_SCOPE_FREEZE.json",
+    "primary_policies": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B1_FAIL_OPERATIONAL",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ],
+    "excluded_mechanistic_ablations": [
+      "S2_ABL_NO_FRESHNESS",
+      "S2_ABL_NO_CONTRADICTION",
+      "S2_ABL_NO_EPOCH",
+      "S2_ABL_NO_SIGNATURE_TRUST"
+    ],
+    "dataset_policy_stratum_count": 12,
+    "semantic_coverage_policy_independent": true,
+    "downstream_action_endpoints_policy_stratified": true,
+    "policy_pooling_permitted": false,
+    "policy_averaging_permitted": false,
+    "canonical_default_policy": null,
+    "row_level_analysis_authorized": false,
+    "change_rule": "After this freeze, changing the primary policy set, policy order, ablation exclusion, stratification rule, or endpoint policy scope requires a documented prospective protocol deviation and must not rewrite the frozen policy-scope record retroactively after real endpoint inspection."
+  },
   "implementation_phase": {
     "authorized": true,
     "authorization_date": "2026-09-13",
@@ -176,8 +204,8 @@
     "study9_endpoints_may_be_computed": false,
     "results_directory_may_be_created": false,
     "canonical_execution_authorized": false,
-    "canonical_policy_scope_frozen": false,
-    "policy_scope_rule": "Implementation must require an explicit Study2Policy argument and must not encode a canonical default. Canonical policy scope must be frozen prospectively before real row-level execution.",
+    "canonical_policy_scope_frozen": true,
+    "policy_scope_rule": "The four frozen substantive Study 2 policies are primary and must be evaluated separately. The four NO_* policies remain excluded mechanistic ablations. The implementation must not encode a canonical default policy.",
     "submitted_papers_1_through_4_may_be_modified": false
   }
 }
