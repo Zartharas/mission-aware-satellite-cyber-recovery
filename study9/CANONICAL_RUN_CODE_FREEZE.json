@@ -89,7 +89,7 @@
       {
         "path": "study9/src/study9_semantic/canonical_runner.py",
         "size_bytes": 16058,
-        "sha256": "2c31a6ccfd5412fc6aa8348c556303c3879f8e946e88ac2e41e5cbc06c49859c"
+        "sha256": "dfc9e0e1f80dfed1e8814763b4edf29a528d6f9ac9ab7ded78890a1b25ad22bc"
       },
       {
         "path": "study2/src/study2_security/selectors.py",
@@ -97,6 +97,26 @@
         "sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
       }
     ]
+  },
+  "metadata_correction": {
+    "correction_date": "2026-09-14",
+    "classification": "freeze_metadata_sha256_correction_only",
+    "affected_path": "study9/src/study9_semantic/canonical_runner.py",
+    "previous_recorded_sha256": "2c31a6ccfd5412fc6aa8348c556303c3879f8e946e88ac2e41e5cbc06c49859c",
+    "corrected_sha256": "dfc9e0e1f80dfed1e8814763b4edf29a528d6f9ac9ab7ded78890a1b25ad22bc",
+    "recorded_size_bytes": 16058,
+    "actual_clone_byte_audit": {
+      "files_checked": 12,
+      "files_matched_before_correction": 11,
+      "mismatch_count": 1,
+      "sole_mismatch_path": "study9/src/study9_semantic/canonical_runner.py"
+    },
+    "runtime_file_changed": false,
+    "scientific_logic_changed": false,
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false,
+    "results_directory_created": false,
+    "rationale": "The actual-clone byte audit showed that 11 of 12 frozen files matched exactly and that canonical_runner.py retained the recorded byte size but the freeze record contained an incorrect SHA-256 value. The runtime file itself was not modified; only the freeze metadata was corrected to the SHA-256 computed from the tested file bytes."
   },
   "execution_boundary": {
     "real_dataset_rows_opened": false,
