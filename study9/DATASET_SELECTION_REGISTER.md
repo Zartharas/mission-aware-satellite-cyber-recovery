@@ -30,7 +30,7 @@ A source may pass the selection gate before its bytes are ingested into this rep
 | Candidate | Verified provenance | Verified schema/access evidence | Legal/access state | Independence assessment | Current disposition |
 | --- | --- | --- | --- | --- | --- |
 | **CuCD-ID v3** | Mendeley Data DOI `10.17632/7n2d42pm3n.3`, published 2026-02-10; Data in Brief DOI `10.1016/j.dib.2026.112598` | Primary article documents raw `Data/Raw/consolidated_dataset_raw.csv` as 25,000 rows × 31 columns and augmented `Data/Augmented/noised_dataset.csv` as 22,465 rows × 23 columns, with field-level schema described in the article; published SHA-256 values are recorded in `DATASET_SCHEMA_MANIFEST.json` | Dataset host reports **CC BY 4.0** and public Mendeley access | Independent NOS3/cFS software-in-the-loop population relative to the other screened testbeds | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION` |
-| **AegisSat** | SpaceSec 2025 paper *AegisSat: A Satellite Cybersecurity Testbed*; correct public repository `texydo/satellite_security_testbed`; repository bound to commit `24c00de5ee729b91805724cbf82068562e7a4b6d`; repository identifies Zenodo DOI `10.5281/zenodo.14960983` | Repository implementation exposes the MongoDB persistence interface used for runs, including `run_id`, `TLE File Name`, `TLE`, `Epoch_Time`, `UTC_time`, optional `cosmos_data`, `command`, `pi_metrics`, `satState`, and optional `attacks`; COSMOS telemetry is persisted as packet-keyed field dictionaries. Primary paper documents the physical CubeSat/environment-emulator setting, 1 Hz telemetry, commands, attacks, and hundreds of experiments | Repository software is MIT licensed. Direct Zenodo record retrieval was rate-limited during verification, so the deposited dataset license, exact file manifest, file sizes, and checksums remain unverified and are not inferred from the repository license | Scientifically distinct physical/emulation provenance; no evidence found that it is derived from CuCD-ID or UNSW-IoTSAT | `PROVISIONAL_SELECTION_PASS_PENDING_ZENODO_FILE_MANIFEST_AND_LICENSE_VERIFICATION` |
+| **AegisSat** | SpaceSec 2025 paper *AegisSat: A Satellite Cybersecurity Testbed*; public repository `texydo/satellite_security_testbed` bound to commit `24c00de5ee729b91805724cbf82068562e7a4b6d`; Zenodo DOI `10.5281/zenodo.14960983`; exact deposited `AegisSat-AD.csv` independently audited | Zenodo deposit contains one CSV with 137,965 rows × 176 columns and zero row-width mismatches. The schema directly reconciles with the verified persistence interface through run/TLE provenance, epoch/UTC time, flattened COSMOS telemetry, command, and attack fields. Local bytes match the Zenodo MD5 exactly; Study 9 also binds an independent SHA-256 | Zenodo reports **CC BY 4.0**. Exact file manifest and checksum are verified | Scientifically distinct physical/emulation provenance; no evidence found that it is derived from CuCD-ID or UNSW-IoTSAT | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE` |
 | **UNSW-IoTSAT** | Cyber Security and Applications DOI `10.1016/j.csa.2026.100133`; public repository `Osama-Abdelhameed/UNSW-IoTSAT` bound to commit `48ccc99ebd182d886eb18d2b94e95baba5a2a89a`; author-linked SharePoint/OneDrive release package independently audited and byte-hash bound | Release package contains 404,798-row base, CCSDS-companion, and engineered CSVs plus JSON and schema documentation. `UNSW_IoTSAT.csv` is selected as the canonical native artifact; CCSDS preserves the 49 base fields semantically but its three added fields are label-conditioned derivatives. The JSON export is unterminated and the engineered CSV changes 139 original-field cells across 17 columns, so both are excluded from primary mapping | The pinned project repository contains an MIT `LICENSE`, displays an MIT license badge in the README, and directly links the public UNSW SharePoint dataset. Study 9 adopts MIT as an author-approved project-distribution licensing assumption for this release. The downloaded package contains no separate license file, so this is recorded as a governance interpretation rather than independently verified dataset-specific license text | Independently developed UNSW hybrid cyber-physical testbed; no evidence found that it is derived from CuCD-ID or AegisSat | `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE` |
 
 ## CuCD-ID v3 selection rationale
@@ -46,29 +46,36 @@ These hashes are **source-reported values**, not Study 9 byte-level recomputatio
 
 Current disposition: `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE_AND_BYTE_HASH_VERIFICATION`.
 
-## AegisSat provisional-pass rationale
+## AegisSat selection-pass rationale
 
-AegisSat now has a verified research-to-repository provenance chain. The SpaceSec 2025 work is associated with the public repository `texydo/satellite_security_testbed`, and that repository identifies Zenodo DOI `10.5281/zenodo.14960983`. The repository state observed during verification is bound to:
+AegisSat now has a complete verified research-to-repository-to-Zenodo chain. The SpaceSec 2025 work is associated with the public repository `texydo/satellite_security_testbed`, and the repository identifies Zenodo DOI `10.5281/zenodo.14960983`. The repository state used for Study 9 evidence is bound to:
 
 `24c00de5ee729b91805724cbf82068562e7a4b6d`
 
-The repository `LICENSE` is MIT. That establishes software/repository licensing only; Study 9 does not assume it also licenses every deposited Zenodo dataset artifact.
+The exact Zenodo deposit is now independently verified from the downloaded bytes. Zenodo reports **CC BY 4.0** and exactly one deposited file:
 
-The implementation provides reproducible evidence for the run-persistence interface. `ManagerClass.py` writes MongoDB documents containing core run provenance (`run_id`, TLE identity/content, epoch and UTC time), satellite state, and optional COSMOS telemetry, command, Raspberry Pi metrics, and attacks. COSMOS telemetry is normalized into packet-keyed dictionaries before persistence. These implementation-derived fields are schema evidence for the generating testbed, not a claim that every deposited Zenodo file has already been inspected or that the deposited dataset schema is fully locked.
+- `AegisSat-AD.csv`
+- 190,028,590 bytes
+- 137,965 rows × 176 columns
+- zero row-width mismatches
+- Zenodo MD5 `f5b53ba9d080fe1795def09bdecd7cb9`
+- Study 9 recomputed MD5 matches Zenodo exactly
+- Study 9 SHA-256 `dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e`
 
-The remaining pre-inclusion work is therefore narrow and artifact-specific:
+The deposited CSV directly reconciles with the previously verified persistence interface. It contains run/TLE provenance, `Epoch_Time`, `UTC_Time`, flattened `cosmos_data` packet families, `command`, and attack fields. Optional persistence concepts such as `pi_metrics` and `satState` are not exposed as standalone CSV columns; this is treated as an export-representation difference, not as an artifact identity failure, and Study 9 does not infer their values.
 
-- verify the exact Zenodo deposited-file manifest;
-- verify the dataset license from the Zenodo record;
-- record deposited file sizes and checksums or equivalent immutable identities;
-- bind the exact deposited dataset version used for Study 9;
-- reconcile the deposited dataset's actual field schema with the implementation-derived persistence interface before mapping.
+The two deposited attack fields are:
 
-Direct retrieval of the Zenodo record returned an HTTP 429 rate-limit response during this verification, and the record was later reported unavailable during Zenodo maintenance. These fields remain explicitly pending rather than inferred.
+- `attacks.cpuhightarget.duration`
+- `attacks.cpuhightarget.target`
 
-Current disposition: `PROVISIONAL_SELECTION_PASS_PENDING_ZENODO_FILE_MANIFEST_AND_LICENSE_VERIFICATION`.
+The pinned cyber implementation confirms `CPUHighTarget` is an explicit attack class. These fields therefore remain `OFFLINE_GROUND_TRUTH_OR_EXPERIMENT_METADATA_ONLY` and cannot create `security_signal` or any other primary recovery-state variable.
 
-This is no longer a broad provenance/schema hold. It is a narrow deposited-artifact gate.
+Selection verification does not perform semantic mapping. In particular, timestamps do not automatically establish freshness, epoch or sequence fields do not automatically establish epoch validity, command presence does not automatically establish authorization availability, and CCSDS identifiers do not automatically establish source trust.
+
+Current disposition: `SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE`.
+
+Detailed deposited schema, hashes, checksum reconciliation, provenance, and attack-field boundary are preserved in `AEGISSAT_ARTIFACT_VERIFICATION.json`.
 
 ## UNSW-IoTSAT selection-pass rationale
 
@@ -129,7 +136,7 @@ Current disposition: `EXCLUDED_FROM_PRIMARY_INDEPENDENT_SCREEN_SHARED_AEGISSAT_P
 ## Current decision
 
 - **CuCD-ID v3:** selection gate passed; retained for the prospective primary population, pending final population freeze and independent byte-level verification before row analysis.
-- **AegisSat:** provisional selection pass; correct GitHub repository and commit, DOI chain, implementation-derived persistence interface, and software license are bound; exact Zenodo deposited-file manifest, dataset license, file identities/checksums, and deposited-schema reconciliation remain pending.
+- **AegisSat:** selection gate passed; exact Zenodo deposit, CC BY 4.0 license, deposited file checksum, Study 9 SHA-256, dimensions, and deposited-schema reconciliation are bound; retained pending final population freeze.
 - **UNSW-IoTSAT:** selection gate passed under the recorded MIT project-distribution governance interpretation, with canonical base-CSV binding and preregistered artifact/field exclusions; retained pending final population freeze.
 
 The primary Study 9 dataset population is **not yet frozen**. Dataset ingestion into this research repository, implementation creation, semantic mapping execution, endpoint computation, results generation, manuscript creation, and submission remain unauthorized under `STUDY9_PROTOCOL.json`.
