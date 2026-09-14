@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "stage": "PRE_FREEZE_DATASET_REPRODUCIBILITY_VALIDATION",
+  "status": "PASS",
+  "validation_date_local": "2026-09-13",
+  "validation_branch": "study9/recovery-state-semantic-interoperability",
+  "validation_branch_commit": "d9e5718eef334aa46a4210aa214c8a6f6875785f",
+  "validator": {
+    "path": "study9/validation/pre_freeze_dataset_validator.py",
+    "sha256": "03eb6c8c1e311d0bd0bb4bf977693e9e0c751412d9a433ed7c3392b699b3dee9"
+  },
+  "evidence_bundle": {
+    "filename": "Study9_PreFreeze_Validation_20260913_211741_evidence.zip",
+    "sha256": "10869b324f754d24630b02de770e5095ebf46a9009b9b3f5cb1f846adcc9328f",
+    "zip_integrity_bad_member": null,
+    "member_count": 5,
+    "members": {
+      "cross_environment_comparison.json": "cfee0b951c64b98076afdaa9547c50be374a9e48e4d3e5fc93be7f3f3883c6ad",
+      "native/validation_core.json": "bbcfe1c8f3605b252c9bf5bfd55c32f7fbd024e61b3d9bcee2f973707e7e8cf5",
+      "native/validation_report.json": "fc2e970890327f6de0d89301d4dc88c06ef16139feff82fb20a619057577004f",
+      "docker/validation_core.json": "bbcfe1c8f3605b252c9bf5bfd55c32f7fbd024e61b3d9bcee2f973707e7e8cf5",
+      "docker/validation_report.json": "e921e1eb6cc1619528f797d86a1a598ea00f00964c60fa9e4b711d1b095ca6f0"
+    }
+  },
+  "cross_environment": {
+    "native_validation_core_sha256": "bbcfe1c8f3605b252c9bf5bfd55c32f7fbd024e61b3d9bcee2f973707e7e8cf5",
+    "docker_validation_core_sha256": "bbcfe1c8f3605b252c9bf5bfd55c32f7fbd024e61b3d9bcee2f973707e7e8cf5",
+    "byte_identical": true,
+    "status": "PASS"
+  },
+  "environments": {
+    "native": {
+      "system": "Darwin",
+      "platform": "macOS-26.6.2-x86_64-i386-64bit",
+      "release": "25.6.0",
+      "machine": "x86_64",
+      "python": "3.11.7 (main, Dec 15 2023, 12:09:04) [Clang 14.0.6 ]",
+      "generated_utc": "2026-09-14T02:18:05.163629+00:00"
+    },
+    "docker_linux": {
+      "system": "Linux",
+      "platform": "Linux-7.0.12-linuxkit-x86_64-with-glibc2.36",
+      "release": "7.0.12-linuxkit",
+      "machine": "x86_64",
+      "python": "3.12.11 (main, Sep 30 2025, 00:40:22) [GCC 12.2.0]",
+      "generated_utc": "2026-09-14T02:18:36.544993+00:00",
+      "runtime_network_disabled": true,
+      "dataset_mounts_read_only": true,
+      "container_root_filesystem_read_only": true
+    }
+  },
+  "dataset_checks": {
+    "CUCD_ID_V3": {
+      "passed": 19,
+      "failed": 0,
+      "status": "PASS"
+    },
+    "AEGISSAT_2025": {
+      "passed": 8,
+      "failed": 0,
+      "status": "PASS"
+    },
+    "UNSW_IOTSAT_2026": {
+      "passed": 27,
+      "failed": 0,
+      "status": "PASS"
+    },
+    "total": {
+      "passed": 54,
+      "failed": 0,
+      "status": "PASS"
+    }
+  },
+  "scope_boundary": {
+    "dataset_bytes_modified": false,
+    "missing_state_imputed": false,
+    "attack_labels_used_as_operational_state": false,
+    "recovery_selector_executed": false,
+    "semantic_mapping_performed": false,
+    "study9_endpoints_computed": false,
+    "population_frozen_by_validator": false
+  },
+  "interpretation": "This record establishes cross-environment reproducibility of pre-analysis artifact and schema validation only. It is evidence supporting, but does not itself enact, the Study 9 primary-population freeze."
+}
