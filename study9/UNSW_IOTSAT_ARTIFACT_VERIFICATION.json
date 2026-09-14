@@ -3,8 +3,8 @@
   "study_id": "S9-RTSI-001",
   "dataset_id": "UNSW_IOTSAT_2026",
   "verification_date": "2026-09-13",
-  "status": "TECHNICAL_SELECTION_PASS_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS_PENDING_DATASET_LICENSE_CLARIFICATION",
-  "purpose": "Independent artifact, schema, release-consistency, and source-code provenance verification before any Study 9 semantic mapping or endpoint computation.",
+  "status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
+  "purpose": "Independent artifact, schema, release-consistency, source-code provenance, and project-distribution licensing governance verification before any Study 9 semantic mapping or endpoint computation.",
   "scope_boundary": {
     "row_level_recovery_mapping_performed": false,
     "study9_endpoints_computed": false,
@@ -18,9 +18,29 @@
     "source_repository": "https://github.com/Osama-Abdelhameed/UNSW-IoTSAT",
     "source_repository_commit": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
     "source_repository_license": "MIT",
-    "release_delivery": "author-linked SharePoint/OneDrive package",
+    "release_delivery": "author-linked public SharePoint/OneDrive package",
     "dataset_specific_license_in_release_package": null,
-    "license_boundary": "Repository MIT license is not assumed to license separately hosted dataset bytes."
+    "repository_readme_license_badge": "MIT",
+    "repository_readme_directly_links_public_dataset": true,
+    "license_boundary": "The downloaded dataset package contains no separate license file. Study 9 treats the release under the MIT-licensed project distribution context as an author-approved research-governance assumption, not as independently verified dataset-specific legal advice."
+  },
+  "dataset_license_governance_interpretation": {
+    "study9_license": "MIT",
+    "basis": [
+      "Pinned source repository contains an MIT LICENSE file.",
+      "Pinned repository README displays an MIT license badge.",
+      "The same README directly links the UNSW SharePoint dataset used for the audited release.",
+      "The release was obtained through the author-provided public dataset path.",
+      "The independent author of Study 9 explicitly approved treating the release under the MIT project-distribution context."
+    ],
+    "separate_dataset_license_file_present_in_download_package": false,
+    "independently_verified_dataset_specific_license_text": false,
+    "legal_advice_claimed": false,
+    "citation_required_in_eventual_manuscript": true,
+    "citation_targets": [
+      "UNSW-IoTSAT primary article DOI 10.1016/j.csa.2026.100133",
+      "Osama-Abdelhameed/UNSW-IoTSAT repository pinned to 48ccc99ebd182d886eb18d2b94e95baba5a2a89a"
+    ]
   },
   "download_package": {
     "local_container_filename": "OneDrive_2026-09-13.zip",
@@ -204,10 +224,12 @@
     "engineered_release_excluded_from_primary_mapping": true,
     "defective_base_fields_preregistered_for_whole_field_exclusion": true,
     "label_conditioned_ccsds_fields_excluded_from_operational_native_role": true,
-    "dataset_specific_license_verified": false,
+    "dataset_specific_license_text_in_package_verified": false,
+    "study9_license_gate_closed_by_author_approved_project_distribution_assumption": true,
+    "study9_license_interpretation": "MIT",
     "population_inclusion_locked": false,
-    "final_status": "TECHNICAL_SELECTION_PASS_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS_PENDING_DATASET_LICENSE_CLARIFICATION"
+    "final_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE"
   },
-  "remaining_gate": "Obtain or verify a dataset-specific license or rights statement independently of the repository MIT license before final population freeze.",
+  "remaining_gate": "Freeze the final primary dataset population only after all selected datasets clear their remaining inclusion and artifact gates; AegisSat remains pending.",
   "negative_and_quality_findings_preserved": true
 }
