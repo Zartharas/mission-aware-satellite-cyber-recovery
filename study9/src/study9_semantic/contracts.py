@@ -108,6 +108,23 @@ RUN_IDENTITY_IMPLEMENTATION_PATHS = (
 )
 RUN_IDENTITY_BASE_PATHS = RUN_IDENTITY_GOVERNANCE_PATHS + RUN_IDENTITY_IMPLEMENTATION_PATHS
 
+CODE_FREEZE_COMPUTATIONAL_PATHS = (
+    "study9/src/study9_semantic/completions.py",
+    "study9/src/study9_semantic/mapping.py",
+    "study9/src/study9_semantic/selector_adapter.py",
+    "study9/src/study9_semantic/sidecar.py",
+    "study9/src/study9_semantic/input_identity.py",
+    "study9/src/study9_semantic/state_projection.py",
+    "study9/src/study9_semantic/state_groups.py",
+    "study9/src/study9_semantic/canonical_engine.py",
+    "study9/src/study9_semantic/deterministic_io.py",
+    "study9/src/study9_semantic/independent_audit.py",
+    "study9/src/study9_semantic/canonical_runner.py",
+    "study2/src/study2_security/selectors.py",
+)
+CANONICAL_RUN_TESTED_COMMIT = "039bca319987ceebdba52f080fb0f87b1d4e67ed"
+CANONICAL_RUN_CODE_FREEZE_PATH = "study9/CANONICAL_RUN_CODE_FREEZE.json"
+
 CANONICAL_EXECUTION_AUTHORIZATION_FLAGS = (
     "dataset_ingestion_authorized",
     "row_level_analysis_authorized",
@@ -614,7 +631,7 @@ def _validate_pre_real_data_audit(contracts: FrozenContracts) -> None:
     )
     if future.get("future_open_requires_canonical_run_code_freeze") is not True:
         raise ContractViolation("future open phase must require canonical-run code freeze")
-    if future.get("future_code_freeze_record") != "study9/CANONICAL_RUN_CODE_FREEZE.json":
+    if future.get("future_code_freeze_record") != CANONICAL_RUN_CODE_FREEZE_PATH:
         raise ContractViolation("future code-freeze path mismatch")
     if future.get("future_open_requires_synthetic_only_false") is not True:
         raise ContractViolation("future open phase must leave synthetic-only mode")
@@ -656,33 +673,129 @@ def _validate_pre_real_data_audit(contracts: FrozenContracts) -> None:
         raise ContractViolation("protocol pre-real-data boundary must remain closed")
 
 
-def _validate_future_code_freeze(contracts: FrozenContracts) -> None:
+def _validate_canonical_run_code_freeze(contracts: FrozenContracts) -> None:
     protocol = contracts.protocol
     binding = protocol.get("canonical_run_code_freeze", {})
     if binding.get("frozen") is not True:
-        raise ContractViolation("future open phase requires frozen canonical-run code")
-    if binding.get("freeze_record") != "study9/CANONICAL_RUN_CODE_FREEZE.json":
+        raise ContractViolation("canonical-run code freeze must be active before execution authorization")
+    if binding.get("freeze_record") != CANONICAL_RUN_CODE_FREEZE_PATH:
         raise ContractViolation("canonical-run code-freeze record binding mismatch")
-    tested_commit = binding.get("tested_commit")
-    if not isinstance(tested_commit, str) or len(tested_commit) != 40 or any(ch not in "0123456789abcdef" for ch in tested_commit):
-        raise ContractViolation("canonical-run tested commit must be a lowercase 40-hex SHA")
-    record_path = contracts.repo_root / binding["freeze_record"]
+    if binding.get("tested_commit") != CANONICAL_RUN_TESTED_COMMIT:
+        raise ContractViolation("canonical-run tested commit binding mismatch")
+    if binding.get("computational_file_count") != len(CODE_FREEZE_COMPUTATIONAL_PATHS):
+        raise ContractViolation("canonical-run computational file-count mismatch")
+    if binding.get("actual_clone_full_suite_test_count") != 69:
+        raise ContractViolation("canonical-run full-suite test-count binding mismatch")
+    if binding.get("actual_clone_canonical_runner_test_count") != 6:
+        raise ContractViolation("canonical-run runner-suite test-count binding mismatch")
+    if binding.get("actual_clone_result") != "PASS":
+        raise ContractViolation("canonical-run actual-clone result must be PASS")
+    for key in ("real_dataset_rows_opened", "study9_endpoints_computed", "results_directory_created"):
+        if binding.get(key) is not False:
+            raise ContractViolation(f"canonical-run code freeze must precede execution: {key}")
+
+    record_path = contracts.repo_root / CANONICAL_RUN_CODE_FREEZE_PATH
     if not record_path.is_file():
         raise ContractViolation("canonical-run code-freeze record does not exist")
     record = _load_json(record_path)
-    if record.get("study_id") != STUDY_ID or record.get("status") != "CANONICAL_RUN_CODE_FROZEN_FOR_REAL_EXECUTION":
-        raise ContractViolation("canonical-run code-freeze record status/study mismatch")
-    if record.get("tested_commit") != tested_commit:
-        raise ContractViolation("canonical-run tested-commit binding mismatch")
-    module_hashes = record.get("implementation_sha256")
-    if not isinstance(module_hashes, dict) or tuple(module_hashes) != RUN_IDENTITY_IMPLEMENTATION_PATHS:
-        raise ContractViolation("canonical-run code-freeze implementation path set/order mismatch")
-    for relative in RUN_IDENTITY_IMPLEMENTATION_PATHS:
-        expected = module_hashes.get(relative)
-        if not isinstance(expected, str) or len(expected) != 64:
-            raise ContractViolation(f"canonical-run code-freeze hash missing: {relative}")
-        if sha256_file(contracts.repo_root / relative) != expected:
-            raise ContractViolation(f"canonical-run implementation hash drift: {relative}")
+    if record.get("study_id") != STUDY_ID:
+        raise ContractViolation("canonical-run code-freeze study id mismatch")
+    if record.get("status") != "CANONICAL_RUN_CODE_FROZEN_FOR_REAL_EXECUTION":
+        raise ContractViolation("canonical-run code-freeze status mismatch")
+    if record.get("tested_branch") != "study9/recovery-state-semantic-interoperability":
+        raise ContractViolation("canonical-run tested branch mismatch")
+    if record.get("tested_commit") != CANONICAL_RUN_TESTED_COMMIT:
+        raise ContractViolation("canonical-run tested commit mismatch")
+    if record.get("performance_remediation_record") != "study9/PRE_REAL_DATA_PERFORMANCE_REMEDIATION.json":
+        raise ContractViolation("canonical-run performance-remediation binding mismatch")
+    if record.get("performance_remediation_classification") != "computational_redundancy_not_scientific_logic_error":
+        raise ContractViolation("canonical-run performance-remediation classification mismatch")
+
+    clone = record.get("actual_clone_validation", {})
+    full_suite = clone.get("full_suite", {})
+    runner_suite = clone.get("canonical_runner_suite", {})
+    if (
+        full_suite.get("expected_test_count") != 69
+        or full_suite.get("observed_test_count") != 69
+        or full_suite.get("result") != "PASS"
+        or full_suite.get("return_code") != 0
+    ):
+        raise ContractViolation("canonical-run full-suite validation evidence mismatch")
+    if (
+        runner_suite.get("expected_test_count") != 6
+        or runner_suite.get("observed_test_count") != 6
+        or runner_suite.get("result") != "PASS"
+        or runner_suite.get("return_code") != 0
+    ):
+        raise ContractViolation("canonical-run runner-suite validation evidence mismatch")
+    if clone.get("working_tree_clean") is not True:
+        raise ContractViolation("canonical-run tested working tree was not recorded clean")
+    for key in ("real_dataset_rows_opened", "study9_endpoints_computed", "results_directory_created"):
+        if clone.get(key) is not False:
+            raise ContractViolation(f"canonical-run test evidence crossed execution boundary: {key}")
+
+    identity = record.get("computational_identity", {})
+    if identity.get("algorithm") != "sha256":
+        raise ContractViolation("canonical-run computational identity algorithm mismatch")
+    if identity.get("file_count") != len(CODE_FREEZE_COMPUTATIONAL_PATHS):
+        raise ContractViolation("canonical-run computational identity file count mismatch")
+    if identity.get("contracts_py_self_freeze_excluded") is not True:
+        raise ContractViolation("contracts.py self-freeze exclusion must be explicit")
+    files = identity.get("files")
+    if not isinstance(files, list):
+        raise ContractViolation("canonical-run computational identity files must be a list")
+    _require_exact_sequence(
+        "canonical-run computational path set",
+        [item.get("path") for item in files if isinstance(item, dict)],
+        CODE_FREEZE_COMPUTATIONAL_PATHS,
+    )
+    for item in files:
+        relative = item.get("path")
+        expected_size = item.get("size_bytes")
+        expected_sha = item.get("sha256")
+        if type(expected_size) is not int or expected_size <= 0:
+            raise ContractViolation(f"canonical-run code-freeze byte size invalid: {relative}")
+        if not isinstance(expected_sha, str) or len(expected_sha) != 64 or any(ch not in "0123456789abcdef" for ch in expected_sha):
+            raise ContractViolation(f"canonical-run code-freeze SHA-256 invalid: {relative}")
+        path = contracts.repo_root / str(relative)
+        if not path.is_file():
+            raise ContractViolation(f"canonical-run frozen computational file missing: {relative}")
+        if path.stat().st_size != expected_size:
+            raise ContractViolation(f"canonical-run computational byte-size drift: {relative}")
+        if sha256_file(path) != expected_sha:
+            raise ContractViolation(f"canonical-run computational SHA-256 drift: {relative}")
+
+    boundary = record.get("execution_boundary", {})
+    for key in (
+        "real_dataset_rows_opened",
+        "dataset_ingestion_executed",
+        "row_level_analysis_executed",
+        "canonical_execution_executed",
+        "study9_endpoints_computed",
+        "results_directory_created",
+        "manuscript_creation_executed",
+        "submission_executed",
+    ):
+        if boundary.get(key) is not False:
+            raise ContractViolation(f"canonical-run code-freeze boundary violated: {key}")
+
+    performance = protocol.get("pre_real_data_performance_remediation", {})
+    if performance.get("actual_clone_validation_pending") is not False:
+        raise ContractViolation("performance remediation actual-clone validation must be closed")
+    if performance.get("actual_clone_validation_head") != CANONICAL_RUN_TESTED_COMMIT:
+        raise ContractViolation("performance remediation validation head mismatch")
+    if performance.get("actual_clone_full_suite_test_count") != 69 or performance.get("actual_clone_full_suite_result") != "PASS":
+        raise ContractViolation("performance remediation full-suite evidence mismatch")
+    if performance.get("actual_clone_runner_suite_test_count") != 6 or performance.get("actual_clone_runner_suite_result") != "PASS":
+        raise ContractViolation("performance remediation runner-suite evidence mismatch")
+
+    phase = protocol.get("implementation_phase", {})
+    if phase.get("canonical_run_code_frozen") is not True:
+        raise ContractViolation("implementation phase does not mark canonical-run code frozen")
+    if phase.get("canonical_run_code_freeze_record") != CANONICAL_RUN_CODE_FREEZE_PATH:
+        raise ContractViolation("implementation phase code-freeze record mismatch")
+    if phase.get("canonical_run_code_tested_commit") != CANONICAL_RUN_TESTED_COMMIT:
+        raise ContractViolation("implementation phase tested-commit mismatch")
 
 
 def _validate_execution_phase_alignment(contracts: FrozenContracts) -> None:
@@ -704,7 +817,7 @@ def _validate_execution_phase_alignment(contracts: FrozenContracts) -> None:
     )
     if transition.get("future_open_requires_canonical_run_code_freeze") is not True:
         raise ContractViolation("future open phase must require canonical-run code freeze")
-    if transition.get("future_code_freeze_record") != "study9/CANONICAL_RUN_CODE_FREEZE.json":
+    if transition.get("future_code_freeze_record") != CANONICAL_RUN_CODE_FREEZE_PATH:
         raise ContractViolation("future execution code-freeze path mismatch")
     if transition.get("future_open_requires_synthetic_only_false") is not True:
         raise ContractViolation("future open phase synthetic-only transition rule missing")
@@ -746,7 +859,6 @@ def _validate_execution_phase_alignment(contracts: FrozenContracts) -> None:
         raise ContractViolation("open phase requires synthetic_only=false")
     if phase.get("loader_runner_synthetic_test_only") is not False:
         raise ContractViolation("open phase requires loader_runner_synthetic_test_only=false")
-    _validate_future_code_freeze(contracts)
 
 
 def _validate_loader_runner_phase(contracts: FrozenContracts) -> None:
@@ -884,6 +996,7 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         "pre_real_data_adversarial_hardening_authorized",
         "policy_scope_freeze_authorized",
         "canonical_execution_design_freeze_authorized",
+        "canonical_run_code_freeze_authorized",
     ):
         if authorization.get(key) is not True:
             raise ContractViolation(f"required implementation/governance authorization missing: {key}")
@@ -893,6 +1006,8 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         raise ContractViolation("canonical policy scope must be frozen")
     if implementation_phase.get("canonical_execution_design_frozen") is not True:
         raise ContractViolation("canonical execution design must be frozen")
+    if implementation_phase.get("canonical_run_code_frozen") is not True:
+        raise ContractViolation("canonical run code must be frozen")
 
     population_freeze = protocol.get("primary_population_freeze", {})
     if population_freeze.get("frozen") is not True:
@@ -981,6 +1096,7 @@ def validate_contracts(contracts: FrozenContracts) -> None:
     _validate_policy_scope(contracts)
     _validate_execution_design(contracts)
     _validate_pre_real_data_audit(contracts)
+    _validate_canonical_run_code_freeze(contracts)
     _validate_loader_runner_phase(contracts)
     _validate_execution_phase_alignment(contracts)
 
