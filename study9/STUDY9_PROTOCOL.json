@@ -2,7 +2,7 @@
   "schema": 2,
   "experiment_id": "S9-RTSI-001",
   "title": "Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets",
-  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS",
+  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_EXECUTION_DESIGN_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS",
   "base_main_commit": "49323c6f78d8a9ae14e09573a4b126b5bf0fda10",
   "scientific_scope": "deterministic semantic-interface sufficiency and downstream decision identifiability across independently sourced public space-cyber datasets",
   "publication_strategy": {
@@ -92,9 +92,9 @@
     ]
   },
   "missing_state_rule": "Unavailable decision state remains unknown. It is not defaulted, inferred from lexical similarity, imputed from attack class, or replaced by analyst expectation.",
-  "action_identifiability_rule": "For each analyzed native record or native state representation, enumerate all downstream recovery actions reachable across every admissible assignment of unresolved required recovery-state variables. An action is uniquely identifiable only when the admissible action set has cardinality one.",
-  "minimal_sidecar_rule": "A minimal additional-state set is a smallest subset of unresolved recovery variables whose explicit values reduce the admissible downstream action set to cardinality one under the frozen interface. Ties must all be retained rather than selecting one preferred subset.",
-  "analysis_population_rule": "Each included dataset is analyzed as its own finite source population. Datasets are not pooled into a single empirical population for inferential claims.",
+  "action_identifiability_rule": "For each analyzed native record or losslessly collapsed native-state group, enumerate all downstream recovery actions reachable across every admissible assignment of unresolved required recovery-state variables. An action is uniquely identifiable only when the admissible action set has cardinality one.",
+  "minimal_sidecar_rule": "For unresolved set U, a candidate sidecar subset S is sufficient if and only if, for every binary assignment to S, revealing that assignment leaves a reachable action set of cardinality one across every assignment to U\\S. The canonical endpoint retains every sufficient subset of minimum cardinality and never substitutes unavailable actual values of unresolved state.",
+  "analysis_population_rule": "Each included dataset is analyzed as its own finite source population. Decision-equivalent native rows may be collapsed losslessly into state groups with exact integer multiplicity, and all row-level denominators are preserved exactly through multiplicity weighting. Datasets are not pooled into a single empirical population for inferential claims.",
   "statistics_rule": "Primary reporting uses deterministic finite-population counts, proportions, set intersections, set unions, and exact combinatorial summaries. No p-value, confidence interval, or population-generalization claim is required unless a later protocol amendment introduces an actual sampling model before results are observed.",
   "independence_rule": "Shared testbed, simulator, collection campaign, or derived-dataset provenance must be recorded. A derivative source is not counted as an independent testbed population merely because it has a different publication title or preprocessing pipeline.",
   "stopping_rules": [
@@ -102,6 +102,7 @@
     "schema manifests and source artifact identities are frozen before semantic mapping is executed",
     "mapping rubric and derivation rules are frozen before inspecting row-level endpoint results",
     "primary policy scope and dataset-by-policy stratification are frozen before real row-level execution",
+    "canonical input identity, state-collapse, multiplicity weighting, guaranteed-sidecar, deterministic-output, and independent-audit rules are frozen before real row-level execution",
     "no candidate is added or removed after endpoint inspection except through a documented protocol deviation that is reported separately and does not rewrite the preregistered primary population"
   ],
   "interpretation_guards": [
@@ -115,7 +116,9 @@
     "Submitted Papers 1 through 4 remain frozen and unmodified.",
     "No result may be described as externally validated solely because multiple public datasets were analyzed.",
     "No AI or learned method superiority claim is permitted unless directly measured in a separately authorized experiment.",
-    "Primary Study 9 policies are evaluated separately; policy pooling, averaging, interchangeable-replicate treatment, and policy-superiority claims are prohibited."
+    "Primary Study 9 policies are evaluated separately; policy pooling, averaging, interchangeable-replicate treatment, and policy-superiority claims are prohibited.",
+    "Unavailable actual values of ambiguous or absent recovery state may not be supplied to the canonical minimal-sidecar endpoint.",
+    "Lossless native-state collapse is an exact computational equivalence with multiplicity preservation, not sampling, deduplication, or row exclusion."
   ],
   "authorization": {
     "prospective_design_authorized": true,
@@ -129,7 +132,8 @@
     "submission_authorized": false,
     "primary_population_freeze_authorized": true,
     "semantic_adjudication_freeze_authorized": true,
-    "policy_scope_freeze_authorized": true
+    "policy_scope_freeze_authorized": true,
+    "canonical_execution_design_freeze_authorized": true
   },
   "primary_population_freeze": {
     "frozen": true,
@@ -192,6 +196,21 @@
     "row_level_analysis_authorized": false,
     "change_rule": "After this freeze, changing the primary policy set, policy order, ablation exclusion, stratification rule, or endpoint policy scope requires a documented prospective protocol deviation and must not rewrite the frozen policy-scope record retroactively after real endpoint inspection."
   },
+  "canonical_execution_design_freeze": {
+    "frozen": true,
+    "freeze_date": "2026-09-13",
+    "freeze_record": "study9/CANONICAL_EXECUTION_DESIGN_FREEZE.json",
+    "state_collapse_rule_id": "EIGHT_STATE_SELECTOR_INPUT_EQUIVALENCE_WITH_EXACT_MULTIPLICITY_V1",
+    "guaranteed_sidecar_definition_id": "ALL_REVEALED_ASSIGNMENTS_YIELD_SINGLETON_REACHABLE_ACTION_SET_V1",
+    "lossless_state_collapse_enabled": true,
+    "exact_multiplicity_weighting_required": true,
+    "actual_missing_values_may_be_substituted_for_sidecar": false,
+    "attack_labels_may_influence_primary_execution": false,
+    "independent_audit_required": true,
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false,
+    "change_rule": "After this freeze, changing input identities, state construction, collapse equivalence, multiplicity weighting, admissible completion semantics, guaranteed-sidecar semantics, endpoint stratification, label boundaries, deterministic output requirements, or independent-audit requirements requires a documented prospective protocol deviation and must not rewrite the frozen execution-design record retroactively after real endpoint inspection."
+  },
   "implementation_phase": {
     "authorized": true,
     "authorization_date": "2026-09-13",
@@ -205,7 +224,9 @@
     "results_directory_may_be_created": false,
     "canonical_execution_authorized": false,
     "canonical_policy_scope_frozen": true,
+    "canonical_execution_design_frozen": true,
     "policy_scope_rule": "The four frozen substantive Study 2 policies are primary and must be evaluated separately. The four NO_* policies remain excluded mechanistic ablations. The implementation must not encode a canonical default policy.",
+    "execution_design_rule": "Canonical real-data execution must use hash-verified inputs, frozen state construction, lossless state collapse with exact multiplicity, full admissible completion enumeration, the guaranteed minimal-sidecar endpoint without actual missing values, deterministic outputs, and an independently implemented audit. Real-data execution remains separately unauthorized.",
     "submitted_papers_1_through_4_may_be_modified": false
   }
 }
