@@ -288,6 +288,22 @@
     "manuscript_creation_authorized": false,
     "submission_authorized": false
   },
+  "prospective_protocol_deviation": {
+    "deviation_id": "S9-RTSI-001-DEV-CUCD-ARCHIVE-MEMBER-PATH-20260914",
+    "record": "study9/PROTOCOL_DEVIATION_CUCD_ARCHIVE_MEMBER_PATH_20260914.json",
+    "record_sha256": "1faf80c5f0e6560b8501ea9b6402a19e2a497115ad63e361b883a0d00daecc6e",
+    "classification": "PACKAGING_PATH_METADATA_DEFECT_NO_SCIENTIFIC_CHANGE",
+    "correction_date": "2026-09-14",
+    "attempted_execution_head": "93787b0b8d19c943ed2786fef83f310a7f131d70",
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false,
+    "results_directory_created": false,
+    "scientific_logic_changed": false,
+    "computational_runtime_changed": false,
+    "dataset_bytes_may_be_ingested_into_repository": false,
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false
+  },
   "execution_phase_transition_contract": {
     "atomic_transition_required": true,
     "partial_transition_permitted": false,

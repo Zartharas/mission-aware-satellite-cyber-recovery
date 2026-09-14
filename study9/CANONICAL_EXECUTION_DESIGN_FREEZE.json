@@ -17,7 +17,7 @@
     {
       "dataset_id": "CUCD_ID_V3",
       "outer_container_sha256": "da3d95886feae0bc913a9e5beec1368571f51c80ecc811e40f6cc29edf33f2f0",
-      "canonical_artifact_path": "Data/Raw/consolidated_dataset_raw.csv",
+      "canonical_artifact_path": "CubeSat Cybersecurity Dataset for Intrusion Detect/Data/Raw/consolidated_dataset_raw.csv",
       "canonical_artifact_sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
       "expected_rows": 25000,
       "expected_columns": 31
@@ -39,6 +39,15 @@
       "expected_columns": 49
     }
   ],
+  "prospective_protocol_deviation": {
+    "record": "study9/PROTOCOL_DEVIATION_CUCD_ARCHIVE_MEMBER_PATH_20260914.json",
+    "classification": "PACKAGING_PATH_METADATA_DEFECT_NO_SCIENTIFIC_CHANGE",
+    "applies_to_dataset_id": "CUCD_ID_V3",
+    "corrects_archive_member_path_only": true,
+    "scientific_logic_changed": false,
+    "computational_runtime_changed": false,
+    "study9_endpoints_existed_before_correction": false
+  },
   "input_validation_rule": {
     "verify_outer_container_hash_when_declared_before_member_use": true,
     "verify_canonical_artifact_sha256_before_semantic_row_processing": true,
