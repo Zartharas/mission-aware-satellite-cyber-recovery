@@ -2,7 +2,7 @@
   "schema": 2,
   "experiment_id": "S9-RTSI-001",
   "title": "Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets",
-  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_EXECUTION_DESIGN_FROZEN_IMPLEMENTATION_AUTHORIZED_NO_ANALYSIS",
+  "status": "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_EXECUTION_DESIGN_FROZEN_LOADER_RUNNER_IMPLEMENTED_NO_ANALYSIS",
   "base_main_commit": "49323c6f78d8a9ae14e09573a4b126b5bf0fda10",
   "scientific_scope": "deterministic semantic-interface sufficiency and downstream decision identifiability across independently sourced public space-cyber datasets",
   "publication_strategy": {
@@ -103,6 +103,7 @@
     "mapping rubric and derivation rules are frozen before inspecting row-level endpoint results",
     "primary policy scope and dataset-by-policy stratification are frozen before real row-level execution",
     "canonical input identity, state-collapse, multiplicity weighting, guaranteed-sidecar, deterministic-output, and independent-audit rules are frozen before real row-level execution",
+    "guarded loader/runner implementation is synthetic-tested before any real-data authorization is opened",
     "no candidate is added or removed after endpoint inspection except through a documented protocol deviation that is reported separately and does not rewrite the preregistered primary population"
   ],
   "interpretation_guards": [
@@ -118,13 +119,15 @@
     "No AI or learned method superiority claim is permitted unless directly measured in a separately authorized experiment.",
     "Primary Study 9 policies are evaluated separately; policy pooling, averaging, interchangeable-replicate treatment, and policy-superiority claims are prohibited.",
     "Unavailable actual values of ambiguous or absent recovery state may not be supplied to the canonical minimal-sidecar endpoint.",
-    "Lossless native-state collapse is an exact computational equivalence with multiplicity preservation, not sampling, deduplication, or row exclusion."
+    "Lossless native-state collapse is an exact computational equivalence with multiplicity preservation, not sampling, deduplication, or row exclusion.",
+    "Loader/runner implementation does not itself authorize real source access; authorization is checked before any user-supplied dataset path is inspected."
   ],
   "authorization": {
     "prospective_design_authorized": true,
     "source_selection_design_authorized": true,
     "dataset_ingestion_authorized": false,
     "implementation_creation_authorized": true,
+    "loader_runner_implementation_authorized": true,
     "row_level_analysis_authorized": false,
     "canonical_execution_authorized": false,
     "results_directory_authorized": false,
@@ -225,8 +228,23 @@
     "canonical_execution_authorized": false,
     "canonical_policy_scope_frozen": true,
     "canonical_execution_design_frozen": true,
+    "loader_runner_implemented": true,
+    "loader_runner_synthetic_test_only": true,
+    "loader_runner_standard_library_only": true,
+    "loader_runner_external_paths_required": true,
+    "loader_runner_hard_authorization_guard_before_source_path_access": true,
+    "loader_runner_hardcoded_local_paths_permitted": false,
+    "loader_runner_modules": [
+      "study9/src/study9_semantic/input_identity.py",
+      "study9/src/study9_semantic/state_projection.py",
+      "study9/src/study9_semantic/state_groups.py",
+      "study9/src/study9_semantic/canonical_engine.py",
+      "study9/src/study9_semantic/deterministic_io.py",
+      "study9/src/study9_semantic/canonical_runner.py"
+    ],
     "policy_scope_rule": "The four frozen substantive Study 2 policies are primary and must be evaluated separately. The four NO_* policies remain excluded mechanistic ablations. The implementation must not encode a canonical default policy.",
     "execution_design_rule": "Canonical real-data execution must use hash-verified inputs, frozen state construction, lossless state collapse with exact multiplicity, full admissible completion enumeration, the guaranteed minimal-sidecar endpoint without actual missing values, deterministic outputs, and an independently implemented audit. Real-data execution remains separately unauthorized.",
+    "loader_runner_rule": "The loader and runner may be exercised only on synthetic temporary fixtures while real-data authorization remains closed. run_canonical_sources must check authorization before constructing external source specs, probing user-supplied dataset paths, or creating output directories.",
     "submitted_papers_1_through_4_may_be_modified": false
   }
 }
