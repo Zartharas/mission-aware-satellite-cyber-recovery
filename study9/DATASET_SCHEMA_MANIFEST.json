@@ -1,8 +1,11 @@
 {
   "schema": 2,
   "study_id": "S9-RTSI-001",
-  "status": "SOURCE_VERIFICATION_RECORDED_POPULATION_NOT_YET_FROZEN",
+  "status": "PRIMARY_POPULATION_FROZEN_SEMANTIC_ADJUDICATION_NOT_YET_FROZEN",
   "verification_date": "2026-09-13",
+  "population_freeze_date": "2026-09-13",
+  "pre_freeze_validation_record": "study9/PRE_FREEZE_VALIDATION_EVIDENCE.json",
+  "primary_population_freeze_record": "study9/PRIMARY_POPULATION_FREEZE.json",
   "rules": {
     "study5_manifest_reuse_as_study9_evidence": false,
     "artifact_identity_required_before_inclusion": true,
@@ -12,12 +15,13 @@
     "missing_fields_may_be_imputed": false,
     "repository_license_may_be_assumed_to_cover_separately_hosted_dataset": false,
     "source_reported_hash_may_be_treated_as_study9_byte_verification": false,
-    "author_approved_project_distribution_license_assumption_may_be_recorded_with_explicit_boundary": true
+    "author_approved_project_distribution_license_assumption_may_be_recorded_with_explicit_boundary": true,
+    "post_freeze_primary_population_change_requires_documented_protocol_deviation": true
   },
   "datasets": [
     {
       "dataset_id": "CUCD_ID_V3",
-      "candidate_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
+      "candidate_status": "PRIMARY_POPULATION_FROZEN_INCLUDED",
       "dataset_title": "CubeSat Cybersecurity Dataset for Intrusion Detection (CuCD-ID): Labelled NOS3/cFS Telemetry (raw + augmented) with COSMOS Reproduction Scripts",
       "dataset_doi": "10.17632/7n2d42pm3n.3",
       "dataset_version": 3,
@@ -26,25 +30,14 @@
       "primary_article_year": 2026,
       "source_environment": "NOS3/cFS software-in-the-loop with OpenC3 COSMOS v4 scenario generation",
       "source_environment_class": "software_in_the_loop",
-      "published_characteristics": {
-        "raw_rows": 25000,
-        "raw_columns": 31,
-        "augmented_rows": 22465,
-        "augmented_columns": 23,
-        "scenario_count": 5,
-        "data_role": "intrusion-detection-oriented command and telemetry records",
-        "all_telemetry_simulated": true
-      },
       "dataset_license_reported_by_dataset_host": "CC BY 4.0",
       "dataset_access_status": "MENDELEY_V3_PUBLIC_AND_LOCAL_PACKAGE_BYTE_VERIFIED",
       "schema_evidence_status": "PRIMARY_ARTICLE_AND_LOCAL_VERSION3_PACKAGE_FIELD_SCHEMAS_VERIFIED",
       "download_package": {
-        "local_container_filename": "CubeSat Cybersecurity Dataset for Intrusion Detect.zip",
         "size_bytes": 3131777,
         "sha256": "da3d95886feae0bc913a9e5beec1368571f51c80ecc811e40f6cc29edf33f2f0",
-        "zip_integrity_bad_member": null,
         "member_count": 13,
-        "note": "Local download-container filename is not treated as an upstream version identifier; Version 3 identity is established by DOI plus exact artifact hashes."
+        "zip_integrity_bad_member": null
       },
       "canonical_artifact": {
         "path": "Data/Raw/consolidated_dataset_raw.csv",
@@ -52,144 +45,33 @@
         "columns": 31,
         "size_bytes": 4438178,
         "sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
-        "published_sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
         "published_hash_match": true,
-        "row_width_mismatches": 0,
-        "blank_values": 0,
-        "nonnumeric_values": 0,
-        "nonfinite_values": 0,
         "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
         "study9_byte_hash_verified": true
       },
-      "source_artifact_files": [
-        {
-          "path": "Data/Raw/consolidated_dataset_raw.csv",
-          "rows": 25000,
-          "columns": 31,
-          "size_bytes": 4438178,
-          "published_sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
-          "sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
-          "published_hash_match": true,
-          "study9_byte_hash_verified": true
-        },
+      "supporting_artifacts": [
         {
           "path": "Data/Augmented/noised_dataset.csv",
           "rows": 22465,
           "columns": 23,
-          "size_bytes": 6372619,
-          "published_sha256": "656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68",
           "sha256": "656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68",
-          "published_hash_match": true,
           "role": "DERIVED_AUGMENTED_COMPANION",
           "study9_byte_hash_verified": true
         },
         {
           "path": "Data/Metadata/label_schema.json",
-          "size_bytes": 273,
           "sha256": "ea28a294175150e6de43ebbb67debcff73b69f2f73af202fcad0676ad80aa280",
-          "role": "LABEL_SCHEMA_DOCUMENTATION",
-          "study9_byte_hash_verified": true
+          "role": "LABEL_SCHEMA_DOCUMENTATION"
         },
         {
           "path": "Data/Metadata/checksums.txt",
-          "size_bytes": 569,
           "sha256": "76f132764e3651131f5b74d52ed4cfa5a27e7086047779c5ee0ba6dc2d4c648c",
-          "role": "SOURCE_CHECKSUM_DOCUMENTATION",
-          "study9_byte_hash_verified": true
-        },
-        {
-          "path": "Code/Augmentation/augmentation_script.py",
-          "size_bytes": 23768,
-          "sha256": "4cc98a396ce471da04a6cae94ee9b0683bd14df4605dfd7380877d51b3acfc7e",
-          "role": "DERIVATION_PROVENANCE",
-          "study9_byte_hash_verified": true
-        },
-        {
-          "path": "Code/Validation/validate_and_load.py",
-          "size_bytes": 8843,
-          "sha256": "11202f44a6747ec93599a819cbdf127f68bdbfaeedde14f1cceee9ffedf4368f",
-          "role": "VALIDATION_PROVENANCE",
-          "study9_byte_hash_verified": true
-        },
-        {
-          "path": "README.md",
-          "size_bytes": 10174,
-          "sha256": "db098c41cb4922524e9bdb039d568f8861b96ab80265e9a594f971c1c2277dea",
-          "role": "DOCUMENTATION_ONLY",
-          "study9_byte_hash_verified": true
+          "role": "SOURCE_CHECKSUM_DOCUMENTATION"
         }
       ],
-      "source_artifact_sha256": {
-        "Data/Raw/consolidated_dataset_raw.csv": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
-        "Data/Augmented/noised_dataset.csv": "656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68",
-        "Data/Metadata/label_schema.json": "ea28a294175150e6de43ebbb67debcff73b69f2f73af202fcad0676ad80aa280",
-        "Data/Metadata/checksums.txt": "76f132764e3651131f5b74d52ed4cfa5a27e7086047779c5ee0ba6dc2d4c648c",
-        "Code/Augmentation/augmentation_script.py": "4cc98a396ce471da04a6cae94ee9b0683bd14df4605dfd7380877d51b3acfc7e",
-        "Code/Validation/validate_and_load.py": "11202f44a6747ec93599a819cbdf127f68bdbfaeedde14f1cceee9ffedf4368f",
-        "README.md": "db098c41cb4922524e9bdb039d568f8861b96ab80265e9a594f971c1c2277dea"
-      },
-      "published_field_evidence": {
-        "families": [
-          "CCSDS header metadata",
-          "circular time",
-          "20-second sliding-window traffic statistics",
-          "error counters",
-          "system/process memory metrics",
-          "class label"
-        ],
-        "augmented_removed_invariant_fields": [
-          "HeaderVersion",
-          "MsgType",
-          "HasSecondaryHeader",
-          "SegmentationFlag",
-          "SequenceCount",
-          "CommandErrorCounter",
-          "IngestErrors",
-          "MemoryPageFaults"
-        ],
-        "label_field": "Label",
-        "label_mapping": {
-          "0": "Command Flooding",
-          "1": "Data Injection",
-          "2": "Defence Impairment",
-          "3": "Normal",
-          "4": "Storage Exhaustion"
-        }
-      },
       "raw_schema": {
-        "header": [
-          "MsgId",
-          "CmdCode",
-          "TimeRadians",
-          "SequenceCount",
-          "MsgLength",
-          "HasSecondaryHeader",
-          "MsgType",
-          "ApId",
-          "HeaderVersion",
-          "SegmentationFlag",
-          "FlowLengthInWindow",
-          "SlidingWindowMeanIntervalSec",
-          "SlidingWindowMaxIntervalSec",
-          "SlidingWindowMinIntervalSec",
-          "MessageCountInWindow",
-          "UniqueMessageIDsInWindow",
-          "AverageMessageLengthInWindow",
-          "MessageRateInWindow",
-          "StdDevMessageLengthInWindow",
-          "CommandErrorCounter",
-          "IngestErrors",
-          "MemoryAnonMB",
-          "MemoryFileMB",
-          "MemoryKernelstackMB",
-          "MemoryPageTableMB",
-          "MemorySocketMB",
-          "MemoryPercpuMB",
-          "MemoryShmemMB",
-          "MemorySlabUnreclaimableMB",
-          "MemoryPageFaults",
-          "Label"
-        ],
+        "columns": 31,
+        "label_field": "Label",
         "label_counts": {
           "0": 5000,
           "1": 5000,
@@ -199,31 +81,7 @@
         }
       },
       "augmented_schema": {
-        "header": [
-          "MsgId",
-          "CmdCode",
-          "TimeRadians",
-          "MsgLength",
-          "ApId",
-          "FlowLengthInWindow",
-          "SlidingWindowMeanIntervalSec",
-          "SlidingWindowMaxIntervalSec",
-          "SlidingWindowMinIntervalSec",
-          "MessageCountInWindow",
-          "UniqueMessageIDsInWindow",
-          "AverageMessageLengthInWindow",
-          "MessageRateInWindow",
-          "StdDevMessageLengthInWindow",
-          "MemoryAnonMB",
-          "MemoryFileMB",
-          "MemoryKernelstackMB",
-          "MemoryPageTableMB",
-          "MemorySocketMB",
-          "MemoryPercpuMB",
-          "MemoryShmemMB",
-          "MemorySlabUnreclaimableMB",
-          "Label"
-        ],
+        "columns": 23,
         "label_counts": {
           "0": 3622,
           "1": 4307,
@@ -232,56 +90,33 @@
           "4": 4949
         }
       },
-      "augmentation_provenance": {
-        "seed": 7,
-        "deterministic_reproduction_claimed_by_source": true,
-        "augmentation_types": [
-          "white noise",
-          "analog outliers",
-          "gaps/row dropping",
-          "memory trends",
-          "signal shifts",
-          "frequency changes",
-          "sensor dropout",
-          "magnitude warping",
-          "window time warp"
-        ],
-        "primary_operational_evidence_role": "NOT_CANONICAL_NATIVE",
-        "reason": "The augmented artifact is generated from the raw CSV through deterministic transformations and row dropping; primary mapping uses the native raw artifact."
-      },
       "label_boundary": {
         "field": "Label",
         "evidence_role": "OFFLINE_GROUND_TRUTH_ONLY",
-        "may_count_toward_recovery_state_coverage": false,
-        "reason": "Study 9 prohibits attack/scenario labels from creating operational recovery state."
+        "may_count_toward_recovery_state_coverage": false
+      },
+      "augmentation_boundary": {
+        "seed": 7,
+        "primary_operational_evidence_role": "NOT_CANONICAL_NATIVE"
       },
       "package_quality_notes": [
-        {
-          "issue": "checksums.txt contains bare SHA-256 digest lines while validate_and_load.py parses only digest-plus-path entries",
-          "impact": "the provided helper can skip checksum verification when no parsed path entry exists",
-          "study9_handling": "preserve defect and rely on independent Study 9 byte recomputation; do not modify source package"
-        },
-        {
-          "issue": "root README refers to /Code/Scripts/ while the package directory is Code/Cosmos_Scripts/",
-          "impact": "documentation path mismatch only",
-          "study9_handling": "preserve and record; no source repair"
-        }
+        "checksums.txt/parser mismatch preserved; Study 9 relies on independent byte recomputation",
+        "README /Code/Scripts/ path mismatch preserved; actual directory is Code/Cosmos_Scripts/"
       ],
       "field_schema": [],
       "schema_locked": false,
       "artifact_locked": true,
-      "population_inclusion_locked": false,
-      "independence_assessment": "Independent NOS3/cFS software-in-the-loop population; no evidence identified in the verification phase that it is derived from AegisSat or UNSW-IoTSAT.",
+      "population_inclusion_locked": true,
+      "independence_assessment": "Independent NOS3/cFS software-in-the-loop population; no evidence identified that it is derived from AegisSat or UNSW-IoTSAT.",
       "remaining_pre_analysis_gates": [
-        "freeze exact machine-readable field-to-recovery-state adjudication schema before mapping",
-        "freeze final primary dataset population before row-level endpoint computation"
+        "freeze exact machine-readable field-to-recovery-state adjudication schema and permitted deterministic derivation rules before mapping"
       ],
       "verification_record": "study9/CUCD_ID_V3_ARTIFACT_VERIFICATION.json",
-      "notes": "Selection gate passed. Exact Version 3 package and raw/augmented hashes are independently verified against published checksums. Raw CSV is canonical; augmented CSV is a deterministic derived companion. Label remains offline ground truth only. Population is not frozen and semantic mapping remains unauthorized."
+      "population_freeze_record": "study9/PRIMARY_POPULATION_FREEZE.json"
     },
     {
       "dataset_id": "AEGISSAT_2025",
-      "candidate_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
+      "candidate_status": "PRIMARY_POPULATION_FROZEN_INCLUDED",
       "dataset_title": "AegisSat: Telemetry dataset of a physical CubeSat environment with labeled attacks",
       "dataset_doi": "10.5281/zenodo.14960983",
       "primary_article_title": "AegisSat: A Satellite Cybersecurity Testbed",
@@ -290,22 +125,9 @@
       "source_repository": "https://github.com/texydo/satellite_security_testbed",
       "source_repository_commit": "24c00de5ee729b91805724cbf82068562e7a4b6d",
       "source_repository_license": "MIT",
+      "dataset_license_reported_by_direct_host": "CC BY 4.0",
       "source_environment": "physical Earth-based CubeSat with environment emulator and controlled cyberattack experiments",
       "source_environment_class": "physical_cubesat_plus_environment_emulator",
-      "published_characteristics": {
-        "experiment_scale": "hundreds of experiments reported by the primary paper",
-        "telemetry_cadence": "1 Hz reported by the primary paper",
-        "data_role": "satellite telemetry, ground-issued commands, and labelled attack information",
-        "representative_feature_families": [
-          "thermal control",
-          "payload state",
-          "CPU and RAM usage",
-          "EPS measurements",
-          "OBC state",
-          "processor measurements"
-        ]
-      },
-      "dataset_license_reported_by_direct_host": "CC BY 4.0",
       "dataset_access_status": "ZENODO_RECORD_AND_EXACT_DEPOSITED_FILE_VERIFIED_LOCAL_BYTES_CHECKSUM_MATCHED",
       "schema_evidence_status": "ZENODO_DEPOSITED_CSV_SCHEMA_VERIFIED_AND_RECONCILED_WITH_IMPLEMENTATION_PERSISTENCE_INTERFACE",
       "canonical_artifact": {
@@ -318,75 +140,6 @@
         "zenodo_md5_match": true,
         "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
         "study9_byte_hash_verified": true
-      },
-      "source_artifact_files": [
-        {
-          "path": "AegisSat-AD.csv",
-          "rows": 137965,
-          "columns": 176,
-          "size_bytes": 190028590,
-          "zenodo_checksum": "md5:f5b53ba9d080fe1795def09bdecd7cb9",
-          "sha256": "dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e",
-          "row_width_mismatches": 0,
-          "study9_byte_hash_verified": true
-        }
-      ],
-      "source_artifact_sha256": {
-        "AegisSat-AD.csv": "dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e"
-      },
-      "repository_persistence_interface": {
-        "implementation_path": "src/Manager/utils/ManagerClass.py",
-        "implementation_commit": "24c00de5ee729b91805724cbf82068562e7a4b6d",
-        "mongo_document_fields": [
-          "run_id",
-          "TLE File Name",
-          "TLE",
-          "Epoch_Time",
-          "UTC_time",
-          "cosmos_data",
-          "command",
-          "pi_metrics",
-          "satState",
-          "attacks"
-        ],
-        "optional_fields": [
-          "cosmos_data",
-          "command",
-          "pi_metrics",
-          "attacks"
-        ],
-        "cosmos_data_structure": "packet-keyed dictionaries produced by formatCosmosData from packet attribute tuples",
-        "representative_graph_telemetry_fields": [
-          "EPS_BATTERY_TOTAL_VOLTAGE",
-          "EPS_BATTERY_CURRENT",
-          "EPS_SOLAR_PANEL_1_TEMPERATURE",
-          "EPS_SOLAR_PANEL_2_TEMPERATURE",
-          "EPS_SOLAR_PANEL_1_OUTPUT_CURRENT",
-          "EPS_SOLAR_PANEL_2_OUTPUT_CURRENT",
-          "EPS_SOLAR_PANEL_1_VOLTAGE",
-          "EPS_SOLAR_PANEL_2_VOLTAGE",
-          "OBC_PROCESSOR_TEMPERATURE",
-          "OBC_PROCESSOR_VOLTAGE",
-          "TPL_CURRENT_TEMPERATURE",
-          "RECEIVED_COUNT"
-        ],
-        "deposit_reconciliation": {
-          "directly_represented": [
-            "run_id",
-            "TLE File Name",
-            "TLE",
-            "Epoch_Time",
-            "UTC_time/UTC_Time",
-            "flattened cosmos_data",
-            "command",
-            "attacks"
-          ],
-          "optional_fields_not_exposed_as_standalone_deposit_columns": [
-            "pi_metrics",
-            "satState"
-          ],
-          "boundary": "Optional persistence fields absent as standalone CSV columns are treated as export-representation differences. Study 9 does not infer unexported values."
-        }
       },
       "deposited_schema": {
         "rows": 137965,
@@ -412,8 +165,7 @@
           "attacks.cpuhightarget.target"
         ],
         "evidence_role": "OFFLINE_GROUND_TRUTH_OR_EXPERIMENT_METADATA_ONLY",
-        "may_count_toward_recovery_state_coverage": false,
-        "reason": "CPUHighTarget is an explicit attack class in the pinned cyber subsystem; Study 9 prohibits attack annotations from creating operational recovery state."
+        "may_count_toward_recovery_state_coverage": false
       },
       "semantic_adjudication_boundary": {
         "timestamps_do_not_automatically_establish_freshness": true,
@@ -424,18 +176,17 @@
       "field_schema": [],
       "schema_locked": false,
       "artifact_locked": true,
-      "population_inclusion_locked": false,
-      "independence_assessment": "Scientifically distinct physical/emulation provenance; no evidence identified in the verification phase that it is derived from CuCD-ID or UNSW-IoTSAT.",
+      "population_inclusion_locked": true,
+      "independence_assessment": "Scientifically distinct physical/emulation provenance; no evidence identified that it is derived from CuCD-ID or UNSW-IoTSAT.",
       "remaining_pre_inclusion_gates": [
-        "freeze exact machine-readable field-to-recovery-state adjudication schema before mapping",
-        "freeze final primary dataset population only after all selected datasets clear their remaining pre-analysis gates"
+        "freeze exact machine-readable field-to-recovery-state adjudication schema and permitted deterministic derivation rules before mapping"
       ],
       "verification_record": "study9/AEGISSAT_ARTIFACT_VERIFICATION.json",
-      "notes": "Selection gate passed. Zenodo record 14960983 reports CC BY 4.0 and exactly one deposited file, AegisSat-AD.csv. Local bytes match the Zenodo MD5; SHA-256, dimensions, zero row-width mismatches, and deposited schema are bound. Attack annotation fields remain outside operational-native recovery evidence. Population is not frozen and semantic mapping remains unauthorized."
+      "population_freeze_record": "study9/PRIMARY_POPULATION_FREEZE.json"
     },
     {
       "dataset_id": "UNSW_IOTSAT_2026",
-      "candidate_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
+      "candidate_status": "PRIMARY_POPULATION_FROZEN_INCLUDED",
       "dataset_title": "UNSW-IoTSAT: A hybrid testbed-derived dataset for enabling cybersecurity research in the smart satellite domain",
       "primary_article_doi": "10.1016/j.csa.2026.100133",
       "primary_article_year": 2026,
@@ -444,43 +195,20 @@
       "source_repository_license": "MIT",
       "source_environment": "hybrid cyber-physical smart-satellite testbed with CCSDS-oriented communications, IoT sensor data, RF-layer impairments, and controlled cyberattacks",
       "source_environment_class": "hybrid_cyber_physical_testbed",
-      "published_characteristics": {
-        "records": 404798,
-        "main_release_features": 109,
-        "ccsds_companion_features": 3,
-        "documented_total_features": 112,
-        "origin_counts": {
-          "MEASURED": 13,
-          "SIMULATED": 9,
-          "COMPUTED": 82,
-          "LABEL": 8
-        },
-        "data_role": "normal and attack telemetry/security records"
-      },
-      "dataset_license_reported_by_direct_host": null,
+      "dataset_access_status": "AUTHOR_LINKED_PUBLIC_SHAREPOINT_ONEDRIVE_RELEASE_PACKAGE_OBTAINED_AND_BYTE_HASH_BOUND",
+      "schema_evidence_status": "RELEASE_PACKAGE_AND_REPOSITORY_SCHEMA_VERIFIED_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS",
       "dataset_license_governance_interpretation": {
         "study9_license": "MIT",
-        "basis": [
-          "Pinned source repository contains an MIT LICENSE file.",
-          "Pinned repository README displays an MIT license badge.",
-          "The same README directly links the UNSW SharePoint dataset used for the audited release.",
-          "The release was obtained through the author-provided public dataset path.",
-          "The independent author of Study 9 explicitly approved treating the release under the MIT project-distribution context."
-        ],
         "separate_dataset_license_file_present_in_download_package": false,
         "independently_verified_dataset_specific_license_text": false,
         "legal_advice_claimed": false,
         "citation_required_in_eventual_manuscript": true
       },
-      "dataset_access_status": "AUTHOR_LINKED_PUBLIC_SHAREPOINT_ONEDRIVE_RELEASE_PACKAGE_OBTAINED_AND_BYTE_HASH_BOUND",
-      "schema_evidence_status": "RELEASE_PACKAGE_AND_REPOSITORY_SCHEMA_VERIFIED_WITH_PREREGISTERED_ARTIFACT_AND_FIELD_EXCLUSIONS",
       "download_package": {
-        "local_container_filename": "OneDrive_2026-09-13.zip",
         "size_bytes": 1431174739,
         "sha256": "21f747325041e633df135aed2e12de4de518a5c4e62ded2270d7bbd0523c9d9d",
-        "zip_integrity_bad_member": null,
         "member_count": 6,
-        "note": "Local download-container filename is not treated as an upstream dataset version identifier; byte identity is bound by SHA-256."
+        "zip_integrity_bad_member": null
       },
       "canonical_artifact": {
         "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
@@ -491,71 +219,29 @@
         "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
         "study9_byte_hash_verified": true
       },
-      "source_artifact_files": [
-        {
-          "path": "UNSW-IoTSAT dataset/FEATURE_DOCUMENTATION.md",
-          "size_bytes": 22810,
-          "sha256": "98d5a71eb3637d3cf71976655a24bb3f788c38da7b60f4703d27638b6a305b38",
-          "role": "DOCUMENTATION_ONLY",
-          "study9_byte_hash_verified": true
-        },
-        {
-          "path": "UNSW-IoTSAT dataset/FEATURES.csv",
-          "rows": 112,
-          "columns": 8,
-          "size_bytes": 17398,
-          "sha256": "95ccd70edd114bbf879ec163c4e801f4b5f3dd87a7767d434dcf15f2930cb476",
-          "role": "SCHEMA_DOCUMENTATION_ONLY",
-          "study9_byte_hash_verified": true
-        },
-        {
-          "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
-          "rows": 404798,
-          "columns": 49,
-          "size_bytes": 145079423,
-          "sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
-          "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
-          "study9_byte_hash_verified": true
-        },
+      "supporting_artifacts": [
         {
           "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.json",
-          "size_bytes": 664617049,
           "sha256": "b11775b7100e23430d6ef9ac0f21c15b3d946683fa043340de7547d3cc360ff5",
-          "role": "EXCLUDED_FROM_PRIMARY_MAPPING_INVALID_SERIALIZATION",
-          "serialization_defect": "top-level array is unterminated; final non-whitespace byte is '}' rather than ']'",
-          "study9_byte_hash_verified": true
+          "role": "EXCLUDED_FROM_PRIMARY_MAPPING_INVALID_SERIALIZATION"
         },
         {
           "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT_with_CCSDS_fields.csv",
           "rows": 404798,
           "columns": 52,
-          "size_bytes": 150632208,
           "sha256": "c117d04d7bfb8fa06413e2855c72fa8001dc0d8b58ffff4314cf41e08c4e8854",
-          "role": "DERIVED_COMPANION_NOT_OPERATIONAL_NATIVE",
-          "semantic_base_fields_preserved": true,
-          "study9_byte_hash_verified": true
+          "role": "DERIVED_COMPANION_NOT_OPERATIONAL_NATIVE"
         },
         {
           "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT_With_Feature_Engineering.csv",
           "rows": 404798,
           "columns": 109,
-          "size_bytes": 470804757,
           "sha256": "34a921079ecb908868e6038336b927cdc4683492a58dc026542affec9cbef1e5",
           "role": "EXCLUDED_FROM_PRIMARY_MAPPING_DERIVED_AND_BASE_VALUES_MODIFIED",
-          "semantic_base_fields_preserved": false,
           "modified_original_cells": 139,
-          "modified_original_columns": 17,
-          "study9_byte_hash_verified": true
+          "modified_original_columns": 17
         }
       ],
-      "source_artifact_sha256": {
-        "FEATURE_DOCUMENTATION.md": "98d5a71eb3637d3cf71976655a24bb3f788c38da7b60f4703d27638b6a305b38",
-        "FEATURES.csv": "95ccd70edd114bbf879ec163c4e801f4b5f3dd87a7767d434dcf15f2930cb476",
-        "UNSW_IoTSAT.csv": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
-        "UNSW_IoTSAT.json": "b11775b7100e23430d6ef9ac0f21c15b3d946683fa043340de7547d3cc360ff5",
-        "UNSW_IoTSAT_with_CCSDS_fields.csv": "c117d04d7bfb8fa06413e2855c72fa8001dc0d8b58ffff4314cf41e08c4e8854",
-        "UNSW_IoTSAT_With_Feature_Engineering.csv": "34a921079ecb908868e6038336b927cdc4683492a58dc026542affec9cbef1e5"
-      },
       "preregistered_primary_mapping_exclusions": {
         "excluded_artifacts": [
           "UNSW-IoTSAT dataset/UNSW_IoTSAT.json",
@@ -588,13 +274,12 @@
           "Attack_Severity"
         ],
         "primary_operational_evidence_role": "NOT_OPERATIONAL_NATIVE",
-        "may_count_toward_recovery_state_coverage": false,
-        "reason": "Repository augmentation code derives the companion fields using attack-label-conditioned logic; Study 9 prohibits attack labels from creating operational recovery state."
+        "may_count_toward_recovery_state_coverage": false
       },
       "field_schema": [],
       "schema_locked": false,
       "artifact_locked": true,
-      "population_inclusion_locked": false,
+      "population_inclusion_locked": true,
       "repository_schema_provenance": {
         "feature_documentation_commit_bound": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
         "origin_classes": [
@@ -613,12 +298,12 @@
           "Detection_Confidence"
         ]
       },
-      "independence_assessment": "Independently developed UNSW hybrid cyber-physical testbed; no evidence identified in the verification phase that it is derived from CuCD-ID or AegisSat.",
+      "independence_assessment": "Independently developed UNSW hybrid cyber-physical testbed; no evidence identified that it is derived from CuCD-ID or AegisSat.",
       "remaining_pre_inclusion_gates": [
-        "freeze final primary dataset population only after all selected datasets clear their remaining inclusion gates"
+        "freeze exact machine-readable field-to-recovery-state adjudication schema and permitted deterministic derivation rules before mapping"
       ],
       "verification_record": "study9/UNSW_IOTSAT_ARTIFACT_VERIFICATION.json",
-      "notes": "Selection gate passed under the recorded MIT project-distribution governance interpretation. Canonical base CSV and artifact hashes are bound. Invalid JSON and engineered CSV are excluded from primary mapping. Four defective base fields are preregistered for whole-field exclusion. CCSDS-added fields are label-conditioned derivatives and cannot count as operational-native recovery state. Population is not frozen."
+      "population_freeze_record": "study9/PRIMARY_POPULATION_FREEZE.json"
     }
   ]
 }
