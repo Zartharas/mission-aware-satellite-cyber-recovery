@@ -21,7 +21,11 @@ from study9_semantic.canonical_runner import (
     run_canonical_sources,
 )
 from study9_semantic.completions import PartialObservation
-from study9_semantic.contracts import RUN_IDENTITY_BASE_PATHS, load_frozen_contracts
+from study9_semantic.contracts import (
+    CANONICAL_RUN_CODE_FREEZE_PATH,
+    RUN_IDENTITY_BASE_PATHS,
+    load_frozen_contracts,
+)
 from study9_semantic.independent_audit import clear_audit_caches
 from study9_semantic.input_identity import InputIdentitySpec
 from study9_semantic.selector_adapter import clear_selector_caches
@@ -169,7 +173,11 @@ class CanonicalRunnerGuardTests(unittest.TestCase):
             identity_paths = tuple(
                 item["path"] for item in run_manifest["reproducibility_identity"]["files"]
             )
-            self.assertEqual(identity_paths, RUN_IDENTITY_BASE_PATHS)
+            self.assertEqual(
+                identity_paths,
+                RUN_IDENTITY_BASE_PATHS + (CANONICAL_RUN_CODE_FREEZE_PATH,),
+            )
+            self.assertEqual(identity_paths[-1], CANONICAL_RUN_CODE_FREEZE_PATH)
             self.assertEqual(run_manifest["reproducibility_identity"]["algorithm"], "sha256")
             for item in run_manifest["reproducibility_identity"]["files"]:
                 self.assertEqual(len(item["sha256"]), 64)
