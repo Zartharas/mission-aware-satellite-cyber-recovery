@@ -13,7 +13,10 @@ import unittest
 
 from study9_semantic.contracts import (
     ContractViolation,
+    EXCLUDED_ABLATION_VALUES,
     FROZEN_DATASET_IDS,
+    FULL_POLICY_ENUM_VALUES,
+    PRIMARY_POLICY_VALUES,
     REQUIRED_VARIABLES,
     load_frozen_contracts,
     validate_contracts,
@@ -33,6 +36,46 @@ class ContractTests(unittest.TestCase):
         contracts = load_frozen_contracts(ROOT)
         tampered = copy.deepcopy(contracts)
         tampered.protocol["authorization"]["row_level_analysis_authorized"] = True
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_primary_policy_scope_is_exact_and_ablations_are_excluded(self):
+        contracts = load_frozen_contracts(ROOT)
+        self.assertEqual(tuple(contracts.policy_scope["primary_policies"]), PRIMARY_POLICY_VALUES)
+        self.assertEqual(
+            tuple(contracts.policy_scope["excluded_mechanistic_ablations"]),
+            EXCLUDED_ABLATION_VALUES,
+        )
+        self.assertEqual(
+            tuple(contracts.policy_scope["study2_policy_enum_order"]),
+            FULL_POLICY_ENUM_VALUES,
+        )
+        self.assertEqual(
+            set(contracts.policy_scope["primary_policies"]).intersection(
+                contracts.policy_scope["excluded_mechanistic_ablations"]
+            ),
+            set(),
+        )
+        self.assertEqual(
+            contracts.policy_scope["primary_stratification"]["dataset_policy_stratum_count"],
+            12,
+        )
+        self.assertIsNone(
+            contracts.policy_scope["primary_analysis_rule"]["canonical_default_policy"]
+        )
+
+    def test_primary_policy_scope_rejects_admitted_ablation(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.policy_scope["primary_policies"][3] = EXCLUDED_ABLATION_VALUES[0]
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_primary_policy_scope_rejects_reordering(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        policies = tampered.policy_scope["primary_policies"]
+        policies[0], policies[1] = policies[1], policies[0]
         with self.assertRaises(ContractViolation):
             validate_contracts(tampered)
 
