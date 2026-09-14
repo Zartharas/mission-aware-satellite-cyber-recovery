@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "CANONICAL_EXECUTION_DESIGN_FROZEN_NO_ROW_ANALYSIS",
+  "freeze_date": "2026-09-13",
+  "freeze_basis_branch": "study9/recovery-state-semantic-interoperability",
+  "freeze_basis_commit": "de23f477e543d5b0ed7d7bd96af406103aba24fe",
+  "frozen_dependencies": {
+    "primary_population_freeze": "study9/PRIMARY_POPULATION_FREEZE.json",
+    "semantic_adjudication_freeze": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+    "policy_scope_freeze": "study9/POLICY_SCOPE_FREEZE.json",
+    "schema_manifest": "study9/DATASET_SCHEMA_MANIFEST.json",
+    "selector_path": "study2/src/study2_security/selectors.py",
+    "selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
+  },
+  "input_identity_contracts": [
+    {
+      "dataset_id": "CUCD_ID_V3",
+      "outer_container_sha256": "da3d95886feae0bc913a9e5beec1368571f51c80ecc811e40f6cc29edf33f2f0",
+      "canonical_artifact_path": "Data/Raw/consolidated_dataset_raw.csv",
+      "canonical_artifact_sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
+      "expected_rows": 25000,
+      "expected_columns": 31
+    },
+    {
+      "dataset_id": "AEGISSAT_2025",
+      "outer_container_sha256": null,
+      "canonical_artifact_path": "AegisSat-AD.csv",
+      "canonical_artifact_sha256": "dcbaa9bb23c6492087d5dd6a5e0729e42fa84a2d43f5370bca967276426e487e",
+      "expected_rows": 137965,
+      "expected_columns": 176
+    },
+    {
+      "dataset_id": "UNSW_IOTSAT_2026",
+      "outer_container_sha256": "21f747325041e633df135aed2e12de4de518a5c4e62ded2270d7bbd0523c9d9d",
+      "canonical_artifact_path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
+      "canonical_artifact_sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+      "expected_rows": 404798,
+      "expected_columns": 49
+    }
+  ],
+  "input_validation_rule": {
+    "verify_outer_container_hash_when_declared_before_member_use": true,
+    "verify_canonical_artifact_sha256_before_semantic_row_processing": true,
+    "verify_expected_row_and_column_counts": true,
+    "hash_or_shape_mismatch_behavior": "FAIL_CLOSED_NO_ENDPOINT_OUTPUT",
+    "dataset_bytes_may_be_committed_to_repository": false
+  },
+  "primary_state_construction": {
+    "required_variable_order": [
+      "signature_valid",
+      "source_trusted",
+      "fresh",
+      "epoch_valid",
+      "contradictory",
+      "minimum_evidence_complete",
+      "security_signal",
+      "authorization_available"
+    ],
+    "known_state_mapping_classes": [
+      "DIRECT",
+      "DERIVABLE_BY_PREDECLARED_RULE"
+    ],
+    "unresolved_state_mapping_classes": [
+      "AMBIGUOUS",
+      "ABSENT"
+    ],
+    "permitted_deterministic_derivation_rule_count": 0,
+    "missing_or_ambiguous_state_may_be_defaulted": false,
+    "missing_or_ambiguous_state_may_be_imputed": false,
+    "attack_or_scenario_label_may_supply_operational_state": false,
+    "invalid_direct_value_behavior": "FAIL_CLOSED_NO_ENDPOINT_OUTPUT",
+    "unsw_position_anomaly_normalization": "0 -> false; 1 -> true"
+  },
+  "lossless_state_collapse": {
+    "rule_id": "EIGHT_STATE_SELECTOR_INPUT_EQUIVALENCE_WITH_EXACT_MULTIPLICITY_V1",
+    "enabled_for_canonical_primary_execution": true,
+    "equivalence_key": [
+      "dataset_id",
+      "known recovery-state variable names and boolean values in frozen required-variable order",
+      "ordered unresolved recovery-state variable names in frozen required-variable order"
+    ],
+    "raw_fields_outside_qualifying_direct_or_derivable_state_may_enter_key": false,
+    "attack_or_scenario_labels_may_enter_key": false,
+    "policy_may_enter_native_state_group_key": false,
+    "group_multiplicity_definition": "Exact count of original canonical source rows represented by the decision-equivalent native-state group.",
+    "multiplicity_must_be_positive_integer": true,
+    "sum_of_group_multiplicities_must_equal_verified_dataset_row_count": true,
+    "endpoint_weighting_rule": "Compute deterministic endpoint properties once per native-state group and expand to the finite source population exactly through group multiplicity.",
+    "losslessness_basis": "The frozen downstream selector consumes only the eight frozen boolean recovery-state variables plus an explicitly supplied policy; rows with identical known recovery-state values and identical unresolved-variable sets therefore have identical admissible completion spaces and selector outputs under the same policy.",
+    "result_driven_grouping_changes_permitted": false
+  },
+  "admissible_completion_rule": {
+    "unresolved_variables_are_binary": true,
+    "enumerate_complete_cartesian_boolean_assignments": true,
+    "sampling_or_pruning_permitted": false,
+    "probability_model_permitted": false,
+    "attack_label_conditioning_permitted": false
+  },
+  "guaranteed_minimal_sidecar": {
+    "definition_id": "ALL_REVEALED_ASSIGNMENTS_YIELD_SINGLETON_REACHABLE_ACTION_SET_V1",
+    "definition": "For unresolved set U, a candidate sidecar subset S is sufficient if and only if, for every binary assignment to S, revealing that assignment leaves a reachable action set of cardinality one across every assignment to U\\S. The canonical endpoint returns every sufficient subset of minimum cardinality in frozen variable order.",
+    "actual_unresolved_values_required": false,
+    "actual_unresolved_values_may_be_substituted": false,
+    "assignment_conditioned_synthetic_helper_is_primary_endpoint": false,
+    "all_minimum_cardinality_ties_must_be_retained": true,
+    "full_revelation_must_be_sufficient_for_deterministic_selector": true,
+    "policy_stratified": true
+  },
+  "primary_endpoint_execution_contract": {
+    "policy_independent_endpoints": [
+      "per_dataset_recovery_state_mapping_matrix",
+      "per_dataset_operational_direct_coverage_count_and_fraction",
+      "per_dataset_operational_direct_or_derivable_coverage_count_and_fraction",
+      "cross_dataset_common_missing_state_set"
+    ],
+    "dataset_x_primary_policy_stratified_endpoints": [
+      "row_level_admissible_action_set_size",
+      "row_level_unique_action_identifiability_fraction",
+      "minimal_additional_state_required_for_unique_action_identifiability"
+    ],
+    "primary_policy_order": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B1_FAIL_OPERATIONAL",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ],
+    "dataset_order": [
+      "CUCD_ID_V3",
+      "AEGISSAT_2025",
+      "UNSW_IOTSAT_2026"
+    ],
+    "dataset_policy_stratum_count": 12,
+    "policy_pooling_permitted": false,
+    "policy_averaging_permitted": false,
+    "cross_dataset_row_pooling_permitted": false,
+    "unique_action_fraction_denominator": "Verified canonical source row count for the dataset within each primary policy stratum.",
+    "group_weighting": "Exact multiplicity weighting only; no sampling weights or prevalence reweighting.",
+    "minimal_sidecar_report": "For each native-state group and primary policy, report minimum guaranteed sidecar cardinality and every tied minimum-cardinality sidecar set; dataset-level summaries use exact group multiplicities."
+  },
+  "label_boundary": {
+    "offline_ground_truth_may_influence_primary_state": false,
+    "offline_ground_truth_may_influence_state_collapse": false,
+    "offline_ground_truth_may_influence_primary_selector_action": false,
+    "offline_ground_truth_may_influence_primary_sidecar_endpoint": false,
+    "descriptive_secondary_use_requires_primary_endpoints_to_be_frozen_first": true
+  },
+  "deterministic_output_contract": {
+    "randomness_permitted": false,
+    "stable_dataset_order_required": true,
+    "stable_policy_order_required": true,
+    "stable_required_variable_order_required": true,
+    "exact_counts_must_be_stored_as_integers": true,
+    "fractions_must_store_integer_numerator_and_denominator": true,
+    "canonical_json_utf8": true,
+    "canonical_json_sorted_keys": true,
+    "canonical_json_trailing_newline": true,
+    "output_sha256_manifest_required": true,
+    "source_dataset_bytes_in_results_permitted": false
+  },
+  "independent_audit_contract": {
+    "required": true,
+    "must_use_separately_implemented_completion_and_sidecar_logic": true,
+    "must_not_read_canonical_result_files_as_inputs": true,
+    "must_reconstruct_group_multiplicities_from_hash_verified_source_artifacts": true,
+    "must_reconstruct_primary_endpoint_counts_independently": true,
+    "canonical_and_audit_mismatch_behavior": "FAIL_CLOSED_NO_RESULTS_FREEZE"
+  },
+  "future_canonical_result_artifacts": [
+    "run_manifest.json",
+    "mapping_matrix.json",
+    "coverage_summary.json",
+    "native_state_groups.json",
+    "policy_strata.json",
+    "guaranteed_sidecar.json",
+    "independent_audit.json",
+    "output_sha256_manifest.json"
+  ],
+  "execution_boundary": {
+    "real_dataset_rows_opened": false,
+    "dataset_ingestion_executed": false,
+    "row_level_analysis_executed": false,
+    "canonical_execution_executed": false,
+    "results_directory_created": false,
+    "study9_endpoints_computed": false,
+    "manuscript_creation_executed": false,
+    "submission_executed": false
+  },
+  "change_rule": "After this freeze, changing input identities, state construction, collapse equivalence, multiplicity weighting, admissible completion semantics, guaranteed-sidecar semantics, primary endpoint stratification, label boundaries, deterministic output requirements, or independent-audit requirements requires a documented prospective protocol deviation and must not rewrite this record retroactively after real endpoint inspection."
+}
