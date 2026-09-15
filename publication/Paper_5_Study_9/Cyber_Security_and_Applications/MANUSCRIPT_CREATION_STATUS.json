@@ -4,7 +4,7 @@
   "experiment_id": "S9-RTSI-001",
   "target_journal": "Cyber Security and Applications",
   "working_article_type": "Research article",
-  "status": "MANUSCRIPT_CREATION_AUTHORIZED_INITIAL_DRAFT_CREATED",
+  "status": "MANUSCRIPT_EVIDENCE_NOVELTY_COMPILE_AND_LAYOUT_REVIEW_PASS",
   "manuscript_branch": "paper5/study9-csa-manuscript",
   "source_main_commit": "ced258fc3ba9513b34cf3b231abab1d2b3f2ca01",
   "scientific_source": {
@@ -40,5 +40,31 @@
     "highlight_max_characters": 85,
     "generative_ai_disclosure_required_when_applicable": true
   },
-  "next_gate": "MANUSCRIPT_EVIDENCE_NOVELTY_AND_COMPILE_REVIEW"
+  "next_gate": "MANUSCRIPT_REVIEW_CANDIDATE_PREPARATION",
+  "compile_validation": {
+    "validated_head": "3641546bc744563acebee7b930e90f2190a5d341",
+    "validator_sha256": "088f52b31e875a19ed986a6d33a975374ee7f729f7f5087d286c50a004a0d232",
+    "result": "PASS",
+    "compile_method": "latexmk",
+    "pdf_pages": 13,
+    "pdf_bytes": 204092,
+    "undefined_citations_or_references": 0,
+    "pre_refinement_overfull_hbox_count": 18,
+    "pre_refinement_underfull_hbox_count": 4
+  },
+  "evidence_novelty_audit": {
+    "path": "MANUSCRIPT_EVIDENCE_NOVELTY_AUDIT.md",
+    "audit_date": "2026-09-15",
+    "result": "PASS_WITH_NARROW_NOVELTY_BOUNDARY",
+    "universal_first_claim_authorized": false
+  },
+  "refinement_validation": {
+    "result": "PASS",
+    "pdf_pages": 14,
+    "pdf_bytes": 209615,
+    "overfull_hbox_count": 0,
+    "underfull_hbox_count": 4,
+    "max_overfull_pt": 0.0,
+    "undefined_citations_or_references": 0
+  }
 }

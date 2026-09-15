@@ -21,6 +21,7 @@ Manuscript development must not modify or reinterpret the frozen Study 9 result 
 - `CSA_HIGHLIGHTS.txt` - five candidate highlights, each within the journal's 85-character limit.
 - `AUTHOR_METADATA.md` - current author, affiliation, CRediT, funding, conflict, and AI-use metadata.
 - `MANUSCRIPT_CREATION_STATUS.json` - machine-readable manuscript governance state.
+- `MANUSCRIPT_EVIDENCE_NOVELTY_AUDIT.md` - claim-to-evidence and bounded-novelty audit.
 
 ## Frozen scientific anchors
 
@@ -60,13 +61,21 @@ The manuscript must not claim:
 - that attack labels are operational recovery truth;
 - that the three datasets represent all satellite-cybersecurity datasets.
 
+## Current manuscript validation state
+
+- Repository CI on manuscript head `3641546bc744563acebee7b930e90f2190a5d341`: PASS.
+- Read-only local manuscript validator r2 SHA-256: `088f52b31e875a19ed986a6d33a975374ee7f729f7f5087d286c50a004a0d232`.
+- LaTeX/BibTeX compile: PASS.
+- Undefined citations or references: 0.
+- Compiled PDF before layout refinement: 13 pages, 204,092 bytes.
+- Pre-refinement layout diagnostics: 18 overfull and 4 underfull hboxes.
+- Novelty framing: bounded; no universal “first” claim is authorized.
+
 ## Next manuscript-development tasks
 
-1. Independently verify every bibliography entry against the primary publication source.
-2. Perform a dedicated novelty and related-work audit before locking the introduction.
-3. Build publication-quality tables/figures directly from frozen outputs only.
-4. Compile the LaTeX source and resolve formatting issues.
-5. Run a claim-to-evidence audit against the frozen Study 9 artifacts.
-6. Lock a manuscript-review candidate before any submission-package work begins.
+1. Complete layout revalidation after the evidence/novelty refinement.
+2. Build publication-quality figures from frozen outputs only where they add information beyond the tables.
+3. Perform final language and claim-boundary review.
+4. Lock a manuscript-review candidate before any submission-package work begins.
 
 Submission remains a separate explicit authorization gate.

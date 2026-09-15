@@ -3,9 +3,10 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
-\usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{enumitem}
+
+\emergencystretch=2em
 
 \journal{Cyber Security and Applications}
 
@@ -49,21 +50,21 @@ The contribution is therefore not a new detector, a new dataset, or a claim of o
 
 \subsection{Public space-cybersecurity datasets and testbeds}
 
-CuCD-ID was designed as a labelled CubeSat cybersecurity dataset with raw and augmented telemetry derived from NOS3/cFS and COSMOS-oriented reproduction tooling \cite{fayyaz2026cucd}. Its raw population contains 25,000 records. AegisSat was developed as an open satellite cybersecurity testbed combining a physical CubeSat, environmental emulation, controlled attacks, and labelled telemetry from repeated experiments \cite{idan2025aegissat}. UNSW-IoTSAT extends the smart-satellite dataset landscape with a hybrid cyber-physical testbed and more than 404,000 labelled records containing satellite, sensor, communications, and RF-related features \cite{abdelhameed2026unsw}.
+CuCD-ID provides labelled CubeSat cybersecurity data generated in NOS3/cFS with COSMOS reproduction tooling \cite{fayyaz2026cucd}. Its raw population contains 25,000 records. AegisSat was developed as an open satellite cybersecurity testbed combining a physical CubeSat, environmental emulation, controlled attacks, and labelled telemetry from repeated experiments \cite{idan2025aegissat}. UNSW-IoTSAT extends the smart-satellite dataset landscape with a hybrid cyber-physical testbed and more than 404,000 labelled records containing satellite, sensor, communications, and RF-related features \cite{abdelhameed2026unsw}.
 
 These datasets were not created to instantiate the recovery-state interface evaluated here. Their inclusion therefore does not imply an expectation that they should contain every recovery variable. The purpose of the comparison is to measure semantic sufficiency under a fixed interface, not to grade dataset quality.
 
 \subsection{Cross-dataset transfer and harmonization}
 
-Cross-dataset generalization is a known challenge in machine-learning systems. WILDS formalized evaluation under naturally occurring distribution shifts and showed that in-distribution performance does not guarantee out-of-distribution robustness \cite{koh2021wilds}. In cybersecurity, cross-network evaluation similarly shows that intrusion-detection models can lose effectiveness when transferred to heterogeneous environments \cite{cerasuolo2026transfer}. Rule-based harmonization has also been proposed to transform heterogeneous IoT security datasets into more interoperable feature and label representations \cite{rodriguez2026harmonization}.
+Cross-dataset generalization is a known challenge in machine-learning systems. WILDS formalized evaluation under naturally occurring distribution shifts and showed that in-distribution performance does not guarantee out-of-distribution robustness \cite{koh2021wilds}. In cybersecurity, cross-network evaluation similarly shows that intrusion-detection models can lose effectiveness when transferred to heterogeneous environments \cite{cerasuolo2026transfer}. Rule-based harmonization has also been proposed to transform heterogeneous IoT security datasets into more interoperable feature and label representations \cite{rodriguez2026harmonization}. Cybersecurity ontology research likewise uses semantic interoperability to unify heterogeneous defensive knowledge sources \cite{akbar2023ontology}.
 
-Study 9 is deliberately narrower. It does not harmonize attack taxonomies or train a transferable model. It tests whether the native operational fields of each selected dataset semantically establish a preregistered recovery-state contract. Statistical correlation with a missing recovery variable is not treated as semantic observability.
+Study 9 is deliberately narrower. It does not harmonize attack taxonomies, propose semantic interoperability as a general concept, or train a transferable model. It tests whether the native operational fields of each selected dataset semantically establish a preregistered recovery-state contract. Statistical correlation with a missing recovery variable is not treated as semantic observability.
 
 \subsection{Intrusion response and cyber resilience}
 
-Intrusion-response systems add a decision layer after detection, selecting countermeasures or actions based on the state available to the response mechanism \cite{bashendy2023irs}. NIST cyber-resiliency guidance similarly frames recovery and adaptation as systems-engineering concerns that depend on trustworthy system state and risk-informed decisions \cite{ross2021cyberresilient}. These foundations motivate the central distinction in this paper: a dataset can be useful for intrusion detection while still omitting semantics that a recovery decision requires.
+Intrusion-response systems add a decision layer after detection, selecting countermeasures or actions based on the state available to the response mechanism \cite{bashendy2023irs}. NIST cyber-resiliency guidance similarly frames recovery and adaptation as systems-engineering concerns that depend on trustworthy system state and risk-informed decisions \cite{ross2021cyberresilient}. Space-specific guidance also treats response and recovery as explicit engineering functions: NIST IR 8441 applies the Cybersecurity Framework to hybrid satellite networks and emphasizes interfaces among independently operated segments while retaining Detect, Respond, and Recover functions \cite{mccarthy2023hsn}. These foundations motivate the central distinction in this paper: a dataset can be useful for intrusion detection while still omitting semantics that a recovery decision requires.
 
-The research gap addressed here is the conjunction of three elements: field-level semantic mapping across independently sourced public space-cyber datasets, exhaustive downstream action-identifiability analysis with missing state preserved as unknown, and minimal-sidecar derivation without using attack labels as operational truth.
+The contribution therefore does not rest on claiming that semantic interoperability, space-system cyber response, or recovery are individually new. The research gap addressed here is their narrower conjunction: field-level semantic mapping across independently sourced public space-cyber datasets, exhaustive downstream action-identifiability analysis with missing state preserved as unknown, and minimal-sidecar derivation without using attack labels as operational truth.
 
 \section{Study Design}
 
@@ -130,7 +131,14 @@ where $f_p$ is the frozen selector under policy $p$ and $C_d(g)$ is the set of a
 \]
 The row-level unique-action fraction is computed with exact multiplicity weighting after lossless state collapse.
 
-Four policies were frozen and evaluated separately: \texttt{S2\_B0\_FAIL\_CLOSED}, \texttt{S2\_B1\_FAIL\_OPERATIONAL}, \texttt{S2\_B2\_RISK\_THRESHOLD}, and \texttt{S2\_S1\_EVIDENCE\_AWARE}. Policy pooling or averaging is prohibited.
+Four policies were frozen and evaluated separately:
+\begin{itemize}[nosep,leftmargin=*]
+    \item \texttt{S2\_B0\_FAIL\_CLOSED},
+    \item \texttt{S2\_B1\_FAIL\_OPERATIONAL},
+    \item \texttt{S2\_B2\_RISK\_THRESHOLD}, and
+    \item \texttt{S2\_S1\_EVIDENCE\_AWARE}.
+\end{itemize}
+Policy pooling or averaging is prohibited.
 
 \subsection{Guaranteed minimal sidecar}
 
@@ -175,20 +183,21 @@ For all three datasets and all four policies, the unique-action fraction is 0. T
 
 \begin{table}[htbp]
 \centering
-\caption{Policy-level reachable actions and guaranteed minimal sidecar size.}
+\small
+\caption{Policy-level reachable actions and guaranteed minimal sidecar size. Human-readable action labels are used here; exact frozen action identifiers are retained in the canonical result artifacts.}
 \label{tab:policies}
-\begin{tabular}{p{0.24\linewidth}p{0.50\linewidth}c}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.56\linewidth}c}
 \toprule
 Policy & Reachable actions from native state & Sidecar size \\
 \midrule
-\texttt{S2\_B0\_FAIL\_CLOSED} &
-\texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION}; \texttt{PROCEED\_TO\_RECOVERY\_GATE} & 6 \\
-\texttt{S2\_B1\_FAIL\_OPERATIONAL} &
-\texttt{PRESERVE\_LIMITED\_OPERATION}; \texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION} & 7 \\
-\texttt{S2\_B2\_RISK\_THRESHOLD} &
-\texttt{HOLD\_AND\_REQUIRE\_EVIDENCE}; \texttt{PRESERVE\_LIMITED\_OPERATION}; \texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION} & 7 \\
-\texttt{S2\_S1\_EVIDENCE\_AWARE} &
-\texttt{HOLD\_AND\_REQUIRE\_EVIDENCE}; \texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION}; \texttt{PROCEED\_TO\_RECOVERY\_GATE} & 8 \\
+B0 fail-closed &
+Restrict and request authorization; proceed to recovery gate & 6 \\
+B1 fail-operational &
+Preserve limited operation; restrict and request authorization & 7 \\
+B2 risk-threshold &
+Hold and require evidence; preserve limited operation; restrict and request authorization & 7 \\
+S1 evidence-aware &
+Hold and require evidence; restrict and request authorization; proceed to recovery gate & 8 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -198,12 +207,16 @@ For the fail-closed policy, the guaranteed minimal sidecar contains six variable
 \subsection{Cross-dataset common missing semantics}
 
 The intersection of unresolved recovery state across the three datasets equals the entire required interface:
-\[
-\{\texttt{signature\_valid},\texttt{source\_trusted},\texttt{fresh},
-\texttt{epoch\_valid},\texttt{contradictory},
-\texttt{minimum\_evidence\_complete},\texttt{security\_signal},
-\texttt{authorization\_available}\}.
-\]
+\begin{itemize}[nosep,leftmargin=*]
+    \item \texttt{signature\_valid},
+    \item \texttt{source\_trusted},
+    \item \texttt{fresh},
+    \item \texttt{epoch\_valid},
+    \item \texttt{contradictory},
+    \item \texttt{minimum\_evidence\_complete},
+    \item \texttt{security\_signal}, and
+    \item \texttt{authorization\_available}.
+\end{itemize}
 No dataset-specific missing variable remains after taking this intersection because all eight are unresolved in all three datasets.
 
 \section{Discussion}
@@ -242,13 +255,9 @@ The result also does not establish that six to eight sidecar variables are unive
 
 The accepted Study 9 science is frozen in the public repository at
 \url{https://github.com/Zartharas/mission-aware-satellite-cyber-recovery}.
-The canonical run is stored under
-\texttt{study9/results/S9-RTSI-001\_CANONICAL\_RUN\_20260914/}.
-The immutable results-freeze SHA-256 is
-\texttt{0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2}.
-The Study 9 science was merged in repository commit
-\texttt{1dfdef4ec9a0336f4dccfa11baa4bda4c6cf7ed6}, and the post-merge governance closeout is recorded at
-\texttt{ced258fc3ba9513b34cf3b231abab1d2b3f2ca01}.
+The canonical run is identified as
+\texttt{S9-RTSI-001\_CANONICAL\_RUN\_20260914} under \texttt{study9/results/}.
+The immutable results-freeze record retains the complete SHA-256 identities of the accepted outputs. For concise manuscript traceability, the accepted science merge and governance-closeout commits begin with \texttt{1dfdef4ec9a0} and \texttt{ced258fc3ba9}, respectively; their complete identifiers remain in the repository governance records.
 
 The repository contains protocol, schema, mapping, code, tests, deterministic outputs, independent-audit outputs, and artifact identity records. Third-party raw dataset bytes are not redistributed in the repository; the verification records bind the analyzed public artifacts by source identity and cryptographic hash.
 
