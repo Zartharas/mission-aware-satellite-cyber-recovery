@@ -4,7 +4,7 @@
   "experiment_id": "S9-RTSI-001",
   "target_journal": "Cyber Security and Applications",
   "working_article_type": "Research article",
-  "status": "MANUSCRIPT_EVIDENCE_NOVELTY_COMPILE_AND_LAYOUT_REVIEW_PASS",
+  "status": "MANUSCRIPT_REVIEW_CANDIDATE_PREPARED_LOCAL_VALIDATION_PASS",
   "manuscript_branch": "paper5/study9-csa-manuscript",
   "source_main_commit": "ced258fc3ba9513b34cf3b231abab1d2b3f2ca01",
   "scientific_source": {
@@ -40,7 +40,7 @@
     "highlight_max_characters": 85,
     "generative_ai_disclosure_required_when_applicable": true
   },
-  "next_gate": "MANUSCRIPT_REVIEW_CANDIDATE_PREPARATION",
+  "next_gate": "MANUSCRIPT_REVIEW_CANDIDATE_FRESH_REPOSITORY_CI_AND_FINAL_REVIEW",
   "compile_validation": {
     "validated_head": "3641546bc744563acebee7b930e90f2190a5d341",
     "validator_sha256": "088f52b31e875a19ed986a6d33a975374ee7f729f7f5087d286c50a004a0d232",
@@ -66,5 +66,23 @@
     "underfull_hbox_count": 4,
     "max_overfull_pt": 0.0,
     "undefined_citations_or_references": 0
+  },
+  "review_candidate": {
+    "source_head": "eb06247620cb580c22f074f9b3d5ca5ff25d4fd8",
+    "source_repository_ci_run": 35001582521,
+    "source_repository_ci_result": "PASS",
+    "research_questions_exact_from_frozen_protocol": true,
+    "airss_prior_art_added": true,
+    "scientific_methods_changed": false,
+    "scientific_results_changed": false,
+    "submission_ready": false,
+    "local_validation": {
+      "result": "PASS",
+      "pdf_pages": 15,
+      "pdf_bytes": 214254,
+      "overfull_hbox_count": 0,
+      "underfull_hbox_count": 4,
+      "undefined_citations_or_references": 0
+    }
   }
 }

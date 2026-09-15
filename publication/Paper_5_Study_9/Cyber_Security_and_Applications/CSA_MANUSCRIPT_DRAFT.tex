@@ -46,6 +46,19 @@ The study was preregistered as S9-RTSI-001. Three public datasets were frozen be
 
 The contribution is therefore not a new detector, a new dataset, or a claim of operational spacecraft recovery. It is a reproducible semantic-interface analysis that (i) distinguishes field presence from recovery meaning, (ii) propagates unresolved semantics into downstream action identifiability, and (iii) computes the minimal additional sidecar state needed to remove decision ambiguity without imputing unavailable mission or trust semantics.
 
+\subsection{Research questions}
+
+The study follows four preregistered research questions:
+
+\begin{description}[leftmargin=1.15cm,labelwidth=0.95cm,style=nextline]
+    \item[RQ1] Across preregistered public space-cyber datasets, which recovery decision variables are directly observable, deterministically derivable by a predeclared rule, ambiguous, or absent without using attack labels as operational truth?
+    \item[RQ2] Conditioned only on qualifying dataset-native operationally visible state, when is the downstream recovery action uniquely identifiable versus ambiguous across admissible completions of missing decision state?
+    \item[RQ3] What minimal additional sidecar or interface state is sufficient to make the downstream recovery action uniquely identifiable without imputing unavailable mission, trust, freshness, epoch, contradiction, or authorization semantics?
+    \item[RQ4] Which missing recovery-state semantics are common across independently generated public space-cyber datasets and which are dataset-specific?
+\end{description}
+
+The Results section answers these questions in order through semantic coverage, policy-stratified action identifiability, guaranteed minimal sidecar state, and the cross-dataset common unresolved set.
+
 \section{Related Work and Research Gap}
 
 \subsection{Public space-cybersecurity datasets and testbeds}
@@ -62,7 +75,9 @@ Study 9 is deliberately narrower. It does not harmonize attack taxonomies, propo
 
 \subsection{Intrusion response and cyber resilience}
 
-Intrusion-response systems add a decision layer after detection, selecting countermeasures or actions based on the state available to the response mechanism \cite{bashendy2023irs}. NIST cyber-resiliency guidance similarly frames recovery and adaptation as systems-engineering concerns that depend on trustworthy system state and risk-informed decisions \cite{ross2021cyberresilient}. Space-specific guidance also treats response and recovery as explicit engineering functions: NIST IR 8441 applies the Cybersecurity Framework to hybrid satellite networks and emphasizes interfaces among independently operated segments while retaining Detect, Respond, and Recover functions \cite{mccarthy2023hsn}. These foundations motivate the central distinction in this paper: a dataset can be useful for intrusion detection while still omitting semantics that a recovery decision requires.
+Intrusion-response systems add a decision layer after detection, selecting countermeasures or actions based on the state available to the response mechanism \cite{bashendy2023irs}. NIST cyber-resiliency guidance similarly frames recovery and adaptation as systems-engineering concerns that depend on trustworthy system state and risk-informed decisions \cite{ross2021cyberresilient}. Space-specific guidance also treats response and recovery as explicit engineering functions: NIST IR 8441 applies the Cybersecurity Framework to hybrid satellite networks and emphasizes interfaces among independently operated segments while retaining Detect, Respond, and Recover functions \cite{mccarthy2023hsn}. Sandia's Adaptive Intrusion Response for Space Systems (AIRSS) work likewise addresses space-system cyber response by classifying cyberattacks and identifying mitigation responses in real time \cite{sahakian2021airss}.
+
+These foundations motivate the central distinction in this paper: response selection itself is not the contribution. AIRSS and related response work ask which mitigation should be selected once a threat state is available, whereas Study 9 asks whether independently produced public space-cyber datasets expose enough semantically valid recovery state for a fixed downstream recovery action to be identifiable without imputation.
 
 The contribution therefore does not rest on claiming that semantic interoperability, space-system cyber response, or recovery are individually new. The research gap addressed here is their narrower conjunction: field-level semantic mapping across independently sourced public space-cyber datasets, exhaustive downstream action-identifiability analysis with missing state preserved as unknown, and minimal-sidecar derivation without using attack labels as operational truth.
 
@@ -150,7 +165,7 @@ Primary reporting uses deterministic finite-population counts, fractions, set op
 
 \section{Results}
 
-\subsection{Recovery-state coverage}
+\subsection{Recovery-state coverage (RQ1)}
 
 Table~\ref{tab:coverage} summarizes the mapping classes. No dataset contains a variable classified as \texttt{DIRECT} or \texttt{DERIVABLE}. CuCD-ID has four ambiguous and four absent variables. AegisSat and UNSW-IoTSAT each have five ambiguous and three absent variables.
 
@@ -177,7 +192,7 @@ The mapping is not based on field-name absence alone. For example, source identi
 
 After semantic projection, all eight required variables remain unresolved for every row in each dataset. Therefore each source population forms a single decision-equivalent native-state group. This collapse is computationally lossless: multiplicities of 25,000, 137,965, and 404,798 are retained exactly and used in all row-level denominators. It is not sampling, deduplication, or row exclusion.
 
-\subsection{Policy-stratified action identifiability}
+\subsection{Policy-stratified action identifiability (RQ2)}
 
 For all three datasets and all four policies, the unique-action fraction is 0. Table~\ref{tab:policies} reports the reachable action sets and guaranteed sidecar cardinalities. Because every dataset projects to the same unresolved eight-variable interface, the policy-level action sets are identical across datasets; only the source-row multiplicities differ.
 
@@ -204,7 +219,11 @@ Hold and require evidence; restrict and request authorization; proceed to recove
 
 For the fail-closed policy, the guaranteed minimal sidecar contains six variables: signature validity, source trust, freshness, epoch validity, contradiction state, and minimum evidence completeness. The fail-operational and risk-threshold policies additionally require the security signal, giving seven variables. The evidence-aware policy requires all eight variables, including authorization availability.
 
-\subsection{Cross-dataset common missing semantics}
+\subsection{Guaranteed minimal sidecar state (RQ3)}
+
+The exact guaranteed minimum is policy-dependent rather than dataset-dependent because all three datasets project to the same unresolved eight-variable recovery interface. The minimum cardinalities are 6 for B0 fail-closed, 7 for B1 fail-operational, 7 for B2 risk-threshold, and 8 for S1 evidence-aware. These values answer RQ3 under the frozen selector and do not imply that the same number of variables is universally required by other recovery architectures.
+
+\subsection{Cross-dataset common missing semantics (RQ4)}
 
 The intersection of unresolved recovery state across the three datasets equals the entire required interface:
 \begin{itemize}[nosep,leftmargin=*]

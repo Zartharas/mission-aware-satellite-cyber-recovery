@@ -71,11 +71,17 @@ The manuscript must not claim:
 - Pre-refinement layout diagnostics: 18 overfull and 4 underfull hboxes.
 - Novelty framing: bounded; no universal “first” claim is authorized.
 
+## Review-candidate preparation
+
+The review-candidate pass adds explicit traceability to all four frozen Study 9 research questions and cites AIRSS as prior space-system response-selection work. These changes refine manuscript positioning only; they do not alter Study 9 methods, results, frozen artifacts, or scientific claims.
+
+The candidate remains a draft PR until fresh CI and final manuscript review are complete.
+
 ## Next manuscript-development tasks
 
-1. Complete layout revalidation after the evidence/novelty refinement.
-2. Build publication-quality figures from frozen outputs only where they add information beyond the tables.
-3. Perform final language and claim-boundary review.
-4. Lock a manuscript-review candidate before any submission-package work begins.
+1. Validate the review-candidate commit with fresh repository CI.
+2. Perform final human review of the compiled manuscript and claim boundaries.
+3. Decide separately whether to authorize manuscript merge.
+4. Keep submission-package creation and publisher submission closed until separately authorized.
 
 Submission remains a separate explicit authorization gate.

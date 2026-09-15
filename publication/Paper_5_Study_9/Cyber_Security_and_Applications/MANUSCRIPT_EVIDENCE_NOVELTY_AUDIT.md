@@ -33,7 +33,7 @@ This publication-development audit checks manuscript claims against frozen Study
 - Bashendy et al. survey intrusion-response systems for cyber-physical systems.
 - NIST SP 800-160 Vol. 2 Rev. 1 already frames cyber resilience around recovery and adaptation.
 - NIST IR 8441 already applies Detect, Respond, and Recover concepts to hybrid satellite networks and emphasizes interfaces among independently operated segments.
-- Sandia AIRSS work, including `SAND2021-11864`, already develops space-system cyberattack classification and mitigation-response selection.
+- Sandia AIRSS work (`SAND2021-11864`) already develops real-time space-system cyberattack classification and mitigation-response selection; it is cited directly in the manuscript as prior response-selection work.
 
 Paper 5 therefore does not claim novelty for datasets, cross-dataset evaluation, semantic interoperability, intrusion response, cyber recovery, space cyber resilience, or response selection individually.
 
@@ -46,6 +46,15 @@ The reviewed literature did not identify a source combining all of those element
 ## Prohibited novelty language
 
 The manuscript must not claim to be the first satellite cybersecurity dataset study, first cross-dataset cybersecurity study, first semantic-interoperability framework, first intrusion-response/recovery framework, first space-system cyber-response mechanism, or first demonstration that missing information can affect security decisions.
+
+## Preregistered RQ traceability
+
+- **RQ1** maps to `Recovery-state coverage (RQ1)`.
+- **RQ2** maps to `Policy-stratified action identifiability (RQ2)`.
+- **RQ3** maps to `Guaranteed minimal sidecar state (RQ3)`.
+- **RQ4** maps to `Cross-dataset common missing semantics (RQ4)`.
+
+The manuscript uses the exact four RQ texts from `study9/STUDY9_PROTOCOL.json`; no research question was added, removed, or reworded for venue fit.
 
 ## Claim-boundary outcome
 
