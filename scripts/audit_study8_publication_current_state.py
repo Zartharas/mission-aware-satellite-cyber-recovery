@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Fail-closed audit for the current Study-8 publication and submitted state.
 
-Historical Study-8 technical-close, source-publication freeze, and Acta package-freeze
-artifacts retain their stage-local wording. This checker verifies that those frozen
-records remain intact while the repository's live current-state surfaces correctly
-record the later Acta Astronautica submission.
+Historical Study-8 technical-close, source-publication freeze, and Acta
+package-freeze artifacts retain their stage-local wording. This checker binds
+those frozen records and submitted publisher bytes while validating the live
+2026-09-13 repository publication state.
 
-The checker never executes scientific analysis and never modifies frozen evidence,
-statistics, or publisher-facing files.
+The checker never executes scientific analysis and never modifies frozen
+evidence, statistics, or publisher-facing files.
 """
 
 from __future__ import annotations
@@ -36,8 +36,13 @@ SOURCE_MANUSCRIPT_SHA = "efbe78c43c44cde057637fc1744746d0ab4da8aed71e30d709aedd7
 ACTA_MANUSCRIPT_ID = "AA-D-26-02872"
 ACTA_SUBMISSION_DATE = "2026-09-06"
 ACTA_CURRENT_STATUS = "With Editor"
+ACTA_CURRENT_NORMALIZED_STATUS = "WITH_EDITOR"
 ACTA_PACKAGE_FREEZE_ID = "S8-ACTA-PKGFREEZE-002"
 ACTA_SUBMITTED_PACKAGE_COMMIT = "f5e9a1d4553737e534821bf647463abfd44fa0dd"
+
+PAPER1_ID = "2026-09-I012066"
+PAPER2_ID = "cd1dfa89-4a24-4451-bdd4-af31ce3367f4"
+PAPER3_ID = "6db04a31-8223-4aaf-af02-e4bafe06ef89"
 
 EXPECTED_SUBMITTED_FILES = {
     "ACTA_ASTRONAUTICA_MANUSCRIPT.docx": "ef551a52c2df65c1db68fa6188b22bf216e10aefdc6b7e8d0de00e3fb95d7411",
@@ -50,10 +55,14 @@ EXPECTED_SUBMITTED_FILES = {
 CURRENT_DOCS = {
     "docs/CURRENT_PUBLICATION_STATE.md": {
         "required": (
+            "**Current-state date:** 2026-09-13",
+            "four submitted publication lines",
             ACTA_MANUSCRIPT_ID,
-            ACTA_CURRENT_STATUS,
-            "Paper 2: Studies 3 + 4 + 6",
-            "2026-09-I012066",
+            ACTA_CURRENT_NORMALIZED_STATUS,
+            PAPER1_ID,
+            PAPER2_ID,
+            PAPER3_ID,
+            "read-only candidate audit",
         ),
         "forbidden": (
             "publisher submission and portal action remain separately gated",
@@ -62,10 +71,14 @@ CURRENT_DOCS = {
     },
     "docs/PUBLICATION_PHASE_MAP.md": {
         "required": (
+            "**Current-state reference:** 2026-09-13",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
-            "NEXT ACTIVE DEVELOPMENT PRIORITY",
-            "Studies 3 + 4 + 6",
+            PAPER2_ID,
+            PAPER3_ID,
+            "PHASE 5 - NEXT ACTIVE GATE",
+            "REMAINING-CANDIDATE AUDIT",
+            "READ_ONLY_CANDIDATE_SELECTION_REQUIRED",
         ),
         "forbidden": (
             "publisher submission and portal action remain separately gated",
@@ -74,14 +87,18 @@ CURRENT_DOCS = {
     },
     "publication/README.md": {
         "required": (
+            "four submitted publication lines",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
-            "Next publication-development priority",
-            "S8-ACTA-PKGFREEZE-002",
+            PAPER1_ID,
+            PAPER2_ID,
+            PAPER3_ID,
+            "read-only audit over the remaining eligible work",
         ),
         "forbidden": (
             "Publisher submission and Editorial Manager actions remain later explicit authorization gates",
             "Scientific reexecution, statistical reanalysis, publisher submission, and publisher-portal action are not authorized",
+            "Next publication-development priority",
         ),
     },
     "study8/README.md": {
@@ -89,7 +106,7 @@ CURRENT_DOCS = {
             SOURCE_STATUS,
             ACTA_MANUSCRIPT_ID,
             "ACTA_SUBMITTED__WITH_EDITOR",
-            "Studies 3 + 4 + 6 synthesis",
+            ACTA_PACKAGE_FREEZE_ID,
         ),
         "forbidden": (
             "The next Study-8 work is **venue-specific submission-package preparation**",
@@ -100,7 +117,7 @@ CURRENT_DOCS = {
             SOURCE_STATUS,
             ACTA_MANUSCRIPT_ID,
             "ACTA_SUBMITTED__WITH_EDITOR",
-            "Studies 3 + 4 + 6 synthesis",
+            ACTA_PACKAGE_FREEZE_ID,
         ),
         "forbidden": (
             "The next gate is **venue-specific submission-package preparation**",
@@ -122,11 +139,11 @@ def read(rel: str) -> str:
 
 
 def sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
-            h.update(chunk)
-    return h.hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def check_source_freeze() -> None:
@@ -174,7 +191,8 @@ def check_source_freeze() -> None:
         if gates.get(key) is not False:
             fail(f"historical source-package gate unexpectedly changed: {key}")
 
-    manifest = json.loads((ROOT / "publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json").read_text(encoding="utf-8"))
+    manifest_path = ROOT / "publication/study8/PUBLICATION_PACKAGE_FREEZE_MANIFEST.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     frozen_files = manifest.get("frozen_files", {})
     if len(frozen_files) != 11:
         fail(f"expected 11 hash-frozen source publication artifacts, found {len(frozen_files)}")
@@ -213,9 +231,12 @@ def check_acta_submission() -> None:
         "frozen_science_modified": False,
         "publisher_facing_files_modified_after_submission": False,
     }
-    for key, value in expected.items():
-        if status.get(key) != value:
-            fail(f"Acta submitted-state {key} drift: {status.get(key)!r} != {value!r}")
+    for key, expected_value in expected.items():
+        if status.get(key) != expected_value:
+            fail(
+                f"Acta submitted-state {key} drift: "
+                f"{status.get(key)!r} != {expected_value!r}"
+            )
 
     recorded_hashes = status.get("submitted_files_sha256", {})
     if recorded_hashes != EXPECTED_SUBMITTED_FILES:
@@ -227,7 +248,10 @@ def check_acta_submission() -> None:
             fail(f"missing submitted publisher-facing file: {name}")
         actual_hash = sha256(path)
         if actual_hash != expected_hash:
-            fail(f"submitted publisher-facing hash drift for {name}: {actual_hash} != {expected_hash}")
+            fail(
+                f"submitted publisher-facing hash drift for {name}: "
+                f"{actual_hash} != {expected_hash}"
+            )
         print(f"[OK] Acta submitted file hash: {name}")
 
     for required in (
@@ -263,6 +287,9 @@ def main() -> int:
     print(f"acta_manuscript_id={ACTA_MANUSCRIPT_ID}")
     print(f"acta_submission_date={ACTA_SUBMISSION_DATE}")
     print(f"acta_current_status={ACTA_CURRENT_STATUS}")
+    print(f"acta_current_normalized_status={ACTA_CURRENT_NORMALIZED_STATUS}")
+    print("publication_portfolio_state=FOUR_SUBMITTED_LINES")
+    print("next_publication_gate=READ_ONLY_CANDIDATE_SELECTION_REQUIRED")
     print("acta_submission_completed=true")
     print("scientific_reexecution_performed=false")
     print("statistical_reanalysis_performed=false")
