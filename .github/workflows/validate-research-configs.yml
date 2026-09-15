@@ -42,7 +42,7 @@ jobs:
           printf 'a,b\n1\n' > local-audit-scope-probe/untracked.csv
           printf '# FIXME local untracked marker\n' > local-audit-scope-probe/untracked.py
           trap 'rm -rf .venv-analysis/audit-scope-probe local-audit-scope-probe' EXIT
-          python scripts/audit_repository_release_gate.py
+          python scripts/audit_repository_release_gate_v4.py
 
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
