@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "record_type": "POST_DEVIATION_VALIDATOR_ALIGNMENT",
+  "record_date": "2026-09-15",
+  "status": "VALIDATOR_ALIGNMENT_RECORDED_FULL_SUITE_REQUIRED_BEFORE_CANONICAL_RERUN",
+  "authorization": {
+    "explicit_author_authorization": true,
+    "authorization_date": "2026-09-15",
+    "scope": "seven-file post-deviation validator-alignment correction"
+  },
+  "basis": {
+    "base_head": "2f6434e8a84f69b001ad8072f3a03a92afb9a8b8",
+    "observed_validation_failure": "study9_semantic.contracts.ContractViolation: manifest/semantic mapping drift for UNSW_IOTSAT_2026:security_signal",
+    "validation_return_code": 1,
+    "canonical_result_directory_absent": true,
+    "repository_spillover": 0,
+    "real_dataset_rows_opened_by_this_validation_attempt": false,
+    "prior_failed_canonical_execution_is_separately_preserved_in": "study9/PROTOCOL_DEVIATION_UNSW_POSITION_ANOMALY_DOMAIN_20260915.json"
+  },
+  "static_root_cause_findings": [
+    {
+      "finding_id": "PDVA-01",
+      "classification": "CROSS_RECORD_TEXT_DRIFT",
+      "detail": "DATASET_SCHEMA_MANIFEST.json and SEMANTIC_ADJUDICATION_FREEZE.json used different claim_boundary text for the prospectively ambiguous UNSW security_signal mapping."
+    },
+    {
+      "finding_id": "PDVA-02",
+      "classification": "STALE_VALIDATOR_INVARIANT",
+      "detail": "contracts.py still required the historical single DIRECT UNSW security_signal mapping even though the prospective semantic deviation reclassified it to AMBIGUOUS."
+    },
+    {
+      "finding_id": "PDVA-03",
+      "classification": "STALE_EXECUTION_PHASE_TESTS",
+      "detail": "Contract and canonical-runner tests still asserted the pre-authorization closed execution phase after the repository had atomically transitioned to the authorized open phase."
+    },
+    {
+      "finding_id": "PDVA-04",
+      "classification": "STALE_UNSW_GROUPING_TEST",
+      "detail": "The UNSW state-group test still expected Position_Anomaly to create known false/true security_signal groups instead of one all-unresolved semantic state under the prospective deviation."
+    }
+  ],
+  "authorized_scope_files": [
+    "study9/DATASET_SCHEMA_MANIFEST.json",
+    "study9/src/study9_semantic/contracts.py",
+    "study9/tests/test_contracts.py",
+    "study9/tests/test_canonical_runner.py",
+    "study9/tests/test_state_groups.py",
+    "study9/POST_DEVIATION_VALIDATOR_ALIGNMENT_20260915.json",
+    "study9/STUDY9_PROTOCOL.json"
+  ],
+  "change_boundary": {
+    "frozen_computational_file_count": 12,
+    "frozen_computational_files_changed": false,
+    "canonical_run_code_freeze_changed": false,
+    "study2_selector_changed": false,
+    "primary_population_changed": false,
+    "policy_scope_changed": false,
+    "endpoint_definition_changed": false,
+    "dataset_artifacts_changed": false,
+    "semantic_disposition_changed": false,
+    "manifest_claim_boundary_text_aligned_only": true,
+    "contracts_validator_alignment_only": true,
+    "tests_aligned_to_current_governance_and_semantics": true
+  },
+  "required_validation_before_canonical_rerun": {
+    "json_parse_all_changed_json": true,
+    "python_syntax_compile_changed_python": true,
+    "load_frozen_contracts_must_pass": true,
+    "full_study9_test_suite_must_pass": true,
+    "canonical_run_frozen_byte_audit_must_pass_12_of_12": true,
+    "working_tree_must_be_clean": true,
+    "canonical_result_directory_must_remain_absent_before_rerun": true
+  },
+  "execution_boundary": {
+    "canonical_execution_rerun_performed": false,
+    "results_created": false,
+    "dataset_bytes_ingested_into_repository": false,
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false
+  }
+}

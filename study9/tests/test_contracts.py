@@ -27,11 +27,13 @@ from study9_semantic.contracts import (
     GUARANTEED_SIDECAR_DEFINITION_ID,
     IMPLEMENTATION_EXECUTION_FLAGS,
     OPEN_PROTOCOL_STATUS,
+    POST_DEVIATION_VALIDATOR_ALIGNMENT_PATH,
     PRE_REAL_DATA_AUDIT_STATUS,
     PRIMARY_POLICY_VALUES,
     REQUIRED_VARIABLES,
     RUN_IDENTITY_BASE_PATHS,
     STATE_COLLAPSE_RULE_ID,
+    UNSW_SEMANTIC_DEVIATION_PATH,
     load_frozen_contracts,
     sha256_file,
     validate_contracts,
@@ -39,21 +41,21 @@ from study9_semantic.contracts import (
 
 
 class ContractTests(unittest.TestCase):
-    def test_repository_contracts_fail_closed_and_load(self):
+    def test_repository_contracts_open_execution_and_load(self):
         contracts = load_frozen_contracts(ROOT)
         self.assertEqual(tuple(contracts.protocol["primary_population_freeze"]["members"]), FROZEN_DATASET_IDS)
         self.assertEqual(tuple(contracts.semantic["target_semantics"]), REQUIRED_VARIABLES)
         self.assertTrue(all(row["schema_locked"] for row in contracts.manifest["datasets"]))
         self.assertEqual(contracts.semantic["permitted_deterministic_derivation_rules"], [])
-        self.assertFalse(contracts.protocol["authorization"]["row_level_analysis_authorized"])
-        self.assertFalse(contracts.protocol["authorization"]["canonical_execution_authorized"])
-        self.assertFalse(contracts.protocol["authorization"]["dataset_ingestion_authorized"])
-        self.assertEqual(contracts.protocol["status"], CLOSED_PROTOCOL_STATUS)
+        self.assertTrue(contracts.protocol["authorization"]["row_level_analysis_authorized"])
+        self.assertTrue(contracts.protocol["authorization"]["canonical_execution_authorized"])
+        self.assertTrue(contracts.protocol["authorization"]["dataset_ingestion_authorized"])
+        self.assertEqual(contracts.protocol["status"], OPEN_PROTOCOL_STATUS)
 
     def test_tampered_contract_is_rejected(self):
         contracts = load_frozen_contracts(ROOT)
         tampered = copy.deepcopy(contracts)
-        tampered.protocol["authorization"]["row_level_analysis_authorized"] = True
+        tampered.protocol["authorization"]["row_level_analysis_authorized"] = False
         with self.assertRaises(ContractViolation):
             validate_contracts(tampered)
 
@@ -235,24 +237,73 @@ class ContractTests(unittest.TestCase):
                 validate_contracts(contracts)
         self.assertIn("byte-size drift", str(caught.exception))
 
-    def test_partial_future_execution_transition_is_rejected(self):
+    def test_partial_execution_transition_is_rejected(self):
         contracts = load_frozen_contracts(ROOT)
         tampered = copy.deepcopy(contracts)
-        tampered.protocol["authorization"][CANONICAL_EXECUTION_AUTHORIZATION_FLAGS[0]] = True
+        tampered.protocol["authorization"][CANONICAL_EXECUTION_AUTHORIZATION_FLAGS[0]] = False
         with self.assertRaises(ContractViolation):
             validate_contracts(tampered)
 
-    def test_coherent_future_open_state_accepts_existing_code_freeze(self):
+    def test_coherent_closed_state_accepts_existing_code_freeze(self):
         contracts = load_frozen_contracts(ROOT)
-        future = copy.deepcopy(contracts)
-        future.protocol["status"] = OPEN_PROTOCOL_STATUS
+        closed = copy.deepcopy(contracts)
+        closed.protocol["status"] = CLOSED_PROTOCOL_STATUS
         for flag in CANONICAL_EXECUTION_AUTHORIZATION_FLAGS:
-            future.protocol["authorization"][flag] = True
+            closed.protocol["authorization"][flag] = False
         for flag in IMPLEMENTATION_EXECUTION_FLAGS:
-            future.protocol["implementation_phase"][flag] = True
-        future.protocol["implementation_phase"]["synthetic_only"] = False
-        future.protocol["implementation_phase"]["loader_runner_synthetic_test_only"] = False
-        validate_contracts(future)
+            closed.protocol["implementation_phase"][flag] = False
+        closed.protocol["implementation_phase"]["synthetic_only"] = True
+        closed.protocol["implementation_phase"]["loader_runner_synthetic_test_only"] = True
+        validate_contracts(closed)
+
+    def test_unsw_semantic_deviation_is_bound_and_zero_direct(self):
+        contracts = load_frozen_contracts(ROOT)
+        binding = contracts.protocol["prospective_semantic_deviation"]
+        self.assertEqual(binding["record"], UNSW_SEMANTIC_DEVIATION_PATH)
+        self.assertEqual(binding["prospective_mapping_class"], "AMBIGUOUS")
+        direct = [
+            (dataset["dataset_id"], row["recovery_state_variable"])
+            for dataset in contracts.semantic["dataset_contracts"]
+            for row in dataset["variable_contracts"]
+            if row["frozen_mapping_class"] == "DIRECT"
+        ]
+        self.assertEqual(direct, [])
+        unsw = next(
+            row for row in contracts.semantic["dataset_contracts"]
+            if row["dataset_id"] == "UNSW_IOTSAT_2026"
+        )
+        security_signal = next(
+            row for row in unsw["variable_contracts"]
+            if row["recovery_state_variable"] == "security_signal"
+        )
+        self.assertEqual(security_signal["frozen_mapping_class"], "AMBIGUOUS")
+        self.assertEqual(security_signal["native_field_names"], ["Position_Anomaly"])
+        self.assertNotIn("value_rule", security_signal)
+        state = contracts.execution_design["primary_state_construction"]
+        self.assertEqual(state["active_unsw_security_signal_mapping_class"], "AMBIGUOUS")
+        self.assertEqual(
+            state["unsw_position_anomaly_normalization_status"],
+            "HISTORICAL_SUPERSEDED_NON_OPERATIVE_BY_PROSPECTIVE_SEMANTIC_DEVIATION",
+        )
+
+    def test_unsw_semantic_deviation_tamper_is_rejected(self):
+        contracts = load_frozen_contracts(ROOT)
+        tampered = copy.deepcopy(contracts)
+        tampered.execution_design["primary_state_construction"][
+            "active_unsw_security_signal_mapping_class"
+        ] = "DIRECT"
+        with self.assertRaises(ContractViolation):
+            validate_contracts(tampered)
+
+    def test_post_deviation_validator_alignment_is_bound(self):
+        contracts = load_frozen_contracts(ROOT)
+        binding = contracts.protocol["post_deviation_validator_alignment"]
+        self.assertEqual(binding["record"], POST_DEVIATION_VALIDATOR_ALIGNMENT_PATH)
+        self.assertEqual(binding["basis_head"], "2f6434e8a84f69b001ad8072f3a03a92afb9a8b8")
+        self.assertTrue(binding["full_study9_suite_required_before_canonical_rerun"])
+        self.assertFalse(binding["frozen_computational_files_changed"])
+        self.assertFalse(binding["canonical_execution_rerun_performed"])
+        self.assertFalse(binding["results_created"])
 
 
 if __name__ == "__main__":

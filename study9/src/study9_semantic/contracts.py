@@ -62,7 +62,7 @@ OPEN_PROTOCOL_STATUS = (
     "PRIMARY_POPULATION_AND_SEMANTIC_ADJUDICATION_AND_POLICY_SCOPE_AND_"
     "EXECUTION_DESIGN_FROZEN_CANONICAL_EXECUTION_AUTHORIZED"
 )
-PROTOCOL_STATUS = CLOSED_PROTOCOL_STATUS
+PROTOCOL_STATUS = OPEN_PROTOCOL_STATUS
 EXECUTION_DESIGN_STATUS = "CANONICAL_EXECUTION_DESIGN_FROZEN_NO_ROW_ANALYSIS"
 PRE_REAL_DATA_AUDIT_STATUS = (
     "PRE_REAL_DATA_ADVERSARIAL_AUDIT_FROZEN_REMEDIATION_REQUIRED_NO_REAL_DATA"
@@ -124,6 +124,12 @@ CODE_FREEZE_COMPUTATIONAL_PATHS = (
 )
 CANONICAL_RUN_TESTED_COMMIT = "039bca319987ceebdba52f080fb0f87b1d4e67ed"
 CANONICAL_RUN_CODE_FREEZE_PATH = "study9/CANONICAL_RUN_CODE_FREEZE.json"
+UNSW_SEMANTIC_DEVIATION_PATH = (
+    "study9/PROTOCOL_DEVIATION_UNSW_POSITION_ANOMALY_DOMAIN_20260915.json"
+)
+POST_DEVIATION_VALIDATOR_ALIGNMENT_PATH = (
+    "study9/POST_DEVIATION_VALIDATOR_ALIGNMENT_20260915.json"
+)
 
 CANONICAL_EXECUTION_AUTHORIZATION_FLAGS = (
     "dataset_ingestion_authorized",
@@ -456,6 +462,12 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
         raise ContractViolation("invalid direct value must fail closed")
     if state.get("unsw_position_anomaly_normalization") != "0 -> false; 1 -> true":
         raise ContractViolation("UNSW Position_Anomaly normalization drift")
+    if state.get("unsw_position_anomaly_normalization_status") != (
+        "HISTORICAL_SUPERSEDED_NON_OPERATIVE_BY_PROSPECTIVE_SEMANTIC_DEVIATION"
+    ):
+        raise ContractViolation("UNSW historical normalization status drift")
+    if state.get("active_unsw_security_signal_mapping_class") != "AMBIGUOUS":
+        raise ContractViolation("UNSW active security_signal mapping must remain AMBIGUOUS")
 
     collapse = execution_design.get("lossless_state_collapse", {})
     if collapse.get("rule_id") != STATE_COLLAPSE_RULE_ID:
@@ -586,6 +598,394 @@ def _validate_execution_design(contracts: FrozenContracts) -> None:
     ):
         if protocol_design.get(key) is not False:
             raise ContractViolation(f"protocol execution-design boundary violated: {key}")
+
+
+def _validate_unsw_semantic_deviation(contracts: FrozenContracts) -> None:
+    protocol = contracts.protocol
+    semantic = contracts.semantic
+    execution_design = contracts.execution_design
+    manifest = contracts.manifest
+
+    binding = protocol.get("prospective_semantic_deviation", {})
+    expected_binding = {
+        "deviation_id": "S9-RTSI-001-DEV-UNSW-POSITION-ANOMALY-DOMAIN-20260915",
+        "record": UNSW_SEMANTIC_DEVIATION_PATH,
+        "classification": "SOURCE_FIELD_DOMAIN_DEFECT_DIRECT_TO_AMBIGUOUS_NO_REPAIR",
+        "dataset_id": "UNSW_IOTSAT_2026",
+        "recovery_state_variable": "security_signal",
+        "native_field": "Position_Anomaly",
+        "prior_mapping_class": "DIRECT",
+        "prospective_mapping_class": "AMBIGUOUS",
+        "canonical_population_rows": 404798,
+        "binary_rows": 404726,
+        "nonbinary_rows": 72,
+    }
+    for key, value in expected_binding.items():
+        if binding.get(key) != value:
+            raise ContractViolation(f"UNSW semantic-deviation protocol binding mismatch: {key}")
+    expected_sha = binding.get("record_sha256")
+    if not isinstance(expected_sha, str) or len(expected_sha) != 64:
+        raise ContractViolation("UNSW semantic-deviation record SHA-256 missing")
+    record_path = contracts.repo_root / UNSW_SEMANTIC_DEVIATION_PATH
+    if sha256_file(record_path) != expected_sha:
+        raise ContractViolation("UNSW semantic-deviation record SHA-256 mismatch")
+    record = _load_json(record_path)
+    if record.get("study_id") != STUDY_ID:
+        raise ContractViolation("UNSW semantic-deviation study id mismatch")
+    if record.get("record_type") != "PROSPECTIVE_PROTOCOL_DEVIATION":
+        raise ContractViolation("UNSW semantic-deviation record type mismatch")
+    if record.get("deviation_id") != expected_binding["deviation_id"]:
+        raise ContractViolation("UNSW semantic-deviation id mismatch")
+    if record.get("classification") != expected_binding["classification"]:
+        raise ContractViolation("UNSW semantic-deviation classification mismatch")
+    if record.get("status") != "PROSPECTIVE_SEMANTIC_RECLASSIFICATION_BEFORE_PERSISTED_CANONICAL_RESULTS":
+        raise ContractViolation("UNSW semantic-deviation status mismatch")
+
+    trigger = record.get("trigger", {})
+    if trigger.get("canonical_execution_completed") is not False:
+        raise ContractViolation("UNSW semantic deviation must precede completed canonical execution")
+    if trigger.get("result_artifacts_written") is not False:
+        raise ContractViolation("UNSW semantic deviation must precede persisted result artifacts")
+    if trigger.get("results_directory_created") is not False:
+        raise ContractViolation("UNSW semantic deviation must precede result-directory creation")
+
+    audit = record.get("unsw_iotsat_2026_population_audit", {})
+    audit_expected = {
+        "canonical_artifact_sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+        "row_count": 404798,
+        "column_count": 49,
+        "field": "Position_Anomaly",
+        "binary_zero_count": 404720,
+        "binary_one_count": 6,
+        "binary_count": 404726,
+        "numeric_nonbinary_count": 71,
+        "nonnumeric_count": 1,
+        "empty_count": 0,
+        "nonbinary_total": 72,
+        "audit_result": "POSITION_ANOMALY_FULL_DOMAIN_FAIL",
+    }
+    for key, value in audit_expected.items():
+        if audit.get(key) != value:
+            raise ContractViolation(f"UNSW semantic-deviation population-audit mismatch: {key}")
+    if audit.get("repository_write_performed_by_audit") is not False:
+        raise ContractViolation("UNSW domain audit must not have written repository data")
+    if audit.get("result_artifacts_created_by_audit") is not False:
+        raise ContractViolation("UNSW domain audit must not have created result artifacts")
+
+    disposition = record.get("scientific_disposition", {})
+    disposition_expected = {
+        "dataset_id": "UNSW_IOTSAT_2026",
+        "recovery_state_variable": "security_signal",
+        "native_field_retained_as_relevant_evidence": "Position_Anomaly",
+        "prior_mapping_class": "DIRECT",
+        "prospective_mapping_class": "AMBIGUOUS",
+    }
+    for key, value in disposition_expected.items():
+        if disposition.get(key) != value:
+            raise ContractViolation(f"UNSW semantic-deviation disposition mismatch: {key}")
+    if disposition.get("apply_ambiguity_to_entire_finite_population") is not True:
+        raise ContractViolation("UNSW ambiguity must apply to the entire finite population")
+    for key in (
+        "selective_salvage_of_apparently_binary_rows",
+        "dataset_population_membership_changed",
+        "dataset_artifact_changed",
+        "dataset_substitution",
+        "derivation_rule_added",
+    ):
+        if disposition.get(key) is not False:
+            raise ContractViolation(f"UNSW semantic-deviation disposition boundary violated: {key}")
+
+    prohibited = record.get("prohibited_remediations", {})
+    for key in (
+        "drop_domain_violating_rows",
+        "coerce_nonzero_to_true",
+        "derive_from_Speed_ms",
+        "realign_from_neighboring_columns",
+        "substitute_Attack_Flag_or_other_attack_labels",
+        "use_label_conditioned_CCSDS_companion_as_operational_state",
+        "use_engineered_companion_as_primary_operational_state",
+        "selectively_salvage_only_binary_Position_Anomaly_rows",
+        "impute_missing_or_ambiguous_state",
+    ):
+        if prohibited.get(key) is not False:
+            raise ContractViolation(f"UNSW prohibited remediation became permitted: {key}")
+
+    boundary = record.get("execution_boundary_at_correction", {})
+    if boundary.get("canonical_execution_completed") is not False:
+        raise ContractViolation("UNSW correction boundary cannot record completed canonical execution")
+    if boundary.get("persisted_canonical_result_artifacts") != 0:
+        raise ContractViolation("UNSW correction boundary must record zero persisted canonical artifacts")
+    if boundary.get("results_directory_created") is not False:
+        raise ContractViolation("UNSW correction boundary must record no result directory")
+    if boundary.get("persisted_study9_endpoints") is not False:
+        raise ContractViolation("UNSW correction boundary must record no persisted endpoints")
+    if boundary.get("dataset_bytes_ingested_into_repository") is not False:
+        raise ContractViolation("UNSW correction boundary must keep dataset bytes outside repository")
+
+    change = record.get("change_boundary", {})
+    if change.get("semantic_mapping_changed_prospectively") is not True:
+        raise ContractViolation("UNSW deviation must record prospective semantic reclassification")
+    if change.get("real_execution_authorization_remains_open_after_validation") is not True:
+        raise ContractViolation("UNSW deviation must preserve execution authorization after validation")
+    for key in (
+        "computational_runtime_changed",
+        "canonical_run_code_freeze_changed",
+        "study2_selector_changed",
+        "primary_population_changed",
+        "policy_scope_changed",
+        "endpoint_definition_changed",
+        "sidecar_definition_changed",
+        "manuscript_creation_authorized",
+        "submission_authorized",
+    ):
+        if change.get(key) is not False:
+            raise ContractViolation(f"UNSW deviation change boundary violated: {key}")
+
+    semantic_binding = semantic.get("prospective_semantic_deviation", {})
+    for key in (
+        "deviation_id",
+        "record",
+        "classification",
+        "dataset_id",
+        "recovery_state_variable",
+        "native_field",
+        "prior_mapping_class",
+        "prospective_mapping_class",
+    ):
+        if semantic_binding.get(key) != expected_binding[key]:
+            raise ContractViolation(f"UNSW semantic-freeze deviation binding mismatch: {key}")
+    if semantic_binding.get("full_population_row_count") != 404798:
+        raise ContractViolation("UNSW semantic-freeze population count mismatch")
+    if semantic_binding.get("binary_count") != 404726 or semantic_binding.get("nonbinary_count") != 72:
+        raise ContractViolation("UNSW semantic-freeze domain counts mismatch")
+    for key in (
+        "selective_salvage_permitted",
+        "repair_or_realign_permitted",
+        "derivation_or_substitution_permitted",
+        "computational_runtime_changed",
+        "canonical_run_code_freeze_changed",
+    ):
+        if semantic_binding.get(key) is not False:
+            raise ContractViolation(f"UNSW semantic-freeze deviation boundary violated: {key}")
+
+    execution_binding = execution_design.get("prospective_semantic_deviation", {})
+    for key in (
+        "deviation_id",
+        "record",
+        "classification",
+        "dataset_id",
+        "recovery_state_variable",
+        "native_field",
+        "prior_mapping_class",
+        "prospective_mapping_class",
+    ):
+        if execution_binding.get(key) != expected_binding[key]:
+            raise ContractViolation(f"UNSW execution-design deviation binding mismatch: {key}")
+    if execution_binding.get("historical_normalization_record_retained") is not True:
+        raise ContractViolation("UNSW execution design must retain historical normalization metadata")
+    if execution_binding.get("historical_normalization_is_operational_after_deviation") is not False:
+        raise ContractViolation("UNSW historical normalization must be non-operative")
+    if execution_binding.get("apply_ambiguity_to_entire_finite_population") is not True:
+        raise ContractViolation("UNSW execution design must apply ambiguity to entire finite population")
+    for key in (
+        "computational_runtime_changed",
+        "canonical_run_code_freeze_changed",
+        "persisted_result_artifacts_existed_before_correction",
+    ):
+        if execution_binding.get(key) is not False:
+            raise ContractViolation(f"UNSW execution-design deviation boundary violated: {key}")
+
+    manifest_unsw = next(
+        row for row in manifest["datasets"] if row["dataset_id"] == "UNSW_IOTSAT_2026"
+    )
+    domain = manifest_unsw.get("position_anomaly_domain_audit", {})
+    domain_expected = {
+        "deviation_record": UNSW_SEMANTIC_DEVIATION_PATH,
+        "canonical_population_rows": 404798,
+        "binary_zero_count": 404720,
+        "binary_one_count": 6,
+        "binary_count": 404726,
+        "numeric_nonbinary_count": 71,
+        "nonnumeric_count": 1,
+        "empty_count": 0,
+        "nonbinary_count": 72,
+        "disposition": "SECURITY_SIGNAL_AMBIGUOUS_FOR_ENTIRE_FINITE_POPULATION",
+    }
+    for key, value in domain_expected.items():
+        if domain.get(key) != value:
+            raise ContractViolation(f"UNSW manifest domain-audit mismatch: {key}")
+    for key in (
+        "row_exclusion_permitted",
+        "selective_binary_row_salvage_permitted",
+        "coercion_permitted",
+        "speed_derivation_permitted",
+        "neighboring_column_realign_permitted",
+        "attack_label_substitution_permitted",
+    ):
+        if domain.get(key) is not False:
+            raise ContractViolation(f"UNSW manifest remediation boundary violated: {key}")
+
+    semantic_unsw = next(
+        row for row in semantic["dataset_contracts"] if row["dataset_id"] == "UNSW_IOTSAT_2026"
+    )
+    security = next(
+        row for row in semantic_unsw["variable_contracts"]
+        if row["recovery_state_variable"] == "security_signal"
+    )
+    if security.get("frozen_mapping_class") != "AMBIGUOUS":
+        raise ContractViolation("UNSW security_signal must be prospectively AMBIGUOUS")
+    if security.get("evidence_visibility_role") != "OPERATIONAL_NATIVE":
+        raise ContractViolation("UNSW security_signal evidence role drift")
+    if security.get("native_field_names") != ["Position_Anomaly"]:
+        raise ContractViolation("UNSW security_signal native field drift")
+    if "value_rule" in security:
+        raise ContractViolation("UNSW ambiguous security_signal must not retain an active value_rule")
+    if security.get("claim_boundary") != (
+        "Position_Anomaly remains relevant evidence about an intended operational coarse "
+        "position-spoofing guard, but it supplies no known primary security_signal value "
+        "after the prospective domain-defect deviation."
+    ):
+        raise ContractViolation("UNSW security_signal claim boundary drift")
+
+    historical = protocol.get("semantic_adjudication_freeze", {}).get(
+        "direct_operational_native_exception", {}
+    )
+    if historical.get("dataset_id") != "UNSW_IOTSAT_2026":
+        raise ContractViolation("historical UNSW direct exception dataset drift")
+    if historical.get("field") != "Position_Anomaly":
+        raise ContractViolation("historical UNSW direct exception field drift")
+    if historical.get("recovery_state_variable") != "security_signal":
+        raise ContractViolation("historical UNSW direct exception variable drift")
+    if historical.get("normalization") != "0 -> false; 1 -> true":
+        raise ContractViolation("historical UNSW direct normalization metadata drift")
+    if historical.get("status") != "HISTORICAL_SUPERSEDED_NON_OPERATIVE":
+        raise ContractViolation("historical UNSW direct exception must remain superseded")
+    if historical.get("superseded_by") != UNSW_SEMANTIC_DEVIATION_PATH:
+        raise ContractViolation("historical UNSW direct exception supersession binding mismatch")
+
+
+def _validate_post_deviation_validator_alignment(contracts: FrozenContracts) -> None:
+    binding = contracts.protocol.get("post_deviation_validator_alignment", {})
+    expected_binding = {
+        "recorded": True,
+        "record_date": "2026-09-15",
+        "record": POST_DEVIATION_VALIDATOR_ALIGNMENT_PATH,
+        "basis_head": "2f6434e8a84f69b001ad8072f3a03a92afb9a8b8",
+        "classification": "GOVERNANCE_VALIDATOR_AND_TEST_ALIGNMENT_NO_FROZEN_RUNTIME_CHANGE",
+        "authorized_file_count": 7,
+        "frozen_computational_file_count": 12,
+        "frozen_computational_files_changed": False,
+        "full_study9_suite_required_before_canonical_rerun": True,
+        "canonical_execution_rerun_performed": False,
+        "results_created": False,
+        "manuscript_creation_authorized": False,
+        "submission_authorized": False,
+    }
+    for key, value in expected_binding.items():
+        if binding.get(key) != value:
+            raise ContractViolation(f"post-deviation validator-alignment binding mismatch: {key}")
+    expected_sha = binding.get("record_sha256")
+    if not isinstance(expected_sha, str) or len(expected_sha) != 64:
+        raise ContractViolation("post-deviation validator-alignment SHA-256 missing")
+    path = contracts.repo_root / POST_DEVIATION_VALIDATOR_ALIGNMENT_PATH
+    if sha256_file(path) != expected_sha:
+        raise ContractViolation("post-deviation validator-alignment SHA-256 mismatch")
+    record = _load_json(path)
+    if record.get("study_id") != STUDY_ID:
+        raise ContractViolation("post-deviation validator-alignment study id mismatch")
+    if record.get("record_type") != "POST_DEVIATION_VALIDATOR_ALIGNMENT":
+        raise ContractViolation("post-deviation validator-alignment record type mismatch")
+    if record.get("status") != "VALIDATOR_ALIGNMENT_RECORDED_FULL_SUITE_REQUIRED_BEFORE_CANONICAL_RERUN":
+        raise ContractViolation("post-deviation validator-alignment status mismatch")
+    authorization = record.get("authorization", {})
+    if authorization.get("explicit_author_authorization") is not True:
+        raise ContractViolation("post-deviation validator alignment lacks explicit author authorization")
+    if authorization.get("authorization_date") != "2026-09-15":
+        raise ContractViolation("post-deviation validator-alignment authorization date mismatch")
+
+    basis = record.get("basis", {})
+    if basis.get("base_head") != expected_binding["basis_head"]:
+        raise ContractViolation("post-deviation validator-alignment basis head mismatch")
+    if basis.get("validation_return_code") != 1:
+        raise ContractViolation("post-deviation validator-alignment trigger return code mismatch")
+    if basis.get("canonical_result_directory_absent") is not True:
+        raise ContractViolation("post-deviation validator alignment must preserve absent result directory")
+    if basis.get("repository_spillover") != 0:
+        raise ContractViolation("post-deviation validator alignment must record zero repository spillover")
+    if basis.get("real_dataset_rows_opened_by_this_validation_attempt") is not False:
+        raise ContractViolation("post-deviation validation attempt must not have opened real rows")
+    if basis.get("prior_failed_canonical_execution_is_separately_preserved_in") != UNSW_SEMANTIC_DEVIATION_PATH:
+        raise ContractViolation("post-deviation alignment prior-execution provenance mismatch")
+
+    findings = record.get("static_root_cause_findings")
+    if not isinstance(findings, list):
+        raise ContractViolation("post-deviation validator-alignment findings must be a list")
+    _require_exact_sequence(
+        "post-deviation validator-alignment findings",
+        [item.get("finding_id") for item in findings if isinstance(item, dict)],
+        ("PDVA-01", "PDVA-02", "PDVA-03", "PDVA-04"),
+    )
+
+    _require_exact_sequence(
+        "post-deviation validator-alignment authorized scope",
+        record.get("authorized_scope_files"),
+        (
+            "study9/DATASET_SCHEMA_MANIFEST.json",
+            "study9/src/study9_semantic/contracts.py",
+            "study9/tests/test_contracts.py",
+            "study9/tests/test_canonical_runner.py",
+            "study9/tests/test_state_groups.py",
+            "study9/POST_DEVIATION_VALIDATOR_ALIGNMENT_20260915.json",
+            "study9/STUDY9_PROTOCOL.json",
+        ),
+    )
+
+    change = record.get("change_boundary", {})
+    if change.get("frozen_computational_file_count") != len(CODE_FREEZE_COMPUTATIONAL_PATHS):
+        raise ContractViolation("post-deviation alignment frozen-computational count mismatch")
+    for key in (
+        "frozen_computational_files_changed",
+        "canonical_run_code_freeze_changed",
+        "study2_selector_changed",
+        "primary_population_changed",
+        "policy_scope_changed",
+        "endpoint_definition_changed",
+        "dataset_artifacts_changed",
+        "semantic_disposition_changed",
+    ):
+        if change.get(key) is not False:
+            raise ContractViolation(f"post-deviation alignment change boundary violated: {key}")
+    for key in (
+        "manifest_claim_boundary_text_aligned_only",
+        "contracts_validator_alignment_only",
+        "tests_aligned_to_current_governance_and_semantics",
+    ):
+        if change.get(key) is not True:
+            raise ContractViolation(f"post-deviation alignment remediation not recorded: {key}")
+
+    required = record.get("required_validation_before_canonical_rerun", {})
+    for key in (
+        "json_parse_all_changed_json",
+        "python_syntax_compile_changed_python",
+        "load_frozen_contracts_must_pass",
+        "full_study9_test_suite_must_pass",
+        "canonical_run_frozen_byte_audit_must_pass_12_of_12",
+        "working_tree_must_be_clean",
+        "canonical_result_directory_must_remain_absent_before_rerun",
+    ):
+        if required.get(key) is not True:
+            raise ContractViolation(f"post-deviation rerun validation requirement missing: {key}")
+
+    boundary = record.get("execution_boundary", {})
+    for key in (
+        "canonical_execution_rerun_performed",
+        "results_created",
+        "dataset_bytes_ingested_into_repository",
+        "manuscript_creation_authorized",
+        "submission_authorized",
+    ):
+        if boundary.get(key) is not False:
+            raise ContractViolation(f"post-deviation validator-alignment boundary violated: {key}")
 
 
 def _validate_pre_real_data_audit(contracts: FrozenContracts) -> None:
@@ -1079,8 +1479,11 @@ def validate_contracts(contracts: FrozenContracts) -> None:
         for row in dataset["variable_contracts"]
         if row["frozen_mapping_class"] == "DIRECT"
     ]
-    if direct_rows != [("UNSW_IOTSAT_2026", "security_signal", ("Position_Anomaly",))]:
-        raise ContractViolation(f"unexpected DIRECT mapping set: {direct_rows!r}")
+    if direct_rows != []:
+        raise ContractViolation(f"unexpected DIRECT mapping set after UNSW deviation: {direct_rows!r}")
+
+    _validate_unsw_semantic_deviation(contracts)
+    _validate_post_deviation_validator_alignment(contracts)
 
     selector = semantic.get("frozen_downstream_interface", {})
     selector_path = selector.get("selector_path")

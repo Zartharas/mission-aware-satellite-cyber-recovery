@@ -337,6 +337,22 @@
     "manuscript_creation_authorized": false,
     "submission_authorized": false
   },
+  "post_deviation_validator_alignment": {
+    "recorded": true,
+    "record_date": "2026-09-15",
+    "record": "study9/POST_DEVIATION_VALIDATOR_ALIGNMENT_20260915.json",
+    "record_sha256": "73eb85b3a8e0e236d0da1d639590fb54f3ea01d1593607e25aeef3840e516262",
+    "basis_head": "2f6434e8a84f69b001ad8072f3a03a92afb9a8b8",
+    "classification": "GOVERNANCE_VALIDATOR_AND_TEST_ALIGNMENT_NO_FROZEN_RUNTIME_CHANGE",
+    "authorized_file_count": 7,
+    "frozen_computational_file_count": 12,
+    "frozen_computational_files_changed": false,
+    "full_study9_suite_required_before_canonical_rerun": true,
+    "canonical_execution_rerun_performed": false,
+    "results_created": false,
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false
+  },
   "execution_phase_transition_contract": {
     "atomic_transition_required": true,
     "partial_transition_permitted": false,

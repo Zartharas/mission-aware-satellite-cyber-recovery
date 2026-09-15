@@ -27,7 +27,7 @@ class StateGroupTests(unittest.TestCase):
         self.assertEqual(groups[0].multiplicity, 3)
         self.assertEqual(sum(group.multiplicity for group in groups), 3)
 
-    def test_unsw_groups_only_on_qualifying_recovery_state(self):
+    def test_unsw_prospective_ambiguity_collapses_to_one_unresolved_group(self):
         contracts = load_frozen_contracts(ROOT)
         plan = build_projection_plan("UNSW_IOTSAT_2026", contracts)
         rows = [
@@ -41,12 +41,12 @@ class StateGroupTests(unittest.TestCase):
             partials,
             expected_row_count=3,
         )
-        self.assertEqual(len(groups), 2)
-        self.assertEqual([group.multiplicity for group in groups], [2, 1])
-        self.assertEqual(groups[0].known_dict() if hasattr(groups[0], "known_dict") else dict(groups[0].known), {"security_signal": False})
-        self.assertEqual(dict(groups[1].known), {"security_signal": True})
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].multiplicity, 3)
+        self.assertEqual(dict(groups[0].known), {})
+        self.assertEqual(groups[0].unresolved, REQUIRED_VARIABLES)
 
-    def test_group_order_is_stable_false_before_true_for_direct_boolean(self):
+    def test_group_order_is_stable_false_before_true_for_synthetic_known_boolean(self):
         unresolved = tuple(name for name in REQUIRED_VARIABLES if name != "security_signal")
         true_partial = PartialObservation.build(
             known={"security_signal": True}, unresolved=unresolved

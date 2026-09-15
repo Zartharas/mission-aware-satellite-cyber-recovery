@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import sys
@@ -22,7 +23,10 @@ from study9_semantic.canonical_runner import (
 )
 from study9_semantic.completions import PartialObservation
 from study9_semantic.contracts import (
+    CANONICAL_EXECUTION_AUTHORIZATION_FLAGS,
     CANONICAL_RUN_CODE_FREEZE_PATH,
+    CLOSED_PROTOCOL_STATUS,
+    IMPLEMENTATION_EXECUTION_FLAGS,
     RUN_IDENTITY_BASE_PATHS,
     load_frozen_contracts,
 )
@@ -37,15 +41,30 @@ class CanonicalRunnerGuardTests(unittest.TestCase):
         clear_selector_caches()
         clear_audit_caches()
 
-    def test_current_protocol_refuses_real_execution(self):
-        contracts = load_frozen_contracts(ROOT)
-        with self.assertRaises(RealExecutionNotAuthorized):
-            assert_real_execution_authorized(contracts)
+    @staticmethod
+    def _closed_contracts():
+        contracts = copy.deepcopy(load_frozen_contracts(ROOT))
+        contracts.protocol["status"] = CLOSED_PROTOCOL_STATUS
+        for flag in CANONICAL_EXECUTION_AUTHORIZATION_FLAGS:
+            contracts.protocol["authorization"][flag] = False
+        for flag in IMPLEMENTATION_EXECUTION_FLAGS:
+            contracts.protocol["implementation_phase"][flag] = False
+        contracts.protocol["implementation_phase"]["synthetic_only"] = True
+        contracts.protocol["implementation_phase"]["loader_runner_synthetic_test_only"] = True
+        return contracts
 
-    def test_runner_refuses_before_external_spec_or_source_access(self):
+    def test_current_protocol_authorizes_real_execution(self):
+        contracts = load_frozen_contracts(ROOT)
+        assert_real_execution_authorized(contracts)
+
+    def test_closed_guard_refuses_before_external_spec_or_source_access(self):
+        closed_contracts = self._closed_contracts()
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp) / "results"
             with patch(
+                "study9_semantic.canonical_runner.load_frozen_contracts",
+                return_value=closed_contracts,
+            ), patch(
                 "study9_semantic.canonical_runner._build_specs",
                 side_effect=AssertionError("external spec construction must remain unreachable"),
             ), patch(
@@ -61,16 +80,21 @@ class CanonicalRunnerGuardTests(unittest.TestCase):
                     )
             self.assertFalse(output.exists())
 
-    def test_nonexistent_paths_do_not_mask_closed_authorization_gate(self):
+    def test_nonexistent_paths_do_not_mask_synthetic_closed_authorization_gate(self):
+        closed_contracts = self._closed_contracts()
         with tempfile.TemporaryDirectory() as tmp:
             missing = Path(tmp) / "missing"
-            with self.assertRaises(RealExecutionNotAuthorized) as caught:
-                run_canonical_sources(
-                    cucd_zip=missing / "cucd.zip",
-                    aegissat_csv=missing / "aegis.csv",
-                    unsw_zip=missing / "unsw.zip",
-                    output_dir=missing / "results",
-                )
+            with patch(
+                "study9_semantic.canonical_runner.load_frozen_contracts",
+                return_value=closed_contracts,
+            ):
+                with self.assertRaises(RealExecutionNotAuthorized) as caught:
+                    run_canonical_sources(
+                        cucd_zip=missing / "cucd.zip",
+                        aegissat_csv=missing / "aegis.csv",
+                        unsw_zip=missing / "unsw.zip",
+                        output_dir=missing / "results",
+                    )
             self.assertIn("real Study 9 execution remains closed", str(caught.exception))
 
     @staticmethod
