@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "experiment_id": "S9-RTSI-001",
+  "record_type": "POST_MERGE_REPOSITORY_INTEGRATION_CLOSEOUT",
+  "status": "REPOSITORY_INTEGRATION_CLOSED_POST_MERGE_CI_PASS",
+  "closeout_date_utc": "2026-09-15",
+  "source_results_freeze": {
+    "path": "study9/results/RESULTS_FREEZE.json",
+    "sha256": "0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2",
+    "historical_status": "CANONICAL_RESULTS_FROZEN_PENDING_REPOSITORY_MERGE",
+    "modified_for_closeout": false
+  },
+  "canonical_run": {
+    "run_id": "S9-RTSI-001_CANONICAL_RUN_20260914",
+    "directory": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914",
+    "artifact_count": 8,
+    "scientific_rerun_after_freeze": false
+  },
+  "repository_integration": {
+    "pull_request": 112,
+    "pull_request_url": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/112",
+    "validated_pr_head": "065cd9cbd5a111e1603fe37095356b6578a822ea",
+    "merge_commit": "1dfdef4ec9a0336f4dccfa11baa4bda4c6cf7ed6",
+    "merge_commit_tree": "e0f1e77b626f8ee2b93104f289daee9b93c3d84a",
+    "merged_at_utc": "2026-09-15T13:54:40Z",
+    "base_branch": "main"
+  },
+  "release_gate_repair": {
+    "pull_request": 113,
+    "validated_head": "35b11d3dbf0a83e0bd663a8857a8a7b80418f535",
+    "merge_commit": "24cbb8fba40ab1c1911c6192db736ce5d0f1a378",
+    "scope": "repository_governance_ci_only",
+    "study9_scientific_files_modified": false
+  },
+  "validation": {
+    "pre_merge_pr_ci": {
+      "workflow": "Validate research configurations",
+      "run_id": 34976531039,
+      "head_sha": "065cd9cbd5a111e1603fe37095356b6578a822ea",
+      "event": "pull_request",
+      "conclusion": "success"
+    },
+    "post_merge_main_ci": {
+      "workflow": "Validate research configurations",
+      "run_id": 34978097365,
+      "head_sha": "1dfdef4ec9a0336f4dccfa11baa4bda4c6cf7ed6",
+      "event": "push",
+      "conclusion": "success",
+      "completed_at_utc": "2026-09-15T13:59:23Z"
+    },
+    "repository_release_gate": "PASS",
+    "bibliography_integrity": "PASS",
+    "tracked_json_validation": "PASS",
+    "python_compilation": "PASS",
+    "experiment_schema_validation": "PASS",
+    "research_unit_tests": "PASS",
+    "shell_syntax_validation": "PASS",
+    "frozen_wp10_reproduction": "PASS",
+    "wp10_reconstruction_regression_tests": "PASS",
+    "tracked_file_drift_check": "PASS"
+  },
+  "immutability": {
+    "results_freeze_modified_after_acceptance": false,
+    "canonical_result_artifacts_modified_after_freeze": false,
+    "scientific_results_changed_after_freeze": false,
+    "scientific_rerun_required": false,
+    "post_merge_record_is_additive_only": true
+  },
+  "scientific_boundary": {
+    "dataset_attack_labels_used_as_operational_truth": false,
+    "missing_recovery_state_imputed": false,
+    "policy_pooling_or_averaging_permitted": false,
+    "external_validation_claimed": false,
+    "operational_spacecraft_performance_claimed": false,
+    "mission_certification_claimed": false
+  },
+  "authorization": {
+    "post_merge_closeout_authorized": true,
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false
+  },
+  "next_gate": "MANUSCRIPT_CREATION_REQUIRES_SEPARATE_EXPLICIT_AUTHORIZATION"
+}
