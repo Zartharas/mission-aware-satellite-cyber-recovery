@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "paper": "Paper_5_Study_9",
+  "experiment_id": "S9-RTSI-001",
+  "target_journal": "Cyber Security and Applications",
+  "working_article_type": "Research article",
+  "status": "MANUSCRIPT_REVIEW_CANDIDATE_METADATA_CONFIRMED_PENDING_FRESH_CI",
+  "manuscript_branch": "paper5/study9-csa-manuscript",
+  "source_main_commit": "ced258fc3ba9513b34cf3b231abab1d2b3f2ca01",
+  "scientific_source": {
+    "results_freeze_sha256": "0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2",
+    "science_merge_commit": "1dfdef4ec9a0336f4dccfa11baa4bda4c6cf7ed6",
+    "post_merge_closeout_commit": "ced258fc3ba9513b34cf3b231abab1d2b3f2ca01",
+    "frozen_selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "scientific_rerun_authorized": false,
+    "scientific_result_mutation_authorized": false
+  },
+  "manuscript": {
+    "title": "Recovery-State Semantic Interoperability and Decision Identifiability Across Public Space-Cyber Datasets",
+    "primary_source": "CSA_MANUSCRIPT_DRAFT.tex",
+    "bibliography": "references.bib",
+    "highlights": "CSA_HIGHLIGHTS.txt",
+    "author_metadata": "AUTHOR_METADATA.md",
+    "abstract_word_count": 250,
+    "submission_ready": false
+  },
+  "authorization": {
+    "manuscript_creation_authorized": true,
+    "submission_package_creation_authorized": false,
+    "submission_authorized": false
+  },
+  "journal_guidance": {
+    "verified_date": "2026-09-15",
+    "guide_url": "https://www.keaipublishing.com/en/journals/cyber-security-and-applications/guide-for-authors/",
+    "latex_recommended": true,
+    "abstract_word_limit": 350,
+    "keyword_min": 3,
+    "keyword_max": 6,
+    "highlights_max_bullets": 5,
+    "highlight_max_characters": 85,
+    "generative_ai_disclosure_required_when_applicable": true
+  },
+  "next_gate": "MANUSCRIPT_REVIEW_CANDIDATE_METADATA_FRESH_REPOSITORY_CI",
+  "compile_validation": {
+    "validated_head": "3641546bc744563acebee7b930e90f2190a5d341",
+    "validator_sha256": "088f52b31e875a19ed986a6d33a975374ee7f729f7f5087d286c50a004a0d232",
+    "result": "PASS",
+    "compile_method": "latexmk",
+    "pdf_pages": 13,
+    "pdf_bytes": 204092,
+    "undefined_citations_or_references": 0,
+    "pre_refinement_overfull_hbox_count": 18,
+    "pre_refinement_underfull_hbox_count": 4
+  },
+  "evidence_novelty_audit": {
+    "path": "MANUSCRIPT_EVIDENCE_NOVELTY_AUDIT.md",
+    "audit_date": "2026-09-15",
+    "result": "PASS_WITH_NARROW_NOVELTY_BOUNDARY",
+    "universal_first_claim_authorized": false
+  },
+  "refinement_validation": {
+    "result": "PASS",
+    "pdf_pages": 14,
+    "pdf_bytes": 209615,
+    "overfull_hbox_count": 0,
+    "underfull_hbox_count": 4,
+    "max_overfull_pt": 0.0,
+    "undefined_citations_or_references": 0
+  },
+  "review_candidate": {
+    "source_head": "eb06247620cb580c22f074f9b3d5ca5ff25d4fd8",
+    "source_repository_ci_run": 35001582521,
+    "source_repository_ci_result": "PASS",
+    "prepared_head": "6a54252632d3da8b495b39f90a38342a73737d37",
+    "prepared_repository_ci_run": 35006060443,
+    "prepared_repository_ci_result": "PASS",
+    "research_questions_exact_from_frozen_protocol": true,
+    "airss_prior_art_added": true,
+    "scientific_methods_changed": false,
+    "scientific_results_changed": false,
+    "submission_ready": false,
+    "local_validation": {
+      "result": "PASS",
+      "pdf_pages": 15,
+      "pdf_bytes": 214254,
+      "overfull_hbox_count": 0,
+      "underfull_hbox_count": 4,
+      "undefined_citations_or_references": 0
+    },
+    "final_authorship_confirmed": true,
+    "sole_author": "Aman Kumar Singh",
+    "credential_display": "MS, PhD",
+    "affiliation_confirmed": "Independent Researcher",
+    "submission_exclusivity_reconfirmation_required_at_submission_gate": true
+  }
+}
