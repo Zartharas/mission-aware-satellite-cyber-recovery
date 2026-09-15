@@ -4,7 +4,7 @@
   "experiment_id": "S9-RTSI-001",
   "target_journal": "Cyber Security and Applications",
   "article_type": "Research Article",
-  "status": "SUBMISSION_PACKAGE_CREATION_AUTHORIZED_DRAFT_PACKAGE_PREPARED",
+  "status": "SUBMISSION_PACKAGE_DRAFT_REVIEW_PASS_EDITORIAL_MANAGER_RULES_RECORDED_PENDING_FRESH_CI",
   "source_main_commit": "5ee8909b4dfb058ef5dd0451c042dde8defe25dc",
   "authorization": {
     "submission_package_creation_authorized": true,
@@ -22,15 +22,43 @@
     "bibliography_entry_count": 11,
     "reference_existence_audit": "PASS_11_OF_11"
   },
+  "draft_review": {
+    "review_result": "PASS",
+    "reviewed_head": "7eb3601cd5f94c909d91ec9a8b372e39f5919213",
+    "repository_ci_run": 35034502123,
+    "repository_ci_result": "PASS",
+    "scientific_changes_detected": false
+  },
+  "editorial_manager_validation": {
+    "guide": "https://www.ariessys.com/wp-content/uploads/EM_PM_LaTeX_Guide.pdf",
+    "guide_revision": "March 2025",
+    "verified_date": "2026-09-15",
+    "tex_live_version": "2024",
+    "default_bibliography_processor": "BibTeX/BibTeX8",
+    "flat_archive_required": true,
+    "subfolders_allowed": false,
+    "elsarticle_cls_documented_installed": true,
+    "planned_latex_upload_members": [
+      "CSA_MANUSCRIPT_SUBMISSION.tex",
+      "references.bib"
+    ],
+    "highlights_uploaded_separately": true,
+    "tracked_bbl_retained_as_build_evidence_not_planned_for_portal_upload": true,
+    "local_pdf_validation_only": true,
+    "portal_metadata_must_match_tex": true,
+    "latex_files_not_supplemental": true
+  },
   "pending_before_submission_ready": [
     "AUTHOR_SUPPLIED_FULL_POSTAL_AFFILIATION_ADDRESS",
     "ELSEVIER_DECLARATIONS_TOOL_WORD_DOCUMENT",
     "FINAL_SUBMISSION_EXCLUSIVITY_AND_VERSION_APPROVAL_RECONFIRMATION",
-    "PORTAL_ONLY_FIELDS_VISIBLE_IN_EDITORIAL_MANAGER"
+    "PORTAL_ONLY_FIELDS_VISIBLE_IN_EDITORIAL_MANAGER",
+    "FINAL_PORTAL_METADATA_TO_TEX_EQUALITY_CHECK",
+    "EDITORIAL_MANAGER_GENERATED_PDF_APPROVAL"
   ],
   "optional_not_included": [
     "GRAPHICAL_ABSTRACT"
   ],
   "submission_ready": false,
-  "next_gate": "SUBMISSION_PACKAGE_DRAFT_BUILD_AND_REVIEW"
+  "next_gate": "EDITORIAL_MANAGER_NORMALIZED_DRAFT_FRESH_CI_AND_PRIVATE_SUBMISSION_ITEMS"
 }
