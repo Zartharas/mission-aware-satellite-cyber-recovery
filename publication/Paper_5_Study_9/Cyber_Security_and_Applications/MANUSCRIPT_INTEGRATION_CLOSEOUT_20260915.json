@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "paper": "Paper_5_Study_9",
+  "experiment_id": "S9-RTSI-001",
+  "target_journal": "Cyber Security and Applications",
+  "closeout_date": "2026-09-15",
+  "integration_status": "MANUSCRIPT_REPOSITORY_INTEGRATION_CLOSED",
+  "pull_request": {
+    "number": 116,
+    "review_candidate_head": "4794695cf875e76d8de31f567a89a1e08f35dbad",
+    "merged": true,
+    "merged_at": "2026-09-15T19:52:18Z",
+    "merge_commit": "4954dc079f8e4dab6b636fb555fa9a73c7948ea5"
+  },
+  "post_merge_ci": {
+    "workflow": "Validate research configurations",
+    "run_id": 35016202953,
+    "run_number": 866,
+    "event": "push",
+    "head_sha": "4954dc079f8e4dab6b636fb555fa9a73c7948ea5",
+    "result": "PASS"
+  },
+  "validated_manuscript": {
+    "local_validation": "PASS",
+    "pdf_pages": 15,
+    "pdf_bytes": 214254,
+    "undefined_citations_or_references": 0,
+    "overfull_hbox_count": 0,
+    "underfull_hbox_count": 4,
+    "research_questions_exact_from_frozen_protocol": true,
+    "novelty_audit": "PASS_WITH_NARROW_NOVELTY_BOUNDARY"
+  },
+  "authorship": {
+    "single_author": true,
+    "author": "Aman Kumar Singh",
+    "credential_display": "MS, PhD",
+    "affiliation": "Independent Researcher"
+  },
+  "scientific_integrity": {
+    "study9_scientific_files_changed_by_manuscript_pr": false,
+    "results_freeze_changed": false,
+    "scientific_rerun_required": false,
+    "scientific_result_mutation_authorized": false,
+    "results_freeze_sha256": "0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2",
+    "frozen_selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
+  },
+  "authorization_boundary": {
+    "manuscript_merge_authorized": true,
+    "submission_package_creation_authorized": false,
+    "submission_authorized": false,
+    "next_gate": "SUBMISSION_PACKAGE_CREATION_REQUIRES_EXPLICIT_AUTHORIZATION"
+  }
+}
