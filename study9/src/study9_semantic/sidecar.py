@@ -1,0 +1,71 @@
+from __future__ import annotations
+
+from itertools import combinations, product
+from typing import Mapping
+
+from .completions import PartialObservation, enumerate_admissible_states, reveal_values
+from .selector_adapter import select_action_from_state
+
+
+def reachable_actions(policy, partial: PartialObservation) -> frozenset[str]:
+    return frozenset(
+        select_action_from_state(policy, state).value
+        for state in enumerate_admissible_states(partial)
+    )
+
+
+def action_set_cardinality(policy, partial: PartialObservation) -> int:
+    return len(reachable_actions(policy, partial))
+
+
+def minimal_sidecar_sets(
+    policy,
+    partial: PartialObservation,
+    actual_unresolved_values: Mapping[str, bool],
+) -> tuple[tuple[str, ...], ...]:
+    """Synthetic assignment-conditioned helper retained for fixture testing only."""
+    if set(actual_unresolved_values) != set(partial.unresolved):
+        raise ValueError("actual_unresolved_values must provide every unresolved variable exactly once")
+    if any(type(value) is not bool for value in actual_unresolved_values.values()):
+        raise ValueError("sidecar values must be boolean")
+
+    unresolved = partial.unresolved
+    for size in range(len(unresolved) + 1):
+        winners: list[tuple[str, ...]] = []
+        for subset in combinations(unresolved, size):
+            revealed = {name: actual_unresolved_values[name] for name in subset}
+            candidate = reveal_values(partial, revealed)
+            if action_set_cardinality(policy, candidate) == 1:
+                winners.append(subset)
+        if winners:
+            return tuple(winners)
+    raise RuntimeError("full revelation should always identify a deterministic selector action")
+
+
+def guaranteed_minimal_sidecar_sets(
+    policy,
+    partial: PartialObservation,
+) -> tuple[tuple[str, ...], ...]:
+    """Return smallest sidecar schemas that guarantee unique action identifiability.
+
+    A subset S of unresolved variables is sufficient only when every boolean
+    assignment to S leaves a singleton reachable-action set across all
+    completions of the still-unresolved variables. No unavailable actual value
+    is accepted or required by this canonical endpoint helper.
+    """
+    unresolved = partial.unresolved
+    for size in range(len(unresolved) + 1):
+        winners: list[tuple[str, ...]] = []
+        for subset in combinations(unresolved, size):
+            sufficient_for_every_assignment = True
+            for bits in product((False, True), repeat=len(subset)):
+                revealed = dict(zip(subset, bits, strict=True))
+                candidate = reveal_values(partial, revealed)
+                if action_set_cardinality(policy, candidate) != 1:
+                    sufficient_for_every_assignment = False
+                    break
+            if sufficient_for_every_assignment:
+                winners.append(subset)
+        if winners:
+            return tuple(winners)
+    raise RuntimeError("full revelation should always identify a deterministic selector action")

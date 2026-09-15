@@ -1,0 +1,281 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "dataset_id": "CUCD_ID_V3",
+  "verification_date": "2026-09-13",
+  "status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
+  "purpose": "Independent Version 3 artifact identity, checksum, schema, augmentation-provenance, and label-boundary verification before any Study 9 semantic mapping or endpoint computation.",
+  "scope_boundary": {
+    "row_level_recovery_mapping_performed": false,
+    "study9_endpoints_computed": false,
+    "source_rows_repaired": false,
+    "missing_state_imputed": false,
+    "population_frozen": false,
+    "dataset_ingested_into_research_repository": false
+  },
+  "source_provenance": {
+    "dataset_title": "CubeSat Cybersecurity Dataset for Intrusion Detection (CuCD-ID): Labelled NOS3/cFS Telemetry (raw + augmented) with COSMOS Reproduction Scripts",
+    "dataset_doi": "10.17632/7n2d42pm3n.3",
+    "dataset_version": 3,
+    "dataset_published_date": "2026-02-10",
+    "primary_article_doi": "10.1016/j.dib.2026.112598",
+    "dataset_license": "CC BY 4.0",
+    "source_environment": "NOS3/cFS software-in-the-loop with OpenC3 COSMOS v4 scenario generation"
+  },
+  "download_package": {
+    "local_container_filename": "CubeSat Cybersecurity Dataset for Intrusion Detect.zip",
+    "size_bytes": 3131777,
+    "sha256": "da3d95886feae0bc913a9e5beec1368571f51c80ecc811e40f6cc29edf33f2f0",
+    "zip_integrity_bad_member": null,
+    "member_count": 13,
+    "local_filename_is_source_version_identifier": false
+  },
+  "artifacts": [
+    {
+      "path": "README.md",
+      "size_bytes": 10174,
+      "sha256": "db098c41cb4922524e9bdb039d568f8861b96ab80265e9a594f971c1c2277dea",
+      "role": "DOCUMENTATION_ONLY"
+    },
+    {
+      "path": "Data/Augmented/noised_dataset.csv",
+      "size_bytes": 6372619,
+      "rows": 22465,
+      "columns": 23,
+      "sha256": "656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68",
+      "published_sha256": "656fc2f23544469d8cbdca631747debc8dae7164621a2cd6740a5928cfae3c68",
+      "published_hash_match": true,
+      "row_width_mismatches": 0,
+      "blank_values": 0,
+      "nonnumeric_values": 0,
+      "nonfinite_values": 0,
+      "role": "DERIVED_AUGMENTED_COMPANION"
+    },
+    {
+      "path": "Data/Metadata/checksums.txt",
+      "size_bytes": 569,
+      "sha256": "76f132764e3651131f5b74d52ed4cfa5a27e7086047779c5ee0ba6dc2d4c648c",
+      "role": "SOURCE_CHECKSUM_DOCUMENTATION"
+    },
+    {
+      "path": "Data/Metadata/label_schema.json",
+      "size_bytes": 273,
+      "sha256": "ea28a294175150e6de43ebbb67debcff73b69f2f73af202fcad0676ad80aa280",
+      "role": "LABEL_SCHEMA_DOCUMENTATION"
+    },
+    {
+      "path": "Data/Raw/consolidated_dataset_raw.csv",
+      "size_bytes": 4438178,
+      "rows": 25000,
+      "columns": 31,
+      "sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
+      "published_sha256": "2a6bb7bc9856099eef468dfe7df0043718a57c6ce84328e26b1883fa560c6ca2",
+      "published_hash_match": true,
+      "row_width_mismatches": 0,
+      "blank_values": 0,
+      "nonnumeric_values": 0,
+      "nonfinite_values": 0,
+      "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT"
+    },
+    {
+      "path": "Code/Augmentation/README_augmentation.md",
+      "size_bytes": 2792,
+      "sha256": "c3c4715f09e5fbe60f9c5fbf7161647cd6722d7151635d2e874c78480e59bc3f",
+      "role": "DERIVATION_DOCUMENTATION"
+    },
+    {
+      "path": "Code/Augmentation/augmentation_script.py",
+      "size_bytes": 23768,
+      "sha256": "4cc98a396ce471da04a6cae94ee9b0683bd14df4605dfd7380877d51b3acfc7e",
+      "role": "DERIVATION_PROVENANCE"
+    },
+    {
+      "path": "Code/Cosmos_Scripts/command_flood_script.txt",
+      "size_bytes": 2174,
+      "sha256": "f5854bedb039a75687831d993525c32fb8569063e0a40d34083a9e4c074de3c3",
+      "role": "SCENARIO_REPRODUCTION_PROVENANCE"
+    },
+    {
+      "path": "Code/Cosmos_Scripts/data_injection_script.txt",
+      "size_bytes": 2186,
+      "sha256": "500b4fcf2fdab282478aa49aef896261267f576437d46e312519a7d628e34ba2",
+      "role": "SCENARIO_REPRODUCTION_PROVENANCE"
+    },
+    {
+      "path": "Code/Cosmos_Scripts/defence_impairment_script.txt",
+      "size_bytes": 3232,
+      "sha256": "d661929be42c7aa47aa9dd3c4dda0e445dfc3eb2304af482933bc62ec423e1f1",
+      "role": "SCENARIO_REPRODUCTION_PROVENANCE"
+    },
+    {
+      "path": "Code/Cosmos_Scripts/storage_exhaustion_script.txt",
+      "size_bytes": 2544,
+      "sha256": "09792c8fe338c8daa75ca35b00f5e883bdce89fd4fa4fee0e7ad94a38da96a10",
+      "role": "SCENARIO_REPRODUCTION_PROVENANCE"
+    },
+    {
+      "path": "Code/Cosmos_Scripts/normal_ops_script.txt",
+      "size_bytes": 3438,
+      "sha256": "2e973f81cf88f80280dce394080549483cd1d1c693ee26c1ed43c98287355660",
+      "role": "SCENARIO_REPRODUCTION_PROVENANCE"
+    },
+    {
+      "path": "Code/Validation/validate_and_load.py",
+      "size_bytes": 8843,
+      "sha256": "11202f44a6747ec93599a819cbdf127f68bdbfaeedde14f1cceee9ffedf4368f",
+      "role": "VALIDATION_PROVENANCE"
+    }
+  ],
+  "canonical_artifact_decision": {
+    "selected": "Data/Raw/consolidated_dataset_raw.csv",
+    "reason": "It is the native 25,000-row Version 3 telemetry artifact. The augmented CSV is a deterministic transformed derivative with row dropping and noise injection.",
+    "augmented_csv_allowed_in_primary_operational_mapping": false,
+    "augmented_csv_allowed_as_derivation_or_sensitivity_context": true
+  },
+  "raw_schema": {
+    "rows": 25000,
+    "columns": 31,
+    "header": [
+      "MsgId",
+      "CmdCode",
+      "TimeRadians",
+      "SequenceCount",
+      "MsgLength",
+      "HasSecondaryHeader",
+      "MsgType",
+      "ApId",
+      "HeaderVersion",
+      "SegmentationFlag",
+      "FlowLengthInWindow",
+      "SlidingWindowMeanIntervalSec",
+      "SlidingWindowMaxIntervalSec",
+      "SlidingWindowMinIntervalSec",
+      "MessageCountInWindow",
+      "UniqueMessageIDsInWindow",
+      "AverageMessageLengthInWindow",
+      "MessageRateInWindow",
+      "StdDevMessageLengthInWindow",
+      "CommandErrorCounter",
+      "IngestErrors",
+      "MemoryAnonMB",
+      "MemoryFileMB",
+      "MemoryKernelstackMB",
+      "MemoryPageTableMB",
+      "MemorySocketMB",
+      "MemoryPercpuMB",
+      "MemoryShmemMB",
+      "MemorySlabUnreclaimableMB",
+      "MemoryPageFaults",
+      "Label"
+    ],
+    "label_counts": {
+      "0": 5000,
+      "1": 5000,
+      "2": 5000,
+      "3": 5000,
+      "4": 5000
+    }
+  },
+  "augmented_schema": {
+    "rows": 22465,
+    "columns": 23,
+    "header": [
+      "MsgId",
+      "CmdCode",
+      "TimeRadians",
+      "MsgLength",
+      "ApId",
+      "FlowLengthInWindow",
+      "SlidingWindowMeanIntervalSec",
+      "SlidingWindowMaxIntervalSec",
+      "SlidingWindowMinIntervalSec",
+      "MessageCountInWindow",
+      "UniqueMessageIDsInWindow",
+      "AverageMessageLengthInWindow",
+      "MessageRateInWindow",
+      "StdDevMessageLengthInWindow",
+      "MemoryAnonMB",
+      "MemoryFileMB",
+      "MemoryKernelstackMB",
+      "MemoryPageTableMB",
+      "MemorySocketMB",
+      "MemoryPercpuMB",
+      "MemoryShmemMB",
+      "MemorySlabUnreclaimableMB",
+      "Label"
+    ],
+    "label_counts": {
+      "0": 3622,
+      "1": 4307,
+      "2": 4709,
+      "3": 4878,
+      "4": 4949
+    }
+  },
+  "label_schema": {
+    "field": "Label",
+    "mapping": {
+      "0": "command_flooding",
+      "1": "data_injection",
+      "2": "defence_impairment",
+      "3": "normal",
+      "4": "storage_exhaustion"
+    },
+    "evidence_role": "OFFLINE_GROUND_TRUTH_ONLY",
+    "counts_as_operational_recovery_state": false
+  },
+  "augmentation_provenance": {
+    "seed": 7,
+    "deterministic_reproduction_claimed_by_source": true,
+    "removed_invariant_fields": [
+      "HeaderVersion",
+      "MsgType",
+      "HasSecondaryHeader",
+      "SegmentationFlag",
+      "SequenceCount",
+      "CommandErrorCounter",
+      "IngestErrors",
+      "MemoryPageFaults"
+    ],
+    "noise_pipeline": [
+      "white noise",
+      "analog outliers",
+      "gaps/row dropping",
+      "memory trends",
+      "signal shifts",
+      "frequency changes",
+      "sensor dropout",
+      "magnitude warping",
+      "window time warp"
+    ]
+  },
+  "package_quality_findings": [
+    {
+      "finding": "Data/Metadata/checksums.txt contains bare digest lines while Code/Validation/validate_and_load.py parses only digest-plus-path entries.",
+      "impact": "The supplied validator can skip checksum verification because its parser may produce no path mapping.",
+      "study9_handling": "Preserve the source defect and rely on independent Study 9 SHA-256 recomputation. Do not repair the source package."
+    },
+    {
+      "finding": "The root README refers to /Code/Scripts/, while the package contains Code/Cosmos_Scripts/.",
+      "impact": "Documentation path mismatch only.",
+      "study9_handling": "Preserve and document; no source repair."
+    }
+  ],
+  "technical_disposition": {
+    "artifact_identity_verified": true,
+    "raw_published_hash_matched": true,
+    "augmented_published_hash_matched": true,
+    "raw_schema_and_dimensions_verified": true,
+    "augmented_schema_and_dimensions_verified": true,
+    "raw_artifact_selected_as_canonical": true,
+    "augmented_artifact_classified_as_derived": true,
+    "label_excluded_from_operational_native_role": true,
+    "population_inclusion_locked": false,
+    "final_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE"
+  },
+  "remaining_gates": [
+    "freeze exact machine-readable field-to-recovery-state adjudication schema before mapping",
+    "freeze final primary dataset population before row-level endpoint computation"
+  ],
+  "negative_and_quality_findings_preserved": true
+}

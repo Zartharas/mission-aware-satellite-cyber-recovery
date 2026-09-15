@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "PERFORMANCE_REMEDIATION_IMPLEMENTED_AWAITING_ACTUAL_CLONE_VALIDATION",
+  "record_date": "2026-09-14",
+  "trigger_basis_commit": "6c6968c08c186927bdab8bf1371c80dd809db29c",
+  "trigger_context": {
+    "phase": "synthetic_pre_real_data_validation",
+    "test_name": "test_full_synthetic_runner_detects_corrupted_canonical_projection",
+    "observed_behavior": "CPU-bound test remained on the same test output for more than 20 minutes",
+    "observed_process_cpu_percent": 100.0,
+    "observed_elapsed_lower_bound": "00:20:34",
+    "termination": "user_interrupt_after_diagnostic_confirmation",
+    "traceback_terminal_path": [
+      "study9_semantic.sidecar.guaranteed_minimal_sidecar_sets",
+      "study9_semantic.sidecar.action_set_cardinality",
+      "study9_semantic.sidecar.reachable_actions",
+      "study9_semantic.selector_adapter.select_action_from_state",
+      "study9_semantic.selector_adapter._selector_module",
+      "study9_semantic.contracts.load_frozen_contracts",
+      "study9_semantic.contracts.validate_contracts",
+      "study9_semantic.contracts._validate_loader_runner_phase",
+      "ast.parse"
+    ],
+    "real_dataset_rows_opened": false,
+    "study9_real_endpoints_computed": false,
+    "real_results_directory_created": false
+  },
+  "root_cause": {
+    "canonical_path": "selector_adapter._selector_module called load_frozen_contracts for every selector invocation",
+    "independent_path": "independent_audit._selectors called load_frozen_contracts for every audit selector invocation",
+    "amplifier": "guaranteed-sidecar enumeration repeatedly evaluates overlapping complete Boolean states across subsets, revealed assignments, completions, groups, and policies",
+    "classification": "computational_redundancy_not_scientific_logic_error"
+  },
+  "remediation": {
+    "canonical_selector_module_cached_once_per_process": true,
+    "canonical_policy_state_action_memoization": true,
+    "independent_selector_module_cached_once_per_process": true,
+    "independent_policy_state_action_memoization": true,
+    "canonical_and_independent_caches_are_separate": true,
+    "cache_key": "policy_value_plus_complete_eight_boolean_state",
+    "cache_value": "deterministic_Study2_action",
+    "explicit_cache_clear_hooks_for_tests": true,
+    "wall_clock_threshold_test_used": false,
+    "bounded_initialization_count_test_used": true
+  },
+  "scientific_invariance": {
+    "admissible_completion_space_changed": false,
+    "guaranteed_sidecar_definition_changed": false,
+    "completion_sampling_introduced": false,
+    "heuristic_pruning_introduced": false,
+    "primary_policy_set_changed": false,
+    "recovery_state_semantics_changed": false,
+    "dataset_population_changed": false,
+    "input_identity_contract_changed": false,
+    "selector_logic_changed": false,
+    "independent_raw_row_projection_changed": false,
+    "endpoint_definition_changed": false,
+    "result_value_changed_by_design": false
+  },
+  "validation_requirements": {
+    "canonical_exhaustive_equivalence": "all 256 complete Boolean states x all 8 Study2Policy values",
+    "canonical_contract_initialization_max_per_process_after_cache_clear": 1,
+    "independent_contract_initialization_max_per_process_after_cache_clear": 1,
+    "full_synthetic_runner_must_complete": true,
+    "corrupted_canonical_projection_must_still_fail_closed": true,
+    "actual_clone_full_suite_must_pass_before_code_freeze": true
+  },
+  "execution_boundary": {
+    "dataset_ingestion_authorized": false,
+    "row_level_analysis_authorized": false,
+    "canonical_execution_authorized": false,
+    "results_directory_authorized": false,
+    "real_dataset_rows_may_be_opened": false,
+    "study9_endpoints_may_be_computed": false,
+    "submitted_papers_1_through_4_may_be_modified": false
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "SEMANTIC_ADJUDICATION_FROZEN_NO_ROW_ANALYSIS",
+  "freeze_date": "2026-09-13",
+  "freeze_basis_branch": "study9/recovery-state-semantic-interoperability",
+  "freeze_basis_commit": "049b1ae4d148fdf85b08f6c7b9cf1dcb32558fa3",
+  "primary_population_freeze_record": "study9/PRIMARY_POPULATION_FREEZE.json",
+  "mapping_rubric": "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+  "frozen_downstream_interface": {
+    "selector_path": "study2/src/study2_security/selectors.py",
+    "selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "evidence_semantics_path": "study2/src/study2_security/evidence.py",
+    "recovery_gate_path": "study2/src/study2_security/recovery_gate.py",
+    "modification_authorized": false
+  },
+  "target_semantics": {
+    "signature_valid": {
+      "meaning": "Cryptographic signature verification succeeds for the evidence claim under a known source public key.",
+      "required_equivalence": "A dataset field may be DIRECT only if it is itself a documented cryptographic signature-verification outcome at the decision point.",
+      "forbidden_substitutes": ["CRC outcome", "checksum", "generic error flag", "packet validity", "attack label"]
+    },
+    "source_trusted": {
+      "meaning": "The evidence source is a member of the verifier's trusted-source set.",
+      "required_equivalence": "Source identity alone is insufficient; trust membership or an exactly equivalent documented trust decision is required.",
+      "forbidden_substitutes": ["source identifier", "APID", "packet ID", "satellite ID", "run ID", "attack label"]
+    },
+    "fresh": {
+      "meaning": "Evidence issue time is not in the future and the decision time is within the evidence validity interval.",
+      "required_equivalence": "A timestamp alone is insufficient without a decision-time reference and a documented validity interval or equivalent freshness rule.",
+      "forbidden_substitutes": ["timestamp alone", "arrival order", "sequence count alone", "scenario timing"]
+    },
+    "epoch_valid": {
+      "meaning": "The evidence epoch equals the expected epoch for the subject at the decision point.",
+      "required_equivalence": "A sequence number, software version, TLE epoch, or timestamp is insufficient unless the dataset also supplies the expected evidence epoch and comparison semantics.",
+      "forbidden_substitutes": ["sequence count alone", "software version", "TLE epoch", "timestamp", "attack label"]
+    },
+    "contradictory": {
+      "meaning": "Two or more accepted current claims for the same subject, key, and epoch contain different values.",
+      "required_equivalence": "Generic sensor inconsistency or anomaly is insufficient without the frozen same-subject/same-key/same-epoch competing-claim relation.",
+      "forbidden_substitutes": ["sensor disagreement without claim identity", "anomaly score", "attack label", "error counter"]
+    },
+    "minimum_evidence_complete": {
+      "meaning": "All ten frozen recovery criteria are present in the current accepted evidence state.",
+      "required_criteria": [
+        "approved_version",
+        "integrity_measurement_valid",
+        "authorization_valid",
+        "measured_state_current",
+        "authorized_command_path_restored",
+        "ground_spacecraft_state_agreed",
+        "required_telemetry_restored",
+        "health_checks_passed",
+        "no_residual_unauthorized_state",
+        "recovery_manifest_complete"
+      ],
+      "forbidden_substitutes": ["telemetry present", "quality score", "CRC success", "low error count", "record completeness", "attack label"]
+    },
+    "security_signal": {
+      "meaning": "A dataset-native operational security or anomaly guard signal visible to the selector at the decision point; it is not equivalent to offline attack truth.",
+      "direct_rule": "A documented native detector or security-guard flag may be DIRECT when the field itself expresses the operational signal and only boolean/type normalization is required.",
+      "forbidden_substitutes": ["attack/scenario ground-truth label", "attack severity assigned at injection", "synthetic detection-confidence label", "post hoc analyst classification"]
+    },
+    "authorization_available": {
+      "meaning": "The authorization or authorized-contact path needed by the recovery decision is available at the decision point.",
+      "required_equivalence": "Presence of a command or command code is insufficient unless availability of the authorization path is explicitly represented.",
+      "forbidden_substitutes": ["command presence", "command code", "normal scenario label", "ground-station identifier"]
+    }
+  },
+  "permitted_deterministic_derivation_rules": [],
+  "derivation_freeze_rule": "No deterministic derivation rule is permitted in the primary analysis unless it appears in this frozen registry. The registry is intentionally empty.",
+  "dataset_contracts": [
+    {
+      "dataset_id": "CUCD_ID_V3",
+      "canonical_artifact": "Data/Raw/consolidated_dataset_raw.csv",
+      "variable_contracts": [
+        {"recovery_state_variable":"signature_valid","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"No documented cryptographic signature-verification outcome exists in the canonical raw schema."},
+        {"recovery_state_variable":"source_trusted","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["MsgId","ApId"],"rationale":"Message/application identifiers provide identity-like information but do not establish trusted-source membership."},
+        {"recovery_state_variable":"fresh","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["TimeRadians","SlidingWindowMeanIntervalSec","SlidingWindowMaxIntervalSec","SlidingWindowMinIntervalSec"],"rationale":"Timing information exists, but no decision-time reference plus validity interval establishes Study 2 freshness."},
+        {"recovery_state_variable":"epoch_valid","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["SequenceCount"],"rationale":"Sequence state is related to ordering/replay but no expected evidence epoch is supplied."},
+        {"recovery_state_variable":"contradictory","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"The canonical schema does not encode accepted competing claims for the same subject, key, and epoch."},
+        {"recovery_state_variable":"minimum_evidence_complete","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["CommandErrorCounter","IngestErrors","FlowLengthInWindow","MessageCountInWindow"],"rationale":"Quality and traffic indicators may constrain evidence condition but do not establish presence of all ten frozen recovery criteria."},
+        {"recovery_state_variable":"security_signal","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"excluded_fields":["Label"],"rationale":"No canonical operational-native detector/guard field is documented; Label is offline ground truth only."},
+        {"recovery_state_variable":"authorization_available","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"excluded_as_substitutes":["CmdCode"],"rationale":"Command-code presence does not represent availability of an authorization path."}
+      ]
+    },
+    {
+      "dataset_id": "AEGISSAT_2025",
+      "canonical_artifact": "AegisSat-AD.csv",
+      "variable_contracts": [
+        {"recovery_state_variable":"signature_valid","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"The deposit contains no documented cryptographic signature-verification outcome."},
+        {"recovery_state_variable":"source_trusted","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["run_id","cosmos_data.TPL_PACKET.CCSDS_APID","cosmos_data.TPL_PACKET.CCSDS_PACKET_ID"],"rationale":"Identifiers and provenance exist but do not establish verifier trust membership."},
+        {"recovery_state_variable":"fresh","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["Epoch_Time","UTC_Time","cosmos_data.TPL_PACKET.PACKET_TIMESECONDS","cosmos_data.TPL_PACKET.RECEIVED_TIMESECONDS"],"rationale":"Multiple time fields exist, but no dataset-native decision reference plus validity interval establishes freshness."},
+        {"recovery_state_variable":"epoch_valid","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["Epoch_Time","cosmos_data.TPL_PACKET.CCSDS_SEQUENCE_COUNT"],"rationale":"Epoch/sequence-like state exists but no expected evidence epoch and equality rule are provided."},
+        {"recovery_state_variable":"contradictory","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"The deposit does not encode Study 2 accepted competing claims for the same subject, key, and epoch."},
+        {"recovery_state_variable":"minimum_evidence_complete","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["cosmos_data.TPL_PACKET.RECEIVED_COUNT","cosmos_data.OBC_PACKET.OBC_TELEMETRY_STORAGE_ERROR","cosmos_data.OBC_PACKET.OBC_CLOCK_ERROR","cosmos_data.EPS_PACKET.EPS_BATTERY_CONTROLLER_ERROR"],"rationale":"Telemetry/error state constrains evidence quality but cannot establish all ten recovery criteria."},
+        {"recovery_state_variable":"security_signal","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"excluded_fields":["attacks.cpuhightarget.duration","attacks.cpuhightarget.target"],"rationale":"The only explicit attack fields are offline ground-truth/experiment metadata, not operational detector output."},
+        {"recovery_state_variable":"authorization_available","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["command"],"rationale":"Command presence is related to control activity but does not establish authorization-path availability."}
+      ]
+    },
+    {
+      "dataset_id": "UNSW_IOTSAT_2026",
+      "canonical_artifact": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
+      "variable_contracts": [
+        {"recovery_state_variable":"signature_valid","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["RF_CRC_Errors"],"rationale":"FECF CRC outcome is a native frame-integrity check but is not cryptographic signature verification."},
+        {"recovery_state_variable":"source_trusted","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["Satellite_ID"],"rationale":"Satellite_ID identifies the source node but does not establish trusted-source membership."},
+        {"recovery_state_variable":"fresh","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["Timestamp"],"excluded_fields":["Reception_Time"],"rationale":"Sampling time is available, but the excluded reception field cannot be used and no decision-time validity rule establishes freshness."},
+        {"recovery_state_variable":"epoch_valid","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"The canonical base artifact contains no Study 2 evidence epoch plus expected-epoch semantics; label-conditioned CCSDS companion counters are excluded."},
+        {"recovery_state_variable":"contradictory","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"No accepted same-subject/same-key/same-epoch competing-claim representation exists in the canonical base artifact."},
+        {"recovery_state_variable":"minimum_evidence_complete","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["RF_CRC_Errors","RF_Sync_Word_Detections","Quality_Score"],"excluded_fields":["Data_Quality_Score"],"rationale":"Frame/link quality indicators may constrain evidence quality but do not establish all ten frozen recovery criteria."},
+        {"recovery_state_variable":"security_signal","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["Position_Anomaly"],"rationale":"The pinned source documentation defines Position_Anomaly as a native computed 0/1 coarse position-spoofing guard, but full-population validation of the canonical released artifact found 72 of 404798 rows outside that documented 0/1 domain. The field remains semantically relevant but cannot be treated as a reliably observable boolean security signal across the frozen finite population.","uncertainty_or_ambiguity_note":"Apply ambiguity to the entire UNSW finite population. Do not drop the 72 violating rows, selectively salvage the 404726 binary-looking rows, coerce nonzero values, derive from Speed_ms, realign neighboring columns, or substitute attack labels/derived companions.","claim_boundary":"Position_Anomaly remains relevant evidence about an intended operational coarse position-spoofing guard, but it supplies no known primary security_signal value after the prospective domain-defect deviation."},
+        {"recovery_state_variable":"authorization_available","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"The canonical base schema contains no field representing availability of an authorization/contact path."}
+      ],
+      "offline_label_fields_excluded_from_operational_state": ["Attack_Flag","Attack_Type","Attack_Subtype","Attack_Severity","Attack_Duration","Attack_Source_Type","Detection_Confidence","Attack_Timeline_ID"],
+      "label_conditioned_companion_fields_excluded": ["CCSDS_MC_Frame_Count","CCSDS_Packet_Sequence_Count","CCSDS_APID"]
+    }
+  ],
+  "prospective_semantic_deviation": {
+    "deviation_id": "S9-RTSI-001-DEV-UNSW-POSITION-ANOMALY-DOMAIN-20260915",
+    "record": "study9/PROTOCOL_DEVIATION_UNSW_POSITION_ANOMALY_DOMAIN_20260915.json",
+    "classification": "SOURCE_FIELD_DOMAIN_DEFECT_DIRECT_TO_AMBIGUOUS_NO_REPAIR",
+    "dataset_id": "UNSW_IOTSAT_2026",
+    "recovery_state_variable": "security_signal",
+    "native_field": "Position_Anomaly",
+    "prior_mapping_class": "DIRECT",
+    "prospective_mapping_class": "AMBIGUOUS",
+    "full_population_row_count": 404798,
+    "binary_count": 404726,
+    "nonbinary_count": 72,
+    "selective_salvage_permitted": false,
+    "repair_or_realign_permitted": false,
+    "derivation_or_substitution_permitted": false,
+    "computational_runtime_changed": false,
+    "canonical_run_code_freeze_changed": false
+  },
+  "execution_boundary": {
+    "row_level_mapping_executed": false,
+    "coverage_counts_computed": false,
+    "admissible_action_sets_computed": false,
+    "unique_action_identifiability_computed": false,
+    "minimal_sidecar_sets_computed": false,
+    "dataset_bytes_ingested_into_repository": false
+  },
+  "change_rule": "After this freeze, changing a target semantic, mapping class, eligible native field, exclusion, or derivation rule requires a documented protocol deviation. The frozen record must not be rewritten retroactively after row-level endpoint inspection."
+}

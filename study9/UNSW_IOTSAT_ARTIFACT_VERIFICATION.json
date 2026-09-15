@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "dataset_id": "UNSW_IOTSAT_2026",
+  "verification_date": "2026-09-13",
+  "status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE",
+  "purpose": "Independent artifact, schema, release-consistency, source-code provenance, and project-distribution licensing governance verification before any Study 9 semantic mapping or endpoint computation.",
+  "scope_boundary": {
+    "row_level_recovery_mapping_performed": false,
+    "study9_endpoints_computed": false,
+    "source_rows_repaired": false,
+    "missing_state_imputed": false,
+    "population_frozen": false,
+    "dataset_ingested_into_research_repository": false
+  },
+  "source_provenance": {
+    "primary_article_doi": "10.1016/j.csa.2026.100133",
+    "source_repository": "https://github.com/Osama-Abdelhameed/UNSW-IoTSAT",
+    "source_repository_commit": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
+    "source_repository_license": "MIT",
+    "release_delivery": "author-linked public SharePoint/OneDrive package",
+    "dataset_specific_license_in_release_package": null,
+    "repository_readme_license_badge": "MIT",
+    "repository_readme_directly_links_public_dataset": true,
+    "license_boundary": "The downloaded dataset package contains no separate license file. Study 9 treats the release under the MIT-licensed project distribution context as an author-approved research-governance assumption, not as independently verified dataset-specific legal advice."
+  },
+  "dataset_license_governance_interpretation": {
+    "study9_license": "MIT",
+    "basis": [
+      "Pinned source repository contains an MIT LICENSE file.",
+      "Pinned repository README displays an MIT license badge.",
+      "The same README directly links the UNSW SharePoint dataset used for the audited release.",
+      "The release was obtained through the author-provided public dataset path.",
+      "The independent author of Study 9 explicitly approved treating the release under the MIT project-distribution context."
+    ],
+    "separate_dataset_license_file_present_in_download_package": false,
+    "independently_verified_dataset_specific_license_text": false,
+    "legal_advice_claimed": false,
+    "citation_required_in_eventual_manuscript": true,
+    "citation_targets": [
+      "UNSW-IoTSAT primary article DOI 10.1016/j.csa.2026.100133",
+      "Osama-Abdelhameed/UNSW-IoTSAT repository pinned to 48ccc99ebd182d886eb18d2b94e95baba5a2a89a"
+    ]
+  },
+  "download_package": {
+    "local_container_filename": "OneDrive_2026-09-13.zip",
+    "size_bytes": 1431174739,
+    "sha256": "21f747325041e633df135aed2e12de4de518a5c4e62ded2270d7bbd0523c9d9d",
+    "zip_integrity_bad_member": null,
+    "member_count": 6,
+    "local_filename_is_source_version_identifier": false
+  },
+  "artifacts": [
+    {
+      "path": "UNSW-IoTSAT dataset/FEATURE_DOCUMENTATION.md",
+      "size_bytes": 22810,
+      "sha256": "98d5a71eb3637d3cf71976655a24bb3f788c38da7b60f4703d27638b6a305b38",
+      "role": "DOCUMENTATION_ONLY"
+    },
+    {
+      "path": "UNSW-IoTSAT dataset/FEATURES.csv",
+      "rows": 112,
+      "columns": 8,
+      "size_bytes": 17398,
+      "sha256": "95ccd70edd114bbf879ec163c4e801f4b5f3dd87a7767d434dcf15f2930cb476",
+      "role": "SCHEMA_DOCUMENTATION_ONLY"
+    },
+    {
+      "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
+      "rows": 404798,
+      "columns": 49,
+      "size_bytes": 145079423,
+      "sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+      "role": "PRIMARY_CANONICAL_NATIVE_DATA_ARTIFACT",
+      "row_width_mismatches": 0
+    },
+    {
+      "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT.json",
+      "size_bytes": 664617049,
+      "sha256": "b11775b7100e23430d6ef9ac0f21c15b3d946683fa043340de7547d3cc360ff5",
+      "role": "EXCLUDED_FROM_PRIMARY_MAPPING_INVALID_SERIALIZATION",
+      "defect": {
+        "top_level_structure": "array",
+        "terminates_cleanly": false,
+        "last_non_whitespace_byte": "}",
+        "expected_last_non_whitespace_byte": "]"
+      }
+    },
+    {
+      "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT_with_CCSDS_fields.csv",
+      "rows": 404798,
+      "columns": 52,
+      "size_bytes": 150632208,
+      "sha256": "c117d04d7bfb8fa06413e2855c72fa8001dc0d8b58ffff4314cf41e08c4e8854",
+      "role": "DERIVED_COMPANION_NOT_OPERATIONAL_NATIVE",
+      "row_width_mismatches": 0,
+      "semantic_base_fields_preserved": true,
+      "extra_rows_after_base_end": 0
+    },
+    {
+      "path": "UNSW-IoTSAT dataset/UNSW_IoTSAT_With_Feature_Engineering.csv",
+      "rows": 404798,
+      "columns": 109,
+      "size_bytes": 470804757,
+      "sha256": "34a921079ecb908868e6038336b927cdc4683492a58dc026542affec9cbef1e5",
+      "role": "EXCLUDED_FROM_PRIMARY_MAPPING_DERIVED_AND_BASE_VALUES_MODIFIED",
+      "row_width_mismatches": 0,
+      "semantic_base_fields_preserved": false,
+      "modified_original_cells": 139,
+      "modified_original_columns": 17,
+      "semantic_mismatch_counts_by_original_column": {
+        "Velocity_East_ms": 27,
+        "Velocity_North_ms": 17,
+        "Altitude_m": 18,
+        "GPS_Satellites": 20,
+        "Ambient_Light_Lux": 3,
+        "Longitude": 9,
+        "Latitude": 6,
+        "Shunt_Voltage_V": 11,
+        "Mag_X_uT": 3,
+        "Current_A": 5,
+        "Mag_Y_uT": 2,
+        "GPS_Fix_Quality": 5,
+        "Mag_Z_uT": 3,
+        "Proximity": 2,
+        "Speed_ms": 4,
+        "Power_W": 2,
+        "Velocity_Up_ms": 2
+      }
+    }
+  ],
+  "documented_release_characteristics": {
+    "records": 404798,
+    "base_columns": 49,
+    "ccsds_columns": 52,
+    "engineered_columns": 109,
+    "documented_features_rows": 112,
+    "origin_counts": {
+      "MEASURED": 13,
+      "SIMULATED": 9,
+      "COMPUTED": 82,
+      "LABEL": 8
+    }
+  },
+  "canonical_artifact_decision": {
+    "selected": "UNSW-IoTSAT dataset/UNSW_IoTSAT.csv",
+    "reason": "It is the 49-column native release representation; row count and schema are complete, while JSON is invalidly serialized and the engineered CSV modifies original base-field values.",
+    "ccsds_companion_allowed_as_documentation_or_derived_evidence": true,
+    "ccsds_companion_allowed_as_operational_native_evidence": false,
+    "engineered_csv_allowed_in_primary_mapping": false,
+    "json_allowed_in_primary_mapping": false
+  },
+  "tail_field_quality": {
+    "excluded_fields": [
+      "Vertical_Category",
+      "Horizontal_Speed_ms",
+      "Reception_Time",
+      "Data_Quality_Score"
+    ],
+    "exclusion_scope": "entire fields across the canonical base artifact",
+    "handling_rule": "Do not repair, re-align, infer, selectively salvage, or impute affected values for primary semantic mapping.",
+    "documented_expectation": {
+      "Vertical_Category": "ascending|descending|stable based on Velocity_Up_ms",
+      "Horizontal_Speed_ms": "numeric",
+      "Reception_Time": "ISO-8601-like timestamp",
+      "Data_Quality_Score": "numeric [0,1]"
+    },
+    "full_population_pattern_counts": {
+      "numeric_vertical_numeric_horizontal_datetime_reception_numeric_quality": 290792,
+      "numeric_vertical_datetime_horizontal_numeric_reception_numeric_quality": 113876,
+      "all_four_numeric": 130
+    },
+    "vertical_category_rule_check": {
+      "vertical_category_not_a_documented_category": 404796,
+      "velocity_up_unparseable": 2
+    }
+  },
+  "source_code_explanation": {
+    "repository_commit": "48ccc99ebd182d886eb18d2b94e95baba5a2a89a",
+    "evidence": [
+      {
+        "path": "received_sensors_data_on_satellite_node.py",
+        "observation": "Generates Vertical_Category='stable' when abs(Velocity_Up_ms) < 10, with ascending/descending alternatives."
+      },
+      {
+        "path": "FEATURE_DOCUMENTATION.md",
+        "observation": "Documents Vertical_Category as ascending/descending/stable, Horizontal_Speed_ms as numeric, and Reception_Time as a string timestamp."
+      },
+      {
+        "path": "combined_data_from_satellite_nodes_on_GS.py",
+        "observation": "Cleaning/normalization logic removes literal 'stable' entries before fixed-position normalization, providing a plausible implementation-level mechanism for downstream field shifts."
+      },
+      {
+        "path": "CCSDS_field_augmentation.py",
+        "observation": "Generates CCSDS_MC_Frame_Count, CCSDS_Packet_Sequence_Count, and CCSDS_APID using Attack_Type, Attack_Subtype, and Attack_Severity-conditioned logic."
+      },
+      {
+        "path": "Feature_Engineering_UNSW-IoTSAT.py",
+        "observation": "Loads the base CSV, performs numeric coercion and derived-feature generation, and writes a 109-column engineered release; independent reconciliation found 139 semantically modified original cells across 17 original columns."
+      }
+    ],
+    "causal_claim_boundary": "The code provides a plausible implementation-level explanation for the observed field-quality pattern. Study 9 does not claim this is the sole cause without author confirmation."
+  },
+  "ccsds_companion_boundary": {
+    "added_fields": [
+      "CCSDS_MC_Frame_Count",
+      "CCSDS_Packet_Sequence_Count",
+      "CCSDS_APID"
+    ],
+    "label_conditioning_inputs": [
+      "Attack_Type",
+      "Attack_Subtype",
+      "Attack_Severity"
+    ],
+    "evidence_role": "OFFLINE_GROUND_TRUTH_CONDITIONED_DERIVATIVE",
+    "counts_as_operational_native_recovery_state": false
+  },
+  "technical_disposition": {
+    "artifact_identity_verified": true,
+    "canonical_native_artifact_verified": true,
+    "canonical_native_artifact_sha256_bound": true,
+    "schema_and_dimensions_verified": true,
+    "invalid_json_excluded": true,
+    "engineered_release_excluded_from_primary_mapping": true,
+    "defective_base_fields_preregistered_for_whole_field_exclusion": true,
+    "label_conditioned_ccsds_fields_excluded_from_operational_native_role": true,
+    "dataset_specific_license_text_in_package_verified": false,
+    "study9_license_gate_closed_by_author_approved_project_distribution_assumption": true,
+    "study9_license_interpretation": "MIT",
+    "population_inclusion_locked": false,
+    "final_status": "SELECTION_GATE_PASS_INCLUDED_PENDING_POPULATION_FREEZE"
+  },
+  "remaining_gate": "Freeze the final primary dataset population only after all selected datasets clear their remaining inclusion and artifact gates; AegisSat remains pending.",
+  "negative_and_quality_findings_preserved": true
+}

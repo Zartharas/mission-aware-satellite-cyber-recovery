@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "experiment_id": "S9-RTSI-001",
+  "status": "CANONICAL_RESULTS_FROZEN_PENDING_REPOSITORY_MERGE",
+  "freeze_timestamp_utc": "2026-09-15T02:38:16Z",
+  "validated_head_commit": "44bb8ffb69044a524bd97964c897a1eb63c13165",
+  "canonical_run": {
+    "run_id": "S9-RTSI-001_CANONICAL_RUN_20260914",
+    "directory": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914",
+    "artifact_count": 8,
+    "identity_algorithm": "sha256"
+  },
+  "frozen_result_files": {
+    "run_manifest.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/run_manifest.json",
+      "bytes": 4214,
+      "sha256": "85c81c5b1568ae547b98bb4a9896f62ec43e43e5ccfcb8eec90ae7d5446a20cd"
+    },
+    "mapping_matrix.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/mapping_matrix.json",
+      "bytes": 11932,
+      "sha256": "21687f7f44f16e73fb4da9185563244554db00c5e608679ec3c03cd467fd5bdf"
+    },
+    "coverage_summary.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/coverage_summary.json",
+      "bytes": 1304,
+      "sha256": "9fa94bb2f160e43cc6fa00837f2189973edcb6749b15a6f74a6c36ce2a428edc"
+    },
+    "native_state_groups.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/native_state_groups.json",
+      "bytes": 889,
+      "sha256": "4dd7fa034c07116734ef0ace6271addc9c7cf00505247c295d3698ca06ed366d"
+    },
+    "policy_strata.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/policy_strata.json",
+      "bytes": 7199,
+      "sha256": "970d28a1e719a06dc6264f4471dc4813164bd1552df49393d91adf5a694b02a0"
+    },
+    "guaranteed_sidecar.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/guaranteed_sidecar.json",
+      "bytes": 3407,
+      "sha256": "a28f149f260102f5ba852019776a4d270c30434498de02bed9a400311fcaef22"
+    },
+    "independent_audit.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/independent_audit.json",
+      "bytes": 21215,
+      "sha256": "30d4665924d93563c43ca203413946d68002a998d44fb2e6ce7c156745a7e0ae"
+    },
+    "output_sha256_manifest.json": {
+      "path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/output_sha256_manifest.json",
+      "bytes": 935,
+      "sha256": "9614cf229e669e87365d1ab7b94f79493745796c49f5d69094fced8d3729a52c"
+    }
+  },
+  "validation": {
+    "artifact_identity": "PASS_8_OF_8",
+    "canonical_independent_persisted_match": true,
+    "persisted_cross_audit_consistency": "PASS",
+    "output_sha256_manifest_recheck": "PASS",
+    "repository_spillover": 0,
+    "evidence_review_script_sha256": "cc4af39dff98f01314c2dbfe3effea9f719fd640944c382e8530a96a87158231"
+  },
+  "scientific_boundary": {
+    "finite_source_populations_analyzed_separately": true,
+    "dataset_attack_labels_used_as_operational_truth": false,
+    "missing_recovery_state_imputed": false,
+    "policy_pooling_or_averaging_permitted": false,
+    "external_validation_claimed": false,
+    "operational_spacecraft_performance_claimed": false
+  },
+  "authorization": {
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false
+  }
+}

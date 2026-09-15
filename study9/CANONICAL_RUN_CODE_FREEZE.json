@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "status": "CANONICAL_RUN_CODE_FROZEN_FOR_REAL_EXECUTION",
+  "freeze_date": "2026-09-14",
+  "tested_branch": "study9/recovery-state-semantic-interoperability",
+  "tested_commit": "039bca319987ceebdba52f080fb0f87b1d4e67ed",
+  "purpose": "Freeze the exact computational runtime that passed the final pre-real-data actual-clone validation before any real Study 9 execution authorization is opened.",
+  "actual_clone_validation": {
+    "full_suite": {
+      "command_scope": "study9/tests/test_*.py",
+      "expected_test_count": 69,
+      "observed_test_count": 69,
+      "result": "PASS",
+      "return_code": 0,
+      "elapsed_seconds": 21.757
+    },
+    "canonical_runner_suite": {
+      "command_scope": "study9/tests/test_canonical_runner.py",
+      "expected_test_count": 6,
+      "observed_test_count": 6,
+      "result": "PASS",
+      "return_code": 0,
+      "elapsed_seconds": 21.274
+    },
+    "working_tree_clean": true,
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false,
+    "results_directory_created": false
+  },
+  "performance_remediation_record": "study9/PRE_REAL_DATA_PERFORMANCE_REMEDIATION.json",
+  "performance_remediation_classification": "computational_redundancy_not_scientific_logic_error",
+  "computational_identity": {
+    "algorithm": "sha256",
+    "file_count": 12,
+    "contracts_py_self_freeze_excluded": true,
+    "contracts_py_role": "prospective governance validator; contracts.py remains included in run_manifest reproducibility identity but is excluded from this self-referential computational freeze because this freeze step modifies the validator that enforces the freeze",
+    "files": [
+      {
+        "path": "study9/src/study9_semantic/completions.py",
+        "size_bytes": 3224,
+        "sha256": "d652d24f86eedc0a1defaa98d9c54355da3ebd19f9e54c1b80fa71d854b5eae0"
+      },
+      {
+        "path": "study9/src/study9_semantic/mapping.py",
+        "size_bytes": 3588,
+        "sha256": "17c02940932a9551ed1b0892e7da16c13f80ace411eca0b5032afb9c7995aba3"
+      },
+      {
+        "path": "study9/src/study9_semantic/selector_adapter.py",
+        "size_bytes": 2300,
+        "sha256": "5300d8145876c7beb579aee39c29f9cd26ed02555fd0e727d35d5583d0ee92d1"
+      },
+      {
+        "path": "study9/src/study9_semantic/sidecar.py",
+        "size_bytes": 3036,
+        "sha256": "422539217fbc11b68ecf1a0b827b557b9592910909b936eb68196dd48c6717f7"
+      },
+      {
+        "path": "study9/src/study9_semantic/input_identity.py",
+        "size_bytes": 8733,
+        "sha256": "69f72a5ba9de3bece096bcecbdb3960abc81007e891225beb5a7d31d6c817292"
+      },
+      {
+        "path": "study9/src/study9_semantic/state_projection.py",
+        "size_bytes": 4995,
+        "sha256": "2f88a5a24b0138c914e3fff6bacd26e29dc44f7ec34c75c71a1c97d47282be25"
+      },
+      {
+        "path": "study9/src/study9_semantic/state_groups.py",
+        "size_bytes": 3256,
+        "sha256": "baef9a089db61d37602f0157b0acdc9dbeb16a57d72b5a03a092ad1d966f9c0b"
+      },
+      {
+        "path": "study9/src/study9_semantic/canonical_engine.py",
+        "size_bytes": 5981,
+        "sha256": "aeaadb388ab2afc90bcd71fc21b16f1d5d1b52c134596cddc9742b3223c05d0e"
+      },
+      {
+        "path": "study9/src/study9_semantic/deterministic_io.py",
+        "size_bytes": 2471,
+        "sha256": "033443cba8df5ab51329b02f514e1bf4e2411ad75f55e38494412f14ef7b3de0"
+      },
+      {
+        "path": "study9/src/study9_semantic/independent_audit.py",
+        "size_bytes": 17947,
+        "sha256": "c3bdbae03728bb1f6cc2e46fb1f6de5b9ef22ed2e5df9384cf1977a53e088cf9"
+      },
+      {
+        "path": "study9/src/study9_semantic/canonical_runner.py",
+        "size_bytes": 16058,
+        "sha256": "dfc9e0e1f80dfed1e8814763b4edf29a528d6f9ac9ab7ded78890a1b25ad22bc"
+      },
+      {
+        "path": "study2/src/study2_security/selectors.py",
+        "size_bytes": 2647,
+        "sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
+      }
+    ]
+  },
+  "metadata_correction": {
+    "correction_date": "2026-09-14",
+    "classification": "freeze_metadata_sha256_correction_only",
+    "affected_path": "study9/src/study9_semantic/canonical_runner.py",
+    "previous_recorded_sha256": "2c31a6ccfd5412fc6aa8348c556303c3879f8e946e88ac2e41e5cbc06c49859c",
+    "corrected_sha256": "dfc9e0e1f80dfed1e8814763b4edf29a528d6f9ac9ab7ded78890a1b25ad22bc",
+    "recorded_size_bytes": 16058,
+    "actual_clone_byte_audit": {
+      "files_checked": 12,
+      "files_matched_before_correction": 11,
+      "mismatch_count": 1,
+      "sole_mismatch_path": "study9/src/study9_semantic/canonical_runner.py"
+    },
+    "runtime_file_changed": false,
+    "scientific_logic_changed": false,
+    "real_dataset_rows_opened": false,
+    "study9_endpoints_computed": false,
+    "results_directory_created": false,
+    "rationale": "The actual-clone byte audit showed that 11 of 12 frozen files matched exactly and that canonical_runner.py retained the recorded byte size but the freeze record contained an incorrect SHA-256 value. The runtime file itself was not modified; only the freeze metadata was corrected to the SHA-256 computed from the tested file bytes."
+  },
+  "execution_boundary": {
+    "real_dataset_rows_opened": false,
+    "dataset_ingestion_executed": false,
+    "row_level_analysis_executed": false,
+    "canonical_execution_executed": false,
+    "study9_endpoints_computed": false,
+    "results_directory_created": false,
+    "manuscript_creation_executed": false,
+    "submission_executed": false
+  },
+  "freeze_rule": "Any byte change to a frozen computational file requires a new prospective canonical-run code-freeze record and complete actual-clone validation before real canonical execution may be authorized. This code freeze freezes implementation only; it does not freeze scientific results and does not itself authorize real-data access or execution."
+}
