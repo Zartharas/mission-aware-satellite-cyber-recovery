@@ -4,10 +4,13 @@
 
 ## Author
 
-**Aman Kumar Singh, MS, DSc**  
+**Aman Kumar Singh, MS, PhD**  
 Independent Researcher  
 The Woodlands, Texas, United States  
 ORCID: https://orcid.org/0009-0008-9752-3743
+
+**Authorship:** single-author independent study.  
+**Doctoral credential:** PhD, awarded December 2025.
 
 ## Corresponding author
 
@@ -58,4 +61,4 @@ The exact publisher-facing disclosure must be rechecked against the live journal
 
 ## Submission exclusivity
 
-No Paper 5 publisher submission is authorized in the current phase. Submission exclusivity and final authorship must be reconfirmed before any portal submission.
+No Paper 5 publisher submission is authorized in the current phase. Submission exclusivity must be reconfirmed before any portal submission. Final authorship is confirmed as single-author: Aman Kumar Singh.
