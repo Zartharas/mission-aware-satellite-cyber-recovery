@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "paper": "Paper_5_Study_9",
+  "experiment_id": "S9-RTSI-001",
+  "target_journal": "Cyber Security and Applications",
+  "article_type": "Research Article",
+  "status": "SUBMISSION_PACKAGE_CREATION_AUTHORIZED_DRAFT_PACKAGE_PREPARED",
+  "source_main_commit": "5ee8909b4dfb058ef5dd0451c042dde8defe25dc",
+  "authorization": {
+    "submission_package_creation_authorized": true,
+    "submission_authorized": false,
+    "scientific_rerun_authorized": false,
+    "scientific_result_mutation_authorized": false
+  },
+  "journal_requirements_verified_date": "2026-09-15",
+  "package_static_validation": {
+    "abstract_word_count": 245,
+    "keyword_count": 6,
+    "highlight_count": 5,
+    "highlight_max_characters": 84,
+    "citation_key_count": 11,
+    "bibliography_entry_count": 11,
+    "reference_existence_audit": "PASS_11_OF_11"
+  },
+  "pending_before_submission_ready": [
+    "AUTHOR_SUPPLIED_FULL_POSTAL_AFFILIATION_ADDRESS",
+    "ELSEVIER_DECLARATIONS_TOOL_WORD_DOCUMENT",
+    "FINAL_SUBMISSION_EXCLUSIVITY_AND_VERSION_APPROVAL_RECONFIRMATION",
+    "PORTAL_ONLY_FIELDS_VISIBLE_IN_EDITORIAL_MANAGER"
+  ],
+  "optional_not_included": [
+    "GRAPHICAL_ABSTRACT"
+  ],
+  "submission_ready": false,
+  "next_gate": "SUBMISSION_PACKAGE_DRAFT_BUILD_AND_REVIEW"
+}

@@ -4,7 +4,7 @@
   "experiment_id": "S9-RTSI-001",
   "target_journal": "Cyber Security and Applications",
   "working_article_type": "Research article",
-  "status": "MANUSCRIPT_REVIEW_CANDIDATE_METADATA_CONFIRMED_PENDING_FRESH_CI",
+  "status": "SUBMISSION_PACKAGE_CREATION_AUTHORIZED",
   "manuscript_branch": "paper5/study9-csa-manuscript",
   "source_main_commit": "ced258fc3ba9513b34cf3b231abab1d2b3f2ca01",
   "scientific_source": {
@@ -26,7 +26,7 @@
   },
   "authorization": {
     "manuscript_creation_authorized": true,
-    "submission_package_creation_authorized": false,
+    "submission_package_creation_authorized": true,
     "submission_authorized": false
   },
   "journal_guidance": {
@@ -40,7 +40,7 @@
     "highlight_max_characters": 85,
     "generative_ai_disclosure_required_when_applicable": true
   },
-  "next_gate": "MANUSCRIPT_REVIEW_CANDIDATE_METADATA_FRESH_REPOSITORY_CI",
+  "next_gate": "SUBMISSION_PACKAGE_DRAFT_BUILD_AND_REVIEW",
   "compile_validation": {
     "validated_head": "3641546bc744563acebee7b930e90f2190a5d341",
     "validator_sha256": "088f52b31e875a19ed986a6d33a975374ee7f729f7f5087d286c50a004a0d232",
@@ -92,5 +92,18 @@
     "credential_display": "MS, PhD",
     "affiliation_confirmed": "Independent Researcher",
     "submission_exclusivity_reconfirmation_required_at_submission_gate": true
+  },
+  "submission_package": {
+    "path": "submission_package/",
+    "source_main_commit": "5ee8909b4dfb058ef5dd0451c042dde8defe25dc",
+    "creation_authorized": true,
+    "submission_authorized": false,
+    "submission_ready": false,
+    "pending_items": [
+      "AUTHOR_SUPPLIED_FULL_POSTAL_AFFILIATION_ADDRESS",
+      "ELSEVIER_DECLARATIONS_TOOL_WORD_DOCUMENT",
+      "FINAL_SUBMISSION_EXCLUSIVITY_AND_VERSION_APPROVAL_RECONFIRMATION",
+      "PORTAL_ONLY_FIELDS_VISIBLE_IN_EDITORIAL_MANAGER"
+    ]
   }
 }

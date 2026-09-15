@@ -1,0 +1,91 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{fayyaz2026cucd}
+Y.~Fayyaz, S.~N. Afrasiabi, L.~Yang, K.~El-Khatib, Cubesat cybersecurity
+  dataset for intrusion detection (cucd-id): Labelled nos3/cfs telemetry (raw +
+  augmented) with cosmos reproduction scripts, Data in Brief 65 (2026) 112598.
+\newblock \href {https://doi.org/10.1016/j.dib.2026.112598}
+  {\path{doi:10.1016/j.dib.2026.112598}}.
+
+\bibitem{idan2025aegissat}
+R.~Idan, R.~Peled, A.~Ben Siman~Tov, E.~Markus, B.~Zadov, O.~Chodeda,
+  Y.~Fadida, O.~Holschke, J.~Plachy, A.~Shabtai, Y.~Elovici, Aegissat: A
+  satellite cybersecurity testbed, in: Workshop on the Security of Space and
+  Satellite Systems (SpaceSec 2025), 2025.
+\newblock \href {https://doi.org/10.14722/spacesec.2025.23069}
+  {\path{doi:10.14722/spacesec.2025.23069}}.
+
+\bibitem{abdelhameed2026unsw}
+O.~Abdelhameed, B.~Turnbull, N.~Koroniotis, Unsw-iotsat: A hybrid
+  testbed-derived dataset for enabling cybersecurity research in the smart
+  satellite domain, Cyber Security and Applications 4 (2026) 100133.
+\newblock \href {https://doi.org/10.1016/j.csa.2026.100133}
+  {\path{doi:10.1016/j.csa.2026.100133}}.
+
+\bibitem{bashendy2023irs}
+M.~Bashendy, A.~Tantawy, A.~Erradi, Intrusion response systems for
+  cyber-physical systems: A comprehensive survey, Computers \& Security 124
+  (2023) 102984.
+\newblock \href {https://doi.org/10.1016/j.cose.2022.102984}
+  {\path{doi:10.1016/j.cose.2022.102984}}.
+
+\bibitem{ross2021cyberresilient}
+R.~Ross, V.~Pillitteri, R.~Graubart, D.~Bodeau, R.~McQuaid, Developing
+  cyber-resilient systems: A systems security engineering approach, NIST
+  Special Publication 800-160 Volume 2 Revision 1, National Institute of
+  Standards and Technology (2021).
+\newblock \href {https://doi.org/10.6028/NIST.SP.800-160v2r1}
+  {\path{doi:10.6028/NIST.SP.800-160v2r1}}.
+
+\bibitem{koh2021wilds}
+P.~W. Koh, S.~Sagawa, H.~Marklund, S.~M. Xie, M.~Zhang, A.~Balsubramani, W.~Hu,
+  M.~Yasunaga, R.~L. Phillips, I.~Gao, T.~Lee, E.~David, I.~Stavness, W.~Guo,
+  B.~A. Earnshaw, I.~S. Haque, S.~M. Beery, J.~Leskovec, A.~Kundaje,
+  E.~Pierson, S.~Levine, C.~Finn, P.~Liang,
+  \href{https://proceedings.mlr.press/v139/koh21a.html}{Wilds: A benchmark of
+  in-the-wild distribution shifts}, in: Proceedings of the 38th International
+  Conference on Machine Learning, Vol. 139 of Proceedings of Machine Learning
+  Research, PMLR, 2021, pp. 5637--5664.
+\newline\urlprefix\url{https://proceedings.mlr.press/v139/koh21a.html}
+
+\bibitem{cerasuolo2026transfer}
+F.~Cerasuolo, G.~Bovenzi, A.~Pescap{\`e}, Cross-network transferability of
+  ai-based network intrusion detection systems in heterogeneous internet of
+  things environments, Computer Networks 286 (2026) 112434.
+\newblock \href {https://doi.org/10.1016/j.comnet.2026.112434}
+  {\path{doi:10.1016/j.comnet.2026.112434}}.
+
+\bibitem{rodriguez2026harmonization}
+M.~Rodr{\'i}guez, L.~Mehavilla, {\'A}.~Alesanco, J.~Garc{\'i}a, A rule-based
+  label harmonization framework for cross-dataset iot intrusion detection,
+  Internet of Things 39 (2026) 102030.
+\newblock \href {https://doi.org/10.1016/j.iot.2026.102030}
+  {\path{doi:10.1016/j.iot.2026.102030}}.
+
+\bibitem{akbar2023ontology}
+K.~A. Akbar, F.~I. Rahman, A.~Singhal, L.~Khan, B.~Thuraisingham, The design
+  and application of a unified ontology for cyber security, in: Information
+  Systems Security, Vol. 14424 of Lecture Notes in Computer Science, Springer,
+  2023, pp. 23--41.
+\newblock \href {https://doi.org/10.1007/978-3-031-49099-6{\_}2}
+  {\path{doi:10.1007/978-3-031-49099-6{\_}2}}.
+
+\bibitem{mccarthy2023hsn}
+J.~McCarthy, D.~Mamula, J.~Brule, K.~Meldorf, R.~Jennings, J.~Wiltberger,
+  C.~Thorpe, J.~Dombrowski, O.~Lattin, S.~Sepassi, Cybersecurity framework
+  profile for hybrid satellite networks (hsn), NIST Interagency/Internal Report
+  8441, National Institute of Standards and Technology (2023).
+\newblock \href {https://doi.org/10.6028/NIST.IR.8441}
+  {\path{doi:10.6028/NIST.IR.8441}}.
+
+\bibitem{sahakian2021airss}
+M.~Sahakian, D.~Jose, S.~Musuvathy, J.~Thorpe, M.~Umbenhower, S.~Verzi,
+  M.~Dykstra, E.~Vugrin, Airss: Adaptive intrusion response for space systems,
+  SAND Report SAND2021-11864, Sandia National Laboratories (2021).
+
+\end{thebibliography}
