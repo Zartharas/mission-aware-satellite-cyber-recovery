@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "paper": "Paper_5_Study_9",
+  "experiment_id": "S9-RTSI-001",
+  "target_journal": "Cyber Security and Applications",
+  "working_article_type": "Research article",
+  "status": "MANUSCRIPT_CREATION_AUTHORIZED_INITIAL_DRAFT_CREATED",
+  "manuscript_branch": "paper5/study9-csa-manuscript",
+  "source_main_commit": "ced258fc3ba9513b34cf3b231abab1d2b3f2ca01",
+  "scientific_source": {
+    "results_freeze_sha256": "0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2",
+    "science_merge_commit": "1dfdef4ec9a0336f4dccfa11baa4bda4c6cf7ed6",
+    "post_merge_closeout_commit": "ced258fc3ba9513b34cf3b231abab1d2b3f2ca01",
+    "frozen_selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "scientific_rerun_authorized": false,
+    "scientific_result_mutation_authorized": false
+  },
+  "manuscript": {
+    "title": "Recovery-State Semantic Interoperability and Decision Identifiability Across Public Space-Cyber Datasets",
+    "primary_source": "CSA_MANUSCRIPT_DRAFT.tex",
+    "bibliography": "references.bib",
+    "highlights": "CSA_HIGHLIGHTS.txt",
+    "author_metadata": "AUTHOR_METADATA.md",
+    "abstract_word_count": 245,
+    "submission_ready": false
+  },
+  "authorization": {
+    "manuscript_creation_authorized": true,
+    "submission_package_creation_authorized": false,
+    "submission_authorized": false
+  },
+  "journal_guidance": {
+    "verified_date": "2026-09-15",
+    "guide_url": "https://www.keaipublishing.com/en/journals/cyber-security-and-applications/guide-for-authors/",
+    "latex_recommended": true,
+    "abstract_word_limit": 350,
+    "keyword_min": 3,
+    "keyword_max": 6,
+    "highlights_max_bullets": 5,
+    "highlight_max_characters": 85,
+    "generative_ai_disclosure_required_when_applicable": true
+  },
+  "next_gate": "MANUSCRIPT_EVIDENCE_NOVELTY_AND_COMPILE_REVIEW"
+}

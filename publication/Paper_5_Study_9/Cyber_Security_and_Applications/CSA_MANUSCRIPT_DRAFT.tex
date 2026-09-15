@@ -1,0 +1,280 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{enumitem}
+
+\journal{Cyber Security and Applications}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Recovery-State Semantic Interoperability and Decision Identifiability Across Public Space-Cyber Datasets}
+
+\author[aff1]{Aman Kumar Singh\corref{cor1}}
+\ead{asingh65430@ucumberlands.edu}
+\cortext[cor1]{Corresponding author. ORCID: 0009-0008-9752-3743.}
+\affiliation[aff1]{organization={Independent Researcher},
+            city={The Woodlands},
+            state={Texas},
+            country={United States}}
+
+\begin{abstract}
+Public satellite cybersecurity datasets are commonly designed for intrusion detection, attack characterization, or testbed evaluation, but recovery decisions require additional semantics such as trust, freshness, epoch validity, contradiction state, evidence completeness, security signaling, and authorization. This study evaluates whether those semantics transfer across three independently sourced public space-cyber datasets: CuCD-ID v3, AegisSat, and UNSW-IoTSAT. A preregistered field-level rubric classified each required recovery-state variable as directly observable, deterministically derivable by a predeclared rule, ambiguous, or absent. Missing state was preserved as unknown; attack labels were not treated as operational truth. A frozen downstream selector was then evaluated over every admissible completion of unresolved state, with lossless native-state collapse and exact multiplicity weighting. Across all three datasets, direct recovery-state coverage was 0/8 and direct-or-derivable coverage was 0/8. The common unresolved set contained all eight required variables. Each dataset collapsed to one decision-equivalent native-state group while preserving 25,000, 137,965, and 404,798 source rows, respectively. For all four frozen recovery policies, the uniquely identifiable action fraction was 0. Depending on policy, two or three recovery actions remained reachable, and six to eight additional sidecar variables were required to guarantee a unique action. These results do not imply that the datasets lack useful security telemetry. They show that, under the frozen semantic contract, intrusion-oriented public space-cyber data do not by themselves establish the recovery-state semantics required for deterministic downstream recovery decisions. The findings motivate explicit recovery-state interfaces alongside security telemetry when datasets are intended to support response or resilience research.
+\end{abstract}
+
+\begin{keyword}
+satellite cybersecurity \sep semantic interoperability \sep cyber resilience \sep intrusion response \sep recovery state \sep decision identifiability
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+
+Public satellite cybersecurity datasets have become increasingly useful for developing and evaluating intrusion-detection methods, attack classifiers, telemetry analytics, and cyber-physical testbeds. CuCD-ID provides labelled CubeSat command and telemetry data generated through a NOS3/cFS environment \cite{fayyaz2026cucd}; AegisSat couples an Earth-based CubeSat with an environment emulator and attack manager \cite{idan2025aegissat}; and UNSW-IoTSAT provides a large hybrid testbed-derived smart-satellite dataset spanning cyber, physical, and radio-frequency features \cite{abdelhameed2026unsw}. These resources broaden access to repeatable space-cybersecurity experimentation.
+
+Detection-oriented data, however, are not automatically response-ready data. A recovery controller may need to know whether evidence is cryptographically valid, whether a source belongs to a trusted set, whether evidence is fresh for the current decision epoch, whether accepted evidence is contradictory, whether a minimum evidence set is complete, whether an operational security signal is present, and whether an authorization path is available. Intrusion-response research distinguishes the response decision from detection alone \cite{bashendy2023irs}, while cyber-resiliency engineering emphasizes the ability to recover from and adapt to adverse conditions as part of a broader systems-security objective \cite{ross2021cyberresilient}. The semantic interface between security telemetry and recovery logic therefore matters independently of detector accuracy.
+
+Cross-dataset cybersecurity research commonly focuses on predictive generalization, feature harmonization, or label normalization. Distribution shift can degrade performance even when in-distribution results are strong \cite{koh2021wilds}, and recent IoT work has shown both the difficulty of cross-network transfer \cite{cerasuolo2026transfer} and the value of explicit rule-based label harmonization \cite{rodriguez2026harmonization}. The present study addresses a different question. It does not test whether a classifier transfers between datasets. Instead, it asks whether independently generated public space-cyber datasets expose the semantics required by a fixed downstream recovery interface and, when they do not, whether the downstream recovery action remains identifiable.
+
+The study was preregistered as S9-RTSI-001. Three public datasets were frozen before row-level endpoint inspection, a field-level semantic mapping rubric was frozen before canonical execution, and four downstream recovery policies were evaluated separately. Missing state remained unknown rather than being inferred from attack labels, lexical similarity, or analyst expectation. The resulting negative finding is itself informative: none of the three datasets established any of the eight required recovery-state variables directly or through a permitted deterministic derivation, and no frozen policy produced a uniquely identifiable recovery action from native dataset state alone.
+
+The contribution is therefore not a new detector, a new dataset, or a claim of operational spacecraft recovery. It is a reproducible semantic-interface analysis that (i) distinguishes field presence from recovery meaning, (ii) propagates unresolved semantics into downstream action identifiability, and (iii) computes the minimal additional sidecar state needed to remove decision ambiguity without imputing unavailable mission or trust semantics.
+
+\section{Related Work and Research Gap}
+
+\subsection{Public space-cybersecurity datasets and testbeds}
+
+CuCD-ID was designed as a labelled CubeSat cybersecurity dataset with raw and augmented telemetry derived from NOS3/cFS and COSMOS-oriented reproduction tooling \cite{fayyaz2026cucd}. Its raw population contains 25,000 records. AegisSat was developed as an open satellite cybersecurity testbed combining a physical CubeSat, environmental emulation, controlled attacks, and labelled telemetry from repeated experiments \cite{idan2025aegissat}. UNSW-IoTSAT extends the smart-satellite dataset landscape with a hybrid cyber-physical testbed and more than 404,000 labelled records containing satellite, sensor, communications, and RF-related features \cite{abdelhameed2026unsw}.
+
+These datasets were not created to instantiate the recovery-state interface evaluated here. Their inclusion therefore does not imply an expectation that they should contain every recovery variable. The purpose of the comparison is to measure semantic sufficiency under a fixed interface, not to grade dataset quality.
+
+\subsection{Cross-dataset transfer and harmonization}
+
+Cross-dataset generalization is a known challenge in machine-learning systems. WILDS formalized evaluation under naturally occurring distribution shifts and showed that in-distribution performance does not guarantee out-of-distribution robustness \cite{koh2021wilds}. In cybersecurity, cross-network evaluation similarly shows that intrusion-detection models can lose effectiveness when transferred to heterogeneous environments \cite{cerasuolo2026transfer}. Rule-based harmonization has also been proposed to transform heterogeneous IoT security datasets into more interoperable feature and label representations \cite{rodriguez2026harmonization}.
+
+Study 9 is deliberately narrower. It does not harmonize attack taxonomies or train a transferable model. It tests whether the native operational fields of each selected dataset semantically establish a preregistered recovery-state contract. Statistical correlation with a missing recovery variable is not treated as semantic observability.
+
+\subsection{Intrusion response and cyber resilience}
+
+Intrusion-response systems add a decision layer after detection, selecting countermeasures or actions based on the state available to the response mechanism \cite{bashendy2023irs}. NIST cyber-resiliency guidance similarly frames recovery and adaptation as systems-engineering concerns that depend on trustworthy system state and risk-informed decisions \cite{ross2021cyberresilient}. These foundations motivate the central distinction in this paper: a dataset can be useful for intrusion detection while still omitting semantics that a recovery decision requires.
+
+The research gap addressed here is the conjunction of three elements: field-level semantic mapping across independently sourced public space-cyber datasets, exhaustive downstream action-identifiability analysis with missing state preserved as unknown, and minimal-sidecar derivation without using attack labels as operational truth.
+
+\section{Study Design}
+
+\subsection{Frozen recovery-state interface}
+
+The downstream interface contains eight binary recovery-state variables:
+\begin{enumerate}[label=(\arabic*)]
+    \item \texttt{signature\_valid},
+    \item \texttt{source\_trusted},
+    \item \texttt{fresh},
+    \item \texttt{epoch\_valid},
+    \item \texttt{contradictory},
+    \item \texttt{minimum\_evidence\_complete},
+    \item \texttt{security\_signal}, and
+    \item \texttt{authorization\_available}.
+\end{enumerate}
+
+The frozen Study 2 selector is used only as a bounded downstream decision interface. It is not retrained, optimized, or revalidated by this study. The selector identity is fixed by SHA-256 in the Study 9 governance records.
+
+\subsection{Dataset population}
+
+The preregistered primary population consists of CuCD-ID v3, AegisSat 2025, and UNSW-IoTSAT 2026. Each dataset is analyzed as a separate finite source population; no pooled inferential population is constructed. Canonical source-row counts are shown in Table~\ref{tab:datasets}.
+
+\begin{table}[htbp]
+\centering
+\caption{Frozen Study 9 dataset populations.}
+\label{tab:datasets}
+\begin{tabular}{lrr}
+\toprule
+Dataset & Source rows & Native-state groups \\
+\midrule
+CuCD-ID v3 & 25,000 & 1 \\
+AegisSat 2025 & 137,965 & 1 \\
+UNSW-IoTSAT 2026 & 404,798 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Semantic mapping rubric}
+
+For dataset $d$ and required recovery variable $v$, the frozen mapping function assigns
+\[
+M_d(v) \in \{\mathrm{DIRECT},\mathrm{DERIVABLE},\mathrm{AMBIGUOUS},\mathrm{ABSENT}\}.
+\]
+\texttt{DIRECT} requires a native operational field whose documented semantics establish the recovery variable. \texttt{DERIVABLE} requires a frozen deterministic rule whose inputs are themselves available under the allowed interface. \texttt{AMBIGUOUS} means one or more fields are semantically related but do not establish the required proposition. \texttt{ABSENT} means no eligible native field represents the proposition.
+
+Attack or scenario labels are excluded as operational recovery evidence. They may describe the source population, but they cannot be converted into trust, authorization, freshness, evidence completeness, contradiction state, cryptographic validity, or an operational security signal for the primary endpoint.
+
+No deterministic derivation rules were permitted in the frozen Study 9 adjudication. Consequently, direct-or-derivable coverage can exceed direct coverage only if a prospectively frozen derivation exists; none did.
+
+\subsection{Protocol deviation for UNSW \texttt{Position\_Anomaly}}
+
+The initial semantic adjudication treated \texttt{Position\_Anomaly} as a direct binary security signal. Full-population validation found 72 of 404,798 canonical rows outside the documented 0/1 domain. Before accepting canonical results, a protocol deviation reclassified the field from direct to ambiguous for the entire frozen UNSW population. The analysis did not drop the violating rows, salvage only binary-looking rows, coerce non-zero values, realign neighboring columns, or substitute attack labels. This conservative correction was recorded before the accepted canonical run.
+
+\subsection{Decision identifiability}
+
+Let $U_d$ be the unresolved recovery-state variables for dataset $d$. For each native record or losslessly collapsed native-state group $g$, all binary assignments to $U_d$ are treated as admissible completions. For policy $p$, the reachable action set is
+\[
+A_{d,p}(g)=\{f_p(c):c\in C_d(g)\},
+\]
+where $f_p$ is the frozen selector under policy $p$ and $C_d(g)$ is the set of admissible completions. A recovery action is uniquely identifiable only when
+\[
+|A_{d,p}(g)|=1.
+\]
+The row-level unique-action fraction is computed with exact multiplicity weighting after lossless state collapse.
+
+Four policies were frozen and evaluated separately: \texttt{S2\_B0\_FAIL\_CLOSED}, \texttt{S2\_B1\_FAIL\_OPERATIONAL}, \texttt{S2\_B2\_RISK\_THRESHOLD}, and \texttt{S2\_S1\_EVIDENCE\_AWARE}. Policy pooling or averaging is prohibited.
+
+\subsection{Guaranteed minimal sidecar}
+
+For unresolved set $U$, a sidecar subset $S\subseteq U$ is sufficient only if revealing every possible assignment to $S$ guarantees a singleton reachable action set across every assignment to the unrevealed variables $U\setminus S$. The endpoint retains every sufficient subset of minimum cardinality. Actual unavailable values are never substituted merely to reduce ambiguity.
+
+\subsection{Finite-population reporting and audit}
+
+Primary reporting uses deterministic finite-population counts, fractions, set operations, and exact combinatorial summaries. No sampling model was introduced, so no $p$-values or confidence intervals are reported. The canonical implementation uses lossless decision-equivalent state collapse with exact multiplicity preservation. A separate independent audit reconstructs raw-row projection and policy-independent coverage without calling the canonical projector or mapping implementation. Accepted outputs are bound by SHA-256 in the frozen result record.
+
+\section{Results}
+
+\subsection{Recovery-state coverage}
+
+Table~\ref{tab:coverage} summarizes the mapping classes. No dataset contains a variable classified as \texttt{DIRECT} or \texttt{DERIVABLE}. CuCD-ID has four ambiguous and four absent variables. AegisSat and UNSW-IoTSAT each have five ambiguous and three absent variables.
+
+\begin{table}[htbp]
+\centering
+\caption{Recovery-state semantic coverage under the frozen rubric.}
+\label{tab:coverage}
+\begin{tabular}{lrrrr}
+\toprule
+Dataset & Direct & Derivable & Ambiguous & Absent \\
+\midrule
+CuCD-ID v3 & 0 & 0 & 4 & 4 \\
+AegisSat 2025 & 0 & 0 & 5 & 3 \\
+UNSW-IoTSAT 2026 & 0 & 0 & 5 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Accordingly, operational direct coverage is 0/8 for every dataset, and operational direct-or-derivable coverage is also 0/8 for every dataset. The cross-dataset common unresolved set is the complete eight-variable recovery interface.
+
+The mapping is not based on field-name absence alone. For example, source identifiers in all three datasets are related to provenance but do not establish membership in a trusted source set. Time and sequence fields exist in CuCD-ID and AegisSat but do not provide the decision reference and validity semantics required for freshness or epoch validity. UNSW-IoTSAT includes CRC, quality, satellite-identity, timestamp, and position-anomaly fields, yet those fields do not establish cryptographic signature validity, trusted-source membership, recovery evidence completeness, or a population-wide boolean security signal under the frozen definitions.
+
+\subsection{Lossless native-state collapse}
+
+After semantic projection, all eight required variables remain unresolved for every row in each dataset. Therefore each source population forms a single decision-equivalent native-state group. This collapse is computationally lossless: multiplicities of 25,000, 137,965, and 404,798 are retained exactly and used in all row-level denominators. It is not sampling, deduplication, or row exclusion.
+
+\subsection{Policy-stratified action identifiability}
+
+For all three datasets and all four policies, the unique-action fraction is 0. Table~\ref{tab:policies} reports the reachable action sets and guaranteed sidecar cardinalities. Because every dataset projects to the same unresolved eight-variable interface, the policy-level action sets are identical across datasets; only the source-row multiplicities differ.
+
+\begin{table}[htbp]
+\centering
+\caption{Policy-level reachable actions and guaranteed minimal sidecar size.}
+\label{tab:policies}
+\begin{tabular}{p{0.24\linewidth}p{0.50\linewidth}c}
+\toprule
+Policy & Reachable actions from native state & Sidecar size \\
+\midrule
+\texttt{S2\_B0\_FAIL\_CLOSED} &
+\texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION}; \texttt{PROCEED\_TO\_RECOVERY\_GATE} & 6 \\
+\texttt{S2\_B1\_FAIL\_OPERATIONAL} &
+\texttt{PRESERVE\_LIMITED\_OPERATION}; \texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION} & 7 \\
+\texttt{S2\_B2\_RISK\_THRESHOLD} &
+\texttt{HOLD\_AND\_REQUIRE\_EVIDENCE}; \texttt{PRESERVE\_LIMITED\_OPERATION}; \texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION} & 7 \\
+\texttt{S2\_S1\_EVIDENCE\_AWARE} &
+\texttt{HOLD\_AND\_REQUIRE\_EVIDENCE}; \texttt{RESTRICT\_AND\_REQUEST\_AUTHORIZATION}; \texttt{PROCEED\_TO\_RECOVERY\_GATE} & 8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the fail-closed policy, the guaranteed minimal sidecar contains six variables: signature validity, source trust, freshness, epoch validity, contradiction state, and minimum evidence completeness. The fail-operational and risk-threshold policies additionally require the security signal, giving seven variables. The evidence-aware policy requires all eight variables, including authorization availability.
+
+\subsection{Cross-dataset common missing semantics}
+
+The intersection of unresolved recovery state across the three datasets equals the entire required interface:
+\[
+\{\texttt{signature\_valid},\texttt{source\_trusted},\texttt{fresh},
+\texttt{epoch\_valid},\texttt{contradictory},
+\texttt{minimum\_evidence\_complete},\texttt{security\_signal},
+\texttt{authorization\_available}\}.
+\]
+No dataset-specific missing variable remains after taking this intersection because all eight are unresolved in all three datasets.
+
+\section{Discussion}
+
+\subsection{Meaning of the negative result}
+
+The principal result is a semantic non-identifiability finding, not a dataset-quality judgment. The analyzed datasets contain substantial telemetry, attack labels, timing information, identifiers, counters, quality indicators, and experimental context. What they do not provide, under the frozen Study 9 contract, is enough explicit recovery-state meaning to select a unique downstream action without additional state.
+
+This distinction is important because presence of a related field is weaker than establishment of a recovery proposition. An application identifier is not the same as a trusted-source decision. A timestamp is not equivalent to freshness unless a decision-time reference and validity rule are defined. A CRC result is not a cryptographic signature verification result. A command field does not establish that an authorization channel is available. Preserving those distinctions prevents a response system from silently inheriting assumptions that were never represented in the source data.
+
+\subsection{Implications for dataset and interface design}
+
+If a cybersecurity dataset is intended only for detection or attack classification, omission of recovery semantics may be entirely appropriate. If the same data are expected to support intrusion response, resilience analysis, or recovery-policy evaluation, the findings suggest that an explicit sidecar interface should accompany the telemetry.
+
+The sidecar need not reproduce the entire spacecraft state. It should expose the propositions required by the decision interface with clear operational semantics and provenance. In the frozen selector studied here, the minimum guaranteed requirement ranges from six to eight binary variables depending on policy. That result provides a concrete interface-design target rather than a generic recommendation to collect ``more data.''
+
+\subsection{Semantic interoperability versus predictive transfer}
+
+The study also separates two forms of interoperability. Predictive transfer asks whether a learned model trained in one domain performs in another. Semantic interoperability asks whether two data sources represent propositions with equivalent decision meaning. The two can fail independently. A model may transfer statistically even when the target dataset lacks an explicit recovery-state interface, and two datasets may expose compatible semantics even when their feature distributions differ.
+
+This distinction complements existing cross-dataset work rather than replacing it. Distribution-shift benchmarks \cite{koh2021wilds}, cross-network intrusion-detection studies \cite{cerasuolo2026transfer}, and rule-based harmonization frameworks \cite{rodriguez2026harmonization} address model and label portability. Study 9 isolates the downstream decision semantics that remain after detection output is available.
+
+\subsection{Protocol conservatism}
+
+The UNSW \texttt{Position\_Anomaly} deviation illustrates why semantic claims must be population-wide and fail closed. The field was strongly related to the intended security-signal concept and documented as binary, but 72 released rows violated that domain. Selectively dropping or repairing those rows would have produced a more favorable direct-coverage result at the cost of changing the frozen population. Reclassifying the entire field as ambiguous preserved the released artifact and the preregistered semantics.
+
+Likewise, attack labels were not promoted into operational state even though doing so would have reduced ambiguity. Offline ground truth answers a different question from what a controller knows at decision time.
+
+\subsection{Limitations}
+
+Several limitations bound interpretation. First, only three frozen public space-cyber datasets are evaluated; the result is not representative of every satellite cybersecurity dataset or operational mission. Second, semantic sufficiency is defined relative to one frozen eight-variable recovery interface and four frozen selector policies. Different response architectures may require different propositions. Third, the study does not estimate intrusion-detection accuracy, classifier transferability, attack prevalence, or causal mission effects. Fourth, no flight hardware, on-orbit recovery, mission operator, or authorization authority validates the downstream actions. Fifth, the finite-population analysis intentionally makes no statistical generalization beyond the frozen artifacts.
+
+The result also does not establish that six to eight sidecar variables are universally necessary for satellite recovery. Those cardinalities are exact only for the frozen selector, policies, and unresolved interface examined here.
+
+\section{Reproducibility and Data Availability}
+
+The accepted Study 9 science is frozen in the public repository at
+\url{https://github.com/Zartharas/mission-aware-satellite-cyber-recovery}.
+The canonical run is stored under
+\texttt{study9/results/S9-RTSI-001\_CANONICAL\_RUN\_20260914/}.
+The immutable results-freeze SHA-256 is
+\texttt{0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2}.
+The Study 9 science was merged in repository commit
+\texttt{1dfdef4ec9a0336f4dccfa11baa4bda4c6cf7ed6}, and the post-merge governance closeout is recorded at
+\texttt{ced258fc3ba9513b34cf3b231abab1d2b3f2ca01}.
+
+The repository contains protocol, schema, mapping, code, tests, deterministic outputs, independent-audit outputs, and artifact identity records. Third-party raw dataset bytes are not redistributed in the repository; the verification records bind the analyzed public artifacts by source identity and cryptographic hash.
+
+\section{Conclusion}
+
+Across CuCD-ID v3, AegisSat, and UNSW-IoTSAT, none of the eight required recovery-state variables was directly established or deterministically derivable under the frozen Study 9 semantic contract. Consequently, every recovery variable remained unresolved, and no frozen recovery policy yielded a unique downstream action from native dataset state alone. Exact guaranteed-sidecar analysis showed that six to eight additional recovery-state propositions were required to make the decision unique, depending on policy.
+
+The result does not diminish the value of public satellite cybersecurity datasets for intrusion detection, attack analysis, or testbed research. It identifies a boundary between security telemetry and recovery-decision state. For datasets intended to support response and resilience research, making that boundary explicit can improve reproducibility and reduce hidden assumptions in downstream recovery evaluation.
+
+\section*{CRediT authorship contribution statement}
+
+\textbf{Aman Kumar Singh:} Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing -- original draft; Writing -- review and editing; Visualization; Project administration.
+
+\section*{Funding}
+
+This research was conducted independently and received no specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of competing interest}
+
+The author declares no competing financial or non-financial interests.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+
+OpenAI ChatGPT was used to support manuscript drafting, language refinement, structural review, and consistency checking against the frozen Study 9 research records. The author reviewed and edited the resulting text, verified scientific claims against the frozen repository evidence, and assumes full responsibility for the manuscript.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}
