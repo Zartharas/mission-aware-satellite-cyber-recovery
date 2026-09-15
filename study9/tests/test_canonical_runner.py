@@ -237,9 +237,12 @@ class CanonicalRunnerGuardTests(unittest.TestCase):
             partial = real_project_native_row(plan, row)
             if plan.dataset_id != "UNSW_IOTSAT_2026":
                 return partial
-            known = partial.known_dict()
-            known["security_signal"] = not known["security_signal"]
-            return PartialObservation.build(known=known, unresolved=partial.unresolved)
+            return PartialObservation.build(
+                known={"security_signal": True},
+                unresolved=tuple(
+                    name for name in partial.unresolved if name != "security_signal"
+                ),
+            )
 
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -48,6 +48,22 @@
     "computational_runtime_changed": false,
     "study9_endpoints_existed_before_correction": false
   },
+  "prospective_semantic_deviation": {
+    "deviation_id": "S9-RTSI-001-DEV-UNSW-POSITION-ANOMALY-DOMAIN-20260915",
+    "record": "study9/PROTOCOL_DEVIATION_UNSW_POSITION_ANOMALY_DOMAIN_20260915.json",
+    "classification": "SOURCE_FIELD_DOMAIN_DEFECT_DIRECT_TO_AMBIGUOUS_NO_REPAIR",
+    "dataset_id": "UNSW_IOTSAT_2026",
+    "recovery_state_variable": "security_signal",
+    "native_field": "Position_Anomaly",
+    "prior_mapping_class": "DIRECT",
+    "prospective_mapping_class": "AMBIGUOUS",
+    "historical_normalization_record_retained": true,
+    "historical_normalization_is_operational_after_deviation": false,
+    "apply_ambiguity_to_entire_finite_population": true,
+    "computational_runtime_changed": false,
+    "canonical_run_code_freeze_changed": false,
+    "persisted_result_artifacts_existed_before_correction": false
+  },
   "input_validation_rule": {
     "verify_outer_container_hash_when_declared_before_member_use": true,
     "verify_canonical_artifact_sha256_before_semantic_row_processing": true,
@@ -79,7 +95,9 @@
     "missing_or_ambiguous_state_may_be_imputed": false,
     "attack_or_scenario_label_may_supply_operational_state": false,
     "invalid_direct_value_behavior": "FAIL_CLOSED_NO_ENDPOINT_OUTPUT",
-    "unsw_position_anomaly_normalization": "0 -> false; 1 -> true"
+    "unsw_position_anomaly_normalization": "0 -> false; 1 -> true",
+    "unsw_position_anomaly_normalization_status": "HISTORICAL_SUPERSEDED_NON_OPERATIVE_BY_PROSPECTIVE_SEMANTIC_DEVIATION",
+    "active_unsw_security_signal_mapping_class": "AMBIGUOUS"
   },
   "lossless_state_collapse": {
     "rule_id": "EIGHT_STATE_SELECTOR_INPUT_EQUIVALENCE_WITH_EXACT_MULTIPLICITY_V1",

@@ -108,13 +108,31 @@
         {"recovery_state_variable":"epoch_valid","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"The canonical base artifact contains no Study 2 evidence epoch plus expected-epoch semantics; label-conditioned CCSDS companion counters are excluded."},
         {"recovery_state_variable":"contradictory","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"No accepted same-subject/same-key/same-epoch competing-claim representation exists in the canonical base artifact."},
         {"recovery_state_variable":"minimum_evidence_complete","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["RF_CRC_Errors","RF_Sync_Word_Detections","Quality_Score"],"excluded_fields":["Data_Quality_Score"],"rationale":"Frame/link quality indicators may constrain evidence quality but do not establish all ten frozen recovery criteria."},
-        {"recovery_state_variable":"security_signal","frozen_mapping_class":"DIRECT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["Position_Anomaly"],"value_rule":"0 -> false; 1 -> true","rationale":"The pinned source documentation defines Position_Anomaly as a native computed 0/1 coarse position-spoofing guard. Boolean normalization is allowed and no attack label is used.","claim_boundary":"This is an operational security-signal mapping only; it does not establish detector accuracy, attack truth, or general attack coverage."},
+        {"recovery_state_variable":"security_signal","frozen_mapping_class":"AMBIGUOUS","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":["Position_Anomaly"],"rationale":"The pinned source documentation defines Position_Anomaly as a native computed 0/1 coarse position-spoofing guard, but full-population validation of the canonical released artifact found 72 of 404798 rows outside that documented 0/1 domain. The field remains semantically relevant but cannot be treated as a reliably observable boolean security signal across the frozen finite population.","uncertainty_or_ambiguity_note":"Apply ambiguity to the entire UNSW finite population. Do not drop the 72 violating rows, selectively salvage the 404726 binary-looking rows, coerce nonzero values, derive from Speed_ms, realign neighboring columns, or substitute attack labels/derived companions.","claim_boundary":"Position_Anomaly remains relevant evidence about an intended operational coarse position-spoofing guard, but it supplies no known primary security_signal value after the prospective domain-defect deviation."},
         {"recovery_state_variable":"authorization_available","frozen_mapping_class":"ABSENT","evidence_visibility_role":"OPERATIONAL_NATIVE","native_field_names":[],"rationale":"The canonical base schema contains no field representing availability of an authorization/contact path."}
       ],
       "offline_label_fields_excluded_from_operational_state": ["Attack_Flag","Attack_Type","Attack_Subtype","Attack_Severity","Attack_Duration","Attack_Source_Type","Detection_Confidence","Attack_Timeline_ID"],
       "label_conditioned_companion_fields_excluded": ["CCSDS_MC_Frame_Count","CCSDS_Packet_Sequence_Count","CCSDS_APID"]
     }
   ],
+  "prospective_semantic_deviation": {
+    "deviation_id": "S9-RTSI-001-DEV-UNSW-POSITION-ANOMALY-DOMAIN-20260915",
+    "record": "study9/PROTOCOL_DEVIATION_UNSW_POSITION_ANOMALY_DOMAIN_20260915.json",
+    "classification": "SOURCE_FIELD_DOMAIN_DEFECT_DIRECT_TO_AMBIGUOUS_NO_REPAIR",
+    "dataset_id": "UNSW_IOTSAT_2026",
+    "recovery_state_variable": "security_signal",
+    "native_field": "Position_Anomaly",
+    "prior_mapping_class": "DIRECT",
+    "prospective_mapping_class": "AMBIGUOUS",
+    "full_population_row_count": 404798,
+    "binary_count": 404726,
+    "nonbinary_count": 72,
+    "selective_salvage_permitted": false,
+    "repair_or_realign_permitted": false,
+    "derivation_or_substitution_permitted": false,
+    "computational_runtime_changed": false,
+    "canonical_run_code_freeze_changed": false
+  },
   "execution_boundary": {
     "row_level_mapping_executed": false,
     "coverage_counts_computed": false,

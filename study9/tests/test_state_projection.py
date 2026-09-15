@@ -23,65 +23,63 @@ class StateProjectionTests(unittest.TestCase):
     def setUpClass(cls):
         cls.contracts = load_frozen_contracts(ROOT)
 
-    def test_cucd_and_aegissat_leave_all_eight_variables_unresolved(self):
-        for dataset_id, row in (
+    def test_all_three_datasets_leave_all_eight_variables_unresolved(self):
+        fixtures = (
             ("CUCD_ID_V3", {"Label": "4", "SequenceCount": "7"}),
             (
                 "AEGISSAT_2025",
                 {"attacks.cpuhightarget.target": "OBC", "command": "PING"},
             ),
-        ):
+            (
+                "UNSW_IOTSAT_2026",
+                {
+                    "Position_Anomaly": "-29.16",
+                    "Attack_Flag": "1",
+                    "Speed_ms": "-21.53",
+                },
+            ),
+        )
+        for dataset_id, row in fixtures:
             plan = build_projection_plan(dataset_id, self.contracts)
             partial = project_native_row(plan, row)
             self.assertEqual(partial.known, ())
             self.assertEqual(partial.unresolved, REQUIRED_VARIABLES)
 
-    def test_unsw_position_anomaly_is_the_only_known_primary_state(self):
+    def test_unsw_position_anomaly_labels_and_neighboring_fields_cannot_change_projection(self):
         plan = build_projection_plan("UNSW_IOTSAT_2026", self.contracts)
-        false_row = {
-            "Position_Anomaly": "0",
-            "Attack_Flag": "1",
-            "Attack_Type": "spoofing",
-            "RF_CRC_Errors": "99",
-        }
-        true_row = {**false_row, "Position_Anomaly": "1", "Attack_Flag": "0"}
-        false_partial = project_native_row(plan, false_row)
-        true_partial = project_native_row(plan, true_row)
-        self.assertEqual(false_partial.known_dict(), {"security_signal": False})
-        self.assertEqual(true_partial.known_dict(), {"security_signal": True})
-        self.assertNotIn("security_signal", false_partial.unresolved)
-        self.assertEqual(len(false_partial.unresolved), 7)
-
-    def test_labels_and_ambiguous_fields_cannot_change_projection(self):
-        plan = build_projection_plan("UNSW_IOTSAT_2026", self.contracts)
-        first = project_native_row(
-            plan,
+        rows = (
             {
-                "Position_Anomaly": "1",
+                "Position_Anomaly": "0",
                 "Attack_Flag": "0",
                 "Attack_Type": "none",
-                "Satellite_ID": "SAT-A",
-                "Timestamp": "1",
+                "Speed_ms": "0",
             },
-        )
-        second = project_native_row(
-            plan,
             {
                 "Position_Anomaly": "1",
                 "Attack_Flag": "1",
-                "Attack_Type": "attack",
-                "Satellite_ID": "SAT-Z",
-                "Timestamp": "999999",
+                "Attack_Type": "spoofing",
+                "Speed_ms": "15000",
             },
+            {
+                "Position_Anomaly": "-29.16",
+                "Attack_Flag": "1",
+                "Distance_From_Origin": "25.0",
+                "Vertical_Category": "66.76",
+            },
+            {},
         )
-        self.assertEqual(first, second)
+        projected = tuple(project_native_row(plan, row) for row in rows)
+        self.assertTrue(all(item == projected[0] for item in projected))
+        self.assertEqual(projected[0].known, ())
+        self.assertEqual(projected[0].unresolved, REQUIRED_VARIABLES)
 
-    def test_unsw_missing_direct_field_fails_closed(self):
+    def test_unsw_no_direct_field_is_required_after_domain_deviation(self):
         plan = build_projection_plan("UNSW_IOTSAT_2026", self.contracts)
-        with self.assertRaises(StateProjectionError):
-            project_native_row(plan, {"Attack_Flag": "1"})
+        partial = project_native_row(plan, {"Attack_Flag": "1"})
+        self.assertEqual(partial.known, ())
+        self.assertEqual(partial.unresolved, REQUIRED_VARIABLES)
 
-    def test_binary_numeric_normalization_is_strict(self):
+    def test_binary_numeric_normalization_remains_strict_utility(self):
         self.assertFalse(normalize_binary_numeric("0"))
         self.assertFalse(normalize_binary_numeric("0.0"))
         self.assertTrue(normalize_binary_numeric("1"))

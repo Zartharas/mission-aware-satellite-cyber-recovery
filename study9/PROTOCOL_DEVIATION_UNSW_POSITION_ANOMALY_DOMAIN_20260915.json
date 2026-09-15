@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "study_id": "S9-RTSI-001",
+  "record_type": "PROSPECTIVE_PROTOCOL_DEVIATION",
+  "deviation_id": "S9-RTSI-001-DEV-UNSW-POSITION-ANOMALY-DOMAIN-20260915",
+  "record_date": "2026-09-15",
+  "status": "PROSPECTIVE_SEMANTIC_RECLASSIFICATION_BEFORE_PERSISTED_CANONICAL_RESULTS",
+  "classification": "SOURCE_FIELD_DOMAIN_DEFECT_DIRECT_TO_AMBIGUOUS_NO_REPAIR",
+  "trigger": {
+    "attempted_execution_head": "b7d06bb9c76b764e3a45ea9c0ac8db296ef0e595",
+    "failure_stage": "UNSW_PRIMARY_STATE_PROJECTION",
+    "exception_type": "study9_semantic.state_projection.StateProjectionError",
+    "exception_message": "direct recovery-state value is outside frozen 0/1 domain: '-29.16'",
+    "canonical_execution_return_code": 1,
+    "canonical_execution_completed": false,
+    "result_artifacts_written": false,
+    "results_directory_created": false
+  },
+  "unsw_iotsat_2026_population_audit": {
+    "audit_scope": "full canonical UNSW-IoTSAT 49-column finite population",
+    "canonical_artifact_sha256": "06ef6681c90fbf4c43c0e8993cc2ccc803c21fa32ed30cbf54165b526c851521",
+    "row_count": 404798,
+    "column_count": 49,
+    "field": "Position_Anomaly",
+    "field_column_one_based": 24,
+    "documented_domain": "binary 0/1 operational coarse position-spoofing guard",
+    "binary_zero_count": 404720,
+    "binary_one_count": 6,
+    "binary_count": 404726,
+    "numeric_nonbinary_count": 71,
+    "nonnumeric_count": 1,
+    "empty_count": 0,
+    "nonbinary_total": 72,
+    "numeric_nonbinary_min": "-1942.8654",
+    "numeric_nonbinary_max": "401217.69",
+    "other_documented_binary_fields": {
+      "RF_CRC_Errors": {
+        "binary_count": 404798,
+        "nonbinary_count": 0
+      },
+      "RF_Sync_Word_Detections": {
+        "binary_count": 404798,
+        "nonbinary_count": 0
+      },
+      "Attack_Flag": {
+        "binary_count": 404798,
+        "nonbinary_count": 0
+      }
+    },
+    "binary_position_anomaly_speed_threshold_checks": {
+      "comparable_count": 404725,
+      "match_count": 404715,
+      "mismatch_count": 10,
+      "match_fraction_descriptive_only": 0.9999752918648465,
+      "not_used_to_repair_or_derive_state": true
+    },
+    "audit_result": "POSITION_ANOMALY_FULL_DOMAIN_FAIL",
+    "repository_write_performed_by_audit": false,
+    "result_artifacts_created_by_audit": false
+  },
+  "scientific_disposition": {
+    "dataset_id": "UNSW_IOTSAT_2026",
+    "recovery_state_variable": "security_signal",
+    "native_field_retained_as_relevant_evidence": "Position_Anomaly",
+    "prior_mapping_class": "DIRECT",
+    "prospective_mapping_class": "AMBIGUOUS",
+    "rationale": "The source documents Position_Anomaly as an operational 0/1 guard, but the canonical released finite population contains 72 values outside that documented domain. The field therefore remains semantically relevant but cannot be treated as a reliably observable boolean recovery-state value across the frozen population.",
+    "apply_ambiguity_to_entire_finite_population": true,
+    "selective_salvage_of_apparently_binary_rows": false,
+    "dataset_population_membership_changed": false,
+    "dataset_artifact_changed": false,
+    "dataset_substitution": false,
+    "derivation_rule_added": false
+  },
+  "prohibited_remediations": {
+    "drop_domain_violating_rows": false,
+    "coerce_nonzero_to_true": false,
+    "derive_from_Speed_ms": false,
+    "realign_from_neighboring_columns": false,
+    "substitute_Attack_Flag_or_other_attack_labels": false,
+    "use_label_conditioned_CCSDS_companion_as_operational_state": false,
+    "use_engineered_companion_as_primary_operational_state": false,
+    "selectively_salvage_only_binary_Position_Anomaly_rows": false,
+    "impute_missing_or_ambiguous_state": false
+  },
+  "execution_boundary_at_correction": {
+    "external_dataset_rows_were_opened_during_failed_attempt": true,
+    "UNSW_projection_reached": true,
+    "canonical_execution_completed": false,
+    "persisted_canonical_result_artifacts": 0,
+    "results_directory_created": false,
+    "persisted_study9_endpoints": false,
+    "prior_dataset_intermediate_computations_may_have_occurred_in_memory": true,
+    "prior_dataset_intermediate_results_persisted": false,
+    "prior_dataset_intermediate_results_inspected": false,
+    "dataset_bytes_ingested_into_repository": false
+  },
+  "change_boundary": {
+    "semantic_mapping_changed_prospectively": true,
+    "computational_runtime_changed": false,
+    "canonical_run_code_freeze_changed": false,
+    "study2_selector_changed": false,
+    "primary_population_changed": false,
+    "policy_scope_changed": false,
+    "endpoint_definition_changed": false,
+    "sidecar_definition_changed": false,
+    "manuscript_creation_authorized": false,
+    "submission_authorized": false,
+    "real_execution_authorization_remains_open_after_validation": true
+  }
+}

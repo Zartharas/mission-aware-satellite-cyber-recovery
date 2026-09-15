@@ -23,14 +23,18 @@ class MappingTests(unittest.TestCase):
             {(dataset, variable) for dataset in FROZEN_DATASET_IDS for variable in REQUIRED_VARIABLES},
         )
 
-    def test_only_frozen_unsw_position_anomaly_is_direct(self):
+    def test_no_active_direct_mapping_after_unsw_domain_deviation(self):
         rows = materialize_mapping_matrix()
         direct = [row for row in rows if row.mapping_class == "DIRECT"]
-        self.assertEqual(len(direct), 1)
-        self.assertEqual(direct[0].dataset_id, "UNSW_IOTSAT_2026")
-        self.assertEqual(direct[0].recovery_state_variable, "security_signal")
-        self.assertEqual(direct[0].native_field_names, ("Position_Anomaly",))
-        self.assertEqual(direct[0].value_rule, "0 -> false; 1 -> true")
+        self.assertEqual(direct, [])
+        unsw = records_for_dataset("UNSW_IOTSAT_2026", rows)
+        security_signal = next(
+            row for row in unsw if row.recovery_state_variable == "security_signal"
+        )
+        self.assertEqual(security_signal.mapping_class, "AMBIGUOUS")
+        self.assertEqual(security_signal.native_field_names, ("Position_Anomaly",))
+        self.assertIsNone(security_signal.value_rule)
+        self.assertIn("72 of 404798", security_signal.semantic_rationale)
 
     def test_attack_labels_never_become_operational_mapping_fields(self):
         rows = materialize_mapping_matrix()

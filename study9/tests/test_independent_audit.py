@@ -188,26 +188,28 @@ class IndependentAuditTests(unittest.TestCase):
         audit = audit_analyze_native_state_groups("UNSW_IOTSAT_2026", audit_groups)
         self.assertEqual(canonical["policy_strata"], audit["policy_strata"])
 
-    def test_independent_raw_row_projection_matches_canonical_frozen_rule(self):
+    def test_independent_raw_row_projection_matches_canonical_ambiguity_rule(self):
         contracts = load_frozen_contracts(ROOT)
         plan = build_projection_plan("UNSW_IOTSAT_2026", contracts)
-        for value, expected in (("0", False), ("1", True), ("0.0", False), ("1.000", True)):
+        for value in ("0", "1", "0.0", "1.000", "-29.16", "Satellite1"):
             row = {"Position_Anomaly": value, "Attack_Flag": "1"}
             canonical = project_native_row(plan, row)
             audit = audit_project_native_row("UNSW_IOTSAT_2026", row, contracts)
             self.assertEqual(canonical, audit)
-            self.assertEqual(audit.known_dict()["security_signal"], expected)
+            self.assertEqual(audit.known, ())
+            self.assertEqual(audit.unresolved, REQUIRED_VARIABLES)
 
-    def test_corrupted_canonical_projector_is_detectably_independent(self):
+    def test_spurious_canonical_known_state_is_detectably_independent(self):
         contracts = load_frozen_contracts(ROOT)
-        plan = build_projection_plan("UNSW_IOTSAT_2026", contracts)
         row = {"Position_Anomaly": "0", "Attack_Flag": "1"}
         audit = audit_project_native_row("UNSW_IOTSAT_2026", row, contracts)
-        with patch("study9_semantic.state_projection.normalize_binary_numeric", return_value=True):
-            corrupted = project_native_row(plan, row)
+        corrupted = PartialObservation.build(
+            known={"security_signal": True},
+            unresolved=tuple(name for name in REQUIRED_VARIABLES if name != "security_signal"),
+        )
         self.assertNotEqual(corrupted, audit)
-        self.assertTrue(corrupted.known_dict()["security_signal"])
-        self.assertFalse(audit.known_dict()["security_signal"])
+        self.assertEqual(audit.known, ())
+        self.assertEqual(audit.unresolved, REQUIRED_VARIABLES)
 
     def test_independent_policy_independent_mapping_and_coverage_matches_canonical(self):
         contracts = load_frozen_contracts(ROOT)
@@ -216,18 +218,15 @@ class IndependentAuditTests(unittest.TestCase):
         self.assertEqual(canonical_mapping, audit_mapping)
         self.assertEqual(canonical_coverage, audit_coverage)
         by_id = {row["dataset_id"]: row for row in audit_coverage["per_dataset"]}
-        self.assertEqual(
-            by_id["CUCD_ID_V3"]["operational_direct_coverage"],
-            {"numerator": 0, "denominator": 8},
-        )
-        self.assertEqual(
-            by_id["AEGISSAT_2025"]["operational_direct_coverage"],
-            {"numerator": 0, "denominator": 8},
-        )
-        self.assertEqual(
-            by_id["UNSW_IOTSAT_2026"]["operational_direct_coverage"],
-            {"numerator": 1, "denominator": 8},
-        )
+        for dataset_id in ("CUCD_ID_V3", "AEGISSAT_2025", "UNSW_IOTSAT_2026"):
+            self.assertEqual(
+                by_id[dataset_id]["operational_direct_coverage"],
+                {"numerator": 0, "denominator": 8},
+            )
+            self.assertEqual(
+                by_id[dataset_id]["operational_direct_or_derivable_coverage"],
+                {"numerator": 0, "denominator": 8},
+            )
 
 
 if __name__ == "__main__":
