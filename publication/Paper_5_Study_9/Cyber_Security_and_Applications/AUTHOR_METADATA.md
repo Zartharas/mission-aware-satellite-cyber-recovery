@@ -9,8 +9,7 @@ Independent Researcher
 The Woodlands, Texas, United States  
 ORCID: https://orcid.org/0009-0008-9752-3743
 
-**Authorship:** single-author independent study.  
-**Doctoral credential:** PhD, awarded December 2025.
+**Authorship:** single-author independent study.
 
 ## Corresponding author
 
