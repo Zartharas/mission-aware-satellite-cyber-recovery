@@ -44,6 +44,8 @@
     ],
     "highlights_uploaded_separately": true,
     "tracked_bbl_retained_as_build_evidence_not_planned_for_portal_upload": true,
+    "prior_r2_editable_source_zip_em_upload_eligible": false,
+    "prior_r2_editable_source_zip_reason": "contained an internal source/ subfolder; EM compressed LaTeX submissions must be flat",
     "local_pdf_validation_only": true,
     "portal_metadata_must_match_tex": true,
     "latex_files_not_supplemental": true
