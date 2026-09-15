@@ -53,6 +53,10 @@ Before publisher submission, confirm that the following portal fields exactly ma
 - funding information;
 - corresponding-author details.
 
+## Artifact status
+
+The original r2 editable-source ZIP was a local draft artifact and used an internal `source/` folder. It is **not** the archive to upload to Editorial Manager. The final private submission package will regenerate a flat EM-ready archive after the author-supplied postal affiliation is injected.
+
 ## Authorization boundary
 
 This upload plan prepares files for Editorial Manager only. It does not authorize publisher submission.
