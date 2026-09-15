@@ -1,8 +1,8 @@
 # Study 9 Literature and Source Ledger
 
-**Study:** `S9-RTSI-001`  
-**Phase:** 9.0 prospective design  
-**Verification date:** 2026-09-13  
+**Study:** `S9-RTSI-001`<br>
+**Phase:** 9.0 prospective design<br>
+**Verification date:** 2026-09-13<br>
 **Status:** `DESIGN_LITERATURE_VERIFIED_NOVELTY_NOT_FROZEN`
 
 ## Purpose

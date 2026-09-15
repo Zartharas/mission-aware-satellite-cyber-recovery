@@ -1,8 +1,8 @@
 # Study 9: Recovery-State Transfer and Semantic Interoperability
 
-**Study ID:** `S9-RTSI-001`  
-**Phase:** 9.0 prospective design  
-**Status:** `PROSPECTIVE_DESIGN_OPEN_NO_ANALYSIS_AUTHORIZED`  
+**Study ID:** `S9-RTSI-001`<br>
+**Phase:** 9.0 prospective design<br>
+**Status:** `PROSPECTIVE_DESIGN_OPEN_NO_ANALYSIS_AUTHORIZED`<br>
 **Base main commit:** `49323c6f78d8a9ae14e09573a4b126b5bf0fda10`
 
 ## Purpose

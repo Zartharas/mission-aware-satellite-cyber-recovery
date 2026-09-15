@@ -1,7 +1,7 @@
 # Study 9 Threat Model
 
-**Study:** `S9-RTSI-001`  
-**Phase:** 9.0 prospective design  
+**Study:** `S9-RTSI-001`<br>
+**Phase:** 9.0 prospective design<br>
 **Status:** `THREAT_MODEL_DRAFT_BEFORE_SCHEMA_LOCK`
 
 ## Scope

@@ -1,8 +1,8 @@
 # Study 9 Dataset Selection Register
 
-**Study:** `S9-RTSI-001`  
-**Phase:** 9.0 prospective design  
-**Verification date:** 2026-09-13  
+**Study:** `S9-RTSI-001`<br>
+**Phase:** 9.0 prospective design<br>
+**Verification date:** 2026-09-13<br>
 **Status:** `PRIMARY_POPULATION_FROZEN_SEMANTIC_ADJUDICATION_NOT_YET_FROZEN`
 
 ## Purpose

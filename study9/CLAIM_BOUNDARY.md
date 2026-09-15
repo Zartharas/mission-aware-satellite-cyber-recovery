@@ -1,7 +1,7 @@
 # Study 9 Claim Boundary
 
-**Study:** `S9-RTSI-001`  
-**Phase:** 9.0 prospective design  
+**Study:** `S9-RTSI-001`<br>
+**Phase:** 9.0 prospective design<br>
 **Status:** `BOUNDARY_DRAFT_BEFORE_SCHEMA_LOCK`
 
 ## Permitted scientific claim classes
