@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "paper": "Paper_5_Study_9",
+  "experiment_id": "S9-RTSI-001",
+  "target_journal": "Cyber Security and Applications",
+  "article_type": "Research Article",
+  "status": "SUBMISSION_PACKAGE_DRAFT_REVIEW_PASS_EDITORIAL_MANAGER_COMPATIBILITY_PASS_PENDING_PRIVATE_SUBMISSION_ITEMS",
+  "source_main_commit": "5ee8909b4dfb058ef5dd0451c042dde8defe25dc",
+  "authorization": {
+    "submission_package_creation_authorized": true,
+    "submission_authorized": false,
+    "scientific_rerun_authorized": false,
+    "scientific_result_mutation_authorized": false
+  },
+  "journal_requirements_verified_date": "2026-09-15",
+  "package_static_validation": {
+    "abstract_word_count": 245,
+    "keyword_count": 6,
+    "highlight_count": 5,
+    "highlight_max_characters": 84,
+    "citation_key_count": 11,
+    "bibliography_entry_count": 11,
+    "reference_existence_audit": "PASS_11_OF_11"
+  },
+  "draft_review": {
+    "review_result": "PASS",
+    "reviewed_head": "7eb3601cd5f94c909d91ec9a8b372e39f5919213",
+    "repository_ci_run": 35034502123,
+    "repository_ci_result": "PASS",
+    "scientific_changes_detected": false
+  },
+  "editorial_manager_validation": {
+    "result": "PASS",
+    "validated_head": "e59c4801cdffa5e4d5bed038f1494859ef25fc5a",
+    "repository_ci_run": 35036033079,
+    "repository_ci_result": "PASS",
+    "guide": "https://www.ariessys.com/wp-content/uploads/EM_PM_LaTeX_Guide.pdf",
+    "guide_revision": "March 2025",
+    "verified_date": "2026-09-15",
+    "tex_live_version": "2024",
+    "default_bibliography_processor": "BibTeX/BibTeX8",
+    "flat_archive_required": true,
+    "subfolders_allowed": false,
+    "elsarticle_cls_documented_installed": true,
+    "planned_latex_upload_members": [
+      "CSA_MANUSCRIPT_SUBMISSION.tex",
+      "references.bib"
+    ],
+    "planned_latex_upload_member_order": [
+      "CSA_MANUSCRIPT_SUBMISSION.tex",
+      "references.bib"
+    ],
+    "highlights_uploaded_separately": true,
+    "tracked_bbl_retained_as_build_evidence_not_planned_for_portal_upload": true,
+    "prior_r2_editable_source_zip_em_upload_eligible": false,
+    "prior_r2_editable_source_zip_reason": "contained an internal source/ subfolder; EM compressed LaTeX submissions must be flat",
+    "duplicate_basename_files_planned_for_upload": false,
+    "custom_style_or_class_upload_required": false,
+    "external_program_or_shell_escape_dependency": false,
+    "local_pdf_validation_only": true,
+    "portal_metadata_must_match_tex": true,
+    "latex_files_not_supplemental": true,
+    "editorial_manager_generated_pdf_must_be_reviewed_and_approved": true
+  },
+  "pending_before_submission_ready": [
+    "AUTHOR_SUPPLIED_FULL_POSTAL_AFFILIATION_ADDRESS",
+    "ELSEVIER_DECLARATIONS_TOOL_WORD_DOCUMENT",
+    "FINAL_SUBMISSION_EXCLUSIVITY_AND_VERSION_APPROVAL_RECONFIRMATION",
+    "PORTAL_ONLY_FIELDS_VISIBLE_IN_EDITORIAL_MANAGER",
+    "FINAL_PORTAL_METADATA_TO_TEX_EQUALITY_CHECK",
+    "EDITORIAL_MANAGER_GENERATED_PDF_APPROVAL"
+  ],
+  "optional_not_included": [
+    "GRAPHICAL_ABSTRACT"
+  ],
+  "submission_ready": false,
+  "next_gate": "PRIVATE_SUBMISSION_ITEMS_AND_FINAL_SUBMISSION_READY_LOCK"
+}
