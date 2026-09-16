@@ -18,6 +18,7 @@
 - **Competing interests:** Intended response: **I have nothing to declare**; official Elsevier declarations-tool Word document still required.
 - **Graphical abstract:** Not included; encouraged but optional.
 - **Cover letter:** `COVER_LETTER_DRAFT.md` included as an optional submission aid.
+- **Preprint/public repository disclosure:** A pre-peer-review version of this manuscript is publicly available in the project GitHub repository as an author preprint; disclose this if the portal asks about preprints or prior dissemination.
 - **Submission exclusivity:** **PENDING FINAL AUTHOR RECONFIRMATION AT SUBMISSION GATE**
 
 ## Editorial Manager source-upload plan

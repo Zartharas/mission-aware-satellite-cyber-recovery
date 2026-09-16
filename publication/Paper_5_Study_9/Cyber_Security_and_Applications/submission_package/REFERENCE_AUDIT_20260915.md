@@ -17,3 +17,20 @@ Result: **PASS — 11/11 bibliography entries correspond to real, identifiable s
 | `sahakian2021airss` | https://www.sandia.gov/ccr/staff/srideep-musuvathy/ | VERIFIED |
 
 The package build also requires every citation key to match a bibliography key and zero unresolved citations/references after compilation.
+
+
+## CSA LTWA journal-title normalization
+
+The live *Cyber Security and Applications* Guide for Authors requires journal names in the reference list to follow LTWA abbreviations. The submission bibliography was normalized only at the journal-title field level; authors, titles, years, volumes, article/page identifiers, DOIs, and citation keys were not changed.
+
+Verified abbreviations used in the submission package:
+
+| Full journal title | Submission abbreviation | Verification basis |
+|---|---|---|
+| Data in Brief | Data Brief | NLM title abbreviation |
+| Cyber Security and Applications | Cyber Secur. Appl. | ISO 4 venue metadata |
+| Internet of Things | Internet Things | ISO 4 venue metadata |
+| Computer Networks | Comput. Netw. | ISO 4 / ISSN-style venue metadata |
+| Computers & Security | Comput. Secur. | ISO 4 / NLM venue metadata |
+
+This is a venue-formatting normalization only and does not change the scientific content or cited-source identities.

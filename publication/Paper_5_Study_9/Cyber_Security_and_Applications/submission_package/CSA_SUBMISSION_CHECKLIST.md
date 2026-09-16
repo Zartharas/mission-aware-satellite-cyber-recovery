@@ -29,6 +29,8 @@
 - [x] LaTeX source files will not be uploaded as Supplemental items.
 - [x] Local PDF is validation-only; EM will build the reviewer PDF from source.
 - [x] Live CSA guide records automatic iThenticate/CrossCheck similarity screening.
+- [x] Public GitHub manuscript copy is treated as an author preprint under Elsevier sharing policy; cover-letter/form disclosure is prepared for similarity context.
+- [x] Verified source identifiers recorded for CuCD-ID v3 and AegisSat; UNSW-IoTSAT uses its verified public GitHub source without inventing a dataset DOI.
 - [x] Current manuscript has no external figure-file dependency requiring a separate artwork upload.
 
 ## Pending before submission-ready lock

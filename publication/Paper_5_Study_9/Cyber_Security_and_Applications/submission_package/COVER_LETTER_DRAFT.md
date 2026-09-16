@@ -12,6 +12,8 @@ The paper does not claim that the datasets are low quality or that semantic inte
 
 The work is single-authored by Aman Kumar Singh, MS, PhD, Independent Researcher. The manuscript includes funding, competing-interest, CRediT, data/code availability, and generative-AI disclosure statements. Study protocols, code, accepted derived outputs, independent-audit artifacts, and cryptographic identities are available at https://github.com/Zartharas/mission-aware-satellite-cyber-recovery. Third-party raw dataset bytes are not redistributed.
 
+A pre-peer-review version of this manuscript is also publicly available in that repository as an author preprint. This is disclosed for transparency and to contextualize any similarity match to the author's own public repository.
+
 **AUTHOR CONFIRMATION REQUIRED AT SUBMISSION:** I confirm that this manuscript has not been published previously, is not under consideration elsewhere, and that I approve the submitted version.
 
 Thank you for your consideration.
