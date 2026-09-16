@@ -14,7 +14,7 @@
 - **Full postal affiliation address:** **PENDING AUTHOR-SUPPLIED SUBMISSION ADDRESS**
 - **Keywords:** satellite cybersecurity; semantic interoperability; cyber resilience; intrusion response; recovery state; decision identifiability
 - **Highlights:** `CSA_HIGHLIGHTS_SUBMISSION.txt`
-- **Funding:** This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+- **Funding:** This research was conducted independently and received no specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
 - **Competing interests:** Intended response: **I have nothing to declare**; official Elsevier declarations-tool Word document still required.
 - **Graphical abstract:** Not included; encouraged but optional.
 - **Cover letter:** `COVER_LETTER_DRAFT.md` included as an optional submission aid.
