@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "status_id": "S8-PAPER4-RETARGET-AUDIT-001",
+  "experiment_id": "S8-PQC-ICR-001",
+  "roadmap_publication_label": "Paper 4",
+  "date": "2026-09-19",
+  "acta_manuscript_id": "AA-D-26-02872",
+  "acta_outcome": "Rejected",
+  "audit_disposition": "REVISION_RECOMMENDED_NO_SCIENCE_REOPENING_REQUIRED",
+  "primary_retarget_recommendation": "International Journal of Satellite Communications and Networking",
+  "venue_lock_status": "PENDING_EXPLICIT_NAMED_VENUE_CONFIRMATION",
+  "secondary_candidate": "IEEE Systems Journal",
+  "additional_fallback": "International Journal of Communication Systems",
+  "scientific_reexecution_authorized": false,
+  "statistical_reanalysis_authorized": false,
+  "frozen_science_modified": false,
+  "rejected_acta_package_modified": false,
+  "frozen_primary_result": "P3 - P1 = 0/1 = 0.000000 percentage points",
+  "next_gate": "Explicit author confirmation of the named retarget venue, followed by a new venue-specific revision package. Final publisher submission remains separately gated."
+}
