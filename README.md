@@ -21,16 +21,16 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository now has **four submitted publication lines**:
+The repository has **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active; Paper 4 / Study 8 was rejected by Acta Astronautica:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
 | Paper 1 | Studies 1 + 2 | AIAA Journal of Aerospace Information Systems | `2026-09-I012066` | 2026-09-05 | Editorial/peer-review workflow |
-| Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `With Editor` |
+| Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `Rejected` (decision recorded 2026-09-19) |
 | Paper 2 | Studies 3 + 4 + 6 | IEEE Transactions on Aerospace and Electronic Systems | `cd1dfa89-4a24-4451-bdd4-af31ce3367f4` | 2026-09-07 | Editorial processing |
 | Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Technical check` |
 
-All four submitted lines are frozen. Do not modify publisher-facing packages or rerun frozen studies unless the corresponding journal requests a technical correction or revision.
+Submitted and rejected packages remain frozen as provenance. Do not modify active publisher-facing packages without a journal request, and do not alter the rejected Acta package. Study 8 retargeting must begin from the frozen source science through a new controlled venue-specific package.
 
 ## Research and publication boundaries
 
@@ -84,6 +84,10 @@ Study-7 durable evidence:
 - concept DOI: `10.5281/zenodo.22732059`
 
 The historical Paper-3 `Journal_of_Aerospace_Information_Systems/` directory was never submitted and is retained only as superseded venue-development provenance.
+
+## Study 8 post-rejection work
+
+The Acta decision supplied no external reviewer reports and no specific methodological defect. Study 8 should therefore enter a forensic manuscript/venue audit before any retargeting decision. Do not infer a scientific defect that the editor did not state, and do not rerun the frozen study merely to seek a different outcome.
 
 ## Next publication-development work
 
