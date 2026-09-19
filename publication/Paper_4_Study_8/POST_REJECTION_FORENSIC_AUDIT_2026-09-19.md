@@ -11,6 +11,8 @@
 
 This is a publication-layer forensic audit performed after the Acta Astronautica editorial rejection recorded on 2026-09-19. It evaluates the exact frozen Study 8 science, target-neutral manuscript, Acta editorial projection, current literature position, and live venue fit.
 
+**Scope disambiguation:** this audit concerns **roadmap Paper 4 / Study 8**. It does not reopen scientific **Study 4 / `S4-MPQ-001`**, which is already consumed by the submitted Paper 2 manuscript at IEEE Transactions on Aerospace and Electronic Systems and remains frozen.
+
 This audit does not rerun the Study 8 model, recompute the statistical analysis, change the frozen population, change any endpoint, rescue the null primary result, or modify the rejected `S8-ACTA-PKGFREEZE-002` package.
 
 Frozen scientific authorities remain:
