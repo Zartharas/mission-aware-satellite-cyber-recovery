@@ -1,14 +1,27 @@
 # Acta Astronautica Study 8 Current State
 
-**Canonical current-state status:** `SUBMITTED__WITH_EDITOR`  
+**Canonical current-state status:** `REJECTED__EDITORIAL_DECISION`  
 **Manuscript ID:** `AA-D-26-02872`  
 **Journal:** Acta Astronautica  
 **Article type:** Research paper  
 **Submission date:** 2026-09-06  
-**Portal submission display:** `00:03, September 6, 2026`  
-**Current publisher status:** `With Editor`
+**Decision recorded:** 2026-09-19  
+**Current publisher status:** `Rejected`
 
 This file is the first current-state entry point for the Acta Astronautica Study 8 / roadmap Paper 4 submission.
+
+## Editorial decision
+
+The author supplied an Acta Astronautica decision email signed by Zheng Hong (George) Zhu, PhD, Editor-in-Chief. The manuscript was rejected because the editor judged that it did not reach the journal's required quality standard. The letter also stated that the problems addressed were potentially of interest to the journal readership.
+
+No external reviewer reports were included in the supplied decision letter. No specific methodological, statistical, reproducibility, ethics, data, or scope defect was enumerated, and no revision of manuscript `AA-D-26-02872` was invited.
+
+Decision provenance:
+
+- `EDITORIAL_DECISION_REJECTED_2026-09-19.md`
+- `ACTA_SUBMISSION_STATUS.json`
+
+The editorial outcome is a publication decision. It does not by itself establish either scientific validity or scientific invalidity of the frozen Study 8 results.
 
 ## Submitted manuscript
 
@@ -18,13 +31,11 @@ This file is the first current-state entry point for the Acta Astronautica Study
 **Corresponding email:** `asingh65430@ucumberlands.edu`  
 **Affiliation:** Independent Researcher
 
-The authenticated Acta submission portal confirmed successful submission on September 6, 2026. The subsequent Editorial Manager record assigned manuscript number `AA-D-26-02872` and displays the current status as `With Editor`.
-
-The handling-editor email displayed: `NSE INGEST Professor Zheng Hong (George) Zhu`. This is recorded as the exact email/portal display string and should not be expanded into a stronger editorial-role claim unless Acta later provides a clearer assignment.
+The manuscript was submitted on September 6, 2026 and assigned manuscript number `AA-D-26-02872`.
 
 ## Exact submitted package identity
 
-The publisher-facing files are the exact hash-frozen `S8-ACTA-PKGFREEZE-002` binaries from repository commit:
+The publisher-facing files remain the exact hash-frozen `S8-ACTA-PKGFREEZE-002` binaries from repository commit:
 
 `f5e9a1d4553737e534821bf647463abfd44fa0dd`
 
@@ -36,23 +47,17 @@ SHA-256 values:
 - Figure 1 PDF: `041b67a75daeb3a07336beb7d8f02f3a41455f1489e0d14ece13eb5e97a91a63`
 - Figure 2 PDF: `e527830c31fc25f28e3eae8272b4e00e92722ac451ef3d363d475a41e978bcbb`
 
+The rejected submission package is retained unchanged as provenance.
+
 ## Historical versus current records
 
-`S8-ACTA-PKGFREEZE-002` is the exact pre-submission package freeze and remains immutable evidence of what was approved and uploaded. Files such as `README_SUBMISSION.md`, `ACTA_PACKAGE_STATUS.json`, `SUBMISSION_CHECKLIST.md`, `EDITORIAL_MANAGER_SUBMISSION_VALUES.md`, `UPLOAD_FILES.md`, `SHA256SUMS.txt`, and `ACTA_PACKAGE_FREEZE_MANIFEST.json` intentionally retain their pre-submission stage wording because they are part of, or cryptographically bound to, the frozen package record.
+`S8-ACTA-PKGFREEZE-002` is the exact pre-submission package freeze and remains immutable evidence of what was approved and uploaded. Historical files such as `README_SUBMISSION.md`, `ACTA_PACKAGE_STATUS.json`, `SUBMISSION_CHECKLIST.md`, `EDITORIAL_MANAGER_SUBMISSION_VALUES.md`, `UPLOAD_FILES.md`, `SHA256SUMS.txt`, and `ACTA_PACKAGE_FREEZE_MANIFEST.json` intentionally retain their stage-local wording.
 
-Do **not** edit those historical freeze-002 records merely to make their stage-local wording look current.
-
-For the live post-submission state, use:
-
-- `README_CURRENT.md`
-- `ACTA_SUBMISSION_STATUS.json`
-- `SUBMISSION_CONFIRMED_2026-09-06.md`
-- `EDITORIAL_MANAGER_SUBMITTED_VALUES_2026-09-06.md`
-- `FINAL_SUBMISSION_AUTHORIZATION_2026-09-06.md`
+Do not edit those historical freeze records merely to make their wording look current.
 
 ## Scientific boundary
 
-Submission did not authorize or perform new Study 8 scientific execution, statistical reanalysis, endpoint changes, population changes, or frozen-science modification.
+The Acta decision did not trigger new Study 8 scientific execution, statistical reanalysis, endpoint changes, population changes, or frozen-science modification.
 
 The negative primary result remains exactly:
 
@@ -62,6 +67,8 @@ Logical slots remain model indices, modeled cryptographic bytes remain modeled o
 
 ## Next gate
 
-Acta editorial and peer-review processing is now the only live Study 8 publication gate. Do not modify the submitted manuscript, figures, frozen Study 8 science, or submitted package bytes unless Acta explicitly requests a revision.
+The next Study 8 gate is a **post-rejection forensic manuscript and venue audit**.
 
-For new publication work in this repository, move to the next unsent publication unit in `docs/PUBLICATION_PHASE_MAP.md` rather than reopening Study 8.
+Do not automatically submit the unchanged Acta package to a fallback journal. First identify whether the rejection points to manuscript framing, presentation, venue fit, or a genuine scientific limitation. Because the editor supplied no specific technical defect, do not invent one.
+
+A future venue-specific package may revise presentation, framing, literature positioning, and journal formatting while preserving the frozen scientific record. Any new venue lock and any future publisher submission require explicit author approval.

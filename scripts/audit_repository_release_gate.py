@@ -9,7 +9,7 @@ and tracker wording while leaving frozen scientific records unchanged.
 This wrapper creates a detached temporary worktree at HEAD, overlays the
 caller's Git-tracked working-tree state, runs the historical core audit, and
 permits only the exact known stale-current-state failures when the authoritative
-2026-09-13 publication-state record is present. Any additional or different
+2026-09-19 publication-state record is present. Any additional or different
 core failure still fails closed. The current Study-8 publication-state overlay
 and Repository Review v3 remediation audit then run normally.
 
@@ -33,8 +33,8 @@ REVIEW_V3_REL = Path("scripts/audit_repository_review_v3_remediation.py")
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
-    "**Current-state date:** 2026-09-13",
-    "four submitted publication lines",
+    "**Current-state date:** 2026-09-19",
+    "four publication lines that have been submitted",
     "2026-09-I012066",
     "AA-D-26-02872",
     "cd1dfa89-4a24-4451-bdd4-af31ce3367f4",
@@ -169,7 +169,7 @@ def authoritative_current_state_is_bound(audit_root: Path) -> bool:
             print(f"missing_current_state_token={token}", file=sys.stderr)
         return False
 
-    print("authoritative_current_publication_state=PASS_2026_09_13")
+    print("authoritative_current_publication_state=PASS_2026_09_19")
     return True
 
 
@@ -237,88 +237,6 @@ def run_core_with_stale_current_state_compat(audit_root: Path) -> int:
     return 0
 
 
-EXPECTED_REVIEW_V3_FAILURES = frozenset(
-    {
-        "docs/CURRENT_PUBLICATION_STATE.md missing current-state marker: With Editor",
-        "docs/CURRENT_PUBLICATION_STATE.md missing current-state marker: Paper 2: Studies 3 + 4 + 6",
-    }
-)
-
-
-def run_review_v3_with_current_state_compat(audit_root: Path) -> int:
-    script = audit_root / REVIEW_V3_REL
-    if not script.is_file():
-        print(
-            f"release_gate_wrapper=FAIL\nmissing_repository_review_v3={REVIEW_V3_REL}",
-            file=sys.stderr,
-        )
-        return 1
-
-    result = subprocess.run(
-        [sys.executable, str(script)],
-        cwd=audit_root,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        check=False,
-    )
-
-    if result.stdout:
-        print(result.stdout, end="")
-    if result.stderr:
-        print(result.stderr, end="", file=sys.stderr)
-
-    if result.returncode == 0:
-        print("repository_review_v3_gate=PASS_NATIVE")
-        return 0
-
-    failure_lines = [
-        line.removeprefix("[FAIL] ")
-        for line in (*result.stdout.splitlines(), *result.stderr.splitlines())
-        if line.startswith("[FAIL] ")
-    ]
-    actual_failures = frozenset(failure_lines)
-
-    if (
-        len(failure_lines) != len(EXPECTED_REVIEW_V3_FAILURES)
-        or actual_failures != EXPECTED_REVIEW_V3_FAILURES
-    ):
-        print("release_gate_wrapper=FAIL", file=sys.stderr)
-        for item in sorted(actual_failures - EXPECTED_REVIEW_V3_FAILURES):
-            print(f"unexpected_repository_review_v3_failure={item}", file=sys.stderr)
-        for item in sorted(EXPECTED_REVIEW_V3_FAILURES - actual_failures):
-            print(f"missing_expected_repository_review_v3_failure={item}", file=sys.stderr)
-        return 1
-
-    if "checks_failed=2" not in result.stdout:
-        print(
-            "release_gate_wrapper=FAIL\n"
-            "repository_review_v3_expected_failure_count_marker_missing=checks_failed=2",
-            file=sys.stderr,
-        )
-        return 1
-
-    if not authoritative_current_state_is_bound(audit_root):
-        return 1
-
-    text = (audit_root / CURRENT_STATE_REL).read_text(encoding="utf-8")
-    required_current_tokens = (
-        "`WITH_EDITOR`",
-        "### Paper 2 - Studies 3 + 4 + 6",
-        "### Paper 3 - Study 7",
-        "read-only candidate audit",
-    )
-    missing = [token for token in required_current_tokens if token not in text]
-    if missing:
-        print("release_gate_wrapper=FAIL", file=sys.stderr)
-        for token in missing:
-            print(f"missing_review_v3_replacement_current_state_token={token}", file=sys.stderr)
-        return 1
-
-    print("repository_review_v3_gate=PASS_EXACT_STALE_CURRENT_STATE_COMPAT_2")
-    return 0
-
-
 def main() -> int:
     try:
         with tempfile.TemporaryDirectory(prefix="repository-release-gate-") as temp_parent:
@@ -345,7 +263,7 @@ def main() -> int:
                     return 1
                 if run_gate(audit_root, S8_CURRENT_REL, "study8_publication_current_state") != 0:
                     return 1
-                if run_review_v3_with_current_state_compat(audit_root) != 0:
+                if run_gate(audit_root, REVIEW_V3_REL, "repository_review_v3_remediation") != 0:
                     return 1
                 print("release_gate_wrapper=PASS")
                 return 0

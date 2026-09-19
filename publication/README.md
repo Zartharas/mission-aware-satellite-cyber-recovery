@@ -4,7 +4,7 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository now contains **four submitted publication lines**. All are frozen pending publisher action.
+The repository contains **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active with their publishers. Paper 4 / Study 8 was rejected by Acta Astronautica and is frozen pending a controlled retargeting audit.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
 2. **Paper 4:** Study 8, submitted to Acta Astronautica.
@@ -30,10 +30,11 @@ Study 1 remains 720 VALID observations and Study 2 remains 3,872 VALID observati
 - **Title:** Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems
 - **Manuscript ID:** `AA-D-26-02872`
 - **Submission date:** 2026-09-06
-- **Current state:** `With Editor`
+- **Current state:** `Rejected` / `REJECTED__EDITORIAL_DECISION`
+- **Decision recorded:** 2026-09-19
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`.
+Study 8 remains a separate deterministic modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. Acta supplied no external reviewer reports and did not enumerate a specific methodological defect in the decision letter.
 
 ## Paper 2 - Studies 3 + 4 + 6
 
@@ -69,6 +70,10 @@ Durable evidence:
 - Zenodo concept DOI: `10.5281/zenodo.22732059`
 
 The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory is retained only as historical, unsubmitted venue-development provenance. It is superseded by the CEAS package.
+
+## Study 8 post-rejection gate
+
+Study 8 may now undergo a controlled forensic manuscript/venue audit. The rejected Acta package remains immutable provenance. A retargeted package may improve presentation, framing, literature positioning, and venue formatting without changing frozen science. No fallback venue is automatically selected.
 
 ## Next independent publication work
 

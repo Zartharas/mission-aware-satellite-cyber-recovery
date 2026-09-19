@@ -1,12 +1,12 @@
 # Current Publication State
 
-**Current-state date:** 2026-09-13
+**Current-state date:** 2026-09-19
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
 
-The repository now has **four submitted publication lines**. All four are frozen pending publisher action.
+The repository has **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active with their publishers. Paper 4 / Study 8 was rejected by Acta Astronautica and is frozen pending a controlled post-rejection audit and retargeting decision.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -25,10 +25,12 @@ Study 1 and Study 2 remain separately frozen and must never be reported as one p
 - **Title:** Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems
 - **Manuscript ID:** `AA-D-26-02872`
 - **Submitted:** 2026-09-06
-- **State:** `WITH_EDITOR`
+- **State:** `REJECTED__EDITORIAL_DECISION`
+- **Decision recorded:** 2026-09-19
+- **Decision detail:** no external reviewer reports were included; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
@@ -64,6 +66,10 @@ Durable Study-7 evidence:
 - Zenodo concept DOI: `10.5281/zenodo.22732059`
 
 The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory is historical, unsubmitted Paper-3 development provenance only. It is superseded by the CEAS package and must not be treated as a current venue package.
+
+## Current post-rejection Study 8 gate
+
+Paper 4 / Study 8 is eligible for a controlled retargeting audit. No fallback venue is automatically activated. Before a new venue is selected, perform a forensic quality review of the submitted manuscript, distinguish presentation/venue-fit issues from scientific limitations, and perform a fresh live venue review. Do not rerun or reanalyze the frozen study merely to improve publication prospects.
 
 ## Next independent publication work
 

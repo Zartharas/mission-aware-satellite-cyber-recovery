@@ -4,7 +4,7 @@
 **Manuscript title:** *Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems*  
 **Study type:** deterministic finite modeled contact/crypto-agility/recovery study  
 **Frozen source-package status:** `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`  
-**Current publisher status:** `ACTA_SUBMITTED__WITH_EDITOR`  
+**Current publisher status:** `ACTA_REJECTED__EDITORIAL_DECISION`  
 **Acta manuscript ID:** `AA-D-26-02872`
 
 Study 8 is a separately frozen companion study in this repository. It remains outside the Study-1/Study-2 journal manuscript and has its own frozen source publication package under [`../publication/study8/`](../publication/study8/README.md) plus a venue-specific submitted-state package under [`../publication/Paper_4_Study_8/Acta_Astronautica/`](../publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md).
@@ -72,16 +72,18 @@ The author explicitly authorized final submission, and the manuscript was submit
 ```text
 manuscript ID: AA-D-26-02872
 article type:  Research paper
-status:        With Editor
+status:        Rejected
 ```
 
-Current submitted-state authority:
+Current publisher-state authority:
 
 - [`../publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`](../publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md)
 - [`../publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`](../publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json)
 - [`../publication/Paper_4_Study_8/Acta_Astronautica/SUBMISSION_CONFIRMED_2026-09-06.md`](../publication/Paper_4_Study_8/Acta_Astronautica/SUBMISSION_CONFIRMED_2026-09-06.md)
 
 Historical `S8-ACTA-PKGFREEZE-002` preparation files retain their stage-local pre-submission wording by design. Do not rewrite those frozen records merely to make them look current.
+
+On 2026-09-19, the author supplied an Acta rejection decision signed by the Editor-in-Chief. No external reviewer reports were included, and the letter did not enumerate a specific methodological defect. Decision provenance is retained in `../publication/Paper_4_Study_8/Acta_Astronautica/EDITORIAL_DECISION_REJECTED_2026-09-19.md`.
 
 ## Frozen scientific record
 
@@ -195,6 +197,8 @@ The historical campaign/analysis/freeze executors remain provenance. Their prese
 
 ## Next gate
 
-Study 8 is now submitted and should remain frozen while Acta Astronautica editorial and peer review proceeds. Do not modify the submitted manuscript, publisher-facing files, canonical campaign, statistics, or frozen claim boundary unless the journal explicitly requests a revision.
+Study 8 is now closed at Acta by editorial rejection. The rejected submission package remains frozen as provenance.
 
-For new publication development, proceed to the next unsent publication unit in [`../docs/PUBLICATION_PHASE_MAP.md`](../docs/PUBLICATION_PHASE_MAP.md), currently the Studies 3 + 4 + 6 synthesis.
+The next Study 8 gate is a post-rejection forensic manuscript and venue audit. Do not automatically reuse the unchanged Acta manuscript at a fallback journal. First determine whether presentation, framing, literature positioning, venue fit, or a genuine scientific limitation requires action. Because the decision did not specify a methodological defect, do not invent one.
+
+Any retargeted venue-specific package must preserve the frozen 3,456-position science and exact negative primary result. A new venue lock and a future publisher submission require explicit author approval.

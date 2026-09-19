@@ -1,6 +1,6 @@
 {
-  "schema": 1,
-  "status_id": "S8-ACTA-SUBMISSION-STATUS-001",
+  "schema": 2,
+  "status_id": "S8-ACTA-SUBMISSION-STATUS-002",
   "experiment_id": "S8-PQC-ICR-001",
   "roadmap_publication_label": "Paper 4",
   "journal": "Acta Astronautica",
@@ -9,7 +9,7 @@
   "title": "Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems",
   "submission_date": "2026-09-06",
   "portal_submission_display": "00:03, September 6, 2026",
-  "current_publisher_status": "With Editor",
+  "current_publisher_status": "Rejected",
   "initial_ingest_status": "Submission Received via Ingest",
   "handling_editor_email_display": "NSE INGEST Professor Zheng Hong (George) Zhu",
   "corresponding_author": "Aman Singh",
@@ -36,5 +36,16 @@
   "frozen_science_modified": false,
   "publisher_facing_files_modified_after_submission": false,
   "frozen_primary_result": "P3 - P1 = 0/1 = 0.000000 percentage points",
-  "next_gate": "Acta Astronautica editorial and peer-review workflow. Do not modify the submitted manuscript or frozen science unless the journal explicitly requests a revision."
+  "next_gate": "Post-rejection Study 8 forensic manuscript/venue audit and controlled retargeting decision. Preserve frozen science and the exact Acta submitted package; do not rerun or reanalyze the study unless a genuine scientific defect is separately demonstrated and authorized.",
+  "current_normalized_status": "REJECTED__EDITORIAL_DECISION",
+  "decision": {
+    "decision_recorded_date": "2026-09-19",
+    "decision_source": "Author-provided Acta Astronautica rejection email",
+    "decision_by_display": "Zheng Hong (George) Zhu, PhD, Editor-in-Chief",
+    "outcome": "Rejected",
+    "external_reviewer_reports_included": false,
+    "editor_comment_summary": "The topic was described as potentially of interest to the journal readership, but the manuscript was judged not to meet the journal's required quality standard.",
+    "specific_methodological_defects_enumerated": false,
+    "revision_invited": false
+  }
 }

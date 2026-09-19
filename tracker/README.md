@@ -11,7 +11,9 @@ For current publication status and next-work sequencing, read these first:
 Current submitted papers:
 
 - Paper 1: JAIS manuscript `2026-09-I012066`, submitted 2026-09-05.
-- Roadmap Paper 4 / Study 8: Acta Astronautica manuscript `AA-D-26-02872`, submitted 2026-09-06, current status `With Editor`.
+- Roadmap Paper 4 / Study 8: Acta Astronautica manuscript `AA-D-26-02872`, submitted 2026-09-06, rejected by editorial decision recorded 2026-09-19; no external reviewer reports were included in the supplied decision letter.
+
+Study 8 current next gate: post-rejection forensic manuscript/venue audit before any retargeting; no fallback venue is automatically selected.
 
 Current next publication-development priority:
 
