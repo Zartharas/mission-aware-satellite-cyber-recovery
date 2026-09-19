@@ -4,7 +4,7 @@
 Historical Study-8 technical-close, source-publication freeze, and Acta
 package-freeze artifacts retain their stage-local wording. This checker binds
 those frozen records and submitted publisher bytes while validating the live
-2026-09-13 repository publication state.
+2026-09-19 repository publication state.
 
 The checker never executes scientific analysis and never modifies frozen
 evidence, statistics, or publisher-facing files.
@@ -35,8 +35,8 @@ SOURCE_MANUSCRIPT_SHA = "efbe78c43c44cde057637fc1744746d0ab4da8aed71e30d709aedd7
 
 ACTA_MANUSCRIPT_ID = "AA-D-26-02872"
 ACTA_SUBMISSION_DATE = "2026-09-06"
-ACTA_CURRENT_STATUS = "With Editor"
-ACTA_CURRENT_NORMALIZED_STATUS = "WITH_EDITOR"
+ACTA_CURRENT_STATUS = "Rejected"
+ACTA_CURRENT_NORMALIZED_STATUS = "REJECTED__EDITORIAL_DECISION"
 ACTA_PACKAGE_FREEZE_ID = "S8-ACTA-PKGFREEZE-002"
 ACTA_SUBMITTED_PACKAGE_COMMIT = "f5e9a1d4553737e534821bf647463abfd44fa0dd"
 
@@ -55,14 +55,14 @@ EXPECTED_SUBMITTED_FILES = {
 CURRENT_DOCS = {
     "docs/CURRENT_PUBLICATION_STATE.md": {
         "required": (
-            "**Current-state date:** 2026-09-13",
-            "four submitted publication lines",
+            "**Current-state date:** 2026-09-19",
+            "four publication lines that have been submitted",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_NORMALIZED_STATUS,
             PAPER1_ID,
             PAPER2_ID,
             PAPER3_ID,
-            "read-only candidate audit",
+            "post-rejection Study 8 gate",
         ),
         "forbidden": (
             "publisher submission and portal action remain separately gated",
@@ -87,7 +87,7 @@ CURRENT_DOCS = {
     },
     "publication/README.md": {
         "required": (
-            "four submitted publication lines",
+            "four publication lines that have been submitted",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
             PAPER1_ID,
@@ -105,7 +105,7 @@ CURRENT_DOCS = {
         "required": (
             SOURCE_STATUS,
             ACTA_MANUSCRIPT_ID,
-            "ACTA_SUBMITTED__WITH_EDITOR",
+            "ACTA_REJECTED__EDITORIAL_DECISION",
             ACTA_PACKAGE_FREEZE_ID,
         ),
         "forbidden": (
@@ -116,7 +116,7 @@ CURRENT_DOCS = {
         "required": (
             SOURCE_STATUS,
             ACTA_MANUSCRIPT_ID,
-            "ACTA_SUBMITTED__WITH_EDITOR",
+            "ACTA_REJECTED__EDITORIAL_DECISION",
             ACTA_PACKAGE_FREEZE_ID,
         ),
         "forbidden": (
@@ -225,6 +225,7 @@ def check_acta_submission() -> None:
         "package_freeze_id": ACTA_PACKAGE_FREEZE_ID,
         "submitted_package_source_commit": ACTA_SUBMITTED_PACKAGE_COMMIT,
         "publisher_portal_action_completed": True,
+        "current_normalized_status": ACTA_CURRENT_NORMALIZED_STATUS,
         "publisher_submission_completed": True,
         "scientific_reexecution_performed": False,
         "statistical_reanalysis_performed": False,
@@ -237,6 +238,16 @@ def check_acta_submission() -> None:
                 f"Acta submitted-state {key} drift: "
                 f"{status.get(key)!r} != {expected_value!r}"
             )
+
+    decision = status.get("decision", {})
+    if decision.get("outcome") != "Rejected":
+        fail("Acta decision outcome is not recorded as Rejected")
+    if decision.get("decision_recorded_date") != "2026-09-19":
+        fail("Acta rejection decision recorded date drift")
+    if decision.get("external_reviewer_reports_included") is not False:
+        fail("Acta decision record must show no external reviewer reports included")
+    if decision.get("specific_methodological_defects_enumerated") is not False:
+        fail("Acta decision record must not invent specific methodological defects")
 
     recorded_hashes = status.get("submitted_files_sha256", {})
     if recorded_hashes != EXPECTED_SUBMITTED_FILES:
@@ -259,6 +270,7 @@ def check_acta_submission() -> None:
         "SUBMISSION_CONFIRMED_2026-09-06.md",
         "EDITORIAL_MANAGER_SUBMITTED_VALUES_2026-09-06.md",
         "FINAL_SUBMISSION_AUTHORIZATION_2026-09-06.md",
+        "EDITORIAL_DECISION_REJECTED_2026-09-19.md",
     ):
         if not (ACTA_DIR / required).is_file():
             fail(f"missing Acta post-submission record: {required}")
@@ -288,8 +300,8 @@ def main() -> int:
     print(f"acta_submission_date={ACTA_SUBMISSION_DATE}")
     print(f"acta_current_status={ACTA_CURRENT_STATUS}")
     print(f"acta_current_normalized_status={ACTA_CURRENT_NORMALIZED_STATUS}")
-    print("publication_portfolio_state=FOUR_SUBMITTED_LINES")
-    print("next_publication_gate=READ_ONLY_CANDIDATE_SELECTION_REQUIRED")
+    print("publication_portfolio_state=FOUR_SUBMITTED_HISTORY_THREE_ACTIVE_ONE_REJECTED")
+    print("study8_next_gate=POST_REJECTION_FORENSIC_MANUSCRIPT_AND_VENUE_AUDIT")
     print("acta_submission_completed=true")
     print("scientific_reexecution_performed=false")
     print("statistical_reanalysis_performed=false")
