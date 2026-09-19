@@ -4,7 +4,7 @@
 **Publication-development authorization:** `S8-PUBDEV-001`  
 **Publication-freeze authorization:** `S8-PUBFREEZE-001`  
 **Frozen source-package status:** `PUBLICATION_PACKAGE_HASH_FROZEN_MERGED_TO_MAIN_POST_MERGE_VALIDATED`  
-**Current publisher status:** `ACTA_SUBMITTED__WITH_EDITOR`  
+**Current publisher status:** `ACTA_REJECTED__EDITORIAL_DECISION`  
 **Acta manuscript ID:** `AA-D-26-02872`
 
 ## Manuscript title
@@ -47,10 +47,12 @@ The author explicitly authorized final submission, and the manuscript was submit
 - journal: **Acta Astronautica**
 - article type: **Research paper**
 - manuscript ID: `AA-D-26-02872`
-- current Editorial Manager status: `With Editor`
+- final Acta disposition: `Rejected` (decision recorded 2026-09-19)
 - exact submitted-package source commit: `f5e9a1d4553737e534821bf647463abfd44fa0dd`
 
-No target-neutral frozen source artifact was changed by venue formatting, portal entry, or submission.
+No target-neutral frozen source artifact was changed by venue formatting, portal entry, submission, or the later editorial rejection.
+
+The supplied rejection letter included no external reviewer reports and did not enumerate a specific methodological defect. Decision provenance is retained in `../Paper_4_Study_8/Acta_Astronautica/EDITORIAL_DECISION_REJECTED_2026-09-19.md`.
 
 ## Frozen scientific sources
 
@@ -107,8 +109,8 @@ See [`PUBLICATION_PACKAGE_FREEZE_MANIFEST.json`](PUBLICATION_PACKAGE_FREEZE_MANI
 
 ## Current gate
 
-Paper 4 / Study 8 is submitted to Acta Astronautica as manuscript `AA-D-26-02872` and should remain frozen while editorial and peer review proceeds.
+Acta manuscript `AA-D-26-02872` was rejected. The submitted Acta package remains frozen as historical publisher provenance.
 
-Do not modify the submitted manuscript, publisher-facing binaries, canonical campaign, statistical results, or claim boundary unless Acta explicitly requests a revision.
+The next Study 8 action is a controlled forensic manuscript/venue audit before any retargeting. Presentation, framing, literature positioning, and venue-specific formatting may be reconsidered in a new package, but the frozen campaign, statistical results, null primary result, and claim boundary may not be silently changed.
 
-For new publication development, proceed to the next unsent publication unit in `docs/PUBLICATION_PHASE_MAP.md`, currently the Studies 3 + 4 + 6 synthesis.
+No fallback venue is automatically selected. A new venue lock and future publisher submission require explicit author approval.
