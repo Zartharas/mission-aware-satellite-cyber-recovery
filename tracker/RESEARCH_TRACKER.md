@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-09-13
+Last updated: 2026-09-19
 
 ## Current focus
 
@@ -44,10 +44,15 @@ Study 1 and Study 2 remain separate frozen populations.
 - Journal: Acta Astronautica
 - Manuscript ID: `AA-D-26-02872`
 - Submitted: 2026-09-06
-- Current recorded state: `With Editor`
+- Current recorded state: `REJECTED__EDITORIAL_DECISION`
+- Decision recorded: 2026-09-19
+- Decision detail: no external reviewer reports were included in the supplied letter; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - Authority: `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
+- Decision provenance: `publication/Paper_4_Study_8/Acta_Astronautica/EDITORIAL_DECISION_REJECTED_2026-09-19.md`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not alter the frozen scientific record.
+
+The next Study 8 gate is a controlled forensic manuscript/venue audit before retargeting. No fallback venue is automatically selected, and no scientific rerun or statistical reanalysis is authorized by the editorial decision.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
