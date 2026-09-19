@@ -30,7 +30,7 @@ Study 1 remains 720 VALID observations and Study 2 remains 3,872 VALID observati
 - **Title:** Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems
 - **Manuscript ID:** `AA-D-26-02872`
 - **Submission date:** 2026-09-06
-- **Current state:** `REJECTED__EDITORIAL_DECISION`
+- **Current state:** `Rejected` / `REJECTED__EDITORIAL_DECISION`
 - **Decision recorded:** 2026-09-19
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
