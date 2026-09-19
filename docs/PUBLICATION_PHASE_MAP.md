@@ -1,6 +1,6 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-09-13
+**Current-state reference:** 2026-09-19
 
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
@@ -26,7 +26,7 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       Journal: Acta Astronautica
 |       Manuscript ID: AA-D-26-02872
 |       Submitted: 2026-09-06
-|       State: With Editor
+|       State: Rejected - editorial decision recorded 2026-09-19
 |
 +-- PHASE 3 - SUBMITTED
 |   +-- PAPER 2: Studies 3 + 4 + 6
@@ -67,9 +67,11 @@ No Paper-1 scientific or publisher-facing artifact should change unless JAIS req
 - Venue: Acta Astronautica.
 - Manuscript ID: `AA-D-26-02872`.
 - Submitted: 2026-09-06.
-- Current state: `With Editor`.
+- Current state: `REJECTED__EDITORIAL_DECISION`.
+- Decision recorded: 2026-09-19.
+- No external reviewer reports were included in the supplied decision letter; no specific methodological defect was enumerated.
 
-No Study-8 scientific or publisher-facing artifact should change unless Acta requests a revision.
+The rejected Acta package remains immutable provenance. Study 8 may proceed only through a controlled post-rejection forensic manuscript/venue audit and a newly authorized retargeting package. The frozen science must not be rerun or reanalyzed merely to improve publication prospects.
 
 ## Phase 3 - Paper 2
 
@@ -107,6 +109,10 @@ The historical Paper-3 JAIS folder was not submitted and is superseded venue-dev
 
 No Paper-3 scientific or publisher-facing artifact should change unless CEAS requests a technical correction or revision.
 
+## Study 8 post-rejection retargeting gate
+
+Acta manuscript `AA-D-26-02872` is closed by rejection. No fallback venue is automatically activated. Before any retargeting, audit the submitted manuscript for presentation, framing, literature-positioning, and venue-fit weaknesses while preserving the frozen scientific record and negative primary result. A fresh live venue review is required before a new venue lock.
+
 ## Phase 5 - Remaining-candidate audit
 
 The next publication is not preselected.
@@ -119,7 +125,7 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 
 ## Recommended operational order from 2026-09-13
 
-1. Keep Papers 1, 2, 3, and 4 frozen while their journal workflows proceed.
+1. Keep Papers 1, 2, and 3 frozen while their journal workflows proceed; keep the rejected Paper-4 Acta package frozen as provenance.
 2. Record publisher status changes without modifying submitted scientific packages.
 3. Start the next publication only with a read-only audit of remaining eligible studies from clean `main`.
 4. Select a candidate publication boundary before creating any new venue branch.
@@ -140,7 +146,7 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | Phase | Publication unit | Studies | Current venue/state | Next gate |
 |---|---|---|---|---|
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
-| 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, With Editor | Wait for journal action |
+| 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, rejected | Post-rejection forensic manuscript/venue audit before retargeting |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
 | 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, Technical check | Wait for journal action |
 | 5 | Next independent candidate | Remaining eligible studies | Not venue-locked | Read-only candidate audit |
