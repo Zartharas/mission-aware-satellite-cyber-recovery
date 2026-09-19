@@ -203,7 +203,7 @@ def main() -> int:
         required=(
             PAPER1_ID,
             PAPER4_ID,
-            "With Editor",
+            "REJECTED__EDITORIAL_DECISION",
             "Paper 2: Studies 3 + 4 + 6",
         ),
         forbidden=(
