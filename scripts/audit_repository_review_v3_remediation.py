@@ -204,7 +204,7 @@ def main() -> int:
             PAPER1_ID,
             PAPER4_ID,
             "REJECTED__EDITORIAL_DECISION",
-            "Paper 2: Studies 3 + 4 + 6",
+            "### Paper 2 - Studies 3 + 4 + 6",
         ),
         forbidden=(
             "publisher submission and portal action remain separately gated",
