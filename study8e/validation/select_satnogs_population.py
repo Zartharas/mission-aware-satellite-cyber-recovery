@@ -252,7 +252,10 @@ def main() -> int:
             "deviation_id": DEVIATION_ID,
             "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION_CORRECTED_FILTER",
             "generated_utc": datetime.now(timezone.utc).isoformat(),
-            "status": status,\n            "supersedes_population_freeze": "S8E-SATNOGS-POP-001",\n            "filter_parameter": "norad_cat_id",
+            "status": status,
+            "supersedes_population_freeze": "S8E-SATNOGS-POP-001",
+            "filter_parameter": "norad_cat_id",
+            "candidate_discovery_deviation_id": DISCOVERY_DEVIATION_ID,
             "source": {
                 "base_url": BASE_URL,
                 "month_start": MONTH_START,
