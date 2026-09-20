@@ -1,0 +1,46 @@
+name: Study 8E bounded SatNOGS source probe
+
+on:
+  push:
+    branches:
+      - study8e/source-identity-population-freeze-20260919
+    paths:
+      - "study8e/validation/probe_satnogs_api.py"
+      - "study8e/SOURCE_ACCESS_AUTHORIZATION_20260919.json"
+      - ".github/workflows/study8e-satnogs-source-probe.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out exact branch state
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Run bounded source and schema probe
+        run: |
+          mkdir -p study8e/evidence/source_probe
+          python study8e/validation/probe_satnogs_api.py \
+            --output study8e/evidence/source_probe/satnogs_source_schema_probe.json
+
+      - name: Upload bounded probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: study8e-satnogs-source-schema-probe
+          path: study8e/evidence/source_probe/satnogs_source_schema_probe.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Confirm no tracked-file drift
+        if: success()
+        run: git diff --exit-code
