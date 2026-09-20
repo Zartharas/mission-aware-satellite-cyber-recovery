@@ -1,6 +1,8 @@
 # Current Publication State
 
-**Current-state date:** 2026-09-20
+**Current-state date:** 2026-09-19
+
+**Study 8E extension update:** 2026-09-20
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
