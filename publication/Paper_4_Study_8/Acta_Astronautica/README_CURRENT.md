@@ -69,6 +69,10 @@ Logical slots remain model indices, modeled cryptographic bytes remain modeled o
 
 The next Study 8 gate is a **post-rejection forensic manuscript and venue audit**.
 
+Canonical continuation handoff:
+
+`../POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+
 Do not automatically submit the unchanged Acta package to a fallback journal. First identify whether the rejection points to manuscript framing, presentation, venue fit, or a genuine scientific limitation. Because the editor supplied no specific technical defect, do not invent one.
 
 A future venue-specific package may revise presentation, framing, literature positioning, and journal formatting while preserving the frozen scientific record. Any new venue lock and any future publisher submission require explicit author approval.
