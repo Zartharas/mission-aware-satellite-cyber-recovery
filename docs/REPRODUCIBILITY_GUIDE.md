@@ -61,7 +61,7 @@ Current submitted Acta state:
 - journal: Acta Astronautica
 - manuscript ID: `AA-D-26-02872`
 - submitted: 2026-09-06
-- current status: `With Editor`
+- current status: `Rejected` / `REJECTED__EDITORIAL_DECISION`
 - submitted package freeze: `S8-ACTA-PKGFREEZE-002`
 - submitted package source commit: `f5e9a1d4553737e534821bf647463abfd44fa0dd`
 
@@ -191,6 +191,14 @@ Active submissions remain immutable unless the relevant journal requests a corre
 
 ## 9. Next publication-development work
 
-The next unsent publication priority is the Studies 3 + 4 + 6 synthesis described in [`PUBLICATION_PHASE_MAP.md`](PUBLICATION_PHASE_MAP.md).
+The Paper 4 / Study 8 forensic manuscript audit, literature/novelty review, and live venue shortlist are complete. The immediate next gate is explicit author approval of the target venue, followed by a controlled venue-specific manuscript rebuild from frozen Study 8 evidence.
 
-Begin with frozen-state verification and literature/novelty/claim-boundary/live-venue review. Do not rerun those studies simply because a venue prefers a different result or scope.
+Current retarget authorities:
+
+- `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
+- `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
+- `publication/Paper_4_Study_8/RETARGET_MANUSCRIPT_REBUILD_PLAN_2026-09-19.md`
+
+The live shortlist recommends International Journal of Satellite Communications and Networking as the strongest topical fit, with IEEE Systems Journal as the systems-oriented fallback. No venue is locked until the author explicitly approves it.
+
+Retargeting does not authorize scientific reexecution or statistical reanalysis. If a genuine scientific defect is later demonstrated, stop and obtain separate authorization before reopening Study 8.
