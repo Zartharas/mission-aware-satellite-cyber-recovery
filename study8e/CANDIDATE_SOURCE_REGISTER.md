@@ -12,7 +12,7 @@ Source selection must not depend on whether a source makes a Study 8 result look
 
 ## Source A: SatNOGS Network
 
-**Planned role:** primary external contact-window source.
+**Planned role:** primary external observation-opportunity timing source.
 
 Current documentation establishes that the Network API provides observation records with source `start` and `end` datetimes, ground-station identifier, NORAD catalog identifier, observation status, station metadata, transmitter metadata including baud, and TLE fields. SatNOGS states that API access is open and API data are distributed under CC BY-SA.
 
@@ -23,6 +23,8 @@ Verification sources:
 - https://network.satnogs.org/about/
 
 ### Primary semantic use
+
+The API's `start` and `end` values are treated as **observation-opportunity timing proxies**, not proof of a physical, authenticated, bidirectional, or operational command contact.
 
 Only `id`, `start`, `end`, `ground_station`, and `norad_cat_id` are permitted to construct the primary timing trace.
 
@@ -46,7 +48,7 @@ If fewer than 32 pairs qualify under these rules, all qualifying pairs satisfyin
 
 ### Invalid source records
 
-A record with nonparseable/missing start/end or `end <= start` is not repaired. It is accounted for in the source-validation report and excluded from contact arithmetic under the predeclared invalid-window rule.
+A record with nonparseable/missing start/end or `end <= start` is not repaired. It is accounted for in the source-validation report and excluded from observation-opportunity timing arithmetic under the predeclared invalid-window rule.
 
 ## Source B: ESA OPS-SAT-1 re-entry UHF telemetry
 
