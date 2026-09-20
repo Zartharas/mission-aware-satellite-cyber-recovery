@@ -1,0 +1,49 @@
+name: Study 8E canonical governance validation
+
+on:
+  push:
+    branches:
+      - study8e/canonical-execution-gate-correction-20260920
+    paths:
+      - "study8e/CANONICAL_EXECUTION_PROTOCOL_001.json"
+      - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_20260920.json"
+      - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_CORRECTION_20260920.json"
+      - "study8e/CANONICAL_RUNNER_FREEZE_002.json"
+      - "study8e/validation/validate_canonical_execution_protocol.py"
+      - ".github/workflows/study8e-canonical-execution.yml"
+      - ".github/workflows/study8e-canonical-governance-validation.yml"
+  pull_request:
+    paths:
+      - "study8e/CANONICAL_EXECUTION_PROTOCOL_001.json"
+      - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_20260920.json"
+      - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_CORRECTION_20260920.json"
+      - "study8e/CANONICAL_RUNNER_FREEZE_002.json"
+      - "study8e/validation/validate_canonical_execution_protocol.py"
+      - ".github/workflows/study8e-canonical-execution.yml"
+      - ".github/workflows/study8e-canonical-governance-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Compile governance validator
+        run: python -m py_compile study8e/validation/validate_canonical_execution_protocol.py
+      - name: Validate canonical execution governance
+        run: python study8e/validation/validate_canonical_execution_protocol.py --root .
+      - name: Compile unchanged canonical runner
+        run: |
+          python -m py_compile \
+            study8e/analysis/run_canonical_execution.py \
+            study8e/tests/test_canonical_execution_runner.py
+      - name: Run canonical runner synthetic tests
+        run: python -m unittest study8e.tests.test_canonical_execution_runner -v
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code

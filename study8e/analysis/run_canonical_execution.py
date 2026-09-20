@@ -203,7 +203,7 @@ def population_sd_fraction_decimal(values: Sequence[Fraction]) -> Decimal | None
         return None
     mean = sum(values, Fraction(0, 1)) / len(values)
     variance = (
-        sum((value - mean) ** 2 for value in values, Fraction(0, 1))
+        sum(((value - mean) ** 2 for value in values), Fraction(0, 1))
         / len(values)
     )
     with localcontext() as ctx:
