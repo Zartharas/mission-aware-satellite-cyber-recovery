@@ -446,6 +446,7 @@ def merge_trace_windows(rows: Sequence[RawObservation]) -> list[MergedWindow]:
 
 def timing_outputs(
     merged_by_trace: Mapping[int, Sequence[MergedWindow]],
+    raw_counts: Mapping[int, int],
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], list[dict[str, object]]]:
     window_rows: list[dict[str, object]] = []
     gap_rows: list[dict[str, object]] = []
@@ -535,6 +536,7 @@ def timing_outputs(
                 "trace_selection_order": order,
                 "norad_cat_id": first.norad_cat_id,
                 "ground_station": first.ground_station,
+                "raw_observation_count": raw_counts[order],
                 "merged_window_count": len(windows),
                 "gap_count": len(gap_fracs),
                 "duration_min_seconds": fraction_text(min(duration_fracs)),
@@ -808,6 +810,16 @@ def serialize_case_result(
             if upper_bound_result is not None and not finite
             else ""
         ),
+        "rollback_invoked_at_sufficient_upper_bound": (
+            upper_bound_result["rollback_invoked"]
+            if upper_bound_result is not None and not finite
+            else ""
+        ),
+        "stale_epoch_acceptance_at_sufficient_upper_bound": (
+            upper_bound_result["stale_epoch_acceptance"]
+            if upper_bound_result is not None and not finite
+            else ""
+        ),
     }
 
 
@@ -887,7 +899,8 @@ def run_canonical(
     }
 
     timing_window_rows, timing_gap_rows, timing_summary_rows = timing_outputs(
-        merged_by_trace
+        merged_by_trace,
+        {order: len(rows) for order, rows in trace_grouped.items()},
     )
     source_end_us = parse_utc_microseconds(SOURCE_END_TEXT)
     anchors = build_anchors(merged_by_trace, source_end_us)
@@ -1169,6 +1182,13 @@ def run_canonical(
                             != comparable_result(p3_ref)
                         ):
                             common_rate_audit_mismatches += 1
+                        if (
+                            not p1_common["trusted_recovery_success"]
+                            or not p3_common["trusted_recovery_success"]
+                        ):
+                            raise CanonicalExecutionError(
+                                "P1/P3 common-rate comparison did not preserve success"
+                            )
 
                         common_fields = {
                             "common_rate_bps": common_rate,
@@ -1453,6 +1473,14 @@ def run_canonical(
             ),
             "rollback_invoked_sum_at_finite_thresholds": sum(
                 int(row["rollback_invoked_at_threshold"] or 0)
+                for row in case_rows
+            ),
+            "stale_epoch_acceptance_sum_at_nonfinite_sufficient_bounds": sum(
+                int(row["stale_epoch_acceptance_at_sufficient_upper_bound"] or 0)
+                for row in case_rows
+            ),
+            "rollback_invoked_sum_at_nonfinite_sufficient_bounds": sum(
+                int(row["rollback_invoked_at_sufficient_upper_bound"] or 0)
                 for row in case_rows
             ),
         },
