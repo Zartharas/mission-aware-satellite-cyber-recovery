@@ -67,12 +67,15 @@ Logical slots remain model indices, modeled cryptographic bytes remain modeled o
 
 ## Next gate
 
-The next Study 8 gate is a **post-rejection forensic manuscript and venue audit**.
+The post-rejection forensic manuscript audit and live venue review are complete. No demonstrated defect was found in the frozen Study 8 science, and a manuscript-only retarget was judged scientifically defensible.
 
-Canonical continuation handoff:
+Canonical continuation records:
 
-`../POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `../POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `../POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
+- `../NEXT_VENUE_SHORTLIST_2026-09-19.md`
+- `../RETARGET_MANUSCRIPT_REBUILD_PLAN_2026-09-19.md`
 
-Do not automatically submit the unchanged Acta package to a fallback journal. First identify whether the rejection points to manuscript framing, presentation, venue fit, or a genuine scientific limitation. Because the editor supplied no specific technical defect, do not invent one.
+The current live shortlist recommends **International Journal of Satellite Communications and Networking** as the strongest topical fit, with **IEEE Systems Journal** as the systems-oriented fallback. This recommendation is not a venue lock.
 
-A future venue-specific package may revise presentation, framing, literature positioning, and journal formatting while preserving the frozen scientific record. Any new venue lock and any future publisher submission require explicit author approval.
+The next controlled gate is explicit author approval of the target venue. After venue lock, create a new venue-specific derivative package. Do not alter the rejected Acta package or rerun/reanalyze frozen Study 8 science merely to improve publication prospects. Final publisher submission remains a separate explicit authorization gate.
