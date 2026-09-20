@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-CANON-RESULTS-002-FREEZE-001",
+  "date_local": "2026-09-20",
+  "status": "FORMALLY_FROZEN__MANUSCRIPT_INTEGRATION_NOT_AUTHORIZED",
+  "authorization_basis": "Author explicitly authorized formal freeze of S8E-CANON-RESULTS-002 without rerunning TRACE-002, preserving and documenting the known RESULTS_HASH_MANIFEST.json results_id discrepancy, and requested a controlled freeze change for review and validation without manuscript integration.",
+  "source_audit_record": "study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json",
+  "scientific_identity": {
+    "protocol_id": "S8E-CANON-EXEC-001",
+    "runner_freeze": "S8E-CANON-RUNNER-004",
+    "population_freeze": "S8E-SATNOGS-POP-002",
+    "trace_freeze": "S8E-SATNOGS-TRACE-002",
+    "implementation_freeze": "S8E-IMPLFREEZE-001"
+  },
+  "canonical_execution": {
+    "workflow_run": 35536583594,
+    "head_sha": "d49d4ba43c451564f697188ca88deb463895792d",
+    "conclusion": "success",
+    "artifact_id": 10613372166,
+    "artifact_name": "study8e-canonical-results-002",
+    "artifact_zip_sha256": "3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee",
+    "artifact_bytes": 617450,
+    "runner_unit_tests_passed": 10,
+    "deterministic_passes": 2,
+    "byte_identical_outputs": true,
+    "independent_case_mismatches": 0,
+    "corrected_strict_bound_audit": "PASS"
+  },
+  "frozen_population_summary": {
+    "trace_pairs": 20,
+    "trace_records": 476,
+    "eligible_anchors": 454,
+    "canonical_cases": 65376,
+    "finite_thresholds": 17640,
+    "nonfinite_thresholds": 47736,
+    "finite_fraction": "245/908",
+    "finite_fraction_decimal_6": "0.269824",
+    "finite_threshold_bps_minimum": 48,
+    "finite_threshold_bps_median": "345",
+    "finite_threshold_bps_maximum": 57727
+  },
+  "frozen_contrast_summary": {
+    "p3_vs_p1_matched": 16344,
+    "p3_vs_p1_both_finite": 4410,
+    "p3_vs_p1_both_nonfinite": 11934,
+    "p3_vs_p1_equal_threshold_when_both_finite": 4410,
+    "p3_lower_threshold": 0,
+    "p3_higher_threshold": 0,
+    "profile_ordering_checks": 21792,
+    "profile_ordering_violations": 0
+  },
+  "frozen_result_hashes": {
+    "ANCHOR_MANIFEST.csv": "e45561d4dc30cace106a0f1e3be2f3801967ecc798d4b7db2c9a52d1ed8c93a9",
+    "CANONICAL_CASE_RESULTS.csv": "be0ea2b4da2228bf270ab8ef51bb8625a633346ac6e0b3ebd5fa2134496583fd",
+    "CANONICAL_FINDINGS.json": "9e2ac149d827ff6189983c1b576778d6f31b22dd7218232661a88ecef42e0773",
+    "INDEPENDENT_AUDIT.json": "8a66ff3c9c5f3070a6f1effcb0e21a21243ea6bbd747a1b4baf09406c37181fd",
+    "P3_P1_CONTRASTS.csv": "3053b42cf30591bb56c23dc5f0b83244dec34ea933943900a4b2a3f25e93d559",
+    "PROFILE_ORDERING_CHECKS.csv": "eab36d1511c182e299288e6d23a1cde0fae285ed97d3c382dbdb2a2e868e50f0",
+    "TRACE_TIMING_GAPS.csv": "9cad90c5d5984c87d82bca0495e77c7343a7a3ce5742ddbe93ee57541080bfc2",
+    "TRACE_TIMING_SUMMARY.csv": "c8f88d5255b56543b915e65e24b2fa24c1f7d513e8cd1e6cb76845d1880b8a2b",
+    "TRACE_TIMING_WINDOWS.csv": "59c6a3beaa9831a58174dcd0776ef8c404fcd37783b307044d2f9ee9dcad0c0d",
+    "RESULTS_HASH_MANIFEST.json": "02fbca01d1b45c0e254b9d12c349d4681d424b10805258a24013d17d9118d53f",
+    "RUNTIME_PACKAGE_MANIFEST.json": "0a4e21fd19ab9422edd36bfcdc9b4848a5b360a9a7e6addbe3b5320391c7e674"
+  },
+  "metadata_discrepancy": {
+    "issue_id": "S8E-CANON-PACKAGE-METADATA-NOTE-001",
+    "scientific_result_affected": false,
+    "canonical_findings_results_id": "S8E-CANON-RESULTS-002",
+    "results_hash_manifest_results_id": "S8E-CANON-RESULTS-001",
+    "disposition": "ACCEPTED_AS_DOCUMENTED_NON_SCIENTIFIC_PACKAGING_METADATA_DEFECT",
+    "immutable_actions_artifact_rewritten": false,
+    "reexecution_required": false,
+    "authoritative_binding": "This freeze record and CANONICAL_RESULTS_002_AUDIT_HANDOFF.json bind the immutable artifact and exact corrected hashes to S8E-CANON-RESULTS-002."
+  },
+  "invalidated_prior_results": {
+    "results_id": "S8E-CANON-RESULTS-001",
+    "invalidation_record": "study8e/CANONICAL_RESULTS_001_INVALIDATION.json",
+    "reusable": false,
+    "scientific_use_permitted": false
+  },
+  "claim_boundary": {
+    "satnogs_observation_is_operational_command_contact": false,
+    "satnogs_baud_is_payload_throughput": false,
+    "modeled_rate_is_hypothetical_uniform_effective_payload_rate": true,
+    "original_study8_logical_slots_are_physical_seconds": false,
+    "pooling_with_frozen_study8": false,
+    "external_replication_claim": false,
+    "causal_between_trace_timing_claim": false,
+    "flight_hardware_or_rf_performance_claim": false
+  },
+  "freeze_effect": {
+    "corrected_results_002_frozen": true,
+    "artifact_rewrite_authorized": false,
+    "trace_002_reexecution_authorized": false,
+    "scientific_reanalysis_authorized": false,
+    "frozen_result_modification_authorized": false,
+    "manuscript_integration_authorized": false,
+    "paper_architecture_locked": false,
+    "venue_locked": false,
+    "publisher_submission_authorized": false
+  },
+  "next_gate": "EXPLICIT_STUDY8_VS_STUDY8E_MANUSCRIPT_ARCHITECTURE_DECISION"
+}
