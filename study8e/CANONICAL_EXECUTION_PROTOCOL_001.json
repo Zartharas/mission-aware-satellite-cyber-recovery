@@ -37,7 +37,12 @@
     "merge_rule": "Union overlapping or directly abutting windows within each trace. Preserve source observation IDs in provenance output.",
     "cross_trace_merge": false,
     "time_basis": "UTC absolute source timestamps converted to exact integer microseconds for ingestion, then exact Fraction seconds relative to each anchor for model evaluation.",
-    "source_window_end_exclusive_utc": "2026-07-01T00:00:00Z"
+    "source_window_end_exclusive_utc": "2026-07-01T00:00:00Z",
+    "forward_coverage_proof": {
+      "source_ordering": "SatNOGS release 1.134 first-page ordering is descending start then descending end.",
+      "implication": "For any retained first-page observation in a frozen trace, omitted cursor-page observations are older. Omitted pages therefore cannot hide a later observation after a retained anchor.",
+      "boundary": "This proves forward observation completeness only through 2026-07-01T00:00:00Z for the 20 TRACE-002 pairs. TRACE-002 is not a complete backward history and is not the full June SatNOGS population."
+    }
   },
   "timing_endpoints": {
     "per_trace": [
@@ -63,7 +68,7 @@
   },
   "anchor_population": {
     "candidate_anchor": "End time of every merged observation-opportunity window in a frozen trace.",
-    "eligibility": "anchor_time + 24 hours <= 2026-07-01T00:00:00Z",
+    "eligibility": "anchor_time + 24 hours <= 2026-07-01T00:00:00Z, using the forward-coverage proof defined in trace_preparation.",
     "rationale": "The same anchor set must have complete frozen source-window follow-up for all 6/12/24-hour comparisons.",
     "same_window_reuse_after_anchor": false,
     "future_window_rule": "For each horizon, use only merged windows strictly after the anchor; clip any future window that crosses anchor+horizon.",
@@ -102,10 +107,11 @@
     "not_measured_throughput": true,
     "lower_bound_bps": 1,
     "sufficient_upper_bound": {
-      "formula": "ceil(8 * (sum(profile_object_bytes) + max(profile_object_bytes)) / shortest_positive_future_window_duration_seconds)",
+      "formula": "For a case with at least one positive-duration future window, B = sum(profile_object_bytes) + max(profile_object_bytes), d_min = shortest positive future-window duration in exact seconds, and U = ceil(8 * B / d_min) integer bps.",
       "rationale": "At this rate even the shortest available window can carry the complete nominal transition bundle plus one retransmission of the largest object, covering the A1 byte burden. For A2/A3, any remaining infeasibility at this bound is due to required event/window ordering, which higher rate cannot create.",
       "no_available_future_window": "no finite threshold",
-      "upper_bound_evaluation_required": true
+      "upper_bound_evaluation_required": true,
+      "interpretation_guard": "U is a model-search sufficiency construction, not a physical link capacity. A failure at U is classified as no finite threshold under the frozen model because every positive-duration future window has enough modeled byte capacity at U for the nominal bundle plus one largest-object retransmission; higher rate cannot create an additional future window required by A2/A3 event ordering."
     },
     "threshold_search": "Monotone integer binary search from 1 through the sufficient upper bound, inclusive.",
     "postconditions": [
@@ -273,5 +279,14 @@
     "import_study9_results": false,
     "pool_with_parent_study": false
   },
-  "next_gate": "MERGE_PROTOCOL_FREEZE__THEN_CANONICAL_EXECUTION_USING_EXACT_MERGED_PROTOCOL"
+  "next_gate": "MERGE_CORRECTED_PROTOCOL_AND_RUNNER_GOVERNANCE__POST_MERGE_VALIDATE__THEN_REQUEST_SEPARATE_EXPLICIT_CANONICAL_EXECUTION_AUTHORIZATION",
+  "execution_authorization_gate": {
+    "protocol_and_runner_governance_merge_required": true,
+    "post_merge_repository_validation_required": true,
+    "separate_explicit_author_execution_authorization_required": true,
+    "merged_go_live_authorization_artifact_required": "study8e/CANONICAL_EXECUTION_GO_LIVE.json",
+    "real_trace_execution_allowed_by_current_authorization": false,
+    "scientific_endpoint_computation_before_go_live": "PROHIBITED"
+  },
+  "runner_freeze": "S8E-CANON-RUNNER-002"
 }
