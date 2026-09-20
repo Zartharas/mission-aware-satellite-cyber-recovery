@@ -4,29 +4,34 @@ on:
   push:
     branches:
       - study8e/canonical-execution-gate-correction-20260920
+      - study8e/canonical-go-live-20260920
+      - study8e/canonical-activation-20260920
     paths:
       - "study8e/CANONICAL_EXECUTION_PROTOCOL_001.json"
       - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_20260920.json"
       - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_CORRECTION_20260920.json"
       - "study8e/CANONICAL_EXECUTION_GO_LIVE.json"
       - "study8e/CANONICAL_EXECUTION_ACTIVATION_001.json"
-      - ".github/workflows/study8e-canonical-go-live-activate-001.yml"
-      - "study8e/CANONICAL_EXECUTION_ACTIVATION_001.json"
-      - ".github/workflows/study8e-canonical-go-live-activate-001.yml"
       - "study8e/CANONICAL_TRIGGER_RETIREMENT_001.json"
       - "study8e/CANONICAL_RUNNER_DEFECT_001.json"
       - "study8e/CANONICAL_RUNNER_FREEZE_003.json"
       - "study8e/validation/validate_canonical_execution_protocol.py"
       - ".github/workflows/study8e-canonical-execution.yml"
+      - ".github/workflows/study8e-canonical-go-live-activate-001.yml"
       - ".github/workflows/study8e-canonical-governance-validation.yml"
   pull_request:
     paths:
       - "study8e/CANONICAL_EXECUTION_PROTOCOL_001.json"
       - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_20260920.json"
       - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_CORRECTION_20260920.json"
+      - "study8e/CANONICAL_EXECUTION_GO_LIVE.json"
+      - "study8e/CANONICAL_EXECUTION_ACTIVATION_001.json"
+      - "study8e/CANONICAL_TRIGGER_RETIREMENT_001.json"
+      - "study8e/CANONICAL_RUNNER_DEFECT_001.json"
       - "study8e/CANONICAL_RUNNER_FREEZE_003.json"
       - "study8e/validation/validate_canonical_execution_protocol.py"
       - ".github/workflows/study8e-canonical-execution.yml"
+      - ".github/workflows/study8e-canonical-go-live-activate-001.yml"
       - ".github/workflows/study8e-canonical-governance-validation.yml"
 
 permissions:
@@ -45,7 +50,7 @@ jobs:
         run: python -m py_compile study8e/validation/validate_canonical_execution_protocol.py
       - name: Validate canonical execution governance
         run: python study8e/validation/validate_canonical_execution_protocol.py --root .
-      - name: Compile unchanged canonical runner
+      - name: Compile canonical runner
         run: |
           python -m py_compile \
             study8e/analysis/run_canonical_execution.py \
