@@ -107,8 +107,46 @@ def main() -> int:
     require(not stale_bridge.exists(), "stale canonical dispatch bridge still present")
     require(not stale_trigger.exists(), "stale canonical execution trigger still present")
 
-    go_live = root / "study8e/CANONICAL_EXECUTION_GO_LIVE.json"
-    require(not go_live.exists(), "go-live artifact must not exist before explicit canonical execution authorization")
+    go_live_path = root / "study8e/CANONICAL_EXECUTION_GO_LIVE.json"
+    go_live = None
+    if go_live_path.exists():
+        go_live = load(go_live_path)
+        require(go_live["schema"] == 1, "go-live schema drift")
+        require(go_live["experiment_id"] == "S8E-ECTV-001", "go-live experiment drift")
+        require(go_live["authorization_id"] == "S8E-CANON-GOLIVE-001", "go-live authorization id drift")
+        require(go_live["status"] == "AUTHORIZED", "go-live status drift")
+        require(go_live["canonical_execution_authorized"] is True, "go-live execution authorization missing")
+        require(go_live["authorized_pre_go_live_main"] == "a19a2d1dbfd5735a3053da46c822e7a1438f752b", "go-live pre-authorization main drift")
+        require(go_live["protocol_id"] == protocol["protocol_id"], "go-live protocol mismatch")
+        require(go_live["runner_freeze"] == runner["freeze_id"], "go-live runner mismatch")
+        require(go_live["population_freeze"] == population["freeze_id"], "go-live population mismatch")
+        require(go_live["trace_freeze"] == trace["freeze_id"], "go-live trace mismatch")
+        require(go_live["implementation_freeze"] == impl["freeze_id"], "go-live implementation mismatch")
+        frozen = go_live["frozen_input_identity"]
+        require(frozen["trace_artifact_workflow_run"] == protocol["frozen_inputs"]["trace_artifact_workflow_run"], "go-live trace workflow mismatch")
+        require(frozen["trace_artifact_id"] == protocol["frozen_inputs"]["trace_artifact_id"], "go-live trace artifact mismatch")
+        require(frozen["trace_artifact_zip_sha256"] == protocol["frozen_inputs"]["trace_artifact_zip_sha256"], "go-live trace ZIP mismatch")
+        require(frozen["trace_manifest_sha256"] == protocol["frozen_inputs"]["trace_manifest_sha256"], "go-live manifest mismatch")
+        require(frozen["trace_jsonl_sha256"] == protocol["frozen_inputs"]["trace_jsonl_sha256"], "go-live JSONL mismatch")
+        require(frozen["trace_records"] == protocol["frozen_inputs"]["trace_records"] == 476, "go-live trace record mismatch")
+        require(frozen["trace_pairs"] == protocol["frozen_inputs"]["trace_pairs"] == 20, "go-live trace pair mismatch")
+        require(frozen["canonical_runner_git_blob_sha1"] == runner["files"]["study8e/analysis/run_canonical_execution.py"]["git_blob_sha1"], "go-live runner blob mismatch")
+        require(frozen["canonical_runner_test_git_blob_sha1"] == runner["files"]["study8e/tests/test_canonical_execution_runner.py"]["git_blob_sha1"], "go-live runner test blob mismatch")
+        require(frozen["canonical_workflow_git_blob_sha1"] == runner["files"][".github/workflows/study8e-canonical-execution.yml"]["git_blob_sha1"], "go-live workflow blob mismatch")
+        require(frozen["study8e_primary_model_git_blob_sha1"] == protocol["frozen_inputs"]["implementation_primary_git_blob_sha1"], "go-live primary model blob mismatch")
+        require(frozen["study8e_independent_reference_git_blob_sha1"] == protocol["frozen_inputs"]["implementation_reference_git_blob_sha1"], "go-live reference model blob mismatch")
+        require(go_live["authorized_scope"]["real_TRACE002_timing_endpoint_computation"] is True, "go-live timing endpoint scope missing")
+        require(go_live["authorized_scope"]["minimum_rate_threshold_computation"] is True, "go-live minimum-rate scope missing")
+        require(go_live["authorized_scope"]["independent_case_level_audit"] is True, "go-live independent audit scope missing")
+        require(go_live["authorized_scope"]["deterministic_second_execution"] is True, "go-live deterministic repeat scope missing")
+        require(go_live["authorized_scope"]["canonical_result_artifact_upload"] is True, "go-live artifact-upload scope missing")
+        require(go_live["still_not_authorized"]["source_api_requery_or_rematerialization"] is True, "go-live source re-query guard missing")
+        require(go_live["still_not_authorized"]["modify_TRACE002_rows"] is True, "go-live TRACE-002 mutation guard missing")
+        require(go_live["still_not_authorized"]["modify_frozen_Study8"] is True, "go-live Study 8 mutation guard missing")
+        require(go_live["still_not_authorized"]["alter_runner_or_model_during_execution"] is True, "go-live runner mutation guard missing")
+        require(go_live["result_merge_authorization"] is False, "go-live improperly authorizes result merge")
+        require(go_live["manuscript_integration_authorization"] is False, "go-live improperly authorizes manuscript integration")
+        require(go_live["publisher_submission_authorization"] is False, "go-live improperly authorizes publisher submission")
 
     prohibited_results = [
         root / "study8e/results/CANONICAL_CASE_RESULTS.csv",
@@ -133,8 +171,8 @@ def main() -> int:
     print("cases_per_anchor=144")
     print("historical_failed_canonical_dispatch_run=35525450194")
     print("historical_failed_dispatch_scientific_endpoint_computed=false")
-    print("real_trace_execution_authorized=false")
-    print("go_live_artifact_present=false")
+    print("real_trace_execution_authorized=" + ("true" if go_live is not None else "false"))
+    print("go_live_artifact_present=" + ("true" if go_live is not None else "false"))
     return 0
 
 
