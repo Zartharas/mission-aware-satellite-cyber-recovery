@@ -87,15 +87,26 @@ The historical Paper-3 `Journal_of_Aerospace_Information_Systems/` directory was
 
 ## Study 8 post-rejection work
 
-The Acta decision supplied no external reviewer reports and no specific methodological defect. Study 8 should therefore enter a forensic manuscript/venue audit before any retargeting decision. Do not infer a scientific defect that the editor did not state, and do not rerun the frozen study merely to seek a different outcome.
+The Acta decision supplied no external reviewer reports and no specific methodological defect. A completed forensic audit found no demonstrated defect in the frozen 3,456-position Study 8 science and concluded that a manuscript-only retarget is scientifically defensible.
+
+The completed live venue review currently recommends **International Journal of Satellite Communications and Networking** as the strongest topical fit, with **IEEE Systems Journal** as the systems-oriented fallback. This is a recommendation, not a venue lock.
+
+Canonical Paper-4 retarget records:
+
+- `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
+- `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
+- `publication/Paper_4_Study_8/RETARGET_MANUSCRIPT_REBUILD_PLAN_2026-09-19.md`
 
 ## Next publication-development work
 
-Paper 3 is no longer a candidate. Study 7 is consumed by the submitted CEAS paper.
+The immediate active gate is **Paper 4 / Study 8 venue-lock approval followed by a controlled manuscript rebuild**.
 
-The next publication gate is a **read-only audit of remaining eligible work**, beginning with Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+Do not submit the rejected Acta package unchanged. After explicit author approval of a target venue, create a new venue-specific derivative package from frozen Study 8 evidence while preserving the Acta package and target-neutral source package unchanged.
 
-No next venue or manuscript is currently locked. Fresh literature, novelty, overlap, claim-boundary, reproducibility, and live-venue review are required before creating a new publication branch.
+The rebuild should foreground the feasibility envelope created by cryptographic-object burden, contact timing, and deadline, while retaining the exact null primary policy result. No scientific rerun or statistical reanalysis is authorized.
+
+Study 5 and other remaining eligible research lines are deferred until the Paper 4 retarget decision unless the author explicitly reprioritizes them. Final publisher submission remains a separate explicit authorization gate.
 
 ## Scientific interpretation boundaries
 
