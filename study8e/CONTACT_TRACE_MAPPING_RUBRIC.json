@@ -16,11 +16,11 @@
     },
     "start": {
       "mapping_class": "DIRECT_TIMING_EVIDENCE",
-      "role": "contact-window start timestamp"
+      "role": "observation-opportunity window start timestamp"
     },
     "end": {
       "mapping_class": "DIRECT_TIMING_EVIDENCE",
-      "role": "contact-window end timestamp"
+      "role": "observation-opportunity window end timestamp"
     },
     "ground_station": {
       "mapping_class": "DIRECT_TIMING_EVIDENCE",
@@ -90,9 +90,9 @@
     }
   },
   "derived_extension_quantities": {
-    "contact_duration_seconds": "end - start for valid SatNOGS windows",
-    "inter_contact_gap_seconds": "next_start - current_end after within-trace union of overlapping/abutting windows",
-    "hypothetical_uniform_effective_payload_rate_bps": "unknown constant net payload rate available only inside external windows; solved as a threshold rather than inferred from transmitter metadata",
+    "observation_opportunity_duration_seconds": "end - start for valid SatNOGS observation records; treated as observation-opportunity timing only",
+    "inter_opportunity_gap_seconds": "next_start - current_end after within-trace union of overlapping/abutting observation-opportunity windows",
+    "hypothetical_uniform_effective_payload_rate_bps": "extension-model constant net payload rate available only inside accepted observation-opportunity windows; solved as a threshold rather than inferred from transmitter metadata or claimed as measured capacity",
     "minimum_uniform_effective_payload_rate_bps_required": "lowest finite rate at which the extension transition runner reaches TRUST_RESTORED strictly before the extension horizon under the frozen trace and condition"
   },
   "prohibited_inferences": [
