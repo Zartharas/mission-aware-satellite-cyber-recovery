@@ -4,7 +4,7 @@
 Historical Study-8 technical-close, source-publication freeze, and Acta
 package-freeze artifacts retain their stage-local wording. This checker binds
 those frozen records and submitted publisher bytes while validating the live
-2026-09-19 repository publication state.
+2026-09-19 publication-state baseline plus the governed 2026-09-20 Study 8E extension update.
 
 The checker never executes scientific analysis and never modifies frozen
 evidence, statistics, or publisher-facing files.
@@ -62,7 +62,11 @@ CURRENT_DOCS = {
             PAPER1_ID,
             PAPER2_ID,
             PAPER3_ID,
-            "post-rejection Study 8 gate",
+            "**Study 8E extension update:** 2026-09-20",
+            "Current post-rejection Study 8 / Study 8E gate",
+            "CANONICAL_RESULTS_002_AUDIT_HANDOFF.json",
+            "35536583594",
+            "formal result freeze and manuscript integration remain pending",
             "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
             "Immediate active publication-development priority",
         ),
@@ -307,11 +311,11 @@ def main() -> int:
     print(f"acta_current_status={ACTA_CURRENT_STATUS}")
     print(f"acta_current_normalized_status={ACTA_CURRENT_NORMALIZED_STATUS}")
     print("publication_portfolio_state=FOUR_SUBMITTED_HISTORY_THREE_ACTIVE_ONE_REJECTED")
-    print("study8_next_gate=POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT")
+    print("study8_next_gate=FORMAL_STUDY8E_RESULT_FREEZE_REVIEW")
     print("paper4_resubmission_handoff=PASS")
     print("remaining_candidate_audit=DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE")
     print("acta_submission_completed=true")
-    print("scientific_reexecution_performed=false")
+    print("frozen_study8_scientific_reexecution_performed=false")
     print("statistical_reanalysis_performed=false")
     return 0
 
