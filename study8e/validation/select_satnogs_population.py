@@ -27,7 +27,7 @@ from urllib.parse import parse_qs, urlencode, urlparse
 from urllib.request import Request, urlopen
 
 EXPERIMENT_ID = "S8E-ECTV-001"
-DEVIATION_ID = "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001"
+DEVIATION_ID = "S8E-DEV-SATNOGS-FILTER-PARAM-002"\nDISCOVERY_DEVIATION_ID = "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001"
 BASE_URL = "https://network.satnogs.org/api/observations/"
 MONTH_START = "2026-06-01T00:00:00Z"
 MONTH_END = "2026-07-01T00:00:00Z"
@@ -300,7 +300,7 @@ def main() -> int:
             "schema": 1,
             "experiment_id": EXPERIMENT_ID,
             "deviation_id": DEVIATION_ID,
-            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION",
+            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION_CORRECTED_FILTER",
             "generated_utc": datetime.now(timezone.utc).isoformat(),
             "status": "FAIL_CLOSED",
             "failure": str(exc),
