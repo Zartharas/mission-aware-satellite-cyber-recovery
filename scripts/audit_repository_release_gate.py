@@ -9,7 +9,7 @@ and tracker wording while leaving frozen scientific records unchanged.
 This wrapper creates a detached temporary worktree at HEAD, overlays the
 caller's Git-tracked working-tree state, runs the historical core audit, and
 permits only the exact known stale-current-state failures when the authoritative
-2026-09-19 publication-state record is present. Any additional or different
+2026-09-20 publication-state record is present. Any additional or different
 core failure still fails closed. The current Study-8 publication-state overlay
 and Repository Review v3 remediation audit then run normally.
 
@@ -33,13 +33,16 @@ REVIEW_V3_REL = Path("scripts/audit_repository_review_v3_remediation.py")
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
-    "**Current-state date:** 2026-09-19",
+    "**Current-state date:** 2026-09-20",
     "four publication lines that have been submitted",
     "2026-09-I012066",
     "AA-D-26-02872",
     "cd1dfa89-4a24-4451-bdd4-af31ce3367f4",
     "6db04a31-8223-4aaf-af02-e4bafe06ef89",
     "read-only candidate audit",
+    "CANONICAL_RESULTS_002_AUDIT_HANDOFF.json",
+    "35536583594",
+    "formal result freeze and manuscript integration remain pending",
 )
 
 EXPECTED_LEGACY_CORE_FAILURES = frozenset(
@@ -169,7 +172,7 @@ def authoritative_current_state_is_bound(audit_root: Path) -> bool:
             print(f"missing_current_state_token={token}", file=sys.stderr)
         return False
 
-    print("authoritative_current_publication_state=PASS_2026_09_19")
+    print("authoritative_current_publication_state=PASS_2026_09_20")
     return True
 
 
