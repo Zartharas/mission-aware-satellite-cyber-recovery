@@ -42,16 +42,19 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       State: Technical check
 |
 +-- PHASE 5 - NEXT ACTIVE GATE
-|   +-- PAPER 4 / STUDY 8 POST-REJECTION RETARGET AUDIT
+|   +-- PAPER 4 / STUDY 8 VENUE LOCK + CONTROLLED REBUILD
 |       Acta manuscript: AA-D-26-02872
-|       State: POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT
-|       Handoff: publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md
+|       Forensic audit: COMPLETE
+|       Live venue shortlist: COMPLETE
+|       State: AWAITING_AUTHOR_VENUE_LOCK_APPROVAL__CONTROLLED_REBUILD_NEXT
+|       Recommended venue: International Journal of Satellite Communications and Networking
+|       Fallback: IEEE Systems Journal
 |
 +-- PHASE 6 - DEFERRED
     +-- REMAINING-CANDIDATE AUDIT
         +-- Study 5 / S5-CUCD-001
         +-- any other still-eligible repository study not consumed by Papers 1, 2, 3, or 4
-        State: DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE
+        State: DEFERRED_WHILE_PAPER4_VENUE_LOCK_AND_REBUILD_ACTIVE
 ```
 
 ## Phase 1 - Paper 1
@@ -117,21 +120,26 @@ No Paper-3 scientific or publisher-facing artifact should change unless CEAS req
 
 ## Study 8 post-rejection retargeting gate
 
-Acta manuscript `AA-D-26-02872` is closed by rejection. No fallback venue is automatically activated. Before any retargeting, audit the submitted manuscript for presentation, framing, literature-positioning, and venue-fit weaknesses while preserving the frozen scientific record and negative primary result. A fresh live venue review is required before a new venue lock.
+Acta manuscript `AA-D-26-02872` is closed by rejection. The post-rejection forensic manuscript audit, literature/novelty review, and live venue shortlist are complete. They found no demonstrated defect in the frozen Study 8 science and support a manuscript-only retarget.
 
-## Phase 5 - Paper 4 / Study 8 post-rejection retarget audit
+## Phase 5 - Paper 4 / Study 8 venue lock and controlled rebuild
 
 This is the immediate active publication-development gate.
 
-Canonical handoff:
+Canonical retarget records:
 
-`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
+- `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
+- `publication/Paper_4_Study_8/RETARGET_MANUSCRIPT_REBUILD_PLAN_2026-09-19.md`
 
-The work begins with a forensic audit of the exact rejected Acta manuscript, followed by fresh literature/novelty review and live venue assessment. The Acta package remains immutable provenance and the frozen Study 8 science must not be rerun or reanalyzed merely to improve publication prospects.
+The live shortlist recommends **International Journal of Satellite Communications and Networking** as the strongest current topical fit, with **IEEE Systems Journal** as the systems-oriented fallback. This recommendation is not yet a venue lock.
+
+The next controlled gate is explicit author approval of the target venue. After approval, create a new venue-specific derivative package from frozen Study 8 evidence. The rejected Acta package remains immutable provenance and frozen Study 8 science must not be rerun or reanalyzed merely to improve publication prospects.
 
 Paper 4 is the Study 8 publication. Study 4 / `S4-MPQ-001` belongs to submitted Paper 2 / TAES and is outside this resubmission gate.
 
-A new target venue is not yet locked. Final venue lock and any publisher submission remain separate explicit author-approval gates.
+Final publisher submission remains a separate explicit author-approval gate.
 
 ## Phase 6 - Remaining-candidate audit
 
@@ -146,9 +154,9 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 ## Recommended operational order from 2026-09-19
 
 1. Keep Papers 1, 2, and 3 frozen while their journal workflows proceed; keep the rejected Paper-4 Acta package frozen as provenance.
-2. Perform the Paper-4 / Study-8 post-rejection forensic manuscript audit from clean `main`.
-3. Perform fresh literature/novelty and live venue review before selecting a retarget venue.
-4. Present the revision plan and recommended target to the author before creating a new venue-specific package.
+2. Treat the Paper-4 / Study-8 forensic manuscript audit, literature/novelty review, and live venue shortlist as complete.
+3. Obtain explicit author approval of the target venue before creating a venue-specific derivative package.
+4. After venue lock, rebuild the manuscript from frozen Study 8 evidence using the approved retarget plan.
 5. Keep actual publisher submission as a separate explicit author-authorization gate.
 6. Resume the remaining-study candidate audit after the Paper-4 retarget decision unless the author explicitly reprioritizes it.
 
@@ -167,8 +175,8 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | Phase | Publication unit | Studies | Current venue/state | Next gate |
 |---|---|---|---|---|
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
-| 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, rejected | Post-rejection forensic manuscript/venue audit before retargeting |
+| 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, rejected | Venue-lock approval then controlled derivative rebuild |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
 | 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, Technical check | Wait for journal action |
-| 5 | Paper 4 retarget | Study 8 | Acta rejected; next venue not locked | Forensic manuscript/literature/venue audit |
-| 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |
+| 5 | Paper 4 retarget | Study 8 | Forensic and venue audits complete; venue not locked | Author venue-lock decision, then controlled rebuild |
+| 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 venue-lock/rebuild gate is active | Resume read-only candidate audit later |
