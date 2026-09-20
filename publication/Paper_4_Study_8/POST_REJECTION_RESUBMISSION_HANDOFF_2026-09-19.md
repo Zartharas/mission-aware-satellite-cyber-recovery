@@ -6,13 +6,15 @@
 **Rejected venue:** Acta Astronautica  
 **Rejected manuscript ID:** `AA-D-26-02872`  
 **Current publisher state:** `REJECTED__EDITORIAL_DECISION`  
-**Active gate:** `POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT`
+**Active gate:** `AWAITING_AUTHOR_VENUE_LOCK_APPROVAL__CONTROLLED_REBUILD_NEXT`
 
 ## Purpose
 
 This document is the canonical working handoff for improving and retargeting the rejected Paper 4 manuscript while preserving the frozen Study 8 science and the exact Acta submission as immutable provenance.
 
-The immediate objective is **not** to rerun Study 8 or replace its negative primary result. The objective is to determine whether the paper can be materially strengthened through manuscript quality, explanatory depth, literature positioning, contribution framing, visual presentation, and better venue alignment, and then to select a defensible next venue through a fresh live review.
+The forensic manuscript audit, fresh literature/novelty review, contribution reconstruction, and live venue assessment are now complete. They found no demonstrated defect in the frozen Study 8 science and concluded that a manuscript-only retarget is scientifically defensible.
+
+The current recommendation is **International Journal of Satellite Communications and Networking**, with **IEEE Systems Journal** as the fallback. This recommendation is not a venue lock. The immediate objective is explicit author approval of the target venue, followed by a controlled derivative manuscript rebuild from frozen Study 8 evidence.
 
 ## Terminology safeguard
 
@@ -108,7 +110,7 @@ Do not attempt to improve publication prospects by:
 
 If the forensic audit discovers a genuine scientific defect, document it and stop. Reopening science requires a separate explicit authorization and a new controlled amendment/re-freeze path.
 
-## Active post-rejection workflow
+## Completed post-rejection audit workflow
 
 ### Gate A - Exact submitted-manuscript forensic audit
 
@@ -242,18 +244,10 @@ Do not reuse their frozen experimental populations as new Paper-4 evidence.
 
 ## First deliverable for the next chat
 
-Start read-only.
+Start by verifying clean `main` and reading the completed forensic audit, venue shortlist, and rebuild plan.
 
-The first deliverable should be a rigorous forensic audit of the exact rejected Acta manuscript, not a rewritten manuscript and not a new experiment.
+The first decision deliverable is the **venue-lock recommendation**. Recheck the live scope and author requirements for International Journal of Satellite Communications and Networking and IEEE Systems Journal if needed, then present the evidence-supported recommendation to the author.
 
-The audit should conclude with:
+Do not create a venue-specific derivative package until the author explicitly approves the target venue.
 
-1. evidence-supported weaknesses;
-2. likely presentation/positioning weaknesses that are hypotheses rather than editor-stated reasons;
-3. strengths worth preserving;
-4. specific revisions that can be made without changing frozen science;
-5. any issue that would genuinely require new science;
-6. a live-researched venue shortlist;
-7. a go/no-go recommendation for controlled resubmission.
-
-Only after that review should manuscript revision begin.
+After venue lock, rebuild the manuscript from frozen Study 8 evidence using the approved plan. Preserve the exact primary null and all claim boundaries. Do not modify the rejected Acta package. Final publisher submission remains separately gated.
