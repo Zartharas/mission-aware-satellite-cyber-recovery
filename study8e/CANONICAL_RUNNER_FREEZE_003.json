@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-CANON-RUNNER-003",
+  "date_local": "2026-09-20",
+  "status": "CANONICAL_RUNNER_REPAIRED_AND_GOVERNANCE_HARDENED__NO_REAL_TRACE_EXECUTION_AUTHORIZED",
+  "supersedes": [
+    "S8E-CANON-RUNNER-001",
+    "transient_unmerged_S8E-CANON-RUNNER-002"
+  ],
+  "base_main_commit": "2ef6bf63ab6b98ec0cbeb8585b0214dcaf98e9be",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "defect_record": "S8E-CANON-RUNNER-DEFECT-001",
+  "repair_scope": "Syntax-only repair to the intended population variance sum; no endpoint definition or statistical formula changed.",
+  "files": {
+    "study8e/analysis/run_canonical_execution.py": {
+      "git_blob_sha1": "4d31d3eab64b96711f59024f458ab5236078b0b1",
+      "role": "repaired canonical deterministic TRACE-002 endpoint and comparison harness"
+    },
+    "study8e/tests/test_canonical_execution_runner.py": {
+      "git_blob_sha1": "d7e3f841b7ff1270656d022eb3910b77c17c1305",
+      "role": "canonical runner synthetic helper and threshold tests"
+    },
+    ".github/workflows/study8e-canonical-execution.yml": {
+      "git_blob_sha1": "8d08b8818df1cabec24ef4055ad64f67e703916e",
+      "role": "manual workflow_dispatch-only canonical execution workflow with merged go-live authorization gate"
+    }
+  },
+  "workflow_controls": {
+    "automatic_push_trigger": false,
+    "manual_workflow_dispatch_only": true,
+    "required_dispatch_input": "authorization_id",
+    "merged_go_live_file_required": "study8e/CANONICAL_EXECUTION_GO_LIVE.json",
+    "go_live_status_required": "AUTHORIZED",
+    "gate_before_trace_download": true,
+    "no_satnogs_api_fallback": true,
+    "exact_trace_artifact_id": 10600470520
+  },
+  "execution_state": {
+    "canonical_workflow_dispatch_runs_before_freeze": 0,
+    "real_trace_scientific_endpoints_computed": false,
+    "canonical_results_frozen": false,
+    "current_authorization_allows_execution": false
+  },
+  "validation_required_before_merge": [
+    "python compilation",
+    "canonical runner synthetic unit tests",
+    "canonical governance validator",
+    "full repository validation"
+  ],
+  "next_gate": "AUTHOR_REVIEW_AND_EXPLICIT_MERGE_AUTHORIZATION__THEN_POST_MERGE_VALIDATE__THEN_SEPARATE_EXPLICIT_CANONICAL_EXECUTION_AUTHORIZATION"
+}
