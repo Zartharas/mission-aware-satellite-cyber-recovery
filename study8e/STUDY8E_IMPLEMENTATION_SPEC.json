@@ -16,8 +16,17 @@
       "new_epoch_commit_signature",
       "post_commit_confirmation_signature"
     ],
-    "profiles": ["PROFILE_512_44","PROFILE_768_65","PROFILE_1024_87"],
-    "policies": ["P0_HARD_CUTOVER","P1_STAGED_CUTOVER","P2_HYBRID_OVERLAP","P3_CONTACT_AWARE_STAGED"],
+    "profiles": [
+      "PROFILE_512_44",
+      "PROFILE_768_65",
+      "PROFILE_1024_87"
+    ],
+    "policies": [
+      "P0_HARD_CUTOVER",
+      "P1_STAGED_CUTOVER",
+      "P2_HYBRID_OVERLAP",
+      "P3_CONTACT_AWARE_STAGED"
+    ],
     "disruptions": [
       "A0_NONE",
       "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
@@ -50,17 +59,23 @@
     "minimum_rate_domain": "positive integers",
     "capacity_formula": "floor(window_duration_microseconds * rate_bps / 8000000)",
     "capacity_semantics": "extension-model hypothetical uniform net payload bytes available only during accepted observation-opportunity windows; not measured SatNOGS throughput",
-    "framing_transport_rf_overhead_modeled": false
+    "framing_transport_rf_overhead_modeled": false,
+    "zero_capacity_window_rule": "If floor(window_duration_microseconds * rate_bps / 8000000) is zero, the window is not an eligible transmission opportunity, consumes no transition attempt, and does not trigger A2 or A3."
   },
   "horizons": {
-    "hours": [6,12,24],
+    "hours": [
+      6,
+      12,
+      24
+    ],
     "deadline_rule": "TRUST_RESTORED must occur at elapsed_microseconds strictly less than horizon_microseconds",
     "window_clipping_rule": "a window starting before the horizon is clipped at the horizon boundary for byte-capacity arithmetic; windows starting at or after the horizon are excluded"
   },
   "scheduler": {
     "rule": "within each observation-opportunity window, repeatedly transmit the highest-priority ready incomplete object; newly unlocked objects may use remaining capacity in the same window; partial bytes persist except under A1",
     "byte_integrity": "all transferred cryptographic bytes are integer bytes",
-    "object_actionability": "an object becomes actionable only after all bytes have arrived"
+    "object_actionability": "an object becomes actionable only after all bytes have arrived",
+    "event_timestamp_rule": "Within one positive-capacity window, proof/commit/completion elapsed timestamps are start_us + ceil(cumulative_bytes_consumed_in_that_window * 8000000 / rate_bps); A1-discarded bytes count as consumed capacity. This preserves fractional-rate carry across object boundaries within the same window."
   },
   "disruption_adaptation": {
     "A0_NONE": "no disruption",
