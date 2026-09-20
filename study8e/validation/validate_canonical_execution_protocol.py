@@ -79,7 +79,8 @@ def main() -> int:
     require(correction["execution_state_at_correction"]["canonical_workflow_dispatch_runs"] == 0, "correction no-dispatch evidence drift")
     require(correction["execution_state_at_correction"]["canonical_real_trace_scientific_endpoints_computed"] is False, "correction endpoint state drift")
 
-    require(runner["scientific_runner_unchanged"] is True, "scientific runner unexpectedly changed")
+    require(runner["defect_record"] == "S8E-CANON-RUNNER-DEFECT-001", "runner defect record drift")
+    require("Syntax-only repair" in runner["repair_scope"], "runner repair scope drift")
     require(runner["files"]["study8e/analysis/run_canonical_execution.py"]["git_blob_sha1"] == "4d31d3eab64b96711f59024f458ab5236078b0b1", "canonical runner blob drift")
     require(runner["files"]["study8e/tests/test_canonical_execution_runner.py"]["git_blob_sha1"] == "d7e3f841b7ff1270656d022eb3910b77c17c1305", "canonical runner test blob drift")
     require(runner["files"][".github/workflows/study8e-canonical-execution.yml"]["git_blob_sha1"] == "8d08b8818df1cabec24ef4055ad64f67e703916e", "canonical workflow blob drift")
