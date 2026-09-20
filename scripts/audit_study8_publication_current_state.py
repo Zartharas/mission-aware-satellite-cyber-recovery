@@ -63,6 +63,8 @@ CURRENT_DOCS = {
             PAPER2_ID,
             PAPER3_ID,
             "post-rejection Study 8 gate",
+            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+            "Immediate active publication-development priority",
         ),
         "forbidden": (
             "publisher submission and portal action remain separately gated",
@@ -77,8 +79,10 @@ CURRENT_DOCS = {
             PAPER2_ID,
             PAPER3_ID,
             "PHASE 5 - NEXT ACTIVE GATE",
-            "REMAINING-CANDIDATE AUDIT",
-            "READ_ONLY_CANDIDATE_SELECTION_REQUIRED",
+            "POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT",
+            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+            "PHASE 6 - DEFERRED",
+            "DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE",
         ),
         "forbidden": (
             "publisher submission and portal action remain separately gated",
@@ -93,7 +97,9 @@ CURRENT_DOCS = {
             PAPER1_ID,
             PAPER2_ID,
             PAPER3_ID,
-            "read-only audit over the remaining eligible work",
+            "immediate active publication-development priority",
+            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+            "remaining-study audit is deferred",
         ),
         "forbidden": (
             "Publisher submission and Editorial Manager actions remain later explicit authorization gates",
@@ -301,7 +307,9 @@ def main() -> int:
     print(f"acta_current_status={ACTA_CURRENT_STATUS}")
     print(f"acta_current_normalized_status={ACTA_CURRENT_NORMALIZED_STATUS}")
     print("publication_portfolio_state=FOUR_SUBMITTED_HISTORY_THREE_ACTIVE_ONE_REJECTED")
-    print("study8_next_gate=POST_REJECTION_FORENSIC_MANUSCRIPT_AND_VENUE_AUDIT")
+    print("study8_next_gate=POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT")
+    print("paper4_resubmission_handoff=PASS")
+    print("remaining_candidate_audit=DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE")
     print("acta_submission_completed=true")
     print("scientific_reexecution_performed=false")
     print("statistical_reanalysis_performed=false")
