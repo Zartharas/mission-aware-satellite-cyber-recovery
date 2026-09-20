@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "implementation_id": "S8E-IMPL-001",
+  "freeze_date_local": "2026-09-20",
+  "status": "IMPLEMENTATION_FROZEN_ON_BRANCH__AWAITING_TRACE_ACQUISITION_AND_REPOSITORY_REVIEW",
+  "base_main_commit": "80a73d47f9ffd7289eec309a48d61c4dbcf1405b",
+  "validation": {
+    "workflow_run": 35491954681,
+    "workflow_head": "aa7971b0e46f7e95c9ed62d6f4613b6e31f12da7",
+    "artifact_id": 10599421330,
+    "artifact_zip_sha256": "80d6b03130631d6e7fc237b9bb5bd96e1fecbc451ba324502f1b8e9435e5b27d",
+    "manifest_sha256": "2fa7fdc8c76745e6d996e1abe6ab2627dde1f433256e9a48e70054bb4b3a68f4",
+    "fixture_tests": 11,
+    "fixture_test_result": "PASS",
+    "primary_independent_reference_parity": "PASS"
+  },
+  "bound_files": {
+    "study8e/STUDY8E_IMPLEMENTATION_SPEC.json": {
+      "sha256": "85c12e95fbc80616b851716eaa24612668b3cf5551069150ba355bcfba444061"
+    },
+    "study8e/src/external_trace_recovery_model.py": {
+      "sha256": "7120ec881a7679f3195d092e9e12391a1c2d9dd157ad45b03e53ebe0987fa1f1"
+    },
+    "study8e/audit/independent_external_trace_reference.py": {
+      "sha256": "3af29e96bb2a200c20764405a80e6c5d3041ab915f0cbdaca63314ad50f5f390"
+    },
+    "study8e/tests/test_external_trace_recovery_model.py": {
+      "sha256": "6caebb0baf5cfaa8a70efdb31b9c132f5116e976faf084c9740a845625022d1d"
+    },
+    "study8/STUDY8_CRYPTO_OBJECT_BUDGETS.json": {
+      "sha256": "cafd3ecd537079bcbe0a118c5b1f8cd305f61811e901ce52b79298248f582b41"
+    },
+    "study8/STUDY8_PROTOCOL.json": {
+      "sha256": "803ab6029b03c48e04a1677c5b02b106b8cb41a46dace3b1b1fe15372cb2136a"
+    }
+  },
+  "validated_semantics": [
+    "window union and horizon clipping",
+    "integer byte-capacity arithmetic from integer bps and microseconds",
+    "zero-capacity window exclusion",
+    "strict less-than horizon completion rule",
+    "A1 discarded first largest-object allocation",
+    "A2 one-opportunity transition-proof delay",
+    "A3 one-opportunity stale-replay deferment",
+    "P3 pre-commit remaining-capacity guard",
+    "P0/P1/P2/P3 state-cost semantics",
+    "primary and independently implemented reference parity",
+    "minimum-rate solver exactness on hand-constructed fixture",
+    "canonical direct entrypoint refusal"
+  ],
+  "scope_boundary": {
+    "real_satnogs_trace_loaded": false,
+    "real_trace_endpoint_computed": false,
+    "canonical_study8e_execution": false,
+    "study8_modified": false,
+    "acta_package_modified": false,
+    "publisher_submission_authorized": false
+  },
+  "next_gate": "COMPLETE_AND_BIND_S8E-SATNOGS-TRACE-001__THEN_AUTHOR_REVIEW_AND_MERGE_AUTHORIZATION"
+}
