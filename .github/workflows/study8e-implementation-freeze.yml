@@ -1,0 +1,49 @@
+name: Study 8E implementation freeze validation
+
+on:
+  push:
+    branches:
+      - study8e/trace-acquisition-implementation-freeze-20260920
+    paths:
+      - "study8e/STUDY8E_IMPLEMENTATION_SPEC.json"
+      - "study8e/src/external_trace_recovery_model.py"
+      - "study8e/audit/independent_external_trace_reference.py"
+      - "study8e/tests/test_external_trace_recovery_model.py"
+      - "study8e/validation/validate_implementation_freeze.py"
+      - ".github/workflows/study8e-implementation-freeze.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact branch state
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Run Study 8E fixture parity tests
+        run: |
+          python -m unittest study8e/tests/test_external_trace_recovery_model.py -v
+
+      - name: Validate and bind implementation freeze
+        run: |
+          python study8e/validation/validate_implementation_freeze.py
+
+      - name: Upload implementation freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: study8e-implementation-freeze
+          path: study8e/evidence/implementation_freeze/IMPLEMENTATION_FREEZE_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
