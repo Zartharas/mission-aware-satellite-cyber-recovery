@@ -1,0 +1,40 @@
+name: Study 8E selected SatNOGS trace materialization
+
+on:
+  push:
+    branches:
+      - study8e/trace-artifacts-implementation-freeze-20260920
+    paths:
+      - "study8e/validation/materialize_selected_satnogs_traces.py"
+      - "study8e/SOURCE_TRACE_MATERIALIZATION_DEVIATION_20260920.json"
+      - ".github/workflows/study8e-materialize-selected-traces.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact branch
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Materialize frozen 800-record corpus
+        run: |
+          mkdir -p study8e/evidence/selected_trace
+          python study8e/validation/materialize_selected_satnogs_traces.py \
+            --population-freeze study8e/SATNOGS_POPULATION_FREEZE.json \
+            --output-dir study8e/evidence/selected_trace
+      - name: Upload selected-trace evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: study8e-selected-satnogs-trace-001
+          path: study8e/evidence/selected_trace/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
