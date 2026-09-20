@@ -260,29 +260,30 @@ Do not rewrite the historical Actions artifact.
 
 Repository authority:
 
-`study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`
+- pre-freeze audit: `study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`
+- formal freeze: `study8e/CANONICAL_RESULTS_002_FREEZE.json`
 
-The next chat must decide whether formal result freeze can accept the documented metadata discrepancy or whether a separately authorized metadata-corrected reexecution is warranted. Do not rerun by default.
+The documented metadata discrepancy has been accepted as a non-scientific packaging defect under `S8E-CANON-RESULTS-002-FREEZE-001`. Do not rerun TRACE-002 merely to clean that label.
 
 ## Current explicit gate
 
-**Formal result freeze is still pending.**
+**Formal result freeze is complete under `S8E-CANON-RESULTS-002-FREEZE-001`.**
 
 Do not:
 
-- merge/copy canonical result files into the repository as frozen science without explicit approval;
+- alter the frozen Results-002 scientific package or hashes;
 - integrate results into the manuscript yet;
-- change the Study 8 / Study 8E paper architecture yet;
+- change the Study 8 / Study 8E paper architecture without an explicit architecture decision;
 - submit to a publisher;
 - rerun TRACE-002 merely to clean metadata.
 
 Next recommended action:
 
-1. review current repository state and `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`;
-2. make a formal result-freeze decision;
-3. if frozen, decide manuscript architecture:
+1. review current repository state and `CANONICAL_RESULTS_002_FREEZE.json`;
+2. decide manuscript architecture:
    - revised Study 8 paper with Study 8E external-timing validation section, or
    - separate companion paper;
+3. record that architecture decision explicitly;
 4. only then perform manuscript integration and live venue assessment.
 
 ## Repository authority order for the next chat
@@ -290,14 +291,15 @@ Next recommended action:
 For Study 8E questions, prefer:
 
 1. `study8e/CURRENT_EXTENSION_STATE.md`
-2. `study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`
-3. `study8e/CANONICAL_EXECUTION_GO_LIVE_002_CLOSEOUT.json`
-4. `study8e/CANONICAL_RUNNER_FREEZE_004.json`
-5. `study8e/CANONICAL_BOUND_DEFECT_001.json`
-6. `study8e/CANONICAL_RESULTS_001_INVALIDATION.json`
-7. `study8e/CANONICAL_EXECUTION_PROTOCOL_001.json`
-8. `study8e/SATNOGS_TRACE_ARTIFACT_FREEZE_002.json`
-9. `study8e/SATNOGS_POPULATION_FREEZE_002.json`
-10. `study8e/IMPLEMENTATION_FREEZE_001.json`
+2. `study8e/CANONICAL_RESULTS_002_FREEZE.json`
+3. `study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`
+4. `study8e/CANONICAL_EXECUTION_GO_LIVE_002_CLOSEOUT.json`
+5. `study8e/CANONICAL_RUNNER_FREEZE_004.json`
+6. `study8e/CANONICAL_BOUND_DEFECT_001.json`
+7. `study8e/CANONICAL_RESULTS_001_INVALIDATION.json`
+8. `study8e/CANONICAL_EXECUTION_PROTOCOL_001.json`
+9. `study8e/SATNOGS_TRACE_ARTIFACT_FREEZE_002.json`
+10. `study8e/SATNOGS_POPULATION_FREEZE_002.json`
+11. `study8e/IMPLEMENTATION_FREEZE_001.json`
 
 Historical POP-001, results 001, earlier runner freezes, rejected Acta files, and superseded PRs remain provenance only.
