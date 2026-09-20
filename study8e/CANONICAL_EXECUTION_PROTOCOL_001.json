@@ -3,7 +3,7 @@
   "experiment_id": "S8E-ECTV-001",
   "protocol_id": "S8E-CANON-EXEC-001",
   "date_local": "2026-09-20",
-  "status": "CANONICAL_EXECUTION_PROTOCOL_FREEZE_CANDIDATE__NO_REAL_TRACE_ENDPOINTS_COMPUTED",
+  "status": "CANONICAL_EXECUTION_PROTOCOL_REPAIRED_STRICT_BOUND__REEXECUTION_NOT_AUTHORIZED",
   "base_main_commit": "799c9da916ac237529e59c50417555102b924939",
   "frozen_inputs": {
     "population_freeze": "S8E-SATNOGS-POP-002",
@@ -107,17 +107,18 @@
     "not_measured_throughput": true,
     "lower_bound_bps": 1,
     "sufficient_upper_bound": {
-      "formula": "For a case with at least one positive-duration future window, B = sum(profile_object_bytes) + max(profile_object_bytes), d_min = shortest positive future-window duration in exact seconds, and U = ceil(8 * B / d_min) integer bps.",
-      "rationale": "At this rate even the shortest available window can carry the complete nominal transition bundle plus one retransmission of the largest object, covering the A1 byte burden. For A2/A3, any remaining infeasibility at this bound is due to required event/window ordering, which higher rate cannot create.",
+      "formula": "For a case with at least one positive-duration future window, B = sum(profile_object_bytes) + max(profile_object_bytes), d_min = shortest positive future-window duration in exact seconds, and U_strict = floor(8 * B / d_min) + 1 integer bps.",
+      "rationale": "U_strict is the smallest positive integer rate strictly greater than 8B/d_min. Therefore B modeled bytes require strictly less than d_min seconds. Every positive future window has duration >= d_min, so byte capacity is non-limiting strictly before the end of any such window, including exact-divisibility cases. For A2/A3, any remaining infeasibility at U_strict is due to required later-window/event ordering, which higher rate cannot create.",
       "no_available_future_window": "no finite threshold",
       "upper_bound_evaluation_required": true,
-      "interpretation_guard": "U is a model-search sufficiency construction, not a physical link capacity. A failure at U is classified as no finite threshold under the frozen model because every positive-duration future window has enough modeled byte capacity at U for the nominal bundle plus one largest-object retransmission; higher rate cannot create an additional future window required by A2/A3 event ordering."
+      "interpretation_guard": "U_strict is a model-search sufficiency construction, not a physical link capacity. A failure at U_strict is classified as no finite threshold under the frozen model only after independent bound agreement, because U_strict makes the complete nominal bundle plus one largest-object retransmission finish strictly within every positive-duration future window."
     },
     "threshold_search": "Monotone integer binary search from 1 through the sufficient upper bound, inclusive.",
     "postconditions": [
       "A finite threshold T must succeed at T.",
       "If T > 1, T-1 must fail.",
-      "If the sufficient upper bound fails, classify the case as no finite threshold under the frozen model."
+      "The primary and independently reimplemented strict sufficient upper bounds must match exactly.",
+      "If U_strict fails, classify the case as no finite threshold under the frozen model."
     ],
     "no_arbitrary_fixed_rate_cap": true
   },
@@ -279,14 +280,14 @@
     "import_study9_results": false,
     "pool_with_parent_study": false
   },
-  "next_gate": "MERGE_CORRECTED_PROTOCOL_AND_RUNNER_GOVERNANCE__POST_MERGE_VALIDATE__THEN_REQUEST_SEPARATE_EXPLICIT_CANONICAL_EXECUTION_AUTHORIZATION",
+  "next_gate": "MERGE_STRICT_BOUND_REPAIR_AND_RUNNER_FREEZE_004__POST_MERGE_VALIDATE__THEN_NEW_EXPLICIT_REEXECUTION_GO_LIVE_002",
   "execution_authorization_gate": {
     "protocol_and_runner_governance_merge_required": true,
     "post_merge_repository_validation_required": true,
     "separate_explicit_author_execution_authorization_required": true,
-    "merged_go_live_authorization_artifact_required": "study8e/CANONICAL_EXECUTION_GO_LIVE.json",
+    "merged_go_live_authorization_artifact_required": "study8e/CANONICAL_EXECUTION_GO_LIVE_002.json",
     "real_trace_execution_allowed_by_current_authorization": false,
     "scientific_endpoint_computation_before_go_live": "PROHIBITED"
   },
-  "runner_freeze": "S8E-CANON-RUNNER-003"
+  "runner_freeze": "S8E-CANON-RUNNER-004"
 }

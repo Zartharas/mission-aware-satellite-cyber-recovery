@@ -18,7 +18,14 @@ from study8e.analysis.run_canonical_execution import (
     relative_future_windows,
     sufficient_upper_bound_bps,
 )
-from study8e.src.external_contact_recovery_model import minimum_integer_rate_bps
+from study8e.audit.independent_canonical_bound import (
+    independent_strict_sufficient_upper_bound_bps,
+)
+from study8e.src.external_contact_recovery_model import (
+    ExternalCase,
+    evaluate_case,
+    minimum_integer_rate_bps,
+)
 
 
 class CanonicalExecutionRunnerTests(unittest.TestCase):
@@ -91,6 +98,75 @@ class CanonicalExecutionRunnerTests(unittest.TestCase):
         sizes = PROFILE_OBJECTS["PROFILE_512_44"]
         burden = sum(sizes.values()) + max(sizes.values())
         self.assertGreaterEqual((bound * 2) // 8, burden)
+        self.assertGreater(Fraction(bound * 2, 8), Fraction(burden, 1))
+        self.assertEqual(
+            bound,
+            independent_strict_sufficient_upper_bound_bps(
+                "PROFILE_512_44",
+                windows,
+            ),
+        )
+
+    def test_strict_bound_exact_divisibility_regression(self) -> None:
+        windows = [(Fraction(0), Fraction(5))]
+        profile = "PROFILE_512_44"
+        policy = "P1_STAGED_CUTOVER"
+        disruption = "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT"
+
+        corrected_bound = sufficient_upper_bound_bps(profile, windows)
+        self.assertEqual(corrected_bound, 23969)
+        self.assertEqual(
+            corrected_bound,
+            independent_strict_sufficient_upper_bound_bps(
+                profile,
+                windows,
+            ),
+        )
+
+        old_bound_result = evaluate_case(
+            ExternalCase(
+                profile=profile,
+                policy=policy,
+                disruption=disruption,
+                horizon_s=Fraction(5),
+                rate_bps=23968,
+            ),
+            windows,
+        )
+        self.assertEqual(old_bound_result["trusted_recovery_success"], 0)
+        self.assertEqual(
+            old_bound_result["recovery_completion_time_s"],
+            Fraction(5),
+        )
+
+        corrected_bound_result = evaluate_case(
+            ExternalCase(
+                profile=profile,
+                policy=policy,
+                disruption=disruption,
+                horizon_s=Fraction(5),
+                rate_bps=corrected_bound,
+            ),
+            windows,
+        )
+        self.assertEqual(
+            corrected_bound_result["trusted_recovery_success"],
+            1,
+        )
+        self.assertLess(
+            corrected_bound_result["recovery_completion_time_s"],
+            Fraction(5),
+        )
+
+        threshold = minimum_integer_rate_bps(
+            profile=profile,
+            policy=policy,
+            disruption=disruption,
+            horizon_s=Fraction(5),
+            windows=windows,
+            max_rate_bps=corrected_bound,
+        )
+        self.assertEqual(threshold, 23969)
 
     def test_reference_and_primary_threshold_agree(self) -> None:
         windows = [(Fraction(0), Fraction(20))]

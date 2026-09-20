@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "record_id": "S8E-CANON-RESULTS-001-INVALIDATION",
+  "date_local": "2026-09-20",
+  "status": "INVALIDATED_BEFORE_RESULT_FREEZE",
+  "canonical_run": {
+    "workflow_run": 35529423881,
+    "head_sha": "a7ebd658842bd5d5a5976982464daf70ba8946b0",
+    "workflow_conclusion": "success",
+    "artifact_id": 10610543345,
+    "artifact_name": "study8e-canonical-results-001",
+    "artifact_zip_sha256": "18fd00a0370cb49395af6d1df0b84c02ed9e905cf66ad58d7b2da3579df7d04c"
+  },
+  "deterministic_execution": {
+    "pass_1_status": "PASS",
+    "pass_2_status": "PASS",
+    "byte_identical_outputs": true,
+    "independent_case_mismatch_count": 0
+  },
+  "invalidation_reason": "Post-run adversarial audit found that the canonical sufficient upper-bound formula used ceil(8*B/d_min). Under the strict TRUST_RESTORED-before-horizon rule, exact divisibility can make completion occur exactly at the horizon, causing a finite case to be misclassified as non-finite. The result package is reproducible for the defective protocol but is not valid for scientific freeze.",
+  "known_scientific_effect": {
+    "known_misclassified_nonfinite_case_count": 24,
+    "known_affected_disruption": "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+    "known_affected_horizon_hours": 12,
+    "known_affected_trace_selection_order": 5,
+    "profile_ordering_violation_count_in_invalidated_results": 4,
+    "result_freeze_permitted": false,
+    "manuscript_integration_permitted": false
+  },
+  "invalidated_result_hashes": {
+    "ANCHOR_MANIFEST.csv": "e45561d4dc30cace106a0f1e3be2f3801967ecc798d4b7db2c9a52d1ed8c93a9",
+    "CANONICAL_CASE_RESULTS.csv": "914997f926d457187bff3da232c9058a234f8383bcb839f8ad4824e3dd738d1c",
+    "CANONICAL_FINDINGS.json": "ed8674050fc118ae4732c23fb5509147e715f02d77c781f83ee99ec033540afe",
+    "INDEPENDENT_AUDIT.json": "8a66ff3c9c5f3070a6f1effcb0e21a21243ea6bbd747a1b4baf09406c37181fd",
+    "P3_P1_CONTRASTS.csv": "7f8043aa515b1a2fc51538200274633efc603ba486ff86527d3b501096428597",
+    "PROFILE_ORDERING_CHECKS.csv": "ba320be5846c3b80713fc8fe121f2ec6cb1e802ef2a29f978ec0c0114ef91f65",
+    "TRACE_TIMING_GAPS.csv": "9cad90c5d5984c87d82bca0495e77c7343a7a3ce5742ddbe93ee57541080bfc2",
+    "TRACE_TIMING_SUMMARY.csv": "c8f88d5255b56543b915e65e24b2fa24c1f7d513e8cd1e6cb76845d1880b8a2b",
+    "TRACE_TIMING_WINDOWS.csv": "59c6a3beaa9831a58174dcd0776ef8c404fcd37783b307044d2f9ee9dcad0c0d",
+    "RESULTS_HASH_MANIFEST.json": "3c374cca92e344ccec55b0153c988718f60f190ccbc8ef31d61b98e57eb23fc6"
+  },
+  "preservation_rule": "Do not delete or rewrite the GitHub Actions artifact. Preserve it as historical evidence of the invalidated first canonical execution.",
+  "parent_integrity": {
+    "frozen_study8_modified": false,
+    "acta_package_modified": false,
+    "pop002_modified": false,
+    "trace002_modified": false
+  },
+  "next_gate": "REPAIR_STRICT_UPPER_BOUND__NEW_RUNNER_FREEZE__REVALIDATE_BEFORE_REEXECUTION"
+}

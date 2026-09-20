@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-CANON-RUNNER-004",
+  "date_local": "2026-09-20",
+  "status": "STRICT_BOUND_REPAIR_CANDIDATE__REAL_TRACE_REEXECUTION_NOT_AUTHORIZED",
+  "supersedes": "S8E-CANON-RUNNER-003",
+  "parent_activation_main": "a7ebd658842bd5d5a5976982464daf70ba8946b0",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "defect_record": "S8E-CANON-BOUND-DEFECT-001",
+  "invalidated_results_record": "S8E-CANON-RESULTS-001-INVALIDATION",
+  "repair_scope": "Correct the canonical rate-search sufficient upper bound from ceil(8B/d_min) to floor(8B/d_min)+1 so B modeled bytes complete strictly before the shortest future-window end under the strict-before-horizon endpoint. Add an independently implemented bound check and regression coverage. No transition-state-machine semantics or frozen TRACE-002 data are changed.",
+  "files": {
+    "study8e/analysis/run_canonical_execution.py": {
+      "git_blob_sha1": "e83ad4255a87273109e69bcd38f89226b78be61f",
+      "role": "canonical runner with strict sufficient bound and independent bound agreement"
+    },
+    "study8e/audit/independent_canonical_bound.py": {
+      "git_blob_sha1": "e13305aa676681e7310a43ca19a362fe4c4494f9",
+      "role": "independent exact strict sufficient-bound implementation"
+    },
+    "study8e/tests/test_canonical_execution_runner.py": {
+      "git_blob_sha1": "d26259eb7de1717e40e64d5c259f6243bddb7dc9",
+      "role": "canonical runner tests including exact-divisibility strict-horizon regression"
+    },
+    ".github/workflows/study8e-canonical-execution.yml": {
+      "git_blob_sha1": "f65e841fcab987b9a73688b0e22e4ba3d3b9e5d9",
+      "role": "manual canonical workflow requiring future S8E-CANON-GOLIVE-002 and producing results artifact 002"
+    }
+  },
+  "repaired_bound_contract": {
+    "burden_bytes": "sum(profile modeled transition object bytes) + largest modeled object bytes",
+    "shortest_window": "minimum positive future-window duration d_min",
+    "formula": "floor(8*B/d_min)+1",
+    "exact_arithmetic": true,
+    "strictly_greater_than_required_average_rate": true,
+    "old_exact_divisibility_case": {
+      "profile": "PROFILE_512_44",
+      "burden_bytes": 14980,
+      "d_min_seconds": 5,
+      "old_bound_bps": 23968,
+      "corrected_bound_bps": 23969
+    },
+    "independent_bound_match_required": true
+  },
+  "scientific_immutability": {
+    "pop002_changed": false,
+    "trace002_changed": false,
+    "parent_study8_changed": false,
+    "acta_package_changed": false,
+    "transition_model_changed": false,
+    "endpoint_success_rule_changed": false
+  },
+  "execution_gate": {
+    "required_go_live_file": "study8e/CANONICAL_EXECUTION_GO_LIVE_002.json",
+    "expected_authorization_id": "S8E-CANON-GOLIVE-002",
+    "reexecution_authorized_now": false,
+    "prior_go_live_001_reusable": false
+  },
+  "required_validation": [
+    "Python compilation",
+    "canonical runner unit tests including exact-divisibility regression",
+    "primary and independent strict-bound agreement",
+    "canonical governance validation",
+    "full repository validation"
+  ],
+  "next_gate": "EXPLICIT_REPAIR_MERGE_AUTHORIZATION__POST_MERGE_VALIDATE__THEN_NEW_EXPLICIT_REEXECUTION_GO_LIVE_002"
+}
