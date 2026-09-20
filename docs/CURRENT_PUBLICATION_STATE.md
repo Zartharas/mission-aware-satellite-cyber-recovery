@@ -75,6 +75,12 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
+Historical post-rejection Study 8 audit records remain authoritative provenance for the original manuscript-only forensic and venue analysis:
+
+- `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
+- `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
+
 Current Study 8E authority:
 
 - `study8e/CURRENT_EXTENSION_STATE.md`
