@@ -23,16 +23,18 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-      - name: Materialize frozen 800-record corpus
+      - name: Compile POP-002 materializer
+        run: python -m py_compile study8e/validation/materialize_selected_satnogs_traces.py
+      - name: Materialize frozen POP-002 first-page corpus
         run: |
           mkdir -p study8e/evidence/selected_trace
           python study8e/validation/materialize_selected_satnogs_traces.py \
-            --population-freeze study8e/SATNOGS_POPULATION_FREEZE.json \
+            --population-freeze study8e/SATNOGS_POPULATION_FREEZE_002.json \
             --output-dir study8e/evidence/selected_trace
       - name: Upload selected-trace evidence
         uses: actions/upload-artifact@v4
         with:
-          name: study8e-selected-satnogs-trace-001
+          name: study8e-selected-satnogs-trace-002
           path: study8e/evidence/selected_trace/
           if-no-files-found: error
           retention-days: 30
