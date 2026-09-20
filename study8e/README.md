@@ -27,14 +27,14 @@ Not authorized in this phase:
 
 ## Planned evidence layers
 
-1. **SatNOGS Network**: primary external contact-window timing source.
+1. **SatNOGS Network**: primary external observation-opportunity timing source.
 2. **ESA OPS-SAT-1 re-entry UHF telemetry**: secondary dependent reception-density/gap sensitivity source.
 3. **LENS**: optional separately frozen LEO-network throughput/latency sensitivity layer.
 4. **NASA HDTN**: optional future implementation harness after external-trace evidence is frozen.
 
 ## Design principle
 
-The extension solves for the **minimum hypothetical uniform effective payload rate** needed for the frozen cryptographic transition bundle to complete within external timing windows. It does not infer link capacity from SatNOGS transmitter baud and does not reinterpret the original Study 8 logical slots as physical time.
+The extension solves for the **minimum hypothetical uniform effective payload rate** needed for the frozen cryptographic transition bundle to complete within external observation-opportunity timing windows. It does not infer link capacity from SatNOGS transmitter baud and does not reinterpret the original Study 8 logical slots as physical time.
 
 ## Next gate
 
