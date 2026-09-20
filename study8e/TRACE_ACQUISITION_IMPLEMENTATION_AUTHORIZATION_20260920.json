@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "authorization_date_local": "2026-09-20",
+  "authorization_timezone": "America/Chicago",
+  "authorization_basis": "Author explicitly authorized the next Study 8E gate after S8E-SATNOGS-POP-001 was merged and post-merge validated.",
+  "base_main_commit": "80a73d47f9ffd7289eec309a48d61c4dbcf1405b",
+  "authorized": {
+    "materialize_full_primary_field_traces_for_32_frozen_satnogs_pairs": true,
+    "bind_trace_artifact_and_page_response_hashes": true,
+    "validate_record_identity_window_and_schema": true,
+    "record_invalid_source_rows_without_repair": true,
+    "create_study8e_extension_runner": true,
+    "reuse_frozen_study8_object_sizes_and_policy_semantics_read_only": true,
+    "create_independent_reference_implementation": true,
+    "run_synthetic_fixture_and_parity_tests": true,
+    "freeze_implementation_before_canonical_execution": true,
+    "open_review_pr": true
+  },
+  "not_authorized": {
+    "canonical_external_trace_recovery_execution": true,
+    "study8e_primary_endpoint_computation_on_real_traces": true,
+    "study8e_timing_distribution_analysis_for_manuscript_claims": true,
+    "policy_profile_result_interpretation_on_real_traces": true,
+    "study8_frozen_science_modification": true,
+    "acta_submitted_package_modification": true,
+    "publisher_submission": true
+  },
+  "source_acquisition_boundary": {
+    "source": "SatNOGS Network observations API",
+    "source_window_utc": {
+      "start": "2026-06-01T00:00:00Z",
+      "end_exclusive": "2026-07-01T00:00:00Z"
+    },
+    "population_freeze": "S8E-SATNOGS-POP-001",
+    "permitted_fields": ["id","start","end","ground_station","norad_cat_id"],
+    "descriptive_fields_not_materialized": true,
+    "minimum_request_interval_seconds": 61,
+    "maximum_api_requests": 180,
+    "selection_or_population_changes_permitted": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AND_MERGE_AUTHORIZATION__THEN_SEPARATE_CANONICAL_EXECUTION_AUTHORIZATION"
+}
