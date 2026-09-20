@@ -84,9 +84,9 @@ def main() -> int:
     require(runner["files"]["study8e/analysis/run_canonical_execution.py"]["git_blob_sha1"] == "4d31d3eab64b96711f59024f458ab5236078b0b1", "canonical runner blob drift")
     require(runner["files"]["study8e/tests/test_canonical_execution_runner.py"]["git_blob_sha1"] == "d7e3f841b7ff1270656d022eb3910b77c17c1305", "canonical runner test blob drift")
     require(runner["files"][".github/workflows/study8e-canonical-execution.yml"]["git_blob_sha1"] == "8d08b8818df1cabec24ef4055ad64f67e703916e", "canonical workflow blob drift")
-    require(runner["current_execution_state"]["canonical_workflow_dispatch_runs"] == 0, "runner freeze dispatch state drift")
-    require(runner["current_execution_state"]["real_trace_scientific_endpoints_computed"] is False, "runner freeze endpoint state drift")
-    require(runner["current_execution_state"]["current_authorization_allows_dispatch"] is False, "runner freeze improperly authorizes dispatch")
+    require(runner["execution_state"]["canonical_workflow_dispatch_runs_before_freeze"] == 0, "runner freeze dispatch state drift")
+    require(runner["execution_state"]["real_trace_scientific_endpoints_computed"] is False, "runner freeze endpoint state drift")
+    require(runner["execution_state"]["current_authorization_allows_execution"] is False, "runner freeze improperly authorizes dispatch")
 
     workflow = (root / ".github/workflows/study8e-canonical-execution.yml").read_text(encoding="utf-8")
     require("authorization_id:" in workflow, "workflow authorization_id input missing")
