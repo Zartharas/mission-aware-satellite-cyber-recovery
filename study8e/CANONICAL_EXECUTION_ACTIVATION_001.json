@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "activation_id": "S8E-CANON-ACTIVATE-001",
+  "authorization_id": "S8E-CANON-GOLIVE-001",
+  "activation_date_local": "2026-09-20",
+  "status": "ONE_TIME_DISPATCH_AUTHORIZED",
+  "authorization_basis": "The author explicitly authorized canonical TRACE-002 go-live and execution. S8E-CANON-GOLIVE-001 is merged on main at eb9fcedbba3ea7f64aa47e43c66b4904cbd2db7f and its exact post-merge repository validation completed successfully.",
+  "authorized_go_live_commit": "eb9fcedbba3ea7f64aa47e43c66b4904cbd2db7f",
+  "expected_activation_merge_parent": "eb9fcedbba3ea7f64aa47e43c66b4904cbd2db7f",
+  "target": {
+    "workflow": ".github/workflows/study8e-canonical-execution.yml",
+    "workflow_file": "study8e-canonical-execution.yml",
+    "protocol_id": "S8E-CANON-EXEC-001",
+    "runner_freeze": "S8E-CANON-RUNNER-003",
+    "canonical_workflow_git_blob_sha1": "8d08b8818df1cabec24ef4055ad64f67e703916e",
+    "dispatch_ref": "main",
+    "dispatch_input": {
+      "authorization_id": "S8E-CANON-GOLIVE-001"
+    }
+  },
+  "pre_activation_state": {
+    "canonical_workflow_dispatch_runs_total": 1,
+    "prior_dispatch_run": 35525450194,
+    "prior_dispatch_conclusion": "failure",
+    "prior_dispatch_scientific_endpoint_computed": false,
+    "successful_canonical_result_artifacts": 0
+  },
+  "idempotence_rule": "Before dispatch, query workflow_dispatch runs for the canonical workflow and do not dispatch if any run already has head_sha equal to the activation merge commit GITHUB_SHA.",
+  "fail_closed_rules": [
+    "Activation merge commit parent must exactly equal the validated go-live main commit eb9fcedbba3ea7f64aa47e43c66b4904cbd2db7f.",
+    "CANONICAL_EXECUTION_GO_LIVE.json must exist and exactly authorize S8E-CANON-GOLIVE-001 for S8E-CANON-RUNNER-003.",
+    "The canonical workflow Git blob must remain 8d08b8818df1cabec24ef4055ad64f67e703916e.",
+    "The stale retired dispatch bridge and trigger must remain absent.",
+    "If this activation commit already has a canonical workflow_dispatch run, do not create another.",
+    "GitHub Actions dispatch API must return success and a matching workflow_dispatch run must become visible."
+  ],
+  "activation_scope": {
+    "dispatch_authoritative_canonical_workflow_once": true,
+    "compute_scientific_endpoints_in_activation_workflow": false,
+    "mutate_frozen_scientific_inputs": false,
+    "mutate_canonical_runner": false,
+    "source_api_access": false,
+    "result_interpretation": false
+  },
+  "next_gate": "CANONICAL_WORKFLOW_COMPLETION_AND_RESULT_ARTIFACT_AUDIT"
+}

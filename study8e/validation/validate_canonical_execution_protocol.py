@@ -148,6 +148,38 @@ def main() -> int:
         require(go_live["manuscript_integration_authorization"] is False, "go-live improperly authorizes manuscript integration")
         require(go_live["publisher_submission_authorization"] is False, "go-live improperly authorizes publisher submission")
 
+    activation_path = root / "study8e/CANONICAL_EXECUTION_ACTIVATION_001.json"
+    if activation_path.exists():
+        require(go_live is not None, "activation present without go-live authorization")
+        activation = load(activation_path)
+        require(activation["schema"] == 1, "activation schema drift")
+        require(activation["experiment_id"] == "S8E-ECTV-001", "activation experiment drift")
+        require(activation["activation_id"] == "S8E-CANON-ACTIVATE-001", "activation id drift")
+        require(activation["authorization_id"] == go_live["authorization_id"], "activation authorization mismatch")
+        require(activation["status"] == "ONE_TIME_DISPATCH_AUTHORIZED", "activation status drift")
+        require(activation["authorized_go_live_commit"] == "eb9fcedbba3ea7f64aa47e43c66b4904cbd2db7f", "activation go-live commit drift")
+        require(activation["expected_activation_merge_parent"] == "eb9fcedbba3ea7f64aa47e43c66b4904cbd2db7f", "activation expected parent drift")
+        require(activation["target"]["workflow"] == ".github/workflows/study8e-canonical-execution.yml", "activation target workflow drift")
+        require(activation["target"]["protocol_id"] == protocol["protocol_id"], "activation protocol drift")
+        require(activation["target"]["runner_freeze"] == runner["freeze_id"], "activation runner drift")
+        require(activation["target"]["canonical_workflow_git_blob_sha1"] == runner["files"][".github/workflows/study8e-canonical-execution.yml"]["git_blob_sha1"], "activation workflow blob drift")
+        require(activation["target"]["dispatch_ref"] == "main", "activation dispatch ref drift")
+        require(activation["target"]["dispatch_input"]["authorization_id"] == go_live["authorization_id"], "activation dispatch authorization drift")
+        require(activation["pre_activation_state"]["canonical_workflow_dispatch_runs_total"] == 1, "activation prior dispatch count drift")
+        require(activation["pre_activation_state"]["prior_dispatch_run"] == 35525450194, "activation prior dispatch run drift")
+        require(activation["pre_activation_state"]["prior_dispatch_scientific_endpoint_computed"] is False, "activation prior scientific state drift")
+        require(activation["activation_scope"]["dispatch_authoritative_canonical_workflow_once"] is True, "activation dispatch scope missing")
+        require(activation["activation_scope"]["compute_scientific_endpoints_in_activation_workflow"] is False, "activation workflow must not compute endpoints")
+        require(activation["activation_scope"]["mutate_frozen_scientific_inputs"] is False, "activation must not mutate frozen inputs")
+        require(activation["activation_scope"]["source_api_access"] is False, "activation must not access source API")
+        activation_workflow = root / ".github/workflows/study8e-canonical-go-live-activate-001.yml"
+        require(activation_workflow.exists(), "activation workflow missing")
+        activation_text = activation_workflow.read_text(encoding="utf-8")
+        require("S8E-CANON-GOLIVE-001" in activation_text, "activation workflow authorization id missing")
+        require("study8e-canonical-execution.yml/dispatches" in activation_text, "activation workflow dispatch endpoint missing")
+        require("main moved before dispatch" in activation_text, "activation current-main guard missing")
+        require("existing_matching_canonical_runs" in activation_text, "activation duplicate-dispatch guard missing")
+
     prohibited_results = [
         root / "study8e/results/CANONICAL_CASE_RESULTS.csv",
         root / "study8e/results/CANONICAL_FINDINGS.json",
@@ -173,6 +205,7 @@ def main() -> int:
     print("historical_failed_dispatch_scientific_endpoint_computed=false")
     print("real_trace_execution_authorized=" + ("true" if go_live is not None else "false"))
     print("go_live_artifact_present=" + ("true" if go_live is not None else "false"))
+    print("activation_artifact_present=" + ("true" if activation_path.exists() else "false"))
     return 0
 
 
