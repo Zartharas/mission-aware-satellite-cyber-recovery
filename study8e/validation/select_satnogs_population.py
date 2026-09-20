@@ -27,7 +27,8 @@ from urllib.parse import parse_qs, urlencode, urlparse
 from urllib.request import Request, urlopen
 
 EXPERIMENT_ID = "S8E-ECTV-001"
-DEVIATION_ID = "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001"
+DEVIATION_ID = "S8E-DEV-SATNOGS-FILTER-PARAM-002"
+DISCOVERY_DEVIATION_ID = "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001"
 BASE_URL = "https://network.satnogs.org/api/observations/"
 MONTH_START = "2026-06-01T00:00:00Z"
 MONTH_END = "2026-07-01T00:00:00Z"
@@ -211,13 +212,19 @@ def main() -> int:
                 {
                     "start": MONTH_START,
                     "end": MONTH_END,
-                    "satellite__norad_cat_id": str(norad),
+                    "norad_cat_id": str(norad),
                     "ground_station": str(station),
                     "format": "json",
                 },
                 "pair_qualification",
             )
             evaluated += 1
+            for row in rows:
+                pair = valid_pair_from_row(row)
+                if pair != (norad, station):
+                    raise SelectionFailure(
+                        f"pair qualification filter mismatch requested={norad}/{station} observed={pair}"
+                    )
             first_page_records = len(rows)
             if first_page_records < MIN_OBSERVATIONS:
                 rejected_below_threshold += 1
@@ -243,9 +250,12 @@ def main() -> int:
             "schema": 1,
             "experiment_id": EXPERIMENT_ID,
             "deviation_id": DEVIATION_ID,
-            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION",
+            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION_CORRECTED_FILTER",
             "generated_utc": datetime.now(timezone.utc).isoformat(),
             "status": status,
+            "supersedes_population_freeze": "S8E-SATNOGS-POP-001",
+            "filter_parameter": "norad_cat_id",
+            "candidate_discovery_deviation_id": DISCOVERY_DEVIATION_ID,
             "source": {
                 "base_url": BASE_URL,
                 "month_start": MONTH_START,
@@ -294,7 +304,7 @@ def main() -> int:
             "schema": 1,
             "experiment_id": EXPERIMENT_ID,
             "deviation_id": DEVIATION_ID,
-            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION",
+            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION_CORRECTED_FILTER",
             "generated_utc": datetime.now(timezone.utc).isoformat(),
             "status": "FAIL_CLOSED",
             "failure": str(exc),

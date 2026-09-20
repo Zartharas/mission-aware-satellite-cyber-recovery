@@ -1,0 +1,47 @@
+name: Study 8E synthetic implementation freeze validation
+
+on:
+  push:
+    branches:
+      - study8e/trace-artifacts-implementation-freeze-20260920
+    paths:
+      - "study8e/src/**"
+      - "study8e/audit/**"
+      - "study8e/tests/**"
+      - "study8e/validation/run_synthetic_implementation_audit.py"
+      - ".github/workflows/study8e-synthetic-implementation-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Compile Study 8E implementation and audit
+        run: |
+          python -m py_compile \
+            study8e/src/external_contact_recovery_model.py \
+            study8e/audit/independent_external_reference.py \
+            study8e/validation/run_synthetic_implementation_audit.py \
+            study8e/tests/test_external_contact_recovery_model.py
+      - name: Run synthetic unit tests
+        run: python -m unittest study8e.tests.test_external_contact_recovery_model -v
+      - name: Run independent synthetic equivalence audit
+        run: |
+          mkdir -p study8e/evidence/implementation_freeze
+          python -m study8e.validation.run_synthetic_implementation_audit \
+            --output study8e/evidence/implementation_freeze/synthetic_equivalence_audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: study8e-synthetic-implementation-audit
+          path: study8e/evidence/implementation_freeze/synthetic_equivalence_audit.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
