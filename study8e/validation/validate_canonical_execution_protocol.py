@@ -40,7 +40,7 @@ def main() -> int:
     require(protocol["frozen_inputs"]["population_freeze"] == population["freeze_id"], "population mismatch")
     require(protocol["frozen_inputs"]["trace_freeze"] == trace["freeze_id"], "trace mismatch")
     require(protocol["frozen_inputs"]["implementation_freeze"] == impl["freeze_id"], "implementation mismatch")
-    require(protocol["runner_freeze"] == runner["freeze_id"] == "S8E-CANON-RUNNER-002", "runner freeze mismatch")
+    require(protocol["runner_freeze"] == runner["freeze_id"] == "S8E-CANON-RUNNER-003", "runner freeze mismatch")
     require(protocol["frozen_inputs"]["trace_records"] == trace["corpus"]["records"] == 476, "trace record count drift")
     require(protocol["frozen_inputs"]["trace_pairs"] == trace["corpus"]["pairs"] == 20, "trace pair count drift")
     require(
@@ -80,7 +80,7 @@ def main() -> int:
     require(correction["execution_state_at_correction"]["canonical_real_trace_scientific_endpoints_computed"] is False, "correction endpoint state drift")
 
     require(runner["scientific_runner_unchanged"] is True, "scientific runner unexpectedly changed")
-    require(runner["files"]["study8e/analysis/run_canonical_execution.py"]["git_blob_sha1"] == "ae6b24a3573eab9d2e59f6c7b149412a76bf4f6c", "canonical runner blob drift")
+    require(runner["files"]["study8e/analysis/run_canonical_execution.py"]["git_blob_sha1"] == "4d31d3eab64b96711f59024f458ab5236078b0b1", "canonical runner blob drift")
     require(runner["files"]["study8e/tests/test_canonical_execution_runner.py"]["git_blob_sha1"] == "d7e3f841b7ff1270656d022eb3910b77c17c1305", "canonical runner test blob drift")
     require(runner["files"][".github/workflows/study8e-canonical-execution.yml"]["git_blob_sha1"] == "6bb59909a6db5a2c497c815efd02afb1e12919ca", "canonical workflow blob drift")
     require(runner["current_execution_state"]["canonical_workflow_dispatch_runs"] == 0, "runner freeze dispatch state drift")
@@ -114,7 +114,7 @@ def main() -> int:
 
     print("Study 8E canonical execution governance validation: PASS")
     print("protocol_id=S8E-CANON-EXEC-001")
-    print("runner_freeze=S8E-CANON-RUNNER-002")
+    print("runner_freeze=S8E-CANON-RUNNER-003")
     print("cases_per_anchor=144")
     print("canonical_workflow_dispatch_runs_recorded=0")
     print("real_trace_execution_authorized=false")
