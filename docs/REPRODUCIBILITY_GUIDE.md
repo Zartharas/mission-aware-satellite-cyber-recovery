@@ -56,12 +56,12 @@ Frozen target-neutral publication package:
 
 `publication/study8/`
 
-Current submitted Acta state:
+Acta submission/decision state:
 
 - journal: Acta Astronautica
 - manuscript ID: `AA-D-26-02872`
 - submitted: 2026-09-06
-- current status: `With Editor`
+- final Acta status: `Rejected` (editorial decision recorded 2026-09-19)
 - submitted package freeze: `S8-ACTA-PKGFREEZE-002`
 - submitted package source commit: `f5e9a1d4553737e534821bf647463abfd44fa0dd`
 
@@ -69,6 +69,7 @@ Canonical live publisher-state records:
 
 - `publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`
 - `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
+- `publication/Paper_4_Study_8/Acta_Astronautica/EDITORIAL_DECISION_REJECTED_2026-09-19.md`
 
 Historical pre-submission freeze-002 files intentionally retain their stage-local wording and must not be rewritten merely to appear current.
 

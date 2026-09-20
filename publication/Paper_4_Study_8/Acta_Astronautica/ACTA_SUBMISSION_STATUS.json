@@ -46,6 +46,11 @@
     "external_reviewer_reports_included": false,
     "editor_comment_summary": "The topic was described as potentially of interest to the journal readership, but the manuscript was judged not to meet the journal's required quality standard.",
     "specific_methodological_defects_enumerated": false,
-    "revision_invited": false
-  }
+    "revision_invited": false,
+    "decision_level": "editorial / desk rejection",
+    "external_peer_review_evidence": "No reviewer reports supplied; no evidence of external review in the supplied decision.",
+    "stated_rationale": "The manuscript did not meet the journal's required quality standards.",
+    "detailed_technical_comments_supplied": false
+  },
+  "submitted_hashes_unchanged_after_decision": true
 }
