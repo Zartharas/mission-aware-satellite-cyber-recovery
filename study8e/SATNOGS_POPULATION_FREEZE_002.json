@@ -1,0 +1,298 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-SATNOGS-POP-002",
+  "freeze_date_local": "2026-09-20",
+  "status": "CORRECTED_POPULATION_FROZEN_ON_BRANCH__AWAITING_REPOSITORY_MERGE",
+  "supersedes_invalidated_freeze": "S8E-SATNOGS-POP-001",
+  "invalidation_record": "S8E-POP001-INVALIDATION-001",
+  "base_main_commit": "80a73d47f9ffd7289eec309a48d61c4dbcf1405b",
+  "source_window_utc": {
+    "start": "2026-06-01T00:00:00Z",
+    "end_exclusive": "2026-07-01T00:00:00Z"
+  },
+  "authority": {
+    "satnogs_release": "1.134",
+    "satnogs_source_commit": "9c55e92850b4f5c11c52a72371685fb8cfff1507",
+    "correct_norad_filter_parameter": "norad_cat_id",
+    "filter_correction_deviation": "S8E-DEV-SATNOGS-FILTER-PARAM-002",
+    "discovery_deviation": "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001"
+  },
+  "selection_execution": {
+    "workflow_run": 35493063417,
+    "workflow_head": "6f5192dfe5f2d0b63013e222d5c82f72957e3a80",
+    "artifact_id": 10599407596,
+    "artifact_zip_sha256": "9ecc494eb81428c112e54667898f7489c22319901a2140085fbfaed52b84fe0e",
+    "selection_report_sha256": "d11013a37e2dcfd7fbccb7b9b128d22a178a6c04dcd4ba1fe8d0ab319f71beb2",
+    "status": "INCOMPLETE_HARD_CAP_OR_CANDIDATE_EXHAUSTION",
+    "requests_issued": 50,
+    "hard_request_cap": 50,
+    "seed_requests": 10,
+    "unique_candidate_pairs_discovered": 149,
+    "candidate_pair_pool_sha256": "f7ed79e0c4829519c195e6759594613816e38c3883aeff20b5631950ca485e3d",
+    "invalid_identifier_rows": 2,
+    "candidates_evaluated": 40,
+    "candidates_rejected_below_threshold": 20,
+    "candidates_skipped_due_to_entity_caps": 5,
+    "selected_pair_count": 20,
+    "target_pair_count": 32,
+    "target_reached": false
+  },
+  "stopping_rule_disposition": {
+    "rule": "Stop immediately when 32 pairs have been admitted or when the 50-request cap is reached. If fewer than 32 qualify, freeze the incomplete result and do not tune seed windows, thresholds, ranks, caps, or request ceiling in response.",
+    "applied": true,
+    "selected_population_is_final_under_rule": true
+  },
+  "selected_pairs": [
+    {
+      "selection_order": 1,
+      "norad_cat_id": 63235,
+      "ground_station": 4242,
+      "rank_sha256": "04ce2cc6ec3d574429677f63d2b604a5ca29c95b09a752eaadf8ab7c0e412a61",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 2,
+      "norad_cat_id": 27844,
+      "ground_station": 766,
+      "rank_sha256": "05da5dba4ec3ab719dfb17f68cf2d470d6f9d0000ee5a032e324ecd6a0c3e055",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 3,
+      "norad_cat_id": 60243,
+      "ground_station": 1864,
+      "rank_sha256": "0d78428f7085ec294686742089f25e0ae2889d599bb8556629c9f49a19e3308a",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 4,
+      "norad_cat_id": 39133,
+      "ground_station": 1864,
+      "rank_sha256": "0fd2e911e23908cd393a64a34a5504327591f879203db482ce1bea56c0fd6d67",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 21,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 5,
+      "norad_cat_id": 46506,
+      "ground_station": 1861,
+      "rank_sha256": "17b5dc3fda5408ce217218f2c719c6a60a6598ccabc94a166b9a4fe9640ed6c6",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 6,
+      "norad_cat_id": 63235,
+      "ground_station": 3623,
+      "rank_sha256": "182eb451f9f9821c131de054ed3367e05fffcaa753e2ecf72b343ee8cd9c4fed",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 7,
+      "norad_cat_id": 40014,
+      "ground_station": 4451,
+      "rank_sha256": "198b2a469444a2045ca97f234311b8be210a0cd6c184e1a2629567f2d500be3b",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 8,
+      "norad_cat_id": 41340,
+      "ground_station": 71,
+      "rank_sha256": "1ebc8bad9ec73993a1104f3bc3ece0441971c185c2384033cace52f62603d4c0",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 20,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 9,
+      "norad_cat_id": 61736,
+      "ground_station": 4320,
+      "rank_sha256": "225fd5df2bcf13a3e3960a095999320f43f45c5c60d905e4927394f94d1d88d9",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 24,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 10,
+      "norad_cat_id": 49263,
+      "ground_station": 2173,
+      "rank_sha256": "226b1323d0d339a392ebd208d21f3dc5d14ad4828d04654fdfcca8238d23777e",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 11,
+      "norad_cat_id": 40014,
+      "ground_station": 4460,
+      "rank_sha256": "25d4e26581113b167244b27f8f836bd0fd9a4591de4e2df0b12b45566067bc72",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 12,
+      "norad_cat_id": 27844,
+      "ground_station": 812,
+      "rank_sha256": "2619a97ce2bf75a0243c08dcf42115be50d1e1d40e0cc3da7d689fd826802de2",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 13,
+      "norad_cat_id": 59809,
+      "ground_station": 4497,
+      "rank_sha256": "26c5ba6c3d25d0340477448d6cc937cb46e29c5b396c9a8b3deabff528df80ba",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 14,
+      "norad_cat_id": 48606,
+      "ground_station": 6,
+      "rank_sha256": "27fc6da4fd1b7bfbdad4b11a0b00ae19e24f5b5d530483dd48bc3e9149b3f68f",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 20,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 15,
+      "norad_cat_id": 61790,
+      "ground_station": 91,
+      "rank_sha256": "300c6ecf30a4febbdf83d238ff0b5194fceec5e380aae911bff764fc9d830153",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 23,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 16,
+      "norad_cat_id": 62628,
+      "ground_station": 3020,
+      "rank_sha256": "3865c565279e4d7abc902566341955d580917f74b1f3a42b258777e26e96edac",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 17,
+      "norad_cat_id": 27939,
+      "ground_station": 812,
+      "rank_sha256": "3a1b2d4d5e012b77927f1c93fcf60328975de51e7741106bbbcd65f63b80b21c",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 23,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 18,
+      "norad_cat_id": 63242,
+      "ground_station": 1156,
+      "rank_sha256": "41ce3457a6d9b3745720c44cb69d8e3c0c7349cdda3cc3dbf8a7c66368640883",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 19,
+      "norad_cat_id": 62709,
+      "ground_station": 4595,
+      "rank_sha256": "4b168e09307f7bc6760263012b705ca414be6db5f071abcd602337d3b610f52f",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 25,
+        "threshold_met": true
+      }
+    },
+    {
+      "selection_order": 20,
+      "norad_cat_id": 61763,
+      "ground_station": 1861,
+      "rank_sha256": "4b48a78a9ccb534b9fd0124715c2bd48a5d586aad7c17fb72a834b0601281488",
+      "eligibility_evidence": {
+        "minimum_required_observations": 20,
+        "first_page_records": 20,
+        "threshold_met": true
+      }
+    }
+  ],
+  "frozen_first_page_record_total": 476,
+  "first_page_count_distribution": {
+    "20": 3,
+    "21": 1,
+    "23": 2,
+    "24": 1,
+    "25": 13
+  },
+  "population_claim_boundary": {
+    "all_june_satnogs_pairs": false,
+    "representative_random_sample": false,
+    "target_32_reached": false,
+    "population_description": "Prospectively defined deterministic rate-bounded SatNOGS population of 20 qualifying satellite-station pairs discovered from the ten frozen June seed windows and admitted under the corrected live norad_cat_id filter, >=20 observation threshold, SHA-256 rank, entity caps, and 50-request stopping rule.",
+    "no_post_result_replacement_or_expansion": true,
+    "pooling_with_study8": false,
+    "external_replication_claim": false
+  },
+  "endpoint_state": {
+    "timing_distribution_computed": false,
+    "gap_distribution_computed": false,
+    "burstiness_computed": false,
+    "payload_rate_threshold_computed": false,
+    "recovery_endpoint_computed": false
+  },
+  "integrity": {
+    "study8_frozen_science_modified": false,
+    "acta_package_modified": false,
+    "study9_results_imported": false
+  },
+  "next_gate": "MATERIALIZE_FROZEN_FIRST_PAGE_TRACE_CORPUS_FOR_POP002__NO_TIMING_ENDPOINTS"
+}
