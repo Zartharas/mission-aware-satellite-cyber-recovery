@@ -34,17 +34,17 @@ jobs:
           REQUESTED_AUTHORIZATION_ID: ${{ inputs.authorization_id }}
         run: |
           set -euo pipefail
-          test -f study8e/CANONICAL_EXECUTION_GO_LIVE.json
+          test -f study8e/CANONICAL_EXECUTION_GO_LIVE_002.json
           python - <<'PY'
           import json, os
           from pathlib import Path
 
-          path = Path("study8e/CANONICAL_EXECUTION_GO_LIVE.json")
+          path = Path("study8e/CANONICAL_EXECUTION_GO_LIVE_002.json")
           doc = json.loads(path.read_text(encoding="utf-8"))
           assert doc.get("schema") == 1
           assert doc.get("experiment_id") == "S8E-ECTV-001"
           assert doc.get("protocol_id") == "S8E-CANON-EXEC-001"
-          assert doc.get("runner_freeze") == "S8E-CANON-RUNNER-003"
+          assert doc.get("runner_freeze") == "S8E-CANON-RUNNER-004"
           assert doc.get("status") == "AUTHORIZED"
           assert doc.get("authorization_id") == os.environ["REQUESTED_AUTHORIZATION_ID"]
           assert doc.get("canonical_execution_authorized") is True
@@ -84,6 +84,7 @@ jobs:
         run: |
           python -m py_compile \
             study8e/analysis/run_canonical_execution.py \
+            study8e/audit/independent_canonical_bound.py \
             study8e/tests/test_canonical_execution_runner.py
 
       - name: Run canonical runner unit tests
@@ -152,7 +153,7 @@ jobs:
       - name: Upload canonical result package
         uses: actions/upload-artifact@v4
         with:
-          name: study8e-canonical-results-001
+          name: study8e-canonical-results-002
           path: /tmp/study8e_package/
           if-no-files-found: error
           retention-days: 90
