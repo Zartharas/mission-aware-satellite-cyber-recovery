@@ -91,11 +91,17 @@ The Acta decision supplied no external reviewer reports and no specific methodol
 
 ## Next publication-development work
 
-Paper 3 is no longer a candidate. Study 7 is consumed by the submitted CEAS paper.
+The immediate active publication-development priority is **Paper 4 / Study 8 post-rejection improvement and retargeting**.
 
-The next publication gate is a **read-only audit of remaining eligible work**, beginning with Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+Start from the exact rejected Acta manuscript and the canonical handoff:
 
-No next venue or manuscript is currently locked. Fresh literature, novelty, overlap, claim-boundary, reproducibility, and live-venue review are required before creating a new publication branch.
+`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+
+The required sequence is: forensic manuscript audit, fresh literature/novelty review, contribution and narrative reconstruction, and live venue assessment. No fallback venue is automatically selected. Do not rerun or reanalyze Study 8 merely to improve publication prospects.
+
+Study 5 and any other remaining eligible research line are deferred until the Paper 4 retarget decision unless the author explicitly reprioritizes them.
+
+No new venue-specific package may be created until a target venue is presented to and explicitly approved by the author. Final publisher submission remains a separate explicit authorization gate.
 
 ## Scientific interpretation boundaries
 
