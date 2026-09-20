@@ -5,7 +5,8 @@ on:
     branches:
       - study8e/source-identity-population-freeze-20260919
     paths:
-      - "study8e/**"
+      - "study8e/validation/probe_satnogs_api.py"
+      - "study8e/SOURCE_ACCESS_AUTHORIZATION_20260919.json"
       - ".github/workflows/study8e-satnogs-source-probe.yml"
 
 permissions:
