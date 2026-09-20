@@ -211,13 +211,19 @@ def main() -> int:
                 {
                     "start": MONTH_START,
                     "end": MONTH_END,
-                    "satellite__norad_cat_id": str(norad),
+                    "norad_cat_id": str(norad),
                     "ground_station": str(station),
                     "format": "json",
                 },
                 "pair_qualification",
             )
             evaluated += 1
+            for row in rows:
+                pair = valid_pair_from_row(row)
+                if pair != (norad, station):
+                    raise SelectionFailure(
+                        f"pair qualification filter mismatch requested={norad}/{station} observed={pair}"
+                    )
             first_page_records = len(rows)
             if first_page_records < MIN_OBSERVATIONS:
                 rejected_below_threshold += 1
@@ -243,9 +249,9 @@ def main() -> int:
             "schema": 1,
             "experiment_id": EXPERIMENT_ID,
             "deviation_id": DEVIATION_ID,
-            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION",
+            "stage": "DETERMINISTIC_RATE_BOUNDED_PAIR_SELECTION_CORRECTED_FILTER",
             "generated_utc": datetime.now(timezone.utc).isoformat(),
-            "status": status,
+            "status": status,\n            "supersedes_population_freeze": "S8E-SATNOGS-POP-001",\n            "filter_parameter": "norad_cat_id",
             "source": {
                 "base_url": BASE_URL,
                 "month_start": MONTH_START,
