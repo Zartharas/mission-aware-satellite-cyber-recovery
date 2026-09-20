@@ -67,7 +67,7 @@ CURRENT_DOCS = {
             "CANONICAL_RESULTS_002_AUDIT_HANDOFF.json",
             "35536583594",
             "formal result freeze and manuscript integration remain pending",
-            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+            "study8e/NEW_CHAT_HANDOFF_20260920.md",
             "Immediate active publication-development priority",
         ),
         "forbidden": (
