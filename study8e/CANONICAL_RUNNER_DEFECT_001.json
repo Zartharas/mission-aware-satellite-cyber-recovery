@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "defect_id": "S8E-CANON-RUNNER-DEFECT-001",
+  "date_local": "2026-09-20",
+  "status": "DETECTED_AND_REPAIRED_BEFORE_REAL_TRACE_EXECUTION",
+  "affected_file": "study8e/analysis/run_canonical_execution.py",
+  "affected_main_commit": "2ef6bf63ab6b98ec0cbeb8585b0214dcaf98e9be",
+  "affected_git_blob_sha1": "ae6b24a3573eab9d2e59f6c7b149412a76bf4f6c",
+  "defect": "Python SyntaxError in population_sd_fraction_decimal: generator expression passed to sum with an explicit start argument was not parenthesized.",
+  "observed_by": {
+    "workflow_run": 35525240262,
+    "step": "Compile unchanged canonical runner"
+  },
+  "scientific_effect": {
+    "canonical_runner_executable": false,
+    "canonical_workflow_dispatch_runs_before_detection": 0,
+    "real_trace_scientific_endpoints_computed": false,
+    "canonical_results_frozen": false,
+    "study8_parent_science_affected": false,
+    "trace002_affected": false
+  },
+  "repair_rule": "Parenthesize the generator expression while preserving the intended exact Fraction sum with Fraction(0,1) start value. No endpoint formula or statistical definition changes.",
+  "disposition": "Supersede the pre-fix canonical runner freeze with S8E-CANON-RUNNER-003 after compilation, synthetic tests, governance validation, and repository validation pass."
+}
