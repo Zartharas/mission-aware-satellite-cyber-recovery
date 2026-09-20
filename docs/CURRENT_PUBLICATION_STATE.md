@@ -1,6 +1,6 @@
 # Current Publication State
 
-**Current-state date:** 2026-09-19
+**Current-state date:** 2026-09-20
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
@@ -30,7 +30,7 @@ Study 1 and Study 2 remain separately frozen and must never be reported as one p
 - **Decision detail:** no external reviewer reports were included; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. A separately governed Study 8E external observation-opportunity timing extension has now completed corrected canonical execution; its corrected result package is audited but formal result freeze and manuscript integration remain pending.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
@@ -67,25 +67,49 @@ Durable Study-7 evidence:
 
 The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory is historical, unsubmitted Paper-3 development provenance only. It is superseded by the CEAS package and must not be treated as a current venue package.
 
-## Current post-rejection Study 8 gate
+## Current post-rejection Study 8 / Study 8E gate
 
-**Immediate active publication-development priority:** Paper 4 / Study 8 venue-lock decision and controlled manuscript rebuild after completed post-rejection audit.
+**Immediate active publication-development priority:** formal review of the corrected Study 8E canonical result package, followed by a paper-architecture decision before venue lock.
 
-The forensic quality audit found no demonstrated defect in the frozen 3,456-position science. It identified substantial manuscript-level improvements that can be made without scientific reexecution and concluded that a manuscript-only retarget is scientifically defensible.
+The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
-Canonical audit records:
+Current Study 8E authority:
 
-- `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
-- `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
-- `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
+- `study8e/CURRENT_EXTENSION_STATE.md`
+- `study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`
+- `study8e/NEW_CHAT_HANDOFF_20260920.md`
 
-The live venue review recommends **International Journal of Satellite Communications and Networking** as the strongest current topical fit, with **IEEE Systems Journal** as the systems-oriented fallback. This recommendation is not yet a venue lock.
+Corrected Study 8E evidence state:
 
-The next controlled gate is explicit author approval of the target venue. After venue lock, create a new venue-specific derivative manuscript package. Preserve the frozen target-neutral Study 8 source package and the rejected Acta package unchanged.
+- corrected population: `S8E-SATNOGS-POP-002`
+- frozen external trace: `S8E-SATNOGS-TRACE-002`
+- 20 satellite-station trace pairs
+- 476 frozen SatNOGS observation rows
+- canonical protocol: `S8E-CANON-EXEC-001`
+- corrected runner: `S8E-CANON-RUNNER-004`
+- corrected canonical workflow run: `35536583594`
+- corrected result artifact: `10613372166`
+- artifact ZIP SHA-256: `3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee`
+- corrected canonical cases: 65,376
+- finite minimum-rate cases: 17,640
+- non-finite cases: 47,736
+- independent case mismatches: 0
+- profile-burden ordering violations: 0
 
-No new scientific execution, statistical reanalysis outside the frozen plan, or publisher submission is authorized by this status update.
+The first canonical result package from workflow run `35529423881` is invalidated and must not be used. A strict-before-horizon upper-bound defect misclassified 24 exact-divisibility cases. The corrected runner uses `floor(8B/d_min)+1` and independently audits that bound.
 
-**Terminology:** Paper 4 is the Study 8 publication. Study 4 / `S4-MPQ-001` is a different frozen study already included in submitted Paper 2 / TAES and is not part of this resubmission task.
+The corrected result package is **audited but not yet formally frozen**. One non-scientific package metadata inconsistency remains documented: the corrected `CANONICAL_FINDINGS.json` identifies `S8E-CANON-RESULTS-002`, while the immutable corrected artifact's `RESULTS_HASH_MANIFEST.json` retains the stale label `S8E-CANON-RESULTS-001`. Exact corrected file hashes are bound externally by `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`.
+
+Current next gate:
+
+1. explicit author review and formal corrected-result freeze decision;
+2. decide whether Study 8E is integrated into a rebuilt Paper 4 or developed as a separate companion paper;
+3. after architecture lock, revise manuscript framing and literature synthesis;
+4. perform live venue assessment and venue lock;
+5. prepare a new derivative submission package;
+6. require separate explicit final authorization before publisher submission.
+
+Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 
 ## Deferred independent publication work
 
