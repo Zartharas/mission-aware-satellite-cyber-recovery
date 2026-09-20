@@ -26,6 +26,9 @@ from pathlib import Path
 from typing import Callable, Iterable, Mapping, Sequence
 
 from study8.src.contact_recovery_model import PROFILE_OBJECTS
+from study8e.audit.independent_canonical_bound import (
+    independent_strict_sufficient_upper_bound_bps,
+)
 from study8e.audit.independent_external_reference import independent_evaluate
 from study8e.src.external_contact_recovery_model import (
     ExternalCase,
@@ -647,7 +650,8 @@ def sufficient_upper_bound_bps(
     shortest = min(durations)
     sizes = PROFILE_OBJECTS[profile]
     burden_bytes = sum(sizes.values()) + max(sizes.values())
-    bound = ceil_fraction(Fraction(8 * burden_bytes, 1) / shortest)
+    ratio = Fraction(8 * burden_bytes, 1) / shortest
+    bound = ratio.numerator // ratio.denominator + 1
     return max(1, bound)
 
 
@@ -949,6 +953,21 @@ def run_canonical(
 
             for profile in PROFILE_ORDER:
                 upper_bound = sufficient_upper_bound_bps(profile, windows)
+                independent_upper_bound = (
+                    independent_strict_sufficient_upper_bound_bps(
+                        profile,
+                        windows,
+                    )
+                )
+                if upper_bound != independent_upper_bound:
+                    raise CanonicalExecutionError(
+                        "primary/reference sufficient upper-bound mismatch "
+                        f"for trace={anchor.selection_order} "
+                        f"anchor={anchor.anchor_id} "
+                        f"horizon={horizon_hours} "
+                        f"profile={profile}: "
+                        f"{upper_bound!r} != {independent_upper_bound!r}"
+                    )
 
                 for policy in POLICY_ORDER:
                     for disruption in DISRUPTION_ORDER:
@@ -1380,7 +1399,7 @@ def run_canonical(
         "schema": 1,
         "experiment_id": EXPERIMENT_ID,
         "protocol_id": PROTOCOL_ID,
-        "results_id": "S8E-CANON-RESULTS-001",
+        "results_id": "S8E-CANON-RESULTS-002",
         "frozen_inputs": {
             "population_freeze": POPULATION_FREEZE_ID,
             "trace_freeze": TRACE_FREEZE_ID,
