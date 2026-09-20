@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "authorization_id": "S8E-CANON-AUTH-001",
+  "authorization_date_local": "2026-09-20",
+  "authorization_basis": "After PR #131 merged and post-merge CI passed, the author explicitly instructed: 'Please continue the work, I authorize.' This authorization is interpreted as approval to prospectively freeze the canonical execution protocol and, after that protocol is merged and validated, execute the real TRACE-002 endpoint grid exactly as frozen.",
+  "authorized": {
+    "canonical_execution_protocol_design": true,
+    "protocol_repository_commit_pr_merge": true,
+    "protocol_post_merge_validation": true,
+    "exact_TRACE002_artifact_download_and_hash_verification": true,
+    "canonical_real_trace_timing_endpoint_computation": true,
+    "canonical_minimum_rate_endpoint_computation": true,
+    "all_prespecified_profile_policy_disruption_horizon_cases": true,
+    "independent_case_level_audit": true,
+    "deterministic_repeat_run": true,
+    "canonical_result_freeze_candidate": true,
+    "result_repository_pr_preparation": true
+  },
+  "not_authorized": {
+    "change_TRACE002_population_or_rows": true,
+    "follow_additional_satnogs_cursor_pages": true,
+    "alter_population_selection_rules": true,
+    "alter_frozen_implementation_during_execution": true,
+    "modify_frozen_Study8": true,
+    "modify_Acta_submitted_package": true,
+    "manuscript_rewrite_based_on_unfrozen_results": true,
+    "publisher_submission": true
+  },
+  "sequencing_condition": "No real-trace scientific endpoint may be computed until S8E-CANON-EXEC-001 is merged to main and its post-merge repository validation succeeds."
+}
