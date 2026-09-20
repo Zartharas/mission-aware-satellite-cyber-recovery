@@ -1,0 +1,38 @@
+name: Study 8E canonical execution protocol validation
+
+on:
+  push:
+    branches:
+      - study8e/canonical-execution-protocol-20260920
+    paths:
+      - "study8e/CANONICAL_EXECUTION_PROTOCOL_001.json"
+      - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_20260920.json"
+      - "study8e/validation/validate_canonical_execution_protocol.py"
+      - ".github/workflows/study8e-canonical-protocol-validation.yml"
+  pull_request:
+    paths:
+      - "study8e/CANONICAL_EXECUTION_PROTOCOL_001.json"
+      - "study8e/CANONICAL_EXECUTION_AUTHORIZATION_20260920.json"
+      - "study8e/validation/validate_canonical_execution_protocol.py"
+      - ".github/workflows/study8e-canonical-protocol-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out exact protocol branch
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Compile protocol validator
+        run: python -m py_compile study8e/validation/validate_canonical_execution_protocol.py
+      - name: Validate canonical execution protocol contract
+        run: python study8e/validation/validate_canonical_execution_protocol.py --root .
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
