@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "trigger_id": "S8E-CANON-TRIGGER-001",
+  "date_local": "2026-09-20",
+  "status": "AUTHORIZED_ONE_TIME_CANONICAL_WORKFLOW_DISPATCH",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "runner_freeze": "S8E-CANON-RUNNER-001",
+  "authorization_id": "S8E-CANON-AUTH-001",
+  "required_ref": "main",
+  "canonical_workflow": ".github/workflows/study8e-canonical-execution.yml",
+  "trigger_semantics": "Merging this exact trigger file to main causes the path-gated bridge workflow to issue one workflow_dispatch request for the already-frozen canonical workflow at ref main.",
+  "no_scientific_parameters_in_bridge": true,
+  "no_source_rematerialization": true,
+  "no_runner_modification": true
+}
