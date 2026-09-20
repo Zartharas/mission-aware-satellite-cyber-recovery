@@ -1,0 +1,135 @@
+name: Study 8E canonical TRACE-002 execution
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  canonical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out exact main state
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Verify frozen protocol and implementation blobs
+        run: |
+          set -euo pipefail
+          test "$(git hash-object study8e/src/external_contact_recovery_model.py)" = "d339075d1c8584e3685eb20eba903f25c28ec7ef"
+          test "$(git hash-object study8e/audit/independent_external_reference.py)" = "8ee105bc293a3dcc967cd3f84ba3be63b365b617"
+          test "$(python - <<'PY'
+          import json
+          p=json.load(open("study8e/CANONICAL_EXECUTION_PROTOCOL_001.json"))
+          print(p["protocol_id"])
+          PY
+          )" = "S8E-CANON-EXEC-001"
+
+      - name: Download exact frozen TRACE-002 artifact ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/study8e_trace
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/10600470520/zip" \
+            -o /tmp/study8e_trace/trace002.zip
+          test "$(sha256sum /tmp/study8e_trace/trace002.zip | awk '{print $1}')" = "5e06da499540842bc826188977cd66216bf4348e115a16db00c2dd9d8ee0855f"
+          unzip -q /tmp/study8e_trace/trace002.zip -d /tmp/study8e_trace/extracted
+          test "$(sha256sum /tmp/study8e_trace/extracted/TRACE_ARTIFACT_MANIFEST.json | awk '{print $1}')" = "a53f2f59f9474f68e6d809d4c6e78833451571e1986fe07c4169f3d5af77075a"
+          test "$(sha256sum /tmp/study8e_trace/extracted/satnogs_pop002_firstpage_476.jsonl | awk '{print $1}')" = "6f80a44fa6cfa63a70df49de3ba447de3d59efe0632208180f26552f37b46a8e"
+          test "$(wc -l < /tmp/study8e_trace/extracted/satnogs_pop002_firstpage_476.jsonl | tr -d ' ')" = "476"
+
+      - name: Compile canonical runner
+        run: |
+          python -m py_compile \
+            study8e/analysis/run_canonical_execution.py \
+            study8e/tests/test_canonical_execution_runner.py
+
+      - name: Run canonical runner unit tests
+        run: python -m unittest study8e.tests.test_canonical_execution_runner -v
+
+      - name: Canonical execution pass 1
+        run: |
+          python -m study8e.analysis.run_canonical_execution \
+            --trace-jsonl /tmp/study8e_trace/extracted/satnogs_pop002_firstpage_476.jsonl \
+            --protocol study8e/CANONICAL_EXECUTION_PROTOCOL_001.json \
+            --population study8e/SATNOGS_POPULATION_FREEZE_002.json \
+            --trace-freeze study8e/SATNOGS_TRACE_ARTIFACT_FREEZE_002.json \
+            --implementation-freeze study8e/IMPLEMENTATION_FREEZE_001.json \
+            --output-dir /tmp/study8e_run1
+
+      - name: Canonical execution pass 2
+        run: |
+          python -m study8e.analysis.run_canonical_execution \
+            --trace-jsonl /tmp/study8e_trace/extracted/satnogs_pop002_firstpage_476.jsonl \
+            --protocol study8e/CANONICAL_EXECUTION_PROTOCOL_001.json \
+            --population study8e/SATNOGS_POPULATION_FREEZE_002.json \
+            --trace-freeze study8e/SATNOGS_TRACE_ARTIFACT_FREEZE_002.json \
+            --implementation-freeze study8e/IMPLEMENTATION_FREEZE_001.json \
+            --output-dir /tmp/study8e_run2
+
+      - name: Require byte-identical deterministic scientific outputs
+        run: |
+          set -euo pipefail
+          diff -r /tmp/study8e_run1 /tmp/study8e_run2
+
+      - name: Build canonical evidence package
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/study8e_package/results /tmp/study8e_package/source
+          cp -a /tmp/study8e_run1/. /tmp/study8e_package/results/
+          cp /tmp/study8e_trace/extracted/TRACE_ARTIFACT_MANIFEST.json /tmp/study8e_package/source/
+          cp /tmp/study8e_trace/extracted/satnogs_pop002_firstpage_476.jsonl /tmp/study8e_package/source/
+          cp study8e/CANONICAL_EXECUTION_PROTOCOL_001.json /tmp/study8e_package/
+          cp study8e/SATNOGS_POPULATION_FREEZE_002.json /tmp/study8e_package/
+          cp study8e/SATNOGS_TRACE_ARTIFACT_FREEZE_002.json /tmp/study8e_package/
+          cp study8e/IMPLEMENTATION_FREEZE_001.json /tmp/study8e_package/
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root=Path("/tmp/study8e_package")
+          entries={}
+          for p in sorted(root.rglob("*")):
+              if p.is_file():
+                  rel=str(p.relative_to(root))
+                  data=p.read_bytes()
+                  entries[rel]={"sha256":hashlib.sha256(data).hexdigest(),"bytes":len(data)}
+          runtime={
+              "schema":1,
+              "experiment_id":"S8E-ECTV-001",
+              "protocol_id":"S8E-CANON-EXEC-001",
+              "github_run_id":os.environ["GITHUB_RUN_ID"],
+              "github_sha":os.environ["GITHUB_SHA"],
+              "files":entries,
+          }
+          (root/"RUNTIME_PACKAGE_MANIFEST.json").write_text(
+              json.dumps(runtime,indent=2,sort_keys=True)+"\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload canonical result package
+        uses: actions/upload-artifact@v4
+        with:
+          name: study8e-canonical-results-001
+          path: /tmp/study8e_package/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Confirm repository remained unchanged
+        run: git diff --exit-code
