@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-CANON-RUNNER-002",
+  "date_local": "2026-09-20",
+  "status": "CANONICAL_RUNNER_GOVERNANCE_HARDENED__NO_REAL_TRACE_EXECUTION_AUTHORIZED",
+  "supersedes": "S8E-CANON-RUNNER-001",
+  "base_main_commit": "2ef6bf63ab6b98ec0cbeb8585b0214dcaf98e9be",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "scientific_runner_unchanged": true,
+  "files": {
+    "study8e/analysis/run_canonical_execution.py": {
+      "git_blob_sha1": "ae6b24a3573eab9d2e59f6c7b149412a76bf4f6c",
+      "role": "canonical deterministic TRACE-002 endpoint and comparison harness"
+    },
+    "study8e/tests/test_canonical_execution_runner.py": {
+      "git_blob_sha1": "d7e3f841b7ff1270656d022eb3910b77c17c1305",
+      "role": "synthetic helper and threshold tests"
+    },
+    ".github/workflows/study8e-canonical-execution.yml": {
+      "git_blob_sha1": "6bb59909a6db5a2c497c815efd02afb1e12919ca",
+      "role": "manual workflow_dispatch-only canonical execution workflow with merged go-live authorization gate"
+    }
+  },
+  "workflow_controls": {
+    "automatic_push_trigger": false,
+    "manual_workflow_dispatch_only": true,
+    "required_dispatch_input": "authorization_id",
+    "merged_go_live_file_required": "study8e/CANONICAL_EXECUTION_GO_LIVE.json",
+    "go_live_status_required": "AUTHORIZED",
+    "go_live_must_bind": {
+      "experiment_id": "S8E-ECTV-001",
+      "protocol_id": "S8E-CANON-EXEC-001",
+      "runner_freeze": "S8E-CANON-RUNNER-002",
+      "canonical_execution_authorized": true
+    },
+    "gate_position": "before frozen protocol/blob verification, TRACE-002 artifact download, unit tests, or scientific execution",
+    "exact_trace_artifact_id": 10600470520,
+    "no_satnogs_api_fallback": true
+  },
+  "current_execution_state": {
+    "real_trace_scientific_endpoints_computed": false,
+    "canonical_workflow_dispatch_runs": 0,
+    "canonical_results_frozen": false,
+    "current_authorization_allows_dispatch": false
+  },
+  "next_gate": "MERGE_AND_POST_MERGE_VALIDATE_GOVERNANCE_CORRECTION__THEN_SEPARATE_EXPLICIT_AUTHOR_CANONICAL_EXECUTION_AUTHORIZATION"
+}
