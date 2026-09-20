@@ -8,15 +8,19 @@ For current publication status and next-work sequencing, read these first:
 2. `docs/PUBLICATION_PHASE_MAP.md`
 3. `publication/README.md`
 
-Current submitted papers:
+Current publication lines:
 
-- Paper 1: JAIS manuscript `2026-09-I012066`, submitted 2026-09-05.
-- Roadmap Paper 4 / Study 8: Acta Astronautica manuscript `AA-D-26-02872`, submitted 2026-09-06, rejected by editorial decision recorded 2026-09-19; no external reviewer reports were included in the supplied decision letter.
+- Paper 1: JAIS manuscript `2026-09-I012066`, submitted 2026-09-05; active editorial/peer-review workflow.
+- Paper 2: Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07; Research Exchange UUID `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`; under editorial processing.
+- Paper 3: Study 7, submitted to CEAS Space Journal on 2026-09-13; submission ID `6db04a31-8223-4aaf-af02-e4bafe06ef89`; technical check.
+- Paper 4 / Study 8: Acta Astronautica manuscript `AA-D-26-02872`, submitted 2026-09-06 and rejected by editorial decision recorded 2026-09-19; no external reviewer reports were included and no specific methodological defect was enumerated.
 
-Study 8 current next gate: post-rejection forensic manuscript/venue audit before any retargeting; no fallback venue is automatically selected.
+Immediate active publication-development priority:
 
-Current next publication-development priority:
-
-- Paper 2: Studies 3 + 4 + 6, beginning with frozen-state verification plus fresh literature, novelty, claim-boundary, and live venue review.
+- Paper 4 / Study 8 venue-lock decision and controlled manuscript rebuild after the completed post-rejection forensic audit and live venue review.
+- Current recommendation: International Journal of Satellite Communications and Networking, with IEEE Systems Journal as fallback. Recommendation is not a venue lock.
+- Canonical retarget records are under `publication/Paper_4_Study_8/`.
+- Do not rerun or reanalyze frozen Study 8 merely to improve publication prospects.
+- Remaining-candidate work, including Study 5, is deferred until the Paper 4 retarget decision unless the author explicitly reprioritizes it.
 
 Do not "fix" historical tracker entries merely because later stages have advanced. Add new current-state records outside the chronological history instead.
