@@ -1,0 +1,277 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "date_local": "2026-09-20",
+  "status": "CANONICAL_EXECUTION_PROTOCOL_FREEZE_CANDIDATE__NO_REAL_TRACE_ENDPOINTS_COMPUTED",
+  "base_main_commit": "799c9da916ac237529e59c50417555102b924939",
+  "frozen_inputs": {
+    "population_freeze": "S8E-SATNOGS-POP-002",
+    "population_file": "study8e/SATNOGS_POPULATION_FREEZE_002.json",
+    "trace_freeze": "S8E-SATNOGS-TRACE-002",
+    "trace_artifact_workflow_run": 35493369936,
+    "trace_artifact_id": 10600470520,
+    "trace_artifact_zip_sha256": "5e06da499540842bc826188977cd66216bf4348e115a16db00c2dd9d8ee0855f",
+    "trace_manifest_sha256": "a53f2f59f9474f68e6d809d4c6e78833451571e1986fe07c4169f3d5af77075a",
+    "trace_jsonl_file": "satnogs_pop002_firstpage_476.jsonl",
+    "trace_jsonl_sha256": "6f80a44fa6cfa63a70df49de3ba447de3d59efe0632208180f26552f37b46a8e",
+    "trace_records": 476,
+    "trace_pairs": 20,
+    "implementation_freeze": "S8E-IMPLFREEZE-001",
+    "implementation_primary_git_blob_sha1": "d339075d1c8584e3685eb20eba903f25c28ec7ef",
+    "implementation_reference_git_blob_sha1": "8ee105bc293a3dcc967cd3f84ba3be63b365b617"
+  },
+  "input_fail_closed_rules": [
+    "The canonical run must download GitHub Actions artifact 10600470520 from workflow run 35493369936.",
+    "The downloaded ZIP SHA-256 must exactly equal the frozen TRACE-002 artifact ZIP SHA-256.",
+    "TRACE_ARTIFACT_MANIFEST.json SHA-256 must exactly equal the frozen manifest SHA-256.",
+    "The canonical JSONL SHA-256 and record count must exactly match TRACE-002.",
+    "No API re-query, source rematerialization, pair substitution, cursor expansion, row repair, or alternate artifact is permitted if any identity check fails.",
+    "The implementation files used by canonical execution must retain the exact frozen Git blob identities from S8E-IMPLFREEZE-001."
+  ],
+  "trace_preparation": {
+    "trace_unit": "selection_order x norad_cat_id x ground_station",
+    "preserve_all_20_frozen_traces": true,
+    "observation_window_mapping": "Each JSONL row start/end is an observation-opportunity timing proxy only.",
+    "ordering": "Sort each trace by absolute start then end then observation id.",
+    "merge_rule": "Union overlapping or directly abutting windows within each trace. Preserve source observation IDs in provenance output.",
+    "cross_trace_merge": false,
+    "time_basis": "UTC absolute source timestamps converted to exact integer microseconds for ingestion, then exact Fraction seconds relative to each anchor for model evaluation.",
+    "source_window_end_exclusive_utc": "2026-07-01T00:00:00Z"
+  },
+  "timing_endpoints": {
+    "per_trace": [
+      "raw_observation_count",
+      "merged_window_count",
+      "merged_window_duration_seconds for every window",
+      "inter_opportunity_gap_seconds for every adjacent merged-window pair",
+      "duration_min_seconds",
+      "duration_median_seconds",
+      "duration_max_seconds",
+      "gap_min_seconds where defined",
+      "gap_median_seconds where defined",
+      "gap_max_seconds where defined",
+      "gap_mean_seconds where defined",
+      "gap_population_standard_deviation_seconds where at least two gaps",
+      "gap_coefficient_of_variation where at least two gaps and mean > 0",
+      "gap_burstiness_index=(sd-mean)/(sd+mean) where at least two gaps and denominator > 0"
+    ],
+    "median_definition": "For ordered finite values, odd n uses the middle value; even n uses arithmetic mean of the two middle values.",
+    "standard_deviation_definition": "Population standard deviation using divisor n, not n-1.",
+    "decimal_rendering": "Non-rational square-root-derived metrics are rendered as decimal strings rounded HALF_EVEN to 12 digits after the decimal; underlying comparisons do not use rendered decimal values.",
+    "pooled_inference": false
+  },
+  "anchor_population": {
+    "candidate_anchor": "End time of every merged observation-opportunity window in a frozen trace.",
+    "eligibility": "anchor_time + 24 hours <= 2026-07-01T00:00:00Z",
+    "rationale": "The same anchor set must have complete frozen source-window follow-up for all 6/12/24-hour comparisons.",
+    "same_window_reuse_after_anchor": false,
+    "future_window_rule": "For each horizon, use only merged windows strictly after the anchor; clip any future window that crosses anchor+horizon.",
+    "zero_future_windows": "Anchor remains in the finite observed anchor population; all threshold cases may be structurally non-finite.",
+    "anchor_id": "TRACE{selection_order:02d}-A{chronological_eligible_anchor_index:03d}",
+    "no_post_result_anchor_dropping": true
+  },
+  "factor_grid": {
+    "horizons_hours": [
+      6,
+      12,
+      24
+    ],
+    "profiles": [
+      "PROFILE_512_44",
+      "PROFILE_768_65",
+      "PROFILE_1024_87"
+    ],
+    "policies": [
+      "P0_HARD_CUTOVER",
+      "P1_STAGED_CUTOVER",
+      "P2_HYBRID_OVERLAP",
+      "P3_CONTACT_AWARE_STAGED"
+    ],
+    "disruptions": [
+      "A0_NONE",
+      "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+      "A2_DELAY_FIRST_TRANSITION_PROOF_ONE_CONTACT",
+      "A3_STALE_EPOCH_REPLAY_AT_COMMIT"
+    ],
+    "cases_per_anchor": 144,
+    "expected_total_cases_formula": "eligible_anchor_count * 3 * 3 * 4 * 4"
+  },
+  "minimum_rate_endpoint": {
+    "quantity": "minimum positive integer hypothetical uniform effective payload rate in bits per second required for TRUST_RESTORED strictly before the horizon",
+    "not_measured_throughput": true,
+    "lower_bound_bps": 1,
+    "sufficient_upper_bound": {
+      "formula": "ceil(8 * (sum(profile_object_bytes) + max(profile_object_bytes)) / shortest_positive_future_window_duration_seconds)",
+      "rationale": "At this rate even the shortest available window can carry the complete nominal transition bundle plus one retransmission of the largest object, covering the A1 byte burden. For A2/A3, any remaining infeasibility at this bound is due to required event/window ordering, which higher rate cannot create.",
+      "no_available_future_window": "no finite threshold",
+      "upper_bound_evaluation_required": true
+    },
+    "threshold_search": "Monotone integer binary search from 1 through the sufficient upper bound, inclusive.",
+    "postconditions": [
+      "A finite threshold T must succeed at T.",
+      "If T > 1, T-1 must fail.",
+      "If the sufficient upper bound fails, classify the case as no finite threshold under the frozen model."
+    ],
+    "no_arbitrary_fixed_rate_cap": true
+  },
+  "per_case_output": [
+    "trace_selection_order",
+    "norad_cat_id",
+    "ground_station",
+    "anchor_id",
+    "anchor_time_utc",
+    "horizon_hours",
+    "profile",
+    "policy",
+    "disruption",
+    "future_merged_window_count",
+    "sufficient_upper_bound_bps or null",
+    "finite_threshold",
+    "minimum_rate_bps or null",
+    "trusted_recovery_success_at_threshold where finite",
+    "recovery_completion_elapsed_seconds where finite",
+    "windows_consumed_at_threshold where finite",
+    "cryptographic_bytes_transferred_at_threshold where finite",
+    "transition_attempts_at_threshold where finite",
+    "legacy_exposure_seconds_at_threshold where finite",
+    "control_unavailable_seconds_at_threshold where finite",
+    "dual_epoch_overlap_seconds_at_threshold where finite",
+    "rollback_invoked_at_threshold where finite",
+    "stale_epoch_acceptance_at_threshold where finite",
+    "terminal_state_at_threshold where finite",
+    "terminal_state_at_sufficient_upper_bound where non-finite",
+    "p3_guard_blocked_at_sufficient_upper_bound where non-finite"
+  ],
+  "prespecified_comparisons": {
+    "p3_vs_p1": {
+      "match_on": [
+        "trace",
+        "anchor",
+        "horizon",
+        "profile",
+        "disruption"
+      ],
+      "threshold_difference": "P3 minimum_rate_bps - P1 minimum_rate_bps when both are finite",
+      "feasibility_classification": [
+        "both_finite",
+        "both_nonfinite",
+        "P1_only_finite",
+        "P3_only_finite"
+      ],
+      "exact_outputs": [
+        "count by feasibility classification",
+        "count of finite equal thresholds",
+        "count P3 lower",
+        "count P3 higher",
+        "minimum/median/maximum finite threshold difference"
+      ],
+      "common_rate_state_cost_secondary": "Where both thresholds are finite, evaluate P1 and P3 at max(P1_threshold,P3_threshold) and report exact matched differences in predecessor exposure, control unavailability, windows consumed, bytes transferred, and transition attempts."
+    },
+    "profile_burden_ordering": {
+      "match_on": [
+        "trace",
+        "anchor",
+        "horizon",
+        "policy",
+        "disruption"
+      ],
+      "order": [
+        "PROFILE_512_44",
+        "PROFILE_768_65",
+        "PROFILE_1024_87"
+      ],
+      "nonfinite_semantics": "Treat no-finite-threshold as +infinity for ordering only.",
+      "endpoint": "Count exact violations of nondecreasing minimum-rate burden across the ordered profiles."
+    },
+    "study8_directional_comparison": {
+      "permitted": [
+        "Compare whether P3 and P1 remain equal in terminal finite-rate feasibility.",
+        "Compare whether higher standardized object burden remains non-improving in matched extension conditions.",
+        "Compare external-trace failure/feasibility patterns descriptively with the frozen Study 8 logical-contact findings."
+      ],
+      "not_identifiable": [
+        "The controlled equal-total-capacity R1-R4 Study 8 contrast is not re-estimated because TRACE-002 traces are not equalized for total physical opportunity duration or capacity.",
+        "No causal claim that observed external timing alone caused between-trace threshold differences."
+      ]
+    }
+  },
+  "statistics": {
+    "population_type": "complete finite frozen Study 8E trace/anchor/case population defined by this protocol",
+    "allowed": [
+      "exact counts",
+      "exact proportions",
+      "minimum",
+      "median",
+      "maximum",
+      "finite-population means where explicitly reported",
+      "deterministic matched contrasts"
+    ],
+    "prohibited": [
+      "sampling p-values",
+      "confidence intervals",
+      "bootstrap intervals",
+      "permutation tests",
+      "post-hoc subgroup selection"
+    ],
+    "null_handling": "No-finite-threshold is a substantive endpoint category, not missing data."
+  },
+  "independent_audit": {
+    "required": true,
+    "reference_implementation": "study8e/audit/independent_external_reference.py",
+    "threshold_search_reimplemented_separately": true,
+    "exact_comparison_scope": [
+      "finite/non-finite classification",
+      "minimum integer threshold",
+      "threshold-achieving terminal state and state-cost fields",
+      "sufficient-bound terminal classification"
+    ],
+    "acceptance": "zero mismatches across every canonical case",
+    "repeatability": "Run the primary canonical execution twice from the same verified TRACE-002 artifact; deterministic scientific output hashes must match exactly."
+  },
+  "canonical_outputs": [
+    "TRACE_TIMING_WINDOWS.csv",
+    "TRACE_TIMING_GAPS.csv",
+    "TRACE_TIMING_SUMMARY.csv",
+    "ANCHOR_MANIFEST.csv",
+    "CANONICAL_CASE_RESULTS.csv",
+    "P3_P1_CONTRASTS.csv",
+    "PROFILE_ORDERING_CHECKS.csv",
+    "CANONICAL_FINDINGS.json",
+    "INDEPENDENT_AUDIT.json",
+    "RESULTS_HASH_MANIFEST.json"
+  ],
+  "canonical_output_rules": {
+    "row_ordering": "Deterministic lexicographic ordering by trace selection order, anchor chronological index, horizon, profile order, policy order, disruption order.",
+    "wall_clock_timestamps_in_scientific_outputs": false,
+    "source_runtime_metadata_separate_from_scientific_outputs": true,
+    "output_hash_algorithm": "SHA-256",
+    "freeze_before_interpretation": true
+  },
+  "execution_fail_closed_rules": [
+    "Any frozen input hash mismatch stops execution.",
+    "Any case-level primary/reference mismatch stops result freeze.",
+    "Any duplicate anchor_id or duplicate case key stops execution.",
+    "Any threshold postcondition failure stops execution.",
+    "Any unexpected stale_epoch_acceptance=1 or rollback_invoked=1 is retained and flagged, not silently repaired.",
+    "No TRACE-002 row, trace, anchor, factor, or result may be dropped after endpoint inspection.",
+    "No implementation change is permitted during canonical execution; a required change invalidates the run and requires a new implementation freeze."
+  ],
+  "claim_boundary": {
+    "observation_windows_are_operational_command_contacts": false,
+    "rate_threshold_is_measured_link_throughput": false,
+    "study8_logical_slots_reinterpreted_as_seconds": false,
+    "external_replication_claim": false,
+    "all_satellites_generalization": false,
+    "all_satnogs_generalization": false,
+    "operational_flight_recovery_claim": false,
+    "valid_description": "Results apply to the frozen 20-pair, 476-record TRACE-002 first-page projection under the frozen Study 8E transition model and hypothetical uniform effective payload-rate abstraction."
+  },
+  "integrity": {
+    "modify_study8": false,
+    "modify_acta_package": false,
+    "import_study9_results": false,
+    "pool_with_parent_study": false
+  },
+  "next_gate": "MERGE_PROTOCOL_FREEZE__THEN_CANONICAL_EXECUTION_USING_EXACT_MERGED_PROTOCOL"
+}
