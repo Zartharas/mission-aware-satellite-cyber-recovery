@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "status": "MAPPING_RUBRIC_FREEZE_CANDIDATE",
+  "mapping_classes": [
+    "DIRECT_TIMING_EVIDENCE",
+    "DESCRIPTIVE_ONLY",
+    "SENSITIVITY_ONLY",
+    "AMBIGUOUS_OR_UNSUPPORTED",
+    "PROHIBITED_SUBSTITUTION"
+  ],
+  "satnogs": {
+    "id": {
+      "mapping_class": "DIRECT_TIMING_EVIDENCE",
+      "role": "source observation identity"
+    },
+    "start": {
+      "mapping_class": "DIRECT_TIMING_EVIDENCE",
+      "role": "observation-opportunity window start timestamp"
+    },
+    "end": {
+      "mapping_class": "DIRECT_TIMING_EVIDENCE",
+      "role": "observation-opportunity window end timestamp"
+    },
+    "ground_station": {
+      "mapping_class": "DIRECT_TIMING_EVIDENCE",
+      "role": "trace partition identity",
+      "does_not_establish": ["source_trusted", "authorization_available"]
+    },
+    "norad_cat_id": {
+      "mapping_class": "DIRECT_TIMING_EVIDENCE",
+      "role": "trace partition identity",
+      "does_not_establish": ["source_trusted", "epoch_valid"]
+    },
+    "status": {
+      "mapping_class": "DESCRIPTIVE_ONLY",
+      "role": "source observation status; optional quality stratification only",
+      "does_not_establish": ["cryptographic_success", "trusted_recovery", "authorization_available"]
+    },
+    "transmitter_baud": {
+      "mapping_class": "PROHIBITED_SUBSTITUTION",
+      "role": "descriptive transmitter metadata only",
+      "prohibited_use": "May not be multiplied by duration or otherwise interpreted as usable cryptographic recovery payload throughput."
+    },
+    "transmitter_mode": {
+      "mapping_class": "DESCRIPTIVE_ONLY"
+    },
+    "station_lat": {
+      "mapping_class": "DESCRIPTIVE_ONLY"
+    },
+    "station_lng": {
+      "mapping_class": "DESCRIPTIVE_ONLY"
+    },
+    "max_altitude": {
+      "mapping_class": "DESCRIPTIVE_ONLY"
+    },
+    "tle0": {
+      "mapping_class": "DESCRIPTIVE_ONLY"
+    },
+    "tle1": {
+      "mapping_class": "DESCRIPTIVE_ONLY",
+      "does_not_establish": ["cryptographic_epoch_validity", "freshness"]
+    },
+    "tle2": {
+      "mapping_class": "DESCRIPTIVE_ONLY",
+      "does_not_establish": ["cryptographic_epoch_validity", "freshness"]
+    }
+  },
+  "opssat1": {
+    "Timestamp": {
+      "mapping_class": "DIRECT_TIMING_EVIDENCE",
+      "role": "reception timestamp",
+      "does_not_establish": ["authenticated_contact_window", "uplink_availability", "command_acceptance"]
+    },
+    "telemetry_values": {
+      "mapping_class": "DESCRIPTIVE_ONLY",
+      "role": "not part of Study 8E primary contact-timing endpoint"
+    },
+    "episode_sessionization": {
+      "mapping_class": "SENSITIVITY_ONLY",
+      "gap_threshold_seconds": [300, 600, 900],
+      "single_preferred_threshold_after_results": false
+    }
+  },
+  "lens": {
+    "throughput_latency_and_dish_metrics": {
+      "mapping_class": "SENSITIVITY_ONLY",
+      "role": "general LEO network sensitivity layer only",
+      "does_not_establish": ["spacecraft_TT&C_throughput", "SatNOGS_capacity", "OPS-SAT_capacity"]
+    }
+  },
+  "derived_extension_quantities": {
+    "observation_opportunity_duration_seconds": "end - start for valid SatNOGS observation records; treated as observation-opportunity timing only",
+    "inter_opportunity_gap_seconds": "next_start - current_end after within-trace union of overlapping/abutting observation-opportunity windows",
+    "hypothetical_uniform_effective_payload_rate_bps": "extension-model constant net payload rate available only inside accepted observation-opportunity windows; solved as a threshold rather than inferred from transmitter metadata or claimed as measured capacity",
+    "minimum_uniform_effective_payload_rate_bps_required": "lowest finite rate at which the extension transition runner reaches TRUST_RESTORED strictly before the extension horizon under the frozen trace and condition"
+  },
+  "prohibited_inferences": [
+    "logical Study 8 slots to physical seconds",
+    "transmitter baud to effective payload throughput",
+    "observation status to cryptographic success",
+    "observation existence to bidirectional command availability",
+    "TLE epoch to cryptographic epoch validity",
+    "satellite or station identity to cryptographic trust",
+    "reception timestamp to authorization availability"
+  ]
+}
