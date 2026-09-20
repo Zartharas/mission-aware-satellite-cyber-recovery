@@ -102,15 +102,15 @@ Study 8 has a separate frozen target-neutral companion package and an exact subm
 **Article type:** Research paper  
 **Manuscript ID:** `AA-D-26-02872`  
 **Submission date:** 2026-09-06  
-**Current Editorial Manager status:** `With Editor`
+**Final Acta publisher status:** `Rejected` (editorial decision recorded 2026-09-19)
 
 The submitted package is `S8-ACTA-PKGFREEZE-002` from commit `f5e9a1d4553737e534821bf647463abfd44fa0dd`.
 
-Current submitted-state authority:
+Current publisher-state authority:
 
 `publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`
 
-Study 8 remains scientifically frozen. The negative primary policy result remains visible and exact. No scientific reexecution or statistical reanalysis was performed for submission, and no submitted publisher-facing file should change unless Acta explicitly requests a revision.
+Study 8 remains scientifically frozen. The negative primary policy result remains visible and exact. No scientific reexecution or statistical reanalysis was performed for submission or because of the rejection. The exact rejected Acta publisher-facing files remain immutable provenance; any retargeted manuscript must be created as a new controlled derivative package from the frozen Study 8 source.
 
 ## Why the studies are not scope creep
 
@@ -129,7 +129,7 @@ The program should therefore be described as a sequence of separately frozen bou
 ## Publication-order recommendation from 2026-09-06
 
 1. Keep Paper 1 frozen while JAIS editorial/peer review proceeds.
-2. Keep roadmap Paper 4 / Study 8 frozen while Acta manuscript `AA-D-26-02872` proceeds through editorial review.
+2. Keep the rejected Acta package for roadmap Paper 4 / Study 8 frozen as provenance; any further manuscript work must use a new controlled retargeting package from the frozen Study 8 source.
 3. Begin Paper 2 by auditing the frozen Studies 3 + 4 + 6 evidence/provenance, then perform a dedicated literature/novelty/claim-boundary/live-venue review before authorizing manuscript development.
 4. Decide whether Study 5 belongs as a clearly separated portability/external-validity component of Paper 2 or a focused validation vehicle.
 5. Perform a dedicated learned-selector/AI literature and venue review before authorizing Study-7 Paper 3 development.
