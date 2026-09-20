@@ -270,6 +270,72 @@ class Study8EImplementationFreezeTests(unittest.TestCase):
             self.assertEqual(row["trusted_recovery_success"], 0)
         self.assertEqual(found, total_bits)
 
+    def test_primary_reference_parity_grid(self) -> None:
+        window_patterns = (
+            ((0, 400_000), (900_000, 1_400_000), (2_000_000, 3_500_000)),
+            ((100_000, 1_100_000), (1_600_000, 2_300_000), (4_000_000, 5_500_000)),
+            ((0, 250_000), (500_000, 1_500_000), (3_000_000, 4_000_000), (5_000_000, 5_800_000)),
+        )
+        rates = (32_000, 96_000, 320_000)
+        for profile in primary.PROFILES:
+            for policy in primary.POLICIES:
+                for disruption in primary.DISRUPTIONS:
+                    for raw in window_patterns:
+                        for rate in rates:
+                            actual = primary.evaluate_case(
+                                primary.ExternalCase(
+                                    profile=profile,
+                                    policy=policy,
+                                    disruption=disruption,
+                                    horizon_us=6_000_000,
+                                    rate_bps=rate,
+                                    windows=tuple(primary.Window(a, b) for a, b in raw),
+                                )
+                            )
+                            expected = reference.independently_evaluate(
+                                profile=profile,
+                                policy=policy,
+                                disruption=disruption,
+                                horizon_us=6_000_000,
+                                rate_bps=rate,
+                                windows=tuple(raw),
+                            )
+                            self.assertEqual(
+                                actual,
+                                expected,
+                                msg=f"parity mismatch {profile} {policy} {disruption} rate={rate} windows={raw}",
+                            )
+
+    def test_success_is_monotone_in_rate_on_synthetic_grid(self) -> None:
+        window_patterns = (
+            ((0, 400_000), (900_000, 1_400_000), (2_000_000, 3_500_000)),
+            ((100_000, 1_100_000), (1_600_000, 2_300_000), (4_000_000, 5_500_000)),
+            ((0, 250_000), (500_000, 1_500_000), (3_000_000, 4_000_000), (5_000_000, 5_800_000)),
+        )
+        rates = (1_000, 4_000, 16_000, 64_000, 256_000, 1_000_000, 4_000_000)
+        for profile in primary.PROFILES:
+            for policy in primary.POLICIES:
+                for disruption in primary.DISRUPTIONS:
+                    for raw in window_patterns:
+                        outcomes = []
+                        for rate in rates:
+                            row = primary.evaluate_case(
+                                primary.ExternalCase(
+                                    profile=profile,
+                                    policy=policy,
+                                    disruption=disruption,
+                                    horizon_us=6_000_000,
+                                    rate_bps=rate,
+                                    windows=tuple(primary.Window(a, b) for a, b in raw),
+                                )
+                            )
+                            outcomes.append(int(row["trusted_recovery_success"]))
+                        self.assertEqual(
+                            outcomes,
+                            sorted(outcomes),
+                            msg=f"non-monotone success {profile} {policy} {disruption} windows={raw}: {outcomes}",
+                        )
+
     def test_direct_entrypoints_refuse_canonical_execution(self) -> None:
         self.assertIn(
             "canonical external-trace execution is not authorized",
