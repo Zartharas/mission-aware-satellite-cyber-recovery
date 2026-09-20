@@ -35,6 +35,7 @@ def main() -> int:
     trace = load(root / "study8e/SATNOGS_TRACE_ARTIFACT_FREEZE_002.json")
     impl = load(root / "study8e/IMPLEMENTATION_FREEZE_001.json")
     runner = load(root / "study8e/CANONICAL_RUNNER_FREEZE_003.json")
+    retirement = load(root / "study8e/CANONICAL_TRIGGER_RETIREMENT_001.json")
 
     require(protocol["protocol_id"] == "S8E-CANON-EXEC-001", "protocol id drift")
     require(protocol["frozen_inputs"]["population_freeze"] == population["freeze_id"], "population mismatch")
@@ -93,6 +94,19 @@ def main() -> int:
     require("CANONICAL_EXECUTION_GO_LIVE.json" in workflow, "workflow go-live gate missing")
     require("canonical_execution_authorized" in workflow, "workflow go-live boolean check missing")
 
+    require(retirement["status"] == "STALE_ONE_TIME_DISPATCH_PATH_RETIRED_BEFORE_CANONICAL_SCIENTIFIC_EXECUTION", "stale trigger retirement status drift")
+    require(retirement["historical_dispatch"]["workflow_run"] == 35525450194, "historical dispatch run drift")
+    require(retirement["historical_dispatch"]["conclusion"] == "failure", "historical dispatch conclusion drift")
+    require(retirement["historical_dispatch"]["canonical_runner_compile_status"] == "FAIL", "historical dispatch compile state drift")
+    require(retirement["historical_dispatch"]["scientific_endpoint_computed"] is False, "historical dispatch scientific endpoint state drift")
+    require(retirement["current_authoritative_execution_path"]["runner_freeze"] == "S8E-CANON-RUNNER-003", "retirement runner authority drift")
+    require(retirement["current_authoritative_execution_path"]["canonical_execution_currently_authorized"] is False, "retirement improperly authorizes execution")
+
+    stale_bridge = root / ".github/workflows/study8e-canonical-dispatch-bridge.yml"
+    stale_trigger = root / "study8e/CANONICAL_EXECUTION_TRIGGER_001.json"
+    require(not stale_bridge.exists(), "stale canonical dispatch bridge still present")
+    require(not stale_trigger.exists(), "stale canonical execution trigger still present")
+
     go_live = root / "study8e/CANONICAL_EXECUTION_GO_LIVE.json"
     require(not go_live.exists(), "go-live artifact must not exist before explicit canonical execution authorization")
 
@@ -117,7 +131,8 @@ def main() -> int:
     print("protocol_id=S8E-CANON-EXEC-001")
     print("runner_freeze=S8E-CANON-RUNNER-003")
     print("cases_per_anchor=144")
-    print("canonical_workflow_dispatch_runs_recorded=0")
+    print("historical_failed_canonical_dispatch_run=35525450194")
+    print("historical_failed_dispatch_scientific_endpoint_computed=false")
     print("real_trace_execution_authorized=false")
     print("go_live_artifact_present=false")
     return 0
