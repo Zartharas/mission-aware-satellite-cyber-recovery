@@ -61,7 +61,7 @@ Current submitted Acta state:
 - journal: Acta Astronautica
 - manuscript ID: `AA-D-26-02872`
 - submitted: 2026-09-06
-- current status: `With Editor`
+- current status: `Rejected` / `REJECTED__EDITORIAL_DECISION`
 - submitted package freeze: `S8-ACTA-PKGFREEZE-002`
 - submitted package source commit: `f5e9a1d4553737e534821bf647463abfd44fa0dd`
 
@@ -191,6 +191,10 @@ Active submissions remain immutable unless the relevant journal requests a corre
 
 ## 9. Next publication-development work
 
-The next unsent publication priority is the Studies 3 + 4 + 6 synthesis described in [`PUBLICATION_PHASE_MAP.md`](PUBLICATION_PHASE_MAP.md).
+The immediate active publication-development priority is the Paper 4 / Study 8 post-rejection audit and retargeting workflow described in [`PUBLICATION_PHASE_MAP.md`](PUBLICATION_PHASE_MAP.md) and `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`.
 
-Begin with frozen-state verification and literature/novelty/claim-boundary/live-venue review. Do not rerun those studies simply because a venue prefers a different result or scope.
+Begin with the exact rejected Acta manuscript. Audit claim traceability, explanatory depth, treatment of the null primary result, literature positioning, figures/tables, discussion quality, limitations, and venue fit before rewriting or selecting a new target.
+
+This work does not authorize scientific reexecution or statistical reanalysis. If the audit identifies a genuine scientific defect rather than a manuscript or venue-fit weakness, stop and obtain separate authorization before reopening Study 8.
+
+The remaining-study candidate audit, including Study 5, is deferred while the Paper 4 retarget audit is active unless the author explicitly reprioritizes it.
