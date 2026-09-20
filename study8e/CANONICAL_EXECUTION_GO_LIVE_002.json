@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "authorization_id": "S8E-CANON-GOLIVE-002",
+  "authorization_date_local": "2026-09-20",
+  "status": "AUTHORIZED",
+  "authorization_basis": "After S8E-CANON-RESULTS-001 was invalidated before scientific freeze and PR #140 repaired the strict sufficient upper bound, the author explicitly authorized merging PR #140, verifying post-merge CI, creating a separately bound S8E-CANON-GOLIVE-002, and rerunning the corrected canonical analysis.",
+  "authorized_repair_main": "475dd2e9a54ebe086169cc7fe92f4a372356274d",
+  "authorized_repair_post_merge_validation": {
+    "workflow_run": 35531560263,
+    "conclusion": "success"
+  },
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "runner_freeze": "S8E-CANON-RUNNER-004",
+  "population_freeze": "S8E-SATNOGS-POP-002",
+  "trace_freeze": "S8E-SATNOGS-TRACE-002",
+  "implementation_freeze": "S8E-IMPLFREEZE-001",
+  "prior_execution_closeout": {
+    "authorization_id": "S8E-CANON-GOLIVE-001",
+    "workflow_run": 35529423881,
+    "results_id": "S8E-CANON-RESULTS-001",
+    "disposition": "INVALIDATED_BEFORE_RESULT_FREEZE",
+    "invalidation_record": "S8E-CANON-RESULTS-001-INVALIDATION",
+    "defect_record": "S8E-CANON-BOUND-DEFECT-001",
+    "reusable_for_reexecution": false
+  },
+  "repaired_contract": {
+    "defect_id": "S8E-CANON-BOUND-DEFECT-001",
+    "corrected_formula": "floor(8*B/d_min)+1",
+    "exact_regression_old_bound_bps": 23968,
+    "exact_regression_corrected_bound_bps": 23969,
+    "independent_bound_audit_required": true
+  },
+  "frozen_input_identity": {
+    "trace_artifact_workflow_run": 35493369936,
+    "trace_artifact_id": 10600470520,
+    "trace_artifact_zip_sha256": "5e06da499540842bc826188977cd66216bf4348e115a16db00c2dd9d8ee0855f",
+    "trace_manifest_sha256": "a53f2f59f9474f68e6d809d4c6e78833451571e1986fe07c4169f3d5af77075a",
+    "trace_jsonl_sha256": "6f80a44fa6cfa63a70df49de3ba447de3d59efe0632208180f26552f37b46a8e",
+    "trace_records": 476,
+    "trace_pairs": 20,
+    "canonical_runner_git_blob_sha1": "e83ad4255a87273109e69bcd38f89226b78be61f",
+    "independent_bound_git_blob_sha1": "e13305aa676681e7310a43ca19a362fe4c4494f9",
+    "canonical_runner_test_git_blob_sha1": "d26259eb7de1717e40e64d5c259f6243bddb7dc9",
+    "canonical_workflow_git_blob_sha1": "f65e841fcab987b9a73688b0e22e4ba3d3b9e5d9",
+    "study8e_primary_model_git_blob_sha1": "d339075d1c8584e3685eb20eba903f25c28ec7ef",
+    "study8e_independent_reference_git_blob_sha1": "8ee105bc293a3dcc967cd3f84ba3be63b365b617"
+  },
+  "canonical_execution_authorized": true,
+  "authorized_scope": {
+    "download_and_hash_verify_TRACE002": true,
+    "real_TRACE002_timing_endpoint_computation": true,
+    "eligible_anchor_construction": true,
+    "corrected_strict_minimum_rate_threshold_computation": true,
+    "full_frozen_profile_policy_disruption_grid": true,
+    "p3_vs_p1_prespecified_comparisons": true,
+    "profile_burden_ordering_checks": true,
+    "independent_case_level_audit": true,
+    "independent_strict_bound_audit": true,
+    "deterministic_second_execution": true,
+    "byte_identical_output_comparison": true,
+    "canonical_result_package_creation": true,
+    "canonical_result_artifact_upload": true,
+    "post_run_result_audit": true,
+    "result_freeze_pr_preparation": true
+  },
+  "still_not_authorized": {
+    "source_api_requery_or_rematerialization": true,
+    "follow_additional_satnogs_cursor_pages": true,
+    "modify_POP002_membership": true,
+    "modify_TRACE002_rows": true,
+    "modify_frozen_Study8": true,
+    "modify_Acta_submitted_package": true,
+    "alter_canonical_endpoint_definitions_during_execution": true,
+    "alter_runner_or_model_during_execution": true,
+    "drop_cases_or_anchors_after_endpoint_inspection": true,
+    "reuse_S8E_CANON_GOLIVE_001": true,
+    "manuscript_integration_before_corrected_result_freeze": true,
+    "publisher_submission": true
+  },
+  "fail_closed_conditions": [
+    "Any frozen input/hash/blob identity mismatch.",
+    "Any S8E-CANON-GOLIVE-002 authorization-id mismatch.",
+    "Any runner, independent-bound auditor, or unit-test compilation failure.",
+    "Any primary/reference case mismatch.",
+    "Any primary/independent sufficient-bound mismatch.",
+    "Any threshold postcondition failure.",
+    "Any non-byte-identical result between deterministic execution pass 1 and pass 2.",
+    "Any repository tracked-file drift during the workflow."
+  ],
+  "execution_sequence": [
+    "Merge S8E-CANON-GOLIVE-002 only after exact-head governance and full repository validation pass.",
+    "Verify post-merge repository CI on the exact go-live-002 merge commit.",
+    "Create and merge a one-time S8E-CANON-ACTIVATE-002 record bound to the exact validated go-live-002 main commit.",
+    "Dispatch the hardened canonical workflow with authorization_id=S8E-CANON-GOLIVE-002 exactly once from the activation commit.",
+    "Accept outputs only if corrected execution passes independent bound audit, independent case audit, deterministic repeat comparison, packaging, upload, and repository-drift checks.",
+    "Audit and hash-bind the result artifact before any scientific result freeze or manuscript integration."
+  ],
+  "result_merge_authorization": false,
+  "manuscript_integration_authorization": false,
+  "publisher_submission_authorization": false
+}
