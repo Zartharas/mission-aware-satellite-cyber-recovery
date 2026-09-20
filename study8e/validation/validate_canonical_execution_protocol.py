@@ -126,11 +126,65 @@ def main() -> int:
     current_go_live = None
     if current_go_live_path.exists():
         current_go_live = load(current_go_live_path)
+        require(current_go_live["schema"] == 1, "go-live 002 schema drift")
+        require(current_go_live["experiment_id"] == "S8E-ECTV-001", "go-live 002 experiment drift")
         require(current_go_live["authorization_id"] == "S8E-CANON-GOLIVE-002", "go-live 002 id drift")
         require(current_go_live["status"] == "AUTHORIZED", "go-live 002 status drift")
         require(current_go_live["canonical_execution_authorized"] is True, "go-live 002 missing execution authorization")
+        require(current_go_live["authorized_repair_main"] == "475dd2e9a54ebe086169cc7fe92f4a372356274d", "go-live 002 repaired main drift")
+        require(current_go_live["authorized_repair_post_merge_validation"]["workflow_run"] == 35531560263, "go-live 002 repair validation run drift")
+        require(current_go_live["authorized_repair_post_merge_validation"]["conclusion"] == "success", "go-live 002 repair validation conclusion drift")
         require(current_go_live["protocol_id"] == protocol["protocol_id"], "go-live 002 protocol drift")
         require(current_go_live["runner_freeze"] == runner["freeze_id"], "go-live 002 runner drift")
+        require(current_go_live["population_freeze"] == population["freeze_id"], "go-live 002 population drift")
+        require(current_go_live["trace_freeze"] == trace["freeze_id"], "go-live 002 trace drift")
+        require(current_go_live["implementation_freeze"] == implementation["freeze_id"], "go-live 002 implementation drift")
+
+        frozen = current_go_live["frozen_input_identity"]
+        require(frozen["trace_artifact_workflow_run"] == protocol["frozen_inputs"]["trace_artifact_workflow_run"], "go-live 002 trace workflow drift")
+        require(frozen["trace_artifact_id"] == protocol["frozen_inputs"]["trace_artifact_id"], "go-live 002 trace artifact drift")
+        require(frozen["trace_artifact_zip_sha256"] == protocol["frozen_inputs"]["trace_artifact_zip_sha256"], "go-live 002 trace ZIP drift")
+        require(frozen["trace_manifest_sha256"] == protocol["frozen_inputs"]["trace_manifest_sha256"], "go-live 002 trace manifest drift")
+        require(frozen["trace_jsonl_sha256"] == protocol["frozen_inputs"]["trace_jsonl_sha256"], "go-live 002 trace JSONL drift")
+        require(frozen["trace_records"] == protocol["frozen_inputs"]["trace_records"] == 476, "go-live 002 trace record drift")
+        require(frozen["trace_pairs"] == protocol["frozen_inputs"]["trace_pairs"] == 20, "go-live 002 trace pair drift")
+        require(frozen["canonical_runner_git_blob_sha1"] == runner["files"]["study8e/analysis/run_canonical_execution.py"]["git_blob_sha1"], "go-live 002 runner blob drift")
+        require(frozen["independent_bound_git_blob_sha1"] == runner["files"]["study8e/audit/independent_canonical_bound.py"]["git_blob_sha1"], "go-live 002 independent-bound blob drift")
+        require(frozen["canonical_runner_test_git_blob_sha1"] == runner["files"]["study8e/tests/test_canonical_execution_runner.py"]["git_blob_sha1"], "go-live 002 runner-test blob drift")
+        require(frozen["canonical_workflow_git_blob_sha1"] == runner["files"][".github/workflows/study8e-canonical-execution.yml"]["git_blob_sha1"], "go-live 002 workflow blob drift")
+        require(frozen["study8e_primary_model_git_blob_sha1"] == protocol["frozen_inputs"]["implementation_primary_git_blob_sha1"], "go-live 002 primary model blob drift")
+        require(frozen["study8e_independent_reference_git_blob_sha1"] == protocol["frozen_inputs"]["implementation_reference_git_blob_sha1"], "go-live 002 reference model blob drift")
+
+        prior = current_go_live["prior_execution_closeout"]
+        require(prior["authorization_id"] == "S8E-CANON-GOLIVE-001", "go-live 002 prior authorization drift")
+        require(prior["workflow_run"] == 35529423881, "go-live 002 prior run drift")
+        require(prior["disposition"] == "INVALIDATED_BEFORE_RESULT_FREEZE", "go-live 002 prior result disposition drift")
+        require(prior["reusable_for_reexecution"] is False, "go-live 002 improperly reuses prior authorization")
+
+        repaired = current_go_live["repaired_contract"]
+        require(repaired["defect_id"] == "S8E-CANON-BOUND-DEFECT-001", "go-live 002 defect binding drift")
+        require(repaired["corrected_formula"] == "floor(8*B/d_min)+1", "go-live 002 corrected formula drift")
+        require(repaired["exact_regression_old_bound_bps"] == 23968, "go-live 002 old regression bound drift")
+        require(repaired["exact_regression_corrected_bound_bps"] == 23969, "go-live 002 corrected regression bound drift")
+        require(repaired["independent_bound_audit_required"] is True, "go-live 002 independent bound audit disabled")
+
+        scope = current_go_live["authorized_scope"]
+        require(scope["real_TRACE002_timing_endpoint_computation"] is True, "go-live 002 timing scope missing")
+        require(scope["corrected_strict_minimum_rate_threshold_computation"] is True, "go-live 002 corrected threshold scope missing")
+        require(scope["independent_case_level_audit"] is True, "go-live 002 independent case audit missing")
+        require(scope["independent_strict_bound_audit"] is True, "go-live 002 independent bound audit scope missing")
+        require(scope["deterministic_second_execution"] is True, "go-live 002 repeat execution scope missing")
+        require(scope["canonical_result_artifact_upload"] is True, "go-live 002 result artifact scope missing")
+
+        guards = current_go_live["still_not_authorized"]
+        require(guards["source_api_requery_or_rematerialization"] is True, "go-live 002 source requery guard missing")
+        require(guards["modify_TRACE002_rows"] is True, "go-live 002 TRACE-002 mutation guard missing")
+        require(guards["modify_frozen_Study8"] is True, "go-live 002 Study 8 mutation guard missing")
+        require(guards["alter_runner_or_model_during_execution"] is True, "go-live 002 runner mutation guard missing")
+        require(guards["reuse_S8E_CANON_GOLIVE_001"] is True, "go-live 002 old authorization reuse guard missing")
+        require(current_go_live["result_merge_authorization"] is False, "go-live 002 improperly authorizes result merge")
+        require(current_go_live["manuscript_integration_authorization"] is False, "go-live 002 improperly authorizes manuscript integration")
+        require(current_go_live["publisher_submission_authorization"] is False, "go-live 002 improperly authorizes publisher submission")
     else:
         require(not current_activation_path.exists(), "activation 002 exists before go-live 002")
 
