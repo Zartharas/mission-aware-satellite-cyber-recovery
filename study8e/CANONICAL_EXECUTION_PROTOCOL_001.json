@@ -288,5 +288,5 @@
     "real_trace_execution_allowed_by_current_authorization": false,
     "scientific_endpoint_computation_before_go_live": "PROHIBITED"
   },
-  "runner_freeze": "S8E-CANON-RUNNER-002"
+  "runner_freeze": "S8E-CANON-RUNNER-003"
 }
