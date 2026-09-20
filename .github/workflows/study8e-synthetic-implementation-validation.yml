@@ -35,7 +35,7 @@ jobs:
       - name: Run independent synthetic equivalence audit
         run: |
           mkdir -p study8e/evidence/implementation_freeze
-          python study8e/validation/run_synthetic_implementation_audit.py \
+          python -m study8e.validation.run_synthetic_implementation_audit \
             --output study8e/evidence/implementation_freeze/synthetic_equivalence_audit.json
       - uses: actions/upload-artifact@v4
         with:
