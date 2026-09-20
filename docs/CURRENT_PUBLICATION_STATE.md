@@ -69,7 +69,7 @@ Durable Study-7 evidence:
 
 The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory is historical, unsubmitted Paper-3 development provenance only. It is superseded by the CEAS package and must not be treated as a current venue package.
 
-## Current post-rejection Study 8 / Study 8E gate
+## Current post-rejection Study 8 gate and Study 8E extension
 
 **Immediate active publication-development priority:** formal review of the corrected Study 8E canonical result package, followed by a paper-architecture decision before venue lock.
 
