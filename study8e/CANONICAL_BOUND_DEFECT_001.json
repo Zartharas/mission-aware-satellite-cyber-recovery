@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "defect_id": "S8E-CANON-BOUND-DEFECT-001",
+  "date_local": "2026-09-20",
+  "status": "SCIENTIFIC_PROTOCOL_DEFECT_DETECTED_AFTER_EXECUTION_BEFORE_RESULT_FREEZE",
+  "affected_protocol": "S8E-CANON-EXEC-001",
+  "affected_runner_freeze": "S8E-CANON-RUNNER-003",
+  "affected_results_id": "S8E-CANON-RESULTS-001",
+  "mathematical_defect": {
+    "prior_formula": "U = ceil(8 * B / d_min)",
+    "success_rule": "TRUST_RESTORED must complete strictly before the horizon.",
+    "issue": "When 8*B/d_min is an integer and the shortest effective future window terminates at the horizon, U provides exactly B modeled bytes over exactly d_min seconds. Completion can occur exactly at the horizon and therefore fails the strict success rule even though U+1 bps succeeds.",
+    "corrected_formula": "U_strict = floor(8 * B / d_min) + 1",
+    "proof_obligation": "Because U_strict is strictly greater than 8B/d_min, transmitting B modeled bytes takes strictly less than d_min. Since every positive future window has duration >= d_min, byte capacity is non-limiting strictly before the end of any such window. Remaining A2/A3 infeasibility at U_strict can therefore only arise from required later-window/event ordering."
+  },
+  "exact_regression_example": {
+    "trace_selection_order": 5,
+    "anchor_id": "TRACE05-A010",
+    "anchor_time_utc": "2026-06-18T21:22:04Z",
+    "horizon_hours": 12,
+    "disruption": "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+    "profile": "PROFILE_512_44",
+    "effective_future_window_seconds": 5,
+    "base_transition_bytes": 12560,
+    "largest_object_bytes": 2420,
+    "a1_total_burden_bytes": 14980,
+    "prior_bound_bps": 23968,
+    "prior_bound_completion_relation": "exactly_at_horizon",
+    "prior_bound_success": false,
+    "corrected_bound_bps": 23969,
+    "corrected_bound_expected_success": true
+  },
+  "known_affected_groups": [
+    {
+      "trace_selection_order": 5,
+      "anchor_id": "TRACE05-A005",
+      "anchor_time_utc": "2026-06-15T21:23:04Z",
+      "horizon_hours": 12,
+      "disruption": "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+      "profiles": [
+        {
+          "profile": "PROFILE_768_65",
+          "prior_bound_bps": 27692
+        },
+        {
+          "profile": "PROFILE_1024_87",
+          "prior_bound_bps": 38484
+        }
+      ],
+      "policies": [
+        "P0_HARD_CUTOVER",
+        "P1_STAGED_CUTOVER",
+        "P2_HYBRID_OVERLAP",
+        "P3_CONTACT_AWARE_STAGED"
+      ],
+      "affected_case_count": 8
+    },
+    {
+      "trace_selection_order": 5,
+      "anchor_id": "TRACE05-A010",
+      "anchor_time_utc": "2026-06-18T21:22:04Z",
+      "horizon_hours": 12,
+      "disruption": "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+      "profiles": [
+        {
+          "profile": "PROFILE_512_44",
+          "prior_bound_bps": 23968
+        }
+      ],
+      "policies": [
+        "P0_HARD_CUTOVER",
+        "P1_STAGED_CUTOVER",
+        "P2_HYBRID_OVERLAP",
+        "P3_CONTACT_AWARE_STAGED"
+      ],
+      "affected_case_count": 4
+    },
+    {
+      "trace_selection_order": 5,
+      "anchor_id": "TRACE05-A015",
+      "anchor_time_utc": "2026-06-21T21:20:53Z",
+      "horizon_hours": 12,
+      "disruption": "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+      "profiles": [
+        {
+          "profile": "PROFILE_512_44",
+          "prior_bound_bps": 29960
+        },
+        {
+          "profile": "PROFILE_768_65",
+          "prior_bound_bps": 41538
+        },
+        {
+          "profile": "PROFILE_1024_87",
+          "prior_bound_bps": 57726
+        }
+      ],
+      "policies": [
+        "P0_HARD_CUTOVER",
+        "P1_STAGED_CUTOVER",
+        "P2_HYBRID_OVERLAP",
+        "P3_CONTACT_AWARE_STAGED"
+      ],
+      "affected_case_count": 12
+    }
+  ],
+  "post_run_audit": {
+    "invalidated_nonfinite_count": 47760,
+    "nonfinite_recovery_deadline_exceeded_at_bound": 24,
+    "all_recovery_deadline_exceeded_bound_cases_are_A1": true,
+    "profile_ordering_violations": 4,
+    "primary_reference_case_mismatches": 0,
+    "interpretation": "Primary/reference agreement did not detect the defect because both threshold searches were evaluated against the same defective protocol-level upper bound."
+  },
+  "required_repairs": [
+    "Change sufficient-bound formula to floor(8*B/d_min)+1 using exact Fraction arithmetic.",
+    "Add exact-divisibility strict-horizon regression tests.",
+    "Add an independent sufficient-bound computation/check so protocol-bound defects are separately audited.",
+    "Issue a new canonical runner freeze; do not rewrite S8E-CANON-RUNNER-003.",
+    "Invalidate the first canonical result package before any scientific freeze.",
+    "Require a new post-repair go-live authorization before real TRACE-002 reexecution."
+  ],
+  "parent_study_impact": "NONE"
+}
