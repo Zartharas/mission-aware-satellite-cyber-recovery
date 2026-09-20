@@ -69,15 +69,21 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate
 
-**Immediate active publication-development priority:** Paper 4 / Study 8 post-rejection improvement and retargeting audit.
+**Immediate active publication-development priority:** Paper 4 / Study 8 venue-lock decision and controlled manuscript rebuild after completed post-rejection audit.
 
-Paper 4 / Study 8 is eligible for a controlled retargeting audit. No fallback venue is automatically activated. Before a new venue is selected, perform a forensic quality review of the exact submitted manuscript, distinguish presentation/venue-fit issues from scientific limitations, and perform a fresh live literature and venue review. Do not rerun or reanalyze the frozen study merely to improve publication prospects.
+The forensic quality audit found no demonstrated defect in the frozen 3,456-position science. It identified substantial manuscript-level improvements that can be made without scientific reexecution and concluded that a manuscript-only retarget is scientifically defensible.
 
-Canonical resubmission handoff:
+Canonical audit records:
 
-`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
+- `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
 
-The current authorization covers forensic manuscript review, literature/novelty review, manuscript-improvement planning, and venue research/shortlisting. It does not authorize new scientific execution, statistical reanalysis outside the frozen plan, final venue lock, or publisher submission.
+The live venue review recommends **International Journal of Satellite Communications and Networking** as the strongest current topical fit, with **IEEE Systems Journal** as the systems-oriented fallback. This recommendation is not yet a venue lock.
+
+The next controlled gate is explicit author approval of the target venue. After venue lock, create a new venue-specific derivative manuscript package. Preserve the frozen target-neutral Study 8 source package and the rejected Acta package unchanged.
+
+No new scientific execution, statistical reanalysis outside the frozen plan, or publisher submission is authorized by this status update.
 
 **Terminology:** Paper 4 is the Study 8 publication. Study 4 / `S4-MPQ-001` is a different frozen study already included in submitted Paper 2 / TAES and is not part of this resubmission task.
 
