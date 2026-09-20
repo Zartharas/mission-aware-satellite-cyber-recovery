@@ -75,11 +75,18 @@ The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/
 
 This is the **immediate active publication-development priority**.
 
-Study 8 may now undergo a controlled forensic manuscript/venue audit. The rejected Acta package remains immutable provenance. A retargeted package may improve presentation, framing, literature positioning, explanatory depth, figures/tables, and venue formatting without changing frozen science. No fallback venue is automatically selected.
+The post-rejection forensic manuscript audit, literature/novelty review, and live venue shortlist are complete. The audit found no demonstrated defect in the frozen Study 8 science and concluded that a manuscript-only retarget is scientifically defensible.
 
-Canonical handoff:
+Current retarget authorities:
 
-`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+- `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
+- `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
+- `publication/Paper_4_Study_8/RETARGET_MANUSCRIPT_REBUILD_PLAN_2026-09-19.md`
+
+The live shortlist recommends **International Journal of Satellite Communications and Networking** as the strongest current topical fit, with **IEEE Systems Journal** as the systems-oriented fallback. This recommendation is not a venue lock.
+
+The next controlled gate is explicit author approval of the target venue. After venue lock, create a new venue-specific derivative package and rebuild the manuscript from frozen Study 8 evidence. Do not overwrite the rejected Acta package or rerun/reanalyze frozen science merely to improve publication prospects.
 
 Paper 4 is the Study 8 publication. Do not confuse it with Study 4 / `S4-MPQ-001`, which is already part of submitted Paper 2 / TAES.
 
@@ -87,9 +94,9 @@ Paper 4 is the Study 8 publication. Do not confuse it with Study 4 / `S4-MPQ-001
 
 Paper 3 and Study 7 are no longer candidates. They are consumed by the submitted CEAS publication line.
 
-This remaining-study audit is deferred while the Paper 4 / Study 8 post-rejection audit is active, unless the author explicitly reprioritizes it. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+This remaining-study audit is deferred while the Paper 4 / Study 8 venue-lock and controlled-rebuild gate is active, unless the author explicitly reprioritizes it. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
 
-No next venue or manuscript package is currently locked. Fresh novelty, overlap, reproducibility, claim-boundary, and live-venue review are required before a new publication branch is created.
+No new independent venue or manuscript package is currently locked. Fresh novelty, overlap, reproducibility, claim-boundary, and live-venue review are required before a later independent publication branch is created.
 
 ## Current-state authority order
 
