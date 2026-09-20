@@ -57,7 +57,7 @@ class Study8EImplementationFreezeTests(unittest.TestCase):
             policy="P1_STAGED_CUTOVER",
             disruption="A2_DELAY_FIRST_TRANSITION_PROOF_ONE_CONTACT",
             horizon_us=3_000_000,
-            rate_bps=1,
+            rate_bps=8,
             windows=_windows((0, 1), (1_000_000, 2_000_000)),
         )
         row = primary.evaluate_case(case)
