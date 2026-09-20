@@ -2,7 +2,7 @@
 
 **Experiment:** `S8E-ECTV-001`  
 **Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_AUDITED__FORMAL_RESULT_FREEZE_PENDING`
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__MANUSCRIPT_ARCHITECTURE_PENDING`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -21,7 +21,8 @@ This file is the primary current-state handoff for Study 8E. Historical protocol
 8. `S8E-CANON-RUNNER-004` is the corrected canonical runner. It repairs the strict-before-horizon sufficient-bound defect and adds an independent bound audit.
 9. First canonical result package `S8E-CANON-RESULTS-001` is invalidated before scientific freeze.
 10. Corrected canonical execution under `S8E-CANON-GOLIVE-002` completed successfully as GitHub Actions run `35536583594`.
-11. Corrected result package `S8E-CANON-RESULTS-002` has been independently audited and hash-bound in `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`. Formal result freeze is still pending explicit author approval.
+11. Corrected result package `S8E-CANON-RESULTS-002` has been independently audited and hash-bound in `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`.
+12. Formal result freeze `S8E-CANON-RESULTS-002-FREEZE-001` binds the immutable corrected artifact and exact hashes without rewriting the Actions artifact. Manuscript integration remains unauthorized.
 
 ## Corrected canonical execution
 
@@ -99,11 +100,11 @@ The corrected artifact has one non-scientific metadata inconsistency:
 - `CANONICAL_FINDINGS.json` correctly reports `results_id = S8E-CANON-RESULTS-002`;
 - `RESULTS_HASH_MANIFEST.json` retains the stale label `results_id = S8E-CANON-RESULTS-001`.
 
-The hashes inside the manifest correspond to the corrected result files. The immutable Actions artifact is not rewritten. `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json` is the authoritative external binding of the corrected artifact to `S8E-CANON-RESULTS-002` pending formal result freeze.
+The hashes inside the manifest correspond to the corrected result files. The immutable Actions artifact is not rewritten. `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json` records the pre-freeze audit, and `CANONICAL_RESULTS_002_FREEZE.json` is the formal authority binding the corrected artifact to `S8E-CANON-RESULTS-002`. The stale label is accepted as a documented non-scientific packaging metadata defect and does not authorize a rerun.
 
 ## Claim boundary
 
-Permitted after formal result freeze:
+Frozen scientific content that may be used only after separate manuscript-integration authorization:
 
 - observation-opportunity timing descriptors for TRACE-002;
 - finite/non-finite modeled recovery-threshold counts;
@@ -127,14 +128,17 @@ Still prohibited:
 
 ## Current gate
 
-**Formal corrected-result freeze is not yet completed.**
+**Formal corrected-result freeze is complete under `S8E-CANON-RESULTS-002-FREEZE-001`.**
+
+The freeze does not authorize manuscript integration, scientific reanalysis, TRACE-002 reexecution, venue lock, or publisher submission.
 
 Next controlled sequence:
 
-1. review `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`;
-2. explicitly authorize or reject formal result freeze;
-3. if authorized, create a result-freeze record that binds the corrected artifact/hashes without rewriting the immutable Actions artifact;
-4. only after formal result freeze, decide Study 8 versus Study 8E manuscript architecture;
-5. then perform manuscript integration/reframing, live venue assessment, venue lock, final package preparation, and publisher submission under separate gates.
+1. decide whether Study 8E is integrated into a rebuilt Paper 4 or developed as a separately governed companion paper;
+2. record that manuscript-architecture decision explicitly;
+3. only then perform manuscript integration/reframing;
+4. perform live venue assessment and venue lock after the architecture is fixed;
+5. prepare any derivative submission package under separate authorization;
+6. require separate explicit final authorization before publisher submission.
 
-Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit execution authorization is granted.
+Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit scientific-execution authorization is granted.
