@@ -34,7 +34,7 @@ def main() -> int:
     population = load(root / "study8e/SATNOGS_POPULATION_FREEZE_002.json")
     trace = load(root / "study8e/SATNOGS_TRACE_ARTIFACT_FREEZE_002.json")
     impl = load(root / "study8e/IMPLEMENTATION_FREEZE_001.json")
-    runner = load(root / "study8e/CANONICAL_RUNNER_FREEZE_002.json")
+    runner = load(root / "study8e/CANONICAL_RUNNER_FREEZE_003.json")
 
     require(protocol["protocol_id"] == "S8E-CANON-EXEC-001", "protocol id drift")
     require(protocol["frozen_inputs"]["population_freeze"] == population["freeze_id"], "population mismatch")
