@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "activation_id": "S8E-CANON-ACTIVATE-002",
+  "authorization_id": "S8E-CANON-GOLIVE-002",
+  "date_local": "2026-09-20",
+  "status": "AUTHORIZED_ONE_TIME_ACTIVATION",
+  "validated_go_live_main": "aa29d4ecac056f4984d3cc0d787fc5085bd5d28b",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "runner_freeze": "S8E-CANON-RUNNER-004",
+  "population_freeze": "S8E-SATNOGS-POP-002",
+  "trace_freeze": "S8E-SATNOGS-TRACE-002",
+  "canonical_execution_workflow": ".github/workflows/study8e-canonical-execution.yml",
+  "dispatch_input": {
+    "authorization_id": "S8E-CANON-GOLIVE-002"
+  },
+  "activation_scope": "Dispatch the already authorized corrected canonical TRACE-002 workflow exactly once after this activation merges directly on top of the validated GO_LIVE_002 commit.",
+  "scientific_code_changed": false,
+  "frozen_evidence_changed": false,
+  "result_freeze_authorized": false,
+  "manuscript_integration_authorized": false,
+  "publisher_submission_authorized": false
+}
