@@ -17,15 +17,15 @@
     "purpose": "Test external timing/contact-trace sensitivity without rewriting the frozen 3,456-position Study 8 record."
   },
   "research_questions": {
-    "RQ1": "What contact-window duration, inter-contact-gap, contact-count, and clustering structure is observed in prospectively selected public satellite contact traces under a frozen source-selection rule?",
-    "RQ2": "For the frozen Study 8 cryptographic transition-object bundles replayed over externally observed contact windows, what minimum uniform effective payload rate is required to reach TRUST_RESTORED within each extension-only elapsed-time horizon?",
-    "RQ3": "Under the same externally observed timing traces and transition-object requirements, do the four frozen Study 8 policy semantics change the minimum-rate feasibility threshold or primarily redistribute transition-state costs and terminal failure classifications?",
+    "RQ1": "What observation-opportunity duration, inter-opportunity-gap, window-count, and gap-variability structure is observed in prospectively selected public satellite observation traces under a frozen source-selection rule?",
+    "RQ2": "For the frozen Study 8 cryptographic transition-object bundles replayed over externally observed observation-opportunity windows, what minimum hypothetical uniform effective payload rate is required to reach TRUST_RESTORED within each extension-only elapsed-time horizon?",
+    "RQ3": "Under the same externally observed observation-opportunity timing traces and transition-object requirements, do the four frozen Study 8 policy semantics change the minimum-rate feasibility threshold or primarily redistribute transition-state costs and terminal failure classifications?",
     "RQ4": "Which qualitative Study 8 findings remain directionally consistent, differ, or become non-identifiable when synthetic contact timing is replaced by external contact timing, without pooling the two evidence populations?"
   },
   "primary_candidate_sources": [
     {
       "source_id": "SATNOGS_NETWORK_2026H1",
-      "role": "PRIMARY_EXTERNAL_CONTACT_WINDOW_SOURCE",
+      "role": "PRIMARY_EXTERNAL_OBSERVATION_OPPORTUNITY_SOURCE",
       "source": "SatNOGS Network observations API",
       "source_url": "https://network.satnogs.org/api/observations/",
       "documentation_url": "https://librespacefoundation.gitlab.io/satnogs/satnogs-network/api.html",
@@ -122,25 +122,26 @@
     ]
   },
   "contact_trace_mapping": {
-    "satnogs_contact_window": "For a valid selected observation, use source start and end as the external timing window. The window establishes timing availability only.",
+    "satnogs_observation_opportunity_window": "For a valid selected observation, use source start and end as an external observation-opportunity timing window. This is a timing proxy only and does not establish a physical, authenticated, bidirectional, or operational command contact.",
     "overlap_rule": "Within one selected norad_cat_id x ground_station trace, overlapping or directly abutting source windows are merged into one union interval for timing arithmetic; source observation IDs remain retained for provenance.",
     "cross_station_merge_primary": false,
     "cross_satellite_merge_primary": false,
     "capacity_inference_from_source_metadata": false,
-    "uniform_effective_payload_rate_definition": "A hypothetical constant net payload bit rate available only during accepted contact windows. It is a solved threshold parameter, not an observed SatNOGS throughput.",
+    "uniform_effective_payload_rate_definition": "A hypothetical constant net payload bit rate made available by the extension model only during accepted observation-opportunity windows. It is a solved threshold parameter, not an observed SatNOGS throughput or measured link capacity.",
     "crypto_objects": "Reuse exact frozen Study 8 standardized cryptographic-object byte requirements read-only.",
     "policy_semantics": "Reuse the four frozen Study 8 policy/state semantics read-only under a separately versioned extension runner.",
     "disruption_semantics": "Reuse A0-A3 mechanistically only after an extension-specific implementation test proves their event ordering is unambiguous under continuous elapsed time.",
     "extension_elapsed_time_horizons_hours": [6, 12, 24],
     "horizon_boundary": "TRUST_RESTORED must occur strictly before anchor_time + horizon.",
-    "anchor_rule": "Each accepted external contact-window end time is a candidate compromise anchor. Only anchors with complete source coverage through the full 24-hour follow-up horizon are eligible for all primary horizon comparisons.",
+    "anchor_rule": "Each accepted merged external observation-opportunity window end time is a candidate compromise anchor. Only anchors with complete source coverage through the full 24-hour follow-up horizon are eligible for all primary horizon comparisons.",
     "same_window_reuse_after_anchor": false
   },
   "primary_endpoints": [
-    "per_trace_contact_window_count",
-    "per_trace_contact_duration_distribution",
-    "per_trace_inter_contact_gap_distribution",
-    "per_trace_clustering_summary_under_predeclared_rules",
+    "per_trace_observation_opportunity_window_count",
+    "per_trace_observation_opportunity_duration_distribution",
+    "per_trace_inter_opportunity_gap_distribution",
+    "per_trace_inter_opportunity_gap_coefficient_of_variation",
+    "per_trace_inter_opportunity_gap_burstiness_index",
     "minimum_uniform_effective_payload_rate_bps_required_for_trust_restored_by_profile_policy_disruption_horizon_anchor",
     "finite_count_and_fraction_of_anchors_feasible_at_any_finite_rate_under_available_windows",
     "matched_P3_minus_P1_minimum_rate_threshold_difference",
@@ -183,7 +184,7 @@
     "No modification of S8-ACTA-PKGFREEZE-002 submitted publisher files or hashes.",
     "No external row access before source-selection and mapping freeze is merged.",
     "No capacity inference from SatNOGS transmitter_baud.",
-    "No assumption that a SatNOGS observation window is an authenticated/bidirectional command window.",
+    "No assumption that a SatNOGS observation-opportunity window is a physical, authenticated, bidirectional, or operational command window.",
     "No use of OPS-SAT reception timestamps as independent replication of SatNOGS without provenance qualification.",
     "No use of LENS throughput as spacecraft TT&C throughput.",
     "No physical-time reinterpretation of original Study 8 logical slots.",
