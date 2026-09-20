@@ -44,7 +44,7 @@ jobs:
           assert doc.get("schema") == 1
           assert doc.get("experiment_id") == "S8E-ECTV-001"
           assert doc.get("protocol_id") == "S8E-CANON-EXEC-001"
-          assert doc.get("runner_freeze") == "S8E-CANON-RUNNER-002"
+          assert doc.get("runner_freeze") == "S8E-CANON-RUNNER-003"
           assert doc.get("status") == "AUTHORIZED"
           assert doc.get("authorization_id") == os.environ["REQUESTED_AUTHORIZATION_ID"]
           assert doc.get("canonical_execution_authorized") is True
