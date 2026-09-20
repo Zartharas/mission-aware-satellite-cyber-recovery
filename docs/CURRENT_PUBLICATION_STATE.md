@@ -6,7 +6,7 @@ This is the canonical cross-publication handoff for the `mission-aware-satellite
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active with their publishers. Paper 4 / Study 8 was rejected by Acta Astronautica and is frozen pending a controlled post-rejection audit and retargeting decision.
+The repository has **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active with their publishers. Paper 4 / Study 8 was rejected by Acta Astronautica; its controlled post-rejection forensic and venue audits are complete, and it is now pending an explicit venue-lock decision before a new derivative manuscript package is created.
 
 ### Paper 1 - Studies 1 + 2
 
