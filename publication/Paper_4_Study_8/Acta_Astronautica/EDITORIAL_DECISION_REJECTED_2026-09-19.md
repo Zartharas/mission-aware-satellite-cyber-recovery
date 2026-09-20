@@ -7,6 +7,11 @@
 **Submitted:** 2026-09-06  
 **Decision recorded from author-provided email:** 2026-09-19  
 **Outcome:** Rejected
+**Decision level:** Editorial / desk rejection
+**External peer review:** No reviewer reports supplied; no evidence of external review in the supplied decision
+**Editor:** Zheng Hong (George) Zhu, PhD, Editor-in-Chief
+**Stated rationale:** The manuscript did not meet the journal's required quality standards.
+**Detailed technical comments:** None supplied
 
 ## Decision record
 
@@ -30,6 +35,15 @@ The rejection does not alter:
 - the five submitted publisher-facing file SHA-256 identities.
 
 No scientific reexecution, statistical reanalysis, endpoint change, or frozen-science modification is authorized by this decision.
+
+## Closeout controls
+
+- frozen science modified: false
+- scientific reexecution performed: false
+- statistical reanalysis performed: false
+- submitted publisher-facing files modified: false
+- package freeze remains: `S8-ACTA-PKGFREEZE-002`
+- submitted publisher-facing SHA-256 identities changed: false
 
 ## Next gate
 
