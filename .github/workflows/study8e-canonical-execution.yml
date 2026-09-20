@@ -2,6 +2,11 @@ name: Study 8E canonical TRACE-002 execution
 
 on:
   workflow_dispatch:
+    inputs:
+      authorization_id:
+        description: "Merged Study 8E canonical execution authorization ID"
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -23,6 +28,27 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
+
+      - name: Require merged explicit canonical execution go-live authorization
+        env:
+          REQUESTED_AUTHORIZATION_ID: ${{ inputs.authorization_id }}
+        run: |
+          set -euo pipefail
+          test -f study8e/CANONICAL_EXECUTION_GO_LIVE.json
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          path = Path("study8e/CANONICAL_EXECUTION_GO_LIVE.json")
+          doc = json.loads(path.read_text(encoding="utf-8"))
+          assert doc.get("schema") == 1
+          assert doc.get("experiment_id") == "S8E-ECTV-001"
+          assert doc.get("protocol_id") == "S8E-CANON-EXEC-001"
+          assert doc.get("runner_freeze") == "S8E-CANON-RUNNER-002"
+          assert doc.get("status") == "AUTHORIZED"
+          assert doc.get("authorization_id") == os.environ["REQUESTED_AUTHORIZATION_ID"]
+          assert doc.get("canonical_execution_authorized") is True
+          PY
 
       - name: Verify frozen protocol and implementation blobs
         run: |
