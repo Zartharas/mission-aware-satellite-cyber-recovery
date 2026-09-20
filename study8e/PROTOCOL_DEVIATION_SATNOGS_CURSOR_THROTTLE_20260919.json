@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "deviation_id": "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001",
+  "recorded_date_local": "2026-09-19",
+  "status": "PROSPECTIVE_SOURCE_ACQUISITION_DEVIATION__BEFORE_TIMING_ENDPOINT_INSPECTION",
+  "trigger": {
+    "description": "The merged protocol assumed exhaustive enumeration of all June 2026 SatNOGS norad_cat_id x ground_station pairs before deterministic hash ranking. Live source/schema verification established that the production observations endpoint uses fixed 25-record cursor pages. Official SatNOGS Network 1.134 source establishes default GET throttles of 60/hour anonymous and 240/hour authenticated. Exhaustively crawling the global month through the public anonymous API would be disproportionate and could burden the service.",
+    "live_probe_workflow_run": 35490130712,
+    "live_probe_artifact_id": 10598628041,
+    "live_probe_artifact_zip_sha256": "f7a8b6afb787391cad26c4df639b877e912960223f155a174fa614bda6b41240",
+    "live_probe_response_sha256": "d7f9b231c42dbbb924251c0140fbfeb37d3c7c457facf45387baac2049213745",
+    "live_probe_observed_records_per_page": 25,
+    "live_probe_link_cursor_present": true,
+    "satnogs_source_release": "1.134",
+    "satnogs_source_commit": "9c55e92850b4f5c11c52a72371685fb8cfff1507",
+    "source_config_workflow_run": 35490243682,
+    "source_config_artifact_id": 10597984203,
+    "source_config_artifact_zip_sha256": "56aacd0da294f56c42c779e5ae2c7b68c5294dbe200bddfc9c2df10c7fb56283",
+    "source_config_report_sha256": "ed66a95ba42390438b1c28a4f430d9f1a23f5648948d27dbefd9134e69bfa16a",
+    "official_source_findings": {
+      "observation_cursor_page_size": 25,
+      "observation_cursor_ordering": ["-start", "-end"],
+      "anonymous_observation_get_default_rate": "60/hour",
+      "authenticated_observation_get_default_rate": "240/hour"
+    }
+  },
+  "pre_deviation_information_state": {
+    "study8e_timing_endpoints_computed": false,
+    "study8e_recovery_endpoints_computed": false,
+    "duration_distribution_inspected": false,
+    "inter_opportunity_gap_distribution_inspected": false,
+    "burstiness_or_gap_variability_inspected": false,
+    "policy_or_profile_outcomes_inspected": false,
+    "candidate_pair_identities_persisted": false,
+    "first_probe_row_values_persisted": false
+  },
+  "superseded_population_discovery_rule": {
+    "rule": "Enumerate every June 2026 norad_cat_id x ground_station pair with at least 20 observations, rank every qualifying pair by SHA256('SATNOGS|' + norad_cat_id + '|' + ground_station), then apply the 32-pair and two-per-entity caps.",
+    "reason_superseded": "Public API pagination/throttling makes exhaustive global-month enumeration an unnecessarily burdensome acquisition strategy."
+  },
+  "replacement_population_discovery_rule": {
+    "purpose": "Create a deterministic, prospectively defined candidate universe with bounded public-API traffic while preserving identifier-only selection and the original >=20-observation eligibility threshold and entity caps.",
+    "discovery_strata": 10,
+    "stratum_definition": "Ten non-overlapping three-day strata covering June 1-30, 2026 UTC.",
+    "seed_window_algorithm": "For stratum index i=0..9, compute SHA256('S8E-SEED|2026-06|' + i). Select day = stratum_start_day + digest_byte_0 mod stratum_day_count. Select one 10-minute UTC slot from 144 daily slots using big-endian digest bytes 1:3 mod 144.",
+    "frozen_seed_windows_utc": [
+      ["2026-06-02T15:50:00Z", "2026-06-02T16:00:00Z"],
+      ["2026-06-05T21:20:00Z", "2026-06-05T21:30:00Z"],
+      ["2026-06-08T07:30:00Z", "2026-06-08T07:40:00Z"],
+      ["2026-06-12T04:20:00Z", "2026-06-12T04:30:00Z"],
+      ["2026-06-13T05:00:00Z", "2026-06-13T05:10:00Z"],
+      ["2026-06-16T11:30:00Z", "2026-06-16T11:40:00Z"],
+      ["2026-06-21T00:50:00Z", "2026-06-21T01:00:00Z"],
+      ["2026-06-22T06:10:00Z", "2026-06-22T06:20:00Z"],
+      ["2026-06-26T01:00:00Z", "2026-06-26T01:10:00Z"],
+      ["2026-06-28T22:10:00Z", "2026-06-28T22:20:00Z"]
+    ],
+    "candidate_discovery_request_rule": "Issue exactly one observations-API request per frozen seed window and use only the first cursor page. Persist only id, norad_cat_id, and ground_station for candidate discovery. start/end may be parsed only to confirm source-window membership/validity and are not emitted as endpoint evidence.",
+    "candidate_pool": "Deduplicate norad_cat_id x ground_station pairs observed on the ten frozen seed pages.",
+    "candidate_rank": "SHA256('SATNOGS|' + norad_cat_id + '|' + ground_station) ascending.",
+    "qualification_rule": "Traverse ranked candidates. Before a request, skip a candidate if admitting it would violate the maximum-two-per-NORAD or maximum-two-per-station cap. For each evaluated candidate, issue exactly one June-month query filtered by norad_cat_id and ground_station. The pair qualifies if the first response contains at least 20 records. Because the production page size is 25, a full 25-record first page is sufficient proof that the >=20 threshold is met; no timing values or later pages are needed for qualification.",
+    "target_selected_pairs": 32,
+    "maximum_pairs_per_norad_cat_id": 2,
+    "maximum_pairs_per_ground_station": 2,
+    "hard_request_cap_for_selection_run": 50,
+    "request_budget_allocation": {
+      "seed_discovery_requests": 10,
+      "maximum_candidate_qualification_requests": 40
+    },
+    "stop_rule": "Stop immediately when 32 pairs have been admitted or when the 50-request cap is reached. If fewer than 32 pairs are admitted, freeze the incomplete result as observed and do not tune seed windows, thresholds, ranks, or caps in response.",
+    "forbidden_selection_inputs": [
+      "contact duration",
+      "inter-opportunity gap",
+      "clustering",
+      "status outcome",
+      "transmitter baud",
+      "recovery result",
+      "policy result",
+      "profile result"
+    ]
+  },
+  "claim_boundary_effect": {
+    "global_satnogs_june_population_claim_permitted": false,
+    "representative_sample_claim_permitted": false,
+    "selected_population_description": "Prospectively defined deterministic rate-bounded SatNOGS trace-pair population discovered from ten frozen June seed windows and qualified only by identifier, count threshold, deterministic rank, and entity caps.",
+    "study8_frozen_claims_changed": false,
+    "acta_package_changed": false
+  },
+  "next_gate": "EXECUTE_IDENTIFIER_ONLY_RATE_BOUNDED_PAIR_SELECTION__NO_TIMING_ENDPOINTS"
+}
