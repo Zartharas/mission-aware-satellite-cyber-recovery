@@ -59,6 +59,8 @@ STUDY2_RECORD_ID = 22289114
 STUDY2_VERSION = "1.0.0"
 
 PAPER1_ID = "2026-09-I012066"
+PAPER2_ID = "cd1dfa89-4a24-4451-bdd4-af31ce3367f4"
+PAPER3_ID = "6db04a31-8223-4aaf-af02-e4bafe06ef89"
 PAPER4_ID = "AA-D-26-02872"
 
 
@@ -196,15 +198,20 @@ def main() -> int:
         if all(marker in text for marker in required):
             ok("Discussion formal-verification limitation is explicit")
 
-    # Current cross-publication state must now reflect both submitted papers and the next unsent unit.
+    # Current cross-publication state must reflect the four submitted publication lines and the active Paper-4 retarget gate.
     check_text(
         "docs/CURRENT_PUBLICATION_STATE.md",
         errors,
         required=(
+            "**Current-state date:** 2026-09-19",
             PAPER1_ID,
+            PAPER2_ID,
+            PAPER3_ID,
             PAPER4_ID,
             "REJECTED__EDITORIAL_DECISION",
-            "### Paper 2 - Studies 3 + 4 + 6",
+            "Immediate active publication-development priority",
+            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+            "DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE",
         ),
         forbidden=(
             "publisher submission and portal action remain separately gated",
@@ -215,18 +222,69 @@ def main() -> int:
         "docs/RESEARCH_PROGRAM_PROVENANCE_AND_PUBLICATION_ROADMAP.md",
         errors,
         required=(
-            "**Current-state document - 2026-09-06**",
+            "**Current-state document - 2026-09-19**",
             PAPER1_ID,
+            PAPER2_ID,
+            PAPER3_ID,
             PAPER4_ID,
-            "This is the next active publication-development priority.",
+            "REJECTED__EDITORIAL_DECISION",
+            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+            "Paper 4 / Study 8 post-rejection manuscript improvement and retargeting",
             STUDY2_VERSION_DOI,
         ),
         forbidden=(
+            "**Current-state document - 2026-09-06**",
             "**Current-state document — 2026-09-04**",
-            "Close Paper 1 submission preparation now",
-            "Continue Study-8 venue-specific preparation",
+            "Current Editorial Manager status:** `With Editor`",
+            "This is the next active publication-development priority.",
+            "Begin Paper 2 by auditing",
         ),
     )
+    check_text(
+        "README.md",
+        errors,
+        required=(
+            PAPER1_ID,
+            PAPER2_ID,
+            PAPER3_ID,
+            PAPER4_ID,
+            "The immediate active publication-development priority is **Paper 4 / Study 8 post-rejection improvement and retargeting**.",
+            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+        ),
+        forbidden=(
+            "The next publication gate is a **read-only audit of remaining eligible work**",
+        ),
+    )
+    check_text(
+        "docs/REPRODUCIBILITY_GUIDE.md",
+        errors,
+        required=(
+            PAPER4_ID,
+            "current status: `Rejected` / `REJECTED__EDITORIAL_DECISION`",
+            "Paper 4 / Study 8 post-rejection audit and retargeting workflow",
+            "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
+        ),
+        forbidden=(
+            "current status: `With Editor`",
+            "The next unsent publication priority is the Studies 3 + 4 + 6 synthesis",
+        ),
+    )
+    check_text(
+        "tracker/README.md",
+        errors,
+        required=(
+            PAPER1_ID,
+            PAPER2_ID,
+            PAPER3_ID,
+            PAPER4_ID,
+            "Immediate active publication-development priority",
+            "Paper 4 / Study 8 post-rejection forensic manuscript, literature/novelty, and live venue audit.",
+        ),
+        forbidden=(
+            "Current next publication-development priority:\n\n- Paper 2:",
+        ),
+    )
+
     check_text(
         "publication/submission/computers-and-security/venue-fit.md",
         errors,
@@ -350,7 +408,7 @@ def main() -> int:
     print("active_publication_state=PASS_STALE_STATE_CLEAN")
     print(f"paper1_manuscript_id={PAPER1_ID}")
     print(f"paper4_manuscript_id={PAPER4_ID}")
-    print("next_publication_unit=Paper2_Studies3_4_6")
+    print("next_publication_unit=Paper4_Study8_PostRejectionRetargetAudit")
     print("study2_doi_state=PUBLIC_DURABLE_ARCHIVE_PUBLISHED_AND_PUBLIC_BYTES_VERIFIED")
     print(f"study2_version_doi={STUDY2_VERSION_DOI}")
     print(f"study2_concept_doi={STUDY2_CONCEPT_DOI}")
