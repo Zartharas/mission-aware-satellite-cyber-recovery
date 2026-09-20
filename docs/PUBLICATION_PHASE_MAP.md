@@ -42,10 +42,16 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       State: Technical check
 |
 +-- PHASE 5 - NEXT ACTIVE GATE
+|   +-- PAPER 4 / STUDY 8 POST-REJECTION RETARGET AUDIT
+|       Acta manuscript: AA-D-26-02872
+|       State: POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT
+|       Handoff: publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md
+|
++-- PHASE 6 - DEFERRED
     +-- REMAINING-CANDIDATE AUDIT
         +-- Study 5 / S5-CUCD-001
         +-- any other still-eligible repository study not consumed by Papers 1, 2, 3, or 4
-        State: READ_ONLY_CANDIDATE_SELECTION_REQUIRED
+        State: DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE
 ```
 
 ## Phase 1 - Paper 1
@@ -113,9 +119,23 @@ No Paper-3 scientific or publisher-facing artifact should change unless CEAS req
 
 Acta manuscript `AA-D-26-02872` is closed by rejection. No fallback venue is automatically activated. Before any retargeting, audit the submitted manuscript for presentation, framing, literature-positioning, and venue-fit weaknesses while preserving the frozen scientific record and negative primary result. A fresh live venue review is required before a new venue lock.
 
-## Phase 5 - Remaining-candidate audit
+## Phase 5 - Paper 4 / Study 8 post-rejection retarget audit
 
-The next publication is not preselected.
+This is the immediate active publication-development gate.
+
+Canonical handoff:
+
+`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+
+The work begins with a forensic audit of the exact rejected Acta manuscript, followed by fresh literature/novelty review and live venue assessment. The Acta package remains immutable provenance and the frozen Study 8 science must not be rerun or reanalyzed merely to improve publication prospects.
+
+Paper 4 is the Study 8 publication. Study 4 / `S4-MPQ-001` belongs to submitted Paper 2 / TAES and is outside this resubmission gate.
+
+A new target venue is not yet locked. Final venue lock and any publisher submission remain separate explicit author-approval gates.
+
+## Phase 6 - Remaining-candidate audit
+
+The next independent publication after the active Paper-4 retarget decision is not preselected.
 
 Known remaining work includes Study 5 / `S5-CUCD-001` plus any other repository experiment that is complete, provenance-bound, scientifically independent, and not already consumed by Papers 1, 2, 3, or 4.
 
@@ -123,13 +143,14 @@ The next-paper audit must include fresh literature review, novelty/self-overlap 
 
 Study 5 remains a portability/external-validity boundary study and must not be misrepresented as measuring detector accuracy, recall, false-positive rate, or packet-level recovery effectiveness.
 
-## Recommended operational order from 2026-09-13
+## Recommended operational order from 2026-09-19
 
 1. Keep Papers 1, 2, and 3 frozen while their journal workflows proceed; keep the rejected Paper-4 Acta package frozen as provenance.
-2. Record publisher status changes without modifying submitted scientific packages.
-3. Start the next publication only with a read-only audit of remaining eligible studies from clean `main`.
-4. Select a candidate publication boundary before creating any new venue branch.
+2. Perform the Paper-4 / Study-8 post-rejection forensic manuscript audit from clean `main`.
+3. Perform fresh literature/novelty and live venue review before selecting a retarget venue.
+4. Present the revision plan and recommended target to the author before creating a new venue-specific package.
 5. Keep actual publisher submission as a separate explicit author-authorization gate.
+6. Resume the remaining-study candidate audit after the Paper-4 retarget decision unless the author explicitly reprioritizes it.
 
 ## Governance rules
 
@@ -149,4 +170,5 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, rejected | Post-rejection forensic manuscript/venue audit before retargeting |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
 | 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, Technical check | Wait for journal action |
-| 5 | Next independent candidate | Remaining eligible studies | Not venue-locked | Read-only candidate audit |
+| 5 | Paper 4 retarget | Study 8 | Acta rejected; next venue not locked | Forensic manuscript/literature/venue audit |
+| 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |

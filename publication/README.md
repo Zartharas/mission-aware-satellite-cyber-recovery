@@ -73,13 +73,21 @@ The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/
 
 ## Study 8 post-rejection gate
 
-Study 8 may now undergo a controlled forensic manuscript/venue audit. The rejected Acta package remains immutable provenance. A retargeted package may improve presentation, framing, literature positioning, and venue formatting without changing frozen science. No fallback venue is automatically selected.
+This is the **immediate active publication-development priority**.
 
-## Next independent publication work
+Study 8 may now undergo a controlled forensic manuscript/venue audit. The rejected Acta package remains immutable provenance. A retargeted package may improve presentation, framing, literature positioning, explanatory depth, figures/tables, and venue formatting without changing frozen science. No fallback venue is automatically selected.
+
+Canonical handoff:
+
+`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+
+Paper 4 is the Study 8 publication. Do not confuse it with Study 4 / `S4-MPQ-001`, which is already part of submitted Paper 2 / TAES.
+
+## Deferred independent publication work
 
 Paper 3 and Study 7 are no longer candidates. They are consumed by the submitted CEAS publication line.
 
-The next action is a read-only audit over the remaining eligible work, including Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+This remaining-study audit is deferred while the Paper 4 / Study 8 post-rejection audit is active, unless the author explicitly reprioritizes it. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
 
 No next venue or manuscript package is currently locked. Fresh novelty, overlap, reproducibility, claim-boundary, and live-venue review are required before a new publication branch is created.
 

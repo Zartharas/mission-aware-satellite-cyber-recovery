@@ -69,13 +69,23 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate
 
-Paper 4 / Study 8 is eligible for a controlled retargeting audit. No fallback venue is automatically activated. Before a new venue is selected, perform a forensic quality review of the submitted manuscript, distinguish presentation/venue-fit issues from scientific limitations, and perform a fresh live venue review. Do not rerun or reanalyze the frozen study merely to improve publication prospects.
+**Immediate active publication-development priority:** Paper 4 / Study 8 post-rejection improvement and retargeting audit.
 
-## Next independent publication work
+Paper 4 / Study 8 is eligible for a controlled retargeting audit. No fallback venue is automatically activated. Before a new venue is selected, perform a forensic quality review of the exact submitted manuscript, distinguish presentation/venue-fit issues from scientific limitations, and perform a fresh live literature and venue review. Do not rerun or reanalyze the frozen study merely to improve publication prospects.
+
+Canonical resubmission handoff:
+
+`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+
+The current authorization covers forensic manuscript review, literature/novelty review, manuscript-improvement planning, and venue research/shortlisting. It does not authorize new scientific execution, statistical reanalysis outside the frozen plan, final venue lock, or publisher submission.
+
+**Terminology:** Paper 4 is the Study 8 publication. Study 4 / `S4-MPQ-001` is a different frozen study already included in submitted Paper 2 / TAES and is not part of this resubmission task.
+
+## Deferred independent publication work
 
 Paper 3 is no longer a candidate or development item. Study 7 is consumed by the submitted CEAS paper and must not be reused as new experimental evidence in another publication.
 
-The next independent publication action is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
+The remaining-study candidate audit is deferred while the Paper 4 / Study 8 post-rejection resubmission audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
 
 - Study 5 / `S5-CUCD-001`, a separately frozen portability/external-validity boundary study;
 - any other demonstrably complete repository experiment not already consumed by Papers 1, 2, 3, or 4.

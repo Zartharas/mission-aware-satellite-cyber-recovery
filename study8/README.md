@@ -199,6 +199,12 @@ The historical campaign/analysis/freeze executors remain provenance. Their prese
 
 Study 8 is now closed at Acta by editorial rejection. The rejected submission package remains frozen as provenance.
 
+Canonical post-rejection continuation handoff:
+
+`../publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+
+**Terminology safeguard:** this is roadmap Paper 4 based on Study 8. It is not Study 4 / `S4-MPQ-001`, which is already part of submitted Paper 2 / TAES.
+
 The next Study 8 gate is a post-rejection forensic manuscript and venue audit. Do not automatically reuse the unchanged Acta manuscript at a fallback journal. First determine whether presentation, framing, literature positioning, venue fit, or a genuine scientific limitation requires action. Because the decision did not specify a methodological defect, do not invent one.
 
 Any retargeted venue-specific package must preserve the frozen 3,456-position science and exact negative primary result. A new venue lock and a future publisher submission require explicit author approval.
