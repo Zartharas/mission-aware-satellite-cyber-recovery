@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER4_REBUILT_STUDY8_STUDY8E",
+  "date_local": "2026-09-21",
+  "status": "VENUE_NEUTRAL_MANUSCRIPT_INTEGRATION_IN_PROGRESS",
+  "source_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
+  "branch": "paper4/rebuilt-study8-8e-manuscript",
+  "architecture": "STUDY8_PLUS_STUDY8E_REBUILT_PAPER4",
+  "working_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
+  "frozen_science": {
+    "study8": "S8-PQC-ICR-001",
+    "study8e": "S8E-ECTV-001",
+    "study8e_results_freeze": "S8E-CANON-RESULTS-002-FREEZE-001"
+  },
+  "populations_pooled": false,
+  "logical_slot_to_physical_time_conversion": false,
+  "external_replication_claim": false,
+  "acta_rejected_package_modified": false,
+  "paper5_science_imported": false,
+  "new_scientific_analysis_authorized": false,
+  "manuscript_integration_authorized": true,
+  "venue_locked": false,
+  "publisher_submission_authorized": false,
+  "next_gate": "MANUSCRIPT_INTEGRATION_REVIEW_AND_QA"
+}
