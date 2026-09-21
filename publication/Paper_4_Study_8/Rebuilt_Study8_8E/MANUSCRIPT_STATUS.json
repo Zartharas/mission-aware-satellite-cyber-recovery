@@ -4,7 +4,7 @@
   "date_local": "2026-09-21",
   "base_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
   "branch": "paper4/execute-rebuilt-study8-8e-manuscript",
-  "status": "VENUE_NEUTRAL_REBUILT_MANUSCRIPT_AUTHOR_SCIENTIFIC_REVIEW_R1_PASS__LIVE_VENUE_ASSESSMENT_PENDING",
+  "status": "VENUE_NEUTRAL_REBUILT_MANUSCRIPT_LIVE_VENUE_ASSESSMENT_R1_COMPLETE__VENUE_LOCK_PENDING",
   "authorization_basis": "Author explicitly authorized execution of the rebuilt Paper 4 Study 8 + Study 8E manuscript integration plan after PR #153 merged and post-merge main CI passed.",
   "architecture": {
     "study8": "S8-PQC-ICR-001",
@@ -39,9 +39,9 @@
     "new_scientific_execution_authorized": false,
     "venue_lock_authorized": false,
     "publisher_submission_authorized": false,
-    "live_venue_assessment_authorized": false
+    "live_venue_assessment_authorized": true
   },
-  "next_gate": "EXPLICIT_LIVE_VENUE_ASSESSMENT_AUTHORIZATION",
+  "next_gate": "EXPLICIT_PAPER4_VENUE_LOCK_DECISION",
   "review": {
     "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
     "status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
@@ -49,5 +49,12 @@
     "bibliography_correction": "NIST CSWP 39upd1 coauthor corrected from Lidong Chen to Lily Chen",
     "frozen_science_modified": false,
     "paper5_evidence_imported": false
+  },
+  "live_venue_assessment": {
+    "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md",
+    "status": "LIVE_VENUE_ASSESSMENT_COMPLETE__IJSCCN_PREFERRED__VENUE_NOT_LOCKED",
+    "preferred_candidate": "International Journal of Satellite Communications and Networking",
+    "strongest_fallback": "Computer Networks",
+    "security_fallback": "International Journal of Information Security"
   }
 }
