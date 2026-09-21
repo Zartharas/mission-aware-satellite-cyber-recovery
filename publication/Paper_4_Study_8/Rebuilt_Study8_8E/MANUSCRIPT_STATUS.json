@@ -4,7 +4,7 @@
   "date_local": "2026-09-21",
   "base_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
   "branch": "paper4/execute-rebuilt-study8-8e-manuscript",
-  "status": "VENUE_LOCKED_IJSCCN__VENUE_SPECIFIC_PACKAGE_PREPARATION_PENDING",
+  "status": "IJSCCN_CORE_PACKAGE_R1_FROZEN__AUTHOR_PHOTO_PENDING__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "authorization_basis": "Author explicitly authorized execution of the rebuilt Paper 4 Study 8 + Study 8E manuscript integration plan after PR #153 merged and post-merge main CI passed.",
   "architecture": {
     "study8": "S8-PQC-ICR-001",
@@ -16,12 +16,13 @@
   "manuscript": {
     "path": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
     "working_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
-    "venue_neutral": true,
+    "venue_neutral": false,
     "venue_locked": true,
     "title_locked": false,
     "locked_venue": "International Journal of Satellite Communications and Networking",
     "locked_venue_abbreviation": "IJSCCN",
-    "venue_lock_record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md"
+    "venue_lock_record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md",
+    "venue_specific_derivative_path": "publication/Paper_4_Study_8/IJSCCN/"
   },
   "evidence": {
     "study8_modified": false,
@@ -43,9 +44,9 @@
     "venue_lock_authorized": true,
     "publisher_submission_authorized": false,
     "live_venue_assessment_authorized": true,
-    "venue_specific_package_preparation_authorized": false
+    "venue_specific_package_preparation_authorized": true
   },
-  "next_gate": "EXPLICIT_IJSCCN_VENUE_SPECIFIC_PACKAGE_PREPARATION_AUTHORIZATION",
+  "next_gate": "AUTHOR_PACKAGE_REVIEW_AND_PHOTO__THEN_SEPARATE_WILEY_PORTAL_SUBMISSION_AUTHORIZATION",
   "review": {
     "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
     "status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
@@ -60,5 +61,16 @@
     "preferred_candidate": "International Journal of Satellite Communications and Networking",
     "strongest_fallback": "Computer Networks",
     "security_fallback": "International Journal of Information Security"
+  },
+  "package_freeze": {
+    "freeze_id": "P4-IJSCCN-PKG-R1-FREEZE-001",
+    "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md",
+    "package_source_commit": "6553be414fd1bc598218501971872ff644dee8c8",
+    "workflow_run": 35632266523,
+    "artifact_id": 10655615285,
+    "artifact_digest_sha256": "ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37",
+    "core_package_frozen": true,
+    "author_photo_pending": true,
+    "scientific_reanalysis_performed": false
   }
 }
