@@ -3,7 +3,7 @@
   "experiment_id": "S8E-ECTV-001",
   "record_id": "S8E-NEW-CHAT-HANDOFF-001",
   "date_local": "2026-09-20",
-  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_VENUE_LOCKED__VENUE_SPECIFIC_PACKAGE_PENDING",
+  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_CORE_PACKAGE_QA_PASSED__AUTHOR_PHOTO_PENDING",
   "authoritative_files": [
     "study8e/CURRENT_EXTENSION_STATE.md",
     "publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md",
@@ -25,7 +25,7 @@
     "artifact_zip_sha256": "3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee",
     "scientific_output_status": "FORMALLY_FROZEN"
   },
-  "current_gate": "EXPLICIT_IJSCCN_VENUE_SPECIFIC_PACKAGE_PREPARATION_AUTHORIZATION",
+  "current_gate": "IJSCCN_PACKAGE_REVIEW__AUTHOR_PHOTO__THEN_SEPARATE_PUBLISHER_SUBMISSION_AUTHORIZATION",
   "manuscript_integration_authorized": true,
   "publisher_submission_authorized": false,
   "result_freeze": {
@@ -44,16 +44,18 @@
     "manuscript_integration_plan": "publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md",
     "manuscript_integration_plan_status": "EXECUTED__VENUE_NEUTRAL_MANUSCRIPT_CREATED",
     "manuscript_path": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
-    "manuscript_status": "VENUE_LOCKED_IJSCCN__VENUE_SPECIFIC_PACKAGE_PREPARATION_PENDING",
+    "manuscript_status": "IJSCCN_PACKAGE_R1_CORE_FILES_QA_PASSED__AUTHOR_PHOTO_PENDING",
     "author_scientific_review": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
     "author_scientific_review_status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
     "live_venue_assessment": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md",
     "live_venue_assessment_status": "LIVE_VENUE_ASSESSMENT_COMPLETE__IJSCCN_PREFERRED__VENUE_NOT_LOCKED",
     "locked_venue": "International Journal of Satellite Communications and Networking",
     "locked_venue_abbreviation": "IJSCCN",
-    "venue_lock_record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md"
+    "venue_lock_record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md",
+    "ijsccn_package_path": "publication/Paper_4_Study_8/IJSCCN/",
+    "ijsccn_package_status": "CORE_FILES_QA_PASSED__FINAL_EXACT_HEAD_ARTIFACT_BINDING_PENDING"
   },
   "live_venue_assessment_authorized": true,
   "venue_lock_authorized": true,
-  "venue_specific_package_preparation_authorized": false
+  "venue_specific_package_preparation_authorized": true
 }
