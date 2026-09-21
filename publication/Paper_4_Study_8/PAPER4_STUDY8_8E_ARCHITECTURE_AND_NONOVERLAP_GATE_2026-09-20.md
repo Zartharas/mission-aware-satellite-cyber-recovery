@@ -64,6 +64,7 @@ Study 8E asks whether the frozen Study-8 transition semantics remain feasible or
 
 Its frozen corrected evidence includes:
 
+- formal result freeze: `S8E-CANON-RESULTS-002-FREEZE-001`;
 - `S8E-SATNOGS-POP-002`;
 - `S8E-SATNOGS-TRACE-002`;
 - 20 satellite-station trace pairs;
@@ -95,7 +96,8 @@ The combined paper is therefore centered on:
 Paper 5 / Study 9 is:
 
 - **Experiment:** `S9-RTSI-001`
-- **Title:** *Recovery-State Semantic Interoperability and Decision Identifiability Across Public Space-Cyber Datasets*
+- **Study 9 protocol title:** *Recovery-State Transfer and Semantic Interoperability Across Public Space-Cyber Datasets*
+- **Paper 5 manuscript title:** *Recovery-State Semantic Interoperability and Decision Identifiability Across Public Space-Cyber Datasets*
 - **Target manuscript line:** Cyber Security and Applications
 
 Its scientific question is different:
