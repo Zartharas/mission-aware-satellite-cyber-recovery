@@ -12,7 +12,7 @@
 | Ghosh_Nath_2026 | International Journal of Satellite Communications and Networking 44(5), 524–543, DOI 10.1002/sat.70041. | Lattice/PQC satellite analysis and overhead context. |
 | GSMA_PQ07_2026 | GSMA PQ.07, published 2026-02-06. | NTN migration, long-lifecycle, processing, interoperability, PKI, and hybrid-transition context. |
 | Eichen_etal_2026 | arXiv:2607.23007. | Bandwidth/power-constrained PQ authentication and key-management context. Must be labeled preprint. |
-| DeZuane_etal_2026 | arXiv:2605.28660. | Quantum-safe IKE for satellite communications; protocol/resource/hybrid-transition adjacent work. Must be labeled preprint. |
+| DeZuane_etal_2026 | IEEE LANMAN 2026, pp. 1–6, DOI 10.1109/LANMAN69841.2026.11623493. | Peer-reviewed quantum-safe IKE for satellite communications; protocol/resource/hybrid-transition adjacent work. |
 | Mahn_Muller_Zielinski_2025 | ESA Security for Space Systems (3S). | Space-specific crypto-agility terminology and update/fallback context. |
 | Robles_etal_2025 | ESA Security for Space Systems (3S). | High-assurance PQC software-defined-payload implementation context. |
 | SATNOGS_API_2026 | SatNOGS Network 1.134 API documentation. | Supports API/open-data description and observation-field semantics only. |
@@ -45,7 +45,7 @@ The defensible combined contribution is narrower:
 - https://onlinelibrary.wiley.com/doi/10.1002/sat.70041
 - https://www.gsma.com/solutions-and-impact/technologies/security/gsma_resources/post-quantum-cryptography-for-non-terrestrial-networks-pq-07/
 - https://arxiv.org/abs/2607.23007
-- https://arxiv.org/abs/2605.28660
+- https://doi.org/10.1109/LANMAN69841.2026.11623493
 - https://security4space.esa.int/2025/papers/41/
 - https://security4space.esa.int/2025/papers/47/
 - https://librespacefoundation.gitlab.io/satnogs/satnogs-network/api.html
