@@ -4,7 +4,7 @@
   "date_local": "2026-09-21",
   "base_main_commit": "71dc8912d17d4dac1977bc90ce5fad0708fd96af",
   "branch": "paper4/prepare-ijsccn-package-r1",
-  "status": "IJSCCN_PACKAGE_PREPARATION_IN_PROGRESS__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+  "status": "IJSCCN_PACKAGE_R1_CONTENT_AND_VISUAL_QA_PASSED__FINAL_EXACT_HEAD_BUILD_PENDING",
   "target_journal": "International Journal of Satellite Communications and Networking",
   "publisher": "Wiley",
   "journal_guidelines": "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
@@ -30,5 +30,17 @@
     "Recent author photograph",
     "Corresponding-author telephone if requested by Wiley portal"
   ],
-  "next_gate": "IJSCCN_PACKAGE_FILE_QA_AND_FREEZE__THEN_SEPARATE_PUBLISHER_SUBMISSION_AUTHORIZATION"
+  "next_gate": "FINAL_EXACT_HEAD_IJSCCN_PACKAGE_BUILD_AND_REPOSITORY_QA__THEN_PACKAGE_FREEZE_REVIEW",
+  "qa": {
+    "manuscript_render_pages": 25,
+    "manuscript_visual_inspection": "PASS",
+    "figures_visual_inspection": "PASS",
+    "figure_tiff_dpi": 600,
+    "references_visual_inspection": "PASS",
+    "gtoc_visual_inspection": "PASS",
+    "scientific_reanalysis_performed": false,
+    "candidate_build_run": 35621798205,
+    "candidate_artifact_id": 10649611764,
+    "candidate_artifact_digest_sha256": "16c47420c22ce8296367cd5d5dce2ce7967a364e34522a35b84cab818437aa72"
+  }
 }
