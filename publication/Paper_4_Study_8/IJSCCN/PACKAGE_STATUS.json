@@ -4,7 +4,7 @@
   "date_local": "2026-09-21",
   "base_main_commit": "71dc8912d17d4dac1977bc90ce5fad0708fd96af",
   "branch": "paper4/prepare-ijsccn-package-r1",
-  "status": "IJSCCN_PACKAGE_R1_CONTENT_AND_VISUAL_QA_PASSED__FINAL_EXACT_HEAD_BUILD_PENDING",
+  "status": "IJSCCN_PACKAGE_R1_CORE_FILES_QA_PASSED__AUTHOR_PHOTO_PENDING__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "target_journal": "International Journal of Satellite Communications and Networking",
   "publisher": "Wiley",
   "journal_guidelines": "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
@@ -27,10 +27,10 @@
     "publisher_submission_authorized": false
   },
   "external_author_items_pending": [
-    "Recent author photograph",
-    "Corresponding-author telephone if requested by Wiley portal"
+    "Recent author photograph required by IJSCCN",
+    "Corresponding-author telephone only if requested by Wiley portal"
   ],
-  "next_gate": "FINAL_EXACT_HEAD_IJSCCN_PACKAGE_BUILD_AND_REPOSITORY_QA__THEN_PACKAGE_FREEZE_REVIEW",
+  "next_gate": "FINAL_EXACT_HEAD_IJSCCN_PACKAGE_BUILD__THEN_PACKAGE_REVIEW_AND_SEPARATE_PUBLISHER_SUBMISSION_AUTHORIZATION",
   "qa": {
     "manuscript_render_pages": 25,
     "manuscript_visual_inspection": "PASS",
