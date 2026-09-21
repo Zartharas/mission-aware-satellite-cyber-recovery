@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "record_id": "P4-IJSCCN-PACKAGE-R1",
+  "date_local": "2026-09-21",
+  "base_main_commit": "71dc8912d17d4dac1977bc90ce5fad0708fd96af",
+  "branch": "paper4/prepare-ijsccn-package-r1",
+  "status": "IJSCCN_PACKAGE_PREPARATION_IN_PROGRESS__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+  "target_journal": "International Journal of Satellite Communications and Networking",
+  "publisher": "Wiley",
+  "journal_guidelines": "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
+  "source_manuscript": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
+  "derivative_manuscript": "publication/Paper_4_Study_8/IJSCCN/MANUSCRIPT_IJSCCN.md",
+  "requirements": {
+    "abstract_word_limit": 250,
+    "derivative_abstract_words": 213,
+    "keyword_limit": 8,
+    "derivative_keywords": 8,
+    "short_title_char_limit": 70,
+    "derivative_short_title_chars": 63,
+    "gtoc_required": true,
+    "biography_required": true,
+    "recent_photo_required": true,
+    "data_availability_required": true
+  },
+  "authorization": {
+    "venue_specific_package_preparation_authorized": true,
+    "publisher_submission_authorized": false
+  },
+  "external_author_items_pending": [
+    "Recent author photograph",
+    "Corresponding-author telephone if requested by Wiley portal"
+  ],
+  "next_gate": "IJSCCN_PACKAGE_FILE_QA_AND_FREEZE__THEN_SEPARATE_PUBLISHER_SUBMISSION_AUTHORIZATION"
+}
