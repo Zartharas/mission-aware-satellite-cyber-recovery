@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
-from docx.shared import Inches, Pt
+from docx.shared import Inches, Pt, RGBColor
 import bibtexparser
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -50,6 +50,8 @@ def apply_base_style(doc: Document):
     styles["Heading 1"].font.size = Pt(14)
     styles["Heading 2"].font.size = Pt(12)
     styles["Heading 3"].font.size = Pt(12)
+    for name in ["Heading 1", "Heading 2", "Heading 3"]:
+        styles[name].font.color.rgb = RGBColor(0, 0, 0)
 
 def add_formatted_runs(p, text: str):
     tick = "\x60"
@@ -98,35 +100,63 @@ def replace_citations(text: str, order):
         return "[" + ", ".join(nums) + "]"
     return re.sub(r"\[([^\]]*@[^]]+)\]", repl, text)
 
+def clean_latex_text(raw: str):
+    if not raw:
+        return ""
+    replacements = {
+        '{\"a}': 'ä',
+        '{\"u}': 'ü',
+        '{\"o}': 'ö',
+        '{\\\'e}': 'é',
+        '{\\\'a}': 'á',
+        '{\\\'i}': 'í',
+        '{\\\'o}': 'ó',
+        '{\\\'u}': 'ú',
+        '---': '—',
+        '--': '–',
+    }
+    text = raw
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = text.replace('{', '').replace('}', '')
+    text = text.replace('\\&', '&')
+    return text
+
 def normalize_author_names(raw: str):
     if not raw:
         return ""
-    parts = [p.strip() for p in raw.replace("\n", " ").split(" and ")]
+    parts = [clean_latex_text(p.strip()) for p in raw.replace("\n", " ").split(" and ")]
     return ", ".join(parts)
 
 def format_reference(entry):
     authors = normalize_author_names(entry.get("author") or entry.get("organization") or "")
-    title = entry.get("title","").strip("{}")
-    journal = entry.get("journal") or entry.get("institution") or entry.get("howpublished") or ""
+    title = clean_latex_text(entry.get("title",""))
+    journal = clean_latex_text(entry.get("journal") or entry.get("institution") or entry.get("howpublished") or "")
     year = entry.get("year","")
     volume = entry.get("volume","")
     number = entry.get("number","")
     pages = entry.get("pages","").replace("--","-")
     doi = entry.get("doi","")
     url = entry.get("url","")
+    note = clean_latex_text(entry.get("note",""))
+    std_number = clean_latex_text(entry.get("number",""))
     pieces = []
     if authors: pieces.append(authors.rstrip(".") + ".")
     if title: pieces.append(title.rstrip(".") + ".")
     tail = ""
-    if journal: tail += journal.strip("{}")
+    if journal: tail += journal
+    if std_number and std_number not in tail: tail += (" " if tail else "") + std_number
     if year: tail += (" " if tail else "") + year
     if volume:
         tail += f"; {volume}"
         if number: tail += f"({number})"
     if pages: tail += f": {pages}"
     if tail: pieces.append(tail.rstrip(".") + ".")
-    if doi: pieces.append("DOI: " + doi + ".")
-    elif url: pieces.append(url + ".")
+    if doi:
+        pieces.append("DOI: " + doi + ".")
+    elif url:
+        access = " Accessed 2026-09-21." if "access" not in note.lower() else " " + note.rstrip(".") + "."
+        pieces.append(url + "." + access)
     return " ".join(pieces)
 
 def make_figures():
@@ -140,15 +170,24 @@ def make_figures():
         "OLD EPOCH\nREVOKED",
         "TRUST\nRESTORED",
     ]
-    fig, ax = plt.subplots(figsize=(12, 3.0))
+    fig, ax = plt.subplots(figsize=(9.2, 5.2))
     ax.axis("off")
-    xs = [i/(len(states)-1) for i in range(len(states))]
-    for i,(x,s) in enumerate(zip(xs,states)):
-        ax.text(x, 0.5, s, ha="center", va="center", fontsize=8,
-                bbox=dict(boxstyle="round,pad=0.35", fill=False))
+    coords = [
+        (0.08,0.72),(0.36,0.72),(0.64,0.72),(0.92,0.72),
+        (0.92,0.28),(0.64,0.28),(0.36,0.28),(0.08,0.28),
+    ]
+    for i,((x,y),s) in enumerate(zip(coords,states)):
+        ax.text(x, y, s, ha="center", va="center", fontsize=9.5,
+                bbox=dict(boxstyle="round,pad=0.40", fill=False))
         if i < len(states)-1:
-            ax.annotate("", xy=(xs[i+1]-0.045,0.5), xytext=(x+0.045,0.5),
-                        arrowprops=dict(arrowstyle="->"))
+            nx,ny=coords[i+1]
+            if abs(ny-y) < 0.01:
+                direction = 1 if nx > x else -1
+                ax.annotate("", xy=(nx-0.09*direction,y), xytext=(x+0.09*direction,y),
+                            arrowprops=dict(arrowstyle="->"))
+            else:
+                ax.annotate("", xy=(nx,ny+0.09), xytext=(x,y-0.09),
+                            arrowprops=dict(arrowstyle="->"))
     ax.set_xlim(-0.04,1.04); ax.set_ylim(0,1)
     fig.tight_layout()
     fig.savefig(FIG/"Figure_1_Recovery_State_Machine.tiff", dpi=600, bbox_inches="tight")
@@ -239,12 +278,14 @@ def render_markdown_to_docx(md_text, output_docx, bib):
     order=citation_order(md_text)
     md_text=replace_citations(md_text,order)
     lines=md_text.splitlines()
+    abstract_idx = next((i for i, line in enumerate(lines) if line.strip() == "## Abstract"), 0)
+    lines = lines[abstract_idx:]
 
     doc=Document()
     apply_base_style(doc)
     add_title_page(doc)
 
-    skip_first_headers=2
+    skip_first_headers=0
     heading_seen=0
     inserted_fig1=inserted_fig2=inserted_fig3=False
 
