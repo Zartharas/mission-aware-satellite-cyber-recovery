@@ -14,7 +14,7 @@ Long-lived satellite systems may need to replace compromised cryptographic state
 
 In Study 8, all four policies restored modeled trust in 635/864 positions, and the prespecified contact-aware staged-minus-staged difference was exactly 0.000000 percentage points. Fixed-capacity success nevertheless declined with standardized transition-object burden: 93.7500% for ML-KEM-512/ML-DSA-44, 64.9306% for ML-KEM-768/ML-DSA-65, and 61.8056% for ML-KEM-1024/ML-DSA-87. Study 8E found a finite minimum hypothetical uniform effective payload-rate threshold in 17,640/65,376 cases (26.9824%), with finite thresholds from 48 to 57,727 modeled bit/s and a median of 345 bit/s. The finite fraction increased from 5.2863% at 6 h to 20.5947% at 12 h and 55.0661% at 24 h. P3 and P1 again showed no feasibility advantage: all 4,410 both-finite matched comparisons had exactly 0 bit/s threshold difference. Profile feasibility classification was identical, but the cryptographic-burden ordering was preserved in all 21,792 matched profile comparisons.
 
-Together, the studies distinguish two complementary questions: whether recovery fits within a fixed modeled contact budget and what modeled rate is required under an externally observed timing structure. The results show that a pre-commit guard does not create communication capacity; transition-object burden, temporal opportunity, and recovery horizon constrain modeled feasibility, while policy semantics primarily redistribute transition-state costs. SatNOGS observations are used only as public observation-opportunity timing proxies and are not treated as authenticated command contacts or measured link throughput.
+Together, the studies distinguish two complementary questions: whether recovery fits within a fixed modeled contact budget and what modeled rate is required under an externally observed timing structure. The results show that a pre-commit guard does not create communication capacity; transition-object burden, temporal opportunity, and recovery horizon constrain modeled feasibility, while policy semantics redistribute transition-state costs. SatNOGS observations are used only as public observation-opportunity timing proxies and are not treated as authenticated command contacts or measured link throughput.
 
 **Keywords:** post-quantum cryptography; cryptographic agility; ML-KEM; ML-DSA; satellite cybersecurity; post-compromise recovery; intermittent connectivity; SatNOGS; observation-opportunity timing; systems modeling
 
@@ -30,7 +30,7 @@ The space and non-terrestrial-network literature already addresses post-quantum 
 
 A narrower post-compromise systems question remains: if a trusted predecessor state can no longer be assumed, what determines whether a successor cryptographic epoch can be established before the available communication opportunity or recovery horizon is exhausted? That question requires more than a cryptographic benchmark. It couples transition-object burden, the temporal placement of communication opportunity, state-acceptance semantics, disruption, and deadline.
 
-A previous controlled study, Study 8, isolated this question using a deterministic finite logical-contact model. It found an exact negative primary result: a contact-aware pre-commit guard did not increase the probability of modeled trusted recovery relative to ordinary staged cutover. The strongest fixed-capacity differences were instead associated with standardized cryptographic-object burden, contact timing, and recovery deadline. That controlled design, however, intentionally used synthetic logical contact slots with no physical duration.
+A previous controlled study, Study 8, isolated this question using a deterministic finite logical-contact model. It found an exact negative primary result: a contact-aware pre-commit guard did not increase the modeled trusted-recovery proportion relative to ordinary staged cutover. The fixed-capacity results instead varied with standardized cryptographic-object burden, contact timing, and recovery deadline. That controlled design, however, intentionally used synthetic logical contact slots with no physical duration.
 
 The present rebuilt paper preserves Study 8 unchanged and adds a separately governed extension, Study 8E. Study 8E does not convert logical slots to seconds, modify the original population, or pool results. Instead, it applies the frozen transition-object requirements and policy semantics to a prospectively selected public SatNOGS observation-opportunity timing population and solves a different endpoint: the minimum hypothetical uniform effective payload rate required to restore modeled trust before an elapsed-time horizon.
 
@@ -249,7 +249,7 @@ This finding concerns transfer burden under the frozen contact model. It does no
 
 ### 4.7 Contact timing and logical recovery horizon
 
-Because all four contact regimes have the same 65,536-byte full-cycle nominal capacity, their different success proportions demonstrate that aggregate capacity alone does not determine deadline feasibility. The partitioning and temporal placement of capacity matter.
+Because all four contact regimes have the same 65,536-byte full-cycle nominal capacity, their different success proportions show that, within the frozen Study 8 model, equal aggregate capacity does not uniquely determine deadline feasibility. The partitioning and temporal placement of capacity also matter.
 
 The deadline gradient is also strong: P1/P3 success rises from 32.6389% at D12 to 87.8472% at D24 and 100% at D48.
 
@@ -365,7 +365,7 @@ Finite threshold fractions also differ by disruption schedule:
 - A2: 2,196/16,344 = 0.134361;
 - A3: 2,196/16,344 = 0.134361.
 
-The result shows that timing-sensitive disruption semantics can materially restrict the set of cases with a finite modeled rate under the available observation-opportunity windows. It does not estimate attack prevalence, mission risk, or real-world outage frequency.
+Within the frozen extension, A2 and A3 produce a smaller finite-threshold set than A0 and A1 under the specified timing and disruption mechanics. This does not estimate attack prevalence, mission risk, or real-world outage frequency.
 
 ### 5.10 Policy threshold comparison
 
@@ -443,7 +443,7 @@ The percentages cannot be directly compared because the endpoints and time repre
 
 Study 8 demonstrates under controlled conditions that equal aggregate full-cycle capacity does not imply equal deadline success when opportunity is partitioned and placed differently in logical time.
 
-Study 8E contributes separately sourced observation-opportunity timing with substantial variation in window duration and inter-opportunity gap structure. The extension therefore strengthens the evidence that temporal opportunity should be represented explicitly rather than reduced to an aggregate capacity number.
+Study 8E contributes separately sourced observation-opportunity timing with substantial variation in window duration and inter-opportunity gap structure. The extension therefore supports representing temporal opportunity explicitly rather than reducing the model to an aggregate capacity number.
 
 Study 8E does not establish that the SatNOGS traces are operational command schedules. It provides an external timing stress layer only.
 
@@ -479,7 +479,7 @@ The most consistent result across the two evidence layers is the absence of a P3
 
 Mechanistically, this is understandable. P3 can decide whether to enter the commit portion of the transition based on remaining nominal opportunity. That can reduce modeled transfer use, transition attempts, or change terminal classification. It cannot add a contact, enlarge a window, increase capacity, or shrink the cryptographic-object bundle.
 
-The negative result is therefore informative rather than a failed hypothesis. It distinguishes a **decision guard** from a **capacity-changing mechanism**. If a future recovery policy is expected to improve terminal feasibility, it would need to change scheduling, pre-staging, required artifacts, retransmission behavior, coding, directional transfer, or another mechanism that changes what can be delivered before the deadline.
+The negative result is therefore informative rather than a failed hypothesis. It distinguishes a **decision guard** from a **capacity-changing mechanism**. Within this model family, a future recovery policy intended to improve terminal feasibility would need to change at least one feasibility-driving mechanism, such as scheduling, pre-staging, required artifacts, retransmission behavior, coding, directional transfer, or another mechanism that changes what can be delivered before the deadline.
 
 ### 7.2 Fixed-capacity feasibility and required-rate burden are different system questions
 
@@ -503,7 +503,7 @@ The combined analysis provides a clearer engineering decomposition:
 
 Study 8 deliberately holds complete-cycle capacity constant while changing temporal distribution. The resulting success differences show that aggregate capacity is not sufficient under deadlines.
 
-Study 8E reinforces the need to represent temporal structure with independently sourced observation-opportunity windows. The frozen traces contain varying window durations, large and heterogeneous gaps, and different gap-variability patterns. That timing structure materially determines whether a finite rate can complete the transition before the 6 h, 12 h, or 24 h horizon.
+Study 8E reinforces the need to represent temporal structure with independently sourced observation-opportunity windows. The frozen traces contain varying window durations, large and heterogeneous gaps, and different gap-variability patterns. That timing structure is one of the frozen inputs determining whether the model yields a finite rate threshold before the 6 h, 12 h, or 24 h horizon.
 
 This finding is consistent with the broader NTN literature, where intermittent connectivity, long delays, handovers, and bandwidth constraints complicate post-quantum authentication and key management [@GSMA_PQ07_2026; @Eichen_etal_2026]. The present work contributes a recovery-state-specific model rather than a general claim about NTN performance.
 
@@ -527,7 +527,7 @@ Second, timing should be represented explicitly. Aggregate capacity or a nominal
 
 Third, feasibility and transition-state cost should be evaluated separately. Whether a transition can finish and what security/availability state is exposed while it finishes are different design questions.
 
-Fourth, a policy intended to improve feasibility must change a feasibility-driving mechanism. A guard that only blocks an infeasible commit may improve resource discipline or failure classification without changing which cases can ultimately succeed.
+Fourth, within this modeled framework, a policy can improve feasibility only by changing a feasibility-driving mechanism. A guard that only blocks an infeasible commit may improve resource discipline or failure classification without changing which cases can ultimately succeed.
 
 These implications are consistent with current PQC and crypto-agility work for space and NTNs [@Kim_2026_PQCSpace; @GSMA_PQ07_2026; @Mahn_Muller_Zielinski_2025; @DeZuane_etal_2026]. They are not deployment recommendations for any particular mission or cryptographic profile.
 
