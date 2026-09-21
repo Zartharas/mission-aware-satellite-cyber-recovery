@@ -3,10 +3,11 @@
   "experiment_id": "S8E-ECTV-001",
   "record_id": "S8E-NEW-CHAT-HANDOFF-001",
   "date_local": "2026-09-20",
-  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_ARCHITECTURE_LOCKED__MANUSCRIPT_INTEGRATION_PENDING",
+  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_ARCHITECTURE_LOCKED__MANUSCRIPT_INTEGRATION_PLAN_READY",
   "authoritative_files": [
     "study8e/CURRENT_EXTENSION_STATE.md",
     "publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md",
+    "publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md",
     "study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json",
     "study8e/CANONICAL_RESULTS_002_FREEZE.json",
     "study8e/NEW_CHAT_HANDOFF_20260920.md",
@@ -19,7 +20,7 @@
     "artifact_zip_sha256": "3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee",
     "scientific_output_status": "FORMALLY_FROZEN"
   },
-  "current_gate": "REBUILT_PAPER4_MANUSCRIPT_INTEGRATION_PLAN",
+  "current_gate": "EXPLICIT_REBUILT_PAPER4_MANUSCRIPT_INTEGRATION_EXECUTION_AUTHORIZATION",
   "manuscript_integration_authorized": false,
   "publisher_submission_authorized": false,
   "result_freeze": {
@@ -34,6 +35,8 @@
     "gate": "publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md",
     "study8_and_study8e_populations_pooled": false,
     "paper5_scientific_overlap_determination": "LOW__PUBLICATION_INDEPENDENCE_CONFIRMED",
-    "manuscript_integration_executed": false
+    "manuscript_integration_executed": false,
+    "manuscript_integration_plan": "publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md",
+    "manuscript_integration_plan_status": "READY_FOR_AUTHOR_REVIEW__MANUSCRIPT_EDITING_NOT_EXECUTED"
   }
 }
