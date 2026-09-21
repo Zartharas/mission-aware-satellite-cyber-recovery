@@ -18,8 +18,8 @@ Thank you for your consideration.
 
 Sincerely,
 
-**Aman Kumar Singh, MS, DSc**  
-Independent Researcher  
-The Woodlands, Texas 77380, United States  
-ORCID: 0009-0008-9752-3743  
-Email: asingh65430@ucumberlands.edu
+**{{AUTHOR_DISPLAY_NAME}}**  
+{{AUTHOR_AFFILIATION}}  
+{{AUTHOR_LOCATION}}  
+ORCID: {{AUTHOR_ORCID}}  
+Email: {{AUTHOR_EMAIL}}
