@@ -3,7 +3,7 @@
   "experiment_id": "S8E-ECTV-001",
   "record_id": "S8E-NEW-CHAT-HANDOFF-001",
   "date_local": "2026-09-20",
-  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_VENUE_NEUTRAL_MANUSCRIPT_INTEGRATED__QA_PENDING",
+  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_VENUE_NEUTRAL_MANUSCRIPT_QA_PASS__AUTHOR_REVIEW_PENDING",
   "authoritative_files": [
     "study8e/CURRENT_EXTENSION_STATE.md",
     "publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md",
@@ -21,7 +21,7 @@
     "artifact_zip_sha256": "3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee",
     "scientific_output_status": "FORMALLY_FROZEN"
   },
-  "current_gate": "MANUSCRIPT_INTEGRATION_REVIEW_AND_QA",
+  "current_gate": "AUTHOR_REVIEW__THEN_FINAL_FIGURE_TABLE_RENDERING_AND_VENUE_ASSESSMENT",
   "manuscript_integration_authorized": true,
   "publisher_submission_authorized": false,
   "result_freeze": {
@@ -40,6 +40,8 @@
     "manuscript_integration_plan": "publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md",
     "manuscript_integration_plan_status": "READY_FOR_AUTHOR_REVIEW__MANUSCRIPT_EDITING_NOT_EXECUTED",
     "venue_neutral_manuscript": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/manuscript/manuscript.md",
-    "manuscript_status": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT_STATUS.json"
+    "manuscript_status": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT_STATUS.json",
+    "manuscript_integration_qa": "PASS",
+    "final_figures_rendered": false
   }
 }
