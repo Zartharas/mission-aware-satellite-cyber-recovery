@@ -71,7 +71,7 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** prepare for a separately authorized IJSCCN-specific derivative package. The venue is now locked to the International Journal of Satellite Communications and Networking; no publisher package or submission is yet authorized.
+**Immediate active publication-development priority:** complete author review of the prepared IJSCCN submission package and supply the journal-required recent author photograph. The venue-specific derivative package has been built and QA'd; publisher submission remains unauthorized.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -144,12 +144,20 @@ Current venue-lock authority:
 
 Venue decision: `IJSCCN_LOCKED__PACKAGE_PREPARATION_NOT_AUTHORIZED`.
 
+Current IJSCCN package authority:
+
+- `publication/Paper_4_Study_8/IJSCCN/README.md`
+- `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
+- `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
+
+Current package state: core manuscript/metadata/cover-letter/GTOC/figure files have been generated and visually QA'd. A recent author photograph remains an external journal-required item; corresponding-author telephone is needed only if the Wiley portal requests it.
+
 Current next gate:
 
-1. obtain explicit authorization to create the IJSCCN-specific derivative package;
-2. adapt only the derivative package to current Wiley/IJSCCN requirements while preserving frozen Study 8/8E science and Paper-5 independence;
-3. complete venue-specific QA and package freeze;
-4. require separate explicit final authorization before publisher submission.
+1. author reviews the prepared IJSCCN package and supplies a recent author photograph;
+2. bind the final exact-head package-build artifact and complete package freeze/review;
+3. enter Wiley portal data only under a separate explicit portal/submission authorization;
+4. require separate explicit final authorization before completing publisher submission.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 
