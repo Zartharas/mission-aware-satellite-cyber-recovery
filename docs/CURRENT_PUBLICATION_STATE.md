@@ -32,7 +32,7 @@ Study 1 and Study 2 remain separately frozen and must never be reported as one p
 - **Decision detail:** no external reviewer reports were included; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. A separately governed Study 8E external observation-opportunity timing extension has now completed corrected canonical execution; its corrected result package is audited but formal result freeze and manuscript integration remain pending.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. A separately governed Study 8E external observation-opportunity timing extension has completed corrected canonical execution; its corrected result package is formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`, while manuscript architecture and integration remain pending separate authorization.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
@@ -71,7 +71,7 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** formal review of the corrected Study 8E canonical result package, followed by a paper-architecture decision before venue lock.
+**Immediate active publication-development priority:** decide the Study 8 / Study 8E manuscript architecture using the formally frozen corrected Study 8E result package before any manuscript integration or venue lock.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -84,6 +84,7 @@ Historical post-rejection Study 8 audit records remain authoritative provenance 
 Current Study 8E authority:
 
 - `study8e/CURRENT_EXTENSION_STATE.md`
+- `study8e/CANONICAL_RESULTS_002_FREEZE.json`
 - `study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`
 - `study8e/NEW_CHAT_HANDOFF_20260920.md`
 
@@ -106,15 +107,15 @@ Corrected Study 8E evidence state:
 
 The first canonical result package from workflow run `35529423881` is invalidated and must not be used. A strict-before-horizon upper-bound defect misclassified 24 exact-divisibility cases. The corrected runner uses `floor(8B/d_min)+1` and independently audits that bound.
 
-The corrected result package is **audited but not yet formally frozen**. One non-scientific package metadata inconsistency remains documented: the corrected `CANONICAL_FINDINGS.json` identifies `S8E-CANON-RESULTS-002`, while the immutable corrected artifact's `RESULTS_HASH_MANIFEST.json` retains the stale label `S8E-CANON-RESULTS-001`. Exact corrected file hashes are bound externally by `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`.
+The corrected result package is **formally frozen** under `S8E-CANON-RESULTS-002-FREEZE-001`. One non-scientific package metadata inconsistency remains documented: the corrected `CANONICAL_FINDINGS.json` identifies `S8E-CANON-RESULTS-002`, while the immutable corrected artifact's `RESULTS_HASH_MANIFEST.json` retains the stale label `S8E-CANON-RESULTS-001`. The immutable artifact is not rewritten; exact corrected file hashes are bound by the pre-freeze audit and formal freeze records. No TRACE-002 rerun is authorized for metadata cleanup.
 
 Current next gate:
 
-1. explicit author review and formal corrected-result freeze decision;
-2. decide whether Study 8E is integrated into a rebuilt Paper 4 or developed as a separate companion paper;
-3. after architecture lock, revise manuscript framing and literature synthesis;
+1. decide whether Study 8E is integrated into a rebuilt Paper 4 or developed as a separate companion paper;
+2. record the manuscript-architecture decision explicitly;
+3. only after architecture lock, revise manuscript framing and literature synthesis;
 4. perform live venue assessment and venue lock;
-5. prepare a new derivative submission package;
+5. prepare a new derivative submission package under separate authorization;
 6. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.

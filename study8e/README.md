@@ -1,7 +1,7 @@
 # Study 8E: External Observation-Opportunity Timing Extension
 
 **Experiment:** `S8E-ECTV-001`  
-**Current status:** `CORRECTED_CANONICAL_RESULTS_AUDITED__FORMAL_RESULT_FREEZE_PENDING`  
+**Current status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__MANUSCRIPT_ARCHITECTURE_PENDING`  
 **Current authority:** `study8e/CURRENT_EXTENSION_STATE.md`
 
 Study 8E is a separate extension of frozen Study 8. It evaluates the frozen cryptographic transition semantics against a prospectively governed public SatNOGS observation-opportunity timing population without modifying the original deterministic Study 8 population or the rejected Acta package.
@@ -16,6 +16,7 @@ Study 8E is a separate extension of frozen Study 8. It evaluates the frozen cryp
 - invalidated first canonical results: `S8E-CANON-RESULTS-001-INVALIDATION`
 - corrected execution closeout: `S8E-CANON-GOLIVE-002-CLOSEOUT`
 - corrected result audit: `S8E-CANON-RESULTS-002-AUDIT-001`
+- formal corrected-result freeze: `S8E-CANON-RESULTS-002-FREEZE-001`
 - new-chat handoff: `study8e/NEW_CHAT_HANDOFF_20260920.md`
 
 ## Corrected evidence population
@@ -78,15 +79,17 @@ Never use the first canonical result package for scientific claims.
 
 ## Current gate
 
-Corrected results are audited but **not yet formally frozen**.
+Corrected results are **formally frozen** under `S8E-CANON-RESULTS-002-FREEZE-001`.
+
+The known stale `results_id` in `RESULTS_HASH_MANIFEST.json` is preserved as a documented non-scientific packaging metadata defect. The immutable Actions artifact is not rewritten and TRACE-002 is not rerun.
 
 Do not:
 
-- treat results 002 as manuscript-integrated final science until formal result freeze is approved;
+- integrate Results-002 into a manuscript without a separate manuscript-architecture/integration authorization;
 - rerun TRACE-002 merely to clean metadata;
 - rewrite the immutable Actions artifact;
 - change POP-002 or TRACE-002;
 - modify frozen Study 8;
 - submit a publisher package.
 
-The next controlled decision is formal corrected-result freeze, followed by Study 8 / Study 8E manuscript architecture and venue strategy.
+The next controlled decision is Study 8 / Study 8E manuscript architecture. Venue strategy follows only after that architecture is explicitly locked.
