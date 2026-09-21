@@ -2,7 +2,7 @@
 
 **Experiment:** `S8E-ECTV-001`  
 **Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__MANUSCRIPT_ARCHITECTURE_PENDING`
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_ARCHITECTURE_LOCKED__MANUSCRIPT_INTEGRATION_PENDING`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -23,6 +23,7 @@ This file is the primary current-state handoff for Study 8E. Historical protocol
 10. Corrected canonical execution under `S8E-CANON-GOLIVE-002` completed successfully as GitHub Actions run `35536583594`.
 11. Corrected result package `S8E-CANON-RESULTS-002` has been independently audited and hash-bound in `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`.
 12. Formal result freeze `S8E-CANON-RESULTS-002-FREEZE-001` binds the immutable corrected artifact and exact hashes without rewriting the Actions artifact. Manuscript integration remains unauthorized.
+13. Paper-4 architecture/originality gate `publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md` locks Study 8 + Study 8E as one rebuilt Paper 4 while preserving separate populations and Paper-5 independence.
 
 ## Corrected canonical execution
 
@@ -134,11 +135,12 @@ The freeze does not authorize manuscript integration, scientific reanalysis, TRA
 
 Next controlled sequence:
 
-1. decide whether Study 8E is integrated into a rebuilt Paper 4 or developed as a separately governed companion paper;
-2. record that manuscript-architecture decision explicitly;
-3. only then perform manuscript integration/reframing;
-4. perform live venue assessment and venue lock after the architecture is fixed;
-5. prepare any derivative submission package under separate authorization;
-6. require separate explicit final authorization before publisher submission.
+1. prepare a rebuilt-Paper-4 manuscript integration plan under the locked Study 8 + Study 8E architecture;
+2. preserve separate Study-8 and Study-8E evidence sections and prohibit statistical pooling;
+3. enforce the Paper-4/Paper-5 non-overlap gate during claim mapping and drafting;
+4. authorize manuscript integration/reframing separately before editing the derivative manuscript;
+5. perform live venue assessment and venue lock only after the rebuilt architecture is stable;
+6. prepare any derivative submission package under separate authorization;
+7. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit scientific-execution authorization is granted.
