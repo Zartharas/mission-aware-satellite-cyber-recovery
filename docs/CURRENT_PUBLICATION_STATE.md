@@ -1,6 +1,6 @@
 # Current Publication State
 
-**Current-state date:** 2026-09-19
+**Current-state date:** 2026-09-21
 
 **Study 8E extension update:** 2026-09-20
 
@@ -8,7 +8,7 @@ This is the canonical cross-publication handoff for the `mission-aware-satellite
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active with their publishers. Paper 4 / Study 8 was rejected by Acta Astronautica. A new venue-neutral derivative manuscript integrating separately frozen Study 8 and Study 8E evidence has now been created for author review; no new venue is locked and no publisher submission is authorized.
+The repository has **four publication lines that have been submitted historically**. Papers 1, 2, and 3 remain active with their publishers. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 now integrates separately frozen Study 8 and Study 8E evidence, is locked to the International Journal of Satellite Communications and Networking (IJSCCN), and has a frozen repository-generated core submission package. Publisher submission is not authorized.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -32,7 +32,7 @@ Study 1 and Study 2 remain separately frozen and must never be reported as one p
 - **Decision detail:** no external reviewer reports were included; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. Study 8E is separately governed and formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The author selected **Study 8 + Study 8E -> rebuilt Paper 4** as the manuscript architecture; the two study populations remain separate and unpooled. Venue-neutral manuscript integration has now been executed in `publication/Paper_4_Study_8/Rebuilt_Study8_8E/` under explicit author authorization, with frozen science unchanged.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. Study 8E is separately governed and formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The author selected **Study 8 + Study 8E -> rebuilt Paper 4** as the manuscript architecture; the two study populations remain separate and unpooled. Venue-neutral manuscript integration was executed in `publication/Paper_4_Study_8/Rebuilt_Study8_8E/` under explicit author authorization, with frozen science unchanged. IJSCCN is now the locked retarget venue, and the repository-generated core IJSCCN package is frozen under `P4-IJSCCN-PKG-R1-FREEZE-001`.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
@@ -71,7 +71,7 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** complete author review of the prepared IJSCCN submission package and supply the journal-required recent author photograph. The venue-specific derivative package has been built and QA'd; publisher submission remains unauthorized.
+**Immediate active publication-development priority:** author review of the frozen IJSCCN core submission package and supply of the journal-required recent author photograph. Core package preparation is closed successfully; publisher submission remains unauthorized.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -142,7 +142,7 @@ Current venue-lock authority:
 
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md`
 
-Venue decision: `IJSCCN_LOCKED__PACKAGE_PREPARATION_NOT_AUTHORIZED`.
+Venue decision: `IJSCCN_LOCKED__CORE_PACKAGE_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED`.
 
 Current IJSCCN package authority:
 
@@ -150,12 +150,16 @@ Current IJSCCN package authority:
 - `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
 - `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
 
-Current package state: core manuscript/metadata/cover-letter/GTOC/figure files have been generated and visually QA'd. A recent author photograph remains an external journal-required item; corresponding-author telephone is needed only if the Wiley portal requests it.
+Current package state: `P4-IJSCCN-PKG-R1-FREEZE-001`. The repository-generated core package is frozen and bound to workflow run `35632266523`, artifact `10655615285`, digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`. A recent author photograph remains an external journal-required item; corresponding-author telephone is needed only if the Wiley portal requests it.
+
+Current package-freeze authority:
+
+- `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md`
 
 Current next gate:
 
-1. author reviews the prepared IJSCCN package and supplies a recent author photograph;
-2. bind the final exact-head package-build artifact and complete package freeze/review;
+1. author reviews the frozen IJSCCN package and supplies a recent author photograph;
+2. do not alter frozen package content unless QA identifies a concrete defect;
 3. enter Wiley portal data only under a separate explicit portal/submission authorization;
 4. require separate explicit final authorization before completing publisher submission.
 
