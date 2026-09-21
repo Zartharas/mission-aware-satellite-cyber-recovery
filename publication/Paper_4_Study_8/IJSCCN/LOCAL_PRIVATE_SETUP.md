@@ -69,3 +69,9 @@ The first three commands should report matching ignore rules. Private files must
 ## Scientific boundary
 
 This privacy overlay changes submission metadata handling only. It does not change Study 8, Study 8E, TRACE-002, Results-002, manuscript scientific claims, numerical values, or the Paper 4 / Paper 5 separation.
+
+## Governance authority
+
+Privacy handling is governed by:
+
+`publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_LOCAL_PRIVATE_SUBMISSION_PRIVACY_GATE_2026-09-21.md`
