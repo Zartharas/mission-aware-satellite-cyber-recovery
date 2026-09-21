@@ -2,7 +2,7 @@
 
 **Experiment:** `S8E-ECTV-001`  
 **Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_VENUE_NEUTRAL_MANUSCRIPT_INTEGRATED__QA_PENDING`
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_VENUE_NEUTRAL_MANUSCRIPT_QA_PASS__AUTHOR_REVIEW_PENDING`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -136,12 +136,11 @@ The freeze does not authorize manuscript integration, scientific reanalysis, TRA
 
 Next controlled sequence:
 
-1. review and QA the integrated venue-neutral manuscript at `publication/Paper_4_Study_8/Rebuilt_Study8_8E/manuscript/manuscript.md`;
-2. verify all quantitative claims against frozen Study 8 and Results-002 authorities;
-3. verify citation coverage, novelty framing, claim boundaries, and Paper-5 non-overlap;
-4. create final reader-facing figures/tables from frozen evidence only;
-5. perform live venue assessment and venue lock only after manuscript QA passes;
-6. prepare any venue-specific submission package under separate authorization;
-7. require separate explicit final authorization before publisher submission.
+1. author-review the QA-passed venue-neutral manuscript at `publication/Paper_4_Study_8/Rebuilt_Study8_8E/manuscript/manuscript.md`;
+2. create final reader-facing figures/tables from frozen evidence only;
+3. repeat final manuscript QA after presentation integration;
+4. perform live venue assessment and venue lock only after final presentation QA passes;
+5. prepare any venue-specific submission package under separate authorization;
+6. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit scientific-execution authorization is granted.
