@@ -1,0 +1,12 @@
+result_family,item,successes,total,success_percent,contrast_vs_reference_percentage_points,reference
+policy,P0_HARD_CUTOVER,635,864,73.495370,0.000000,P1_STAGED_CUTOVER
+policy,P1_STAGED_CUTOVER,635,864,73.495370,0.000000,P1_STAGED_CUTOVER
+policy,P2_HYBRID_OVERLAP,635,864,73.495370,0.000000,P1_STAGED_CUTOVER
+policy,P3_CONTACT_AWARE_STAGED,635,864,73.495370,0.000000,P1_STAGED_CUTOVER
+profile,PROFILE_512_44,1080,1152,93.750000,0.000000,PROFILE_512_44
+profile,PROFILE_768_65,748,1152,64.930556,-28.819444,PROFILE_512_44
+profile,PROFILE_1024_87,712,1152,61.805556,-31.944444,PROFILE_512_44
+matched_profile_pattern,111,712,1152,61.805556,,"all profiles succeed"
+matched_profile_pattern,110,36,1152,3.125000,,"PROFILE_512_44 and PROFILE_768_65 succeed"
+matched_profile_pattern,100,332,1152,28.819444,,"only PROFILE_512_44 succeeds"
+matched_profile_pattern,000,72,1152,6.250000,,"no profile succeeds"
