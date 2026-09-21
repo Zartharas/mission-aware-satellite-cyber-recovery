@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 import zipfile
 from pathlib import Path
 
@@ -15,20 +16,78 @@ import bibtexparser
 
 ROOT = Path(__file__).resolve().parents[3]
 PKG = ROOT / "publication" / "Paper_4_Study_8" / "IJSCCN"
-OUT = PKG / "build"
-FIG = OUT / "figures"
-OUT.mkdir(parents=True, exist_ok=True)
-FIG.mkdir(parents=True, exist_ok=True)
+LOCAL_PRIVATE = PKG / "_local_private"
+LOCAL_SUBMISSION = PKG / "_local_submission"
+PRIVATE_META_PATH = LOCAL_PRIVATE / "author_private.json"
 
 MANUSCRIPT_SRC = PKG / "MANUSCRIPT_IJSCCN.md"
 BIB_SRC = PKG / "REFERENCES.bib"
 
 FULL_TITLE = "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing"
 SHORT_TITLE = "Post-Quantum Satellite Recovery Under Intermittent Connectivity"
-AUTHOR = "Aman Kumar Singh, MS, DSc"
-AFFILIATION = "Independent Researcher, The Woodlands, Texas 77380, United States"
-EMAIL = "asingh65430@ucumberlands.edu"
-ORCID = "0009-0008-9752-3743"
+
+SAFE_AUTHOR_META = {
+    "display_name": "AUTHOR_LOCAL_ONLY",
+    "affiliation": "Independent Researcher",
+    "location": "LOCATION_LOCAL_ONLY",
+    "email": "EMAIL_LOCAL_ONLY",
+    "orcid": "ORCID_LOCAL_ONLY",
+    "telephone": "TELEPHONE_LOCAL_ONLY_IF_REQUIRED",
+}
+
+def load_author_metadata():
+    if not PRIVATE_META_PATH.exists():
+        return dict(SAFE_AUTHOR_META), False
+    data = json.loads(PRIVATE_META_PATH.read_text(encoding="utf-8"))
+    required = ("display_name", "affiliation", "location", "email", "orcid")
+    missing = [key for key in required if not str(data.get(key, "")).strip()]
+    if missing:
+        raise SystemExit(
+            "Private author metadata is incomplete: " + ", ".join(missing)
+        )
+    meta = dict(SAFE_AUTHOR_META)
+    meta.update({key: str(value).strip() for key, value in data.items()})
+    return meta, True
+
+AUTHOR_META, PRIVATE_MODE = load_author_metadata()
+OUT = (LOCAL_SUBMISSION / "build") if PRIVATE_MODE else (PKG / "build")
+FIG = OUT / "figures"
+OUT.mkdir(parents=True, exist_ok=True)
+FIG.mkdir(parents=True, exist_ok=True)
+
+AUTHOR = AUTHOR_META["display_name"]
+AFFILIATION = ", ".join(
+    part for part in (AUTHOR_META["affiliation"], AUTHOR_META["location"]) if part
+)
+EMAIL = AUTHOR_META["email"]
+ORCID = AUTHOR_META["orcid"]
+TELEPHONE = AUTHOR_META.get("telephone", "")
+
+def render_author_tokens(text: str):
+    replacements = {
+        "{{AUTHOR_DISPLAY_NAME}}": AUTHOR_META["display_name"],
+        "{{AUTHOR_AFFILIATION}}": AUTHOR_META["affiliation"],
+        "{{AUTHOR_LOCATION}}": AUTHOR_META["location"],
+        "{{AUTHOR_EMAIL}}": AUTHOR_META["email"],
+        "{{AUTHOR_ORCID}}": AUTHOR_META["orcid"],
+        "{{AUTHOR_TELEPHONE}}": AUTHOR_META.get("telephone", ""),
+    }
+    for token, value in replacements.items():
+        text = text.replace(token, value)
+    return text
+
+def find_local_author_photo():
+    for name in (
+        "author_photo.png",
+        "author_photo.jpg",
+        "author_photo.jpeg",
+        "author_photo.tif",
+        "author_photo.tiff",
+    ):
+        candidate = LOCAL_PRIVATE / name
+        if candidate.exists():
+            return candidate
+    return None
 
 def apply_base_style(doc: Document):
     sec = doc.sections[0]
@@ -278,6 +337,7 @@ def insert_figure(doc, png_path, caption):
     rr=cp.add_run(caption); rr.italic=True
 
 def render_markdown_to_docx(md_text, output_docx, bib):
+    md_text=render_author_tokens(md_text)
     order=citation_order(md_text)
     md_text=replace_citations(md_text,order)
     lines=md_text.splitlines()
@@ -352,7 +412,8 @@ def markdown_to_simple_docx(md_path, out_path, title):
     apply_base_style(doc)
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
     r=p.add_run(title); r.bold=True; r.font.size=Pt(15)
-    for line in md_path.read_text(encoding="utf-8").splitlines():
+    rendered = render_author_tokens(md_path.read_text(encoding="utf-8"))
+    for line in rendered.splitlines():
         if not line.strip() or line.startswith("# "):
             continue
         if line.startswith("## "):
@@ -376,13 +437,20 @@ def main():
     markdown_to_simple_docx(PKG/"TITLE_PAGE.md", OUT/"TITLE_PAGE_IJSCCN.docx", "Title Page")
     markdown_to_simple_docx(PKG/"AI_USE_DECLARATION.md", OUT/"AI_USE_DECLARATION.docx", "AI Use Declaration")
 
+    photo = find_local_author_photo()
+    if PRIVATE_MODE and photo is not None:
+        shutil.copy2(photo, OUT / ("AUTHOR_PHOTOGRAPH" + photo.suffix.lower()))
+
     manifest={
         "package_id":"P4-IJSCCN-PACKAGE-R1-BUILD-001",
         "source_manuscript":str(MANUSCRIPT_SRC.relative_to(ROOT)),
         "reference_count":len(order),
         "figures":[p.name for p in sorted(FIG.iterdir())],
         "scientific_reanalysis_performed":False,
-        "publisher_submission_authorized":False
+        "publisher_submission_authorized":False,
+        "private_submission_overlay_used":PRIVATE_MODE,
+        "author_photo_included":bool(PRIVATE_MODE and photo is not None),
+        "output_scope":"LOCAL_PRIVATE_SUBMISSION" if PRIVATE_MODE else "PUBLIC_SAFE_QA"
     }
     (OUT/"BUILD_MANIFEST.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
 

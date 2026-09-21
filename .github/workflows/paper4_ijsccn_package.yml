@@ -1,12 +1,14 @@
-name: Build Paper 4 IJSCCN package
+name: Build Paper 4 IJSCCN public-safe QA package
 
 on:
   push:
     branches:
-      - paper4/prepare-ijsccn-package-r1
+      - main
+      - "paper4/**"
     paths:
       - "publication/Paper_4_Study_8/IJSCCN/**"
       - ".github/workflows/paper4_ijsccn_package.yml"
+      - ".gitignore"
 
 permissions:
   contents: read
@@ -23,16 +25,52 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Verify private local paths are ignored and untracked
+        run: |
+          test -z "$(git ls-files 'publication/Paper_4_Study_8/IJSCCN/_local_private/**')"
+          test -z "$(git ls-files 'publication/Paper_4_Study_8/IJSCCN/_local_submission/**')"
+          git check-ignore -q publication/Paper_4_Study_8/IJSCCN/_local_private/author_private.json
+          git check-ignore -q publication/Paper_4_Study_8/IJSCCN/_local_private/author_photo.png
+          git check-ignore -q publication/Paper_4_Study_8/IJSCCN/_local_submission/build/MANUSCRIPT_IJSCCN.docx
+
+      - name: Verify tracked IJSCCN author-facing templates contain no email address or ZIP code
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          files = [
+              Path("publication/Paper_4_Study_8/IJSCCN/MANUSCRIPT_IJSCCN.md"),
+              Path("publication/Paper_4_Study_8/IJSCCN/TITLE_PAGE.md"),
+              Path("publication/Paper_4_Study_8/IJSCCN/COVER_LETTER.md"),
+              Path("publication/Paper_4_Study_8/IJSCCN/AUTHOR_BIOGRAPHY.md"),
+              Path("publication/Paper_4_Study_8/IJSCCN/build_ijsccn_package.py"),
+          ]
+
+          email_re = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+          zip_re = re.compile(r"\b\d{5}(?:-\d{4})?\b")
+
+          for path in files:
+              text = path.read_text(encoding="utf-8")
+              if email_re.search(text):
+                  raise SystemExit(f"Tracked private email-like value found in {path}")
+              if zip_re.search(text):
+                  raise SystemExit(f"Tracked ZIP-like value found in {path}")
+
+          print("tracked_author_template_privacy_check=PASS")
+          PY
+
       - name: Install package-build dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install python-docx matplotlib pillow bibtexparser==1.4.3
 
-      - name: Build IJSCCN package
+      - name: Build public-safe IJSCCN QA package
         run: |
+          test ! -e publication/Paper_4_Study_8/IJSCCN/_local_private/author_private.json
           python publication/Paper_4_Study_8/IJSCCN/build_ijsccn_package.py
 
-      - name: Validate required package outputs
+      - name: Validate required public-safe QA outputs
         run: |
           test -s publication/Paper_4_Study_8/IJSCCN/build/MANUSCRIPT_IJSCCN.docx
           test -s publication/Paper_4_Study_8/IJSCCN/build/COVER_LETTER_IJSCCN.docx
@@ -41,11 +79,21 @@ jobs:
           test -s publication/Paper_4_Study_8/IJSCCN/build/figures/Figure_2_Study8_Profile_Success.tiff
           test -s publication/Paper_4_Study_8/IJSCCN/build/figures/Figure_3_Study8E_Horizon_Finite_Fraction.tiff
           test -s publication/Paper_4_Study_8/IJSCCN/build/Paper4_IJSCCN_Submission_Package_R1.zip
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(
+              Path("publication/Paper_4_Study_8/IJSCCN/build/BUILD_MANIFEST.json").read_text()
+          )
+          assert manifest["private_submission_overlay_used"] is False
+          assert manifest["output_scope"] == "PUBLIC_SAFE_QA"
+          print("public_safe_manifest_check=PASS")
+          PY
 
-      - name: Upload IJSCCN package artifact
+      - name: Upload public-safe QA artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper4-ijsccn-submission-package-r1
+          name: paper4-ijsccn-public-safe-qa
           path: publication/Paper_4_Study_8/IJSCCN/build/
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 7

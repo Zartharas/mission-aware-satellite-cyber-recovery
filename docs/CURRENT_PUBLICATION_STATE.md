@@ -6,6 +6,8 @@
 
 **Paper 4 IJSCCN package-freeze update:** 2026-09-21
 
+**Paper 4 IJSCCN privacy-hardening update:** 2026-09-21
+
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
@@ -152,18 +154,23 @@ Current IJSCCN package authority:
 - `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
 - `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
 
-Current package state: `P4-IJSCCN-PKG-R1-FREEZE-001`. The repository-generated core package is frozen and bound to workflow run `35632266523`, artifact `10655615285`, digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`. A recent author photograph remains an external journal-required item; corresponding-author telephone is needed only if the Wiley portal requests it.
+Current package state: `P4-IJSCCN-PKG-R1-FREEZE-001`. The pre-privacy repository-generated package was bound to workflow run `35632266523`, artifact `10655615285`, digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`. That artifact is historical package provenance only and is superseded for submission handling by the local-private privacy gate because it was generated before tracked author-contact metadata was removed. Personalized upload-ready materials are now local-only and ignored by Git.
 
 Current package-freeze authority:
 
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md`
 
+Current privacy/local-submission authority:
+
+- `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_LOCAL_PRIVATE_SUBMISSION_PRIVACY_GATE_2026-09-21.md`
+
 Current next gate:
 
-1. author reviews the frozen IJSCCN package and supplies a recent author photograph;
-2. do not alter frozen package content unless QA identifies a concrete defect;
-3. enter Wiley portal data only under a separate explicit portal/submission authorization;
-4. require separate explicit final authorization before completing publisher submission.
+1. merge the privacy-hardening change only under explicit author authorization;
+2. store the author photograph and private contact metadata only in the ignored local-private directory;
+3. generate and visually QA the personalized upload-ready package only under the ignored local-submission directory;
+4. enter Wiley portal data only under a separate explicit portal/submission authorization;
+5. require separate explicit final authorization before completing publisher submission.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 

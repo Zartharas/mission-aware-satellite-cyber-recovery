@@ -3,8 +3,8 @@
   "record_id": "P4-IJSCCN-PACKAGE-R1",
   "date_local": "2026-09-21",
   "base_main_commit": "71dc8912d17d4dac1977bc90ce5fad0708fd96af",
-  "branch": "paper4/prepare-ijsccn-package-r1",
-  "status": "IJSCCN_PACKAGE_R1_CONTENT_AND_VISUAL_QA_CLOSED__FINAL_BUILD_BINDING_PENDING",
+  "branch": "paper4/privacy-harden-local-submission-r1",
+  "status": "IJSCCN_PUBLIC_SAFE_TRACKED_PACKAGE__LOCAL_PRIVATE_SUBMISSION_OVERLAY__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "target_journal": "International Journal of Satellite Communications and Networking",
   "publisher": "Wiley",
   "journal_guidelines": "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
@@ -27,10 +27,11 @@
     "publisher_submission_authorized": false
   },
   "external_author_items_pending": [
-    "Recent author photograph required by IJSCCN",
+    "Copy recent author photograph into ignored _local_private directory",
+    "Create ignored local author_private.json from placeholder template",
     "Corresponding-author telephone only if requested by Wiley portal"
   ],
-  "next_gate": "FINAL_EXACT_HEAD_PACKAGE_BUILD__THEN_EXTERNAL_FREEZE_BINDING",
+  "next_gate": "PRIVACY_HARDENING_MERGE__LOCAL_PRIVATE_BUILD_QA__THEN_SEPARATE_WILEY_AUTHORIZATION",
   "qa": {
     "manuscript_render_pages": 25,
     "manuscript_visual_inspection": "PASS",
@@ -44,9 +45,17 @@
     "candidate_artifact_digest_sha256": "16c47420c22ce8296367cd5d5dce2ce7967a364e34522a35b84cab818437aa72"
   },
   "finalization_strategy": {
-    "reason": "Avoid self-referential artifact hashing: the final package artifact is built after this status commit, then bound by an external freeze record outside publication/Paper_4_Study_8/IJSCCN/.",
-    "package_content_authoritative_after_this_commit": true,
-    "further_package_content_edits_authorized": false,
+    "reason": "Author explicitly required privacy hardening: tracked and CI-generated materials must exclude private author contact data and photographs; personalized upload-ready files are local-only.",
+    "package_content_authoritative_after_this_commit": false,
+    "further_package_content_edits_authorized": true,
     "scientific_reanalysis_performed": false
+  },
+  "privacy": {
+    "tracked_private_contact_values_allowed": false,
+    "tracked_author_photo_allowed": false,
+    "local_private_dir": "publication/Paper_4_Study_8/IJSCCN/_local_private/",
+    "local_submission_dir": "publication/Paper_4_Study_8/IJSCCN/_local_submission/",
+    "github_actions_output_scope": "PUBLIC_SAFE_QA_ONLY",
+    "local_personalized_submission_required": true
   }
 }

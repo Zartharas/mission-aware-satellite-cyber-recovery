@@ -91,3 +91,8 @@ credentials/
 
 # Local engineering/review evidence; Git history retains published provenance
 review-evidence/
+
+# Local-only Paper 4 publisher submission materials (privacy boundary)
+# These directories may contain author contact details, photographs, and final upload-ready documents.
+publication/Paper_4_Study_8/IJSCCN/_local_private/
+publication/Paper_4_Study_8/IJSCCN/_local_submission/
