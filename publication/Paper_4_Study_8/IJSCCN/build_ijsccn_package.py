@@ -32,7 +32,7 @@ SAFE_AUTHOR_META = {
     "location": "LOCATION_LOCAL_ONLY",
     "email": "EMAIL_LOCAL_ONLY",
     "orcid": "ORCID_LOCAL_ONLY",
-    "telephone": "TELEPHONE_LOCAL_ONLY_IF_REQUIRED",
+    "telephone": "",
 }
 
 def load_author_metadata():
@@ -64,13 +64,21 @@ ORCID = AUTHOR_META["orcid"]
 TELEPHONE = AUTHOR_META.get("telephone", "")
 
 def render_author_tokens(text: str):
+    telephone = AUTHOR_META.get("telephone", "").strip()
+    if not telephone:
+        text = re.sub(
+            r"(?m)^Telephone:\s*\{\{AUTHOR_TELEPHONE\}\}\s*\n?",
+            "",
+            text,
+        )
+
     replacements = {
         "{{AUTHOR_DISPLAY_NAME}}": AUTHOR_META["display_name"],
         "{{AUTHOR_AFFILIATION}}": AUTHOR_META["affiliation"],
         "{{AUTHOR_LOCATION}}": AUTHOR_META["location"],
         "{{AUTHOR_EMAIL}}": AUTHOR_META["email"],
         "{{AUTHOR_ORCID}}": AUTHOR_META["orcid"],
-        "{{AUTHOR_TELEPHONE}}": AUTHOR_META.get("telephone", ""),
+        "{{AUTHOR_TELEPHONE}}": telephone,
     }
     for token, value in replacements.items():
         text = text.replace(token, value)
@@ -407,6 +415,57 @@ def render_markdown_to_docx(md_text, output_docx, bib):
     doc.save(output_docx)
     return order
 
+def markdown_to_cover_letter_docx(md_path, out_path):
+    doc=Document()
+    apply_base_style(doc)
+    p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+    r=p.add_run("Cover Letter"); r.bold=True; r.font.size=Pt(15)
+
+    rendered = render_author_tokens(md_path.read_text(encoding="utf-8"))
+    lines = rendered.splitlines()
+    i = 0
+
+    while i < len(lines):
+        line = lines[i].rstrip()
+        if not line.strip() or line.startswith("# "):
+            i += 1
+            continue
+
+        if line.strip() == "Sincerely,":
+            p=doc.add_paragraph()
+            p.paragraph_format.space_after=Pt(2)
+            add_formatted_runs(p, "Sincerely,")
+            i += 1
+            while i < len(lines) and not lines[i].strip():
+                i += 1
+
+            signature = []
+            while i < len(lines) and lines[i].strip():
+                signature.append(lines[i].rstrip())
+                i += 1
+
+            p=doc.add_paragraph()
+            p.paragraph_format.space_after=Pt(0)
+            for index, signature_line in enumerate(signature):
+                if index:
+                    p.add_run().add_break()
+                add_formatted_runs(p, signature_line)
+            continue
+
+        if line.startswith("## "):
+            doc.add_heading(line[3:], level=1)
+        elif line.startswith("### "):
+            doc.add_heading(line[4:], level=2)
+        elif line.startswith("- "):
+            p=doc.add_paragraph(style="List Bullet")
+            add_formatted_runs(p,line[2:])
+        else:
+            p=doc.add_paragraph()
+            add_formatted_runs(p,line)
+        i += 1
+
+    doc.save(out_path)
+
 def markdown_to_simple_docx(md_path, out_path, title):
     doc=Document()
     apply_base_style(doc)
@@ -432,7 +491,7 @@ def main():
     md=MANUSCRIPT_SRC.read_text(encoding="utf-8")
     order=render_markdown_to_docx(md, OUT/"MANUSCRIPT_IJSCCN.docx", bib)
 
-    markdown_to_simple_docx(PKG/"COVER_LETTER.md", OUT/"COVER_LETTER_IJSCCN.docx", "Cover Letter")
+    markdown_to_cover_letter_docx(PKG/"COVER_LETTER.md", OUT/"COVER_LETTER_IJSCCN.docx")
     markdown_to_simple_docx(PKG/"AUTHOR_BIOGRAPHY.md", OUT/"AUTHOR_BIOGRAPHY.docx", "Author Biography")
     markdown_to_simple_docx(PKG/"TITLE_PAGE.md", OUT/"TITLE_PAGE_IJSCCN.docx", "Title Page")
     markdown_to_simple_docx(PKG/"AI_USE_DECLARATION.md", OUT/"AI_USE_DECLARATION.docx", "AI Use Declaration")

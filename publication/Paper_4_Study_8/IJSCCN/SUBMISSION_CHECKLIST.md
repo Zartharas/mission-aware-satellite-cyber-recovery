@@ -22,6 +22,10 @@ Accessed: 2026-09-21
 - [x] Author contribution statement prepared.
 - [x] Wiley-aligned AI Use Declaration prepared.
 - [x] Author biography <=200 words prepared.
+- [x] Biography refreshed from author-provided resume evidence without importing private contact details.
+- [x] Verified degree display for local personalized package: MS, PhD.
+- [x] Blank telephone line is omitted when no telephone is supplied.
+- [x] Cover-letter signature block is compacted to prevent an orphaned email line.
 - [x] Recent author photograph supplied by author; must be copied only to the ignored local-private directory before final local build.
 - [ ] Corresponding-author telephone entered in Wiley portal if requested.
 - [x] Fax marked not applicable.
