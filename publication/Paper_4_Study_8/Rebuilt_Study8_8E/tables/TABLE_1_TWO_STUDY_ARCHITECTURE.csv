@@ -1,0 +1,3 @@
+study,population,time_representation,capacity_or_rate_treatment,primary_feasibility_endpoint,interpretation_boundary
+Study 8 S8-PQC-ICR-001,"3456 deterministic factorial positions","logical slots 0-47; no physical duration","fixed synthetic per-contact byte budgets; 65536 bytes/full cycle","TRUST_RESTORED strictly before logical deadline","controlled logical model; no physical-time or RF inference"
+Study 8E S8E-ECTV-001,"20 traces; 476 rows; 454 eligible anchors; 65376 cases","public SatNOGS observation start/end elapsed time","solve minimum hypothetical uniform effective payload rate during accepted windows","finite/non-finite minimum modeled rate for TRUST_RESTORED before 6/12/24 h horizon","observation timing proxy only; not command contact or measured throughput"
