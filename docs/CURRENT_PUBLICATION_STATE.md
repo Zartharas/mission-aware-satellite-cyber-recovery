@@ -71,7 +71,7 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** perform evidence-first QA of the integrated venue-neutral rebuilt Paper 4 manuscript before any venue lock or publisher-specific packaging.
+**Immediate active publication-development priority:** author-review the QA-passed venue-neutral rebuilt Paper 4 manuscript, then render final figures/tables and perform live venue assessment before any venue lock or publisher-specific packaging.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -128,13 +128,12 @@ Current integrated manuscript authority:
 
 Current next gate:
 
-1. perform manuscript integration review and evidence-first QA;
-2. verify all reader-facing numbers against frozen Study 8 / Study 8E authorities;
-3. verify citation coverage, novelty framing, and Paper-5 non-overlap;
-4. produce final reader-facing figures/tables from frozen evidence only;
-5. perform live venue assessment and venue lock only after the manuscript is scientifically stable;
-6. prepare a venue-specific submission package under separate authorization;
-7. require separate explicit final authorization before publisher submission.
+1. author-review the QA-passed venue-neutral rebuilt manuscript;
+2. render final reader-facing figures/tables from frozen evidence only;
+3. repeat final prose-level overclaim, citation, and Paper-5 non-overlap QA after figure insertion;
+4. perform live venue assessment and venue lock only after final presentation QA;
+5. prepare a venue-specific submission package under separate authorization;
+6. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 
