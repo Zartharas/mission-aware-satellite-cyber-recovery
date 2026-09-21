@@ -13,7 +13,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt
 import bibtexparser
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = Path(__file__).resolve().parents[3]
 PKG = ROOT / "publication" / "Paper_4_Study_8" / "IJSCCN"
 OUT = PKG / "build"
 FIG = OUT / "figures"
