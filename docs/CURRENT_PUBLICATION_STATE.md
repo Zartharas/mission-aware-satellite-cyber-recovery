@@ -32,7 +32,7 @@ Study 1 and Study 2 remain separately frozen and must never be reported as one p
 - **Decision detail:** no external reviewer reports were included; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. A separately governed Study 8E external observation-opportunity timing extension has completed corrected canonical execution; its corrected result package is formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`, while manuscript architecture and integration remain pending separate authorization.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. Study 8E is separately governed and formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The author has now selected **Study 8 + Study 8E -> rebuilt Paper 4** as the manuscript architecture; the two study populations remain separate and unpooled. Manuscript integration has not yet been executed.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
@@ -71,7 +71,7 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** decide the Study 8 / Study 8E manuscript architecture using the formally frozen corrected Study 8E result package before any manuscript integration or venue lock.
+**Immediate active publication-development priority:** prepare the controlled rebuilt-Paper-4 manuscript integration plan using the locked **Study 8 + Study 8E** architecture and the formal cross-publication non-overlap gate before any manuscript editing or venue lock.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -80,6 +80,12 @@ Historical post-rejection Study 8 audit records remain authoritative provenance 
 - `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
 - `publication/Paper_4_Study_8/POST_REJECTION_FORENSIC_AUDIT_2026-09-19.md`
 - `publication/Paper_4_Study_8/NEXT_VENUE_SHORTLIST_2026-09-19.md`
+
+Current Paper-4 architecture/originality authority:
+
+- `publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md`
+
+This gate confirms publication independence from Paper 5 / Study 9 and protects Paper 5's semantic-interoperability/action-identifiability lane from Paper-4 manuscript drift.
 
 Current Study 8E authority:
 
@@ -111,12 +117,13 @@ The corrected result package is **formally frozen** under `S8E-CANON-RESULTS-002
 
 Current next gate:
 
-1. decide whether Study 8E is integrated into a rebuilt Paper 4 or developed as a separate companion paper;
-2. record the manuscript-architecture decision explicitly;
-3. only after architecture lock, revise manuscript framing and literature synthesis;
-4. perform live venue assessment and venue lock;
-5. prepare a new derivative submission package under separate authorization;
-6. require separate explicit final authorization before publisher submission.
+1. create a controlled rebuilt-Paper-4 manuscript integration plan under the locked Study 8 + Study 8E architecture;
+2. map every proposed manuscript claim to frozen Study-8 or Study-8E evidence while preserving separate populations;
+3. define the cross-study synthesis and Paper-5 non-overlap constraints before editing prose;
+4. only after that plan is authorized, revise manuscript framing and literature synthesis;
+5. perform live venue assessment and venue lock after the rebuilt manuscript architecture is stable;
+6. prepare a new derivative submission package under separate authorization;
+7. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 
