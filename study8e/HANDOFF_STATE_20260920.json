@@ -3,12 +3,13 @@
   "experiment_id": "S8E-ECTV-001",
   "record_id": "S8E-NEW-CHAT-HANDOFF-001",
   "date_local": "2026-09-20",
-  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_MANUSCRIPT_INTEGRATED__AUTHOR_QA_PENDING",
+  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_AUTHOR_SCIENTIFIC_REVIEW_R1_PASS__LIVE_VENUE_ASSESSMENT_PENDING",
   "authoritative_files": [
     "study8e/CURRENT_EXTENSION_STATE.md",
     "publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md",
     "publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md",
     "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT_STATUS.json",
+    "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
     "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
     "study8e/CANONICAL_RESULTS_002_AUDIT_HANDOFF.json",
     "study8e/CANONICAL_RESULTS_002_FREEZE.json",
@@ -22,7 +23,7 @@
     "artifact_zip_sha256": "3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee",
     "scientific_output_status": "FORMALLY_FROZEN"
   },
-  "current_gate": "AUTHOR_REVIEW_AND_MANUSCRIPT_QA__THEN_LIVE_VENUE_ASSESSMENT_AUTHORIZATION",
+  "current_gate": "EXPLICIT_LIVE_VENUE_ASSESSMENT_AUTHORIZATION",
   "manuscript_integration_authorized": true,
   "publisher_submission_authorized": false,
   "result_freeze": {
@@ -39,8 +40,11 @@
     "paper5_scientific_overlap_determination": "LOW__PUBLICATION_INDEPENDENCE_CONFIRMED",
     "manuscript_integration_executed": true,
     "manuscript_integration_plan": "publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md",
-    "manuscript_integration_plan_status": "READY_FOR_AUTHOR_REVIEW__MANUSCRIPT_EDITING_NOT_EXECUTED",
+    "manuscript_integration_plan_status": "EXECUTED__VENUE_NEUTRAL_MANUSCRIPT_CREATED",
     "manuscript_path": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
-    "manuscript_status": "VENUE_NEUTRAL_REBUILT_MANUSCRIPT_INTEGRATED__AUTHOR_REVIEW_PENDING"
-  }
+    "manuscript_status": "VENUE_NEUTRAL_REBUILT_MANUSCRIPT_AUTHOR_SCIENTIFIC_REVIEW_R1_PASS__LIVE_VENUE_ASSESSMENT_PENDING",
+    "author_scientific_review": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
+    "author_scientific_review_status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE"
+  },
+  "live_venue_assessment_authorized": false
 }
