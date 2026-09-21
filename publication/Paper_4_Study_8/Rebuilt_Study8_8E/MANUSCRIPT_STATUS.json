@@ -2,7 +2,7 @@
   "schema": 1,
   "paper_id": "PAPER4_REBUILT_STUDY8_STUDY8E",
   "date_local": "2026-09-21",
-  "status": "VENUE_NEUTRAL_MANUSCRIPT_INTEGRATION_IN_PROGRESS",
+  "status": "VENUE_NEUTRAL_MANUSCRIPT_DRAFT_CREATED__QA_PENDING",
   "source_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
   "branch": "paper4/rebuilt-study8-8e-manuscript",
   "architecture": "STUDY8_PLUS_STUDY8E_REBUILT_PAPER4",
@@ -21,5 +21,10 @@
   "manuscript_integration_authorized": true,
   "venue_locked": false,
   "publisher_submission_authorized": false,
-  "next_gate": "MANUSCRIPT_INTEGRATION_REVIEW_AND_QA"
+  "next_gate": "MANUSCRIPT_INTEGRATION_REVIEW_AND_QA",
+  "manuscript_path": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/manuscript/manuscript.md",
+  "literature_verification": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/LITERATURE_VERIFICATION_2026-09-21.md",
+  "claim_traceability": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/CLAIM_TRACEABILITY.csv",
+  "frozen_study8e_trace_summary": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/tables/table-p4-s8e-trace-timing-summary.csv",
+  "integration_execution_completed": true
 }
