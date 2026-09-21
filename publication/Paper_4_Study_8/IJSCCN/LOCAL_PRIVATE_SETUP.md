@@ -27,6 +27,14 @@ Both directories are ignored by the repository-level `.gitignore`.
 
 3. Fill that local JSON file with the submission-only author metadata.
 
+   For this manuscript, use the verified credential display format:
+
+   ```text
+   FULL NAME, MS, PhD
+   ```
+
+   The local file remains ignored by Git and is the only place the personalized author display name/contact values should be stored.
+
 4. Save the recent professional author photograph in the same ignored directory using one of these names:
 
    ```text
