@@ -2,7 +2,7 @@
 
 **Experiment:** `S8E-ECTV-001`  
 **Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_ARCHITECTURE_LOCKED__MANUSCRIPT_INTEGRATION_PENDING`
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_ARCHITECTURE_LOCKED__MANUSCRIPT_INTEGRATION_PLAN_READY`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -24,6 +24,7 @@ This file is the primary current-state handoff for Study 8E. Historical protocol
 11. Corrected result package `S8E-CANON-RESULTS-002` has been independently audited and hash-bound in `CANONICAL_RESULTS_002_AUDIT_HANDOFF.json`.
 12. Formal result freeze `S8E-CANON-RESULTS-002-FREEZE-001` binds the immutable corrected artifact and exact hashes without rewriting the Actions artifact. Manuscript integration remains unauthorized.
 13. Paper-4 architecture/originality gate `publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md` locks Study 8 + Study 8E as one rebuilt Paper 4 while preserving separate populations and Paper-5 independence.
+14. Rebuilt-manuscript integration plan `publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md` defines the title direction, study/RQ placement, claim ledger, section architecture, figures/tables, cross-study synthesis rules, and Paper-5 non-overlap controls. Manuscript editing remains a separate authorization gate.
 
 ## Corrected canonical execution
 
@@ -135,11 +136,11 @@ The freeze does not authorize manuscript integration, scientific reanalysis, TRA
 
 Next controlled sequence:
 
-1. prepare a rebuilt-Paper-4 manuscript integration plan under the locked Study 8 + Study 8E architecture;
-2. preserve separate Study-8 and Study-8E evidence sections and prohibit statistical pooling;
-3. enforce the Paper-4/Paper-5 non-overlap gate during claim mapping and drafting;
-4. authorize manuscript integration/reframing separately before editing the derivative manuscript;
-5. perform live venue assessment and venue lock only after the rebuilt architecture is stable;
+1. obtain explicit authorization to execute the completed rebuilt-Paper-4 manuscript integration plan;
+2. create a venue-neutral derivative manuscript directory without modifying frozen Study 8, frozen Study 8E, or the rejected Acta package;
+3. integrate separate Study-8 and Study-8E evidence sections under the frozen claim ledger and non-overlap gate;
+4. perform fresh literature review and manuscript QA;
+5. perform live venue assessment and venue lock only after the rebuilt manuscript is scientifically stable;
 6. prepare any derivative submission package under separate authorization;
 7. require separate explicit final authorization before publisher submission.
 
