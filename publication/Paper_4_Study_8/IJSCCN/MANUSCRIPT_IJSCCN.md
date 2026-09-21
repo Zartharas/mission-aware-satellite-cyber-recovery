@@ -2,14 +2,14 @@
 
 # Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing
 
-**Aman Kumar Singh, MS, DSc**  
-Independent Researcher, The Woodlands, Texas, United States  
-ORCID: https://orcid.org/0009-0008-9752-3743
+**{{AUTHOR_DISPLAY_NAME}}**  
+{{AUTHOR_AFFILIATION}}, {{AUTHOR_LOCATION}}  
+ORCID: {{AUTHOR_ORCID}}
 
 **Target journal:** International Journal of Satellite Communications and Networking (Wiley)  
 **Short title:** Post-Quantum Satellite Recovery Under Intermittent Connectivity  
 **Studies:** S8-PQC-ICR-001 and S8E-ECTV-001  
-**Corresponding author:** Aman Kumar Singh, MS, DSc — asingh65430@ucumberlands.edu — ORCID 0009-0008-9752-3743
+**Corresponding author:** {{AUTHOR_DISPLAY_NAME}} — {{AUTHOR_EMAIL}} — ORCID {{AUTHOR_ORCID}}
 
 ## Abstract
 
@@ -631,7 +631,7 @@ The author declares no competing financial or non-financial interests.
 
 ### Author contributions
 
-**Aman Kumar Singh:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing – original draft; Writing – review & editing; Visualization; Project administration.
+**{{AUTHOR_DISPLAY_NAME}}:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing – original draft; Writing – review & editing; Visualization; Project administration.
 
 ### Ethics
 
