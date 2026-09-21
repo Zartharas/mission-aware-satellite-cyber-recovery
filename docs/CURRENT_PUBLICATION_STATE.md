@@ -71,7 +71,7 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** obtain explicit authorization for a live venue/scope/author-guideline assessment of the scientifically reviewed venue-neutral rebuilt Paper 4 manuscript. No venue is locked and no publisher package is authorized.
+**Immediate active publication-development priority:** author venue-lock decision for rebuilt Paper 4 after completion of live venue assessment R1. IJSCCN is the preferred candidate, but no venue is locked and no publisher package is authorized.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -132,14 +132,19 @@ Current author/scientific review authority:
 
 Review decision: `AUTHOR_SCIENTIFIC_REVIEW_R1_PASS__READY_FOR_SEPARATE_LIVE_VENUE_ASSESSMENT_GATE`.
 
+Current live venue assessment authority:
+
+- `publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md`
+
+Assessment result: `LIVE_VENUE_ASSESSMENT_COMPLETE__IJSCCN_PREFERRED__VENUE_NOT_LOCKED`.
+
 Current next gate:
 
-1. obtain explicit authorization for live venue/scope/author-guideline assessment;
-2. compare current candidate venues against the reviewed manuscript without changing frozen science;
-3. return a venue shortlist and fit/risk analysis for author decision;
-4. lock a venue only under a separate explicit authorization;
-5. create a venue-specific derivative package only after venue lock;
-6. require separate explicit final authorization before publisher submission.
+1. author decides whether to lock IJSCCN, Computer Networks, International Journal of Information Security, or request deeper/additional venue comparison;
+2. record any venue lock explicitly;
+3. create a venue-specific derivative package only after the venue is locked;
+4. preserve frozen Study 8/8E science and Paper-5 independence during adaptation;
+5. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 
