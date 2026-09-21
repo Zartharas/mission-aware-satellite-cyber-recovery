@@ -2,7 +2,7 @@
 
 **Experiment:** `S8E-ECTV-001`  
 **Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_MANUSCRIPT_INTEGRATED__AUTHOR_QA_PENDING`
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_AUTHOR_SCIENTIFIC_REVIEW_R1_PASS__LIVE_VENUE_ASSESSMENT_PENDING`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -135,13 +135,14 @@ Still prohibited:
 
 The freeze itself does not authorize manuscript integration, but a later explicit author authorization did authorize venue-neutral manuscript integration. Scientific reanalysis, TRACE-002 reexecution, venue lock, and publisher submission remain unauthorized.
 
+Author/scientific review R1 is complete and passed under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md` with controlled language refinements only and no scientific change.
+
 Next controlled sequence:
 
-1. complete author/scientific QA of the integrated venue-neutral rebuilt Paper-4 manuscript;
-2. verify every quantitative claim against the frozen Study-8 and Results-002 authorities and the derivative claim ledger;
-3. preserve the Paper-4/Paper-5 non-overlap gate during any prose revision;
-4. perform live venue assessment and venue lock only after the rebuilt manuscript is scientifically stable;
-5. prepare any venue-specific submission package under separate authorization;
-6. require separate explicit final authorization before publisher submission.
+1. obtain explicit authorization for live venue/scope/author-guideline assessment;
+2. compare venue fit against the reviewed venue-neutral manuscript while preserving frozen Study 8/8E science and Paper-5 independence;
+3. lock a venue only under a separate explicit author decision;
+4. prepare any venue-specific submission package under separate authorization;
+5. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit scientific-execution authorization is granted.
