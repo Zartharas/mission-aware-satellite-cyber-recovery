@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "record_id": "P4-REBUILT-S8-S8E-MANUSCRIPT-INTEGRATION-001",
+  "date_local": "2026-09-21",
+  "base_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
+  "branch": "paper4/execute-rebuilt-study8-8e-manuscript",
+  "status": "VENUE_NEUTRAL_REBUILT_MANUSCRIPT_INTEGRATED__AUTHOR_REVIEW_PENDING",
+  "authorization_basis": "Author explicitly authorized execution of the rebuilt Paper 4 Study 8 + Study 8E manuscript integration plan after PR #153 merged and post-merge main CI passed.",
+  "architecture": {
+    "study8": "S8-PQC-ICR-001",
+    "study8e": "S8E-ECTV-001",
+    "combined_in_one_manuscript": true,
+    "populations_pooled": false,
+    "logical_slots_converted_to_physical_time": false
+  },
+  "manuscript": {
+    "path": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
+    "working_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
+    "venue_neutral": true,
+    "venue_locked": false,
+    "title_locked": false
+  },
+  "evidence": {
+    "study8_modified": false,
+    "study8e_modified": false,
+    "rejected_acta_package_modified": false,
+    "results_001_used_scientifically": false,
+    "results_002_freeze": "S8E-CANON-RESULTS-002-FREEZE-001",
+    "paper5_evidence_imported": false
+  },
+  "literature_refresh": {
+    "completed": true,
+    "date": "2026-09-21",
+    "nist_crypto_agility_record": "CSWP 39upd1",
+    "preprints_labeled_as_preprints": true
+  },
+  "authorization": {
+    "manuscript_integration_authorized": true,
+    "new_scientific_execution_authorized": false,
+    "venue_lock_authorized": false,
+    "publisher_submission_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AND_MANUSCRIPT_QA__THEN_LIVE_VENUE_ASSESSMENT_AUTHORIZATION"
+}
