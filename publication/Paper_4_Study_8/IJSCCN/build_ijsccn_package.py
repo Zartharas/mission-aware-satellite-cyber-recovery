@@ -125,6 +125,9 @@ def clean_latex_text(raw: str):
 def normalize_author_names(raw: str):
     if not raw:
         return ""
+    cleaned = clean_latex_text(raw)
+    if "National Institute of Standards" in cleaned and "Technology" in cleaned:
+        return "National Institute of Standards and Technology"
     parts = [clean_latex_text(p.strip()) for p in raw.replace("\n", " ").split(" and ")]
     return ", ".join(parts)
 
@@ -145,7 +148,8 @@ def format_reference(entry):
     if title: pieces.append(title.rstrip(".") + ".")
     tail = ""
     if journal: tail += journal
-    if std_number and std_number not in tail: tail += (" " if tail else "") + std_number
+    if std_number and not volume and std_number not in tail:
+        tail += (" " if tail else "") + std_number
     if year: tail += (" " if tail else "") + year
     if volume:
         tail += f"; {volume}"
@@ -224,21 +228,20 @@ def make_figures():
 
     fig, ax = plt.subplots(figsize=(10,4.8))
     ax.axis("off")
-    ax.text(0.5,0.88,"Post-compromise post-quantum satellite recovery",
+    ax.text(0.5,0.89,"Post-compromise post-quantum satellite recovery",
             ha="center",va="center",fontsize=15,weight="bold")
-    ax.text(0.24,0.60,"Study 8\nFixed modeled contact capacity\nDoes recovery fit?",
+    ax.text(0.24,0.62,"STUDY 8\nFixed modeled contact capacity\nDoes recovery fit?",
             ha="center",va="center",fontsize=11,
-            bbox=dict(boxstyle="round,pad=0.55",fill=False))
-    ax.text(0.76,0.60,"Study 8E\nPublic observation-opportunity timing\nWhat modeled rate is required?",
+            bbox=dict(boxstyle="round,pad=0.62",fill=False))
+    ax.text(0.76,0.62,"STUDY 8E\nPublic observation-opportunity timing\nWhat modeled rate is required?",
             ha="center",va="center",fontsize=11,
-            bbox=dict(boxstyle="round,pad=0.55",fill=False))
-    ax.annotate("", xy=(0.43,0.60), xytext=(0.36,0.60), arrowprops=dict(arrowstyle="->"))
-    ax.annotate("", xy=(0.64,0.60), xytext=(0.57,0.60), arrowprops=dict(arrowstyle="<-"))
-    ax.text(0.5,0.60,"Separate evidence layers\nNO pooling\nNO slot-to-seconds conversion",
-            ha="center",va="center",fontsize=9,
-            bbox=dict(boxstyle="round,pad=0.45",fill=False))
-    ax.text(0.5,0.28,
-            "P3 vs P1 feasibility difference: 0 in both frozen evidence layers\n"
+            bbox=dict(boxstyle="round,pad=0.62",fill=False))
+    ax.text(0.50,0.62,"SEPARATE EVIDENCE\nNo pooling\nNo slot-to-seconds conversion",
+            ha="center",va="center",fontsize=8.8,weight="bold")
+    ax.text(0.5,0.34,
+            "P3 versus P1: no feasibility advantage in either frozen evidence layer",
+            ha="center",va="center",fontsize=10.5)
+    ax.text(0.5,0.24,
             "Object burden + opportunity timing + recovery horizon constrain modeled feasibility",
             ha="center",va="center",fontsize=10)
     ax.text(0.5,0.08,
