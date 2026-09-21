@@ -32,7 +32,8 @@
     "completed": true,
     "date": "2026-09-21",
     "nist_crypto_agility_record": "CSWP 39upd1",
-    "preprints_labeled_as_preprints": true
+    "preprints_labeled_as_preprints": true,
+    "dezuane_peer_reviewed_record": "IEEE LANMAN 2026; DOI 10.1109/LANMAN69841.2026.11623493"
   },
   "authorization": {
     "manuscript_integration_authorized": true,
