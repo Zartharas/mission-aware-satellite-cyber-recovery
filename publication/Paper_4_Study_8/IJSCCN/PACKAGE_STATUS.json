@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "record_id": "P4-IJSCCN-PACKAGE-R1",
+  "date_local": "2026-09-21",
+  "base_main_commit": "71dc8912d17d4dac1977bc90ce5fad0708fd96af",
+  "branch": "paper4/prepare-ijsccn-package-r1",
+  "status": "IJSCCN_PACKAGE_R1_CONTENT_AND_VISUAL_QA_CLOSED__FINAL_BUILD_BINDING_PENDING",
+  "target_journal": "International Journal of Satellite Communications and Networking",
+  "publisher": "Wiley",
+  "journal_guidelines": "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
+  "source_manuscript": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
+  "derivative_manuscript": "publication/Paper_4_Study_8/IJSCCN/MANUSCRIPT_IJSCCN.md",
+  "requirements": {
+    "abstract_word_limit": 250,
+    "derivative_abstract_words": 213,
+    "keyword_limit": 8,
+    "derivative_keywords": 8,
+    "short_title_char_limit": 70,
+    "derivative_short_title_chars": 63,
+    "gtoc_required": true,
+    "biography_required": true,
+    "recent_photo_required": true,
+    "data_availability_required": true
+  },
+  "authorization": {
+    "venue_specific_package_preparation_authorized": true,
+    "publisher_submission_authorized": false
+  },
+  "external_author_items_pending": [
+    "Recent author photograph required by IJSCCN",
+    "Corresponding-author telephone only if requested by Wiley portal"
+  ],
+  "next_gate": "FINAL_EXACT_HEAD_PACKAGE_BUILD__THEN_EXTERNAL_FREEZE_BINDING",
+  "qa": {
+    "manuscript_render_pages": 25,
+    "manuscript_visual_inspection": "PASS",
+    "figures_visual_inspection": "PASS",
+    "figure_tiff_dpi": 600,
+    "references_visual_inspection": "PASS",
+    "gtoc_visual_inspection": "PASS",
+    "scientific_reanalysis_performed": false,
+    "candidate_build_run": 35621798205,
+    "candidate_artifact_id": 10649611764,
+    "candidate_artifact_digest_sha256": "16c47420c22ce8296367cd5d5dce2ce7967a364e34522a35b84cab818437aa72"
+  },
+  "finalization_strategy": {
+    "reason": "Avoid self-referential artifact hashing: the final package artifact is built after this status commit, then bound by an external freeze record outside publication/Paper_4_Study_8/IJSCCN/.",
+    "package_content_authoritative_after_this_commit": true,
+    "further_package_content_edits_authorized": false,
+    "scientific_reanalysis_performed": false
+  }
+}

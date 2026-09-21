@@ -2,7 +2,7 @@
 
 **Experiment:** `S8E-ECTV-001`  
 **Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_VENUE_LOCKED__VENUE_SPECIFIC_PACKAGE_PENDING`
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_CORE_PACKAGE_FROZEN__AUTHOR_PHOTO_PENDING`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -139,11 +139,12 @@ Author/scientific review R1 is complete and passed under `publication/Paper_4_St
 
 Live venue assessment R1 is complete under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md`. The author has now explicitly locked the International Journal of Satellite Communications and Networking (IJSCCN) under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md`.
 
+The IJSCCN-specific derivative package has been prepared under explicit authorization in `publication/Paper_4_Study_8/IJSCCN/`. Core manuscript, cover letter, title page, data-availability, AI-use, biography, GTOC, and figure files were generated and visually QA'd without changing frozen Study 8/8E science. Core package preparation is now formally closed under `P4-IJSCCN-PKG-R1-FREEZE-001`, bound to package-source commit `6553be414fd1bc598218501971872ff644dee8c8`, workflow run `35632266523`, artifact `10655615285`, and artifact digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`.
+
 Next controlled sequence:
 
-1. obtain explicit authorization to create and adapt an IJSCCN-specific derivative package;
-2. preserve frozen Study 8/8E science and Paper-5 independence during adaptation;
-3. complete venue-specific QA and package freeze;
-4. require separate explicit final authorization before publisher submission.
+1. author supplies the journal-required recent photograph and reviews the frozen package;
+2. preserve frozen Study 8/8E science and Paper-5 independence during any final defect correction;
+3. require separate explicit authorization before Wiley portal entry or final publisher submission.
 
 Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit scientific-execution authorization is granted.

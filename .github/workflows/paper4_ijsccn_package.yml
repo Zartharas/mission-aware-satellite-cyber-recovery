@@ -1,0 +1,51 @@
+name: Build Paper 4 IJSCCN package
+
+on:
+  push:
+    branches:
+      - paper4/prepare-ijsccn-package-r1
+    paths:
+      - "publication/Paper_4_Study_8/IJSCCN/**"
+      - ".github/workflows/paper4_ijsccn_package.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package-build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install python-docx matplotlib pillow bibtexparser==1.4.3
+
+      - name: Build IJSCCN package
+        run: |
+          python publication/Paper_4_Study_8/IJSCCN/build_ijsccn_package.py
+
+      - name: Validate required package outputs
+        run: |
+          test -s publication/Paper_4_Study_8/IJSCCN/build/MANUSCRIPT_IJSCCN.docx
+          test -s publication/Paper_4_Study_8/IJSCCN/build/COVER_LETTER_IJSCCN.docx
+          test -s publication/Paper_4_Study_8/IJSCCN/build/figures/IJSCCN_GTOC.tiff
+          test -s publication/Paper_4_Study_8/IJSCCN/build/figures/Figure_1_Recovery_State_Machine.tiff
+          test -s publication/Paper_4_Study_8/IJSCCN/build/figures/Figure_2_Study8_Profile_Success.tiff
+          test -s publication/Paper_4_Study_8/IJSCCN/build/figures/Figure_3_Study8E_Horizon_Finite_Fraction.tiff
+          test -s publication/Paper_4_Study_8/IJSCCN/build/Paper4_IJSCCN_Submission_Package_R1.zip
+
+      - name: Upload IJSCCN package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper4-ijsccn-submission-package-r1
+          path: publication/Paper_4_Study_8/IJSCCN/build/
+          if-no-files-found: error
+          retention-days: 30
