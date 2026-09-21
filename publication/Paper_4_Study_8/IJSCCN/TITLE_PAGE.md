@@ -16,17 +16,17 @@ Original research article / full-length research paper (final portal label to be
 
 ## Author
 
-**Aman Kumar Singh, MS, DSc**  
-Independent Researcher  
-The Woodlands, Texas 77380, United States
+**{{AUTHOR_DISPLAY_NAME}}**  
+{{AUTHOR_AFFILIATION}}  
+{{AUTHOR_LOCATION}}
 
 ## Corresponding author
 
-Aman Kumar Singh  
-Email: asingh65430@ucumberlands.edu  
-ORCID: https://orcid.org/0009-0008-9752-3743  
+{{AUTHOR_DISPLAY_NAME}}  
+Email: {{AUTHOR_EMAIL}}  
+ORCID: {{AUTHOR_ORCID}}  
 Preferred correspondence method: email  
-Telephone: **AUTHOR TO ENTER IN WILEY PORTAL IF REQUIRED**  
+Telephone: {{AUTHOR_TELEPHONE}}  
 Fax: not applicable
 
 ## Funding
@@ -47,7 +47,7 @@ Data, code, frozen protocols, result hashes, and audit records supporting the re
 
 ## Author contributions
 
-**Aman Kumar Singh:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing – original draft; Writing – review & editing; Visualization; Project administration.
+**{{AUTHOR_DISPLAY_NAME}}:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing – original draft; Writing – review & editing; Visualization; Project administration.
 
 ## AI use
 
