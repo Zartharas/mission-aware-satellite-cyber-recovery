@@ -2,7 +2,7 @@
 
 **Experiment:** `S8E-ECTV-001`  
 **Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_AUTHOR_SCIENTIFIC_REVIEW_R1_PASS__LIVE_VENUE_ASSESSMENT_PENDING`
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_LIVE_VENUE_ASSESSMENT_R1_COMPLETE__VENUE_LOCK_PENDING`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -137,12 +137,13 @@ The freeze itself does not authorize manuscript integration, but a later explici
 
 Author/scientific review R1 is complete and passed under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md` with controlled language refinements only and no scientific change.
 
+Live venue assessment R1 is complete under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md`. IJSCCN is the preferred candidate; Computer Networks is the strongest fallback; International Journal of Information Security is the security-oriented fallback. No venue is locked.
+
 Next controlled sequence:
 
-1. obtain explicit authorization for live venue/scope/author-guideline assessment;
-2. compare venue fit against the reviewed venue-neutral manuscript while preserving frozen Study 8/8E science and Paper-5 independence;
-3. lock a venue only under a separate explicit author decision;
-4. prepare any venue-specific submission package under separate authorization;
-5. require separate explicit final authorization before publisher submission.
+1. obtain explicit author venue-lock decision;
+2. record the selected venue without modifying frozen Study 8/8E science;
+3. prepare any venue-specific submission package only after venue lock;
+4. require separate explicit final authorization before publisher submission.
 
 Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit scientific-execution authorization is granted.
