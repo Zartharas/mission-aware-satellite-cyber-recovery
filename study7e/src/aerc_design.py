@@ -72,6 +72,12 @@ FAULT_PROFILES: dict[str, dict[str, object]] = {
         "domains": ("authority", "transport"),
         "propagation": "union_domain_alias",
     },
+    "F12": {
+        "name": "PRIMARY_EXECUTION_COMPROMISE",
+        "path": "primary",
+        "domain": "execution",
+        "propagation": "domain_alias",
+    },
 }
 
 
@@ -199,7 +205,7 @@ def build_scenario_manifest() -> list[Scenario]:
     e1 = _scenario_rows(
         "E1",
         ("T0_SHARED_ALL", "T1_SEPARATE_SOURCE_EXEC", "T2_SEPARATE_SOURCE_KEY_EXEC"),
-        ("F6", "F7", "F8", "F9", "F10", "F11"),
+        ("F6", "F7", "F8", "F9", "F10", "F11", "F12"),
         1,
     )
     e2 = _scenario_rows(
