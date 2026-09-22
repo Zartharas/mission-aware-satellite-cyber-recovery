@@ -35,7 +35,7 @@ A recommendation must not be described as a mandatory rule. A revision-stage req
 - Figure Preparation: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/figure-preparation.html
 - Supporting Information FAQ: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/supporting-information.html
 - Permissions: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/permissions-material.html
-- Inclusive language guidance: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/writing-for-your-audience.html
+- Inclusive language guidance: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/inclusive-language-guidelines.html
 - Embedded rich media guidance: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/embedded-rich-media.html
 
 ### Wiley submission and peer review
@@ -44,7 +44,7 @@ A recommendation must not be described as a mandatory rule. A revision-stage req
 - Peer Review Process: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/peer-review.html
 - Types of Peer Review: https://authors.wiley.com/Reviewers/journal-reviewers/what-is-peer-review/types-of-peer-review.html
 - Wiley Authors submission help: https://authors.wiley.com/help/submitting-your-manuscript.html
-- Under Review / preprint service: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/under-review.html
+- Under Review / preprint service: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/wiley-under-review.html
 - Registered Reports: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/registered-reports.html
 
 ### Wiley research integrity and data
@@ -280,9 +280,10 @@ Wiley defines Supporting Information as ancillary scientific material that does 
 Key points:
 
 - submit as separate files;
-- clear labels and legends;
-- author is responsible for accuracy/functionality;
-- Wiley does not copyedit or alter Supporting Information;
+- material should be original, or permissions must be supplied for previously published material;
+- provide the final format because Wiley does not copyedit, check, or alter Supporting Information;
+- clear labels and legends are required;
+- the author remains responsible for scientific accuracy and file functionality;
 - individual files should generally be 10 MB or less.
 
 Title page, cover letter, author biography, author photograph, GTOC, and publisher declarations are not scientific Supporting Information merely because they are separate files.
@@ -425,8 +426,9 @@ The linked Wiley preparation and submission resources also include services or a
 - **Under Review** is an optional preprint-posting service. Paper 4 does not need to opt in.
 - **Registered Reports** are designed around prospective Stage 1 review before data collection and are not appropriate for this already-completed Study 8 / Study 8E manuscript.
 - **Language checking / editing services** are optional author services, not submission requirements.
-- **Embedded rich media** guidance applies only if the article contains supported audio/video or similar media. Paper 4 does not currently require rich media.
-- **Inclusive-language guidance** is a general writing-quality expectation. It does not create a separate Paper 4 file or portal requirement.
+- **Embedded rich media** guidance applies only if the article contains supported audio/video or similar media. It has separate media-specific upload rules, including a 300 MB per-media-file limit and a 350 MB combined-submission limit. Paper 4 does not contain rich media, so those limits do not replace the ordinary 500 MB submission-package limit for R5.
+- **Inclusive-language guidance** is a general scholarly-communication expectation. It does not create a separate Paper 4 file or portal requirement.
+- **Wiley Editing Services**, the **Manuscript Language Checker**, search-engine-optimization resources, Wiley Researcher Academy, and general writing resources are optional author-support services. They are not IJSCCN acceptance or submission requirements.
 
 These resources were reviewed so that optional Wiley services are not accidentally represented as mandatory IJSCCN submission criteria.
 
