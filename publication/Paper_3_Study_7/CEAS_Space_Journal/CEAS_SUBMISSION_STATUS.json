@@ -15,12 +15,15 @@
   "portal_package": "publication/Paper_3_Study_7/CEAS_Space_Journal/PORTAL_UPLOAD_PACKAGE/",
   "zenodo_version_doi": "10.5281/zenodo.22732060",
   "zenodo_concept_doi": "10.5281/zenodo.22732059",
-  "next_action": "Author review of S7E-AERC-001 prospective protocol/design; do not modify S7-LSO-001 or rejected CEAS package; no new experiment execution without explicit authorization",
+  "next_action": "Author review of the S7E-AERC-001 protocol and implementation plan; no implementation workspace or canonical execution without a new explicit authorization",
   "decision_date": "2026-09-22",
   "decision_type": "handling_editor_editorial_assessment",
   "decision_record": "publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-09-22.md",
   "external_reviewer_comments_present_in_supplied_decision": false,
-  "recovery_state": "POST_REJECTION_REQUIREMENTS_AUDIT_COMPLETE__S7E_AERC_001_PROPOSED__EXECUTION_NOT_AUTHORIZED",
+  "recovery_state": "S7E_AERC_001_PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED",
   "recovery_audit": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md",
-  "prospective_extension_proposal": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md"
+  "prospective_extension_proposal": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md",
+  "prospective_protocol": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_DRAFT_2026-09-22.md",
+  "implementation_plan": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_IMPLEMENTATION_PLAN_2026-09-22.md",
+  "test_audit_plan": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_TEST_AND_AUDIT_PLAN_2026-09-22.md"
 }
