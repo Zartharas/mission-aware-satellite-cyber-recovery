@@ -40,6 +40,8 @@ class Study7EDesignTests(unittest.TestCase):
         self.assertEqual(affected_paths("T2_SEPARATE_SOURCE_KEY_EXEC", "F3"), frozenset({"primary"}))
         self.assertEqual(affected_paths("T3_SEPARATE_THROUGH_TRANSPORT", "F10"), frozenset({"primary", "corroborator"}))
         self.assertEqual(affected_paths("T4_SEPARATE_ALL", "F10"), frozenset({"primary"}))
+        self.assertEqual(affected_paths("T0_SHARED_ALL", "F12"), frozenset({"primary", "corroborator"}))
+        self.assertEqual(affected_paths("T1_SEPARATE_SOURCE_EXEC", "F12"), frozenset({"primary"}))
         self.assertEqual(affected_paths("T4_SEPARATE_ALL", "F5"), frozenset({"primary"}))
         self.assertEqual(affected_paths("T0_SHARED_ALL", "F0"), frozenset())
 
@@ -49,20 +51,20 @@ class Study7EDesignTests(unittest.TestCase):
         self.assertEqual(counts["TR1"], 72)
         self.assertEqual(counts["TR0"], 12)
         self.assertEqual(counts["TRAINING_SCENARIOS"], 84)
-        self.assertEqual(counts["E1"], 72)
-        self.assertEqual(counts["E2"], 96)
+        self.assertEqual(counts["E1"], 84)
+        self.assertEqual(counts["E2"], 104)
         self.assertEqual(counts["C0"], 8)
-        self.assertEqual(counts["TOTAL"], 260)
-        self.assertEqual(counts["CANONICAL_EVAL_SCENARIOS"], 176)
-        self.assertEqual(counts["CANONICAL_EVAL_POLICY_DECISIONS"], 704)
-        self.assertEqual(len({row.scenario_id for row in rows}), 260)
+        self.assertEqual(counts["TOTAL"], 280)
+        self.assertEqual(counts["CANONICAL_EVAL_SCENARIOS"], 196)
+        self.assertEqual(counts["CANONICAL_EVAL_POLICY_DECISIONS"], 784)
+        self.assertEqual(len({row.scenario_id for row in rows}), 280)
 
     def test_training_and_eval_partition(self) -> None:
         rows = build_scenario_manifest()
         training = [r for r in rows if r.block in {"TR1", "TR0"}]
         evaluation = [r for r in rows if r.block not in {"TR1", "TR0"}]
         self.assertEqual(len(training), 84)
-        self.assertEqual(len(evaluation), 176)
+        self.assertEqual(len(evaluation), 196)
         self.assertFalse({r.scenario_id for r in training} & {r.scenario_id for r in evaluation})
 
     def test_objective_action(self) -> None:
