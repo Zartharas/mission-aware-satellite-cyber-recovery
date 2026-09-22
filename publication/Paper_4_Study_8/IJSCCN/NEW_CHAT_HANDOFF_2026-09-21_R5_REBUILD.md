@@ -4,6 +4,7 @@
 **Repository:** `Zartharas/mission-aware-satellite-cyber-recovery`  
 **Base main at handoff start:** `c4888f969545a17f06979aae26e30ed4afbad5c7`  
 **Working branch:** `paper4/ijsccn-r5-rebuild-handoff-20260921`  
+**Pull request:** `#163` (open; not merged at handoff)  
 **Target journal:** *International Journal of Satellite Communications and Networking* (IJSCCN, Wiley)  
 **Publisher submission:** **NOT AUTHORIZED**  
 **New scientific execution:** **NOT AUTHORIZED**
