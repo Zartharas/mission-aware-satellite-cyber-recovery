@@ -56,7 +56,8 @@ Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-
 - [x] Verify the exact immutable Acta submitted manuscript hash and complete direct render-to-render visual benchmarking.
 - [x] Confirm tracked publisher-facing files contain placeholders only and local-private/local-submission paths remain ignored.
 - [ ] Generate and visually inspect the final personalized local-only package under `_local_submission/`.
-- [x] Produce a verification-bounded Research Exchange upload-map draft without inventing portal categories.\n- [ ] Reconcile that draft against the live Research Exchange Required Files/metadata screens to produce the exact final upload map.
+- [x] Produce a verification-bounded Research Exchange upload-map draft without inventing portal categories.
+- [ ] Reconcile that draft against the live Research Exchange Required Files/metadata screens to produce the exact final upload map.
 - [ ] Obtain separate explicit author authorization before final publisher submission.
 
 
