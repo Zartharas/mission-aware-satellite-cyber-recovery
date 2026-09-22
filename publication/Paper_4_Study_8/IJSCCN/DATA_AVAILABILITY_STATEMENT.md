@@ -24,4 +24,4 @@ SatNOGS data are used only as an observation-opportunity timing proxy. No privat
 
 The repository preserves invalidated intermediate Study 8E artifacts as provenance and marks them non-authoritative. Scientific claims in the manuscript use only the corrected and formally frozen Results-002 authorities.
 
-The final R5 reference list will include a formal citation to the shared repository/data record in accordance with Wiley data-citation guidance. If a DOI-backed archival snapshot is created later, the Data Availability Statement and data citation will be updated to that persistent identifier without changing the frozen scientific content.
+The R5 reference list includes a formal citation to the shared repository/data record using the immutable scientific-evidence snapshot commit identified in the manuscript. If a DOI-backed archival snapshot is created later, the Data Availability Statement and data citation may be updated to that persistent identifier without changing the frozen scientific content.
