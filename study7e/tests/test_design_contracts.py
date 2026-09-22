@@ -46,21 +46,23 @@ class Study7EDesignTests(unittest.TestCase):
     def test_manifest_cardinality(self) -> None:
         rows = build_scenario_manifest()
         counts = manifest_counts(rows)
-        self.assertEqual(counts["TR"], 72)
+        self.assertEqual(counts["TR1"], 72)
+        self.assertEqual(counts["TR0"], 12)
+        self.assertEqual(counts["TRAINING_SCENARIOS"], 84)
         self.assertEqual(counts["E1"], 72)
         self.assertEqual(counts["E2"], 96)
-        self.assertEqual(counts["C0"], 20)
+        self.assertEqual(counts["C0"], 8)
         self.assertEqual(counts["TOTAL"], 260)
-        self.assertEqual(counts["CANONICAL_EVAL_SCENARIOS"], 188)
-        self.assertEqual(counts["CANONICAL_EVAL_POLICY_DECISIONS"], 752)
+        self.assertEqual(counts["CANONICAL_EVAL_SCENARIOS"], 176)
+        self.assertEqual(counts["CANONICAL_EVAL_POLICY_DECISIONS"], 704)
         self.assertEqual(len({row.scenario_id for row in rows}), 260)
 
     def test_training_and_eval_partition(self) -> None:
         rows = build_scenario_manifest()
-        training = [r for r in rows if r.block == "TR"]
-        evaluation = [r for r in rows if r.block != "TR"]
-        self.assertEqual(len(training), 72)
-        self.assertEqual(len(evaluation), 188)
+        training = [r for r in rows if r.block in {"TR1", "TR0"}]
+        evaluation = [r for r in rows if r.block not in {"TR1", "TR0"}]
+        self.assertEqual(len(training), 84)
+        self.assertEqual(len(evaluation), 176)
         self.assertFalse({r.scenario_id for r in training} & {r.scenario_id for r in evaluation})
 
     def test_objective_action(self) -> None:
