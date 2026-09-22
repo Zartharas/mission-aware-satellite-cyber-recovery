@@ -1,0 +1,70 @@
+name: Study 7E pre-canonical qualification
+
+on:
+  push:
+    branches:
+      - "paper3/s7e-aerc-implementation-feasibility-*"
+    paths:
+      - "study7e/**"
+      - ".github/workflows/study7e-precanonical-qualification.yml"
+  pull_request:
+    paths:
+      - "study7e/**"
+      - ".github/workflows/study7e-precanonical-qualification.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Compile pre-canonical implementation
+        run: |
+          python -m py_compile \
+            study7e/src/aerc_design.py \
+            study7e/tests/test_design_contracts.py \
+            study7e/validation/validate_precanonical.py \
+            study7e/tools/generate_scenario_manifest.py
+
+      - name: Run design contract tests
+        run: python -m unittest study7e.tests.test_design_contracts -v
+
+      - name: Run pre-canonical governance validator
+        run: python study7e/validation/validate_precanonical.py
+
+      - name: Generate design manifest in temporary storage
+        run: |
+          python study7e/tools/generate_scenario_manifest.py --output /tmp/study7e_scenario_manifest.csv
+          test "$(wc -l < /tmp/study7e_scenario_manifest.csv | tr -d ' ')" = "261"
+
+      - name: Require canonical execution remains impossible
+        run: |
+          set -euo pipefail
+          test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
+          test ! -e .github/workflows/study7e-canonical-execution.yml
+          if [ -d study7e/results ]; then
+            test -z "$(find study7e/results -type f -print -quit)"
+          fi
+          echo "canonical_execution_guard=PASS"
+          echo "canonical_results_generated=false"
+
+      - name: Confirm no Study 7 mutation in this implementation branch
+        run: |
+          set -euo pipefail
+          git fetch origin main --depth=1
+          if git diff --name-only origin/main...HEAD | grep '^study7/'; then
+            echo "ERROR: frozen Study 7 path changed"
+            exit 1
+          fi
+          echo "study7_freeze_guard=PASS"
