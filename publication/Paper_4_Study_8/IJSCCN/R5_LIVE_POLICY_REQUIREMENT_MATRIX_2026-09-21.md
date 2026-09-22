@@ -39,8 +39,9 @@ IJSCCN-specific > live Research Exchange for portal fields > generic Wiley requi
 | ORCID | 1 | Provide the sole author's ORCID in the submission workflow. |
 | Author identity | 1 | Aman Kumar Singh, MS, PhD, sole independent author. No coauthors added or implied. |
 | Corresponding-author metadata | 1 + 2 | Supply portal-required address/email/telephone/fax information as applicable. Keep private information local-only. |
-| Title page | 1 + 2 | Maintain an identifying title page. If the portal configures double-anonymized review, upload it separately and remove identifying information from the main manuscript. |
-| Peer-review anonymization | 2 | Do not guess. The live Required Files screen controls. |
+| Title page | 1 + 2 | Maintain an identifying title page with the required author/integrity information. Whether it must be a separate uploaded file remains portal-specific. |
+| Peer-review model | 1 | Current Wiley Journal Finder: **Single Anonymized**. Use an identified main manuscript by default. |
+| Main-manuscript anonymization | 2 + 6 | Do not anonymize by default. Only alter this if the live Research Exchange instance explicitly instructs otherwise. |
 | Font | 1 + 4 | IJSCCN prefers 12-point Times, Helvetica, or Courier. R5 uses Times New Roman 12 pt. |
 | Double spacing | 1 | Not required. |
 | Overall layout | 4 | Professional single-column reviewer manuscript with restrained hierarchy and normal margins. |
@@ -93,7 +94,8 @@ IJSCCN-specific > live Research Exchange for portal fields > generic Wiley requi
 | Final Wiley typesetting | 5 | Wiley formats accepted papers. Do not imitate final production layout in the initial DOCX. |
 | Licensing | 5 | Formal CTA/ELA/OA agreement occurs primarily after acceptance. Do not place sample license language in the initial manuscript. |
 | Proofs | 5 | Correct production errors only; return promptly, preferably within two days. |
-| Page charge | 1 | IJSCCN states there is no page charge. Optional OA APC is a separate matter. |
+| Page charge | 1 | IJSCCN states there is no page charge. |
+| Open access | 6 | Optional. Wiley Journal Finder currently lists an APC for open-access publication; this is separate from page charges and is not required for standard submission. |
 
 ## 3. Resolved ambiguities
 
@@ -141,22 +143,23 @@ IJSCCN-specific > live Research Exchange for portal fields > generic Wiley requi
 
 ## 4. Portal-only unresolved items
 
-1. Exact anonymization model.
-2. Whether a separate Title Page is required.
-3. GTOC file designation.
-4. Photograph file designation.
-5. Cover-letter requirement.
-6. Telephone/fax field behavior.
-7. CRediT requirement.
-8. Preferred editor/reviewer nomination fields.
-9. Color/artwork certifications.
-10. Exact AI certification wording beyond the previously observed Methods requirement.
+The journal-level peer-review model is resolved as **Single Anonymized**. The remaining submission-instance questions are:
+
+1. Whether a separate Title Page upload is required or the identifying title page remains within the main manuscript.
+2. GTOC file designation.
+3. Photograph file designation.
+4. Cover-letter requirement.
+5. Telephone/fax field behavior.
+6. CRediT requirement.
+7. Preferred editor/reviewer nomination fields.
+8. Color/artwork certifications.
+9. Exact AI certification wording beyond the previously observed Methods requirement.
 
 These do not block the R5 manuscript rebuild. They must be verified in the live portal before upload.
 
 ## 5. Final gate
 
-**Public-policy evidence gate: PASS.**
+**Public-policy evidence gate: PASS.** Current journal-level peer review is Single Anonymized.
 
 **R5 manuscript rebuild:** authorized by the author, subject to frozen-science preservation.
 
