@@ -118,7 +118,7 @@ Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-
 - [x] AI Use Declaration source prepared.
 - [x] Package README prepared.
 - [x] GitHub Actions produces only a public-safe QA ZIP with placeholder author metadata.
-- [ ] Final personalized upload-ready package generated locally under the ignored `_local_submission/` directory and visually checked before portal upload.
+- [x] Personalized manuscript, cover letter, title page, biography, AI declaration, and GTOC generated locally and visually checked: **PASS**.\n- [ ] Complete the final personalized package by adding and visually verifying the recent author photograph under the ignored local-only path.
 
 ## Privacy and authorization
 
@@ -151,6 +151,6 @@ Current R5 status:
 - direct immutable Acta render comparison: **PASS**
 - R5 public-safe builder: **PASS** with 800 dpi artwork target and automated privacy/document-integrity checks
 - exact-head PR #164 CI: must pass after every reconciliation edit
-- final personalized local package QA: **OPEN**
+- personalized local document-set visual/structural QA: **PASS**\n- final personalized local package QA: **PARTIAL PASS, RECENT AUTHOR PHOTOGRAPH PENDING**
 - live Research Exchange upload-map verification: **OPEN**
 - publisher submission authorization: **NOT GRANTED**
