@@ -3,7 +3,7 @@
 Authoritative journal guidance:
 https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html
 
-Accessed: 2026-09-21
+Accessed and revalidated: 2026-09-22
 
 ## Current R5 gate — supersedes prior upload-ready claims
 
@@ -33,27 +33,30 @@ R5 must be rebuilt from the current IJSCCN scientific content while using the re
 
 ### R5 manuscript-format gate
 
-Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md` and the reconciled requirement matrix.
+Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md`, `R5_LIVE_POLICY_REQUIREMENT_MATRIX_2026-09-21.md`, and `R5_VISUAL_PUBLISHER_QA_2026-09-22.md`.
 
-- [ ] Build a professional single-column reviewer manuscript, not a simulated Wiley production PDF.
-- [ ] Use a restrained academic typography system and consistent page rhythm.
-- [ ] Remove slide-like lists where prose or a concise table is superior.
-- [ ] Use only standard Unicode list glyphs if lists remain.
-- [ ] Use numbered hierarchical headings consistently.
-- [ ] Add professionally formatted figure legends.
-- [ ] Put tables on separate pages after References as the conservative R5 initial-submission design and explicit revision-ready placement.
-- [ ] Prepare scientific figures as separate publication-quality TIFF files while preserving reviewer readability in the manuscript.
-- [ ] Include the mandatory GTOC in the form required by the live guidelines.
-- [ ] Include or otherwise reliably supply the <=200-word biography and recent author photo.
-- [ ] Retain the required Methods AI disclosure from the live portal certification.
-- [ ] Preserve the formal Data Availability Statement and immutable repository identity.
-- [ ] Preserve zero em dashes across every publisher-facing document.
-- [ ] Preserve all Study 8 / Study 8E numbers, equations, hashes, citations, and claim boundaries.
-- [ ] Confirm no scientific rerun or reanalysis was performed.
-- [ ] Render every DOCX and inspect every page at normal reading scale.
-- [ ] Check for broken glyphs, orphan headings, widows/orphans, excessive whitespace, poor figure/table sizing, and inconsistent indentation.
-- [ ] Confirm all personalized files remain only under ignored local-private/local-submission paths.
-- [ ] Produce an exact portal upload map only after final visual QA.
+- [x] Build a professional single-column reviewer manuscript, not a simulated Wiley production PDF.
+- [x] Use a restrained academic typography system and consistent page rhythm.
+- [x] Remove slide-like lists where prose or a concise table is superior.
+- [x] Use only standard list glyphs where lists remain in auxiliary submission documents.
+- [x] Use numbered hierarchical headings consistently.
+- [x] Add professionally formatted figure legends.
+- [x] Put tables on separate pages after References as the conservative R5 initial-submission design and explicit revision-ready placement.
+- [x] Prepare scientific figures as separate publication-quality TIFF files while preserving reviewer readability in the manuscript.
+- [x] Prepare the mandatory GTOC with title, corresponding-author marker, purpose-built graphic, and <=80-word / <=3-sentence text.
+- [x] Prepare the <=200-word author biography.
+- [ ] Place the recent author photograph into the ignored local-private/local-submission package and visually verify it before portal upload.
+- [x] Retain the required Methods AI disclosure from the live portal certification.
+- [x] Preserve the formal Data Availability Statement and immutable repository identity.
+- [x] Preserve zero em dashes across every publisher-facing public-safe document.
+- [x] Preserve all Study 8 / Study 8E numbers, equations, hashes, citations, and claim boundaries.
+- [x] Confirm no scientific rerun or reanalysis was performed.
+- [x] Render every public-safe DOCX and inspect every page at normal reading scale.
+- [x] Check for broken glyphs, orphan headings, widows/orphans, excessive whitespace, poor figure/table sizing, and inconsistent indentation.
+- [x] Verify the exact immutable Acta submitted manuscript hash and complete direct render-to-render visual benchmarking.
+- [x] Confirm tracked publisher-facing files contain placeholders only and local-private/local-submission paths remain ignored.
+- [ ] Generate and visually inspect the final personalized local-only package under `_local_submission/`.
+- [ ] Produce the exact Research Exchange upload map after reopening the live portal.
 - [ ] Obtain separate explicit author authorization before final publisher submission.
 
 
@@ -86,7 +89,7 @@ Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-
 
 - [x] GTOC text <=80 words and <=3 sentences.
 - [x] GTOC graphic source planned.
-- [x] High-resolution GTOC TIFF generated and visually checked; regenerate at the final journal-appropriate resolution during R5 visual QA if the current source does not meet the applicable artwork target.
+- [x] High-resolution GTOC TIFF and one-page GTOC DOCX generated and visually checked at the R5 artwork target.
 
 ## Figures
 
@@ -108,7 +111,7 @@ Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-
 - [x] Main editable DOCX generated.
 - [x] Historical R1 Main DOCX rendered to 25 pages and visually inspected for clipping/overlap; later author review superseded this as a publication-quality approval.
 - [x] Separate figure files generated.
-- [x] GTOC figure generated and visually checked.
+- [x] GTOC figure and combined one-page GTOC DOCX generated and visually checked.
 - [x] Cover letter source prepared.
 - [x] Title-page source prepared.
 - [x] Data Availability Statement source prepared.
@@ -138,9 +141,16 @@ Historical R1 package provenance is retained for audit only and does not establi
 Current R5 status:
 
 - public-policy evidence gate: **PASS**
+- requirement-classification gate: **PASS**
 - scientific source-preservation gate: **PASS**
-- R5 public-safe builder implemented with 800 dpi artwork target and automated privacy/document-integrity checks
+- Paper 4 / Paper 5 non-overlap gate: **PASS**
+- 18-page manuscript visual QA: **PASS**
+- auxiliary-document visual QA: **PASS**
+- scientific-figure and GTOC visual QA: **PASS**
+- Word structural/accessibility QA: **PASS**
+- direct immutable Acta render comparison: **PASS**
+- R5 public-safe builder: **PASS** with 800 dpi artwork target and automated privacy/document-integrity checks
 - exact-head PR #164 CI: must pass after every reconciliation edit
-- page-by-page R5 DOCX visual QA: **OPEN**
 - final personalized local package QA: **OPEN**
+- live Research Exchange upload-map verification: **OPEN**
 - publisher submission authorization: **NOT GRANTED**
