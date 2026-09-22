@@ -222,17 +222,32 @@ All six issues were corrected and re-rendered.
 
 ## 9. Acta visual-benchmark gate
 
-The immutable historical file remains:
+The immutable historical benchmark is:
 
 `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_ASTRONAUTICA_MANUSCRIPT.docx`
 
-The R5 package was independently rendered and inspected in full. A direct current-session render-to-render comparison against the immutable Acta DOCX could not be completed because the repository binary could not be retrieved through the available text-oriented GitHub file interface and the raw-binary download route was unavailable in this execution environment.
+The exact submitted Acta manuscript was retrieved through a temporary short-lived CI QA artifact without modifying the binary. Its local SHA-256 was verified as:
 
-No claim is made that the direct Acta comparison has passed.
+`ef551a52c2df65c1db68fa6188b22bf216e10aefdc6b7e8d0de00e3fb95d7411`
 
-**Acta direct-comparison gate:** PENDING.
+This matches the frozen submitted-package authority.
 
-This pending benchmark does not invalidate the R5 source, scientific-preservation, structural, accessibility, or independent visual QA results. It remains a final visual-reference gate before calling the publisher package fully submission-ready.
+The Acta manuscript rendered to **8 pages**, and every page was inspected directly. The comparison was used only as a visual-quality benchmark. IJSCCN requirements continue to control where the two venues differ.
+
+### Direct comparison
+
+- **Title-page restraint:** R5 uses a smaller, more conventional journal title hierarchy and avoids the oversized title treatment visible in the Acta manuscript. PASS.
+- **Section hierarchy:** Acta is compact but dense. R5 uses fewer visible heading levels than the rejected R4.x source while preserving clearer section transitions and more consistent reviewer navigation. PASS.
+- **Body typography:** Acta is more tightly set. R5 deliberately uses the IJSCCN-preferred 12-point reviewer style and therefore has more vertical space. The added space is controlled rather than slide-like. PASS.
+- **Paragraph rhythm:** R5 provides more consistent inter-paragraph and heading spacing while retaining scholarly density. PASS.
+- **Tables:** Acta embeds multiple dense tables within the running article. R5 moves its two justified tables to separate post-References pages, which follows the conservative IJSCCN revision-ready design and produces cleaner main-text rhythm. PASS.
+- **Figures:** Acta contains in-manuscript figure-placement placeholders with separate vector artwork. R5 supplies separate high-resolution regenerated figures plus dedicated post-References legends and avoids placeholder text in the manuscript. PASS.
+- **References:** Both use numbered scholarly references. R5 provides more consistent hanging indentation and explicitly incorporates the reconciled peer-reviewed De Zuane LANMAN record. PASS.
+- **Professional coherence:** R5 is longer because it combines Study 8 with the separately governed Study 8E extension and uses IJSCCN-preferred 12-point presentation. Page count is therefore not used as a quality metric. At normal reading scale, R5 is at least as professionally organized as the immutable Acta benchmark and is better aligned to the current target venue. PASS.
+
+No Acta submitted binary was edited, regenerated, or replaced.
+
+**Acta direct render-to-render comparison gate:** PASS.
 
 ## 10. Current gate status
 
@@ -247,11 +262,11 @@ This pending benchmark does not invalidate the R5 source, scientific-preservatio
 - GTOC QA: **PASS**
 - Word structural/a11y QA: **PASS**
 - public-safe privacy boundary: **PASS**
-- Acta direct render comparison: **PENDING**
+- Acta direct render comparison: **PASS**
 - personalized local-only package: **NOT YET FINALIZED**
 - live Research Exchange upload map: **PENDING PORTAL REOPEN**
 - final Wiley submission: **NOT AUTHORIZED**
 
-**R5 public-safe independent visual/publisher QA: PASS WITH ONE CONTROLLED PENDING BENCHMARK GATE.**
+**R5 public-safe independent visual/publisher QA: PASS.**
 
-**PR #164 must remain draft and unmerged until the remaining controlled gates are resolved or explicitly accepted by the author.**
+**PR #164 remains draft and unmerged. The remaining gates are the personalized local-only package, live Research Exchange upload-map verification, and separate final publisher-submission authorization.**
