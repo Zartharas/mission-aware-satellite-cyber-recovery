@@ -8,6 +8,8 @@
 
 **Paper 4 IJSCCN privacy-hardening update:** 2026-09-21
 
+**Paper 4 IJSCCN R5 rebuild-gate update:** 2026-09-21
+
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
@@ -75,7 +77,7 @@ The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_System
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** author review of the frozen IJSCCN core submission package and supply of the journal-required recent author photograph. Core package preparation is closed successfully; publisher submission remains unauthorized.
+**Immediate active publication-development priority:** complete a fresh, live IJSCCN/Wiley submission-policy audit and rebuild the publisher-facing Paper 4 package as **R5**. The prior repository R1 package remains frozen historical provenance. The local R4.x personalized derivatives are not tracked; author review rejected R4.3 as a submission candidate because its manuscript presentation did not meet the required professional journal standard. The author photograph has been supplied locally under the privacy boundary. Publisher submission remains unauthorized.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -156,6 +158,23 @@ Current IJSCCN package authority:
 
 Current package state: `P4-IJSCCN-PKG-R1-FREEZE-001`. The pre-privacy repository-generated package was bound to workflow run `35632266523`, artifact `10655615285`, digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`. That artifact is historical package provenance only and is superseded for submission handling by the local-private privacy gate because it was generated before tracked author-contact metadata was removed. Personalized upload-ready materials are now local-only and ignored by Git.
 
+Current R5 rebuild state:
+
+- repository R1 package remains immutable historical/public-safe provenance;
+- the rejected Acta Astronautica submitted manuscript remains immutable and may be consulted only as a visual-quality benchmark;
+- local R4.3 is explicitly **not approved for Wiley upload**;
+- R5 is a new controlled publisher-facing derivative, not a scientific rerun;
+- R5 must preserve the current integrated Study 8 + Study 8E scientific text and all frozen evidence boundaries;
+- R5 must be validated against the live IJSCCN Author Guidelines, Wiley manuscript-preparation guidance, and Wiley submission/peer-review guidance before document generation;
+- journal-specific IJSCCN instructions control over generic Wiley guidance when they conflict;
+- the final personalized R5 package must remain under ignored local-private/local-submission paths;
+- final Wiley submission still requires separate explicit author authorization.
+
+R5 continuity authority:
+
+- `publication/Paper_4_Study_8/IJSCCN/NEW_CHAT_HANDOFF_2026-09-21_R5_REBUILD.md`
+- `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
+
 Current package-freeze authority:
 
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md`
@@ -166,11 +185,13 @@ Current privacy/local-submission authority:
 
 Current next gate:
 
-1. merge the privacy-hardening change only under explicit author authorization;
-2. store the author photograph and private contact metadata only in the ignored local-private directory;
-3. generate and visually QA the personalized upload-ready package only under the ignored local-submission directory;
-4. enter Wiley portal data only under a separate explicit portal/submission authorization;
-5. require separate explicit final authorization before completing publisher submission.
+1. perform a fresh live-policy audit of the IJSCCN Author Guidelines and every submission-relevant linked Wiley page, including manuscript preparation and submission/peer review;
+2. create a requirement matrix that distinguishes mandatory journal-specific rules, live portal requirements, generic Wiley guidance, and recommendations;
+3. rebuild the manuscript and all publisher-facing submission documents as R5 with professional scholarly formatting, using the immutable Acta manuscript only as a visual-quality reference;
+4. perform scientific-preservation checks, page-by-page render QA, figure/table QA, data/citation/AI/ethics QA, and privacy validation;
+5. generate the final personalized package only under the ignored local-submission directory;
+6. map exact R5 files to the Wiley portal only after all gates pass;
+7. require separate explicit final author authorization before completing publisher submission.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 
