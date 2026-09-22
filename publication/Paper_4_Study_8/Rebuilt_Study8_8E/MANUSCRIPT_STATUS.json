@@ -4,7 +4,7 @@
   "date_local": "2026-09-21",
   "base_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
   "branch": "paper4/execute-rebuilt-study8-8e-manuscript",
-  "status": "IJSCCN_CORE_PACKAGE_R1_FROZEN__AUTHOR_PHOTO_PENDING__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+  "status": "IJSCCN_R5_FULL_LAYOUT_REBUILD_REQUIRED__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "authorization_basis": "Author explicitly authorized execution of the rebuilt Paper 4 Study 8 + Study 8E manuscript integration plan after PR #153 merged and post-merge main CI passed.",
   "architecture": {
     "study8": "S8-PQC-ICR-001",
@@ -46,7 +46,7 @@
     "live_venue_assessment_authorized": true,
     "venue_specific_package_preparation_authorized": true
   },
-  "next_gate": "AUTHOR_PACKAGE_REVIEW_AND_PHOTO__THEN_SEPARATE_WILEY_PORTAL_SUBMISSION_AUTHORIZATION",
+  "next_gate": "DEEP_WILEY_POLICY_AUDIT__R5_FORMAT_REBUILD__PAGE_BY_PAGE_QA__THEN_SEPARATE_PORTAL_AND_FINAL_SUBMISSION_AUTHORIZATION",
   "review": {
     "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
     "status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
@@ -72,5 +72,34 @@
     "core_package_frozen": true,
     "author_photo_pending": true,
     "scientific_reanalysis_performed": false
+  },
+  "r5_rebuild": {
+    "date_local": "2026-09-21",
+    "trigger": "Author visual review found that the local R4.x publisher-facing manuscript did not meet the required professional journal presentation standard. R4.3 is not approved for Wiley upload.",
+    "scope": "Presentation, manuscript architecture, and publisher-facing submission-document rebuild only.",
+    "scientific_reanalysis_performed": false,
+    "study8_modified": false,
+    "study8e_modified": false,
+    "rejected_acta_package_modified": false,
+    "populations_pooled": false,
+    "acta_use": "Immutable historical submission and visual-quality benchmark only; do not modify or copy venue-specific scientific framing blindly.",
+    "live_policy_sources": [
+      "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
+      "https://authors.wiley.com/author-resources/Journal-Authors/Prepare/index.html",
+      "https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/index.html",
+      "https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/index.html"
+    ],
+    "authority_rule": "Current IJSCCN-specific instructions control over generic Wiley guidance when they conflict; live portal fields/certifications control for portal-specific requirements.",
+    "local_privacy_state": {
+      "author_photo_supplied_local_only": true,
+      "private_contact_metadata_local_only": true,
+      "personalized_packages_ignored_by_git": true
+    },
+    "author_requirements": {
+      "sole_author": true,
+      "no_em_dashes": true,
+      "final_submission_requires_separate_explicit_authorization": true
+    },
+    "handoff_record": "publication/Paper_4_Study_8/IJSCCN/NEW_CHAT_HANDOFF_2026-09-21_R5_REBUILD.md"
   }
 }
