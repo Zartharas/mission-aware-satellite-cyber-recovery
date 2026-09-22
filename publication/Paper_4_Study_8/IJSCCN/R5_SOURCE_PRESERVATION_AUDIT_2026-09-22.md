@@ -8,7 +8,9 @@
 
 ## 1. Purpose
 
-This audit verifies that the initial R5 source rebuild changes manuscript architecture and presentation without modifying the frozen scientific results, evidence boundaries, or Paper 4 / Paper 5 separation.
+This audit verifies that the R5 source rebuild and subsequent publisher-facing framing refinements change manuscript architecture and presentation without modifying the frozen scientific results, evidence boundaries, or Paper 4 / Paper 5 separation.
+
+The final framing refinement sharpens the manuscript around a quantified recovery-feasibility boundary, the diagnostic meaning of the P3-versus-P1 null contrast, and the distinction between fixed-capacity completion and solved-rate burden. Internal publication-portfolio labels were removed from the journal manuscript so the article remains self-contained.
 
 No scientific rerun or statistical reanalysis was performed.
 
@@ -16,7 +18,7 @@ No scientific rerun or statistical reanalysis was performed.
 
 | Check | Historical R4.x | R5 source | Result |
 | --- | ---: | ---: | --- |
-| Approximate words | about 7,011 | about 5,736 | Reduced fragmentation and repetition |
+| Approximate words | about 7,011 | about 5,945 | Reduced fragmentation and repetition |
 | Visible headings | 71 | 28 | PASS |
 | Markdown bullet lines | 69 | 0 | PASS |
 | Abstract words | 213 previously recorded | 211 | PASS, journal limit 250 |
@@ -102,7 +104,7 @@ The R5 source contains zero occurrences of the protected Paper 5 dataset/result 
 - the Paper 5 0/8 semantic-coverage result;
 - B0/B1/B2/S1 selector identifiers.
 
-The R5 Introduction explicitly states that Paper 4 uses none of Paper 5's datasets, endpoints, or results.
+Non-overlap is enforced by evidence selection, endpoint architecture, and the protected-token scan rather than by naming a companion publication in the publisher-facing manuscript. The R5 source imports none of Paper 5's datasets, endpoints, results, selector identifiers, or semantic-interoperability evidence.
 
 **Status:** PASS.
 
@@ -152,19 +154,17 @@ The R5 builder now:
 
 ## 11. Remaining gates
 
-The scientific source-preservation and automated builder gates do not replace visual publisher QA. The remaining gates are:
+The scientific source-preservation gate remains PASS after the framing-only refinement. Because publisher-facing prose changed, the current exact head must complete a fresh presentation cycle before submission:
 
-1. obtain exact-head PR #164 CI PASS after all current reconciliation edits;
-2. render every generated DOCX and inspect every page at normal reading scale;
-3. inspect every scientific figure and the GTOC separately for typography, labels, spacing, and effective resolution;
-4. compare manuscript page rhythm and scholarly presentation with the immutable Acta visual benchmark, while following IJSCCN where requirements differ;
-5. inspect final local personalized DOCX metadata and confirm comments, tracked changes, hidden text, and private-data handling remain correct;
-6. build the personalized package only under ignored local-private/local-submission paths;
-7. resolve the remaining live Research Exchange portal-instance fields and produce the exact upload map;
-8. obtain separate explicit author authorization before publisher submission.
+1. obtain exact-head PR #164 CI PASS;
+2. rebuild the exact-head public-safe R5 DOCX and inspect every rendered page;
+3. confirm scientific figures and the GTOC remain unchanged and valid;
+4. rebuild the ignored local personalized package from the same exact head, with the existing private author photograph and metadata;
+5. reconcile the prepared upload-map draft against the live Research Exchange portal;
+6. obtain separate explicit author authorization before publisher submission.
 
 **R5 scientific source-preservation gate: PASS.**
 
-**R5 DOCX visual/publisher gate: NOT YET PASSED.**
+**R5 exact-head presentation gate after framing refinement: PENDING.**
 
 **Final Wiley submission: NOT AUTHORIZED.**
