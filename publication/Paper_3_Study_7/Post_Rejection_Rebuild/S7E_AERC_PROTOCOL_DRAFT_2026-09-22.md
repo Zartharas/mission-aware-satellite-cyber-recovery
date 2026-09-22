@@ -209,7 +209,7 @@ A targeted compromise propagates to every evidence path whose domain identifier 
 
 ## 8. Fault/compromise profiles
 
-Exactly twelve profiles are defined before execution.
+Exactly thirteen profiles are defined before execution.
 
 | ID | Profile | Target/effect |
 |---|---|---|
@@ -225,8 +225,9 @@ Exactly twelve profiles are defined before execution.
 | F9 | PRIMARY_TRANSPORT_COMPROMISE | primary transport domain corrupts/drops/rewrites as specified; propagation follows aliasing |
 | F10 | PRIMARY_AUTHORITY_COMPROMISE | primary authority domain issues false authorization; propagation follows authority aliasing |
 | F11 | COMPOUND_AUTHORITY_TRANSPORT | simultaneous authority and transport compromise of the primary path; propagation follows topology aliasing |
+| F12 | PRIMARY_EXECUTION_COMPROMISE | compromise primary execution-domain behavior; propagation follows execution-domain aliasing |
 
-The exact byte-level transformation for F3, F4, F9, F10, and F11 must be fixed before protocol freeze.
+The exact byte-level transformation for F3, F4, F9, F10, F11, and F12 must be fixed before protocol freeze.
 
 ## 9. Prospective blocks and population
 
@@ -271,12 +272,12 @@ Evaluate:
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
 - T0, T1, T2
-- F6 through F11
+- F6 through F12
 - `security_signal = 1`
 
 Population:
 
-`2 × 2 × 3 × 6 = 72` architecture scenarios.
+`2 × 2 × 3 × 7 = 84` architecture scenarios.
 
 ### 9.3 Evaluation block E2: held-out topology transfer
 
@@ -285,12 +286,12 @@ Evaluate:
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
 - T3 and T4
-- F0 through F11
+- F0 through F12
 - `security_signal = 1`
 
 Population:
 
-`2 × 2 × 2 × 12 = 96` architecture scenarios.
+`2 × 2 × 2 × 13 = 104` architecture scenarios.
 
 ### 9.4 Control block C0: held-out-topology no-security-signal controls
 
@@ -312,13 +313,13 @@ Because T3 and T4 are excluded from training, C0 does not duplicate the TR0 trai
 
 Canonical evaluation scenarios:
 
-`72 + 96 + 8 = 176`.
+`84 + 104 + 8 = 196`.
 
 Each scenario is evaluated by four policies:
 
-`176 × 4 = 704` policy-decision observations.
+`196 × 4 = 784` policy-decision observations.
 
-The 84 training scenarios are reported separately and never pooled into the 704 evaluation observations. The complete prospective manifest remains 260 architecture scenarios.
+The 84 training scenarios are reported separately and never pooled into the 784 evaluation observations. The complete prospective manifest contains 280 architecture scenarios.
 
 These counts are prospective design quantities, not observed results.
 
