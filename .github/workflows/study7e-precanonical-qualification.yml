@@ -33,12 +33,22 @@ jobs:
         run: |
           python -m py_compile \
             study7e/src/aerc_design.py \
+            study7e/models/training_contracts.py \
+            study7e/audit/independent_design_audit.py \
             study7e/tests/test_design_contracts.py \
+            study7e/tests/test_training_contracts.py \
             study7e/validation/validate_precanonical.py \
             study7e/tools/generate_scenario_manifest.py
 
-      - name: Run design contract tests
-        run: python -m unittest study7e.tests.test_design_contracts -v
+      - name: Run design and training-boundary contract tests
+        run: |
+          python -m unittest \
+            study7e.tests.test_design_contracts \
+            study7e.tests.test_training_contracts \
+            -v
+
+      - name: Run independent pre-canonical design audit
+        run: python study7e/audit/independent_design_audit.py
 
       - name: Run pre-canonical governance validator
         run: python study7e/validation/validate_precanonical.py
@@ -53,6 +63,9 @@ jobs:
           set -euo pipefail
           test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
           test ! -e .github/workflows/study7e-canonical-execution.yml
+          test ! -e study7e/models/frozen_model_manifest.json
+          test ! -e study7e/models/L0_BASE.joblib
+          test ! -e study7e/models/L1_CORROBORATED.joblib
           if [ -d study7e/results ]; then
             test -z "$(find study7e/results -type f -print -quit)"
           fi
