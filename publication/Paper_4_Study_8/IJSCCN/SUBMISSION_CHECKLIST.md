@@ -15,22 +15,24 @@ R5 must be rebuilt from the current IJSCCN scientific content while using the re
 
 ### Live-policy research required before R5 build
 
-- [ ] Re-read the entire current IJSCCN Author Guidelines and follow every submission-relevant link.
-- [ ] Re-read Wiley Prepare and every relevant linked manuscript-preparation page.
-- [ ] Re-read Wiley Submission and Peer Review and every relevant linked page.
-- [ ] Verify current Free Format initial-submission rules.
-- [ ] Verify current title-page and author-contact requirements.
-- [ ] Verify abstract, keyword, short-title, biography, author-photo, and GTOC limits.
-- [ ] Verify table placement and formatting requirements, including the IJSCCN-specific instruction for tables after the reference list.
-- [ ] Verify figure file types, naming, resolution, dimensions, legends, color/grayscale, and separate-upload requirements.
-- [ ] Verify supporting-information categories and ensure submission paperwork is not misclassified as scientific supplementary material.
-- [ ] Verify current Data Availability Statement and data-citation requirements.
-- [ ] Verify permissions/copyright rules for figures, tables, and adapted material.
-- [ ] Verify current funding, competing-interest, ethics, authorship, ORCID, licensing, and AI-disclosure requirements.
-- [ ] Verify current portal upload categories and peer-review workflow.
-- [ ] Distinguish journal-specific requirements from generic Wiley recommendations and document which authority controls each conflict.
+- [x] Re-read the entire current IJSCCN Author Guidelines and follow every submission-relevant link.
+- [x] Re-read Wiley Prepare and every relevant linked manuscript-preparation page.
+- [x] Re-read Wiley Submission and Peer Review and every relevant linked page.
+- [x] Verify current Free Format initial-submission rules.
+- [x] Verify current title-page and author-contact requirements.
+- [x] Verify abstract, keyword, short-title, biography, author-photo, and GTOC limits.
+- [x] Verify table placement and formatting requirements, including the initial Free Format ambiguity and the explicit revision-stage rule.
+- [x] Verify figure file types, resolution, legends, separate-upload guidance, and revision-stage requirements.
+- [x] Verify supporting-information categories and ensure submission paperwork is not misclassified as scientific supplementary material.
+- [x] Verify current Data Availability Statement and data-citation requirements.
+- [x] Verify permissions/copyright rules for figures, tables, and adapted material.
+- [x] Verify current funding, competing-interest, ethics, authorship, ORCID, licensing, and AI-disclosure requirements.
+- [ ] Verify the submission-instance portal upload categories and exact anonymization mode when the live Research Exchange draft is reopened.
+- [x] Distinguish journal-specific requirements from generic Wiley recommendations and document which authority controls each conflict.
 
 ### R5 manuscript-format gate
+
+Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md` and the reconciled requirement matrix.
 
 - [ ] Build a professional single-column reviewer manuscript, not a simulated Wiley production PDF.
 - [ ] Use a restrained academic typography system and consistent page rhythm.
@@ -38,8 +40,8 @@ R5 must be rebuilt from the current IJSCCN scientific content while using the re
 - [ ] Use only standard Unicode list glyphs if lists remain.
 - [ ] Use numbered hierarchical headings consistently.
 - [ ] Add professionally formatted figure legends.
-- [ ] Put tables on separate pages after References if the live IJSCCN instruction remains current.
-- [ ] Upload scientific figures separately if the live IJSCCN instruction remains current.
+- [ ] Put tables on separate pages after References as the conservative R5 initial-submission design and explicit revision-ready placement.
+- [ ] Prepare scientific figures as separate publication-quality TIFF files while preserving reviewer readability in the manuscript.
 - [ ] Include the mandatory GTOC in the form required by the live guidelines.
 - [ ] Include or otherwise reliably supply the <=200-word biography and recent author photo.
 - [ ] Retain the required Methods AI disclosure from the live portal certification.
