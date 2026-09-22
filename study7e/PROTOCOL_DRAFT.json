@@ -37,8 +37,12 @@
     "F11"
   ],
   "blocks": {
-    "TR": {
+    "TR1": {
       "scenarios": 72,
+      "canonical_evaluation": false
+    },
+    "TR0": {
+      "scenarios": 12,
       "canonical_evaluation": false
     },
     "E1": {
@@ -50,16 +54,16 @@
       "canonical_evaluation": true
     },
     "C0": {
-      "scenarios": 20,
+      "scenarios": 8,
       "canonical_evaluation": true
     }
   },
   "expected_counts": {
     "total_manifest_scenarios": 260,
-    "training_scenarios": 72,
-    "canonical_evaluation_scenarios": 188,
+    "training_scenarios": 84,
+    "canonical_evaluation_scenarios": 176,
     "decisions_per_evaluation_scenario": 4,
-    "canonical_evaluation_policy_decisions": 752
+    "canonical_evaluation_policy_decisions": 704
   },
   "execution_gate": {
     "canonical_execution_authorized": false,
@@ -73,5 +77,11 @@
     "no_certification_sufficiency": true,
     "no_global_ml_superiority": true,
     "study7_and_study7e_unpooled": true
+  },
+  "design_review": {
+    "review_id": "S7E-AERC-PROTOCOL-REVIEW-R1",
+    "finding": "Original draft omitted security_signal=0 from training while evaluating it in C0",
+    "correction": "Add TR0 on T0-T2/F0 and restrict C0 to held-out T3-T4/F0",
+    "status": "CORRECTED_BEFORE_PROTOCOL_FREEZE_AND_BEFORE_SCIENTIFIC_EXECUTION"
   }
 }
