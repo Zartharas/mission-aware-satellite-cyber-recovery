@@ -39,7 +39,7 @@ The exhaustive public-source audit is complete and recorded in:
 
 The audit corrected three earlier overstatements: literal IMRaD heading names are not proven mandatory, initial Free Format does not absolutely require separated tables/figures, and the dedicated post-References Figure Legends section is a Wiley-preferred presentation rather than an IJSCCN-specific initial-submission mandate. R5 will still use the stricter, revision-ready presentation as a deliberate design choice.
 
-The remaining unknowns are submission-instance portal details such as anonymization mode, exact file designations, CRediT/editor-reviewer fields, and certain certifications. These must be checked when the live Research Exchange draft is reopened and do not block the source-manuscript rebuild.
+The current IJSCCN peer-review model is **Single Anonymized**, so the R5 main manuscript remains identified by default. Remaining unknowns are submission-instance portal details such as whether the title page is a separate upload, exact GTOC/photo/cover-letter file designations, CRediT/editor-reviewer fields, and certain certifications. These must be checked when the live Research Exchange draft is reopened and do not block the source-manuscript rebuild.
 
 ### R5 design gate
 
