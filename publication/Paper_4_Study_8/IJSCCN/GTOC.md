@@ -27,4 +27,4 @@ The graphic must show:
 - no conversion of Study 8 slots to physical time;
 - no implication that SatNOGS observations are operational command contacts or measured throughput.
 
-The R5 build should regenerate the graphical item from source at publication-quality resolution and produce a separate TIFF for upload.
+The R5 builder regenerates the graphical item from source at the 800 dpi R5 artwork target and produces a separate TIFF for upload. Final visual QA remains required before submission.
