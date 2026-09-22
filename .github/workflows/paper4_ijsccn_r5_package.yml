@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout exact branch head
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -197,7 +197,7 @@ jobs:
           PY
 
       - name: Upload R5 public-safe QA artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: paper4-ijsccn-r5-public-safe-qa
           path: publication/Paper_4_Study_8/IJSCCN/build/r5/
