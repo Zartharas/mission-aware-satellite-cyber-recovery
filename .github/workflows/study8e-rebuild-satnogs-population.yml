@@ -28,7 +28,7 @@ jobs:
           mkdir -p study8e/evidence/population_rebuild
           python study8e/validation/select_satnogs_population.py \
             --output study8e/evidence/population_rebuild/satnogs_pair_selection_pop002.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: study8e-satnogs-population-rebuild-pop002
           path: study8e/evidence/population_rebuild/satnogs_pair_selection_pop002.json

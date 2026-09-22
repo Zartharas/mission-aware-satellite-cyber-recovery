@@ -34,7 +34,7 @@ jobs:
 
       - name: Upload bounded probe evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: study8e-satnogs-source-schema-probe
           path: study8e/evidence/source_probe/satnogs_source_schema_probe.json

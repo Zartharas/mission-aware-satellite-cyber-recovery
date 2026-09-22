@@ -104,7 +104,7 @@ jobs:
         run: git diff --exit-code
 
       - name: Upload Study 3 evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: study3-k4e-001-evidence-${{ github.sha }}
           path: study3_runtime/

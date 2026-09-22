@@ -41,7 +41,7 @@ jobs:
             --output study8e/evidence/source_config/satnogs_1_134_pagination_throttle_audit.json
 
       - name: Upload source configuration evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: study8e-satnogs-source-config-audit
           path: study8e/evidence/source_config/satnogs_1_134_pagination_throttle_audit.json

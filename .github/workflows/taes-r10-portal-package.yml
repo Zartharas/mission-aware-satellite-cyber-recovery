@@ -99,7 +99,7 @@ jobs:
           PY
 
       - name: Upload R10 QA and portal artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: taes-r10-portal-package
           if-no-files-found: error

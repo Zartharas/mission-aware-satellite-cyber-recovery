@@ -59,7 +59,7 @@ jobs:
           cat SHA256SUMS.txt
 
       - name: Upload generated JAIS packet
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jais-paper1-export-${{ github.sha }}
           path: publication/submission/journal-of-aerospace-information-systems/upload-packet/generated/

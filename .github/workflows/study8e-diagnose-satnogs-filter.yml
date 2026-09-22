@@ -27,7 +27,7 @@ jobs:
           python study8e/validation/diagnose_satnogs_pair_filter.py \
             --source-root /tmp/satnogs-network \
             --output study8e/evidence/filter_diagnostic/satnogs_pair_filter_identity.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: study8e-satnogs-filter-identity-diagnostic
           path: study8e/evidence/filter_diagnostic/satnogs_pair_filter_identity.json

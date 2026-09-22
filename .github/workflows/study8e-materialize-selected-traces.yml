@@ -32,7 +32,7 @@ jobs:
             --population-freeze study8e/SATNOGS_POPULATION_FREEZE_002.json \
             --output-dir study8e/evidence/selected_trace
       - name: Upload selected-trace evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: study8e-selected-satnogs-trace-002
           path: study8e/evidence/selected_trace/

@@ -82,7 +82,7 @@ jobs:
       - name: Confirm no tracked-file drift
         run: git diff --exit-code
       - name: Upload Study 6 evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: study6-sctr-001-evidence-${{ github.sha }}
           path: study6_runtime/

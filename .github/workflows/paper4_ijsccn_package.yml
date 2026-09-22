@@ -91,7 +91,7 @@ jobs:
           PY
 
       - name: Upload public-safe QA artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: paper4-ijsccn-public-safe-qa
           path: publication/Paper_4_Study_8/IJSCCN/build/
