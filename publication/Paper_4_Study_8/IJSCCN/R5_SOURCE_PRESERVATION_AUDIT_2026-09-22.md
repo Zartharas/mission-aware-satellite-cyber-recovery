@@ -132,26 +132,36 @@ R5 moves the substantive OpenAI ChatGPT / GPT-5.6 Sol disclosure into Methods an
 
 **Status:** PASS.
 
-## 10. Publisher-facing punctuation
+## 10. Publisher-facing punctuation and builder status
 
 The R5 manuscript source contains zero em-dash characters.
 
-A separate builder defect remains open: the existing reference renderer converts LaTeX triple hyphens to an em dash. The R5 Word builder must be corrected before publisher-facing DOCX generation is accepted.
+The R5 Word builder now normalizes LaTeX page-range hyphens without generating em dashes. CI also scans the generated DOCX XML and fails on any em dash, inserted/deleted revision markup, comments part, or hidden-text marker.
+
+The R5 builder now:
+
+- consumes `MANUSCRIPT_IJSCCN_R5.md`;
+- inserts References at the explicit R5 marker;
+- places Figure Legends after References;
+- places Table 1 and Table 2 on separate post-References pages;
+- generates separate TIFF scientific figures from source at the R5 800 dpi target;
+- generates a separate GTOC TIFF;
+- builds a public-safe R5 DOCX and ZIP with placeholder author metadata only.
+
+**Automated builder/source gate:** PASS on prior PR #164 heads and must pass again on the exact final PR head.
 
 ## 11. Remaining gates
 
-The source-preservation gate covers scientific content only. The following remain open:
+The scientific source-preservation and automated builder gates do not replace visual publisher QA. The remaining gates are:
 
-1. update the Word build pipeline to consume `MANUSCRIPT_IJSCCN_R5.md`;
-2. insert References at the explicit R5 marker;
-3. place Figure Legends after References;
-4. put Table 1 and Table 2 on separate pages after References;
-5. generate separate publication-quality figure files at journal-appropriate resolution;
-6. eliminate reference-renderer em-dash generation;
-7. build the public-safe R5 DOCX;
-8. inspect every page and every figure visually;
-9. inspect document metadata, comments, tracked changes, hidden text, and private-data leakage;
-10. run final portal-instance checks before upload.
+1. obtain exact-head PR #164 CI PASS after all current reconciliation edits;
+2. render every generated DOCX and inspect every page at normal reading scale;
+3. inspect every scientific figure and the GTOC separately for typography, labels, spacing, and effective resolution;
+4. compare manuscript page rhythm and scholarly presentation with the immutable Acta visual benchmark, while following IJSCCN where requirements differ;
+5. inspect final local personalized DOCX metadata and confirm comments, tracked changes, hidden text, and private-data handling remain correct;
+6. build the personalized package only under ignored local-private/local-submission paths;
+7. resolve the remaining live Research Exchange portal-instance fields and produce the exact upload map;
+8. obtain separate explicit author authorization before publisher submission.
 
 **R5 scientific source-preservation gate: PASS.**
 
