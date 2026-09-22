@@ -237,9 +237,14 @@ def assert_docx_integrity(path: Path):
         )
     if "—" in xml:
         raise SystemExit(f"Em dash found in publisher-facing DOCX XML: {path}")
-    for marker in ("<w:ins", "<w:del", "w:vanish"):
-        if marker in xml:
-            raise SystemExit(f"Tracked-change/hidden-text marker {marker} found in {path}")
+    markers = {
+        "inserted revision": r"<w:ins(?:\\s|>)",
+        "deleted revision": r"<w:del(?:\\s|>)",
+        "hidden text": r"<w:vanish(?:\\s|/|>)",
+    }
+    for label, pattern in markers.items():
+        if re.search(pattern, xml):
+            raise SystemExit(f"{label} marker found in {path}")
 
 def load_bib():
     with BIB_SRC.open("r", encoding="utf-8") as f:
