@@ -48,13 +48,13 @@ Trust topologies:
 
 Prospective scenario counts:
 
-- training = 72;
+- training = 84 (TR1 = 72, TR0 = 12);
 - E1 unseen faults = 72;
 - E2 held-out topologies = 96;
-- C0 controls = 20;
+- C0 held-out-topology controls = 8;
 - total manifest = 260;
-- canonical evaluation scenarios = 188;
-- planned evaluation policy decisions = 752.
+- canonical evaluation scenarios = 176;
+- planned evaluation policy decisions = 704.
 
 These are protocol design quantities, not results.
 
