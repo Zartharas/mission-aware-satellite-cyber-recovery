@@ -5,7 +5,7 @@
   "base_main_commit": "4ed95a53ade99ddabacbe7c542a3f29d988ecfd0",
   "branch": "paper4/ijsccn-r5-policy-design-20260921",
   "pull_request": 164,
-  "status": "IJSCCN_R5_DRAFT_QA__PUBLIC_POLICY_AUDIT_PASSED__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+  "status": "IJSCCN_R5_PUBLIC_SAFE_QA_PASSED__LOCAL_PERSONALIZED_AND_PORTAL_GATES_OPEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "target_journal": "International Journal of Satellite Communications and Networking",
   "publisher": "Wiley",
   "article_type": "Original Paper",
@@ -40,12 +40,23 @@
     "scientific_figures_separate": true,
     "figure_target_dpi": 800,
     "public_safe_ci_build_required": true,
-    "docx_page_by_page_visual_qa": "OPEN",
-    "acta_visual_benchmark_comparison": "OPEN",
+    "docx_page_by_page_visual_qa": "PASS",
+    "acta_visual_benchmark_comparison": "PASS",
     "local_personalized_package_qa": "OPEN",
     "portal_instance_gate": "PARTIALLY_OPEN",
     "scientific_reanalysis_performed": false,
-    "exact_head_ci_requirement": "GitHub Actions on the current PR #164 head must pass before any merge consideration; mutable run status is not hard-coded in this tracked record."
+    "exact_head_ci_requirement": "GitHub Actions on the current PR #164 head must pass before any merge consideration; mutable run status is not hard-coded in this tracked record.",
+    "auxiliary_document_visual_qa": "PASS",
+    "scientific_figure_visual_qa": "PASS",
+    "gtoc_visual_qa": "PASS",
+    "word_structural_accessibility_qa": "PASS",
+    "visual_qa_record": "publication/Paper_4_Study_8/IJSCCN/R5_VISUAL_PUBLISHER_QA_2026-09-22.md",
+    "acta_submitted_manuscript_sha256": "ef551a52c2df65c1db68fa6188b22bf216e10aefdc6b7e8d0de00e3fb95d7411",
+    "acta_render_pages": 8,
+    "r5_manuscript_render_pages": 18,
+    "r5_public_safe_visual_artifact_head": "a78a9206c4fd1e3134aec286b1e715185fd44791",
+    "r5_public_safe_visual_artifact_id": "10699407513",
+    "r5_public_safe_visual_artifact_digest": "sha256:e0e7871420f4e8f34a831502db869b02aaeb50e24793a6a287a3f7e5586d0a3e"
   },
   "privacy": {
     "tracked_private_contact_values_allowed": false,
@@ -55,5 +66,5 @@
     "github_actions_output_scope": "PUBLIC_SAFE_QA_ONLY",
     "local_personalized_submission_required": true
   },
-  "next_gate": "PR164_EXACT_HEAD_CI__R5_PAGE_BY_PAGE_VISUAL_QA__PRIVATE_LOCAL_BUILD__PORTAL_INSTANCE_CHECK__THEN_SEPARATE_FINAL_SUBMISSION_AUTHORIZATION"
+  "next_gate": "PR164_EXACT_HEAD_CI__PRIVATE_LOCAL_BUILD_AND_VISUAL_QA__LIVE_RESEARCH_EXCHANGE_UPLOAD_MAP__THEN_SEPARATE_FINAL_SUBMISSION_AUTHORIZATION"
 }
