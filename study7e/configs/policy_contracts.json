@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "base_features": [
+    "primary_signature_valid",
+    "primary_source_trusted",
+    "primary_fresh",
+    "primary_epoch_valid",
+    "primary_noncontradictory",
+    "primary_complete",
+    "primary_authorization",
+    "health_ready",
+    "security_signal"
+  ],
+  "corroborated_additional_features": [
+    "corr_signature_valid",
+    "corr_source_trusted",
+    "corr_fresh",
+    "corr_epoch_valid",
+    "corr_noncontradictory",
+    "corr_complete",
+    "corr_authorization"
+  ],
+  "privileged_fields_forbidden": [
+    "true_authorization",
+    "true_health_ready",
+    "objective_action",
+    "fault_profile",
+    "topology",
+    "domain_alias_map"
+  ],
+  "equal_information_invariants": [
+    "SHA256(D0_BASE input bytes) == SHA256(L0_BASE input bytes)",
+    "SHA256(D1_CORROBORATED input bytes) == SHA256(L1_CORROBORATED input bytes)"
+  ],
+  "deterministic_semantics": {
+    "D0_BASE": "proceed iff primary quality6, primary_authorization, health_ready, security_signal all true",
+    "D1_CORROBORATED": "proceed iff D0 conditions and corroboration quality6 and corr_authorization all true"
+  },
+  "learned_models": {
+    "L0_BASE": "deterministic decision-tree pipeline; model not frozen in current phase",
+    "L1_CORROBORATED": "same algorithm/hyperparameter rule as L0; model not frozen in current phase"
+  }
+}
