@@ -91,6 +91,9 @@ void AERC_BUS_PROBE_Main(void)
                       "AERC_BUS_PROBE PASS scenario=0x%08lX marker=0x%08lX",
                       (unsigned long)received_message->ScenarioId,
                       (unsigned long)received_message->Marker);
+    CFE_ES_WriteToSysLog("AERC_BUS_PROBE PASS scenario=0x%08lX marker=0x%08lX\n",
+                         (unsigned long)received_message->ScenarioId,
+                         (unsigned long)received_message->Marker);
 
     CFE_ES_ExitApp(CFE_ES_RunStatus_APP_EXIT);
 }
