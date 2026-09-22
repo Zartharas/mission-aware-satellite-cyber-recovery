@@ -223,7 +223,7 @@ The exact mechanism used to represent separate authority in T4 must be fixed in 
 
 Fault injection occurs below the policy interface.
 
-Each profile must have:
+Each profile, including F12 execution-domain compromise, must have:
 
 - target domain;
 - precondition;
@@ -288,12 +288,12 @@ Expected counts:
 - TR1 = 72;
 - TR0 = 12;
 - total training scenarios = 84;
-- E1 = 72;
-- E2 = 96;
+- E1 = 84;
+- E2 = 104;
 - C0 = 8;
-- total architecture scenarios represented in the manifest = 260;
-- canonical evaluation scenarios = 176;
-- canonical evaluation policy decisions = 704.
+- total architecture scenarios represented in the manifest = 280;
+- canonical evaluation scenarios = 196;
+- canonical evaluation policy decisions = 784.
 
 The manifest generator requires unit tests that assert these exact cardinalities.
 
