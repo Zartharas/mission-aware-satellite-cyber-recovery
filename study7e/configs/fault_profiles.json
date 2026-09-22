@@ -76,6 +76,12 @@
         "transport"
       ],
       "propagation": "union_domain_alias"
+    },
+    "F12": {
+      "name": "PRIMARY_EXECUTION_COMPROMISE",
+      "path": "primary",
+      "domain": "execution",
+      "propagation": "domain_alias"
     }
   },
   "byte_level_transformations_status": "TO_BE_FROZEN_AFTER_EXTERNAL_STACK_FEASIBILITY"
