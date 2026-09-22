@@ -27,6 +27,8 @@ R5 will still adopt the stricter, revision-ready presentation because it improve
 
 ## 3. Visible title-page design
 
+The current Wiley Journal Finder lists IJSCCN as **Single Anonymized**, so R5 uses an identified manuscript by default. A separate identifying title-page file is retained for submission convenience because the live Research Exchange Required Files configuration may still request one.
+
 The visible manuscript title page should look like a scholarly article, not a repository status document.
 
 Keep:
@@ -75,7 +77,8 @@ Private address, email, telephone, ORCID if treated as private in the local work
 - approximately 11 to 12 pt;
 - compact;
 - corresponding-author notation conventional;
-- identifying block removable if the live portal requires double-anonymized review.
+- retain author identity in the main manuscript because the current IJSCCN peer-review model is Single Anonymized;
+- change this only if the live Research Exchange instance unexpectedly instructs otherwise.
 
 ### Headings
 
