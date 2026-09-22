@@ -194,6 +194,11 @@ def add_markdown_table(doc: Document, rows):
     for j, column_width in enumerate(column_widths):
         table.columns[j].width = column_width
 
+    header_tr_pr = table.rows[0]._tr.get_or_add_trPr()
+    tbl_header = OxmlElement("w:tblHeader")
+    tbl_header.set(qn("w:val"), "true")
+    header_tr_pr.append(tbl_header)
+
     for i, row in enumerate(normalized):
         for j, value in enumerate(row):
             cell = table.cell(i, j)
@@ -203,6 +208,9 @@ def add_markdown_table(doc: Document, rows):
             p.paragraph_format.space_after = Pt(0)
             p.paragraph_format.keep_together = True
             if i == 0:
+                shd = OxmlElement("w:shd")
+                shd.set(qn("w:fill"), "EDEDED")
+                cell._tc.get_or_add_tcPr().append(shd)
                 run = p.add_run(value.replace("**", ""))
                 run.bold = True
                 set_run_font(run, "Times New Roman")
@@ -377,6 +385,15 @@ def format_reference(entry):
     return " ".join(pieces)
 
 def make_figures():
+    plt.rcParams.update({
+        "font.family": "DejaVu Sans",
+        "font.size": 9.5,
+        "axes.titlesize": 10.5,
+        "axes.labelsize": 9.5,
+        "xtick.labelsize": 9,
+        "ytick.labelsize": 9,
+    })
+
     states = [
         "COMPROMISED",
         "RECOVERY AUTHORITY\nESTABLISHED",
@@ -387,83 +404,170 @@ def make_figures():
         "OLD EPOCH\nREVOKED",
         "TRUST\nRESTORED",
     ]
-    fig, ax = plt.subplots(figsize=(9.2, 5.2))
+    fig, ax = plt.subplots(figsize=(9.0, 4.6))
     ax.axis("off")
     coords = [
-        (0.08,0.72),(0.36,0.72),(0.64,0.72),(0.92,0.72),
-        (0.92,0.28),(0.64,0.28),(0.36,0.28),(0.08,0.28),
+        (0.08, 0.72), (0.36, 0.72), (0.64, 0.72), (0.92, 0.72),
+        (0.92, 0.28), (0.64, 0.28), (0.36, 0.28), (0.08, 0.28),
     ]
-    for i,((x,y),s) in enumerate(zip(coords,states)):
-        ax.text(x, y, s, ha="center", va="center", fontsize=9.5,
-                bbox=dict(boxstyle="round,pad=0.40", fill=False))
-        if i < len(states)-1:
-            nx,ny=coords[i+1]
-            if abs(ny-y) < 0.01:
+    for i, ((x, y), state) in enumerate(zip(coords, states)):
+        ax.text(
+            x, y, state,
+            ha="center", va="center", fontsize=9.2,
+            bbox=dict(
+                boxstyle="round,pad=0.38",
+                facecolor="0.96",
+                edgecolor="0.15",
+                linewidth=1.0,
+            ),
+        )
+        if i < len(states) - 1:
+            nx, ny = coords[i + 1]
+            if abs(ny - y) < 0.01:
                 direction = 1 if nx > x else -1
-                ax.annotate("", xy=(nx-0.09*direction,y), xytext=(x+0.09*direction,y),
-                            arrowprops=dict(arrowstyle="->"))
+                ax.annotate(
+                    "",
+                    xy=(nx - 0.09 * direction, y),
+                    xytext=(x + 0.09 * direction, y),
+                    arrowprops=dict(arrowstyle="->", linewidth=1.0, color="0.15"),
+                )
             else:
-                ax.annotate("", xy=(nx,ny+0.09), xytext=(x,y-0.09),
-                            arrowprops=dict(arrowstyle="->"))
-    ax.set_xlim(-0.04,1.04); ax.set_ylim(0,1)
-    fig.tight_layout()
-    fig.savefig(FIG/"Figure_1_Recovery_State_Machine.tiff", dpi=800, bbox_inches="tight")
-    fig.savefig(FIG/"Figure_1_Recovery_State_Machine.png", dpi=300, bbox_inches="tight")
+                ax.annotate(
+                    "",
+                    xy=(nx, ny + 0.09),
+                    xytext=(x, y - 0.09),
+                    arrowprops=dict(arrowstyle="->", linewidth=1.0, color="0.15"),
+                )
+    ax.set_xlim(-0.04, 1.04)
+    ax.set_ylim(0, 1)
+    fig.tight_layout(pad=0.7)
+    fig.savefig(FIG / "Figure_1_Recovery_State_Machine.tiff", dpi=800, bbox_inches="tight")
+    fig.savefig(FIG / "Figure_1_Recovery_State_Machine.png", dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    labels = ["ML-KEM-512 /\nML-DSA-44","ML-KEM-768 /\nML-DSA-65","ML-KEM-1024 /\nML-DSA-87"]
-    vals = [93.7500,64.9306,61.8056]
-    fig, ax = plt.subplots(figsize=(6.8,4.2))
-    bars = ax.bar(labels, vals)
-    ax.set_ylabel("Modeled trusted-recovery success (%)")
-    ax.set_ylim(0,100)
-    ax.set_title("Study 8: fixed-capacity success by cryptographic profile")
-    for b,v in zip(bars,vals):
-        ax.text(b.get_x()+b.get_width()/2, v+2, f"{v:.4f}%", ha="center", va="bottom", fontsize=9)
-    fig.tight_layout()
-    fig.savefig(FIG/"Figure_2_Study8_Profile_Success.tiff", dpi=800, bbox_inches="tight")
-    fig.savefig(FIG/"Figure_2_Study8_Profile_Success.png", dpi=300, bbox_inches="tight")
+    labels = ["ML-KEM-512 /\nML-DSA-44", "ML-KEM-768 /\nML-DSA-65", "ML-KEM-1024 /\nML-DSA-87"]
+    vals = [93.7500, 64.9306, 61.8056]
+    fig, ax = plt.subplots(figsize=(6.5, 3.9))
+    bars = ax.bar(labels, vals, color="0.38", edgecolor="0.15", linewidth=0.8, width=0.68)
+    ax.set_ylabel("Trusted-recovery success (%)")
+    ax.set_ylim(0, 100)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.tick_params(axis="x", pad=5)
+    for b, v in zip(bars, vals):
+        ax.text(
+            b.get_x() + b.get_width() / 2,
+            v + 1.8,
+            f"{v:.4f}%",
+            ha="center",
+            va="bottom",
+            fontsize=8.8,
+        )
+    fig.tight_layout(pad=0.7)
+    fig.savefig(FIG / "Figure_2_Study8_Profile_Success.tiff", dpi=800, bbox_inches="tight")
+    fig.savefig(FIG / "Figure_2_Study8_Profile_Success.png", dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    labels = ["6 h","12 h","24 h"]
-    vals = [5.2863,20.5947,55.0661]
-    fig, ax = plt.subplots(figsize=(6.8,4.2))
-    bars = ax.bar(labels, vals)
-    ax.set_ylabel("Cases with finite modeled rate threshold (%)")
-    ax.set_ylim(0,60)
-    ax.set_title("Study 8E: finite threshold fraction by elapsed-time horizon")
-    for b,v in zip(bars,vals):
-        ax.text(b.get_x()+b.get_width()/2, v+1.5, f"{v:.4f}%", ha="center", va="bottom", fontsize=9)
-    fig.tight_layout()
-    fig.savefig(FIG/"Figure_3_Study8E_Horizon_Finite_Fraction.tiff", dpi=800, bbox_inches="tight")
-    fig.savefig(FIG/"Figure_3_Study8E_Horizon_Finite_Fraction.png", dpi=300, bbox_inches="tight")
+    labels = ["6 h", "12 h", "24 h"]
+    vals = [5.2863, 20.5947, 55.0661]
+    fig, ax = plt.subplots(figsize=(6.5, 3.9))
+    bars = ax.bar(labels, vals, color="0.38", edgecolor="0.15", linewidth=0.8, width=0.68)
+    ax.set_xlabel("Elapsed-time horizon")
+    ax.set_ylabel("Finite-threshold cases (%)")
+    ax.set_ylim(0, 60)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    for b, v in zip(bars, vals):
+        ax.text(
+            b.get_x() + b.get_width() / 2,
+            v + 1.2,
+            f"{v:.4f}%",
+            ha="center",
+            va="bottom",
+            fontsize=8.8,
+        )
+    fig.tight_layout(pad=0.7)
+    fig.savefig(FIG / "Figure_3_Study8E_Horizon_Finite_Fraction.tiff", dpi=800, bbox_inches="tight")
+    fig.savefig(FIG / "Figure_3_Study8E_Horizon_Finite_Fraction.png", dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(10,4.8))
+    fig, ax = plt.subplots(figsize=(10.0, 5.1))
     ax.axis("off")
-    ax.text(0.5,0.89,"Post-compromise post-quantum satellite recovery",
-            ha="center",va="center",fontsize=15,weight="bold")
-    ax.text(0.24,0.62,"STUDY 8\nFixed modeled contact capacity\nDoes recovery fit?",
-            ha="center",va="center",fontsize=11,
-            bbox=dict(boxstyle="round,pad=0.62",fill=False))
-    ax.text(0.76,0.62,"STUDY 8E\nPublic observation-opportunity timing\nWhat modeled rate is required?",
-            ha="center",va="center",fontsize=11,
-            bbox=dict(boxstyle="round,pad=0.62",fill=False))
-    ax.text(0.50,0.62,"SEPARATE EVIDENCE\nNo pooling\nNo slot-to-seconds conversion",
-            ha="center",va="center",fontsize=8.8,weight="bold")
-    ax.text(0.5,0.34,
-            "P3 versus P1: no feasibility advantage in either frozen evidence layer",
-            ha="center",va="center",fontsize=10.5)
-    ax.text(0.5,0.24,
-            "Object burden + opportunity timing + recovery horizon constrain modeled feasibility",
-            ha="center",va="center",fontsize=10)
-    ax.text(0.5,0.08,
-            "SatNOGS supplies timing proxies only - not authenticated command contacts or measured throughput",
-            ha="center",va="center",fontsize=8)
-    fig.tight_layout()
-    fig.savefig(FIG/"IJSCCN_GTOC.tiff", dpi=800, bbox_inches="tight")
-    fig.savefig(FIG/"IJSCCN_GTOC.png", dpi=300, bbox_inches="tight")
-    fig.savefig(FIG/"IJSCCN_GTOC.svg", bbox_inches="tight")
+    ax.text(
+        0.5, 0.94,
+        "Post-Quantum Trusted Recovery Under Intermittent Connectivity:\n"
+        "Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
+        ha="center", va="center", fontsize=11.2, weight="bold",
+    )
+    ax.text(
+        0.5, 0.84, f"{AUTHOR}*",
+        ha="center", va="center", fontsize=9.3,
+    )
+    ax.text(
+        0.5, 0.70,
+        "FROZEN TRUSTED-RECOVERY MECHANISM",
+        ha="center", va="center", fontsize=9.5, weight="bold",
+        bbox=dict(
+            boxstyle="round,pad=0.48",
+            facecolor="0.95",
+            edgecolor="0.15",
+            linewidth=1.0,
+        ),
+    )
+    ax.text(
+        0.24, 0.49,
+        "STUDY 8\nFixed modeled contact capacity\nDoes recovery fit?",
+        ha="center", va="center", fontsize=9.5,
+        bbox=dict(
+            boxstyle="round,pad=0.60",
+            facecolor="0.98",
+            edgecolor="0.15",
+            linewidth=1.0,
+        ),
+    )
+    ax.text(
+        0.76, 0.49,
+        "STUDY 8E\nPublic observation-opportunity timing\nWhat modeled rate is required?",
+        ha="center", va="center", fontsize=9.5,
+        bbox=dict(
+            boxstyle="round,pad=0.60",
+            facecolor="0.98",
+            edgecolor="0.15",
+            linewidth=1.0,
+        ),
+    )
+    ax.annotate(
+        "", xy=(0.31, 0.58), xytext=(0.46, 0.66),
+        arrowprops=dict(arrowstyle="->", linewidth=1.0, color="0.15"),
+    )
+    ax.annotate(
+        "", xy=(0.69, 0.58), xytext=(0.54, 0.66),
+        arrowprops=dict(arrowstyle="->", linewidth=1.0, color="0.15"),
+    )
+    ax.text(
+        0.5, 0.39,
+        "Separate evidence populations | No pooling | No slot-to-seconds conversion",
+        ha="center", va="center", fontsize=8.8, weight="bold",
+    )
+    ax.text(
+        0.5, 0.26,
+        "P3 versus P1: no feasibility advantage in either frozen evidence layer",
+        ha="center", va="center", fontsize=9.8, weight="bold",
+    )
+    ax.text(
+        0.5, 0.17,
+        "Transition-object burden, opportunity timing, and recovery horizon constrain modeled feasibility.",
+        ha="center", va="center", fontsize=9.2,
+    )
+    ax.text(
+        0.5, 0.07,
+        "SatNOGS supplies timing proxies only; it does not establish authenticated command contact or measured throughput.",
+        ha="center", va="center", fontsize=7.8,
+    )
+    fig.tight_layout(pad=0.5)
+    fig.savefig(FIG / "IJSCCN_GTOC.tiff", dpi=800, bbox_inches="tight")
+    fig.savefig(FIG / "IJSCCN_GTOC.png", dpi=300, bbox_inches="tight")
+    fig.savefig(FIG / "IJSCCN_GTOC.svg", bbox_inches="tight")
     plt.close(fig)
 
 def add_title_page(doc):
@@ -490,6 +594,44 @@ def insert_figure(doc, png_path, caption):
     cp=doc.add_paragraph()
     cp.alignment=WD_ALIGN_PARAGRAPH.CENTER
     rr=cp.add_run(caption); rr.italic=True
+
+def build_gtoc_docx(out_path: Path):
+    doc = Document()
+    apply_base_style(doc)
+
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run(FULL_TITLE)
+    r.bold = True
+    r.font.size = Pt(14)
+    set_run_font(r, "Times New Roman")
+    p.paragraph_format.space_after = Pt(6)
+
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run(f"{AUTHOR}*")
+    r.bold = True
+    set_run_font(r, "Times New Roman")
+    p.paragraph_format.space_after = Pt(8)
+
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.add_run().add_picture(str(FIG / "IJSCCN_GTOC.png"), width=Inches(6.4))
+
+    gtoc_text = render_author_tokens((PKG / "GTOC.md").read_text(encoding="utf-8"))
+    match = re.search(r"## GTOC text\n\n(.*?)(?:\n\n##|\Z)", gtoc_text, flags=re.S)
+    if not match:
+        raise SystemExit("GTOC text section missing")
+    summary = " ".join(line.strip() for line in match.group(1).splitlines() if line.strip())
+
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(6)
+    p.paragraph_format.space_after = Pt(0)
+    p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    add_formatted_runs(p, summary)
+
+    doc.save(out_path)
+    assert_docx_integrity(out_path)
 
 def render_markdown_to_docx(md_text, output_docx, bib):
     md_text = render_author_tokens(md_text)
@@ -618,6 +760,7 @@ def main():
     markdown_to_simple_docx(PKG/"AUTHOR_BIOGRAPHY.md", OUT/"AUTHOR_BIOGRAPHY_R5.docx", "Author Biography")
     markdown_to_simple_docx(PKG/"TITLE_PAGE.md", OUT/"TITLE_PAGE_IJSCCN_R5.docx", "Title Page")
     markdown_to_simple_docx(PKG/"AI_USE_DECLARATION.md", OUT/"AI_USE_DECLARATION_R5.docx", "AI Use Declaration")
+    build_gtoc_docx(OUT/"GTOC_IJSCCN_R5.docx")
 
     photo = find_local_author_photo()
     if PRIVATE_MODE and photo is not None:
