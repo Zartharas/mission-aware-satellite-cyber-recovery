@@ -65,6 +65,10 @@ These are protocol design quantities, not results.
 - `configs/`
 - `src/aerc_design.py`
 - `validation/validate_precanonical.py`
+- `validation/check_fsw_truth_leakage.py`
+- `models/training_contracts.py`
+- `audit/independent_design_audit.py`
+- `fsw/aerc_bus_probe/`
 - `tests/`
 - `feasibility/`
 
