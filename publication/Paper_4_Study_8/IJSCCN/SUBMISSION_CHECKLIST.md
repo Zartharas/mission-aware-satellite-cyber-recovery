@@ -27,7 +27,8 @@ R5 must be rebuilt from the current IJSCCN scientific content while using the re
 - [x] Verify current Data Availability Statement and data-citation requirements.
 - [x] Verify permissions/copyright rules for figures, tables, and adapted material.
 - [x] Verify current funding, competing-interest, ethics, authorship, ORCID, licensing, and AI-disclosure requirements.
-- [ ] Verify the submission-instance portal upload categories and exact anonymization mode when the live Research Exchange draft is reopened.
+- [x] Verify journal-level peer-review model: **Single Anonymized**. Keep the R5 main manuscript identified by default.
+- [ ] Verify submission-instance portal upload categories, including whether the identifying title page is a separate required file.
 - [x] Distinguish journal-specific requirements from generic Wiley recommendations and document which authority controls each conflict.
 
 ### R5 manuscript-format gate
@@ -85,7 +86,7 @@ Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-
 
 - [x] GTOC text <=80 words and <=3 sentences.
 - [x] GTOC graphic source planned.
-- [x] Final high-resolution GTOC TIFF generated at 600 dpi and visually checked.
+- [x] High-resolution GTOC TIFF generated and visually checked; regenerate at the final journal-appropriate resolution during R5 visual QA if the current source does not meet the applicable artwork target.
 
 ## Figures
 
