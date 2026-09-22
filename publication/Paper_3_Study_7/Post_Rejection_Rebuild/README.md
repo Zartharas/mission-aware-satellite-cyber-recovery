@@ -32,12 +32,14 @@ Design highlights:
 - equal-information policy pairs:
   - `D0_BASE` / `L0_BASE`;
   - `D1_CORROBORATED` / `L1_CORROBORATED`;
-- 72 training architecture scenarios;
-- 188 canonical evaluation/control architecture scenarios;
-- 752 canonical evaluation policy-decision observations;
+- 84 training architecture scenarios (TR1 = 72, TR0 = 12);
+- 176 canonical evaluation/control architecture scenarios;
+- 704 canonical evaluation policy-decision observations;
 - separately implemented repository audit requirement.
 
 These quantities are prospective protocol design values, not results.
+
+A protocol-review correction made before freeze added no-signal examples to training and removed overlapping no-signal controls from T0-T2. The complete manifest remains 260 scenarios.
 
 ## Environment candidates
 
