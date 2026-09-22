@@ -73,7 +73,7 @@ CURRENT_DOCS = {
     },
     "docs/PUBLICATION_PHASE_MAP.md": {
         "required": (
-            "**Current-state reference:** 2026-09-19",
+            "**Current-state reference:** 2026-09-22",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
             PAPER2_ID,
