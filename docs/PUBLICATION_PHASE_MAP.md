@@ -44,7 +44,7 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 +-- PHASE 4R - PAPER 3 RECOVERY
 |   +-- PROSPECTIVE EXTENSION DESIGN
 |       Proposed experiment: S7E-AERC-001
-|       State: PROPOSED__PROTOCOL_NOT_FROZEN__EXECUTION_NOT_AUTHORIZED
+|       State: PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED
 |
 +-- PHASE 5 - NEXT ACTIVE GATE
 |   +-- PAPER 4 / STUDY 8 POST-REJECTION RETARGET AUDIT
@@ -116,7 +116,7 @@ The author authorized a structured rejection-to-research-requirements audit on 2
 
 - Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
 - Proposed experiment: `S7E-AERC-001`.
-- Proposed state: `PROPOSED__PROTOCOL_NOT_FROZEN__EXECUTION_NOT_AUTHORIZED`.
+- Current design state: `PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED`.
 - Recovery audit: `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`.
 - Proposal: `publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md`.
 
@@ -177,6 +177,6 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, rejected | Post-rejection forensic manuscript/venue audit before retargeting |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
 | 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
-| 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` proposed, not executed | Author review and prospective protocol gate |
+| 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
 | 5 | Paper 4 retarget | Study 8 | Acta rejected; next venue not locked | Forensic manuscript/literature/venue audit |
 | 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |
