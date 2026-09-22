@@ -15,6 +15,8 @@ on:
       - "publication/Paper_4_Study_8/IJSCCN/AI_USE_DECLARATION.md"
       - "publication/Paper_4_Study_8/IJSCCN/AUTHOR_BIOGRAPHY.md"
       - "publication/Paper_4_Study_8/IJSCCN/GTOC.md"
+      - "publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md"
+      - "publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json"
       - "publication/Paper_4_Study_8/IJSCCN/R5_*"
       - ".github/workflows/paper4_ijsccn_r5_package.yml"
       - ".gitignore"
@@ -189,8 +191,8 @@ jobs:
           ]:
               with Image.open(base / "figures" / name) as image:
                   dpi = image.info.get("dpi", (0, 0))
-                  if min(dpi) < 599:
-                      raise SystemExit(f"figure_dpi_fail={name}:{dpi}")
+                  if min(dpi) < 799:
+                      raise SystemExit(f"figure_dpi_below_r5_800_target={name}:{dpi}")
                   print(f"{name}_dpi={dpi}")
 
           print("r5_public_safe_manifest_and_figure_check=PASS")
