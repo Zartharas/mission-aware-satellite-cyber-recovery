@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-09-19
+Last updated: 2026-09-22
 
 ## Current focus
 
@@ -9,9 +9,9 @@ The repository now contains four submitted publication lines:
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems as manuscript `2026-09-I012066` on 2026-09-05.
 2. **Paper 4:** Study 8, submitted to Acta Astronautica as manuscript `AA-D-26-02872` on 2026-09-06; rejected by editorial decision recorded 2026-09-19, with no external reviewer reports supplied and no specific methodological defect enumerated.
 3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07, Research Exchange UUID `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
-4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; current recorded portal state is `Technical check`.
+4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; rejected by handling-editor editorial assessment on 2026-09-22.
 
-Papers 1, 2, and 3 remain frozen pending journal action. The rejected Paper-4 Acta package remains frozen as provenance, while a controlled post-rejection manuscript-quality, literature/novelty, and venue-retargeting audit is authorized. No new scientific execution or statistical reanalysis is authorized by the rejection.
+Papers 1 and 2 remain frozen pending journal action. The rejected Paper-3 CEAS and Paper-4 Acta packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 remains separately governed by its post-rejection rebuild path.
 
 This is a journal/research publication workflow, not a dissertation-revision workflow.
 
@@ -73,18 +73,30 @@ Paper 2 uses Studies 3, 4, and 6 only and keeps all three frozen populations sep
 - Submission ID: `6db04a31-8223-4aaf-af02-e4bafe06ef89`
 - Submission version: `v.1.0`
 - Submitted: 2026-09-13
-- Current recorded state: `SUBMITTED__TECHNICAL_CHECK`
+- Decision date: 2026-09-22
+- Current recorded state: `REJECTED__EDITORIAL_ASSESSMENT`
 - Current authority: `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`
-- Initial-submission record: `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md`
+- Decision record: `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-09-22.md`
 
-Study 7 / `S7-LSO-001` remains an exact finite modeled population of 1,033 observations. The submitted manuscript uses Study 7 only.
+The handling editor recognized the assurance concern as relevant and the setup as transparent and reproducible, but found the scientific contribution insufficiently developed. The identified gaps were: a central result too directly implied by the formulation, no concrete spacecraft recovery architecture, unvalidated trust assumptions, and no deterministic corroboration-aware comparator receiving the same information as the learned policy.
+
+Study 7 / `S7-LSO-001` remains a frozen exact finite modeled population of 1,033 observations. The rejected CEAS package and the Study-7 evidence are immutable provenance.
 
 Durable archive:
 
 - Zenodo version DOI: `10.5281/zenodo.22732060`
 - Zenodo concept DOI: `10.5281/zenodo.22732059`
 
-The historical Paper-3 JAIS directory is unsubmitted development provenance only and is superseded by the CEAS submission package.
+Post-rejection recovery authority:
+
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md`
+
+Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
+
+Proposed extension: `S7E-AERC-001` / Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures.
+
+The proposal is design-only. No new scientific execution is authorized.
 
 ## Remaining eligible publication candidates
 
@@ -98,7 +110,9 @@ Any other repository study or experiment may enter the next-paper candidate audi
 
 ## Current exact action
 
-The active publication-development gate is:
+Paper 3 recovery is an additionally authorized workstream following the 2026-09-22 CEAS decision. Its immediate gate is author review of the proposed `S7E-AERC-001` prospective design. This does not cancel or overwrite the separately governed Paper-4 workstream.
+
+The previously recorded active publication-development gate is:
 
 `POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT`
 
