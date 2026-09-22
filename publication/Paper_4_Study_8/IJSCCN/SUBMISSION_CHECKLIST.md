@@ -93,7 +93,7 @@ Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-
 - [x] Figure 1 state-machine schematic generated and visually checked.
 - [x] Figure 2 Study 8 fixed-capacity profile result generated and visually checked.
 - [x] Figure 3 Study 8E elapsed-time finite-threshold result generated and visually checked.
-- [x] Separate TIFF files verified at 600 dpi.
+- [x] R5 builder generates separate TIFF files at the 800 dpi artwork target; exact-head CI validates embedded DPI metadata.
 - [x] Figure legends included in the main document.
 - [x] All figure/manuscript scientific values cross-checked against frozen authorities.
 
@@ -129,5 +129,18 @@ Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-
 
 ## QA record
 
-- Final-candidate package build before checklist closure: workflow run `35621798205`, artifact `10649611764`, artifact digest `sha256:16c47420c22ce8296367cd5d5dce2ce7967a364e34522a35b84cab818437aa72`.
-- A final exact-head package build will run automatically after this checklist/status closure and will supersede the candidate artifact for package freeze.
+Historical R1 package provenance is retained for audit only and does not establish R5 submission readiness:
+
+- R1 candidate workflow run: `35621798205`
+- R1 artifact: `10649611764`
+- R1 artifact digest: `sha256:16c47420c22ce8296367cd5d5dce2ce7967a364e34522a35b84cab818437aa72`
+
+Current R5 status:
+
+- public-policy evidence gate: **PASS**
+- scientific source-preservation gate: **PASS**
+- R5 public-safe builder implemented with 800 dpi artwork target and automated privacy/document-integrity checks
+- exact-head PR #164 CI: must pass after every reconciliation edit
+- page-by-page R5 DOCX visual QA: **OPEN**
+- final personalized local package QA: **OPEN**
+- publisher submission authorization: **NOT GRANTED**
