@@ -23,7 +23,9 @@ A recommendation must not be described as a mandatory rule. A revision-stage req
 ### IJSCCN
 
 - Author Guidelines: https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html
+- Aims and Scope / Overview: https://onlinelibrary.wiley.com/page/journal/15420981/homepage/productinformation.html
 - Submission route: https://authors.wiley.com/journal/SAT
+- Wiley Journal Finder record: https://www.wiley.com/en-au/journal-finder/journal/sat
 
 ### Wiley manuscript preparation
 
@@ -33,6 +35,8 @@ A recommendation must not be described as a mandatory rule. A revision-stage req
 - Figure Preparation: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/figure-preparation.html
 - Supporting Information FAQ: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/supporting-information.html
 - Permissions: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/permissions-material.html
+- Inclusive language guidance: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/writing-for-your-audience.html
+- Embedded rich media guidance: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/embedded-rich-media.html
 
 ### Wiley submission and peer review
 
@@ -40,6 +44,8 @@ A recommendation must not be described as a mandatory rule. A revision-stage req
 - Peer Review Process: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/peer-review.html
 - Types of Peer Review: https://authors.wiley.com/Reviewers/journal-reviewers/what-is-peer-review/types-of-peer-review.html
 - Wiley Authors submission help: https://authors.wiley.com/help/submitting-your-manuscript.html
+- Under Review / preprint service: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/under-review.html
+- Registered Reports: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/registered-reports.html
 
 ### Wiley research integrity and data
 
@@ -122,19 +128,17 @@ The project remains sole-author: Aman Kumar Singh, MS, PhD. No coauthor is to be
 
 Private contact information and photograph remain local-only.
 
-### 3.5 Title page and anonymization
+### 3.5 Title page and peer-review model
 
 IJSCCN Free Format asks for a title page with author details and applicable ethics/integrity statements.
 
-Wiley Authors states that a separate identifying Title Page is mandatory when the submission is configured for double-anonymized review. In that case, author-identifying information must be removed from the main manuscript.
+The current Wiley Journal Finder record for IJSCCN identifies the journal's peer-review model as **Single Anonymized**. In single-anonymized review, reviewers are anonymous to authors while reviewer access is not based on removing author identity from the submitted manuscript.
 
-The public IJSCCN Author Guidelines reviewed do not establish the exact anonymization model for this submission.
+Wiley Authors separately explains that a distinct identifying Title Page plus an anonymized main manuscript is used when a journal is configured for double-anonymized review. That generic double-anonymized workflow does not describe the current IJSCCN journal setting.
 
-**R5 decision:** maintain the ability to generate both:
-1. an identified main manuscript; and
-2. an anonymized main manuscript plus separate identifying Title Page.
+**R5 decision:** use an identified manuscript by default. Maintain a separate title-page document for submission convenience and metadata completeness, but do not remove author identity from the main manuscript unless the live Research Exchange instance unexpectedly instructs otherwise.
 
-The live Research Exchange Required Files screen controls which version is uploaded.
+The live Required Files screen still controls whether the title page is uploaded as a separate file and which file designation is used.
 
 ### 3.6 Typography and overall layout
 
@@ -414,20 +418,31 @@ The IJSCCN Author Guidelines state that there is no page charge to authors.
 
 This is separate from any optional open-access APC that may apply if open access is selected.
 
+### 3.29 Optional or non-applicable linked Wiley services
+
+The linked Wiley preparation and submission resources also include services or article models that are not requirements for Paper 4:
+
+- **Under Review** is an optional preprint-posting service. Paper 4 does not need to opt in.
+- **Registered Reports** are designed around prospective Stage 1 review before data collection and are not appropriate for this already-completed Study 8 / Study 8E manuscript.
+- **Language checking / editing services** are optional author services, not submission requirements.
+- **Embedded rich media** guidance applies only if the article contains supported audio/video or similar media. Paper 4 does not currently require rich media.
+- **Inclusive-language guidance** is a general writing-quality expectation. It does not create a separate Paper 4 file or portal requirement.
+
+These resources were reviewed so that optional Wiley services are not accidentally represented as mandatory IJSCCN submission criteria.
+
 ## 4. Remaining portal-only unknowns
 
-The public web sources cannot resolve the following submission-instance details:
+The journal-level peer-review model is resolved as **Single Anonymized**. The public web sources still cannot resolve these submission-instance details:
 
-1. Exact peer-review anonymization mode presented for this manuscript.
-2. Whether a separate Title Page is required in Required Files.
-3. Exact Research Exchange file designation for the GTOC.
-4. Exact file designation for the recent author photograph.
-5. Whether a cover letter is required or optional for this submission.
-6. Whether the portal actually requires a telephone and/or fax value.
-7. Whether CRediT is required in this IJSCCN workflow.
-8. Whether preferred editor or reviewer nominations are required.
-9. Exact color/artwork certification questions presented by the portal.
-10. Any submission-instance AI certification wording beyond the previously observed Methods requirement.
+1. Whether Research Exchange requires the identifying Title Page as a separate uploaded file or accepts it within the main manuscript.
+2. Exact Research Exchange file designation for the GTOC.
+3. Exact file designation for the recent author photograph.
+4. Whether a cover letter is required or optional for this submission.
+5. Whether the portal requires a telephone value and how it handles a non-applicable fax value.
+6. Whether CRediT is required in this specific IJSCCN workflow.
+7. Whether preferred editor or reviewer nominations are required.
+8. Exact color/artwork certification questions presented by the portal.
+9. Any submission-instance AI certification wording beyond the previously observed Methods requirement.
 
 These must be checked in the live Research Exchange screens when upload resumes. They are not blockers to rebuilding the R5 manuscript.
 
@@ -437,6 +452,8 @@ The public-source audit supports the following R5 approach:
 
 - Original Paper;
 - satellite component central;
+- Single Anonymized peer review;
+- identified main manuscript by default;
 - Free Format initial submission;
 - professional single-column Word manuscript rather than simulated Wiley production styling;
 - Times New Roman 12 pt body as an appropriate implementation of the journal font preference;
@@ -461,7 +478,7 @@ The public-source audit supports the following R5 approach:
 
 **Public-policy evidence gate: PASS.**
 
-**Portal-instance gate: PARTIALLY OPEN** for the ten items listed above.
+**Portal-instance gate: PARTIALLY OPEN** for the nine implementation items listed above.
 
 **Scientific preservation gate: remains mandatory before any R5 publisher-facing DOCX is treated as submission-ready.**
 
