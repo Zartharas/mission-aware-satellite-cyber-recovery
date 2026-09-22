@@ -46,7 +46,7 @@ jobs:
       - name: Generate design manifest in temporary storage
         run: |
           python study7e/tools/generate_scenario_manifest.py --output /tmp/study7e_scenario_manifest.csv
-          test "$(wc -l < /tmp/study7e_scenario_manifest.csv | tr -d ' ')" = "261"
+          test "$(wc -l < /tmp/study7e_scenario_manifest.csv | tr -d ' ')" = "281"
 
       - name: Require canonical execution remains impossible
         run: |
