@@ -1,0 +1,205 @@
+name: Build Paper 4 IJSCCN R5 public-safe QA package
+
+on:
+  push:
+    branches:
+      - main
+      - "paper4/**"
+    paths:
+      - "publication/Paper_4_Study_8/IJSCCN/MANUSCRIPT_IJSCCN_R5.md"
+      - "publication/Paper_4_Study_8/IJSCCN/build_ijsccn_r5_package.py"
+      - "publication/Paper_4_Study_8/IJSCCN/REFERENCES.bib"
+      - "publication/Paper_4_Study_8/IJSCCN/TITLE_PAGE.md"
+      - "publication/Paper_4_Study_8/IJSCCN/COVER_LETTER.md"
+      - "publication/Paper_4_Study_8/IJSCCN/DATA_AVAILABILITY_STATEMENT.md"
+      - "publication/Paper_4_Study_8/IJSCCN/AI_USE_DECLARATION.md"
+      - "publication/Paper_4_Study_8/IJSCCN/AUTHOR_BIOGRAPHY.md"
+      - "publication/Paper_4_Study_8/IJSCCN/GTOC.md"
+      - "publication/Paper_4_Study_8/IJSCCN/R5_*"
+      - ".github/workflows/paper4_ijsccn_r5_package.yml"
+      - ".gitignore"
+
+permissions:
+  contents: read
+
+jobs:
+  build-r5:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify private local paths are ignored and untracked
+        run: |
+          test -z "$(git ls-files 'publication/Paper_4_Study_8/IJSCCN/_local_private/**')"
+          test -z "$(git ls-files 'publication/Paper_4_Study_8/IJSCCN/_local_submission/**')"
+          git check-ignore -q publication/Paper_4_Study_8/IJSCCN/_local_private/author_private.json
+          git check-ignore -q publication/Paper_4_Study_8/IJSCCN/_local_private/author_photo.png
+          git check-ignore -q publication/Paper_4_Study_8/IJSCCN/_local_submission/build/r5/MANUSCRIPT_IJSCCN_R5.docx
+          git check-ignore -q publication/Paper_4_Study_8/IJSCCN/build/r5/MANUSCRIPT_IJSCCN_R5.docx
+
+      - name: Validate R5 source preservation and privacy
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          pkg = Path("publication/Paper_4_Study_8/IJSCCN")
+          manuscript = (pkg / "MANUSCRIPT_IJSCCN_R5.md").read_text(encoding="utf-8")
+          bib = (pkg / "REFERENCES.bib").read_text(encoding="utf-8")
+
+          publisher_sources = [
+              pkg / "MANUSCRIPT_IJSCCN_R5.md",
+              pkg / "TITLE_PAGE.md",
+              pkg / "COVER_LETTER.md",
+              pkg / "DATA_AVAILABILITY_STATEMENT.md",
+              pkg / "AI_USE_DECLARATION.md",
+              pkg / "AUTHOR_BIOGRAPHY.md",
+              pkg / "GTOC.md",
+              pkg / "REFERENCES.bib",
+          ]
+          email_re = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+          zip_re = re.compile(r"\b\d{5}(?:-\d{4})?\b")
+
+          for source in publisher_sources:
+              text = source.read_text(encoding="utf-8")
+              if "—" in text:
+                  raise SystemExit(f"em_dash_found={source}")
+              if source.name != "REFERENCES.bib":
+                  if email_re.search(text):
+                      raise SystemExit(f"tracked_private_email_like_value={source}")
+                  if zip_re.search(text):
+                      raise SystemExit(f"tracked_private_zip_like_value={source}")
+
+          abstract_match = re.search(
+              r"## Abstract\n\n(.*?)\n\n\*\*Keywords:",
+              manuscript,
+              flags=re.S,
+          )
+          if not abstract_match:
+              raise SystemExit("abstract_not_found")
+          abstract_words = re.findall(r"\b[\w][\w'-]*\b", abstract_match.group(1))
+          if len(abstract_words) > 250:
+              raise SystemExit(f"abstract_word_limit_fail={len(abstract_words)}")
+
+          short = re.search(r"\*\*Short title:\*\*\s*(.+)", manuscript)
+          if not short or len(short.group(1).strip()) > 70:
+              raise SystemExit("short_title_limit_fail")
+
+          required = [
+              "3,456",
+              "635/864",
+              "73.4954%",
+              "0.000000 percentage points",
+              "93.7500%",
+              "64.9306%",
+              "61.8056%",
+              "20 satellite-station",
+              "476",
+              "454",
+              "65,376",
+              "17,640",
+              "47,736",
+              "26.9824%",
+              "48 to 57,727",
+              "345 bit/s",
+              "16,344",
+              "4,410",
+              "11,934",
+              "S8E-CANON-RUNNER-004",
+              "S8E-CANON-RESULTS-002-FREEZE-001",
+              "floor(8B/d_min) + 1",
+              "6f80a44fa6cfa63a70df49de3ba447de3d59efe0632208180f26552f37b46a8e",
+              "cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf",
+              "26a8ac4d1039917323e75a294775dd14a2b563adb12a5d2fcdb47ce8f15c992e",
+              "3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee",
+          ]
+          missing = [value for value in required if value not in manuscript]
+          if missing:
+              raise SystemExit("missing_frozen_anchors=" + repr(missing))
+
+          forbidden = ["CuCD-ID", "AegisSat", "UNSW-IoTSAT", "0/8"]
+          hits = [value for value in forbidden if value in manuscript]
+          if hits:
+              raise SystemExit("paper5_protected_term_hits=" + repr(hits))
+
+          cite_keys = sorted(set(re.findall(r"@([A-Za-z0-9_:-]+)", manuscript)))
+          bib_keys = set(re.findall(r"@\w+\{([^,\s]+)", bib))
+          unresolved = [key for key in cite_keys if key not in bib_keys]
+          if unresolved:
+              raise SystemExit("unresolved_citations=" + repr(unresolved))
+
+          print(f"r5_abstract_words={len(abstract_words)}")
+          print(f"r5_short_title_chars={len(short.group(1).strip())}")
+          print(f"r5_citations={len(cite_keys)}")
+          print("r5_source_preservation_check=PASS")
+          PY
+
+      - name: Install R5 package-build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install python-docx matplotlib pillow bibtexparser==1.4.3
+
+      - name: Build public-safe IJSCCN R5 QA package
+        run: |
+          test ! -e publication/Paper_4_Study_8/IJSCCN/_local_private/author_private.json
+          python publication/Paper_4_Study_8/IJSCCN/build_ijsccn_r5_package.py
+
+      - name: Validate required R5 outputs
+        run: |
+          base=publication/Paper_4_Study_8/IJSCCN/build/r5
+          test -s "$base/MANUSCRIPT_IJSCCN_R5.docx"
+          test -s "$base/COVER_LETTER_IJSCCN_R5.docx"
+          test -s "$base/TITLE_PAGE_IJSCCN_R5.docx"
+          test -s "$base/AUTHOR_BIOGRAPHY_R5.docx"
+          test -s "$base/AI_USE_DECLARATION_R5.docx"
+          test -s "$base/figures/IJSCCN_GTOC.tiff"
+          test -s "$base/figures/Figure_1_Recovery_State_Machine.tiff"
+          test -s "$base/figures/Figure_2_Study8_Profile_Success.tiff"
+          test -s "$base/figures/Figure_3_Study8E_Horizon_Finite_Fraction.tiff"
+          test -s "$base/Paper4_IJSCCN_Submission_Package_R5.zip"
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+
+          base = Path("publication/Paper_4_Study_8/IJSCCN/build/r5")
+          manifest = json.loads((base / "BUILD_MANIFEST.json").read_text())
+          assert manifest["package_id"] == "P4-IJSCCN-PACKAGE-R5-QA-001"
+          assert manifest["private_submission_overlay_used"] is False
+          assert manifest["output_scope"] == "PUBLIC_SAFE_QA"
+          assert manifest["scientific_reanalysis_performed"] is False
+          assert manifest["publisher_submission_authorized"] is False
+          assert manifest["r5_source_preservation_audit"] == "PASS"
+          assert manifest["tables_after_references"] is True
+          assert manifest["scientific_figures_separate"] is True
+          assert manifest["zero_em_dash_enforced"] is True
+
+          for name in [
+              "Figure_1_Recovery_State_Machine.tiff",
+              "Figure_2_Study8_Profile_Success.tiff",
+              "Figure_3_Study8E_Horizon_Finite_Fraction.tiff",
+              "IJSCCN_GTOC.tiff",
+          ]:
+              with Image.open(base / "figures" / name) as image:
+                  dpi = image.info.get("dpi", (0, 0))
+                  if min(dpi) < 599:
+                      raise SystemExit(f"figure_dpi_fail={name}:{dpi}")
+                  print(f"{name}_dpi={dpi}")
+
+          print("r5_public_safe_manifest_and_figure_check=PASS")
+          PY
+
+      - name: Upload R5 public-safe QA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper4-ijsccn-r5-public-safe-qa
+          path: publication/Paper_4_Study_8/IJSCCN/build/r5/
+          if-no-files-found: error
+          retention-days: 7
