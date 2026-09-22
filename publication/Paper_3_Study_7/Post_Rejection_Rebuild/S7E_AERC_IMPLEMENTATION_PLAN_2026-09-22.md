@@ -285,13 +285,15 @@ Generate a machine-readable manifest before execution with:
 
 Expected counts:
 
-- TR = 72;
+- TR1 = 72;
+- TR0 = 12;
+- total training scenarios = 84;
 - E1 = 72;
 - E2 = 96;
-- C0 = 20;
+- C0 = 8;
 - total architecture scenarios represented in the manifest = 260;
-- canonical evaluation scenarios = 188;
-- canonical evaluation policy decisions = 752.
+- canonical evaluation scenarios = 176;
+- canonical evaluation policy decisions = 704.
 
 The manifest generator requires unit tests that assert these exact cardinalities.
 
