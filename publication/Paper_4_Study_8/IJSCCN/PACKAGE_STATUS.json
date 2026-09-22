@@ -62,7 +62,9 @@
     "local_personalized_auxiliary_documents_qa": "PASS",
     "local_personalized_structural_qa": "PASS",
     "local_personalized_accessibility_qa": "PASS_0_HIGH_0_MEDIUM_0_LOW",
-    "recent_author_photo_gate": "OPEN"
+    "recent_author_photo_gate": "OPEN",
+    "portal_upload_map_draft": "PASS_TO_VERIFIED_INFORMATION_LIMIT",
+    "portal_upload_map_record": "publication/Paper_4_Study_8/IJSCCN/R5_RESEARCH_EXCHANGE_UPLOAD_MAP_DRAFT_2026-09-22.md"
   },
   "privacy": {
     "tracked_private_contact_values_allowed": false,
@@ -72,5 +74,5 @@
     "github_actions_output_scope": "PUBLIC_SAFE_QA_ONLY",
     "local_personalized_submission_required": true
   },
-  "next_gate": "PR164_EXACT_HEAD_CI__RECENT_AUTHOR_PHOTO_LOCAL_ONLY__LIVE_RESEARCH_EXCHANGE_UPLOAD_MAP__THEN_SEPARATE_FINAL_SUBMISSION_AUTHORIZATION"
+  "next_gate": "PR164_EXACT_HEAD_CI__RECENT_AUTHOR_PHOTO_LOCAL_ONLY__LIVE_RESEARCH_EXCHANGE_RECONCILIATION__THEN_SEPARATE_FINAL_SUBMISSION_AUTHORIZATION"
 }
