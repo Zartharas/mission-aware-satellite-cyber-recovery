@@ -229,7 +229,7 @@ def render_markdown_lines(doc: Document, lines):
         if line.startswith("#"):
             level = len(line) - len(line.lstrip("#"))
             heading = line[level:].strip()
-            if heading == "Figure Legends" or heading.startswith("Table 1.") or heading.startswith("Table 2."):
+            if heading.startswith("Table 1.") or heading.startswith("Table 2."):
                 doc.add_page_break()
             doc.add_heading(heading, level=min(max(level - 1, 1), 3))
             i += 1
