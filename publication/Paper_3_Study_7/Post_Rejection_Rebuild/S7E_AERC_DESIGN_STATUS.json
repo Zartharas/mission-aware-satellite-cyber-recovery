@@ -9,14 +9,25 @@
   "implementation_plan": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_IMPLEMENTATION_PLAN_2026-09-22.md",
   "test_audit_plan": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_TEST_AND_AUDIT_PLAN_2026-09-22.md",
   "source_ledger": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ARCHITECTURE_SOURCE_LEDGER_2026-09-22.md",
-  "training_architecture_scenarios": 72,
-  "canonical_evaluation_architecture_scenarios": 188,
-  "canonical_evaluation_policy_decisions": 752,
+  "training_architecture_scenarios": 84,
+  "canonical_evaluation_architecture_scenarios": 176,
+  "canonical_evaluation_policy_decisions": 704,
   "policy_pairs": {
-    "base": ["D0_BASE", "L0_BASE"],
-    "corroborated": ["D1_CORROBORATED", "L1_CORROBORATED"]
+    "base": [
+      "D0_BASE",
+      "L0_BASE"
+    ],
+    "corroborated": [
+      "D1_CORROBORATED",
+      "L1_CORROBORATED"
+    ]
   },
   "scientific_execution_authorized": false,
   "canonical_execution_authorization_file_must_exist": true,
-  "next_gate": "Author review; resolve open design decisions; freeze protocol only under explicit authorization"
+  "next_gate": "Author review; resolve open design decisions; freeze protocol only under explicit authorization",
+  "design_review": {
+    "review_id": "S7E-AERC-PROTOCOL-REVIEW-R1",
+    "status": "CORRECTED_BEFORE_PROTOCOL_FREEZE_AND_BEFORE_SCIENTIFIC_EXECUTION",
+    "correction": "Added 12 no-signal training scenarios on T0-T2/F0 and restricted C0 to held-out T3-T4/F0."
+  }
 }
