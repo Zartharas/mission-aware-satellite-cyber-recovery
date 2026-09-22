@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-22",
+  "state": "IMPLEMENTATION_FEASIBILITY_IN_PROGRESS__CANONICAL_EXECUTION_PROHIBITED",
+  "authorization_scope": "implementation_and_feasibility_only",
+  "canonical_scientific_execution_authorized": false,
+  "canonical_results_generated": false,
+  "production_models_frozen": false,
+  "cfs_candidate": {
+    "tag": "v7.0.1",
+    "commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "qualification": "NOT_YET_RUN_ON_AUTHOR_LOCAL_ENVIRONMENT"
+  },
+  "nos3_candidate": {
+    "tag": "v1_07_05",
+    "version": "1.7.5",
+    "commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "qualification": "NOT_YET_RUN_ON_AUTHOR_LOCAL_ENVIRONMENT"
+  },
+  "implementation_layers": {
+    "machine_readable_design": "IN_PROGRESS",
+    "python_contract_harness": "IN_PROGRESS",
+    "cfs_custom_apps": "NOT_STARTED_PENDING_CFS_FEASIBILITY",
+    "nos3_integration": "NOT_STARTED_PENDING_NOS3_FEASIBILITY",
+    "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
+    "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
+  },
+  "next_gate": "Pass pre-canonical tests and external-stack feasibility; author review before protocol/implementation freeze"
+}
