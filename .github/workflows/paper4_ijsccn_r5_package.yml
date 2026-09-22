@@ -214,3 +214,11 @@ jobs:
           path: publication/Paper_4_Study_8/IJSCCN/build/r5/
           if-no-files-found: error
           retention-days: 7
+
+      - name: Upload immutable Acta visual benchmark for R5 QA
+        uses: actions/upload-artifact@v7
+        with:
+          name: paper4-acta-immutable-visual-benchmark
+          path: publication/Paper_4_Study_8/Acta_Astronautica/ACTA_ASTRONAUTICA_MANUSCRIPT.docx
+          if-no-files-found: error
+          retention-days: 1
