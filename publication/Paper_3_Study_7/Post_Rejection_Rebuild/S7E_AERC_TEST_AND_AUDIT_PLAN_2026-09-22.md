@@ -67,14 +67,16 @@ Every topology/fault pair requires a golden expected propagation test before can
 
 Assert:
 
-- TR = 72;
+- TR1 = 72;
+- TR0 = 12;
+- total training = 84;
 - E1 = 72;
 - E2 = 96;
-- C0 = 20;
+- C0 = 8;
 - total manifest = 260;
-- canonical evaluation scenarios = 188;
+- canonical evaluation scenarios = 176;
 - decisions per canonical scenario = 4;
-- canonical evaluation decision observations = 752.
+- canonical evaluation decision observations = 704.
 
 ### G. Policy contracts
 
