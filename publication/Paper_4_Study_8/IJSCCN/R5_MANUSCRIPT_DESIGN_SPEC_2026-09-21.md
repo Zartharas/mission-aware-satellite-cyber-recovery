@@ -1,202 +1,204 @@
 # Paper 4 IJSCCN R5 Manuscript Design Specification
 
-**Design date:** 2026-09-21  
-**Depends on:** R5_LIVE_POLICY_REQUIREMENT_MATRIX_2026-09-21.md  
+**Design reconciled:** 2026-09-22 UTC / 2026-09-21 America/Chicago  
+**Evidence authority:** `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md`  
 **Target:** International Journal of Satellite Communications and Networking, Wiley  
 **Article type:** Original Paper  
-**Status:** DESIGN LOCK FOR SOURCE REBUILD  
+**Status:** EVIDENCE-RECONCILED DESIGN LOCK FOR R5 SOURCE REBUILD  
 **Scientific effect:** None
 
-## 1. Why R5 is a rebuild rather than another R4.x patch
+## 1. Design objective
 
-The existing IJSCCN source is scientifically mature but visually and structurally over-fragmented for a professional reviewer manuscript.
+R5 is a controlled publisher-facing rebuild, not a new study.
 
-Current source audit on 2026-09-21:
+The existing IJSCCN manuscript source is scientifically mature but over-fragmented as a journal document. The R5 objective is to improve manuscript architecture, prose density, typography, table/figure presentation, and submission packaging while preserving every frozen Study 8 and Study 8E scientific authority.
 
-- approximately 7,011 words;
-- 71 section/subsection headings;
-- 69 Markdown bullet-list lines;
-- 9 em-dash characters;
-- Methods and Results are distributed across Study 1 and Study 2 sections rather than being presented under explicit top-level Methods and Results headings;
-- the strict-before-horizon bound is present, but B and d_min are not defined self-containedly at the point of use;
-- the AI disclosure is currently in Declarations rather than Methods.
+The historical Acta Astronautica manuscript remains immutable. It may be used only as a visual-quality benchmark where that does not conflict with IJSCCN/Wiley requirements.
 
-These issues are presentation and manuscript-architecture defects. They do not require or authorize any change to frozen Study 8 or Study 8E science.
+## 2. Evidence corrections to the earlier design assumptions
 
-## 2. R5 visible title-page design
+The final web audit changes three earlier assumptions:
 
-The visible R5 manuscript should open like a conventional scholarly article, not a repository status document.
+1. IJSCCN requires clear method and result content but does **not** prove that literal top-level headings named “Methods” and “Results” are mandatory.
+2. Initial Free Format permits figures and tables in the editable manuscript or separately. Separate-page tables and separate figures are explicitly mandatory at revision and strongly preferred by the journal style guidance.
+3. A dedicated Figure Legends section after References is Wiley-preferred and professionally useful, but it is not an IJSCCN-specific absolute initial-submission requirement.
+
+R5 will still adopt the stricter, revision-ready presentation because it improves professionalism, but the repository must label these items correctly as design choices rather than false initial-submission mandates.
+
+## 3. Visible title-page design
+
+The visible manuscript title page should look like a scholarly article, not a repository status document.
 
 Keep:
 
-- manuscript title;
+- full manuscript title;
 - Aman Kumar Singh, MS, PhD;
 - affiliation;
-- corresponding-author marker and local-only contact block as required;
-- ORCID in the local personalized version;
-- short title where appropriate.
+- corresponding-author marker;
+- ORCID where appropriate;
+- short title.
 
-Remove from the visible front page:
+Remove from the visible title page:
 
-- "IJSCCN Submission Manuscript";
-- "Target journal:";
-- internal experiment identifiers presented as title-page metadata;
-- repository-governance labels;
-- package version labels;
-- technical build information.
+- target-journal labels;
+- package/build identifiers;
+- internal study governance labels;
+- repository workflow information;
+- internal authorization language.
 
-Experiment identifiers remain in Methods where they support reproducibility.
+Scientific experiment identifiers remain in the body where they support reproducibility.
 
-Private author metadata stays under the ignored local-only submission path and must never be committed to the public repository.
+Private address, email, telephone, ORCID if treated as private in the local workflow, and author photograph remain only in ignored local-private/local-submission paths.
 
-## 3. Word style system
+## 4. Word style system
 
-R5 is a professional single-column reviewer manuscript.
+### Body
 
-### Page and body
-
-- standard Word page size;
+- single-column Word manuscript;
+- Times New Roman 12 pt;
 - approximately 1-inch / 2.54 cm margins;
-- Times New Roman 12 pt body;
-- 1.15 to 1.2 line spacing;
-- restrained 4 to 6 pt paragraph spacing;
-- no double-line spacing unless later required by the portal;
-- no decorative page borders, colored heading bands, WordArt, text boxes, or production-style columns;
-- no manually simulated Wiley headers, issue metadata, DOI blocks, or copyright footers.
+- restrained line spacing around 1.15 to 1.2;
+- compact scholarly paragraph spacing;
+- no simulated Wiley two-column production layout;
+- no decorative borders, colored heading bands, text boxes, WordArt, faux DOI blocks, or copyright footers.
 
 ### Title
 
 - Times New Roman;
-- 16 to 18 pt;
+- approximately 16 to 18 pt;
 - bold;
-- left aligned or centered based on final visual QA;
-- compact spacing;
-- no oversized title-page whitespace.
+- compact scholarly spacing;
+- final alignment selected after rendered-page comparison.
 
-### Author line and affiliation
+### Author and affiliation
 
-- 11 to 12 pt;
-- professional compact spacing;
-- corresponding-author indicator handled conventionally;
-- private contact details only in the local personalized copy.
+- approximately 11 to 12 pt;
+- compact;
+- corresponding-author notation conventional;
+- identifying block removable if the live portal requires double-anonymized review.
 
 ### Headings
 
-Use no more than three visible heading levels.
+Use no more than three visible levels.
 
-- Level 1: 13 to 14 pt bold.
+- Level 1: approximately 13 to 14 pt bold.
 - Level 2: 12 pt bold.
-- Level 3 only when scientifically necessary: 12 pt italic or bold italic.
+- Level 3: 12 pt italic or bold italic only when necessary.
 
-Avoid a heading for every small result or limitation. Prefer coherent paragraphs.
+Avoid one-heading-per-paragraph fragmentation.
 
-### Paragraphs
+### Body prose
 
-- scholarly prose rather than slide-style fragments;
-- first paragraph after a heading unindented;
-- subsequent body paragraphs may use a small first-line indent or consistent block spacing, but not both heavily;
-- widow/orphan control enabled;
-- headings kept with following paragraph.
+- prose-first scholarly narrative;
+- lists only when they genuinely improve technical clarity;
+- factor lattices and result summaries should use concise tables when superior to long bullet lists;
+- consistent paragraph treatment;
+- widow/orphan control;
+- keep headings with following text.
 
 ### Punctuation
 
-- zero em dashes in every publisher-facing document;
-- prefer commas, semicolons, parentheses, or sentence breaks;
-- use standard hyphens only where linguistically appropriate.
+Author requirement: **zero em dashes** in every publisher-facing document.
 
-## 4. R5 manuscript architecture
+Use commas, semicolons, parentheses, colons, or separate sentences instead.
 
-The R5 article will use explicit venue-compatible top-level sections.
+## 5. Manuscript architecture
+
+IJSCCN does not require literal IMRaD heading names. R5 nevertheless uses a conventional evidence-friendly architecture because it fits this paper and makes the two-study boundary easy to review.
 
 ### Front matter
 
-1. Title
-2. Author and affiliation
-3. Corresponding-author information in local personalized copy
-4. ORCID in local personalized copy as appropriate
-5. Short title
-6. Abstract, maximum 250 words
-7. Keywords, maximum 8
+1. Title.
+2. Sole author and affiliation.
+3. Corresponding-author information in the identified/local version.
+4. ORCID as appropriate.
+5. Short title.
+6. Abstract, maximum 250 words.
+7. Keywords, maximum 8.
 
 ### 1. Introduction
 
-Purpose:
+The Introduction should:
 
-- establish the satellite cybersecurity and post-quantum transition problem;
-- position the work against current space/NTN PQC, crypto-agility, and satellite-cybersecurity literature;
-- state the narrow gap;
-- state the two-study architecture and non-pooling rule;
-- summarize contributions without turning them into a bullet-heavy list unless a very short list is clearly superior.
+- establish trusted cryptographic recovery as a satellite systems problem;
+- position the work against current PQC, crypto-agility, satellite security, NTN, and recovery literature;
+- state the narrow research gap;
+- explain that Study 8 and Study 8E are separately governed and never statistically pooled;
+- distinguish Paper 4 from Paper 5 / Study 9;
+- state contributions without marketing language or unsupported novelty claims.
 
-Related-work material from the current Section 2 should be integrated into the Introduction or retained as a compact 1.x subsection only if this improves readability.
+A compact related-work subsection may be retained if it improves flow. It should not become a detached literature catalogue.
 
-### 2. Methods
+### 2. Recovery Model and Methods
 
-#### 2.1 Two-study architecture and evidence separation
+The exact heading may be “Recovery Model and Methods,” “Methodology,” or another clear technical equivalent. The content must make the study design unmistakable.
+
+#### 2.1 Two-study evidence architecture
 
 State explicitly:
 
-- Study 8 = S8-PQC-ICR-001;
-- Study 8E = S8E-ECTV-001;
-- populations are separate;
-- no pooled denominator, statistic, or physical timescale is used;
-- Paper 5 / Study 9 evidence is not part of this paper.
+- Study 8 = `S8-PQC-ICR-001`;
+- Study 8E = `S8E-ECTV-001`;
+- separate finite populations;
+- no pooled denominator or statistic;
+- no physical-time conversion of Study 8 logical slots;
+- Study 9 / Paper 5 evidence excluded.
 
-#### 2.2 Shared trusted-recovery model
+#### 2.2 Shared trusted-recovery mechanism
 
-Concise description of:
+Describe concisely:
 
-- state machine;
+- frozen recovery state progression;
 - cryptographic profiles and exact transition-object burdens;
-- policies P0 through P3;
-- disruption schedules;
+- P0 to P3 policy semantics;
+- bounded disruption schedules;
 - shared interpretation boundary.
 
-Current large lists should be converted to concise prose and Table 1 where appropriate.
+Avoid slide-style bullet expansion where Table 1 can carry structured factors.
 
-#### 2.3 Study 8 deterministic experiment
+#### 2.3 Study 8 controlled logical-contact design
 
-Include:
+Retain only frozen design facts:
 
-- frozen research question;
-- deterministic finite population;
-- logical contact model;
-- endpoint and prespecified P3 minus P1 contrast;
-- finite-population reporting rationale;
-- reproducibility checks.
+- complete deterministic population;
+- logical contact regimes;
+- disruption schedules;
+- compromise offsets;
+- logical deadlines;
+- primary endpoint;
+- P3 minus P1 prespecified contrast;
+- exact finite-population reporting rationale.
 
-Logical slots must be explicitly identified as ordering units without physical duration.
+Logical slots remain ordering units with no physical duration.
 
-#### 2.4 Study 8E external observation-opportunity timing evaluation
+#### 2.4 Study 8E observation-opportunity timing design
 
-Include:
+Retain only frozen extension facts:
 
-- source and frozen population governance;
-- observation-opportunity mapping;
-- eligible anchors and case construction;
+- SatNOGS source and population governance;
+- 20 satellite-station pairs;
+- 476 frozen observation rows;
+- 454 eligible anchors;
 - 6 h, 12 h, 24 h extension-only horizons;
 - minimum hypothetical uniform effective payload-rate endpoint;
-- strict sufficient upper-bound definition;
-- corrected canonical runner and result freeze;
-- SatNOGS proxy limitations.
+- corrected canonical runner/result freeze;
+- observation-opportunity proxy restrictions.
 
-The bound must be defined self-containedly as follows:
+Define the strict sufficient bound self-containedly:
 
-For a case with at least one positive-duration future window,
+- `B = sum(profile_object_bytes) + max(profile_object_bytes)`;
+- `d_min` = shortest positive future-window duration in exact seconds;
+- `U_strict = floor(8B/d_min) + 1` integer bit/s.
 
-- B = sum(profile_object_bytes) + max(profile_object_bytes), representing the complete nominal profile-object bundle plus one largest-object retransmission;
-- d_min = the shortest positive future-window duration in exact seconds;
-- U_strict = floor(8B/d_min) + 1 integer bit/s.
+Explain that `U_strict` is a model-search sufficiency construction only, not a physical link measurement.
 
-U_strict is a model-search sufficiency construction only. It is not measured physical link capacity or SatNOGS throughput.
+#### 2.5 Reproducibility and AI-assisted manuscript preparation
 
-#### 2.5 Reproducibility, research integrity, and AI-assisted manuscript preparation
+Scientific reproducibility must remain separate from manuscript-preparation tooling.
 
-Keep scientific reproducibility statements distinct from manuscript-preparation tooling.
+The Methods AI disclosure should identify OpenAI ChatGPT / GPT-5.6 Sol and describe its use for drafting, restructuring, language editing, literature navigation, claim-boundary checking, and submission preparation.
 
-The AI disclosure will state truthfully that OpenAI ChatGPT / GPT-5.6 Sol assisted with drafting, restructuring, language editing, literature navigation, claim-boundary checking, and submission preparation, while the author independently verified all scientific claims, citations, numerical values, and interpretations.
-
-It must explicitly state that the AI tool did not generate or alter:
+It must state that the author independently verified the final content and that AI did not generate or alter:
 
 - Study 8 data;
 - Study 8E data;
@@ -205,24 +207,22 @@ It must explicitly state that the AI tool did not generate or alter:
 - evidence hashes;
 - scientific endpoints.
 
-The author retains full responsibility.
+## 6. Results architecture
 
-### 3. Results
+Keep Study 8 and Study 8E separate.
 
-Keep Study 8 and Study 8E numerically separate.
+### 3.1 Study 8 fixed-capacity feasibility
 
-#### 3.1 Study 8 fixed-capacity feasibility
+Required frozen headline values:
 
-Required headline values:
-
-- total positions: 3,456;
+- 3,456 total positions;
 - each policy: 635/864 = 73.4954%;
 - P3 minus P1: 0.000000 percentage points;
 - profile success: 93.7500%, 64.9306%, 61.8056%.
 
-Report logical-time findings without conversion to seconds, minutes, hours, or orbital time.
+Logical-time results must never be converted to seconds, minutes, hours, orbital periods, or operational recovery time.
 
-#### 3.2 Study 8E observation-opportunity timing evaluation
+### 3.2 Study 8E external timing evaluation
 
 Required corrected anchors:
 
@@ -237,275 +237,290 @@ Required corrected anchors:
 - P3 versus P1 matched: 16,344;
 - both finite: 4,410;
 - both non-finite: 11,934;
-- all finite P3 minus P1 differences: 0 bit/s;
+- finite P3 minus P1 differences: all 0 bit/s;
 - profile-burden ordering violations: 0;
 - rollback violations: 0;
 - stale-acceptance violations: 0.
 
-Any horizon or disruption summaries must use only already frozen values.
+Only already frozen horizon/disruption summaries may be reported.
 
-#### 3.3 Cross-study synthesis without pooling
+### 3.3 Cross-study synthesis without pooling
 
-This subsection may compare qualitative structural findings only.
+Permitted:
 
-It must not:
+- structural comparison;
+- qualitative consistency;
+- explanation of different estimands.
 
-- pool counts;
-- construct a combined sample size;
-- perform new statistical tests;
-- reinterpret Study 8 logical slots as elapsed time;
-- describe Study 8E as operational validation or empirical spacecraft recovery validation.
+Forbidden:
 
-### 4. Discussion
+- pooled sample sizes;
+- combined effects;
+- new statistical tests;
+- Study 8 logical-slot to elapsed-time mapping;
+- calling Study 8E operational validation;
+- calling SatNOGS observations authenticated command contacts;
+- calling modeled bit/s measured throughput.
 
-Recommended compact structure:
+## 7. Discussion
 
-#### 4.1 What the null policy contrast means
+Use a small number of substantive subsections.
 
-Explain that a contact-aware guard did not create additional communication opportunity or capacity in the tested frozen populations.
+Recommended topics:
 
-Do not convert the null result into a claim of universal policy equivalence.
+1. why the P3 guard cannot create communication opportunity or capacity;
+2. fixed-capacity feasibility versus solved-rate burden;
+3. importance of opportunity timing and recovery horizon;
+4. policy-state tradeoffs despite a null feasibility contrast;
+5. engineering implications bounded to the modeled evidence;
+6. limitations and external-validity boundary.
 
-#### 4.2 Fixed-capacity feasibility versus required-rate burden
+The discussion must not infer:
 
-Clarify the different estimands without merging them.
+- CPU performance;
+- PQC execution latency;
+- memory;
+- energy;
+- thermal effects;
+- RF throughput;
+- BER;
+- coding efficiency;
+- link margin;
+- mission availability;
+- operational ground-station performance;
+- real spacecraft recovery time.
 
-#### 4.3 Implications for post-quantum satellite recovery engineering
+## 8. Conclusion
 
-Bound implications to modeled communication opportunity, recovery horizon, transition-object burden, and state progression.
+Keep concise and evidence-bounded.
 
-Do not infer CPU, PQC execution latency, memory, energy, thermal behavior, RF throughput, BER, coding, link margin, mission availability, or operational recovery time.
+State:
 
-#### 4.4 Limitations and external-validity boundary
+- the Study 8 fixed-capacity finding;
+- the Study 8E modeled-rate finding;
+- the role of transition-object burden, opportunity timing, and recovery horizon;
+- the exact negative policy result.
 
-Consolidate the current twelve limitation subsections into a smaller number of coherent paragraphs covering:
+Avoid operational deployment claims or unsupported superiority language.
 
-- separate finite populations;
-- logical versus elapsed time;
-- observation opportunity is not command contact;
-- modeled rate is not measured throughput;
-- cryptographic-object-only accounting;
-- no execution benchmarking;
-- restricted adversary;
-- source-selection boundary;
-- corrected-result metadata discrepancy;
-- no external experimental replication;
-- no universal policy-superiority conclusion.
+## 9. Tables
 
-### 5. Conclusions
+### Table 1: Study 8 deterministic experimental design
 
-Keep concise and evidence bounded.
+Use frozen factors only.
 
-The conclusion should:
+Possible columns:
 
-- state the fixed-capacity Study 8 finding;
-- state the Study 8E modeled-rate finding;
-- emphasize communication opportunity, horizon, and transition-object burden;
-- preserve the negative policy result;
-- avoid operational spacecraft performance claims;
-- avoid novelty overclaiming.
+- Factor;
+- Levels;
+- Values / interpretation.
 
-## 5. Tables
+No new calculation or scientific inference.
 
-### Table 1. Study 8 deterministic experimental design
+### Table 2: Study 8E canonical evaluation summary
 
-Purpose: replace large factor bullet lists.
+Use frozen values only.
 
-Columns:
-
-- Factor
-- Levels
-- Values / interpretation
-
-Rows may include:
-
-- cryptographic profile;
-- recovery policy;
-- logical contact regime;
-- disruption schedule;
-- compromise offset;
-- logical deadline.
-
-Footer or note: complete deterministic population = 3,456 modeled positions.
-
-No new calculation is authorized.
-
-### Table 2. Study 8E canonical evaluation summary
-
-Purpose: consolidate existing frozen values.
-
-Candidate rows:
+Possible rows:
 
 - trace identity;
-- satellite-station pairs;
-- frozen observation rows;
+- selected trace pairs;
+- frozen observations;
 - eligible anchors;
 - canonical cases;
-- finite and non-finite counts;
+- finite/non-finite counts;
 - finite fraction;
 - threshold minimum/median/maximum;
-- P3/P1 matched, both-finite, both-non-finite;
+- P3/P1 matched comparison counts;
 - structural violation counts.
 
-Only frozen values may be used.
+### Initial-submission placement
 
-Placement: each table on its own page after References as required by IJSCCN.
+For R5, each table will appear on a separate page after References.
 
-## 6. Figures
+This is a conservative, journal-preferred, revision-ready design choice. The evidence audit does not classify it as an absolute Free Format initial-submission mandate.
 
-Scientific figures remain:
+## 10. Figures
 
-1. Figure 1. Trusted-recovery state-machine schematic.
-2. Figure 2. Study 8 fixed-capacity/profile result.
-3. Figure 3. Study 8E elapsed-time/finite-threshold result.
+Scientific figures:
 
-GTOC is separate and is not Figure 4.
+1. Trusted-recovery state-machine schematic.
+2. Study 8 fixed-capacity/profile result.
+3. Study 8E finite-threshold/horizon result.
 
-R5 rules:
+The GTOC remains separate and is not Figure 4.
 
-- separate TIFF or EPS file for each scientific figure;
-- 800 dpi preferred for graphs/drawings, 600 dpi minimum;
-- regenerate from source when improving resolution;
-- no raster upsampling;
-- consistent fonts and line weights;
-- readable labels at final reduction;
-- no scientific meaning conveyed by color alone;
-- legends in a dedicated Figure Legends section after References.
+R5 figure rules:
 
-## 7. End matter
+- regenerate from source;
+- TIFF for upload, with EPS retained if useful;
+- 800 dpi target for graphs/drawings, never below the journal's 600 dpi minimum;
+- no raster upsampling to simulate resolution;
+- consistent labels, type sizes, line weights, and orientation;
+- no scientific meaning dependent solely on color;
+- each compound figure supplied as one file;
+- no tints;
+- symbol keys inside artwork when needed.
 
-Recommended order:
+Figure legends will be collected in a dedicated post-References section as a Wiley-preferred, revision-ready presentation.
 
-1. Funding
-2. Competing Interests
-3. Author Contributions
-4. Ethics Statement
-5. Data Availability Statement
-6. References
-7. Figure Legends
-8. Table 1, separate page
-9. Table 2, separate page
-10. Author Biography, if retained inside the main manuscript rather than supplied as a dedicated portal file
+## 11. GTOC
 
-The substantive AI disclosure remains in Methods to satisfy the live portal requirement. A duplicate declaration should be avoided unless the portal or editor specifically requests one.
+Separate submission item.
 
-## 8. GTOC package
+Must include:
 
-Create as a separate submission item:
+- paper title;
+- Aman Kumar Singh*;
+- corresponding-author asterisk;
+- abstract figure;
+- maximum 80 words or 3 sentences.
 
-- title;
-- Aman Kumar Singh with corresponding-author asterisk;
-- high-quality abstract figure;
-- text not exceeding 80 words or 3 sentences.
+The graphic should communicate:
 
-The graphic should communicate the two-layer evidence architecture visually:
-
-- controlled Study 8 logical-contact model;
-- Study 8E public observation-opportunity timing;
+- Study 8 controlled logical-contact layer;
+- Study 8E public observation-opportunity timing layer;
+- common frozen recovery mechanism;
 - separate populations;
-- common recovery mechanism;
-- no pooled statistic.
+- no pooled statistic;
+- no slot-to-seconds mapping;
+- no operational-contact or measured-throughput implication.
 
-Do not make the GTOC a decorative duplicate of a scientific figure if a cleaner purpose-built diagram better explains the paper.
-
-## 9. Biography and photograph
+## 12. Biography and photograph
 
 Biography:
 
 - maximum 200 words;
-- scholarly and concise;
-- no unnecessary personal detail;
-- no private contact information.
+- concise and scholarly;
+- no unnecessary personal information.
 
-Photograph:
+Photo:
 
 - recent;
 - local-only;
-- never committed to the public repository.
+- never committed.
 
-## 10. Data and reproducibility presentation
+## 13. Data and repository presentation
 
-The manuscript should identify the repository and frozen evidence in a reviewer-usable way.
+The manuscript will include a Data Availability Statement.
 
-R5 should prefer:
+The repository/data record will be formally cited in the reference list in Wiley-compatible data-citation form.
 
-- immutable commit or release identity;
-- formal reference-list citation for shared research data/code;
-- persistent identifier if one is deliberately created later.
+Minimum acceptable persistent evidence identity for R5:
 
-A Zenodo DOI would improve archival permanence but is not required by the current policy audit and is not created by this design lock.
+- immutable repository commit or release.
 
-## 11. Citation reconciliation
+A DOI-backed archival snapshot may be created later if deliberately authorized. Zenodo is optional, not mandatory.
 
-Open PR #156 is not merged.
+## 14. Duplicate/fragmentation gate
 
-Before R5 content freeze:
+Wiley's policy makes Paper 4 / Paper 5 separation a publication-integrity requirement.
 
-- inspect and deliberately reconcile the De Zuane et al. record;
-- use the peer-reviewed IEEE LANMAN 2026 record if verified;
-- DOI: 10.1109/LANMAN69841.2026.11623493;
-- remove the obsolete preprint-only characterization from final R5 if the peer-reviewed record is used.
+Before content freeze, verify:
 
-No assumption is made that PR #156 is already part of main.
+- no Study 9 / Paper 5 evidence appears in Paper 4;
+- Paper 4's research question, population, endpoints, and contribution remain distinct;
+- no language suggests one manuscript is merely a fragment of the other;
+- overlapping background material is cited or rewritten transparently rather than recycled without attribution.
 
-## 12. Visual QA standard
+## 15. End matter
 
-Technical render success is necessary but insufficient.
+Recommended order before References:
 
-Before R5 is considered submission-ready:
+1. Funding.
+2. Conflict of Interest.
+3. Author Contributions.
+4. Ethics Statement.
+5. Data Availability Statement.
 
-- render every DOCX;
-- inspect every page at normal reading scale and 100 percent zoom;
+Then:
+
+6. References.
+7. Figure Legends.
+8. Table 1, separate page.
+9. Table 2, separate page.
+10. Biography only if the portal/journal handling indicates it belongs in the main manuscript rather than a separate file.
+
+The substantive AI disclosure remains in Methods because of the previously observed live portal requirement.
+
+## 16. Reviewer-readiness QA
+
+Use Wiley's peer-review criteria as R5 quality gates:
+
+- clear research question;
+- originality stated narrowly and supportably;
+- contribution distinct from prior literature;
+- conclusions directly supported by evidence;
+- reproducible methodology;
+- related and contradictory work acknowledged;
+- figures/tables necessary and readable;
+- references balanced and accurate;
+- no factual, numerical, unit, equation, or hash errors;
+- no exaggerated conclusions;
+- no fragmented-publication appearance;
+- structure concise enough for reviewers to assess efficiently.
+
+## 17. Visual QA
+
+Technical render success is necessary but not sufficient.
+
+Before any R5 DOCX is called submission-ready:
+
+- render every page;
+- inspect at normal reading scale and 100 percent;
 - inspect every figure separately;
-- verify no clipping, overlap, broken glyphs, orphan headings, widows, poor page breaks, or excessive whitespace;
-- inspect tables for professional alignment and legibility;
-- compare typography, spacing, page rhythm, caption treatment, and overall professionalism with the immutable historical Acta manuscript;
-- follow IJSCCN requirements whenever Acta and IJSCCN differ.
+- inspect every table separately;
+- verify no clipping, overlap, broken glyphs, or hidden text;
+- verify no orphan headings or unacceptable widows;
+- correct excessive whitespace and poor page rhythm;
+- compare typography and scholarly page composition with the immutable Acta benchmark;
+- follow IJSCCN whenever the benchmark conflicts with current policy.
 
-The Acta manuscript remains immutable and must never be edited.
+## 18. Scientific preservation gate
 
-## 13. Scientific preservation gate
-
-R5 rebuilding may change:
+Allowed:
 
 - section organization;
+- heading names;
 - paragraph order;
-- heading granularity;
 - prose clarity;
 - typography;
 - table presentation;
-- figure rendering from existing source;
+- figure regeneration from frozen data/source;
 - submission-document organization.
 
-R5 rebuilding may not change:
+Forbidden:
 
-- frozen Study 8 or Study 8E data;
-- populations;
-- protocols;
-- endpoint definitions;
-- canonical results;
-- hashes;
-- prespecified contrasts;
-- scientific claim boundaries;
-- Paper 4 versus Paper 5 independence;
-- rejected Acta submitted binaries.
+- modifying frozen Study 8 or Study 8E data;
+- modifying populations;
+- changing protocols;
+- changing endpoints;
+- changing canonical results;
+- changing hashes;
+- changing prespecified contrasts;
+- pooling populations;
+- importing Paper 5 evidence;
+- modifying rejected Acta submitted binaries.
 
-## 14. R5 build sequence
+## 19. Build sequence
 
-1. Lock live policy matrix. COMPLETE.
-2. Lock manuscript design specification. COMPLETE with this record.
-3. Rebuild venue-facing manuscript source under the new Methods/Results architecture.
-4. Reconcile PR #156 citation before content freeze.
-5. Run numerical, equation, hash, citation, and claim-ledger preservation audit.
-6. Build public-safe QA DOCX with placeholders only.
-7. Render and inspect every page.
-8. Compare against Acta visual benchmark.
-9. Correct layout until professional acceptance.
-10. Build personalized local-only DOCX and submission documents under _local_submission/.
-11. Validate GTOC, biography/photo, figures, tables, declarations, DAS, and AI disclosure.
-12. Produce exact Research Exchange upload map.
-13. Obtain explicit author approval.
-14. Obtain separate explicit authorization before final Wiley submission.
+1. Public-policy evidence audit. **COMPLETE / PASS.**
+2. Reconciled requirement matrix. **COMPLETE / PASS.**
+3. Reconciled design specification. **COMPLETE with this document.**
+4. Rebuild the R5 venue-facing manuscript source.
+5. Run numerical, equation, hash, citation, non-overlap, and claim-ledger preservation audits.
+6. Update the R5 Word build pipeline.
+7. Build a public-safe QA DOCX.
+8. Render and inspect every page.
+9. Regenerate/fix figures and tables until visual QA passes.
+10. Build local personalized materials under ignored private paths.
+11. Verify GTOC, biography/photo, DAS, funding, COI, ethics, AI disclosure, and submission files.
+12. Re-open the live Research Exchange portal and resolve the remaining portal-only questions.
+13. Produce the exact upload map.
+14. Obtain separate explicit authorization before final publisher submission.
 
-**Design gate:** PASS FOR R5 SOURCE-MANUSCRIPT REBUILD.  
-**Publisher submission:** NOT AUTHORIZED.
+**Design gate: PASS FOR R5 SOURCE REBUILD.**
+
+**R5 submission-ready DOCX gate: NOT YET PASSED.**
+
+**Final Wiley submission: NOT AUTHORIZED.**
