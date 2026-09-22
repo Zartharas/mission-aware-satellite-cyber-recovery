@@ -34,7 +34,8 @@
     "F8",
     "F9",
     "F10",
-    "F11"
+    "F11",
+    "F12"
   ],
   "blocks": {
     "TR1": {
@@ -46,11 +47,11 @@
       "canonical_evaluation": false
     },
     "E1": {
-      "scenarios": 72,
+      "scenarios": 84,
       "canonical_evaluation": true
     },
     "E2": {
-      "scenarios": 96,
+      "scenarios": 104,
       "canonical_evaluation": true
     },
     "C0": {
@@ -59,11 +60,11 @@
     }
   },
   "expected_counts": {
-    "total_manifest_scenarios": 260,
+    "total_manifest_scenarios": 280,
     "training_scenarios": 84,
-    "canonical_evaluation_scenarios": 176,
+    "canonical_evaluation_scenarios": 196,
     "decisions_per_evaluation_scenario": 4,
-    "canonical_evaluation_policy_decisions": 704
+    "canonical_evaluation_policy_decisions": 784
   },
   "execution_gate": {
     "canonical_execution_authorized": false,
@@ -82,6 +83,12 @@
     "review_id": "S7E-AERC-PROTOCOL-REVIEW-R1",
     "finding": "Original draft omitted security_signal=0 from training while evaluating it in C0",
     "correction": "Add TR0 on T0-T2/F0 and restrict C0 to held-out T3-T4/F0",
+    "status": "CORRECTED_BEFORE_PROTOCOL_FREEZE_AND_BEFORE_SCIENTIFIC_EXECUTION"
+  },
+  "design_review_r2": {
+    "review_id": "S7E-AERC-PROTOCOL-REVIEW-R2",
+    "finding": "Execution trust domain was defined but not directly exercised by a fault profile",
+    "correction": "Added F12 PRIMARY_EXECUTION_COMPROMISE as an unseen E1 fault and included it in held-out-topology E2",
     "status": "CORRECTED_BEFORE_PROTOCOL_FREEZE_AND_BEFORE_SCIENTIFIC_EXECUTION"
   }
 }
