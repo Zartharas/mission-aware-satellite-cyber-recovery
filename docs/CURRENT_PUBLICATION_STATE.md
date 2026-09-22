@@ -91,10 +91,12 @@ Proposed extension:
 
 - **Experiment ID:** `S7E-AERC-001`
 - **Working title:** Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures
-- **Status:** `PROPOSED__PROTOCOL_NOT_FROZEN__EXECUTION_NOT_AUTHORIZED`
+- **Status:** `PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED`
 - **Proposal:** `publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md`
 
-The proposed extension is intended to add a concrete spacecraft recovery architecture, explicit trust-domain topology, controlled compromise/fault injection, and deterministic/learned comparator pairs receiving identical information.
+The extension now has a draft prospective protocol, implementation plan, test/audit plan, architecture source ledger, and candidate environment baseline. The design uses a cFS-grounded reference architecture, five explicit trust-domain topologies, twelve fault/compromise profiles, and equal-information deterministic/learned policy pairs.
+
+Prospective design quantities are 72 training architecture scenarios and 188 canonical evaluation/control scenarios, producing 752 canonical evaluation policy-decision observations. These are planned counts, not scientific results.
 
 No `study7e/` execution workspace, canonical run, or new scientific result is authorized yet. Study 7 and any future Study 7E remain separate populations and must not be pooled.
 

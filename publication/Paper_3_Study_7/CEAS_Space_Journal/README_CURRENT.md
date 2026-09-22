@@ -16,7 +16,7 @@ Paper 3 was rejected by CEAS Space Journal after handling-editor editorial asses
 - **Topic:** Artificial Intelligence in Space
 - **Peer review setting:** Single anonymous
 - **External reviewer comments in supplied decision:** none present
-- **Recovery state:** `POST_REJECTION_REQUIREMENTS_AUDIT_COMPLETE__S7E_AERC_001_PROPOSED__EXECUTION_NOT_AUTHORIZED`
+- **Recovery state:** `S7E_AERC_001_PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED`
 
 ## Current authority
 
@@ -64,7 +64,7 @@ A manuscript-only retarget is not considered sufficient. The completed rejection
 
 `S7E-AERC-001` — Architecture-Grounded Equal-Information Recovery Comparators.
 
-The proposal is design-only. No new study execution, workflow, results, or `study7e/` scientific workspace is authorized by this state.
+The prospective protocol, implementation plan, and test/audit plan are now drafted for author review. No new study execution, workflow, results, or `study7e/` scientific workspace is authorized by this state.
 
 A rebuilt Paper 3 may later synthesize frozen Study 7 and a separately frozen Study 7E, but their populations and provenance must remain separate and unpooled.
 
@@ -78,4 +78,4 @@ A rebuilt Paper 3 may later synthesize frozen Study 7 and a separately frozen St
 
 ## Next action
 
-Author review of the proposed `S7E-AERC-001` architecture, trust domains, comparator semantics, finite scenario design, endpoints, validation plan, and audit design. Canonical execution requires a separate explicit authorization.
+Author review of the drafted `S7E-AERC-001` protocol, implementation plan, environment candidates, trust domains, comparator semantics, scenario population, endpoints, and audit design. Implementation requires a new explicit authorization, and canonical scientific execution requires a later separate authorization.
