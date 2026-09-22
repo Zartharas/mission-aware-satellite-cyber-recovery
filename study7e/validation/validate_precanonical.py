@@ -61,12 +61,15 @@ def main() -> int:
 
     counts = manifest_counts(build_scenario_manifest())
     expected = protocol["expected_counts"]
-    require(counts["TOTAL"] == expected["total_manifest_scenarios"] == 260, "manifest total drift")
+    require(counts["TOTAL"] == expected["total_manifest_scenarios"] == 280, "manifest total drift")
     require(counts["TR1"] == 72, "TR1 count drift")
     require(counts["TR0"] == 12, "TR0 count drift")
     require(counts["TRAINING_SCENARIOS"] == expected["training_scenarios"] == 84, "training count drift")
-    require(counts["CANONICAL_EVAL_SCENARIOS"] == expected["canonical_evaluation_scenarios"] == 176, "evaluation count drift")
-    require(counts["CANONICAL_EVAL_POLICY_DECISIONS"] == expected["canonical_evaluation_policy_decisions"] == 704, "decision count drift")
+    require(counts["E1"] == 84, "E1 count drift")
+    require(counts["E2"] == 104, "E2 count drift")
+    require(counts["C0"] == 8, "C0 count drift")
+    require(counts["CANONICAL_EVAL_SCENARIOS"] == expected["canonical_evaluation_scenarios"] == 196, "evaluation count drift")
+    require(counts["CANONICAL_EVAL_POLICY_DECISIONS"] == expected["canonical_evaluation_policy_decisions"] == 784, "decision count drift")
 
     require(len(policy["base_features"]) == 9, "base feature count drift")
     require(len(policy["corroborated_additional_features"]) == 7, "corroborated feature count drift")
@@ -76,10 +79,10 @@ def main() -> int:
 
     print("Study 7E pre-canonical implementation validation: PASS")
     print("experiment_id=S7E-AERC-001")
-    print("manifest_total=260")
+    print("manifest_total=280")
     print("training_scenarios=84")
-    print("canonical_evaluation_scenarios=176")
-    print("planned_evaluation_decisions=704")
+    print("canonical_evaluation_scenarios=196")
+    print("planned_evaluation_decisions=784")
     print("canonical_execution_authorized=false")
     return 0
 
