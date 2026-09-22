@@ -1,53 +1,50 @@
 {
-  "schema": 1,
-  "record_id": "P4-IJSCCN-PACKAGE-R1",
-  "date_local": "2026-09-21",
-  "base_main_commit": "71dc8912d17d4dac1977bc90ce5fad0708fd96af",
-  "branch": "paper4/privacy-harden-local-submission-r1",
-  "status": "IJSCCN_PUBLIC_SAFE_TRACKED_PACKAGE__LOCAL_PRIVATE_SUBMISSION_OVERLAY__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+  "schema": 2,
+  "record_id": "P4-IJSCCN-PACKAGE-R5-DRAFT-QA-001",
+  "date_local": "2026-09-22",
+  "base_main_commit": "4ed95a53ade99ddabacbe7c542a3f29d988ecfd0",
+  "branch": "paper4/ijsccn-r5-policy-design-20260921",
+  "pull_request": 164,
+  "status": "IJSCCN_R5_DRAFT_QA__PUBLIC_POLICY_AUDIT_PASSED__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "target_journal": "International Journal of Satellite Communications and Networking",
   "publisher": "Wiley",
+  "article_type": "Original Paper",
+  "peer_review_model": "Single Anonymized",
   "journal_guidelines": "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
-  "source_manuscript": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
-  "derivative_manuscript": "publication/Paper_4_Study_8/IJSCCN/MANUSCRIPT_IJSCCN.md",
+  "source_manuscript": "publication/Paper_4_Study_8/IJSCCN/MANUSCRIPT_IJSCCN_R5.md",
+  "scientific_evidence_snapshot_commit": "4ed95a53ade99ddabacbe7c542a3f29d988ecfd0",
   "requirements": {
     "abstract_word_limit": 250,
-    "derivative_abstract_words": 213,
+    "r5_abstract_words": 211,
     "keyword_limit": 8,
-    "derivative_keywords": 8,
+    "r5_keywords": 8,
     "short_title_char_limit": 70,
-    "derivative_short_title_chars": 63,
+    "r5_short_title_chars": 63,
     "gtoc_required": true,
-    "biography_required": true,
+    "biography_max_words": 200,
     "recent_photo_required": true,
-    "data_availability_required": true
+    "data_availability_required": true,
+    "identified_main_manuscript_default": true
   },
   "authorization": {
-    "venue_specific_package_preparation_authorized": true,
+    "r5_pr_reconciliation_authorized": true,
+    "new_scientific_execution_authorized": false,
     "publisher_submission_authorized": false
   },
-  "external_author_items_pending": [
-    "Copy recent author photograph into ignored _local_private directory",
-    "Create ignored local author_private.json from placeholder template",
-    "Corresponding-author telephone only if requested by Wiley portal"
-  ],
-  "next_gate": "PRIVACY_HARDENING_MERGE__LOCAL_PRIVATE_BUILD_QA__THEN_SEPARATE_WILEY_AUTHORIZATION",
   "qa": {
-    "manuscript_render_pages": 25,
-    "manuscript_visual_inspection": "PASS",
-    "figures_visual_inspection": "PASS",
-    "figure_tiff_dpi": 600,
-    "references_visual_inspection": "PASS",
-    "gtoc_visual_inspection": "PASS",
-    "scientific_reanalysis_performed": false,
-    "candidate_build_run": 35621798205,
-    "candidate_artifact_id": 10649611764,
-    "candidate_artifact_digest_sha256": "16c47420c22ce8296367cd5d5dce2ce7967a364e34522a35b84cab818437aa72"
-  },
-  "finalization_strategy": {
-    "reason": "Author explicitly required privacy hardening: tracked and CI-generated materials must exclude private author contact data and photographs; personalized upload-ready files are local-only.",
-    "package_content_authoritative_after_this_commit": false,
-    "further_package_content_edits_authorized": true,
+    "public_policy_evidence_gate": "PASS",
+    "requirement_classification_gate": "PASS",
+    "scientific_source_preservation_gate": "PASS",
+    "zero_em_dash_enforced": true,
+    "tables_after_references": true,
+    "scientific_figures_separate": true,
+    "figure_target_dpi": 800,
+    "public_safe_ci_build_required": true,
+    "exact_head_ci_status": "PENDING_AFTER_CURRENT_PR164_EDITS",
+    "docx_page_by_page_visual_qa": "OPEN",
+    "acta_visual_benchmark_comparison": "OPEN",
+    "local_personalized_package_qa": "OPEN",
+    "portal_instance_gate": "PARTIALLY_OPEN",
     "scientific_reanalysis_performed": false
   },
   "privacy": {
@@ -57,5 +54,6 @@
     "local_submission_dir": "publication/Paper_4_Study_8/IJSCCN/_local_submission/",
     "github_actions_output_scope": "PUBLIC_SAFE_QA_ONLY",
     "local_personalized_submission_required": true
-  }
+  },
+  "next_gate": "PR164_EXACT_HEAD_CI__R5_PAGE_BY_PAGE_VISUAL_QA__PRIVATE_LOCAL_BUILD__PORTAL_INSTANCE_CHECK__THEN_SEPARATE_FINAL_SUBMISSION_AUTHORIZATION"
 }
