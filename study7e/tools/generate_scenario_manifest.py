@@ -3,7 +3,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
 
 from study7e.src.aerc_design import build_scenario_manifest, manifest_counts
 
