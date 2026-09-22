@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "profiles": {
+    "F0": {
+      "name": "NOMINAL",
+      "path": null,
+      "domain": null,
+      "propagation": "none"
+    },
+    "F1": {
+      "name": "PRIMARY_SOURCE_FALSE",
+      "path": "primary",
+      "domain": "source",
+      "propagation": "domain_alias"
+    },
+    "F2": {
+      "name": "CORR_SOURCE_FALSE",
+      "path": "corroborator",
+      "domain": "source",
+      "propagation": "domain_alias"
+    },
+    "F3": {
+      "name": "PRIMARY_KEY_COMPROMISE",
+      "path": "primary",
+      "domain": "key",
+      "propagation": "domain_alias"
+    },
+    "F4": {
+      "name": "CORR_KEY_COMPROMISE",
+      "path": "corroborator",
+      "domain": "key",
+      "propagation": "domain_alias"
+    },
+    "F5": {
+      "name": "PRIMARY_FRESHNESS_DELAY",
+      "path": "primary",
+      "domain": null,
+      "propagation": "message_local"
+    },
+    "F6": {
+      "name": "CORR_FRESHNESS_DELAY",
+      "path": "corroborator",
+      "domain": null,
+      "propagation": "message_local"
+    },
+    "F7": {
+      "name": "PRIMARY_MESSAGE_LOSS",
+      "path": "primary",
+      "domain": null,
+      "propagation": "message_local"
+    },
+    "F8": {
+      "name": "CORR_MESSAGE_LOSS",
+      "path": "corroborator",
+      "domain": null,
+      "propagation": "message_local"
+    },
+    "F9": {
+      "name": "PRIMARY_TRANSPORT_COMPROMISE",
+      "path": "primary",
+      "domain": "transport",
+      "propagation": "domain_alias"
+    },
+    "F10": {
+      "name": "PRIMARY_AUTHORITY_COMPROMISE",
+      "path": "primary",
+      "domain": "authority",
+      "propagation": "domain_alias"
+    },
+    "F11": {
+      "name": "COMPOUND_AUTHORITY_TRANSPORT",
+      "path": "primary",
+      "domains": [
+        "authority",
+        "transport"
+      ],
+      "propagation": "union_domain_alias"
+    }
+  },
+  "byte_level_transformations_status": "TO_BE_FROZEN_AFTER_EXTERNAL_STACK_FEASIBILITY"
+}
