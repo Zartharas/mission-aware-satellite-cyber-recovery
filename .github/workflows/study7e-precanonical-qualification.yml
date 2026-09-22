@@ -166,7 +166,7 @@ jobs:
           cd /tmp/s7e-cfs
           make native_std.prep
           make native_std.install
-          test -f build-native_std/exe/cpu1/aerc_bus_probe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_bus_probe.so
           echo "aerc_bus_probe_compile=PASS"
 
       - name: Run non-canonical cFE Software Bus smoke check
