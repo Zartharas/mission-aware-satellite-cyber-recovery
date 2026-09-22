@@ -184,11 +184,17 @@ def _scenario_rows(
 
 
 def build_scenario_manifest() -> list[Scenario]:
-    training = _scenario_rows(
-        "TR",
+    training_signal = _scenario_rows(
+        "TR1",
         ("T0_SHARED_ALL", "T1_SEPARATE_SOURCE_EXEC", "T2_SEPARATE_SOURCE_KEY_EXEC"),
         ("F0", "F1", "F2", "F3", "F4", "F5"),
         1,
+    )
+    training_no_signal = _scenario_rows(
+        "TR0",
+        ("T0_SHARED_ALL", "T1_SEPARATE_SOURCE_EXEC", "T2_SEPARATE_SOURCE_KEY_EXEC"),
+        ("F0",),
+        0,
     )
     e1 = _scenario_rows(
         "E1",
@@ -204,18 +210,19 @@ def build_scenario_manifest() -> list[Scenario]:
     )
     c0 = _scenario_rows(
         "C0",
-        tuple(TOPOLOGY_SEPARATION),
+        ("T3_SEPARATE_THROUGH_TRANSPORT", "T4_SEPARATE_ALL"),
         ("F0",),
         0,
     )
-    return training + e1 + e2 + c0
+    return training_signal + training_no_signal + e1 + e2 + c0
 
 
 def manifest_counts(scenarios: Iterable[Scenario]) -> dict[str, int]:
-    counts = {"TR": 0, "E1": 0, "E2": 0, "C0": 0}
+    counts = {"TR1": 0, "TR0": 0, "E1": 0, "E2": 0, "C0": 0}
     for scenario in scenarios:
         counts[scenario.block] += 1
-    counts["TOTAL"] = sum(counts.values())
+    counts["TRAINING_SCENARIOS"] = counts["TR1"] + counts["TR0"]
+    counts["TOTAL"] = counts["TRAINING_SCENARIOS"] + counts["E1"] + counts["E2"] + counts["C0"]
     counts["CANONICAL_EVAL_SCENARIOS"] = counts["E1"] + counts["E2"] + counts["C0"]
     counts["CANONICAL_EVAL_POLICY_DECISIONS"] = counts["CANONICAL_EVAL_SCENARIOS"] * 4
     return counts
