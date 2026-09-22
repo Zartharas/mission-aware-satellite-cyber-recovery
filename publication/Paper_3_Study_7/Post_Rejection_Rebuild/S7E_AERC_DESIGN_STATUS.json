@@ -1,0 +1,22 @@
+{
+  "experiment_id": "S7E-AERC-001",
+  "parent_publication": "PAPER_3",
+  "antecedent_study": "S7-LSO-001",
+  "design_date": "2026-09-22",
+  "state": "PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED",
+  "canonical_main_base": "6175f5603ebbc7deaded98ef6b60b3098f929de2",
+  "protocol": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_DRAFT_2026-09-22.md",
+  "implementation_plan": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_IMPLEMENTATION_PLAN_2026-09-22.md",
+  "test_audit_plan": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_TEST_AND_AUDIT_PLAN_2026-09-22.md",
+  "source_ledger": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ARCHITECTURE_SOURCE_LEDGER_2026-09-22.md",
+  "training_architecture_scenarios": 72,
+  "canonical_evaluation_architecture_scenarios": 188,
+  "canonical_evaluation_policy_decisions": 752,
+  "policy_pairs": {
+    "base": ["D0_BASE", "L0_BASE"],
+    "corroborated": ["D1_CORROBORATED", "L1_CORROBORATED"]
+  },
+  "scientific_execution_authorized": false,
+  "canonical_execution_authorization_file_must_exist": true,
+  "next_gate": "Author review; resolve open design decisions; freeze protocol only under explicit authorization"
+}
