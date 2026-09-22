@@ -160,6 +160,7 @@ jobs:
           test -s "$base/TITLE_PAGE_IJSCCN_R5.docx"
           test -s "$base/AUTHOR_BIOGRAPHY_R5.docx"
           test -s "$base/AI_USE_DECLARATION_R5.docx"
+          test -s "$base/GTOC_IJSCCN_R5.docx"
           test -s "$base/figures/IJSCCN_GTOC.tiff"
           test -s "$base/figures/Figure_1_Recovery_State_Machine.tiff"
           test -s "$base/figures/Figure_2_Study8_Profile_Success.tiff"
@@ -194,6 +195,14 @@ jobs:
                   if min(dpi) < 799:
                       raise SystemExit(f"figure_dpi_below_r5_800_target={name}:{dpi}")
                   print(f"{name}_dpi={dpi}")
+
+          import zipfile
+          with zipfile.ZipFile(base / "MANUSCRIPT_IJSCCN_R5.docx") as z:
+              document_xml = z.read("word/document.xml").decode("utf-8")
+          header_markers = document_xml.count("<w:tblHeader")
+          if header_markers != 2:
+              raise SystemExit(f"table_header_row_semantics_fail={header_markers}")
+          print(f"r5_table_header_rows={header_markers}")
 
           print("r5_public_safe_manifest_and_figure_check=PASS")
           PY
