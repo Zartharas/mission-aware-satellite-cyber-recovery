@@ -99,6 +99,22 @@ def find_local_author_photo():
             return candidate
     return None
 
+def set_style_font(style, font_name: str):
+    style.font.name = font_name
+    rfonts = style._element.get_or_add_rPr().get_or_add_rFonts()
+    for attr in ("ascii", "hAnsi", "eastAsia", "cs"):
+        rfonts.set(qn(f"w:{attr}"), font_name)
+    for attr in ("asciiTheme", "hAnsiTheme", "eastAsiaTheme", "cstheme"):
+        rfonts.attrib.pop(qn(f"w:{attr}"), None)
+
+def set_run_font(run, font_name: str):
+    run.font.name = font_name
+    rfonts = run._element.get_or_add_rPr().get_or_add_rFonts()
+    for attr in ("ascii", "hAnsi", "eastAsia", "cs"):
+        rfonts.set(qn(f"w:{attr}"), font_name)
+    for attr in ("asciiTheme", "hAnsiTheme", "eastAsiaTheme", "cstheme"):
+        rfonts.attrib.pop(qn(f"w:{attr}"), None)
+
 def apply_base_style(doc: Document):
     sec = doc.sections[0]
     sec.top_margin = Inches(1)
@@ -107,15 +123,15 @@ def apply_base_style(doc: Document):
     sec.right_margin = Inches(1)
     styles = doc.styles
     normal = styles["Normal"]
-    normal.font.name = "Times New Roman"
-    normal._element.rPr.rFonts.set(qn("w:eastAsia"), "Times New Roman")
+    set_style_font(normal, "Times New Roman")
+    if "Default Paragraph Font" in styles:
+        set_style_font(styles["Default Paragraph Font"], "Times New Roman")
     normal.font.size = Pt(12)
     normal.paragraph_format.space_after = Pt(6)
     normal.paragraph_format.line_spacing = 1.15
     for name in ["Title", "Subtitle", "Heading 1", "Heading 2", "Heading 3"]:
         st = styles[name]
-        st.font.name = "Times New Roman"
-        st._element.rPr.rFonts.set(qn("w:eastAsia"), "Times New Roman")
+        set_style_font(st, "Times New Roman")
     styles["Heading 1"].font.size = Pt(14)
     styles["Heading 2"].font.size = Pt(12)
     styles["Heading 3"].font.size = Pt(12)
@@ -161,19 +177,35 @@ def add_markdown_table(doc: Document, rows):
         return
     width = max(len(row) for row in rows)
     normalized = [row + [""] * (width - len(row)) for row in rows]
+    header = [cell.replace("**", "").strip() for cell in normalized[0]]
+
+    if width == 3 and header[:3] == ["Factor", "Levels", "Frozen values / interpretation"]:
+        column_widths = [Inches(1.45), Inches(0.65), Inches(4.40)]
+    elif width == 2 and header[:2] == ["Quantity", "Frozen value"]:
+        column_widths = [Inches(3.25), Inches(3.25)]
+    else:
+        column_widths = [Inches(6.5 / width)] * width
+
     table = doc.add_table(rows=len(normalized), cols=width)
     table.style = "Table Grid"
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    table.autofit = True
+    table.autofit = False
+
+    for j, column_width in enumerate(column_widths):
+        table.columns[j].width = column_width
+
     for i, row in enumerate(normalized):
         for j, value in enumerate(row):
             cell = table.cell(i, j)
+            cell.width = column_widths[j]
             cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
             p = cell.paragraphs[0]
             p.paragraph_format.space_after = Pt(0)
+            p.paragraph_format.keep_together = True
             if i == 0:
                 run = p.add_run(value.replace("**", ""))
                 run.bold = True
+                set_run_font(run, "Times New Roman")
             else:
                 add_formatted_runs(p, value)
     doc.add_paragraph()
@@ -309,7 +341,13 @@ def normalize_author_names(raw: str):
 def format_reference(entry):
     authors = normalize_author_names(entry.get("author") or entry.get("organization") or "")
     title = clean_latex_text(entry.get("title",""))
-    journal = clean_latex_text(entry.get("journal") or entry.get("institution") or entry.get("howpublished") or "")
+    journal = clean_latex_text(
+        entry.get("journal")
+        or entry.get("booktitle")
+        or entry.get("institution")
+        or entry.get("howpublished")
+        or ""
+    )
     year = entry.get("year","")
     volume = entry.get("volume","")
     number = entry.get("number","")
@@ -431,9 +469,10 @@ def make_figures():
 def add_title_page(doc):
     p=doc.add_paragraph()
     p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-    r=p.add_run(FULL_TITLE); r.bold=True; r.font.size=Pt(16)
+    r=p.add_run(FULL_TITLE); r.bold=True; r.font.size=Pt(16); set_run_font(r, "Times New Roman")
+    p.paragraph_format.space_after=Pt(10)
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-    p.add_run(AUTHOR).bold=True
+    r=p.add_run(f"{AUTHOR}, MS, PhD"); r.bold=True; set_run_font(r, "Times New Roman")
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
     p.add_run(AFFILIATION)
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
@@ -442,7 +481,7 @@ def add_title_page(doc):
     p.add_run(f"ORCID: {ORCID}")
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
     p.add_run(f"Short title: {SHORT_TITLE}")
-    doc.add_page_break()
+    p.paragraph_format.space_after=Pt(12)
 
 def insert_figure(doc, png_path, caption):
     p=doc.add_paragraph()
@@ -478,7 +517,6 @@ def render_markdown_to_docx(md_text, output_docx, bib):
 
     render_markdown_lines(doc, lines[abstract_idx:])
 
-    doc.add_page_break()
     doc.add_heading("References", level=1)
     entries = {e["ID"]: e for e in bib.entries}
     missing = [key for key in order if key not in entries]
