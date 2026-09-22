@@ -491,20 +491,10 @@ def make_figures():
     fig.savefig(FIG / "Figure_3_Study8E_Horizon_Finite_Fraction.png", dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(10.0, 5.1))
+    fig, ax = plt.subplots(figsize=(10.0, 4.2))
     ax.axis("off")
     ax.text(
-        0.5, 0.94,
-        "Post-Quantum Trusted Recovery Under Intermittent Connectivity:\n"
-        "Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
-        ha="center", va="center", fontsize=11.2, weight="bold",
-    )
-    ax.text(
-        0.5, 0.84, f"{AUTHOR}*",
-        ha="center", va="center", fontsize=9.3,
-    )
-    ax.text(
-        0.5, 0.70,
+        0.5, 0.82,
         "FROZEN TRUSTED-RECOVERY MECHANISM",
         ha="center", va="center", fontsize=9.5, weight="bold",
         bbox=dict(
@@ -515,7 +505,7 @@ def make_figures():
         ),
     )
     ax.text(
-        0.24, 0.49,
+        0.24, 0.57,
         "STUDY 8\nFixed modeled contact capacity\nDoes recovery fit?",
         ha="center", va="center", fontsize=9.5,
         bbox=dict(
@@ -526,7 +516,7 @@ def make_figures():
         ),
     )
     ax.text(
-        0.76, 0.49,
+        0.76, 0.57,
         "STUDY 8E\nPublic observation-opportunity timing\nWhat modeled rate is required?",
         ha="center", va="center", fontsize=9.5,
         bbox=dict(
@@ -537,25 +527,25 @@ def make_figures():
         ),
     )
     ax.annotate(
-        "", xy=(0.31, 0.58), xytext=(0.46, 0.66),
+        "", xy=(0.31, 0.66), xytext=(0.46, 0.77),
         arrowprops=dict(arrowstyle="->", linewidth=1.0, color="0.15"),
     )
     ax.annotate(
-        "", xy=(0.69, 0.58), xytext=(0.54, 0.66),
+        "", xy=(0.69, 0.66), xytext=(0.54, 0.77),
         arrowprops=dict(arrowstyle="->", linewidth=1.0, color="0.15"),
     )
     ax.text(
-        0.5, 0.39,
+        0.5, 0.43,
         "Separate evidence populations | No pooling | No slot-to-seconds conversion",
         ha="center", va="center", fontsize=8.8, weight="bold",
     )
     ax.text(
-        0.5, 0.26,
+        0.5, 0.29,
         "P3 versus P1: no feasibility advantage in either frozen evidence layer",
         ha="center", va="center", fontsize=9.8, weight="bold",
     )
     ax.text(
-        0.5, 0.17,
+        0.5, 0.18,
         "Transition-object burden, opportunity timing, and recovery horizon constrain modeled feasibility.",
         ha="center", va="center", fontsize=9.2,
     )
@@ -568,6 +558,7 @@ def make_figures():
     fig.savefig(FIG / "IJSCCN_GTOC.tiff", dpi=800, bbox_inches="tight")
     fig.savefig(FIG / "IJSCCN_GTOC.png", dpi=300, bbox_inches="tight")
     fig.savefig(FIG / "IJSCCN_GTOC.svg", bbox_inches="tight")
+    fig.savefig(FIG / "IJSCCN_GTOC_ABSTRACT_FIGURE.tiff", dpi=800, bbox_inches="tight")
     plt.close(fig)
 
 def add_title_page(doc):
