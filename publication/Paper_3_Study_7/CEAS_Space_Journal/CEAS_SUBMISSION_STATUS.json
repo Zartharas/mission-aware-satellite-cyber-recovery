@@ -9,11 +9,18 @@
   "submission_id": "6db04a31-8223-4aaf-af02-e4bafe06ef89",
   "submission_version": "v.1.0",
   "submission_date": "2026-09-13",
-  "current_status": "SUBMITTED__TECHNICAL_CHECK",
+  "current_status": "REJECTED__EDITORIAL_ASSESSMENT",
   "frozen": true,
   "canonical_submission_record": "publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md",
   "portal_package": "publication/Paper_3_Study_7/CEAS_Space_Journal/PORTAL_UPLOAD_PACKAGE/",
   "zenodo_version_doi": "10.5281/zenodo.22732060",
   "zenodo_concept_doi": "10.5281/zenodo.22732059",
-  "next_action": "Wait for CEAS technical-check/editorial action; revise only if requested"
+  "next_action": "Author review of S7E-AERC-001 prospective protocol/design; do not modify S7-LSO-001 or rejected CEAS package; no new experiment execution without explicit authorization",
+  "decision_date": "2026-09-22",
+  "decision_type": "handling_editor_editorial_assessment",
+  "decision_record": "publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-09-22.md",
+  "external_reviewer_comments_present_in_supplied_decision": false,
+  "recovery_state": "POST_REJECTION_REQUIREMENTS_AUDIT_COMPLETE__S7E_AERC_001_PROPOSED__EXECUTION_NOT_AUTHORIZED",
+  "recovery_audit": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md",
+  "prospective_extension_proposal": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md"
 }

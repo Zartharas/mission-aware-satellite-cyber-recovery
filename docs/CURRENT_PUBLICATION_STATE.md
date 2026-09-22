@@ -10,11 +10,13 @@
 
 **Paper 4 IJSCCN R5 rebuild-gate update:** 2026-09-21
 
+**Paper 3 CEAS decision/recovery update:** 2026-09-22
+
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Papers 1, 2, and 3 remain active with their publishers. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 now integrates separately frozen Study 8 and Study 8E evidence, is locked to the International Journal of Satellite Communications and Networking (IJSCCN), and has a frozen repository-generated core submission package. Publisher submission is not authorized.
+The repository has **four publication lines that have been submitted historically**. Papers 1 and 2 remain active with their publishers. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 now integrates separately frozen Study 8 and Study 8E evidence, is locked to the International Journal of Satellite Communications and Networking (IJSCCN), and has a frozen repository-generated core submission package. Publisher submission is not authorized. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -58,22 +60,43 @@ Paper 2 keeps three separate frozen populations: Study 3 = 1,380 deterministic t
 - **Title:** Observability Limits of Learned Satellite Cyber-Recovery Decisions Under Compromised Evidence
 - **Article type:** Research
 - **Topic:** Artificial Intelligence in Space
-- **Peer review:** Single anonymous
+- **Peer review setting:** Single anonymous
 - **Submission ID:** `6db04a31-8223-4aaf-af02-e4bafe06ef89`
 - **Submission version:** `v.1.0`
 - **Submitted:** 2026-09-13
-- **State:** `SUBMITTED__TECHNICAL_CHECK`
+- **Decision date:** 2026-09-22
+- **State:** `REJECTED__EDITORIAL_ASSESSMENT`
 - **Current authority:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`
-- **Initial-submission record:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md`
+- **Decision record:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-09-22.md`
+- **Recovery audit:** `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`
 
-Paper 3 uses Study 7 only. The frozen Study-7 population is exactly 1,033 modeled observations. No Study-5 observations or other study populations are part of the CEAS paper.
+The handling editor recognized a relevant assurance concern and transparent, reproducible setup, but found the scientific contribution insufficiently developed. The decision specifically identified the directness of the central finding, absence of a concrete spacecraft recovery architecture, unvalidated trust assumptions, and lack of a deterministic policy receiving the same corroborating information as the learned policy.
+
+Paper 3's rejected CEAS submission uses Study 7 only. The frozen Study-7 population remains exactly 1,033 modeled observations. The rejection does not alter or invalidate the frozen Study-7 scientific record.
 
 Durable Study-7 evidence:
 
 - Zenodo version DOI: `10.5281/zenodo.22732060`
 - Zenodo concept DOI: `10.5281/zenodo.22732059`
 
-The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory is historical, unsubmitted Paper-3 development provenance only. It is superseded by the CEAS package and must not be treated as a current venue package.
+The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory remains historical, unsubmitted Paper-3 development provenance only.
+
+## Paper 3 post-rejection recovery gate
+
+The author explicitly authorized a rejection-to-research-requirements audit on 2026-09-22.
+
+Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
+
+Proposed extension:
+
+- **Experiment ID:** `S7E-AERC-001`
+- **Working title:** Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures
+- **Status:** `PROPOSED__PROTOCOL_NOT_FROZEN__EXECUTION_NOT_AUTHORIZED`
+- **Proposal:** `publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md`
+
+The proposed extension is intended to add a concrete spacecraft recovery architecture, explicit trust-domain topology, controlled compromise/fault injection, and deterministic/learned comparator pairs receiving identical information.
+
+No `study7e/` execution workspace, canonical run, or new scientific result is authorized yet. Study 7 and any future Study 7E remain separate populations and must not be pooled.
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
@@ -197,7 +220,7 @@ Do not rerun TRACE-002 merely to clean the stale metadata label without a new ex
 
 ## Deferred independent publication work
 
-Paper 3 is no longer a candidate or development item. Study 7 is consumed by the submitted CEAS paper and must not be reused as new experimental evidence in another publication.
+Paper 3 is now a separately authorized post-rejection recovery workstream. Study 7 remains frozen and consumed by the Paper-3 line; it must not be reused as new experimental evidence elsewhere. Any new Paper-3 evidence must come from a separately prospectively designed extension such as proposed `S7E-AERC-001`.
 
 The remaining-study candidate audit is deferred while the Paper 4 / Study 8 post-rejection resubmission audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
 

@@ -4,7 +4,7 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository contains **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active with their publishers. Paper 4 / Study 8 was rejected by Acta Astronautica and is frozen pending a controlled retargeting audit.
+The repository contains **four publication lines that have been submitted**. Papers 1 and 2 remain active with their publishers. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 / Study 8 was rejected by Acta Astronautica and has its own separately governed rebuild path.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
 2. **Paper 4:** Study 8, submitted to Acta Astronautica.
@@ -57,19 +57,22 @@ Paper 2 uses Studies 3, 4, and 6 only and keeps their frozen populations separat
 - **Submission ID:** `6db04a31-8223-4aaf-af02-e4bafe06ef89`
 - **Submission version:** `v.1.0`
 - **Submission date:** 2026-09-13
-- **Current state:** `SUBMITTED__TECHNICAL_CHECK`
+- **Decision date:** 2026-09-22
+- **Current state:** `REJECTED__EDITORIAL_ASSESSMENT`
 - **Current authority:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`
-- **Initial-submission record:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md`
-- **Current README:** `publication/Paper_3_Study_7/CEAS_Space_Journal/README_CURRENT.md`
+- **Decision record:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-09-22.md`
+- **Recovery audit:** `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`
 
-Paper 3 uses Study 7 only. Study 7 remains exactly 1,033 modeled observations.
+Paper 3's rejected CEAS package used Study 7 only. Study 7 remains exactly 1,033 modeled observations and is immutable.
 
 Durable evidence:
 
 - Zenodo version DOI: `10.5281/zenodo.22732060`
 - Zenodo concept DOI: `10.5281/zenodo.22732059`
 
-The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory is retained only as historical, unsubmitted venue-development provenance. It is superseded by the CEAS package.
+The rejection audit finds that a manuscript-only retarget is insufficient. A new prospective extension, `S7E-AERC-001`, is proposed to address architecture grounding, trust-domain validation, and equal-information deterministic/learned comparison. It has not been implemented or executed.
+
+The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory remains historical, unsubmitted venue-development provenance.
 
 ## Study 8 post-rejection gate
 
@@ -85,11 +88,11 @@ Paper 4 is the Study 8 publication. Do not confuse it with Study 4 / `S4-MPQ-001
 
 ## Deferred independent publication work
 
-Paper 3 and Study 7 are no longer candidates. They are consumed by the submitted CEAS publication line.
+Paper 3 recovery is now a separately authorized workstream. Frozen Study 7 remains part of that publication line, and any future Study 7E will be separately designed and unpooled.
 
-This remaining-study audit is deferred while the Paper 4 / Study 8 post-rejection audit is active, unless the author explicitly reprioritizes it. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+The independent remaining-study audit is still separate. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
 
-No next venue or manuscript package is currently locked. Fresh novelty, overlap, reproducibility, claim-boundary, and live-venue review are required before a new publication branch is created.
+No remaining-study evidence may be imported into Paper 3 merely to answer the CEAS rejection.
 
 ## Current-state authority order
 

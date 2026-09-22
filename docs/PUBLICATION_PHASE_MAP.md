@@ -1,6 +1,6 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-09-19
+**Current-state reference:** 2026-09-22
 
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
@@ -39,7 +39,12 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       Journal: CEAS Space Journal
 |       Submission ID: 6db04a31-8223-4aaf-af02-e4bafe06ef89
 |       Submitted: 2026-09-13
-|       State: Technical check
+|       State: Rejected - handling-editor decision 2026-09-22
+|
++-- PHASE 4R - PAPER 3 RECOVERY
+|   +-- PROSPECTIVE EXTENSION DESIGN
+|       Proposed experiment: S7E-AERC-001
+|       State: PROPOSED__PROTOCOL_NOT_FROZEN__EXECUTION_NOT_AUTHORIZED
 |
 +-- PHASE 5 - NEXT ACTIVE GATE
 |   +-- PAPER 4 / STUDY 8 POST-REJECTION RETARGET AUDIT
@@ -91,29 +96,31 @@ The three scientific populations remain separate and there is no pooled Paper-2 
 
 ## Phase 4 - Paper 3
 
-Paper 3 is complete at the initial-submission gate.
+Paper 3 completed its CEAS initial-submission gate and was rejected after handling-editor editorial assessment.
 
 - Study: Study 7 / `S7-LSO-001` only.
 - Frozen population: 1,033 exact modeled observations.
 - Venue: CEAS Space Journal.
 - Title: **Observability Limits of Learned Satellite Cyber-Recovery Decisions Under Compromised Evidence**.
-- Article type: Research.
-- Topic: Artificial Intelligence in Space.
-- Peer review: Single anonymous.
 - Submission ID: `6db04a31-8223-4aaf-af02-e4bafe06ef89`.
-- Submission version: `v.1.0`.
 - Submitted: 2026-09-13.
-- Current state: `SUBMITTED__TECHNICAL_CHECK`.
+- Decision date: 2026-09-22.
+- Current state: `REJECTED__EDITORIAL_ASSESSMENT`.
 - Current authority: `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`.
 
-Zenodo Study-7 evidence:
+The handling editor recognized a relevant assurance concern and reproducible setup but identified missing architecture grounding, validated trust assumptions, and an equal-information deterministic corroboration comparator. The rejected CEAS package and frozen Study 7 remain immutable provenance.
 
-- version DOI: `10.5281/zenodo.22732060`
-- concept DOI: `10.5281/zenodo.22732059`
+## Phase 4R - Paper 3 post-rejection recovery
 
-The historical Paper-3 JAIS folder was not submitted and is superseded venue-development provenance only.
+The author authorized a structured rejection-to-research-requirements audit on 2026-09-22.
 
-No Paper-3 scientific or publisher-facing artifact should change unless CEAS requests a technical correction or revision.
+- Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
+- Proposed experiment: `S7E-AERC-001`.
+- Proposed state: `PROPOSED__PROTOCOL_NOT_FROZEN__EXECUTION_NOT_AUTHORIZED`.
+- Recovery audit: `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`.
+- Proposal: `publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md`.
+
+No Study-7 rerun, retroactive comparator addition, or Study-7E execution is authorized. Any future Study 7E remains a separate population.
 
 ## Study 8 post-rejection retargeting gate
 
@@ -145,7 +152,7 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 
 ## Recommended operational order from 2026-09-19
 
-1. Keep Papers 1, 2, and 3 frozen while their journal workflows proceed; keep the rejected Paper-4 Acta package frozen as provenance.
+1. Keep Papers 1 and 2 frozen while their journal workflows proceed; keep the rejected Paper-3 CEAS and Paper-4 Acta packages frozen as provenance.
 2. Perform the Paper-4 / Study-8 post-rejection forensic manuscript audit from clean `main`.
 3. Perform fresh literature/novelty and live venue review before selecting a retarget venue.
 4. Present the revision plan and recommended target to the author before creating a new venue-specific package.
@@ -169,6 +176,7 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
 | 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, rejected | Post-rejection forensic manuscript/venue audit before retargeting |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
-| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, Technical check | Wait for journal action |
+| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
+| 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` proposed, not executed | Author review and prospective protocol gate |
 | 5 | Paper 4 retarget | Study 8 | Acta rejected; next venue not locked | Forensic manuscript/literature/venue audit |
 | 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |
