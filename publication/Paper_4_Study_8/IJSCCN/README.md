@@ -1,8 +1,47 @@
-# Paper 4 — IJSCCN Submission Package R1
+# Paper 4 — IJSCCN Submission Package and R5 Rebuild State
 
 Target journal: **International Journal of Satellite Communications and Networking (Wiley)**
 
 This directory is a venue-specific derivative of the frozen/reviewed Paper 4 manuscript. The venue-neutral source remains authoritative for scientific content.
+
+## Current author-review state — 2026-09-21
+
+The repository-generated **R1 package remains historical/frozen provenance**, but it is **not the current publisher-upload candidate**.
+
+Local-only R4.x personalized packages were generated under the ignored `_local_submission/` privacy boundary. During direct author review in Microsoft Word, the author identified unacceptable journal-manuscript presentation defects, including a Symbol/private-use bullet rendering failure and broader page-composition problems. A later local R4.3 formatting repair corrected the obvious glyph defect but did not meet the author's publication-quality benchmark.
+
+**Decision:** do not upload R4.3. Rebuild the publisher-facing manuscript and submission documents as a new **R5** derivative before any Wiley upload.
+
+R5 is a presentation/submission-document rebuild only. It must preserve all frozen Study 8 and Study 8E science, results, hashes, citations, claim boundaries, and the separation of the two study populations. No new scientific execution or statistical reanalysis is authorized.
+
+The exact rejected Acta Astronautica manuscript remains immutable historical provenance. It may be inspected as a **visual-quality benchmark** for scholarly typography, spacing, page rhythm, headings, lists, captions, and overall professionalism, but its scientific scope and venue-specific structure must not be copied blindly into IJSCCN.
+
+### R5 live-policy validation sources
+
+Before rebuilding R5, re-check the current journal-specific and Wiley-wide requirements, following all relevant linked pages:
+
+- IJSCCN Author Guidelines: https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html
+- Wiley Prepare hub: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/index.html
+- Wiley Manuscript Preparation Guidelines: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/index.html
+- Wiley Submission and Peer Review: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/index.html
+
+Journal-specific IJSCCN instructions take precedence over generic Wiley guidance when the two differ. Live portal requirements take precedence for fields and certifications actually presented during submission.
+
+### R5 design gate
+
+The next submission candidate must pass all of the following before portal upload:
+
+1. current IJSCCN/Wiley policy audit with citations and conflict reconciliation;
+2. professional single-column reviewer-manuscript layout appropriate for initial submission;
+3. figure and table treatment that follows IJSCCN-specific instructions;
+4. required GTOC, biography/photo, declarations, Data Availability Statement, AI disclosure, funding, and competing-interest content;
+5. zero em dashes, per author requirement;
+6. scientific-preservation comparison against frozen authorities;
+7. page-by-page visual inspection at normal reading scale;
+8. local-only privacy validation for personalized metadata/photo;
+9. exact portal-file mapping;
+10. separate author authorization before final publisher submission.
+
 
 ## Package contents
 

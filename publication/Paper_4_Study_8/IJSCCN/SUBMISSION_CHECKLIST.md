@@ -1,9 +1,58 @@
-# IJSCCN Submission Checklist — R1
+# IJSCCN Submission Checklist — R1 Baseline and R5 Rebuild Gate
 
 Authoritative journal guidance:
 https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html
 
 Accessed: 2026-09-21
+
+## Current R5 gate — supersedes prior upload-ready claims
+
+The completed R1 checks below are retained as historical package provenance. They **do not mean the current local manuscript is approved for upload**.
+
+Author review of the local R4.x derivatives identified unacceptable presentation quality. The R4.3 local repair is **not a submission candidate**. A fresh R5 publisher-facing rebuild is required before the Wiley portal is resumed.
+
+R5 must be rebuilt from the current IJSCCN scientific content while using the rejected Acta manuscript only as a visual-quality benchmark. The Acta submitted binaries remain immutable.
+
+### Live-policy research required before R5 build
+
+- [ ] Re-read the entire current IJSCCN Author Guidelines and follow every submission-relevant link.
+- [ ] Re-read Wiley Prepare and every relevant linked manuscript-preparation page.
+- [ ] Re-read Wiley Submission and Peer Review and every relevant linked page.
+- [ ] Verify current Free Format initial-submission rules.
+- [ ] Verify current title-page and author-contact requirements.
+- [ ] Verify abstract, keyword, short-title, biography, author-photo, and GTOC limits.
+- [ ] Verify table placement and formatting requirements, including the IJSCCN-specific instruction for tables after the reference list.
+- [ ] Verify figure file types, naming, resolution, dimensions, legends, color/grayscale, and separate-upload requirements.
+- [ ] Verify supporting-information categories and ensure submission paperwork is not misclassified as scientific supplementary material.
+- [ ] Verify current Data Availability Statement and data-citation requirements.
+- [ ] Verify permissions/copyright rules for figures, tables, and adapted material.
+- [ ] Verify current funding, competing-interest, ethics, authorship, ORCID, licensing, and AI-disclosure requirements.
+- [ ] Verify current portal upload categories and peer-review workflow.
+- [ ] Distinguish journal-specific requirements from generic Wiley recommendations and document which authority controls each conflict.
+
+### R5 manuscript-format gate
+
+- [ ] Build a professional single-column reviewer manuscript, not a simulated Wiley production PDF.
+- [ ] Use a restrained academic typography system and consistent page rhythm.
+- [ ] Remove slide-like lists where prose or a concise table is superior.
+- [ ] Use only standard Unicode list glyphs if lists remain.
+- [ ] Use numbered hierarchical headings consistently.
+- [ ] Add professionally formatted figure legends.
+- [ ] Put tables on separate pages after References if the live IJSCCN instruction remains current.
+- [ ] Upload scientific figures separately if the live IJSCCN instruction remains current.
+- [ ] Include the mandatory GTOC in the form required by the live guidelines.
+- [ ] Include or otherwise reliably supply the <=200-word biography and recent author photo.
+- [ ] Retain the required Methods AI disclosure from the live portal certification.
+- [ ] Preserve the formal Data Availability Statement and immutable repository identity.
+- [ ] Preserve zero em dashes across every publisher-facing document.
+- [ ] Preserve all Study 8 / Study 8E numbers, equations, hashes, citations, and claim boundaries.
+- [ ] Confirm no scientific rerun or reanalysis was performed.
+- [ ] Render every DOCX and inspect every page at normal reading scale.
+- [ ] Check for broken glyphs, orphan headings, widows/orphans, excessive whitespace, poor figure/table sizing, and inconsistent indentation.
+- [ ] Confirm all personalized files remain only under ignored local-private/local-submission paths.
+- [ ] Produce an exact portal upload map only after final visual QA.
+- [ ] Obtain separate explicit author authorization before final publisher submission.
+
 
 ## Manuscript and metadata
 
@@ -54,7 +103,7 @@ Accessed: 2026-09-21
 ## Submission files
 
 - [x] Main editable DOCX generated.
-- [x] Main DOCX rendered to 25 pages and visually inspected; no clipping/overlap defects remain.
+- [x] Historical R1 Main DOCX rendered to 25 pages and visually inspected for clipping/overlap; later author review superseded this as a publication-quality approval.
 - [x] Separate figure files generated.
 - [x] GTOC figure generated and visually checked.
 - [x] Cover letter source prepared.
