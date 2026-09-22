@@ -151,6 +151,7 @@ Current R5 status:
 - direct immutable Acta render comparison: **PASS**
 - R5 public-safe builder: **PASS** with 800 dpi artwork target and automated privacy/document-integrity checks
 - exact-head PR #164 CI: must pass after every reconciliation edit
-- personalized local document-set visual/structural QA: **PASS**\n- final personalized local package QA: **PARTIAL PASS, RECENT AUTHOR PHOTOGRAPH PENDING**
+- personalized local document-set visual/structural QA: **PASS**
+- final personalized local package QA: **PARTIAL PASS, RECENT AUTHOR PHOTOGRAPH PENDING**
 - live Research Exchange upload-map verification: **OPEN**
 - publisher submission authorization: **NOT GRANTED**
