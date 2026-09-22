@@ -96,7 +96,7 @@ Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
 
 Proposed extension: `S7E-AERC-001` / Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures.
 
-The proposal is design-only. No new scientific execution is authorized.
+The prospective protocol and implementation/test plans are now drafted for author review. The design specifies equal-information policy pairs, five trust-domain topologies, twelve fault/compromise profiles, 72 training architecture scenarios, and 188 canonical evaluation/control scenarios yielding 752 planned evaluation decisions. These are prospective design quantities, not results. No implementation workspace or scientific execution is authorized.
 
 ## Remaining eligible publication candidates
 
@@ -110,7 +110,7 @@ Any other repository study or experiment may enter the next-paper candidate audi
 
 ## Current exact action
 
-Paper 3 recovery is an additionally authorized workstream following the 2026-09-22 CEAS decision. Its immediate gate is author review of the proposed `S7E-AERC-001` prospective design. This does not cancel or overwrite the separately governed Paper-4 workstream.
+Paper 3 recovery is an additionally authorized workstream following the 2026-09-22 CEAS decision. Its immediate gate is author review of the drafted `S7E-AERC-001` protocol and implementation plan. This does not cancel or overwrite the separately governed Paper-4 workstream.
 
 The previously recorded active publication-development gate is:
 
