@@ -21,14 +21,14 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository has **four publication lines that have been submitted**. Papers 1, 2, and 3 remain active; Paper 4 / Study 8 was rejected by Acta Astronautica:
+The repository has **four publication lines that have been submitted**. Papers 1 and 2 remain active with their publishers. Papers 3 and 4 have editorial rejections recorded; Paper 3 has entered a controlled post-rejection research-requirements phase, while its rejected CEAS package and frozen Study 7 remain immutable provenance:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
 | Paper 1 | Studies 1 + 2 | AIAA Journal of Aerospace Information Systems | `2026-09-I012066` | 2026-09-05 | Editorial/peer-review workflow |
 | Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `Rejected` (decision recorded 2026-09-19) |
 | Paper 2 | Studies 3 + 4 + 6 | IEEE Transactions on Aerospace and Electronic Systems | `cd1dfa89-4a24-4451-bdd4-af31ce3367f4` | 2026-09-07 | Editorial processing |
-| Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Technical check` |
+| Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Rejected` (decision 2026-09-22) |
 
 Submitted and rejected packages remain frozen as provenance. Do not modify active publisher-facing packages without a journal request, and do not alter the rejected Acta package. Study 8 retargeting must begin from the frozen source science through a new controlled venue-specific package.
 
@@ -72,18 +72,25 @@ Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
 
 Submission ID: `6db04a31-8223-4aaf-af02-e4bafe06ef89`.
 
+Current state: `REJECTED__EDITORIAL_ASSESSMENT` (decision date 2026-09-22).
+
 Current authority:
 
 - `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`
-- `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md`
+- `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-09-22.md`
 - `publication/Paper_3_Study_7/CEAS_Space_Journal/README_CURRENT.md`
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`
 
-Study-7 durable evidence:
+Study-7 durable evidence remains frozen:
 
 - version DOI: `10.5281/zenodo.22732060`
 - concept DOI: `10.5281/zenodo.22732059`
 
-The historical Paper-3 `Journal_of_Aerospace_Information_Systems/` directory was never submitted and is retained only as superseded venue-development provenance.
+The handling editor recognized the assurance concern and reproducible setup but found the contribution insufficiently developed, citing the directness of the central finding, lack of a concrete spacecraft recovery architecture, unvalidated trust assumptions, and lack of an equal-information deterministic corroboration comparator.
+
+A separate prospective extension, `S7E-AERC-001`, is proposed but not implemented or authorized for execution. Study 7 and any future Study 7E must remain separate populations.
+
+The historical Paper-3 `Journal_of_Aerospace_Information_Systems/` directory was never submitted and remains superseded venue-development provenance.
 
 ## Study 8 post-rejection work
 
@@ -91,11 +98,11 @@ The Acta decision supplied no external reviewer reports and no specific methodol
 
 ## Next publication-development work
 
-Paper 3 is no longer a candidate. Study 7 is consumed by the submitted CEAS paper.
+Paper 3 is now in a controlled post-rejection recovery phase under explicit author authorization. The completed CEAS rejection audit concludes that manuscript-only retargeting is insufficient and proposes a separate prospective extension, `S7E-AERC-001`, to add a concrete spacecraft recovery architecture, validated trust-domain separation, and equal-information deterministic/learned comparators.
 
-The next publication gate is a **read-only audit of remaining eligible work**, beginning with Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+No Study-7 rerun or retroactive comparator addition is permitted. No Study-7E execution is authorized yet.
 
-No next venue or manuscript is currently locked. Fresh literature, novelty, overlap, claim-boundary, reproducibility, and live-venue review are required before creating a new publication branch.
+The independent remaining-study audit, including Study 5 / `S5-CUCD-001`, remains separate from Paper 3 recovery and must not be pooled into this publication line.
 
 ## Scientific interpretation boundaries
 
