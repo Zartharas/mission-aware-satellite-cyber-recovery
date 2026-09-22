@@ -41,11 +41,3 @@ The reported Studies 8 and 8E are software/modeling and public-data research. Th
 ## Data availability statement
 
 Data, code, frozen protocols, result manifests, evidence hashes, and audit records supporting the reported findings are archived in the public research repository. The manuscript provides the full Data Availability Statement and formal repository/data citation.
-
-## Author contributions
-
-**{{AUTHOR_DISPLAY_NAME}}:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing - original draft; Writing - review and editing; Visualization; Project administration.
-
-## Artificial-intelligence disclosure
-
-The substantive OpenAI ChatGPT / GPT-5.6 Sol disclosure is included within the Methods section of the manuscript to match the live Wiley submission requirement. The author independently verified all scientific claims, citations, numerical values, and interpretations. The tool did not generate or alter the frozen Study 8 or Study 8E data, protocols, canonical results, hashes, or scientific endpoints.
