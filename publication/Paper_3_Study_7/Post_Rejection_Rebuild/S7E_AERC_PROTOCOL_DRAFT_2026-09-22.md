@@ -232,7 +232,9 @@ The exact byte-level transformation for F3, F4, F9, F10, and F11 must be fixed b
 
 ### 9.1 Training block TR
 
-The learned policies are trained only on:
+The training population has two prospectively separated sub-blocks.
+
+#### TR1: security-response training
 
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
@@ -244,7 +246,23 @@ Population:
 
 `2 × 2 × 3 × 6 = 72` architecture scenarios.
 
-Training scenarios are not part of the canonical evaluation population.
+#### TR0: no-signal baseline training
+
+- `true_authorization ∈ {0,1}`
+- `true_health_ready ∈ {0,1}`
+- topologies T0, T1, T2
+- fault profile F0 only
+- `security_signal = 0`
+
+Population:
+
+`2 × 2 × 3 = 12` architecture scenarios.
+
+Total training population:
+
+`72 + 12 = 84` architecture scenarios.
+
+TR0 prevents the learned selectors from being evaluated on an unseen value of the `security_signal` feature merely because that value was omitted from training. Training scenarios are not part of the canonical evaluation population.
 
 ### 9.2 Evaluation block E1: unseen fault classes
 
@@ -274,31 +292,33 @@ Population:
 
 `2 × 2 × 2 × 12 = 96` architecture scenarios.
 
-### 9.4 Control block C0: no-security-signal controls
+### 9.4 Control block C0: held-out-topology no-security-signal controls
 
 Evaluate:
 
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
-- T0 through T4
+- T3 and T4 only
 - F0 only
 - `security_signal = 0`
 
 Population:
 
-`2 × 2 × 5 = 20` architecture scenarios.
+`2 × 2 × 2 = 8` architecture scenarios.
+
+Because T3 and T4 are excluded from training, C0 does not duplicate the TR0 training scenarios.
 
 ### 9.5 Canonical evaluation population
 
 Canonical evaluation scenarios:
 
-`72 + 96 + 20 = 188`.
+`72 + 96 + 8 = 176`.
 
 Each scenario is evaluated by four policies:
 
-`188 × 4 = 752` policy-decision observations.
+`176 × 4 = 704` policy-decision observations.
 
-The 72 training scenarios are reported separately and never pooled into the 752 evaluation observations.
+The 84 training scenarios are reported separately and never pooled into the 704 evaluation observations. The complete prospective manifest remains 260 architecture scenarios.
 
 These counts are prospective design quantities, not observed results.
 
