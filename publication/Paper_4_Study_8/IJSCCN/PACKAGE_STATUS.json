@@ -40,12 +40,12 @@
     "scientific_figures_separate": true,
     "figure_target_dpi": 800,
     "public_safe_ci_build_required": true,
-    "exact_head_ci_status": "PENDING_AFTER_CURRENT_PR164_EDITS",
     "docx_page_by_page_visual_qa": "OPEN",
     "acta_visual_benchmark_comparison": "OPEN",
     "local_personalized_package_qa": "OPEN",
     "portal_instance_gate": "PARTIALLY_OPEN",
-    "scientific_reanalysis_performed": false
+    "scientific_reanalysis_performed": false,
+    "exact_head_ci_requirement": "GitHub Actions on the current PR #164 head must pass before any merge consideration; mutable run status is not hard-coded in this tracked record."
   },
   "privacy": {
     "tracked_private_contact_values_allowed": false,
