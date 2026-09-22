@@ -33,13 +33,13 @@ Design highlights:
   - `D0_BASE` / `L0_BASE`;
   - `D1_CORROBORATED` / `L1_CORROBORATED`;
 - 84 training architecture scenarios (TR1 = 72, TR0 = 12);
-- 176 canonical evaluation/control architecture scenarios;
-- 704 canonical evaluation policy-decision observations;
+- 196 canonical evaluation/control architecture scenarios;
+- 784 canonical evaluation policy-decision observations;
 - separately implemented repository audit requirement.
 
 These quantities are prospective protocol design values, not results.
 
-A protocol-review correction made before freeze added no-signal examples to training and removed overlapping no-signal controls from T0-T2. The complete manifest remains 260 scenarios.
+A protocol-review correction made before freeze added no-signal examples to training and removed overlapping no-signal controls from T0-T2. The complete manifest now contains 280 scenarios after adding direct execution-domain fault coverage.
 
 ## Environment candidates
 
