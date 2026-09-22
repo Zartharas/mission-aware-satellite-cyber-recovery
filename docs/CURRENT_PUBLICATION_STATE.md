@@ -96,7 +96,7 @@ Proposed extension:
 
 The extension now has a draft prospective protocol, implementation plan, test/audit plan, architecture source ledger, and candidate environment baseline. The design uses a cFS-grounded reference architecture, five explicit trust-domain topologies, twelve fault/compromise profiles, and equal-information deterministic/learned policy pairs.
 
-Prospective design quantities are 72 training architecture scenarios and 188 canonical evaluation/control scenarios, producing 752 canonical evaluation policy-decision observations. These are planned counts, not scientific results.
+Prospective design quantities are 84 training architecture scenarios and 176 canonical evaluation/control scenarios, producing 704 canonical evaluation policy-decision observations. The complete manifest remains 260 scenarios. These are planned counts, not scientific results.
 
 No `study7e/` execution workspace, canonical run, or new scientific result is authorized yet. Study 7 and any future Study 7E remain separate populations and must not be pooled.
 
