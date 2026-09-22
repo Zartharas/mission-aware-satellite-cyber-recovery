@@ -4,7 +4,7 @@
   "date_local": "2026-09-21",
   "base_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
   "branch": "paper4/execute-rebuilt-study8-8e-manuscript",
-  "status": "IJSCCN_R5_FULL_LAYOUT_REBUILD_REQUIRED__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+  "status": "IJSCCN_R5_PUBLIC_POLICY_AUDIT_PASSED__SOURCE_REBUILD_AUTHORIZED__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
   "authorization_basis": "Author explicitly authorized execution of the rebuilt Paper 4 Study 8 + Study 8E manuscript integration plan after PR #153 merged and post-merge main CI passed.",
   "architecture": {
     "study8": "S8-PQC-ICR-001",
@@ -46,7 +46,7 @@
     "live_venue_assessment_authorized": true,
     "venue_specific_package_preparation_authorized": true
   },
-  "next_gate": "DEEP_WILEY_POLICY_AUDIT__R5_FORMAT_REBUILD__PAGE_BY_PAGE_QA__THEN_SEPARATE_PORTAL_AND_FINAL_SUBMISSION_AUTHORIZATION",
+  "next_gate": "R5_SOURCE_REBUILD__SCIENTIFIC_PRESERVATION_AUDIT__DOCX_PAGE_QA__LIVE_PORTAL_INSTANCE_CHECK__THEN_SEPARATE_FINAL_SUBMISSION_AUTHORIZATION",
   "review": {
     "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
     "status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
@@ -100,6 +100,17 @@
       "no_em_dashes": true,
       "final_submission_requires_separate_explicit_authorization": true
     },
-    "handoff_record": "publication/Paper_4_Study_8/IJSCCN/NEW_CHAT_HANDOFF_2026-09-21_R5_REBUILD.md"
+    "handoff_record": "publication/Paper_4_Study_8/IJSCCN/NEW_CHAT_HANDOFF_2026-09-21_R5_REBUILD.md",
+    "public_policy_audit": {
+      "completed": true,
+      "audit_date_utc": "2026-09-22",
+      "evidence_record": "publication/Paper_4_Study_8/IJSCCN/R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md",
+      "requirement_matrix": "publication/Paper_4_Study_8/IJSCCN/R5_LIVE_POLICY_REQUIREMENT_MATRIX_2026-09-21.md",
+      "design_spec": "publication/Paper_4_Study_8/IJSCCN/R5_MANUSCRIPT_DESIGN_SPEC_2026-09-21.md",
+      "public_policy_gate": "PASS",
+      "portal_instance_gate": "PARTIALLY_OPEN",
+      "manuscript_source_rebuild_authorized": true,
+      "final_publisher_submission_authorized": false
+    }
   }
 }
