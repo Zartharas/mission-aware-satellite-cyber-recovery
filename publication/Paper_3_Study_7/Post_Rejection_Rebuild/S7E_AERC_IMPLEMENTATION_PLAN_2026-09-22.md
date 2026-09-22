@@ -372,20 +372,25 @@ The workflow must refuse execution if:
 
 ## 15. Implementation stop point for current authorization
 
-Current authorization permits:
+Current authorization permits the implementation/feasibility phase only:
 
-- research;
-- protocol drafting;
-- architecture design;
-- implementation planning;
-- test/audit planning.
+- pre-canonical repository scaffolding;
+- machine-readable protocol/configuration work;
+- topology/fault and evidence-contract implementation;
+- deterministic comparator scaffolding;
+- learned-policy training-boundary scaffolding without production model training/freeze;
+- unit, contract, leakage, and separately implemented design-audit tests;
+- cFS/NOS3 environment feasibility qualification;
+- non-canonical cFS engineering smoke tests such as custom-app build/load and Software Bus transport checks.
 
 Current authorization does **not** permit:
 
-- creation of canonical Study-7E observations;
-- training/final freezing of production models;
-- canonical cFS/NOS3 campaign execution;
-- publication claims based on Study 7E;
-- new Zenodo release.
+- creation of canonical Study-7E observations or scientific results;
+- training/final freezing of production L0/L1 models;
+- protocol or implementation freeze;
+- canonical cFS/NOS3 scenario-campaign execution;
+- creation of a canonical execution authorization artifact/workflow;
+- publication claims based on Study 7E results;
+- a new Study-7E Zenodo release.
 
-The next gate is author review and protocol freeze.
+The next scientific gate remains a separate author-reviewed protocol/implementation freeze followed by a later explicit canonical-execution authorization.
