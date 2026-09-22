@@ -12,14 +12,19 @@ Aman Kumar Singh*
 
 ## GTOC text
 
-Two separately governed studies evaluate post-compromise post-quantum satellite recovery under intermittent communication opportunity. A controlled fixed-capacity model shows no feasibility advantage for the added contact-aware pre-commit guard, while external SatNOGS observation-opportunity timing quantifies the minimum modeled payload-rate burden. The synthesis separates whether recovery fits a fixed communication budget from what modeled rate would be required to make it fit.
+Two separately governed studies examine trusted post-compromise post-quantum satellite recovery under intermittent communication opportunity. Study 8 tests whether recovery fits a fixed modeled contact budget, while Study 8E uses public SatNOGS observation-opportunity timing to solve the minimum modeled payload-rate requirement. Across both evidence layers, the contact-aware guard adds no feasibility advantage, and SatNOGS timing is not treated as authenticated command contact or measured throughput.
 
-**Word count:** 59  
-**Sentence count:** 3  
-**Journal limit:** no more than 80 words or 3 sentences
+## Graphic requirements
 
-## Graphic
+The GTOC is a separate graphical table-of-contents item and is not Figure 4.
 
-Use `figures/IJSCCN_GTOC.tiff` for upload and `figures/IJSCCN_GTOC.svg` as the repository source.
+The graphic must show:
 
-The graphic must remain conceptual and must not imply that Study 8 logical slots map to physical time or that SatNOGS observations are operational command contacts.
+- Study 8 as a controlled fixed-capacity logical-contact analysis;
+- Study 8E as a separate public observation-opportunity timing analysis;
+- the common frozen trusted-recovery mechanism;
+- a clear no-pooling boundary;
+- no conversion of Study 8 slots to physical time;
+- no implication that SatNOGS observations are operational command contacts or measured throughput.
+
+The R5 build should regenerate the graphical item from source at publication-quality resolution and produce a separate TIFF for upload.
