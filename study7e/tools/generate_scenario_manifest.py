@@ -21,7 +21,7 @@ def main() -> int:
 
     rows = build_scenario_manifest()
     counts = manifest_counts(rows)
-    if counts["TOTAL"] != 260:
+    if counts["TOTAL"] != 280:
         raise SystemExit(f"unexpected manifest cardinality: {counts}")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
