@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "candidate_id": "S7E-AERC-FC-001",
+  "date": "2026-09-23",
+  "state": "FREEZE_CANDIDATE_ASSEMBLED__QUALIFICATION_PENDING__NOT_FROZEN",
+  "basis_head": "ae96db64da3e00551d05f05996f6e4af82d6cfbe",
+  "candidate_config": "study7e/configs/protocol_environment_freeze_candidate_001.json",
+  "ep_approval_record": "study7e/configs/ep_author_approval_2026-09-23.json",
+  "protocol_frozen": false,
+  "environment_frozen": false,
+  "production_models_trained": false,
+  "production_models_frozen": false,
+  "canonical_execution_authorized": false,
+  "canonical_results_generated": false,
+  "pr_merge_authorized": false,
+  "next_gate": "complete fast freeze-candidate and deterministic key-registry qualification; if green, request separate explicit author freeze approval"
+}

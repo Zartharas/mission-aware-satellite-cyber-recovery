@@ -38,6 +38,7 @@ jobs:
             study7e/tests/test_design_contracts.py \
             study7e/tests/test_training_contracts.py \
             study7e/tests/test_execution_parameters_candidate.py \
+            study7e/tests/test_freeze_candidate.py \
             study7e/validation/check_fsw_truth_leakage.py \
             study7e/validation/validate_precanonical.py \
             study7e/tools/generate_scenario_manifest.py
@@ -48,6 +49,7 @@ jobs:
             study7e.tests.test_design_contracts \
             study7e.tests.test_training_contracts \
             study7e.tests.test_execution_parameters_candidate \
+            study7e.tests.test_freeze_candidate \
             -v
 
       - name: Run independent pre-canonical design audit
