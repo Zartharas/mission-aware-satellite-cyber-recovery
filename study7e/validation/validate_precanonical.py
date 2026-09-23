@@ -251,6 +251,11 @@ def main() -> int:
     require("offset 47" in fault_transforms["profiles"]["F9"]["transformation"], "F9 candidate byte transformation drift")
     require("two separately signed" in fault_transforms["profiles"]["F12"]["transformation"], "F12 equivocation candidate drift")
     require(fault_transforms["approvals"]["byte_transformations_frozen"] is False, "fault transforms frozen prematurely")
+    qualifier_fault_state = state["qualifier_fault_feasibility"]
+    require(qualifier_fault_state["state"] == "HOST_ONLY_IMPLEMENTED__QUALIFICATION_PENDING", "qualifier/fault feasibility state drift")
+    require(qualifier_fault_state["policy_decisions_executed"] == 0, "qualifier/fault gate executed policy decisions")
+    require(qualifier_fault_state["production_models_trained"] is False, "qualifier/fault gate trained production models")
+    require(qualifier_fault_state["scientific_results_generated"] is False, "qualifier/fault gate generated scientific results")
     signed_v2_state = state["signed_evidence_v2_feasibility"]
     require(signed_v2_state["state"] == "HOST_SIDE_RUNTIME_GREEN__ENGINEERING_ONLY", "signed-evidence v2 feasibility state drift")
     require(signed_v2_state["candidate_bytes"] == 64, "signed-evidence v2 feasibility byte-length drift")
@@ -296,6 +301,9 @@ def main() -> int:
         ROOT / "study7e/configs/qualifier_time_replay_contract_draft.json",
         ROOT / "study7e/configs/fault_transformations_draft.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_AND_FAULT_CONTRACT_DRAFT_2026-09-23.md",
+        ROOT / "study7e/feasibility/qualifier_fault/qualifier_fault_model.py",
+        ROOT / "study7e/feasibility/qualifier_fault/test_qualifier_fault_model.py",
+        ROOT / ".github/workflows/study7e-qualifier-fault-feasibility.yml",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
         ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",

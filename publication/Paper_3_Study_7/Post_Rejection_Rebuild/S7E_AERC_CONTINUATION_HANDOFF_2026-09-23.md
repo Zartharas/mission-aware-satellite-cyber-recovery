@@ -552,3 +552,11 @@ Key draft semantics:
 
 All transformations remain draft and require author review before freeze.
 
+## Host-only qualifier/fault harness — IMPLEMENTED, QUALIFICATION PENDING
+
+A standard-library Python contract harness now implements the draft qualifier time/replay semantics and F0-F12 transformations while reusing the repository's existing topology `domain_map`/`affected_paths` logic.
+
+It tests feature independence, freshness boundary parameterization, duplicate/equivocation/rollback behavior, F5/F9/F11/F12 effects, and topology propagation across all 13 fault profiles.
+
+It executes zero recovery-policy decisions and trains no models.
+
