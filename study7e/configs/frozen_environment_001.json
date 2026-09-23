@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "state": "FROZEN_ENVIRONMENT",
+  "flight_software": {
+    "stack": "standalone_cFS_v7.0.1",
+    "commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3"
+  },
+  "signature_verifier": {
+    "name": "Monocypher",
+    "version": "4.0.3",
+    "commit": "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+    "algorithm": "Ed25519_RFC8032"
+  },
+  "learner_runtime": {
+    "python": "3.11.16",
+    "scikit_learn": "1.9.1"
+  },
+  "stack_mixing_without_new_compatibility_study": "PROHIBITED",
+  "source_candidate_environment_blob_sha": "0b93df199f673d833f1df9974e00c1332319ec8c",
+  "production_model_training_authorized": false,
+  "canonical_execution_authorized": false
+}
