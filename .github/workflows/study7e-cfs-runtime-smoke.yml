@@ -83,7 +83,9 @@ jobs:
           cp -a study7e/fsw/aerc_bus_probe /tmp/s7e-cfs/apps/aerc_bus_probe
           cp -a study7e/fsw/aerc_recovery_sink /tmp/s7e-cfs/apps/aerc_recovery_sink
           cp -a study7e/fsw/aerc_sink_probe /tmp/s7e-cfs/apps/aerc_sink_probe
-          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
+          cp -a study7e/fsw/aerc_policy /tmp/s7e-cfs/apps/aerc_policy
+          cp -a study7e/fsw/aerc_policy_probe /tmp/s7e-cfs/apps/aerc_policy_probe
+          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe aerc_policy aerc_policy_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
           python - <<'PY'
           from pathlib import Path
 
@@ -110,9 +112,13 @@ jobs:
           test -f build-native_std/exe/cpu1/cf/aerc_bus_probe.so
           test -f build-native_std/exe/cpu1/cf/aerc_sink.so
           test -f build-native_std/exe/cpu1/cf/aerc_sink_probe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_policy.so
+          test -f build-native_std/exe/cpu1/cf/aerc_pprobe.so
           echo "aerc_bus_probe_compile=PASS"
           echo "aerc_recovery_sink_compile=PASS"
           echo "aerc_sink_probe_compile=PASS"
+          echo "aerc_policy_compile=PASS"
+          echo "aerc_policy_probe_compile=PASS"
 
       - name: Run non-canonical cFE Software Bus smoke check
         run: |
@@ -139,10 +145,65 @@ jobs:
           echo "study7e_scientific_scenarios_executed=0"
           echo "scientific_results_generated=false"
 
-      - name: Preserve runtime smoke log
+      - name: Stage isolated deterministic policy startup
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("/tmp/s7e-cfs/build-native_std/exe/cpu1/cf/cfe_es_startup.scr")
+          lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+          lines = [
+              line for line in lines
+              if "aerc_bus_probe" not in line
+              and "aerc_sink_probe" not in line
+              and "aerc_policy," not in line
+              and "aerc_pprobe" not in line
+          ]
+          lines.append("CFE_APP, aerc_policy, AERC_POLICY_Main, AERC_POLICY, 54, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_pprobe, AERC_PPROBE_Main, AERC_PPROBE, 56, 32768, 0x0, 0;\n")
+          path.write_text("".join(lines), encoding="utf-8")
+          PY
+
+      - name: Run deterministic D0/D1 snapshot smoke
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs/build-native_std/exe/cpu1
+          set +e
+          timeout 12 ./core-cpu1 > /tmp/study7e_policy_runtime_smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/study7e_policy_runtime_smoke.log
+            exit "$rc"
+          fi
+          cat /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374551 policy=D0_BASE action=ENTER_RECOVERY_GATE sequence=1 feature_count=9" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY REJECT_LENGTH" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY REJECT_CONTRACT scenario=0x5337455E policy=D0_BASE" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374552 policy=D0_BASE action=HOLD sequence=2 feature_count=9" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374553 policy=D1_CORROBORATED action=ENTER_RECOVERY_GATE sequence=3 feature_count=16" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY REJECT_FEATURE scenario=0x5337455F index=9 value=2" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374554 policy=D1_CORROBORATED action=HOLD sequence=4 feature_count=16" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374551 policy=1 action=ENTER_RECOVERY_GATE sequence=1" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374552 policy=1 action=HOLD sequence=2" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374553 policy=3 action=ENTER_RECOVERY_GATE sequence=3" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374554 policy=3 action=HOLD sequence=4" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY_PROBE PASS decisions=4 negatives=3" /tmp/study7e_policy_runtime_smoke.log
+          echo "aerc_policy_runtime=PASS"
+          echo "aerc_d0_runtime=PASS"
+          echo "aerc_d1_runtime=PASS"
+          echo "research_truth_visible_to_policy_runtime=false"
+          echo "learned_policy_runtime_executed=false"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
+      - name: Preserve runtime smoke logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: study7e-cfs-runtime-smoke-log
-          path: /tmp/study7e_cfs_runtime_smoke.log
+          name: study7e-cfs-runtime-smoke-logs
+          path: |
+            /tmp/study7e_cfs_runtime_smoke.log
+            /tmp/study7e_policy_runtime_smoke.log
           if-no-files-found: warn

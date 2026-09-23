@@ -40,5 +40,23 @@
   "learned_models": {
     "L0_BASE": "deterministic decision-tree pipeline; model not frozen in current phase",
     "L1_CORROBORATED": "same algorithm/hyperparameter rule as L0; model not frozen in current phase"
+  },
+  "cfs_snapshot_contract": {
+    "state": "PRECANONICAL_IMPLEMENTATION_CONTRACT",
+    "base_mid": "0x0EE5",
+    "corroborated_mid": "0x0EE6",
+    "decision_mid": "0x0EE7",
+    "feature_slots": 16,
+    "base_feature_count": 9,
+    "corroborated_feature_count": 16,
+    "binary_only": true,
+    "base_unused_slots_must_be_zero": true,
+    "reserved_bytes_must_be_zero": true,
+    "pair_binding": {
+      "D0_BASE__L0_BASE": "same base snapshot message bytes",
+      "D1_CORROBORATED__L1_CORROBORATED": "same corroborated snapshot message bytes"
+    },
+    "learned_policy_runtime_implemented": false,
+    "signature_verification_implemented": false
   }
 }

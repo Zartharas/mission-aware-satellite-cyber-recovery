@@ -86,6 +86,19 @@ def main() -> int:
 
     require(len(policy["base_features"]) == 9, "base feature count drift")
     require(len(policy["corroborated_additional_features"]) == 7, "corroborated feature count drift")
+    snapshot_contract = policy["cfs_snapshot_contract"]
+    require(snapshot_contract["state"] == "PRECANONICAL_IMPLEMENTATION_CONTRACT", "cFS snapshot contract state drift")
+    require(snapshot_contract["base_mid"] == "0x0EE5", "base snapshot MID drift")
+    require(snapshot_contract["corroborated_mid"] == "0x0EE6", "corroborated snapshot MID drift")
+    require(snapshot_contract["decision_mid"] == "0x0EE7", "policy decision MID drift")
+    require(snapshot_contract["feature_slots"] == 16, "policy feature-slot count drift")
+    require(snapshot_contract["base_feature_count"] == 9, "policy base feature-count drift")
+    require(snapshot_contract["corroborated_feature_count"] == 16, "policy corroborated feature-count drift")
+    require(snapshot_contract["binary_only"] is True, "policy binary-only guard lost")
+    require(snapshot_contract["base_unused_slots_must_be_zero"] is True, "base unused-slot guard lost")
+    require(snapshot_contract["reserved_bytes_must_be_zero"] is True, "policy reserved-byte guard lost")
+    require(snapshot_contract["learned_policy_runtime_implemented"] is False, "learned policy runtime implemented prematurely")
+    require(snapshot_contract["signature_verification_implemented"] is False, "signature verification claimed prematurely")
     require(env["cfs"]["tag_commit"] == "088b2fa828db9ff7e00733f1908e0eeb59f66ce3", "cFS candidate commit drift")
     require(env["nos3"]["tag_commit"] == "5a3bdee6be9a2c67fdf994ae6db56d5c60395302", "NOS3 candidate commit drift")
     require(
@@ -125,6 +138,8 @@ def main() -> int:
         ROOT / "study7e/fsw/aerc_hs_probe/fsw/src/aerc_hs_probe.c",
         ROOT / "study7e/fsw/aerc_recovery_sink/fsw/src/aerc_recovery_sink.c",
         ROOT / "study7e/fsw/aerc_sink_probe/fsw/src/aerc_sink_probe.c",
+        ROOT / "study7e/fsw/aerc_policy/fsw/src/aerc_policy.c",
+        ROOT / "study7e/fsw/aerc_policy_probe/fsw/src/aerc_policy_probe.c",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",

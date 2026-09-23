@@ -76,6 +76,23 @@
       "study7e_scientific_scenarios_executed": 0,
       "scientific_results_generated": false,
       "qualification_scope": "pre-canonical recovery-action recording and fail-closed input validation only; no policy correctness claim and no hardware actuation"
+    },
+    "policy_snapshot_evidence": {
+      "state": "IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING",
+      "implementation_head": "PENDING_CURRENT_COMMIT",
+      "base_mid": "0x0EE5",
+      "corroborated_mid": "0x0EE6",
+      "decision_mid": "0x0EE7",
+      "base_feature_count": 9,
+      "corroborated_feature_count": 16,
+      "deterministic_policies": [
+        "D0_BASE",
+        "D1_CORROBORATED"
+      ],
+      "learned_policies_implemented": false,
+      "signature_verification_implemented": false,
+      "research_truth_visible_to_policy_runtime": false,
+      "scientific_results_generated": false
     }
   },
   "nos3_candidate": {
@@ -115,13 +132,13 @@
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "SB_SELF_LOOP_SBN_TWO_INSTANCE_HS_OBSERVATION_RECOVERY_SINK_RUNTIME_GREEN__FULL_EVIDENCE_AND_POLICY_PIPELINE_NOT_IMPLEMENTED__PRECANONICAL",
+    "cfs_custom_apps": "SB_SBN_HS_RECOVERY_SINK_GREEN__SHARED_BC_SNAPSHOT_AND_D0_D1_IMPLEMENTED__POLICY_RUNTIME_QUALIFICATION_PENDING__NO_LEARNED_POLICY__PRECANONICAL",
     "nos3_integration": "BOUNDED_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Implement and qualify the shared policy-visible evidence/snapshot contract and deterministic D0/D1 decision path on the selected cFS baseline using engineering-only inputs and no research-truth fields. Keep the real-signature/Ed25519 dependency decision separate and reviewed before implementing authorization producers/verification. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain prohibited.",
+  "next_gate": "Qualify the shared B/C snapshot contract and deterministic D0/D1 runtime path on the selected cFS baseline. Require positive ENTER/HOLD cases plus malformed-length, feature-count, and non-binary rejection markers. Do not implement L0/L1 or signature verification in this gate. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
