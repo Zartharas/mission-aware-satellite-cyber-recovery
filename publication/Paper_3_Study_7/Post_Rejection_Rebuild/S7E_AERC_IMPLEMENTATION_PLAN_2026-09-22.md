@@ -394,3 +394,29 @@ Current authorization does **not** permit:
 - a new Study-7E Zenodo release.
 
 The next scientific gate remains a separate author-reviewed protocol/implementation freeze followed by a later explicit canonical-execution authorization.
+
+## 2026-09-23 pre-freeze stack-selection update
+
+The authorized feasibility sequence is complete enough to select the remaining non-canonical implementation baseline.
+
+Selected baseline:
+
+- standalone NASA cFS v7.0.1 at `088b2fa828db9ff7e00733f1908e0eeb59f66ce3`.
+
+Selection evidence includes:
+
+- exact pinned build/test feasibility;
+- live custom cFE Software Bus probe;
+- live two-instance CPU1/CPU2 SBN transport;
+- deterministic scenario-ID/marker survival across the SBN roundtrip;
+- deterministic CPU2 sink receipt returned to CPU1;
+- actual HS housekeeping observation without deriving research truth.
+
+NOS3 v1.7.5 remains bounded feasibility/reference evidence. Its pinned build is green, but the pinned release baseline is single-CPU and its documented multiple-spacecraft scenario requires the separate `nasa-itc/nos3-multiple-spacecraft` proof-of-concept repository/branch. Adding that dependency would expand the declared candidate graph and requires a separate compatibility study.
+
+This update is the author-reviewed deviation path contemplated by the original Gate-B plan. It does not freeze the protocol/environment and does not authorize scientific execution.
+
+Decision record:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md`
+

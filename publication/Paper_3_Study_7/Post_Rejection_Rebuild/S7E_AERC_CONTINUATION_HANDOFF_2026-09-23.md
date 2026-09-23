@@ -209,3 +209,40 @@ Before selecting a stack:
 
 These remain engineering qualification activities only. Canonical Study-7E execution remains prohibited.
 
+## cFS preselection seams — GREEN
+
+At head `f97433b7025a655f21ca97e71618f3aa1fd4b2a3`, workflow `Study 7E cFS preselection seams` (workflow ID `365200358`, run `35873580570`, job `107223637303`) completed successfully.
+
+Evidence:
+
+- artifact `10756545870`;
+- digest `sha256:4e3202fc55e853ff8a83de48f32d818f236ab6bfcade9d782d26a336054b6b93`;
+- `AERC_SBN_SINK PASS scenario=0x53374532 marker=0xA37C0DE2 sink_cpu=2 receipt=0xBEEF`;
+- `AERC_SBN_ROUNDTRIP PASS scenario=0x53374532 marker=0xA37C0DE2 sink_cpu=2 receipt=0xBEEF attempt=1`;
+- `AERC_HS_OBSERVER PASS appmon=1 eventmon=0 aliveness=1 cpuhog=1 status=0x1F cmd_count=0 cmd_err=0`;
+- `research_truth_derived=false`;
+- `study7e_scientific_scenarios_executed=0`;
+- `scientific_results_generated=false`.
+
+The HS fields are engineering runtime observations, not the Study-7E adjudicator truth variable.
+
+Checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md`
+
+## Stack decision — standalone cFS v7.0.1 selected
+
+The remaining non-canonical Study-7E architecture will use standalone cFS v7.0.1 at `088b2fa828db9ff7e00733f1908e0eeb59f66ce3` as the pre-freeze implementation baseline.
+
+NOS3 v1.7.5 remains bounded feasibility/reference evidence and is not mixed into the selected baseline. Its documented multiple-spacecraft path requires a separate proof-of-concept repository/branch outside the pinned NOS3 dependency graph.
+
+Decision:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md`
+
+This is **not** a protocol/environment freeze and does not authorize production-model training/freeze or canonical scientific execution.
+
+### Next gate
+
+Continue the remaining non-canonical architecture components on the selected cFS baseline while preserving equal-information, truth-separation, deterministic-control, and fail-closed canonical-execution guards.
+

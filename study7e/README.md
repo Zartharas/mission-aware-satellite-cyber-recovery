@@ -72,15 +72,22 @@ These are protocol design quantities, not results.
 - `tests/`
 - `feasibility/`
 
-The current Python implementation is a pre-canonical architecture/contract harness. It exists to validate the design before cFS applications are introduced. It must not be represented as the final cFS/NOS3 scientific implementation.
+The Python implementation remains a pre-canonical architecture/contract harness. Non-canonical cFS engineering probes now validate Software Bus, two-instance SBN transport, deterministic scenario-ID/sink receipt, and HS housekeeping observability. These probes are not the full AERC policy application and are not scientific execution.
 
-## External-stack candidates
+## Pre-freeze implementation baseline
 
-- NASA cFS v7.0.1, tag commit `088b2fa828db9ff7e00733f1908e0eeb59f66ce3`
-- NASA NOS3 v1.7.5 / `v1_07_05`, tag commit `5a3bdee6be9a2c67fdf994ae6db56d5c60395302`
+Selected for the remaining non-canonical architecture:
 
-External builds are feasibility checks only.
+- NASA cFS v7.0.1, tag commit `088b2fa828db9ff7e00733f1908e0eeb59f66ce3`.
+
+Evaluated alternative retained as bounded feasibility/reference evidence:
+
+- NASA NOS3 v1.7.5 / `v1_07_05`, tag commit `5a3bdee6be9a2c67fdf994ae6db56d5c60395302`.
+
+This is **not** a canonical environment freeze. Decision record:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md`
 
 ## Next gate
 
-Run and review pre-canonical unit/contract tests and local cFS/NOS3 feasibility qualification. Resolve any design defect before freezing the protocol. Canonical scientific execution requires a later, separate explicit author authorization.
+Continue the remaining non-canonical architecture on the selected standalone cFS baseline. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain separate later author gates.

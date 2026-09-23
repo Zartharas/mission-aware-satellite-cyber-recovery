@@ -98,3 +98,21 @@ Conversely, standalone cFS is scientifically adequate only if it can prove the T
 ## Guardrail
 
 No candidate is frozen, no canonical environment is selected, no model is trained/frozen, and no scientific campaign is authorized by this review.
+
+## Closure — 2026-09-23
+
+The standalone-cFS candidate's pending proofs are established at head `f97433b7025a655f21ca97e71618f3aa1fd4b2a3`, workflow run `35873580570`, job `107223637303`:
+
+- HS housekeeping observability: PASS;
+- two-instance SBN transport: PASS;
+- deterministic scenario-ID/marker survival: PASS;
+- CPU2 sink receipt and return capture: PASS.
+
+Further review of the exact pinned NOS3 1.7.5 source established that its generated baseline declares one cFS CPU, while its mission configuration describes multiple-spacecraft use as experimental/proof-of-concept. The release's documented multiple-spacecraft walkthrough requires the separate `nasa-itc/nos3-multiple-spacecraft` repository and referenced commit `dae7e75709f963f15e9297a0b92926bae767f302`.
+
+Under the existing no-mixing/compatibility guardrail, adding that repository would expand the candidate dependency graph rather than qualify the declared pinned NOS3 candidate.
+
+This preselection review is closed by:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md`
+

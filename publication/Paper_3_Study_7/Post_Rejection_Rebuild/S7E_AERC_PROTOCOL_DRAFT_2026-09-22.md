@@ -30,7 +30,7 @@ How do the learned selectors behave when evaluated on fault classes and higher-s
 
 ## 3. Reference architecture
 
-The reference implementation is based on NASA core Flight System (cFS). If the feasibility gate passes, NASA Operational Simulator for Space Systems (NOS3) is used as the canonical simulation/integration environment.
+The reference implementation is based on NASA core Flight System (cFS). Following the pre-freeze feasibility gates and the 2026-09-23 stack decision, standalone cFS v7.0.1 is the selected implementation baseline for the remaining non-canonical architecture. This is not a canonical environment freeze. NOS3 v1.7.5 is retained as bounded feasibility/reference evidence rather than the selected baseline.
 
 The study is a research reference architecture. It is **not** a flight distribution, flight qualification, NASA endorsement, or operational spacecraft validation.
 
@@ -71,8 +71,9 @@ The study is a research reference architecture. It is **not** a flight distribut
 9. **Software Bus Network (SBN)**
    - used where the topology requires process/processor separation and cross-instance message transfer.
 
-10. **NOS3 ground/simulation layer**
-    - candidate environment for command/telemetry, dynamics/environment, software hardware models, and repeatable scenario control.
+10. **NOS3 alternative/reference simulation layer**
+    - evaluated for command/telemetry, dynamics/environment, software hardware models, and scenario-control realism;
+    - not selected for the Study-7E pre-freeze implementation baseline because the pinned release's required multi-instance path would expand the dependency graph beyond the pinned NOS3 stack.
 
 ## 4. Architecture truth and objective action
 
