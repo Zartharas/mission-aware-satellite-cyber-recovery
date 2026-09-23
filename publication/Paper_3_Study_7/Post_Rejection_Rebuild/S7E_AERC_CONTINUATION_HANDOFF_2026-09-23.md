@@ -447,3 +447,30 @@ The review recommends a 64-byte candidate body that preserves 64-bit epoch/logic
 
 Author approval, protocol freeze, and policy binding remain false.
 
+## Signed-evidence candidate v2 — APPLIED, NOT APPROVED/FROZEN
+
+R1's recommended revision has been applied to the draft contract without author approval or protocol freeze.
+
+Active candidate:
+
+- explicit fixed-width big-endian serialization;
+- 64-byte signed body;
+- signed opaque `scenario_id` at bytes 20–23;
+- opaque source/authority/key IDs;
+- 64-bit epoch, controlled logical time, and evidence sequence;
+- no topology/fault identity in signed or policy-visible evidence;
+- structural-only completeness candidate;
+- authorization claim preserved independently of `signature_valid` when evidence is structurally complete.
+
+The original 56-byte candidate remains in the JSON as superseded historical design provenance.
+
+Still blocking:
+
+- signing-key placement;
+- T4 separate-authority representation/keying provenance;
+- final logical-time/freshness/epoch/replay rules;
+- final opaque registries and test-key provenance;
+- final fault byte transformations.
+
+All author-approval, protocol-freeze, key-freeze, policy-binding, and canonical-execution gates remain false.
+

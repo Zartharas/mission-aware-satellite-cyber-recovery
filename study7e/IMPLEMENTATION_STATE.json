@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Revise the signed-evidence draft to the technically reviewed v2 candidate (including opaque signed scenario_id and 64-byte explicit encoding) while keeping it unfrozen. Preserve independent feature semantics. Do not implement producer signing until signing-key placement and T4 authority representation are explicitly resolved. L0/L1 production training/freeze and canonical execution remain prohibited.",
+  "next_gate": "Author-review the revised 64-byte signed-evidence v2 candidate. Before producer implementation or verifier-to-policy binding, explicitly resolve signing-key placement and T4 authority representation, then freeze logical-time/freshness/epoch/replay semantics, opaque registries, test-key provenance, and fault byte transformations. L0/L1 production training/freeze, protocol/environment freeze, and canonical execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -243,18 +243,25 @@
   "ed25519_dependency_decision": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
   "ed25519_cfs_boundary_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md",
   "signed_evidence_contract": {
-    "state": "DRAFT__NOT_FROZEN__NO_POLICY_BINDING",
+    "state": "DRAFT_V2__NOT_FROZEN__NO_POLICY_BINDING",
     "machine_readable_contract": "study7e/configs/signed_evidence_contract_draft.json",
-    "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_DRAFT_2026-09-23.md",
-    "candidate_body_bytes": 56,
+    "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
+    "active_candidate": "candidate_serialization_v2",
+    "candidate_body_bytes": 64,
     "candidate_domain_separator": "S7E-AERC-AUTH-V1",
+    "scenario_id_signed": true,
+    "scenario_id_policy_visible": false,
+    "completeness_semantics": "PROPOSED_STRUCTURAL_ONLY__NOT_FROZEN",
+    "authorization_extraction_semantics": "PROPOSED_INDEPENDENT_FOR_STRUCTURALLY_COMPLETE_EVIDENCE__NOT_FROZEN",
+    "signing_key_placement_resolved": false,
+    "t4_authority_representation_resolved": false,
     "public_key_registry_populated": false,
     "canonical_signed_bytes_frozen": false,
     "policy_signature_feature_binding_authorized": false,
     "unresolved_decision_count": 11
   },
   "signed_evidence_contract_review": {
-    "state": "TECHNICAL_REVIEW_COMPLETE__REVISE_BEFORE_AUTHOR_APPROVAL",
+    "state": "TECHNICAL_REVIEW_COMPLETE__V2_APPLIED__AUTHOR_APPROVAL_NOT_GRANTED",
     "review_json": "study7e/configs/signed_evidence_contract_review_r1.json",
     "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
     "blocking_findings": [

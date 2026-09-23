@@ -183,15 +183,22 @@ def main() -> int:
     require(sigwire["runtime_evidence"]["malformed_requests_rejected_without_result"] == 5, "signature verifier malformed-input evidence drift")
     require(sigwire["runtime_evidence"]["final_verification_sequence"] == 5, "signature verifier sequence evidence drift")
 
-    require(signed_evidence["state"] == "DRAFT__NOT_FROZEN__NO_POLICY_BINDING", "signed-evidence draft state drift")
-    candidate_body = signed_evidence["candidate_serialization_v1"]
-    require(candidate_body["status"] == "PROPOSED__NOT_FROZEN", "signed-evidence candidate unexpectedly frozen")
+    require(signed_evidence["state"] == "DRAFT_V2__NOT_FROZEN__NO_POLICY_BINDING", "signed-evidence draft state drift")
+    require(signed_evidence["active_candidate"] == "candidate_serialization_v2", "signed-evidence active candidate drift")
+    require(
+        signed_evidence["candidate_serialization_v1"]["status"] == "SUPERSEDED_BY_TECHNICAL_REVIEW_R1__HISTORICAL",
+        "signed-evidence v1 history/status drift",
+    )
+    candidate_body = signed_evidence["candidate_serialization_v2"]
+    require(candidate_body["status"] == "PROPOSED_AFTER_TECHNICAL_REVIEW_R1__NOT_FROZEN", "signed-evidence v2 unexpectedly frozen")
     require(candidate_body["encoding"] == "fixed_width_binary", "signed-evidence encoding drift")
     require(candidate_body["byte_order"] == "big_endian_network_order", "signed-evidence byte-order drift")
     require(candidate_body["c_struct_memcpy_serialization"] == "PROHIBITED", "native C struct serialization allowed")
     require(candidate_body["domain_separator_ascii"] == "S7E-AERC-AUTH-V1", "signed-evidence domain separator drift")
-    require(candidate_body["candidate_message_bytes"] == 56, "signed-evidence candidate length drift")
-    require(candidate_body["signed_region"] == {"offset": 0, "size": 56}, "signed-evidence signed-region drift")
+    require(candidate_body["candidate_message_bytes"] == 64, "signed-evidence v2 candidate length drift")
+    require(candidate_body["signed_region"] == {"offset": 0, "size": 64}, "signed-evidence v2 signed-region drift")
+    require(candidate_body["fields"][5]["name"] == "scenario_id", "signed-evidence v2 scenario binding lost")
+    require(candidate_body["topology_fault_identity_in_signed_body"] is False, "topology/fault identity leaked into signed body")
     require(signed_evidence["experiment_public_key_registry_draft"]["state"] == "NOT_POPULATED__NOT_FROZEN", "public-key registry frozen prematurely")
     require(signed_evidence["experiment_public_key_registry_draft"]["secret_key_in_verifier_flight_software"] is False, "secret key allowed in verifier FSW")
     require(len(signed_evidence["unresolved_decisions"]) >= 10, "signed-evidence unresolved-design guard weakened")
@@ -202,7 +209,7 @@ def main() -> int:
     )
     require(signed_evidence_review["disposition"] == "REVISE_CANDIDATE_BEFORE_AUTHOR_APPROVAL", "signed-evidence review disposition drift")
     require(signed_evidence_review["recommended_candidate_v2"]["candidate_message_bytes"] == 64, "reviewed signed-evidence candidate size drift")
-    require(signed_evidence_review["recommended_candidate_v2"]["fields"][4]["name"] == "scenario_id", "reviewed scenario binding lost")
+    require(signed_evidence_review["recommended_candidate_v2"]["fields"][5]["name"] == "scenario_id", "reviewed scenario binding lost")
     require(signed_evidence_review["approvals"]["author_approval"] is False, "signed-evidence author approval recorded prematurely")
     require(signed_evidence_review["approvals"]["protocol_freeze"] is False, "signed-evidence protocol freeze recorded prematurely")
     require(signed_evidence_review["approvals"]["policy_binding_authorized"] is False, "signed-evidence policy binding authorized prematurely")
