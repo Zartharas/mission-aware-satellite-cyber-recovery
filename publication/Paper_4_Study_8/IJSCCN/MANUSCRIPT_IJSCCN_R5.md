@@ -1,7 +1,8 @@
 # Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing
 
-**{{AUTHOR_DISPLAY_NAME}}, MS, PhD**  
-{{AUTHOR_AFFILIATION}}, {{AUTHOR_LOCATION}}  
+**{{AUTHOR_DISPLAY_NAME}}**
+{{AUTHOR_AFFILIATION}}
+{{AUTHOR_LOCATION}}
 ORCID: {{AUTHOR_ORCID}}  
 Corresponding author: {{AUTHOR_DISPLAY_NAME}}, {{AUTHOR_EMAIL}}
 
