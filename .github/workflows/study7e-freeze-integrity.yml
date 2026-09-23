@@ -1,0 +1,48 @@
+name: Study 7E frozen protocol integrity
+
+on:
+  push:
+    branches:
+      - "paper3/s7e-aerc-implementation-feasibility-*"
+    paths:
+      - "study7e/**"
+      - ".github/workflows/study7e-freeze-integrity.yml"
+  pull_request:
+    paths:
+      - "study7e/**"
+      - ".github/workflows/study7e-freeze-integrity.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out exact PR head
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Verify frozen Study 7E protocol integrity
+        run: |
+          set -euo pipefail
+          python -m unittest -v study7e.tests.test_frozen_protocol_integrity
+          echo "study7e_freeze_integrity=PASS"
+          echo "protocol_frozen=true"
+          echo "environment_frozen=true"
+          echo "public_key_registry_frozen=true"
+          echo "fault_transformations_frozen=true"
+          echo "learner_protocol_frozen=true"
+          echo "production_models_trained=false"
+          echo "production_models_frozen=false"
+          echo "canonical_execution_authorized=false"
+          echo "scientific_results_generated=false"
+          echo "pr_merge_authorized=false"
