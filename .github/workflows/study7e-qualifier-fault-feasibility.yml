@@ -76,7 +76,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m unittest -v study7e.feasibility.qualifier_fault.test_qualifier_fault_model 2>&1 | tee /tmp/study7e_qualifier_fault_report.txt
-          grep -F "Ran 16 tests" /tmp/study7e_qualifier_fault_report.txt
+          grep -F "Ran 17 tests" /tmp/study7e_qualifier_fault_report.txt
           grep -F "OK" /tmp/study7e_qualifier_fault_report.txt
           echo "qualifier_fault_contract_tests=PASS" | tee -a /tmp/study7e_qualifier_fault_report.txt
           echo "fault_profiles_tested=13" | tee -a /tmp/study7e_qualifier_fault_report.txt
