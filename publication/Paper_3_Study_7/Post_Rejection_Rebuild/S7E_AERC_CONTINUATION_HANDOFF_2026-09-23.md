@@ -637,3 +637,40 @@ The runtime gate will exercise:
 
 No final registry/timing/epoch value is frozen and no canonical scientific execution is authorized.
 
+## cFS producer → qualifier → D0/D1 → sink path — GREEN
+
+At head `ea58629c70a6022343db6a7bce7ee05cd08083e0`, the author-approved pre-canonical producer/qualifier implementation passed the pinned standalone cFS v7.0.1 runtime gate.
+
+Evidence:
+
+- workflow: `Study 7E cFS runtime smoke`
+- workflow ID: `365269942`
+- run ID: `35911617367`
+- job ID: `107352621226`
+- artifact ID: `10774070814`
+- artifact digest: `sha256:5d8f3a49a411e0acf6993d9742b8cb148e7a11c187bbeb5038516164aeed8ff8`
+
+Qualified behavior:
+
+- valid primary signed evidence → base snapshot → D0 ENTER;
+- valid corroborator signed evidence → corroborated snapshot → D1 ENTER;
+- F9 post-signature epoch-byte corruption → `signature_valid=0`, `epoch_valid=0`, authorization independently preserved, D0 HOLD;
+- F12 two valid same-sequence opposite claims → sticky `noncontradictory=0`, D0 HOLD;
+- malformed producer ingress rejected before qualifier output.
+
+Runtime guard markers:
+
+- `aerc_producer_bridge_runtime=PASS`;
+- `aerc_qualifier_runtime=PASS`;
+- `aerc_precanonical_policy_binding_runtime=PASS`;
+- `private_key_in_cfs_fsw=false`;
+- `final_registry_frozen=false`;
+- `canonical_policy_binding_frozen=false`;
+- `research_truth_visible_to_qualifier_runtime=false`;
+- `study7e_scientific_scenarios_executed=0`;
+- `scientific_results_generated=false`.
+
+Checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md`
+

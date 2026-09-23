@@ -259,7 +259,7 @@ def main() -> int:
     require(author_review["approvals"]["protocol_freeze"] is False, "protocol freeze recorded through author-review package")
     require(author_review["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized through author-review package")
     pq_state = state["producer_qualifier_precanonical_binding"]
-    require(pq_state["state"] == "IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING", "producer/qualifier implementation state drift")
+    require(pq_state["state"] == "RUNTIME_GREEN__PRECANONICAL__NOT_FROZEN", "producer/qualifier implementation state drift")
     require(pq_state["evidence_ingress_mid"] == "0x0EEA", "producer ingress MID drift")
     require(pq_state["qualifier_evidence_mid"] == "0x0EEB", "qualifier evidence MID drift")
     require(pq_state["qualifier_context_mid"] == "0x0EEC", "qualifier context MID drift")
@@ -272,6 +272,17 @@ def main() -> int:
     require(pq_state["canonical_policy_binding_frozen"] is False, "canonical policy binding frozen prematurely")
     require(pq_state["production_models_trained"] is False, "producer/qualifier gate trained production models")
     require(pq_state["scientific_results_generated"] is False, "producer/qualifier gate generated scientific results")
+    require(pq_state["precanonical_policy_binding_present"] is True, "producer/qualifier pre-canonical binding evidence lost")
+    require(pq_state["runtime_evidence"]["workflow_run_id"] == 35911617367, "producer/qualifier workflow evidence drift")
+    require(pq_state["runtime_evidence"]["job_id"] == 107352621226, "producer/qualifier job evidence drift")
+    require(pq_state["runtime_evidence"]["artifact_id"] == 10774070814, "producer/qualifier artifact evidence drift")
+    require(pq_state["runtime_evidence"]["valid_primary_base_enter"] is True, "producer/qualifier primary positive evidence lost")
+    require(pq_state["runtime_evidence"]["valid_corroborated_enter"] is True, "producer/qualifier corroborated positive evidence lost")
+    require(pq_state["runtime_evidence"]["f9_transport_corruption_hold"] is True, "producer/qualifier F9 evidence lost")
+    require(pq_state["runtime_evidence"]["f12_equivocation_hold"] is True, "producer/qualifier F12 evidence lost")
+    require(pq_state["runtime_evidence"]["malformed_ingress_rejected"] is True, "producer ingress rejection evidence lost")
+    require(pq_state["runtime_evidence"]["private_key_in_cfs_fsw"] is False, "producer/qualifier runtime reports private key in cFS FSW")
+    require(pq_state["runtime_evidence"]["research_truth_visible_to_qualifier_runtime"] is False, "research truth exposed to qualifier runtime")
     qualifier_fault_state = state["qualifier_fault_feasibility"]
     require(qualifier_fault_state["state"] == "HOST_ONLY_RUNTIME_GREEN__ENGINEERING_ONLY", "qualifier/fault feasibility state drift")
     require(qualifier_fault_state["policy_decisions_executed"] == 0, "qualifier/fault gate executed policy decisions")
@@ -338,6 +349,7 @@ def main() -> int:
         ROOT / "study7e/feasibility/qualifier_fault/test_qualifier_fault_model.py",
         ROOT / ".github/workflows/study7e-qualifier-fault-feasibility.yml",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md",
         ROOT / "study7e/configs/author_review_package_2026-09-23.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_REVIEW_PACKAGE_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
@@ -360,6 +372,18 @@ def main() -> int:
     )
     for required in required_precanonical_files:
         require(required.is_file(), f"missing pre-canonical control: {required.relative_to(ROOT)}")
+
+    fsw_text = "\n".join(
+        path.read_text(encoding="utf-8", errors="ignore")
+        for path in (ROOT / "study7e/fsw").rglob("*")
+        if path.is_file() and path.suffix.lower() in {".c", ".h", ".md", ".txt", ".cmake"}
+    ).lower()
+    for prohibited_token in (
+        "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
+        "4ccd089b28ff96da9db6c346ec114e0f5b8a319f35aba624da8cf6ed4fb8a6fb",
+        "crypto_ed25519_sign(",
+    ):
+        require(prohibited_token not in fsw_text, f"private signing material/API leaked into tracked cFS FSW: {prohibited_token}")
 
     print("Study 7E pre-canonical implementation validation: PASS")
     print("experiment_id=S7E-AERC-001")

@@ -157,13 +157,13 @@
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "SB_SBN_HS_RECOVERY_SINK_SHARED_BC_SNAPSHOT_D0_D1_MONOCYPHER_ED25519_PRODUCER_QUALIFIER_IMPLEMENTED_RUNTIME_PENDING__LEARNED_RUNTIME_NOT_IMPLEMENTED__PRECANONICAL",
+    "cfs_custom_apps": "SB_SBN_HS_RECOVERY_SINK_SHARED_BC_SNAPSHOT_D0_D1_MONOCYPHER_ED25519_PRODUCER_QUALIFIER_RUNTIME_GREEN__LEARNED_RUNTIME_NOT_IMPLEMENTED__PRECANONICAL",
     "nos3_integration": "BOUNDED_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Qualify the approved pre-canonical producer bridge and cFS qualifier path through D0/D1 and the recovery sink. Required runtime evidence: valid primary/corroborator signatures, F9 post-signature corruption fail-closed behavior, F12 same-sequence equivocation, malformed producer ingress rejection, no private keys in cFS FSW, and zero scientific scenario/result generation. Do not freeze final timing/epoch/registry/key values or train/freeze L0/L1.",
+  "next_gate": "Review the remaining non-frozen execution parameters needed before a protocol/environment freeze candidate: numeric controlled-time freshness threshold, epoch mapping, opaque scenario/source/key/authority registries, deterministic test-key generation/storage provenance, and final byte-transform freeze. Do not train/freeze L0/L1, authorize canonical execution, or merge PR #167 without separate explicit authorization.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -374,7 +374,7 @@
     "canonical_execution_authorized": false
   },
   "producer_qualifier_precanonical_binding": {
-    "state": "IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING",
+    "state": "RUNTIME_GREEN__PRECANONICAL__NOT_FROZEN",
     "approval_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
     "evidence_ingress_mid": "0x0EEA",
     "qualifier_evidence_mid": "0x0EEB",
@@ -389,11 +389,40 @@
       "corroborator_key_id": "0x00002002",
       "source": "RFC8032_SECTION_7_1_PUBLIC_TEST_KEYS_1_AND_2"
     },
+    "runtime_evidence": {
+      "qualification_head": "ea58629c70a6022343db6a7bce7ee05cd08083e0",
+      "workflow_id": 365269942,
+      "workflow_run_id": 35911617367,
+      "job_id": 107352621226,
+      "artifact_id": 10774070814,
+      "artifact_digest": "sha256:5d8f3a49a411e0acf6993d9742b8cb148e7a11c187bbeb5038516164aeed8ff8",
+      "compile_markers": [
+        "aerc_eprod_compile=PASS",
+        "aerc_qualifier_compile=PASS",
+        "aerc_qualifier_probe_compile=PASS"
+      ],
+      "runtime_markers": [
+        "aerc_producer_bridge_runtime=PASS",
+        "aerc_qualifier_runtime=PASS",
+        "aerc_precanonical_policy_binding_runtime=PASS"
+      ],
+      "valid_primary_base_enter": true,
+      "valid_corroborated_enter": true,
+      "f9_transport_corruption_hold": true,
+      "f12_equivocation_hold": true,
+      "malformed_ingress_rejected": true,
+      "private_key_in_cfs_fsw": false,
+      "research_truth_visible_to_qualifier_runtime": false,
+      "study7e_scientific_scenarios_executed": 0,
+      "scientific_results_generated": false
+    },
+    "precanonical_policy_binding_present": true,
     "timing_values_frozen": false,
     "epoch_values_frozen": false,
     "registry_values_frozen": false,
     "canonical_policy_binding_frozen": false,
     "production_models_trained": false,
     "scientific_results_generated": false
-  }
+  },
+  "producer_qualifier_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md"
 }
