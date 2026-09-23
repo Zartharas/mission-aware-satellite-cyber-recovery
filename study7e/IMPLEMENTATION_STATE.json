@@ -10,33 +10,47 @@
   "cfs_candidate": {
     "tag": "v7.0.1",
     "commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
-    "qualification": "LIVE_RUNTIME_BEHAVIOR_PASS_OBSERVED__CI_GATE_PENDING_ASSERTION_RECONCILIATION",
+    "qualification": "CFS_V701_BUILD_AND_CUSTOM_SB_PROBE_RUNTIME_GREEN__AERC_POLICY_APP_NOT_YET_IMPLEMENTED",
     "evidence": {
-      "pre_handoff_head": "9248597987888427810890e1add7b1c3abd160bb",
-      "research_reproduction_smoke_run_id": 35805350118,
-      "study7e_precanonical_workflow_run_id": 35807192091,
-      "observed_runtime_pass_marker": "AERC bus probe PASS: HK MID 0x0886 cmd_count=1",
-      "observed_command_mid": "0x1886",
-      "observed_housekeeping_mid": "0x0886",
-      "observed_command_count": 1,
-      "qualification_gate_green": false
+      "qualification_head": "bef6fe920277d378ba857d280633f48b2b25cffc",
+      "workflow_id": 364617426,
+      "study7e_precanonical_workflow_run_id": 35868263684,
+      "cfs_custom_app_job_id": 107205320338,
+      "repository_validation_run_id": 35868263952,
+      "upstream_cfs_revision": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+      "observed_runtime_pass_marker": "AERC_BUS_PROBE PASS scenario=0x53374531 marker=0xA37C0DE1",
+      "probe_message_mid": "0x0EE0",
+      "probe_scenario_id": "0x53374531",
+      "probe_marker": "0xA37C0DE1",
+      "study7e_scientific_scenarios_executed": 0,
+      "scientific_results_generated": false,
+      "qualification_gate_green": true,
+      "qualification_scope": "cFS custom application load/start plus Software Bus publish/receive self-loop feasibility only; not a full AERC policy application"
+    },
+    "evidence_correction": {
+      "prior_handoff_claim": "AERC NOOP/HK interaction on command MID 0x1886 and housekeeping MID 0x0886 with cmd_count=1",
+      "disposition": "RETRACTED_AS_UNSUPPORTED_BY_REFERENCED_GITHUB_ACTIONS_LOGS_AND_CURRENT_PR_CONTENT",
+      "audited_prior_run_id": 35807192091,
+      "audited_prior_job_id": 107010550970,
+      "explanation": "The referenced prior job failed while loading the aerc_bus_probe entry symbol and did not establish the claimed AERC NOOP/HK interaction. PR #167 contains the non-canonical aerc_bus_probe but no full AERC cFS policy application."
     }
   },
   "nos3_candidate": {
     "tag": "v1_07_05",
     "version": "1.7.5",
     "commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
-    "qualification": "NOT_STARTED__WAITING_FOR_GREEN_CFS_RUNTIME_GATE"
+    "qualification": "READY_FOR_BOUNDED_FEASIBILITY__NOT_STARTED"
   },
-  "stack_decision_status": "PENDING_GREEN_CFS_RUNTIME_AND_NOS3_FEASIBILITY",
+  "stack_decision_status": "PENDING_NOS3_FEASIBILITY",
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "AERC_CFE_COMPATIBILITY_SURFACE_AND_BUS_PROBE_PRESENT__PRECANONICAL",
+    "cfs_custom_apps": "AERC_BUS_PROBE_RUNTIME_GREEN__FULL_AERC_POLICY_APP_NOT_IMPLEMENTED__PRECANONICAL",
     "nos3_integration": "NOT_STARTED_PENDING_NOS3_FEASIBILITY",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Reconcile cFS workflow assertion/timeout/marker semantics and obtain a genuinely green cFS runtime smoke rerun; only then perform bounded NOS3 feasibility and the cFS-vs-NOS3 stack decision"
+  "next_gate": "Perform bounded NOS3 feasibility using authoritative current NOS3/cFS evidence; then document the cFS-vs-NOS3 stack decision before any remaining non-canonical architecture implementation",
+  "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md"
 }
