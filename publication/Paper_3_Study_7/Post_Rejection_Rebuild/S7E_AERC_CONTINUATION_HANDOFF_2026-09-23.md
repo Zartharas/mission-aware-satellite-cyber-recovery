@@ -611,3 +611,29 @@ Approval record:
 
 `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md`
 
+## cFS producer bridge + qualifier plumbing — IMPLEMENTED, RUNTIME PENDING
+
+Following author approval of AR-1 through AR-5, the pre-canonical cFS path now includes:
+
+- `aerc_eprod`: exact-length private-key-free bridge for externally signed evidence;
+- `aerc_qual`: 64-byte v2 parser, engineering public-key lookup, Ed25519 verification, controlled-time/epoch/sequence qualification, and base/corroborated snapshot emission;
+- `aerc_qprobe`: engineering-only pre-signed vectors that exercise producer → qualifier → D0/D1 → recovery sink.
+
+Engineering MIDs:
+
+- signed-evidence ingress: `0x0EEA`;
+- producer→qualifier evidence: `0x0EEB`;
+- qualifier context: `0x0EEC`.
+
+The cFS source contains no private test seed or private signing key. The temporary public-key/source IDs are explicitly non-final engineering registry entries.
+
+The runtime gate will exercise:
+
+- valid primary D0 ENTER;
+- valid corroborator D1 ENTER;
+- F9 post-signature epoch-byte corruption → signature/epoch failure and D0 HOLD;
+- F12 valid same-sequence equivocation → `noncontradictory=0` and D0 HOLD;
+- malformed producer ingress rejection.
+
+No final registry/timing/epoch value is frozen and no canonical scientific execution is authorized.
+

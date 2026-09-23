@@ -157,13 +157,13 @@
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "SB_SBN_HS_RECOVERY_SINK_SHARED_BC_SNAPSHOT_D0_D1_MONOCYPHER_ED25519_BOUNDARY_RUNTIME_GREEN__AUTHORIZATION_BINDING_AND_LEARNED_RUNTIME_NOT_IMPLEMENTED__PRECANONICAL",
+    "cfs_custom_apps": "SB_SBN_HS_RECOVERY_SINK_SHARED_BC_SNAPSHOT_D0_D1_MONOCYPHER_ED25519_PRODUCER_QUALIFIER_IMPLEMENTED_RUNTIME_PENDING__LEARNED_RUNTIME_NOT_IMPLEMENTED__PRECANONICAL",
     "nos3_integration": "BOUNDED_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Implement the approved pre-canonical cFS producer bridge and qualifier plumbing using the approved 64-byte v2 evidence semantics, host-side/private-key-free cFS boundary, opaque authority representation, qualifier semantics, and F0-F12 design. Keep timing thresholds, epoch/registry/key values, byte-transform freeze, production L0/L1 training/freeze, protocol/environment freeze, and canonical execution unfrozen.",
+  "next_gate": "Qualify the approved pre-canonical producer bridge and cFS qualifier path through D0/D1 and the recovery sink. Required runtime evidence: valid primary/corroborator signatures, F9 post-signature corruption fail-closed behavior, F12 same-sequence equivocation, malformed producer ingress rejection, no private keys in cFS FSW, and zero scientific scenario/result generation. Do not freeze final timing/epoch/registry/key values or train/freeze L0/L1.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -372,5 +372,28 @@
     "approval_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
     "protocol_freeze": false,
     "canonical_execution_authorized": false
+  },
+  "producer_qualifier_precanonical_binding": {
+    "state": "IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING",
+    "approval_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
+    "evidence_ingress_mid": "0x0EEA",
+    "qualifier_evidence_mid": "0x0EEB",
+    "qualifier_context_mid": "0x0EEC",
+    "base_snapshot_mid": "0x0EE5",
+    "corroborated_snapshot_mid": "0x0EE6",
+    "producer_private_key_present": false,
+    "qualifier_private_key_present": false,
+    "engineering_public_key_registry": {
+      "state": "NONFINAL_ENGINEERING_ONLY",
+      "primary_key_id": "0x00002001",
+      "corroborator_key_id": "0x00002002",
+      "source": "RFC8032_SECTION_7_1_PUBLIC_TEST_KEYS_1_AND_2"
+    },
+    "timing_values_frozen": false,
+    "epoch_values_frozen": false,
+    "registry_values_frozen": false,
+    "canonical_policy_binding_frozen": false,
+    "production_models_trained": false,
+    "scientific_results_generated": false
   }
 }

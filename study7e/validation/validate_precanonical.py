@@ -258,6 +258,20 @@ def main() -> int:
     require(all(author_review["approvals"][key] for key in ("ar_1","ar_2","ar_3","ar_4","ar_5")), "AR-1 through AR-5 approval drift")
     require(author_review["approvals"]["protocol_freeze"] is False, "protocol freeze recorded through author-review package")
     require(author_review["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized through author-review package")
+    pq_state = state["producer_qualifier_precanonical_binding"]
+    require(pq_state["state"] == "IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING", "producer/qualifier implementation state drift")
+    require(pq_state["evidence_ingress_mid"] == "0x0EEA", "producer ingress MID drift")
+    require(pq_state["qualifier_evidence_mid"] == "0x0EEB", "qualifier evidence MID drift")
+    require(pq_state["qualifier_context_mid"] == "0x0EEC", "qualifier context MID drift")
+    require(pq_state["producer_private_key_present"] is False, "private key added to producer FSW")
+    require(pq_state["qualifier_private_key_present"] is False, "private key added to qualifier FSW")
+    require(pq_state["engineering_public_key_registry"]["state"] == "NONFINAL_ENGINEERING_ONLY", "engineering key registry frozen unexpectedly")
+    require(pq_state["timing_values_frozen"] is False, "qualifier timing frozen prematurely")
+    require(pq_state["epoch_values_frozen"] is False, "qualifier epoch values frozen prematurely")
+    require(pq_state["registry_values_frozen"] is False, "qualifier registries frozen prematurely")
+    require(pq_state["canonical_policy_binding_frozen"] is False, "canonical policy binding frozen prematurely")
+    require(pq_state["production_models_trained"] is False, "producer/qualifier gate trained production models")
+    require(pq_state["scientific_results_generated"] is False, "producer/qualifier gate generated scientific results")
     qualifier_fault_state = state["qualifier_fault_feasibility"]
     require(qualifier_fault_state["state"] == "HOST_ONLY_RUNTIME_GREEN__ENGINEERING_ONLY", "qualifier/fault feasibility state drift")
     require(qualifier_fault_state["policy_decisions_executed"] == 0, "qualifier/fault gate executed policy decisions")
@@ -303,6 +317,10 @@ def main() -> int:
         ROOT / "study7e/fsw/aerc_sigverify/fsw/src/aerc_ed25519_wrapper.c",
         ROOT / "study7e/fsw/aerc_sigverify/fsw/src/aerc_sigverify.c",
         ROOT / "study7e/fsw/aerc_sigverify_probe/fsw/src/aerc_sigverify_probe.c",
+        ROOT / "study7e/fsw/aerc_evidence_common/inc/aerc_evidence_common.h",
+        ROOT / "study7e/fsw/aerc_eprod/fsw/src/aerc_eprod.c",
+        ROOT / "study7e/fsw/aerc_qualifier/fsw/src/aerc_qualifier.c",
+        ROOT / "study7e/fsw/aerc_qualifier_probe/fsw/src/aerc_qualifier_probe.c",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
