@@ -674,3 +674,20 @@ Checkpoint:
 
 `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md`
 
+## Remaining execution parameters — technical candidate, not frozen
+
+A consolidated technical candidate now covers the remaining parameters required before a later protocol/environment freeze proposal:
+
+- scenario-local logical ticks with `freshness_max_age_ticks=0`;
+- constant `evidence_epoch=1`;
+- SHA-256-derived opaque 32-bit scenario/source/key/authority registries with mandatory collision checks;
+- reproducible non-secret host-only Ed25519 test fixtures derived on demand, with no persistent private-key files and no private keys in cFS;
+- current F0-F12 transforms retained as the proposed final byte/stage-transform freeze candidate.
+
+These choices are deliberately **not frozen**. They are covered by fast pre-canonical contract tests and require a new explicit author decision (EP-1 through EP-5).
+
+Records:
+
+- `study7e/configs/execution_parameters_candidate_2026-09-23.json`
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_EXECUTION_PARAMETERS_TECHNICAL_REVIEW_2026-09-23.md`
+

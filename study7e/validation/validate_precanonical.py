@@ -45,6 +45,7 @@ def main() -> int:
     qualifier_time_replay = load_json(ROOT / "study7e/configs/qualifier_time_replay_contract_draft.json")
     fault_transforms = load_json(ROOT / "study7e/configs/fault_transformations_draft.json")
     author_review = load_json(ROOT / "study7e/configs/author_review_package_2026-09-23.json")
+    execution_params = load_json(ROOT / "study7e/configs/execution_parameters_candidate_2026-09-23.json")
     signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
 
     require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
@@ -258,6 +259,25 @@ def main() -> int:
     require(all(author_review["approvals"][key] for key in ("ar_1","ar_2","ar_3","ar_4","ar_5")), "AR-1 through AR-5 approval drift")
     require(author_review["approvals"]["protocol_freeze"] is False, "protocol freeze recorded through author-review package")
     require(author_review["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized through author-review package")
+    require(
+        execution_params["state"] == "TECHNICAL_CANDIDATE__AUTHOR_APPROVAL_REQUIRED__NOT_FROZEN",
+        "execution-parameter candidate state drift",
+    )
+    require(execution_params["controlled_time"]["freshness_max_age_ticks"] == 0, "freshness candidate drift")
+    require(execution_params["controlled_time"]["wall_clock_dependency"] is False, "wall-clock dependency introduced")
+    require(execution_params["evidence_epoch"]["expected_epoch"] == 1, "evidence epoch candidate drift")
+    require(execution_params["evidence_epoch"]["scenario_specific"] is False, "scenario-specific epoch introduced")
+    require(execution_params["opaque_registry_algorithm"]["hash"] == "SHA-256", "opaque registry hash drift")
+    require(execution_params["opaque_registry_algorithm"]["scenario_registry"]["expected_entries"] == 280, "scenario registry count drift")
+    require(execution_params["opaque_registry_algorithm"]["scenario_registry"]["current_candidate_collisions"] == 0, "scenario registry collision evidence drift")
+    require(execution_params["deterministic_test_keys"]["persistent_private_key_files"] is False, "persistent private-key file introduced")
+    require(execution_params["deterministic_test_keys"]["cfs_private_key_present"] is False, "private key introduced into cFS")
+    require(execution_params["fault_transform_freeze_candidate"]["status"].endswith("FINAL_FREEZE_NOT_YET_AUTHORIZED"), "fault transforms frozen without approval")
+    require(execution_params["approvals"]["author_review_completed"] is False, "execution parameters approved prematurely")
+    require(not any(execution_params["approvals"][key] for key in ("ep_1","ep_2","ep_3","ep_4","ep_5")), "execution parameter decision recorded prematurely")
+    require(execution_params["approvals"]["protocol_freeze"] is False, "protocol frozen prematurely")
+    require(execution_params["approvals"]["environment_freeze"] is False, "environment frozen prematurely")
+    require(execution_params["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized prematurely")
     pq_state = state["producer_qualifier_precanonical_binding"]
     require(pq_state["state"] == "RUNTIME_GREEN__PRECANONICAL__NOT_FROZEN", "producer/qualifier implementation state drift")
     require(pq_state["evidence_ingress_mid"] == "0x0EEA", "producer ingress MID drift")
@@ -352,6 +372,9 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md",
         ROOT / "study7e/configs/author_review_package_2026-09-23.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_REVIEW_PACKAGE_2026-09-23.md",
+        ROOT / "study7e/configs/execution_parameters_candidate_2026-09-23.json",
+        ROOT / "study7e/tests/test_execution_parameters_candidate.py",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_EXECUTION_PARAMETERS_TECHNICAL_REVIEW_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",

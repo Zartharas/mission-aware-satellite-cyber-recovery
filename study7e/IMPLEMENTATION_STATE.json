@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Review the remaining non-frozen execution parameters needed before a protocol/environment freeze candidate: numeric controlled-time freshness threshold, epoch mapping, opaque scenario/source/key/authority registries, deterministic test-key generation/storage provenance, and final byte-transform freeze. Do not train/freeze L0/L1, authorize canonical execution, or merge PR #167 without separate explicit authorization.",
+  "next_gate": "Qualify the execution-parameter candidate with fast pre-canonical tests, then obtain explicit author approval/rejection of EP-1 through EP-5. Do not freeze protocol/environment/keys/transforms, train/freeze L0/L1, authorize canonical execution, or merge PR #167 without separate explicit authorization.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -424,5 +424,22 @@
     "production_models_trained": false,
     "scientific_results_generated": false
   },
-  "producer_qualifier_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md"
+  "producer_qualifier_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md",
+  "execution_parameter_review": {
+    "state": "TECHNICAL_CANDIDATE__AUTHOR_APPROVAL_REQUIRED__NOT_FROZEN",
+    "candidate_config": "study7e/configs/execution_parameters_candidate_2026-09-23.json",
+    "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_EXECUTION_PARAMETERS_TECHNICAL_REVIEW_2026-09-23.md",
+    "basis_head": "d7006a740c1c7a75221149c3b9828b95e77a303f",
+    "requested_decisions": [
+      "EP-1",
+      "EP-2",
+      "EP-3",
+      "EP-4",
+      "EP-5"
+    ],
+    "author_review_completed": false,
+    "protocol_freeze": false,
+    "environment_freeze": false,
+    "canonical_execution_authorized": false
+  }
 }
