@@ -511,3 +511,24 @@ The gate checks explicit big-endian serialize/parse round-trip, deterministic ke
 
 No final key registry, policy binding, scientific scenario, or result is created.
 
+## Host-side signed-evidence v2 feasibility — GREEN
+
+At head `7f33cbb9653f3016a8ce87a17105a56ade644bba`, the 64-byte reviewed draft candidate passed the host-side Monocypher engineering gate.
+
+Evidence:
+
+- workflow ID: `365357473`
+- run ID: `35896385014`
+- job ID: `107301223761`
+- artifact ID: `10767022256`
+- artifact digest: `sha256:ebd5af65fbbbc5a0bd555362d5eb88f125c43f3e7f5c29aeaacc37fc2d6a1d1a`
+- body SHA-256: `d877eb02f03851e34889b635c40008ec5b9eaa48cc0669720356ef6caaa92c73`
+
+PASS assertions include explicit serialize/parse, RFC-8032 test-key derivation, sign/verify, protected-field mutation rejection, malformed reserved-field rejection, and invalid-field rejection.
+
+The RFC test seed exists only in the host-side engineering test. No secret key exists in cFS FSW, no final experiment key registry is frozen, and no policy binding or scientific execution occurred.
+
+Checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md`
+

@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Qualify the host-side signed-evidence v2 serializer/parser and deterministic engineering signing path. If green, checkpoint exact body/signature/provenance evidence. Final experiment keys/registries, timing/replay semantics, fault transformations, policy binding, learned-model training/freeze, protocol freeze, and canonical execution remain prohibited.",
+  "next_gate": "Use the green v2 host feasibility evidence to draft the remaining deterministic qualifier-time/replay and fault-transformation contracts. Do not freeze the 64-byte signed body, final keys/registries, or verifier-to-policy binding without author review. Production L0/L1 training/freeze, protocol/environment freeze, and canonical execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -284,14 +284,34 @@
     "freeze_authorized": false
   },
   "signed_evidence_v2_feasibility": {
-    "state": "HOST_SIDE_IMPLEMENTED__QUALIFICATION_PENDING",
+    "state": "HOST_SIDE_RUNTIME_GREEN__ENGINEERING_ONLY",
     "workflow": ".github/workflows/study7e-signed-evidence-v2-feasibility.yml",
+    "workflow_id": 365357473,
+    "workflow_run_id": 35896385014,
+    "job_id": 107301223761,
+    "qualification_head": "7f33cbb9653f3016a8ce87a17105a56ade644bba",
+    "artifact_id": 10767022256,
+    "artifact_digest": "sha256:ebd5af65fbbbc5a0bd555362d5eb88f125c43f3e7f5c29aeaacc37fc2d6a1d1a",
     "implementation_dir": "study7e/feasibility/signed_evidence_v2",
     "candidate_bytes": 64,
+    "body_hex": "5337452d414552432d415554482d5631010101005337480100001001000030010000200100000000000000000000000700000000000003e80000000000000001",
+    "body_sha256": "d877eb02f03851e34889b635c40008ec5b9eaa48cc0669720356ef6caaa92c73",
+    "engineering_public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "engineering_signature_hex": "471f3c1a399077191999ce25390a176aa85a06e919cc472f9d0a5b1df2b5f9eed13e572e8708c61a1d4480d38c932829f1cafd567d68bd78fe78a526ba6f320b",
     "test_key_material": "RFC8032_SECTION_7_1_TEST_1__PUBLIC_ENGINEERING_VECTOR__NOT_FINAL_EXPERIMENT_KEY",
+    "checks": {
+      "serialize_parse": true,
+      "rfc8032_key_derivation": true,
+      "sign_verify": true,
+      "protected_field_mutations_rejected": true,
+      "malformed_reserved_rejected": true,
+      "invalid_fields_rejected": true
+    },
     "private_key_in_cfs_fsw": false,
     "final_key_registry_frozen": false,
     "policy_binding": false,
+    "study7e_scientific_scenarios_executed": 0,
     "scientific_results_generated": false
-  }
+  },
+  "signed_evidence_v2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md"
 }

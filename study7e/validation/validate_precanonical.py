@@ -238,11 +238,20 @@ def main() -> int:
         "architecture draft approval/freeze gate enabled prematurely",
     )
     signed_v2_state = state["signed_evidence_v2_feasibility"]
-    require(signed_v2_state["state"] == "HOST_SIDE_IMPLEMENTED__QUALIFICATION_PENDING", "signed-evidence v2 feasibility state drift")
+    require(signed_v2_state["state"] == "HOST_SIDE_RUNTIME_GREEN__ENGINEERING_ONLY", "signed-evidence v2 feasibility state drift")
     require(signed_v2_state["candidate_bytes"] == 64, "signed-evidence v2 feasibility byte-length drift")
     require(signed_v2_state["private_key_in_cfs_fsw"] is False, "signed-evidence v2 test key leaked into cFS FSW")
     require(signed_v2_state["final_key_registry_frozen"] is False, "signed-evidence v2 key registry frozen prematurely")
     require(signed_v2_state["policy_binding"] is False, "signed-evidence v2 policy binding enabled prematurely")
+    require(signed_v2_state["workflow_run_id"] == 35896385014, "signed-evidence v2 workflow evidence drift")
+    require(signed_v2_state["job_id"] == 107301223761, "signed-evidence v2 job evidence drift")
+    require(signed_v2_state["artifact_id"] == 10767022256, "signed-evidence v2 artifact evidence drift")
+    require(signed_v2_state["body_sha256"] == "d877eb02f03851e34889b635c40008ec5b9eaa48cc0669720356ef6caaa92c73", "signed-evidence v2 body digest drift")
+    require(signed_v2_state["engineering_public_key_hex"] == "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a", "signed-evidence v2 engineering public key drift")
+    require(signed_v2_state["checks"]["serialize_parse"] is True, "signed-evidence v2 serialize/parse evidence lost")
+    require(signed_v2_state["checks"]["sign_verify"] is True, "signed-evidence v2 sign/verify evidence lost")
+    require(signed_v2_state["checks"]["protected_field_mutations_rejected"] is True, "signed-evidence v2 mutation rejection evidence lost")
+    require(signed_v2_state["scientific_results_generated"] is False, "signed-evidence v2 generated scientific results")
 
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
@@ -274,6 +283,7 @@ def main() -> int:
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
         ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",
         ROOT / ".github/workflows/study7e-signed-evidence-v2-feasibility.yml",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_ARCHITECTURE_RESOLUTION_DRAFT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
