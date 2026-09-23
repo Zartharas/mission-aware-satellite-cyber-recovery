@@ -1,46 +1,17 @@
-# Wiley AI Use Declaration
+# AI Use Declaration
 
-## Tool
+## Tool and period of use
 
-OpenAI ChatGPT — GPT-5.6 Sol.
+OpenAI ChatGPT / GPT-5.6 Sol was used during 2026 manuscript development and venue-specific submission preparation.
 
-## Dates of use
+## Use and scientific boundary
 
-2026, during manuscript drafting, scientific-language review, literature-navigation support, figure/table preparation, and venue-specific submission-package preparation.
+The tool assisted with drafting and restructuring, language editing, literature navigation and metadata checking, claim-boundary review, organization of the two-study narrative, preparation of submission materials, and presentation-layer figure/table planning from already frozen values. It did not generate, alter, manipulate, or replace Study 8 data, Study 8E data, study protocols, canonical result files, evidence hashes, prespecified endpoints, or corrected Results-002 scientific findings. No new scientific execution or statistical reanalysis was performed as part of the R5 manuscript rebuild.
 
-## How the tool was used
+## Author verification and responsibility
 
-The tool assisted with:
+The author independently reviewed and verified the scientific claims, citations, numerical values, equations, source identities, interpretations, and publisher-facing materials and retains full responsibility for the accuracy, originality, integrity, and final content of the submission.
 
-- drafting and restructuring manuscript prose;
-- checking wording against frozen claim boundaries;
-- organizing the two-study manuscript architecture;
-- literature-navigation and metadata verification;
-- preparing journal-specific title-page, abstract, keyword, GTOC, checklist, and cover-letter materials;
-- producing presentation-layer figures from already frozen numerical values.
+## Privacy and Wiley placement
 
-## Scientific boundary
-
-The tool was **not** used to generate, alter, manipulate, or replace the frozen Study 8 or Study 8E scientific data, canonical result files, evidence hashes, protocol definitions, primary endpoints, or corrected Results-002 findings.
-
-## Author validation
-
-The author independently reviewed and verified all:
-
-- numerical values;
-- claims and interpretations;
-- citation metadata;
-- source identities;
-- figure values;
-- manuscript revisions;
-- journal requirements.
-
-The author retains full responsibility for the accuracy, originality, integrity, and final approval of the manuscript and submission materials.
-
-## Privacy and compliance
-
-The work reported here uses software/modeling evidence and public data. No human-subject records, private mission telemetry, operational command credentials, classified data, or proprietary spacecraft data were supplied to the AI tool for this manuscript.
-
-## Submission handling
-
-This declaration should be copied into any Wiley Research Exchange AI-use field if presented and retained in the manuscript declaration section unless the journal editor instructs otherwise.
+No human-subject records, private mission telemetry, operational command credentials, classified information, or proprietary spacecraft data were supplied to the AI tool for this manuscript. The substantive disclosure appears within the Methods section because the live Wiley submission workflow required disclosure there. This standalone declaration is retained only as submission-support documentation and should be uploaded if the portal provides an appropriate file field or if requested by the journal.

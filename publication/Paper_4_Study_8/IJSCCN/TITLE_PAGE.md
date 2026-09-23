@@ -1,4 +1,4 @@
-# Title Page — International Journal of Satellite Communications and Networking
+# Title Page
 
 ## Full title
 
@@ -8,11 +8,9 @@ Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Acros
 
 Post-Quantum Satellite Recovery Under Intermittent Connectivity
 
-**Character count:** 63 (journal limit: 70)
-
 ## Article type
 
-Original research article / full-length research paper (final portal label to be selected from the Wiley Research Exchange options).
+Original Paper
 
 ## Author
 
@@ -25,30 +23,21 @@ Original research article / full-length research paper (final portal label to be
 {{AUTHOR_DISPLAY_NAME}}  
 Email: {{AUTHOR_EMAIL}}  
 ORCID: {{AUTHOR_ORCID}}  
-Preferred correspondence method: email  
 Telephone: {{AUTHOR_TELEPHONE}}  
-Fax: not applicable
+Fax: Not applicable
 
 ## Funding
 
 This research was conducted independently and received no external funding.
 
-## Competing interests
+## Conflict of interest
 
 The author declares no competing financial or non-financial interests.
 
-## Ethics
+## Ethics statement
 
-The reported studies are software/modeling and public-data research and do not involve human participants, identifiable private information, animals, live spacecraft operations, unauthorized access, or radio-frequency experimentation.
+The reported Studies 8 and 8E are software/modeling and public-data research. They do not involve human participants, identifiable private information, animals, live spacecraft operations, unauthorized access, or radio-frequency experimentation.
 
-## Data availability
+## Data availability statement
 
-Data, code, frozen protocols, result hashes, and audit records supporting the reported findings are archived in the public research repository. The submission-package Data Availability Statement provides the repository-level provenance details.
-
-## Author contributions
-
-**{{AUTHOR_DISPLAY_NAME}}:** Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing – original draft; Writing – review & editing; Visualization; Project administration.
-
-## AI use
-
-A detailed Wiley-aligned AI Use Declaration is included in the submission package and the manuscript declarations.
+Data, code, frozen protocols, result manifests, evidence hashes, and audit records supporting the reported findings are archived in the public research repository. The manuscript provides the full Data Availability Statement and formal repository/data citation.
