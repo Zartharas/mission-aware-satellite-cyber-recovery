@@ -40,6 +40,7 @@ def main() -> int:
     env = load_json(ROOT / "study7e/configs/candidate_environment.json")
     learner = load_json(ROOT / "study7e/configs/learner_candidate.json")
     signed_evidence = load_json(ROOT / "study7e/configs/signed_evidence_contract_draft.json")
+    signed_evidence_review = load_json(ROOT / "study7e/configs/signed_evidence_contract_review_r1.json")
     signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
 
     require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
@@ -195,6 +196,16 @@ def main() -> int:
     require(signed_evidence["experiment_public_key_registry_draft"]["secret_key_in_verifier_flight_software"] is False, "secret key allowed in verifier FSW")
     require(len(signed_evidence["unresolved_decisions"]) >= 10, "signed-evidence unresolved-design guard weakened")
     require(not any(signed_evidence["freeze_gates"].values()), "signed-evidence freeze gate enabled prematurely")
+    require(
+        signed_evidence_review["state"] == "TECHNICAL_REVIEW_COMPLETE__AUTHOR_APPROVAL_NOT_GRANTED",
+        "signed-evidence review state drift",
+    )
+    require(signed_evidence_review["disposition"] == "REVISE_CANDIDATE_BEFORE_AUTHOR_APPROVAL", "signed-evidence review disposition drift")
+    require(signed_evidence_review["recommended_candidate_v2"]["candidate_message_bytes"] == 64, "reviewed signed-evidence candidate size drift")
+    require(signed_evidence_review["recommended_candidate_v2"]["fields"][4]["name"] == "scenario_id", "reviewed scenario binding lost")
+    require(signed_evidence_review["approvals"]["author_approval"] is False, "signed-evidence author approval recorded prematurely")
+    require(signed_evidence_review["approvals"]["protocol_freeze"] is False, "signed-evidence protocol freeze recorded prematurely")
+    require(signed_evidence_review["approvals"]["policy_binding_authorized"] is False, "signed-evidence policy binding authorized prematurely")
 
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
@@ -219,6 +230,8 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md",
         ROOT / "study7e/configs/signed_evidence_contract_draft.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_DRAFT_2026-09-23.md",
+        ROOT / "study7e/configs/signed_evidence_contract_review_r1.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
         ROOT / ".github/workflows/study7e-cfs-baseline-feasibility.yml",

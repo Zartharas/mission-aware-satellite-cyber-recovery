@@ -428,3 +428,22 @@ The draft explicitly leaves scenario/context binding, replay semantics, freshnes
 
 No verifier result is bound to `primary_signature_valid`, `corr_signature_valid`, `primary_authorization`, or `corr_authorization` by this draft.
 
+## Signed-evidence contract technical review R1 — REVISE
+
+The first draft has completed technical/adversarial review. It is **not approved for freeze**.
+
+Review records:
+
+- `study7e/configs/signed_evidence_contract_review_r1.json`
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md`
+
+Blocking findings:
+
+1. sign an opaque scenario/context identifier to prevent cross-scenario splice/replay ambiguity;
+2. explicitly resolve signing-key placement before producer implementation;
+3. explicitly resolve T4 authority representation/keying provenance.
+
+The review recommends a 64-byte candidate body that preserves 64-bit epoch/logical-time/sequence fields while adding a signed opaque `scenario_id`. It also recommends keeping completeness structural-only and preserving a structurally parsed authorization claim independently of signature validity so policy-visible feature meanings are not silently collapsed.
+
+Author approval, protocol freeze, and policy binding remain false.
+

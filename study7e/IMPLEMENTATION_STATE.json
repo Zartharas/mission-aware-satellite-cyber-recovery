@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Author-review the draft signed-evidence serialization and experiment public-key provenance contract. Resolve scenario/context binding, logical-time/freshness/epoch semantics, contradiction/completeness rules, authorization exposure on failed qualification, T4 authority representation, fault byte transformations, and final test-key registry before any verifier-to-policy binding. L0/L1 implementation, production-model training/freeze, protocol/environment freeze, and canonical scientific execution remain prohibited.",
+  "next_gate": "Revise the signed-evidence draft to the technically reviewed v2 candidate (including opaque signed scenario_id and 64-byte explicit encoding) while keeping it unfrozen. Preserve independent feature semantics. Do not implement producer signing until signing-key placement and T4 authority representation are explicitly resolved. L0/L1 production training/freeze and canonical execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -252,5 +252,18 @@
     "canonical_signed_bytes_frozen": false,
     "policy_signature_feature_binding_authorized": false,
     "unresolved_decision_count": 11
+  },
+  "signed_evidence_contract_review": {
+    "state": "TECHNICAL_REVIEW_COMPLETE__REVISE_BEFORE_AUTHOR_APPROVAL",
+    "review_json": "study7e/configs/signed_evidence_contract_review_r1.json",
+    "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
+    "blocking_findings": [
+      "R1-F1",
+      "R1-F7",
+      "R1-F8"
+    ],
+    "recommended_candidate_bytes": 64,
+    "author_approval": false,
+    "freeze_authorized": false
   }
 }
