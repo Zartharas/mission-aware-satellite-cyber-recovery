@@ -1,11 +1,8 @@
 {
-  "schema": 1,
+  "schema": 2,
   "record_id": "P4-REBUILT-S8-S8E-MANUSCRIPT-INTEGRATION-001",
-  "date_local": "2026-09-21",
-  "base_main_commit": "a64c68d64289eaf815204cbfd279125d00c84909",
-  "branch": "paper4/execute-rebuilt-study8-8e-manuscript",
-  "status": "IJSCCN_R5_PUBLIC_POLICY_AUDIT_PASSED__SOURCE_REBUILD_AUTHORIZED__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
-  "authorization_basis": "Author explicitly authorized execution of the rebuilt Paper 4 Study 8 + Study 8E manuscript integration plan after PR #153 merged and post-merge main CI passed.",
+  "date_local": "2026-09-22",
+  "status": "IJSCCN_R5_SUBMITTED__IN_SCREENING__SCIENTIFIC_BOUNDARIES_PRESERVED",
   "architecture": {
     "study8": "S8-PQC-ICR-001",
     "study8e": "S8E-ECTV-001",
@@ -14,15 +11,12 @@
     "logical_slots_converted_to_physical_time": false
   },
   "manuscript": {
-    "path": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
-    "working_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
-    "venue_neutral": false,
     "venue_locked": true,
-    "title_locked": false,
     "locked_venue": "International Journal of Satellite Communications and Networking",
     "locked_venue_abbreviation": "IJSCCN",
-    "venue_lock_record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md",
-    "venue_specific_derivative_path": "publication/Paper_4_Study_8/IJSCCN/"
+    "submitted_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
+    "venue_specific_derivative_path": "publication/Paper_4_Study_8/IJSCCN/",
+    "submitted_manuscript_source_head": "829e23836fc378f40bb5211bfbe2599882e30bc7"
   },
   "evidence": {
     "study8_modified": false,
@@ -30,88 +24,36 @@
     "rejected_acta_package_modified": false,
     "results_001_used_scientifically": false,
     "results_002_freeze": "S8E-CANON-RESULTS-002-FREEZE-001",
-    "paper5_evidence_imported": false
-  },
-  "literature_refresh": {
-    "completed": true,
-    "date": "2026-09-21",
-    "nist_crypto_agility_record": "CSWP 39upd1",
-    "preprints_labeled_as_preprints": true,
-    "dezuane_peer_reviewed_record": "IEEE LANMAN 2026; DOI 10.1109/LANMAN69841.2026.11623493"
+    "paper5_evidence_imported": false,
+    "scientific_reanalysis_performed_for_r5": false
   },
   "authorization": {
     "manuscript_integration_authorized": true,
     "new_scientific_execution_authorized": false,
     "venue_lock_authorized": true,
-    "publisher_submission_authorized": false,
-    "live_venue_assessment_authorized": true,
-    "venue_specific_package_preparation_authorized": true
+    "publisher_submission_authorized": true,
+    "publisher_submission_authorization_date_local": "2026-09-22"
   },
-  "next_gate": "R5_SOURCE_REBUILD__SCIENTIFIC_PRESERVATION_AUDIT__DOCX_PAGE_QA__LIVE_PORTAL_INSTANCE_CHECK__THEN_SEPARATE_FINAL_SUBMISSION_AUTHORIZATION",
+  "submission": {
+    "submitted": true,
+    "submission_date_local": "2026-09-22",
+    "journal_manuscript_id": "4920969",
+    "portal_status_after_submission": "IN_SCREENING",
+    "final_reviewer_pdf_gate": "PASS",
+    "final_reviewer_pdf_pages": 27,
+    "author_photo_format": "JPEG"
+  },
   "review": {
-    "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
-    "status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
-    "language_refinements_applied": 8,
-    "bibliography_correction": "NIST CSWP 39upd1 coauthor corrected from Lidong Chen to Lily Chen",
-    "frozen_science_modified": false,
-    "paper5_evidence_imported": false
+    "author_scientific_review": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
+    "paper4_paper5_non_overlap": "PASS",
+    "study8_study8e_non_pooling": "PASS",
+    "publisher_visual_qa": "PASS",
+    "final_portal_reconciliation": "PASS"
   },
-  "live_venue_assessment": {
-    "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md",
-    "status": "LIVE_VENUE_ASSESSMENT_COMPLETE__IJSCCN_PREFERRED__VENUE_NOT_LOCKED",
-    "preferred_candidate": "International Journal of Satellite Communications and Networking",
-    "strongest_fallback": "Computer Networks",
-    "security_fallback": "International Journal of Information Security"
+  "privacy": {
+    "author_photo_local_only": true,
+    "private_contact_metadata_local_only": true,
+    "personalized_packages_ignored_by_git": true
   },
-  "package_freeze": {
-    "freeze_id": "P4-IJSCCN-PKG-R1-FREEZE-001",
-    "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md",
-    "package_source_commit": "6553be414fd1bc598218501971872ff644dee8c8",
-    "workflow_run": 35632266523,
-    "artifact_id": 10655615285,
-    "artifact_digest_sha256": "ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37",
-    "core_package_frozen": true,
-    "author_photo_pending": true,
-    "scientific_reanalysis_performed": false
-  },
-  "r5_rebuild": {
-    "date_local": "2026-09-21",
-    "trigger": "Author visual review found that the local R4.x publisher-facing manuscript did not meet the required professional journal presentation standard. R4.3 is not approved for Wiley upload.",
-    "scope": "Presentation, manuscript architecture, and publisher-facing submission-document rebuild only.",
-    "scientific_reanalysis_performed": false,
-    "study8_modified": false,
-    "study8e_modified": false,
-    "rejected_acta_package_modified": false,
-    "populations_pooled": false,
-    "acta_use": "Immutable historical submission and visual-quality benchmark only; do not modify or copy venue-specific scientific framing blindly.",
-    "live_policy_sources": [
-      "https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html",
-      "https://authors.wiley.com/author-resources/Journal-Authors/Prepare/index.html",
-      "https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/index.html",
-      "https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/index.html"
-    ],
-    "authority_rule": "Current IJSCCN-specific instructions control over generic Wiley guidance when they conflict; live portal fields/certifications control for portal-specific requirements.",
-    "local_privacy_state": {
-      "author_photo_supplied_local_only": true,
-      "private_contact_metadata_local_only": true,
-      "personalized_packages_ignored_by_git": true
-    },
-    "author_requirements": {
-      "sole_author": true,
-      "no_em_dashes": true,
-      "final_submission_requires_separate_explicit_authorization": true
-    },
-    "handoff_record": "publication/Paper_4_Study_8/IJSCCN/NEW_CHAT_HANDOFF_2026-09-21_R5_REBUILD.md",
-    "public_policy_audit": {
-      "completed": true,
-      "audit_date_utc": "2026-09-22",
-      "evidence_record": "publication/Paper_4_Study_8/IJSCCN/R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md",
-      "requirement_matrix": "publication/Paper_4_Study_8/IJSCCN/R5_LIVE_POLICY_REQUIREMENT_MATRIX_2026-09-21.md",
-      "design_spec": "publication/Paper_4_Study_8/IJSCCN/R5_MANUSCRIPT_DESIGN_SPEC_2026-09-21.md",
-      "public_policy_gate": "PASS",
-      "portal_instance_gate": "PARTIALLY_OPEN",
-      "manuscript_source_rebuild_authorized": true,
-      "final_publisher_submission_authorized": false
-    }
-  }
+  "next_gate": "EDITORIAL_SCREENING__DO_NOT_MODIFY_FROZEN_OR_SUBMITTED_SCIENCE_UNLESS_JOURNAL_REQUESTS_REVISION"
 }
