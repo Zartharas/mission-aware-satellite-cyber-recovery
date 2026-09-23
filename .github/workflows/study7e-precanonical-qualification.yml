@@ -149,7 +149,7 @@ jobs:
           cp -a study7e/fsw/aerc_bus_probe /tmp/s7e-cfs/apps/aerc_bus_probe
           cp -a study7e/fsw/aerc_recovery_sink /tmp/s7e-cfs/apps/aerc_recovery_sink
           cp -a study7e/fsw/aerc_sink_probe /tmp/s7e-cfs/apps/aerc_sink_probe
-          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_sink aerc_sink_probe\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
+          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
           python - <<'PY'
           from pathlib import Path
 
