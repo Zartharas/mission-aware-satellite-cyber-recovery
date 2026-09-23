@@ -290,3 +290,51 @@ After the selected cFS baseline and sink gate became green, CI was separated by 
 
 This avoids repeating an already-established full baseline build on documentation/config-only commits.
 
+## Shared B/C snapshot + deterministic D0/D1 — GREEN
+
+At head `b13f0d0cd6db3aa0f6e965e9303e7068544f3184`, the FSW-only runtime-smoke workflow completed the isolated deterministic policy gate successfully.
+
+Evidence:
+
+- workflow: `Study 7E cFS runtime smoke`
+- workflow ID: `365269942`
+- run ID: `35885631864`
+- job ID: `107264993826`
+- artifact ID: `10761799281`
+- artifact digest: `sha256:0b8ce4878099acad5e06257106f26aaac0cc6db58e1aa258db0312f66f15ee47`
+- repository validation run: `35885631683` — success
+- pre-canonical qualification run: `35885631522` — success
+
+Positive deterministic decisions:
+
+- `D0_BASE` ENTER on scenario `0x53374551`, sequence 1, 9-feature base snapshot;
+- `D0_BASE` HOLD on scenario `0x53374552`, sequence 2;
+- `D1_CORROBORATED` ENTER on scenario `0x53374553`, sequence 3, 16-feature corroborated snapshot;
+- `D1_CORROBORATED` HOLD on scenario `0x53374554`, sequence 4.
+
+Fail-closed runtime checks:
+
+- malformed snapshot length rejected;
+- base/corroborated feature-count mismatch rejected;
+- non-binary feature value rejected.
+
+All four accepted decisions produced matching recovery-sink records with the same policy/action ordering.
+
+The workflow also recorded:
+
+- `aerc_policy_runtime=PASS`;
+- `aerc_d0_runtime=PASS`;
+- `aerc_d1_runtime=PASS`;
+- `research_truth_visible_to_policy_runtime=false`;
+- `learned_policy_runtime_executed=false`;
+- `study7e_scientific_scenarios_executed=0`;
+- `scientific_results_generated=false`.
+
+Checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md`
+
+### Next gate
+
+Perform a bounded compatibility/provenance review for the real-signature verification dependency. Ed25519 remains the protocol candidate, but no crypto runtime is selected or added by this checkpoint. L0/L1 learned-policy implementation remains separate and no production model is trained or frozen.
+

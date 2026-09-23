@@ -71,10 +71,12 @@ These are protocol design quantities, not results.
 - `fsw/aerc_bus_probe/`
 - `fsw/aerc_recovery_sink/`
 - `fsw/aerc_sink_probe/`
+- `fsw/aerc_policy/`
+- `fsw/aerc_policy_probe/`
 - `tests/`
 - `feasibility/`
 
-The Python implementation remains a pre-canonical architecture/contract harness. Non-canonical cFS engineering surfaces now validate Software Bus, two-instance SBN transport, deterministic scenario-ID/sink receipt, HS housekeeping observability, and the recovery-action sink. The sink records only requested actions, rejects malformed/invalid requests, and does not actuate hardware. These components are not the full AERC policy application and are not scientific execution.
+The Python implementation remains a pre-canonical architecture/contract harness. Non-canonical cFS engineering surfaces now validate Software Bus, two-instance SBN transport, deterministic scenario-ID/sink receipt, HS housekeeping observability, the recovery-action sink, and the shared B/C snapshot path with deterministic D0/D1 decisions. The sink records only requested actions and the policy path rejects malformed or contract-invalid snapshots. Learned L0/L1 and real-signature verification are not implemented. These components are not canonical scientific execution.
 
 ## Pre-freeze implementation baseline
 
@@ -92,4 +94,4 @@ This is **not** a canonical environment freeze. Decision record:
 
 ## Next gate
 
-Implement the shared policy-visible evidence/snapshot contract and deterministic D0/D1 decision path next. The real-signature/Ed25519 dependency remains a separate reviewed decision before authorization-producer/verification implementation. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain separate later author gates.
+Perform the bounded compatibility/provenance review for the real-signature verification dependency next. Ed25519 remains the protocol candidate, but no crypto runtime should be added until that dependency decision is documented. Learned L0/L1 implementation and model freeze remain later gates. Protocol/environment freeze and canonical scientific execution remain separately prohibited.
