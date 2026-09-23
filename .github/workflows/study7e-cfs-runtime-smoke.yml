@@ -276,7 +276,11 @@ jobs:
 
           path = Path("/tmp/s7e-cfs/build-native_std/exe/cpu1/cf/cfe_es_startup.scr")
           lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
-          lines = [line for line in lines if "aerc_" not in line]
+          lines = [
+              line for line in lines
+              if not line.lstrip().startswith("CFE_APP,")
+              and not line.lstrip().startswith("CFE_LIB,")
+          ]
           lines.append("CFE_APP, aerc_sink, AERC_SINK_Main, AERC_SINK, 53, 32768, 0x0, 0;\n")
           lines.append("CFE_APP, aerc_policy, AERC_POLICY_Main, AERC_POLICY, 54, 32768, 0x0, 0;\n")
           lines.append("CFE_APP, aerc_eprod, AERC_EPROD_Main, AERC_EPROD, 55, 32768, 0x0, 0;\n")
