@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Author-review the revised 64-byte signed-evidence v2 candidate. Before producer implementation or verifier-to-policy binding, explicitly resolve signing-key placement and T4 authority representation, then freeze logical-time/freshness/epoch/replay semantics, opaque registries, test-key provenance, and fault byte transformations. L0/L1 production training/freeze, protocol/environment freeze, and canonical execution remain prohibited.",
+  "next_gate": "Implement and test the host-side fixed-width v2 serializer/parser and deterministic engineering signer path using non-final test-vector key material outside cFS FSW. Preserve the public-key-only cFS verifier. Do not freeze final keys/registries or bind signature/authorization features until author review of the draft architecture and remaining timing/replay/fault-transform contracts.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -253,8 +253,8 @@
     "scenario_id_policy_visible": false,
     "completeness_semantics": "PROPOSED_STRUCTURAL_ONLY__NOT_FROZEN",
     "authorization_extraction_semantics": "PROPOSED_INDEPENDENT_FOR_STRUCTURALLY_COMPLETE_EVIDENCE__NOT_FROZEN",
-    "signing_key_placement_resolved": false,
-    "t4_authority_representation_resolved": false,
+    "signing_key_placement_resolved": "TECHNICAL_DRAFT_ONLY",
+    "t4_authority_representation_resolved": "TECHNICAL_DRAFT_ONLY",
     "public_key_registry_populated": false,
     "canonical_signed_bytes_frozen": false,
     "policy_signature_feature_binding_authorized": false,
@@ -270,6 +270,16 @@
       "R1-F8"
     ],
     "recommended_candidate_bytes": 64,
+    "author_approval": false,
+    "freeze_authorized": false
+  },
+  "signed_evidence_architecture_resolution": {
+    "state": "TECHNICAL_DRAFT_RESOLUTION__AUTHOR_APPROVAL_NOT_GRANTED__NOT_FROZEN",
+    "resolution_json": "study7e/configs/signed_evidence_architecture_resolution_draft.json",
+    "resolution_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_ARCHITECTURE_RESOLUTION_DRAFT_2026-09-23.md",
+    "signing_key_placement": "EXTERNAL_DETERMINISTIC_TEST_SIGNING_HARNESS",
+    "t4_authority_representation": "SIGNED_OPAQUE_AUTHORITY_ID_PLUS_HARNESS_PROVENANCE__NO_SECOND_AUTHORITY_SIGNATURE",
+    "private_key_in_cfs_fsw": false,
     "author_approval": false,
     "freeze_authorized": false
   }

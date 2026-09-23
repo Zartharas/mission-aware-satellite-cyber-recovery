@@ -474,3 +474,24 @@ Still blocking:
 
 All author-approval, protocol-freeze, key-freeze, policy-binding, and canonical-execution gates remain false.
 
+## Signed-evidence architecture blockers — technical draft resolution
+
+Two R1 blockers now have a pre-canonical **technical draft resolution**, not an author-approved freeze:
+
+- signing keys remain outside all cFS FSW in a deterministic local Study-7E test signing harness;
+- T4 authority separation uses a signed opaque `authority_id` plus harness provenance/state, without introducing a second authority-signature hierarchy.
+
+This preserves independent key-, execution-, source-, and authority-domain fault semantics:
+
+- F3/F4 key compromise affects controlled harness signing-key access;
+- F12 execution compromise can alter/drop producer behavior without automatically exposing the key;
+- F10 authority compromise changes authority output before source/producer signing;
+- F1 source false changes the claim after authority output but before signing.
+
+No external network signer is permitted for canonical execution. No final key material, registry, or fault transformation is frozen.
+
+Records:
+
+- `study7e/configs/signed_evidence_architecture_resolution_draft.json`
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_ARCHITECTURE_RESOLUTION_DRAFT_2026-09-23.md`
+

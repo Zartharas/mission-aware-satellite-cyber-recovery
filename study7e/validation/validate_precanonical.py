@@ -41,6 +41,7 @@ def main() -> int:
     learner = load_json(ROOT / "study7e/configs/learner_candidate.json")
     signed_evidence = load_json(ROOT / "study7e/configs/signed_evidence_contract_draft.json")
     signed_evidence_review = load_json(ROOT / "study7e/configs/signed_evidence_contract_review_r1.json")
+    signed_evidence_resolution = load_json(ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json")
     signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
 
     require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
@@ -213,6 +214,29 @@ def main() -> int:
     require(signed_evidence_review["approvals"]["author_approval"] is False, "signed-evidence author approval recorded prematurely")
     require(signed_evidence_review["approvals"]["protocol_freeze"] is False, "signed-evidence protocol freeze recorded prematurely")
     require(signed_evidence_review["approvals"]["policy_binding_authorized"] is False, "signed-evidence policy binding authorized prematurely")
+    require(
+        signed_evidence_resolution["state"] == "TECHNICAL_DRAFT_RESOLUTION__AUTHOR_APPROVAL_NOT_GRANTED__NOT_FROZEN",
+        "signed-evidence architecture resolution state drift",
+    )
+    require(
+        signed_evidence_resolution["signing_key_placement"]["selected_draft_pattern"] == "EXTERNAL_DETERMINISTIC_TEST_SIGNING_HARNESS",
+        "signing-key placement draft drift",
+    )
+    require(
+        signed_evidence_resolution["t4_authority_representation"]["selected_draft_pattern"] == "SIGNED_OPAQUE_AUTHORITY_ID_PLUS_HARNESS_PROVENANCE__NO_SECOND_AUTHORITY_SIGNATURE",
+        "T4 authority representation draft drift",
+    )
+    require(
+        signed_evidence_resolution["signing_key_placement"]["producer_fsw_contains_secret_key"] is False,
+        "producer FSW secret-key guard lost",
+    )
+    require(
+        signed_evidence_resolution["approvals"]["author_approval"] is False
+        and signed_evidence_resolution["approvals"]["protocol_freeze"] is False
+        and signed_evidence_resolution["approvals"]["policy_binding_authorized"] is False
+        and signed_evidence_resolution["approvals"]["canonical_execution_authorized"] is False,
+        "architecture draft approval/freeze gate enabled prematurely",
+    )
 
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
@@ -239,6 +263,8 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_DRAFT_2026-09-23.md",
         ROOT / "study7e/configs/signed_evidence_contract_review_r1.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
+        ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_ARCHITECTURE_RESOLUTION_DRAFT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
         ROOT / ".github/workflows/study7e-cfs-baseline-feasibility.yml",
