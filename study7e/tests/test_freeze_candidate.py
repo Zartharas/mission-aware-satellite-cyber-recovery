@@ -114,9 +114,9 @@ class FreezeCandidateTests(unittest.TestCase):
         self.assertEqual(learner["hyperparameters"]["criterion"], "gini")
         self.assertEqual(learner["hyperparameters"]["splitter"], "best")
 
-    def test_bound_blobs_are_exact_at_candidate_parent(self) -> None:
+    def test_bound_blobs_are_exact_in_qualified_tree(self) -> None:
         for path, expected in FC["bound_git_blobs"].items():
-            actual = subprocess.check_output(["git", "rev-parse", f"ae96db64da3e00551d05f05996f6e4af82d6cfbe:{path}"], text=True).strip()
+            actual = subprocess.check_output(["git", "rev-parse", f"HEAD:{path}"], text=True).strip()
             self.assertEqual(actual, expected, path)
 
     def test_scientific_and_merge_gates_remain_closed(self) -> None:
