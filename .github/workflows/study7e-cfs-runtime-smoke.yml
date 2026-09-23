@@ -1,4 +1,5 @@
 name: Study 7E cFS runtime smoke
+# FSW-only qualification; baseline feasibility is maintained separately.
 
 on:
   push:
