@@ -252,10 +252,18 @@ def main() -> int:
     require("two separately signed" in fault_transforms["profiles"]["F12"]["transformation"], "F12 equivocation candidate drift")
     require(fault_transforms["approvals"]["byte_transformations_frozen"] is False, "fault transforms frozen prematurely")
     qualifier_fault_state = state["qualifier_fault_feasibility"]
-    require(qualifier_fault_state["state"] == "HOST_ONLY_IMPLEMENTED__QUALIFICATION_PENDING", "qualifier/fault feasibility state drift")
+    require(qualifier_fault_state["state"] == "HOST_ONLY_RUNTIME_GREEN__ENGINEERING_ONLY", "qualifier/fault feasibility state drift")
     require(qualifier_fault_state["policy_decisions_executed"] == 0, "qualifier/fault gate executed policy decisions")
     require(qualifier_fault_state["production_models_trained"] is False, "qualifier/fault gate trained production models")
     require(qualifier_fault_state["scientific_results_generated"] is False, "qualifier/fault gate generated scientific results")
+    require(qualifier_fault_state["workflow_run_id"] == 35898052702, "qualifier/fault workflow evidence drift")
+    require(qualifier_fault_state["job_id"] == 107306900171, "qualifier/fault job evidence drift")
+    require(qualifier_fault_state["artifact_id"] == 10768381197, "qualifier/fault artifact evidence drift")
+    require(qualifier_fault_state["tests_passed"] == 17, "qualifier/fault test-count evidence drift")
+    require(qualifier_fault_state["fault_profiles_tested"] == 13, "qualifier/fault profile-count evidence drift")
+    require(qualifier_fault_state["feature_independence_checked"] is True, "qualifier feature-independence evidence lost")
+    require(qualifier_fault_state["replay_equivocation_checked"] is True, "qualifier replay/equivocation evidence lost")
+    require(qualifier_fault_state["topology_propagation_checked"] is True, "qualifier topology-propagation evidence lost")
     signed_v2_state = state["signed_evidence_v2_feasibility"]
     require(signed_v2_state["state"] == "HOST_SIDE_RUNTIME_GREEN__ENGINEERING_ONLY", "signed-evidence v2 feasibility state drift")
     require(signed_v2_state["candidate_bytes"] == 64, "signed-evidence v2 feasibility byte-length drift")
@@ -304,6 +312,7 @@ def main() -> int:
         ROOT / "study7e/feasibility/qualifier_fault/qualifier_fault_model.py",
         ROOT / "study7e/feasibility/qualifier_fault/test_qualifier_fault_model.py",
         ROOT / ".github/workflows/study7e-qualifier-fault-feasibility.yml",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
         ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",

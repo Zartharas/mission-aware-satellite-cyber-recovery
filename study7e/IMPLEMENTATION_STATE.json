@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Qualify the host-only qualifier/fault contract harness. If green, checkpoint feature-independence, replay/equivocation, freshness-boundary parameterization, and topology propagation evidence. Keep all draft numeric thresholds/registries/keys/transformations and protocol/model/canonical gates unfrozen.",
+  "next_gate": "Author-review the revised signed-evidence v2, qualifier time/replay, and F0-F12 transformation drafts before any freeze or cFS qualifier/producer implementation. Numeric freshness/epoch/registry/key choices, byte transformations, verifier-to-policy binding, learned-model training/freeze, protocol/environment freeze, and canonical execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -330,11 +330,23 @@
     "author_approval": false
   },
   "qualifier_fault_feasibility": {
-    "state": "HOST_ONLY_IMPLEMENTED__QUALIFICATION_PENDING",
+    "state": "HOST_ONLY_RUNTIME_GREEN__ENGINEERING_ONLY",
     "workflow": ".github/workflows/study7e-qualifier-fault-feasibility.yml",
-    "implementation_dir": "study7e/feasibility/qualifier_fault",
+    "workflow_id": 365368346,
+    "workflow_run_id": 35898052702,
+    "job_id": 107306900171,
+    "qualification_head": "613128f95a33c712dac85c6e458b9fc2f7b5d463",
+    "artifact_id": 10768381197,
+    "artifact_digest": "sha256:73bb799e199a44dd672e535fd2ec36d178710c55ace354841cc1ac85467ac0be",
+    "tests_passed": 17,
+    "fault_profiles_tested": 13,
+    "feature_independence_checked": true,
+    "replay_equivocation_checked": true,
+    "topology_propagation_checked": true,
     "policy_decisions_executed": 0,
     "production_models_trained": false,
+    "study7e_scientific_scenarios_executed": 0,
     "scientific_results_generated": false
-  }
+  },
+  "qualifier_fault_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md"
 }

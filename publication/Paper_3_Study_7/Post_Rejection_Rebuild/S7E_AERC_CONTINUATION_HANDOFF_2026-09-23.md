@@ -560,3 +560,23 @@ It tests feature independence, freshness boundary parameterization, duplicate/eq
 
 It executes zero recovery-policy decisions and trains no models.
 
+## Host-only qualifier/fault feasibility — GREEN
+
+At head `613128f95a33c712dac85c6e458b9fc2f7b5d463`, the draft qualifier/replay and F0-F12 contract harness passed all 17 host-only tests.
+
+Evidence:
+
+- workflow ID: `365368346`
+- run ID: `35898052702`
+- job ID: `107306900171`
+- artifact ID: `10768381197`
+- artifact digest: `sha256:73bb799e199a44dd672e535fd2ec36d178710c55ace354841cc1ac85467ac0be`
+
+The gate verified feature independence, freshness-boundary parameterization, duplicate/replay/equivocation handling, F5/F9/F11/F12 candidate effects, and topology propagation across all 13 fault profiles.
+
+It executed zero policy decisions, trained no models, and generated no scientific results.
+
+Checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md`
+
