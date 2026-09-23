@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Use the green v2 host feasibility evidence to draft the remaining deterministic qualifier-time/replay and fault-transformation contracts. Do not freeze the 64-byte signed body, final keys/registries, or verifier-to-policy binding without author review. Production L0/L1 training/freeze, protocol/environment freeze, and canonical execution remain prohibited.",
+  "next_gate": "Implement a host-side qualifier/fault engineering harness against the draft v2 body to validate feature independence, freshness boundary parameterization, sequence rollback/equivocation handling, and all F0-F12 proposed transformations. Keep freshness threshold, epoch mapping, registries, keys, byte transforms, policy binding, learned models, protocol/environment, and canonical execution unfrozen.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -313,5 +313,20 @@
     "study7e_scientific_scenarios_executed": 0,
     "scientific_results_generated": false
   },
-  "signed_evidence_v2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md"
+  "signed_evidence_v2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md",
+  "qualifier_time_replay_contract": {
+    "state": "DRAFT__NOT_FROZEN__NO_POLICY_BINDING",
+    "contract": "study7e/configs/qualifier_time_replay_contract_draft.json",
+    "freshness_threshold_frozen": false,
+    "epoch_semantics_frozen": false,
+    "replay_semantics_proposed": true,
+    "author_approval": false
+  },
+  "fault_transformations": {
+    "state": "DRAFT__NOT_FROZEN__BYTE_STAGE_TRANSFORMS_PROPOSED",
+    "contract": "study7e/configs/fault_transformations_draft.json",
+    "exact_profile_count": 13,
+    "byte_transformations_frozen": false,
+    "author_approval": false
+  }
 }

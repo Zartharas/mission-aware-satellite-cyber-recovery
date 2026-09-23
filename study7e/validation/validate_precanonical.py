@@ -42,6 +42,8 @@ def main() -> int:
     signed_evidence = load_json(ROOT / "study7e/configs/signed_evidence_contract_draft.json")
     signed_evidence_review = load_json(ROOT / "study7e/configs/signed_evidence_contract_review_r1.json")
     signed_evidence_resolution = load_json(ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json")
+    qualifier_time_replay = load_json(ROOT / "study7e/configs/qualifier_time_replay_contract_draft.json")
+    fault_transforms = load_json(ROOT / "study7e/configs/fault_transformations_draft.json")
     signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
 
     require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
@@ -237,6 +239,18 @@ def main() -> int:
         and signed_evidence_resolution["approvals"]["canonical_execution_authorized"] is False,
         "architecture draft approval/freeze gate enabled prematurely",
     )
+    require(qualifier_time_replay["state"] == "DRAFT__NOT_FROZEN__NO_POLICY_BINDING", "qualifier time/replay draft state drift")
+    require(qualifier_time_replay["controlled_time"]["wall_clock_dependency"] is False, "wall-clock dependency introduced")
+    require(qualifier_time_replay["controlled_time"]["producer_controls_freshness_threshold"] is False, "producer-controlled freshness threshold introduced")
+    require(qualifier_time_replay["structural_completeness"]["complete_feature_is_structural_only"] is True, "completeness semantics drift")
+    require(qualifier_time_replay["sequence_and_replay"]["equal_sequence_identical_body"].startswith("idempotent"), "duplicate semantics drift")
+    require("sticky path contradiction" in qualifier_time_replay["sequence_and_replay"]["equal_sequence_different_body"], "equivocation semantics drift")
+    require(qualifier_time_replay["approvals"]["author_approval"] is False, "qualifier draft approved prematurely")
+    require(fault_transforms["state"] == "DRAFT__NOT_FROZEN__BYTE_STAGE_TRANSFORMS_PROPOSED", "fault transformation draft state drift")
+    require(len(fault_transforms["profiles"]) == 13, "fault transformation profile count drift")
+    require("offset 47" in fault_transforms["profiles"]["F9"]["transformation"], "F9 candidate byte transformation drift")
+    require("two separately signed" in fault_transforms["profiles"]["F12"]["transformation"], "F12 equivocation candidate drift")
+    require(fault_transforms["approvals"]["byte_transformations_frozen"] is False, "fault transforms frozen prematurely")
     signed_v2_state = state["signed_evidence_v2_feasibility"]
     require(signed_v2_state["state"] == "HOST_SIDE_RUNTIME_GREEN__ENGINEERING_ONLY", "signed-evidence v2 feasibility state drift")
     require(signed_v2_state["candidate_bytes"] == 64, "signed-evidence v2 feasibility byte-length drift")
@@ -279,6 +293,9 @@ def main() -> int:
         ROOT / "study7e/configs/signed_evidence_contract_review_r1.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
         ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json",
+        ROOT / "study7e/configs/qualifier_time_replay_contract_draft.json",
+        ROOT / "study7e/configs/fault_transformations_draft.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_AND_FAULT_CONTRACT_DRAFT_2026-09-23.md",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
         ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",

@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "DRAFT__NOT_FROZEN__BYTE_STAGE_TRANSFORMS_PROPOSED",
+  "input_contract": "study7e/configs/signed_evidence_contract_draft.json candidate_serialization_v2",
+  "qualifier_contract": "study7e/configs/qualifier_time_replay_contract_draft.json",
+  "general_rules": {
+    "transformations_execute_in": "research-only deterministic scenario harness/test boundary",
+    "topology_propagation": "apply each targeted domain fault to every evidence path whose research-only domain ID aliases the targeted domain",
+    "topology_fault_identity_policy_visible": false,
+    "objective_truth_policy_visible": false,
+    "operation_order": "authority stage -> source stage -> canonical serialization -> signing stage -> execution emission stage -> transport stage -> qualifier",
+    "signing_keys_in_cfs_fsw": false
+  },
+  "profiles": {
+    "F0": {
+      "name": "NOMINAL",
+      "transformation": "none"
+    },
+    "F1": {
+      "name": "PRIMARY_SOURCE_FALSE",
+      "stage": "source_pre_sign",
+      "target_domain": "source",
+      "transformation": "for each affected primary/source-domain-aliased path, set authorization_value = 1 - true_authorization after authority output and before serialization/signing; retain nominal source_id, authority_id, key_id, epoch, time, sequence; sign normally"
+    },
+    "F2": {
+      "name": "CORR_SOURCE_FALSE",
+      "stage": "source_pre_sign",
+      "target_domain": "source",
+      "transformation": "for each affected corroborator/source-domain-aliased path, set authorization_value = 1 - true_authorization after authority output and before serialization/signing; sign normally"
+    },
+    "F3": {
+      "name": "PRIMARY_KEY_COMPROMISE",
+      "stage": "signing",
+      "target_domain": "key",
+      "transformation": "for every path aliasing the targeted primary key domain, replace nominal evidence with a forged structurally valid current-context body whose authorization_value = 1 - true_authorization and whose source/authority IDs remain nominal; sign with the compromised test key"
+    },
+    "F4": {
+      "name": "CORR_KEY_COMPROMISE",
+      "stage": "signing",
+      "target_domain": "key",
+      "transformation": "for every path aliasing the targeted corroborator key domain, replace nominal evidence with a forged structurally valid current-context body whose authorization_value = 1 - true_authorization; sign with the compromised test key"
+    },
+    "F5": {
+      "name": "PRIMARY_FRESHNESS_DELAY",
+      "stage": "delivery_time",
+      "target_domain": null,
+      "transformation": "retain exact nominal signed primary bytes; deliver/evaluate at now_tick = issued_logical_time + freshness_max_age_ticks + 1"
+    },
+    "F6": {
+      "name": "CORR_FRESHNESS_DELAY",
+      "stage": "delivery_time",
+      "target_domain": null,
+      "transformation": "retain exact nominal signed corroborator bytes; deliver/evaluate at now_tick = issued_logical_time + freshness_max_age_ticks + 1"
+    },
+    "F7": {
+      "name": "PRIMARY_MESSAGE_LOSS",
+      "stage": "pre_qualifier_delivery",
+      "target_domain": null,
+      "transformation": "suppress primary evidence entirely before qualifier"
+    },
+    "F8": {
+      "name": "CORR_MESSAGE_LOSS",
+      "stage": "pre_qualifier_delivery",
+      "target_domain": null,
+      "transformation": "suppress corroborator evidence entirely before qualifier"
+    },
+    "F9": {
+      "name": "PRIMARY_TRANSPORT_COMPROMISE",
+      "stage": "post_signature_transport",
+      "target_domain": "transport",
+      "transformation": "for every path aliasing the targeted primary transport domain, XOR 0x01 into byte offset 47 (least-significant byte of signed evidence_epoch) after signing; preserve 64-byte structural validity; do not recompute signature",
+      "expected_feature_effect": "signature_valid=0 and epoch_valid=0 for the mutated applicable body; authorization claim remains unchanged"
+    },
+    "F10": {
+      "name": "PRIMARY_AUTHORITY_COMPROMISE",
+      "stage": "authority_pre_source",
+      "target_domain": "authority",
+      "transformation": "for every path aliasing the targeted primary authority domain, authority stage outputs 1 - true_authorization before source processing; source/producer signs normally with nominal key"
+    },
+    "F11": {
+      "name": "COMPOUND_AUTHORITY_TRANSPORT",
+      "stages": [
+        "authority_pre_source",
+        "post_signature_transport"
+      ],
+      "target_domains": [
+        "authority",
+        "transport"
+      ],
+      "transformation_order": [
+        "apply F10 authority-stage false authorization to authority-domain-aliased paths",
+        "serialize/sign resulting body normally",
+        "apply F9 epoch-byte XOR transport mutation to transport-domain-aliased paths without resigning"
+      ],
+      "expected_feature_effect": "where both stages affect a path: false authorization claim remains present, signature_valid=0, epoch_valid=0"
+    },
+    "F12": {
+      "name": "PRIMARY_EXECUTION_COMPROMISE",
+      "stage": "producer_execution_pre_emit",
+      "target_domain": "execution",
+      "transformation": "for every path aliasing the targeted primary execution domain, emit two separately signed structurally valid bodies with identical scenario_id, producer_role, source_id, authority_id, key_id, evidence_epoch, issued_logical_time, and evidence_sequence; first carries nominal authorization, second carries 1 - true_authorization",
+      "expected_feature_effect": "both signatures valid; same-sequence different-body equivocation sets sticky noncontradictory=0 for affected path"
+    }
+  },
+  "adversarial_review": {
+    "source_false_vs_authority_false": "policy-visible evidence may be intentionally indistinguishable; causal stage/domain remains research-only and differs in topology propagation",
+    "key_compromise_vs_execution_compromise": "key compromise forges one false validly signed claim; execution compromise creates validly signed equivocation without exposing the private key to cFS FSW",
+    "transport_vs_loss": "F9 is deterministic post-signature corruption, while F7/F8 exclusively model loss",
+    "compound_order_fixed": true,
+    "no_fault_label_in_signed_body": true
+  },
+  "unresolved_before_freeze": [
+    "final freshness_max_age_ticks value needed by F5/F6",
+    "final expected_epoch semantics used by F9 epoch mutation",
+    "final key/source/authority registries and aliases",
+    "final host-harness injection boundary",
+    "author approval of F9 byte offset 47 mutation",
+    "author approval of F12 equivocation transformation",
+    "independent implementation audit of stage ordering and topology propagation"
+  ],
+  "approvals": {
+    "author_approval": false,
+    "protocol_freeze": false,
+    "byte_transformations_frozen": false,
+    "canonical_execution_authorized": false
+  }
+}

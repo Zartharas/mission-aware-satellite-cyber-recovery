@@ -532,3 +532,23 @@ Checkpoint:
 
 `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md`
 
+## Qualifier time/replay + F0–F12 transformations — DRAFT ONLY
+
+Two additional pre-freeze contracts are now proposed:
+
+- `study7e/configs/qualifier_time_replay_contract_draft.json`
+- `study7e/configs/fault_transformations_draft.json`
+
+Key draft semantics:
+
+- controlled logical ticks only; no wall clock;
+- freshness threshold remains external and numerically unfrozen;
+- exact duplicates are idempotent;
+- valid lower-sequence replay or same-sequence different-body equivocation makes path-local `noncontradictory=0`;
+- structural completeness remains independent of trust/signature/freshness;
+- authorization claim remains independently parsed for structurally complete evidence;
+- F9 proposes a post-signature XOR of byte 47 (epoch LSB), yielding signature/epoch failure without corrupting structure;
+- F12 proposes two valid same-sequence opposite-authorization bodies to exercise execution-domain equivocation.
+
+All transformations remain draft and require author review before freeze.
+
