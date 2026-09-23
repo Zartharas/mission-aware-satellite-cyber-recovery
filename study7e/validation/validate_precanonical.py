@@ -161,6 +161,19 @@ def main() -> int:
     require(signature_deps["candidates"]["monocypher"]["commit"] == "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f", "Monocypher pin drift")
     require(signature_deps["candidates"]["libsodium"]["commit"] == "77e1ce5d6dee871c49ef211222ba18ef0c486bda", "libsodium pin drift")
     require(signature_deps["candidates"]["libsodium"]["official_tarball_sha256"] == "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349", "libsodium tarball digest drift")
+    sigwire = signature_deps["integration_contract"]
+    require(sigwire["state"] == "CFS_VERIFICATION_BOUNDARY_IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING", "signature verifier integration state drift")
+    require(sigwire["request_mid"] == "0x0EE8", "signature verifier request MID drift")
+    require(sigwire["result_mid"] == "0x0EE9", "signature verifier result MID drift")
+    require(sigwire["wire_version"] == 1, "signature verifier wire version drift")
+    require(sigwire["public_key_bytes"] == 32, "signature verifier public-key size drift")
+    require(sigwire["signature_bytes"] == 64, "signature verifier signature size drift")
+    require(sigwire["message_capacity_bytes"] == 64, "signature verifier message capacity drift")
+    require(sigwire["exact_cfe_packet_size_required"] is True, "signature verifier packet-size guard lost")
+    require(sigwire["zero_padding_required"] is True, "signature verifier zero-padding guard lost")
+    require(sigwire["secret_key_present"] is False, "secret key added to verifier boundary")
+    require(sigwire["signing_runtime_present"] is False, "signing runtime added prematurely")
+    require(sigwire["policy_authorization_binding_present"] is False, "verification bound to authorization prematurely")
 
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
@@ -174,6 +187,10 @@ def main() -> int:
         ROOT / "study7e/fsw/aerc_sink_probe/fsw/src/aerc_sink_probe.c",
         ROOT / "study7e/fsw/aerc_policy/fsw/src/aerc_policy.c",
         ROOT / "study7e/fsw/aerc_policy_probe/fsw/src/aerc_policy_probe.c",
+        ROOT / "study7e/fsw/aerc_sigverify/bootstrap_monocypher.sh",
+        ROOT / "study7e/fsw/aerc_sigverify/fsw/src/aerc_ed25519_wrapper.c",
+        ROOT / "study7e/fsw/aerc_sigverify/fsw/src/aerc_sigverify.c",
+        ROOT / "study7e/fsw/aerc_sigverify_probe/fsw/src/aerc_sigverify_probe.c",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",

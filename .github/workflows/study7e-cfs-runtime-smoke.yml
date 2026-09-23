@@ -85,7 +85,10 @@ jobs:
           cp -a study7e/fsw/aerc_sink_probe /tmp/s7e-cfs/apps/aerc_sink_probe
           cp -a study7e/fsw/aerc_policy /tmp/s7e-cfs/apps/aerc_policy
           cp -a study7e/fsw/aerc_policy_probe /tmp/s7e-cfs/apps/aerc_policy_probe
-          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe aerc_policy aerc_policy_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
+          cp -a study7e/fsw/aerc_sigverify /tmp/s7e-cfs/apps/aerc_sigverify
+          cp -a study7e/fsw/aerc_sigverify_probe /tmp/s7e-cfs/apps/aerc_sigverify_probe
+          study7e/fsw/aerc_sigverify/bootstrap_monocypher.sh /tmp/s7e-cfs/apps/aerc_sigverify/vendor
+          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe aerc_policy aerc_policy_probe aerc_sigverify aerc_sigverify_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
           python - <<'PY'
           from pathlib import Path
 
@@ -114,11 +117,15 @@ jobs:
           test -f build-native_std/exe/cpu1/cf/aerc_sink_probe.so
           test -f build-native_std/exe/cpu1/cf/aerc_policy.so
           test -f build-native_std/exe/cpu1/cf/aerc_pprobe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_sigv.so
+          test -f build-native_std/exe/cpu1/cf/aerc_svprobe.so
           echo "aerc_bus_probe_compile=PASS"
           echo "aerc_recovery_sink_compile=PASS"
           echo "aerc_sink_probe_compile=PASS"
           echo "aerc_policy_compile=PASS"
           echo "aerc_policy_probe_compile=PASS"
+          echo "aerc_sigverify_compile=PASS"
+          echo "aerc_sigverify_probe_compile=PASS"
 
       - name: Run non-canonical cFE Software Bus smoke check
         run: |
@@ -198,6 +205,59 @@ jobs:
           echo "study7e_scientific_scenarios_executed=0"
           echo "scientific_results_generated=false"
 
+      - name: Stage isolated Ed25519 verifier startup
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("/tmp/s7e-cfs/build-native_std/exe/cpu1/cf/cfe_es_startup.scr")
+          lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+          lines = [
+              line for line in lines
+              if "aerc_sink," not in line
+              and "aerc_policy," not in line
+              and "aerc_pprobe" not in line
+              and "aerc_sigv" not in line
+              and "aerc_svprobe" not in line
+          ]
+          lines.append("CFE_APP, aerc_sigv, AERC_SIGV_Main, AERC_SIGV, 54, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_svprobe, AERC_SVPROBE_Main, AERC_SVPROBE, 56, 32768, 0x0, 0;\n")
+          path.write_text("".join(lines), encoding="utf-8")
+          PY
+
+      - name: Run cFE Ed25519 verification-boundary smoke
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs/build-native_std/exe/cpu1
+          set +e
+          timeout 20 ./core-cpu1 > /tmp/study7e_sigverify_runtime_smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/study7e_sigverify_runtime_smoke.log
+            exit "$rc"
+          fi
+          cat /tmp/study7e_sigverify_runtime_smoke.log
+
+          grep -F "AERC_SIGV RESULT scenario=0x53374701 request=1 verify_sequence=1 valid=1 reason=0 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374702 request=2 verify_sequence=2 valid=0 reason=1 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374703 request=3 verify_sequence=3 valid=0 reason=1 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374704 request=4 verify_sequence=4 valid=0 reason=1 key_id=1 message_len=1" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_LENGTH" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470C reason=1" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470D reason=2" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470E reason=3" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470F reason=5" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374705 request=10 verify_sequence=5 valid=1 reason=0 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGVERIFY_PROBE PASS valid=2 crypto_reject=3 malformed_reject=5 final_sequence=5" /tmp/study7e_sigverify_runtime_smoke.log
+
+          echo "aerc_ed25519_cfe_boundary=PASS"
+          echo "secret_key_in_flight_software=false"
+          echo "policy_authorization_binding_present=false"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
       - name: Preserve runtime smoke logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -206,4 +266,5 @@ jobs:
           path: |
             /tmp/study7e_cfs_runtime_smoke.log
             /tmp/study7e_policy_runtime_smoke.log
+            /tmp/study7e_sigverify_runtime_smoke.log
           if-no-files-found: warn

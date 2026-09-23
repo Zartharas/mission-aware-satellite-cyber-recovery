@@ -102,5 +102,22 @@
     "Monocypher 4.0.3 is pinned at the timing-leak-fix release.",
     "The integration wrapper must enforce exact public-key, signature, message-size, and cFE packet-size checks because Monocypher does not perform input validation.",
     "No signing key is permitted in flight software and no FIPS, certification, or flight-qualification claim is made."
-  ]
+  ],
+  "integration_contract": {
+    "state": "CFS_VERIFICATION_BOUNDARY_IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING",
+    "request_mid": "0x0EE8",
+    "result_mid": "0x0EE9",
+    "wire_version": 1,
+    "engineering_key_id": 1,
+    "engineering_public_key_provenance": "RFC8032_SECTION_7_1_TEST_1__PUBLIC_ONLY",
+    "public_key_bytes": 32,
+    "signature_bytes": 64,
+    "message_capacity_bytes": 64,
+    "exact_cfe_packet_size_required": true,
+    "zero_padding_required": true,
+    "secret_key_present": false,
+    "signing_runtime_present": false,
+    "policy_authorization_binding_present": false,
+    "production_public_key_registry_frozen": false
+  }
 }
