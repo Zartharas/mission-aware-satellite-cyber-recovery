@@ -210,13 +210,14 @@ static CFE_Status_t AERC_QUAL_EmitSnapshot(
     AERC_POLICY_SNAPSHOT_Message_t snapshot;
     CFE_SB_MsgId_t mid;
     CFE_Status_t status;
+    uint8 feature_count;
 
     memset(&snapshot, 0, sizeof(snapshot));
 
     if (role == AERC_EVIDENCE_ROLE_PRIMARY)
     {
         mid = base_mid;
-        snapshot.FeatureCount = AERC_POLICY_BASE_FEATURE_COUNT;
+        feature_count = AERC_POLICY_BASE_FEATURE_COUNT;
     }
     else
     {
@@ -229,7 +230,7 @@ static CFE_Status_t AERC_QUAL_EmitSnapshot(
         }
 
         mid = corr_mid;
-        snapshot.FeatureCount = AERC_POLICY_CORR_FEATURE_COUNT;
+        feature_count = AERC_POLICY_CORR_FEATURE_COUNT;
     }
 
     status = CFE_MSG_Init(&snapshot.TelemetryHeader.Msg, mid, sizeof(snapshot));
@@ -239,6 +240,7 @@ static CFE_Status_t AERC_QUAL_EmitSnapshot(
     }
 
     snapshot.ScenarioId = parsed->ScenarioId;
+    snapshot.FeatureCount = feature_count;
 
     memcpy(&snapshot.Features[AERC_FEATURE_PRIMARY_SIGNATURE_VALID],
            AERC_QUAL_Primary.Features,
