@@ -177,3 +177,35 @@ Gate-1 checkpoint:
 Earlier implementation checkpoint retained as historical provenance:
 
 `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_IMPLEMENTATION_CHECKPOINT_2026-09-22.md`
+
+## Gate 2 — bounded NOS3 feasibility: GREEN
+
+At head `178fdbd4871c2f6f89b62a8f4f0d2ce826853188`, workflow `Study 7E bounded NOS3 feasibility` (workflow ID `365185951`, run `35870689230`, job `107213663081`) completed successfully.
+
+The bounded gate confirmed the exact NOS3 1.7.5 revision and key recursive gitlinks, then completed `config`, `build-test`, `test-fsw`, and `build-sim`. Artifact `10755347006` was produced with digest `sha256:28397de31e1eed3a37304f9e552ba936222a1a6d53555c28585c817485d4ef38`.
+
+The run executed zero Study-7E scientific scenarios and generated no scientific results.
+
+Durable Gate-2 checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md`
+
+## Stack-selection status — DEFERRED, fail closed
+
+The bounded NOS3 build does not satisfy all preregistered proof-before-selection criteria. The same is true of the standalone-cFS candidate: Gate 1 proves a live custom Software Bus probe but not yet the two-instance/SBN, HS/readiness, end-to-end scenario-ID, and action-sink seams required by the implementation plan.
+
+Accordingly, no stack is selected or frozen yet.
+
+Durable preselection review:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md`
+
+### Required next feasibility proofs
+
+Before selecting a stack:
+
+- standalone cFS: HS/readiness observation, two-instance SBN, deterministic scenario-ID survival, and action-sink telemetry/capture;
+- NOS3: Study-7E custom-app integration, deterministic non-canonical scenario control, required SBN/multi-instance topology, deterministic trace/capture, and runtime network-dependency containment.
+
+These remain engineering qualification activities only. Canonical Study-7E execution remains prohibited.
+

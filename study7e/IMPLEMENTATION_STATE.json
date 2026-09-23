@@ -39,18 +39,39 @@
     "tag": "v1_07_05",
     "version": "1.7.5",
     "commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
-    "qualification": "READY_FOR_BOUNDED_FEASIBILITY__NOT_STARTED"
+    "qualification": "NOS3_V175_FSW_AND_SIM_BUILD_GREEN__PRESELECTION_SEAM_PROOFS_PENDING",
+    "evidence": {
+      "qualification_head": "178fdbd4871c2f6f89b62a8f4f0d2ce826853188",
+      "workflow_id": 365185951,
+      "workflow_run_id": 35870689230,
+      "job_id": 107213663081,
+      "artifact_id": 10755347006,
+      "artifact_digest": "sha256:28397de31e1eed3a37304f9e552ba936222a1a6d53555c28585c817485d4ef38",
+      "upstream_nos3_revision": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+      "build_steps_green": [
+        "config",
+        "build-test",
+        "test-fsw",
+        "build-sim"
+      ],
+      "study7e_scientific_scenarios_executed": 0,
+      "scientific_results_generated": false,
+      "qualification_gate_green": true,
+      "qualification_scope": "bounded NOS3 flight-software/unit-test and simulator build feasibility only; no NOS3 launch, no Study-7E custom-app integration, no scenario campaign"
+    }
   },
-  "stack_decision_status": "PENDING_NOS3_FEASIBILITY",
+  "stack_decision_status": "DEFERRED_PENDING_PRESELECTION_SEAM_PROOFS",
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
     "cfs_custom_apps": "AERC_BUS_PROBE_RUNTIME_GREEN__FULL_AERC_POLICY_APP_NOT_IMPLEMENTED__PRECANONICAL",
-    "nos3_integration": "NOT_STARTED_PENDING_NOS3_FEASIBILITY",
+    "nos3_integration": "BOUNDED_BUILD_GREEN__CUSTOM_APP_SCENARIO_CONTROL_SBN_AND_NETWORK_DEPENDENCY_SEAMS_PENDING",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Perform bounded NOS3 feasibility using authoritative current NOS3/cFS evidence; then document the cFS-vs-NOS3 stack decision before any remaining non-canonical architecture implementation",
-  "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md"
+  "next_gate": "Complete the preregistered preselection seam proofs for both candidates: standalone-cFS HS observation, two-instance SBN, end-to-end scenario ID and action-sink capture; NOS3 custom-app integration, deterministic scenario control, required SBN/multi-instance topology, and network-dependency containment. Then make the cFS-vs-NOS3 stack selection.",
+  "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
+  "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
+  "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md"
 }
