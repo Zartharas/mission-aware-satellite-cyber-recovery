@@ -33,6 +33,6 @@ typedef struct
     uint16 Reserved;
 } AERC_RECOVERY_RECORD_Message_t;
 
-void AERC_RECOVERY_SINK_Main(void);
+void AERC_SINK_Main(void);
 
 #endif

@@ -1,6 +1,6 @@
-project(CFE_AERC_RECOVERY_SINK C)
+project(CFE_AERC_SINK C)
 
-add_cfe_app(aerc_recovery_sink
+add_cfe_app(aerc_sink
     fsw/src/aerc_recovery_sink.c
 )
 

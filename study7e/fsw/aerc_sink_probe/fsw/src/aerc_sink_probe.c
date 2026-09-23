@@ -29,6 +29,27 @@ static CFE_Status_t AERC_SINK_PROBE_Send(CFE_SB_MsgId_t request_mid,
     return CFE_SB_TransmitMsg(&request.TelemetryHeader.Msg, true);
 }
 
+typedef struct
+{
+    CFE_MSG_TelemetryHeader_t TelemetryHeader;
+    uint32 ScenarioId;
+} AERC_SINK_PROBE_ShortRequest_t;
+
+static CFE_Status_t AERC_SINK_PROBE_SendShort(CFE_SB_MsgId_t request_mid)
+{
+    AERC_SINK_PROBE_ShortRequest_t request;
+    CFE_Status_t status;
+
+    memset(&request, 0, sizeof(request));
+    status = CFE_MSG_Init(&request.TelemetryHeader.Msg, request_mid, sizeof(request));
+    if (status == CFE_SUCCESS)
+    {
+        request.ScenarioId = AERC_SINK_PROBE_BAD_SCENARIO_ID;
+        status = CFE_SB_TransmitMsg(&request.TelemetryHeader.Msg, true);
+    }
+    return status;
+}
+
 static bool AERC_SINK_PROBE_RecordMatches(const AERC_RECOVERY_RECORD_Message_t *record,
                                           uint32 scenario_id,
                                           uint8 policy_id,
@@ -41,7 +62,7 @@ static bool AERC_SINK_PROBE_RecordMatches(const AERC_RECOVERY_RECORD_Message_t *
            record->ReceiptSequence == sequence;
 }
 
-void AERC_SINK_PROBE_Main(void)
+void AERC_SPROBE_Main(void)
 {
     CFE_Status_t status;
     CFE_SB_PipeId_t pipe = CFE_SB_INVALID_PIPE;
@@ -52,7 +73,7 @@ void AERC_SINK_PROBE_Main(void)
     status = CFE_EVS_Register(NULL, 0, CFE_EVS_EventFilter_BINARY);
     if (status == CFE_SUCCESS)
     {
-        status = CFE_SB_CreatePipe(&pipe, 4, "AERC_SINK_PROBE_PIPE");
+        status = CFE_SB_CreatePipe(&pipe, 4, "AERC_SP_PIPE");
     }
     if (status == CFE_SUCCESS)
     {
@@ -95,6 +116,24 @@ void AERC_SINK_PROBE_Main(void)
         return;
     }
 
+    status = AERC_SINK_PROBE_SendShort(request_mid);
+    if (status == CFE_SUCCESS)
+    {
+        status = AERC_SINK_PROBE_Send(request_mid,
+                                      AERC_SINK_PROBE_BAD_SCENARIO_ID,
+                                      AERC_POLICY_L0_BASE,
+                                      0xFFu);
+    }
+    if (status != CFE_SUCCESS)
+    {
+        CFE_EVS_SendEvent(AERC_SINK_PROBE_ERR_EID,
+                          CFE_EVS_EventType_ERROR,
+                          "AERC_SINK_PROBE negative request transmit failed RC=0x%08lX",
+                          (unsigned long)status);
+        CFE_ES_ExitApp(CFE_ES_RunStatus_APP_ERROR);
+        return;
+    }
+
     received = NULL;
     status = AERC_SINK_PROBE_Send(request_mid,
                                   AERC_SINK_PROBE_ENTER_SCENARIO_ID,
@@ -125,7 +164,7 @@ void AERC_SINK_PROBE_Main(void)
         (unsigned long)AERC_SINK_PROBE_ENTER_SCENARIO_ID);
     CFE_EVS_SendEvent(AERC_SINK_PROBE_PASS_EID,
                       CFE_EVS_EventType_INFORMATION,
-                      "AERC_SINK_PROBE PASS two allowed action records verified");
+                      "AERC_SINK_PROBE PASS valid records verified; malformed/invalid requests rejected");
 
     CFE_ES_ExitApp(CFE_ES_RunStatus_APP_EXIT);
 }

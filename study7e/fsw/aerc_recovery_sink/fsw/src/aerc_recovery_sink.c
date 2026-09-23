@@ -21,7 +21,7 @@ static const char *AERC_RECOVERY_SINK_ActionName(uint8 action)
     return action == AERC_ACTION_ENTER_RECOVERY_GATE ? "ENTER_RECOVERY_GATE" : "HOLD";
 }
 
-void AERC_RECOVERY_SINK_Main(void)
+void AERC_SINK_Main(void)
 {
     CFE_Status_t status;
     uint32 run_status = CFE_ES_RunStatus_APP_RUN;
@@ -66,12 +66,32 @@ void AERC_RECOVERY_SINK_Main(void)
             continue;
         }
 
+        CFE_MSG_Size_t request_size = 0;
+        status = CFE_MSG_GetSize(&received->Msg, &request_size);
+        if (status != CFE_SUCCESS || request_size != sizeof(AERC_RECOVERY_REQUEST_Message_t))
+        {
+            CFE_ES_WriteToSysLog(
+                "AERC_RECOVERY_SINK REJECT_LENGTH expected=%lu actual=%lu status=0x%08lX\n",
+                (unsigned long)sizeof(AERC_RECOVERY_REQUEST_Message_t),
+                (unsigned long)request_size,
+                (unsigned long)status);
+            CFE_EVS_SendEvent(AERC_RECOVERY_SINK_ERR_EID,
+                              CFE_EVS_EventType_ERROR,
+                              "AERC_RECOVERY_SINK rejected malformed request length");
+            continue;
+        }
+
         const AERC_RECOVERY_REQUEST_Message_t *request =
             (const AERC_RECOVERY_REQUEST_Message_t *)received;
 
         if (!AERC_RECOVERY_SINK_IsPolicyIdAllowed(request->PolicyId) ||
             !AERC_RECOVERY_SINK_IsActionAllowed(request->Action))
         {
+            CFE_ES_WriteToSysLog(
+                "AERC_RECOVERY_SINK REJECT_ACTION scenario=0x%08lX policy=%u action=%u\n",
+                (unsigned long)request->ScenarioId,
+                (unsigned int)request->PolicyId,
+                (unsigned int)request->Action);
             CFE_EVS_SendEvent(AERC_RECOVERY_SINK_ERR_EID,
                               CFE_EVS_EventType_ERROR,
                               "AERC_RECOVERY_SINK rejected request scenario=0x%08lX policy=%u action=%u",
