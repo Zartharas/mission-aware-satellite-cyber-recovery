@@ -143,31 +143,42 @@ jobs:
             https://github.com/nasa/cFS.git /tmp/s7e-cfs
           test "$(git -C /tmp/s7e-cfs rev-parse HEAD)" = "088b2fa828db9ff7e00733f1908e0eeb59f66ce3"
 
-      - name: Integrate non-canonical AERC Software Bus probe
+      - name: Integrate non-canonical AERC cFS components
         run: |
           set -euo pipefail
           cp -a study7e/fsw/aerc_bus_probe /tmp/s7e-cfs/apps/aerc_bus_probe
-          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
+          cp -a study7e/fsw/aerc_recovery_sink /tmp/s7e-cfs/apps/aerc_recovery_sink
+          cp -a study7e/fsw/aerc_sink_probe /tmp/s7e-cfs/apps/aerc_sink_probe
+          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
           python - <<'PY'
           from pathlib import Path
 
           path = Path("/tmp/s7e-cfs/sample_defs/generate_startup.cmake")
           text = path.read_text(encoding="utf-8")
           needle = '"CFE_APP, sample_app,  SAMPLE_APP_Main,    SAMPLE_APP,   50,   32768, 0x0, 0;\\n"\n'
-          replacement = needle + '        "CFE_APP, aerc_bus_probe, AERC_BUS_PROBE_Main, AERC_PROBE, 55, 32768, 0x0, 0;\\n"\n'
+          replacement = (
+              needle
+              + '        "CFE_APP, aerc_recovery_sink, AERC_RECOVERY_SINK_Main, AERC_SINK, 53, 32768, 0x0, 0;\\n"\n'
+              + '        "CFE_APP, aerc_bus_probe, AERC_BUS_PROBE_Main, AERC_PROBE, 55, 32768, 0x0, 0;\\n"\n'
+              + '        "CFE_APP, aerc_sink_probe, AERC_SINK_PROBE_Main, AERC_SINK_PROBE, 56, 32768, 0x0, 0;\\n"\n'
+          )
           if needle not in text:
               raise SystemExit("sample-app startup insertion point not found")
           path.write_text(text.replace(needle, replacement, 1), encoding="utf-8")
           PY
 
-      - name: Build cFS with Study 7E bus probe
+      - name: Build cFS with Study 7E components
         run: |
           set -euo pipefail
           cd /tmp/s7e-cfs
           make native_std.prep
           make native_std.install
           test -f build-native_std/exe/cpu1/cf/aerc_bus_probe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_recovery_sink.so
+          test -f build-native_std/exe/cpu1/cf/aerc_sink_probe.so
           echo "aerc_bus_probe_compile=PASS"
+          echo "aerc_recovery_sink_compile=PASS"
+          echo "aerc_sink_probe_compile=PASS"
 
       - name: Run non-canonical cFE Software Bus smoke check
         run: |
@@ -183,6 +194,11 @@ jobs:
           fi
           cat /tmp/aerc_bus_probe_runtime.log
           grep -F "AERC_BUS_PROBE PASS" /tmp/aerc_bus_probe_runtime.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374541 policy=1 action=HOLD sequence=1" /tmp/aerc_bus_probe_runtime.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374542 policy=3 action=ENTER_RECOVERY_GATE sequence=2" /tmp/aerc_bus_probe_runtime.log
+          grep -F "AERC_SINK_PROBE PASS hold_scenario=0x53374541 enter_scenario=0x53374542 records=2" /tmp/aerc_bus_probe_runtime.log
           echo "aerc_bus_probe_runtime=PASS"
+          echo "aerc_recovery_sink_runtime=PASS"
+          echo "aerc_sink_probe_runtime=PASS"
           echo "study7e_scientific_scenarios_executed=0"
           echo "scientific_results_generated=false"

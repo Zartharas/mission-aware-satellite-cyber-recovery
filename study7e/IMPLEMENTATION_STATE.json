@@ -93,13 +93,13 @@
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "SB_SELF_LOOP_SBN_TWO_INSTANCE_AND_HS_OBSERVATION_PROBES_GREEN__FULL_AERC_POLICY_APP_NOT_IMPLEMENTED__PRECANONICAL",
+    "cfs_custom_apps": "SB_SELF_LOOP_SBN_TWO_INSTANCE_HS_OBSERVATION_GREEN__RECOVERY_SINK_IMPLEMENTED__SINK_RUNTIME_QUALIFICATION_PENDING__FULL_AERC_POLICY_APP_NOT_IMPLEMENTED__PRECANONICAL",
     "nos3_integration": "BOUNDED_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Continue the remaining non-canonical Study-7E architecture on the selected standalone cFS v7.0.1 baseline. Keep protocol/environment freeze, production-model training/freeze, and canonical scientific execution prohibited until their separate later author gates.",
+  "next_gate": "Qualify the new recovery-action sink at runtime on the selected standalone cFS v7.0.1 baseline. If green, record the sink checkpoint and then implement the policy-visible evidence pipeline without research-truth fields. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",

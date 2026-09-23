@@ -123,6 +123,8 @@ def main() -> int:
         ROOT / "study7e/fsw/aerc_bus_probe/fsw/src/aerc_bus_probe.c",
         ROOT / "study7e/fsw/aerc_sbn_probe/fsw/src/aerc_sbn_probe.c",
         ROOT / "study7e/fsw/aerc_hs_probe/fsw/src/aerc_hs_probe.c",
+        ROOT / "study7e/fsw/aerc_recovery_sink/fsw/src/aerc_recovery_sink.c",
+        ROOT / "study7e/fsw/aerc_sink_probe/fsw/src/aerc_sink_probe.c",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_REVIEW_R1_2026-09-22.md",
