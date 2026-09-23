@@ -73,6 +73,7 @@ int main(void)
     AERC_SIGNED_EVIDENCE_V2_Fields_t invalid;
     uint8_t body[64];
     uint8_t malformed[64];
+    uint8_t seed[32];
     uint8_t secret_key[64];
     uint8_t public_key[32];
     uint8_t signature[64];
@@ -87,7 +88,8 @@ int main(void)
         return 2;
     }
 
-    crypto_ed25519_key_pair(secret_key, public_key, RFC8032_TEST1_SEED);
+    memcpy(seed, RFC8032_TEST1_SEED, sizeof(seed));
+    crypto_ed25519_key_pair(secret_key, public_key, seed);
     if (memcmp(public_key, RFC8032_TEST1_PUBLIC, sizeof(public_key)) != 0)
     {
         return 3;
