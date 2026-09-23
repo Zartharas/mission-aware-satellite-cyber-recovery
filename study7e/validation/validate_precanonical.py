@@ -44,6 +44,7 @@ def main() -> int:
     signed_evidence_resolution = load_json(ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json")
     qualifier_time_replay = load_json(ROOT / "study7e/configs/qualifier_time_replay_contract_draft.json")
     fault_transforms = load_json(ROOT / "study7e/configs/fault_transformations_draft.json")
+    author_review = load_json(ROOT / "study7e/configs/author_review_package_2026-09-23.json")
     signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
 
     require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
@@ -251,6 +252,12 @@ def main() -> int:
     require("offset 47" in fault_transforms["profiles"]["F9"]["transformation"], "F9 candidate byte transformation drift")
     require("two separately signed" in fault_transforms["profiles"]["F12"]["transformation"], "F12 equivocation candidate drift")
     require(fault_transforms["approvals"]["byte_transformations_frozen"] is False, "fault transforms frozen prematurely")
+    require(author_review["state"] == "AUTHOR_REVIEW_REQUIRED__NO_FREEZE__NO_POLICY_BINDING", "author-review package state drift")
+    require(len(author_review["requested_author_decisions"]) == 5, "author-review decision count drift")
+    require(author_review["approvals"]["author_review_completed"] is False, "author review recorded without explicit approval")
+    require(not any(author_review["approvals"][key] for key in ("ar_1","ar_2","ar_3","ar_4","ar_5")), "author decision recorded prematurely")
+    require(author_review["approvals"]["protocol_freeze"] is False, "protocol freeze recorded through author-review package")
+    require(author_review["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized through author-review package")
     qualifier_fault_state = state["qualifier_fault_feasibility"]
     require(qualifier_fault_state["state"] == "HOST_ONLY_RUNTIME_GREEN__ENGINEERING_ONLY", "qualifier/fault feasibility state drift")
     require(qualifier_fault_state["policy_decisions_executed"] == 0, "qualifier/fault gate executed policy decisions")
@@ -313,6 +320,8 @@ def main() -> int:
         ROOT / "study7e/feasibility/qualifier_fault/test_qualifier_fault_model.py",
         ROOT / ".github/workflows/study7e-qualifier-fault-feasibility.yml",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md",
+        ROOT / "study7e/configs/author_review_package_2026-09-23.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_REVIEW_PACKAGE_2026-09-23.md",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
         ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",

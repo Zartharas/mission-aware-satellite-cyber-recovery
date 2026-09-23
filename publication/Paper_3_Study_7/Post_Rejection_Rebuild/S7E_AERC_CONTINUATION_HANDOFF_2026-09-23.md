@@ -580,3 +580,16 @@ Checkpoint:
 
 `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md`
 
+## Author-review boundary reached
+
+The pre-canonical engineering evidence is now strong enough that the next cFS producer/qualifier implementation would depend on semantic choices that should be explicitly author-approved rather than inferred.
+
+Author-review package:
+
+- `study7e/configs/author_review_package_2026-09-23.json`
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_REVIEW_PACKAGE_2026-09-23.md`
+
+Five decisions are requested: v2 signed-body layout, external signing-key placement, T4 authority representation, qualifier semantics, and F0-F12 transformation semantics.
+
+This review does **not** request protocol/environment freeze, final timing/registry/key values, model training/freeze, canonical execution, or PR merge.
+
