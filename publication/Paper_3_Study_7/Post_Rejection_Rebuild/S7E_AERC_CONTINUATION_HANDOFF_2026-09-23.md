@@ -593,3 +593,21 @@ Five decisions are requested: v2 signed-body layout, external signing-key placem
 
 This review does **not** request protocol/environment freeze, final timing/registry/key values, model training/freeze, canonical execution, or PR merge.
 
+## AR-1 through AR-5 — APPROVED for pre-canonical implementation only
+
+On 2026-09-23, the author explicitly approved AR-1 through AR-5 subject to the boundaries in the author-review package.
+
+This authorizes continued pre-canonical implementation of:
+
+- the 64-byte signed-evidence v2 layout;
+- the external deterministic/private-key-free cFS signing boundary;
+- the T4 opaque authority-ID representation;
+- the approved qualifier/replay semantics;
+- the current F0-F12 transformation semantics.
+
+It does **not** authorize protocol/environment freeze, final timing/epoch/registry/key values, production L0/L1 model training or freeze, canonical scientific execution, PR merge, or publication claims.
+
+Approval record:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md`
+

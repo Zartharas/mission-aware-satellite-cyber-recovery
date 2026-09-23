@@ -252,10 +252,10 @@ def main() -> int:
     require("offset 47" in fault_transforms["profiles"]["F9"]["transformation"], "F9 candidate byte transformation drift")
     require("two separately signed" in fault_transforms["profiles"]["F12"]["transformation"], "F12 equivocation candidate drift")
     require(fault_transforms["approvals"]["byte_transformations_frozen"] is False, "fault transforms frozen prematurely")
-    require(author_review["state"] == "AUTHOR_REVIEW_REQUIRED__NO_FREEZE__NO_POLICY_BINDING", "author-review package state drift")
+    require(author_review["state"] == "APPROVED_FOR_PRECANONICAL_IMPLEMENTATION_ONLY__NO_FREEZE__NO_CANONICAL_EXECUTION", "author-review package state drift")
     require(len(author_review["requested_author_decisions"]) == 5, "author-review decision count drift")
-    require(author_review["approvals"]["author_review_completed"] is False, "author review recorded without explicit approval")
-    require(not any(author_review["approvals"][key] for key in ("ar_1","ar_2","ar_3","ar_4","ar_5")), "author decision recorded prematurely")
+    require(author_review["approvals"]["author_review_completed"] is True, "author review approval missing")
+    require(all(author_review["approvals"][key] for key in ("ar_1","ar_2","ar_3","ar_4","ar_5")), "AR-1 through AR-5 approval drift")
     require(author_review["approvals"]["protocol_freeze"] is False, "protocol freeze recorded through author-review package")
     require(author_review["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized through author-review package")
     qualifier_fault_state = state["qualifier_fault_feasibility"]
@@ -322,6 +322,7 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md",
         ROOT / "study7e/configs/author_review_package_2026-09-23.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_REVIEW_PACKAGE_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
         ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
         ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",

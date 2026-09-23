@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Obtain explicit author approval/rejection of AR-1 through AR-5 in the Study-7E author-review package. Do not begin cFS producer/qualifier implementation that depends on these semantics until that approval is recorded. All protocol/environment/model/key/canonical freeze gates remain false.",
+  "next_gate": "Implement the approved pre-canonical cFS producer bridge and qualifier plumbing using the approved 64-byte v2 evidence semantics, host-side/private-key-free cFS boundary, opaque authority representation, qualifier semantics, and F0-F12 design. Keep timing thresholds, epoch/registry/key values, byte-transform freeze, production L0/L1 training/freeze, protocol/environment freeze, and canonical execution unfrozen.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -350,7 +350,7 @@
   },
   "qualifier_fault_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md",
   "author_review_package": {
-    "state": "AUTHOR_REVIEW_REQUIRED__NO_FREEZE__NO_POLICY_BINDING",
+    "state": "APPROVED_FOR_PRECANONICAL_IMPLEMENTATION_ONLY__NO_FREEZE__NO_CANONICAL_EXECUTION",
     "package_json": "study7e/configs/author_review_package_2026-09-23.json",
     "package_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_REVIEW_PACKAGE_2026-09-23.md",
     "basis_head": "d204988f0a09f77a70f474c35e04cf694329aa2d",
@@ -361,6 +361,16 @@
       "AR-4",
       "AR-5"
     ],
-    "author_review_completed": false
+    "author_review_completed": true,
+    "approved_decisions": [
+      "AR-1",
+      "AR-2",
+      "AR-3",
+      "AR-4",
+      "AR-5"
+    ],
+    "approval_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
+    "protocol_freeze": false,
+    "canonical_execution_authorized": false
   }
 }

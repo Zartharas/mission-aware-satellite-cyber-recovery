@@ -2,7 +2,7 @@
   "schema": 1,
   "experiment_id": "S7E-AERC-001",
   "date": "2026-09-23",
-  "state": "AUTHOR_REVIEW_REQUIRED__NO_FREEZE__NO_POLICY_BINDING",
+  "state": "APPROVED_FOR_PRECANONICAL_IMPLEMENTATION_ONLY__NO_FREEZE__NO_CANONICAL_EXECUTION",
   "basis_head": "d204988f0a09f77a70f474c35e04cf694329aa2d",
   "evidence_checkpoints": [
     "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
@@ -72,13 +72,20 @@
     ]
   },
   "approvals": {
-    "author_review_completed": false,
-    "ar_1": false,
-    "ar_2": false,
-    "ar_3": false,
-    "ar_4": false,
-    "ar_5": false,
+    "author_review_completed": true,
+    "ar_1": true,
+    "ar_2": true,
+    "ar_3": true,
+    "ar_4": true,
+    "ar_5": true,
     "protocol_freeze": false,
     "canonical_execution_authorized": false
-  }
+  },
+  "approval_record": {
+    "date": "2026-09-23",
+    "approval_scope": "AR-1 through AR-5 for pre-canonical implementation only, subject to the boundaries in the author-review package",
+    "source": "explicit author approval in project conversation",
+    "approval_commit_parent": "834351e1edf5ead056a0ed57362435f8c980b8c6"
+  },
+  "approval_record_path": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md"
 }
