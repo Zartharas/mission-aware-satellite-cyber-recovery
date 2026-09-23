@@ -39,6 +39,7 @@ def main() -> int:
     policy = load_json(ROOT / "study7e/configs/policy_contracts.json")
     env = load_json(ROOT / "study7e/configs/candidate_environment.json")
     learner = load_json(ROOT / "study7e/configs/learner_candidate.json")
+    signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
 
     require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
     require("NOT_FROZEN" in protocol["state"], "draft protocol unexpectedly frozen")
@@ -128,6 +129,17 @@ def main() -> int:
     require(learner["model_training_performed"] is False, "production learner trained prematurely")
     require(learner["production_model_freeze_performed"] is False, "production learner frozen prematurely")
 
+    require(signature_deps["state"] == "BOUNDED_FEASIBILITY__NO_CRYPTO_RUNTIME_SELECTED", "signature dependency state drift")
+    require(signature_deps["algorithm_candidate"] == "Ed25519_RFC8032", "signature algorithm candidate drift")
+    require(signature_deps["use_case"] == "verification_only", "signature dependency use-case drift")
+    require(signature_deps["requirements"]["secret_key_in_flight_software"] is False, "secret key allowed in flight software")
+    require(signature_deps["requirements"]["public_key_bytes"] == 32, "Ed25519 public-key length drift")
+    require(signature_deps["requirements"]["signature_bytes"] == 64, "Ed25519 signature length drift")
+    require(signature_deps["selected_candidate"] is None, "signature dependency selected before feasibility review")
+    require(signature_deps["candidates"]["monocypher"]["commit"] == "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f", "Monocypher pin drift")
+    require(signature_deps["candidates"]["libsodium"]["commit"] == "77e1ce5d6dee871c49ef211222ba18ef0c486bda", "libsodium pin drift")
+    require(signature_deps["candidates"]["libsodium"]["official_tarball_sha256"] == "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349", "libsodium tarball digest drift")
+
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
         ROOT / "study7e/validation/check_fsw_truth_leakage.py",
@@ -146,6 +158,10 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
         ROOT / ".github/workflows/study7e-cfs-baseline-feasibility.yml",
+        ROOT / ".github/workflows/study7e-ed25519-dependency-feasibility.yml",
+        ROOT / "study7e/configs/signature_dependency_candidates.json",
+        ROOT / "study7e/feasibility/ed25519/rfc8032_monocypher_test.c",
+        ROOT / "study7e/feasibility/ed25519/rfc8032_libsodium_test.c",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_REVIEW_R1_2026-09-22.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_REVIEW_R2_2026-09-22.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_COMPATIBILITY_DECISION_2026-09-22.md",

@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Perform a bounded compatibility/provenance review for the real-signature verification dependency needed by the authorization path, with Ed25519 as the protocol candidate. Do not add a crypto runtime or implement L0/L1 until that dependency decision is documented. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain prohibited.",
+  "next_gate": "Run the bounded Ed25519 dependency feasibility gate for exact Monocypher 4.0.3 and libsodium 1.0.22 sources using RFC 8032 positive/negative verification checks. Select no crypto runtime until both finalist results, provenance, licensing, source surface, and security caveats are reviewed. L0/L1 implementation, production-model training/freeze, protocol/environment freeze, and canonical scientific execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -177,5 +177,20 @@
     "baseline_feasibility_mode": "MANUAL_ONLY_AFTER_BASELINE_SELECTION",
     "rationale": "Avoid repeating full cFS native_std runtest on every Study-7E documentation/configuration update while preserving FSW runtime qualification on flight-software changes."
   },
-  "policy_snapshot_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md"
+  "policy_snapshot_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
+  "signature_dependency_review": {
+    "state": "BOUNDED_FEASIBILITY_IN_PROGRESS__NO_SELECTION",
+    "algorithm_candidate": "Ed25519_RFC8032",
+    "use_case": "verification_only",
+    "candidate_config": "study7e/configs/signature_dependency_candidates.json",
+    "feasibility_workflow": ".github/workflows/study7e-ed25519-dependency-feasibility.yml",
+    "finalists": [
+      "monocypher_4.0.3",
+      "libsodium_1.0.22"
+    ],
+    "selected_candidate": null,
+    "secret_key_in_flight_software": false,
+    "signature_verification_runtime_implemented": false,
+    "scientific_results_generated": false
+  }
 }

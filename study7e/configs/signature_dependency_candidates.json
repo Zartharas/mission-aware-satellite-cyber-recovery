@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "state": "BOUNDED_FEASIBILITY__NO_CRYPTO_RUNTIME_SELECTED",
+  "algorithm_candidate": "Ed25519_RFC8032",
+  "use_case": "verification_only",
+  "requirements": {
+    "secret_key_in_flight_software": false,
+    "public_key_bytes": 32,
+    "signature_bytes": 64,
+    "canonical_message_bytes_required": true,
+    "caller_input_length_validation_required": true,
+    "rfc8032_positive_and_negative_vectors_required": true,
+    "dependency_revision_must_be_pinned": true,
+    "license_must_be_recorded": true,
+    "fips_claim": false,
+    "flight_qualification_claim": false
+  },
+  "candidates": {
+    "monocypher": {
+      "version": "4.0.3",
+      "commit": "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+      "license": "BSD-2-Clause OR CC0-1.0",
+      "verification_api": "crypto_ed25519_check",
+      "public_key_bytes": 32,
+      "signature_bytes": 64,
+      "source_subset": [
+        "src/monocypher.c",
+        "src/monocypher.h",
+        "src/optional/monocypher-ed25519.c",
+        "src/optional/monocypher-ed25519.h"
+      ],
+      "selected_source_subset_bytes": 136736,
+      "security_note": "4.0.3 fixes the 2026 EdDSA/Ed25519 timing-leak issue; verifier integration must still enforce exact input lengths because Monocypher documents no input-length validation.",
+      "feasibility_state": "PENDING"
+    },
+    "libsodium": {
+      "version": "1.0.22",
+      "commit": "77e1ce5d6dee871c49ef211222ba18ef0c486bda",
+      "official_tarball_sha256": "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349",
+      "license": "ISC",
+      "verification_api": "crypto_sign_verify_detached",
+      "public_key_bytes": 32,
+      "signature_bytes": 64,
+      "security_note": "1.0.22 includes the prior crypto_core_ed25519_is_valid_point security fix. The official 1.0.22 tarball is treated as source of truth because the release tag was corrected after publication.",
+      "feasibility_state": "PENDING"
+    },
+    "openssl": {
+      "version": "3.6.4",
+      "commit": "d3c1b1169b3569ff3069e5b399f47b2b28e03d79",
+      "license": "Apache-2.0",
+      "verification_api": "EVP_DigestVerify",
+      "disposition": "REFERENCE_ONLY__NOT_BOUNDED_COMPILE",
+      "reason": "General-purpose provider/TLS/crypto runtime is substantially broader than the verification-only Study-7E requirement."
+    },
+    "nasa_cryptolib": {
+      "version": "1.5.0",
+      "commit": "c9109bd190180e297a1fe1d1906976e1fdcd3caf",
+      "disposition": "REFERENCE_ONLY__NOT_BOUNDED_COMPILE",
+      "reason": "Targets CCSDS SDLS-EP/data-link security; no direct Ed25519 verification surface was identified in the reviewed release."
+    }
+  },
+  "finalists": [
+    "monocypher",
+    "libsodium"
+  ],
+  "selected_candidate": null,
+  "selection_record": null
+}
