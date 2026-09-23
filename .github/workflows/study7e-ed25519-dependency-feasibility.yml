@@ -1,13 +1,6 @@
 name: Study 7E Ed25519 dependency feasibility
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "study7e/configs/signature_dependency_candidates.json"
-      - "study7e/feasibility/ed25519/**"
-      - ".github/workflows/study7e-ed25519-dependency-feasibility.yml"
   workflow_dispatch:
 
 permissions:

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "experiment_id": "S7E-AERC-001",
-  "state": "BOUNDED_FEASIBILITY__NO_CRYPTO_RUNTIME_SELECTED",
+  "state": "SELECTED_FOR_PRECANONICAL_CFS_VERIFICATION_INTEGRATION__NOT_FROZEN",
   "algorithm_candidate": "Ed25519_RFC8032",
   "use_case": "verification_only",
   "requirements": {
@@ -32,7 +32,22 @@
       ],
       "selected_source_subset_bytes": 136736,
       "security_note": "4.0.3 fixes the 2026 EdDSA/Ed25519 timing-leak issue; verifier integration must still enforce exact input lengths because Monocypher documents no input-length validation.",
-      "feasibility_state": "PENDING"
+      "feasibility_state": "GREEN__SELECTED_FOR_PRECANONICAL_INTEGRATION",
+      "feasibility_evidence": {
+        "head": "e5ce0606f23ffbb9c1f80fe6f0f32feda70c3242",
+        "workflow_id": 365298193,
+        "workflow_run_id": 35887743822,
+        "job_id": 107272117959,
+        "artifact_id": 10764060669,
+        "artifact_digest": "sha256:9c83f78b9c963ca641e543e7f509652f66bd1175c7f7f6966e777e3dbfde0833",
+        "rfc8032_verify": true,
+        "mutated_signature_rejected": true,
+        "zero_signature_rejected": true,
+        "changed_message_rejected": true,
+        "selected_source_bytes": 136736,
+        "static_subset_bytes": 97982,
+        "test_binary_bytes": 33728
+      }
     },
     "libsodium": {
       "version": "1.0.22",
@@ -43,7 +58,21 @@
       "public_key_bytes": 32,
       "signature_bytes": 64,
       "security_note": "1.0.22 includes the prior crypto_core_ed25519_is_valid_point security fix. The official 1.0.22 tarball is treated as source of truth because the release tag was corrected after publication.",
-      "feasibility_state": "PENDING"
+      "feasibility_state": "GREEN__REFERENCE_ALTERNATIVE",
+      "feasibility_evidence": {
+        "head": "e5ce0606f23ffbb9c1f80fe6f0f32feda70c3242",
+        "workflow_id": 365298193,
+        "workflow_run_id": 35887743822,
+        "job_id": 107272118271,
+        "artifact_id": 10764075880,
+        "artifact_digest": "sha256:5294101bd3ed217faf80c69c6ea3808c56c5ac75fd4b7d6d512aabc44eb2220e",
+        "rfc8032_verify": true,
+        "mutated_signature_rejected": true,
+        "zero_signature_rejected": true,
+        "changed_message_rejected": true,
+        "static_archive_bytes": 927808,
+        "test_binary_bytes": 314960
+      }
     },
     "openssl": {
       "version": "3.6.4",
@@ -64,6 +93,14 @@
     "monocypher",
     "libsodium"
   ],
-  "selected_candidate": null,
-  "selection_record": null
+  "selected_candidate": "monocypher",
+  "selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
+  "selection_scope": "pre-canonical cFS Ed25519 verification integration only",
+  "selection_rationale": [
+    "Both finalists passed the same RFC 8032 positive and negative verification checks.",
+    "Monocypher provides the smaller tested verification source/runtime surface for the verification-only Study-7E requirement.",
+    "Monocypher 4.0.3 is pinned at the timing-leak-fix release.",
+    "The integration wrapper must enforce exact public-key, signature, message-size, and cFE packet-size checks because Monocypher does not perform input validation.",
+    "No signing key is permitted in flight software and no FIPS, certification, or flight-qualification claim is made."
+  ]
 }

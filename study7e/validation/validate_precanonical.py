@@ -129,6 +129,25 @@ def main() -> int:
     require(learner["model_training_performed"] is False, "production learner trained prematurely")
     require(learner["production_model_freeze_performed"] is False, "production learner frozen prematurely")
 
+    sigdep = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
+    require(
+        sigdep["state"] == "SELECTED_FOR_PRECANONICAL_CFS_VERIFICATION_INTEGRATION__NOT_FROZEN",
+        "signature dependency selection state drift",
+    )
+    require(sigdep["selected_candidate"] == "monocypher", "unexpected Ed25519 verification dependency")
+    require(
+        sigdep["candidates"]["monocypher"]["commit"] == "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+        "Monocypher revision drift",
+    )
+    require(
+        sigdep["candidates"]["monocypher"]["version"] == "4.0.3",
+        "Monocypher version drift",
+    )
+    require(
+        sigdep["requirements"]["secret_key_in_flight_software"] is False,
+        "flight-software secret-key prohibition lost",
+    )
+
     require(signature_deps["state"] == "BOUNDED_FEASIBILITY__NO_CRYPTO_RUNTIME_SELECTED", "signature dependency state drift")
     require(signature_deps["algorithm_candidate"] == "Ed25519_RFC8032", "signature algorithm candidate drift")
     require(signature_deps["use_case"] == "verification_only", "signature dependency use-case drift")
@@ -155,6 +174,7 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
         ROOT / ".github/workflows/study7e-cfs-baseline-feasibility.yml",

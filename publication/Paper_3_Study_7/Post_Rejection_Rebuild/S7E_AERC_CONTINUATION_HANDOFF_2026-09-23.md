@@ -338,3 +338,29 @@ Checkpoint:
 
 Perform a bounded compatibility/provenance review for the real-signature verification dependency. Ed25519 remains the protocol candidate, but no crypto runtime is selected or added by this checkpoint. L0/L1 learned-policy implementation remains separate and no production model is trained or frozen.
 
+## Ed25519 verification dependency — Monocypher 4.0.3 selected
+
+The bounded dependency gate at head `e5ce0606f23ffbb9c1f80fe6f0f32feda70c3242` completed successfully for both finalists:
+
+- workflow ID: `365298193`
+- run ID: `35887743822`
+- Monocypher job: `107272117959` — success
+- libsodium job: `107272118271` — success
+
+Both candidates passed the same RFC 8032 positive verification and negative mutated-signature, zero-signature, and changed-message checks.
+
+Measured feasibility surfaces:
+
+- Monocypher 4.0.3 selected static subset: `97,982` bytes; test binary: `33,728` bytes;
+- libsodium 1.0.22 static archive: `927,808` bytes; test binary: `314,960` bytes.
+
+For this verification-only Study-7E cFS integration, Monocypher 4.0.3 at `ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f` is selected for the next pre-canonical integration gate. libsodium 1.0.22 remains a green reference alternative.
+
+Mandatory integration guard: Monocypher documents that it does not perform input validation, so the Study-7E wrapper must enforce exact packet, public-key, signature, and canonical-message lengths before calling `crypto_ed25519_check`.
+
+No signing key is permitted in flight software. This selection makes no FIPS, certification, flight-qualification, or scientific-result claim.
+
+Decision record:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md`
+

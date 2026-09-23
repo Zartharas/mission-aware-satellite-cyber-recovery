@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Run the bounded Ed25519 dependency feasibility gate for exact Monocypher 4.0.3 and libsodium 1.0.22 sources using RFC 8032 positive/negative verification checks. Select no crypto runtime until both finalist results, provenance, licensing, source surface, and security caveats are reviewed. L0/L1 implementation, production-model training/freeze, protocol/environment freeze, and canonical scientific execution remain prohibited.",
+  "next_gate": "Integrate the pinned Monocypher 4.0.3 Ed25519 verification-only subset into the selected standalone cFS baseline behind a Study-7E wrapper that enforces exact packet/public-key/signature/message lengths and fails closed. Use public keys only; do not add signing keys. Qualify positive and negative verification through cFE before binding authorization fields. L0/L1 implementation, production-model training/freeze, protocol/environment freeze, and canonical scientific execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -179,18 +179,32 @@
   },
   "policy_snapshot_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
   "signature_dependency_review": {
-    "state": "BOUNDED_FEASIBILITY_IN_PROGRESS__NO_SELECTION",
+    "state": "MONOCYPHER_4_0_3_SELECTED_FOR_PRECANONICAL_VERIFICATION_INTEGRATION__NOT_FROZEN",
     "algorithm_candidate": "Ed25519_RFC8032",
     "use_case": "verification_only",
     "candidate_config": "study7e/configs/signature_dependency_candidates.json",
     "feasibility_workflow": ".github/workflows/study7e-ed25519-dependency-feasibility.yml",
-    "finalists": [
-      "monocypher_4.0.3",
-      "libsodium_1.0.22"
+    "feasibility_head": "e5ce0606f23ffbb9c1f80fe6f0f32feda70c3242",
+    "feasibility_run_id": 35887743822,
+    "selected_candidate": "monocypher_4.0.3",
+    "selected_commit": "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+    "selected_license": "BSD-2-Clause OR CC0-1.0",
+    "selected_verification_api": "crypto_ed25519_check",
+    "selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
+    "required_wrapper_guards": [
+      "exact_cfe_packet_size",
+      "public_key_bytes_32",
+      "signature_bytes_64",
+      "canonical_message_length",
+      "fixed_public_key_provenance",
+      "fail_closed_on_verification_failure"
     ],
-    "selected_candidate": null,
     "secret_key_in_flight_software": false,
     "signature_verification_runtime_implemented": false,
+    "production_key_material_frozen": false,
+    "fips_claim": false,
+    "flight_qualification_claim": false,
     "scientific_results_generated": false
-  }
+  },
+  "ed25519_dependency_decision": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md"
 }
