@@ -1,11 +1,6 @@
 name: Study 7E cFS preselection seams
 
 on:
-  pull_request:
-    paths:
-      - "study7e/fsw/aerc_sbn_probe/**"
-      - "study7e/fsw/aerc_hs_probe/**"
-      - ".github/workflows/study7e-cfs-preselection-seams.yml"
   workflow_dispatch:
 
 permissions:
