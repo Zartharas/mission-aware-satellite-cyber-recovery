@@ -39,6 +39,7 @@ def main() -> int:
     policy = load_json(ROOT / "study7e/configs/policy_contracts.json")
     env = load_json(ROOT / "study7e/configs/candidate_environment.json")
     learner = load_json(ROOT / "study7e/configs/learner_candidate.json")
+    signed_evidence = load_json(ROOT / "study7e/configs/signed_evidence_contract_draft.json")
     signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
 
     require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
@@ -181,6 +182,20 @@ def main() -> int:
     require(sigwire["runtime_evidence"]["malformed_requests_rejected_without_result"] == 5, "signature verifier malformed-input evidence drift")
     require(sigwire["runtime_evidence"]["final_verification_sequence"] == 5, "signature verifier sequence evidence drift")
 
+    require(signed_evidence["state"] == "DRAFT__NOT_FROZEN__NO_POLICY_BINDING", "signed-evidence draft state drift")
+    candidate_body = signed_evidence["candidate_serialization_v1"]
+    require(candidate_body["status"] == "PROPOSED__NOT_FROZEN", "signed-evidence candidate unexpectedly frozen")
+    require(candidate_body["encoding"] == "fixed_width_binary", "signed-evidence encoding drift")
+    require(candidate_body["byte_order"] == "big_endian_network_order", "signed-evidence byte-order drift")
+    require(candidate_body["c_struct_memcpy_serialization"] == "PROHIBITED", "native C struct serialization allowed")
+    require(candidate_body["domain_separator_ascii"] == "S7E-AERC-AUTH-V1", "signed-evidence domain separator drift")
+    require(candidate_body["candidate_message_bytes"] == 56, "signed-evidence candidate length drift")
+    require(candidate_body["signed_region"] == {"offset": 0, "size": 56}, "signed-evidence signed-region drift")
+    require(signed_evidence["experiment_public_key_registry_draft"]["state"] == "NOT_POPULATED__NOT_FROZEN", "public-key registry frozen prematurely")
+    require(signed_evidence["experiment_public_key_registry_draft"]["secret_key_in_verifier_flight_software"] is False, "secret key allowed in verifier FSW")
+    require(len(signed_evidence["unresolved_decisions"]) >= 10, "signed-evidence unresolved-design guard weakened")
+    require(not any(signed_evidence["freeze_gates"].values()), "signed-evidence freeze gate enabled prematurely")
+
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
         ROOT / "study7e/validation/check_fsw_truth_leakage.py",
@@ -202,6 +217,8 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md",
+        ROOT / "study7e/configs/signed_evidence_contract_draft.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_DRAFT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
         ROOT / ".github/workflows/study7e-cfs-baseline-feasibility.yml",

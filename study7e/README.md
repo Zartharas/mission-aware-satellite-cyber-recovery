@@ -63,6 +63,7 @@ These are protocol design quantities, not results.
 - `PROTOCOL_DRAFT.json`
 - `IMPLEMENTATION_STATE.json`
 - `configs/`
+- `configs/signed_evidence_contract_draft.json`
 - `src/aerc_design.py`
 - `validation/validate_precanonical.py`
 - `validation/check_fsw_truth_leakage.py`

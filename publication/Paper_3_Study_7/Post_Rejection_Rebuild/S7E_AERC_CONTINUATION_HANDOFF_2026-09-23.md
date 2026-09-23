@@ -407,3 +407,24 @@ Checkpoint:
 
 The protocol does not yet define canonical signed-authorization bytes or the final public-key provenance registry. Do not derive `primary_signature_valid`, `corr_signature_valid`, `primary_authorization`, or `corr_authorization` from this engineering verifier until those byte/provenance contracts are separately reviewed and recorded.
 
+## Signed authorization-evidence contract — DRAFT ONLY
+
+A machine-readable and human-readable **candidate** signed-evidence/key-provenance contract has been added for review:
+
+- `study7e/configs/signed_evidence_contract_draft.json`
+- `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_DRAFT_2026-09-23.md`
+
+The draft does not freeze canonical bytes, public keys, signing keys, freshness rules, epoch semantics, or policy binding.
+
+Candidate properties proposed for review include:
+
+- explicit fixed-width big-endian byte serialization rather than native C struct serialization;
+- signed domain separator `S7E-AERC-AUTH-V1`;
+- signed producer role, authorization value, source ID, authority ID, key ID, epoch, controlled logical time, and evidence sequence;
+- a proposed 56-byte signed body that fits within the already-qualified 64-byte engineering verifier capacity;
+- public-key IDs mapped to key domains, with no secret key in verifier flight software.
+
+The draft explicitly leaves scenario/context binding, replay semantics, freshness thresholds, contradiction/completeness semantics, T4 authority representation, fault byte transformations, and final test-key registry unresolved.
+
+No verifier result is bound to `primary_signature_valid`, `corr_signature_valid`, `primary_authorization`, or `corr_authorization` by this draft.
+

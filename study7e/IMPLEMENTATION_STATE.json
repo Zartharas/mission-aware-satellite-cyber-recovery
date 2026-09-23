@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Define and review the canonical signed authorization-evidence byte serialization and production/test public-key provenance registry before binding Ed25519 verification output to primary_signature_valid or corr_signature_valid. Preserve source/key/authority domain semantics and test-only signing keys outside verifier flight software. Do not implement L0/L1, train/freeze production models, freeze the protocol/environment, or authorize canonical execution.",
+  "next_gate": "Author-review the draft signed-evidence serialization and experiment public-key provenance contract. Resolve scenario/context binding, logical-time/freshness/epoch semantics, contradiction/completeness rules, authorization exposure on failed qualification, T4 authority representation, fault byte transformations, and final test-key registry before any verifier-to-policy binding. L0/L1 implementation, production-model training/freeze, protocol/environment freeze, and canonical scientific execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -241,5 +241,16 @@
     }
   },
   "ed25519_dependency_decision": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
-  "ed25519_cfs_boundary_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md"
+  "ed25519_cfs_boundary_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md",
+  "signed_evidence_contract": {
+    "state": "DRAFT__NOT_FROZEN__NO_POLICY_BINDING",
+    "machine_readable_contract": "study7e/configs/signed_evidence_contract_draft.json",
+    "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_DRAFT_2026-09-23.md",
+    "candidate_body_bytes": 56,
+    "candidate_domain_separator": "S7E-AERC-AUTH-V1",
+    "public_key_registry_populated": false,
+    "canonical_signed_bytes_frozen": false,
+    "policy_signature_feature_binding_authorized": false,
+    "unresolved_decision_count": 11
+  }
 }

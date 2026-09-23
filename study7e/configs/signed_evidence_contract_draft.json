@@ -1,0 +1,216 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "DRAFT__NOT_FROZEN__NO_POLICY_BINDING",
+  "purpose": "Candidate canonical signed authorization-evidence bytes and experiment public-key provenance contract for later author review.",
+  "source_basis": {
+    "protocol": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_DRAFT_2026-09-22.md",
+    "implementation_plan": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_IMPLEMENTATION_PLAN_2026-09-22.md",
+    "policy_contract": "study7e/configs/policy_contracts.json",
+    "topology_contract": "study7e/configs/topologies.json",
+    "fault_contract": "study7e/configs/fault_profiles.json",
+    "ed25519_dependency_decision": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
+    "cfe_verifier_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md"
+  },
+  "source_required_semantics": {
+    "producer_roles": [
+      "primary",
+      "corroborator"
+    ],
+    "authorization_evidence_must_be_signed": true,
+    "qualifier_must_derive": [
+      "signature_valid",
+      "source_trusted",
+      "fresh",
+      "epoch_valid",
+      "noncontradictory",
+      "complete",
+      "authorization"
+    ],
+    "trust_domains": [
+      "source",
+      "key",
+      "execution",
+      "transport",
+      "authority"
+    ],
+    "key_ids_map_to_key_domains": true,
+    "controlled_logical_time_required": true,
+    "test_key_pairs_only": true,
+    "secret_key_in_verifier_flight_software": false,
+    "topology_and_fault_identity_policy_visible": false
+  },
+  "candidate_serialization_v1": {
+    "status": "PROPOSED__NOT_FROZEN",
+    "encoding": "fixed_width_binary",
+    "byte_order": "big_endian_network_order",
+    "c_struct_memcpy_serialization": "PROHIBITED",
+    "domain_separator_ascii": "S7E-AERC-AUTH-V1",
+    "domain_separator_bytes": 16,
+    "candidate_message_bytes": 56,
+    "fields": [
+      {
+        "offset": 0,
+        "size": 16,
+        "name": "domain_separator",
+        "type": "octets",
+        "constraint": "ASCII S7E-AERC-AUTH-V1"
+      },
+      {
+        "offset": 16,
+        "size": 1,
+        "name": "schema_version",
+        "type": "u8",
+        "constraint": "1"
+      },
+      {
+        "offset": 17,
+        "size": 1,
+        "name": "producer_role",
+        "type": "u8",
+        "constraint": "1=primary,2=corroborator"
+      },
+      {
+        "offset": 18,
+        "size": 1,
+        "name": "authorization_value",
+        "type": "u8",
+        "constraint": "0 or 1"
+      },
+      {
+        "offset": 19,
+        "size": 1,
+        "name": "reserved",
+        "type": "u8",
+        "constraint": "0"
+      },
+      {
+        "offset": 20,
+        "size": 4,
+        "name": "source_id",
+        "type": "u32_be",
+        "constraint": "registry-bound"
+      },
+      {
+        "offset": 24,
+        "size": 4,
+        "name": "authority_id",
+        "type": "u32_be",
+        "constraint": "registry-bound"
+      },
+      {
+        "offset": 28,
+        "size": 4,
+        "name": "key_id",
+        "type": "u32_be",
+        "constraint": "public-key registry-bound"
+      },
+      {
+        "offset": 32,
+        "size": 8,
+        "name": "evidence_epoch",
+        "type": "u64_be",
+        "constraint": "controlled experiment epoch"
+      },
+      {
+        "offset": 40,
+        "size": 8,
+        "name": "issued_logical_time",
+        "type": "u64_be",
+        "constraint": "controlled logical time"
+      },
+      {
+        "offset": 48,
+        "size": 8,
+        "name": "evidence_sequence",
+        "type": "u64_be",
+        "constraint": "monotonic per producer/key-domain candidate"
+      }
+    ],
+    "signed_region": {
+      "offset": 0,
+      "size": 56
+    },
+    "no_padding": true,
+    "scenario_id_binding": "UNRESOLVED__candidate_v1_excludes_scenario_id_from_signed_body",
+    "freshness_bound_location": "UNRESOLVED__candidate expects frozen external qualifier configuration",
+    "rationale": [
+      "Sign source, authority, key, epoch, logical time, sequence, role, and authorization to prevent relabeling of those semantics after signing.",
+      "Use explicit byte construction rather than native C struct layout to avoid padding and endianness ambiguity.",
+      "Use a fixed domain separator to prevent accidental cross-protocol signature reuse.",
+      "Keep topology/fault identity outside policy-visible evidence."
+    ]
+  },
+  "candidate_qualifier_mapping": {
+    "signature_valid": "Ed25519 verification over exact candidate signed bytes using registry-selected public key.",
+    "source_trusted": "Lookup source_id in the frozen source-trust registry for the producer role.",
+    "fresh": "Compare signed issued_logical_time to controlled experiment time under a frozen freshness rule.",
+    "epoch_valid": "Compare signed evidence_epoch with the expected controlled experiment epoch.",
+    "noncontradictory": "UNRESOLVED__requires frozen same-path contradiction semantics.",
+    "complete": "Candidate: exact parse, mandatory fields present, reserved byte zero, registry references resolvable.",
+    "authorization": "UNRESOLVED__whether a parsed authorization_value is exposed as 0 on failed qualification or retained alongside independent quality bits."
+  },
+  "experiment_public_key_registry_draft": {
+    "state": "NOT_POPULATED__NOT_FROZEN",
+    "algorithm": "Ed25519_RFC8032",
+    "verifier_dependency": "Monocypher_4.0.3",
+    "public_key_bytes": 32,
+    "key_id_width_bits": 32,
+    "stable_key_id_maps_to": "key_domain",
+    "topology_rule": {
+      "T0_SHARED_ALL": "primary and corroborator may reference the same key-domain/key ID",
+      "T1_SEPARATE_SOURCE_EXEC": "primary and corroborator share key-domain/key ID",
+      "T2_SEPARATE_SOURCE_KEY_EXEC": "primary and corroborator use separate key-domain/key IDs",
+      "T3_SEPARATE_THROUGH_TRANSPORT": "primary and corroborator use separate key-domain/key IDs",
+      "T4_SEPARATE_ALL": "primary and corroborator use separate key-domain/key IDs; authority provenance is also separate"
+    },
+    "required_entry_metadata": [
+      "key_id",
+      "key_domain_id",
+      "producer_role_or_allowed_roles",
+      "public_key_hex",
+      "public_key_sha256",
+      "generation_provenance",
+      "created_from_test_only_key_material"
+    ],
+    "secret_key_repository_location": "PROHIBITED_IN_VERIFIER_FSW",
+    "secret_key_in_verifier_flight_software": false,
+    "signing_runtime_in_verifier": false,
+    "registry_entries": []
+  },
+  "adversarial_review": {
+    "relabel_source": "candidate source_id is signed",
+    "relabel_authority": "candidate authority_id is signed",
+    "substitute_key_id": "candidate key_id is signed and registry-bound",
+    "swap_primary_corrob_role": "candidate producer_role is signed",
+    "cross_protocol_reuse": "candidate domain separator is signed",
+    "native_struct_padding_or_endianness": "native struct serialization prohibited",
+    "replay": "epoch/logical-time/sequence are signed but the exact replay acceptance rule remains unresolved",
+    "cross_scenario_splice": "UNRESOLVED__scenario/context binding must be decided before freeze",
+    "malformed_lengths": "existing cFE/Monocypher wrapper remains fail-closed before crypto verification",
+    "signing_key_exposure": "verifier contains public keys only; signing keys remain outside verifier FSW"
+  },
+  "unresolved_decisions": [
+    "Whether scenario_id or another context identifier is included in the signed body.",
+    "Final source_id, authority_id, key_id registry values and registry-generation procedure.",
+    "Final controlled logical-time unit and freshness threshold(s).",
+    "Final evidence_epoch semantics and width.",
+    "Final evidence_sequence replay/ordering acceptance rule.",
+    "Exact same-path contradiction semantics.",
+    "Exact completeness semantics beyond structural parsing.",
+    "Whether authorization_value is exposed as a separate policy feature when signature/quality checks fail or forced fail-closed to zero.",
+    "Exact T4 separate-authority representation and authority registry.",
+    "Exact byte-level transformations for F3, F4, F9, F10, F11, and F12.",
+    "Final test key pairs and public-key registry hashes."
+  ],
+  "freeze_gates": {
+    "author_review_completed": false,
+    "canonical_signed_bytes_frozen": false,
+    "public_key_registry_frozen": false,
+    "signing_keys_generated_and_frozen": false,
+    "policy_signature_feature_binding_authorized": false,
+    "protocol_frozen": false,
+    "canonical_execution_authorized": false
+  }
+}
