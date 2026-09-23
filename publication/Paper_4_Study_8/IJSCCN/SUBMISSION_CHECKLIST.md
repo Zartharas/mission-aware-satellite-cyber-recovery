@@ -1,158 +1,77 @@
-# IJSCCN Submission Checklist — R1 Baseline and R5 Rebuild Gate
+# IJSCCN Submission Checklist — R5 Final
 
-Authoritative journal guidance:
-https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html
+Finalized: **2026-09-22**
 
-Accessed and revalidated: 2026-09-22
+Journal: **International Journal of Satellite Communications and Networking**
 
-## Current R5 gate — supersedes prior upload-ready claims
+Journal manuscript ID: **4920969**
 
-The completed R1 checks below are retained as historical package provenance. They **do not mean the current local manuscript is approved for upload**.
+Portal status after submission: **In Screening**
 
-Author review of the local R4.x derivatives identified unacceptable presentation quality. The R4.3 local repair is **not a submission candidate**. A fresh R5 publisher-facing rebuild is required before the Wiley portal is resumed.
+## Final scientific and scope gates
 
-R5 must be rebuilt from the current IJSCCN scientific content while using the rejected Acta manuscript only as a visual-quality benchmark. The Acta submitted binaries remain immutable.
+- [x] Study 8 remains `S8-PQC-ICR-001`.
+- [x] Study 8E remains `S8E-ECTV-001`.
+- [x] Corrected Study 8E authority is `S8E-CANON-RESULTS-002-FREEZE-001`.
+- [x] Study 8 and Study 8E remain separate finite populations with no pooled denominator or pooled effect estimate.
+- [x] Study 8 logical slots are not converted to physical time.
+- [x] SatNOGS observations are timing proxies only, not authenticated command contacts or measured throughput.
+- [x] Paper 5 / Study 9 evidence is excluded.
+- [x] No new scientific execution or statistical reanalysis was performed for R5.
+- [x] Submitted manuscript source is bound to `829e23836fc378f40bb5211bfbe2599882e30bc7`.
+- [x] Scientific evidence snapshot remains `4ed95a53ade99ddabacbe7c542a3f29d988ecfd0`.
 
-### Live-policy research required before R5 build
+## Wiley / IJSCCN package gates
 
-- [x] Re-read the entire current IJSCCN Author Guidelines and follow every submission-relevant link.
-- [x] Re-read Wiley Prepare and every relevant linked manuscript-preparation page.
-- [x] Re-read Wiley Submission and Peer Review and every relevant linked page.
-- [x] Verify current Free Format initial-submission rules.
-- [x] Verify current title-page and author-contact requirements.
-- [x] Verify abstract, keyword, short-title, biography, author-photo, and GTOC limits.
-- [x] Verify table placement and formatting requirements, including the initial Free Format ambiguity and the explicit revision-stage rule.
-- [x] Verify figure file types, resolution, legends, separate-upload guidance, and revision-stage requirements.
-- [x] Verify supporting-information categories and ensure submission paperwork is not misclassified as scientific supplementary material.
-- [x] Verify current Data Availability Statement and data-citation requirements.
-- [x] Verify permissions/copyright rules for figures, tables, and adapted material.
-- [x] Verify current funding, competing-interest, ethics, authorship, ORCID, licensing, and AI-disclosure requirements.
-- [x] Verify journal-level peer-review model: **Single Anonymized**. Keep the R5 main manuscript identified by default.
-- [ ] Verify submission-instance portal upload categories, including whether the identifying title page is a separate required file.
-- [x] Distinguish journal-specific requirements from generic Wiley recommendations and document which authority controls each conflict.
+- [x] Article type: Original Paper.
+- [x] Single Anonymized review model handled with identified manuscript.
+- [x] Abstract within 250-word limit.
+- [x] Eight keywords supplied.
+- [x] Short title within 70-character limit.
+- [x] Main editable DOCX uploaded.
+- [x] Scientific figures uploaded as separate TIFF files.
+- [x] Tables placed after References in the R5 manuscript.
+- [x] GTOC TIFF uploaded.
+- [x] GTOC DOCX uploaded as review-only additional file.
+- [x] Author biography uploaded as review-only additional file.
+- [x] Recent author photograph uploaded as JPEG review-only additional file.
+- [x] Cover letter uploaded.
+- [x] Data Availability Statement entered and retained in manuscript.
+- [x] Funding: no external funding.
+- [x] Conflict of interest: none disclosed.
+- [x] AI-use disclosure completed in the Wiley portal and manuscript.
+- [x] ORCID supplied.
+- [x] Affiliation shown as `Independent Researcher`; manuscript location retained separately.
 
-### R5 manuscript-format gate
+## Final QA gates
 
-Public-policy evidence gate: **PASS**. See `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md`, `R5_LIVE_POLICY_REQUIREMENT_MATRIX_2026-09-21.md`, and `R5_VISUAL_PUBLISHER_QA_2026-09-22.md`.
+- [x] Public-policy evidence gate: PASS.
+- [x] Scientific source-preservation gate: PASS.
+- [x] Paper 4 / Paper 5 non-overlap gate: PASS.
+- [x] Zero-em-dash publisher-facing source gate: PASS.
+- [x] R5 public-safe CI builder: PASS.
+- [x] Main manuscript visual QA: PASS.
+- [x] Auxiliary-document visual QA: PASS.
+- [x] Scientific figure and GTOC visual QA: PASS.
+- [x] Word structural/accessibility QA: PASS with 0 high / 0 medium / 0 low findings.
+- [x] Author credential duplication corrected.
+- [x] Affiliation/location separation corrected.
+- [x] Exact-divisibility correction explanation present in Section 2.4.
+- [x] Onboard processing-duration abstraction explicit in Section 4.4.
+- [x] Final Reviewer PDF: 27 pages, PASS.
+- [x] Final Reviewer PDF author photograph visible in Wiley rendering.
+- [x] Publisher submission explicitly authorized by author.
+- [x] Publisher submission completed on 2026-09-22.
 
-- [x] Build a professional single-column reviewer manuscript, not a simulated Wiley production PDF.
-- [x] Use a restrained academic typography system and consistent page rhythm.
-- [x] Remove slide-like lists where prose or a concise table is superior.
-- [x] Use only standard list glyphs where lists remain in auxiliary submission documents.
-- [x] Use numbered hierarchical headings consistently.
-- [x] Add professionally formatted figure legends.
-- [x] Put tables on separate pages after References as the conservative R5 initial-submission design and explicit revision-ready placement.
-- [x] Prepare scientific figures as separate publication-quality TIFF files while preserving reviewer readability in the manuscript.
-- [x] Prepare the mandatory GTOC with title, corresponding-author marker, purpose-built graphic, and <=80-word / <=3-sentence text.
-- [x] Prepare the <=200-word author biography.
-- [ ] Place the recent author photograph into the ignored local-private/local-submission package and visually verify it before portal upload.
-- [x] Retain the required Methods AI disclosure from the live portal certification.
-- [x] Preserve the formal Data Availability Statement and immutable repository identity.
-- [x] Preserve zero em dashes across every publisher-facing public-safe document.
-- [x] Preserve all Study 8 / Study 8E numbers, equations, hashes, citations, and claim boundaries.
-- [x] Confirm no scientific rerun or reanalysis was performed.
-- [x] Render every public-safe DOCX and inspect every page at normal reading scale.
-- [x] Check for broken glyphs, orphan headings, widows/orphans, excessive whitespace, poor figure/table sizing, and inconsistent indentation.
-- [x] Verify the exact immutable Acta submitted manuscript hash and complete direct render-to-render visual benchmarking.
-- [x] Confirm tracked publisher-facing files contain placeholders only and local-private/local-submission paths remain ignored.
-- [ ] Generate and visually inspect the final personalized local-only package under `_local_submission/`.
-- [x] Produce a verification-bounded Research Exchange upload-map draft without inventing portal categories.
-- [ ] Reconcile that draft against the live Research Exchange Required Files/metadata screens to produce the exact final upload map.
-- [ ] Obtain separate explicit author authorization before final publisher submission.
+## Privacy gates
 
+- [x] Private contact metadata remains Git-ignored.
+- [x] Author photograph source remains Git-ignored.
+- [x] Personalized submission binaries remain Git-ignored.
+- [x] GitHub Actions produces public-safe placeholder output only.
 
-## Manuscript and metadata
+## Post-submission rule
 
-- [x] Satellite component is central to the paper.
-- [x] Full title prepared.
-- [x] Short title <=70 characters prepared (63 characters).
-- [x] Abstract <=250 words prepared (213 words).
-- [x] Abstract is self-contained and contains no literature citations.
-- [x] Up to 8 keywords prepared (8).
-- [x] Corresponding-author email retained only in ignored local-private metadata.
-- [x] ORCID retained only in ignored local-private metadata for the upload-ready build.
-- [x] Funding statement prepared.
-- [x] Competing-interest statement prepared.
-- [x] Ethics statement prepared.
-- [x] Data Availability Statement prepared.
-- [x] Author contribution statement prepared.
-- [x] Wiley-aligned AI Use Declaration prepared.
-- [x] Author biography <=200 words prepared.
-- [x] Biography refreshed from author-provided resume evidence without importing private contact details.
-- [x] Verified degree display for local personalized package: MS, PhD.
-- [x] Blank telephone line is omitted when no telephone is supplied.
-- [x] Cover-letter signature block is compacted to prevent an orphaned email line.
-- [x] Recent author photograph supplied by author; must be copied only to the ignored local-private directory before final local build.
-- [ ] Corresponding-author telephone entered in Wiley portal if requested.
-- [x] Fax marked not applicable.
+No additional Paper 4 scientific or publisher-facing edits are authorized while the manuscript is in editorial screening unless IJSCCN requests a revision.
 
-## GTOC
-
-- [x] GTOC text <=80 words and <=3 sentences.
-- [x] GTOC graphic source planned.
-- [x] High-resolution GTOC TIFF and one-page GTOC DOCX generated and visually checked at the R5 artwork target.
-
-## Figures
-
-- [x] Figure 1 state-machine schematic generated and visually checked.
-- [x] Figure 2 Study 8 fixed-capacity profile result generated and visually checked.
-- [x] Figure 3 Study 8E elapsed-time finite-threshold result generated and visually checked.
-- [x] R5 builder generates separate TIFF files at the 800 dpi artwork target; exact-head CI validates embedded DPI metadata.
-- [x] Figure legends included in the main document.
-- [x] All figure/manuscript scientific values cross-checked against frozen authorities.
-
-## References
-
-- [x] Consistent bibliography source retained.
-- [x] Reviewer-ready numbered citations/reference list generated in submission DOCX.
-- [x] Online references include access dates where appropriate.
-
-## Submission files
-
-- [x] Main editable DOCX generated.
-- [x] Historical R1 Main DOCX rendered to 25 pages and visually inspected for clipping/overlap; later author review superseded this as a publication-quality approval.
-- [x] Separate figure files generated.
-- [x] GTOC figure and combined one-page GTOC DOCX generated and visually checked.
-- [x] Cover letter source prepared.
-- [x] Title-page source prepared.
-- [x] Data Availability Statement source prepared.
-- [x] AI Use Declaration source prepared.
-- [x] Package README prepared.
-- [x] GitHub Actions produces only a public-safe QA ZIP with placeholder author metadata.
-- [x] Personalized manuscript, cover letter, title page, biography, AI declaration, and GTOC generated locally and visually checked: **PASS**.\n- [ ] Complete the final personalized package by adding and visually verifying the recent author photograph under the ignored local-only path.
-
-## Privacy and authorization
-
-- [x] Tracked IJSCCN author-facing sources contain no private email/ZIP values.
-- [x] Local-private and local-submission directories are ignored by Git.
-- [x] GitHub Actions is restricted to public-safe placeholder builds.
-- [x] Venue-specific package preparation authorized.
-- [ ] Publisher submission authorized.
-
-**Publisher submission remains prohibited until separate explicit author authorization.**
-
-## QA record
-
-Historical R1 package provenance is retained for audit only and does not establish R5 submission readiness:
-
-- R1 candidate workflow run: `35621798205`
-- R1 artifact: `10649611764`
-- R1 artifact digest: `sha256:16c47420c22ce8296367cd5d5dce2ce7967a364e34522a35b84cab818437aa72`
-
-Current R5 status:
-
-- public-policy evidence gate: **PASS**
-- requirement-classification gate: **PASS**
-- scientific source-preservation gate: **PASS**
-- Paper 4 / Paper 5 non-overlap gate: **PASS**
-- 18-page manuscript visual QA: **PASS**
-- auxiliary-document visual QA: **PASS**
-- scientific-figure and GTOC visual QA: **PASS**
-- Word structural/accessibility QA: **PASS**
-- direct immutable Acta render comparison: **PASS**
-- R5 public-safe builder: **PASS** with 800 dpi artwork target and automated privacy/document-integrity checks
-- exact-head PR #164 CI: must pass after every reconciliation edit
-- personalized local document-set visual/structural QA: **PASS**
-- final personalized local package QA: **PARTIAL PASS, RECENT AUTHOR PHOTOGRAPH PENDING**
-- live Research Exchange upload-map verification: **OPEN**
-- publisher submission authorization: **NOT GRANTED**
+A future revision must use a new explicitly versioned Paper 4 response branch and must not import evidence or work products from Paper 5 or unrelated studies.
