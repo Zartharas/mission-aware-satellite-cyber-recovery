@@ -154,7 +154,7 @@ jobs:
           path = Path("/tmp/s7e-cfs/sample_defs/generate_startup.cmake")
           text = path.read_text(encoding="utf-8")
           needle = '"CFE_APP, sample_app,  SAMPLE_APP_Main,    SAMPLE_APP,   50,   32768, 0x0, 0;\\n"\n'
-          replacement = needle + '        "CFE_APP, aerc_bus_probe, AERC_BUS_PROBE_AppMain, AERC_PROBE, 55, 32768, 0x0, 0;\\n"\n'
+          replacement = needle + '        "CFE_APP, aerc_bus_probe, AERC_BUS_PROBE_Main, AERC_PROBE, 55, 32768, 0x0, 0;\\n"\n'
           if needle not in text:
               raise SystemExit("sample-app startup insertion point not found")
           path.write_text(text.replace(needle, replacement, 1), encoding="utf-8")
