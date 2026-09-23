@@ -246,3 +246,47 @@ This is **not** a protocol/environment freeze and does not authorize production-
 
 Continue the remaining non-canonical architecture components on the selected cFS baseline while preserving equal-information, truth-separation, deterministic-control, and fail-closed canonical-execution guards.
 
+## Recovery action sink — GREEN
+
+At head `ec2637b5d1c6710e6ac97b32d45cbde2750c1d42`, the selected standalone cFS baseline successfully compiled and ran the pre-canonical `aerc_sink` plus its engineering-only `aerc_sink_probe`.
+
+GitHub Actions evidence:
+
+- workflow: `Study 7E pre-canonical qualification`
+- workflow ID: `364617426`
+- run ID: `35882223951`
+- job ID: `107253301919`
+- job conclusion: `success`
+
+Observed positive records:
+
+- `AERC_RECOVERY_SINK RECORD scenario=0x53374541 policy=1 action=HOLD sequence=1`
+- `AERC_RECOVERY_SINK RECORD scenario=0x53374542 policy=3 action=ENTER_RECOVERY_GATE sequence=2`
+
+Observed fail-closed checks:
+
+- `AERC_RECOVERY_SINK REJECT_LENGTH expected=24 actual=20 status=0x00000000`
+- `AERC_RECOVERY_SINK REJECT_ACTION scenario=0x5337454F policy=2 action=255`
+
+Engineering probe:
+
+- `AERC_SINK_PROBE PASS hold_scenario=0x53374541 enter_scenario=0x53374542 records=2 negatives=2`
+
+The workflow recorded `study7e_scientific_scenarios_executed=0` and `scientific_results_generated=false`.
+
+The sink makes no claim about whether a requested action is correct. It contains no research-only truth and performs no real hardware actuation.
+
+Durable checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md`
+
+### CI efficiency update
+
+After the selected cFS baseline and sink gate became green, CI was separated by purpose:
+
+- fast pre-canonical contracts/governance remain automatic;
+- cFS runtime smoke runs on Study-7E FSW changes or manual dispatch;
+- full cFS `native_std.runtest` baseline feasibility is retained as manual-only.
+
+This avoids repeating an already-established full baseline build on documentation/config-only commits.
+

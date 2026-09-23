@@ -54,6 +54,28 @@
       "study7e_scientific_scenarios_executed": 0,
       "scientific_results_generated": false,
       "qualification_scope": "non-canonical cFS/SBN/HS implementation-seam qualification only; observed HS fields are runtime engineering evidence and are not Study-7E true_health_ready or scientific results"
+    },
+    "recovery_sink_evidence": {
+      "qualification_head": "ec2637b5d1c6710e6ac97b32d45cbde2750c1d42",
+      "workflow_id": 364617426,
+      "workflow_run_id": 35882223951,
+      "job_id": 107253301919,
+      "request_mid": "0x0EE3",
+      "record_mid": "0x0EE4",
+      "hold_marker": "AERC_RECOVERY_SINK RECORD scenario=0x53374541 policy=1 action=HOLD sequence=1",
+      "enter_marker": "AERC_RECOVERY_SINK RECORD scenario=0x53374542 policy=3 action=ENTER_RECOVERY_GATE sequence=2",
+      "malformed_rejection_marker": "AERC_RECOVERY_SINK REJECT_LENGTH expected=24 actual=20 status=0x00000000",
+      "invalid_action_rejection_marker": "AERC_RECOVERY_SINK REJECT_ACTION scenario=0x5337454F policy=2 action=255",
+      "engineering_probe_marker": "AERC_SINK_PROBE PASS hold_scenario=0x53374541 enter_scenario=0x53374542 records=2 negatives=2",
+      "compile_green": true,
+      "runtime_green": true,
+      "malformed_request_rejected": true,
+      "invalid_action_rejected": true,
+      "receipt_sequence_preserved": true,
+      "research_truth_visible_to_sink": false,
+      "study7e_scientific_scenarios_executed": 0,
+      "scientific_results_generated": false,
+      "qualification_scope": "pre-canonical recovery-action recording and fail-closed input validation only; no policy correctness claim and no hardware actuation"
     }
   },
   "nos3_candidate": {
@@ -93,16 +115,24 @@
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "SB_SELF_LOOP_SBN_TWO_INSTANCE_HS_OBSERVATION_GREEN__RECOVERY_SINK_IMPLEMENTED__SINK_RUNTIME_QUALIFICATION_PENDING__FULL_AERC_POLICY_APP_NOT_IMPLEMENTED__PRECANONICAL",
+    "cfs_custom_apps": "SB_SELF_LOOP_SBN_TWO_INSTANCE_HS_OBSERVATION_RECOVERY_SINK_RUNTIME_GREEN__FULL_EVIDENCE_AND_POLICY_PIPELINE_NOT_IMPLEMENTED__PRECANONICAL",
     "nos3_integration": "BOUNDED_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Qualify the new recovery-action sink at runtime on the selected standalone cFS v7.0.1 baseline. If green, record the sink checkpoint and then implement the policy-visible evidence pipeline without research-truth fields. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain prohibited.",
+  "next_gate": "Implement and qualify the shared policy-visible evidence/snapshot contract and deterministic D0/D1 decision path on the selected cFS baseline using engineering-only inputs and no research-truth fields. Keep the real-signature/Ed25519 dependency decision separate and reviewed before implementing authorization producers/verification. Protocol/environment freeze, production-model training/freeze, and canonical scientific execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
   "cfs_preselection_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
-  "stack_selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md"
+  "stack_selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
+  "recovery_sink_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
+  "ci_strategy": {
+    "precanonical_contracts": ".github/workflows/study7e-precanonical-qualification.yml",
+    "fsw_runtime_smoke": ".github/workflows/study7e-cfs-runtime-smoke.yml",
+    "cfs_baseline_feasibility": ".github/workflows/study7e-cfs-baseline-feasibility.yml",
+    "baseline_feasibility_mode": "MANUAL_ONLY_AFTER_BASELINE_SELECTION",
+    "rationale": "Avoid repeating full cFS native_std runtest on every Study-7E documentation/configuration update while preserving FSW runtime qualification on flight-software changes."
+  }
 }

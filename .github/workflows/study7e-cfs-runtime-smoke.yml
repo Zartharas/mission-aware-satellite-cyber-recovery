@@ -1,0 +1,99 @@
+name: Study 7E cFS runtime smoke
+
+on:
+  push:
+    branches:
+      - "paper3/s7e-aerc-implementation-feasibility-*"
+    paths:
+      - "study7e/fsw/**"
+      - ".github/workflows/study7e-cfs-runtime-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cfs-custom-app-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out Study 7E implementation
+        uses: actions/checkout@v6
+
+      - name: Clone exact cFS v7.0.1 bundle
+        run: |
+          set -euo pipefail
+          git clone --branch v7.0.1 --depth 1 --recurse-submodules --shallow-submodules \
+            https://github.com/nasa/cFS.git /tmp/s7e-cfs
+          test "$(git -C /tmp/s7e-cfs rev-parse HEAD)" = "088b2fa828db9ff7e00733f1908e0eeb59f66ce3"
+
+      - name: Integrate non-canonical AERC cFS components
+        run: |
+          set -euo pipefail
+          cp -a study7e/fsw/aerc_bus_probe /tmp/s7e-cfs/apps/aerc_bus_probe
+          cp -a study7e/fsw/aerc_recovery_sink /tmp/s7e-cfs/apps/aerc_recovery_sink
+          cp -a study7e/fsw/aerc_sink_probe /tmp/s7e-cfs/apps/aerc_sink_probe
+          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("/tmp/s7e-cfs/sample_defs/generate_startup.cmake")
+          text = path.read_text(encoding="utf-8")
+          needle = '"CFE_APP, sample_app,  SAMPLE_APP_Main,    SAMPLE_APP,   50,   32768, 0x0, 0;\\n"\n'
+          replacement = (
+              needle
+              + '        "CFE_APP, aerc_sink, AERC_SINK_Main, AERC_SINK, 53, 32768, 0x0, 0;\\n"\n'
+              + '        "CFE_APP, aerc_bus_probe, AERC_BUS_PROBE_Main, AERC_PROBE, 55, 32768, 0x0, 0;\\n"\n'
+              + '        "CFE_APP, aerc_sink_probe, AERC_SPROBE_Main, AERC_SINK_PROBE, 56, 32768, 0x0, 0;\\n"\n'
+          )
+          if needle not in text:
+              raise SystemExit("sample-app startup insertion point not found")
+          path.write_text(text.replace(needle, replacement, 1), encoding="utf-8")
+          PY
+
+      - name: Build cFS with Study 7E components
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs
+          make native_std.prep
+          make native_std.install
+          test -f build-native_std/exe/cpu1/cf/aerc_bus_probe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_sink.so
+          test -f build-native_std/exe/cpu1/cf/aerc_sink_probe.so
+          echo "aerc_bus_probe_compile=PASS"
+          echo "aerc_recovery_sink_compile=PASS"
+          echo "aerc_sink_probe_compile=PASS"
+
+      - name: Run non-canonical cFE Software Bus smoke check
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs/build-native_std/exe/cpu1
+          set +e
+          timeout 20 ./core-cpu1 > /tmp/study7e_cfs_runtime_smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/study7e_cfs_runtime_smoke.log
+            exit "$rc"
+          fi
+          cat /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_BUS_PROBE PASS" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374541 policy=1 action=HOLD sequence=1" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374542 policy=3 action=ENTER_RECOVERY_GATE sequence=2" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK REJECT_LENGTH" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK REJECT_ACTION scenario=0x5337454F policy=2 action=255" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_SINK_PROBE PASS hold_scenario=0x53374541 enter_scenario=0x53374542 records=2 negatives=2" /tmp/study7e_cfs_runtime_smoke.log
+          echo "aerc_bus_probe_runtime=PASS"
+          echo "aerc_recovery_sink_runtime=PASS"
+          echo "aerc_sink_probe_runtime=PASS"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
+      - name: Preserve runtime smoke log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: study7e-cfs-runtime-smoke-log
+          path: /tmp/study7e_cfs_runtime_smoke.log
+          if-no-files-found: warn
