@@ -58,9 +58,8 @@ OUT.mkdir(parents=True, exist_ok=True)
 FIG.mkdir(parents=True, exist_ok=True)
 
 AUTHOR = AUTHOR_META["display_name"]
-AFFILIATION = ", ".join(
-    part for part in (AUTHOR_META["affiliation"], AUTHOR_META["location"]) if part
-)
+AFFILIATION = AUTHOR_META["affiliation"]
+LOCATION = AUTHOR_META["location"]
 EMAIL = AUTHOR_META["email"]
 ORCID = AUTHOR_META["orcid"]
 TELEPHONE = AUTHOR_META.get("telephone", "")
@@ -567,9 +566,12 @@ def add_title_page(doc):
     r=p.add_run(FULL_TITLE); r.bold=True; r.font.size=Pt(16); set_run_font(r, "Times New Roman")
     p.paragraph_format.space_after=Pt(10)
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-    r=p.add_run(f"{AUTHOR}, MS, PhD"); r.bold=True; set_run_font(r, "Times New Roman")
+    r=p.add_run(AUTHOR); r.bold=True; set_run_font(r, "Times New Roman")
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
     p.add_run(AFFILIATION)
+    if LOCATION:
+        p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+        p.add_run(LOCATION)
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
     p.add_run(f"Corresponding author: {EMAIL}")
     p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER
