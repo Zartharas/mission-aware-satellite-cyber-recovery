@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "state": "FROZEN_PUBLIC_KEY_REGISTRY",
+  "algorithm": "Ed25519_RFC8032",
+  "derivation": "SHA256(UTF8('S7E-AERC-001|ED25519-TEST-SEED-V1|' + key_domain_alias))",
+  "entries": [
+    {
+      "key_domain": "corroborator:key",
+      "key_id": "0x9532BF30",
+      "public_key_hex": "de0c03b33c639ba174f6624d8a1fd22bafb05d26d68de27c00e527896f8230f7",
+      "public_key_sha256": "39baaf1156a64feb6f20f0887f46eeb3a2ce85b7581b3169290a7793c854a4af"
+    },
+    {
+      "key_domain": "primary:key",
+      "key_id": "0xC9B0FE66",
+      "public_key_hex": "dbb7c494d3bd557bdc844290584b7656e8aa6be84bfe3692800ded82464cf421",
+      "public_key_sha256": "5a4bff1401c7e398a832f2bfe7fe361bf292537c897908b5c48af3b4df2de996"
+    },
+    {
+      "key_domain": "shared:key",
+      "key_id": "0x39262168",
+      "public_key_hex": "1817b4f3dae5ba2836905919d8e55445e9739fa255ea69cfb34e6e24cd0331a0",
+      "public_key_sha256": "4f2e3a0f6a4721ff3ec3ec55f90d7ecad59319377fe36d0a9736979b2159ec3b"
+    }
+  ],
+  "secret_seed_or_private_key_committed": false,
+  "persistent_private_key_files": false,
+  "private_key_in_cfs": false,
+  "operational_use": "PROHIBITED",
+  "source_candidate_blob_sha": "b04349413621d72520a39da5f326073003db945b"
+}
