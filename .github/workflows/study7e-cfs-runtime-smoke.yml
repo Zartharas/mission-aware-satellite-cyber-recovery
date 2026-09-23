@@ -14,13 +14,61 @@ permissions:
   contents: read
 
 jobs:
+  latest-fsw-change:
+    runs-on: ubuntu-latest
+    outputs:
+      run_fsw: ${{ steps.diff.outputs.run_fsw }}
+      qualification_head: ${{ steps.diff.outputs.qualification_head }}
+
+    steps:
+      - name: Check out exact PR head for change detection
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
+
+      - name: Determine whether runtime qualification is needed
+        id: diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run_fsw=true" >> "$GITHUB_OUTPUT"
+            echo "qualification_head=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+            echo "runtime_smoke_reason=manual_dispatch"
+            exit 0
+          fi
+
+          head_sha="${{ github.event.pull_request.head.sha }}"
+          test "$(git rev-parse HEAD)" = "$head_sha"
+          echo "qualification_head=$head_sha" >> "$GITHUB_OUTPUT"
+
+          if git diff --name-only HEAD^ HEAD -- study7e/fsw .github/workflows/study7e-cfs-runtime-smoke.yml | grep -q .; then
+            echo "run_fsw=true" >> "$GITHUB_OUTPUT"
+            echo "latest_commit_fsw_changed=true"
+          else
+            echo "run_fsw=false" >> "$GITHUB_OUTPUT"
+            echo "latest_commit_fsw_changed=false"
+          fi
+
   cfs-custom-app-smoke:
+    needs: latest-fsw-change
+    if: needs.latest-fsw-change.outputs.run_fsw == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
     steps:
-      - name: Check out Study 7E implementation
+      - name: Check out exact qualification head
         uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.latest-fsw-change.outputs.qualification_head }}
+
+      - name: Bind runtime evidence to exact repository head
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ needs.latest-fsw-change.outputs.qualification_head }}"
+          echo "qualification_head=$(git rev-parse HEAD)"
 
       - name: Clone exact cFS v7.0.1 bundle
         run: |
