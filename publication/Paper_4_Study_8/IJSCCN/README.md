@@ -1,100 +1,68 @@
-# Paper 4 — IJSCCN Submission Package and R5 Rebuild State
+# Paper 4 — IJSCCN R5 Submission State
 
 Target journal: **International Journal of Satellite Communications and Networking (Wiley)**
 
-This directory is a venue-specific derivative of the frozen/reviewed Paper 4 manuscript. The venue-neutral source remains authoritative for scientific content.
+Article type: **Original Paper**
 
-## Current author-review state — 2026-09-21
+Current state: **Submitted 2026-09-22; Wiley status: In Screening**
 
-The repository-generated **R1 package remains historical/frozen provenance**, but it is **not the current publisher-upload candidate**.
+Journal manuscript ID: **4920969**
 
-Local-only R4.x personalized packages were generated under the ignored `_local_submission/` privacy boundary. During direct author review in Microsoft Word, the author identified unacceptable journal-manuscript presentation defects, including a Symbol/private-use bullet rendering failure and broader page-composition problems. A later local R4.3 formatting repair corrected the obvious glyph defect but did not meet the author's publication-quality benchmark.
+Final submission record: `R5_FINAL_SUBMISSION_RECORD_2026-09-22.md`
 
-**Decision:** do not upload R4.3. Rebuild the publisher-facing manuscript and submission documents as a new **R5** derivative before any Wiley upload.
+## Scientific authority and isolation
 
-R5 is a presentation/submission-document rebuild only. It must preserve all frozen Study 8 and Study 8E science, results, hashes, citations, claim boundaries, and the separation of the two study populations. No new scientific execution or statistical reanalysis is authorized.
+This directory is the venue-specific Paper 4 derivative for the combined Study 8 + Study 8E manuscript.
 
-The exact rejected Acta Astronautica manuscript remains immutable historical provenance. It may be inspected as a **visual-quality benchmark** for scholarly typography, spacing, page rhythm, headings, lists, captions, and overall professionalism, but its scientific scope and venue-specific structure must not be copied blindly into IJSCCN.
+The following boundaries are mandatory:
 
-### R5 live-policy validation sources
+- Study 8 remains `S8-PQC-ICR-001`.
+- Study 8E remains `S8E-ECTV-001` with corrected authority `S8E-CANON-RESULTS-002-FREEZE-001`.
+- Study 8 and Study 8E are reported together but are never statistically pooled.
+- Study 8 logical slots are ordering units only and are not mapped to physical time.
+- SatNOGS observations are timing proxies only and are not authenticated command contacts or measured throughput.
+- Paper 5 / Study 9 evidence is excluded from Paper 4.
+- No new scientific execution or statistical reanalysis was performed for the R5 rebuild.
 
-Before rebuilding R5, re-check the current journal-specific and Wiley-wide requirements, following all relevant linked pages:
+The submitted publisher-facing manuscript source is bound to:
 
-- IJSCCN Author Guidelines: https://onlinelibrary.wiley.com/page/journal/15420981/homepage/forauthors.html
-- Wiley Prepare hub: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/index.html
-- Wiley Manuscript Preparation Guidelines: https://authors.wiley.com/author-resources/Journal-Authors/Prepare/manuscript-preparation-guidelines.html/index.html
-- Wiley Submission and Peer Review: https://authors.wiley.com/author-resources/Journal-Authors/submission-peer-review/index.html
+`829e23836fc378f40bb5211bfbe2599882e30bc7`
 
-Journal-specific IJSCCN instructions take precedence over generic Wiley guidance when the two differ. Live portal requirements take precedence for fields and certifications actually presented during submission.
+The manuscript's cited scientific evidence snapshot remains:
 
-### R5 public-policy audit status
+`4ed95a53ade99ddabacbe7c542a3f29d988ecfd0`
 
-The exhaustive public-source audit is complete and recorded in:
+## Current package sources
 
-- `R5_WILEY_IJSCCN_EVIDENCE_AUDIT_2026-09-22.md`
-- `R5_LIVE_POLICY_REQUIREMENT_MATRIX_2026-09-21.md`
-- `R5_MANUSCRIPT_DESIGN_SPEC_2026-09-21.md`
+- `MANUSCRIPT_IJSCCN_R5.md` — submitted R5 manuscript source.
+- `build_ijsccn_r5_package.py` — public-safe/local-private R5 package builder.
+- `TITLE_PAGE.md` — title-page source.
+- `COVER_LETTER.md` — cover-letter source.
+- `DATA_AVAILABILITY_STATEMENT.md` — Data Availability Statement source.
+- `AI_USE_DECLARATION.md` — AI-use disclosure source.
+- `AUTHOR_BIOGRAPHY.md` — author biography source.
+- `GTOC.md` — graphical table-of-contents source/specification.
+- `REFERENCES.bib` — R5 bibliography.
+- `SUBMISSION_CHECKLIST.md` — final R5 compliance/submission checklist.
+- `PACKAGE_STATUS.json` — machine-readable current package state.
+- `R5_FINAL_SUBMISSION_RECORD_2026-09-22.md` — final publisher-submission record.
 
-**Public-policy evidence gate: PASS.**
+The R5 policy, preservation, visual-QA, and Research Exchange mapping records are retained as provenance. Files with `DRAFT` in historical filenames remain historical audit records and are not the current submission authority.
 
-The audit corrected three earlier overstatements: literal IMRaD heading names are not proven mandatory, initial Free Format does not absolutely require separated tables/figures, and the dedicated post-References Figure Legends section is a Wiley-preferred presentation rather than an IJSCCN-specific initial-submission mandate. R5 will still use the stricter, revision-ready presentation as a deliberate design choice.
+## Privacy boundary
 
-The current IJSCCN peer-review model is **Single Anonymized**, so the R5 main manuscript remains identified by default. Remaining unknowns are submission-instance portal details such as whether the title page is a separate upload, exact GTOC/photo/cover-letter file designations, CRediT/editor-reviewer fields, and certain certifications. These must be checked when the live Research Exchange draft is reopened and do not block the source-manuscript rebuild.
-
-### R5 design gate
-
-The next submission candidate must pass all of the following before portal upload:
-
-1. current IJSCCN/Wiley policy audit with citations and conflict reconciliation;
-2. professional single-column reviewer-manuscript layout appropriate for initial submission;
-3. figure and table treatment that follows IJSCCN-specific instructions;
-4. required GTOC, biography/photo, declarations, Data Availability Statement, AI disclosure, funding, and competing-interest content;
-5. zero em dashes, per author requirement;
-6. scientific-preservation comparison against frozen authorities;
-7. page-by-page visual inspection at normal reading scale;
-8. local-only privacy validation for personalized metadata/photo;
-9. exact portal-file mapping;
-10. separate author authorization before final publisher submission.
-
-
-## Package contents
-
-- `MANUSCRIPT_IJSCCN.md` — IJSCCN-adapted manuscript source.
-- `TITLE_PAGE.md` — title-page metadata.
-- `COVER_LETTER.md` — submission cover-letter source.
-- `DATA_AVAILABILITY_STATEMENT.md` — Wiley-required data availability.
-- `AI_USE_DECLARATION.md` — Wiley-aligned AI disclosure.
-- `AUTHOR_BIOGRAPHY.md` — <=200-word biography.
-- `GTOC.md` — Graphical Table of Contents text/graphic specification.
-- `SUBMISSION_CHECKLIST.md` — live author-guideline compliance checklist.
-- `REFERENCES.bib` — derivative bibliography copied from the reviewed venue-neutral manuscript.
-- `figures/` — source/high-resolution figures.
-- `PACKAGE_STATUS.json` — package governance state.
-- `AUTHOR_PRIVATE.template.json` — placeholder-only template for local private metadata.
-- `LOCAL_PRIVATE_SETUP.md` — local-only privacy/build instructions.
-
-## Frozen boundaries
-
-This package does not alter Study 8, Study 8E, TRACE-002, Results-002, or the rejected Acta package.
-
-Study 8 and Study 8E remain separate finite populations. No pooled denominator, logical-slot-to-hours conversion, operational-command-contact claim, or measured-throughput claim is permitted.
-
-## Local-only privacy boundary
-
-Private submission metadata and the recent author photograph must be stored only under the ignored local path:
+Private metadata and personalized publisher files remain local-only under:
 
 `publication/Paper_4_Study_8/IJSCCN/_local_private/`
 
-Personalized upload-ready files must be generated only under:
+and:
 
 `publication/Paper_4_Study_8/IJSCCN/_local_submission/`
 
-Neither directory may be tracked or uploaded as a GitHub Actions artifact. The tracked package sources contain template tokens instead of private contact values. GitHub Actions builds only a public-safe QA package with placeholder author metadata.
+Both locations are Git-ignored. The public repository must not track private email/telephone/postal metadata, the author photograph, or personalized submission binaries.
 
-See `LOCAL_PRIVATE_SETUP.md` for the local build procedure.
+## Post-submission rule
 
-## Submission authorization
+Paper 4 is under editorial screening. Do not alter the submitted scientific manuscript, Study 8, Study 8E, or frozen evidence unless IJSCCN requests a revision.
 
-Package preparation is authorized.
-
-Publisher submission is **not authorized**.
+Any requested revision must be opened as a new explicitly versioned Paper 4 publisher-response cycle. Do not reuse Paper 5 or unrelated-study branches, evidence, or work products.
