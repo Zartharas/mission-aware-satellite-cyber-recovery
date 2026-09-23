@@ -495,3 +495,19 @@ Records:
 - `study7e/configs/signed_evidence_architecture_resolution_draft.json`
 - `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_ARCHITECTURE_RESOLUTION_DRAFT_2026-09-23.md`
 
+## Host-side signed-evidence v2 feasibility — IMPLEMENTED, QUALIFICATION PENDING
+
+A non-canonical host-side implementation now exercises the reviewed 64-byte v2 candidate without adding private keys to cFS FSW.
+
+Files:
+
+- `study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.[ch]`
+- `study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c`
+- `.github/workflows/study7e-signed-evidence-v2-feasibility.yml`
+
+The engineering test uses the published RFC 8032 Section 7.1 Test 1 seed/public key only as standard test-vector material. It is not final Study-7E key material.
+
+The gate checks explicit big-endian serialize/parse round-trip, deterministic key derivation, signing/verification of the 64-byte body, signature failure after mutations of protected fields, and malformed/invalid structural rejection.
+
+No final key registry, policy binding, scientific scenario, or result is created.
+

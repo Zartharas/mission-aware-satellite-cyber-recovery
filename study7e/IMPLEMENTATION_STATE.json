@@ -163,7 +163,7 @@
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Implement and test the host-side fixed-width v2 serializer/parser and deterministic engineering signer path using non-final test-vector key material outside cFS FSW. Preserve the public-key-only cFS verifier. Do not freeze final keys/registries or bind signature/authorization features until author review of the draft architecture and remaining timing/replay/fault-transform contracts.",
+  "next_gate": "Qualify the host-side signed-evidence v2 serializer/parser and deterministic engineering signing path. If green, checkpoint exact body/signature/provenance evidence. Final experiment keys/registries, timing/replay semantics, fault transformations, policy binding, learned-model training/freeze, protocol freeze, and canonical execution remain prohibited.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -282,5 +282,16 @@
     "private_key_in_cfs_fsw": false,
     "author_approval": false,
     "freeze_authorized": false
+  },
+  "signed_evidence_v2_feasibility": {
+    "state": "HOST_SIDE_IMPLEMENTED__QUALIFICATION_PENDING",
+    "workflow": ".github/workflows/study7e-signed-evidence-v2-feasibility.yml",
+    "implementation_dir": "study7e/feasibility/signed_evidence_v2",
+    "candidate_bytes": 64,
+    "test_key_material": "RFC8032_SECTION_7_1_TEST_1__PUBLIC_ENGINEERING_VECTOR__NOT_FINAL_EXPERIMENT_KEY",
+    "private_key_in_cfs_fsw": false,
+    "final_key_registry_frozen": false,
+    "policy_binding": false,
+    "scientific_results_generated": false
   }
 }

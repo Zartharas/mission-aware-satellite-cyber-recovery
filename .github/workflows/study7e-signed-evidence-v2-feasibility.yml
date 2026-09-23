@@ -1,0 +1,79 @@
+name: Study 7E signed-evidence v2 feasibility
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "study7e/feasibility/signed_evidence_v2/**"
+      - "study7e/configs/signed_evidence_contract_draft.json"
+      - "study7e/configs/signed_evidence_architecture_resolution_draft.json"
+      - ".github/workflows/study7e-signed-evidence-v2-feasibility.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  host-side-v2-signing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact Study 7E head
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Fetch exact selected Monocypher 4.0.3 source
+        run: |
+          set -euo pipefail
+          git init /tmp/monocypher
+          git -C /tmp/monocypher remote add origin https://github.com/LoupVaillant/Monocypher.git
+          git -C /tmp/monocypher fetch --depth=1 origin ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f
+          git -C /tmp/monocypher checkout --detach FETCH_HEAD
+          test "$(git -C /tmp/monocypher rev-parse HEAD)" = "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f"
+          grep -q '^4.0.3$' /tmp/monocypher/CHANGELOG.md
+          grep -q 'crypto_ed25519_sign' /tmp/monocypher/src/optional/monocypher-ed25519.h
+          grep -q 'crypto_ed25519_check' /tmp/monocypher/src/optional/monocypher-ed25519.h
+
+      - name: Compile host-side serializer and deterministic signing test
+        run: |
+          set -euo pipefail
+          cc -std=c99 -O2 -Wall -Wextra -Werror             -I study7e/feasibility/signed_evidence_v2             -I /tmp/monocypher/src             -I /tmp/monocypher/src/optional             study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c             study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c             /tmp/monocypher/src/monocypher.c             /tmp/monocypher/src/optional/monocypher-ed25519.c             -o /tmp/signed_evidence_v2_test
+          echo "signed_evidence_v2_compile=PASS"
+
+      - name: Run deterministic v2 serialization and signing checks
+        run: |
+          set -euo pipefail
+          /tmp/signed_evidence_v2_test | tee /tmp/signed_evidence_v2_report.txt
+
+          grep -F "SIGNED_EVIDENCE_V2_SERIALIZE_PARSE=PASS" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_RFC8032_KEY_DERIVATION=PASS" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_SIGN_VERIFY=PASS" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_PROTECTED_FIELD_MUTATIONS_REJECT=PASS" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_MALFORMED_RESERVED_REJECT=PASS" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_INVALID_FIELD_REJECT=PASS" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_SECRET_KEY_IN_CFS_FSW=false" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_FINAL_KEY_REGISTRY_FROZEN=false" /tmp/signed_evidence_v2_report.txt
+          grep -F "SIGNED_EVIDENCE_V2_POLICY_BINDING=false" /tmp/signed_evidence_v2_report.txt
+          grep -F "scientific_results_generated=false" /tmp/signed_evidence_v2_report.txt
+
+          body_hex="$(sed -n 's/^SIGNED_EVIDENCE_V2_BODY_HEX=//p' /tmp/signed_evidence_v2_report.txt)"
+          test "${#body_hex}" -eq 128
+          printf '%s' "$body_hex" | xxd -r -p > /tmp/signed_evidence_v2_body.bin
+          sha256sum /tmp/signed_evidence_v2_body.bin | tee /tmp/signed_evidence_v2_body.sha256
+          cat /tmp/signed_evidence_v2_body.sha256 >> /tmp/signed_evidence_v2_report.txt
+
+          echo "signed_evidence_v2_host_gate=PASS"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
+      - name: Preserve engineering report
+        uses: actions/upload-artifact@v4
+        with:
+          name: study7e-signed-evidence-v2-feasibility
+          path: |
+            /tmp/signed_evidence_v2_report.txt
+            /tmp/signed_evidence_v2_body.sha256
+          if-no-files-found: error

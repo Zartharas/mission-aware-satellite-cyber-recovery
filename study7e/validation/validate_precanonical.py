@@ -237,6 +237,12 @@ def main() -> int:
         and signed_evidence_resolution["approvals"]["canonical_execution_authorized"] is False,
         "architecture draft approval/freeze gate enabled prematurely",
     )
+    signed_v2_state = state["signed_evidence_v2_feasibility"]
+    require(signed_v2_state["state"] == "HOST_SIDE_IMPLEMENTED__QUALIFICATION_PENDING", "signed-evidence v2 feasibility state drift")
+    require(signed_v2_state["candidate_bytes"] == 64, "signed-evidence v2 feasibility byte-length drift")
+    require(signed_v2_state["private_key_in_cfs_fsw"] is False, "signed-evidence v2 test key leaked into cFS FSW")
+    require(signed_v2_state["final_key_registry_frozen"] is False, "signed-evidence v2 key registry frozen prematurely")
+    require(signed_v2_state["policy_binding"] is False, "signed-evidence v2 policy binding enabled prematurely")
 
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
@@ -264,6 +270,10 @@ def main() -> int:
         ROOT / "study7e/configs/signed_evidence_contract_review_r1.json",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
         ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json",
+        ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
+        ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
+        ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",
+        ROOT / ".github/workflows/study7e-signed-evidence-v2-feasibility.yml",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_ARCHITECTURE_RESOLUTION_DRAFT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
