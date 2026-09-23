@@ -159,7 +159,7 @@ void AERC_SPROBE_Main(void)
     }
 
     CFE_ES_WriteToSysLog(
-        "AERC_SINK_PROBE PASS hold_scenario=0x%08lX enter_scenario=0x%08lX records=2\n",
+        "AERC_SINK_PROBE PASS hold_scenario=0x%08lX enter_scenario=0x%08lX records=2 negatives=2\n",
         (unsigned long)AERC_SINK_PROBE_HOLD_SCENARIO_ID,
         (unsigned long)AERC_SINK_PROBE_ENTER_SCENARIO_ID);
     CFE_EVS_SendEvent(AERC_SINK_PROBE_PASS_EID,
