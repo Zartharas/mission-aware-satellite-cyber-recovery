@@ -2,9 +2,9 @@ name: Study 7E cFS runtime smoke
 # FSW-only qualification; baseline feasibility is maintained separately.
 
 on:
-  push:
+  pull_request:
     branches:
-      - "paper3/s7e-aerc-implementation-feasibility-*"
+      - main
     paths:
       - "study7e/fsw/**"
       - ".github/workflows/study7e-cfs-runtime-smoke.yml"
