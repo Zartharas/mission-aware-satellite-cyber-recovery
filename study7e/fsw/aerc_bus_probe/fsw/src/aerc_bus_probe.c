@@ -48,14 +48,14 @@ void AERC_BUS_PROBE_Main(void)
 
     if (status == CFE_SUCCESS)
     {
-        status = CFE_MSG_Init(&message.Message, msg_id, sizeof(message));
+        status = CFE_MSG_Init(&message.TelemetryHeader.Msg, msg_id, sizeof(message));
     }
 
     if (status == CFE_SUCCESS)
     {
         message.ScenarioId = AERC_BUS_PROBE_SCENARIO_ID;
         message.Marker = AERC_BUS_PROBE_MARKER;
-        status = CFE_SB_TransmitMsg(&message.Message, true);
+        status = CFE_SB_TransmitMsg(&message.TelemetryHeader.Msg, true);
     }
 
     if (status == CFE_SUCCESS)

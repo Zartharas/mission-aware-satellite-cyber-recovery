@@ -9,7 +9,7 @@
 
 typedef struct
 {
-    CFE_MSG_Message_t Message;
+    CFE_MSG_TelemetryHeader_t TelemetryHeader;
     uint32 ScenarioId;
     uint32 Marker;
 } AERC_BUS_PROBE_Message_t;
