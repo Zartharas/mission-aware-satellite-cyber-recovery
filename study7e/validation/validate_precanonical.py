@@ -148,13 +148,16 @@ def main() -> int:
         "flight-software secret-key prohibition lost",
     )
 
-    require(signature_deps["state"] == "BOUNDED_FEASIBILITY__NO_CRYPTO_RUNTIME_SELECTED", "signature dependency state drift")
+    require(
+        signature_deps["state"] == "SELECTED_FOR_PRECANONICAL_CFS_VERIFICATION_INTEGRATION__NOT_FROZEN",
+        "signature dependency state drift",
+    )
     require(signature_deps["algorithm_candidate"] == "Ed25519_RFC8032", "signature algorithm candidate drift")
     require(signature_deps["use_case"] == "verification_only", "signature dependency use-case drift")
     require(signature_deps["requirements"]["secret_key_in_flight_software"] is False, "secret key allowed in flight software")
     require(signature_deps["requirements"]["public_key_bytes"] == 32, "Ed25519 public-key length drift")
     require(signature_deps["requirements"]["signature_bytes"] == 64, "Ed25519 signature length drift")
-    require(signature_deps["selected_candidate"] is None, "signature dependency selected before feasibility review")
+    require(signature_deps["selected_candidate"] == "monocypher", "signature dependency selection drift")
     require(signature_deps["candidates"]["monocypher"]["commit"] == "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f", "Monocypher pin drift")
     require(signature_deps["candidates"]["libsodium"]["commit"] == "77e1ce5d6dee871c49ef211222ba18ef0c486bda", "libsodium pin drift")
     require(signature_deps["candidates"]["libsodium"]["official_tarball_sha256"] == "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349", "libsodium tarball digest drift")
