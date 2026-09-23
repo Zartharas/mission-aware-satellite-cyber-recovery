@@ -13,6 +13,7 @@ FC = json.loads((ROOT / "study7e/configs/protocol_environment_freeze_candidate_0
 EP = json.loads((ROOT / "study7e/configs/execution_parameters_candidate_2026-09-23.json").read_text())
 APPROVAL = json.loads((ROOT / "study7e/configs/ep_author_approval_2026-09-23.json").read_text())
 STATE = json.loads((ROOT / "study7e/FREEZE_CANDIDATE_STATE.json").read_text())
+FREEZE = json.loads((ROOT / "study7e/FREEZE_MANIFEST_001.json").read_text())
 
 
 def opaque_u32(namespace: str, label: str, used: set[int]) -> int:
@@ -71,12 +72,19 @@ class FreezeCandidateTests(unittest.TestCase):
         self.assertTrue(all(APPROVAL["decisions"].values()))
         self.assertTrue(all(APPROVAL["not_authorized"].values()))
 
-    def test_candidate_is_not_a_freeze(self) -> None:
+    def test_candidate_artifact_remains_historical_while_authoritative_state_is_frozen(self) -> None:
         self.assertEqual(FC["state"], "PROTOCOL_ENVIRONMENT_FREEZE_CANDIDATE__NOT_FROZEN__AUTHOR_APPROVAL_REQUIRED")
         self.assertFalse(any(FC["freeze_gates"].values()))
-        self.assertFalse(STATE["protocol_frozen"])
-        self.assertFalse(STATE["environment_frozen"])
+        self.assertEqual(FREEZE["state"], "FROZEN__MODELS_UNTRAINED__CANONICAL_EXECUTION_PROHIBITED")
+        self.assertTrue(STATE["protocol_frozen"])
+        self.assertTrue(STATE["environment_frozen"])
+        self.assertTrue(STATE["public_key_registry_frozen"])
+        self.assertTrue(STATE["fault_transformations_frozen"])
+        self.assertTrue(STATE["learner_protocol_frozen"])
+        self.assertFalse(STATE["production_models_trained"])
+        self.assertFalse(STATE["production_models_frozen"])
         self.assertFalse(STATE["canonical_execution_authorized"])
+        self.assertFalse(STATE["pr_merge_authorized"])
 
     def test_execution_parameters_match_approved_ep_candidate(self) -> None:
         self.assertEqual(FC["approved_execution_parameters"]["freshness_max_age_ticks"], EP["controlled_time"]["freshness_max_age_ticks"])
@@ -120,14 +128,13 @@ class FreezeCandidateTests(unittest.TestCase):
             self.assertEqual(actual, expected, path)
 
     def test_scientific_and_merge_gates_remain_closed(self) -> None:
-        gates = FC["freeze_gates"]
         for name in (
             "production_models_trained",
             "production_models_frozen",
             "canonical_execution_authorized",
             "pr_merge_authorized",
         ):
-            self.assertFalse(gates[name])
+            self.assertFalse(STATE[name])
 
 
 if __name__ == "__main__":
