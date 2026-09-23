@@ -162,7 +162,7 @@ def main() -> int:
     require(signature_deps["candidates"]["libsodium"]["commit"] == "77e1ce5d6dee871c49ef211222ba18ef0c486bda", "libsodium pin drift")
     require(signature_deps["candidates"]["libsodium"]["official_tarball_sha256"] == "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349", "libsodium tarball digest drift")
     sigwire = signature_deps["integration_contract"]
-    require(sigwire["state"] == "CFS_VERIFICATION_BOUNDARY_IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING", "signature verifier integration state drift")
+    require(sigwire["state"] == "CFS_VERIFICATION_BOUNDARY_RUNTIME_GREEN__NOT_AUTHORIZATION_BOUND", "signature verifier integration state drift")
     require(sigwire["request_mid"] == "0x0EE8", "signature verifier request MID drift")
     require(sigwire["result_mid"] == "0x0EE9", "signature verifier result MID drift")
     require(sigwire["wire_version"] == 1, "signature verifier wire version drift")
@@ -174,6 +174,12 @@ def main() -> int:
     require(sigwire["secret_key_present"] is False, "secret key added to verifier boundary")
     require(sigwire["signing_runtime_present"] is False, "signing runtime added prematurely")
     require(sigwire["policy_authorization_binding_present"] is False, "verification bound to authorization prematurely")
+    require(sigwire["production_public_key_registry_frozen"] is False, "production public-key registry frozen prematurely")
+    require(sigwire["canonical_authorization_message_defined"] is False, "canonical authorization bytes defined without review")
+    require(sigwire["runtime_evidence"]["valid_signature_results"] == 2, "signature verifier positive-case evidence drift")
+    require(sigwire["runtime_evidence"]["crypto_reject_results"] == 3, "signature verifier crypto-rejection evidence drift")
+    require(sigwire["runtime_evidence"]["malformed_requests_rejected_without_result"] == 5, "signature verifier malformed-input evidence drift")
+    require(sigwire["runtime_evidence"]["final_verification_sequence"] == 5, "signature verifier sequence evidence drift")
 
     required_precanonical_files = (
         ROOT / "study7e/audit/independent_design_audit.py",
@@ -195,6 +201,7 @@ def main() -> int:
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
         ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
         ROOT / ".github/workflows/study7e-cfs-baseline-feasibility.yml",

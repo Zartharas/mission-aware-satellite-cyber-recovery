@@ -157,13 +157,13 @@
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "SB_SBN_HS_RECOVERY_SINK_SHARED_BC_SNAPSHOT_D0_D1_GREEN__MONOCYPHER_ED25519_BOUNDARY_IMPLEMENTED_RUNTIME_PENDING__LEARNED_RUNTIME_NOT_IMPLEMENTED__PRECANONICAL",
+    "cfs_custom_apps": "SB_SBN_HS_RECOVERY_SINK_SHARED_BC_SNAPSHOT_D0_D1_MONOCYPHER_ED25519_BOUNDARY_RUNTIME_GREEN__AUTHORIZATION_BINDING_AND_LEARNED_RUNTIME_NOT_IMPLEMENTED__PRECANONICAL",
     "nos3_integration": "BOUNDED_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Qualify the cFE Monocypher Ed25519 verification boundary on the selected cFS baseline: valid RFC 8032 verification, mutated/zero/changed-message cryptographic rejection, malformed packet/version/key/message-length/padding rejection, and sequence preservation. Do not bind verifier output to policy authorization until this gate is green and canonical authorization-message serialization/public-key provenance are separately defined.",
+  "next_gate": "Define and review the canonical signed authorization-evidence byte serialization and production/test public-key provenance registry before binding Ed25519 verification output to primary_signature_valid or corr_signature_valid. Preserve source/key/authority domain semantics and test-only signing keys outside verifier flight software. Do not implement L0/L1, train/freeze production models, freeze the protocol/environment, or authorize canonical execution.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
   "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
@@ -200,15 +200,46 @@
       "fail_closed_on_verification_failure"
     ],
     "secret_key_in_flight_software": false,
-    "signature_verification_runtime_implemented": false,
+    "signature_verification_runtime_implemented": true,
     "production_key_material_frozen": false,
     "fips_claim": false,
     "flight_qualification_claim": false,
     "scientific_results_generated": false,
-    "verification_boundary_state": "IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING",
+    "verification_boundary_state": "RUNTIME_GREEN__ENGINEERING_KEY_ONLY__NOT_AUTHORIZATION_BOUND",
     "engineering_request_mid": "0x0EE8",
     "engineering_result_mid": "0x0EE9",
-    "policy_authorization_binding_present": false
+    "policy_authorization_binding_present": false,
+    "production_authorization_verification_implemented": false,
+    "runtime_evidence": {
+      "qualification_head": "2c5725e0c43114a087da1087f7fb1d94814661e0",
+      "workflow_id": 365269942,
+      "workflow_run_id": 35890910760,
+      "job_id": 107282876318,
+      "artifact_id": 10765340878,
+      "artifact_digest": "sha256:ef74d724eb61548ad41b59356b77874a4285c34b6fdcab40ce712553576c0496",
+      "positive_markers": [
+        "AERC_SIGV RESULT scenario=0x53374701 request=1 verify_sequence=1 valid=1 reason=0 key_id=1 message_len=0",
+        "AERC_SIGV RESULT scenario=0x53374705 request=10 verify_sequence=5 valid=1 reason=0 key_id=1 message_len=0"
+      ],
+      "cryptographic_rejections": [
+        "scenario=0x53374702 mutated_signature",
+        "scenario=0x53374703 zero_signature",
+        "scenario=0x53374704 changed_message"
+      ],
+      "malformed_rejections": [
+        "short_packet",
+        "wrong_wire_version",
+        "wrong_key_id",
+        "message_length_65",
+        "nonzero_inactive_message_byte"
+      ],
+      "engineering_probe_marker": "AERC_SIGVERIFY_PROBE PASS valid=2 crypto_reject=3 malformed_reject=5 final_sequence=5",
+      "secret_key_in_flight_software": false,
+      "policy_authorization_binding_present": false,
+      "study7e_scientific_scenarios_executed": 0,
+      "scientific_results_generated": false
+    }
   },
-  "ed25519_dependency_decision": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md"
+  "ed25519_dependency_decision": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
+  "ed25519_cfs_boundary_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md"
 }

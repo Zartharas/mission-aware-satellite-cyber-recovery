@@ -71,6 +71,8 @@ These are protocol design quantities, not results.
 - `fsw/aerc_bus_probe/`
 - `fsw/aerc_recovery_sink/`
 - `fsw/aerc_sink_probe/`
+- `fsw/aerc_sigverify/`
+- `fsw/aerc_sigverify_probe/`
 - `fsw/aerc_policy/`
 - `fsw/aerc_policy_probe/`
 - `tests/`

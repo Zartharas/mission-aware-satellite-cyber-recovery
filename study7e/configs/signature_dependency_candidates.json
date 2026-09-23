@@ -104,7 +104,7 @@
     "No signing key is permitted in flight software and no FIPS, certification, or flight-qualification claim is made."
   ],
   "integration_contract": {
-    "state": "CFS_VERIFICATION_BOUNDARY_IMPLEMENTED__RUNTIME_QUALIFICATION_PENDING",
+    "state": "CFS_VERIFICATION_BOUNDARY_RUNTIME_GREEN__NOT_AUTHORIZATION_BOUND",
     "request_mid": "0x0EE8",
     "result_mid": "0x0EE9",
     "wire_version": 1,
@@ -118,6 +118,22 @@
     "secret_key_present": false,
     "signing_runtime_present": false,
     "policy_authorization_binding_present": false,
-    "production_public_key_registry_frozen": false
+    "production_public_key_registry_frozen": false,
+    "runtime_evidence": {
+      "qualification_head": "2c5725e0c43114a087da1087f7fb1d94814661e0",
+      "workflow_id": 365269942,
+      "workflow_run_id": 35890910760,
+      "job_id": 107282876318,
+      "artifact_id": 10765340878,
+      "artifact_digest": "sha256:ef74d724eb61548ad41b59356b77874a4285c34b6fdcab40ce712553576c0496",
+      "valid_signature_results": 2,
+      "crypto_reject_results": 3,
+      "malformed_requests_rejected_without_result": 5,
+      "final_verification_sequence": 5,
+      "secret_key_in_flight_software": false,
+      "policy_authorization_binding_present": false,
+      "scientific_results_generated": false
+    },
+    "canonical_authorization_message_defined": false
   }
 }

@@ -364,3 +364,46 @@ Decision record:
 
 `publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md`
 
+## cFE Ed25519 verification boundary — GREEN
+
+At head `2c5725e0c43114a087da1087f7fb1d94814661e0`, the selected cFS baseline successfully compiled and executed the pinned Monocypher 4.0.3 verification-only boundary.
+
+GitHub Actions evidence:
+
+- workflow: `Study 7E cFS runtime smoke`
+- workflow ID: `365269942`
+- run ID: `35890910760`
+- job ID: `107282876318`
+- artifact ID: `10765340878`
+- artifact digest: `sha256:ef74d724eb61548ad41b59356b77874a4285c34b6fdcab40ce712553576c0496`
+- pre-canonical qualification run `35890910817`: success
+
+Observed verification behavior:
+
+- RFC 8032 Test 1 accepted;
+- final repeat of the valid vector accepted at verification sequence 5;
+- mutated signature rejected cryptographically;
+- all-zero signature rejected cryptographically;
+- changed message rejected cryptographically;
+- short packet, wrong wire version, wrong key ID, message length 65, and nonzero inactive message padding were rejected before cryptographic output;
+- malformed requests did not advance the verification sequence.
+
+Exact probe marker:
+
+`AERC_SIGVERIFY_PROBE PASS valid=2 crypto_reject=3 malformed_reject=5 final_sequence=5`
+
+The runtime also recorded:
+
+- `secret_key_in_flight_software=false`;
+- `policy_authorization_binding_present=false`;
+- `study7e_scientific_scenarios_executed=0`;
+- `scientific_results_generated=false`.
+
+Checkpoint:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md`
+
+### Next design gate
+
+The protocol does not yet define canonical signed-authorization bytes or the final public-key provenance registry. Do not derive `primary_signature_valid`, `corr_signature_valid`, `primary_authorization`, or `corr_authorization` from this engineering verifier until those byte/provenance contracts are separately reviewed and recorded.
+
