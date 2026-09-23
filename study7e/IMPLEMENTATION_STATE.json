@@ -10,7 +10,7 @@
   "cfs_candidate": {
     "tag": "v7.0.1",
     "commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
-    "qualification": "CFS_V701_BUILD_AND_CUSTOM_SB_PROBE_RUNTIME_GREEN__AERC_POLICY_APP_NOT_YET_IMPLEMENTED",
+    "qualification": "CFS_V701_PRESELECTION_SEAMS_GREEN__PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED",
     "evidence": {
       "qualification_head": "bef6fe920277d378ba857d280633f48b2b25cffc",
       "workflow_id": 364617426,
@@ -33,13 +33,34 @@
       "audited_prior_run_id": 35807192091,
       "audited_prior_job_id": 107010550970,
       "explanation": "The referenced prior job failed while loading the aerc_bus_probe entry symbol and did not establish the claimed AERC NOOP/HK interaction. PR #167 contains the non-canonical aerc_bus_probe but no full AERC cFS policy application."
+    },
+    "preselection_evidence": {
+      "qualification_head": "f97433b7025a655f21ca97e71618f3aa1fd4b2a3",
+      "workflow_id": 365200358,
+      "workflow_run_id": 35873580570,
+      "job_id": 107223637303,
+      "artifact_id": 10756545870,
+      "artifact_digest": "sha256:4e3202fc55e853ff8a83de48f32d818f236ab6bfcade9d782d26a336054b6b93",
+      "two_instance_sbn": true,
+      "scenario_id_end_to_end": true,
+      "sink_receipt_capture": true,
+      "hs_housekeeping_observable": true,
+      "sbn_scenario_id": "0x53374532",
+      "sbn_marker": "0xA37C0DE2",
+      "sink_cpu": 2,
+      "sink_receipt": "0xBEEF",
+      "hs_observed_engineering_marker": "AERC_HS_OBSERVER PASS appmon=1 eventmon=0 aliveness=1 cpuhog=1 status=0x1F cmd_count=0 cmd_err=0",
+      "research_truth_derived": false,
+      "study7e_scientific_scenarios_executed": 0,
+      "scientific_results_generated": false,
+      "qualification_scope": "non-canonical cFS/SBN/HS implementation-seam qualification only; observed HS fields are runtime engineering evidence and are not Study-7E true_health_ready or scientific results"
     }
   },
   "nos3_candidate": {
     "tag": "v1_07_05",
     "version": "1.7.5",
     "commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
-    "qualification": "NOS3_V175_FSW_AND_SIM_BUILD_GREEN__PRESELECTION_SEAM_PROOFS_PENDING",
+    "qualification": "NOS3_V175_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "evidence": {
       "qualification_head": "178fdbd4871c2f6f89b62a8f4f0d2ce826853188",
       "workflow_id": 365185951,
@@ -57,21 +78,31 @@
       "study7e_scientific_scenarios_executed": 0,
       "scientific_results_generated": false,
       "qualification_gate_green": true,
-      "qualification_scope": "bounded NOS3 flight-software/unit-test and simulator build feasibility only; no NOS3 launch, no Study-7E custom-app integration, no scenario campaign"
+      "qualification_scope": "bounded NOS3 flight-software/unit-test and simulator build feasibility only; no NOS3 launch, no Study-7E custom-app integration, no scenario campaign",
+      "topology_boundary": {
+        "pinned_release_default_cpu_count": 1,
+        "pinned_mission_default_spacecraft_count": 1,
+        "pinned_mission_multi_spacecraft_status": "EXPERIMENTAL_PROOF_OF_CONCEPT",
+        "documented_multi_spacecraft_external_repository": "https://github.com/nasa-itc/nos3-multiple-spacecraft",
+        "documented_multi_spacecraft_reference_commit": "dae7e75709f963f15e9297a0b92926bae767f302",
+        "disposition": "Do not add this external dependency to the Study-7E baseline without a separate compatibility study."
+      }
     }
   },
-  "stack_decision_status": "DEFERRED_PENDING_PRESELECTION_SEAM_PROOFS",
+  "stack_decision_status": "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__STANDALONE_CFS_V701__NOT_CANONICAL_FREEZE",
   "implementation_layers": {
     "machine_readable_design": "IN_PROGRESS",
     "python_contract_harness": "IN_PROGRESS",
-    "cfs_custom_apps": "AERC_BUS_PROBE_RUNTIME_GREEN__FULL_AERC_POLICY_APP_NOT_IMPLEMENTED__PRECANONICAL",
-    "nos3_integration": "BOUNDED_BUILD_GREEN__CUSTOM_APP_SCENARIO_CONTROL_SBN_AND_NETWORK_DEPENDENCY_SEAMS_PENDING",
+    "cfs_custom_apps": "SB_SELF_LOOP_SBN_TWO_INSTANCE_AND_HS_OBSERVATION_PROBES_GREEN__FULL_AERC_POLICY_APP_NOT_IMPLEMENTED__PRECANONICAL",
+    "nos3_integration": "BOUNDED_BUILD_GREEN__REFERENCE_ONLY__NOT_SELECTED_FOR_BASELINE",
     "learned_model_freeze": "PROHIBITED_IN_CURRENT_PHASE",
     "canonical_runner": "PROHIBITED_IN_CURRENT_PHASE"
   },
   "handoff_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CONTINUATION_HANDOFF_2026-09-23.md",
-  "next_gate": "Complete the preregistered preselection seam proofs for both candidates: standalone-cFS HS observation, two-instance SBN, end-to-end scenario ID and action-sink capture; NOS3 custom-app integration, deterministic scenario control, required SBN/multi-instance topology, and network-dependency containment. Then make the cFS-vs-NOS3 stack selection.",
+  "next_gate": "Continue the remaining non-canonical Study-7E architecture on the selected standalone cFS v7.0.1 baseline. Keep protocol/environment freeze, production-model training/freeze, and canonical scientific execution prohibited until their separate later author gates.",
   "gate1_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_GATE1_CHECKPOINT_2026-09-23.md",
   "gate2_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_NOS3_GATE2_CHECKPOINT_2026-09-23.md",
-  "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md"
+  "stack_preselection_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_PRESELECTION_REVIEW_2026-09-23.md",
+  "cfs_preselection_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
+  "stack_selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md"
 }

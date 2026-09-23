@@ -90,5 +90,13 @@
     "finding": "Execution trust domain was defined but not directly exercised by a fault profile",
     "correction": "Added F12 PRIMARY_EXECUTION_COMPROMISE as an unseen E1 fault and included it in held-out-topology E2",
     "status": "CORRECTED_BEFORE_PROTOCOL_FREEZE_AND_BEFORE_SCIENTIFIC_EXECUTION"
+  },
+  "implementation_environment": {
+    "state": "PRE_FREEZE_BASELINE_SELECTED__NOT_FROZEN",
+    "selected_stack": "standalone_cFS_v7.0.1",
+    "selected_tag_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
+    "canonical_environment_frozen": false,
+    "nos3_disposition": "BOUNDED_FEASIBILITY_REFERENCE__NOT_SELECTED_FOR_BASELINE"
   }
 }

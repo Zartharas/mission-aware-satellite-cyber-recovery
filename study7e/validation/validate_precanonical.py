@@ -88,11 +88,19 @@ def main() -> int:
     require(len(policy["corroborated_additional_features"]) == 7, "corroborated feature count drift")
     require(env["cfs"]["tag_commit"] == "088b2fa828db9ff7e00733f1908e0eeb59f66ce3", "cFS candidate commit drift")
     require(env["nos3"]["tag_commit"] == "5a3bdee6be9a2c67fdf994ae6db56d5c60395302", "NOS3 candidate commit drift")
-    require(env["state"] == "CANDIDATE_BASELINES__NOT_CANONICAL_FREEZE", "environment candidate state drift")
     require(
-        env["stack_selection"]["state"] == "ALTERNATIVE_CANDIDATES__CANONICAL_STACK_NOT_SELECTED",
-        "canonical stack selected prematurely",
+        env["state"] == "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
+        "environment selection state drift",
     )
+    require(
+        env["stack_selection"]["state"] == "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
+        "pre-freeze stack selection state drift",
+    )
+    require(env["stack_selection"]["selected_candidate"] == "standalone_cFS_v7.0.1", "unexpected implementation baseline")
+    require(env["stack_selection"]["author_review_completed"] is True, "stack selection lacks author review")
+    require(env["stack_selection"]["canonical_environment_frozen"] is False, "environment frozen prematurely")
+    require(protocol["implementation_environment"]["selected_stack"] == "standalone_cFS_v7.0.1", "protocol/environment stack decision drift")
+    require(protocol["implementation_environment"]["canonical_environment_frozen"] is False, "protocol environment frozen prematurely")
     require(
         env["stack_selection"]["mixing_standalone_cfs_and_nos3_pinned_fsw_without_compatibility_study"] == "PROHIBITED",
         "candidate stack-mixing prohibition lost",
@@ -113,6 +121,10 @@ def main() -> int:
         ROOT / "study7e/fsw/aerc_bus_probe/CMakeLists.txt",
         ROOT / "study7e/fsw/aerc_bus_probe/fsw/inc/aerc_bus_probe.h",
         ROOT / "study7e/fsw/aerc_bus_probe/fsw/src/aerc_bus_probe.c",
+        ROOT / "study7e/fsw/aerc_sbn_probe/fsw/src/aerc_sbn_probe.c",
+        ROOT / "study7e/fsw/aerc_hs_probe/fsw/src/aerc_hs_probe.c",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_REVIEW_R1_2026-09-22.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_REVIEW_R2_2026-09-22.md",
         ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_COMPATIBILITY_DECISION_2026-09-22.md",
@@ -126,7 +138,7 @@ def main() -> int:
     print("training_scenarios=84")
     print("canonical_evaluation_scenarios=196")
     print("planned_evaluation_decisions=784")
-    print("candidate_stack_selected=false")
+    print("candidate_stack_selected=true")\n    print("candidate_stack=standalone_cFS_v7.0.1")\n    print("canonical_environment_frozen=false")
     print("production_model_training_performed=false")
     print("production_model_freeze_performed=false")
     print("canonical_execution_authorized=false")

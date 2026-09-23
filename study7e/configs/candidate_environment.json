@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "experiment_id": "S7E-AERC-001",
-  "state": "CANDIDATE_BASELINES__NOT_CANONICAL_FREEZE",
+  "state": "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
   "cfs": {
     "repository": "https://github.com/nasa/cFS.git",
     "tag": "v7.0.1",
@@ -39,12 +39,20 @@
     "documented_launch": "make launch",
     "launch_prohibited_in_current_automated_qualification": true
   },
-  "note": "Exact recursive submodule status must be captured from local clones before protocol freeze.",
+  "note": "Standalone cFS v7.0.1 is selected as the pre-freeze Study-7E implementation baseline. This is not a canonical environment freeze; exact runtime/environment lock remains a later gate.",
   "stack_selection": {
-    "state": "ALTERNATIVE_CANDIDATES__CANONICAL_STACK_NOT_SELECTED",
+    "state": "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
     "mixing_standalone_cfs_and_nos3_pinned_fsw_without_compatibility_study": "PROHIBITED",
     "candidate_a": "standalone_cFS_v7.0.1",
     "candidate_b": "NOS3_v1.7.5_native_pinned_stack",
-    "selection_requires_author_review": true
+    "selection_requires_author_review": true,
+    "author_review_completed": true,
+    "selected_candidate": "standalone_cFS_v7.0.1",
+    "selected_tag_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "canonical_environment_frozen": false,
+    "selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
+    "selection_scope": "remaining pre-freeze non-canonical Study-7E architecture implementation",
+    "nos3_disposition": "BOUNDED_FEASIBILITY_REFERENCE__NOT_SELECTED_FOR_BASELINE",
+    "nos3_boundary": "Pinned NOS3 v1.7.5 build is green, but its in-tag baseline is single-CPU and its documented multi-spacecraft scenario requires a separate proof-of-concept repository/branch outside the pinned NOS3 dependency graph."
   }
 }

@@ -1,9 +1,6 @@
 name: Study 7E bounded NOS3 feasibility
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/study7e-nos3-bounded-feasibility.yml'
   workflow_dispatch:
 
 permissions:
