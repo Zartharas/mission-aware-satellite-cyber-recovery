@@ -266,7 +266,7 @@ static CFE_Status_t AERC_QUAL_HandleContext(const AERC_QUALIFIER_CONTEXT_Message
         context->Reserved[0] != 0u ||
         context->Reserved[1] != 0u)
     {
-        return CFE_STATUS_BAD_ARGUMENT;
+        return CFE_STATUS_EXTERNAL_RESOURCE_FAIL;
     }
 
     reset = !AERC_QUAL_Context.Available ||
