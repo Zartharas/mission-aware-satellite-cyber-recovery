@@ -86,7 +86,7 @@
     "results_002_freeze": "S8E-CANON-RESULTS-002-FREEZE-001",
     "publisher_derivative_scope": "publication/Paper_4_Study_8/IJSCCN/"
   },
-  "next_gate": "REVIEW_TRANSFER_DESK_SUGGESTIONS_AND_RUN_FRESH_VENUE_FIT_AUDIT__NO_AUTOMATIC_TRANSFER__NO_SCIENTIFIC_RERUN",
+  "next_gate": "AUTHOR_REVIEW_FRESH_VENUE_SHORTLIST__THEN_FULL_LIVE_GUIDELINE_AUDIT_FOR_SELECTED_VENUE",
   "decision": {
     "decision_date_local": "2026-09-24",
     "decision_type": "EDITORIAL_SCREENING_REJECTION",
@@ -97,5 +97,13 @@
     "transfer_desk_candidate_suggestions_expected": true,
     "automatic_transfer_authorized": false,
     "decision_record": "publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md"
+  },
+  "retarget": {
+    "transfer_desk_recommendation_received": false,
+    "transfer_authorized": false,
+    "fresh_venue_audit_complete": true,
+    "fresh_venue_audit_record": "publication/Paper_4_Study_8/NEXT_VENUE_AUDIT_2026-09-24.md",
+    "provisional_primary_candidate": "International Journal of Information Security",
+    "venue_locked": false
   }
 }
