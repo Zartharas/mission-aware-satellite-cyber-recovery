@@ -11,15 +11,16 @@
     "logical_slots_converted_to_physical_time": false
   },
   "manuscript": {
-    "venue_locked": true,
-    "locked_venue": "International Journal of Satellite Communications and Networking",
-    "locked_venue_abbreviation": "IJSCCN",
+    "venue_locked": false,
+    "locked_venue": null,
+    "locked_venue_abbreviation": null,
     "submitted_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
     "venue_specific_derivative_path": "publication/Paper_4_Study_8/IJSCCN/",
     "submitted_manuscript_source_head": "829e23836fc378f40bb5211bfbe2599882e30bc7",
     "venue_lock_active": false,
     "last_submitted_venue": "International Journal of Satellite Communications and Networking",
-    "last_submitted_venue_abbreviation": "IJSCCN"
+    "last_submitted_venue_abbreviation": "IJSCCN",
+    "next_venue_locked": false
   },
   "evidence": {
     "study8_modified": false,
