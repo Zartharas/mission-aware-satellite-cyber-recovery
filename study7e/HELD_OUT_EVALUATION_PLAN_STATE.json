@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "protocol_freeze_id": "S7E-AERC-FREEZE-001",
+  "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
+  "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
+  "state": "PLAN_REVIEWED__QUALIFICATION_PENDING__HELD_OUT_INFERENCE_NOT_AUTHORIZED",
+  "plan_path": "study7e/configs/held_out_evaluation_plan_001.json",
+  "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_HELD_OUT_EVALUATION_PLAN_001_REVIEW_2026-09-23.md",
+  "basis_head": "6900df0751ae015745c4a8d486ba3eea4d882ce8",
+  "held_out_inference_authorized": false,
+  "held_out_evaluation_executed": false,
+  "canonical_execution_authorized": false,
+  "canonical_results_generated": false,
+  "pr_merge_authorized": false,
+  "publication_or_result_claims_authorized": false,
+  "next_gate": "qualify held-out evaluation plan with static tests only; then require separate explicit authorization before any E1/E2/C0 inference"
+}

@@ -1,0 +1,44 @@
+name: Study 7E held-out evaluation plan qualification
+
+on:
+  pull_request:
+    paths:
+      - "study7e/configs/held_out_evaluation_plan_001.json"
+      - "study7e/HELD_OUT_EVALUATION_PLAN_STATE.json"
+      - "study7e/tests/test_held_out_evaluation_plan.py"
+      - ".github/workflows/study7e-held-out-evaluation-plan-qualification.yml"
+      - "study7e/MODEL_FREEZE_MANIFEST_001.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  held-out-plan-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Static plan qualification only
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import inspect
+          import study7e.tests.test_held_out_evaluation_plan as t
+          tests = [(n, f) for n, f in inspect.getmembers(t, inspect.isfunction) if n.startswith("test_")]
+          assert tests
+          for name, fn in tests:
+              fn()
+              print(f"{name}=PASS")
+          print(f"held_out_plan_contract_tests={len(tests)}")
+          PY
+          test ! -e study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json
+          test ! -e .github/workflows/study7e-held-out-evaluation.yml
+          echo "held_out_evaluation_plan_qualification=PASS"
+          echo "held_out_inference_authorized=false"
+          echo "held_out_evaluation_executed=false"
+          echo "canonical_execution_authorized=false"
+          echo "scientific_results_generated=false"
