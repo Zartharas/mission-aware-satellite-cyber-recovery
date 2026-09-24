@@ -26,7 +26,16 @@ jobs:
       - name: Verify frozen model bytes and closed downstream gates
         run: |
           set -euo pipefail
-          python -m pytest -q study7e/tests/test_model_freeze_integrity.py
+          python - <<'PY'
+          import inspect
+          import study7e.tests.test_model_freeze_integrity as t
+          tests = [(name, fn) for name, fn in inspect.getmembers(t, inspect.isfunction) if name.startswith("test_")]
+          assert tests, "no model-freeze integrity tests discovered"
+          for name, fn in tests:
+              fn()
+              print(f"{name}=PASS")
+          print(f"model_freeze_integrity_tests={len(tests)}")
+          PY
           echo "study7e_model_freeze_integrity=PASS"
           echo "production_models_frozen=true"
           echo "held_out_evaluation_executed=false"
