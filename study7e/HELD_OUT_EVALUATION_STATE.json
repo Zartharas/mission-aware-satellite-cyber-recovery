@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "execution_id": "S7E-AERC-HELDOUT-EXEC-001",
+  "authorization_id": "S7E-AERC-HELDOUT-AUTH-001",
+  "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
+  "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
+  "state": "AUTHORIZED__ONE_SHOT_EXECUTION_PENDING",
+  "source_authorization": "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json",
+  "expected_scenarios": 196,
+  "expected_policy_decisions": 784,
+  "held_out_inference_authorized": true,
+  "held_out_evaluation_executed": false,
+  "canonical_scientific_execution_authorized_for_defined_population": true,
+  "canonical_results_generated": false,
+  "pr_merge_authorized": false,
+  "publication_or_result_claims_authorized": false,
+  "retry_authorized": false,
+  "next_gate": "execute exactly one S7E-AERC-HELDOUT-EXEC-001 campaign; if valid, checkpoint exact results and stop before publication/merge claims"
+}

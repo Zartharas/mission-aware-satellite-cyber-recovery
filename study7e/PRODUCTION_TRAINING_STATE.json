@@ -26,7 +26,7 @@
   "canonical_results_generated": false,
   "pr_merge_authorized": false,
   "publication_or_result_claims_authorized": false,
-  "next_gate": "separate explicit authorization before any E1/E2/C0 inference; canonical execution and PR merge remain prohibited",
+  "next_gate": "one-shot S7E-AERC-HELDOUT-EXEC-001; no retraining, PR merge, or publication claims",
   "model_freeze_review": {
     "review_id": "S7E-AERC-MODEL-FREEZE-REVIEW-001",
     "review_record": "study7e/configs/model_freeze_review_001.json",
@@ -40,7 +40,7 @@
   "held_out_evaluation_plan": {
     "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
     "path": "study7e/configs/held_out_evaluation_plan_001.json",
-    "state": "PLAN_QUALIFIED_GREEN__HELD_OUT_INFERENCE_NOT_AUTHORIZED",
+    "state": "PLAN_QUALIFIED_GREEN__HELD_OUT_EXECUTION_AUTHORIZED_SEPARATELY__PENDING",
     "qualification_run_id": 35947043358,
     "qualification_job_id": 107467211282
   }
