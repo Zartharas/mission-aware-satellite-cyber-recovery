@@ -58,7 +58,7 @@ Study 8 remains a separate deterministic finite modeled population of 3,456 posi
 - **Authority:** `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
 - **Decision record:** `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
 
-The IJSCCN decision does not alter Study 8, Study 8E, Results-002, TRACE-002, or any frozen scientific artifact. The submitted R5 package remains historical provenance. Wiley Transfer Desk suggestions may be reviewed as candidates only; no automatic transfer is authorized.
+The IJSCCN decision does not alter Study 8, Study 8E, Results-002, TRACE-002, or any frozen scientific artifact. The submitted R5 package remains historical provenance. Wiley Transfer Desk suggestions may be reviewed as candidates only; no automatic transfer is authorized. The fresh venue-fit audit is recorded at `publication/Paper_4_Study_8/NEXT_VENUE_AUDIT_2026-09-24.md`; no new venue is locked.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
