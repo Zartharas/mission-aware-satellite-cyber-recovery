@@ -5,7 +5,7 @@
     "S7-LSO-001",
     "S7E-AERC-001"
   ],
-  "state": "IJCIP_R3_VENUE_ADAPTED__TARGET_LOCKED_FOR_PREPARATION__FINAL_PORTAL_AUDIT_REQUIRED__SUBMISSION_NOT_AUTHORIZED",
+  "state": "IJCIP_R3_SCIENTIFIC_PRESERVATION_PASS__TARGET_LOCKED_FOR_PREPARATION__FINAL_PORTAL_AUDIT_REQUIRED__SUBMISSION_NOT_AUTHORIZED",
   "date_local": "2026-09-24",
   "branch": "paper3/rebuilt-study7-study7e-manuscript-20260924",
   "base_main_commit": "740cc4984387b2c4f14b337b76d66198406f22c4",
@@ -18,7 +18,7 @@
   "publisher_submission_authorized": false,
   "current_manuscript": "publication/Paper_3_Study_7/Rebuilt_Study7_7E/IJCIP/PAPER3_IJCIP_MANUSCRIPT_R3.md",
   "claim_ledger": "publication/Paper_3_Study_7/Rebuilt_Study7_7E/CLAIM_LEDGER_R1.md",
-  "next_gate": "verify R3 preserves every frozen Study 7/7E result and run PR #168 CI; then perform the live IJCIP Guide/portal field audit when accessible; PR merge and publisher submission each remain separately unauthorized",
+  "next_gate": "repository CI must pass on the IJCIP R3 branch head; then verify any inaccessible journal-specific Guide/portal items live before building final DOCX/PDF and requesting separate author submission authorization; PR #168 merge remains unauthorized",
   "scientific_audit": {
     "audit_id": "PAPER3-S7-S7E-MANUSCRIPT-AUDIT-R1-001",
     "result": "PASS",
@@ -110,5 +110,26 @@
     "model_simplicity_rationale_added": true,
     "frozen_science_modified": false,
     "journal_specific_guide_fetch": "HTTP_403__NO_UNVERIFIED_RULES_INFERRED"
+  },
+  "ijcip_r3_preservation_audit": {
+    "audit_id": "PAPER3-S7-S7E-IJCIP-R3-PRESERVATION-AUDIT-001",
+    "result": "PASS",
+    "manuscript_word_count": 7606,
+    "reference_count": 24,
+    "keyword_count": 6,
+    "frozen_study7_population_preserved": true,
+    "frozen_study7e_population_preserved": true,
+    "aggregate_endpoint_counts_preserved": true,
+    "paired_disagreement_counts_preserved": true,
+    "adverse_f12_transfer_preserved": true,
+    "c0_null_control_preserved": true,
+    "no_population_pooling": true,
+    "no_global_policy_ranking": true,
+    "infrastructure_context_bounded": true,
+    "ai_research_provenance_disclosed": true,
+    "ai_manuscript_preparation_declared": true,
+    "telemetry_rationale_present": true,
+    "model_simplicity_control_rationale_present": true,
+    "string_guard_note": "Literal phrase 'quantify cross-sector cascading failures' appears only inside an explicit negation stating that the experiments do not do so; semantic check PASS."
   }
 }
