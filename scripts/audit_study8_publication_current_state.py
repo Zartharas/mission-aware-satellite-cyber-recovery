@@ -73,7 +73,7 @@ CURRENT_DOCS = {
     },
     "docs/PUBLICATION_PHASE_MAP.md": {
         "required": (
-            "**Current-state reference:** 2026-09-19",
+            "**Current-state reference:** 2026-09-22",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
             PAPER2_ID,
@@ -99,7 +99,7 @@ CURRENT_DOCS = {
             PAPER3_ID,
             "immediate active publication-development priority",
             "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
-            "remaining-study audit is deferred",
+            "The independent remaining-study audit is still separate",
         ),
         "forbidden": (
             "Publisher submission and Editorial Manager actions remain later explicit authorization gates",

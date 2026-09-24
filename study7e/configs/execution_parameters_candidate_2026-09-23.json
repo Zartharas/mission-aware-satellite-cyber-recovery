@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "TECHNICAL_CANDIDATE__AUTHOR_APPROVAL_REQUIRED__NOT_FROZEN",
+  "basis_head": "d7006a740c1c7a75221149c3b9828b95e77a303f",
+  "purpose": "Candidate remaining execution parameters required before a later protocol/environment freeze proposal. This file is not itself a freeze.",
+  "controlled_time": {
+    "clock": "scenario_local_logical_tick",
+    "wall_clock_dependency": false,
+    "nominal_issue_tick": 0,
+    "nominal_evaluation_tick": 0,
+    "freshness_max_age_ticks": 0,
+    "stale_fault_evaluation_tick": 1,
+    "fresh_rule": "issued_tick <= evaluation_tick AND (evaluation_tick - issued_tick) <= freshness_max_age_ticks",
+    "rationale": [
+      "Study 7E evaluates trust/evidence semantics, not real-time transport latency.",
+      "A zero-age threshold makes nominal evidence current and F5/F6 exactly one logical tick stale, avoiding an arbitrary physical-time constant.",
+      "The choice is an experimental semantic threshold, not an operational spacecraft timing recommendation."
+    ]
+  },
+  "evidence_epoch": {
+    "expected_epoch": 1,
+    "scope": "one immutable Study-7E protocol/environment/key-registry candidate epoch",
+    "scenario_specific": false,
+    "topology_specific": false,
+    "fault_specific": false,
+    "change_rule": "If the signed-evidence schema, public-key registry, or frozen execution contract changes before canonical execution, create a new epoch/freeze candidate rather than mutating epoch 1 in place.",
+    "rationale": [
+      "Scenario identity is already bound by signed opaque scenario_id.",
+      "A single epoch avoids encoding block/topology/fault information.",
+      "F9 byte-47 XOR 0x01 changes epoch 1 to 0 while preserving structural length and invalidating both signature and epoch validity."
+    ]
+  },
+  "opaque_registry_algorithm": {
+    "hash": "SHA-256",
+    "u32_encoding": "first_4_digest_bytes_big_endian",
+    "material_format": "S7E-AERC-001|<namespace>|<label>|<retry>",
+    "retry_start": 0,
+    "retry_rule": "Process labels in lexicographic order within each namespace; retry with incremented integer if candidate is zero or already used in that namespace.",
+    "policy_visibility": "scenario/source/key/authority numeric IDs are parsed metadata; topology/fault labels and registry alias maps remain research-only",
+    "scenario_registry": {
+      "namespace": "scenario",
+      "labels_from": "study7e.src.aerc_design.build_scenario_manifest().scenario_id",
+      "expected_entries": 280,
+      "current_candidate_collisions": 0,
+      "current_candidate_max_retry": 0,
+      "examples": {
+        "TR1-001": "0x408AB824",
+        "TR0-001": "0xAF8B82F8",
+        "E1-001": "0xB80D472F",
+        "E2-001": "0x25165261",
+        "C0-001": "0x71D8655F"
+      }
+    },
+    "domain_registries": {
+      "source": {
+        "namespace": "source",
+        "labels": [
+          "corroborator:source",
+          "primary:source",
+          "shared:source"
+        ],
+        "examples": {
+          "corroborator:source": "0xE699F59F",
+          "primary:source": "0x0B094571",
+          "shared:source": "0x6620B4D8"
+        }
+      },
+      "key": {
+        "namespace": "key",
+        "labels": [
+          "corroborator:key",
+          "primary:key",
+          "shared:key"
+        ],
+        "examples": {
+          "corroborator:key": "0x9532BF30",
+          "primary:key": "0xC9B0FE66",
+          "shared:key": "0x39262168"
+        }
+      },
+      "authority": {
+        "namespace": "authority",
+        "labels": [
+          "corroborator:authority",
+          "primary:authority",
+          "shared:authority"
+        ],
+        "examples": {
+          "corroborator:authority": "0x51378641",
+          "primary:authority": "0x53B10C72",
+          "shared:authority": "0x988DA2DE"
+        }
+      },
+      "execution": {
+        "namespace": "execution",
+        "labels": [
+          "corroborator:execution",
+          "primary:execution",
+          "shared:execution"
+        ],
+        "signed_body": false,
+        "policy_visible": false
+      },
+      "transport": {
+        "namespace": "transport",
+        "labels": [
+          "corroborator:transport",
+          "primary:transport",
+          "shared:transport"
+        ],
+        "signed_body": false,
+        "policy_visible": false
+      }
+    }
+  },
+  "deterministic_test_keys": {
+    "state": "CANDIDATE_NON_SECRET_RESEARCH_FIXTURE__NOT_GENERATED_OR_FROZEN",
+    "algorithm": "Ed25519_RFC8032",
+    "key_domains": [
+      "corroborator:key",
+      "primary:key",
+      "shared:key"
+    ],
+    "seed_derivation": "SHA256(UTF8('S7E-AERC-001|ED25519-TEST-SEED-V1|' + key_domain_alias))",
+    "seed_bytes": 32,
+    "persistent_private_key_files": false,
+    "derive_on_demand_in_host_harness": true,
+    "wipe_seed_and_secret_key_after_signing": true,
+    "cfs_private_key_present": false,
+    "production_or_operational_use": "PROHIBITED",
+    "security_interpretation": "These are reproducible non-secret cryptographic test fixtures. F3/F4 model granted signing capability for the affected key domain; they do not measure real-world secret-key discovery or entropy resistance.",
+    "provenance_to_record_if_later_approved": [
+      "derivation algorithm/version",
+      "key-domain alias",
+      "derived public key hex",
+      "public-key SHA-256",
+      "Monocypher revision",
+      "host signing-tool revision"
+    ]
+  },
+  "fault_transform_freeze_candidate": {
+    "source": "study7e/configs/fault_transformations_draft.json",
+    "source_git_blob_sha": "292db65822a866bce5e4ad50278b98090bf4d24b",
+    "status": "AR-5_APPROVED_FOR_PRECANONICAL_IMPLEMENTATION__FINAL_FREEZE_NOT_YET_AUTHORIZED",
+    "proposed_finalization": [
+      "F0 no transformation",
+      "F1/F2 source-stage false authorization then legitimate signing",
+      "F3/F4 false current-context body signed with affected test key",
+      "F5/F6 exact signed body evaluated one logical tick after nominal under max_age=0",
+      "F7/F8 message suppression",
+      "F9 post-signature XOR 0x01 at signed-body byte 47",
+      "F10 false authority output before source stage/signing",
+      "F11 F10 followed by F9 in fixed stage order",
+      "F12 two separately signed same-sequence opposite-authorization bodies"
+    ]
+  },
+  "technical_review": {
+    "recommendation": "APPROVE_AS_PRE_FREEZE_EXECUTION_PARAMETER_CANDIDATE",
+    "reasons": [
+      "Every value is deterministic and reproducible from versioned design inputs.",
+      "No proposed registry numeric value encodes topology or fault labels directly.",
+      "Zero-tick freshness avoids adding a physical-latency confound absent from the research question.",
+      "A constant epoch avoids scenario/block leakage and gives F9 a deterministic epoch-invalid mutation.",
+      "Host-only deterministic test keys maximize reproducibility while preserving the already-approved no-private-key-in-cFS boundary.",
+      "The current F0-F12 transformations already passed host contract tests and producer/qualifier runtime tests."
+    ],
+    "adversarial_notes": [
+      "32-bit opaque IDs require mandatory collision detection; truncation alone is insufficient.",
+      "Publicly derivable test keys must never be represented as operationally secret or suitable for deployment.",
+      "Changing manifest labels, signed schema, key registry, or transform semantics after freeze requires a new freeze candidate/epoch.",
+      "Freshness max_age=0 is a controlled experimental semantic and must not be generalized to operational latency requirements."
+    ]
+  },
+  "requested_author_decisions": [
+    "EP-1 approve scenario-local logical ticks with freshness_max_age_ticks=0",
+    "EP-2 approve constant evidence_epoch=1 for the freeze candidate",
+    "EP-3 approve SHA-256-derived opaque u32 registries with collision/retry guard",
+    "EP-4 approve deterministic non-secret host-only Ed25519 test-fixture derivation with no persistent private-key files",
+    "EP-5 approve current F0-F12 transforms as the final byte/stage-transform freeze candidate"
+  ],
+  "approvals": {
+    "author_review_completed": false,
+    "ep_1": false,
+    "ep_2": false,
+    "ep_3": false,
+    "ep_4": false,
+    "ep_5": false,
+    "protocol_freeze": false,
+    "environment_freeze": false,
+    "key_registry_freeze": false,
+    "fault_transform_freeze": false,
+    "canonical_execution_authorized": false
+  }
+}

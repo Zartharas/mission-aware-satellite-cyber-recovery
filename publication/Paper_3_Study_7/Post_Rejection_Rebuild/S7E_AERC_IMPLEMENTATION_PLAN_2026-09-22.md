@@ -223,7 +223,7 @@ The exact mechanism used to represent separate authority in T4 must be fixed in 
 
 Fault injection occurs below the policy interface.
 
-Each profile must have:
+Each profile, including F12 execution-domain compromise, must have:
 
 - target domain;
 - precondition;
@@ -285,13 +285,15 @@ Generate a machine-readable manifest before execution with:
 
 Expected counts:
 
-- TR = 72;
-- E1 = 72;
-- E2 = 96;
-- C0 = 20;
-- total architecture scenarios represented in the manifest = 260;
-- canonical evaluation scenarios = 188;
-- canonical evaluation policy decisions = 752.
+- TR1 = 72;
+- TR0 = 12;
+- total training scenarios = 84;
+- E1 = 84;
+- E2 = 104;
+- C0 = 8;
+- total architecture scenarios represented in the manifest = 280;
+- canonical evaluation scenarios = 196;
+- canonical evaluation policy decisions = 784.
 
 The manifest generator requires unit tests that assert these exact cardinalities.
 
@@ -370,20 +372,51 @@ The workflow must refuse execution if:
 
 ## 15. Implementation stop point for current authorization
 
-Current authorization permits:
+Current authorization permits the implementation/feasibility phase only:
 
-- research;
-- protocol drafting;
-- architecture design;
-- implementation planning;
-- test/audit planning.
+- pre-canonical repository scaffolding;
+- machine-readable protocol/configuration work;
+- topology/fault and evidence-contract implementation;
+- deterministic comparator scaffolding;
+- learned-policy training-boundary scaffolding without production model training/freeze;
+- unit, contract, leakage, and separately implemented design-audit tests;
+- cFS/NOS3 environment feasibility qualification;
+- non-canonical cFS engineering smoke tests such as custom-app build/load and Software Bus transport checks.
 
 Current authorization does **not** permit:
 
-- creation of canonical Study-7E observations;
-- training/final freezing of production models;
-- canonical cFS/NOS3 campaign execution;
-- publication claims based on Study 7E;
-- new Zenodo release.
+- creation of canonical Study-7E observations or scientific results;
+- training/final freezing of production L0/L1 models;
+- protocol or implementation freeze;
+- canonical cFS/NOS3 scenario-campaign execution;
+- creation of a canonical execution authorization artifact/workflow;
+- publication claims based on Study 7E results;
+- a new Study-7E Zenodo release.
 
-The next gate is author review and protocol freeze.
+The next scientific gate remains a separate author-reviewed protocol/implementation freeze followed by a later explicit canonical-execution authorization.
+
+## 2026-09-23 pre-freeze stack-selection update
+
+The authorized feasibility sequence is complete enough to select the remaining non-canonical implementation baseline.
+
+Selected baseline:
+
+- standalone NASA cFS v7.0.1 at `088b2fa828db9ff7e00733f1908e0eeb59f66ce3`.
+
+Selection evidence includes:
+
+- exact pinned build/test feasibility;
+- live custom cFE Software Bus probe;
+- live two-instance CPU1/CPU2 SBN transport;
+- deterministic scenario-ID/marker survival across the SBN roundtrip;
+- deterministic CPU2 sink receipt returned to CPU1;
+- actual HS housekeeping observation without deriving research truth.
+
+NOS3 v1.7.5 remains bounded feasibility/reference evidence. Its pinned build is green, but the pinned release baseline is single-CPU and its documented multiple-spacecraft scenario requires the separate `nasa-itc/nos3-multiple-spacecraft` proof-of-concept repository/branch. Adding that dependency would expand the declared candidate graph and requires a separate compatibility study.
+
+This update is the author-reviewed deviation path contemplated by the original Gate-B plan. It does not freeze the protocol/environment and does not authorize scientific execution.
+
+Decision record:
+
+`publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md`
+

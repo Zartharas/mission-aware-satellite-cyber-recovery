@@ -54,7 +54,7 @@ Static and runtime checks must demonstrate that policy modules cannot import/rea
 
 ### E. Fault-propagation contracts
 
-For each F1-F11 and T0-T4:
+For each F1-F12 and T0-T4:
 
 - compute expected affected domains from topology aliases;
 - inject fault;
@@ -67,14 +67,16 @@ Every topology/fault pair requires a golden expected propagation test before can
 
 Assert:
 
-- TR = 72;
-- E1 = 72;
-- E2 = 96;
-- C0 = 20;
-- total manifest = 260;
-- canonical evaluation scenarios = 188;
+- TR1 = 72;
+- TR0 = 12;
+- total training = 84;
+- E1 = 84;
+- E2 = 104;
+- C0 = 8;
+- total manifest = 280;
+- canonical evaluation scenarios = 196;
 - decisions per canonical scenario = 4;
-- canonical evaluation decision observations = 752.
+- canonical evaluation decision observations = 784.
 
 ### G. Policy contracts
 

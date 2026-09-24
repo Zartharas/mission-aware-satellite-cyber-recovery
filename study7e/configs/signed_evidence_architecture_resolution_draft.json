@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "TECHNICAL_DRAFT_RESOLUTION__AUTHOR_APPROVAL_NOT_GRANTED__NOT_FROZEN",
+  "scope": "Resolve R1-F7 signing-key placement and R1-F8 T4 authority representation for continued pre-canonical implementation design.",
+  "signing_key_placement": {
+    "selected_draft_pattern": "EXTERNAL_DETERMINISTIC_TEST_SIGNING_HARNESS",
+    "verifier_fsw_contains_secret_key": false,
+    "qualifier_policy_sink_fsw_contains_secret_key": false,
+    "producer_fsw_contains_secret_key": false,
+    "signing_runtime_location": "host-side deterministic Study-7E test harness outside cFS flight-software applications",
+    "producer_role": "construct/emit or forward signed evidence through the controlled test boundary without storing private signing keys",
+    "rationale": [
+      "Preserves the existing public-key-only cFS verifier/qualifier/decision boundary.",
+      "Keeps key-domain compromise separable from producer execution-domain compromise.",
+      "Allows F3/F4 key compromise to be modeled by controlled harness access to the targeted test signing key.",
+      "Allows F12 execution compromise to alter/drop/rewrite producer behavior without automatically granting signing-key access.",
+      "Avoids embedding experiment private keys in cFS flight-software artifacts.",
+      "Supports deterministic canonical runs without an external network dependency when the signer is local to the controlled harness."
+    ],
+    "prohibited": [
+      "network signing service dependency during canonical execution",
+      "private key embedded in verifier, qualifier, decision, sink, or producer cFS binaries",
+      "using production/operational keys"
+    ],
+    "unresolved_before_freeze": [
+      "exact local IPC/injection boundary between host harness and producer cFS app",
+      "final deterministic key-generation procedure and private-key storage path",
+      "final test key material and public-key hashes"
+    ]
+  },
+  "t4_authority_representation": {
+    "selected_draft_pattern": "SIGNED_OPAQUE_AUTHORITY_ID_PLUS_HARNESS_PROVENANCE__NO_SECOND_AUTHORITY_SIGNATURE",
+    "separate_authority_crypto_layer_added": false,
+    "authority_id_in_signed_body": true,
+    "authority_id_policy_visible": false,
+    "rationale": [
+      "RQ2 requires separation of authorization authority as a trust domain, not an additional cryptographic protocol.",
+      "A signed opaque authority_id prevents post-signature authority relabeling.",
+      "The harness can model F10 authority compromise before producer signing while F1 source compromise remains a later source-stage mutation.",
+      "T4 separation is represented by distinct opaque authority-domain IDs and independent harness authority state for primary/corroborator paths.",
+      "Avoids adding a second signature/key hierarchy that would confound the intended source/key/authority domain factors."
+    ],
+    "implementation_semantics": {
+      "authority_state_stage": "upstream of source/producer signing",
+      "F10_PRIMARY_AUTHORITY_COMPROMISE": "harness alters primary authority output before source/producer canonicalization and signing",
+      "F1_PRIMARY_SOURCE_FALSE": "harness/source-stage logic alters the authorization claim after authority output but before signing",
+      "T0_to_T3": "authority IDs may alias according to topology manifest",
+      "T4": "primary and corroborator authority IDs are distinct and driven by independent authority-domain state"
+    },
+    "required_provenance": [
+      "opaque authority_id",
+      "authority-domain alias map kept research-only",
+      "pre-sign authority output",
+      "post-source-stage authorization claim",
+      "fault-stage transformation record"
+    ],
+    "unresolved_before_freeze": [
+      "final opaque authority ID registry values",
+      "exact stage-ordered byte transformations for F1/F10/F11/F12",
+      "independent audit assertion that topology/fault labels do not enter policy-visible evidence"
+    ]
+  },
+  "security_and_validity_review": {
+    "key_domain_vs_execution_domain_separation_preserved": true,
+    "authority_domain_vs_source_domain_separation_preserved": true,
+    "topology_fault_identity_policy_visible": false,
+    "second_signature_layer_avoided": true,
+    "private_key_in_cfs_fsw": false,
+    "external_network_dependency_required": false,
+    "scientific_results_generated": false
+  },
+  "approvals": {
+    "technical_draft_resolution_recorded": true,
+    "author_approval": false,
+    "protocol_freeze": false,
+    "key_registry_freeze": false,
+    "signing_key_freeze": false,
+    "policy_binding_authorized": false,
+    "canonical_execution_authorized": false
+  },
+  "next_implementation_gate": "Implement host-side fixed-width v2 serializer/parser plus deterministic engineering signing/verification tests using non-final test-vector key material. Do not freeze or populate the final experiment key registry and do not bind results to policy features."
+}

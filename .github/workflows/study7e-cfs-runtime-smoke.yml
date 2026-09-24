@@ -1,0 +1,339 @@
+name: Study 7E cFS runtime smoke
+# FSW-only qualification; baseline feasibility is maintained separately.
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "study7e/fsw/**"
+      - ".github/workflows/study7e-cfs-runtime-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  latest-fsw-change:
+    runs-on: ubuntu-latest
+    outputs:
+      run_fsw: ${{ steps.diff.outputs.run_fsw }}
+      qualification_head: ${{ steps.diff.outputs.qualification_head }}
+
+    steps:
+      - name: Check out exact PR head for change detection
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
+
+      - name: Determine whether runtime qualification is needed
+        id: diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run_fsw=true" >> "$GITHUB_OUTPUT"
+            echo "qualification_head=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+            echo "runtime_smoke_reason=manual_dispatch"
+            exit 0
+          fi
+
+          head_sha="${{ github.event.pull_request.head.sha }}"
+          test "$(git rev-parse HEAD)" = "$head_sha"
+          echo "qualification_head=$head_sha" >> "$GITHUB_OUTPUT"
+
+          if git diff --name-only HEAD^ HEAD -- study7e/fsw .github/workflows/study7e-cfs-runtime-smoke.yml | grep -q .; then
+            echo "run_fsw=true" >> "$GITHUB_OUTPUT"
+            echo "latest_commit_fsw_changed=true"
+          else
+            echo "run_fsw=false" >> "$GITHUB_OUTPUT"
+            echo "latest_commit_fsw_changed=false"
+          fi
+
+  cfs-custom-app-smoke:
+    needs: latest-fsw-change
+    if: needs.latest-fsw-change.outputs.run_fsw == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out exact qualification head
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.latest-fsw-change.outputs.qualification_head }}
+
+      - name: Bind runtime evidence to exact repository head
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ needs.latest-fsw-change.outputs.qualification_head }}"
+          echo "qualification_head=$(git rev-parse HEAD)"
+
+      - name: Clone exact cFS v7.0.1 bundle
+        run: |
+          set -euo pipefail
+          git clone --branch v7.0.1 --depth 1 --recurse-submodules --shallow-submodules \
+            https://github.com/nasa/cFS.git /tmp/s7e-cfs
+          test "$(git -C /tmp/s7e-cfs rev-parse HEAD)" = "088b2fa828db9ff7e00733f1908e0eeb59f66ce3"
+
+      - name: Integrate non-canonical AERC cFS components
+        run: |
+          set -euo pipefail
+          cp -a study7e/fsw/aerc_bus_probe /tmp/s7e-cfs/apps/aerc_bus_probe
+          cp -a study7e/fsw/aerc_recovery_sink /tmp/s7e-cfs/apps/aerc_recovery_sink
+          cp -a study7e/fsw/aerc_sink_probe /tmp/s7e-cfs/apps/aerc_sink_probe
+          cp -a study7e/fsw/aerc_policy /tmp/s7e-cfs/apps/aerc_policy
+          cp -a study7e/fsw/aerc_policy_probe /tmp/s7e-cfs/apps/aerc_policy_probe
+          cp -a study7e/fsw/aerc_sigverify /tmp/s7e-cfs/apps/aerc_sigverify
+          cp -a study7e/fsw/aerc_sigverify_probe /tmp/s7e-cfs/apps/aerc_sigverify_probe
+          cp -a study7e/fsw/aerc_evidence_common /tmp/s7e-cfs/apps/aerc_evidence_common
+          cp -a study7e/fsw/aerc_eprod /tmp/s7e-cfs/apps/aerc_eprod
+          cp -a study7e/fsw/aerc_qualifier /tmp/s7e-cfs/apps/aerc_qualifier
+          cp -a study7e/fsw/aerc_qualifier_probe /tmp/s7e-cfs/apps/aerc_qualifier_probe
+          study7e/fsw/aerc_sigverify/bootstrap_monocypher.sh /tmp/s7e-cfs/apps/aerc_sigverify/vendor
+          printf '\nLIST(APPEND MISSION_GLOBAL_APPLIST aerc_bus_probe aerc_recovery_sink aerc_sink_probe aerc_policy aerc_policy_probe aerc_sigverify aerc_sigverify_probe aerc_eprod aerc_qualifier aerc_qualifier_probe)\n' >> /tmp/s7e-cfs/sample_defs/targets.cmake
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("/tmp/s7e-cfs/sample_defs/generate_startup.cmake")
+          text = path.read_text(encoding="utf-8")
+          needle = '"CFE_APP, sample_app,  SAMPLE_APP_Main,    SAMPLE_APP,   50,   32768, 0x0, 0;\\n"\n'
+          replacement = (
+              needle
+              + '        "CFE_APP, aerc_sink, AERC_SINK_Main, AERC_SINK, 53, 32768, 0x0, 0;\\n"\n'
+              + '        "CFE_APP, aerc_bus_probe, AERC_BUS_PROBE_Main, AERC_PROBE, 55, 32768, 0x0, 0;\\n"\n'
+              + '        "CFE_APP, aerc_sink_probe, AERC_SPROBE_Main, AERC_SINK_PROBE, 56, 32768, 0x0, 0;\\n"\n'
+          )
+          if needle not in text:
+              raise SystemExit("sample-app startup insertion point not found")
+          path.write_text(text.replace(needle, replacement, 1), encoding="utf-8")
+          PY
+
+      - name: Build cFS with Study 7E components
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs
+          make native_std.prep
+          make native_std.install
+          test -f build-native_std/exe/cpu1/cf/aerc_bus_probe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_sink.so
+          test -f build-native_std/exe/cpu1/cf/aerc_sink_probe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_policy.so
+          test -f build-native_std/exe/cpu1/cf/aerc_pprobe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_sigv.so
+          test -f build-native_std/exe/cpu1/cf/aerc_svprobe.so
+          test -f build-native_std/exe/cpu1/cf/aerc_eprod.so
+          test -f build-native_std/exe/cpu1/cf/aerc_qual.so
+          test -f build-native_std/exe/cpu1/cf/aerc_qprobe.so
+          echo "aerc_bus_probe_compile=PASS"
+          echo "aerc_recovery_sink_compile=PASS"
+          echo "aerc_sink_probe_compile=PASS"
+          echo "aerc_policy_compile=PASS"
+          echo "aerc_policy_probe_compile=PASS"
+          echo "aerc_sigverify_compile=PASS"
+          echo "aerc_sigverify_probe_compile=PASS"
+          echo "aerc_eprod_compile=PASS"
+          echo "aerc_qualifier_compile=PASS"
+          echo "aerc_qualifier_probe_compile=PASS"
+
+      - name: Run non-canonical cFE Software Bus smoke check
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs/build-native_std/exe/cpu1
+          set +e
+          timeout 20 ./core-cpu1 > /tmp/study7e_cfs_runtime_smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/study7e_cfs_runtime_smoke.log
+            exit "$rc"
+          fi
+          cat /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_BUS_PROBE PASS" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374541 policy=1 action=HOLD sequence=1" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374542 policy=3 action=ENTER_RECOVERY_GATE sequence=2" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK REJECT_LENGTH" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK REJECT_ACTION scenario=0x5337454F policy=2 action=255" /tmp/study7e_cfs_runtime_smoke.log
+          grep -F "AERC_SINK_PROBE PASS hold_scenario=0x53374541 enter_scenario=0x53374542 records=2 negatives=2" /tmp/study7e_cfs_runtime_smoke.log
+          echo "aerc_bus_probe_runtime=PASS"
+          echo "aerc_recovery_sink_runtime=PASS"
+          echo "aerc_sink_probe_runtime=PASS"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
+      - name: Stage isolated deterministic policy startup
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("/tmp/s7e-cfs/build-native_std/exe/cpu1/cf/cfe_es_startup.scr")
+          lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+          lines = [
+              line for line in lines
+              if "aerc_bus_probe" not in line
+              and "aerc_sink_probe" not in line
+              and "aerc_policy," not in line
+              and "aerc_pprobe" not in line
+          ]
+          lines.append("CFE_APP, aerc_policy, AERC_POLICY_Main, AERC_POLICY, 54, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_pprobe, AERC_PPROBE_Main, AERC_PPROBE, 56, 32768, 0x0, 0;\n")
+          path.write_text("".join(lines), encoding="utf-8")
+          PY
+
+      - name: Run deterministic D0/D1 snapshot smoke
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs/build-native_std/exe/cpu1
+          set +e
+          timeout 12 ./core-cpu1 > /tmp/study7e_policy_runtime_smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/study7e_policy_runtime_smoke.log
+            exit "$rc"
+          fi
+          cat /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374551 policy=D0_BASE action=ENTER_RECOVERY_GATE sequence=1 feature_count=9" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY REJECT_LENGTH" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY REJECT_CONTRACT scenario=0x5337455E policy=D0_BASE" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374552 policy=D0_BASE action=HOLD sequence=2 feature_count=9" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374553 policy=D1_CORROBORATED action=ENTER_RECOVERY_GATE sequence=3 feature_count=16" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY REJECT_FEATURE scenario=0x5337455F index=9 value=2" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374554 policy=D1_CORROBORATED action=HOLD sequence=4 feature_count=16" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374551 policy=1 action=ENTER_RECOVERY_GATE sequence=1" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374552 policy=1 action=HOLD sequence=2" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374553 policy=3 action=ENTER_RECOVERY_GATE sequence=3" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_RECOVERY_SINK RECORD scenario=0x53374554 policy=3 action=HOLD sequence=4" /tmp/study7e_policy_runtime_smoke.log
+          grep -F "AERC_POLICY_PROBE PASS decisions=4 negatives=3" /tmp/study7e_policy_runtime_smoke.log
+          echo "aerc_policy_runtime=PASS"
+          echo "aerc_d0_runtime=PASS"
+          echo "aerc_d1_runtime=PASS"
+          echo "research_truth_visible_to_policy_runtime=false"
+          echo "learned_policy_runtime_executed=false"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
+      - name: Stage isolated Ed25519 verifier startup
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("/tmp/s7e-cfs/build-native_std/exe/cpu1/cf/cfe_es_startup.scr")
+          lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+          lines = [
+              line for line in lines
+              if "aerc_sink," not in line
+              and "aerc_policy," not in line
+              and "aerc_pprobe" not in line
+              and "aerc_sigv" not in line
+              and "aerc_svprobe" not in line
+          ]
+          lines.append("CFE_APP, aerc_sigv, AERC_SIGV_Main, AERC_SIGV, 54, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_svprobe, AERC_SVPROBE_Main, AERC_SVPROBE, 56, 32768, 0x0, 0;\n")
+          path.write_text("".join(lines), encoding="utf-8")
+          PY
+
+      - name: Run cFE Ed25519 verification-boundary smoke
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs/build-native_std/exe/cpu1
+          set +e
+          timeout 20 ./core-cpu1 > /tmp/study7e_sigverify_runtime_smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/study7e_sigverify_runtime_smoke.log
+            exit "$rc"
+          fi
+          cat /tmp/study7e_sigverify_runtime_smoke.log
+
+          grep -F "AERC_SIGV RESULT scenario=0x53374701 request=1 verify_sequence=1 valid=1 reason=0 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374702 request=2 verify_sequence=2 valid=0 reason=1 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374703 request=3 verify_sequence=3 valid=0 reason=1 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374704 request=4 verify_sequence=4 valid=0 reason=1 key_id=1 message_len=1" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_LENGTH" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470C reason=1" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470D reason=2" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470E reason=3" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV REJECT_CONTRACT scenario=0x5337470F reason=5" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGV RESULT scenario=0x53374705 request=10 verify_sequence=5 valid=1 reason=0 key_id=1 message_len=0" /tmp/study7e_sigverify_runtime_smoke.log
+          grep -F "AERC_SIGVERIFY_PROBE PASS valid=2 crypto_reject=3 malformed_reject=5 final_sequence=5" /tmp/study7e_sigverify_runtime_smoke.log
+
+          echo "aerc_ed25519_cfe_boundary=PASS"
+          echo "secret_key_in_flight_software=false"
+          echo "policy_authorization_binding_present=false"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
+      - name: Stage isolated producer qualifier startup
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("/tmp/s7e-cfs/build-native_std/exe/cpu1/cf/cfe_es_startup.scr")
+          lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+          lines = [
+              line for line in lines
+              if not line.lstrip().startswith("CFE_APP,")
+              and not line.lstrip().startswith("CFE_LIB,")
+          ]
+          lines.append("CFE_APP, aerc_sink, AERC_SINK_Main, AERC_SINK, 53, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_policy, AERC_POLICY_Main, AERC_POLICY, 54, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_eprod, AERC_EPROD_Main, AERC_EPROD, 55, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_qual, AERC_QUAL_Main, AERC_QUAL, 56, 32768, 0x0, 0;\n")
+          lines.append("CFE_APP, aerc_qprobe, AERC_QPROBE_Main, AERC_QPROBE, 57, 32768, 0x0, 0;\n")
+          path.write_text("".join(lines), encoding="utf-8")
+          PY
+
+      - name: Run producer qualifier policy sink smoke
+        run: |
+          set -euo pipefail
+          cd /tmp/s7e-cfs/build-native_std/exe/cpu1
+          set +e
+          timeout 22 ./core-cpu1 > /tmp/study7e_qualifier_runtime_smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/study7e_qualifier_runtime_smoke.log
+            exit "$rc"
+          fi
+          cat /tmp/study7e_qualifier_runtime_smoke.log
+
+          grep -F "AERC_QUAL SNAPSHOT scenario=0x53374A01 kind=BASE sig=1 trust=1 fresh=1 epoch=1 noncontra=1 complete=1 auth=1" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374A01 policy=D0_BASE action=ENTER_RECOVERY_GATE sequence=1 feature_count=9" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_QUAL SNAPSHOT scenario=0x53374A01 kind=CORR sig=1 trust=1 fresh=1 epoch=1 noncontra=1 complete=1 auth=1" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374A01 policy=D1_CORROBORATED action=ENTER_RECOVERY_GATE sequence=2 feature_count=16" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_QUAL SNAPSHOT scenario=0x53374A02 kind=BASE sig=0 trust=1 fresh=1 epoch=0 noncontra=1 complete=1 auth=1" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374A02 policy=D0_BASE action=HOLD sequence=3 feature_count=9" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_QUAL SNAPSHOT scenario=0x53374A03 kind=BASE sig=1 trust=1 fresh=1 epoch=1 noncontra=1 complete=1 auth=1" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374A03 policy=D0_BASE action=ENTER_RECOVERY_GATE sequence=4 feature_count=9" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_QUAL SNAPSHOT scenario=0x53374A03 kind=BASE sig=1 trust=1 fresh=1 epoch=1 noncontra=0 complete=1 auth=0" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_POLICY DECISION scenario=0x53374A03 policy=D0_BASE action=HOLD sequence=5 feature_count=9" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_EPROD REJECT_LENGTH" /tmp/study7e_qualifier_runtime_smoke.log
+          grep -F "AERC_QPROBE PASS base_enter=2 corr_enter=1 f9_hold=1 f12_hold=1 malformed=1 decisions=5" /tmp/study7e_qualifier_runtime_smoke.log
+
+          echo "aerc_producer_bridge_runtime=PASS"
+          echo "aerc_qualifier_runtime=PASS"
+          echo "aerc_precanonical_policy_binding_runtime=PASS"
+          echo "private_key_in_cfs_fsw=false"
+          echo "final_registry_frozen=false"
+          echo "canonical_policy_binding_frozen=false"
+          echo "research_truth_visible_to_qualifier_runtime=false"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+
+      - name: Preserve runtime smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: study7e-cfs-runtime-smoke-logs
+          path: |
+            /tmp/study7e_cfs_runtime_smoke.log
+            /tmp/study7e_policy_runtime_smoke.log
+            /tmp/study7e_sigverify_runtime_smoke.log
+            /tmp/study7e_qualifier_runtime_smoke.log
+          if-no-files-found: warn

@@ -96,7 +96,7 @@ Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
 
 Proposed extension: `S7E-AERC-001` / Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures.
 
-The prospective protocol and implementation/test plans are now drafted for author review. The design specifies equal-information policy pairs, five trust-domain topologies, twelve fault/compromise profiles, 72 training architecture scenarios, and 188 canonical evaluation/control scenarios yielding 752 planned evaluation decisions. These are prospective design quantities, not results. No implementation workspace or scientific execution is authorized.
+The prospective protocol and implementation/test plans are now drafted for author review. The design specifies equal-information policy pairs, five trust-domain topologies, thirteen fault/compromise profiles, 84 training architecture scenarios, and 196 canonical evaluation/control scenarios yielding 784 planned evaluation decisions. These are prospective design quantities, not results. No implementation workspace or scientific execution is authorized.
 
 ## Remaining eligible publication candidates
 

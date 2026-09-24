@@ -1,0 +1,57 @@
+#ifndef AERC_POLICY_H
+#define AERC_POLICY_H
+
+#include "cfe.h"
+
+#define AERC_POLICY_BASE_SNAPSHOT_MID_VALUE 0x0EE5u
+#define AERC_POLICY_CORR_SNAPSHOT_MID_VALUE 0x0EE6u
+#define AERC_POLICY_DECISION_MID_VALUE      0x0EE7u
+
+#define AERC_POLICY_FEATURE_SLOTS      16u
+#define AERC_POLICY_BASE_FEATURE_COUNT 9u
+#define AERC_POLICY_CORR_FEATURE_COUNT 16u
+
+enum
+{
+    AERC_FEATURE_PRIMARY_SIGNATURE_VALID = 0u,
+    AERC_FEATURE_PRIMARY_SOURCE_TRUSTED = 1u,
+    AERC_FEATURE_PRIMARY_FRESH = 2u,
+    AERC_FEATURE_PRIMARY_EPOCH_VALID = 3u,
+    AERC_FEATURE_PRIMARY_NONCONTRADICTORY = 4u,
+    AERC_FEATURE_PRIMARY_COMPLETE = 5u,
+    AERC_FEATURE_PRIMARY_AUTHORIZATION = 6u,
+    AERC_FEATURE_HEALTH_READY = 7u,
+    AERC_FEATURE_SECURITY_SIGNAL = 8u,
+    AERC_FEATURE_CORR_SIGNATURE_VALID = 9u,
+    AERC_FEATURE_CORR_SOURCE_TRUSTED = 10u,
+    AERC_FEATURE_CORR_FRESH = 11u,
+    AERC_FEATURE_CORR_EPOCH_VALID = 12u,
+    AERC_FEATURE_CORR_NONCONTRADICTORY = 13u,
+    AERC_FEATURE_CORR_COMPLETE = 14u,
+    AERC_FEATURE_CORR_AUTHORIZATION = 15u
+};
+
+typedef struct
+{
+    CFE_MSG_TelemetryHeader_t TelemetryHeader;
+    uint32 ScenarioId;
+    uint8 FeatureCount;
+    uint8 Reserved[3];
+    uint8 Features[AERC_POLICY_FEATURE_SLOTS];
+} AERC_POLICY_SNAPSHOT_Message_t;
+
+typedef struct
+{
+    CFE_MSG_TelemetryHeader_t TelemetryHeader;
+    uint32 ScenarioId;
+    uint32 DecisionSequence;
+    uint8 PolicyId;
+    uint8 Action;
+    uint8 FeatureCount;
+    uint8 Reserved;
+    uint8 Features[AERC_POLICY_FEATURE_SLOTS];
+} AERC_POLICY_DECISION_Message_t;
+
+void AERC_POLICY_Main(void);
+
+#endif

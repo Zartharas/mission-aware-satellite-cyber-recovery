@@ -1,0 +1,130 @@
+name: Study 7E pre-canonical qualification
+
+on:
+  push:
+    branches:
+      - "paper3/s7e-aerc-implementation-feasibility-*"
+    paths:
+      - "study7e/**"
+      - ".github/workflows/study7e-precanonical-qualification.yml"
+  pull_request:
+    paths:
+      - "study7e/**"
+      - ".github/workflows/study7e-precanonical-qualification.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Compile pre-canonical implementation
+        run: |
+          python -m py_compile \
+            study7e/src/aerc_design.py \
+            study7e/models/training_contracts.py \
+            study7e/audit/independent_design_audit.py \
+            study7e/tests/test_design_contracts.py \
+            study7e/tests/test_training_contracts.py \
+            study7e/tests/test_execution_parameters_candidate.py \
+            study7e/tests/test_freeze_candidate.py \
+            study7e/validation/check_fsw_truth_leakage.py \
+            study7e/validation/validate_precanonical.py \
+            study7e/tools/generate_scenario_manifest.py
+
+      - name: Run design and training-boundary contract tests
+        run: |
+          python -m unittest \
+            study7e.tests.test_design_contracts \
+            study7e.tests.test_training_contracts \
+            study7e.tests.test_execution_parameters_candidate \
+            study7e.tests.test_freeze_candidate \
+            -v
+
+      - name: Run independent pre-canonical design audit
+        run: python study7e/audit/independent_design_audit.py
+
+      - name: Enforce flight-software truth-leakage boundary
+        run: python study7e/validation/check_fsw_truth_leakage.py
+
+      - name: Run pre-canonical governance validator
+        run: python study7e/validation/validate_precanonical.py
+
+      - name: Generate design manifest in temporary storage
+        run: |
+          python study7e/tools/generate_scenario_manifest.py --output /tmp/study7e_scenario_manifest.csv
+          test "$(wc -l < /tmp/study7e_scenario_manifest.csv | tr -d ' ')" = "281"
+
+      - name: Require historical pre-canonical boundaries and sealed result governance
+        run: |
+          set -euo pipefail
+          test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
+          test ! -e .github/workflows/study7e-canonical-execution.yml
+          test ! -e study7e/models/frozen_model_manifest.json
+          test ! -e study7e/models/L0_BASE.joblib
+          test ! -e study7e/models/L1_CORROBORATED.joblib
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("study7e/results")
+          files = [p for p in root.rglob("*") if p.is_file()] if root.exists() else []
+          if files:
+              checkpoint_path = root / "S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json"
+              assert checkpoint_path.is_file(), "unexpected scientific result files without sealed held-out checkpoint"
+              checkpoint = json.loads(checkpoint_path.read_text())
+              assert checkpoint["state"] == "VALID_COMPLETE_POPULATION_RESULTS_CHECKPOINTED__PUBLICATION_CLAIMS_NOT_AUTHORIZED"
+              assert checkpoint["validity"]["invalid_scenarios"] == 0
+              assert checkpoint["validity"]["audit_mismatches"] == 0
+              assert checkpoint["governance"]["one_shot_execution_sealed"] is True
+              assert checkpoint["governance"]["retry_authorized"] is False
+              assert checkpoint["governance"]["post_hoc_model_change_authorized"] is False
+              assert checkpoint["governance"]["model_retraining_authorized"] is False
+              assert checkpoint["governance"]["pr_merge_authorized"] is False
+              assert checkpoint["governance"]["publication_or_result_claims_authorized"] is False
+              print("authorized_held_out_results_checkpoint=PASS")
+              print("canonical_results_generated=true")
+              print("publication_or_result_claims_authorized=false")
+              print("pr_merge_authorized=false")
+          else:
+              print("authorized_held_out_results_checkpoint=ABSENT")
+              print("canonical_results_generated=false")
+          PY
+          echo "historical_precanonical_boundary_guard=PASS"
+
+      - name: Confirm no Study 7 mutation in this implementation branch
+        run: |
+          set -euo pipefail
+          git fetch origin main --depth=1
+          if git diff --name-only origin/main...HEAD | grep '^study7/'; then
+            echo "ERROR: frozen Study 7 path changed"
+            exit 1
+          fi
+          echo "study7_freeze_guard=PASS"
+
+
+  upstream-identities:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Resolve exact upstream release tags
+        run: |
+          set -euo pipefail
+          CFS_SHA="$(git ls-remote https://github.com/nasa/cFS.git refs/tags/v7.0.1 | awk '{print $1}')"
+          NOS3_SHA="$(git ls-remote https://github.com/nasa/nos3.git refs/tags/v1_07_05 | awk '{print $1}')"
+          test "$CFS_SHA" = "088b2fa828db9ff7e00733f1908e0eeb59f66ce3"
+          test "$NOS3_SHA" = "5a3bdee6be9a2c67fdf994ae6db56d5c60395302"
+          echo "cfs_tag_identity=PASS"
+          echo "nos3_tag_identity=PASS"
+          echo "scientific_execution=false"

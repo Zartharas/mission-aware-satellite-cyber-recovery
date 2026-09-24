@@ -1,0 +1,253 @@
+{
+  "schema": 1,
+  "checkpoint_id": "S7E-AERC-HELDOUT-RESULTS-001",
+  "experiment_id": "S7E-AERC-001",
+  "execution_id": "S7E-AERC-HELDOUT-EXEC-001",
+  "authorization_id": "S7E-AERC-HELDOUT-AUTH-001",
+  "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
+  "protocol_freeze_id": "S7E-AERC-FREEZE-001",
+  "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
+  "state": "VALID_COMPLETE_POPULATION_RESULTS_CHECKPOINTED__PUBLICATION_CLAIMS_NOT_AUTHORIZED",
+  "date": "2026-09-23",
+  "source_commit": "1cbc4be58a99e9add139e73efc9ab42a4f275864",
+  "workflow": {
+    "name": "Study 7E held-out evaluation 001",
+    "run_id": 35948870036,
+    "job_id": 107472877604,
+    "conclusion": "success"
+  },
+  "artifact": {
+    "artifact_id": 10787499194,
+    "name": "S7E-AERC-HELDOUT-EXEC-001",
+    "size_bytes": 29892,
+    "sha256": "cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35",
+    "created_at_utc": "2026-09-24T02:50:04Z",
+    "expires_at_utc": "2026-10-24T02:50:03Z",
+    "note": "GitHub Actions artifact is the byte-exact raw execution bundle for this checkpoint. Repository checkpoint records bind every contained held-out file by SHA-256."
+  },
+  "population": {
+    "E1": 84,
+    "E2": 104,
+    "C0": 8,
+    "total_scenarios": 196,
+    "policies_per_scenario": 4,
+    "total_policy_decisions": 784,
+    "scenario_manifest_sha256": "2d9e8e4b155cd4fe079010341e9bdbbfc1a1ab5e94f3467c1b5da8063d38c4fb"
+  },
+  "validity": {
+    "invalid_scenarios": 0,
+    "audit_matches": 784,
+    "audit_mismatches": 0,
+    "all_actions_reconciled": true,
+    "paired_equal_information_hashes_verified": true,
+    "objective_action_recomputed_from_truth_fields": true,
+    "complete_population_release_criterion_met": true
+  },
+  "endpoint_counts": {
+    "overall": {
+      "D0_BASE": {
+        "objective_decision_error": 40,
+        "unsafe_proceed": 9,
+        "false_conservative_hold": 31,
+        "ENTER_RECOVERY_GATE": 25,
+        "HOLD": 171
+      },
+      "L0_BASE": {
+        "objective_decision_error": 47,
+        "unsafe_proceed": 21,
+        "false_conservative_hold": 26,
+        "ENTER_RECOVERY_GATE": 42,
+        "HOLD": 154
+      },
+      "D1_CORROBORATED": {
+        "objective_decision_error": 49,
+        "unsafe_proceed": 4,
+        "false_conservative_hold": 45,
+        "ENTER_RECOVERY_GATE": 6,
+        "HOLD": 190
+      },
+      "L1_CORROBORATED": {
+        "objective_decision_error": 43,
+        "unsafe_proceed": 31,
+        "false_conservative_hold": 12,
+        "ENTER_RECOVERY_GATE": 66,
+        "HOLD": 130
+      }
+    },
+    "by_block": {
+      "E1": {
+        "D0_BASE": {
+          "objective_decision_error": 18,
+          "unsafe_proceed": 3,
+          "false_conservative_hold": 15
+        },
+        "L0_BASE": {
+          "objective_decision_error": 21,
+          "unsafe_proceed": 9,
+          "false_conservative_hold": 12
+        },
+        "D1_CORROBORATED": {
+          "objective_decision_error": 24,
+          "unsafe_proceed": 3,
+          "false_conservative_hold": 21
+        },
+        "L1_CORROBORATED": {
+          "objective_decision_error": 17,
+          "unsafe_proceed": 11,
+          "false_conservative_hold": 6
+        }
+      },
+      "E2": {
+        "D0_BASE": {
+          "objective_decision_error": 22,
+          "unsafe_proceed": 6,
+          "false_conservative_hold": 16
+        },
+        "L0_BASE": {
+          "objective_decision_error": 26,
+          "unsafe_proceed": 12,
+          "false_conservative_hold": 14
+        },
+        "D1_CORROBORATED": {
+          "objective_decision_error": 25,
+          "unsafe_proceed": 1,
+          "false_conservative_hold": 24
+        },
+        "L1_CORROBORATED": {
+          "objective_decision_error": 26,
+          "unsafe_proceed": 20,
+          "false_conservative_hold": 6
+        }
+      },
+      "C0": {
+        "D0_BASE": {
+          "objective_decision_error": 0,
+          "unsafe_proceed": 0,
+          "false_conservative_hold": 0
+        },
+        "L0_BASE": {
+          "objective_decision_error": 0,
+          "unsafe_proceed": 0,
+          "false_conservative_hold": 0
+        },
+        "D1_CORROBORATED": {
+          "objective_decision_error": 0,
+          "unsafe_proceed": 0,
+          "false_conservative_hold": 0
+        },
+        "L1_CORROBORATED": {
+          "objective_decision_error": 0,
+          "unsafe_proceed": 0,
+          "false_conservative_hold": 0
+        }
+      }
+    },
+    "corroboration_deltas": {
+      "ALL": {
+        "deterministic_D1_minus_D0": {
+          "unsafe_proceed": -5,
+          "false_conservative_hold": 14
+        },
+        "learned_L1_minus_L0": {
+          "unsafe_proceed": 10,
+          "false_conservative_hold": -14
+        }
+      },
+      "E1": {
+        "deterministic_D1_minus_D0": {
+          "unsafe_proceed": 0,
+          "false_conservative_hold": 6
+        },
+        "learned_L1_minus_L0": {
+          "unsafe_proceed": 2,
+          "false_conservative_hold": -6
+        }
+      },
+      "E2": {
+        "deterministic_D1_minus_D0": {
+          "unsafe_proceed": -5,
+          "false_conservative_hold": 8
+        },
+        "learned_L1_minus_L0": {
+          "unsafe_proceed": 8,
+          "false_conservative_hold": -8
+        }
+      },
+      "C0": {
+        "deterministic_D1_minus_D0": {
+          "unsafe_proceed": 0,
+          "false_conservative_hold": 0
+        },
+        "learned_L1_minus_L0": {
+          "unsafe_proceed": 0,
+          "false_conservative_hold": 0
+        }
+      }
+    }
+  },
+  "paired_disagreement_counts": {
+    "D0_vs_L0": {
+      "ALL": 67,
+      "E1": 27,
+      "E2": 40,
+      "C0": 0
+    },
+    "D1_vs_L1": {
+      "ALL": 72,
+      "E1": 29,
+      "E2": 43,
+      "C0": 0
+    }
+  },
+  "artifact_file_sha256": {
+    "audit_reconciliation.json": "2ff15fde887149e111bbeb37e8a4b9817ad9886922da243938e185174a696ba8",
+    "exact_endpoint_counts.json": "fba180c9471dc55f6ea2cc6203e61893f182917c7f1ffb08dd478a40e6385591",
+    "execution_manifest.json": "24586f58313be27b0fdee838332ba56fafd28fdb69caf7c4f4a93f18203aec87",
+    "input_hash_manifest.json": "95f026c53b5b6415a5d0e70694a76514fecf0707add724bc3febb991e34c8a68",
+    "invalid_attempts.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "model_and_environment_binding.json": "28f6dad7984578b0c3cb3b0b63b1af24f87a7118036d0fe76afd0affa71df211",
+    "paired_disagreements.json": "d07df1471b326988ba182deb9d578442113e6f48747c0181a6ca3c671abaaddb",
+    "policy_decisions.jsonl": "ff6c3d553bf31b7dddc4c5206c9a8111795261f9466581e0757b7a782a315ce0",
+    "scenario_attempts.jsonl": "297770841b110df02f14a25237f43c09999d8423fc434756b56e941da8dac81a",
+    "topology_fault_tables.json": "4c24c9db4a9ce86d510df43dac7f709196af56d5cac7c769f69e07d528d95991",
+    "output_hash_manifest.json": "634657f75f568868504653b65558e937a3f552f62613ded03be56d9edacddead"
+  },
+  "environment_binding": {
+    "python": "3.11.16",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0",
+    "pip": "26.2.1",
+    "dependency_inventory_sha256": "023a745c1edde1a929030fbc15245811f828365aba11b0485c5b139a402fdd08",
+    "L0_runtime_sha256": "5b38a0088c4dd0cb2ce3739993cd2d9ee7949eb1a86c188ca1bd95b38cb5f4b1",
+    "L1_runtime_sha256": "6c4b589766f1df51fad2bde80350000f24c53b215ef345079fd81a8a7b98b960",
+    "L0_semantic_sha256": "1060d526704f21d4ee72be1ace6916c061b0c254de64246b1f469a576ba42ef1",
+    "L1_semantic_sha256": "499fc92b714948c9a837861d4810051f51ab014f3f261a13df85646f7832f558"
+  },
+  "independent_post_run_recomputation": {
+    "raw_policy_decision_cardinality": true,
+    "raw_scenario_cardinality": true,
+    "block_cardinality": true,
+    "four_policies_per_scenario": true,
+    "all_records_valid": true,
+    "all_audit_matches": true,
+    "equal_information_pair_hashes": true,
+    "objective_action_rule": true,
+    "exact_endpoint_counts": true,
+    "paired_disagreements": true,
+    "topology_fault_tables": true,
+    "output_hash_manifest": true,
+    "result": "PASS"
+  },
+  "governance": {
+    "one_shot_execution_sealed": true,
+    "retry_authorized": false,
+    "post_hoc_model_change_authorized": false,
+    "model_retraining_authorized": false,
+    "pr_merge_authorized": false,
+    "publication_or_result_claims_authorized": false
+  },
+  "next_gate": "separate scientific-results review/interpretation and result-freeze decision before manuscript/publication claims or PR #167 merge"
+}

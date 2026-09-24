@@ -30,7 +30,7 @@ How do the learned selectors behave when evaluated on fault classes and higher-s
 
 ## 3. Reference architecture
 
-The reference implementation is based on NASA core Flight System (cFS). If the feasibility gate passes, NASA Operational Simulator for Space Systems (NOS3) is used as the canonical simulation/integration environment.
+The reference implementation is based on NASA core Flight System (cFS). Following the pre-freeze feasibility gates and the 2026-09-23 stack decision, standalone cFS v7.0.1 is the selected implementation baseline for the remaining non-canonical architecture. This is not a canonical environment freeze. NOS3 v1.7.5 is retained as bounded feasibility/reference evidence rather than the selected baseline.
 
 The study is a research reference architecture. It is **not** a flight distribution, flight qualification, NASA endorsement, or operational spacecraft validation.
 
@@ -71,8 +71,9 @@ The study is a research reference architecture. It is **not** a flight distribut
 9. **Software Bus Network (SBN)**
    - used where the topology requires process/processor separation and cross-instance message transfer.
 
-10. **NOS3 ground/simulation layer**
-    - candidate environment for command/telemetry, dynamics/environment, software hardware models, and repeatable scenario control.
+10. **NOS3 alternative/reference simulation layer**
+    - evaluated for command/telemetry, dynamics/environment, software hardware models, and scenario-control realism;
+    - not selected for the Study-7E pre-freeze implementation baseline because the pinned release's required multi-instance path would expand the dependency graph beyond the pinned NOS3 stack.
 
 ## 4. Architecture truth and objective action
 
@@ -209,7 +210,7 @@ A targeted compromise propagates to every evidence path whose domain identifier 
 
 ## 8. Fault/compromise profiles
 
-Exactly twelve profiles are defined before execution.
+Exactly thirteen profiles are defined before execution.
 
 | ID | Profile | Target/effect |
 |---|---|---|
@@ -225,14 +226,17 @@ Exactly twelve profiles are defined before execution.
 | F9 | PRIMARY_TRANSPORT_COMPROMISE | primary transport domain corrupts/drops/rewrites as specified; propagation follows aliasing |
 | F10 | PRIMARY_AUTHORITY_COMPROMISE | primary authority domain issues false authorization; propagation follows authority aliasing |
 | F11 | COMPOUND_AUTHORITY_TRANSPORT | simultaneous authority and transport compromise of the primary path; propagation follows topology aliasing |
+| F12 | PRIMARY_EXECUTION_COMPROMISE | compromise primary execution-domain behavior; propagation follows execution-domain aliasing |
 
-The exact byte-level transformation for F3, F4, F9, F10, and F11 must be fixed before protocol freeze.
+The exact byte-level transformation for F3, F4, F9, F10, F11, and F12 must be fixed before protocol freeze.
 
 ## 9. Prospective blocks and population
 
 ### 9.1 Training block TR
 
-The learned policies are trained only on:
+The training population has two prospectively separated sub-blocks.
+
+#### TR1: security-response training
 
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
@@ -244,7 +248,23 @@ Population:
 
 `2 × 2 × 3 × 6 = 72` architecture scenarios.
 
-Training scenarios are not part of the canonical evaluation population.
+#### TR0: no-signal baseline training
+
+- `true_authorization ∈ {0,1}`
+- `true_health_ready ∈ {0,1}`
+- topologies T0, T1, T2
+- fault profile F0 only
+- `security_signal = 0`
+
+Population:
+
+`2 × 2 × 3 = 12` architecture scenarios.
+
+Total training population:
+
+`72 + 12 = 84` architecture scenarios.
+
+TR0 prevents the learned selectors from being evaluated on an unseen value of the `security_signal` feature merely because that value was omitted from training. Training scenarios are not part of the canonical evaluation population.
 
 ### 9.2 Evaluation block E1: unseen fault classes
 
@@ -253,12 +273,12 @@ Evaluate:
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
 - T0, T1, T2
-- F6 through F11
+- F6 through F12
 - `security_signal = 1`
 
 Population:
 
-`2 × 2 × 3 × 6 = 72` architecture scenarios.
+`2 × 2 × 3 × 7 = 84` architecture scenarios.
 
 ### 9.3 Evaluation block E2: held-out topology transfer
 
@@ -267,38 +287,40 @@ Evaluate:
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
 - T3 and T4
-- F0 through F11
+- F0 through F12
 - `security_signal = 1`
 
 Population:
 
-`2 × 2 × 2 × 12 = 96` architecture scenarios.
+`2 × 2 × 2 × 13 = 104` architecture scenarios.
 
-### 9.4 Control block C0: no-security-signal controls
+### 9.4 Control block C0: held-out-topology no-security-signal controls
 
 Evaluate:
 
 - `true_authorization ∈ {0,1}`
 - `true_health_ready ∈ {0,1}`
-- T0 through T4
+- T3 and T4 only
 - F0 only
 - `security_signal = 0`
 
 Population:
 
-`2 × 2 × 5 = 20` architecture scenarios.
+`2 × 2 × 2 = 8` architecture scenarios.
+
+Because T3 and T4 are excluded from training, C0 does not duplicate the TR0 training scenarios.
 
 ### 9.5 Canonical evaluation population
 
 Canonical evaluation scenarios:
 
-`72 + 96 + 20 = 188`.
+`84 + 104 + 8 = 196`.
 
 Each scenario is evaluated by four policies:
 
-`188 × 4 = 752` policy-decision observations.
+`196 × 4 = 784` policy-decision observations.
 
-The 72 training scenarios are reported separately and never pooled into the 752 evaluation observations.
+The 84 training scenarios are reported separately and never pooled into the 784 evaluation observations. The complete prospective manifest contains 280 architecture scenarios.
 
 These counts are prospective design quantities, not observed results.
 

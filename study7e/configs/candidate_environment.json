@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "state": "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
+  "cfs": {
+    "repository": "https://github.com/nasa/cFS.git",
+    "tag": "v7.0.1",
+    "tag_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "key_gitlinks": {
+      "cfe": "c5fb2b4d540bd55eb6c3707da7dd13eee679d4dd",
+      "osal": "d2d877a69cff47452bcca274b309147d48e6c16f",
+      "psp": "c4b3b0b65b119e106481ad8e20976ae4d7f554e3",
+      "hs": "947b903174bca0878210e7fbc53104cff8e7b335",
+      "sbn": "3b7b37572d63c3f8e85b1f0fa95853c1b78dcf96"
+    },
+    "documented_build": [
+      "make native_std.prep",
+      "make native_std.install",
+      "make native_std.runtest"
+    ]
+  },
+  "nos3": {
+    "repository": "https://github.com/nasa/nos3.git",
+    "tag": "v1_07_05",
+    "version": "1.7.5",
+    "tag_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "key_gitlinks": {
+      "cfe": "87e273743f3d07ed9216462b461e9f398ff96c87",
+      "osal": "08a79bb6ac02b9ced8aa555853ecdd96e5ebc1a7",
+      "psp": "d0a5d6fa4093d473a929fde42a0983e489d89d4a",
+      "sbn": "240f90f56641d43e5db1dae457d7ef8772a1c659",
+      "sbn_client": "1cafda865b5f40d3fc9839b916ef5d6e0b2ff935",
+      "cryptolib": "d4f91523b7f2f247b89bbde9e156cd8420e2cb86"
+    },
+    "documented_build": [
+      "make prep",
+      "make"
+    ],
+    "documented_launch": "make launch",
+    "launch_prohibited_in_current_automated_qualification": true
+  },
+  "note": "Standalone cFS v7.0.1 is selected as the pre-freeze Study-7E implementation baseline. This is not a canonical environment freeze; exact runtime/environment lock remains a later gate.",
+  "stack_selection": {
+    "state": "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
+    "mixing_standalone_cfs_and_nos3_pinned_fsw_without_compatibility_study": "PROHIBITED",
+    "candidate_a": "standalone_cFS_v7.0.1",
+    "candidate_b": "NOS3_v1.7.5_native_pinned_stack",
+    "selection_requires_author_review": true,
+    "author_review_completed": true,
+    "selected_candidate": "standalone_cFS_v7.0.1",
+    "selected_tag_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "canonical_environment_frozen": false,
+    "selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
+    "selection_scope": "remaining pre-freeze non-canonical Study-7E architecture implementation",
+    "nos3_disposition": "BOUNDED_FEASIBILITY_REFERENCE__NOT_SELECTED_FOR_BASELINE",
+    "nos3_boundary": "Pinned NOS3 v1.7.5 build is green, but its in-tag baseline is single-CPU and its documented multi-spacecraft scenario requires a separate proof-of-concept repository/branch outside the pinned NOS3 dependency graph."
+  }
+}

@@ -1,0 +1,98 @@
+name: Study 7E bounded NOS3 feasibility
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NOS3_COMMIT: 5a3bdee6be9a2c67fdf994ae6db56d5c60395302
+  NOS3_IMAGE: ivvitc/nos3-64:20260619
+
+jobs:
+  nos3-bounded-build:
+    name: nos3-v1.7.5-fsw-sim-build
+    runs-on: ubuntu-latest
+    container:
+      image: ivvitc/nos3-64:20260619
+    timeout-minutes: 45
+    steps:
+      - name: Check out Study 7E qualification branch
+        uses: actions/checkout@v4
+
+      - name: Clone exact NOS3 release and recursive gitlinks
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/s7e-nos3
+          git clone https://github.com/nasa/nos3.git /tmp/s7e-nos3
+          git -C /tmp/s7e-nos3 checkout --detach "${NOS3_COMMIT}"
+          git -C /tmp/s7e-nos3 submodule update --init --recursive
+
+          test "$(git -C /tmp/s7e-nos3 rev-parse HEAD)" = "${NOS3_COMMIT}"
+          test "$(git -C /tmp/s7e-nos3 ls-tree HEAD fsw/cfe | awk '{print $3}')" = "87e273743f3d07ed9216462b461e9f398ff96c87"
+          test "$(git -C /tmp/s7e-nos3 ls-tree HEAD fsw/osal | awk '{print $3}')" = "08a79bb6ac02b9ced8aa555853ecdd96e5ebc1a7"
+          test "$(git -C /tmp/s7e-nos3 ls-tree HEAD fsw/psp | awk '{print $3}')" = "d0a5d6fa4093d473a929fde42a0983e489d89d4a"
+          test "$(git -C /tmp/s7e-nos3 ls-tree HEAD fsw/apps/sbn | awk '{print $3}')" = "240f90f56641d43e5db1dae457d7ef8772a1c659"
+          test "$(git -C /tmp/s7e-nos3 ls-tree HEAD components/cryptolib | awk '{print $3}')" = "d4f91523b7f2f247b89bbde9e156cd8420e2cb86"
+
+      - name: Capture bounded feasibility provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "${GITHUB_WORKSPACE}/nos3-feasibility-evidence"
+          {
+            echo "experiment_id=S7E-AERC-001"
+            echo "qualification=bounded_nos3_fsw_and_sim_build"
+            echo "scientific_execution=false"
+            echo "canonical_results_generated=false"
+            echo "nos3_commit=$(git -C /tmp/s7e-nos3 rev-parse HEAD)"
+            echo "nos3_release=v1_07_05"
+            echo "container_image=${NOS3_IMAGE}"
+            echo "kernel=$(uname -a)"
+            echo "git=$(git --version)"
+            echo "gcc=$(gcc --version | head -1)"
+            echo "cmake=$(cmake --version | head -1)"
+            echo "make=$(make --version | head -1)"
+            echo
+            echo "recursive_submodules:"
+            git -C /tmp/s7e-nos3 submodule status --recursive
+          } > "${GITHUB_WORKSPACE}/nos3-feasibility-evidence/provenance.txt"
+
+      - name: Configure pinned NOS3 mission
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -C /tmp/s7e-nos3 config
+
+      - name: Build and test NOS3 cFS flight-software surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -C /tmp/s7e-nos3 build-test
+          make -C /tmp/s7e-nos3 test-fsw
+
+      - name: Build NOS3 simulator surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -C /tmp/s7e-nos3 build-sim
+
+      - name: Assert bounded non-scientific stop point
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
+          echo "nos3_make_prep_run=false"
+          echo "nos3_make_launch_run=false"
+          echo "study7e_scientific_scenarios_executed=0"
+          echo "scientific_results_generated=false"
+          echo "nos3_bounded_feasibility=PASS"
+
+      - name: Archive bounded feasibility provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: study7e-nos3-v175-bounded-feasibility
+          path: nos3-feasibility-evidence/provenance.txt
+          if-no-files-found: error

@@ -1,0 +1,116 @@
+name: Study 7E held-out evaluation 001
+
+on:
+  pull_request:
+    paths:
+      - "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json"
+      - "study7e/tools/run_held_out_evaluation_001.py"
+      - ".github/workflows/study7e-held-out-evaluation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  latest-heldout-execution-change:
+    runs-on: ubuntu-latest
+    outputs:
+      run_eval: ${{ steps.detect.outputs.run_eval }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
+      - id: detect
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json ]]; then
+            echo "S7E-AERC-HELDOUT-EXEC-001 is sealed; a new execution ID and authorization are required for any future campaign."
+            echo "run_eval=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "run_eval=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed="$(git diff --name-only HEAD^ HEAD)"
+          printf '%s\n' "$changed"
+          if grep -Eq '^(study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json|study7e/tools/run_held_out_evaluation_001.py|\.github/workflows/study7e-held-out-evaluation.yml)$' <<<"$changed"; then
+            echo "run_eval=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_eval=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  held-out-evaluation:
+    needs: latest-heldout-execution-change
+    if: needs.latest-heldout-execution-change.outputs.run_eval == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11.16"
+      - name: Create exact isolated inference environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m venv .venv-heldout
+          source .venv-heldout/bin/activate
+          python -m pip install --upgrade "pip==26.2.1" "setuptools==79.0.1"
+          python -m pip install "numpy==2.4.6" "scipy==1.17.1" "joblib==1.6.0" "threadpoolctl==3.7.0" "cloudpickle==3.1.2" "narwhals==2.26.0" "scikit-learn==1.9.1"
+          python - <<'PY'
+          import platform, sklearn
+          assert platform.python_version()=="3.11.16"
+          assert sklearn.__version__=="1.9.1"
+          print("held_out_runtime_preflight=PASS")
+          PY
+      - name: Frozen model integrity before inference
+        shell: bash
+        run: |
+          set -euo pipefail
+          source .venv-heldout/bin/activate
+          python - <<'PY'
+          import inspect
+          import study7e.tests.test_model_freeze_integrity as t
+          for n,f in inspect.getmembers(t,inspect.isfunction):
+              if n.startswith("test_"): f()
+          print("model_freeze_preflight=PASS")
+          PY
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json").read_text())
+          assert a["state"]=="AUTHORIZED_FOR_EXACT_HELD_OUT_SCIENTIFIC_EVALUATION_ONLY"
+          assert a["authorized"]["scenarios"]==196
+          assert a["authorized"]["policy_decisions"]==784
+          assert a["prohibited"]["retraining"] is True
+          assert a["prohibited"]["pr_167_merge"] is True
+          print("held_out_authorization_scope=PASS")
+          PY
+      - name: Execute exact held-out population once
+        shell: bash
+        env:
+          SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          source .venv-heldout/bin/activate
+          python -m py_compile study7e/tools/run_held_out_evaluation_001.py
+          rm -rf study7e_heldout_exec_001
+          python study7e/tools/run_held_out_evaluation_001.py --output-dir study7e_heldout_exec_001 --source-commit "$SOURCE_COMMIT" | tee heldout_execution.log
+          grep -Fx 'held_out_scenarios=196' heldout_execution.log
+          grep -Fx 'policy_decisions=784' heldout_execution.log
+          grep -Fx 'invalid_scenarios=0' heldout_execution.log
+          grep -Fx 'audit_mismatches=0' heldout_execution.log
+          grep -Fx 'study7e_held_out_evaluation=PASS' heldout_execution.log
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S7E-AERC-HELDOUT-EXEC-001
+          path: |
+            study7e_heldout_exec_001/heldout
+            heldout_execution.log
+          if-no-files-found: error
+          retention-days: 30
