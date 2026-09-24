@@ -3,7 +3,7 @@
   "experiment_id": "S8E-ECTV-001",
   "record_id": "S8E-NEW-CHAT-HANDOFF-001",
   "date_local": "2026-09-20",
-  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_CORE_PACKAGE_FROZEN__AUTHOR_PHOTO_PENDING",
+  "status": "CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_REJECTED_OUT_OF_SCOPE__NO_SCIENTIFIC_CHANGE",
   "authoritative_files": [
     "study8e/CURRENT_EXTENSION_STATE.md",
     "publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md",
@@ -45,16 +45,16 @@
     "manuscript_integration_plan": "publication/Paper_4_Study_8/REBUILT_STUDY8_8E_MANUSCRIPT_INTEGRATION_PLAN_2026-09-20.md",
     "manuscript_integration_plan_status": "EXECUTED__VENUE_NEUTRAL_MANUSCRIPT_CREATED",
     "manuscript_path": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/MANUSCRIPT.md",
-    "manuscript_status": "IJSCCN_CORE_PACKAGE_R1_FROZEN__AUTHOR_PHOTO_PENDING__PUBLISHER_SUBMISSION_NOT_AUTHORIZED",
+    "manuscript_status": "IJSCCN_R5_REJECTED__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW__NO_SCIENTIFIC_CHANGE",
     "author_scientific_review": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md",
     "author_scientific_review_status": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
     "live_venue_assessment": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md",
     "live_venue_assessment_status": "LIVE_VENUE_ASSESSMENT_COMPLETE__IJSCCN_PREFERRED__VENUE_NOT_LOCKED",
-    "locked_venue": "International Journal of Satellite Communications and Networking",
-    "locked_venue_abbreviation": "IJSCCN",
+    "locked_venue": null,
+    "locked_venue_abbreviation": null,
     "venue_lock_record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md",
     "ijsccn_package_path": "publication/Paper_4_Study_8/IJSCCN/",
-    "ijsccn_package_status": "FROZEN__P4-IJSCCN-PKG-R1-FREEZE-001",
+    "ijsccn_package_status": "HISTORICAL_SUBMITTED_R5__REJECTED_OUT_OF_SCOPE",
     "ijsccn_package_freeze": {
       "freeze_id": "P4-IJSCCN-PKG-R1-FREEZE-001",
       "record": "publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md",
@@ -63,9 +63,32 @@
       "artifact_id": 10655615285,
       "artifact_digest_sha256": "ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37",
       "author_photo_pending": true
-    }
+    },
+    "last_submitted_venue": "International Journal of Satellite Communications and Networking",
+    "last_submitted_venue_abbreviation": "IJSCCN",
+    "last_submission_id": "4920969",
+    "last_submission_date_local": "2026-09-22",
+    "last_decision_date_local": "2026-09-24",
+    "last_decision": "REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW",
+    "active_venue_lock": false,
+    "next_venue_locked": false,
+    "automatic_transfer_authorized": false,
+    "editorial_decision_record": "publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md"
   },
   "live_venue_assessment_authorized": true,
   "venue_lock_authorized": true,
-  "venue_specific_package_preparation_authorized": true
+  "venue_specific_package_preparation_authorized": true,
+  "current_state_date": "2026-09-24",
+  "paper4_publication": {
+    "latest_venue": "International Journal of Satellite Communications and Networking",
+    "latest_venue_abbreviation": "IJSCCN",
+    "manuscript_id": "4920969",
+    "submitted_date_local": "2026-09-22",
+    "decision_date_local": "2026-09-24",
+    "decision": "REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW",
+    "decision_record": "publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md",
+    "next_venue_locked": false,
+    "automatic_transfer_authorized": false,
+    "scientific_change": false
+  }
 }

@@ -4,10 +4,10 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository contains **four publication lines that have been submitted**. Papers 1 and 2 remain active with their publishers. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 / Study 8 was rejected by Acta Astronautica and has its own separately governed rebuild path.
+The repository contains **four publication lines that have been submitted**. Papers 1 and 2 remain active with their publishers. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
-2. **Paper 4:** Study 8, submitted to Acta Astronautica.
+2. **Paper 4:** Study 8 + Study 8E rebuilt manuscript, most recently submitted to IJSCCN; prior Acta submission retained as historical provenance.
 3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal.
 
@@ -35,6 +35,18 @@ Study 1 remains 720 VALID observations and Study 2 remains 3,872 VALID observati
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
 Study 8 remains a separate deterministic modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. Acta supplied no external reviewer reports and did not enumerate a specific methodological defect in the decision letter.
+
+### Rebuilt Paper 4 - Study 8 + Study 8E
+
+- **Journal:** International Journal of Satellite Communications and Networking
+- **Manuscript ID:** `4920969`
+- **Submission date:** 2026-09-22
+- **Decision date:** 2026-09-24
+- **Current state:** `REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW`
+- **Authority:** `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
+- **Decision record:** `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
+
+The IJSCCN decision does not alter frozen Study 8 or Study 8E science. The submitted R5 package remains immutable historical provenance. The next Paper 4 action is a fresh venue-fit audit plus optional review of Wiley Transfer Desk suggestions; no automatic transfer is authorized.
 
 ## Paper 2 - Studies 3 + 4 + 6
 
@@ -74,11 +86,11 @@ The rejection audit finds that a manuscript-only retarget is insufficient. A new
 
 The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory remains historical, unsubmitted venue-development provenance.
 
-## Study 8 post-rejection gate
+## Paper 4 post-IJSCCN gate
 
-This is the **immediate active publication-development priority**.
+The immediate active publication-development priority is the Paper 4 post-IJSCCN venue-retarget workstream; it is not a scientific rerun.
 
-Study 8 may now undergo a controlled forensic manuscript/venue audit. The rejected Acta package remains immutable provenance. A retargeted package may improve presentation, framing, literature positioning, explanatory depth, figures/tables, and venue formatting without changing frozen science. No fallback venue is automatically selected.
+The rejected Acta package and rejected IJSCCN R5 package remain immutable historical provenance. A future retarget may adapt presentation, framing, literature positioning, explanatory depth, figures/tables, and venue formatting only within the frozen Study 8 + Study 8E claim boundaries. No Wiley transfer or fallback venue is automatically selected.
 
 Canonical handoff:
 

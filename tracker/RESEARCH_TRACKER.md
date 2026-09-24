@@ -1,17 +1,17 @@
 # Research Tracker
 
-Last updated: 2026-09-22
+Last updated: 2026-09-24
 
 ## Current focus
 
 The repository now contains four submitted publication lines:
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems as manuscript `2026-09-I012066` on 2026-09-05.
-2. **Paper 4:** Study 8, submitted to Acta Astronautica as manuscript `AA-D-26-02872` on 2026-09-06; rejected by editorial decision recorded 2026-09-19, with no external reviewer reports supplied and no specific methodological defect enumerated.
+2. **Paper 4:** rebuilt Study 8 + Study 8E manuscript, submitted to IJSCCN as manuscript `4920969` on 2026-09-22; rejected at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied. The earlier Acta rejection remains historical provenance.
 3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07, Research Exchange UUID `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; rejected by handling-editor editorial assessment on 2026-09-22.
 
-Papers 1 and 2 remain frozen pending journal action. The rejected Paper-3 CEAS and Paper-4 Acta packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 remains separately governed by its post-rejection rebuild path.
+Papers 1 and 2 remain frozen pending journal action. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
 
 This is a journal/research publication workflow, not a dissertation-revision workflow.
 
@@ -39,20 +39,21 @@ For scientific facts, per-study freeze/provenance records remain authoritative. 
 
 Study 1 and Study 2 remain separate frozen populations.
 
-### Paper 4 - Study 8
+### Paper 4 - Study 8 + Study 8E
 
-- Journal: Acta Astronautica
-- Manuscript ID: `AA-D-26-02872`
-- Submitted: 2026-09-06
-- Current recorded state: `REJECTED__EDITORIAL_DECISION`
-- Decision recorded: 2026-09-19
-- Decision detail: no external reviewer reports were included in the supplied letter; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
-- Authority: `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
-- Decision provenance: `publication/Paper_4_Study_8/Acta_Astronautica/EDITORIAL_DECISION_REJECTED_2026-09-19.md`
+- Latest journal: International Journal of Satellite Communications and Networking
+- Manuscript ID: `4920969`
+- Submitted: 2026-09-22
+- Decision date: 2026-09-24
+- Current recorded state: `REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW`
+- Decision detail: IJSCCN stated `out of scope`; no external reviewer reports or specific technical/methodological defects were supplied
+- Authority: `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
+- Decision provenance: `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
+- Prior Acta submission: `AA-D-26-02872`, rejected 2026-09-19 and retained as historical provenance
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not alter the frozen scientific record.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. Study 8E remains separately frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The two populations remain unpooled. The IJSCCN scope rejection does not alter either scientific record.
 
-The next Study 8 gate is a controlled forensic manuscript/venue audit before retargeting. No fallback venue is automatically selected, and no scientific rerun or statistical reanalysis is authorized by the editorial decision.
+The next Paper 4 gate is a fresh venue-fit audit plus optional review of Wiley Transfer Desk suggestions. No fallback venue is automatically selected, no automatic transfer is authorized, and no scientific rerun or statistical reanalysis is authorized by the decision.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
@@ -112,30 +113,28 @@ Any other repository study or experiment may enter the next-paper candidate audi
 
 Paper 3 recovery is an additionally authorized workstream following the 2026-09-22 CEAS decision. Its immediate gate is author review of the drafted `S7E-AERC-001` protocol and implementation plan. This does not cancel or overwrite the separately governed Paper-4 workstream.
 
-The previously recorded active publication-development gate is:
+The active Paper-4 publication gate is:
 
-`POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT`
+`IJSCCN_OUT_OF_SCOPE_CLOSEOUT__FRESH_VENUE_FIT_AUDIT`
 
-Canonical handoff:
+Decision authority:
 
-`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+`publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
 
 Required sequence:
 
-1. verify clean canonical `main` and record its HEAD SHA;
-2. inspect the exact rejected Acta manuscript and package without modifying those provenance files;
-3. perform a claim-by-claim forensic manuscript-quality audit against frozen Study 8 evidence;
-4. identify presentation, framing, literature, explanatory-depth, figure/table, and discussion improvements that do not require new science;
-5. explicitly distinguish audit findings from hypotheses about why Acta rejected the paper, because the editor did not provide a specific technical defect;
-6. perform a fresh live literature and novelty review;
-7. perform a fresh live venue review and produce a shortlist with fit and reviewer-risk reasoning;
-8. determine whether the frozen science is sufficient for controlled resubmission;
-9. present the recommended venue and revision plan to the author before locking a new venue-specific package;
-10. retain final publisher submission as a separate explicit author-authorization gate.
+1. preserve the exact rejected IJSCCN R5 submission and private local publisher package as historical provenance;
+2. inspect Wiley Transfer Desk suggestions if received, but treat them as candidates only;
+3. conduct a fresh live venue review against the actual Study 8 + Study 8E scope;
+4. reject venues that would require unsupported operational RF, throughput, CPU, energy, thermal, or mission-performance claims;
+5. preserve Study 8 / Study 8E non-pooling and Paper-5 independence;
+6. select and lock a new venue only after live scope and author-guideline verification;
+7. create any new publisher-facing derivative on a fresh Paper-4 branch from current `main`;
+8. retain any transfer or publisher submission as a separate explicit author-authorization gate.
 
 **Terminology safeguard:** Paper 4 is the Study 8 publication. Study 4 / `S4-MPQ-001` is a different frozen experiment already included in submitted Paper 2 / TAES. Do not modify or rerun Study 4 as part of this Paper-4 resubmission workflow.
 
-The remaining-study publication-candidate audit, including Study 5, is deferred while this Paper-4 retargeting gate is active unless the author explicitly reprioritizes it.
+The remaining-study publication-candidate audit, including Study 5, remains separate from the Paper-4 retargeting workstream unless the author explicitly reprioritizes it.
 
 ## Scientific and responsible-research boundaries
 

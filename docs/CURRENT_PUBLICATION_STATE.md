@@ -12,11 +12,13 @@
 
 **Paper 3 CEAS decision/recovery update:** 2026-09-22
 
+**Paper 4 IJSCCN editorial decision update:** 2026-09-24
+
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Papers 1 and 2 remain active with their publishers. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 now integrates separately frozen Study 8 and Study 8E evidence, is locked to the International Journal of Satellite Communications and Networking (IJSCCN), and has a frozen repository-generated core submission package. Publisher submission is not authorized. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+The repository has **four publication lines that have been submitted historically**. Papers 1 and 2 remain active with their publishers. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -40,7 +42,23 @@ Study 1 and Study 2 remain separately frozen and must never be reported as one p
 - **Decision detail:** no external reviewer reports were included; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. Study 8E is separately governed and formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The author selected **Study 8 + Study 8E -> rebuilt Paper 4** as the manuscript architecture; the two study populations remain separate and unpooled. Venue-neutral manuscript integration was executed in `publication/Paper_4_Study_8/Rebuilt_Study8_8E/` under explicit author authorization, with frozen science unchanged. IJSCCN is now the locked retarget venue, and the repository-generated core IJSCCN package is frozen under `P4-IJSCCN-PKG-R1-FREEZE-001`.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. Study 8E is separately governed and formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The author selected **Study 8 + Study 8E -> rebuilt Paper 4** as the manuscript architecture; the two study populations remain separate and unpooled. Venue-neutral manuscript integration was executed in `publication/Paper_4_Study_8/Rebuilt_Study8_8E/` under explicit author authorization, with frozen science unchanged. IJSCCN was the locked retarget venue for the submitted R5 cycle; that venue lock is now historical because manuscript `4920969` was rejected at editorial screening on 2026-09-24 as `out of scope`.
+
+#### Rebuilt Paper 4 - Study 8 + Study 8E
+
+- **Journal:** International Journal of Satellite Communications and Networking
+- **Publisher:** Wiley
+- **Title:** Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing
+- **Article type:** Original Paper
+- **Manuscript ID:** `4920969`
+- **Submitted:** 2026-09-22
+- **Decision date:** 2026-09-24
+- **State:** `REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW`
+- **Decision detail:** the journal stated `out of scope`; no external reviewer reports or specific technical/methodological defects were supplied
+- **Authority:** `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
+- **Decision record:** `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
+
+The IJSCCN decision does not alter Study 8, Study 8E, Results-002, TRACE-002, or any frozen scientific artifact. The submitted R5 package remains historical provenance. Wiley Transfer Desk suggestions may be reviewed as candidates only; no automatic transfer is authorized. The fresh venue-fit audit is recorded at `publication/Paper_4_Study_8/NEXT_VENUE_AUDIT_2026-09-24.md`; no new venue is locked.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
@@ -102,7 +120,7 @@ No `study7e/` execution workspace, canonical run, or new scientific result is au
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active publication-development priority:** complete a fresh, live IJSCCN/Wiley submission-policy audit and rebuild the publisher-facing Paper 4 package as **R5**. The prior repository R1 package remains frozen historical provenance. The local R4.x personalized derivatives are not tracked; author review rejected R4.3 as a submission candidate because its manuscript presentation did not meet the required professional journal standard. The author photograph has been supplied locally under the privacy boundary. Publisher submission remains unauthorized.
+**Immediate active publication-development priority:** for Paper 4, preserve the rejected IJSCCN R5 submission as immutable historical provenance, review any Wiley Transfer Desk suggestions without authorizing automatic transfer, and perform a fresh venue-fit audit against the actual Study 8 + Study 8E evidence boundaries. No scientific rerun or result modification is authorized by the IJSCCN scope decision.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
@@ -169,54 +187,50 @@ Current live venue assessment authority:
 
 Assessment result: `LIVE_VENUE_ASSESSMENT_COMPLETE__IJSCCN_PREFERRED__VENUE_NOT_LOCKED`.
 
-Current venue-lock authority:
+Historical IJSCCN venue-lock authority:
 
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md`
 
-Venue decision: `IJSCCN_LOCKED__CORE_PACKAGE_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED`.
+Historical venue decision: `IJSCCN_LOCKED__CORE_PACKAGE_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED`.
 
-Current IJSCCN package authority:
+Current IJSCCN submission/decision authority:
 
 - `publication/Paper_4_Study_8/IJSCCN/README.md`
 - `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
-- `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
+- `publication/Paper_4_Study_8/IJSCCN/R5_FINAL_SUBMISSION_RECORD_2026-09-22.md`
+- `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
 
-Current package state: `P4-IJSCCN-PKG-R1-FREEZE-001`. The pre-privacy repository-generated package was bound to workflow run `35632266523`, artifact `10655615285`, digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`. That artifact is historical package provenance only and is superseded for submission handling by the local-private privacy gate because it was generated before tracked author-contact metadata was removed. Personalized upload-ready materials are now local-only and ignored by Git.
+Current IJSCCN state: `IJSCCN_R5_REJECTED__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW__NO_SCIENTIFIC_CHANGE`.
 
-Current R5 rebuild state:
+The repository-generated R1 package freeze, R5 preparation records, and local-private submission package remain immutable historical provenance. The final personalized R5 package remains local-only under ignored paths and must not be rewritten to simulate a different venue.
 
-- repository R1 package remains immutable historical/public-safe provenance;
-- the rejected Acta Astronautica submitted manuscript remains immutable and may be consulted only as a visual-quality benchmark;
-- local R4.3 is explicitly **not approved for Wiley upload**;
-- R5 is a new controlled publisher-facing derivative, not a scientific rerun;
-- R5 must preserve the current integrated Study 8 + Study 8E scientific text and all frozen evidence boundaries;
-- R5 must be validated against the live IJSCCN Author Guidelines, Wiley manuscript-preparation guidance, and Wiley submission/peer-review guidance before document generation;
-- journal-specific IJSCCN instructions control over generic Wiley guidance when they conflict;
-- the final personalized R5 package must remain under ignored local-private/local-submission paths;
-- final Wiley submission still requires separate explicit author authorization.
+Current Paper 4 retarget state:
 
-R5 continuity authority:
+- no active venue is locked;
+- the IJSCCN R5 submission is closed by editorial scope rejection;
+- no external reviewer reports or specific technical/methodological defects were supplied;
+- Study 8 and Study 8E remain frozen and unpooled;
+- no scientific rerun or statistical reanalysis is authorized by the decision;
+- Wiley Transfer Desk suggestions may be reviewed as candidates only;
+- no automatic transfer is authorized;
+- any future venue-specific derivative must be created as a new versioned Paper 4 cycle from current `main`.
+
+Historical R5 continuity/provenance authority:
 
 - `publication/Paper_4_Study_8/IJSCCN/NEW_CHAT_HANDOFF_2026-09-21_R5_REBUILD.md`
 - `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
-
-Current package-freeze authority:
-
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md`
-
-Current privacy/local-submission authority:
-
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_LOCAL_PRIVATE_SUBMISSION_PRIVACY_GATE_2026-09-21.md`
 
 Current next gate:
 
-1. perform a fresh live-policy audit of the IJSCCN Author Guidelines and every submission-relevant linked Wiley page, including manuscript preparation and submission/peer review;
-2. create a requirement matrix that distinguishes mandatory journal-specific rules, live portal requirements, generic Wiley guidance, and recommendations;
-3. rebuild the manuscript and all publisher-facing submission documents as R5 with professional scholarly formatting, using the immutable Acta manuscript only as a visual-quality reference;
-4. perform scientific-preservation checks, page-by-page render QA, figure/table QA, data/citation/AI/ethics QA, and privacy validation;
-5. generate the final personalized package only under the ignored local-submission directory;
-6. map exact R5 files to the Wiley portal only after all gates pass;
-7. require separate explicit final author authorization before completing publisher submission.
+1. preserve the submitted IJSCCN R5 manuscript and local publisher package unchanged as historical provenance;
+2. inspect Wiley Transfer Desk recommendations if/when received, but do not authorize transfer automatically;
+3. run a fresh live venue-fit audit centered on satellite/space systems, cybersecurity, post-quantum cryptography, trusted recovery/key-state transition, intermittent connectivity, and contact/opportunity modeling;
+4. reject candidate venues that would require unsupported claims about RF throughput, link margin, BER/coding, CPU/PQC execution latency, energy, thermal behavior, operational spacecraft recovery time, or authenticated command-contact availability;
+5. select a new venue only after scope and author-guideline verification;
+6. create any new publisher-facing derivative on a fresh Paper 4 branch from current `main`;
+7. require separate explicit author authorization before any new publisher submission or Wiley transfer.
 
 Do not rerun TRACE-002 merely to clean the stale metadata label without a new explicit scientific-execution authorization. Do not modify the rejected Acta package or frozen original Study 8 evidence.
 
@@ -224,7 +238,7 @@ Do not rerun TRACE-002 merely to clean the stale metadata label without a new ex
 
 Paper 3 is now a separately authorized post-rejection recovery workstream. Study 7 remains frozen and consumed by the Paper-3 line; it must not be reused as new experimental evidence elsewhere. Any new Paper-3 evidence must come from a separately prospectively designed extension such as proposed `S7E-AERC-001`.
 
-The remaining-study candidate audit is deferred while the Paper 4 / Study 8 post-rejection resubmission audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
+The remaining-study candidate audit remains separate while the Paper 4 / Study 8 + Study 8E fresh venue-fit audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
 
 - Study 5 / `S5-CUCD-001`, a separately frozen portability/external-validity boundary study;
 - any other demonstrably complete repository experiment not already consumed by Papers 1, 2, 3, or 4.

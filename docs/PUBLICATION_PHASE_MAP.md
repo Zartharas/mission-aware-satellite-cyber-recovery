@@ -2,6 +2,8 @@
 
 **Current-state reference:** 2026-09-22
 
+**Paper 4 IJSCCN decision overlay:** 2026-09-24
+
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
 For canonical current state, read [`CURRENT_PUBLICATION_STATE.md`](CURRENT_PUBLICATION_STATE.md) first.
@@ -47,10 +49,12 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       State: PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED
 |
 +-- PHASE 5 - NEXT ACTIVE GATE
-|   +-- PAPER 4 / STUDY 8 POST-REJECTION RETARGET AUDIT
-|       Acta manuscript: AA-D-26-02872
-|       State: POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT
-|       Handoff: publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md
+|   +-- PAPER 4 / STUDY 8 + STUDY 8E FRESH VENUE-FIT AUDIT
+|       Latest manuscript: IJSCCN 4920969
+|       Submitted: 2026-09-22
+|       Decision: rejected 2026-09-24 as out of scope; no external review supplied
+|       State: IJSCCN_OUT_OF_SCOPE_CLOSEOUT__FRESH_VENUE_FIT_AUDIT
+|       Decision record: publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md
 |
 +-- PHASE 6 - DEFERRED
     +-- REMAINING-CANDIDATE AUDIT
@@ -73,16 +77,18 @@ No Paper-1 scientific or publisher-facing artifact should change unless JAIS req
 
 ## Phase 2 - Paper 4
 
-- Study: Study 8 / `S8-PQC-ICR-001`.
-- Frozen population: 3,456 deterministic modeled positions.
-- Venue: Acta Astronautica.
-- Manuscript ID: `AA-D-26-02872`.
-- Submitted: 2026-09-06.
-- Current state: `REJECTED__EDITORIAL_DECISION`.
-- Decision recorded: 2026-09-19.
-- No external reviewer reports were included in the supplied decision letter; no specific methodological defect was enumerated.
+- Studies: Study 8 / `S8-PQC-ICR-001` plus separately frozen Study 8E / `S8E-ECTV-001`.
+- Study 8 population: 3,456 deterministic modeled positions.
+- Study 8E authority: `S8E-CANON-RESULTS-002-FREEZE-001`.
+- Latest venue: International Journal of Satellite Communications and Networking.
+- Manuscript ID: `4920969`.
+- Submitted: 2026-09-22.
+- Decision date: 2026-09-24.
+- Current state: `REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW`.
+- Decision record: `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`.
+- Prior Acta manuscript `AA-D-26-02872` remains immutable historical provenance.
 
-The rejected Acta package remains immutable provenance. Study 8 may proceed only through a controlled post-rejection forensic manuscript/venue audit and a newly authorized retargeting package. The frozen science must not be rerun or reanalyzed merely to improve publication prospects.
+The IJSCCN decision supplied no external reviewer reports and identified no specific technical or methodological defect. Study 8 and Study 8E remain separate and unpooled. Neither study should be rerun or reanalyzed merely to improve publication prospects.
 
 ## Phase 3 - Paper 2
 
@@ -122,23 +128,23 @@ The author authorized a structured rejection-to-research-requirements audit on 2
 
 No Study-7 rerun, retroactive comparator addition, or Study-7E execution is authorized. Any future Study 7E remains a separate population.
 
-## Study 8 post-rejection retargeting gate
+## Paper 4 post-IJSCCN retargeting gate
 
-Acta manuscript `AA-D-26-02872` is closed by rejection. No fallback venue is automatically activated. Before any retargeting, audit the submitted manuscript for presentation, framing, literature-positioning, and venue-fit weaknesses while preserving the frozen scientific record and negative primary result. A fresh live venue review is required before a new venue lock.
+IJSCCN manuscript `4920969` is closed by editorial scope rejection. No Wiley Transfer Desk recommendation or fallback venue is automatically activated. The exact IJSCCN R5 package remains immutable provenance.
 
-## Phase 5 - Paper 4 / Study 8 post-rejection retarget audit
+Historical predecessor gate, retained for provenance and release-gate compatibility: `POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT`. Its historical handoff remains `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`; neither is the current Paper 4 gate.
 
-This is the immediate active publication-development gate.
+## Phase 5 - Paper 4 / Study 8 + Study 8E fresh venue-fit audit
 
-Canonical handoff:
+This is the immediate active Paper-4 publication-development gate.
 
-`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+Decision authority:
 
-The work begins with a forensic audit of the exact rejected Acta manuscript, followed by fresh literature/novelty review and live venue assessment. The Acta package remains immutable provenance and the frozen Study 8 science must not be rerun or reanalyzed merely to improve publication prospects.
+`publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
 
-Paper 4 is the Study 8 publication. Study 4 / `S4-MPQ-001` belongs to submitted Paper 2 / TAES and is outside this resubmission gate.
+The work begins with a fresh live venue assessment against the actual rebuilt manuscript scope: satellite/space systems, cybersecurity, post-quantum cryptography, trusted recovery/key-state transition, intermittent connectivity, and contact/opportunity modeling. Transfer Desk suggestions may be inspected but do not constitute venue approval.
 
-A new target venue is not yet locked. Final venue lock and any publisher submission remain separate explicit author-approval gates.
+Study 8 and Study 8E remain separate populations. Paper 5 / Study 9 remains outside this retarget gate. No new target venue is locked. Final venue lock, transfer, and publisher submission remain separate explicit author-approval gates.
 
 ## Phase 6 - Remaining-candidate audit
 
@@ -150,14 +156,14 @@ The next-paper audit must include fresh literature review, novelty/self-overlap 
 
 Study 5 remains a portability/external-validity boundary study and must not be misrepresented as measuring detector accuracy, recall, false-positive rate, or packet-level recovery effectiveness.
 
-## Recommended operational order from 2026-09-19
+## Recommended operational order from 2026-09-24
 
-1. Keep Papers 1 and 2 frozen while their journal workflows proceed; keep the rejected Paper-3 CEAS and Paper-4 Acta packages frozen as provenance.
-2. Perform the Paper-4 / Study-8 post-rejection forensic manuscript audit from clean `main`.
-3. Perform fresh literature/novelty and live venue review before selecting a retarget venue.
-4. Present the revision plan and recommended target to the author before creating a new venue-specific package.
-5. Keep actual publisher submission as a separate explicit author-authorization gate.
-6. Resume the remaining-study candidate audit after the Paper-4 retarget decision unless the author explicitly reprioritizes it.
+1. Keep Papers 1 and 2 frozen while their journal workflows proceed; keep rejected Paper-3 CEAS and Paper-4 Acta/IJSCCN packages frozen as provenance.
+2. Review Wiley Transfer Desk suggestions if received, without approving transfer.
+3. Perform a fresh live venue-fit review for the rebuilt Study 8 + Study 8E manuscript.
+4. Preserve the existing scientific claim boundaries and reject venues that require unsupported operational-performance claims.
+5. Present the venue shortlist and adaptation plan before creating a new venue-specific package.
+6. Keep any transfer or publisher submission as a separate explicit author-authorization gate.
 
 ## Governance rules
 
@@ -174,9 +180,9 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | Phase | Publication unit | Studies | Current venue/state | Next gate |
 |---|---|---|---|---|
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
-| 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, rejected | Post-rejection forensic manuscript/venue audit before retargeting |
+| 2 | Paper 4 | Study 8 + Study 8E | IJSCCN `4920969`, rejected 2026-09-24 as out of scope | Fresh venue-fit audit; review Transfer Desk suggestions only as candidates |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
 | 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
 | 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
-| 5 | Paper 4 retarget | Study 8 | Acta rejected; next venue not locked | Forensic manuscript/literature/venue audit |
+| 5 | Paper 4 retarget | Study 8 + Study 8E | IJSCCN scope rejection; next venue not locked | Live venue-fit audit with no scientific rerun |
 | 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |

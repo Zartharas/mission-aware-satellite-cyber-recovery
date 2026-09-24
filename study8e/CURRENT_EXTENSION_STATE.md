@@ -1,8 +1,8 @@
 # Study 8E Current Extension State
 
 **Experiment:** `S8E-ECTV-001`  
-**Current-state date:** 2026-09-20  
-**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_CORE_PACKAGE_FROZEN__AUTHOR_PHOTO_PENDING`
+**Current-state date:** 2026-09-24  
+**Status:** `CORRECTED_CANONICAL_RESULTS_FORMALLY_FROZEN__PAPER4_IJSCCN_REJECTED_OUT_OF_SCOPE__NO_SCIENTIFIC_CHANGE`
 
 This file is the primary current-state handoff for Study 8E. Historical protocol, freeze, invalidation, authorization, activation, and execution records remain authoritative for the facts that were true when they were created.
 
@@ -133,18 +133,21 @@ Still prohibited:
 
 **Formal corrected-result freeze is complete under `S8E-CANON-RESULTS-002-FREEZE-001`.**
 
-The freeze itself does not authorize manuscript integration, but a later explicit author authorization did authorize venue-neutral manuscript integration. Scientific reanalysis, TRACE-002 reexecution, venue lock, and publisher submission remain unauthorized.
+The freeze itself does not authorize scientific reanalysis or TRACE-002 reexecution. A later explicit author authorization did authorize venue-neutral manuscript integration and the IJSCCN R5 publisher submission. IJSCCN manuscript `4920969` was submitted on 2026-09-22 and declined at editorial screening on 2026-09-24 with the stated reason `out of scope`.
 
-Author/scientific review R1 is complete and passed under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/AUTHOR_SCIENTIFIC_REVIEW_R1_2026-09-21.md` with controlled language refinements only and no scientific change.
+No external reviewer reports or specific technical/methodological defects were supplied with that decision. The decision does not alter Study 8E, Results-002, TRACE-002, or any frozen scientific artifact.
 
-Live venue assessment R1 is complete under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/LIVE_VENUE_ASSESSMENT_R1_2026-09-21.md`. The author has now explicitly locked the International Journal of Satellite Communications and Networking (IJSCCN) under `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md`.
+Decision authority:
 
-The IJSCCN-specific derivative package has been prepared under explicit authorization in `publication/Paper_4_Study_8/IJSCCN/`. Core manuscript, cover letter, title page, data-availability, AI-use, biography, GTOC, and figure files were generated and visually QA'd without changing frozen Study 8/8E science. Core package preparation is now formally closed under `P4-IJSCCN-PKG-R1-FREEZE-001`, bound to package-source commit `6553be414fd1bc598218501971872ff644dee8c8`, workflow run `35632266523`, artifact `10655615285`, and artifact digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`.
+- `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
+- `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
 
 Next controlled sequence:
 
-1. author supplies the journal-required recent photograph and reviews the frozen package;
-2. preserve frozen Study 8/8E science and Paper-5 independence during any final defect correction;
-3. require separate explicit authorization before Wiley portal entry or final publisher submission.
+1. preserve the submitted IJSCCN R5 package as historical provenance;
+2. review Wiley Transfer Desk suggestions only as candidate venues and do not authorize automatic transfer;
+3. conduct a fresh venue-fit audit against the actual Study 8 + Study 8E evidence boundaries;
+4. do not rerun Study 8E or modify frozen results merely to improve venue fit;
+5. require separate explicit authorization before any new publisher submission or transfer.
 
 Do not rerun TRACE-002 merely to change the stale metadata label unless a new explicit scientific-execution authorization is granted.
