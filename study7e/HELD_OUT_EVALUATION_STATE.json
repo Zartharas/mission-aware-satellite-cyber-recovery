@@ -5,7 +5,7 @@
   "authorization_id": "S7E-AERC-HELDOUT-AUTH-001",
   "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
   "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
-  "state": "AUTHORIZED__ONE_SHOT_EXECUTION_PENDING",
+  "state": "AUTHORIZED__PREFLIGHT_GUARD_CORRECTED__ONE_SHOT_EXECUTION_PENDING",
   "source_authorization": "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json",
   "expected_scenarios": 196,
   "expected_policy_decisions": 784,
@@ -16,5 +16,17 @@
   "pr_merge_authorized": false,
   "publication_or_result_claims_authorized": false,
   "retry_authorized": false,
-  "next_gate": "execute exactly one S7E-AERC-HELDOUT-EXEC-001 campaign; if valid, checkpoint exact results and stop before publication/merge claims"
+  "next_gate": "execute exactly one S7E-AERC-HELDOUT-EXEC-001 campaign; if valid, checkpoint exact results and stop before publication/merge claims",
+  "pre_inference_aborted_runs": [
+    {
+      "workflow_run_id": 35948684512,
+      "workflow_job_id": 107472296224,
+      "source_commit": "45899a884bbb497c1ab29bbc4b63bcf8d98128e0",
+      "stage": "Frozen model integrity before inference",
+      "reason": "historical model-freeze integrity guard still required held-out authorization absence after explicit held-out authorization",
+      "scientific_scenarios_executed": 0,
+      "policy_predictions_executed": 0,
+      "scientific_results_generated": false
+    }
+  ]
 }

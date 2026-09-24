@@ -54,7 +54,18 @@ def test_freeze_state_opens_only_model_freeze_gate():
     assert S["pr_merge_authorized"] is False
     assert S["publication_or_result_claims_authorized"] is False
 
-def test_no_held_out_or_canonical_authorization_file_exists():
+def test_downstream_authorization_scope_remains_bounded():
+    held = ROOT / "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json"
+    if held.exists():
+        auth = json.loads(held.read_text())
+        assert auth["state"] == "AUTHORIZED_FOR_EXACT_HELD_OUT_SCIENTIFIC_EVALUATION_ONLY"
+        assert auth["plan_id"] == "S7E-AERC-HELDOUT-PLAN-001"
+        assert auth["model_freeze_id"] == "S7E-AERC-MODEL-FREEZE-001"
+        assert auth["authorized"]["scenarios"] == 196
+        assert auth["authorized"]["policy_decisions"] == 784
+        assert auth["prohibited"]["retraining"] is True
+        assert auth["prohibited"]["post_hoc_model_change"] is True
+        assert auth["prohibited"]["pr_167_merge"] is True
+        assert auth["prohibited"]["manuscript_or_publication_result_claims"] is True
     assert not (ROOT / "study7e/CANONICAL_EXECUTION_AUTHORIZATION.json").exists()
-    assert not (ROOT / "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json").exists()
     assert not (ROOT / ".github/workflows/study7e-canonical-execution.yml").exists()

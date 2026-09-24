@@ -75,6 +75,17 @@ jobs:
               if n.startswith("test_"): f()
           print("model_freeze_preflight=PASS")
           PY
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json").read_text())
+          assert a["state"]=="AUTHORIZED_FOR_EXACT_HELD_OUT_SCIENTIFIC_EVALUATION_ONLY"
+          assert a["authorized"]["scenarios"]==196
+          assert a["authorized"]["policy_decisions"]==784
+          assert a["prohibited"]["retraining"] is True
+          assert a["prohibited"]["pr_167_merge"] is True
+          print("held_out_authorization_scope=PASS")
+          PY
       - name: Execute exact held-out population once
         shell: bash
         env:
