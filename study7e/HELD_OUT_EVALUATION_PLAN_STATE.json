@@ -4,17 +4,17 @@
   "protocol_freeze_id": "S7E-AERC-FREEZE-001",
   "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
   "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
-  "state": "PLAN_QUALIFIED_GREEN__HELD_OUT_EXECUTION_AUTHORIZED_SEPARATELY__PENDING",
+  "state": "PLAN_EXECUTED_VALID__RESULTS_CHECKPOINTED__PUBLICATION_NOT_AUTHORIZED",
   "plan_path": "study7e/configs/held_out_evaluation_plan_001.json",
   "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_HELD_OUT_EVALUATION_PLAN_001_REVIEW_2026-09-23.md",
   "basis_head": "6900df0751ae015745c4a8d486ba3eea4d882ce8",
   "held_out_inference_authorized": true,
-  "held_out_evaluation_executed": false,
+  "held_out_evaluation_executed": true,
   "canonical_execution_authorized": true,
-  "canonical_results_generated": false,
+  "canonical_results_generated": true,
   "pr_merge_authorized": false,
   "publication_or_result_claims_authorized": false,
-  "next_gate": "one-shot S7E-AERC-HELDOUT-EXEC-001 execution under the separately recorded authorization",
+  "next_gate": "separate scientific-results review/interpretation and result-freeze decision; PR merge and publication/result claims remain prohibited",
   "qualification": {
     "run_id": 35947043358,
     "job_id": 107467211282,
@@ -24,5 +24,6 @@
     "model_freeze_integrity_conclusion": "success"
   },
   "execution_authorization": "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json",
-  "execution_state": "study7e/HELD_OUT_EVALUATION_STATE.json"
+  "execution_state": "study7e/HELD_OUT_EVALUATION_STATE.json",
+  "result_checkpoint": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json"
 }

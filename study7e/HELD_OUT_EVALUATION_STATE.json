@@ -5,18 +5,18 @@
   "authorization_id": "S7E-AERC-HELDOUT-AUTH-001",
   "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
   "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
-  "state": "AUTHORIZED__PREFLIGHT_GUARD_CORRECTED__ONE_SHOT_EXECUTION_PENDING",
+  "state": "EXECUTION_COMPLETED_VALID__RESULTS_CHECKPOINTED__PUBLICATION_NOT_AUTHORIZED",
   "source_authorization": "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json",
   "expected_scenarios": 196,
   "expected_policy_decisions": 784,
   "held_out_inference_authorized": true,
-  "held_out_evaluation_executed": false,
+  "held_out_evaluation_executed": true,
   "canonical_scientific_execution_authorized_for_defined_population": true,
-  "canonical_results_generated": false,
+  "canonical_results_generated": true,
   "pr_merge_authorized": false,
   "publication_or_result_claims_authorized": false,
   "retry_authorized": false,
-  "next_gate": "execute exactly one S7E-AERC-HELDOUT-EXEC-001 campaign; if valid, checkpoint exact results and stop before publication/merge claims",
+  "next_gate": "separate scientific-results review/interpretation and result-freeze decision; PR merge and publication/result claims remain prohibited",
   "pre_inference_aborted_runs": [
     {
       "workflow_run_id": 35948684512,
@@ -28,5 +28,18 @@
       "policy_predictions_executed": 0,
       "scientific_results_generated": false
     }
-  ]
+  ],
+  "result_checkpoint": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json",
+  "execution_record": {
+    "workflow_run_id": 35948870036,
+    "workflow_job_id": 107472877604,
+    "source_commit": "1cbc4be58a99e9add139e73efc9ab42a4f275864",
+    "artifact_id": 10787499194,
+    "artifact_sha256": "cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35",
+    "scenario_manifest_sha256": "2d9e8e4b155cd4fe079010341e9bdbbfc1a1ab5e94f3467c1b5da8063d38c4fb",
+    "scenarios": 196,
+    "policy_decisions": 784,
+    "invalid_scenarios": 0,
+    "audit_mismatches": 0
+  }
 }

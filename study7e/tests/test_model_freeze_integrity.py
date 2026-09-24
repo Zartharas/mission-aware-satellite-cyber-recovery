@@ -45,14 +45,18 @@ def test_candidate_remains_historical_and_unmodified():
     assert candidate["gates"]["production_models_frozen"] is False
     assert candidate["gates"]["held_out_evaluation_executed"] is False
 
-def test_freeze_state_opens_only_model_freeze_gate():
+def test_frozen_models_remain_fixed_across_authorized_held_out_execution():
     assert S["production_models_trained"] is True
     assert S["production_models_frozen"] is True
-    assert S["held_out_evaluation_executed"] is False
-    assert S["canonical_execution_authorized"] is False
-    assert S["canonical_results_generated"] is False
+    assert S["held_out_evaluation_executed"] is True
+    assert S["canonical_results_generated"] is True
     assert S["pr_merge_authorized"] is False
     assert S["publication_or_result_claims_authorized"] is False
+    checkpoint = json.loads((ROOT / "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json").read_text())
+    assert checkpoint["execution_id"] == "S7E-AERC-HELDOUT-EXEC-001"
+    assert checkpoint["validity"]["invalid_scenarios"] == 0
+    assert checkpoint["validity"]["audit_mismatches"] == 0
+    assert checkpoint["governance"]["one_shot_execution_sealed"] is True
 
 def test_downstream_authorization_scope_remains_bounded():
     held = ROOT / "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json"
