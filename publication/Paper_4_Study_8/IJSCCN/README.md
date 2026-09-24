@@ -4,11 +4,13 @@ Target journal: **International Journal of Satellite Communications and Networki
 
 Article type: **Original Paper**
 
-Current state: **Submitted 2026-09-22; Wiley status: In Screening**
+Current state: **Submitted 2026-09-22; editorial decision 2026-09-24: rejected as out of scope**
 
 Journal manuscript ID: **4920969**
 
 Final submission record: `R5_FINAL_SUBMISSION_RECORD_2026-09-22.md`
+
+Editorial decision record: `R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
 
 ## Scientific authority and isolation
 
@@ -61,8 +63,8 @@ and:
 
 Both locations are Git-ignored. The public repository must not track private email/telephone/postal metadata, the author photograph, or personalized submission binaries.
 
-## Post-submission rule
+## Post-decision rule
 
-Paper 4 is under editorial screening. Do not alter the submitted scientific manuscript, Study 8, Study 8E, or frozen evidence unless IJSCCN requests a revision.
+IJSCCN declined the manuscript at editorial screening as `out of scope`. No external reviewer reports or technical/methodological defects were supplied with the decision. The submitted scientific manuscript, Study 8, Study 8E, and frozen evidence remain unchanged.
 
-Any requested revision must be opened as a new explicitly versioned Paper 4 publisher-response cycle. Do not reuse Paper 5 or unrelated-study branches, evidence, or work products.
+The submitted IJSCCN R5 package is historical provenance and must not be rewritten for another venue. Wiley Transfer Desk suggestions may be reviewed, but no automatic transfer is authorized. Any retarget must use a new explicitly versioned Paper 4 branch from current `main` and must not reuse Paper 5 or unrelated-study evidence.
