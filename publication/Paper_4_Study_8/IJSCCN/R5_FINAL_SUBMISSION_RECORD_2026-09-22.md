@@ -47,6 +47,10 @@ Final checks passed:
 
 Private contact metadata, the author photograph source, and personalized submission files remain local-only under Git-ignored paths. They are not tracked in the public repository.
 
-## Post-submission rule
+## Post-submission decision
 
-Paper 4 is now under editorial screening. Do not modify the submitted scientific manuscript or frozen Study 8 / Study 8E evidence unless the journal requests a revision. Any future revision must be handled as a new, explicitly versioned publisher-response cycle and must preserve separation from other papers and studies.
+On 2026-09-24, IJSCCN declined manuscript 4920969 at editorial screening with the stated reason `out of scope`. No external reviewer reports were supplied, and the decision identified no specific methodological, statistical, reproducibility, or result-integrity defect.
+
+Decision record: `R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
+
+The submitted scientific manuscript and frozen Study 8 / Study 8E evidence remain unchanged. The IJSCCN R5 package is retained as immutable historical submission provenance. Any retarget must be handled as a new, explicitly versioned Paper 4 cycle and must preserve separation from other papers and studies.
