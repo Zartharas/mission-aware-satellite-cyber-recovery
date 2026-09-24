@@ -1,11 +1,11 @@
 {
-  "schema": 3,
-  "record_id": "P4-IJSCCN-PACKAGE-R5-SUBMITTED-001",
-  "date_local": "2026-09-22",
+  "schema": 4,
+  "record_id": "P4-IJSCCN-PACKAGE-R5-DECISION-001",
+  "date_local": "2026-09-24",
   "base_main_commit": "4ed95a53ade99ddabacbe7c542a3f29d988ecfd0",
   "branch": "paper4/ijsccn-r5-policy-design-20260921",
   "pull_request": 164,
-  "status": "IJSCCN_R5_SUBMITTED__IN_SCREENING__NO_SCIENTIFIC_CHANGE",
+  "status": "IJSCCN_R5_REJECTED__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW__NO_SCIENTIFIC_CHANGE",
   "target_journal": "International Journal of Satellite Communications and Networking",
   "publisher": "Wiley",
   "article_type": "Original Paper",
@@ -86,5 +86,16 @@
     "results_002_freeze": "S8E-CANON-RESULTS-002-FREEZE-001",
     "publisher_derivative_scope": "publication/Paper_4_Study_8/IJSCCN/"
   },
-  "next_gate": "EDITORIAL_SCREENING__NO_REPOSITORY_OR_MANUSCRIPT_CHANGE_UNLESS_JOURNAL_REQUESTS_REVISION"
+  "next_gate": "REVIEW_TRANSFER_DESK_SUGGESTIONS_AND_RUN_FRESH_VENUE_FIT_AUDIT__NO_AUTOMATIC_TRANSFER__NO_SCIENTIFIC_RERUN",
+  "decision": {
+    "decision_date_local": "2026-09-24",
+    "decision_type": "EDITORIAL_SCREENING_REJECTION",
+    "reason": "OUT_OF_SCOPE",
+    "external_reviewer_reports_supplied": false,
+    "technical_or_methodological_defect_identified": false,
+    "scientific_record_changed": false,
+    "transfer_desk_candidate_suggestions_expected": true,
+    "automatic_transfer_authorized": false,
+    "decision_record": "publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md"
+  }
 }
