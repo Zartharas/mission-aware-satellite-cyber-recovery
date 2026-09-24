@@ -1,8 +1,8 @@
 {
-  "schema": 2,
+  "schema": 3,
   "record_id": "P4-REBUILT-S8-S8E-MANUSCRIPT-INTEGRATION-001",
-  "date_local": "2026-09-22",
-  "status": "IJSCCN_R5_SUBMITTED__IN_SCREENING__SCIENTIFIC_BOUNDARIES_PRESERVED",
+  "date_local": "2026-09-24",
+  "status": "IJSCCN_R5_REJECTED__OUT_OF_SCOPE__SCIENTIFIC_BOUNDARIES_PRESERVED",
   "architecture": {
     "study8": "S8-PQC-ICR-001",
     "study8e": "S8E-ECTV-001",
@@ -16,7 +16,10 @@
     "locked_venue_abbreviation": "IJSCCN",
     "submitted_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
     "venue_specific_derivative_path": "publication/Paper_4_Study_8/IJSCCN/",
-    "submitted_manuscript_source_head": "829e23836fc378f40bb5211bfbe2599882e30bc7"
+    "submitted_manuscript_source_head": "829e23836fc378f40bb5211bfbe2599882e30bc7",
+    "venue_lock_active": false,
+    "last_submitted_venue": "International Journal of Satellite Communications and Networking",
+    "last_submitted_venue_abbreviation": "IJSCCN"
   },
   "evidence": {
     "study8_modified": false,
@@ -55,5 +58,14 @@
     "private_contact_metadata_local_only": true,
     "personalized_packages_ignored_by_git": true
   },
-  "next_gate": "EDITORIAL_SCREENING__DO_NOT_MODIFY_FROZEN_OR_SUBMITTED_SCIENCE_UNLESS_JOURNAL_REQUESTS_REVISION"
+  "next_gate": "FRESH_VENUE_FIT_AUDIT__TRANSFER_DESK_REVIEW_OPTIONAL__NO_AUTOMATIC_TRANSFER__NO_SCIENTIFIC_RERUN",
+  "decision": {
+    "journal_manuscript_id": "4920969",
+    "decision_date_local": "2026-09-24",
+    "decision_type": "EDITORIAL_SCREENING_REJECTION",
+    "reason": "OUT_OF_SCOPE",
+    "external_reviewer_reports_supplied": false,
+    "scientific_change": false,
+    "decision_record": "publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md"
+  }
 }
