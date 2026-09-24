@@ -88,7 +88,7 @@ The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/
 
 ## Paper 4 post-IJSCCN gate
 
-This is an active venue-retarget workstream, but not a scientific rerun.
+The immediate active publication-development priority is the Paper 4 post-IJSCCN venue-retarget workstream; it is not a scientific rerun.
 
 The rejected Acta package and rejected IJSCCN R5 package remain immutable historical provenance. A future retarget may adapt presentation, framing, literature positioning, explanatory depth, figures/tables, and venue formatting only within the frozen Study 8 + Study 8E claim boundaries. No Wiley transfer or fallback venue is automatically selected.
 
