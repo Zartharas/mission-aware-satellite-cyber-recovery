@@ -120,7 +120,7 @@ No `study7e/` execution workspace, canonical run, or new scientific result is au
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
-**Immediate active Paper 4 publication priority:** preserve the rejected IJSCCN R5 submission as immutable historical provenance, review any Wiley Transfer Desk suggestions without authorizing automatic transfer, and perform a fresh venue-fit audit against the actual Study 8 + Study 8E evidence boundaries. No scientific rerun or result modification is authorized by the IJSCCN scope decision.
+**Immediate active publication-development priority:** for Paper 4, preserve the rejected IJSCCN R5 submission as immutable historical provenance, review any Wiley Transfer Desk suggestions without authorizing automatic transfer, and perform a fresh venue-fit audit against the actual Study 8 + Study 8E evidence boundaries. No scientific rerun or result modification is authorized by the IJSCCN scope decision.
 
 The original frozen Study 8 science remains unchanged. The post-rejection forensic audit found no demonstrated defect in the original 3,456-position deterministic population. Study 8E was therefore developed as a separate external observation-opportunity timing extension rather than as a rewrite of the original experiment.
 
