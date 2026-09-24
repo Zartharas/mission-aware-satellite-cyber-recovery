@@ -42,7 +42,7 @@ Study 1 and Study 2 remain separately frozen and must never be reported as one p
 - **Decision detail:** no external reviewer reports were included; the editor stated that the topic was potentially of interest but the manuscript did not meet the journal's required quality standard
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. Study 8E is separately governed and formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The author selected **Study 8 + Study 8E -> rebuilt Paper 4** as the manuscript architecture; the two study populations remain separate and unpooled. Venue-neutral manuscript integration was executed in `publication/Paper_4_Study_8/Rebuilt_Study8_8E/` under explicit author authorization, with frozen science unchanged. IJSCCN is now the locked retarget venue, and the repository-generated core IJSCCN package is frozen under `P4-IJSCCN-PKG-R1-FREEZE-001`.
+Study 8 remains a separate deterministic finite modeled population of 3,456 positions. The frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. The editorial rejection does not change the frozen scientific record and does not identify a specific methodological defect. Study 8E is separately governed and formally frozen under `S8E-CANON-RESULTS-002-FREEZE-001`. The author selected **Study 8 + Study 8E -> rebuilt Paper 4** as the manuscript architecture; the two study populations remain separate and unpooled. Venue-neutral manuscript integration was executed in `publication/Paper_4_Study_8/Rebuilt_Study8_8E/` under explicit author authorization, with frozen science unchanged. IJSCCN was the locked retarget venue for the submitted R5 cycle; that venue lock is now historical because manuscript `4920969` was rejected at editorial screening on 2026-09-24 as `out of scope`.
 
 #### Rebuilt Paper 4 - Study 8 + Study 8E
 
@@ -187,43 +187,39 @@ Current live venue assessment authority:
 
 Assessment result: `LIVE_VENUE_ASSESSMENT_COMPLETE__IJSCCN_PREFERRED__VENUE_NOT_LOCKED`.
 
-Current venue-lock authority:
+Historical IJSCCN venue-lock authority:
 
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_VENUE_LOCK_2026-09-21.md`
 
-Venue decision: `IJSCCN_LOCKED__CORE_PACKAGE_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED`.
+Historical venue decision: `IJSCCN_LOCKED__CORE_PACKAGE_FROZEN__PUBLISHER_SUBMISSION_NOT_AUTHORIZED`.
 
-Current IJSCCN package authority:
+Current IJSCCN submission/decision authority:
 
 - `publication/Paper_4_Study_8/IJSCCN/README.md`
 - `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
-- `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
+- `publication/Paper_4_Study_8/IJSCCN/R5_FINAL_SUBMISSION_RECORD_2026-09-22.md`
+- `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
 
-Current package state: `P4-IJSCCN-PKG-R1-FREEZE-001`. The pre-privacy repository-generated package was bound to workflow run `35632266523`, artifact `10655615285`, digest `sha256:ddc3642d936df1c596cc759ee52c4236b337b52a39aa07410505af88f5713b37`. That artifact is historical package provenance only and is superseded for submission handling by the local-private privacy gate because it was generated before tracked author-contact metadata was removed. Personalized upload-ready materials are now local-only and ignored by Git.
+Current IJSCCN state: `IJSCCN_R5_REJECTED__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW__NO_SCIENTIFIC_CHANGE`.
 
-Current R5 rebuild state:
+The repository-generated R1 package freeze, R5 preparation records, and local-private submission package remain immutable historical provenance. The final personalized R5 package remains local-only under ignored paths and must not be rewritten to simulate a different venue.
 
-- repository R1 package remains immutable historical/public-safe provenance;
-- the rejected Acta Astronautica submitted manuscript remains immutable and may be consulted only as a visual-quality benchmark;
-- local R4.3 is explicitly **not approved for Wiley upload**;
-- R5 is a new controlled publisher-facing derivative, not a scientific rerun;
-- R5 must preserve the current integrated Study 8 + Study 8E scientific text and all frozen evidence boundaries;
-- R5 must be validated against the live IJSCCN Author Guidelines, Wiley manuscript-preparation guidance, and Wiley submission/peer-review guidance before document generation;
-- journal-specific IJSCCN instructions control over generic Wiley guidance when they conflict;
-- the final personalized R5 package must remain under ignored local-private/local-submission paths;
-- final Wiley submission still requires separate explicit author authorization.
+Current Paper 4 retarget state:
 
-R5 continuity authority:
+- no active venue is locked;
+- the IJSCCN R5 submission is closed by editorial scope rejection;
+- no external reviewer reports or specific technical/methodological defects were supplied;
+- Study 8 and Study 8E remain frozen and unpooled;
+- no scientific rerun or statistical reanalysis is authorized by the decision;
+- Wiley Transfer Desk suggestions may be reviewed as candidates only;
+- no automatic transfer is authorized;
+- any future venue-specific derivative must be created as a new versioned Paper 4 cycle from current `main`.
+
+Historical R5 continuity/provenance authority:
 
 - `publication/Paper_4_Study_8/IJSCCN/NEW_CHAT_HANDOFF_2026-09-21_R5_REBUILD.md`
 - `publication/Paper_4_Study_8/IJSCCN/SUBMISSION_CHECKLIST.md`
-
-Current package-freeze authority:
-
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_PACKAGE_R1_FREEZE_2026-09-21.md`
-
-Current privacy/local-submission authority:
-
 - `publication/Paper_4_Study_8/Rebuilt_Study8_8E/IJSCCN_LOCAL_PRIVATE_SUBMISSION_PRIVACY_GATE_2026-09-21.md`
 
 Current next gate:
@@ -242,7 +238,7 @@ Do not rerun TRACE-002 merely to clean the stale metadata label without a new ex
 
 Paper 3 is now a separately authorized post-rejection recovery workstream. Study 7 remains frozen and consumed by the Paper-3 line; it must not be reused as new experimental evidence elsewhere. Any new Paper-3 evidence must come from a separately prospectively designed extension such as proposed `S7E-AERC-001`.
 
-The remaining-study candidate audit is deferred while the Paper 4 / Study 8 post-rejection resubmission audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
+The remaining-study candidate audit remains separate while the Paper 4 / Study 8 + Study 8E fresh venue-fit audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
 
 - Study 5 / `S5-CUCD-001`, a separately frozen portability/external-validity boundary study;
 - any other demonstrably complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
