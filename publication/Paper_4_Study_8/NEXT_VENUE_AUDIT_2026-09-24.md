@@ -43,6 +43,10 @@ Strong topical alignment because the manuscript can be framed primarily as an in
 
 The manuscript should foreground security/recovery semantics, cryptographic transition requirements, threat/recovery assumptions, and evidence boundaries rather than communications-network performance.
 
+**Publishing-model note**
+
+IJIS is currently fully open access. Springer Nature lists the current APC as USD 3,690 (also GBP 2,690 / EUR 2,990), with taxes where applicable. Springer states that discretionary waiver or discount requests must be made at submission.
+
 **Status:** `PRIMARY_CANDIDATE_FOR_AUTHOR_REVIEW__NOT_LOCKED`
 
 ### Candidate B: IEEE Systems Journal
@@ -149,6 +153,7 @@ No transfer is authorized.
 ## Live sources checked
 
 - Springer Nature, International Journal of Information Security aims and scope: https://link.springer.com/journal/10207/aims-and-scope
+- Springer Nature, International Journal of Information Security publishing model / fees: https://link.springer.com/journal/10207/how-to-publish-with-us
 - Springer Nature, International Journal of Information Security article record: *Cyber security in New Space*: https://link.springer.com/article/10.1007/s10207-020-00503-w
 - Springer Nature, 2026 IJIS satellite-security article: https://link.springer.com/article/10.1007/s10207-025-01184-z
 - Springer Nature, 2026 IJIS LEO-satellite security simulation article: https://link.springer.com/article/10.1007/s10207-025-01191-0
