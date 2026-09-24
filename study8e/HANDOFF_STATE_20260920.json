@@ -67,5 +67,18 @@
   },
   "live_venue_assessment_authorized": true,
   "venue_lock_authorized": true,
-  "venue_specific_package_preparation_authorized": true
+  "venue_specific_package_preparation_authorized": true,
+  "current_state_date": "2026-09-24",
+  "paper4_publication": {
+    "latest_venue": "International Journal of Satellite Communications and Networking",
+    "latest_venue_abbreviation": "IJSCCN",
+    "manuscript_id": "4920969",
+    "submitted_date_local": "2026-09-22",
+    "decision_date_local": "2026-09-24",
+    "decision": "REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW",
+    "decision_record": "publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md",
+    "next_venue_locked": false,
+    "automatic_transfer_authorized": false,
+    "scientific_change": false
+  }
 }
