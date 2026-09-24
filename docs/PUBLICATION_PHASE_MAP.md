@@ -1,6 +1,8 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-09-24
+**Current-state reference:** 2026-09-22
+
+**Paper 4 IJSCCN decision overlay:** 2026-09-24
 
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
