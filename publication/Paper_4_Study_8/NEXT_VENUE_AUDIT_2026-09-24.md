@@ -128,7 +128,7 @@ Computers & Security has published recent satellite-cybersecurity work, includin
 
 Because post-quantum cryptographic transition/object burden is a principal component of rebuilt Paper 4, this creates a direct scope-risk signal.
 
-**Status:** `EXCLUDED_FROM_ACTIVE_SHORTLIST__CRYPTology_SCOPE_CONFLICT`
+**Status:** `EXCLUDED_FROM_ACTIVE_SHORTLIST__CRYPTOLOGY_SCOPE_CONFLICT`
 
 ## Provisional ordering for author review
 
@@ -159,7 +159,7 @@ No transfer is authorized.
 - MDPI Aerospace Astronautics & Space Science section: https://www.mdpi.com/journal/aerospace/sections/astronautics_space_science
 - IEEE Access scope: https://ieeeaccess.ieee.org/about/
 - IEEE Access submission guidelines: https://ieeeaccess.ieee.org/authors/submission-guidelines/
-- Elsevier Computers & Security current scope summary: https://shop.elsevier.com/subjects/journals/physical-sciences-and-engineering/computer-science/information-systems/information-systems-general
+- Elsevier Computers & Security current scope summary: https://shop.elsevier.com/journals/computers-and-security/0167-4048
 
 ## Next gate
 
