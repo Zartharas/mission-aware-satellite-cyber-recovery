@@ -16,13 +16,17 @@ FREEZE = json.loads((ROOT / "study7e/MODEL_FREEZE_MANIFEST_001.json").read_text(
 STATE = json.loads((ROOT / "study7e/HELD_OUT_EVALUATION_PLAN_STATE.json").read_text())
 
 
-def test_plan_is_review_only_and_inference_is_closed():
+def test_historical_plan_remains_immutable_while_current_state_records_execution():
     assert PLAN["state"] == "PLAN_QUALIFIED_GREEN__HELD_OUT_INFERENCE_NOT_AUTHORIZED"
     assert PLAN["authorization"]["plan_preparation_and_review_authorized"] is True
     assert PLAN["authorization"]["held_out_inference_authorized"] is False
     assert PLAN["authorization"]["canonical_scientific_execution_authorized"] is False
-    assert STATE["held_out_inference_authorized"] is False
-    assert STATE["held_out_evaluation_executed"] is False
+    assert STATE["state"] == "PLAN_EXECUTED_VALID__RESULTS_CHECKPOINTED__PUBLICATION_NOT_AUTHORIZED"
+    assert STATE["held_out_inference_authorized"] is True
+    assert STATE["held_out_evaluation_executed"] is True
+    assert STATE["canonical_results_generated"] is True
+    assert STATE["pr_merge_authorized"] is False
+    assert STATE["publication_or_result_claims_authorized"] is False
 
 
 def test_model_freeze_is_active_but_downstream_gates_are_closed():
@@ -108,8 +112,17 @@ def test_independent_audit_does_not_require_joblib_deserialization():
     assert PLAN["inference_preflight"]["no_deserialization_during_plan_qualification"] is True
 
 
-def test_no_inference_authorization_or_executable_workflow_exists():
-    assert not (ROOT / "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json").exists()
-    assert not (ROOT / ".github/workflows/study7e-held-out-evaluation.yml").exists()
+def test_completed_execution_authorization_is_exact_and_campaign_is_sealed():
+    auth = json.loads((ROOT / "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json").read_text())
+    checkpoint = json.loads((ROOT / "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json").read_text())
+    assert auth["state"] == "AUTHORIZED_FOR_EXACT_HELD_OUT_SCIENTIFIC_EVALUATION_ONLY"
+    assert auth["authorized"]["scenarios"] == 196
+    assert auth["authorized"]["policy_decisions"] == 784
+    assert auth["prohibited"]["retraining"] is True
+    assert auth["prohibited"]["post_hoc_model_change"] is True
+    assert checkpoint["governance"]["one_shot_execution_sealed"] is True
+    assert checkpoint["governance"]["retry_authorized"] is False
+    assert checkpoint["governance"]["pr_merge_authorized"] is False
+    assert checkpoint["governance"]["publication_or_result_claims_authorized"] is False
     assert not (ROOT / "study7e/CANONICAL_EXECUTION_AUTHORIZATION.json").exists()
     assert not (ROOT / ".github/workflows/study7e-canonical-execution.yml").exists()
