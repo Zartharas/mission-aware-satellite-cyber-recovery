@@ -66,7 +66,7 @@ jobs:
           python study7e/tools/generate_scenario_manifest.py --output /tmp/study7e_scenario_manifest.csv
           test "$(wc -l < /tmp/study7e_scenario_manifest.csv | tr -d ' ')" = "281"
 
-      - name: Require canonical execution remains impossible
+      - name: Require historical pre-canonical boundaries and sealed result governance
         run: |
           set -euo pipefail
           test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
@@ -74,11 +74,33 @@ jobs:
           test ! -e study7e/models/frozen_model_manifest.json
           test ! -e study7e/models/L0_BASE.joblib
           test ! -e study7e/models/L1_CORROBORATED.joblib
-          if [ -d study7e/results ]; then
-            test -z "$(find study7e/results -type f -print -quit)"
-          fi
-          echo "canonical_execution_guard=PASS"
-          echo "canonical_results_generated=false"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("study7e/results")
+          files = [p for p in root.rglob("*") if p.is_file()] if root.exists() else []
+          if files:
+              checkpoint_path = root / "S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json"
+              assert checkpoint_path.is_file(), "unexpected scientific result files without sealed held-out checkpoint"
+              checkpoint = json.loads(checkpoint_path.read_text())
+              assert checkpoint["state"] == "VALID_COMPLETE_POPULATION_RESULTS_CHECKPOINTED__PUBLICATION_CLAIMS_NOT_AUTHORIZED"
+              assert checkpoint["validity"]["invalid_scenarios"] == 0
+              assert checkpoint["validity"]["audit_mismatches"] == 0
+              assert checkpoint["governance"]["one_shot_execution_sealed"] is True
+              assert checkpoint["governance"]["retry_authorized"] is False
+              assert checkpoint["governance"]["post_hoc_model_change_authorized"] is False
+              assert checkpoint["governance"]["model_retraining_authorized"] is False
+              assert checkpoint["governance"]["pr_merge_authorized"] is False
+              assert checkpoint["governance"]["publication_or_result_claims_authorized"] is False
+              print("authorized_held_out_results_checkpoint=PASS")
+              print("canonical_results_generated=true")
+              print("publication_or_result_claims_authorized=false")
+              print("pr_merge_authorized=false")
+          else:
+              print("authorized_held_out_results_checkpoint=ABSENT")
+              print("canonical_results_generated=false")
+          PY
+          echo "historical_precanonical_boundary_guard=PASS"
 
       - name: Confirm no Study 7 mutation in this implementation branch
         run: |
