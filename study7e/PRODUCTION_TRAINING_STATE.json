@@ -5,7 +5,7 @@
   "plan_id": "S7E-AERC-TRAINPLAN-001",
   "authorization_id": "S7E-AERC-TRAIN-AUTH-001",
   "candidate_id": "S7E-AERC-MODEL-FREEZE-CANDIDATE-001",
-  "state": "PRODUCTION_TRAINING_COMPLETED__MODEL_FREEZE_CANDIDATE_PREPARED__MODEL_FREEZE_NOT_AUTHORIZED",
+  "state": "PRODUCTION_TRAINING_COMPLETED__MODEL_FREEZE_REVIEW_PASSED__MODEL_FREEZE_NOT_AUTHORIZED",
   "authorization": "study7e/configs/production_training_authorization_001.json",
   "candidate_checkpoint": "study7e/configs/model_freeze_candidate_001.json",
   "audit_checkpoint": "study7e/audit/production_training_001_checkpoint.json",
@@ -26,5 +26,12 @@
   "canonical_results_generated": false,
   "pr_merge_authorized": false,
   "publication_or_result_claims_authorized": false,
-  "next_gate": "separate explicit model-freeze review and authorization; E1/E2/C0 remain prohibited"
+  "next_gate": "separate explicit authorization to activate S7E-AERC-MODEL-FREEZE-001 with durable candidate preservation and hash/environment enforcement; E1/E2/C0 remain prohibited",
+  "model_freeze_review": {
+    "review_id": "S7E-AERC-MODEL-FREEZE-REVIEW-001",
+    "review_record": "study7e/configs/model_freeze_review_001.json",
+    "narrative_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_MODEL_FREEZE_REVIEW_001_2026-09-23.md",
+    "result": "PASS_WITH_FREEZE_TIME_PRESERVATION_CONTROLS",
+    "ready_for_separate_author_freeze_decision": true
+  }
 }
