@@ -27,18 +27,23 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import inspect
-          import study7e.tests.test_held_out_evaluation_plan as t
-          tests = [(n, f) for n, f in inspect.getmembers(t, inspect.isfunction) if n.startswith("test_")]
+          import study7e.tests.test_held_out_evaluation_plan as plan_tests
+          import study7e.tests.test_held_out_result_checkpoint as result_tests
+          tests = []
+          for module in (plan_tests, result_tests):
+              tests.extend((n, f) for n, f in inspect.getmembers(module, inspect.isfunction) if n.startswith("test_"))
           assert tests
           for name, fn in tests:
               fn()
               print(f"{name}=PASS")
-          print(f"held_out_plan_contract_tests={len(tests)}")
+          print(f"held_out_plan_and_result_contract_tests={len(tests)}")
           PY
-          test ! -e study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json
-          test ! -e .github/workflows/study7e-held-out-evaluation.yml
-          echo "held_out_evaluation_plan_qualification=PASS"
-          echo "held_out_inference_authorized=false"
-          echo "held_out_evaluation_executed=false"
-          echo "canonical_execution_authorized=false"
-          echo "scientific_results_generated=false"
+          test -e study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json
+          test -e study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json
+          test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
+          test ! -e .github/workflows/study7e-canonical-execution.yml
+          echo "held_out_plan_and_result_qualification=PASS"
+          echo "held_out_evaluation_executed=true"
+          echo "canonical_results_generated=true"
+          echo "pr_merge_authorized=false"
+          echo "publication_or_result_claims_authorized=false"
