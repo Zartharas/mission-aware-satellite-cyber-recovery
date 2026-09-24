@@ -111,7 +111,7 @@
     }
   },
   "durable_raw_artifact": {
-    "preservation_strategy": "BASE64_CHUNKED_EXACT_ACTIONS_ZIP__CONCATENATE_IN_LIST_ORDER_THEN_BASE64_DECODE",
+    "preservation_strategy": "BASE64_CHUNKED_EXACT_ACTIONS_ZIP__CONCATENATE_MANIFEST_ORDER_THEN_BASE64_DECODE",
     "decoded_bytes": 29892,
     "encoded_chars_including_terminal_newline": 39857,
     "decoded_sha256": "cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35",
@@ -122,9 +122,14 @@
         "git_blob_sha": "513b3757ff855b2b59e7c99092c6c2551c091d56"
       },
       {
-        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-01",
-        "chars": 8000,
-        "git_blob_sha": "de03a3443cc7131514d8abd48e5098aa9867b6e2"
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-01a",
+        "chars": 4000,
+        "git_blob_sha": "285b99d9074faaaad94be4f3b9e6e447f057c776"
+      },
+      {
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-01b",
+        "chars": 4000,
+        "git_blob_sha": "ac18b6732f236f8f9bc42399658f2eafede93892"
       },
       {
         "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-02",
@@ -137,9 +142,14 @@
         "git_blob_sha": "625743d6254fcb60797eb9f09bb5ef685e5d6f25"
       },
       {
-        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-04",
-        "chars": 7857,
-        "git_blob_sha": "ceee8b20713f5b93de828db3710fbe981fe7db03"
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-04a",
+        "chars": 4000,
+        "git_blob_sha": "d49fbd64be72351db1e8c9b00af38a78720ab68e"
+      },
+      {
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-04b",
+        "chars": 3857,
+        "git_blob_sha": "90fff86fde4b1e1fd3783f18f33cf48b98b8dac6"
       }
     ],
     "archive_member_sha256": {
@@ -175,5 +185,11 @@
     "pr_167_merge_authorized": false,
     "manuscript_or_publication_result_claims_authorized": false,
     "next_gate": "post-freeze integrity validation, then separate author decisions for PR #167 merge and for manuscript/publication result claims"
+  },
+  "preservation_activation_history": {
+    "initial_activation_commit": "6381aed0fd6460f03029366559eb7daf2dd61116",
+    "immediate_post_write_check": "DETECTED_TWO_BASE64_CHUNK_TRANSCRIPTION_MISMATCHES_BEFORE_RESULT_FREEZE_INTEGRITY_VALIDATION",
+    "scientific_effect": "NONE__NO_RERUN_NO_MODEL_CHANGE_NO_RESULT_CHANGE",
+    "correction": "Replace only preservation encoding chunks and corresponding manifest/documentation bindings with Git-blob-verified exact chunks."
   }
 }

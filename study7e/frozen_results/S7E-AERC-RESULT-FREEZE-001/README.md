@@ -16,7 +16,10 @@ import base64
 import hashlib
 
 root = Path("study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001")
-parts = sorted(root.glob("S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-*"))
+manifest = __import__("json").loads(
+    (Path("study7e/RESULT_FREEZE_MANIFEST_001.json")).read_text()
+)
+parts = [Path(item["path"]) for item in manifest["durable_raw_artifact"]["chunks"]]
 encoded = b"".join(p.read_bytes() for p in parts)
 archive = base64.b64decode(encoded)
 

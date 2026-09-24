@@ -38,7 +38,7 @@ No scientific rerun was performed during result-freeze activation.
 
 ## Durable preservation
 
-The original 29,892-byte Actions ZIP is preserved in repository history as five ordered base64 chunks under:
+The original 29,892-byte Actions ZIP is preserved in repository history as seven ordered base64 chunks under:
 
 `study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/`
 
@@ -47,6 +47,8 @@ Concatenating the chunks in manifest order and base64-decoding reconstructs the 
 `cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35`
 
 The result-freeze manifest also binds all 12 ZIP members by SHA-256. This removes scientific provenance dependence on the original Actions retention window without changing the artifact.
+
+An immediate post-write verification of the initial activation commit detected transcription defects in two base64 preservation chunks before result-freeze integrity validation. The defects affected only the repository encoding of the preserved ZIP, not the scientific execution, frozen models, result checkpoint, endpoints, or interpretation. The preservation encoding was corrected using Git-blob-verified chunks, and the dedicated integrity validator requires byte-exact reconstruction of the original artifact SHA-256.
 
 ## Frozen scientific disposition
 
