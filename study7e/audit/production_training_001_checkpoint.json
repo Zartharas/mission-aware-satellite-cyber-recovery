@@ -7,13 +7,21 @@
   "authorization_id": "S7E-AERC-TRAIN-AUTH-001",
   "local_date": "2026-09-23",
   "scope": "deterministic TR0/TR1 production training and model-freeze candidate preparation only",
+  "candidate_of_record": {
+    "run_id": 35939164352,
+    "job_id": 107442994831,
+    "source_commit": "65e8afd21316bdb40928ff30d3a1534c3893ad34",
+    "artifact_id": 10784198198,
+    "candidate_payload_sha256": "49dd341bbef9f5ba694c2b127a30246cbe612f1598458b85594a4078503d4dfb"
+  },
   "attempts": [
     {
       "run_id": 35938879282,
       "result": "failed_before_fit",
       "reason": "new execution-contract test imported a renamed runner helper; frozen and existing boundary tests passed; training step was skipped",
       "scientific_or_frozen_input_change_required": false,
-      "model_fit_executed": false
+      "model_fit_executed": false,
+      "authoritative": false
     },
     {
       "run_id": 35939164352,
@@ -23,7 +31,21 @@
       "contract_tests": {"passed": 23, "failed": 0},
       "prefit_binding": "PASS",
       "production_training": "PASS",
-      "model_freeze_candidate_gate": "PASS"
+      "model_freeze_candidate_gate": "PASS",
+      "authoritative": true
+    },
+    {
+      "run_id": 35939421477,
+      "job_id": 107443797286,
+      "source_commit": "83ceeee61749f001528fbd7bfff6635dff0b9afe",
+      "result": "successful_unintended_duplicate_reexecution",
+      "cause": "PR changed-file path semantics retriggered the workflow on the checkpoint commit",
+      "dataset_dependency_semantic_and_primary_artifact_hashes_match_candidate_of_record": true,
+      "candidate_payload_sha256": "e75233af93d871cfdeb12a178ffd5e5f26edf1edfe46b813de54468b37f47d23",
+      "artifact_id": 10784436482,
+      "artifact_zip_sha256": "98e1106df78db1f16c03d8896ca0fd9a3a553807005a8ce871f0f75cdc35df11",
+      "held_out_evaluation_executed": false,
+      "authoritative": false
     }
   ],
   "training_evidence": {
@@ -73,7 +95,8 @@
     "primary_audit_semantic_mismatch_observed": false,
     "repository_model_binary_committed": false,
     "model_freeze_activated": false,
-    "canonical_execution_activated": false
+    "canonical_execution_activated": false,
+    "automatic_production_training_trigger_sealed": true
   },
   "hard_stop": {
     "production_models_frozen": false,

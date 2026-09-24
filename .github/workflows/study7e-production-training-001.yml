@@ -1,110 +1,26 @@
-name: Study 7E production training 001
+name: Study 7E production training 001 (sealed)
 
 on:
-  pull_request:
-    paths:
-      - "study7e/configs/production_training_authorization_001.json"
-      - "study7e/tools/run_production_training_001.py"
-      - "study7e/tests/test_production_training_execution_contract.py"
-      - ".github/workflows/study7e-production-training-001.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  deterministic-production-training:
+  training-sealed:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    env:
-      PYTHONHASHSEED: "0"
-      OMP_NUM_THREADS: "1"
-      OPENBLAS_NUM_THREADS: "1"
-      MKL_NUM_THREADS: "1"
-      NUMEXPR_NUM_THREADS: "1"
-
+    timeout-minutes: 2
     steps:
-      - name: Check out exact authorized head
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-
-      - name: Set up exact frozen Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.11.16"
-
-      - name: Create isolated learner environment
+      - name: Report consumed one-shot training authorization
         run: |
           set -euo pipefail
-          python -m venv .study7e-training-venv
-          . .study7e-training-venv/bin/activate
-          python -m pip install --upgrade pip
-          python -m pip install "scikit-learn==1.9.1"
-          python - <<'PY'
-          import platform
-          import sklearn
-          assert platform.python_version() == "3.11.16", platform.python_version()
-          assert sklearn.__version__ == "1.9.1", sklearn.__version__
-          print("exact_learner_runtime=PASS")
-          PY
-
-      - name: Verify frozen and training execution contracts
-        run: |
-          set -euo pipefail
-          . .study7e-training-venv/bin/activate
-          python -m py_compile study7e/tools/run_production_training_001.py
-          python -m unittest -v \
-            study7e.tests.test_frozen_protocol_integrity \
-            study7e.tests.test_training_contracts \
-            study7e.tests.test_production_training_execution_contract
-          test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
-          test ! -e .github/workflows/study7e-canonical-execution.yml
-          echo "production_training_contracts=PASS"
-
-      - name: Execute authorized deterministic L0 L1 training
-        run: |
-          set -euo pipefail
-          . .study7e-training-venv/bin/activate
-          rm -rf _study7e_training_candidate
-          python study7e/tools/run_production_training_001.py \
-            --output-dir _study7e_training_candidate \
-            --source-commit "${{ github.event.pull_request.head.sha || github.sha }}"
-          test -f _study7e_training_candidate/model_freeze_candidate_001.json
-          test -f _study7e_training_candidate/training_execution_record.json
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          candidate = json.loads(Path("_study7e_training_candidate/model_freeze_candidate_001.json").read_text())
-          assert candidate["state"] == "MODEL_FREEZE_CANDIDATE__NOT_FROZEN__HELD_OUT_EVALUATION_PROHIBITED"
-          assert candidate["gates"]["production_training_authorized"] is True
-          assert candidate["gates"]["production_models_trained"] is True
-          assert candidate["gates"]["production_models_frozen"] is False
-          assert candidate["gates"]["held_out_evaluation_executed"] is False
-          assert candidate["gates"]["canonical_execution_authorized"] is False
-          assert candidate["gates"]["canonical_results_generated"] is False
-          assert candidate["gates"]["pr_merge_authorized"] is False
-          assert candidate["gates"]["publication_or_result_claims_authorized"] is False
-          print("model_freeze_candidate_gate=PASS")
-          PY
-
-      - name: Upload model-freeze candidate only
-        uses: actions/upload-artifact@v4
-        with:
-          name: S7E-AERC-MODEL-FREEZE-CANDIDATE-001-${{ github.event.pull_request.head.sha || github.sha }}
-          path: _study7e_training_candidate/
-          if-no-files-found: error
-          retention-days: 30
-
-      - name: Reassert stop boundary
-        run: |
-          set -euo pipefail
-          echo "production_training_authorized=true"
-          echo "production_models_trained=true"
+          echo "authorization_id=S7E-AERC-TRAIN-AUTH-001"
+          echo "authorization_consumed=true"
+          echo "automatic_retraining_enabled=false"
           echo "production_models_frozen=false"
           echo "held_out_evaluation_executed=false"
           echo "canonical_execution_authorized=false"
-          echo "scientific_results_generated=false"
           echo "pr_merge_authorized=false"
           echo "publication_or_result_claims_authorized=false"
-          echo "next_gate=separate_explicit_model_freeze_authorization"
+          echo "candidate_of_record_run_id=35939164352"
+          echo "next_gate=separate_explicit_model_freeze_review_and_authorization"
