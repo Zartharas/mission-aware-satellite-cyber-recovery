@@ -12,6 +12,8 @@ Final submission record: `R5_FINAL_SUBMISSION_RECORD_2026-09-22.md`
 
 Editorial decision record: `R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
 
+Fresh venue-fit audit: `../NEXT_VENUE_AUDIT_2026-09-24.md`
+
 ## Scientific authority and isolation
 
 This directory is the venue-specific Paper 4 derivative for the combined Study 8 + Study 8E manuscript.
