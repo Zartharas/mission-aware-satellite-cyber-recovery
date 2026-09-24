@@ -25,7 +25,8 @@ The studies remain separate populations and are never pooled.
 - `PAPER3_REBUILT_MANUSCRIPT_R2.md` — current venue-neutral manuscript with live literature integration and bibliography corrections.
 - `MANUSCRIPT_SCIENTIFIC_AUDIT_R1_2026-09-24.md` — R1 frozen-evidence audit.
 - `LIVE_LITERATURE_REFERENCE_AUDIT_2026-09-24.md` — live reference and adjacent-literature audit.
-- `LIVE_VENUE_FIT_ASSESSMENT_2026-09-24.md` — comparative venue assessment; no venue lock.
+- `LIVE_VENUE_FIT_ASSESSMENT_2026-09-24.md` — initial comparative venue assessment; retained as provenance.
+- `LIVE_VENUE_FIT_ASSESSMENT_R2_2026-09-24.md` — current portfolio-adjusted venue assessment accounting for active JSSE and JAIS manuscripts; no venue lock.
 - `MANUSCRIPT_SCIENTIFIC_AUDIT_R2_2026-09-24.md` — R2 preservation audit.
 - `MANUSCRIPT_INTEGRATION_STATUS.json` — machine-readable current state.
 
@@ -38,4 +39,4 @@ Do not modify:
 - frozen Study-7E science;
 - result-freeze or model-freeze records.
 
-Current venue assessment identifies Journal of Space Safety Engineering as the primary candidate, AIAA Journal of Aerospace Information Systems as the strongest technical alternative, and International Journal of Critical Infrastructure Protection as the cybersecurity-first alternative. This is not a venue lock. Venue-specific formatting, cover-letter preparation, PR merge, and publisher submission remain later controlled gates.
+Current portfolio-adjusted venue assessment identifies International Journal of Critical Infrastructure Protection as the primary candidate and Journal of Information Security and Applications as the second candidate. Journal of Space Safety Engineering remains a strong space-domain fallback but already has a different-repository manuscript by the author under review; AIAA Journal of Aerospace Information Systems remains a strong technical fit but already has Paper 1 from this same research program under review. This is not a venue lock. Venue-specific formatting, cover-letter preparation, PR merge, and publisher submission remain later controlled gates.

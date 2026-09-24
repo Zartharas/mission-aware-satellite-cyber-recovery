@@ -5,7 +5,7 @@
     "S7-LSO-001",
     "S7E-AERC-001"
   ],
-  "state": "VENUE_NEUTRAL_R2_LIVE_LITERATURE_AUDIT_PASS__PRIMARY_VENUE_CANDIDATE_IDENTIFIED__VENUE_NOT_LOCKED__SUBMISSION_NOT_AUTHORIZED",
+  "state": "VENUE_NEUTRAL_R2_PORTFOLIO_ADJUSTED_VENUE_AUDIT_COMPLETE__VENUE_NOT_LOCKED__SUBMISSION_NOT_AUTHORIZED",
   "date_local": "2026-09-24",
   "branch": "paper3/rebuilt-study7-study7e-manuscript-20260924",
   "base_main_commit": "740cc4984387b2c4f14b337b76d66198406f22c4",
@@ -18,7 +18,7 @@
   "publisher_submission_authorized": false,
   "current_manuscript": "publication/Paper_3_Study_7/Rebuilt_Study7_7E/PAPER3_REBUILT_MANUSCRIPT_R2.md",
   "claim_ledger": "publication/Paper_3_Study_7/Rebuilt_Study7_7E/CLAIM_LEDGER_R1.md",
-  "next_gate": "author venue-selection decision; after explicit venue lock, perform the selected journal's full current Guide-for-Authors, formatting, reference-style, figure/table, data-availability, disclosure, and submission-package audit; PR #168 merge remains separately unauthorized",
+  "next_gate": "author selects a target from the portfolio-adjusted shortlist; only after explicit venue lock perform the selected journal's full live Guide-for-Authors and publisher-package audit; PR #168 remains separately unmerged",
   "scientific_audit": {
     "audit_id": "PAPER3-S7-S7E-MANUSCRIPT-AUDIT-R1-001",
     "result": "PASS",
@@ -60,13 +60,35 @@
     "novelty_boundary_tightened": true
   },
   "live_venue_fit_assessment": {
-    "assessment_id": "PAPER3-S7-S7E-LIVE-VENUE-AUDIT-001",
-    "state": "COMPLETE__VENUE_NOT_LOCKED",
-    "primary_candidate": "Journal of Space Safety Engineering",
-    "secondary_candidate": "AIAA Journal of Aerospace Information Systems",
-    "third_candidate": "International Journal of Critical Infrastructure Protection",
+    "assessment_id": "PAPER3-S7-S7E-LIVE-VENUE-AUDIT-002",
+    "supersedes_recommendation_from": "PAPER3-S7-S7E-LIVE-VENUE-AUDIT-001",
+    "state": "COMPLETE__PORTFOLIO_ADJUSTED__VENUE_NOT_LOCKED",
+    "primary_candidate": "International Journal of Critical Infrastructure Protection",
+    "secondary_candidate": "Journal of Information Security and Applications",
+    "space_domain_fallback": "Journal of Space Safety Engineering",
+    "architecture_fallback": "Journal of Systems Architecture",
+    "safety_reliability_stretch": "Reliability Engineering & System Safety",
+    "jais_disposition": "VERY_STRONG_TECHNICAL_FIT__ACTIVE_SAME_PROGRAM_MANUSCRIPT_CAUTION",
+    "active_portfolio_context": {
+      "jsse": {
+        "title": "Measuring Software Supply-Chain Assurance for Spacecraft Flight Software: A Controlled, Comparative Evaluation",
+        "repository": "Zartharas/verifiable-spacecraft-lifecycle",
+        "state": "UNDER_REVIEW__AUTHOR_PORTAL_EVIDENCE",
+        "overlap_with_paper3": "LOW_SCIENTIFIC_OVERLAP__NONZERO_DOMAIN_AND_CFS_OVERLAP"
+      },
+      "jais": {
+        "title": "Satellite Cyber Response and Trusted Recovery Under Contact and Adversarial Evidence Constraints",
+        "manuscript_id": "2026-09-I012066",
+        "repository": "Zartharas/mission-aware-satellite-cyber-recovery",
+        "state": "SUBMITTED__EDITORIAL_AND_PEER_REVIEW_WORKFLOW",
+        "overlap_with_paper3": "SEPARATE_FROZEN_SCIENCE__MODERATE_CONCEPTUAL_LINEAGE__SAME_PROGRAM"
+      }
+    },
     "no_go_current_scope": [
       "Computers & Security"
+    ],
+    "avoid_current_portfolio_concentration": [
+      "IJSCCN"
     ],
     "deferred_without_separate_process_review": [
       "CEAS Space Journal"
