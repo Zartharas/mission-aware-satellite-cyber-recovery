@@ -62,8 +62,22 @@ def main() -> int:
     require(not canonical_workflow.exists(), "canonical execution workflow must not exist in implementation phase")
 
     results_dir = ROOT / "study7e/results"
-    if results_dir.exists():
-        require(not any(results_dir.rglob("*")), "canonical results directory must be absent or empty")
+    if results_dir.exists() and any(results_dir.rglob("*")):
+        checkpoint_path = results_dir / "S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json"
+        require(checkpoint_path.is_file(), "unexpected scientific results exist without the authorized held-out checkpoint")
+        checkpoint = load_json(checkpoint_path)
+        require(
+            checkpoint["state"] == "VALID_COMPLETE_POPULATION_RESULTS_CHECKPOINTED__PUBLICATION_CLAIMS_NOT_AUTHORIZED",
+            "held-out result checkpoint state drift",
+        )
+        require(checkpoint["validity"]["invalid_scenarios"] == 0, "sealed held-out checkpoint contains invalid scenarios")
+        require(checkpoint["validity"]["audit_mismatches"] == 0, "sealed held-out checkpoint contains audit mismatches")
+        require(checkpoint["governance"]["one_shot_execution_sealed"] is True, "held-out execution is not sealed")
+        require(checkpoint["governance"]["retry_authorized"] is False, "held-out retry authorized unexpectedly")
+        require(checkpoint["governance"]["post_hoc_model_change_authorized"] is False, "post-hoc model change authorized unexpectedly")
+        require(checkpoint["governance"]["model_retraining_authorized"] is False, "model retraining authorized unexpectedly")
+        require(checkpoint["governance"]["pr_merge_authorized"] is False, "PR merge authorized through result checkpoint")
+        require(checkpoint["governance"]["publication_or_result_claims_authorized"] is False, "publication claims authorized through result checkpoint")
 
     model_dir = ROOT / "study7e/models"
     prohibited_model_artifacts = (
@@ -417,9 +431,18 @@ def main() -> int:
     print("candidate_stack_selected=true")
     print("candidate_stack=standalone_cFS_v7.0.1")
     print("canonical_environment_frozen=false")
-    print("production_model_training_performed=false")
-    print("production_model_freeze_performed=false")
-    print("canonical_execution_authorized=false")
+    print("historical_precanonical_model_training_guard_preserved=true")
+    print("historical_precanonical_model_freeze_guard_preserved=true")
+    checkpoint_path = ROOT / "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json"
+    if checkpoint_path.is_file():
+        checkpoint = load_json(checkpoint_path)
+        print("authorized_held_out_results_checkpoint_present=true")
+        print(f"authorized_held_out_invalid_scenarios={checkpoint['validity']['invalid_scenarios']}")
+        print(f"authorized_held_out_audit_mismatches={checkpoint['validity']['audit_mismatches']}")
+        print(f"publication_or_result_claims_authorized={str(checkpoint['governance']['publication_or_result_claims_authorized']).lower()}")
+        print(f"pr_merge_authorized={str(checkpoint['governance']['pr_merge_authorized']).lower()}")
+    else:
+        print("authorized_held_out_results_checkpoint_present=false")
     return 0
 
 
