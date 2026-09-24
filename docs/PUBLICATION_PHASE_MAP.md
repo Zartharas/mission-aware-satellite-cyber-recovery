@@ -132,6 +132,8 @@ No Study-7 rerun, retroactive comparator addition, or Study-7E execution is auth
 
 IJSCCN manuscript `4920969` is closed by editorial scope rejection. No Wiley Transfer Desk recommendation or fallback venue is automatically activated. The exact IJSCCN R5 package remains immutable provenance.
 
+Historical predecessor gate, retained for provenance and release-gate compatibility: `POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT`. Its historical handoff remains `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`; neither is the current Paper 4 gate.
+
 ## Phase 5 - Paper 4 / Study 8 + Study 8E fresh venue-fit audit
 
 This is the immediate active Paper-4 publication-development gate.
