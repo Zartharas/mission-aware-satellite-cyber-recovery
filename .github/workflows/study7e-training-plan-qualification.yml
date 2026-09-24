@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "study7e/configs/production_training_run_plan_001.json"
+      - "study7e/configs/production_training_authorization_001.json"
       - "study7e/TRAINING_PLAN_STATE.json"
       - "study7e/tests/test_production_training_run_plan.py"
       - "study7e/FREEZE_MANIFEST_001.json"
@@ -32,16 +33,15 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Qualify deterministic training run plan without fitting models
+      - name: Qualify frozen plan and separate training authorization
         run: |
           set -euo pipefail
           python -m py_compile study7e/tests/test_production_training_run_plan.py
           python -m unittest -v study7e.tests.test_production_training_run_plan
-          test ! -e study7e/configs/production_training_authorization_001.json
+          test -f study7e/configs/production_training_authorization_001.json
           ! find study7e -type f \( -name '*.pkl' -o -name '*.pickle' -o -name '*.joblib' -o -name '*.onnx' \) -print -quit | grep -q .
           echo "study7e_training_plan=PASS"
-          echo "production_training_authorized=false"
-          echo "production_models_trained=false"
+          echo "production_training_authorized=true"
           echo "production_models_frozen=false"
           echo "held_out_evaluation_executed=false"
           echo "canonical_execution_authorized=false"

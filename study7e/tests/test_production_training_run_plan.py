@@ -5,34 +5,35 @@ import unittest
 from collections import Counter
 from pathlib import Path
 
-from study7e.src.aerc_design import (
-    BASE_FEATURES,
-    EXTENDED_FEATURES,
-    PRIVILEGED_FIELDS,
-    build_scenario_manifest,
-    objective_action,
-)
+from study7e.src.aerc_design import BASE_FEATURES, EXTENDED_FEATURES, PRIVILEGED_FIELDS, build_scenario_manifest, objective_action
 
 ROOT = Path(__file__).resolve().parents[2]
 PLAN = json.loads((ROOT / "study7e/configs/production_training_run_plan_001.json").read_text())
 FREEZE = json.loads((ROOT / "study7e/FREEZE_MANIFEST_001.json").read_text())
 LEARNER = json.loads((ROOT / "study7e/configs/frozen_learner_protocol_001.json").read_text())
 STATE = json.loads((ROOT / "study7e/TRAINING_PLAN_STATE.json").read_text())
+AUTH_PATH = ROOT / "study7e/configs/production_training_authorization_001.json"
 
 
 class ProductionTrainingRunPlanTests(unittest.TestCase):
-    def test_plan_is_bound_to_frozen_protocol_but_training_is_not_authorized(self) -> None:
+    def test_plan_is_frozen_and_separate_training_authorization_is_scoped(self) -> None:
         self.assertEqual(PLAN["freeze_id"], "S7E-AERC-FREEZE-001")
         self.assertTrue(all(FREEZE["frozen_components"].values()))
         self.assertTrue(PLAN["authorization"]["plan_preparation_approved"])
         self.assertFalse(PLAN["authorization"]["production_training_authorized"])
         self.assertFalse(PLAN["authorization"]["production_model_freeze_authorized"])
         self.assertFalse(PLAN["authorization"]["canonical_execution_authorized"])
+        self.assertTrue(AUTH_PATH.exists())
+        auth = json.loads(AUTH_PATH.read_text())
+        self.assertEqual(auth["plan_id"], PLAN["plan_id"])
+        self.assertEqual(auth["freeze_id"], PLAN["freeze_id"])
+        self.assertEqual(auth["state"], "AUTHORIZED_FOR_DETERMINISTIC_PRODUCTION_TRAINING_ONLY")
+        self.assertTrue(all(auth["authorized"].values()))
+        self.assertTrue(all(auth["not_authorized"].values()))
         self.assertFalse(STATE["production_models_trained"])
         self.assertFalse(STATE["production_models_frozen"])
         self.assertFalse(STATE["held_out_evaluation_executed"])
         self.assertFalse(STATE["canonical_execution_authorized"])
-        self.assertFalse((ROOT / "study7e/configs/production_training_authorization_001.json").exists())
 
     def test_training_partition_and_label_distribution_are_exact(self) -> None:
         scenarios = [s for s in build_scenario_manifest() if s.block in {"TR0", "TR1"}]
@@ -77,7 +78,7 @@ class ProductionTrainingRunPlanTests(unittest.TestCase):
         self.assertTrue(deps["require_inventory_sha256"])
         self.assertFalse(deps["exact_transitive_versions_pre_frozen"])
 
-    def test_no_model_artifact_or_training_authorization_exists(self) -> None:
+    def test_no_model_artifact_exists_in_repository(self) -> None:
         forbidden_suffixes = {".pkl", ".pickle", ".joblib", ".onnx"}
         model_files = [p for p in (ROOT / "study7e").rglob("*") if p.is_file() and p.suffix.lower() in forbidden_suffixes]
         self.assertEqual(model_files, [])
