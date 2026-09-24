@@ -148,6 +148,7 @@ No transfer is authorized.
 
 ## Live sources checked
 
+- Springer Nature, International Journal of Information Security aims and scope: https://link.springer.com/journal/10207/aims-and-scope
 - Springer Nature, International Journal of Information Security article record: *Cyber security in New Space*: https://link.springer.com/article/10.1007/s10207-020-00503-w
 - Springer Nature, 2026 IJIS satellite-security article: https://link.springer.com/article/10.1007/s10207-025-01184-z
 - Springer Nature, 2026 IJIS LEO-satellite security simulation article: https://link.springer.com/article/10.1007/s10207-025-01191-0
