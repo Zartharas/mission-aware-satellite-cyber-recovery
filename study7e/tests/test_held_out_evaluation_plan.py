@@ -17,7 +17,7 @@ STATE = json.loads((ROOT / "study7e/HELD_OUT_EVALUATION_PLAN_STATE.json").read_t
 
 
 def test_plan_is_review_only_and_inference_is_closed():
-    assert PLAN["state"] == "PLAN_REVIEWED__QUALIFICATION_PENDING__HELD_OUT_INFERENCE_NOT_AUTHORIZED"
+    assert PLAN["state"] == "PLAN_QUALIFIED_GREEN__HELD_OUT_INFERENCE_NOT_AUTHORIZED"
     assert PLAN["authorization"]["plan_preparation_and_review_authorized"] is True
     assert PLAN["authorization"]["held_out_inference_authorized"] is False
     assert PLAN["authorization"]["canonical_scientific_execution_authorized"] is False

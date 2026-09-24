@@ -5,7 +5,7 @@
   "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
   "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
   "date": "2026-09-23",
-  "state": "PLAN_REVIEWED__QUALIFICATION_PENDING__HELD_OUT_INFERENCE_NOT_AUTHORIZED",
+  "state": "PLAN_QUALIFIED_GREEN__HELD_OUT_INFERENCE_NOT_AUTHORIZED",
   "scope": "Preparation and review of the held-out E1/E2/C0 evaluation plan only. No held-out feature materialization for inference, no model prediction, no canonical scientific execution, no PR merge, and no publication/result claims.",
   "frozen_inputs": {
     "model_freeze_manifest": {
@@ -319,5 +319,16 @@
     "pr_merge_authorized": false,
     "publication_or_result_claims_authorized": false
   },
-  "next_gate": "Static qualification of this plan, followed by separate explicit authorization before any E1/E2/C0 feature materialization for inference or model prediction."
+  "next_gate": "Separate explicit authorization before creating a held-out inference authorization record or executing any E1/E2/C0 prediction.",
+  "qualification": {
+    "source_commit": "05fd846f3e257b0343c3fbf7a2a510a97b4efd86",
+    "workflow": "Study 7E held-out evaluation plan qualification",
+    "run_id": 35947043358,
+    "job_id": 107467211282,
+    "conclusion": "success",
+    "model_freeze_integrity_run_id": 35947043318,
+    "model_freeze_integrity_job_id": 107467211247,
+    "model_freeze_integrity_conclusion": "success",
+    "held_out_inference_executed": false
+  }
 }
