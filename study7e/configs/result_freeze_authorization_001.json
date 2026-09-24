@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "authorization_id": "S7E-AERC-RESULT-FREEZE-AUTH-001",
+  "freeze_id": "S7E-AERC-RESULT-FREEZE-001",
+  "experiment_id": "S7E-AERC-001",
+  "execution_id": "S7E-AERC-HELDOUT-EXEC-001",
+  "result_checkpoint_id": "S7E-AERC-HELDOUT-RESULTS-001",
+  "candidate_id": "S7E-AERC-RESULT-FREEZE-CANDIDATE-001",
+  "candidate_review_id": "S7E-AERC-RESULT-FREEZE-REVIEW-001",
+  "authorization_date_local": "2026-09-23",
+  "authorization_basis_head": "35f91246aea06aa679dfb36d15b8a245f1de4b5d",
+  "author_statement_summary": "Author explicitly authorized formal activation of S7E-AERC-RESULT-FREEZE-001 and durable preservation of the byte-exact held-out execution artifact. This authorization does not authorize PR #167 merge or manuscript/publication result claims.",
+  "authorized": {
+    "formal_result_freeze_activation": true,
+    "durable_byte_exact_artifact_preservation": true,
+    "freeze_manifest_hash_binding": true,
+    "result_freeze_integrity_validation": true,
+    "preservation_of_adverse_null_and_counterexample_findings": true
+  },
+  "prohibited": {
+    "rerun_S7E_AERC_HELDOUT_EXEC_001": true,
+    "model_retraining_or_post_hoc_model_change": true,
+    "hyperparameter_change": true,
+    "population_expansion": true,
+    "endpoint_expansion": true,
+    "silent_scenario_deletion": true,
+    "pr_167_merge": true,
+    "manuscript_or_publication_result_claims": true
+  },
+  "status": "AUTHORIZED_FOR_RESULT_FREEZE_ACTIVATION_AND_DURABLE_ARTIFACT_PRESERVATION_ONLY"
+}

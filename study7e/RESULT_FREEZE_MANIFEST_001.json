@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "freeze_id": "S7E-AERC-RESULT-FREEZE-001",
+  "experiment_id": "S7E-AERC-001",
+  "execution_id": "S7E-AERC-HELDOUT-EXEC-001",
+  "result_checkpoint_id": "S7E-AERC-HELDOUT-RESULTS-001",
+  "authorization_id": "S7E-AERC-RESULT-FREEZE-AUTH-001",
+  "freeze_date_local": "2026-09-23",
+  "source_result_review_head": "35f91246aea06aa679dfb36d15b8a245f1de4b5d",
+  "state": "ACTIVE_RESULTS_FROZEN__PR_MERGE_NOT_AUTHORIZED__PUBLICATION_NOT_AUTHORIZED",
+  "repository_bindings": {
+    "protocol_freeze": {
+      "path": "study7e/FREEZE_MANIFEST_001.json",
+      "git_blob_sha": "180c23ea85fa48a4561657acbdf035f47ef3f0ad"
+    },
+    "model_freeze": {
+      "path": "study7e/MODEL_FREEZE_MANIFEST_001.json",
+      "git_blob_sha": "8dd024e3fce50b8b506ff75de4ab559fd62ef6d7"
+    },
+    "held_out_authorization": {
+      "path": "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json",
+      "git_blob_sha": "479de1799a67a9a919088f672c384ea57249805d"
+    },
+    "result_checkpoint": {
+      "path": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json",
+      "git_blob_sha": "84f94d0e294599c9d2be107879895e03711e0176"
+    },
+    "exact_endpoint_counts": {
+      "path": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/exact_endpoint_counts.json",
+      "git_blob_sha": "f4d17ef56c5f58f31155d9f53e3a256de9dd03e5"
+    },
+    "audit_reconciliation": {
+      "path": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/audit_reconciliation.json",
+      "git_blob_sha": "2089fa91bb79f18144a78643b7ca0ac406d96532"
+    },
+    "result_freeze_candidate": {
+      "path": "study7e/configs/result_freeze_candidate_001.json",
+      "git_blob_sha": "62755ac1ba07aa90a2f965601bfad790802579b3"
+    },
+    "candidate_scientific_review": {
+      "path": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RESULT_FREEZE_CANDIDATE_001_REVIEW_2026-09-23.md",
+      "git_blob_sha": "95f1752ec09fd63081f10f4841d652c3e5a95140"
+    },
+    "result_freeze_authorization": {
+      "path": "study7e/configs/result_freeze_authorization_001.json",
+      "git_blob_sha": "d978b22dd0340ffbfc7764edc4734c0aa54a78d2"
+    }
+  },
+  "execution_of_record": {
+    "workflow_run_id": 35948870036,
+    "workflow_job_id": 107472877604,
+    "source_commit": "1cbc4be58a99e9add139e73efc9ab42a4f275864",
+    "actions_artifact_id": 10787499194,
+    "actions_artifact_original_expiry_utc": "2026-10-24T02:50:03Z",
+    "scenario_manifest_sha256": "2d9e8e4b155cd4fe079010341e9bdbbfc1a1ab5e94f3467c1b5da8063d38c4fb"
+  },
+  "population": {
+    "E1": 84,
+    "E2": 104,
+    "C0": 8,
+    "total_scenarios": 196,
+    "policies_per_scenario": 4,
+    "total_policy_decisions": 784
+  },
+  "validity": {
+    "invalid_scenarios": 0,
+    "audit_matches": 784,
+    "audit_mismatches": 0,
+    "all_actions_reconciled": true,
+    "paired_equal_information_hashes_verified": true,
+    "objective_action_recomputed_from_truth_fields": true,
+    "independent_post_run_recomputation": "PASS"
+  },
+  "frozen_result_summary": {
+    "overall": {
+      "D0_BASE": {
+        "objective_decision_error": 40,
+        "unsafe_proceed": 9,
+        "false_conservative_hold": 31,
+        "ENTER_RECOVERY_GATE": 25,
+        "HOLD": 171
+      },
+      "L0_BASE": {
+        "objective_decision_error": 47,
+        "unsafe_proceed": 21,
+        "false_conservative_hold": 26,
+        "ENTER_RECOVERY_GATE": 42,
+        "HOLD": 154
+      },
+      "D1_CORROBORATED": {
+        "objective_decision_error": 49,
+        "unsafe_proceed": 4,
+        "false_conservative_hold": 45,
+        "ENTER_RECOVERY_GATE": 6,
+        "HOLD": 190
+      },
+      "L1_CORROBORATED": {
+        "objective_decision_error": 43,
+        "unsafe_proceed": 31,
+        "false_conservative_hold": 12,
+        "ENTER_RECOVERY_GATE": 66,
+        "HOLD": 130
+      }
+    },
+    "hypothesis_disposition": {
+      "H1": "SUPPORTED",
+      "H2": "PARTIALLY_SUPPORTED",
+      "H3": "PARTIALLY_SUPPORTED",
+      "H4": "PARTIALLY_SUPPORTED",
+      "H5": "SUPPORTED"
+    }
+  },
+  "durable_raw_artifact": {
+    "preservation_strategy": "BASE64_CHUNKED_EXACT_ACTIONS_ZIP__CONCATENATE_IN_LIST_ORDER_THEN_BASE64_DECODE",
+    "decoded_bytes": 29892,
+    "encoded_chars_including_terminal_newline": 39857,
+    "decoded_sha256": "cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35",
+    "chunks": [
+      {
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-00",
+        "chars": 8000,
+        "git_blob_sha": "513b3757ff855b2b59e7c99092c6c2551c091d56"
+      },
+      {
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-01",
+        "chars": 8000,
+        "git_blob_sha": "de03a3443cc7131514d8abd48e5098aa9867b6e2"
+      },
+      {
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-02",
+        "chars": 8000,
+        "git_blob_sha": "8859411e492f56d11f589a45b51954739b43b1d1"
+      },
+      {
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-03",
+        "chars": 8000,
+        "git_blob_sha": "625743d6254fcb60797eb9f09bb5ef685e5d6f25"
+      },
+      {
+        "path": "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/S7E-AERC-HELDOUT-EXEC-001.actions-artifact.zip.b64.part-04",
+        "chars": 7857,
+        "git_blob_sha": "ceee8b20713f5b93de828db3710fbe981fe7db03"
+      }
+    ],
+    "archive_member_sha256": {
+      "heldout_execution.log": "9c618494c17cff3ad8e7143f949d62bc074f089bb020f7dfea232ffac6cd3a98",
+      "study7e_heldout_exec_001/heldout/audit_reconciliation.json": "2ff15fde887149e111bbeb37e8a4b9817ad9886922da243938e185174a696ba8",
+      "study7e_heldout_exec_001/heldout/exact_endpoint_counts.json": "fba180c9471dc55f6ea2cc6203e61893f182917c7f1ffb08dd478a40e6385591",
+      "study7e_heldout_exec_001/heldout/execution_manifest.json": "24586f58313be27b0fdee838332ba56fafd28fdb69caf7c4f4a93f18203aec87",
+      "study7e_heldout_exec_001/heldout/input_hash_manifest.json": "95f026c53b5b6415a5d0e70694a76514fecf0707add724bc3febb991e34c8a68",
+      "study7e_heldout_exec_001/heldout/invalid_attempts.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "study7e_heldout_exec_001/heldout/model_and_environment_binding.json": "28f6dad7984578b0c3cb3b0b63b1af24f87a7118036d0fe76afd0affa71df211",
+      "study7e_heldout_exec_001/heldout/output_hash_manifest.json": "634657f75f568868504653b65558e937a3f552f62613ded03be56d9edacddead",
+      "study7e_heldout_exec_001/heldout/paired_disagreements.json": "d07df1471b326988ba182deb9d578442113e6f48747c0181a6ca3c671abaaddb",
+      "study7e_heldout_exec_001/heldout/policy_decisions.jsonl": "ff6c3d553bf31b7dddc4c5206c9a8111795261f9466581e0757b7a782a315ce0",
+      "study7e_heldout_exec_001/heldout/scenario_attempts.jsonl": "297770841b110df02f14a25237f43c09999d8423fc434756b56e941da8dac81a",
+      "study7e_heldout_exec_001/heldout/topology_fault_tables.json": "4c24c9db4a9ce86d510df43dac7f709196af56d5cac7c769f69e07d528d95991"
+    }
+  },
+  "frozen_interpretation_boundaries": [
+    "No aggregate or topology-stratified result is a global policy ranking.",
+    "No global deterministic-versus-learned superiority claim is authorized.",
+    "Trust-domain separation changes the failure surface but is not monotonically beneficial at the policy-output level in this population.",
+    "Corroboration benefit is policy- and fault-dependent; adverse and null findings are part of the frozen result.",
+    "All counts are exact descriptive results for the defined finite population, not operational spacecraft probabilities.",
+    "No flight qualification, certification sufficiency, NASA endorsement, RF-link performance, unmeasured hardware performance, or independence beyond instantiated experimental trust domains is supported."
+  ],
+  "freeze_rule": "No frozen endpoint count, hypothesis disposition, adverse/null finding, interpretation boundary, artifact identity, population definition, or execution-of-record identity may be changed without an explicit post-freeze amendment that preserves this freeze record and does not silently rerun S7E-AERC-HELDOUT-EXEC-001.",
+  "governance": {
+    "result_freeze_active": true,
+    "held_out_execution_sealed": true,
+    "retry_authorized": false,
+    "model_retraining_or_change_authorized": false,
+    "endpoint_or_population_change_authorized": false,
+    "pr_167_merge_authorized": false,
+    "manuscript_or_publication_result_claims_authorized": false,
+    "next_gate": "post-freeze integrity validation, then separate author decisions for PR #167 merge and for manuscript/publication result claims"
+  }
+}
