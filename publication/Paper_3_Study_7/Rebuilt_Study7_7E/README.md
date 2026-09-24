@@ -39,4 +39,17 @@ Do not modify:
 - frozen Study-7E science;
 - result-freeze or model-freeze records.
 
-Current portfolio-adjusted venue assessment identifies International Journal of Critical Infrastructure Protection as the primary candidate and Journal of Information Security and Applications as the second candidate. Journal of Space Safety Engineering remains a strong space-domain fallback but already has a different-repository manuscript by the author under review; AIAA Journal of Aerospace Information Systems remains a strong technical fit but already has Paper 1 from this same research program under review. This is not a venue lock. Venue-specific formatting, cover-letter preparation, PR merge, and publisher submission remain later controlled gates.
+International Journal of Critical Infrastructure Protection is now locked as the working target for venue preparation. The IJCIP-specific R3 adapts framing and declarations without changing frozen science. Journal of Space Safety Engineering remains a strong space-domain fallback but already has a different-repository manuscript by the author under review; AIAA Journal of Aerospace Information Systems remains a strong technical fit but already has Paper 1 from this same research program under review. This is not a venue lock. Venue-specific formatting, cover-letter preparation, PR merge, and publisher submission remain later controlled gates.
+
+
+## IJCIP target package
+
+Current venue-preparation files are under `IJCIP/`:
+
+- `PAPER3_IJCIP_MANUSCRIPT_R3.md` — current IJCIP-specific manuscript;
+- `IJCIP_TARGET_LOCK_2026-09-24.md` — target-venue preparation lock;
+- `IJCIP_LIVE_COMPLIANCE_AUDIT_2026-09-24.md` — verified requirements, adaptations, and unresolved portal items;
+- `IJCIP_HIGHLIGHTS_R1.txt` — five Elsevier-length-compliant highlights;
+- `IJCIP_SUBMISSION_METADATA_DRAFT.md` — internal portal metadata draft.
+
+The target lock does not authorize PR #168 merge or publisher submission.
