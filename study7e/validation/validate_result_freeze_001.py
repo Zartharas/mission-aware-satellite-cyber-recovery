@@ -61,7 +61,14 @@ assert checkpoint["governance"]["pr_merge_authorized"] is False
 assert checkpoint["governance"]["publication_or_result_claims_authorized"] is False
 
 assert endpoints["population"] == {"decisions": 784, "scenarios": 196}
-assert endpoints["overall"] == manifest["frozen_result_summary"]["overall"]
+for policy_id, frozen in manifest["frozen_result_summary"]["overall"].items():
+    observed = endpoints["overall"][policy_id]
+    assert observed["objective_decision_error"] == frozen["objective_decision_error"]
+    assert observed["unsafe_proceed"] == frozen["unsafe_proceed"]
+    assert observed["false_conservative_hold"] == frozen["false_conservative_hold"]
+    assert observed["actions"]["ENTER_RECOVERY_GATE"] == frozen["ENTER_RECOVERY_GATE"]
+    assert observed["actions"]["HOLD"] == frozen["HOLD"]
+    assert observed["n"] == 196
 assert audit["policy_decisions"] == 784
 assert audit["invalid_scenarios"] == 0
 assert audit["audit_matches"] == 784
