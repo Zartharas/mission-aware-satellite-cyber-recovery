@@ -41,7 +41,7 @@ ACTA_PACKAGE_FREEZE_ID = "S8-ACTA-PKGFREEZE-002"
 ACTA_SUBMITTED_PACKAGE_COMMIT = "f5e9a1d4553737e534821bf647463abfd44fa0dd"
 
 PAPER1_ID = "2026-09-I012066"
-PAPER2_ID = "cd1dfa89-4a24-4451-bdd4-af31ce3367f4"
+PAPER2_ID = "cd1dfa89-4a24-4451-bdd4-af31ce3367f4"\nPAPER2_TAES_ID = "TAES-2026-4182"
 PAPER3_ID = "6db04a31-8223-4aaf-af02-e4bafe06ef89"
 
 EXPECTED_SUBMITTED_FILES = {
@@ -55,7 +55,7 @@ EXPECTED_SUBMITTED_FILES = {
 CURRENT_DOCS = {
     "docs/CURRENT_PUBLICATION_STATE.md": {
         "required": (
-            "**Current-state date:** 2026-09-19",
+            "**Current-state date:** 2026-09-26",
             "four publication lines that have been submitted",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_NORMALIZED_STATUS,
