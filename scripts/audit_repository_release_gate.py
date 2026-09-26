@@ -9,7 +9,7 @@ and tracker wording while leaving frozen scientific records unchanged.
 This wrapper creates a detached temporary worktree at HEAD, overlays the
 caller's Git-tracked working-tree state, runs the historical core audit, and
 permits only the exact known stale-current-state failures when the authoritative
-2026-09-19 publication-state record is present. Any additional or different
+2026-09-26 publication-state record is present. Any additional or different
 core failure still fails closed. The current Study-8 publication-state overlay
 and Repository Review v3 remediation audit then run normally.
 
@@ -37,7 +37,9 @@ CURRENT_STATE_REQUIRED = (
     "four publication lines that have been submitted",
     "2026-09-I012066",
     "AA-D-26-02872",
-    "cd1dfa89-4a24-4451-bdd4-af31ce3367f4",\n    "TAES-2026-4182",\n    "REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW",
+    "cd1dfa89-4a24-4451-bdd4-af31ce3367f4",
+    "TAES-2026-4182",
+    "REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW",
     "6db04a31-8223-4aaf-af02-e4bafe06ef89",
     "read-only candidate audit",
 )
