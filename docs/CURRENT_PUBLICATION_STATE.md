@@ -1,6 +1,6 @@
 # Current Publication State
 
-**Current-state date:** 2026-09-19
+**Current-state date:** 2026-09-26
 
 **Study 8E extension update:** 2026-09-20
 
@@ -12,13 +12,13 @@
 
 **Paper 3 CEAS decision/recovery update:** 2026-09-22
 
-**Paper 4 IJSCCN editorial decision update:** 2026-09-24
+**Paper 4 IJSCCN editorial decision update:** 2026-09-24\n\n**Paper 2 TAES decision/rebuild update:** 2026-09-26
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Papers 1 and 2 remain active with their publishers. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening on 2026-09-26 without external peer review and has entered an author-authorized Phase-1 rebuild/design audit. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -67,10 +67,18 @@ The IJSCCN decision does not alter Study 8, Study 8E, Results-002, TRACE-002, or
 - **Article type:** Regular Paper
 - **Submitted:** 2026-09-07
 - **Research Exchange UUID:** `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
-- **State:** `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`
+- **Manuscript ID:** `TAES-2026-4182`
+- **Decision date:** 2026-09-26
+- **State:** `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`
 - **Authority:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_PACKAGE_STATUS.json`
+- **Decision record:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_EDITORIAL_DECISION_2026-09-26.md`
+- **Rebuild workspace:** `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`
 
-Paper 2 keeps three separate frozen populations: Study 3 = 1,380 deterministic trajectories; Study 4 = 4,608 exact rule-by-subset observations; Study 6 = 420 exact observations. There is no pooled Paper-2 sample size.
+The TAES editors identified narrow/unclear aerospace contribution, difficult prose, an unclear research-gap/RQ connection, and experiment-oriented rather than finding-oriented contributions. The decision did not identify a frozen-result, numerical, reproducibility, or integrity defect.
+
+Studies 3, 4, and 6 remain immutable and separate: Study 3 = 1,380 deterministic trajectories; Study 4 = 4,608 exact rule-by-subset observations; Study 6 = 420 exact observations. There is no pooled Paper-2 sample size.
+
+The author authorized Phase 1 on 2026-09-26: read-only formal analysis, editorial diagnosis, non-overlap controls, and draft protocols for separately identified validation extensions. No new extension execution, manuscript resubmission, or venue lock is authorized.
 
 ### Paper 3 - Study 7
 
