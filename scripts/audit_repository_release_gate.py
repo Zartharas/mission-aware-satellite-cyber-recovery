@@ -9,7 +9,7 @@ and tracker wording while leaving frozen scientific records unchanged.
 This wrapper creates a detached temporary worktree at HEAD, overlays the
 caller's Git-tracked working-tree state, runs the historical core audit, and
 permits only the exact known stale-current-state failures when the authoritative
-2026-09-19 publication-state record is present. Any additional or different
+2026-09-26 publication-state record is present. Any additional or different
 core failure still fails closed. The current Study-8 publication-state overlay
 and Repository Review v3 remediation audit then run normally.
 
@@ -30,14 +30,17 @@ ROOT = Path(__file__).resolve().parents[1]
 CORE_REL = Path("scripts/audit_repository_release_gate_core.py")
 S8_CURRENT_REL = Path("scripts/audit_study8_publication_current_state.py")
 REVIEW_V3_REL = Path("scripts/audit_repository_review_v3_remediation.py")
+PAPER2_PHASE1_REL = Path("scripts/audit_paper2_post_rejection_phase1.py")
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
-    "**Current-state date:** 2026-09-19",
+    "**Current-state date:** 2026-09-26",
     "four publication lines that have been submitted",
     "2026-09-I012066",
     "AA-D-26-02872",
     "cd1dfa89-4a24-4451-bdd4-af31ce3367f4",
+    "TAES-2026-4182",
+    "REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW",
     "6db04a31-8223-4aaf-af02-e4bafe06ef89",
     "read-only candidate audit",
 )
@@ -169,7 +172,7 @@ def authoritative_current_state_is_bound(audit_root: Path) -> bool:
             print(f"missing_current_state_token={token}", file=sys.stderr)
         return False
 
-    print("authoritative_current_publication_state=PASS_2026_09_19")
+    print("authoritative_current_publication_state=PASS_2026_09_26")
     return True
 
 
@@ -264,6 +267,8 @@ def main() -> int:
                 if run_gate(audit_root, S8_CURRENT_REL, "study8_publication_current_state") != 0:
                     return 1
                 if run_gate(audit_root, REVIEW_V3_REL, "repository_review_v3_remediation") != 0:
+                    return 1
+                if run_gate(audit_root, PAPER2_PHASE1_REL, "paper2_post_rejection_phase1") != 0:
                     return 1
                 print("release_gate_wrapper=PASS")
                 return 0

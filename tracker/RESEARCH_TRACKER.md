@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-09-24
+Last updated: 2026-09-26
 
 ## Current focus
 
@@ -8,10 +8,10 @@ The repository now contains four submitted publication lines:
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems as manuscript `2026-09-I012066` on 2026-09-05.
 2. **Paper 4:** rebuilt Study 8 + Study 8E manuscript, submitted to IJSCCN as manuscript `4920969` on 2026-09-22; rejected at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied. The earlier Acta rejection remains historical provenance.
-3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07, Research Exchange UUID `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
+3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07; manuscript `TAES-2026-4182` was rejected at editorial pre-screening on 2026-09-26 without external peer review.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; rejected by handling-editor editorial assessment on 2026-09-22.
 
-Papers 1 and 2 remain frozen pending journal action. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
+Paper 1 remains frozen pending journal action. Paper 2's rejected R10 package and Studies 3/4/6 remain frozen; only a separate Phase-1 post-rejection design/formal-analysis workspace is authorized. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
 
 This is a journal/research publication workflow, not a dissertation-revision workflow.
 
@@ -60,10 +60,17 @@ The next Paper 4 gate is a fresh venue-fit audit plus optional review of Wiley T
 - Journal: IEEE Transactions on Aerospace and Electronic Systems
 - Submitted: 2026-09-07
 - Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
-- State: `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`
+- Manuscript ID: `TAES-2026-4182`
+- Decision date: 2026-09-26
+- State: `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`
 - Authority: `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_PACKAGE_STATUS.json`
+- Decision record: `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_EDITORIAL_DECISION_2026-09-26.md`
+- Rebuild state: `PHASE1_AUTHORIZED__DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION`
+- Rebuild workspace: `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`
 
-Paper 2 uses Studies 3, 4, and 6 only and keeps all three frozen populations separate.
+Paper 2 retains Studies 3, 4, and 6 as three immutable, unpooled frozen populations. The rejection does not authorize rerunning them.
+
+Phase 1 derives the Study-4 threshold formulas, Study-6 observational-equivalence result, and Study-3 freshness/semantic-truth distinction from existing frozen artifacts; it also drafts separate S3X/S4X/S6X validation protocols. No new extension is authorized for implementation or execution.
 
 ### Paper 3 - Study 7
 
@@ -98,6 +105,14 @@ Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
 Proposed extension: `S7E-AERC-001` / Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures.
 
 The prospective protocol and implementation/test plans are now drafted for author review. The design specifies equal-information policy pairs, five trust-domain topologies, thirteen fault/compromise profiles, 84 training architecture scenarios, and 196 canonical evaluation/control scenarios yielding 784 planned evaluation decisions. These are prospective design quantities, not results. No implementation workspace or scientific execution is authorized.
+
+## Paper 2 post-rejection Phase-1 gate
+
+Author authorization on 2026-09-26 establishes a separate Paper-2 workstream:
+
+`PHASE1_DESIGN_REVIEW_REQUIRED_BEFORE_ANY_EXTENSION_EXECUTION`
+
+The current tasks are editorial diagnosis, theory/generalization audit, non-overlap control, and review of draft S3X/S4X/S6X protocols. This workstream does not alter Study 5, Paper 3, or Paper 4.
 
 ## Remaining eligible publication candidates
 

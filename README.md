@@ -21,13 +21,13 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository has **four publication lines that have been submitted**. Papers 1 and 2 remain active with their publishers. Papers 3 and 4 have editorial rejections recorded; Paper 3 has entered a controlled post-rejection research-requirements phase, while its rejected CEAS package and frozen Study 7 remain immutable provenance:
+The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2 is in a controlled Phase-1 post-rejection rebuild/design audit; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
 | Paper 1 | Studies 1 + 2 | AIAA Journal of Aerospace Information Systems | `2026-09-I012066` | 2026-09-05 | Editorial/peer-review workflow |
 | Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `Rejected` (decision recorded 2026-09-19) |
-| Paper 2 | Studies 3 + 4 + 6 | IEEE Transactions on Aerospace and Electronic Systems | `cd1dfa89-4a24-4451-bdd4-af31ce3367f4` | 2026-09-07 | Editorial processing |
+| Paper 2 | Studies 3 + 4 + 6 | IEEE Transactions on Aerospace and Electronic Systems | `TAES-2026-4182` | 2026-09-07 | `Rejected` at editorial pre-screening 2026-09-26; no external review |
 | Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Rejected` (decision 2026-09-22) |
 
 Submitted and rejected packages remain frozen as provenance. Do not modify active publisher-facing packages without a journal request, and do not alter the rejected Acta package. Study 8 retargeting must begin from the frozen source science through a new controlled venue-specific package.
@@ -65,6 +65,8 @@ Manuscript ID: `AA-D-26-02872`.
 `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
 
 Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
+
+TAES manuscript ID: `TAES-2026-4182`. Decision: editorial pre-screen rejection on 2026-09-26, no external peer review. The R10 package and Studies 3/4/6 remain frozen; post-rejection work is isolated under `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
 
 ### Paper 3 - Study 7
 

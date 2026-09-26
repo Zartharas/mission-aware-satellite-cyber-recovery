@@ -1,5 +1,21 @@
 # Paper 2 (Studies 3, 4, and 6) - TAES Development and Submission Package
 
+## Editorial decision - 2026-09-26
+
+TAES assigned manuscript ID `TAES-2026-4182` and issued an immediate editorial pre-screen rejection on 2026-09-26. The manuscript did not enter external peer review.
+
+Current decision authority:
+
+- `TAES_EDITORIAL_DECISION_2026-09-26.md`
+- `TAES_PACKAGE_STATUS.json`
+
+The submitted R10 package remains immutable provenance. Studies 3, 4, and 6 remain frozen and unchanged. Post-rejection work is isolated under:
+
+`../Post_Rejection_Rebuild/`
+
+Current rebuild gate: `PHASE1_DESIGN_REVIEW_REQUIRED_BEFORE_ANY_EXTENSION_EXECUTION`.
+
+
 **Target venue:** IEEE Transactions on Aerospace and Electronic Systems (TAES)
 **Manuscript type:** Regular Paper
 **Primary Technical Area:** Aerospace Information Systems
