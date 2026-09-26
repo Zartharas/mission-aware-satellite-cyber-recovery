@@ -279,6 +279,8 @@ def main() -> int:
                     return 1
                 if run_gate(audit_root, PAPER2_PHASE4_REL, "paper2_phase4_local_validation_tooling") != 0:
                     return 1
+                if run_gate(audit_root, PAPER2_PHASE5_REL, "paper2_phase5_cadence_sensitivity") != 0:
+                    return 1
                 print("release_gate_wrapper=PASS")
                 return 0
             finally:
