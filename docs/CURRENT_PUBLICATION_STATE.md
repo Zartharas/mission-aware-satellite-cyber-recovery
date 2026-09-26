@@ -12,7 +12,9 @@
 
 **Paper 3 CEAS decision/recovery update:** 2026-09-22
 
-**Paper 4 IJSCCN editorial decision update:** 2026-09-24\n\n**Paper 2 TAES decision/rebuild update:** 2026-09-26
+**Paper 4 IJSCCN editorial decision update:** 2026-09-24
+
+**Paper 2 TAES decision/rebuild update:** 2026-09-26
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
