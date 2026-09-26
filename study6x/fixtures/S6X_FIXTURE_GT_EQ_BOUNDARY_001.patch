@@ -1,6 +1,6 @@
-diff --git a/apps/lc/fsw/src/lc_watch.c b/apps/lc/fsw/src/lc_watch.c
---- a/apps/lc/fsw/src/lc_watch.c
-+++ b/apps/lc/fsw/src/lc_watch.c
+diff --git a/fsw/src/lc_watch.c b/fsw/src/lc_watch.c
+--- a/fsw/src/lc_watch.c
++++ b/fsw/src/lc_watch.c
 @@ -599,7 +599,7 @@ uint8 LC_SignedCompare(uint16 WatchIndex, int32 WPValue, int32 CompareValue)
              break;
  
