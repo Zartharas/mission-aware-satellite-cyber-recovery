@@ -42,3 +42,33 @@ Phase 1 does **not** permit modifying or rerunning `S3-K4E-001`, `S4-MPQ-001`, o
 `AUTHOR_REVIEW_BEFORE_S3X_LOCAL_SOURCE_INSPECTION_OR_S6X_INVARIANT_FIXTURE_DESIGN`
 
 The author must separately authorize implementation/execution of any prospective extension after reviewing the protocols and their overlap/validity implications.
+
+
+## Phase-2 branch-local design work
+
+The author authorized a second, still non-executing design step on 2026-09-26. It is isolated on:
+
+`paper2/post-rejection-phase2-design`
+
+Branch base:
+
+`db744891dc9a726ad51b25543c5f3ee90c0ce4e7`
+
+PR #172 post-merge validation run `36267400739` / run `1205` completed successfully before this branch-local design record was finalized.
+
+Phase-2 records:
+
+1. `S3X_METADATA_SCHEMA_INSPECTION_R2_2026-09-26.md`
+2. `S3X_SOURCE_FREEZE_CANDIDATE_R1.json`
+3. `S6X_INVARIANT_FIXTURE_DESIGN_R2_2026-09-26.md`
+4. `S6X_SOURCE_PIN_CANDIDATE_R1.json`
+5. `PHASE2_DESIGN_GATE_R1_2026-09-26.md`
+6. `PAPER2_PHASE2_DESIGN_STATUS.json`
+7. `scripts/inspect_s3x_esa_schema.py`
+8. `scripts/audit_paper2_post_rejection_phase2_design.py`
+
+This phase does not authorize S3X source freeze, trace extraction, recovery replay, S6X checkout/build/source mutation, manuscript rewriting, venue locking, or publisher submission.
+
+Branch-local next gate:
+
+`AUTHOR_REVIEW_BEFORE_S3X_FINAL_SOURCE_FREEZE_OR_S6X_IMPLEMENTATION_WORKSPACE`
