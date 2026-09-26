@@ -26,7 +26,8 @@
     "provenance_observation_generation_authorized": false,
     "independent_rebuild_authorized": false,
     "scientific_execution_authorized": false,
-    "canonical_results_authorized": false
+    "canonical_results_authorized": false,
+    "pre_runtime_validation_authorized": true
   },
   "current_state": "PRE_RUNTIME_IMPLEMENTATION_AUTHORIZED__NO_BUILD__NO_EXECUTION"
 }
