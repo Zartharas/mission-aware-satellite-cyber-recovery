@@ -77,5 +77,26 @@
   ],
   "recovery_policy_execution_authorized": false,
   "source_freeze_authorized": false,
-  "source_freeze_ready": false
+  "source_freeze_ready": false,
+  "archive_structure": {
+    "ESA-Mission1": {
+      "channel_archive_count": 76,
+      "metadata_files_observed": [
+        "anomaly_types.csv",
+        "channels.csv",
+        "labels.csv"
+      ],
+      "events_csv_observed": false
+    },
+    "ESA-Mission2": {
+      "channel_archive_count": 100,
+      "metadata_files_observed": [
+        "anomaly_types.csv",
+        "channels.csv",
+        "events.csv",
+        "labels.csv"
+      ],
+      "events_csv_observed": true
+    }
+  }
 }
