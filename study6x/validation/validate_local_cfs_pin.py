@@ -99,7 +99,7 @@ def main() -> int:
         raise SystemExit(f"fixture patch not found: {patch}")
     check = subprocess.run(
         ["git", "apply", "--check", str(patch)],
-        cwd=cfs,
+        cwd=lc,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
