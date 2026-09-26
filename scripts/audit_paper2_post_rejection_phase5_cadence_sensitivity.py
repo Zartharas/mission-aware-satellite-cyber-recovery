@@ -80,6 +80,19 @@ def main() -> int:
     ):
         require(marker in analyzer_text, f"analyzer missing safety marker: {marker}")
 
+    shell_check = subprocess.run(
+        ["bash", "-n", str(runner)],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    require(
+        shell_check.returncode == 0,
+        f"runner shell syntax invalid: {shell_check.stderr.strip()}",
+    )
+
     runner_text = runner.read_text(encoding="utf-8")
     for marker in (
         "S3X_GAP_SENSITIVITY_001.csv",
