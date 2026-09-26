@@ -162,12 +162,16 @@ def main() -> int:
     check_s6x_candidate()
     check_no_extension_workspaces()
     require((REBUILD / "PHASE2_DESIGN_GATE_R1_2026-09-26.md").is_file(), "Phase-2 design gate record missing")
-    print("paper2_post_rejection_phase2_design_audit=PASS")
-    print("s3x_source_freeze_authorized=NO")
-    print("s3x_recovery_execution_authorized=NO")
-    print("s6x_implementation_authorized=NO")
-    print("s6x_build_authorized=NO")
-    print("s6x_scientific_execution_authorized=NO")
+    if (REBUILD / "PAPER2_PHASE3_PREEXECUTION_STATUS.json").is_file():
+        print("paper2_post_rejection_phase2_design_audit=PASS_HISTORICAL__FORWARD_PHASE3_BOUND")
+        print("phase2_execution_state_historical=NO")
+    else:
+        print("paper2_post_rejection_phase2_design_audit=PASS")
+        print("s3x_source_freeze_authorized=NO")
+        print("s3x_recovery_execution_authorized=NO")
+        print("s6x_implementation_authorized=NO")
+        print("s6x_build_authorized=NO")
+        print("s6x_scientific_execution_authorized=NO")
     return 0
 
 
