@@ -95,7 +95,7 @@ def check_frozen_foundation() -> None:
         status.get("status") == "PHASE1_AUTHORIZED__DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION",
         "Phase-1 rebuild status drift",
     )
-    require(status.get("next_gate") == "AUTHOR_REVIEW_OF_PHASE1_PACKAGE_BEFORE_SOURCE_FREEZE_OR_IMPLEMENTATION", "Phase-1 next gate drift")
+    require(status.get("next_gate") == "AUTHOR_REVIEW_BEFORE_S3X_LOCAL_SOURCE_INSPECTION_OR_S6X_INVARIANT_FIXTURE_DESIGN", "Phase-1 next gate drift")
 
     foundation = {
         row["experiment_id"]: (row["population"], row["mutable"])
@@ -213,7 +213,7 @@ def check_design_only_extension_state() -> None:
     status = load_json(REBUILD / "PAPER2_REBUILD_STATUS.json")
     states = {row["experiment_id"]: row["state"] for row in status["candidate_extensions"]}
     require(
-        states["S3X-ETA-001"] == "CONDITIONAL_GO_FOR_SOURCE_SCREENING_ONLY__EXECUTION_NOT_AUTHORIZED",
+        states["S3X-ETA-001"] == "SOURCE_SCREENING_COMPLETE__LOCAL_METADATA_SCHEMA_INSPECTION_REQUIRES_AUTHOR_APPROVAL__EXECUTION_NOT_AUTHORIZED",
         "S3X state drift",
     )
     require(
@@ -221,7 +221,7 @@ def check_design_only_extension_state() -> None:
         "S4X state drift",
     )
     require(
-        states["S6X-EAP-001"] == "CONDITIONAL_GO_FOR_ENVIRONMENT_AND_INVARIANT_DESIGN_ONLY__EXECUTION_NOT_AUTHORIZED",
+        states["S6X-EAP-001"] == "ENVIRONMENT_SCREENING_COMPLETE__INVARIANT_FIXTURE_DESIGN_REQUIRES_AUTHOR_APPROVAL__EXECUTION_NOT_AUTHORIZED",
         "S6X state drift",
     )
 
@@ -231,6 +231,8 @@ def check_design_only_extension_state() -> None:
         "S6X_EAP_PROTOCOL_DRAFT_R1_2026-09-26.md",
         "PAPER2_NONOVERLAP_GATE_2026-09-26.md",
         "PHASE1_ADVERSARIAL_PROTOCOL_REVIEW_R1_2026-09-26.md",
+        "S3X_SOURCE_SCREENING_R1_2026-09-26.md",
+        "S6X_CFS_ENVIRONMENT_SCREENING_R1_2026-09-26.md",
     ):
         require((REBUILD / name).is_file(), f"missing Phase-1 design record: {name}")
 
