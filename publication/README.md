@@ -4,7 +4,7 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening on 2026-09-26 without external peer review and is now in a controlled Phase-1 rebuild/design audit. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
+The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening on 2026-09-26 without external peer review and is now in a controlled Phase-3 pre-execution rebuild state. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
 2. **Paper 4:** Study 8 + Study 8E rebuilt manuscript, most recently submitted to IJSCCN; prior Acta submission retained as historical provenance.
@@ -64,7 +64,7 @@ The IJSCCN decision does not alter frozen Study 8 or Study 8E science. The submi
 
 The submitted R10 package remains immutable provenance. Studies 3, 4, and 6 remain frozen and separate.
 
-The author authorized Phase-1 post-rejection work on 2026-09-26: formal/read-only derivation, editorial diagnosis, non-overlap controls, and draft protocols for separately identified validation extensions. No extension execution, new venue lock, or publisher submission is authorized.
+The post-rejection work has progressed through Phase 1 and Phase 2 design into Phase 3. `study3x/` is authorized for local ESA-v2 source verification/source identity freeze only, and `study6x/` is authorized for implementation plus static/pre-runtime validation only. No S3X trace extraction/recovery replay, no S6X build or artifact execution, no manuscript rewrite, no venue lock, and no publisher submission is authorized.
 
 ## Paper 3 - Study 7
 

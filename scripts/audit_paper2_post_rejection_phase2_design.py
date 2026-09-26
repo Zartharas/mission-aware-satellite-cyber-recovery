@@ -139,6 +139,19 @@ def check_s6x_candidate() -> None:
 
 
 def check_no_extension_workspaces() -> None:
+    phase3 = REBUILD / "PAPER2_PHASE3_PREEXECUTION_STATUS.json"
+    if phase3.is_file():
+        status = load_json(phase3)
+        require(
+            status.get("phase") == "POST_REJECTION_REBUILD_PHASE3_PREEXECUTION",
+            "unexpected Paper-2 forward phase while evaluating Phase-2 audit",
+        )
+        require((ROOT / "study3x").is_dir(), "authorized Phase-3 study3x workspace missing")
+        require((ROOT / "study6x").is_dir(), "authorized Phase-3 study6x workspace missing")
+        for rel in ("s3x", "s6x"):
+            require(not (ROOT / rel).exists(), f"unexpected alias workspace exists: {rel}")
+        return
+
     for rel in ("study3x", "study6x", "s3x", "s6x"):
         require(not (ROOT / rel).exists(), f"unauthorized extension workspace exists: {rel}")
 
@@ -149,12 +162,16 @@ def main() -> int:
     check_s6x_candidate()
     check_no_extension_workspaces()
     require((REBUILD / "PHASE2_DESIGN_GATE_R1_2026-09-26.md").is_file(), "Phase-2 design gate record missing")
-    print("paper2_post_rejection_phase2_design_audit=PASS")
-    print("s3x_source_freeze_authorized=NO")
-    print("s3x_recovery_execution_authorized=NO")
-    print("s6x_implementation_authorized=NO")
-    print("s6x_build_authorized=NO")
-    print("s6x_scientific_execution_authorized=NO")
+    if (REBUILD / "PAPER2_PHASE3_PREEXECUTION_STATUS.json").is_file():
+        print("paper2_post_rejection_phase2_design_audit=PASS_HISTORICAL__FORWARD_PHASE3_BOUND")
+        print("phase2_execution_state_historical=NO")
+    else:
+        print("paper2_post_rejection_phase2_design_audit=PASS")
+        print("s3x_source_freeze_authorized=NO")
+        print("s3x_recovery_execution_authorized=NO")
+        print("s6x_implementation_authorized=NO")
+        print("s6x_build_authorized=NO")
+        print("s6x_scientific_execution_authorized=NO")
     return 0
 
 

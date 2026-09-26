@@ -72,3 +72,37 @@ This phase does not authorize S3X source freeze, trace extraction, recovery repl
 Branch-local next gate:
 
 `AUTHOR_REVIEW_BEFORE_S3X_FINAL_SOURCE_FREEZE_OR_S6X_IMPLEMENTATION_WORKSPACE`
+
+
+## Phase-3 pre-execution implementation
+
+The author authorized the next controlled phase after PR #173 completed CI and was merged.
+
+Predecessor:
+
+- PR #173 merge: `a2b6f2e02c4075d2e9cd1976888dae38464a11c1`
+- PR CI run: `36268050167` / run `1208` / success
+- post-merge CI run: `36268665292` / run `1209` / success
+
+Branch:
+
+`paper2/post-rejection-phase3-preexecution`
+
+Authorized work:
+
+- `study3x/`: local ESA-v2 archive verification and source-identity freeze workflow only;
+- `study6x/`: implementation workspace and static/pre-runtime validation only.
+
+Still closed:
+
+- S3X gap-rule freeze, trace extraction, recovery-policy replay, and scientific results;
+- S6X build, fixture application to a build, artifact signing, independent rebuild, gate execution, and scientific results;
+- Paper-2 manuscript rewrite, venue lock, and publisher submission.
+
+Phase-3 status authority:
+
+`PAPER2_PHASE3_PREEXECUTION_STATUS.json`
+
+Current gate:
+
+`AUTHOR_REVIEW_AFTER_PHASE3_CI_AND_LOCAL_S3X_SOURCE_FREEZE_OUTPUT_BEFORE_ANY_BUILD_OR_SCIENTIFIC_EXECUTION`
