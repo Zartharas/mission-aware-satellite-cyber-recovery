@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "experiment_id": "S3X-ETA-001",
+  "status": "SOURCE_FREEZE_CANDIDATE__NOT_FROZEN__NO_SCIENTIFIC_EXECUTION",
+  "candidate_source": {
+    "name": "ESA Anomaly Dataset",
+    "version": "v2",
+    "doi": "10.5281/zenodo.15237121",
+    "publisher": "European Space Agency",
+    "publication_date": "2025-04-17",
+    "official_repository": "https://github.com/esa/anomaly-dataset",
+    "license_from_official_repository": "CC BY 3.0 IGO"
+  },
+  "selected_scope": {
+    "missions": [
+      "ESA-Mission1",
+      "ESA-Mission2"
+    ],
+    "excluded_missions": [
+      "ESA-Mission3"
+    ],
+    "rationale": "Official ESA-ADB preprocessing paths exist for Missions 1 and 2; the two-mission scope provides cross-mission timing-structure sensitivity without inventing a Mission-3 preprocessing contract."
+  },
+  "outer_archives": [
+    {
+      "name": "ESA-Mission1.zip",
+      "approx_size_gb": 3.8,
+      "zenodo_md5": "9770ad12ed730238f37c42d5c27ab436",
+      "local_sha256": null,
+      "verified_local": false
+    },
+    {
+      "name": "ESA-Mission2.zip",
+      "approx_size_gb": 4.1,
+      "zenodo_md5": "bfc72012691427d9327eb41f726ce45e",
+      "local_sha256": null,
+      "verified_local": false
+    }
+  ],
+  "schema_expectations": {
+    "labels_csv_required_columns": [
+      "ID",
+      "Channel",
+      "StartTime",
+      "EndTime"
+    ],
+    "anomaly_types_csv_required_columns": [
+      "ID",
+      "Category"
+    ],
+    "telecommands_csv_required_columns": [
+      "Telecommand",
+      "Priority"
+    ],
+    "channel_storage": "per-channel ZIP readable by pandas.read_pickle",
+    "channel_index": "datetime-like",
+    "channel_value_column_pattern": "channel_N",
+    "official_benchmark_resampling_seconds": {
+      "ESA-Mission1": 30,
+      "ESA-Mission2": 18
+    }
+  },
+  "prohibited_interpretations": [
+    "anomaly label as cyberattack truth",
+    "telemetry gap as RF contact loss without independent source evidence",
+    "telemetry gap as ground-station visibility loss",
+    "telemetry gap as spacecraft outage",
+    "gap duration as recovery latency"
+  ],
+  "freeze_blockers": [
+    "verify outer archive MD5 locally",
+    "compute outer archive SHA-256 locally",
+    "run deterministic schema inspector on extracted Mission 1 and Mission 2",
+    "record channel-level cadence/duplicate/monotonicity evidence",
+    "prospectively define and review gap-extraction rule",
+    "independent audit of frozen trace extraction design"
+  ],
+  "recovery_policy_execution_authorized": false,
+  "source_freeze_authorized": false,
+  "source_freeze_ready": false
+}
