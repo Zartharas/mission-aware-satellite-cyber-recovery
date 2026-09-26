@@ -1,0 +1,12 @@
+diff --git a/apps/lc/fsw/src/lc_watch.c b/apps/lc/fsw/src/lc_watch.c
+--- a/apps/lc/fsw/src/lc_watch.c
++++ b/apps/lc/fsw/src/lc_watch.c
+@@ -599,7 +599,7 @@ uint8 LC_SignedCompare(uint16 WatchIndex, int32 WPValue, int32 CompareValue)
+             break;
+ 
+         case LC_OPER_GT:
+-            EvalResult = (WPValue > CompareValue) ? LC_WATCH_TRUE : LC_WATCH_FALSE;
++            EvalResult = (WPValue >= CompareValue) ? LC_WATCH_TRUE : LC_WATCH_FALSE;
+             break;
+ 
+         case LC_OPER_GE:
