@@ -41,23 +41,24 @@
     "new_extension_implementation_authorized": false,
     "new_extension_execution_authorized": false,
     "formal_analysis_of_frozen_results_authorized": true,
-    "protocol_drafting_authorized": true
+    "protocol_drafting_authorized": true,
+    "adversarial_protocol_review": "PHASE1_ADVERSARIAL_PROTOCOL_REVIEW_R1_2026-09-26.md__COMPLETE"
   },
   "candidate_extensions": [
     {
       "experiment_id": "S3X-ETA-001",
       "priority": "HIGH",
-      "state": "PROTOCOL_DRAFT__EXECUTION_NOT_AUTHORIZED"
+      "state": "CONDITIONAL_GO_FOR_SOURCE_SCREENING_ONLY__EXECUTION_NOT_AUTHORIZED"
     },
     {
       "experiment_id": "S4X-JCU-001",
       "priority": "OPTIONAL_HOLD",
-      "state": "PROTOCOL_DRAFT__EXECUTION_NOT_AUTHORIZED"
+      "state": "HOLD__NOT_CURRENTLY_JUSTIFIED__EXECUTION_NOT_AUTHORIZED"
     },
     {
       "experiment_id": "S6X-EAP-001",
       "priority": "HIGH",
-      "state": "PROTOCOL_DRAFT__EXECUTION_NOT_AUTHORIZED"
+      "state": "CONDITIONAL_GO_FOR_ENVIRONMENT_AND_INVARIANT_DESIGN_ONLY__EXECUTION_NOT_AUTHORIZED"
     }
   ],
   "nonoverlap": {
@@ -73,5 +74,5 @@
     ],
     "pooling_allowed": false
   },
-  "next_gate": "AUTHOR_REVIEW_OF_PHASE1_DERIVATIONS_AND_EXTENSION_PROTOCOLS"
+  "next_gate": "AUTHOR_REVIEW_OF_PHASE1_PACKAGE_BEFORE_SOURCE_FREEZE_OR_IMPLEMENTATION"
 }
