@@ -1,8 +1,8 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-09-22
+**Current-state reference:** 2026-09-26
 
-**Paper 4 IJSCCN decision overlay:** 2026-09-24
+**Paper 4 IJSCCN decision overlay:** 2026-09-24\n\n**Paper 2 TAES decision overlay:** 2026-09-26
 
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
@@ -34,7 +34,12 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |   +-- PAPER 2: Studies 3 + 4 + 6
 |       Journal: IEEE Transactions on Aerospace and Electronic Systems
 |       Submitted: 2026-09-07
-|       Research Exchange UUID: cd1dfa89-4a24-4451-bdd4-af31ce3367f4
+|       Manuscript ID: TAES-2026-4182
+|       Decision: rejected at editorial pre-screening 2026-09-26; no external review
+|
++-- PHASE 3R - PAPER 2 REBUILD
+|   +-- FORMAL ANALYSIS + PROSPECTIVE VALIDATION DESIGN
+|       State: PHASE1_AUTHORIZED__NO_NEW_EXECUTION
 |
 +-- PHASE 4 - SUBMITTED
 |   +-- PAPER 3: Study 7 / S7-LSO-001
@@ -96,9 +101,21 @@ The IJSCCN decision supplied no external reviewer reports and identified no spec
 - Venue: IEEE Transactions on Aerospace and Electronic Systems.
 - Submitted: 2026-09-07.
 - Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
-- State: `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`.
+- Manuscript ID: `TAES-2026-4182`.
+- Decision date: 2026-09-26.
+- State: `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`.
 
-The three scientific populations remain separate and there is no pooled Paper-2 sample size.
+The three scientific populations remain separate and immutable; there is no pooled Paper-2 sample size. The R10 package is historical provenance.
+
+## Phase 3R - Paper 2 post-rejection rebuild
+
+The author authorized Phase 1 on 2026-09-26.
+
+- State: `PHASE1_AUTHORIZED__DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION`.
+- Workspace: `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
+- Current gate: `PHASE1_DESIGN_REVIEW_REQUIRED_BEFORE_ANY_EXTENSION_EXECUTION`.
+
+No S3X/S4X/S6X implementation or execution is authorized yet.
 
 ## Phase 4 - Paper 3
 
@@ -181,8 +198,8 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 |---|---|---|---|---|
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
 | 2 | Paper 4 | Study 8 + Study 8E | IJSCCN `4920969`, rejected 2026-09-24 as out of scope | Fresh venue-fit audit; review Transfer Desk suggestions only as candidates |
-| 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
-| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
+| 3 | Paper 2 | Studies 3 + 4 + 6 | TAES `TAES-2026-4182`, rejected at editorial pre-screening 2026-09-26 | Preserve R10; Phase-1 rebuild/design audit |
+| 3R | Paper 2 rebuild | Studies 3 + 4 + 6 + separately proposed extensions | Phase-1 design/formal analysis only | Review derivations and S3X/S4X/S6X draft protocols; no execution |\n| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
 | 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
 | 5 | Paper 4 retarget | Study 8 + Study 8E | IJSCCN scope rejection; next venue not locked | Live venue-fit audit with no scientific rerun |
 | 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |
