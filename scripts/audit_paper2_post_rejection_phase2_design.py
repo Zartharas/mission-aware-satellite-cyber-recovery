@@ -139,6 +139,19 @@ def check_s6x_candidate() -> None:
 
 
 def check_no_extension_workspaces() -> None:
+    phase3 = REBUILD / "PAPER2_PHASE3_PREEXECUTION_STATUS.json"
+    if phase3.is_file():
+        status = load_json(phase3)
+        require(
+            status.get("phase") == "POST_REJECTION_REBUILD_PHASE3_PREEXECUTION",
+            "unexpected Paper-2 forward phase while evaluating Phase-2 audit",
+        )
+        require((ROOT / "study3x").is_dir(), "authorized Phase-3 study3x workspace missing")
+        require((ROOT / "study6x").is_dir(), "authorized Phase-3 study6x workspace missing")
+        for rel in ("s3x", "s6x"):
+            require(not (ROOT / rel).exists(), f"unexpected alias workspace exists: {rel}")
+        return
+
     for rel in ("study3x", "study6x", "s3x", "s6x"):
         require(not (ROOT / rel).exists(), f"unauthorized extension workspace exists: {rel}")
 
