@@ -34,9 +34,11 @@ Phase 1 does **not** permit modifying or rerunning `S3-K4E-001`, `S4-MPQ-001`, o
 9. `verify_phase1_theory.py`
 10. `PAPER2_REBUILD_STATUS.json`
 11. `PHASE1_ADVERSARIAL_PROTOCOL_REVIEW_R1_2026-09-26.md`
+12. `S3X_SOURCE_SCREENING_R1_2026-09-26.md`
+13. `S6X_CFS_ENVIRONMENT_SCREENING_R1_2026-09-26.md`
 
 ## Current gate
 
-`AUTHOR_REVIEW_OF_PHASE1_PACKAGE_BEFORE_SOURCE_FREEZE_OR_IMPLEMENTATION`
+`AUTHOR_REVIEW_BEFORE_S3X_LOCAL_SOURCE_INSPECTION_OR_S6X_INVARIANT_FIXTURE_DESIGN`
 
 The author must separately authorize implementation/execution of any prospective extension after reviewing the protocols and their overlap/validity implications.
