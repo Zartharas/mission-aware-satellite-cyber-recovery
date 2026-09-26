@@ -41,7 +41,7 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |
 +-- PHASE 3R - PAPER 2 REBUILD
 |   +-- FORMAL ANALYSIS + PROSPECTIVE VALIDATION DESIGN
-|       State: PHASE1_AUTHORIZED__NO_NEW_EXECUTION
+|       State: PHASE3_PREEXECUTION__S3X_SOURCE_VERIFICATION__S6X_STATIC_IMPLEMENTATION__NO_SCIENTIFIC_EXECUTION
 |
 +-- PHASE 4 - SUBMITTED
 |   +-- PAPER 3: Study 7 / S7-LSO-001
@@ -113,11 +113,13 @@ The three scientific populations remain separate and immutable; there is no pool
 
 The author authorized Phase 1 on 2026-09-26.
 
-- State: `PHASE1_AUTHORIZED__DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION`.
-- Workspace: `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
-- Current gate: `PHASE1_DESIGN_REVIEW_REQUIRED_BEFORE_ANY_EXTENSION_EXECUTION`.
+- State: `PHASE3_PREEXECUTION__S3X_SOURCE_VERIFICATION__S6X_STATIC_IMPLEMENTATION__NO_SCIENTIFIC_EXECUTION`.
+- Governance workspace: `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
+- S3X workspace: `study3x/`.
+- S6X workspace: `study6x/`.
+- Current gate: `AUTHOR_REVIEW_AFTER_PHASE3_CI_AND_LOCAL_S3X_SOURCE_FREEZE_OUTPUT_BEFORE_ANY_BUILD_OR_SCIENTIFIC_EXECUTION`.
 
-No S3X/S4X/S6X implementation or execution is authorized yet.
+S3X local archive verification/source-identity freeze and S6X implementation/static validation are authorized. S4X remains on hold. No S3X trace/recovery execution, S6X build/artifact execution, or manuscript rewrite is authorized.
 
 ## Phase 4 - Paper 3
 
@@ -201,7 +203,7 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
 | 2 | Paper 4 | Study 8 + Study 8E | IJSCCN `4920969`, rejected 2026-09-24 as out of scope | Fresh venue-fit audit; review Transfer Desk suggestions only as candidates |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES `TAES-2026-4182`, rejected at editorial pre-screening 2026-09-26 | Preserve R10; Phase-1 rebuild/design audit |
-| 3R | Paper 2 rebuild | Studies 3 + 4 + 6 + separately proposed extensions | Phase-1 design/formal analysis only | Review derivations and S3X/S4X/S6X draft protocols; no execution |
+| 3R | Paper 2 rebuild | Studies 3 + 4 + 6 + separately governed S3X/S6X extensions | Phase-3 pre-execution; no scientific results | Complete S3X local source freeze evidence and validate S6X workspace; no build or scientific execution |
 | 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
 | 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
 | 5 | Paper 4 retarget | Study 8 + Study 8E | IJSCCN scope rejection; next venue not locked | Live venue-fit audit with no scientific rerun |
