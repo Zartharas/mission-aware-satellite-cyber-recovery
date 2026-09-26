@@ -96,3 +96,12 @@ review-evidence/
 # These directories may contain author contact details, photographs, and final upload-ready documents.
 publication/Paper_4_Study_8/IJSCCN/_local_private/
 publication/Paper_4_Study_8/IJSCCN/_local_submission/
+
+
+# Paper 2 extension local materialization and pre-runtime workspaces
+study3x/local_source/
+study3x/local_freeze_work/
+study6x/external/
+study6x/workspace/
+study6x/build/
+study6x/.research_keys/
