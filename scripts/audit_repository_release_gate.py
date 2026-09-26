@@ -33,7 +33,8 @@ REVIEW_V3_REL = Path("scripts/audit_repository_review_v3_remediation.py")
 PAPER2_PHASE1_REL = Path("scripts/audit_paper2_post_rejection_phase1.py")
 PAPER2_PHASE2_REL = Path("scripts/audit_paper2_post_rejection_phase2_design.py")
 PAPER2_PHASE3_REL = Path("scripts/audit_paper2_post_rejection_phase3_preexecution.py")
-PAPER2_PHASE4_REL = Path("scripts/audit_paper2_post_rejection_phase4_local_validation.py")\nPAPER2_PHASE5_REL = Path("scripts/audit_paper2_post_rejection_phase5_cadence_sensitivity.py")
+PAPER2_PHASE4_REL = Path("scripts/audit_paper2_post_rejection_phase4_local_validation.py")
+PAPER2_PHASE5_REL = Path("scripts/audit_paper2_post_rejection_phase5_cadence_sensitivity.py")
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
