@@ -11,7 +11,7 @@ The repository now contains four submitted publication lines:
 3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07; manuscript `TAES-2026-4182` was rejected at editorial pre-screening on 2026-09-26 without external peer review.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; rejected by handling-editor editorial assessment on 2026-09-22.
 
-Paper 1 remains frozen pending journal action. Paper 2's rejected R10 package and Studies 3/4/6 remain frozen; only a separate Phase-1 post-rejection design/formal-analysis workspace is authorized. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
+Paper 1 remains frozen pending journal action. Paper 2's rejected R10 package and Studies 3/4/6 remain frozen. Paper 2 has progressed to a separate Phase-3 pre-execution workstream: S3X local source verification/source freeze and S6X implementation/static validation are authorized, but no new scientific execution is authorized. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
 
 This is a journal/research publication workflow, not a dissertation-revision workflow.
 
@@ -65,12 +65,14 @@ The next Paper 4 gate is a fresh venue-fit audit plus optional review of Wiley T
 - State: `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`
 - Authority: `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_PACKAGE_STATUS.json`
 - Decision record: `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_EDITORIAL_DECISION_2026-09-26.md`
-- Rebuild state: `PHASE1_AUTHORIZED__DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION`
+- Rebuild state: `PHASE3_PREEXECUTION__S3X_SOURCE_VERIFICATION_AND_S6X_STATIC_IMPLEMENTATION__NO_SCIENTIFIC_EXECUTION`
 - Rebuild workspace: `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`
+- S3X workspace: `study3x/`
+- S6X workspace: `study6x/`
 
 Paper 2 retains Studies 3, 4, and 6 as three immutable, unpooled frozen populations. The rejection does not authorize rerunning them.
 
-Phase 1 derives the Study-4 threshold formulas, Study-6 observational-equivalence result, and Study-3 freshness/semantic-truth distinction from existing frozen artifacts; it also drafts separate S3X/S4X/S6X validation protocols. No new extension is authorized for implementation or execution.
+Phase 1 derived the Study-4 threshold formulas, Study-6 observational-equivalence result, and Study-3 freshness/semantic-truth distinction from existing frozen artifacts. Phase 2 completed source/invariant design. Phase 3 now authorizes only local S3X source verification/source identity freeze and S6X implementation/static pre-runtime validation. S4X remains on hold. No build-backed or recovery-policy scientific execution is authorized.
 
 ### Paper 3 - Study 7
 
