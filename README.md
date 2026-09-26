@@ -21,7 +21,7 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded; Paper 2 is now in a controlled Phase-1 post-rejection rebuild/design audit. Papers 3 and 4 have editorial rejections recorded; Paper 3 has entered a controlled post-rejection research-requirements phase, while its rejected CEAS package and frozen Study 7 remain immutable provenance:
+The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2 is in a controlled Phase-1 post-rejection rebuild/design audit; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
@@ -64,7 +64,9 @@ Manuscript ID: `AA-D-26-02872`.
 
 `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
 
-Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.\n\nTAES manuscript ID: `TAES-2026-4182`. Decision: editorial pre-screen rejection on 2026-09-26, no external peer review. The R10 package and Studies 3/4/6 remain frozen; post-rejection work is isolated under `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
+Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
+
+TAES manuscript ID: `TAES-2026-4182`. Decision: editorial pre-screen rejection on 2026-09-26, no external peer review. The R10 package and Studies 3/4/6 remain frozen; post-rejection work is isolated under `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
 
 ### Paper 3 - Study 7
 
