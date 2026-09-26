@@ -4,7 +4,7 @@
 Historical Study-8 technical-close, source-publication freeze, and Acta
 package-freeze artifacts retain their stage-local wording. This checker binds
 those frozen records and submitted publisher bytes while validating the live
-2026-09-19 repository publication state.
+2026-09-26 repository publication state.
 
 The checker never executes scientific analysis and never modifies frozen
 evidence, statistics, or publisher-facing files.
@@ -41,7 +41,8 @@ ACTA_PACKAGE_FREEZE_ID = "S8-ACTA-PKGFREEZE-002"
 ACTA_SUBMITTED_PACKAGE_COMMIT = "f5e9a1d4553737e534821bf647463abfd44fa0dd"
 
 PAPER1_ID = "2026-09-I012066"
-PAPER2_ID = "cd1dfa89-4a24-4451-bdd4-af31ce3367f4"\nPAPER2_TAES_ID = "TAES-2026-4182"
+PAPER2_ID = "cd1dfa89-4a24-4451-bdd4-af31ce3367f4"
+PAPER2_TAES_ID = "TAES-2026-4182"
 PAPER3_ID = "6db04a31-8223-4aaf-af02-e4bafe06ef89"
 
 EXPECTED_SUBMITTED_FILES = {
@@ -61,6 +62,7 @@ CURRENT_DOCS = {
             ACTA_CURRENT_NORMALIZED_STATUS,
             PAPER1_ID,
             PAPER2_ID,
+            PAPER2_TAES_ID,
             PAPER3_ID,
             "post-rejection Study 8 gate",
             "POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md",
@@ -73,7 +75,7 @@ CURRENT_DOCS = {
     },
     "docs/PUBLICATION_PHASE_MAP.md": {
         "required": (
-            "**Current-state reference:** 2026-09-22",
+            "**Current-state reference:** 2026-09-26",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
             PAPER2_ID,
