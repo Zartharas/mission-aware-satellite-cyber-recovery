@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CORE_REL = Path("scripts/audit_repository_release_gate_core.py")
 S8_CURRENT_REL = Path("scripts/audit_study8_publication_current_state.py")
 REVIEW_V3_REL = Path("scripts/audit_repository_review_v3_remediation.py")
+PAPER2_PHASE1_REL = Path("scripts/audit_paper2_post_rejection_phase1.py")
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
@@ -266,6 +267,8 @@ def main() -> int:
                 if run_gate(audit_root, S8_CURRENT_REL, "study8_publication_current_state") != 0:
                     return 1
                 if run_gate(audit_root, REVIEW_V3_REL, "repository_review_v3_remediation") != 0:
+                    return 1
+                if run_gate(audit_root, PAPER2_PHASE1_REL, "paper2_post_rejection_phase1") != 0:
                     return 1
                 print("release_gate_wrapper=PASS")
                 return 0
