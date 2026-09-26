@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "authorization_date": "2026-09-26",
+  "authorization_basis": "Author explicitly authorized the S6X implementation workspace and pre-runtime validation after PR #173 CI completed successfully.",
+  "predecessor": {
+    "pull_request": 173,
+    "merge_commit": "a2b6f2e02c4075d2e9cd1976888dae38464a11c1",
+    "post_merge_ci": {
+      "workflow": "Validate research configurations",
+      "run_id": 36268665292,
+      "run_number": 1209,
+      "conclusion": "success"
+    }
+  },
+  "permissions": {
+    "implementation_workspace_authorized": true,
+    "static_source_pin_validation_authorized": true,
+    "independent_oracle_implementation_authorized": true,
+    "fixture_patch_materialization_authorized": true,
+    "patch_dry_run_authorized": true,
+    "upstream_source_checkout_allowed_for_validation": true,
+    "build_authorized": false,
+    "fixture_application_to_build_authorized": false,
+    "artifact_signing_authorized": false,
+    "provenance_observation_generation_authorized": false,
+    "independent_rebuild_authorized": false,
+    "scientific_execution_authorized": false,
+    "canonical_results_authorized": false
+  },
+  "current_state": "PRE_RUNTIME_IMPLEMENTATION_AUTHORIZED__NO_BUILD__NO_EXECUTION"
+}
