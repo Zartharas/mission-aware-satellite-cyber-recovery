@@ -36,6 +36,19 @@ The Mission-1 archive contains:
 
 The archive preview establishes structure and member sizes. It does not expose the complete content of every channel archive through the repository workflow used for this inspection.
 
+## Mission-2 archive structure established from the Zenodo v2 preview
+
+The Mission-2 archive contains:
+
+- `anomaly_types.csv`
+- `channels.csv`
+- `events.csv`
+- `labels.csv`
+- `channels/` with **100** per-channel ZIP files
+- `telecommands/` with per-telecommand ZIP files
+
+The additional `events.csv` member is source metadata present in Mission 2. S3X does not assign it any experimental role at this stage.
+
 ## Consumer schema established from the official ESA-ADB preprocessing code
 
 The official `kplabs-pl/ESA-ADB` preprocessing code reads the source as follows.
