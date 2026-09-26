@@ -44,6 +44,19 @@ def require_clean_git(path: Path, label: str) -> None:
         raise SystemExit(f"{label} checkout is not clean:\n{dirty}")
 
 
+def extract_unique_region(source: str, start_marker: str, next_marker: str) -> str:
+    if source.count(start_marker) != 1:
+        raise SystemExit(f"expected exactly one start marker: {start_marker}")
+    if source.count(next_marker) != 1:
+        raise SystemExit(f"expected exactly one next marker: {next_marker}")
+
+    start = source.index(start_marker)
+    end = source.index(next_marker)
+    if end <= start:
+        raise SystemExit("source function ordering is invalid")
+    return source[start:end]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("cfs_checkout", type=Path)
@@ -82,12 +95,17 @@ def main() -> int:
             )
 
     source = (lc / "fsw/src/lc_watch.c").read_text(encoding="utf-8")
+    signed_source = extract_unique_region(
+        source,
+        "uint8 LC_SignedCompare(",
+        "uint8 LC_UnsignedCompare(",
+    )
     baseline = "EvalResult = (WPValue > CompareValue) ? LC_WATCH_TRUE : LC_WATCH_FALSE;"
     ge = "EvalResult = (WPValue >= CompareValue) ? LC_WATCH_TRUE : LC_WATCH_FALSE;"
-    if source.count(baseline) != 1:
-        raise SystemExit("baseline GT expression count is not exactly one")
-    if source.count(ge) < 1:
-        raise SystemExit("expected GE expression not found")
+    if signed_source.count(baseline) != 1:
+        raise SystemExit("signed baseline GT expression count is not exactly one")
+    if signed_source.count(ge) != 1:
+        raise SystemExit("signed GE expression count is not exactly one")
 
     tests = (lc / "unit-test/lc_watch_tests.c").read_text(encoding="utf-8")
     for test_name in ("LC_SignedCompare_Test_GT", "LC_SignedCompare_Test_GE"):
