@@ -2,7 +2,9 @@
 
 **Current-state reference:** 2026-09-26
 
-**Paper 4 IJSCCN decision overlay:** 2026-09-24\n\n**Paper 2 TAES decision overlay:** 2026-09-26
+**Paper 4 IJSCCN decision overlay:** 2026-09-24
+
+**Paper 2 TAES decision overlay:** 2026-09-26
 
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
@@ -199,7 +201,8 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
 | 2 | Paper 4 | Study 8 + Study 8E | IJSCCN `4920969`, rejected 2026-09-24 as out of scope | Fresh venue-fit audit; review Transfer Desk suggestions only as candidates |
 | 3 | Paper 2 | Studies 3 + 4 + 6 | TAES `TAES-2026-4182`, rejected at editorial pre-screening 2026-09-26 | Preserve R10; Phase-1 rebuild/design audit |
-| 3R | Paper 2 rebuild | Studies 3 + 4 + 6 + separately proposed extensions | Phase-1 design/formal analysis only | Review derivations and S3X/S4X/S6X draft protocols; no execution |\n| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
+| 3R | Paper 2 rebuild | Studies 3 + 4 + 6 + separately proposed extensions | Phase-1 design/formal analysis only | Review derivations and S3X/S4X/S6X draft protocols; no execution |
+| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
 | 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
 | 5 | Paper 4 retarget | Study 8 + Study 8E | IJSCCN scope rejection; next venue not locked | Live venue-fit audit with no scientific rerun |
 | 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |
