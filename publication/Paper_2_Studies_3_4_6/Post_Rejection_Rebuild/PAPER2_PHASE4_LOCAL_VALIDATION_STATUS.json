@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE4_LOCAL_VALIDATION",
+  "status": "AUTHORIZED_LOCAL_VALIDATION_TOOLING_PREPARED__AWAITING_USER_MACHINE_EXECUTION",
+  "authorization_date": "2026-09-26",
+  "branch": "paper2/post-rejection-phase4-local-validation",
+  "branch_base_commit": "a46960b3aa56e9a51c4bf917dbe34e93dffb16e9",
+  "predecessor": {
+    "pull_request": 174,
+    "merge_commit": "a46960b3aa56e9a51c4bf917dbe34e93dffb16e9",
+    "post_merge_ci": {
+      "workflow": "Validate research configurations",
+      "run_id": 36270742611,
+      "run_number": 1212,
+      "conclusion": "success"
+    }
+  },
+  "s3x": {
+    "acquisition_runner": "study3x/validation/acquire_verify_freeze_esa_v2.sh",
+    "source_verification_authorized": true,
+    "source_identity_freeze_authorized": true,
+    "source_identity_freeze_completed": false,
+    "gap_rule_freeze_authorized": false,
+    "trace_extraction_authorized": false,
+    "recovery_policy_execution_authorized": false,
+    "scientific_execution_authorized": false
+  },
+  "s6x": {
+    "materialization_runner": "study6x/validation/materialize_validate_cfs_v701.sh",
+    "local_checkout_validation_authorized": true,
+    "invariant_oracle_validation_authorized": true,
+    "fixture_patch_dry_run_authorized": true,
+    "build_authorized": false,
+    "fixture_application_authorized": false,
+    "signing_authorized": false,
+    "scientific_execution_authorized": false
+  },
+  "next_required_local_evidence": [
+    "study3x/local_freeze_work/S3X_SOURCE_FREEZE_001.json",
+    "study3x/local_freeze_work/ESA-Mission1.schema.json",
+    "study3x/local_freeze_work/ESA-Mission2.schema.json",
+    "study6x/workspace/S6X_PRE_RUNTIME_VALIDATION_001.json"
+  ],
+  "next_gate": "AUTHOR_REVIEW_OF_LOCAL_VALIDATION_OUTPUTS_BEFORE_S3X_GAP_RULE_FREEZE_OR_ANY_S6X_BUILD"
+}
