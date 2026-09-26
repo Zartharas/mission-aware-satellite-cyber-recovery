@@ -151,7 +151,7 @@ extract_if_needed "$DOWNLOADS/$M2_NAME" "$M2_EXTRACT" "ESA-Mission2"
 M1_DIR="$(resolve_mission_dir "$M1_EXTRACT" "ESA-Mission1")"
 M2_DIR="$(resolve_mission_dir "$M2_EXTRACT" "ESA-Mission2")"
 
-"$REPO_ROOT/study3x/validation/run_local_source_freeze.sh" \
+/bin/bash "$REPO_ROOT/study3x/validation/run_local_source_freeze.sh" \
   "$DOWNLOADS/$M1_NAME" "$M1_DIR" \
   "$DOWNLOADS/$M2_NAME" "$M2_DIR" \
   "$OUT"
