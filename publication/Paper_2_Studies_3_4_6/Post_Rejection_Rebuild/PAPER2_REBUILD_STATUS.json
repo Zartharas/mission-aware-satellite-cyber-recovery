@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE1",
+  "status": "PHASE1_AUTHORIZED__DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION",
+  "authorization_date": "2026-09-26",
+  "branch": "paper2/post-rejection-rebuild",
+  "branch_base_commit": "972a273f699cc1df39597f358e0fdb5369de342a",
+  "taes": {
+    "manuscript_id": "TAES-2026-4182",
+    "submission_date": "2026-09-07",
+    "decision_date": "2026-09-26",
+    "decision_type": "EDITORIAL_PRESCREEN_REJECTION",
+    "external_peer_review": false,
+    "submitted_revision": "R10",
+    "submitted_package_frozen": true
+  },
+  "frozen_foundation": [
+    {
+      "study": 3,
+      "experiment_id": "S3-K4E-001",
+      "population": 1380,
+      "mutable": false
+    },
+    {
+      "study": 4,
+      "experiment_id": "S4-MPQ-001",
+      "population": 4608,
+      "mutable": false
+    },
+    {
+      "study": 6,
+      "experiment_id": "S6-SCTR-001",
+      "population": 420,
+      "mutable": false
+    }
+  ],
+  "phase1": {
+    "manuscript_rewrite_authorized": false,
+    "new_venue_lock_authorized": false,
+    "new_extension_implementation_authorized": false,
+    "new_extension_execution_authorized": false,
+    "formal_analysis_of_frozen_results_authorized": true,
+    "protocol_drafting_authorized": true
+  },
+  "candidate_extensions": [
+    {
+      "experiment_id": "S3X-ETA-001",
+      "priority": "HIGH",
+      "state": "PROTOCOL_DRAFT__EXECUTION_NOT_AUTHORIZED"
+    },
+    {
+      "experiment_id": "S4X-JCU-001",
+      "priority": "OPTIONAL_HOLD",
+      "state": "PROTOCOL_DRAFT__EXECUTION_NOT_AUTHORIZED"
+    },
+    {
+      "experiment_id": "S6X-EAP-001",
+      "priority": "HIGH",
+      "state": "PROTOCOL_DRAFT__EXECUTION_NOT_AUTHORIZED"
+    }
+  ],
+  "nonoverlap": {
+    "excluded_as_new_paper2_evidence": [
+      "Study 1",
+      "Study 2",
+      "Study 5",
+      "Study 7",
+      "Study 7E",
+      "Study 8",
+      "Study 8E",
+      "Study 9"
+    ],
+    "pooling_allowed": false
+  },
+  "next_gate": "AUTHOR_REVIEW_OF_PHASE1_DERIVATIONS_AND_EXTENSION_PROTOCOLS"
+}
