@@ -6,7 +6,7 @@
   "manuscript_type": "Regular Paper",
   "primary_technical_area": "Aerospace Information Systems",
   "venue_lock_date": "2026-09-06",
-  "status": "R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING",
+  "status": "REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW",
   "submission_authorized": true,
   "explicit_final_author_submission_authorization": true,
   "explicit_final_author_submission_authorization_date": "2026-09-06",
@@ -14,7 +14,7 @@
   "effective_portal_submission_authorization": true,
   "effective_portal_submission_blockers": [],
   "portal_submission_completed": true,
-  "manuscript_id": null,
+  "manuscript_id": "TAES-2026-4182",
   "canonical_storage_rule": "ONE_CANONICAL_COPY_IN_REPOSITORY_PUBLICATION_FOLDER_ONLY",
   "canonical_directory": "publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/",
   "downloads_mirror_allowed": false,
@@ -178,7 +178,12 @@
     "Research Exchange submission UUID: cd1dfa89-4a24-4451-bdd4-af31ce3367f4.",
     "The formal TAES manuscript ID was not yet shown in the captured post-submission portal state.",
     "R10 is the immutable initial-submission baseline; later editorial revisions must be versioned separately.",
-    "The paper2/taes-10-page-compression branch is an unsubmitted superseded historical packaging alternative and is not the reviewer-facing initial submission."
+    "The paper2/taes-10-page-compression branch is an unsubmitted superseded historical packaging alternative and is not the reviewer-facing initial submission.",
+    "TAES assigned formal manuscript ID TAES-2026-4182.",
+    "TAES issued an immediate editorial pre-screen rejection on 2026-09-26; the manuscript did not enter external peer review.",
+    "The R10 submitted package remains immutable provenance.",
+    "Studies 3, 4, and 6 remain frozen and unchanged.",
+    "Post-rejection Phase 1 permits formal/read-only analysis and prospective protocol design only; no new extension execution is authorized."
   ],
   "submission_date": "2026-09-07",
   "submission_platform": "IEEE Author Portal / Research Exchange (Atypon ReX)",
@@ -193,5 +198,21 @@
     "portal_wrapper_pages": 2,
     "manuscript_pages": 16
   },
-  "initial_submission_record_sha256": "3a23567db6c68d4e7541b9d7cfa65acda6f6c4e0f980ca67d7b06c669d7b346d"
+  "initial_submission_record_sha256": "3a23567db6c68d4e7541b9d7cfa65acda6f6c4e0f980ca67d7b06c669d7b346d",
+  "decision_date": "2026-09-26",
+  "decision_type": "EDITORIAL_PRESCREEN_REJECTION",
+  "external_peer_review": false,
+  "submitted_revision": "R10",
+  "submitted_package_frozen": true,
+  "science_status": "STUDIES_3_4_6_FROZEN_UNCHANGED",
+  "decision_record": "TAES_EDITORIAL_DECISION_2026-09-26.md",
+  "post_rejection_rebuild": {
+    "branch": "paper2/post-rejection-rebuild",
+    "phase": "PHASE1",
+    "status": "DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION",
+    "workspace": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/",
+    "manuscript_rewrite_authorized": false,
+    "extension_execution_authorized": false,
+    "venue_lock_authorized": false
+  }
 }
