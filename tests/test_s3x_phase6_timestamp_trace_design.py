@@ -141,13 +141,32 @@ class Phase6TimestampTraceDesignTests(unittest.TestCase):
         self.assertFalse(protocol["gates"]["recovery_policy_execution_performed"])
         self.assertFalse(protocol["gates"]["scientific_results_generated"])
 
-    def test_no_runtime_authorization_record_is_committed_in_phase6a(self):
+    def test_runtime_authorization_record_requires_explicit_later_phase(self):
         records = list(
             (ROOT / "study3x/config").glob(
                 "S3X_PHASE6_TIMESTAMP_EXTRACTION_AUTH_*.json"
             )
         )
-        self.assertEqual(records, [])
+        self.assertLessEqual(len(records), 1)
+        if records:
+            self.assertEqual(
+                records[0].name,
+                "S3X_PHASE6_TIMESTAMP_EXTRACTION_AUTH_001.json",
+            )
+            self.assertTrue(
+                (
+                    ROOT
+                    / "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild"
+                    / "PAPER2_PHASE6B_TIMESTAMP_EXTRACTION_AUTHORIZATION_STATUS.json"
+                ).is_file()
+            )
+            self.assertTrue(
+                (
+                    ROOT
+                    / "scripts"
+                    / "audit_paper2_post_rejection_phase6b_timestamp_extraction_authorization.py"
+                ).is_file()
+            )
 
 
 if __name__ == "__main__":
