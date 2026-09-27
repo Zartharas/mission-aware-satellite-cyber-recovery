@@ -221,6 +221,8 @@ Generated real-data outputs remain under the already ignored local tree:
 
 `study3x/local_freeze_work/phase6/`
 
+The local runner resolves the requested output path and refuses any path outside `study3x/local_freeze_work/`. It also refuses a non-empty output directory. The extractor independently refuses a non-empty output directory before writing canonical candidate artifacts.
+
 Planned files are:
 
 - `S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv`
