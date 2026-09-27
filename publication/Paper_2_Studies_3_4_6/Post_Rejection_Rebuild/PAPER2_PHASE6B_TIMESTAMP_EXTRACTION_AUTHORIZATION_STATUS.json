@@ -3,7 +3,7 @@
   "paper_id": "PAPER2_STUDIES_3_4_6",
   "experiment_id": "S3X-ETA-001",
   "phase": "POST_REJECTION_REBUILD_PHASE6B_TIMESTAMP_EXTRACTION_AUTHORIZATION",
-  "status": "AUTHORIZATION_RECORD_PREPARED__NOT_MERGED__NO_EXTRACTION_PERFORMED",
+  "status": "AUTHORIZATION_RECORD_PREPARED__NO_EXTRACTION_PERFORMED",
   "authorization_date": "2026-09-27",
   "branch": "paper2/post-rejection-phase6b-timestamp-extraction-authorization",
   "branch_base_commit": "92534c45c85ee36c148acfe92dce1ec61ad49c24",
@@ -19,8 +19,8 @@
     "path": "study3x/config/S3X_PHASE6_TIMESTAMP_EXTRACTION_AUTH_001.json",
     "authorization_id": "S3X-PHASE6-TIMESTAMP-EXTRACTION-AUTH-001",
     "prepared": true,
-    "merged_to_main": false,
-    "effective_for_runner": false
+    "creation_state": "PREPARED_ON_FEATURE_BRANCH",
+    "effective_runner_condition": "tracked and unmodified on clean main"
   },
   "authorized_scope_after_record_merge": {
     "candidate_timestamp_extraction": true,
