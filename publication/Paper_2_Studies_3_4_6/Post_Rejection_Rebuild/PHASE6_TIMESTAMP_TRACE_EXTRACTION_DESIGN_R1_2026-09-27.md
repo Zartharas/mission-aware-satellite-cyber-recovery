@@ -200,6 +200,21 @@ A later authorized real-source execution must fail unless it independently repro
 
 A mismatch is a stop condition. The implementation must never change the multiplier, quantile method, comparison operator, channel population, or source selection to force the count back to 1,919.
 
+## Deterministic repeatability gate
+
+A later authorized Phase-6 execution is not complete after a single successful extraction.
+
+The exact frozen source, merged protocol, tracked authorization record, extractor, and independent validator must be run into two separate clean local output directories. SHA-256 values must match for all four canonical candidate artifacts:
+
+- `S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv`
+- `S3X_P99_X10_TIMESTAMP_INTERVALS_SUMMARY_001.json`
+- `S3X_P99_X10_TIMESTAMP_INTERVALS_MANIFEST_001.json`
+- `S3X_P99_X10_TIMESTAMP_INTERVALS_VALIDATION_001.json`
+
+Canonical outputs may not contain wall-clock timestamps, hostnames, usernames, temporary paths, or other execution-specific metadata that would defeat byte-for-byte reproducibility.
+
+A repeatability mismatch is a stop condition and must be investigated before any trace-population freeze review.
+
 ## Candidate local outputs
 
 Generated real-data outputs remain under the already ignored local tree:
