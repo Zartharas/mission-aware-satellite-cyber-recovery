@@ -56,8 +56,12 @@ class Phase6BRuntimeAuthorizationTests(unittest.TestCase):
         auth = json.loads(AUTH.read_text(encoding="utf-8"))
         effectivity = auth["effectivity"]
         self.assertTrue(effectivity["record_effective_only_when_tracked_on_main"])
-        self.assertTrue(effectivity["record_currently_prepared_on_feature_branch"])
+        self.assertEqual(effectivity["creation_state"], "PREPARED_ON_FEATURE_BRANCH")
         self.assertTrue(effectivity["record_merge_requires_separate_author_review"])
+        self.assertEqual(
+            effectivity["effective_runner_condition"],
+            "record is tracked and unmodified on clean main",
+        )
 
 
 if __name__ == "__main__":
