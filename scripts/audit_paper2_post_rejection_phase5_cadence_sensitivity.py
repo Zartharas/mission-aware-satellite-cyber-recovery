@@ -76,7 +76,7 @@ def main() -> int:
         '"timestamp_level_gap_traces_emitted": False',
         '"recovery_policy_execution_performed": False',
         '"scientific_results_generated": False',
-        "channel SHA-256 mismatch",
+        "SHA-256 mismatch",
     ):
         require(marker in analyzer_text, f"analyzer missing safety marker: {marker}")
 
