@@ -214,6 +214,9 @@ def main() -> int:
     require('git branch --show-current' in runner_source, "runner does not require main")
     require('git ls-files --error-unmatch' in runner_source, "runner does not require tracked authorization")
     require('git diff --quiet' in runner_source, "runner does not require clean tracked worktree")
+    require('study3x/local_freeze_work/' in runner_source, "runner does not confine output to ignored local tree")
+    require('output directory must be empty' in runner_source, "runner does not require an empty output directory")
+    require('output directory must be empty before extraction' in extractor_source, "extractor does not refuse stale output directories")
     for marker in (
         "design_merge_verified",
         "design_post_merge_ci_success",
