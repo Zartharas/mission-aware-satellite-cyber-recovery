@@ -200,6 +200,12 @@ def verify_authorization(path: Path, protocol_path: Path) -> dict:
         fail("runtime authorization protocol mismatch")
     if record.get("protocol_sha256") != sha256(protocol_path):
         fail("runtime authorization protocol hash mismatch")
+    if record.get("design_merge_verified") is not True:
+        fail("runtime authorization does not verify the Phase-6 design merge")
+    if record.get("design_post_merge_ci_success") is not True:
+        fail("runtime authorization does not verify successful post-merge CI")
+    if record.get("author_execution_approval_recorded") is not True:
+        fail("runtime authorization does not record author execution approval")
     if record.get("timestamp_level_extraction_authorized") is not True:
         fail("timestamp-level extraction is not authorized")
     if record.get("trace_population_freeze_authorized") is not False:
