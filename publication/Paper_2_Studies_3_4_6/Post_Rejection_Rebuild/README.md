@@ -1,6 +1,6 @@
 # Paper 2 Post-Rejection Rebuild
 
-**Status:** `PHASE5B_AUTHORIZED__P99_X10_PREFREEZE_VALIDATION__NO_GAP_RULE_FREEZE__NO_SCIENTIFIC_EXECUTION`  
+**Status:** `PHASE5C_AUTHORIZED__P99_X10_GAP_RULE_FROZEN__NO_TRACE_EXTRACTION__NO_SCIENTIFIC_EXECUTION`  
 **Authorization date:** 2026-09-26  
 **Branch:** `paper2/post-rejection-rebuild`  
 **Branch base:** `972a273f699cc1df39597f358e0fdb5369de342a`
@@ -213,6 +213,58 @@ Phase-5B status authority:
 
 `PAPER2_PHASE5B_P99X10_PREFREEZE_STATUS.json`
 
-Current gate:
+Historical Phase-5B gate:
 
 `AUTHOR_REVIEW_OF_P99_X10_PRE_FREEZE_VALIDATION_BEFORE_GAP_RULE_FREEZE_OR_TIMESTAMP_TRACE_EXTRACTION`
+
+
+## Phase-5C P99_X10 gap-rule freeze
+
+The author authorized the Phase-5C rule freeze after successful Phase-5B local pre-freeze validation.
+
+Bound pre-freeze validation:
+
+- `S3X_P99_X10_PREFREEZE_VALIDATION_001.json`
+- SHA-256 `cdf9894a6bf1f3dbe9dadb11ec1484b0c540118b05d108d7a38ed33af5930be0`
+- channels: 176
+- aggregate exceedances: 1,919
+- nonzero channels: 171
+- zero-exceedance channels: 5
+- canonical channel projection SHA-256 `f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1`
+
+The frozen rule is:
+
+`P99_X10`
+
+with:
+
+`threshold_seconds = 10 * channel-specific cadence_p99_seconds`
+
+and strict:
+
+`positive inter-sample delta > threshold_seconds`
+
+The freeze is explicitly characterized as a data-informed selection from the already evaluated Phase-5 candidate family. It is not represented as a rule prespecified before cadence inspection.
+
+The machine-readable freeze authority is:
+
+`study3x/config/S3X_GAP_RULE_FREEZE_001.json`
+
+After this freeze, timestamp-level extraction must use this exact rule. Retuning after inspecting extracted timestamps is prohibited unless a new versioned protocol is separately authorized.
+
+Still closed:
+
+- timestamp-level gap-trace extraction;
+- trace-population freeze;
+- recovery-policy execution;
+- S3X scientific execution;
+- manuscript claims based on S3X;
+- venue lock or publisher submission.
+
+Phase-5C status authority:
+
+`PAPER2_PHASE5C_P99X10_GAP_RULE_FREEZE_STATUS.json`
+
+Current gate:
+
+`AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN`
