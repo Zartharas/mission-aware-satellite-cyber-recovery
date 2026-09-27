@@ -65,6 +65,27 @@ for cmd in python3; do
   }
 done
 
+OUT="$(python3 - "$OUT" <<'PY'
+from pathlib import Path
+import sys
+print(Path(sys.argv[1]).expanduser().resolve())
+PY
+)"
+
+case "$OUT" in
+  "$REPO_ROOT"/study3x/local_freeze_work/*)
+    ;;
+  *)
+    echo "ERROR: Phase-6 output must remain under study3x/local_freeze_work/." >&2
+    exit 2
+    ;;
+esac
+
+if [ -e "$OUT" ] && [ -n "$(find "$OUT" -mindepth 1 -maxdepth 1 -print -quit 2>/dev/null)" ]; then
+  echo "ERROR: Phase-6 output directory must be empty before execution: $OUT" >&2
+  exit 2
+fi
+
 python3 - <<'PY'
 try:
     import pandas  # noqa: F401
