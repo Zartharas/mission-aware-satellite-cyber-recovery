@@ -1,8 +1,8 @@
 # Study 3 Extension Workspace — S3X-ETA-001
 
-**State:** `PHASE5A_OUTPUT_SCHEMA_CORRECTION_AUTHORIZED__R1_EVIDENCE_PRESERVED__NO_GAP_RULE__NO_TRACE_EXTRACTION__NO_RECOVERY_EXECUTION`  
+**State:** `PHASE5B_P99_X10_PREFREEZE_VALIDATION_AUTHORIZED__NO_GAP_RULE_FREEZE__NO_TRACE_EXTRACTION__NO_RECOVERY_EXECUTION`  
 **Authorization date:** 2026-09-26  
-**Phase-5A branch base:** `834b13864b86d474c1f69ae2b6b8800a0bab3250`
+**Phase-5B branch base:** `6c8d91b75e7ad994bfb02d041ba46a0eab52b89b`
 
 This workspace exists only for the separately identified Paper-2 extension `S3X-ETA-001`.
 
@@ -95,3 +95,10 @@ R2 output names:
 ## Current gate
 
 `AWAITING_PHASE5A_CI_AND_CORRECTED_LOCAL_R2_RERUN_BEFORE_ANY_GAP_RULE_SELECTION`
+
+
+## Phase-5B pre-freeze validation
+
+The corrected R2 evidence is now bound in `PAPER2_PHASE5B_P99X10_PREFREEZE_STATUS.json`. `P99_X10` advances only to pre-freeze validation and remains unselected and unfrozen. The validator checks the 176 channel-level rows, the 1,919 aggregate exceedances, the exact five zero-exceedance channels, the channel-specific P99 multiplier, strict exceedance semantics, and the canonical channel projection digest. It consumes only the R2 aggregate artifacts and does not read source telemetry or emit timestamp-level intervals.
+
+Current gate: `AUTHOR_REVIEW_OF_P99_X10_PRE_FREEZE_VALIDATION_BEFORE_GAP_RULE_FREEZE_OR_TIMESTAMP_TRACE_EXTRACTION`.
