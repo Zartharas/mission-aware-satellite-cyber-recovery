@@ -253,3 +253,16 @@ At the start of the next chat:
 5. do not change P99_X10 unless a separately authorized versioned change protocol is created;
 6. proceed incrementally with explicit author authorization at each execution/freeze gate;
 7. keep all generated large ESA artifacts local/ignored unless a specific repository-safe aggregate record is intentionally committed.
+
+
+## Repository handoff closeout
+
+The Phase-5C closeout and this handoff were finalized through PR `#181`.
+
+- PR `#181` merge commit: `5f16ecdc3f2db3defb601aa0afff2665502ddf3c`
+- post-merge validation run id: `36300650883`
+- post-merge validation run number: `1229`
+- conclusion: `success`
+- repository `main` at handoff closeout: `5f16ecdc3f2db3defb601aa0afff2665502ddf3c`
+
+A later chat must still inspect live `main` before acting, because unrelated study streams may advance the repository after this handoff.
