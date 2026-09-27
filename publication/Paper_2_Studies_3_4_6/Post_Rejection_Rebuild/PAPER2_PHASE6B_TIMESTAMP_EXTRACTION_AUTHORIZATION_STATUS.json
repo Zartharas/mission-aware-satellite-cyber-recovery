@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "POST_REJECTION_REBUILD_PHASE6B_TIMESTAMP_EXTRACTION_AUTHORIZATION",
+  "status": "AUTHORIZATION_RECORD_PREPARED__NOT_MERGED__NO_EXTRACTION_PERFORMED",
+  "authorization_date": "2026-09-27",
+  "branch": "paper2/post-rejection-phase6b-timestamp-extraction-authorization",
+  "branch_base_commit": "92534c45c85ee36c148acfe92dce1ec61ad49c24",
+  "design_dependency": {
+    "design_pr": 186,
+    "design_merge_commit": "92534c45c85ee36c148acfe92dce1ec61ad49c24",
+    "design_post_merge_ci_run_number": 1244,
+    "design_post_merge_ci_run_id": 36334882085,
+    "design_post_merge_ci_conclusion": "success",
+    "protocol_sha256": "f6957393a864090d484e29f16067807bf52cacf0688fc48af32164ef9f7eb5a4"
+  },
+  "authorization_record": {
+    "path": "study3x/config/S3X_PHASE6_TIMESTAMP_EXTRACTION_AUTH_001.json",
+    "authorization_id": "S3X-PHASE6-TIMESTAMP-EXTRACTION-AUTH-001",
+    "prepared": true,
+    "merged_to_main": false,
+    "effective_for_runner": false
+  },
+  "authorized_scope_after_record_merge": {
+    "candidate_timestamp_extraction": true,
+    "independent_validation": true,
+    "deterministic_repeat_execution": true
+  },
+  "prohibited": {
+    "trace_population_freeze": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "manuscript_claim_use": true,
+    "gap_rule_retuning": true,
+    "frozen_study_modification": true
+  },
+  "execution_state": {
+    "timestamp_level_extraction_performed": false,
+    "deterministic_repeat_execution_performed": false,
+    "independent_validation_performed": false,
+    "trace_population_frozen": false,
+    "recovery_policy_execution_performed": false,
+    "scientific_results_generated": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE6B_AUTHORIZATION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
