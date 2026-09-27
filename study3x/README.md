@@ -127,3 +127,16 @@ Phase 5C does not authorize timestamp-level trace extraction, trace-population f
 ## Phase-5C current gate
 
 `AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN`
+
+
+## Phase 5C completion provenance
+
+- PR `#180` merged successfully.
+- Merge commit: `ac5b2e1cedafbcc2c15da41f5c0b254256850afc`.
+- Pre-merge CI: run `36298410362` / `1226` / success.
+- Post-merge CI: run `36299292647` / `1227` / success.
+- Frozen rule: `P99_X10`.
+- Timestamp-level trace extraction has not begun.
+- Recovery-policy execution and scientific execution remain closed.
+
+Next gate: `AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN`.

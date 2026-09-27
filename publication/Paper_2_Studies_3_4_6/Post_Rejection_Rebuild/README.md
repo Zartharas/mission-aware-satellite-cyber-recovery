@@ -268,3 +268,12 @@ Phase-5C status authority:
 Current gate:
 
 `AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN`
+
+
+Phase 5C completion:
+
+- PR `#180` merged at `ac5b2e1cedafbcc2c15da41f5c0b254256850afc`;
+- pre-merge CI run `36298410362` / `1226` succeeded;
+- post-merge CI run `36299292647` / `1227` succeeded;
+- `P99_X10` is now the active frozen S3X gap rule;
+- timestamp-level trace extraction remains unexecuted and requires a separately authorized Phase-6 design.
