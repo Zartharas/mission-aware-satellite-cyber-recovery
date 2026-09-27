@@ -297,7 +297,7 @@ def extract_channel(
     mission: str,
     channel_record: dict,
     mission_dir: Path,
-) -> tuple[list[dict], float]:
+) -> tuple[list[dict], float, int]:
     try:
         import pandas as pd
     except Exception as exc:
@@ -372,28 +372,38 @@ def extract_channel(
             ),
         }
         rows.append(row)
-    return rows, p99
+    return rows, p99, len(positive_seconds)
+
+
+PROJECTION_COLUMNS = (
+    "mission",
+    "channel_file",
+    "channel_sha256",
+    "positive_delta_count",
+    "cadence_p99_seconds",
+    "threshold_seconds",
+    "exceedance_count",
+)
 
 
 def channel_projection_sha256(channel_counts: list[dict]) -> str:
-    lines = []
-    for row in sorted(
+    selected = sorted(
         channel_counts,
-        key=lambda item: (
-            MISSIONS.index(item["mission"]),
-            channel_number(item["channel_file"]),
-        ),
-    ):
+        key=lambda row: (row["mission"], row["channel_file"]),
+    )
+    lines = [",".join(PROJECTION_COLUMNS)]
+    for row in selected:
         lines.append(
-            "|".join(
-                [
+            ",".join(
+                (
                     row["mission"],
                     row["channel_file"],
                     row["channel_sha256"],
+                    str(int(row["positive_delta_count"])),
                     format(float(row["cadence_p99_seconds"]), ".17g"),
                     format(float(row["threshold_seconds"]), ".17g"),
                     str(int(row["interval_count"])),
-                ]
+                )
             )
         )
     payload = ("\n".join(lines) + "\n").encode("utf-8")
@@ -450,7 +460,7 @@ def main() -> int:
             key=lambda item: channel_number(item["file"]),
         )
         for channel_record in ordered_channels:
-            rows, p99 = extract_channel(
+            rows, p99, positive_count = extract_channel(
                 mission,
                 channel_record,
                 mission_dirs[mission],
@@ -461,6 +471,7 @@ def main() -> int:
                     "mission": mission,
                     "channel_file": channel_record["file"],
                     "channel_sha256": channel_record["sha256"],
+                    "positive_delta_count": positive_count,
                     "cadence_p99_seconds": p99,
                     "threshold_seconds": p99 * MULTIPLIER,
                     "interval_count": len(rows),
