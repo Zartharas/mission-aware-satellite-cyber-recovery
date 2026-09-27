@@ -26,7 +26,7 @@ if [ ! -d "$M1_ROOT" ] || [ ! -d "$M2_ROOT" ]; then
   exit 1
 fi
 
-echo "===== S3X READ-ONLY CADENCE/GAP SENSITIVITY R2 ====="
+echo "===== S3X READ-ONLY CADENCE/GAP SENSITIVITY ====="
 echo "gap_rule_selection=NO"
 echo "trace_extraction=NO"
 echo "recovery_policy_execution=NO"
@@ -41,12 +41,12 @@ python3 "$REPO_ROOT/study3x/validation/analyze_cadence_gap_sensitivity.py" \
 echo
 echo "===== OUTPUT HASHES ====="
 shasum -a 256 \
-  "$OUT/S3X_GAP_SENSITIVITY_002.csv" \
-  "$OUT/S3X_DELTA_FREQUENCIES_002.csv" \
-  "$OUT/S3X_GAP_SENSITIVITY_SUMMARY_002.json"
+  "$OUT/S3X_GAP_SENSITIVITY_001.csv" \
+  "$OUT/S3X_DELTA_FREQUENCIES_001.csv" \
+  "$OUT/S3X_GAP_SENSITIVITY_SUMMARY_001.json"
 
 echo
-echo "S3X_LOCAL_GAP_SENSITIVITY_WORKFLOW_R2=PASS"
+echo "S3X_LOCAL_GAP_SENSITIVITY_WORKFLOW=PASS"
 echo "gap_rule_selection=NO"
 echo "gap_rule_frozen=NO"
 echo "trace_extraction=NO"
