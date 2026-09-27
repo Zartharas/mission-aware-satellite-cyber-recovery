@@ -156,6 +156,10 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def output_file_record(path: Path) -> dict[str, str]:
+    return {"file": path.name, "sha256": sha256(path)}
+
+
 def validate_freeze(freeze_path: Path) -> dict:
     freeze = load_json(freeze_path)
     if freeze.get("freeze_id") != FREEZE_ID:
@@ -494,14 +498,8 @@ def main() -> int:
             "legacy_metric_name_collision_present": False,
         },
         "output_files": {
-            "sensitivity_csv": {
-                "file": sensitivity_path.name,
-                "sha256": sha256(sensitivity_path),
-            },
-            "delta_frequency_csv": {
-                "file": frequency_path.name,
-                "sha256": sha256(frequency_path),
-            },
+            "sensitivity_csv": output_file_record(sensitivity_path),
+            "delta_frequency_csv": output_file_record(frequency_path),
         },
         "gap_rule_selected": False,
         "gap_rule_frozen": False,
