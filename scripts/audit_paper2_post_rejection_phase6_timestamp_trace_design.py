@@ -190,7 +190,20 @@ def main() -> int:
     authorization_records = list(
         (S3X / "config").glob("S3X_PHASE6_TIMESTAMP_EXTRACTION_AUTH_*.json")
     )
-    require(not authorization_records, "runtime authorization record exists during Phase-6A design")
+    require(len(authorization_records) <= 1, "multiple Phase-6 runtime authorization records exist")
+    if authorization_records:
+        require(
+            authorization_records[0].name == "S3X_PHASE6_TIMESTAMP_EXTRACTION_AUTH_001.json",
+            "unexpected Phase-6 runtime authorization record name",
+        )
+        phase6b_status = (
+            REBUILD / "PAPER2_PHASE6B_TIMESTAMP_EXTRACTION_AUTHORIZATION_STATUS.json"
+        )
+        phase6b_audit = (
+            ROOT / "scripts/audit_paper2_post_rejection_phase6b_timestamp_extraction_authorization.py"
+        )
+        require(phase6b_status.is_file(), "later Phase-6B status missing for authorization record")
+        require(phase6b_audit.is_file(), "later Phase-6B audit missing for authorization record")
 
     for forbidden in (
         S3X / "results",
