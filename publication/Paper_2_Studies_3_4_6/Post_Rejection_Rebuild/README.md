@@ -1,6 +1,6 @@
 # Paper 2 Post-Rejection Rebuild
 
-**Status:** `PHASE5A_AUTHORIZED__SENSITIVITY_OUTPUT_SCHEMA_CORRECTION__NO_GAP_RULE__NO_SCIENTIFIC_EXECUTION`  
+**Status:** `PHASE5B_AUTHORIZED__P99_X10_PREFREEZE_VALIDATION__NO_GAP_RULE_FREEZE__NO_SCIENTIFIC_EXECUTION`  
 **Authorization date:** 2026-09-26  
 **Branch:** `paper2/post-rejection-rebuild`  
 **Branch base:** `972a273f699cc1df39597f358e0fdb5369de342a`
@@ -180,6 +180,39 @@ Phase-5A status authority:
 
 `PAPER2_PHASE5A_SENSITIVITY_OUTPUT_FIX_STATUS.json`
 
-Current gate:
+Historical Phase-5A gate:
 
 `AUTHOR_REVIEW_OF_CORRECTED_R2_OUTPUTS_BEFORE_ANY_GAP_RULE_SELECTION`
+
+
+## Phase-5B P99_X10 pre-freeze validation
+
+The author authorized Phase 5B after the corrected Phase-5A R2 local run completed successfully with a clean Git worktree.
+
+Bound R2 evidence:
+
+- `S3X_GAP_SENSITIVITY_002.csv`: `f690dd230b2897dd74ec880be0de9c207cbb3c975fb4f7740bb18b49df55b88e`
+- `S3X_DELTA_FREQUENCIES_002.csv`: `1399dde74c0cad144e4be4b5c0af201030eaf9ae70621c8b5b70ff9a52b78349`
+- `S3X_GAP_SENSITIVITY_SUMMARY_002.json`: `c57fb506c08f03f69f3bed7326355bc97a318f7b6b5015c7745cc3e956865cc6`
+
+`P99_X10` advances only to pre-freeze validation. It is not selected and is not frozen.
+
+The validation target is:
+
+- 176 channel-level `P99_X10` rows;
+- `threshold_seconds = 10 * channel-specific cadence_p99_seconds`;
+- strict `delta > threshold` comparison semantics;
+- 1,919 aggregate exceedances;
+- 171 channels with at least one exceedance;
+- five zero-exceedance channels;
+- canonical 176-channel projection SHA-256 `f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1`.
+
+The validator consumes only the three already generated R2 aggregate artifacts. It does not read source telemetry archives and does not emit timestamp-level intervals.
+
+Phase-5B status authority:
+
+`PAPER2_PHASE5B_P99X10_PREFREEZE_STATUS.json`
+
+Current gate:
+
+`AUTHOR_REVIEW_OF_P99_X10_PRE_FREEZE_VALIDATION_BEFORE_GAP_RULE_FREEZE_OR_TIMESTAMP_TRACE_EXTRACTION`
