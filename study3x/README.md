@@ -1,8 +1,8 @@
 # Study 3 Extension Workspace — S3X-ETA-001
 
-**State:** `PHASE5B_P99_X10_PREFREEZE_VALIDATION_AUTHORIZED__NO_GAP_RULE_FREEZE__NO_TRACE_EXTRACTION__NO_RECOVERY_EXECUTION`  
+**State:** `PHASE5C_P99_X10_GAP_RULE_FROZEN__NO_TRACE_EXTRACTION__NO_RECOVERY_EXECUTION__NO_SCIENTIFIC_EXECUTION`  
 **Authorization date:** 2026-09-26  
-**Phase-5B branch base:** `6c8d91b75e7ad994bfb02d041ba46a0eab52b89b`
+**Phase-5C branch base:** `042a9461b86322c4e445adff70ff64089e7b9dc6`
 
 This workspace exists only for the separately identified Paper-2 extension `S3X-ETA-001`.
 
@@ -102,3 +102,28 @@ R2 output names:
 The corrected R2 evidence is now bound in `PAPER2_PHASE5B_P99X10_PREFREEZE_STATUS.json`. `P99_X10` advances only to pre-freeze validation and remains unselected and unfrozen. The validator checks the 176 channel-level rows, the 1,919 aggregate exceedances, the exact five zero-exceedance channels, the channel-specific P99 multiplier, strict exceedance semantics, and the canonical channel projection digest. It consumes only the R2 aggregate artifacts and does not read source telemetry or emit timestamp-level intervals.
 
 Current gate: `AUTHOR_REVIEW_OF_P99_X10_PRE_FREEZE_VALIDATION_BEFORE_GAP_RULE_FREEZE_OR_TIMESTAMP_TRACE_EXTRACTION`.
+
+
+## Phase-5C frozen gap rule
+
+The author-approved machine-readable freeze record is:
+
+`study3x/config/S3X_GAP_RULE_FREEZE_001.json`
+
+Frozen method:
+
+- rule: `P99_X10`;
+- threshold: `10 * channel-specific cadence_p99_seconds`;
+- comparison: strict `delta > threshold`;
+- selection basis: data-informed selection from the eight formulas already evaluated in Phase 5;
+- cadence-class-specific retuning: not introduced.
+
+The freeze binds the successful Phase-5B validation record SHA-256 `cdf9894a6bf1f3dbe9dadb11ec1484b0c540118b05d108d7a38ed33af5930be0` and canonical 176-channel projection SHA-256 `f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1`.
+
+The frozen rule must not be retuned after timestamp-level locations are inspected. Any future change requires a separately authorized, versioned protocol.
+
+Phase 5C does not authorize timestamp-level trace extraction, trace-population freeze, recovery execution, scientific execution, or manuscript claims.
+
+## Phase-5C current gate
+
+`AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN`

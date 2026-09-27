@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "freeze_id": "S3X-P99X10-GAP-RULE-FREEZE-001",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "PHASE5C_P99_X10_GAP_RULE_FREEZE",
+  "authorization_date": "2026-09-26",
+  "rule": {
+    "name": "P99_X10",
+    "status": "SELECTED_AND_FROZEN",
+    "formula": "threshold_seconds = 10 * channel-specific cadence_p99_seconds",
+    "comparison": "positive inter-sample delta > threshold_seconds",
+    "comparison_operator": ">",
+    "multiplier": 10,
+    "reference_statistic": "channel-specific cadence_p99_seconds"
+  },
+  "selection_basis": {
+    "type": "DATA_INFORMED_SELECTION_FROM_PRESPECIFIED_PHASE5_CANDIDATE_FAMILY",
+    "candidate_family": [
+      "P99_X1",
+      "P99_X2",
+      "P99_X3",
+      "P99_X5",
+      "P99_X10",
+      "MAX_P99_MEDIAN_X2",
+      "MAX_P99_MEDIAN_X3",
+      "MAX_P99_MEDIAN_X5"
+    ],
+    "note": "P99_X10 was advanced only after read-only sensitivity analysis and separate pre-freeze validation. It was not prespecified as the final gap rule before observing the cadence distributions.",
+    "cadence_class_specific_multiplier_introduced": false,
+    "max_p99_median_family_advanced": false
+  },
+  "provenance": {
+    "source_freeze": {
+      "freeze_id": "S3X-ESA-V2-SOURCE-FREEZE-001",
+      "sha256": "dd1d71dc074588c12cae24c3718ed758fabd36c41b22755f57ccf98964db9f27"
+    },
+    "cadence_review": {
+      "file": "S3X_CADENCE_REVIEW_001.csv",
+      "sha256": "7355988e25401d6808019f78723eb7356e1646936be41664ce270667cf454b48"
+    },
+    "sensitivity_r2": {
+      "sensitivity_csv": {
+        "file": "S3X_GAP_SENSITIVITY_002.csv",
+        "sha256": "f690dd230b2897dd74ec880be0de9c207cbb3c975fb4f7740bb18b49df55b88e"
+      },
+      "delta_frequency_csv": {
+        "file": "S3X_DELTA_FREQUENCIES_002.csv",
+        "sha256": "1399dde74c0cad144e4be4b5c0af201030eaf9ae70621c8b5b70ff9a52b78349"
+      },
+      "summary_json": {
+        "file": "S3X_GAP_SENSITIVITY_SUMMARY_002.json",
+        "sha256": "c57fb506c08f03f69f3bed7326355bc97a318f7b6b5015c7745cc3e956865cc6"
+      }
+    },
+    "prefreeze_validation": {
+      "file": "S3X_P99_X10_PREFREEZE_VALIDATION_001.json",
+      "sha256": "cdf9894a6bf1f3dbe9dadb11ec1484b0c540118b05d108d7a38ed33af5930be0",
+      "audit_id": "S3X-P99-X10-PREFREEZE-VALIDATION-001",
+      "status": "PASS",
+      "channels": 176,
+      "total_exceedance_count": 1919,
+      "channels_with_exceedances": 171,
+      "channels_with_zero_exceedances": 5,
+      "canonical_channel_projection_sha256": "f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1"
+    }
+  },
+  "zero_exceedance_channels": [
+    {
+      "mission": "ESA-Mission2",
+      "channel_file": "channel_100.zip"
+    },
+    {
+      "mission": "ESA-Mission2",
+      "channel_file": "channel_66.zip"
+    },
+    {
+      "mission": "ESA-Mission2",
+      "channel_file": "channel_67.zip"
+    },
+    {
+      "mission": "ESA-Mission2",
+      "channel_file": "channel_68.zip"
+    },
+    {
+      "mission": "ESA-Mission2",
+      "channel_file": "channel_69.zip"
+    }
+  ],
+  "interpretation_controls": [
+    "A P99_X10 exceedance is an extreme telemetry inter-sample interval diagnostic.",
+    "A telemetry gap is not asserted to be RF contact loss.",
+    "A telemetry gap is not asserted to be a ground-station visibility interval.",
+    "A telemetry gap is not asserted to be a spacecraft outage.",
+    "A telemetry anomaly is not asserted to be cyberattack truth.",
+    "Gap duration is not asserted to be onboard recovery latency.",
+    "Gap status is not asserted to be operational command availability."
+  ],
+  "lock_policy": {
+    "immutable_for_next_trace_extraction": true,
+    "retune_after_timestamp_trace_inspection": false,
+    "overwrite_this_freeze": false,
+    "change_requires_new_versioned_protocol_and_separate_authorization": true
+  },
+  "gates": {
+    "gap_rule_selected": true,
+    "gap_rule_frozen": true,
+    "timestamp_level_gap_trace_extraction": false,
+    "trace_population_frozen": false,
+    "recovery_policy_execution_performed": false,
+    "scientific_results_generated": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN"
+}

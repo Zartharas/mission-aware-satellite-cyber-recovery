@@ -37,6 +37,7 @@ PAPER2_PHASE4_REL = Path("scripts/audit_paper2_post_rejection_phase4_local_valid
 PAPER2_PHASE5_REL = Path("scripts/audit_paper2_post_rejection_phase5_cadence_sensitivity.py")
 PAPER2_PHASE5A_REL = Path("scripts/audit_paper2_post_rejection_phase5a_sensitivity_output_fix.py")
 PAPER2_PHASE5B_REL = Path("scripts/audit_paper2_post_rejection_phase5b_p99x10_prefreeze.py")
+PAPER2_PHASE5C_REL = Path("scripts/audit_paper2_post_rejection_phase5c_p99x10_gap_rule_freeze.py")
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
@@ -287,6 +288,8 @@ def main() -> int:
                 if run_gate(audit_root, PAPER2_PHASE5A_REL, "paper2_phase5a_sensitivity_output_fix") != 0:
                     return 1
                 if run_gate(audit_root, PAPER2_PHASE5B_REL, "paper2_phase5b_p99x10_prefreeze") != 0:
+                    return 1
+                if run_gate(audit_root, PAPER2_PHASE5C_REL, "paper2_phase5c_p99x10_gap_rule_freeze") != 0:
                     return 1
                 print("release_gate_wrapper=PASS")
                 return 0
