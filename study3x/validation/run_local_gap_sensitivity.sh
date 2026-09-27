@@ -32,7 +32,7 @@ echo "trace_extraction=NO"
 echo "recovery_policy_execution=NO"
 echo "scientific_execution=NO"
 
-python3 "$REPO_ROOT/study3x/validation/analyze_cadence_gap_sensitivity.py" \
+python3 "$REPO_ROOT/study3x/validation/analyze_cadence_gap_sensitivity_r1.py" \
   --mission1-dir "$M1_ROOT" \
   --mission2-dir "$M2_ROOT" \
   --source-freeze "$FREEZE" \
