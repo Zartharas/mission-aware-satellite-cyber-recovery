@@ -204,6 +204,16 @@ def main() -> int:
     runner_source = runner_path.read_text(encoding="utf-8")
     require("AUTH_RECORD" in runner_source, "runner lacks authorization-record requirement")
     require("--authorization-record" in runner_source, "runner does not pass authorization record")
+    require('git branch --show-current' in runner_source, "runner does not require main")
+    require('git ls-files --error-unmatch' in runner_source, "runner does not require tracked authorization")
+    require('git diff --quiet' in runner_source, "runner does not require clean tracked worktree")
+    for marker in (
+        "design_merge_verified",
+        "design_post_merge_ci_success",
+        "author_execution_approval_recorded",
+    ):
+        require(marker in extractor_source, f"extractor missing runtime authorization marker: {marker}")
+        require(marker in validator_source, f"validator missing runtime authorization marker: {marker}")
     subprocess.run(["bash", "-n", str(runner_path)], check=True)
 
     design = design_path.read_text(encoding="utf-8")
