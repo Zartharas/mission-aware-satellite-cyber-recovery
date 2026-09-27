@@ -1,6 +1,6 @@
 # Paper 2 Post-Rejection Rebuild
 
-**Status:** `PHASE1_AUTHORIZED__DESIGN_AND_FORMAL_ANALYSIS_ONLY__NO_NEW_EXECUTION`  
+**Status:** `PHASE5_AUTHORIZED__READ_ONLY_CADENCE_SENSITIVITY__NO_GAP_RULE__NO_SCIENTIFIC_EXECUTION`  
 **Authorization date:** 2026-09-26  
 **Branch:** `paper2/post-rejection-rebuild`  
 **Branch base:** `972a273f699cc1df39597f358e0fdb5369de342a`
@@ -37,11 +37,11 @@ Phase 1 does **not** permit modifying or rerunning `S3-K4E-001`, `S4-MPQ-001`, o
 12. `S3X_SOURCE_SCREENING_R1_2026-09-26.md`
 13. `S6X_CFS_ENVIRONMENT_SCREENING_R1_2026-09-26.md`
 
-## Current gate
+## Phase-1 gate
 
 `AUTHOR_REVIEW_BEFORE_S3X_LOCAL_SOURCE_INSPECTION_OR_S6X_INVARIANT_FIXTURE_DESIGN`
 
-The author must separately authorize implementation/execution of any prospective extension after reviewing the protocols and their overlap/validity implications.
+The author separately authorized later controlled phases; the historical Phase-1 gate remains preserved here as provenance.
 
 
 ## Phase-2 branch-local design work
@@ -106,3 +106,54 @@ Phase-3 status authority:
 Current gate:
 
 `AUTHOR_REVIEW_AFTER_PHASE3_CI_AND_LOCAL_S3X_SOURCE_FREEZE_OUTPUT_BEFORE_ANY_BUILD_OR_SCIENTIFIC_EXECUTION`
+
+
+## Phase-4 local validation
+
+Phase 4 prepared and executed the author-approved local verification workflows.
+
+Completed local evidence includes:
+
+- S6X pre-runtime source/materialization validation PASS at pinned cFS and LC commits, with no build and no scientific execution;
+- S3X ESA-v2 source identity freeze PASS across 76 Mission-1 and 100 Mission-2 channels;
+- source-freeze record `S3X-ESA-V2-SOURCE-FREEZE-001`;
+- cadence-review CSV SHA-256 `7355988e25401d6808019f78723eb7356e1646936be41664ce270667cf454b48`.
+
+Phase-4 status authority:
+
+`PAPER2_PHASE4_LOCAL_VALIDATION_STATUS.json`
+
+## Phase-5 read-only cadence sensitivity
+
+The author authorized a strictly diagnostic cadence/gap-threshold sensitivity phase on 2026-09-26.
+
+Branch:
+
+`paper2/post-rejection-phase5-cadence-sensitivity`
+
+Authorized:
+
+- read-only positive inter-sample delta analysis against the frozen ESA-v2 local bytes;
+- exact channel-archive SHA-256 rebinding before analysis;
+- fixed candidate threshold sensitivity;
+- aggregate exceedance counts, fractions, durations, and cadence classes;
+- top positive-delta frequency summaries.
+
+Still closed:
+
+- gap-rule selection or freeze;
+- timestamp-level gap-trace emission;
+- trace-population freeze;
+- recovery-policy execution;
+- S3X scientific results;
+- S6X build/scientific execution;
+- S4X execution;
+- Paper-2 manuscript claims, venue lock, or submission based on the extension.
+
+Phase-5 status authority:
+
+`PAPER2_PHASE5_CADENCE_SENSITIVITY_STATUS.json`
+
+Current gate:
+
+`AUTHOR_REVIEW_OF_GAP_SENSITIVITY_BEFORE_ANY_GAP_RULE_SELECTION`

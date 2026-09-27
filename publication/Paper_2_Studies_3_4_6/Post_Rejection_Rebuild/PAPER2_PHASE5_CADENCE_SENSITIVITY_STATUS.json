@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE5_CADENCE_SENSITIVITY",
+  "status": "AUTHORIZED_READ_ONLY_SENSITIVITY_TOOLING__AWAITING_LOCAL_EXECUTION",
+  "authorization_date": "2026-09-26",
+  "branch": "paper2/post-rejection-phase5-cadence-sensitivity",
+  "branch_base_commit": "cd4ad45e3f9112967ef24bde0b1258f0dce3d797",
+  "predecessor": {
+    "phase4_local_validation_completed": true,
+    "s3x_source_freeze": {
+      "freeze_id": "S3X-ESA-V2-SOURCE-FREEZE-001",
+      "source_identity_frozen": true,
+      "mission1_archive_sha256": "ba28f761b1deab4dbba4728793bff139fea39dbf9cf0d9c559d619ffe75d5a72",
+      "mission2_archive_sha256": "e8a89be1917b6754a10bd323441e87a82c8cf2e84ed162442c2dcf72ecc346d5",
+      "mission1_schema_sha256": "696ad9bfa90ff37e2c22bb7eb0c1778af4225a09b02038130698d402b53aaa0a",
+      "mission2_schema_sha256": "25533581a3585a8b3056081e1e47f4907d7664103aad5527e374510c0ffba62e",
+      "channels_inspected": 176
+    },
+    "cadence_review": {
+      "file": "S3X_CADENCE_REVIEW_001.csv",
+      "sha256": "7355988e25401d6808019f78723eb7356e1646936be41664ce270667cf454b48",
+      "channels": 176,
+      "gap_rule_frozen": false,
+      "scientific_execution": false
+    }
+  },
+  "authorized": {
+    "read_only_cadence_analysis": true,
+    "candidate_threshold_sensitivity": true,
+    "per_channel_delta_frequency_analysis": true,
+    "local_output_generation": true
+  },
+  "prohibited": {
+    "gap_rule_selection": true,
+    "gap_rule_freeze": true,
+    "timestamp_level_gap_trace_emission": true,
+    "trace_population_freeze": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "manuscript_claim_use": true
+  },
+  "candidate_rules": [
+    "P99_X1",
+    "P99_X2",
+    "P99_X3",
+    "P99_X5",
+    "P99_X10",
+    "MAX_P99_MEDIAN_X2",
+    "MAX_P99_MEDIAN_X3",
+    "MAX_P99_MEDIAN_X5"
+  ],
+  "planned_local_outputs": [
+    "study3x/local_freeze_work/S3X_GAP_SENSITIVITY_001.csv",
+    "study3x/local_freeze_work/S3X_DELTA_FREQUENCIES_001.csv",
+    "study3x/local_freeze_work/S3X_GAP_SENSITIVITY_SUMMARY_001.json"
+  ],
+  "next_gate": "AUTHOR_REVIEW_OF_GAP_SENSITIVITY_BEFORE_ANY_GAP_RULE_SELECTION"
+}
