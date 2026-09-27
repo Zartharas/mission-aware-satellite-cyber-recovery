@@ -50,6 +50,9 @@ jobs:
       - name: Audit Paper 2 Phase 6B timestamp extraction authorization
         run: python scripts/audit_paper2_post_rejection_phase6b_timestamp_extraction_authorization.py
 
+      - name: Audit Paper 2 Phase 6C trace population freeze preparation
+        run: python scripts/audit_paper2_post_rejection_phase6c_trace_population_freeze.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
