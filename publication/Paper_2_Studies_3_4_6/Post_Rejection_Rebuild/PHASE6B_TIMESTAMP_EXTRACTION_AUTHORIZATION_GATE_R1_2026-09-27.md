@@ -1,6 +1,6 @@
 # Paper 2 Phase-6B Timestamp Extraction Authorization Gate R1
 
-**Status:** `AUTHORIZATION RECORD PREPARED__NOT MERGED__NO EXTRACTION PERFORMED`  
+**Status:** `AUTHORIZATION RECORD PREPARED__NO EXTRACTION PERFORMED`  
 **Authorization date:** 2026-09-27  
 **Branch:** `paper2/post-rejection-phase6b-timestamp-extraction-authorization`  
 **Branch base:** `92534c45c85ee36c148acfe92dce1ec61ad49c24`
@@ -128,21 +128,13 @@ It is not asserted to establish:
 - onboard recovery latency;
 - operational command availability.
 
-## Current effectivity
+## Effectivity model
 
-The authorization record has been prepared on a feature branch.
+At artifact creation, the authorization record is prepared on a feature branch.
 
-Therefore:
+The record is effective for the local runner only when it is tracked and unmodified on a clean `main` worktree. This effectivity rule is intentionally state-dependent rather than stored as a permanent true/false field, so the same immutable authorization artifact remains semantically correct after a later approved merge.
 
-`timestamp_level_extraction_authorized_by_author = YES`
-
-but:
-
-`authorization_record_effective_for_runner = NO`
-
-because the runner requires the record to be tracked on `main`.
-
-No real ESA timestamp extraction is performed during this preparation phase.
+The author has approved the bounded runtime scope recorded here, but no real ESA timestamp extraction is performed during this preparation phase.
 
 ## Next gate
 
