@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE6A_TIMESTAMP_TRACE_EXTRACTION_DESIGN",
+  "status": "DESIGN_PREPARED__NO_TIMESTAMP_EXTRACTION_AUTHORIZED",
+  "authorization_date": "2026-09-27",
+  "branch": "paper2/post-rejection-phase6-timestamp-trace-design",
+  "branch_base_commit": "1d36b224e46c15653f0c5d76dce6da26f7d9a6e1",
+  "phase5c_dependency": {
+    "freeze_id": "S3X-P99X10-GAP-RULE-FREEZE-001",
+    "rule": "P99_X10",
+    "total_exceedance_count": 1919,
+    "canonical_channel_projection_sha256": "f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1"
+  },
+  "authorized": {
+    "phase6_design": true,
+    "repository_safe_implementation": true,
+    "synthetic_tests": true,
+    "fail_closed_audit": true,
+    "branch_and_draft_pr": true,
+    "pre_merge_ci": true
+  },
+  "prohibited": {
+    "timestamp_level_gap_trace_extraction": true,
+    "trace_population_freeze": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "manuscript_claim_use": true,
+    "frozen_study_modification": true,
+    "gap_rule_retuning": true
+  },
+  "execution_state": {
+    "timestamp_level_extraction_performed": false,
+    "trace_population_frozen": false,
+    "recovery_policy_execution_performed": false,
+    "scientific_results_generated": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE6_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
