@@ -289,10 +289,6 @@ def load_schema_report(source_freeze_path: Path, freeze: dict, mission: str) -> 
     return report
 
 
-def format_timestamp(pd, value_ns: int) -> str:
-    return pd.Timestamp(int(value_ns), unit="ns").isoformat()
-
-
 def extract_channel(
     mission: str,
     channel_record: dict,
@@ -355,8 +351,8 @@ def extract_channel(
             "channel_sha256": actual_sha,
             "preceding_timestamp_ns": previous_ns,
             "following_timestamp_ns": following_ns,
-            "preceding_timestamp": format_timestamp(pd, previous_ns),
-            "following_timestamp": format_timestamp(pd, following_ns),
+            "preceding_timestamp": index[i - 1].isoformat(),
+            "following_timestamp": index[i].isoformat(),
             "delta_nanoseconds": delta_ns,
             "delta_seconds": delta_seconds,
             "cadence_p99_seconds": p99,
