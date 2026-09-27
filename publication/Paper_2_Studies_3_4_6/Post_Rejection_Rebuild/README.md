@@ -1,6 +1,6 @@
 # Paper 2 Post-Rejection Rebuild
 
-**Status:** `PHASE5_AUTHORIZED__READ_ONLY_CADENCE_SENSITIVITY__NO_GAP_RULE__NO_SCIENTIFIC_EXECUTION`  
+**Status:** `PHASE5A_AUTHORIZED__SENSITIVITY_OUTPUT_SCHEMA_CORRECTION__NO_GAP_RULE__NO_SCIENTIFIC_EXECUTION`  
 **Authorization date:** 2026-09-26  
 **Branch:** `paper2/post-rejection-rebuild`  
 **Branch base:** `972a273f699cc1df39597f358e0fdb5369de342a`
@@ -154,6 +154,32 @@ Phase-5 status authority:
 
 `PAPER2_PHASE5_CADENCE_SENSITIVITY_STATUS.json`
 
-Current gate:
+Historical Phase-5 gate:
 
 `AUTHOR_REVIEW_OF_GAP_SENSITIVITY_BEFORE_ANY_GAP_RULE_SELECTION`
+
+
+## Phase-5A sensitivity output correction
+
+The author authorized Phase 5A after the successful Phase-5 local run and review of its three generated outputs.
+
+The R1 run completed with 176 channels, 8 candidate rules, and 1,408 sensitivity rows. The post-run Git working tree was clean. No gap rule was selected or frozen, no timestamp-level traces were emitted, and no recovery or scientific execution occurred.
+
+A representation defect was identified in `S3X_GAP_SENSITIVITY_001.csv`: cadence summary fields and exceedance-distribution fields reused generic metric names, so dictionary expansion overwrote the cadence values in the exported row. Independent recomputation of all 1,408 thresholds against the separately preserved cadence review found zero threshold-formula mismatches.
+
+Phase 5A therefore:
+
+- preserves the historical R1 analyzer and runner;
+- separates corrected `cadence_*` and `exceedance_*` fields;
+- produces versioned R2 local outputs;
+- binds both R2 CSV SHA-256 values into the R2 summary JSON;
+- adds regression tests preventing recurrence of the field collision;
+- does not change the candidate formulas or source population.
+
+Phase-5A status authority:
+
+`PAPER2_PHASE5A_SENSITIVITY_OUTPUT_FIX_STATUS.json`
+
+Current gate:
+
+`AUTHOR_REVIEW_OF_CORRECTED_R2_OUTPUTS_BEFORE_ANY_GAP_RULE_SELECTION`

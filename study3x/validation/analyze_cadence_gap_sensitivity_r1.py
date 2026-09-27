@@ -39,12 +39,6 @@ RULES = (
     ("MAX_P99_MEDIAN_X5", "max_p99_median_multiple", 5.0),
 )
 
-OUTPUT_SCHEMA_VERSION = 2
-AUDIT_ID = "S3X-GAP-SENSITIVITY-002"
-SENSITIVITY_OUTPUT = "S3X_GAP_SENSITIVITY_002.csv"
-FREQUENCY_OUTPUT = "S3X_DELTA_FREQUENCIES_002.csv"
-SUMMARY_OUTPUT = "S3X_GAP_SENSITIVITY_SUMMARY_002.json"
-
 
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
@@ -120,23 +114,18 @@ def evaluate_rule(deltas: Sequence[float], threshold: float) -> dict:
         raise ValueError("all supplied deltas must be strictly positive")
     exceed = [v for v in positive if v > threshold]
     stats = basic_stats(exceed)
-    return {
-        "threshold_seconds": float(threshold),
-        "positive_delta_count": len(positive),
-        "exceedance_count": len(exceed),
-        "exceedance_fraction": (len(exceed) / len(positive)) if positive else 0.0,
-        "exceedance_min_seconds": stats["min_seconds"],
-        "exceedance_median_seconds": stats["median_seconds"],
-        "exceedance_p95_seconds": stats["p95_seconds"],
-        "exceedance_p99_seconds": stats["p99_seconds"],
-        "exceedance_max_seconds": stats["max_seconds"],
-        "sum_interval_seconds_represented_by_exceedances": stats[
-            "sum_interval_seconds"
-        ],
-        "sum_excess_above_threshold_seconds": float(
-            sum(v - threshold for v in exceed)
-        ),
-    }
+    stats.update(
+        {
+            "threshold_seconds": float(threshold),
+            "positive_delta_count": len(positive),
+            "exceedance_count": len(exceed),
+            "exceedance_fraction": (len(exceed) / len(positive)) if positive else 0.0,
+            "sum_excess_above_threshold_seconds": float(
+                sum(v - threshold for v in exceed)
+            ),
+        }
+    )
+    return stats
 
 
 def top_delta_frequencies(
@@ -154,10 +143,6 @@ def cadence_class(median: float, mode: float) -> str:
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def output_file_record(path: Path) -> dict[str, str]:
-    return {"file": path.name, "sha256": sha256(path)}
 
 
 def validate_freeze(freeze_path: Path) -> dict:
@@ -274,13 +259,11 @@ def analyze_channel(
                 "rows": channel_record["rows"],
                 "positive_delta_count": len(deltas),
                 "cadence_class": class_id,
-                "cadence_min_seconds": base["min_seconds"],
-                "cadence_median_seconds": base["median_seconds"],
-                "cadence_mode_seconds": mode_seconds,
-                "cadence_p95_seconds": base["p95_seconds"],
-                "cadence_p99_seconds": base["p99_seconds"],
-                "cadence_max_seconds": base["max_seconds"],
-                "cadence_sum_interval_seconds": base["sum_interval_seconds"],
+                "median_seconds": base["median_seconds"],
+                "mode_seconds": mode_seconds,
+                "p95_seconds": base["p95_seconds"],
+                "p99_seconds": base["p99_seconds"],
+                "max_seconds": base["max_seconds"],
                 "candidate_rule": rule_name,
                 **evaluated,
             }
@@ -304,13 +287,11 @@ def analyze_channel(
         "channel_file": channel_record["file"],
         "positive_delta_count": len(deltas),
         "cadence_class": class_id,
-        "cadence_min_seconds": base["min_seconds"],
-        "cadence_median_seconds": base["median_seconds"],
-        "cadence_mode_seconds": mode_seconds,
-        "cadence_p95_seconds": base["p95_seconds"],
-        "cadence_p99_seconds": base["p99_seconds"],
-        "cadence_max_seconds": base["max_seconds"],
-        "cadence_sum_interval_seconds": base["sum_interval_seconds"],
+        "median_seconds": base["median_seconds"],
+        "mode_seconds": mode_seconds,
+        "p95_seconds": base["p95_seconds"],
+        "p99_seconds": base["p99_seconds"],
+        "max_seconds": base["max_seconds"],
     }
     return sensitivity_rows, frequency_rows, channel_summary
 
@@ -340,10 +321,7 @@ def aggregate_rule(rows: Iterable[dict]) -> dict:
         "channels_over_5pct_exceedance_fraction": sum(f > 0.05 for f in fractions),
         "channels_over_10pct_exceedance_fraction": sum(f > 0.10 for f in fractions),
         "sum_interval_seconds_represented_by_exceedances": float(
-            sum(
-                float(r["sum_interval_seconds_represented_by_exceedances"])
-                for r in selected
-            )
+            sum(float(r["sum_interval_seconds"]) for r in selected)
         ),
         "sum_excess_above_threshold_seconds": float(
             sum(float(r["sum_excess_above_threshold_seconds"]) for r in selected)
@@ -418,9 +396,9 @@ def main() -> int:
 
     out = args.output_dir.resolve()
     out.mkdir(parents=True, exist_ok=True)
-    sensitivity_path = out / SENSITIVITY_OUTPUT
-    frequency_path = out / FREQUENCY_OUTPUT
-    summary_path = out / SUMMARY_OUTPUT
+    sensitivity_path = out / "S3X_GAP_SENSITIVITY_001.csv"
+    frequency_path = out / "S3X_DELTA_FREQUENCIES_001.csv"
+    summary_path = out / "S3X_GAP_SENSITIVITY_SUMMARY_001.json"
 
     write_csv(sensitivity_path, all_sensitivity)
     write_csv(frequency_path, all_frequencies)
@@ -453,8 +431,8 @@ def main() -> int:
         }
 
     summary = {
-        "schema": OUTPUT_SCHEMA_VERSION,
-        "audit_id": AUDIT_ID,
+        "schema": 1,
+        "audit_id": "S3X-GAP-SENSITIVITY-001",
         "experiment_id": EXPERIMENT_ID,
         "mode": "READ_ONLY_CADENCE_GAP_SENSITIVITY",
         "source_freeze": {
@@ -473,33 +451,9 @@ def main() -> int:
         "cadence_classes_all_missions": dict(sorted(cadence_classes.items())),
         "cadence_classes_by_mission": mission_cadence_classes,
         "rules_summary": rules_summary,
-        "output_contract": {
-            "schema_version": OUTPUT_SCHEMA_VERSION,
-            "cadence_fields": [
-                "cadence_min_seconds",
-                "cadence_median_seconds",
-                "cadence_mode_seconds",
-                "cadence_p95_seconds",
-                "cadence_p99_seconds",
-                "cadence_max_seconds",
-                "cadence_sum_interval_seconds",
-            ],
-            "exceedance_fields": [
-                "exceedance_count",
-                "exceedance_fraction",
-                "exceedance_min_seconds",
-                "exceedance_median_seconds",
-                "exceedance_p95_seconds",
-                "exceedance_p99_seconds",
-                "exceedance_max_seconds",
-                "sum_interval_seconds_represented_by_exceedances",
-                "sum_excess_above_threshold_seconds",
-            ],
-            "legacy_metric_name_collision_present": False,
-        },
         "output_files": {
-            "sensitivity_csv": output_file_record(sensitivity_path),
-            "delta_frequency_csv": output_file_record(frequency_path),
+            "sensitivity_csv": sensitivity_path.name,
+            "delta_frequency_csv": frequency_path.name,
         },
         "gap_rule_selected": False,
         "gap_rule_frozen": False,
@@ -518,16 +472,13 @@ def main() -> int:
     }
     summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
 
-    print("S3X_GAP_SENSITIVITY_AUDIT_R2=PASS")
-    print(f"output_schema_version={OUTPUT_SCHEMA_VERSION}")
+    print("S3X_GAP_SENSITIVITY_AUDIT=PASS")
     print(f"channels_analyzed={len(channel_summaries)}")
     print(f"candidate_rules={len(RULES)}")
     print(f"sensitivity_rows={len(all_sensitivity)}")
     print(f"sensitivity_csv={sensitivity_path}")
     print(f"delta_frequency_csv={frequency_path}")
     print(f"summary_json={summary_path}")
-    print(f"sensitivity_csv_sha256={sha256(sensitivity_path)}")
-    print(f"delta_frequency_csv_sha256={sha256(frequency_path)}")
     print("gap_rule_selected=NO")
     print("gap_rule_frozen=NO")
     print("trace_extraction=NO")

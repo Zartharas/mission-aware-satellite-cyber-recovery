@@ -1,8 +1,8 @@
 # Study 3 Extension Workspace — S3X-ETA-001
 
-**State:** `SOURCE_IDENTITY_FROZEN__READ_ONLY_CADENCE_SENSITIVITY_AUTHORIZED__NO_GAP_RULE__NO_TRACE_EXTRACTION__NO_RECOVERY_EXECUTION`  
+**State:** `PHASE5A_OUTPUT_SCHEMA_CORRECTION_AUTHORIZED__R1_EVIDENCE_PRESERVED__NO_GAP_RULE__NO_TRACE_EXTRACTION__NO_RECOVERY_EXECUTION`  
 **Authorization date:** 2026-09-26  
-**Phase-5 branch base:** `cd4ad45e3f9112967ef24bde0b1258f0dce3d797`
+**Phase-5A branch base:** `834b13864b86d474c1f69ae2b6b8800a0bab3250`
 
 This workspace exists only for the separately identified Paper-2 extension `S3X-ETA-001`.
 
@@ -50,6 +50,48 @@ Use:
 
 Large external source archives, extracted datasets, and generated sensitivity outputs remain local and untracked.
 
-## Current gate
+## Historical Phase-5 gate
 
 `AWAITING_LOCAL_READ_ONLY_GAP_SENSITIVITY_EXECUTION_AND_AUTHOR_REVIEW`
+
+
+## Phase-5 local result
+
+The author-executed R1 sensitivity run completed successfully:
+
+- channels analyzed: 176;
+- candidate rules: 8;
+- sensitivity rows: 1,408;
+- post-run Git working tree: clean;
+- gap rule selected: no;
+- gap rule frozen: no;
+- trace extraction: no;
+- recovery-policy execution: no;
+- scientific execution: no.
+
+R1 local evidence hashes are recorded in `PAPER2_PHASE5A_SENSITIVITY_OUTPUT_FIX_STATUS.json`.
+
+## Phase-5A output-contract correction
+
+Review of the R1 sensitivity CSV identified an output-schema collision: generic cadence metric names were overwritten by generic exceedance metric names during dictionary expansion. Recalculation against the separately preserved cadence review found zero threshold-formula mismatches across all 1,408 rows, so Phase 5A corrects the exported representation rather than changing the threshold formulas.
+
+The corrected analyzer emits distinct `cadence_*` and `exceedance_*` metrics, and the R2 summary binds the SHA-256 values of both generated CSV files.
+
+Historical R1 tooling is preserved as:
+
+- `study3x/validation/analyze_cadence_gap_sensitivity_r1.py`
+- `study3x/validation/run_local_gap_sensitivity.sh`
+
+The corrected R2 runner is:
+
+`/bin/bash study3x/validation/run_local_gap_sensitivity_r2.sh`
+
+R2 output names:
+
+- `S3X_GAP_SENSITIVITY_002.csv`
+- `S3X_DELTA_FREQUENCIES_002.csv`
+- `S3X_GAP_SENSITIVITY_SUMMARY_002.json`
+
+## Current gate
+
+`AWAITING_PHASE5A_CI_AND_CORRECTED_LOCAL_R2_RERUN_BEFORE_ANY_GAP_RULE_SELECTION`
