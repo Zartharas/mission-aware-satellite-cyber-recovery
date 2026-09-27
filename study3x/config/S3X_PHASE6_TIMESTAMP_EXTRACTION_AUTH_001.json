@@ -95,8 +95,9 @@
   },
   "effectivity": {
     "record_effective_only_when_tracked_on_main": true,
-    "record_currently_prepared_on_feature_branch": true,
-    "record_merge_requires_separate_author_review": true
+    "creation_state": "PREPARED_ON_FEATURE_BRANCH",
+    "record_merge_requires_separate_author_review": true,
+    "effective_runner_condition": "record is tracked and unmodified on clean main"
   },
   "next_gate": "AUTHOR_REVIEW_AFTER_PHASE6B_AUTHORIZATION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
 }
