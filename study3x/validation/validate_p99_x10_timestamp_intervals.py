@@ -251,6 +251,8 @@ def independently_recompute_channel(
                 "channel_sha256": channel_sha,
                 "preceding_timestamp_ns": preceding,
                 "following_timestamp_ns": following,
+                "preceding_timestamp": idx[index].isoformat(),
+                "following_timestamp": idx[index + 1].isoformat(),
                 "delta_nanoseconds": difference_ns,
                 "delta_seconds": delta_seconds,
                 "cadence_p99_seconds": p99,
@@ -323,7 +325,14 @@ def validate_candidate_rows(actual: list[dict[str, str]], expected: list[dict]) 
         require(row["gap_rule"] == RULE_NAME, "candidate rule mismatch")
         require(row["comparison_operator"] == ">", "candidate comparison operator mismatch")
         require(row["diagnostic_label"] == "EXTREME_TELEMETRY_INTER_SAMPLE_INTERVAL_DIAGNOSTIC", "candidate diagnostic label mismatch")
-        for key in ("mission", "channel_file", "channel_sha256", "interval_id"):
+        for key in (
+            "mission",
+            "channel_file",
+            "channel_sha256",
+            "preceding_timestamp",
+            "following_timestamp",
+            "interval_id",
+        ):
             require(row[key] == str(exp[key]), f"candidate field mismatch: {key}")
         for key in ("preceding_timestamp_ns", "following_timestamp_ns", "delta_nanoseconds"):
             require(int(row[key]) == int(exp[key]), f"candidate integer field mismatch: {key}")
