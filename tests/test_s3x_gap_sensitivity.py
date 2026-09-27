@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
+import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 MODULE_PATH = (
     Path(__file__).resolve().parents[1]
@@ -39,9 +42,15 @@ class S3XGapSensitivityTests(unittest.TestCase):
     def test_rule_uses_strict_greater_than(self) -> None:
         result = s3x.evaluate_rule([1.0, 2.0, 3.0, 4.0], 3.0)
         self.assertEqual(result["exceedance_count"], 1)
-        self.assertEqual(result["min_seconds"], 4.0)
-        self.assertEqual(result["sum_interval_seconds"], 4.0)
+        self.assertEqual(result["exceedance_min_seconds"], 4.0)
+        self.assertEqual(result["exceedance_median_seconds"], 4.0)
+        self.assertEqual(
+            result["sum_interval_seconds_represented_by_exceedances"],
+            4.0,
+        )
         self.assertEqual(result["sum_excess_above_threshold_seconds"], 1.0)
+        self.assertNotIn("median_seconds", result)
+        self.assertNotIn("p99_seconds", result)
 
     def test_top_delta_frequencies_are_stable(self) -> None:
         result = s3x.top_delta_frequencies(
@@ -50,20 +59,74 @@ class S3XGapSensitivityTests(unittest.TestCase):
         )
         self.assertEqual(result, [(3.0, 3), (1.0, 2), (2.0, 2)])
 
+
+    def test_sensitivity_row_separates_cadence_and_exceedance_metrics(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            mission_dir = Path(tmp)
+            channels = mission_dir / "channels"
+            channels.mkdir()
+            channel_path = channels / "channel_1.zip"
+            channel_path.write_bytes(b"fixture")
+
+            channel_record = {
+                "file": "channel_1.zip",
+                "sha256": "fixture-sha",
+                "rows": 5,
+            }
+            deltas = [1.0, 1.0, 1.0, 1.0, 10.0]
+
+            with (
+                mock.patch.object(s3x, "sha256", return_value="fixture-sha"),
+                mock.patch.object(
+                    s3x,
+                    "extract_positive_deltas",
+                    return_value=deltas,
+                ),
+            ):
+                rows, _, _ = s3x.analyze_channel(
+                    "ESA-Mission1",
+                    channel_record,
+                    mission_dir,
+                )
+
+        row = rows[0]
+        self.assertEqual(row["cadence_median_seconds"], 1.0)
+        self.assertEqual(row["cadence_mode_seconds"], 1.0)
+        self.assertIn("cadence_p99_seconds", row)
+        self.assertIn("exceedance_median_seconds", row)
+        self.assertIn("exceedance_p99_seconds", row)
+        self.assertNotIn("median_seconds", row)
+        self.assertNotIn("p95_seconds", row)
+        self.assertNotIn("p99_seconds", row)
+        self.assertNotIn("max_seconds", row)
+
+    def test_output_file_record_binds_exact_sha256(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "artifact.csv"
+            payload = b"a,b\n1,2\n"
+            path.write_bytes(payload)
+            record = s3x.output_file_record(path)
+
+        self.assertEqual(record["file"], "artifact.csv")
+        self.assertEqual(
+            record["sha256"],
+            hashlib.sha256(payload).hexdigest(),
+        )
+
     def test_aggregate_rule_counts_zero_and_nonzero_channels(self) -> None:
         rows = [
             {
                 "positive_delta_count": 100,
                 "exceedance_count": 0,
                 "exceedance_fraction": 0.0,
-                "sum_interval_seconds": 0.0,
+                "sum_interval_seconds_represented_by_exceedances": 0.0,
                 "sum_excess_above_threshold_seconds": 0.0,
             },
             {
                 "positive_delta_count": 100,
                 "exceedance_count": 2,
                 "exceedance_fraction": 0.02,
-                "sum_interval_seconds": 25.0,
+                "sum_interval_seconds_represented_by_exceedances": 25.0,
                 "sum_excess_above_threshold_seconds": 5.0,
             },
         ]
