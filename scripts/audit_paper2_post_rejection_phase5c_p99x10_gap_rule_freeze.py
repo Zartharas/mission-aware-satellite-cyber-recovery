@@ -172,7 +172,7 @@ def main() -> int:
         require(gates.get(key) is False, f"closed freeze gate changed: {key}")
 
     require(
-        status.get("status") == "AUTHORIZED_RULE_FREEZE__AWAITING_CI",
+        status.get("status") == "TECHNICALLY_COMPLETE__MERGED__POST_MERGE_CI_SUCCESS__RULE_FROZEN",
         "unexpected Phase-5C status",
     )
     local = status.get("predecessor", {}).get("local_prefreeze_validation", {})
@@ -187,6 +187,36 @@ def main() -> int:
     )
     require(status_freeze.get("gap_rule_selected") is True, "status does not select rule")
     require(status_freeze.get("gap_rule_frozen") is True, "status does not freeze rule")
+
+    completion = status.get("completion", {})
+    require(completion.get("pr_number") == 180, "Phase-5C PR number drift")
+    require(
+        completion.get("pre_merge_head")
+        == "a85b1cefa50d55adc1c61ee581cf6a3ad2279ddd",
+        "Phase-5C pre-merge head drift",
+    )
+    require(
+        completion.get("pre_merge_ci", {}).get("run_id") == 36298410362
+        and completion.get("pre_merge_ci", {}).get("run_number") == 1226
+        and completion.get("pre_merge_ci", {}).get("conclusion") == "success",
+        "Phase-5C pre-merge CI binding drift",
+    )
+    require(
+        completion.get("merge_commit")
+        == "ac5b2e1cedafbcc2c15da41f5c0b254256850afc",
+        "Phase-5C merge commit drift",
+    )
+    require(
+        completion.get("post_merge_ci", {}).get("run_id") == 36299292647
+        and completion.get("post_merge_ci", {}).get("run_number") == 1227
+        and completion.get("post_merge_ci", {}).get("conclusion") == "success",
+        "Phase-5C post-merge CI binding drift",
+    )
+    require(
+        completion.get("main_after_merge")
+        == "ac5b2e1cedafbcc2c15da41f5c0b254256850afc",
+        "Phase-5C main commit drift",
+    )
 
     prohibited = status.get("prohibited", {})
     for key in (
