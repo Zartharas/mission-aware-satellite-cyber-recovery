@@ -1,6 +1,6 @@
 # Paper 2 Phase-5C P99_X10 Gap-Rule Freeze Gate R1
 
-**Status:** `AUTHORIZED_RULE_FREEZE__AWAITING_CI`  
+**Status:** `TECHNICALLY_COMPLETE__MERGED__POST_MERGE_CI_SUCCESS__RULE_FROZEN`  
 **Authorization date:** 2026-09-26  
 **Branch:** `paper2/post-rejection-phase5c-p99x10-gap-rule-freeze`  
 **Branch base:** `042a9461b86322c4e445adff70ff64089e7b9dc6`
@@ -94,3 +94,17 @@ Phase 5C does **not** authorize:
 ## Next gate
 
 `AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN`
+
+
+## Completion record
+
+Phase 5C is technically complete.
+
+- PR: `#180`
+- pre-merge head: `a85b1cefa50d55adc1c61ee581cf6a3ad2279ddd`
+- pre-merge CI: run `36298410362` / run number `1226` / success
+- merge commit: `ac5b2e1cedafbcc2c15da41f5c0b254256850afc`
+- post-merge CI: run `36299292647` / run number `1227` / success
+- `main` after merge: `ac5b2e1cedafbcc2c15da41f5c0b254256850afc`
+
+The P99_X10 freeze is therefore active repository state. Timestamp-level extraction remains closed pending a separately authorized Phase-6 design.
