@@ -112,6 +112,13 @@ def main() -> int:
         "retuning-target firewall missing",
     )
 
+    determinism = protocol.get("determinism_validation", {})
+    require(determinism.get("repeat_execution_required") is True, "repeat execution gate missing")
+    require(determinism.get("independent_output_directories_required") is True, "independent repeat directories not required")
+    require(determinism.get("byte_identical_sha256_required") is True, "byte-identical repeatability not required")
+    require(determinism.get("variable_wall_clock_metadata_allowed_in_canonical_outputs") is False, "variable canonical metadata unexpectedly allowed")
+    require(determinism.get("required_before_trace_population_freeze_review") is True, "repeatability not required before population-freeze review")
+
     numeric = protocol.get("numeric_method", {})
     require(numeric.get("comparison_operator") == ">", "numeric comparison drift")
     require(numeric.get("threshold_runtime_override_allowed") is False, "threshold override opened")
