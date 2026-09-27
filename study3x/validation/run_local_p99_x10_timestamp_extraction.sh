@@ -17,6 +17,37 @@ if [ ! -f "$AUTH_RECORD" ]; then
   exit 2
 fi
 
+if [ "$(git branch --show-current)" != "main" ]; then
+  echo "ERROR: authorized Phase-6 extraction must run from main." >&2
+  exit 2
+fi
+
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "ERROR: authorized Phase-6 extraction requires a clean tracked worktree." >&2
+  exit 2
+fi
+
+AUTH_RECORD="$(cd "$(dirname "$AUTH_RECORD")" && pwd)/$(basename "$AUTH_RECORD")"
+case "$AUTH_RECORD" in
+  "$REPO_ROOT"/study3x/config/S3X_PHASE6_TIMESTAMP_EXTRACTION_AUTH_*.json)
+    ;;
+  *)
+    echo "ERROR: authorization record must be a versioned study3x/config Phase-6 authorization record." >&2
+    exit 2
+    ;;
+esac
+
+AUTH_RELATIVE="${AUTH_RECORD#"$REPO_ROOT"/}"
+if ! git ls-files --error-unmatch "$AUTH_RELATIVE" >/dev/null 2>&1; then
+  echo "ERROR: authorization record must be tracked by Git." >&2
+  exit 2
+fi
+
+if ! git diff --quiet -- "$AUTH_RELATIVE" || ! git diff --cached --quiet -- "$AUTH_RELATIVE"; then
+  echo "ERROR: authorization record has uncommitted changes." >&2
+  exit 2
+fi
+
 M1_ARCHIVE="$LOCAL_ROOT/downloads/ESA-Mission1.zip"
 M2_ARCHIVE="$LOCAL_ROOT/downloads/ESA-Mission2.zip"
 M1_DIR="$LOCAL_ROOT/extracted/mission1"
