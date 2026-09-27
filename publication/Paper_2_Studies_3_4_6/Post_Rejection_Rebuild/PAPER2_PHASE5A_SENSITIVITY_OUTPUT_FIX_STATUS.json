@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE5A_SENSITIVITY_OUTPUT_FIX",
+  "status": "AUTHORIZED_OUTPUT_SCHEMA_CORRECTION__AWAITING_CI_AND_LOCAL_RERUN",
+  "authorization_date": "2026-09-26",
+  "branch": "paper2/post-rejection-phase5a-sensitivity-output-fix",
+  "branch_base_commit": "834b13864b86d474c1f69ae2b6b8800a0bab3250",
+  "predecessor": {
+    "pr_177_merge_commit": "834b13864b86d474c1f69ae2b6b8800a0bab3250",
+    "post_merge_ci": {
+      "run_id": 36283866706,
+      "run_number": 1220,
+      "conclusion": "success"
+    },
+    "local_phase5_execution": {
+      "status": "PASS",
+      "channels_analyzed": 176,
+      "candidate_rules": 8,
+      "sensitivity_rows": 1408,
+      "outputs": {
+        "sensitivity_csv": {
+          "file": "S3X_GAP_SENSITIVITY_001.csv",
+          "sha256": "033912eedd7ab1398d07e396c671b95912924f554b35e9eedbc6813eedbc68c5"
+        },
+        "delta_frequency_csv": {
+          "file": "S3X_DELTA_FREQUENCIES_001.csv",
+          "sha256": "1399dde74c0cad144e4be4b5c0af201030eaf9ae70621c8b5b70ff9a52b78349"
+        },
+        "summary_json": {
+          "file": "S3X_GAP_SENSITIVITY_SUMMARY_001.json",
+          "sha256": "7d752002b4d91f8789d58c97a79dd7e0a9bcda9f296e3d96816d9cf7fc24ee51"
+        }
+      },
+      "cadence_review_sha256": "7355988e25401d6808019f78723eb7356e1646936be41664ce270667cf454b48",
+      "source_freeze_sha256": "dd1d71dc074588c12cae24c3718ed758fabd36c41b22755f57ccf98964db9f27",
+      "worktree_clean_after_run": true
+    }
+  },
+  "defect": {
+    "class": "OUTPUT_SCHEMA_FIELD_NAME_COLLISION",
+    "scientific_calculation_invalidated": false,
+    "description": "Cadence distribution fields and exceedance distribution fields reused generic names in the sensitivity CSV row assembly, causing the exceedance fields to overwrite cadence median/p95/p99/max values in the exported row.",
+    "threshold_formula_recalculation_mismatches": 0,
+    "sensitivity_rows_checked": 1408,
+    "disposition": "CORRECT_OUTPUT_CONTRACT_AND_RERUN_IDENTICAL_READ_ONLY_ANALYSIS"
+  },
+  "authorized": {
+    "preserve_r1_analyzer_and_runner": true,
+    "correct_output_field_names": true,
+    "bind_csv_sha256_in_summary": true,
+    "add_regression_tests": true,
+    "rerun_identical_read_only_176_channel_analysis": true,
+    "generate_versioned_r2_local_outputs": true
+  },
+  "prohibited": {
+    "gap_rule_selection": true,
+    "gap_rule_freeze": true,
+    "timestamp_level_gap_trace_emission": true,
+    "trace_population_freeze": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "scientific_claim_change": true,
+    "manuscript_claim_use": true
+  },
+  "planned_r2_outputs": [
+    "study3x/local_freeze_work/S3X_GAP_SENSITIVITY_002.csv",
+    "study3x/local_freeze_work/S3X_DELTA_FREQUENCIES_002.csv",
+    "study3x/local_freeze_work/S3X_GAP_SENSITIVITY_SUMMARY_002.json"
+  ],
+  "next_gate": "AUTHOR_REVIEW_OF_CORRECTED_R2_OUTPUTS_BEFORE_ANY_GAP_RULE_SELECTION"
+}
