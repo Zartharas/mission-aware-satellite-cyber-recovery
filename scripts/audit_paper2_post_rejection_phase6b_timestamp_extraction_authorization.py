@@ -140,17 +140,25 @@ def main() -> int:
 
     effectivity = auth.get("effectivity", {})
     require(effectivity.get("record_effective_only_when_tracked_on_main") is True, "main-effectivity gate missing")
-    require(effectivity.get("record_currently_prepared_on_feature_branch") is True, "feature-branch preparation marker missing")
+    require(effectivity.get("creation_state") == "PREPARED_ON_FEATURE_BRANCH", "authorization creation-state marker missing")
+    require(
+        effectivity.get("effective_runner_condition") == "record is tracked and unmodified on clean main",
+        "authorization runner-effectivity rule drift",
+    )
     require(effectivity.get("record_merge_requires_separate_author_review") is True, "separate merge review gate missing")
 
     status = read_json(STATUS_PATH)
     require(
-        status.get("status") == "AUTHORIZATION_RECORD_PREPARED__NOT_MERGED__NO_EXTRACTION_PERFORMED",
+        status.get("status") == "AUTHORIZATION_RECORD_PREPARED__NO_EXTRACTION_PERFORMED",
         "Phase-6B status drift",
     )
     require(status.get("branch_base_commit") == EXPECTED_DESIGN_MERGE, "Phase-6B base commit drift")
-    require(status.get("authorization_record", {}).get("merged_to_main") is False, "status prematurely says authorization merged")
-    require(status.get("authorization_record", {}).get("effective_for_runner") is False, "status prematurely enables runner")
+    auth_status = status.get("authorization_record", {})
+    require(auth_status.get("creation_state") == "PREPARED_ON_FEATURE_BRANCH", "authorization creation-state drift")
+    require(
+        auth_status.get("effective_runner_condition") == "tracked and unmodified on clean main",
+        "authorization effectivity condition drift",
+    )
 
     for forbidden in (
         S3X / "results",
@@ -162,7 +170,7 @@ def main() -> int:
     print("paper2_phase6b_timestamp_extraction_authorization_audit=PASS")
     print(f"protocol_sha256={EXPECTED_PROTOCOL_SHA256}")
     print("timestamp_level_extraction_authorized_by_author=YES")
-    print("authorization_record_effective_for_runner=NO")
+    print("authorization_record_effectivity=CONDITIONAL_ON_TRACKED_CLEAN_MAIN")
     print("timestamp_level_extraction_performed=NO")
     print("trace_population_frozen=NO")
     print("recovery_policy_execution=NO")
