@@ -127,5 +127,18 @@
     "scientific_results_generated": false,
     "manuscript_claim_use": false
   },
-  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE6_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE6_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE",
+  "determinism_validation": {
+    "repeat_execution_required": true,
+    "independent_output_directories_required": true,
+    "required_matching_artifacts": [
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv",
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_SUMMARY_001.json",
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_MANIFEST_001.json",
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_VALIDATION_001.json"
+    ],
+    "byte_identical_sha256_required": true,
+    "variable_wall_clock_metadata_allowed_in_canonical_outputs": false,
+    "required_before_trace_population_freeze_review": true
+  }
 }
