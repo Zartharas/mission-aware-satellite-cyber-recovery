@@ -107,7 +107,9 @@ That record is intentionally not created in Phase 6A.
 
 A future authorization record must bind the exact SHA-256 of the merged Phase-6 protocol and may authorize only timestamp-level candidate extraction. It must continue to keep trace-population freeze, recovery-policy execution, and scientific execution closed.
 
-This separation prevents design approval or design merge from silently becoming scientific execution approval.
+The record must also explicitly state that the Phase-6 design merge has been verified, that its post-merge CI succeeded, and that author execution approval has been recorded. The local runner additionally requires the authorization record to be a tracked, unmodified file under study3x/config, requires execution from main, and requires a clean tracked worktree.
+
+This separation prevents design approval, a local hand-crafted JSON file, or design merge from silently becoming scientific execution approval.
 
 ## Candidate interval identity
 
