@@ -509,6 +509,8 @@ def main() -> int:
         )
 
     out = args.output_dir.resolve()
+    if out.exists() and any(out.iterdir()):
+        fail(f"output directory must be empty before extraction: {out}")
     out.mkdir(parents=True, exist_ok=True)
     csv_path = out / OUTPUT_CSV
     summary_path = out / OUTPUT_SUMMARY
