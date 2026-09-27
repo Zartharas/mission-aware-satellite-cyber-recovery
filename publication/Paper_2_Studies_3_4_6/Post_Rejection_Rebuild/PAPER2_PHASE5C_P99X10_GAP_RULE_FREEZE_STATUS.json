@@ -2,7 +2,7 @@
   "schema": 1,
   "paper_id": "PAPER2_STUDIES_3_4_6",
   "phase": "POST_REJECTION_REBUILD_PHASE5C_P99X10_GAP_RULE_FREEZE",
-  "status": "AUTHORIZED_RULE_FREEZE__AWAITING_CI",
+  "status": "TECHNICALLY_COMPLETE__MERGED__POST_MERGE_CI_SUCCESS__RULE_FROZEN",
   "authorization_date": "2026-09-26",
   "branch": "paper2/post-rejection-phase5c-p99x10-gap-rule-freeze",
   "branch_base_commit": "042a9461b86322c4e445adff70ff64089e7b9dc6",
@@ -51,5 +51,22 @@
     "scientific_execution": true,
     "manuscript_claim_use": true
   },
-  "next_gate": "AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN"
+  "next_gate": "AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN",
+  "completion_date": "2026-09-27",
+  "completion": {
+    "pr_number": 180,
+    "pre_merge_head": "a85b1cefa50d55adc1c61ee581cf6a3ad2279ddd",
+    "pre_merge_ci": {
+      "run_id": 36298410362,
+      "run_number": 1226,
+      "conclusion": "success"
+    },
+    "merge_commit": "ac5b2e1cedafbcc2c15da41f5c0b254256850afc",
+    "post_merge_ci": {
+      "run_id": 36299292647,
+      "run_number": 1227,
+      "conclusion": "success"
+    },
+    "main_after_merge": "ac5b2e1cedafbcc2c15da41f5c0b254256850afc"
+  }
 }
