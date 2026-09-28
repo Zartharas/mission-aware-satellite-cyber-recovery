@@ -211,7 +211,8 @@ def main() -> int:
         "34,542",
         "evidence-refresh hiatus proxy",
         "does **not** cross ONE_SHOT/PERSISTENT",
-        "not external empirical replication",
+        "It must not claim:",
+        "S3X is external empirical replication of Study 3",
     ):
         require(phrase.lower() in design.lower(), f"design control missing: {phrase}")
 
