@@ -274,26 +274,29 @@ def main() -> int:
     ):
         require(status["still_closed"][key] is True, f"closed Phase-7B gate opened: {key}")
 
-    # Phase 7B itself introduced no real-data runner. A later separately governed
-    # Phase-7C authorization may add exactly one bound local gate; any other
-    # Phase-7 shell runner remains a fail-closed condition.
+    # Phase 7B itself introduced no real-data runner. Later separately governed
+    # phases may add only the explicitly versioned Phase-7C/7D local gates.
     tracked = subprocess.check_output(["git", "ls-files"], cwd=ROOT, text=True).splitlines()
     phase7_runner_names = [
         p for p in tracked
         if p.startswith("study3x/") and "phase7" in p.lower() and p.endswith(".sh")
     ]
-    allowed_later_runner = "study3x/validation/run_local_phase7_replay.sh"
-    if phase7_runner_names:
-        require(
-            phase7_runner_names == [allowed_later_runner],
-            f"ungoverned Phase-7 real-data runner tracked: {phase7_runner_names}",
-        )
+    allowed_runners = {
+        "study3x/validation/run_local_phase7_replay.sh",
+        "study3x/validation/run_local_phase7_replay_v2.sh",
+    }
+    require(
+        set(phase7_runner_names).issubset(allowed_runners),
+        f"ungoverned Phase-7 real-data runner tracked: {phase7_runner_names}",
+    )
+
+    if "study3x/validation/run_local_phase7_replay.sh" in phase7_runner_names:
         later_auth = S3X / "config/S3X_PHASE7_RUNTIME_AUTH_001.json"
         require(later_auth.is_file(), "Phase-7C runner exists without versioned runtime authorization")
         later = read_json(later_auth)
         require(
             later.get("status") == "PREPARED_ON_FEATURE_BRANCH__NOT_EFFECTIVE",
-            "Phase-7C authorization preparation state drift",
+            "Phase-7C authorization creation-state drift",
         )
         require(
             later.get("effectivity", {}).get("record_merge_requires_separate_author_review") is True,
@@ -302,6 +305,50 @@ def main() -> int:
         require(
             later.get("effectivity", {}).get("actual_runtime_execution_requires_explicit_post_merge_author_instruction") is True,
             "Phase-7C runner lacks explicit post-merge execution instruction gate",
+        )
+
+    if "study3x/validation/run_local_phase7_replay_v2.sh" in phase7_runner_names:
+        correction_auth = S3X / "config/S3X_PHASE7_RUNTIME_AUTH_002.json"
+        require(
+            correction_auth.is_file(),
+            "Phase-7D corrected runner exists without versioned runtime authorization",
+        )
+        correction = read_json(correction_auth)
+        require(
+            correction.get("authorization_id") == "S3X-PHASE7-RUNTIME-AUTH-002",
+            "Phase-7D authorization id drift",
+        )
+        require(
+            correction.get("supersedes_authorization_id") == "S3X-PHASE7-RUNTIME-AUTH-001",
+            "Phase-7D authorization supersession drift",
+        )
+        require(
+            correction.get("status") == "PREPARED_ON_FEATURE_BRANCH__NOT_EFFECTIVE",
+            "Phase-7D authorization creation-state drift",
+        )
+        require(
+            correction.get("effectivity", {}).get("record_merge_requires_separate_author_review") is True,
+            "Phase-7D corrected runner lacks separate merge authorization control",
+        )
+        require(
+            correction.get("effectivity", {}).get(
+                "actual_corrected_runtime_execution_requires_explicit_post_merge_author_instruction"
+            ) is True,
+            "Phase-7D corrected runner lacks explicit post-merge execution instruction gate",
+        )
+        correction_status = (
+            REBUILD / "PAPER2_PHASE7D_FLOAT_CONTRACT_CORRECTION_STATUS.json"
+        )
+        require(correction_status.is_file(), "Phase-7D correction status record missing")
+        correction_state = read_json(correction_status)
+        require(
+            correction_state.get("status")
+            == "PHASE7D_CORRECTION_PREPARED__NOT_EFFECTIVE__NO_SCIENTIFIC_RESULTS",
+            "Phase-7D correction status drift",
+        )
+        require(
+            all(value is False for value in correction_state.get("executed_now", {}).values()),
+            "Phase-7D status records corrected scientific execution before merge",
         )
     for forbidden in (S3X / "results", S3X / "canonical", S3X / "traces"):
         require(not forbidden.exists(), f"forbidden S3X scientific output path exists: {forbidden.relative_to(ROOT)}")
