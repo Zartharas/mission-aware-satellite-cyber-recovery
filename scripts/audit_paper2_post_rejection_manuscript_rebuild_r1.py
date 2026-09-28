@@ -99,7 +99,7 @@ def main() -> int:
         require(item in text, f"required manuscript content missing: {item}")
 
     require("four studies" not in text.lower(), "S3X incorrectly framed as a fourth pooled study")
-    require("globally best policy" not in text.lower(), "global policy-ranking language present")
+    require("does not identify a globally best policy" in text.lower(), "global policy-ranking boundary missing")
     require("RF contact-loss observations" in text, "S3X RF/contact firewall missing")
     require("not a measurement of physical cache duration in flight" in text, "cache-duration firewall missing")
     require("not operational outage probabilities" in text, "Study-6 availability firewall missing")
