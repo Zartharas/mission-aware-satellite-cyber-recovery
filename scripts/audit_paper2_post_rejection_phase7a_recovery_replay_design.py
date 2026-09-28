@@ -58,6 +58,7 @@ def load_study3_model():
     spec = importlib.util.spec_from_file_location("study3_phase7_parent_model", STUDY3_MODEL)
     require(spec is not None and spec.loader is not None, "cannot load Study-3 temporal model")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     return module
 
