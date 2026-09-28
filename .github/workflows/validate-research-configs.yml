@@ -65,6 +65,9 @@ jobs:
       - name: Audit Paper 2 Phase 7D float-contract correction
         run: python scripts/audit_paper2_post_rejection_phase7d_float_contract_correction.py
 
+      - name: Audit Paper 2 Phase 7E result-freeze preparation
+        run: python scripts/audit_paper2_post_rejection_phase7e_result_freeze.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
