@@ -56,6 +56,9 @@ jobs:
       - name: Audit Paper 2 Phase 7A recovery replay design
         run: python scripts/audit_paper2_post_rejection_phase7a_recovery_replay_design.py
 
+      - name: Audit Paper 2 Phase 7B replay implementation
+        run: python scripts/audit_paper2_post_rejection_phase7b_replay_implementation.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
