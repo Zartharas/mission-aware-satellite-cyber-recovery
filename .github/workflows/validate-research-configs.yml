@@ -74,6 +74,9 @@ jobs:
       - name: Audit Paper 2 post-rejection manuscript rebuild R1
         run: python scripts/audit_paper2_post_rejection_manuscript_rebuild_r1.py
 
+      - name: Audit Paper 2 Rebuild R1 detailed editorial and reference review
+        run: python scripts/audit_paper2_rebuild_r1_detailed_audit.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
