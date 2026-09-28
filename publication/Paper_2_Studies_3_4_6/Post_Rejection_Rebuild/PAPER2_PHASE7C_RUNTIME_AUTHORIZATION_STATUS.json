@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "POST_REJECTION_REBUILD_PHASE7C_RUNTIME_AUTHORIZATION_PREPARATION",
+  "status": "PHASE7C_RUNTIME_AUTHORIZATION_PREPARED__NOT_EFFECTIVE__NO_REAL_EXECUTION",
+  "preparation_date": "2026-09-27",
+  "branch": "paper2/post-rejection-phase7c-runtime-authorization",
+  "branch_base_commit": "6b890245bee10536b8600161ff5f63e7ebd5cdfa",
+  "predecessor": {
+    "phase7b_pr": 190,
+    "phase7b_merge_commit": "6b890245bee10536b8600161ff5f63e7ebd5cdfa",
+    "phase7b_post_merge_ci_run_number": 1256,
+    "phase7b_post_merge_ci_run_id": 36367215928,
+    "phase7b_post_merge_ci_conclusion": "success",
+    "trace_population_freeze_effective": true,
+    "phase7_design_contract_effective": true,
+    "phase7_implementation_candidate_on_main": true
+  },
+  "authorization_candidate": {
+    "id": "S3X-PHASE7-RUNTIME-AUTH-001",
+    "real_intervals": 1919,
+    "cases": 34542,
+    "matched_comparison_rows": 30704,
+    "required_repeat_runs": 2,
+    "accepted_case_mismatches": 0,
+    "accepted_comparison_mismatches": 0,
+    "authorization_effective_now": false
+  },
+  "executed_now": {
+    "real_frozen_interval_artifact_read": false,
+    "real_1919_interval_expansion": false,
+    "recovery_policy_execution": false,
+    "scientific_execution": false,
+    "independent_full_population_validation": false,
+    "deterministic_repeat_execution": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7C_RUNTIME_AUTHORIZATION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
