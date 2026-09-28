@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "freeze_id": "S3X-PHASE7-RESULT-FREEZE-001",
+  "experiment_id": "S3X-ETA-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "PHASE7E_RESULT_FREEZE_PREPARATION",
+  "preparation_date": "2026-09-28",
+  "status": "PREPARED_ON_FEATURE_BRANCH__NOT_EFFECTIVE",
+  "authorized_main_commit": "3d31316ba4b3a0a3e04229a62e776cbeaae8680d",
+  "authorization_basis": {
+    "author_gate": "AUTHOR_REVIEW_BEFORE_RESULT_FREEZE_OR_MANUSCRIPT_CLAIM_USE",
+    "author_result_freeze_approval_recorded": true,
+    "approved_scope": "RESULT_FREEZE_AND_PROVENANCE_CLOSEOUT_ONLY",
+    "manuscript_claim_use_authorized": false,
+    "manuscript_rewrite_authorized": false
+  },
+  "upstream": {
+    "trace_population_freeze": {
+      "freeze_id": "S3X-P99X10-TRACE-POPULATION-FREEZE-001",
+      "git_blob_sha1": "ed0bdcec443b7f0c3ee80d441e1122f32e499d3e",
+      "frozen_interval_csv_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+      "intervals": 1919
+    },
+    "phase7_protocol": {
+      "protocol_id": "S3X-PHASE7-RECOVERY-REPLAY-DESIGN-001",
+      "git_blob_sha1": "f42fe8c0c58ee3b9152e629f5673bd5c71ffede4"
+    },
+    "corrected_implementation": {
+      "candidate_id": "S3X-PHASE7-IMPLEMENTATION-CANDIDATE-002",
+      "git_blob_sha1": "d7ee15c6a2bfe818ee016eadba0893ef74aa8f18"
+    },
+    "corrected_runtime_authorization": {
+      "authorization_id": "S3X-PHASE7-RUNTIME-AUTH-002",
+      "git_blob_sha1": "bb7978052cf03bdfaa628a44d7d268d73e9c005a"
+    },
+    "corrected_runtime_gate": {
+      "path": "study3x/validation/run_local_phase7_replay_v2.sh",
+      "git_blob_sha1": "95cb497cd0465a34e1e8e17609c4e5f781ba8aaf"
+    },
+    "phase7d_merge": {
+      "pr": 192,
+      "merge_commit": "c3fae865dc3f19871a5a58ffac1bebdfe55fa223",
+      "post_merge_ci_run_number": 1262,
+      "post_merge_ci_run_id": 36374775344,
+      "post_merge_ci_conclusion": "success"
+    },
+    "execution_authority": {
+      "main_commit": "3d31316ba4b3a0a3e04229a62e776cbeaae8680d",
+      "post_handoff_ci_run_number": 1264,
+      "post_handoff_ci_run_id": 36376351410,
+      "post_handoff_ci_conclusion": "success"
+    }
+  },
+  "validated_local_execution": {
+    "execution_date": "2026-09-28",
+    "local_orchestration_script_sha256": "73f415656185bc0fd488c1e238053f8f52eee27e209195d93a11cfe097bf9509",
+    "frozen_interval_sha256_verified": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "run1_output_directory": "study3x/local_freeze_work/phase7_authorized_run1_001",
+    "run2_output_directory": "study3x/local_freeze_work/phase7_authorized_run2_001",
+    "run1_primary_runtime": "PASS",
+    "run1_independent_validation": "PASS",
+    "run2_primary_runtime": "PASS",
+    "run2_independent_validation": "PASS",
+    "frozen_intervals_each_run": 1919,
+    "case_rows_each_run": 34542,
+    "matched_comparison_rows_each_run": 30704,
+    "reference_cases_recomputed_each_run": 34542,
+    "case_level_mismatches_each_run": 0,
+    "matched_comparison_mismatches_each_run": 0,
+    "summary_validation_both_runs": "PASS",
+    "manifest_integrity_both_runs": "PASS",
+    "tracked_repository_drift_after_each_run": 0,
+    "all_five_canonical_outputs_byte_identical": true,
+    "validation_characterization": "SEPARATELY_IMPLEMENTED_REPOSITORY_REFERENCE_EVALUATOR__NOT_INDEPENDENT_HUMAN_OR_EXTERNAL_REPLICATION"
+  },
+  "canonical_result_identity": {
+    "S3X_PHASE7_CASE_RESULTS_001.csv": {
+      "sha256": "948cc1def0032ba0c20d0f4fcbb0d67c34130b5c42a136bbe480d7a09e49cb37",
+      "rows": 34542,
+      "byte_identical_across_two_clean_runs": true
+    },
+    "S3X_PHASE7_MATCHED_COMPARISONS_001.csv": {
+      "sha256": "7ad0e0e901b72f92ac53c3a0e1e48213dba7191ee22904f39720f5cd98a759ef",
+      "rows": 30704,
+      "byte_identical_across_two_clean_runs": true
+    },
+    "S3X_PHASE7_SUMMARY_001.json": {
+      "sha256": "d93c5e5e2389de3d88f0d9b3d68fc82c97c84925b58529caddd7227d3f65690a",
+      "byte_identical_across_two_clean_runs": true
+    },
+    "S3X_PHASE7_INDEPENDENT_VALIDATION_001.json": {
+      "sha256": "93eeaa0ad23aff53ee9f259737472ed95b740850f60fde7bf20ef08385dea778",
+      "case_level_mismatches": 0,
+      "matched_comparison_mismatches": 0,
+      "byte_identical_across_two_clean_runs": true
+    },
+    "S3X_PHASE7_RESULTS_HASH_MANIFEST_001.json": {
+      "sha256": "1a07b116edada84db4daadd072aad7b6d567a634f0bf191f4221970f8e504610",
+      "manifest_integrity": "PASS",
+      "byte_identical_across_two_clean_runs": true
+    }
+  },
+  "interpretation_controls": [
+    "The Phase-7 result population is a deterministic modeled replay over the frozen S3X P99_X10 interval population.",
+    "ESA telemetry inter-sample intervals remain timing inputs only and are not RF contact-loss or outage truth.",
+    "V4 and V5 are modeled trust states and are not labels supplied by ESA.",
+    "The separately implemented repository reference evaluator is not independent human or external replication.",
+    "No sampling inference, p-value, confidence interval, bootstrap, permutation test, global policy score, or Study-3 pooling is authorized by this freeze."
+  ],
+  "effectivity": {
+    "creation_state": "PREPARED_ON_FEATURE_BRANCH",
+    "result_freeze_effective_at_record_creation": false,
+    "freeze_effective_only_when_record_tracked_on_main": true,
+    "merge_requires_separate_author_review": true,
+    "post_merge_ci_required_before_downstream_claim_use": true,
+    "effective_freeze_condition": "record is tracked and unmodified on main after separately authorized merge and successful post-merge CI",
+    "effective_state_after_approved_merge_and_ci": "PHASE7_RESULT_POPULATION_FROZEN"
+  },
+  "scope_after_effective_freeze": {
+    "canonical_result_hashes_locked": true,
+    "validated_result_population_locked": true,
+    "scientific_reexecution_authorized": false,
+    "result_mutation_authorized": false,
+    "canonical_output_bytes_commit_authorized": false,
+    "manuscript_claim_use_authorized": false,
+    "manuscript_rewrite_authorized": false,
+    "p99_x10_retuning_authorized": false,
+    "interval_membership_retuning_authorized": false,
+    "study3_modification_authorized": false,
+    "study3_s3x_pooling_authorized": false
+  },
+  "repository_storage_policy": {
+    "canonical_outputs_remain_local_ignored": true,
+    "canonical_output_bytes_committed": false,
+    "tracked_freeze_record_contains_hashes_counts_and_invariants_only": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7E_RESULT_FREEZE_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
