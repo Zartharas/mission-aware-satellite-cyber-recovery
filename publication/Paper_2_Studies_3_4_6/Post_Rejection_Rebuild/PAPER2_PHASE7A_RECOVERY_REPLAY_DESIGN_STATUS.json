@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "POST_REJECTION_REBUILD_PHASE7A_RECOVERY_REPLAY_DESIGN",
+  "status": "PHASE7A_DESIGN_PREPARED__NO_RECOVERY_OR_SCIENTIFIC_EXECUTION",
+  "preparation_date": "2026-09-27",
+  "branch": "paper2/post-rejection-phase7a-recovery-replay-design",
+  "branch_base_commit": "38b45cd5e4674c78b432f24bfff2457affb3cb12",
+  "predecessor": {
+    "phase6c_pr": 188,
+    "phase6c_merge_commit": "38b45cd5e4674c78b432f24bfff2457affb3cb12",
+    "phase6c_post_merge_ci_run_number": 1251,
+    "phase6c_post_merge_ci_run_id": 36358715108,
+    "phase6c_post_merge_ci_conclusion": "success",
+    "trace_population_freeze_id": "S3X-P99X10-TRACE-POPULATION-FREEZE-001",
+    "trace_population_effective": true
+  },
+  "design": {
+    "protocol_id": "S3X-PHASE7-RECOVERY-REPLAY-DESIGN-001",
+    "intervals": 1919,
+    "policies": 3,
+    "evidence_states": 3,
+    "timing_arms": 2,
+    "expected_cases": 34542,
+    "normalized_timing_basis": "channel-specific cadence_p99_seconds",
+    "repeated_refresh_persistence_dimension": false
+  },
+  "authorized_now": {
+    "protocol_and_analysis_design": true,
+    "fail_closed_audit_and_tests": true,
+    "draft_pr_and_premerge_ci": true
+  },
+  "still_closed": {
+    "phase7_implementation": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "manuscript_claim_use": true,
+    "trace_membership_retuning": true,
+    "p99_x10_retuning": true,
+    "frozen_study3_modification": true,
+    "pooling_with_study3": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7A_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
