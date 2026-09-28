@@ -23,7 +23,11 @@
     "reference_v2_blob": "26444d206f18bededa656b1de56d9ba0948c6ef3",
     "population_runtime_v2_blob": "f2a789edd24a0e23ff0d256312fc7d2b7e656573",
     "population_validator_v2_blob": "15796f7b8e2da3f92e941021839b387ad365394e",
-    "frozen_interval_csv_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc"
+    "frozen_interval_csv_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "local_runtime_gate_v2": {
+      "path": "study3x/validation/run_local_phase7_replay_v2.sh",
+      "git_blob_sha1": "95cb497cd0465a34e1e8e17609c4e5f781ba8aaf"
+    }
   },
   "numerical_contract": {
     "phase6_membership_semantics": "BINARY_FLOAT",
