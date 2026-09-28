@@ -274,13 +274,35 @@ def main() -> int:
     ):
         require(status["still_closed"][key] is True, f"closed Phase-7B gate opened: {key}")
 
-    # No real-data runner or scientific output path may be introduced in Phase 7B.
+    # Phase 7B itself introduced no real-data runner. A later separately governed
+    # Phase-7C authorization may add exactly one bound local gate; any other
+    # Phase-7 shell runner remains a fail-closed condition.
     tracked = subprocess.check_output(["git", "ls-files"], cwd=ROOT, text=True).splitlines()
     phase7_runner_names = [
         p for p in tracked
         if p.startswith("study3x/") and "phase7" in p.lower() and p.endswith(".sh")
     ]
-    require(phase7_runner_names == [], f"Phase-7 real-data runner unexpectedly tracked: {phase7_runner_names}")
+    allowed_later_runner = "study3x/validation/run_local_phase7_replay.sh"
+    if phase7_runner_names:
+        require(
+            phase7_runner_names == [allowed_later_runner],
+            f"ungoverned Phase-7 real-data runner tracked: {phase7_runner_names}",
+        )
+        later_auth = S3X / "config/S3X_PHASE7_RUNTIME_AUTH_001.json"
+        require(later_auth.is_file(), "Phase-7C runner exists without versioned runtime authorization")
+        later = read_json(later_auth)
+        require(
+            later.get("status") == "PREPARED_ON_FEATURE_BRANCH__NOT_EFFECTIVE",
+            "Phase-7C authorization preparation state drift",
+        )
+        require(
+            later.get("effectivity", {}).get("record_merge_requires_separate_author_review") is True,
+            "Phase-7C runner lacks separate merge authorization control",
+        )
+        require(
+            later.get("effectivity", {}).get("actual_runtime_execution_requires_explicit_post_merge_author_instruction") is True,
+            "Phase-7C runner lacks explicit post-merge execution instruction gate",
+        )
     for forbidden in (S3X / "results", S3X / "canonical", S3X / "traces"):
         require(not forbidden.exists(), f"forbidden S3X scientific output path exists: {forbidden.relative_to(ROOT)}")
 
