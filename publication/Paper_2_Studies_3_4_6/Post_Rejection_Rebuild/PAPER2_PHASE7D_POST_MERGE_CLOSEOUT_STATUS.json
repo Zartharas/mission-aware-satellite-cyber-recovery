@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-PHASE7D-POST-MERGE-CLOSEOUT-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "date_local": "2026-09-27",
+  "status": "PHASE7D_CORRECTION_MERGED__POST_MERGE_CI_SUCCESS__CORRECTED_RUNTIME_READY_FOR_SEPARATE_AUTHOR_EXECUTION_APPROVAL",
+  "authoritative_main_commit": "c3fae865dc3f19871a5a58ffac1bebdfe55fa223",
+  "phase7d": {
+    "pr": 192,
+    "pre_merge_head": "164b4f6f8af1d1458c64a7bcf50734d901b0042f",
+    "pre_merge_ci_run_number": 1261,
+    "pre_merge_ci_run_id": 36373674725,
+    "pre_merge_ci_conclusion": "success",
+    "merge_commit": "c3fae865dc3f19871a5a58ffac1bebdfe55fa223",
+    "post_merge_ci_run_number": 1262,
+    "post_merge_ci_run_id": 36374775344,
+    "post_merge_ci_conclusion": "success"
+  },
+  "failed_v1_attempt": {
+    "authorization_id": "S3X-PHASE7-RUNTIME-AUTH-001",
+    "frozen_interval_csv_sha256_verified": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "bound_code_identity_verified": true,
+    "stopped_during": "RUN1_INTERVAL_PARSE_BEFORE_CASE_GENERATION",
+    "exception": "ValueError: frozen P99_X10 threshold relationship is inconsistent",
+    "scientific_case_rows_generated": 0,
+    "independent_validation_started": false,
+    "result_freeze_changed": false,
+    "manuscript_claim_use_changed": false
+  },
+  "corrected_stack": {
+    "implementation_candidate_id": "S3X-PHASE7-IMPLEMENTATION-CANDIDATE-002",
+    "implementation_candidate_blob": "d7ee15c6a2bfe818ee016eadba0893ef74aa8f18",
+    "runtime_authorization_id": "S3X-PHASE7-RUNTIME-AUTH-002",
+    "runtime_authorization_blob": "bb7978052cf03bdfaa628a44d7d268d73e9c005a",
+    "primary_v2_blob": "40e3bd0406f1f0bedecbac9cb1386699a8619318",
+    "reference_v2_blob": "26444d206f18bededa656b1de56d9ba0948c6ef3",
+    "population_runtime_v2_blob": "f2a789edd24a0e23ff0d256312fc7d2b7e656573",
+    "population_validator_v2_blob": "15796f7b8e2da3f92e941021839b387ad365394e",
+    "local_runtime_gate_v2_blob": "95cb497cd0465a34e1e8e17609c4e5f781ba8aaf"
+  },
+  "numerical_contract": {
+    "phase6_membership_semantics": "BINARY_FLOAT",
+    "threshold_check": "float(threshold_seconds) == float(cadence_p99_seconds) * 10.0",
+    "strict_membership_check": "float(delta_seconds) > float(threshold_seconds)",
+    "normalized_hiatus_analysis": "exact rational arithmetic from canonical CSV decimal tokens",
+    "tolerance_or_epsilon_introduced": false,
+    "p99_x10_retuned": false,
+    "interval_membership_changed": false,
+    "frozen_input_changed": false
+  },
+  "frozen_population": {
+    "trace_freeze_id": "S3X-P99X10-TRACE-POPULATION-FREEZE-001",
+    "frozen_interval_csv_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "intervals": 1919,
+    "cases_per_interval": 18,
+    "expected_cases": 34542,
+    "expected_matched_comparison_rows": 30704,
+    "accepted_case_level_mismatches": 0,
+    "accepted_matched_comparison_mismatches": 0,
+    "required_deterministic_runs": 2
+  },
+  "current_gates": {
+    "corrected_runtime_authorization_effective_by_merge_and_post_merge_ci": true,
+    "corrected_real_replay_performed": false,
+    "corrected_scientific_results_generated": false,
+    "independent_full_population_validation_performed": false,
+    "deterministic_repeatability_verified": false,
+    "result_freeze_authorized": false,
+    "canonical_result_commit_authorized": false,
+    "manuscript_claim_use_authorized": false,
+    "p99_x10_retuning_authorized": false,
+    "interval_membership_retuning_authorized": false,
+    "study3_modification_authorized": false,
+    "study3_s3x_pooling_authorized": false
+  },
+  "local_execution_note": {
+    "expected_local_repo_path": "/Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery",
+    "expected_input_path": "study3x/local_freeze_work/phase6_run1/S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv",
+    "canonical_run1_dir": "study3x/local_freeze_work/phase7_authorized_run1_001",
+    "canonical_run2_dir": "study3x/local_freeze_work/phase7_authorized_run2_001",
+    "possible_v1_residue": "phase7_authorized_run1_001 may exist as an empty directory because v1 stopped after mkdir but before case generation; empty directory is not scientific evidence",
+    "corrected_runner": "study3x/validation/run_local_phase7_replay_v2.sh"
+  },
+  "next_gate": "AUTHOR_APPROVAL_BEFORE_PHASE7D_CORRECTED_REAL_REPLAY"
+}

@@ -1,48 +1,76 @@
-# Paper 2 New-Chat Handoff — 2026-09-27
+# Paper 2 New-Chat Handoff — 2026-09-27 — Phase 7D Closeout
 
-## Scope
+## Authority
 
-This record is the authoritative handoff for continuing the Paper-2 post-rejection rebuild in a new ChatGPT session.
+This file is the current repository handoff for continuing the Paper-2 post-rejection rebuild in a new ChatGPT session.
 
-Paper 2 title:
+Repository:
+
+`Zartharas/mission-aware-satellite-cyber-recovery`
+
+Authoritative `main` at this handoff:
+
+`c3fae865dc3f19871a5a58ffac1bebdfe55fa223`
+
+Phase-7D post-merge validation:
+
+- PR: `#192`
+- accepted pre-merge head: `164b4f6f8af1d1458c64a7bcf50734d901b0042f`
+- pre-merge CI: run `#1261`, run id `36373674725`, success
+- merge commit: `c3fae865dc3f19871a5a58ffac1bebdfe55fa223`
+- post-merge CI: run `#1262`, run id `36374775344`, success
+
+Always verify live GitHub `main` and current open PRs before acting because other study streams may advance the repository.
+
+## Paper 2 identity and publication boundary
+
+Title:
 
 **Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance**
 
-Author: Aman Kumar Singh, sole independent author/corresponding author.
+Aman Kumar Singh is the sole independent author/corresponding author.
 
-Paper 2 remains limited to frozen Studies 3, 4, and 6 as its original evidence foundation. Study 5 is not part of Paper 2. Studies 1/2/7/7E/8/8E/9 remain separate publication/research streams.
+The rejected TAES R10 submission is immutable historical provenance:
 
-The TAES R10 submission, manuscript ID `TAES-2026-4182`, was rejected at editorial pre-screen before external peer review. The rejected package remains immutable provenance.
+- manuscript id: `TAES-2026-4182`
+- decision: `EDITORIAL_PRESCREEN_REJECTION`
+- external peer review: NO
 
-## Rebuild theory
+No R11/R12 manuscript rewrite is currently authorized.
 
-Core principle:
-
-> A recovery decision cannot infer a trust property that is absent from the evidence it can observe.
-
-Working central research question:
-
-> Which trust failures remain invisible to a satellite cyber-recovery decision when it relies on fresh evidence, multiple trusted producers, and an approved recovery artifact?
-
-No R11/R12 manuscript rewrite has been authorized yet.
+Paper 2 remains scientifically limited to frozen Studies 3, 4, and 6 plus separately governed extension work. Do not import Study 5 or Studies 1/2/7/7E/8/8E/9 as Paper-2 evidence and do not pool populations.
 
 ## Frozen original studies
 
-- Study 3 `S3-K4E-001`: 1,380 temporal trajectories and 67,620 epochs.
-- Study 4 `S4-MPQ-001`: 4,608 exact observations across 18 vote/provenance-domain rules.
-- Study 6 `S6-SCTR-001`: 420 exact observations.
+- Study 3 `S3-K4E-001`: 1,380 trajectories / 67,620 epochs
+- Study 4 `S4-MPQ-001`: 4,608 observations / 18 vote-provenance rules
+- Study 6 `S6-SCTR-001`: 420 observations
 
-Do not modify, rerun, enlarge, pool, or substitute the frozen Studies 3, 4, or 6.
+Do not modify, rerun, enlarge, or replace these frozen studies.
 
-## S3X extension identity
+## Core rebuild principle
 
-Extension id: `S3X-ETA-001`.
+> A recovery decision cannot infer a trust property that is absent from the evidence it can observe.
 
-Public source: ESA Anomaly Dataset v2.
+Working central RQ:
 
-Frozen source record: `S3X-ESA-V2-SOURCE-FREEZE-001`.
+> Which trust failures remain invisible to a satellite cyber-recovery decision when it relies on fresh evidence, multiple trusted producers, and an approved recovery artifact?
 
-Source archive SHA-256:
+## S3X identity and source freeze
+
+Extension:
+
+`S3X-ETA-001`
+
+Public source:
+
+ESA Anomaly Dataset v2
+
+Source freeze:
+
+`S3X-ESA-V2-SOURCE-FREEZE-001`
+
+Mission archive SHA-256:
 
 - Mission 1: `ba28f761b1deab4dbba4728793bff139fea39dbf9cf0d9c559d619ffe75d5a72`
 - Mission 2: `e8a89be1917b6754a10bd323441e87a82c8cf2e84ed162442c2dcf72ecc346d5`
@@ -51,72 +79,66 @@ Source-freeze SHA-256:
 
 `dd1d71dc074588c12cae24c3718ed758fabd36c41b22755f57ccf98964db9f27`
 
-Schema report SHA-256:
-
-- Mission 1: `696ad9bfa90ff37e2c22bb7eb0c1778af4225a09b02038130698d402b53aaa0a`
-- Mission 2: `25533581a3585a8b3056081e1e47f4907d7664103aad5527e374510c0ffba62e`
-
 Channels:
 
 - Mission 1: 76
 - Mission 2: 100
 - total: 176
 
-Cadence-review SHA-256:
+Interpretation firewall: telemetry gaps remain only extreme telemetry inter-sample intervals unless separately supported. Never relabel them as RF contact loss, ground-station visibility loss, spacecraft outage, cyberattack truth, onboard recovery latency, or operational command unavailability.
 
-`7355988e25401d6808019f78723eb7356e1646936be41664ce270667cf454b48`
+## Frozen Phase-5C gap rule
 
-## Phase 5 / 5A sensitivity evidence
+Freeze id:
 
-Phase 5 evaluated exactly eight diagnostic rules:
+`S3X-P99X10-GAP-RULE-FREEZE-001`
 
-- `P99_X1`
-- `P99_X2`
-- `P99_X3`
-- `P99_X5`
-- `P99_X10`
-- `MAX_P99_MEDIAN_X2`
-- `MAX_P99_MEDIAN_X3`
-- `MAX_P99_MEDIAN_X5`
+Rule:
 
-The R1 sensitivity CSV had an output-field naming collision: cadence fields and exceedance-distribution fields reused generic names. The threshold calculations were not invalidated. Phase 5A corrected the output schema and reran the identical read-only analysis.
+`P99_X10`
 
-Corrected R2 evidence:
+Generation contract:
 
-- `S3X_GAP_SENSITIVITY_002.csv`
-  - SHA-256 `f690dd230b2897dd74ec880be0de9c207cbb3c975fb4f7740bb18b49df55b88e`
-- `S3X_DELTA_FREQUENCIES_002.csv`
-  - SHA-256 `1399dde74c0cad144e4be4b5c0af201030eaf9ae70621c8b5b70ff9a52b78349`
-- `S3X_GAP_SENSITIVITY_SUMMARY_002.json`
-  - SHA-256 `c57fb506c08f03f69f3bed7326355bc97a318f7b6b5015c7745cc3e956865cc6`
+`threshold_seconds = channel-specific cadence_p99_seconds * 10.0`
 
-R2 dimensions:
+Membership:
 
-- channels: 176
-- candidate rules: 8
-- sensitivity rows: 1,408
+`positive inter-sample delta > threshold_seconds`
 
-## Phase 5B pre-freeze validation
+The comparison is strict `>`. Equality is not an exceedance.
 
-Local validation record:
+Selection characterization:
 
-`S3X_P99_X10_PREFREEZE_VALIDATION_001.json`
+`DATA_INFORMED_SELECTION_FROM_PRESPECIFIED_PHASE5_CANDIDATE_FAMILY`
+
+P99_X10 was selected after the prespecified eight-rule sensitivity analysis; do not describe it as prospectively fixed before inspection.
+
+Retuning is prohibited.
+
+## Phase 6 frozen trace population
+
+The Phase-6/6C pipeline extracted, independently validated, repeated, and froze the P99_X10 timestamp population.
+
+Frozen interval artifact:
+
+`S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv`
 
 SHA-256:
 
-`cdf9894a6bf1f3dbe9dadb11ec1484b0c540118b05d108d7a38ed33af5930be0`
+`cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc`
 
-Validation result:
+Invariants:
 
-- candidate: `P99_X10`
 - channels: 176
-- total exceedances: 1,919
-- channels with exceedances: 171
-- zero-exceedance channels: 5
-- canonical 176-channel projection SHA-256:
-  `f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1`
+- frozen intervals: 1,919
+- channels with intervals: 171
+- zero-interval channels: 5
 
-Zero-exceedance channels:
+Canonical channel projection SHA-256:
+
+`f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1`
+
+Zero-interval channels:
 
 - `ESA-Mission2/channel_66.zip`
 - `ESA-Mission2/channel_67.zip`
@@ -124,145 +146,253 @@ Zero-exceedance channels:
 - `ESA-Mission2/channel_69.zip`
 - `ESA-Mission2/channel_100.zip`
 
-The Phase-5B local run left the Git worktree clean.
+Trace-population freeze is effective. Interval-membership retuning is prohibited.
 
-## Phase 5C frozen gap rule
+## Phase 7A design
 
-Freeze id:
+Protocol:
 
-`S3X-P99X10-GAP-RULE-FREEZE-001`
+`S3X-PHASE7-RECOVERY-REPLAY-DESIGN-001`
 
-Machine-readable authority:
+Prospective deterministic grid:
 
-`study3x/config/S3X_GAP_RULE_FREEZE_001.json`
+`1,919 intervals × 3 policies × 3 evidence states × 2 timing arms = 34,542 cases`
 
-Frozen rule:
+Policies:
 
-`P99_X10`
+- `S2_B0_FAIL_CLOSED`
+- `S2_B2_RISK_THRESHOLD`
+- `S2_S1_EVIDENCE_AWARE`
 
-Exact formula:
+Evidence states:
 
-`threshold_seconds = 10 * channel-specific cadence_p99_seconds`
+- V0 = truthful post-onset evidence
+- V4 = post-signature value manipulation / invalid signature
+- V5 = false-but-valid trusted-producer evidence
 
-Exact comparison:
+Timing arms:
 
-`positive inter-sample delta > threshold_seconds`
+- `EMPIRICAL_HIATUS_PROXY`
+- `MATCHED_CONTINUOUS_REFRESH_CONTROL`
 
-The comparison is strict greater-than. Equality is not an exceedance.
+The ONE_SHOT/PERSISTENT dimension is deliberately excluded because a single frozen interval does not establish a repeated post-hiatus refresh schedule.
 
-Selection characterization:
+Expected matched-comparison rows:
 
-`DATA_INFORMED_SELECTION_FROM_PRESPECIFIED_PHASE5_CANDIDATE_FAMILY`
+`30,704`
 
-Do not describe P99_X10 as having been prespecified as the final rule before cadence inspection. It was selected after the read-only eight-rule sensitivity analysis and separate pre-freeze validation.
+Sampling p-values, confidence intervals, bootstrap/permutation inference, global policy scores/rankings, post-hoc exclusions, and pooling with Study 3 are prohibited.
 
-No cadence-class-specific multiplier was introduced.
+## Phase 7B / 7C historical v1 implementation
 
-## Phase 5C merge/CI provenance
+Historical implementation candidate:
 
-PR `#180`:
+`S3X-PHASE7-IMPLEMENTATION-CANDIDATE-001`
 
-- pre-merge head: `a85b1cefa50d55adc1c61ee581cf6a3ad2279ddd`
-- pre-merge CI: run id `36298410362`, run number `1226`, success
-- merge commit: `ac5b2e1cedafbcc2c15da41f5c0b254256850afc`
-- post-merge CI: run id `36299292647`, run number `1227`, success
-- `main` immediately after Phase-5C merge: `ac5b2e1cedafbcc2c15da41f5c0b254256850afc`
+Historical runtime authorization:
 
-Phase 5C is technically complete and the frozen rule is active repository state.
+`S3X-PHASE7-RUNTIME-AUTH-001`
 
-## Interpretation firewall
+Pre-runtime synthetic parity:
 
-A `P99_X10` exceedance is only an extreme telemetry inter-sample interval diagnostic.
+- synthetic fixture intervals: 3
+- synthetic primary/reference cases: 54
+- mismatches: 0
 
-Do not claim that a detected interval is, by itself:
+The v1 authorization became effective after PR #191 / CI #1259.
 
-- RF contact loss;
-- ground-station visibility loss;
-- spacecraft outage;
-- cyberattack truth;
-- onboard recovery latency;
-- operational command availability.
+### First real v1 execution attempt
 
-## Current gates
+The user authorized the first real replay.
 
-Current authorized state:
+Preflight passed:
 
-- source identity frozen: YES
-- gap rule selected: YES
-- gap rule frozen: YES
-- timestamp-level trace extraction: NO
-- trace population frozen: NO
-- recovery-policy execution: NO
-- S3X scientific execution: NO
-- S4X execution: NO
-- S6X build/scientific campaign: NO
-- manuscript R11/R12 rewrite: NO
-- new venue lock: NO
-- publisher submission: NO
+- authorized main verified
+- frozen CSV SHA verified as `cfa4fa3d...`
+- bound code identity PASS
+- output directories initially unused
 
-The frozen P99_X10 rule may not be retuned after timestamp-level locations are inspected. Any future rule change requires a separately authorized versioned protocol.
+Run 1 then stopped in interval parsing with:
 
-## Next phase
+`ValueError: frozen P99_X10 threshold relationship is inconsistent`
 
-Next gate:
+The failure occurred **before case generation**:
 
-`AUTHOR_REVIEW_BEFORE_PHASE6_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN`
+- scientific case rows generated: 0
+- independent full-population validation started: NO
+- result freeze changed: NO
+- manuscript claim use changed: NO
 
-The next chat should begin with **Phase 6 design only** unless the author explicitly authorizes execution.
+The input was not invalidated.
 
-Recommended Phase 6 objective:
+## Phase 7D root cause
 
-Design a deterministic timestamp-level extraction protocol that:
+Phase 6 computed threshold with Python binary floating-point and serialized cadence and threshold independently.
 
-1. reads the already frozen ESA-v2 source bytes;
-2. uses only the frozen `P99_X10` rule;
-3. recomputes each channel P99 using the frozen method;
-4. emits timestamp-level intervals only where `delta > 10 * P99`;
-5. preserves mission/channel/source-hash provenance;
-6. includes deterministic ordering and stable identifiers;
-7. validates aggregate extraction counts against the already bound 1,919 exceedances;
-8. does not reinterpret gaps as RF outages, attacks, recovery latency, or command availability;
-9. does not execute Study-3 recovery policies;
-10. does not freeze the extracted trace population until a separate author review;
-11. does not create scientific results or manuscript claims.
+The frozen numerical relation is therefore:
 
-Before any Phase-6 execution, create a versioned protocol/design record, fail-closed tests/audit, and a separate PR. Run CI, obtain author authorization, merge, and verify post-merge CI before local extraction.
+`float(threshold_seconds) == float(cadence_p99_seconds) * 10.0`
 
-## S6X state
+and membership is:
 
-S6X pre-runtime validation has already passed against pinned NASA cFS/LC source identities. No cFS/LC build, fixture application, signing, independent rebuild, provenance observation generation, or scientific campaign has been authorized.
+`float(delta_seconds) > float(threshold_seconds)`
 
-Keep S6X on hold while Phase 6 S3X design is being considered unless the author explicitly changes priorities.
+Candidate 001 incorrectly re-parsed independent CSV strings as exact decimals and required:
 
-## Other non-negotiable separation controls
+`Decimal(threshold) == Decimal(cadence) * 10`
 
-- no Study 5 import into Paper 2;
-- no Study 7/7E, 8/8E, or 9 import;
-- no pooling across frozen studies/extensions;
-- do not merge historical branch `paper2/taes-10-page-compression`;
-- historical archive SHA-256 for that branch remains `ef1c6f5a224a0a0816a5f02285055fb43eb0e5cebcb4be4c0156ab35524741c4`.
+which is stronger than the Phase-6 contract.
+
+Example edge:
+
+- cadence string `0.07`
+- Phase-6 threshold string `0.7000000000000001`
+- float relation is true
+- exact-decimal relation is false
+
+Classification:
+
+`IMPLEMENTATION_VALIDATION_CONTRACT_MISMATCH__NOT_DATA_OR_RULE_FAILURE`
+
+No epsilon or tolerance was introduced in the correction.
+
+## Corrected Phase-7D v2 stack
+
+Corrected implementation candidate:
+
+`S3X-PHASE7-IMPLEMENTATION-CANDIDATE-002`
+
+Blob:
+
+`d7ee15c6a2bfe818ee016eadba0893ef74aa8f18`
+
+Corrected runtime authorization:
+
+`S3X-PHASE7-RUNTIME-AUTH-002`
+
+Blob:
+
+`bb7978052cf03bdfaa628a44d7d268d73e9c005a`
+
+Corrected code identities:
+
+- primary v2: `40e3bd0406f1f0bedecbac9cb1386699a8619318`
+- reference v2: `26444d206f18bededa656b1de56d9ba0948c6ef3`
+- runtime v2: `f2a789edd24a0e23ff0d256312fc7d2b7e656573`
+- full-population validator v2: `15796f7b8e2da3f92e941021839b387ad365394e`
+- local gate v2: `95cb497cd0465a34e1e8e17609c4e5f781ba8aaf`
+
+Corrected numerical contract:
+
+- threshold/membership validation: Phase-6 binary-float semantics
+- normalized hiatus analysis: exact rational arithmetic over canonical CSV decimal tokens
+- tolerance added: NO
+- epsilon added: NO
+- P99_X10 retuned: NO
+- interval membership changed: NO
+- frozen input changed: NO
+
+PR #192 merged this corrected stack and post-merge CI #1262 succeeded.
+
+The historical JSON records retain creation-state strings such as `PREPARED_ON_FEATURE_BRANCH__NOT_EFFECTIVE`. Do not rewrite them. Their effectivity conditions are now satisfied by the separately authorized merge to `main` and successful post-merge CI. The post-merge closeout record is the authority for current effectivity.
+
+## Current formal state
+
+```text
+PHASE7D_CORRECTION_MERGED
+POST_MERGE_CI_1262_SUCCESS
+CORRECTED_RUNTIME_AUTHORIZATION_002_EFFECTIVE
+
+FROZEN_INTERVALS = 1919
+AUTHORIZED_CASES = 34542
+MATCHED_COMPARISON_ROWS = 30704
+REQUIRED_DETERMINISTIC_RUNS = 2
+CASE_MISMATCH_TOLERANCE = 0
+MATCHED_COMPARISON_MISMATCH_TOLERANCE = 0
+
+CORRECTED_REAL_REPLAY_PERFORMED = NO
+CORRECTED_SCIENTIFIC_RESULTS_GENERATED = NO
+INDEPENDENT_FULL_POPULATION_VALIDATION_PERFORMED = NO
+DETERMINISTIC_REPEATABILITY_VERIFIED = NO
+
+RESULT_FREEZE = NOT AUTHORIZED
+CANONICAL_RESULT_COMMIT = NOT AUTHORIZED
+MANUSCRIPT_CLAIM_USE = NOT AUTHORIZED
+
+P99_X10_RETUNING = PROHIBITED
+INTERVAL_MEMBERSHIP_RETUNING = PROHIBITED
+STUDY3_MODIFICATION = PROHIBITED
+STUDY3_S3X_POOLING = PROHIBITED
+```
+
+## Local runtime path
+
+Expected local repository:
+
+`/Users/zarthras/Documents/Development Projects/Satellite-Cybersecurity-Research/mission-aware-satellite-cyber-recovery`
+
+Frozen input path:
+
+`study3x/local_freeze_work/phase6_run1/S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv`
+
+Corrected runner:
+
+`study3x/validation/run_local_phase7_replay_v2.sh`
+
+Authorization record:
+
+`study3x/config/S3X_PHASE7_RUNTIME_AUTH_002.json`
+
+Canonical outputs:
+
+- `study3x/local_freeze_work/phase7_authorized_run1_001`
+- `study3x/local_freeze_work/phase7_authorized_run2_001`
+
+The failed v1 attempt may have created `phase7_authorized_run1_001` as an **empty directory** before parsing stopped. An empty directory is not a scientific result. Do not delete or overwrite any non-empty output directory; inspect first and fail closed if files are present.
+
+## Next controlled gate
+
+`AUTHOR_APPROVAL_BEFORE_PHASE7D_CORRECTED_REAL_REPLAY`
+
+A new chat must **not** assume that the earlier v1 execution authorization automatically authorizes v2 execution.
+
+After explicit new authorization, the corrected execution should:
+
+1. verify live `main` and successful latest CI;
+2. fast-forward local `main` only if origin/main remains the authorized state or a later verified documentation-only handoff commit;
+3. verify the frozen interval CSV SHA exactly;
+4. verify `AUTH-002` and corrected v2 code identities;
+5. verify both canonical output directories are absent or empty;
+6. execute corrected Run 1;
+7. independently recompute and require 34,542 cases, 30,704 comparisons, and zero mismatches;
+8. execute corrected Run 2;
+9. independently validate Run 2;
+10. require byte-identical SHA-256 for all five canonical outputs across both runs;
+11. verify tracked repository drift remains zero;
+12. stop before result freeze, committing outputs, or manuscript interpretation.
 
 ## New-chat operating instructions
 
-At the start of the next chat:
+At the beginning of the next chat:
 
-1. inspect current GitHub `main` and the Phase-5C freeze/status records;
-2. verify the latest release-gate CI is green;
-3. treat this handoff as provenance, but prefer live repository state if later commits exist;
-4. do not rerun or change frozen Studies 3/4/6;
-5. do not change P99_X10 unless a separately authorized versioned change protocol is created;
-6. proceed incrementally with explicit author authorization at each execution/freeze gate;
-7. keep all generated large ESA artifacts local/ignored unless a specific repository-safe aggregate record is intentionally committed.
+1. use the live GitHub repository as authority;
+2. verify current `main`, open PRs, and latest successful CI;
+3. read this handoff and `PAPER2_PHASE7D_POST_MERGE_CLOSEOUT_STATUS.json`;
+4. read `S3X_PHASE7_RUNTIME_AUTH_002.json` and the Phase-7D correction record;
+5. preserve all frozen Studies 3/4/6 and S3X source/trace identities;
+6. do not alter P99_X10 or interval membership;
+7. do not rerun v1;
+8. do not execute v2 until the author explicitly authorizes the corrected real replay;
+9. after successful corrected two-run replay, stop before result freeze and manuscript interpretation for another author gate.
 
+## Copy-paste continuation prompt
 
-## Repository handoff closeout
-
-The Phase-5C closeout and this handoff were finalized through PR `#181`.
-
-- PR `#181` merge commit: `5f16ecdc3f2db3defb601aa0afff2665502ddf3c`
-- post-merge validation run id: `36300650883`
-- post-merge validation run number: `1229`
-- conclusion: `success`
-- repository `main` at handoff closeout: `5f16ecdc3f2db3defb601aa0afff2665502ddf3c`
-
-A later chat must still inspect live `main` before acting, because unrelated study streams may advance the repository after this handoff.
+> Continue Paper 2 from the authoritative private GitHub repository `https://github.com/Zartharas/mission-aware-satellite-cyber-recovery`. Use live `main` as authority and verify it before any work. The Phase-7D float-contract correction was merged through PR #192; its merge commit was `c3fae865dc3f19871a5a58ffac1bebdfe55fa223` and post-merge CI #1262 / run id `36374775344` succeeded. Read `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/NEW_CHAT_HANDOFF_2026-09-27.md`, `PAPER2_PHASE7D_POST_MERGE_CLOSEOUT_STATUS.json`, `PAPER2_PHASE7D_FLOAT_CONTRACT_CORRECTION_STATUS.json`, `study3x/config/S3X_PHASE7_IMPLEMENTATION_FREEZE_CANDIDATE_002.json`, and `study3x/config/S3X_PHASE7_RUNTIME_AUTH_002.json` before acting.
+>
+> The v1 real replay stopped before case generation because Candidate 001 imposed decimal-exact threshold multiplication that was stricter than the frozen Phase-6 binary-float serialization contract. The frozen interval CSV SHA remained exact at `cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc`; zero scientific case rows were generated. Do not rerun v1.
+>
+> The corrected v2 contract is `float(threshold_seconds) == float(cadence_p99_seconds) * 10.0` with strict `float(delta_seconds) > float(threshold_seconds)`; normalized hiatus analysis remains exact rational arithmetic over canonical decimal tokens. No epsilon/tolerance, P99_X10 retuning, interval reselection, or frozen-input change occurred.
+>
+> Corrected runtime authority is `S3X-PHASE7-RUNTIME-AUTH-002`. The v2 stack is present on main. The next gate is `AUTHOR_APPROVAL_BEFORE_PHASE7D_CORRECTED_REAL_REPLAY`. Do not execute the corrected replay unless I explicitly authorize it in the new chat. If I authorize it, use `study3x/validation/run_local_phase7_replay_v2.sh`, run exactly the frozen 1,919 intervals into 34,542 cases and 30,704 matched-comparison rows twice, require zero primary/reference mismatches and byte-identical hashes for all five canonical outputs, and then stop before result freeze, canonical result commit, or manuscript interpretation.
+>
+> Paper 2 remains limited to frozen Studies 3, 4, and 6 plus the separately governed S3X extension. Do not import or pool Studies 1/2/5/7/7E/8/8E/9. Keep all interpretation-firewall restrictions in force.
