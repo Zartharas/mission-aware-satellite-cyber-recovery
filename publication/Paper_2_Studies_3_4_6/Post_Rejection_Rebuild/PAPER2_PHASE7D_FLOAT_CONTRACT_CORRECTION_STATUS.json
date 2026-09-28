@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "POST_REJECTION_REBUILD_PHASE7D_FLOAT_CONTRACT_CORRECTION",
+  "status": "PHASE7D_CORRECTION_PREPARED__NOT_EFFECTIVE__NO_SCIENTIFIC_RESULTS",
+  "preparation_date": "2026-09-27",
+  "branch": "paper2/post-rejection-phase7d-float-contract-correction",
+  "branch_base_commit": "1396a82657ff0613b9a1abb0b645e1daa172eb27",
+  "predecessor": {
+    "phase7c_pr": 191,
+    "phase7c_merge_commit": "1396a82657ff0613b9a1abb0b645e1daa172eb27",
+    "phase7c_post_merge_ci_run_number": 1259,
+    "phase7c_post_merge_ci_run_id": 36369380963,
+    "phase7c_post_merge_ci_conclusion": "success",
+    "prior_runtime_authorization_id": "S3X-PHASE7-RUNTIME-AUTH-001"
+  },
+  "observed_attempt": {
+    "authorized_main_verified": true,
+    "frozen_interval_csv_sha256_verified": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "bound_code_identity_verified": true,
+    "stopped_during": "RUN1_INTERVAL_PARSE",
+    "exception": "ValueError: frozen P99_X10 threshold relationship is inconsistent",
+    "case_generation_started": false,
+    "case_rows_generated": 0,
+    "independent_validation_started": false,
+    "result_freeze_changed": false,
+    "manuscript_claim_use_changed": false
+  },
+  "root_cause": {
+    "phase6_generation": "threshold_seconds = binary_float(cadence_p99_seconds) * 10.0",
+    "phase6_serialization": "cadence_p99_seconds and threshold_seconds serialized independently by csv.DictWriter",
+    "phase6_validation": "numeric CSV fields re-parsed as float and compared to independently recomputed float values",
+    "phase7_v1_defect": "re-parsed independent decimal strings as exact decimals and required threshold == cadence * 10 exactly",
+    "classification": "IMPLEMENTATION_VALIDATION_CONTRACT_MISMATCH__NOT_DATA_OR_RULE_FAILURE"
+  },
+  "correction": {
+    "implementation_candidate_id": "S3X-PHASE7-IMPLEMENTATION-CANDIDATE-002",
+    "runtime_authorization_id": "S3X-PHASE7-RUNTIME-AUTH-002",
+    "primary_v2_path": "study3x/src/recovery_replay_v2.py",
+    "reference_v2_path": "study3x/audit/reference_replay_v2.py",
+    "runtime_v2_path": "study3x/runtime/run_phase7_replay_v2.py",
+    "validator_v2_path": "study3x/audit/validate_phase7_replay_v2.py",
+    "local_gate_v2_path": "study3x/validation/run_local_phase7_replay_v2.sh",
+    "tolerance_added": false,
+    "epsilon_added": false,
+    "gap_rule_retuned": false,
+    "interval_membership_changed": false,
+    "frozen_input_changed": false
+  },
+  "executed_now": {
+    "corrected_real_replay": false,
+    "corrected_scientific_execution": false,
+    "corrected_independent_validation": false,
+    "corrected_repeatability": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7D_CORRECTION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
