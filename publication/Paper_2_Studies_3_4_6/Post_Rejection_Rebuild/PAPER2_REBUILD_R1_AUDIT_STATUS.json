@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-REBUILD-R1-DETAILED-AUDIT-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "date_local": "2026-09-28",
+  "status": "DETAILED_AUDIT_PREPARED__MANUSCRIPT_UNCHANGED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "authorized_main_commit": "0e94e5eee412645c5a039a5295f88db01fdd6d68",
+  "authorization_gate": "AUTHOR_REVIEW_BEFORE_REBUILD_R1_DETAILED_EDITORIAL_CLAIM_REFERENCE_AUDIT",
+  "authoritative_manuscript": {
+    "path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_REBUILD_MANUSCRIPT_R1_2026-09-28.md",
+    "git_blob_sha1": "822aa4257f15b76f16fed35c1131b2063923b0c8",
+    "word_count": 5971,
+    "mutation_authorized": false
+  },
+  "audit_scope": {
+    "quantitative_claim_verification": true,
+    "study3_s3x_boundary_review": true,
+    "abstract_results_consistency": true,
+    "rq_answer_strength": true,
+    "contribution_novelty_positioning": true,
+    "prose_repetition_review": true,
+    "display_review": true,
+    "reference_freshness_through": "2026-09-28",
+    "reviewer_objection_stress_test": true
+  },
+  "authority_bindings": {
+    "study3_blob": "5f2d1d3e0fede6800f5944a1c0990bdf94648307",
+    "study4_blob": "42b2a4d1cd38e9f095ddbc89bce90833151a06e6",
+    "study6_blob": "0f88ab212b44be92e520368abaee657ccd0d39d2",
+    "phase7f_claim_use_blob": "6010381918774c6f9d5d85cc25c200fd1d5e1022"
+  },
+  "verdict": "PASS_SCIENTIFIC_INTEGRITY__EDITORIAL_AND_REFERENCE_CORRECTIONS_REQUIRED_BEFORE_VENUE_LOCK",
+  "quantitative_audit": {
+    "study3": "PASS_NO_NUMERICAL_CORRECTION",
+    "study4": "PASS_NO_NUMERICAL_CORRECTION",
+    "study6": "PASS_NO_NUMERICAL_CORRECTION",
+    "s3x_phase7": "PASS_NO_NUMERICAL_CORRECTION"
+  },
+  "high_priority_findings": [
+    "TITLE_AND_ENDPOINT_SHOULD_SPECIFY_RECOVERY_QUALIFICATION",
+    "CENTRAL_RQ_SHOULD_NOT_IMPLY_ONE_INTEGRATED_EXPERIMENT",
+    "P99_X10_SELECTION_CHRONOLOGY_SHOULD_BE_EXPLICIT",
+    "CLOSE_2025_2026_SPACECRAFT_SECURITY_LITERATURE_SHOULD_BE_INTEGRATED",
+    "ESA_DATASET_REFERENCE_METADATA_REQUIRES_CORRECTION",
+    "RQ1_NEEDS_COMPACT_STUDY3_S3X_RESULT_DISPLAY",
+    "QUALITATIVE_RESIDUAL_BOUNDARY_FIGURE_SHOULD_BE_UPDATED_FOR_S3X"
+  ],
+  "prohibited_or_closed": {
+    "authoritative_manuscript_edit": false,
+    "historical_taes_r10_mutation": false,
+    "scientific_reexecution": false,
+    "result_mutation": false,
+    "study3_s3x_pooling": false,
+    "external_empirical_replication_claim": false,
+    "global_policy_ranking": false,
+    "venue_lock": false,
+    "publisher_specific_formatting": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_REBUILD_R1_DETAILED_AUDIT_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
