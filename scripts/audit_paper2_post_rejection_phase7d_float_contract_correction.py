@@ -121,9 +121,9 @@ def main() -> int:
         "candidate supersession drift",
     )
     require(
-        candidate["correction_basis"]["classification"]
-        == "IMPLEMENTATION_VALIDATION_CONTRACT_MISMATCH__NOT_DATA_OR_RULE_FAILURE",
-        "root-cause classification drift",
+        "binary-float" in candidate["correction_basis"]["root_cause"]
+        and "exact decimals" in candidate["correction_basis"]["root_cause"],
+        "root-cause description drift",
     )
     require(candidate["correction_basis"]["frozen_population_changed"] is False, "frozen population changed")
     require(candidate["correction_basis"]["p99_x10_rule_changed"] is False, "P99_X10 changed")
