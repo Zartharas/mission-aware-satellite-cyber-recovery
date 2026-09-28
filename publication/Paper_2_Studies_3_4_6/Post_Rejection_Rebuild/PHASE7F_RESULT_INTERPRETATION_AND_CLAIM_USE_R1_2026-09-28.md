@@ -100,6 +100,8 @@ For B0 and S1, V5-origin qualification is therefore delayed to `g_i` in the hiat
 
 S3X does not append observations to Study 3 and does not reproduce Study 3 externally.
 
+S3X is not an external empirical replication of Study 3.
+
 Its manuscript value is narrower: an independently sourced telemetry timing population is used only to stress the timing dimension of the already-frozen Study-3 decision semantics.
 
 The qualitative Study-3 distinction survives that stress test:
