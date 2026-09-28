@@ -62,6 +62,9 @@ jobs:
       - name: Audit Paper 2 Phase 7C runtime authorization preparation
         run: python scripts/audit_paper2_post_rejection_phase7c_runtime_authorization.py
 
+      - name: Audit Paper 2 Phase 7D float-contract correction
+        run: python scripts/audit_paper2_post_rejection_phase7d_float_contract_correction.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
