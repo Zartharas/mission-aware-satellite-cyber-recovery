@@ -68,6 +68,9 @@ jobs:
       - name: Audit Paper 2 Phase 7E result-freeze preparation
         run: python scripts/audit_paper2_post_rejection_phase7e_result_freeze.py
 
+      - name: Audit Paper 2 Phase 7F interpretation and claim use
+        run: python scripts/audit_paper2_post_rejection_phase7f_interpretation_claim_use.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 

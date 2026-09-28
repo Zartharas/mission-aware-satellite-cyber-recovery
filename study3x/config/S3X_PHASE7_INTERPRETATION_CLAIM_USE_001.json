@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "record_id": "S3X-PHASE7-INTERPRETATION-CLAIM-USE-001",
+  "experiment_id": "S3X-ETA-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "PHASE7F_RESULT_INTERPRETATION_AND_MANUSCRIPT_CLAIM_USE",
+  "preparation_date": "2026-09-28",
+  "status": "PREPARED_ON_FEATURE_BRANCH__CLAIM_USE_NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "authorized_main_commit": "74c124290fce0f46f1687f277edeff28d4d82dc1",
+  "authorization_basis": {
+    "author_gate": "AUTHOR_REVIEW_BEFORE_PHASE7_RESULT_INTERPRETATION_AND_MANUSCRIPT_CLAIM_USE",
+    "interpretation_authorized": true,
+    "rebuild_manuscript_claim_use_authorized": true,
+    "historical_taes_submission_mutation_authorized": false,
+    "scientific_reexecution_authorized": false,
+    "result_mutation_authorized": false
+  },
+  "frozen_result_authority": {
+    "freeze_id": "S3X-PHASE7-RESULT-FREEZE-001",
+    "freeze_record_git_blob_sha1": "d25b70639b4e32696e47b5630387ef9820f83740",
+    "effective_main_commit": "74c124290fce0f46f1687f277edeff28d4d82dc1",
+    "post_merge_ci_run_number": 1266,
+    "post_merge_ci_run_id": 36431944810,
+    "post_merge_ci_conclusion": "success",
+    "canonical_case_rows": 34542,
+    "canonical_matched_comparison_rows": 30704,
+    "case_level_mismatches": 0,
+    "matched_comparison_mismatches": 0,
+    "deterministic_two_run_repeatability": "PASS"
+  },
+  "semantic_bindings": {
+    "phase7_protocol_git_blob_sha1": "f42fe8c0c58ee3b9152e629f5673bd5c71ffede4",
+    "study3_temporal_model_git_blob_sha1": "b13e62456c144db0e12808bf700586c1c844c33d",
+    "corrected_primary_evaluator_git_blob_sha1": "40e3bd0406f1f0bedecbac9cb1386699a8619318",
+    "corrected_reference_evaluator_git_blob_sha1": "26444d206f18bededa656b1de56d9ba0948c6ef3",
+    "corrected_full_population_validator_git_blob_sha1": "15796f7b8e2da3f92e941021839b387ad365394e"
+  },
+  "interpretation_basis": {
+    "direct_canonical_output_bytes_committed": false,
+    "direct_distributional_output_read_required_for_this_claim_set": false,
+    "basis": "FROZEN_FACTOR_GRID_PLUS_BOUND_POLICY_TRUTH_TABLE__CONFIRMED_BY_ZERO_MISMATCH_FULL_POPULATION_REPLAY",
+    "distributional_statistics_not_bound_by_this_phase": [
+      "minimum normalized hiatus",
+      "median normalized hiatus",
+      "maximum normalized hiatus",
+      "finite-population mean normalized hiatus",
+      "distributional V5 delay summaries beyond the exact per-case identity delay=g_i",
+      "mission-specific Phase-7 outcome summaries"
+    ]
+  },
+  "exact_structural_counts": {
+    "frozen_intervals": 1919,
+    "cases": 34542,
+    "b0_vs_s1_gap_cache_comparisons": 5757,
+    "v4_first_refresh_cases": 11514,
+    "v5_b0_or_s1_first_refresh_cases": 7676,
+    "v5_b2_first_refresh_cases": 3838,
+    "v5_gap_vs_control_gate_classification_comparisons": 5757,
+    "b0_or_s1_vs_b2_v5_resumption_comparisons": 7676
+  },
+  "manuscript_eligible_claims": [
+    {
+      "claim_id": "S3X-C1-HIATUS-CACHE-BOUNDARY",
+      "eligible": true,
+      "claim": "In the empirical-hiatus arm, the frozen B0 semantics admit the truthful pre-onset cache for exactly one cadence unit after onset, whereas S1 and B2 do not admit that cache to the recovery gate under the same post-onset signal.",
+      "exact_support": "Across all 1,919 intervals and three first-refresh evidence states, the 5,757 prespecified B0-versus-S1 cache comparisons have a fixed +1 cadence-unit B0-minus-S1 unsafe-qualified cache-exposure difference."
+    },
+    {
+      "claim_id": "S3X-C2-V4-SIGNATURE-BOUNDARY",
+      "eligible": true,
+      "claim": "At the modeled first refresh, V4 post-signature manipulation does not become gate-qualified because the affected signature is invalid.",
+      "exact_support": "The structural result applies to all 11,514 V4 interval-policy-arm cases."
+    },
+    {
+      "claim_id": "S3X-C3-V5-FIRST-REFRESH-BOUNDARY",
+      "eligible": true,
+      "claim": "At the modeled first refresh, false-but-valid V5 evidence is unsafe-qualified by B0 and S1 for every frozen interval in both timing arms, while B2 does not gate-qualify V5 under the frozen post-onset signal.",
+      "exact_support": "B0 plus S1: 7,676 V5 interval-arm cases unsafe-qualified; B2: 3,838 V5 interval-arm cases non-qualifying."
+    },
+    {
+      "claim_id": "S3X-C4-TIMING-CLASSIFICATION-INVARIANCE",
+      "eligible": true,
+      "claim": "For V5, the hiatus arm changes the time of first refresh but not the first-refresh qualification classification for a given policy.",
+      "exact_support": "All 5,757 interval-policy gap-versus-continuous V5 first-refresh gate comparisons agree: B0 and S1 qualify in both arms; B2 does not qualify in either arm."
+    },
+    {
+      "claim_id": "S3X-C5-V5-DELAY-IDENTITY",
+      "eligible": true,
+      "claim": "For B0 and S1 V5 cases, the modeled first-refresh qualification time is q=g_i in the empirical-hiatus arm and q=0 in the matched continuous-refresh control; every frozen g_i is strictly greater than 10 cadence units by the frozen P99_X10 membership rule.",
+      "exact_support": "This is an exact per-case timing identity, not an operational latency estimate and not a distributional summary."
+    },
+    {
+      "claim_id": "S3X-C6-RQ1-SYNTHESIS",
+      "eligible": true,
+      "claim": "Under the frozen external timing abstraction, intermittent evidence availability can delay when false-but-valid trusted-producer evidence reaches the decision and exposes a one-cadence B0 cache boundary, but timing alone does not repair the producer-origin semantic trust failure once V5 evidence arrives.",
+      "exact_support": "Synthesis of C1, C3, C4, and C5; no Study-3 pooling and no external-replication claim."
+    }
+  ],
+  "prohibited_or_withheld_claims": [
+    "ESA telemetry gaps are RF contact loss, command-contact loss, ground-station unavailability, or spacecraft outage.",
+    "ESA anomaly labels establish cyberattack truth.",
+    "V4 or V5 occurred in the ESA dataset.",
+    "Cadence-normalized delay is spacecraft, network, operator, or flight recovery latency.",
+    "S3X provides external empirical replication of Study 3.",
+    "S3X and Study 3 form a pooled population.",
+    "B2 is globally superior, safest, or operationally preferred.",
+    "The 1,919 intervals are representative of all spacecraft or all ESA telemetry.",
+    "Any Phase-7 minimum, median, maximum, mean, percentile, or mission-specific outcome not directly inspected from hash-verified frozen output bytes."
+  ],
+  "manuscript_use_scope": {
+    "post_rejection_rebuild_only": true,
+    "historical_submitted_r10_immutable": true,
+    "permitted_locations": [
+      "rebuilt RQ1/result narrative",
+      "Study-3/S3X extension subsection",
+      "cross-study synthesis",
+      "limitations/validity section",
+      "abstract/contribution summary after final manuscript review"
+    ],
+    "claim_use_effective_only_after_record_merge_and_successful_post_merge_ci": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7F_INTERPRETATION_CLAIM_USE_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
