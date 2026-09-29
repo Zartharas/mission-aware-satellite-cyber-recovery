@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S6X-EAP-001",
+  "phase": "S6X_CANONICAL_RUNTIME_AUTHORIZATION_PREPARATION",
+  "status": "RUNTIME_AUTHORIZATION_PREPARED__NOT_EFFECTIVE__NO_SCIENTIFIC_EXECUTION",
+  "preparation_date": "2026-09-29",
+  "branch": "paper2/s6x-canonical-runtime-authorization-001",
+  "branch_base_commit": "4e49d4b244cb31c2144c0cc9967e37fc97d792eb",
+  "predecessor": {
+    "environment_freeze_merge_commit": "4e49d4b244cb31c2144c0cc9967e37fc97d792eb",
+    "environment_freeze_post_merge_ci_run_number": 1296,
+    "environment_freeze_post_merge_ci_run_id": 36598043431,
+    "environment_freeze_post_merge_ci_conclusion": "success"
+  },
+  "authorization_candidate": {
+    "id": "S6X-CANONICAL-RUNTIME-AUTH-001",
+    "planned_gate_observations_per_run": 396,
+    "planned_repetitions": 2,
+    "planned_total_builds": 8,
+    "authorization_effective_now": false
+  },
+  "executed_now": {
+    "cfs_build": false,
+    "semantic_fixture_application": false,
+    "artifact_signing": false,
+    "independent_rebuild": false,
+    "gate_execution": false,
+    "scientific_execution": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_RUNTIME_AUTHORIZATION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
