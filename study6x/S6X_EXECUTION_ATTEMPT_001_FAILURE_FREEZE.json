@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "attempt_id": "S6X-EXEC-ATTEMPT-001",
+  "freeze_id": "S6X-EXEC-ATTEMPT-001-FAILURE-FREEZE-001",
+  "status": "FAILED_CLOSED_PRE_SCIENTIFIC_OBSERVATION_GENERATION__TOOLING_ONLY",
+  "execution_authority": {
+    "authoritative_main": "cfb76ef62ed081c9cdaac450e420cca3c5507542",
+    "runtime_authorization_id": "S6X-CANONICAL-RUNTIME-AUTH-001",
+    "runtime_authorization_blob": "bcf6d06fc2a6ce149e6f3596e8d1eea53cd64838",
+    "runner_blob": "474c7261ffec27365fe2e14924eb3a6053b6a107",
+    "post_merge_ci_run_number": 1298,
+    "post_merge_ci_run_id": 36609364384,
+    "post_merge_ci_conclusion": "success"
+  },
+  "author_supplied_forensic_evidence": {
+    "transcript_sha256": "022865339f2360eeb9feeb329d41f8cdf29a1f731c9a76d65a0c030488c583cd",
+    "console_log_sha256": "8882e854fa150491d5948ff7e0c081f21f4323b8c7b35be2da77a51ca38173dd",
+    "private_key_sha256": "6cd922ceffb6b88222548ba8be5e76809336d66fcd38c808ed81c0a474fda426",
+    "public_key_sha256": "b90f0b800aefe289f93537838606af779db3c0883724d3c1076e1000a317f788",
+    "clean_primary_runtest_rc": 2,
+    "clean_primary_runtest_failure": "jq_not_found_before_ctest_execution",
+    "ctest_lasttest_log_empty": true,
+    "harness_patch_applied_to_clean_primary": true,
+    "semantic_bad_source_fixture_applied": false,
+    "run2_started": false,
+    "canonical_gate_observations_generated": 0,
+    "canonical_result_files_generated": false
+  },
+  "observed_artifacts": {
+    "designated_path_in_runtime_auth_001": "build-native_std/exe/cpu1/lc.so",
+    "designated_path_observed_missing": true,
+    "corrected_cpu1_install_path_observed": "build-native_std/exe/cpu1/cf/lc.so",
+    "corrected_cpu1_install_sha256": "7311d8d1b89ffe2ca0e43ca1e2f6430db28d2f9532ebf426c4870ab5847f1670",
+    "cpu1_build_tree_path_observed": "build-native_std/native/default_cpu1/apps/lc/lc.so",
+    "cpu1_build_tree_sha256": "7311d8d1b89ffe2ca0e43ca1e2f6430db28d2f9532ebf426c4870ab5847f1670",
+    "cpu2_install_path_observed": "build-native_std/exe/cpu2/cf/lc.so",
+    "cpu2_install_sha256": "babca759045fc62d1e3250b7add05caeedceab07f0e64028397bfad768594ced"
+  },
+  "root_cause_classification": {
+    "scientific_failure": false,
+    "invariant_harness_failure": false,
+    "source_pin_failure": false,
+    "environment_prerequisite_failure": true,
+    "artifact_path_contract_failure": true,
+    "details": [
+      "The frozen S6X environment omitted jq, but pinned cFS target-rules.mk requires jq to transform ctest JSON before test execution.",
+      "The runtime authorization designated build-native_std/exe/cpu1/lc.so, while the observed installed CPU1 LC artifact is build-native_std/exe/cpu1/cf/lc.so."
+    ]
+  },
+  "disposition": {
+    "preserve_attempt_directory": true,
+    "delete_or_reuse_attempt_directory": false,
+    "environment_001_immutable": true,
+    "runtime_auth_001_immutable": true,
+    "canonical_execution_001_reuse_authorized": false,
+    "result_freeze_authorized": false,
+    "manuscript_claim_use_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ATTEMPT001_FAILURE_FREEZE_ENV_V2_CORRECTION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

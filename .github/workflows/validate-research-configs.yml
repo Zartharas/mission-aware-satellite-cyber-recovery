@@ -92,6 +92,9 @@ jobs:
       - name: Audit Paper 2 S6X canonical runtime authorization
         run: python scripts/audit_paper2_s6x_canonical_runtime_authorization.py
 
+      - name: Audit Paper 2 S6X Attempt 001 failure freeze and Environment v2 correction
+        run: python scripts/audit_paper2_s6x_attempt001_env_v2_correction.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
