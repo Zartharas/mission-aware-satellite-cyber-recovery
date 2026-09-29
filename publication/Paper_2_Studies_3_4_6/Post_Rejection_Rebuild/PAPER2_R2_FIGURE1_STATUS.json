@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-R2-FIGURE1-VISUAL-QA-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "date_local": "2026-09-28",
+  "status": "REVISION_3_FIGURE_SOURCE_AND_VISUAL_QA_PREPARED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "authorized_main_commit": "ccef12d6f0c09fe48d795735726c964d8daad561",
+  "authorization_gate": "AUTHOR_REVIEW_BEFORE_R2_FIGURE_GENERATION_AND_VISUAL_QA",
+  "authoritative_r2": {
+    "path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_REBUILD_MANUSCRIPT_R2_2026-09-28.md",
+    "git_blob_sha1": "9e3f345a3a16102c39bb978f4e522c261e80cfb4",
+    "mutation_authorized": false
+  },
+  "figure": {
+    "revision": 3,
+    "tracked_svg": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg",
+    "svg_sha256": "adfdfaf833c8624bb405209be22ef6b2f002cdec53f081ce097f67e728eedffc",
+    "generated_pdf_sha256": "282f8311ad114eb04f40195ef32fdc2785bbf39dd57d7affb5ccfb1bde7cc8d1",
+    "generated_png_sha256": "fe554420795c6bf460c6010555a18e928ba09d90adbffde74f2e01e1713d8f5c",
+    "pdf_width_in": 7.16,
+    "pdf_height_in": 5.8,
+    "png_width_px": 2148,
+    "png_height_px": 1740,
+    "source_date_epoch": "1790553600",
+    "native_png_visual_qa": "PASS",
+    "independent_pdf_render_visual_qa": "PASS"
+  },
+  "rejected_revisions": {
+    "revision_1": "S3X_INSET_FOOTER_OVERFLOW",
+    "revision_2": "STUDY3_TEXT_INSET_OVERLAP"
+  },
+  "visual_controls": {
+    "parallel_main_panels": true,
+    "arrows_or_pipeline_cues": false,
+    "cross_panel_text_collision": false,
+    "grayscale_readable": true,
+    "s3x_subordinate_inset": true
+  },
+  "science_controls": {
+    "r2_manuscript_mutation": false,
+    "scientific_reexecution": false,
+    "result_mutation": false,
+    "study3_s3x_pooling": false,
+    "observed_rf_contact_loss_claim": false,
+    "external_empirical_replication_claim": false,
+    "global_policy_ranking": false,
+    "venue_lock": false
+  },
+  "insertion_controls": {
+    "manuscript_figure_insertion_authorized": false,
+    "caption_numbering_reconciliation_authorized": false,
+    "final_prevenue_audit_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_R2_FIGURE1_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
