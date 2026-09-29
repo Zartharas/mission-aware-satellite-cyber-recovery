@@ -87,6 +87,15 @@ def main() -> int:
         require(value is False, f"closed authority unexpectedly open: {key}")
 
     harness = HARNESS.read_text(encoding="utf-8")
+    parse_cp = subprocess.run(
+        ["git", "apply", "--numstat", str(HARNESS)],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    require(parse_cp.returncode == 0, f"compiled harness patch is malformed: {parse_cp.stderr.strip()}")
     require("WPValue      = 0;" in harness, "compiled equality-boundary harness missing")
     require("Result == LC_WATCH_FALSE" in harness, "GT equality expected-false assertion missing")
     require("LC_SignedCompare_Test_GE" in harness, "GE equality harness missing")
