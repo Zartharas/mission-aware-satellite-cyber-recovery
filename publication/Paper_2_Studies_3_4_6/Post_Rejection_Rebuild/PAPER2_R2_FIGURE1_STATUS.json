@@ -23,11 +23,17 @@
     "source_date_epoch": "1790553600",
     "native_png_visual_qa": "PASS",
     "independent_pdf_render_visual_qa": "PASS",
-    "qa_pdf_sha256": "282f8311ad114eb04f40195ef32fdc2785bbf39dd57d7affb5ccfb1bde7cc8d1",
+    "qa_pdf_sha256": "30fe410d4f432333463140ece3070f74351b26d626bbcefc1900df631fd89c2c",
     "svg_byte_canonical": true,
     "png_byte_reproducible": true,
     "pdf_byte_canonical": false,
-    "pdf_hash_scope": "INSPECTED_QA_RENDER_ONLY"
+    "pdf_hash_scope": "INSPECTED_QA_RENDER_ONLY",
+    "pdf_page_width_pt": 515.52,
+    "pdf_page_height_pt": 417.6,
+    "pdf_export_width_css_px": 687.36,
+    "pdf_export_height_css_px": 556.8,
+    "pdf_preflight_page_size": "PASS_516x418_PT_ROUNDED",
+    "corrected_pdf_visual_qa": "PASS"
   },
   "rejected_revisions": {
     "revision_1": "S3X_INSET_FOOTER_OVERFLOW",
