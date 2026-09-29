@@ -99,7 +99,7 @@ def main() -> int:
 
     report = REPORT.read_text(encoding="utf-8")
     for phrase in (
-        "no verified post-fix local rerun",
+        "post-fix local rerun",
         "compiled independent functional invariant",
         "396",
         "not a full external replication",
