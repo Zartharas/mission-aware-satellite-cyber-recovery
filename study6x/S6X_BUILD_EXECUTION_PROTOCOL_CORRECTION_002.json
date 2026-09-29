@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "correction_id": "S6X-BUILD-EXECUTION-PROTOCOL-CORRECTION-002",
+  "supersedes_protocol_id": "S6X-BUILD-EXECUTION-PROTOCOL-CANDIDATE-001",
+  "status": "CORRECTION_DESIGN_PREPARED__NO_BUILD_OR_SCIENTIFIC_EXECUTION_AUTHORIZED",
+  "preparation_date": "2026-09-29",
+  "authoritative_base_commit": "cfb76ef62ed081c9cdaac450e420cca3c5507542",
+  "attempt_001_failure_freeze": "S6X-EXEC-ATTEMPT-001-FAILURE-FREEZE-001",
+  "unchanged_scientific_contract": {
+    "claim_scope": "SEPARATE_EXECUTABLE_STRESS_TEST_OF_STUDY6_OBSERVABILITY_MECHANISM__NOT_EXTERNAL_REPLICATION",
+    "planned_gate_observations_per_repetition": 396,
+    "block_a_rows": 12,
+    "block_b_rows": 384,
+    "repetitions": 2,
+    "builds_per_repetition": 4,
+    "total_builds": 8,
+    "build_commands": [
+      "make native_std.prep",
+      "make native_std.install",
+      "make native_std.runtest"
+    ],
+    "primary_and_reference_gate_evaluators_separate": true,
+    "required_gate_mismatches": 0,
+    "study6_population_mutation": false,
+    "study6_s6x_pooling": false
+  },
+  "correction_1_environment_v2": {
+    "predecessor_environment_id": "S6X-BUILD-ENVIRONMENT-001",
+    "predecessor_environment_freeze_blob": "438d31763cf7c910138ea4a83e4faaee4eca0f62",
+    "predecessor_defect": "jq omitted although pinned cFS native_std.runtest requires jq before tests can execute",
+    "upstream_cfs_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "upstream_target_rules_path": "target-rules.mk",
+    "upstream_target_rules_blob": "85a413a39438289db23623640252b8676ef660a1",
+    "new_environment_id": "S6X-BUILD-ENVIRONMENT-002",
+    "dockerfile_path": "study6x/validation/S6X_BUILD_ENVIRONMENT_002.Dockerfile",
+    "prepare_script_path": "study6x/validation/prepare_build_environment_002.sh",
+    "base_image": "amd64/ubuntu:noble-20260911@sha256:496754492fb28b4d3049432f2ca787449331e23fb14f0dd3fffea86bf5a93eb4",
+    "required_packages": [
+      "build-essential",
+      "ca-certificates",
+      "cmake",
+      "file",
+      "git",
+      "jq",
+      "openssl",
+      "python3"
+    ],
+    "required_freeze_candidate": "study6x/workspace/S6X_BUILD_ENVIRONMENT_FREEZE_CANDIDATE_002.json",
+    "exact_image_tar_sha256_required_before_any_corrected_scientific_build": true,
+    "materialized_now": false
+  },
+  "correction_2_artifact_path": {
+    "predecessor_path": "build-native_std/exe/cpu1/lc.so",
+    "corrected_path": "build-native_std/exe/cpu1/cf/lc.so",
+    "observed_attempt_001_sha256": "7311d8d1b89ffe2ca0e43ca1e2f6430db28d2f9532ebf426c4870ab5847f1670",
+    "corroborating_build_tree_path": "build-native_std/native/default_cpu1/apps/lc/lc.so",
+    "corroborating_build_tree_sha256": "7311d8d1b89ffe2ca0e43ca1e2f6430db28d2f9532ebf426c4870ab5847f1670",
+    "cpu_scope": "CPU1_ONLY",
+    "path_change_is_operational_binding_only": true
+  },
+  "preserved_invariant_and_fixture": {
+    "invariant_harness_patch_blob": "b3318be396a6c4e5c98f2339846d9ea59bcd5def",
+    "semantic_fixture_patch_blob": "e3189e5a06ff47a2cf68bb7d343c563a300dc313",
+    "harness_semantics_changed": false,
+    "semantic_fixture_changed": false
+  },
+  "attempt_and_runtime_disposition": {
+    "attempt_001": "PRESERVE_DO_NOT_DELETE_OR_REUSE",
+    "environment_001": "IMMUTABLE_HISTORICAL_RECORD",
+    "runtime_auth_001": "IMMUTABLE_HISTORICAL_RECORD__SUPERSEDED_FOR_FUTURE_EXECUTION",
+    "canonical_execution_001": "DO_NOT_REUSE",
+    "corrected_campaign_id_candidate": "S6X_CANONICAL_EXECUTION_002",
+    "corrected_runtime_authorization_id_candidate": "S6X-CANONICAL-RUNTIME-AUTH-002"
+  },
+  "authorization": {
+    "environment_v2_materialization_authorized": false,
+    "cfs_build_authorized": false,
+    "fixture_application_to_build_authorized": false,
+    "artifact_signing_authorized": false,
+    "independent_rebuild_authorized": false,
+    "gate_execution_authorized": false,
+    "scientific_execution_authorized": false,
+    "result_freeze_authorized": false,
+    "manuscript_claim_use_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ATTEMPT001_FAILURE_FREEZE_ENV_V2_CORRECTION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
