@@ -2,6 +2,7 @@ diff --git a/unit-test/lc_watch_tests.c b/unit-test/lc_watch_tests.c
 --- a/unit-test/lc_watch_tests.c
 +++ b/unit-test/lc_watch_tests.c
 @@ -960,17 +960,17 @@ void LC_SignedCompare_Test_GT(void)
+ void LC_SignedCompare_Test_GT(void)
  {
      uint8  Result;
      uint16 WatchIndex   = 0;
@@ -22,6 +23,7 @@ diff --git a/unit-test/lc_watch_tests.c b/unit-test/lc_watch_tests.c
      UtAssert_True(UT_GetStubCount(UT_KEY(CFE_EVS_SendEvent)) == 0, "UT_GetStubCount(UT_KEY(CFE_EVS_SendEvent)) == 0");
  }
 @@ -978,8 +978,8 @@ void LC_SignedCompare_Test_GE(void)
+ void LC_SignedCompare_Test_GE(void)
  {
      uint8  Result;
      uint16 WatchIndex   = 0;
