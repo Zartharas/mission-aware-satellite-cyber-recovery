@@ -11,7 +11,7 @@
 
 This phase creates and visually/scientifically validates the R2 residual-trust-boundary figure specified by the authoritative R2 display plan. It does not modify the authoritative R2 manuscript, rerun any experiment, alter any result, pool Study 3 with S3X, or lock a venue.
 
-The canonical tracked figure source is SVG. A deterministic generator produces a 7.16-in vector PDF and a 2148 x 1740 PNG preview for placement and visual QA.
+The canonical tracked figure source is SVG. The generator produces a 7.16-in vector PDF and a 2148 x 1740 PNG preview for placement and visual QA. The SVG is the canonical byte-bound source; the PNG is byte-reproducible in repeated checks. The PDF is a controlled visual render, but its byte stream is not treated as canonical across separate Cairo processes.
 
 ## 2. Revision history
 
@@ -50,7 +50,7 @@ Tracked SVG source:
 - dimensions: 1432 x 1160 SVG units;
 - SHA-256: `adfdfaf833c8624bb405209be22ef6b2f002cdec53f081ce097f67e728eedffc`.
 
-Deterministic PDF render:
+QA PDF render:
 
 - width: 7.16 in;
 - height: 5.80 in;
@@ -62,7 +62,7 @@ PNG visual-QA preview:
 - 2148 x 1740 pixels;
 - SHA-256: `fe554420795c6bf460c6010555a18e928ba09d90adbffde74f2e01e1713d8f5c`.
 
-The PNG render is byte-reproducible. Fixing `SOURCE_DATE_EPOCH` makes the PDF byte-reproducible as well.
+The PNG render is byte-reproducible in repeated checks. `SOURCE_DATE_EPOCH` is fixed to reduce PDF metadata variability, but separate Cairo processes can still produce visually identical PDFs with different byte hashes. Therefore the PDF SHA-256 above identifies the inspected QA render only; it is not a canonical cross-process byte identity. The tracked SVG SHA-256 is the canonical figure-source binding.
 
 ## 4. Visual QA
 
