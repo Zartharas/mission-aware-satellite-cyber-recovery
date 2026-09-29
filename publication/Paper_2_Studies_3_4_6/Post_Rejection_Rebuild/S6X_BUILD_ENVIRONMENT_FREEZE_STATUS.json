@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "record_id": "S6X-BUILD-ENVIRONMENT-FREEZE-STATUS-001",
+  "experiment_id": "S6X-EAP-001",
+  "status": "ENVIRONMENT_FREEZE_REVIEW_PREPARED__NO_BUILD_OR_SCIENTIFIC_EXECUTION",
+  "authorized_main_commit": "59a5bf78c515b2b02b16c0946ddf5bce0f8b0dc5",
+  "pre_runtime_closeout": "PASS",
+  "environment_candidate_review": "PASS",
+  "environment_freeze_effective": false,
+  "environment_freeze_id": "S6X-BUILD-ENVIRONMENT-FREEZE-001",
+  "image_id": "sha256:3877a5c519fff5266cc4d34e43ac90f6430320851928f42906c79ecd58f7bb43",
+  "image_tar_sha256": "7b043f3c330fa992a119996f43f83d8d3c6621650933460bb8f71c587ddeb21d",
+  "platform": "linux/amd64",
+  "cfs_build": false,
+  "scientific_execution": false,
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_BUILD_ENVIRONMENT_FREEZE_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
