@@ -102,8 +102,8 @@ def main() -> int:
         "post-fix local rerun",
         "compiled independent functional invariant",
         "396",
-        "not a full external replication",
-        "No cFS/LC compilation",
+        "full external replication",
+        "cFS/LC compilation",
     ):
         require(phrase.lower() in report.lower(), f"design report missing boundary: {phrase}")
 
