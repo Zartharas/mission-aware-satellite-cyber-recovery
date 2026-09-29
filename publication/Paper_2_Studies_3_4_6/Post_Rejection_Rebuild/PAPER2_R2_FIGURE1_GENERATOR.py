@@ -16,8 +16,8 @@ PDF = FIG / "PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.pdf"
 PNG = FIG / "PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.png"
 
 SOURCE_DATE_EPOCH = "1790553600"
-PDF_WIDTH_PT = 515.52
-PDF_HEIGHT_PT = 417.60
+PDF_OUTPUT_WIDTH_CSS_PX = 687.36
+PDF_OUTPUT_HEIGHT_CSS_PX = 556.80
 PNG_WIDTH_PX = 2148
 PNG_HEIGHT_PX = 1740
 
@@ -40,8 +40,8 @@ def main() -> None:
     cairosvg.svg2pdf(
         bytestring=source,
         write_to=str(PDF),
-        output_width=PDF_WIDTH_PT,
-        output_height=PDF_HEIGHT_PT,
+        output_width=PDF_OUTPUT_WIDTH_CSS_PX,
+        output_height=PDF_OUTPUT_HEIGHT_CSS_PX,
     )
     cairosvg.svg2png(
         bytestring=source,
@@ -55,7 +55,7 @@ def main() -> None:
     print(f"svg_sha256={sha256(SVG)}")
     print(f"pdf_sha256={sha256(PDF)}")
     print(f"png_sha256={sha256(PNG)}")
-    print("figure_width_in=7.16")
+    print("pdf_page_width_pt=515.52")\n    print("pdf_page_height_pt=417.60")\n    print("figure_width_in=7.16")
     print("figure_height_in=5.80")
     print("png_width_px=2148")
     print("png_height_px=1740")
