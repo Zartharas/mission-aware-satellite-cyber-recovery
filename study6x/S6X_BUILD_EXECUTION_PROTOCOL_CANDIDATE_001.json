@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "protocol_id": "S6X-BUILD-EXECUTION-PROTOCOL-CANDIDATE-001",
+  "status": "CANDIDATE_FROZEN_PENDING_PRE_RUNTIME_CLOSEOUT_AND_ENVIRONMENT_BINDING__NO_BUILD_OR_SCIENTIFIC_EXECUTION_AUTHORIZED",
+  "authorized_main_commit": "3194c939d5c3d9869187d5c794e380690dc31a44",
+  "frozen_study6_dependency": {
+    "experiment_id": "S6-SCTR-001",
+    "protocol_path": "study6/STUDY6_PROTOCOL.json",
+    "git_blob_sha1": "5218a7158cf96465605196ec40eac8b0199aa690",
+    "population_mutation": false,
+    "populations_pooled": false
+  },
+  "source_binding": {
+    "source_pin_id": "S6X-CFS-LC-V701-PIN-001",
+    "source_pin_path": "study6x/S6X_SOURCE_PIN.json",
+    "source_pin_blob_sha1": "2af7cb503c3cf8715d31341d731df0533fabfa29",
+    "cfs_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "lc_commit": "a1c3a47ea1fa5c0d7751d6ff88848dc9bd8a6c7a"
+  },
+  "tracked_bindings": {
+    "preexecution_protocol_blob": "6d93693495c055c07ced71352e29b813cab1477a",
+    "static_validator_blob": "e7176d370a69d2ca9a3ebbc2637b5891e5045cc0",
+    "materialization_runner_blob": "140356b576699827545518f8a4e172749e111fca",
+    "semantic_fixture_patch_blob": "e3189e5a06ff47a2cf68bb7d343c563a300dc313",
+    "invariant_oracle_blob": "70b555cec84cb455c72094c6539df3873662182d",
+    "invariant_oracle_test_blob": "9fc5a0b9e9fc7c5e1076890d31e8d55084ad3ca7",
+    "validator_regression_test_blob": "b74743a83b38bec52547637f5fe120dcc30547ca"
+  },
+  "pre_runtime_closeout": {
+    "required_local_validation_id": "S6X-PRE-RUNTIME-VALIDATION-001",
+    "required_closeout_id": "S6X-PRE-RUNTIME-CLOSEOUT-001",
+    "required_outputs": [
+      "study6x/workspace/S6X_PRE_RUNTIME_VALIDATION_001.json",
+      "study6x/workspace/S6X_PRE_RUNTIME_VALIDATION_001.txt",
+      "study6x/workspace/S6X_PRE_RUNTIME_CLOSEOUT_001.json"
+    ],
+    "must_confirm": {
+      "cfs_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+      "lc_commit": "a1c3a47ea1fa5c0d7751d6ff88848dc9bd8a6c7a",
+      "fixture_patch_applied": false,
+      "build_executed": false,
+      "artifact_signing_executed": false,
+      "scientific_execution": false
+    },
+    "completed": false,
+    "reason": "No verified post-fix local rerun output is present in the authoritative repository or recovered prior evidence."
+  },
+  "build_environment_candidate": {
+    "platform": "linux/amd64",
+    "upstream_supported_configuration": "native_std",
+    "base_image": "amd64/ubuntu:noble-20260911@sha256:496754492fb28b4d3049432f2ca787449331e23fb14f0dd3fffea86bf5a93eb4",
+    "dockerfile_path": "study6x/validation/S6X_BUILD_ENVIRONMENT_001.Dockerfile",
+    "required_packages": [
+      "build-essential",
+      "cmake",
+      "git",
+      "python3",
+      "ca-certificates",
+      "openssl",
+      "file"
+    ],
+    "environment_prepare_script": "study6x/validation/prepare_build_environment_001.sh",
+    "required_local_freeze_candidate": "study6x/workspace/S6X_BUILD_ENVIRONMENT_FREEZE_CANDIDATE_001.json",
+    "exact_image_tar_sha256_required_before_scientific_build": true,
+    "environment_frozen": false
+  },
+  "research_only_invariant": {
+    "invariant_id": "S6X-LC-GTGE-BOUNDARY-001",
+    "oracle_gate_visible": false,
+    "oracle_path": "study6x/src/invariant_oracle.py",
+    "compiled_harness_patch_path": "study6x/fixtures/S6X_INVARIANT_HARNESS_EQUALITY_001.patch",
+    "harness_applied_to_both_source_variants": true,
+    "equality_boundary": {
+      "compare_value": 0,
+      "clean_gt_at_equal": false,
+      "clean_ge_at_equal": true
+    },
+    "semantic_fixture": {
+      "fixture_id": "S6X_FIXTURE_GT_EQ_BOUNDARY_001",
+      "patch_path": "study6x/fixtures/S6X_FIXTURE_GT_EQ_BOUNDARY_001.patch",
+      "baseline_expression": "WPValue > CompareValue",
+      "controlled_incorrect_expression": "WPValue >= CompareValue",
+      "applied_now": false
+    }
+  },
+  "canonical_population_candidate": {
+    "claim_scope": "SEPARATE_EXECUTABLE_STRESS_TEST_OF_STUDY6_OBSERVABILITY_MECHANISM__NOT_EXTERNAL_REPLICATION",
+    "block_a": {
+      "name": "PAIRED_ARTIFACT_OBSERVABILITY",
+      "states": [
+        "CLEAN_APPROVED",
+        "APPROVED_BAD_SOURCE"
+      ],
+      "gates": [
+        "G0_SIGNATURE_ONLY",
+        "G1_SIGNATURE_TARGET_DIGEST",
+        "G2_SIGNATURE_PROVENANCE",
+        "G3_PROVENANCE_REPRODUCED_BUILD",
+        "G4_PROVENANCE_SOURCE_REVIEW",
+        "G5_COMPOSITE"
+      ],
+      "planned_gate_observations": 12,
+      "primary_endpoint": "same_gate_visible_vector_and_same_qualification_with_opposite_independent_functional_correctness"
+    },
+    "block_b": {
+      "name": "CLEAN_ARTIFACT_ASSURANCE_UNAVAILABILITY",
+      "source_state": "CLEAN_APPROVED",
+      "unavailable_signal_subsets": 64,
+      "gates": 6,
+      "planned_gate_observations": 384,
+      "primary_endpoint": "benign_rejection_under_required_signal_unavailability"
+    },
+    "planned_total_gate_observations": 396,
+    "excludes": [
+      "POST_RELEASE_TAMPER executable instantiation",
+      "TRUSTED_SIGNER_COMPROMISE executable instantiation",
+      "TRUSTED_BUILDER_COMPROMISE executable instantiation",
+      "SOURCE_REVIEW_BYPASS executable instantiation"
+    ],
+    "exclusion_reason": "The primary S6X purpose is to test the CLEAN_APPROVED versus APPROVED_BAD_SOURCE observational-equivalence mechanism with a real aerospace software build pipeline, not to claim full external replication of the five-state Study-6 adversarial frontier."
+  },
+  "build_procedure_candidate": {
+    "clean_source": "Pinned cFS/LC source plus research invariant harness patch only.",
+    "approved_bad_source": "Pinned cFS/LC source plus research invariant harness patch plus S6X_FIXTURE_GT_EQ_BOUNDARY_001 semantic patch.",
+    "commands": [
+      "make native_std.prep",
+      "make native_std.install",
+      "make native_std.runtest"
+    ],
+    "build_order": [
+      "CLEAN primary build in isolated workspace",
+      "CLEAN independent rebuild in separate isolated workspace",
+      "APPROVED_BAD_SOURCE primary build in isolated workspace",
+      "APPROVED_BAD_SOURCE independent rebuild in separate isolated workspace"
+    ],
+    "primary_artifact_candidate": "build-native_std/exe/cpu1/lc.so",
+    "artifact_rule": "The path above must exist as exactly one regular file in every build. Any path/layout mismatch fails closed before scientific execution and requires a protocol amendment.",
+    "reproducibility_rule": "independent_reproduced_build_match is exact SHA-256 equality of the designated LC artifact across separately instantiated builds using the same frozen environment image. If CLEAN does not reproduce exactly, stop; do not change the metric post hoc."
+  },
+  "evidence_generation_candidate": {
+    "signature_method": "research-only Ed25519 key generated specifically for S6X; no NASA, mission, production, or third-party credentials",
+    "signature_tool": "OpenSSL 3 pkeyutl raw Ed25519 signing/verification",
+    "provenance_record": "research JSON binding source commits, fixture IDs, environment image/tar hash, build commands, designated artifact SHA-256, and evidence-record ID",
+    "target_digest_rule": "independent_target_digest_match is exact SHA-256 equality between designated artifact bytes and independently recomputed digest",
+    "source_review_rule": "experimental attestation that the exact source/fixture identity was reviewed; it is not an objective-correctness signal",
+    "release_approval_rule": "experimental research approval bound to exact artifact/evidence hashes; it is not NASA or mission approval",
+    "correctness_rule": "objective correctness comes only from the compiled equality-boundary harness and independent oracle; it is not a qualification-gate input",
+    "schema_path": "study6x/S6X_EVIDENCE_SCHEMA_CANDIDATE_001.json"
+  },
+  "validation_candidate": {
+    "deterministic_repetitions": 2,
+    "primary_and_reference_gate_evaluators_separate": true,
+    "required_case_level_gate_mismatches": 0,
+    "required_correctness_oracle_mismatches": 0,
+    "output_hash_manifest_required": true,
+    "result_freeze_required_before_interpretation": true
+  },
+  "authorization": {
+    "build_authorized": false,
+    "fixture_application_to_build_authorized": false,
+    "artifact_signing_authorized": false,
+    "provenance_observation_generation_authorized": false,
+    "independent_rebuild_authorized": false,
+    "gate_execution_authorized": false,
+    "scientific_execution_authorized": false,
+    "canonical_results_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_EVIDENCE_AND_BUILD_PROTOCOL_PREMERGE_CI_BEFORE_MERGE"
+}
