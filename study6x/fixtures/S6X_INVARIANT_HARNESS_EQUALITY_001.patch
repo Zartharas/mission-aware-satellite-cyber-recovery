@@ -1,0 +1,34 @@
+diff --git a/unit-test/lc_watch_tests.c b/unit-test/lc_watch_tests.c
+--- a/unit-test/lc_watch_tests.c
++++ b/unit-test/lc_watch_tests.c
+@@ -960,17 +960,17 @@ void LC_SignedCompare_Test_GT(void)
+ void LC_SignedCompare_Test_GT(void)
+ {
+     uint8  Result;
+     uint16 WatchIndex   = 0;
+-    int32  WPValue      = 1;
++    int32  WPValue      = 0;
+     int32  CompareValue = 0;
+ 
+     LC_OperData.WDTPtr[WatchIndex].OperatorID = LC_OPER_GT;
+ 
+     /* Execute the function being tested */
+     Result = LC_SignedCompare(WatchIndex, WPValue, CompareValue);
+ 
+-    /* Verify results */
+-    UtAssert_True(Result == LC_WATCH_TRUE, "Result == LC_WATCH_TRUE");
++    /* Research equality-boundary invariant: 0 > 0 must be false. */
++    UtAssert_True(Result == LC_WATCH_FALSE, "Result == LC_WATCH_FALSE");
+ 
+     UtAssert_True(UT_GetStubCount(UT_KEY(CFE_EVS_SendEvent)) == 0, "UT_GetStubCount(UT_KEY(CFE_EVS_SendEvent)) == 0");
+ }
+@@ -978,8 +978,8 @@ void LC_SignedCompare_Test_GE(void)
+ void LC_SignedCompare_Test_GE(void)
+ {
+     uint8  Result;
+     uint16 WatchIndex   = 0;
+-    int32  WPValue      = 1;
++    int32  WPValue      = 0;
+     int32  CompareValue = 0;
+ 
+     LC_OperData.WDTPtr[WatchIndex].OperatorID = LC_OPER_GE;

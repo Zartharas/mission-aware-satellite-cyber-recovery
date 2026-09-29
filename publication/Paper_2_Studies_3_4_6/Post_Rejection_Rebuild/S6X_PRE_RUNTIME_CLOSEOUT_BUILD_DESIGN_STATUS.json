@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S6X-EAP-001",
+  "record_id": "S6X-PRE-RUNTIME-CLOSEOUT-BUILD-DESIGN-001",
+  "date_local": "2026-09-28",
+  "status": "DESIGN_PREPARED__POST_FIX_LOCAL_CLOSEOUT_REQUIRED__NO_BUILD_OR_SCIENTIFIC_EXECUTION",
+  "authorized_main_commit": "3194c939d5c3d9869187d5c794e380690dc31a44",
+  "authorization_gate": "AUTHOR_REVIEW_BEFORE_S6X_PRE_RUNTIME_VALIDATION_CLOSEOUT_AND_BUILD_EXECUTION_DESIGN",
+  "pre_runtime_validation": {
+    "prior_attempt_reached_pinned_source": true,
+    "prior_oracle_tests_passed": true,
+    "prior_attempt_stopped_on_validator_tooling_defect": true,
+    "validator_defect_corrected": true,
+    "verified_post_fix_local_rerun_available": false,
+    "closeout_completed": false,
+    "required_closeout_script": "study6x/validation/closeout_pre_runtime_validation.sh"
+  },
+  "build_execution_design": {
+    "protocol_candidate_path": "study6x/S6X_BUILD_EXECUTION_PROTOCOL_CANDIDATE_001.json",
+    "evidence_schema_candidate_path": "study6x/S6X_EVIDENCE_SCHEMA_CANDIDATE_001.json",
+    "compiled_invariant_harness_patch": "study6x/fixtures/S6X_INVARIANT_HARNESS_EQUALITY_001.patch",
+    "environment_dockerfile": "study6x/validation/S6X_BUILD_ENVIRONMENT_001.Dockerfile",
+    "environment_prepare_script": "study6x/validation/prepare_build_environment_001.sh",
+    "canonical_population_planned_gate_observations": 396,
+    "full_study6_external_replication_claim": false,
+    "protocol_effective_for_scientific_execution": false
+  },
+  "closed_authorities": {
+    "cfs_build": false,
+    "semantic_fixture_application_to_build": false,
+    "artifact_signing": false,
+    "provenance_observation_generation": false,
+    "independent_rebuild": false,
+    "gate_execution": false,
+    "scientific_execution": false,
+    "canonical_results": false,
+    "manuscript_claim_use": false,
+    "figure_revision": false,
+    "venue_lock": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_BUILD_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
