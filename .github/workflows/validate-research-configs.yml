@@ -86,6 +86,9 @@ jobs:
       - name: Audit Paper 2 S6X pre-runtime closeout and build design
         run: python scripts/audit_paper2_s6x_pre_runtime_closeout_build_design.py
 
+      - name: Audit Paper 2 S6X build-environment freeze
+        run: python scripts/audit_paper2_s6x_build_environment_freeze.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
