@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate deterministic PDF/PNG renders from the tracked Paper-2 R2 Figure-1 SVG source."""
+"""Generate controlled PDF and deterministic PNG renders from the tracked Paper-2 R2 Figure-1 SVG source."""
 
 from __future__ import annotations
 
@@ -62,7 +62,7 @@ def main() -> None:
     print("figure_claim_scope=QUALITATIVE_SYNTHESIS_ONLY")
     print("integrated_experiment_implied=NO")
     print("study3_k4_contact_scope=SYNTHETIC_ONLY")
-    print("s3x_contact_loss_interpretation=PROHIBITED")
+    print("s3x_contact_loss_interpretation=PROHIBITED")\n    print("svg_byte_canonical=YES")\n    print("png_byte_reproducible=YES")\n    print("pdf_byte_canonical=NO")
 
 
 if __name__ == "__main__":
