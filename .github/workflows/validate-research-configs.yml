@@ -80,6 +80,9 @@ jobs:
       - name: Audit Paper 2 post-rejection manuscript rebuild R2
         run: python scripts/audit_paper2_post_rejection_manuscript_rebuild_r2.py
 
+      - name: Audit Paper 2 R2 Figure 1 source and visual QA package
+        run: python scripts/audit_paper2_r2_figure1.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
