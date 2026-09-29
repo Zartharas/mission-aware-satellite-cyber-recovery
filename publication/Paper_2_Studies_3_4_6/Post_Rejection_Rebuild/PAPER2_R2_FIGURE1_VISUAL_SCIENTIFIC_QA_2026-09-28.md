@@ -37,7 +37,7 @@ No scientific content changed.
 
 ### Revision 3 - pass
 
-Revision 3 moved and compacted the S3X inset while preserving all mandatory labels. Both the native PNG and an independent 200-dpi render of the generated PDF were inspected.
+Revision 3 moved and compacted the S3X inset while preserving all mandatory labels. Both the native PNG and an independent 200-dpi render of the generated PDF were inspected. PDF preflight then detected that the initial CairoSVG export constants produced a 5.37-in page; the export contract was corrected from point-valued output dimensions to the CSS-pixel dimensions CairoSVG expects, producing the intended 7.16 x 5.80-in page without changing the SVG layout.
 
 Verdict:
 
@@ -52,10 +52,10 @@ Tracked SVG source:
 
 QA PDF render:
 
-- width: 7.16 in;
-- height: 5.80 in;
+- preflight page size: 516 x 418 pt (7.16 x 5.80 in, rounded);
+- CairoSVG output dimensions: 687.36 x 556.80 CSS px;
 - `SOURCE_DATE_EPOCH=1790553600`;
-- SHA-256: `282f8311ad114eb04f40195ef32fdc2785bbf39dd57d7affb5ccfb1bde7cc8d1`.
+- inspected QA-render SHA-256: `30fe410d4f432333463140ece3070f74351b26d626bbcefc1900df631fd89c2c`.
 
 PNG visual-QA preview:
 
@@ -66,9 +66,9 @@ The PNG render is byte-reproducible in repeated checks. `SOURCE_DATE_EPOCH` is f
 
 ## 4. Visual QA
 
-Revision 3 passes the following checks:
+Revision 3, after the PDF export-scale correction, passes the following checks:
 
-- no text clipping at the page edge;
+- PDF preflight confirms the intended 7.16 x 5.80-in two-column page size;\n- no text clipping at the page edge;
 - no text crosses a panel boundary;
 - no S3X inset text overlaps Study-3 text;
 - no inset footer collides with the global footer;
