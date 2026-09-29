@@ -21,7 +21,7 @@ diff --git a/unit-test/lc_watch_tests.c b/unit-test/lc_watch_tests.c
  
      UtAssert_True(UT_GetStubCount(UT_KEY(CFE_EVS_SendEvent)) == 0, "UT_GetStubCount(UT_KEY(CFE_EVS_SendEvent)) == 0");
  }
-@@ -978,7 +978,7 @@ void LC_SignedCompare_Test_GE(void)
+@@ -978,8 +978,8 @@ void LC_SignedCompare_Test_GE(void)
  {
      uint8  Result;
      uint16 WatchIndex   = 0;
