@@ -10,20 +10,33 @@ TAG="s6x-build-env:001"
 TAR="$OUT/S6X_BUILD_ENVIRONMENT_001.tar"
 JSON_OUT="$OUT/S6X_BUILD_ENVIRONMENT_FREEZE_CANDIDATE_001.json"
 
-command -v docker >/dev/null 2>&1 || {
-  echo "ERROR: docker is required to materialize the frozen linux/amd64 build environment" >&2
-  exit 1
-}
+for cmd in docker python3; do
+  command -v "$cmd" >/dev/null 2>&1 || {
+    echo "ERROR: required command not found: $cmd" >&2
+    exit 1
+  }
+done
 
 echo "===== S6X BUILD ENVIRONMENT PREPARATION ONLY ====="
 echo "cfs_build_authorized=NO"
 echo "scientific_execution=NO"
 
-docker build --platform linux/amd64 --file "$DOCKERFILE" --tag "$TAG" "$REPO_ROOT"
+docker build --platform linux/amd64 --pull=false --no-cache --tag "$TAG" - < "$DOCKERFILE"
 
 IMAGE_ID="$(docker image inspect "$TAG" --format '{{.Id}}')"
 docker save "$TAG" --output "$TAR"
-TAR_SHA256="$(shasum -a 256 "$TAR" | awk '{print $1}')"
+TAR_SHA256="$(python3 - "$TAR" <<'PYHASH'
+import hashlib
+import sys
+from pathlib import Path
+p = Path(sys.argv[1])
+h = hashlib.sha256()
+with p.open("rb") as f:
+    for chunk in iter(lambda: f.read(1024 * 1024), b""):
+        h.update(chunk)
+print(h.hexdigest())
+PYHASH
+)"
 
 VERSIONS="$(docker run --rm --platform linux/amd64 "$TAG" bash -lc '
 set -e
