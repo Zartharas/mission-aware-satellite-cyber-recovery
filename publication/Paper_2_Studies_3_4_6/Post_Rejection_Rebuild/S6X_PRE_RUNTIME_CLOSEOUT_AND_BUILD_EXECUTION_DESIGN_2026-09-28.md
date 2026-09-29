@@ -207,7 +207,7 @@ Those records must be reviewed before any cFS build.
 
 Current gate after this design PR:
 
-`AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_EVIDENCE_AND_BUILD_PROTOCOL_PREMERGE_CI_BEFORE_MERGE`
+`AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_BUILD_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE`
 
 After merge and successful local closeout/environment preparation, the next scientific gate may be:
 
