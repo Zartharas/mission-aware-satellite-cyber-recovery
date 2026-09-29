@@ -65,6 +65,7 @@ def main() -> int:
     require(protocol["canonical_population_candidate"]["block_a"]["planned_gate_observations"] == 12, "S6X block-A count drift")
     require(protocol["canonical_population_candidate"]["block_b"]["planned_gate_observations"] == 384, "S6X block-B count drift")
     require(protocol["research_only_invariant"]["oracle_gate_visible"] is False, "correctness oracle leaked into gate")
+    require(protocol["next_gate"] == "AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_BUILD_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE", "protocol next gate drift")
     require(
         protocol["build_environment_candidate"]["base_image"]
         == "amd64/ubuntu:noble-20260911@sha256:496754492fb28b4d3049432f2ca787449331e23fb14f0dd3fffea86bf5a93eb4",
@@ -81,6 +82,7 @@ def main() -> int:
     require(status["build_execution_design"]["canonical_population_planned_gate_observations"] == 396, "status population drift")
     require(status["build_execution_design"]["full_study6_external_replication_claim"] is False, "external replication claim opened")
     require(status["build_execution_design"]["protocol_effective_for_scientific_execution"] is False, "scientific protocol activated early")
+    require(status["next_gate"] == "AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_BUILD_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE", "status next gate drift")
     for key, value in status["closed_authorities"].items():
         require(value is False, f"closed authority unexpectedly open: {key}")
 
