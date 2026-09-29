@@ -166,5 +166,5 @@
     "scientific_execution_authorized": false,
     "canonical_results_authorized": false
   },
-  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_EVIDENCE_AND_BUILD_PROTOCOL_PREMERGE_CI_BEFORE_MERGE"
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_PRE_RUNTIME_CLOSEOUT_BUILD_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE"
 }
