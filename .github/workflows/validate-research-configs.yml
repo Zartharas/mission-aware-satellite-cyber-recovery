@@ -98,6 +98,9 @@ jobs:
       - name: Audit Paper 2 S6X Environment v2 materialization handoff
         run: python scripts/audit_paper2_s6x_env_v2_materialization_handoff.py
 
+      - name: Audit Paper 2 S6X Environment v2 freeze
+        run: python scripts/audit_paper2_s6x_build_environment_v2_freeze.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
