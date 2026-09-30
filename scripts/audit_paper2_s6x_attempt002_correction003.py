@@ -195,6 +195,14 @@ forbidden={
 req(not any(Path(x).name in forbidden for x in tracked),"Execution 003 result tracked before execution")
 req("python scripts/audit_paper2_s6x_attempt002_correction003.py" in WORKFLOW.read_text(),"CI hook missing")
 
+# Direct syntax gates for versioned executable artifacts outside the generic CI scan roots.
+subprocess.run(["bash","-n",str(RUNNER3)],cwd=ROOT,check=True)
+compile(RUNTIME3.read_text(),str(RUNTIME3),"exec")
+compile(VALIDATOR3.read_text(),str(VALIDATOR3),"exec")
+
+print("runner003_bash_syntax=PASS")
+print("runtime003_python_syntax=PASS")
+print("validator003_python_syntax=PASS")
 print("paper2_s6x_attempt002_correction003_audit=PASS")
 print("attempt002_failure_freeze=PASS")
 print("attempt002_artifact_reproducibility=PASS")
