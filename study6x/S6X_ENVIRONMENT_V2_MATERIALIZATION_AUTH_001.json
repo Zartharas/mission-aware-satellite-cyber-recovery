@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "authorization_id": "S6X-ENVIRONMENT-V2-MATERIALIZATION-AUTH-001",
+  "phase": "S6X_ENVIRONMENT_V2_LOCAL_MATERIALIZATION",
+  "authorization_date": "2026-09-29",
+  "status": "PREPARED_ON_FEATURE_BRANCH__NOT_EFFECTIVE_UNTIL_MERGED_AND_POST_MERGE_CI_PASSES",
+  "author_approval": {
+    "gate": "AUTHOR_REVIEW_BEFORE_S6X_ENVIRONMENT_V2_LOCAL_MATERIALIZATION",
+    "approved": true
+  },
+  "predecessor": {
+    "authoritative_main_commit": "44b1d8f04b7bce05a27ab58455b4af16d0a411c8",
+    "correction_merge_pr": 203,
+    "correction_merge_commit": "44b1d8f04b7bce05a27ab58455b4af16d0a411c8",
+    "correction_post_merge_ci_run_number": 1300,
+    "correction_post_merge_ci_run_id": 36647315889,
+    "correction_post_merge_ci_conclusion": "success"
+  },
+  "frozen_bindings": {
+    "attempt001_failure_freeze_blob": "d381cc8ac4faf1d9ae465bbf76bed85f3353732b",
+    "protocol_correction_002_blob": "90b1d14e1b80d4c2d04404c46feae11ced26fb2b",
+    "environment_002_dockerfile_blob": "4e3c150e03129c7e84c08a7570d04b9b883dda6b",
+    "environment_002_prepare_script_blob": "e729cbafbadeab7ce899cd18f5c82e2a2b7015bb",
+    "base_image": "amd64/ubuntu:noble-20260911@sha256:496754492fb28b4d3049432f2ca787449331e23fb14f0dd3fffea86bf5a93eb4",
+    "environment_tag": "s6x-build-env:002",
+    "expected_output_tar": "study6x/workspace/S6X_BUILD_ENVIRONMENT_002.tar",
+    "expected_candidate_json": "study6x/workspace/S6X_BUILD_ENVIRONMENT_FREEZE_CANDIDATE_002.json"
+  },
+  "authorized_scope": {
+    "local_environment_002_docker_build": true,
+    "save_environment_002_image_tar": true,
+    "compute_environment_002_tar_sha256": true,
+    "capture_environment_002_image_id": true,
+    "capture_tool_versions_including_jq": true,
+    "verify_linux_amd64": true,
+    "cfs_build": false,
+    "fixture_application": false,
+    "artifact_signing": false,
+    "provenance_generation": false,
+    "independent_rebuild": false,
+    "gate_execution": false,
+    "scientific_execution": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false,
+    "figure_revision": false,
+    "study6_s6x_pooling": false,
+    "venue_lock": false
+  },
+  "required_local_outputs": [
+    "study6x/workspace/S6X_BUILD_ENVIRONMENT_002.tar",
+    "study6x/workspace/S6X_BUILD_ENVIRONMENT_FREEZE_CANDIDATE_002.json"
+  ],
+  "fail_closed_conditions": [
+    "authoritative main does not contain this authorization",
+    "tracked worktree is dirty before materialization",
+    "bound Environment 002 Dockerfile or preparation script drifts",
+    "Docker build fails",
+    "jq is absent from the resulting image",
+    "resulting image is not linux/amd64",
+    "candidate JSON reports any cFS build, fixture application, artifact signing, or scientific execution"
+  ],
+  "downstream_boundaries": {
+    "environment_v2_freeze_not_yet_authorized": true,
+    "corrected_runtime_authorization_002_not_yet_authorized": true,
+    "corrected_canonical_execution_002_not_yet_authorized": true,
+    "result_freeze_not_yet_authorized": true,
+    "manuscript_claim_use_not_yet_authorized": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ENVIRONMENT_V2_LOCAL_MATERIALIZATION_BEFORE_FREEZE_PR"
+}
