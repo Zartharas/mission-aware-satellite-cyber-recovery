@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "correction_id": "S6X-BUILD-EXECUTION-PROTOCOL-CORRECTION-003",
+  "supersedes_protocol_id": "S6X-BUILD-EXECUTION-PROTOCOL-CORRECTION-002",
+  "status": "CORRECTION_DESIGN_PREPARED__RUNNER_HASH_CHANNEL_ISOLATION_ONLY__NO_EXECUTION_AUTHORIZED",
+  "preparation_date": "2026-09-30",
+  "authoritative_base_commit": "4f85bb15a1964b0b1bf10e01c72e435abcd8785c",
+  "attempt_002_failure_freeze": {
+    "id": "S6X-EXEC-ATTEMPT-002-FAILURE-FREEZE-001",
+    "blob": "7608fb45151850e4d07709a26a5daa1f70b00ccc",
+    "status": "FAILED_CLOSED_PRE_SCIENTIFIC_OBSERVATION_GENERATION__RUNNER_STDOUT_HASH_CAPTURE_CONTROL_DEFECT"
+  },
+  "observed_attempt_002_artifacts": {
+    "clean_primary_sha256": "7311d8d1b89ffe2ca0e43ca1e2f6430db28d2f9532ebf426c4870ab5847f1670",
+    "clean_rebuild_sha256": "7311d8d1b89ffe2ca0e43ca1e2f6430db28d2f9532ebf426c4870ab5847f1670",
+    "bad_primary_sha256": "275ae69dc92dd60f023d203664ab5fda021b46100a58d1f670a8546dd57f031c",
+    "bad_rebuild_sha256": "275ae69dc92dd60f023d203664ab5fda021b46100a58d1f670a8546dd57f031c",
+    "clean_primary_rebuild_exact_match": true,
+    "bad_primary_rebuild_exact_match": true,
+    "clean_bad_artifacts_distinct": true,
+    "clean_runtest_rc": 0,
+    "bad_runtest_rc": 2,
+    "signatures_generated": 0,
+    "canonical_observations_generated": 0,
+    "run2_started": false
+  },
+  "root_cause": {
+    "defect": "RUNNER_STDOUT_HASH_CAPTURE_CONTROL_DEFECT",
+    "predecessor_runner_blob": "abe58d12e764b104709de0b14d0b257f7480db4f",
+    "predecessor_behavior": "build_one emitted docker/make stdout and then the artifact digest on stdout while callers captured the entire function stdout via command substitution.",
+    "consequence": "digest comparison variables were contaminated by non-digest build stdout, producing a false clean rebuild mismatch despite byte-identical artifacts.",
+    "artifact_reproducibility_failure": false,
+    "scientific_acceptance_failure": false
+  },
+  "correction": {
+    "corrected_runner_path": "study6x/validation/run_local_canonical_execution_003.sh",
+    "corrected_runner_blob": "3f3379cedcdbd89b1fd3f2eb793e7522dfbd0283",
+    "digest_transport": "DEDICATED_SHA256_FILES",
+    "digest_validation_regex": "^[0-9a-f]{64}$",
+    "build_stdout_stderr_transport": "DEDICATED_PER_BUILD_LOG_FILE",
+    "build_stdout_stderr_path_pattern": "<campaign>/<run>/builds/<state>_<kind>/build_stdout_stderr.log",
+    "command_substitution_of_build_one_removed": true,
+    "exact_artifact_sha256_comparisons_preserved": true,
+    "build_commands_changed": false,
+    "source_or_fixture_changed": false,
+    "environment_changed": false,
+    "artifact_path_changed": false,
+    "scientific_logic_changed": false
+  },
+  "unchanged_scientific_contract": {
+    "claim_scope": "SEPARATE_EXECUTABLE_STRESS_TEST_OF_STUDY6_OBSERVABILITY_MECHANISM__NOT_EXTERNAL_REPLICATION",
+    "planned_gate_observations_per_repetition": 396,
+    "block_a_rows": 12,
+    "block_b_rows": 384,
+    "repetitions": 2,
+    "builds_per_repetition": 4,
+    "total_builds": 8,
+    "build_commands": [
+      "make native_std.prep",
+      "make native_std.install",
+      "make native_std.runtest"
+    ],
+    "clean_primary_rebuild_sha256_match_required": true,
+    "bad_primary_rebuild_sha256_match_required": true,
+    "clean_bad_artifact_sha256_must_differ": true,
+    "primary_and_reference_gate_evaluators_separate": true,
+    "required_gate_mismatches": 0,
+    "repeated_scientific_output_hash_mismatches_allowed": 0,
+    "study6_population_mutation": false,
+    "study6_s6x_pooling": false
+  },
+  "prospective_runtime": {
+    "campaign_id": "S6X_CANONICAL_EXECUTION_003",
+    "runtime_authorization_id": "S6X-CANONICAL-RUNTIME-AUTH-003",
+    "evidence_schema_blob": "768298234860a886b919af6449cec026478e7e81",
+    "runtime_population_generator_blob": "aa998b3fd50b76d9f2f9c95db28ca90adced8209",
+    "independent_validator_blob": "da55bb1d807494addff10759dd99921e3e51ecff",
+    "execution_runner_blob": "3f3379cedcdbd89b1fd3f2eb793e7522dfbd0283"
+  },
+  "authorization": {
+    "cfs_build_authorized": false,
+    "fixture_application_to_build_authorized": false,
+    "artifact_signing_authorized": false,
+    "independent_rebuild_authorized": false,
+    "gate_execution_authorized": false,
+    "scientific_execution_authorized": false,
+    "result_freeze_authorized": false,
+    "manuscript_claim_use_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ATTEMPT002_FAILURE_FREEZE_AND_RUNNER_PROTOCOL_CORRECTION_003_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

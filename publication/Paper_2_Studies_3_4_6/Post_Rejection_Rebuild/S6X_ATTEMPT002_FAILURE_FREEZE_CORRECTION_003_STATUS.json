@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S6X-EAP-001",
+  "phase": "S6X_ATTEMPT002_FAILURE_FREEZE_AND_RUNNER_PROTOCOL_CORRECTION_003_PREPARATION",
+  "status": "ATTEMPT002_FROZEN__PROTOCOL_CORRECTION_003_AND_RUNTIME_AUTHORIZATION_003_PREPARED__NOT_EFFECTIVE__NO_EXECUTION_003",
+  "preparation_date": "2026-09-30",
+  "branch": "paper2/s6x-attempt002-freeze-correction-003",
+  "branch_base_commit": "4f85bb15a1964b0b1bf10e01c72e435abcd8785c",
+  "attempt_002": {
+    "freeze_id": "S6X-EXEC-ATTEMPT-002-FAILURE-FREEZE-001",
+    "freeze_blob": "7608fb45151850e4d07709a26a5daa1f70b00ccc",
+    "status": "FAILED_CLOSED_PRE_SCIENTIFIC_OBSERVATION_GENERATION__RUNNER_STDOUT_HASH_CAPTURE_CONTROL_DEFECT",
+    "artifact_reproducibility": "PASS",
+    "canonical_observations_generated": 0,
+    "run2_started": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "correction_003": {
+    "id": "S6X-BUILD-EXECUTION-PROTOCOL-CORRECTION-003",
+    "blob": "35271a7e5aa672e63072c4b228dc321cca6f1826",
+    "scope": "RUNNER_STDOUT_HASH_CHANNEL_ISOLATION_ONLY",
+    "scientific_logic_changed": false,
+    "acceptance_thresholds_changed": false
+  },
+  "authorization_candidate": {
+    "id": "S6X-CANONICAL-RUNTIME-AUTH-003",
+    "authorization_blob": "b5399dce4f671733e0637e19965e0a6a6605ee78",
+    "planned_campaign": "S6X_CANONICAL_EXECUTION_003",
+    "planned_gate_observations_per_run": 396,
+    "planned_repetitions": 2,
+    "planned_total_builds": 8,
+    "artifact_path": "build-native_std/exe/cpu1/cf/lc.so",
+    "environment_image_id": "sha256:5c7549f7fdeef8198126c6759056db78d0f358afcfedb3f2e4972bfadd33674c",
+    "environment_tar_sha256": "fb6a35cf6499de64042da62858de93a8b3c43940fa19ec11d26012f83b5ca331",
+    "authorization_effective_now": false
+  },
+  "versioned_runtime_artifacts": {
+    "evidence_schema": "study6x/S6X_EVIDENCE_SCHEMA_003.json",
+    "runtime_population_generator": "study6x/runtime/run_canonical_population_003.py",
+    "independent_validator": "study6x/audit/validate_canonical_execution_003.py",
+    "execution_runner": "study6x/validation/run_local_canonical_execution_003.sh",
+    "evidence_schema_blob": "768298234860a886b919af6449cec026478e7e81",
+    "runtime_population_generator_blob": "aa998b3fd50b76d9f2f9c95db28ca90adced8209",
+    "independent_validator_blob": "da55bb1d807494addff10759dd99921e3e51ecff",
+    "execution_runner_blob": "3f3379cedcdbd89b1fd3f2eb793e7522dfbd0283"
+  },
+  "executed_now": {
+    "campaign_003_started": false,
+    "cfs_build": false,
+    "semantic_fixture_application": false,
+    "artifact_signing": false,
+    "independent_rebuild": false,
+    "gate_execution": false,
+    "scientific_execution": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ATTEMPT002_FAILURE_FREEZE_AND_RUNNER_PROTOCOL_CORRECTION_003_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}
