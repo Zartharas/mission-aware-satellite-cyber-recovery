@@ -104,6 +104,9 @@ jobs:
       - name: Audit Paper 2 S6X corrected runtime authorization 002
         run: python scripts/audit_paper2_s6x_corrected_runtime_authorization_002.py
 
+      - name: Audit Paper 2 S6X Attempt 002 failure freeze and runner correction 003
+        run: python scripts/audit_paper2_s6x_attempt002_correction003.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
