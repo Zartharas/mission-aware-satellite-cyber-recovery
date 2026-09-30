@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "S6X_EVIDENCE_SCHEMA_002",
+  "title": "S6X-EAP-001 Evidence Record Corrected Runtime 002",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "experiment_id",
+    "record_id",
+    "state_id",
+    "build_instance_id",
+    "source",
+    "build_environment",
+    "artifact",
+    "signature",
+    "provenance",
+    "independent_rebuild",
+    "source_review",
+    "release_approval",
+    "objective_correctness",
+    "assurance_signals"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "experiment_id": {
+      "const": "S6X-EAP-001"
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state_id": {
+      "enum": [
+        "CLEAN_APPROVED",
+        "APPROVED_BAD_SOURCE"
+      ]
+    },
+    "build_instance_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cfs_commit",
+        "lc_commit",
+        "semantic_fixture_id",
+        "harness_patch_id"
+      ],
+      "properties": {
+        "cfs_commit": {
+          "const": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3"
+        },
+        "lc_commit": {
+          "const": "a1c3a47ea1fa5c0d7751d6ff88848dc9bd8a6c7a"
+        },
+        "semantic_fixture_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "harness_patch_id": {
+          "const": "S6X_INVARIANT_HARNESS_EQUALITY_001"
+        }
+      }
+    },
+    "build_environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "image_id",
+        "image_tar_sha256",
+        "platform",
+        "configuration"
+      ],
+      "properties": {
+        "image_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "image_tar_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "platform": {
+          "const": "linux/amd64"
+        },
+        "configuration": {
+          "const": "native_std"
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "const": "build-native_std/exe/cpu1/cf/lc.so"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "valid",
+        "research_only"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "Ed25519"
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "research_only": {
+          "const": true
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "valid",
+        "source_and_fixture_bound",
+        "artifact_digest_bound"
+      ],
+      "properties": {
+        "valid": {
+          "type": "boolean"
+        },
+        "source_and_fixture_bound": {
+          "type": "boolean"
+        },
+        "artifact_digest_bound": {
+          "type": "boolean"
+        }
+      }
+    },
+    "independent_rebuild": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_sha256",
+        "matches_primary"
+      ],
+      "properties": {
+        "artifact_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "matches_primary": {
+          "type": "boolean"
+        }
+      }
+    },
+    "source_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attested",
+        "experimental_only"
+      ],
+      "properties": {
+        "attested": {
+          "type": "boolean"
+        },
+        "experimental_only": {
+          "const": true
+        }
+      }
+    },
+    "release_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approved",
+        "experimental_only"
+      ],
+      "properties": {
+        "approved": {
+          "type": "boolean"
+        },
+        "experimental_only": {
+          "const": true
+        }
+      }
+    },
+    "objective_correctness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate_visible",
+        "invariant_id",
+        "compiled_harness_pass",
+        "oracle_match"
+      ],
+      "properties": {
+        "gate_visible": {
+          "const": false
+        },
+        "invariant_id": {
+          "const": "S6X-LC-GTGE-BOUNDARY-001"
+        },
+        "compiled_harness_pass": {
+          "type": "boolean"
+        },
+        "oracle_match": {
+          "type": "boolean"
+        }
+      }
+    },
+    "assurance_signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signature_valid",
+        "independent_target_digest_match",
+        "provenance_valid",
+        "independent_reproduced_build_match",
+        "source_review_attested",
+        "release_approved"
+      ],
+      "properties": {
+        "signature_valid": {
+          "type": "boolean"
+        },
+        "independent_target_digest_match": {
+          "type": "boolean"
+        },
+        "provenance_valid": {
+          "type": "boolean"
+        },
+        "independent_reproduced_build_match": {
+          "type": "boolean"
+        },
+        "source_review_attested": {
+          "type": "boolean"
+        },
+        "release_approved": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
