@@ -1,6 +1,6 @@
 # Current Publication State
 
-**Current-state date:** 2026-09-29
+**Current-state date:** 2026-09-26
 
 **Study 8E extension update:** 2026-09-20
 
@@ -14,13 +14,13 @@
 
 **Paper 4 IJSCCN editorial decision update:** 2026-09-24
 
-**Paper 2 TAES decision/rebuild update:** 2026-09-29
+**Paper 2 TAES decision/rebuild update:** 2026-09-26
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening on 2026-09-26 without external peer review and has progressed through the rebuilt R2 manuscript and separately governed S3X/S6X extension work. S6X Attempt 001 is preserved as a tooling-only fail-closed attempt with zero canonical observations; Protocol Correction 002 is merged; S6X Environment 002 local materialization is authorized, but Environment 002 is not yet frozen and scientific execution remains closed. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening on 2026-09-26 without external peer review and has progressed through author-authorized post-rejection design into a Phase-3 pre-execution state: S3X source verification/source identity freeze is authorized locally, and an S6X implementation workspace with static pre-runtime validation is authorized; scientific execution remains closed. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -80,7 +80,7 @@ The TAES editors identified narrow/unclear aerospace contribution, difficult pro
 
 Studies 3, 4, and 6 remain immutable and separate: Study 3 = 1,380 deterministic trajectories; Study 4 = 4,608 exact rule-by-subset observations; Study 6 = 420 exact observations. There is no pooled Paper-2 sample size.
 
-Paper-2 post-rejection work has advanced beyond the original Phase-3 handoff. The rebuilt R2 manuscript remains authoritative. S6X pre-runtime closeout and Environment 001 were completed, Runtime Authorization 001 was merged, and the first authorized local campaign failed closed before scientific observation generation. Attempt 001 is preserved and must not be reused. The verified root causes were a missing `jq` prerequisite for pinned cFS `native_std.runtest` and an incorrect installed CPU1 LC artifact path. PR #203 merged Protocol Correction 002, which keeps the scientific design unchanged, adds `jq` only to Environment 002, and corrects the designated path to `build-native_std/exe/cpu1/cf/lc.so`. S6X Environment 002 local materialization is authorized, but no corrected cFS build, fixture application, signing, independent rebuild, gate execution, or scientific execution is authorized yet. Result freeze, manuscript claim use, Figure-1 revision, Study-6/S6X pooling, venue lock, and publisher submission remain unauthorized.
+Phase 1 and Phase 2 completed the editorial/theory audit, source screening, and prospective design work. After PR #173 CI succeeded and the branch was merged, the author authorized Phase 3 on 2026-09-26. `study3x/` may now perform local ESA-v2 archive verification and source-identity freeze only; `study6x/` may now host implementation and static/pre-runtime validation only. S3X gap-rule freeze, trace extraction, recovery replay, and scientific results remain unauthorized. S6X build, fixture application to a build, signing, independent rebuild, gate execution, and scientific results remain unauthorized. Manuscript rewrite, venue lock, and publisher submission remain unauthorized.
 
 ### Paper 3 - Study 7
 

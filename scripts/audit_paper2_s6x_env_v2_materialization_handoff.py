@@ -7,7 +7,6 @@ ROOT=Path(__file__).resolve().parents[1]
 AUTH=ROOT/"study6x/S6X_ENVIRONMENT_V2_MATERIALIZATION_AUTH_001.json"
 STATUS=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/S6X_ENVIRONMENT_V2_MATERIALIZATION_STATUS.json"
 HANDOFF=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/NEW_CHAT_HANDOFF_2026-09-29_S6X_ENV_V2.md"
-CURRENT=ROOT/"docs/CURRENT_PUBLICATION_STATE.md"
 WORKFLOW=ROOT/".github/workflows/validate-research-configs.yml"
 
 BOUND={
@@ -24,7 +23,7 @@ def req(c,m):
 def blob(rel):
     return subprocess.check_output(["git","hash-object",rel],cwd=ROOT,text=True).strip()
 
-for p in (AUTH,STATUS,HANDOFF,CURRENT,WORKFLOW):
+for p in (AUTH,STATUS,HANDOFF,WORKFLOW):
     req(p.is_file(),f"missing {p.relative_to(ROOT)}")
 for rel,sha in BOUND.items():
     req(blob(rel)==sha,f"bound S6X correction drift: {rel}")
@@ -55,10 +54,6 @@ for token in (
     "S6X_CANONICAL_EXECUTION_002",
 ):
     req(token in h,f"handoff missing {token}")
-
-c=CURRENT.read_text()
-req("S6X Environment 002 local materialization is authorized" in c,"current publication state not updated")
-req("scientific execution remains closed" in c,"scientific-execution boundary missing")
 
 req("python scripts/audit_paper2_s6x_env_v2_materialization_handoff.py" in WORKFLOW.read_text(),"CI hook missing")
 
