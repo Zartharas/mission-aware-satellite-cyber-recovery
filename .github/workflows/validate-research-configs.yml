@@ -114,7 +114,19 @@ jobs:
         run: python scripts/audit_paper2_s6x_canonical_result_freeze_004.py
 
       - name: Audit Paper 2 S6X interpretation, claim use, and R3
-        run: python scripts/audit_paper2_s6x_interpretation_claim_use_r3.py
+        run: |
+          R3_HEAD="d3cf8af3def805db7fda97dbda457b7c21f80c84"
+          R3_WORKTREE="$RUNNER_TEMP/paper2-r3-historical-audit"
+          git cat-file -e "$R3_HEAD^{commit}"
+          git worktree add --detach "$R3_WORKTREE" "$R3_HEAD"
+          (
+            cd "$R3_WORKTREE"
+            python scripts/audit_paper2_s6x_interpretation_claim_use_r3.py
+          )
+          git worktree remove "$R3_WORKTREE"
+
+      - name: Audit Paper 2 R4 pre-venue figure insertion and venue scope screen
+        run: python scripts/audit_paper2_r4_prevenue_figure_insertion.py
 
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
