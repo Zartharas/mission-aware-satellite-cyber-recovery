@@ -1,0 +1,5 @@
+- Three public space-cyber datasets provide 0/8 direct recovery-state coverage.
+- All eight required recovery-state semantics remain unresolved across datasets.
+- No frozen recovery policy yields a uniquely identifiable action from native state.
+- Six to eight sidecar variables are needed to guarantee a unique recovery action.
+- Attack labels are preserved as descriptive metadata, not operational recovery truth.
