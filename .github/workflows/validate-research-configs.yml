@@ -113,6 +113,9 @@ jobs:
       - name: Audit Paper 2 S6X canonical result freeze 004
         run: python scripts/audit_paper2_s6x_canonical_result_freeze_004.py
 
+      - name: Audit Paper 2 S6X interpretation, claim use, and R3
+        run: python scripts/audit_paper2_s6x_interpretation_claim_use_r3.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
