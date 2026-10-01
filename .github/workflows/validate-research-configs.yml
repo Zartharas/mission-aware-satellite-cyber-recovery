@@ -110,6 +110,9 @@ jobs:
       - name: Audit Paper 2 S6X Attempt 003 failure freeze and reporting correction 004
         run: python scripts/audit_paper2_s6x_attempt003_correction004.py
 
+      - name: Audit Paper 2 S6X canonical result freeze 004
+        run: python scripts/audit_paper2_s6x_canonical_result_freeze_004.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 
