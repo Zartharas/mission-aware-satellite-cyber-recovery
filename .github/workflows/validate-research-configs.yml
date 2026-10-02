@@ -125,8 +125,20 @@ jobs:
           )
           git worktree remove "$R3_WORKTREE"
 
-      - name: Audit Paper 2 R4 pre-venue figure insertion and venue scope screen
-        run: python scripts/audit_paper2_r4_prevenue_figure_insertion.py
+      - name: Audit historical Paper 2 R4 at its exact merged authority
+        run: |
+          R4_HEAD="4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4"
+          R4_WORKTREE="$RUNNER_TEMP/paper2-r4-historical-audit"
+          git cat-file -e "$R4_HEAD^{commit}"
+          git worktree add --detach "$R4_WORKTREE" "$R4_HEAD"
+          (
+            cd "$R4_WORKTREE"
+            python scripts/audit_paper2_r4_prevenue_figure_insertion.py
+          )
+          git worktree remove "$R4_WORKTREE"
+
+      - name: Audit Paper 2 CEAS R1 manuscript scientific-preservation adaptation
+        run: python scripts/audit_paper2_ceas_r1.py
 
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
