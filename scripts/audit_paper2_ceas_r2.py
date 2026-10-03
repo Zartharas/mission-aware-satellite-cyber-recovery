@@ -47,7 +47,7 @@ chk("../Post_Rejection_Rebuild/figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg
 chk(len(re.findall(r"(?m)^## [1-9] ",new))==9 and not re.search(r"(?m)^#### ",new),"SECTION_LEVELS")
 for n in ("1,380","67,620","4,608","420","1,919","34,542","30,704","32/64","63/64","46/46","7,676","3,838","cb840a8d89267b313be79280d2909e708327cb5ca333e23dbfc7e50b9e37dc63"):
     chk(n in new,"EXACT_FINDING_LOST_"+n)
-for s in ("existence demonstration","researcher-introduced","research-only","outside the six qualification inputs","### 3.1 Illustrative engineering allocation","### 3.2 Manuscript preparation disclosure","third-party redistribution restrictions"):
+for s in ("existence demonstration","researcher-introduced","research-only","absent from the six qualification inputs","### 3.1 Illustrative engineering allocation","### 3.2 Manuscript preparation disclosure","third-party redistribution restrictions"):
     chk(s.lower() in new.lower(),"CLAIM_FIREWALL_LOST_"+s)
 b,refs=new.split("## References\n",1)
 entries=re.findall(r"(?m)^\[(\d+)\] (.*)$",refs)
