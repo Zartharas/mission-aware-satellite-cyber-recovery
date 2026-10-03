@@ -41,6 +41,20 @@ for token in ("wrong_project_root","fortytwo_binary_differs_from_july_freeze_hol
     chk(token in ft,"FORTYTWO_OFFLINE_RECONSTRUCTION_GUARD_"+token)
 for forbidden in ("make clean","scripts/build_nominal_nos3.sh","run-ci-noop","git push","docker pull"):
     chk(forbidden not in ft,"FORTYTWO_RECONSTRUCTION_OUT_OF_SCOPE_"+forbidden)
+probe=(ROOT/"scripts/probe_paper2x_fortytwo_build_recipe.sh").read_text()
+for token in ("october_control_not_reproducible_review_environment_first",
+    "pinned_default_shader","make GUIFLAG= SHADERFLAG= 42","make GUIFLAG= 42",
+    "--network none","git -C \"$FT\" archive \"$PIN\"",
+    "Historical_build_recipe_unresolved_do_not_modify_original_freeze",
+    "P2X_42_CANDIDATE_PROMOTION=NO","P2X_42_RUNTIME=NO","july_fortytwo_lock_mutated"):
+    chk(token in probe,"FORTYTWO_RECIPE_PROBE_"+token)
+for forbidden in ("make clean","rm -rf","docker pull","git push","run-ci-noop"):
+    chk(forbidden not in probe,"FORTYTWO_PROBE_DISALLOWED_"+forbidden)
+variance=(D/"FORTYTWO_BUILD_VARIANCE_DIAGNOSIS_2026-10-03.md").read_text()
+for token in ("b4d054bdd8a95dd429201466833fba8403efec4bdef09a9ed7040131dda3006d",
+    "9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7",
+    "LOG_NOT_AVAILABLE","separate P2X environment baseline","No runtime"):
+    chk(token.lower() in variance.lower(),"FORTYTWO_VARIANCE_RECORD_"+token)
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -60,6 +74,8 @@ wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
 chk("paper2x-design-historical-audit" in wf and "python scripts/audit_paper2x_phase_a_design.py" in wf,"WORKFLOW_SCOPE")
 allowed={
 ".github/workflows/validate-research-configs.yml",
+"scripts/probe_paper2x_fortytwo_build_recipe.sh",
+"paper2x/phase_a/FORTYTWO_BUILD_VARIANCE_DIAGNOSIS_2026-10-03.md",
 "scripts/restore_paper2x_phase_a_fortytwo.sh",
 "paper2x/phase_a/PHASE_A_AUTHORIZATION_2026-10-03.json",
 "paper2x/phase_a/RUNBOOK_2026-10-03.md",
