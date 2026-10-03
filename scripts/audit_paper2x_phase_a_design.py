@@ -55,6 +55,13 @@ for token in ("b4d054bdd8a95dd429201466833fba8403efec4bdef09a9ed7040131dda3006d"
     "9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7",
     "LOG_NOT_AVAILABLE","separate P2X environment baseline","No runtime"):
     chk(token.lower() in variance.lower(),"FORTYTWO_VARIANCE_RECORD_"+token)
+v2=(D/"ENVIRONMENT_V2_ADOPTION_PROPOSAL_2026-10-03.md").read_text()
+for token in ("DRAFT_NOT_ADOPTED",
+    "b4d054bdd8a95dd429201466833fba8403efec4bdef09a9ed7040131dda3006d",
+    "9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7",
+    "NOS3","COSMOS","independent","no runtime","historical locks",
+    "October control","shader-default"):
+    chk(token.lower() in v2.lower(),"P2X_V2_DRAFT_SCOPE_"+token)
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -74,6 +81,7 @@ wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
 chk("paper2x-design-historical-audit" in wf and "python scripts/audit_paper2x_phase_a_design.py" in wf,"WORKFLOW_SCOPE")
 allowed={
 ".github/workflows/validate-research-configs.yml",
+"paper2x/phase_a/ENVIRONMENT_V2_ADOPTION_PROPOSAL_2026-10-03.md",
 "scripts/probe_paper2x_fortytwo_build_recipe.sh",
 "paper2x/phase_a/FORTYTWO_BUILD_VARIANCE_DIAGNOSIS_2026-10-03.md",
 "scripts/restore_paper2x_phase_a_fortytwo.sh",

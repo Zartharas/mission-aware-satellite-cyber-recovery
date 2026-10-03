@@ -24,4 +24,10 @@
 
 July belongs to historical work. Matching its binary is useful provenance but a new Paper-2 integrated experiment can instead establish a prospective **separate P2X environment baseline** through two independent deterministic builds, explicit compiler flags, pinned source and OCI, artifact identities, functional and command/telemetry smoke tests and author-approved protocol amendment. That prospective path must not quietly relabel new executable bytes as a recovered July freeze. No runtime, fault injection, manuscript insertion, source change or scientific observation is authorized by this diagnostic.
 
-**Current gate:** fresh author-host recipe-probe output pending; NOS3 compiled build and A1 remain blocked.
+## Operator's controlled recipe probe — observed 3 October 2026
+
+Both the fresh October-control recipe (`make GUIFLAG= SHADERFLAG= 42`) and the fresh shader-default recipe (`make GUIFLAG= 42`) produced the same SHA256 `b4d054bdd8a95dd429201466833fba8403efec4bdef09a9ed7040131dda3006d`. The control independently reproduced the live October executable, and the second probe did not reproduce July SHA256 `9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7`. Thus the SHADERFLAG override, **as tested in this pinned headless compile**, did not change executable bytes and does not explain the observed July delta. This finding supersedes the earlier untested shader hypothesis; the historical root cause remains unresolved because July compiler logs are absent.
+
+The probe explicitly recorded `P2X_42_CANDIDATE_PROMOTION=NO`, `P2X_42_NOS3_BUILD=NO`, `P2X_42_RUNTIME=NO` and an unchanged live October SHA. Raw sidecar path reported: `artifacts/runtime/p2xa-42-recipe-probe-20261003T181834Z-91386/` (still ignored/local, not independently inspected here).
+
+**Current gate:** historical July FortyTwo executable remains NOT_BYTE_REPRODUCED. A *separate P2X environment baseline* is now proposed in `ENVIRONMENT_V2_ADOPTION_PROPOSAL_2026-10-03.md`, classified DRAFT_NOT_ADOPTED. NOS3 compiled build and A1 remain blocked until the prospective environment amendment is approved and its P2X-specific assurance checks implemented.
