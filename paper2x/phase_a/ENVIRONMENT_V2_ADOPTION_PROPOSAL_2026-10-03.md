@@ -38,6 +38,8 @@ P2X is a new Paper-2 hands-on software-in-the-loop experiment, not a reproductio
 6. Restrict preflight to the expressly authorized benign simulated source/host readiness and one internal SAMPLE NOOP (partial result). Separately demonstrate a real pinned COSMOS `CFS_RADIO` radio NOOP and returned telemetry, including prior/after counters and read-only independent trace review.
 7. Freeze a new environment acceptance record *before* starting F1/F2 or primary G0/G1 trials, together with negative outcomes and failed attempts. A distinct later runtime/fault-campaign gate remains necessary.
 
+**The historical locks** (July FortyTwo, NOS3 build, nominal runtime and all earlier paper freezes) remain unchanged and retain their original identities. Do not replace them with the candidate P2X sidecar.
+
 **Portfolio firewall:** Study3/4/6, S3X/S6X, Paper1/P7, Papers3/4/5 and all prior outcome populations unchanged. NO manuscript insertion, PR merge, Zenodo upload, publisher submission, fault injection or scientific observations authorized by this DRAFT_NOT_ADOPTED amendment.
 
 **Decision request:** approve a distinctly labelled *new P2X environment baseline* rather than insisting on unrecoverable July executable byte identity. Until accepted, all Phase A host runtime remains on HOLD.
