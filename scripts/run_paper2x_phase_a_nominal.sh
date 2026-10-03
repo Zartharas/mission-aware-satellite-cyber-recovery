@@ -9,7 +9,8 @@ case "$MODE" in check|run-ci-noop) ;; *) echo "usage: bash scripts/run_paper2x_p
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 EXPECTED_NOS3="5a3bdee6be9a2c67fdf994ae6db56d5c60395302"
-EXPECTED_LC="d65f77dea94467b7cb71053eb2f58f7a0cde3b02"
+EXPECTED_LC="5daef363c95d71c1ff3c5e9dcd4dddab560e8b39"
+EXPECTED_HWLIB="d65f77dea94467b7cb71053eb2f58f7a0cde3b02"
 IMAGE="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2"
 NOS3="$ROOT/external/nos3"
 FORCE_FRESH_RESULTS="true"
@@ -24,11 +25,20 @@ for x in git docker python3 awk grep sha256sum; do
     command -v "$x" >/dev/null 2>&1 || fail "missing_$x"
   fi
 done
+# Refuse to run from any other project: the previously reported terminal was in OmniRoute.
+test "$(basename "$ROOT")" = "mission-aware-satellite-cyber-recovery" || fail "wrong_project_root"
+ORIGIN="$(git -C "$ROOT" remote get-url origin 2>/dev/null || true)"
+case "$ORIGIN" in
+  https://github.com/Zartharas/mission-aware-satellite-cyber-recovery|https://github.com/Zartharas/mission-aware-satellite-cyber-recovery.git|git@github.com:Zartharas/mission-aware-satellite-cyber-recovery|git@github.com:Zartharas/mission-aware-satellite-cyber-recovery.git|ssh://git@github.com/Zartharas/mission-aware-satellite-cyber-recovery|ssh://git@github.com/Zartharas/mission-aware-satellite-cyber-recovery.git) ;;
+  *) fail "wrong_research_repository_origin" ;;
+esac
 docker info >/dev/null 2>&1 || fail "docker_daemon_unavailable"
-test -d "$NOS3/.git" || fail "pinned_local_nos3_checkout_missing"
+test -d "$NOS3" || fail "pinned_local_nos3_checkout_missing"
+test "$(git -C "$NOS3" rev-parse --show-toplevel 2>/dev/null || true)" = "$NOS3" || fail "nos3_is_not_checkout_root"
 test "$(git -C "$NOS3" rev-parse HEAD)" = "$EXPECTED_NOS3" || fail "nos3_revision_mismatch"
 test -z "$(git -C "$NOS3" status --short)" || fail "nos3_checkout_dirty"
 test "$(git -C "$NOS3/fsw/apps/lc" rev-parse HEAD)" = "$EXPECTED_LC" || fail "pinned_NOS3_LC_differs_from_registered_submodule"
+test "$(git -C "$NOS3/fsw/apps/hwlib" rev-parse HEAD)" = "$EXPECTED_HWLIB" || fail "pinned_NOS3_HWLIB_differs_from_registered_submodule"
 grep -Fq '<gsw>cosmos</gsw>' "$NOS3/cfg/nos3-mission.xml" || fail "pinned_gsw_is_not_cosmos"
 grep -Fq '<fsw>cfs</fsw>' "$NOS3/cfg/nos3-mission.xml" || fail "pinned_fsw_is_not_cfs"
 bash "$ROOT/scripts/verify_nos3_source_lock.sh" || fail "source_lock_validation"
@@ -42,6 +52,7 @@ test -f "$NOS3/sims/build/bin/nos3-single-simulator" || fail "built_simulator_mi
 echo "P2X_PHASE_A_HOST_LOCK_CHECK=PASS"
 echo "pin_nos3=$EXPECTED_NOS3"
 echo "pin_nos3_LC=$EXPECTED_LC"
+echo "pin_nos3_HWLIB=$EXPECTED_HWLIB"
 echo "pin_image=$IMAGE"
 echo "ground_config=cosmos"
 echo "flight_config=cfs"

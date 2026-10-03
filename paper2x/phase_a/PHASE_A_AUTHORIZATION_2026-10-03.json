@@ -28,7 +28,7 @@
     "mint_archival_DOI"
   ],
   "locked_nos3": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
-  "locked_nos3_lc_submodule": "d65f77dea94467b7cb71053eb2f58f7a0cde3b02",
+  "locked_nos3_lc_submodule": "5daef363c95d71c1ff3c5e9dcd4dddab560e8b39",
   "locked_image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
   "local_execution_environment": "Author workstation NOS3 checkout and Docker, not ChatGPT container",
   "current_session_observed": {
@@ -38,7 +38,11 @@
     "run_attempted_in_this_session": false,
     "source_code_inspection_pass": true,
     "historical_2026_07_25_nominal_runtime_lock_present": true,
-    "historical_record_not_fresh_phaseA_evidence": true
+    "historical_record_not_fresh_phaseA_evidence": true,
+    "operator_observed_wrong_clone_destination": "/Users/zarthras/Documents/Development Projects/omniroute-auth-keeper-r16-17/external/nos3",
+    "operator_observed_lc": "5daef363c95d71c1ff3c5e9dcd4dddab560e8b39",
+    "operator_observed_hwlib": "d65f77dea94467b7cb71053eb2f58f7a0cde3b02",
+    "note": "Operator pasted source-only clone executed in unrelated OmniRoute root. Do not treat as satellite repo host pass; prevent wrong root and independently verify moved or newly staged checkout."
   },
   "acceptance_criteria": {
     "source_host_pin_and_submodule_match": true,
@@ -48,5 +52,6 @@
     "screen_captures_and_raw_logs_for_independent_review": true,
     "observational_claim_before_independent_review": "PARTIAL_PENDING"
   },
-  "gate": "AUTHORIZED_BOUNDED_PHASE_A__HOST_EXECUTION_AND_GROUND_EVIDENCE_PENDING"
+  "gate": "AUTHORIZED_BOUNDED_PHASE_A__HOST_EXECUTION_AND_GROUND_EVIDENCE_PENDING",
+  "locked_nos3_hwlib_submodule": "d65f77dea94467b7cb71053eb2f58f7a0cde3b02"
 }

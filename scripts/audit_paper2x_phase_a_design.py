@@ -14,7 +14,8 @@ data=json.loads((D/"PHASE_A_AUTHORIZATION_2026-10-03.json").read_text())
 chk(data["record_id"]=="P2X-PHASE-A-AUTHORIZED-2026-10-03","AUTHORIZED_SCOPE")
 chk(data["experiment_id"]=="P2X-NOS3-RG-001" and data["parent_design_commit"]==BASE,"PINNED_DESIGN")
 chk(data["locked_nos3"]=="5a3bdee6be9a2c67fdf994ae6db56d5c60395302","NOS3_PIN")
-chk(data["locked_nos3_lc_submodule"]=="d65f77dea94467b7cb71053eb2f58f7a0cde3b02","NOS3_LC_PIN_DIFFERENT_FROM_S6X")
+chk(data["locked_nos3_lc_submodule"]=="5daef363c95d71c1ff3c5e9dcd4dddab560e8b39","NOS3_LC_GITLINK")
+chk(data["locked_nos3_hwlib_submodule"]=="d65f77dea94467b7cb71053eb2f58f7a0cde3b02","NOS3_HWLIB_GITLINK")
 chk(data["locked_image"]=="ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2","IMAGE_PIN")
 chk(data["current_session_observed"]["session_docker_binary_available"] is False and
     data["current_session_observed"]["run_attempted_in_this_session"] is False,"NO_FALSE_LIVE_RUN")
@@ -23,7 +24,7 @@ chk(any("benign_SAMPLE_NOOP" in x for x in approved),"ONE_BENIGN_NOOP_ONLY")
 for word in ("fault_injection","generate_F1_F2_C0_C1_C2_primary_results","submit_CEAS","change_NOS3"):
     chk(any(word in x for x in prohibited),"PROHIBITION_"+word)
 sh=(ROOT/"scripts/run_paper2x_phase_a_nominal.sh").read_text()
-for key in ("verify_nos3_source_lock.sh","run_nominal_runtime_preflight.sh",
+for key in ("wrong_project_root","wrong_research_repository_origin","EXPECTED_HWLIB","5daef363c95d71c1ff3c5e9dcd4dddab560e8b39","verify_nos3_source_lock.sh","run_nominal_runtime_preflight.sh",
             "18fac000000100dc","SAMPLE: NOOP command received",
             "PHASE_A_PARTIAL_CFS_INGEST_PROOF__COSMOS_GROUND_CONFIRMATION_OPEN",
             "internal_test_sender_udp_not_COSMOS",
