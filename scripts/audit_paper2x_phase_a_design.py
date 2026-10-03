@@ -56,12 +56,38 @@ for token in ("b4d054bdd8a95dd429201466833fba8403efec4bdef09a9ed7040131dda3006d"
     "LOG_NOT_AVAILABLE","separate P2X environment baseline","No runtime"):
     chk(token.lower() in variance.lower(),"FORTYTWO_VARIANCE_RECORD_"+token)
 v2=(D/"ENVIRONMENT_V2_ADOPTION_PROPOSAL_2026-10-03.md").read_text()
-for token in ("DRAFT_NOT_ADOPTED",
+for token in ("AUTHOR_APPROVED_V2_CANDIDATE_POLICY__ENVIRONMENT_NOT_YET_QUALIFIED",
     "b4d054bdd8a95dd429201466833fba8403efec4bdef09a9ed7040131dda3006d",
     "9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7",
     "NOS3","COSMOS","independent","no runtime","historical locks",
     "October control","shader-default"):
     chk(token.lower() in v2.lower(),"P2X_V2_DRAFT_SCOPE_"+token)
+v2auth=json.loads((D/"ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json").read_text())
+chk(v2auth["decision"]=="AUTHOR_APPROVED_PROSPECTIVE_V2_CANDIDATE_POLICY","V2_AUTHOR_APPROVAL")
+chk(v2auth["environment_final_acceptance"] is False and
+    v2auth["new_runtime_evidence_observed"] is False,"V2_NOT_FALSELY_COMPLETED")
+chk(v2auth["fortytwo"]["p2x_candidate_sha256"]=="b4d054bdd8a95dd429201466833fba8403efec4bdef09a9ed7040131dda3006d","V2_SEPARATE_FORTYTWO")
+chk(v2auth["fortytwo"]["july_status"]=="NOT_BYTE_REPRODUCED__IMMUTABLE_PAPER1_REFERENCE","JULY_NOT_RELABELED")
+chk(v2auth["authorization_scope"]["offline_build"] is True and
+    v2auth["authorization_scope"]["primary_g0_g1_trial"] is False,"V2_SCOPE_FIREWALL")
+chk(data["v2_authorization_record"]=="paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json" and
+    data["v2_candidate_policy_approved"] is True,"V2_PHASE_A_BINDING")
+build=(ROOT/"scripts/build_paper2x_phase_a_nos3_v2.sh").read_text()
+for token in ("preexisting_build_dir_no_overwrite","cp -R \"$NOS3\" \"$SNAPSHOT\"",
+    "build_once primary \"$NOS3\"","build_once repeat \"$SNAPSHOT\"",
+    "--network none","make build-fsw","make build-sim","make build-cryptolib",
+    "P2X_PHASE_A_V2_9_ARTIFACT_REPEAT_MATCH","original-locks-sha256.txt",
+    "verify_paper2x_phase_a_v2.py","P2X_PHASE_A_V2_RUNTIME_EXECUTED=NO"):
+    chk(token in build,"V2_TWO_OFFLINE_BUILDS_"+token)
+for forbidden in ("rm -rf","make clean","scripts/build_nominal_nos3.sh","run-ci-noop","docker pull"):
+    chk(forbidden not in build,"V2_BUILD_PROHIBITION_"+forbidden)
+readback=(ROOT/"scripts/verify_paper2x_phase_a_v2.py").read_text()
+for token in ("TWO_INDEPENDENT_OFFLINE_BUILDS_MATCH__RUNTIME_UNTESTED",
+    "independent_build_drift:","historical_lock_drift:","old_reference_changed:",
+    "P2X_PHASE_A_ENV_V2_INDEPENDENT_READBACK=PASS","environment_final_acceptance"):
+    chk(token in readback,"V2_READBACK_"+token)
+chk("P2X_V2_MANIFEST" in sh and "verify_paper2x_phase_a_v2.py" in sh and
+    "environment_v2_build_manifest_sha256" in sh,"P2X_RUNTIME_BOUND_TO_V2_MANIFEST")
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -81,6 +107,9 @@ wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
 chk("paper2x-design-historical-audit" in wf and "python scripts/audit_paper2x_phase_a_design.py" in wf,"WORKFLOW_SCOPE")
 allowed={
 ".github/workflows/validate-research-configs.yml",
+"paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
+"scripts/build_paper2x_phase_a_nos3_v2.sh",
+"scripts/verify_paper2x_phase_a_v2.py",
 "paper2x/phase_a/ENVIRONMENT_V2_ADOPTION_PROPOSAL_2026-10-03.md",
 "scripts/probe_paper2x_fortytwo_build_recipe.sh",
 "paper2x/phase_a/FORTYTWO_BUILD_VARIANCE_DIAGNOSIS_2026-10-03.md",

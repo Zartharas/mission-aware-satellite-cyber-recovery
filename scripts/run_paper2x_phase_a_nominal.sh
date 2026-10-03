@@ -46,7 +46,12 @@ docker image inspect "$IMAGE" >/dev/null 2>&1 || fail "pinned_docker_image_missi
 for f in "$ROOT/artifacts/nominal-build-lock.txt" "$ROOT/artifacts/fortytwo-lock.txt" "$ROOT/artifacts/nominal-runtime-preflight-lock.txt"; do
   test -s "$f" || fail "historical_source_or_runtime_lock_missing"
 done
-grep -Fqx 'build_status=PASS' "$ROOT/artifacts/nominal-build-lock.txt" || fail "build_lock_not_PASS"
+# Shared July WP4 launcher uses historical PASS labels; the P2X wrapper independently
+# binds the ACTUAL candidates before it may even begin a nominal runtime.
+P2X_V2_MANIFEST="$(printenv P2X_V2_MANIFEST || true)"
+test -n "$P2X_V2_MANIFEST" || fail "v2_build_manifest_required_before_host_or_runtime"
+python3 "$ROOT/scripts/verify_paper2x_phase_a_v2.py" "$P2X_V2_MANIFEST" || fail "v2_build_manifest_independent_validation"
+grep -Fqx 'build_status=PASS' "$ROOT/artifacts/nominal-build-lock.txt" || fail "historical_reference_lock_missing"
 test -f "$NOS3/fsw/build/exe/cpu1/core-cpu1" || fail "built_cfs_missing"
 test -f "$NOS3/sims/build/bin/nos3-single-simulator" || fail "built_simulator_missing"
 echo "P2X_PHASE_A_HOST_LOCK_CHECK=PASS"
@@ -57,6 +62,8 @@ echo "pin_image=$IMAGE"
 echo "ground_config=cosmos"
 echo "flight_config=cfs"
 echo "historical_lock_not_fresh_runtime=true"
+echo "P2X_V2_ACTUAL_ARTIFACT_READBACK=PASS"
+echo "P2X_V2_FINAL_ENVIRONMENT_ACCEPTANCE=PENDING_NOMINAL_AND_COSMOS_EVIDENCE"
 if [[ "$MODE" == check ]]; then
   echo "P2X_PHASE_A_FRESH_RUNTIME=NOT_RUN"
   echo "P2X_PHASE_A_COSMOS_TELEMETRY=NOT_OBSERVED"
@@ -73,6 +80,8 @@ EV="$ROOT/artifacts/runtime/$RUN_ID"
 OUT="$EV/paper2x-phase-a"
 mkdir -p "$OUT"
 LOG="$OUT/nominal-runtime.log"
+cp "$P2X_V2_MANIFEST" "$OUT/p2x-environment-v2-build-manifest.json"
+shasum -a 256 "$P2X_V2_MANIFEST" > "$OUT/p2x-environment-v2-build-manifest-sha256.txt"
 PID=""
 RESULT="FAILED_CLOSED_BEFORE_COMMAND"
 cleanup_phase_a() {
@@ -149,7 +158,7 @@ PID=""
 grep -Fq "NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS" "$LOG" || fail "nominal_runtime_terminal_status_not_PASS"
 grep -Fqx "terminal_classification=RUNTIME_PREFLIGHT_PASS" "$EV/runtime-manifest.txt" || fail "manifest_classification"
 grep -Fqx "exit_code=0" "$EV/runtime-manifest.txt" || fail "nominal_cleanup_exit_code"
-python3 - "$OUT" "$RUN_ID" "$EXPECTED_NOS3" "$EXPECTED_LC" "$IMAGE" "$before" "$observed" <<'PY'
+python3 - "$OUT" "$RUN_ID" "$EXPECTED_NOS3" "$EXPECTED_LC" "$IMAGE" "$before" "$observed" "$P2X_V2_MANIFEST" <<'PY'
 import hashlib, json, sys
 from pathlib import Path
 folder=Path(sys.argv[1])
@@ -165,6 +174,8 @@ report={
  "experiment_id":"P2X-NOS3-RG-001",
  "phase":"A_preflight_only",
  "run_id":sys.argv[2],
+ "environment_v2_build_manifest_sha256":hashlib.sha256(Path(sys.argv[8]).read_bytes()).hexdigest(),
+ "environment_v2_build_state":"TWO_OFFLINE_BUILDS_MATCH__NOMINAL_PREFLIGHT_ONLY",
  "pin_nos3":sys.argv[3],
  "pin_LC_NOS3_submodule":sys.argv[4],
  "pin_image":sys.argv[5],

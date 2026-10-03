@@ -52,6 +52,11 @@
     "screen_captures_and_raw_logs_for_independent_review": true,
     "observational_claim_before_independent_review": "PARTIAL_PENDING"
   },
-  "gate": "AUTHORIZED_BOUNDED_PHASE_A__HOST_EXECUTION_AND_GROUND_EVIDENCE_PENDING",
-  "locked_nos3_hwlib_submodule": "d65f77dea94467b7cb71053eb2f58f7a0cde3b02"
+  "gate": "AUTHOR_APPROVED_V2_CANDIDATE_POLICY__LOCAL_BUILD_AND_RUNTIME_EVIDENCE_PENDING",
+  "locked_nos3_hwlib_submodule": "d65f77dea94467b7cb71053eb2f58f7a0cde3b02",
+  "v2_authorization_record": "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
+  "v2_candidate_policy_approved": true,
+  "v2_offline_nos3_reconstruction_authorized": true,
+  "v2_actual_binary_acceptance": "TWO_INDEPENDENT_OFFLINE_NOS3_BUILDS_AND_READBACK_REQUIRED",
+  "v2_historical_reference_relation": "DESCRIPTIVE_ONLY_NO_OLD_LOCK_MUTATION"
 }

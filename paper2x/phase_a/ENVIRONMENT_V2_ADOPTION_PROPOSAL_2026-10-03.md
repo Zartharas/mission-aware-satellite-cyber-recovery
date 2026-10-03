@@ -1,6 +1,6 @@
-# P2X-NOS3-RG-001 — prospective Phase A environment v2 amendment (draft)
+# P2X-NOS3-RG-001 — author-approved Phase A Environment v2 candidate policy
 
-**Disposition:** `DRAFT_NOT_ADOPTED`; author approval required for substitution of the Phase-A binary identity. No runtime and no primary research data exist under v2. Date: 2026-10-03.
+**Disposition:** `AUTHOR_APPROVED_V2_CANDIDATE_POLICY__ENVIRONMENT_NOT_YET_QUALIFIED`; the author explicitly approved the distinct P2X binary acceptance policy on 2026-10-03. This approves offline reconstruction and gated benign Phase A, **not** scientific experiments or a final environment acceptance. See `ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json`. No runtime or primary P2X research data have been observed.
 
 ## Observed evidence and non-recoverable historical gap
 
@@ -14,7 +14,7 @@ Evidence root reported by author (ignored, not deposited): `artifacts/runtime/p2
 
 P2X is a new Paper-2 hands-on software-in-the-loop experiment, not a reproduction of Paper-1 July observations. A defensible new experiment can freeze its own environment *before* fault fixtures or treatment outcomes are generated, provided its new binary and functional identity are prospectively qualified. We should stop trying random flags to manufacture July byte identity.
 
-## Proposed environment identity (NOT YET ACCEPTED)
+## Authorized candidate environment identity (execution qualification pending)
 
 | Element | Candidate identity / qualification |
 |---|---|
@@ -40,6 +40,6 @@ P2X is a new Paper-2 hands-on software-in-the-loop experiment, not a reproductio
 
 **The historical locks** (July FortyTwo, NOS3 build, nominal runtime and all earlier paper freezes) remain unchanged and retain their original identities. Do not replace them with the candidate P2X sidecar.
 
-**Portfolio firewall:** Study3/4/6, S3X/S6X, Paper1/P7, Papers3/4/5 and all prior outcome populations unchanged. NO manuscript insertion, PR merge, Zenodo upload, publisher submission, fault injection or scientific observations authorized by this DRAFT_NOT_ADOPTED amendment.
+**Portfolio firewall:** Study3/4/6, S3X/S6X, Paper1/P7, Papers3/4/5 and all prior outcome populations unchanged. No manuscript insertion, PR merge, Zenodo upload, publisher submission, fault injection or scientific observations are authorized by this candidate-policy approval.
 
-**Decision request:** approve a distinctly labelled *new P2X environment baseline* rather than insisting on unrecoverable July executable byte identity. Until accepted, all Phase A host runtime remains on HOLD.
+**Author decision recorded:** a distinct P2X Environment v2 candidate policy is APPROVED; July binary matching is descriptive provenance only. Offline NOS3 compilation, two-build artifact verification and the independent read-back verifier must PASS before the authorized benign A1 runtime; the separately observed COSMOS telemetry gate and final environment acceptance remain outstanding. Do not interpret author policy approval as a measured environment PASS.
