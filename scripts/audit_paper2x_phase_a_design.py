@@ -32,7 +32,7 @@ for key in ("verify_nos3_source_lock.sh","run_nominal_runtime_preflight.sh",
 for k in ("scripts/run_wp6_p7_mission_aware_integration.sh",
           "scripts/run_wp7_trusted_recovery_test.sh","make clean","git checkout","docker pull"):
     chk(k not in sh,"DISALLOWED_RUNTIME_COMMAND_"+k)
-chk("no new scientific" in sh.lower() or "no Paper-1/P7 policy code" in sh,"NO_OTHER_PAPER_POLICY")
+chk("no new scientific" in sh.lower() or "no paper-1/p7 policy code" in sh.lower(),"NO_OTHER_PAPER_POLICY")
 chk("docker run --rm --platform linux/amd64 --network" in sh,"INTERNAL_GROUND_SENDER")
 chk("P2X_PHASE_A_RESULT=PARTIAL_CFS_INGEST_PROOF_ONLY" in sh,"NO_FULL_GATE_ACCEPTANCE")
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
