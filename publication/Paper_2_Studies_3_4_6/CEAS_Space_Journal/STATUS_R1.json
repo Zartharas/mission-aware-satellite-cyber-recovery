@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-CEAS-R1-CONTROLLED-ADAPTATION-001",
+  "date_local": "2026-10-01",
+  "source_main": "4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4",
+  "source_r4_blob_sha1": "069e319864b1f5c1ee201b31872e68572fea1923",
+  "ceas_r1_manuscript_blob_sha1": "a16fba122ad1b42a54c26bffee68ff05ad477b51",
+  "source_figure1_blob_sha1": "5f68ac156b4e27c7bfd99e006623196c250c94a1",
+  "article_type_proposed": "Original Research Article",
+  "publication_route_proposed": "traditional_subscription_no_APC",
+  "phase": "CEAS_R1_AUTHOR_SCIENTIFIC_REVIEW_REQUIRED",
+  "ceas_abstract_whitespace_words": 220,
+  "ceas_keywords_count": 6,
+  "table_count": 5,
+  "figure1_insertions": 1,
+  "preserved_populations": {
+    "study3": true,
+    "study4": true,
+    "study6": true,
+    "s3x_separate": true,
+    "s6x_separate": true,
+    "pooled": false
+  },
+  "open_items": [
+    "author scientific review",
+    "funding/conflicts/CRediT reconfirmation",
+    "private corresponding email and ORCID verification",
+    "public data/code release rights and immutable archive",
+    "Springer reference style/full DOI URLs",
+    "approved Figure-1 EPS/PDF export and accessibility QA",
+    "editable DOCX or LaTeX plus visual PDF QA",
+    "separate venue lock decision",
+    "separate final publisher submission approval"
+  ],
+  "authorization": {
+    "ceas_scoped_preparation": true,
+    "venue_lock": false,
+    "merge": false,
+    "scientific_execution": false,
+    "source_r4_mutation": false,
+    "figure1_source_mutation": false,
+    "experimental_populations_pooled": false,
+    "publisher_derivative_final_release": false,
+    "publisher_portal_activity": false,
+    "publisher_submission": false,
+    "github_visibility_change": false
+  }
+}
