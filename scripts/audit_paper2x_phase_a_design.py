@@ -81,7 +81,20 @@ for token in ("preexisting_build_dir_no_overwrite","cp -R \"$NOS3\" \"$SNAPSHOT\
     chk(token in build,"V2_TWO_OFFLINE_BUILDS_"+token)
 for forbidden in ("rm -rf","make clean","scripts/build_nominal_nos3.sh","run-ci-noop","docker pull"):
     chk(forbidden not in build,"V2_BUILD_PROHIBITION_"+forbidden)
+finalizer=(ROOT/"scripts/finalize_paper2x_phase_a_v2.py").read_text()
+for token in ("historical_five", "split(maxsplit=1)",
+              "P2X_PHASE_A_V2_9_ARTIFACT_REPEAT_MATCH",
+              "P2X_PHASE_A_V2_BUILD_REEXECUTED=NO", "original_historical_lock_changed:",
+              "historical_lock_parser_count", "p2x-v2-build-manifest.json"):
+    chk(token in finalizer,"V2_RECOVERY_FINALIZER_"+token)
+chk("finalize_paper2x_phase_a_v2.py" in build,"V2_BUILD_SHARED_FINALIZER")
+regression=subprocess.run(["python3",str(ROOT/"scripts/finalize_paper2x_phase_a_v2.py"),
+                           "--self-test-lock"],cwd=ROOT,capture_output=True,text=True)
+chk(regression.returncode==0 and
+    "P2X_V2_HISTORICAL_LOCK_PATH_WITH_SPACES_REGRESSION=PASS" in regression.stdout,
+    "V2_HISTORICAL_CHECKSUM_SPACES_REGRESSION_"+regression.stderr[:180])
 readback=(ROOT/"scripts/verify_paper2x_phase_a_v2.py").read_text()
+chk("pieces = line.split(maxsplit=1)" in readback,"V2_READBACK_PATH_WITH_SPACES")
 for token in ("TWO_INDEPENDENT_OFFLINE_BUILDS_MATCH__RUNTIME_UNTESTED",
     "independent_build_drift:","historical_lock_drift:","old_reference_changed:",
     "P2X_PHASE_A_ENV_V2_INDEPENDENT_READBACK=PASS","environment_final_acceptance"):
@@ -107,6 +120,7 @@ wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
 chk("paper2x-design-historical-audit" in wf and "python scripts/audit_paper2x_phase_a_design.py" in wf,"WORKFLOW_SCOPE")
 allowed={
 ".github/workflows/validate-research-configs.yml",
+"scripts/finalize_paper2x_phase_a_v2.py",
 "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
 "scripts/build_paper2x_phase_a_nos3_v2.sh",
 "scripts/verify_paper2x_phase_a_v2.py",

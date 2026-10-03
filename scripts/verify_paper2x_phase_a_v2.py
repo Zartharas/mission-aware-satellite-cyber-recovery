@@ -95,7 +95,7 @@ def main() -> None:
     beg, end = lines.index("artifact_sha256_begin"), lines.index("artifact_sha256_end")
     july = {}
     for line in lines[beg+1:end]:
-        pieces = line.split()
+        pieces = line.split(maxsplit=1)  # July absolute paths include spaces
         require(len(pieces) == 2, "malformed_historical_reference_row")
         for rel in FIVE:
             if pieces[1].endswith("/external/nos3/" + rel):

@@ -136,68 +136,11 @@ build_once() {
 build_once primary "$NOS3"
 build_once repeat "$SNAPSHOT"
 
-python3 - "$ROOT" "$NOS3" "$SNAPSHOT" "$OUT" "$IMAGE" "$HASH_42" <<'PY'
-from pathlib import Path
-import hashlib,json,sys,datetime
-root,primary,repeat,out=map(Path,sys.argv[1:5])
-image,ft=sys.argv[5:7]
-five=["cfg/build/launch.sh","fsw/build/exe/cpu1/core-cpu1",
-      "sims/build/bin/nos3-single-simulator","sims/build/bin/nos3-sim-cmdbus-bridge",
-      "gsw/build/support/standalone"]
-additional=["cfg/build/InOut/Inp_Sim.txt","cfg/build/InOut/Inp_IPC.txt",
-            "sims/build/bin/nos_engine_server_config.json","sims/build/bin/nos3-simulator.xml"]
-historic={}
-inside=False
-for line in (root/"artifacts/nominal-build-lock.txt").read_text().splitlines():
-    if line=="artifact_sha256_begin":inside=True;continue
-    if line=="artifact_sha256_end":break
-    if inside:
-        parts=line.split()
-        if len(parts)==2:
-            for rel in five:
-                if parts[1].endswith("/external/nos3/"+rel):
-                    historic[rel]=parts[0]
-assert set(historic)==set(five),"HISTORIC_HASH_INVENTORY_INCOMPLETE"
-def digest(path):
-    assert path.is_file() and path.stat().st_size>0, "MISSING_OR_EMPTY:"+str(path)
-    h=hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda:f.read(1024*1024),b""):
-            h.update(chunk)
-    return h.hexdigest()
-data=[]
-for rel in five+additional:
-    a,b=digest(primary/rel),digest(repeat/rel)
-    data.append({"path":rel,"sha256_primary":a,"sha256_repeat":b,
-       "repeat_match":a==b,"july_reference_sha256":historic.get(rel),
-       "july_reference_match":a==historic[rel] if rel in historic else None})
-with (out/"artifact-hash-comparison.tsv").open("w") as f:
-    f.write("relative_path\tprimary_sha256\trepeat_sha256\trepeat_match\tjuly_reference_sha256\tjuly_reference_match\n")
-    for d in data:
-        f.write("\t".join(str(d[k]) for k in ("path","sha256_primary","sha256_repeat",
-                                            "repeat_match","july_reference_sha256","july_reference_match"))+"\n")
-match=all(d["repeat_match"] for d in data)
-manifest={"schema":1,"experiment_id":"P2X-NOS3-RG-001",
- "phase":"PHASE_A_ENVIRONMENT_V2_OFFLINE_BUILD_ONLY",
- "classification":"TWO_INDEPENDENT_OFFLINE_BUILDS_MATCH__RUNTIME_UNTESTED" if match else "BUILD_BYTE_REPRODUCTION_HOLD",
- "created_utc":datetime.datetime.now(datetime.timezone.utc).isoformat(),
- "nos3_revision":"5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
- "fortytwo_revision":"eda252bf31f27850e867e698cfdd963e143ead1f",
- "fortytwo_p2x_sha256":ft,
- "image":image,"image_platform":"linux/amd64","network":"none",
- "build_recipe":["bash ./scripts/cfg/config.sh","make build-fsw","make build-sim","make build-cryptolib"],
- "primary_source_root":str(primary),"repeat_source_root":str(repeat),
- "artifacts":data,"required_artifact_count":len(data),
- "repeat_match_all":match,"historical_july_build_lock_replaced":False,
- "no_runtime_performed":True,"no_scientific_observations":True,
- "environment_final_acceptance":False}
-m=out/"p2x-v2-build-manifest.json"
-m.write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n")
-print("P2X_PHASE_A_V2_BUILD_MANIFEST="+str(m))
-print("P2X_PHASE_A_V2_9_ARTIFACT_REPEAT_MATCH="+("PASS" if match else "HOLD"))
-print("P2X_PHASE_A_V2_HISTORICAL_JULY_COMPARISON=DESCRIPTIVE_ONLY")
-if not match:raise SystemExit("P2X_V2_OFFLINE_BUILD_NONDETERMINISTIC_HOLD")
-PY
+# Finalize completed outputs through the same independently self-tested, path-safe
+# historical lock parser used for an interrupted prior build. The finalizer emits
+# P2X_PHASE_A_V2_9_ARTIFACT_REPEAT_MATCH and never launches Docker.
+python3 "$ROOT/scripts/finalize_paper2x_phase_a_v2.py" "$OUT"
+
 
 shasum -a 256 -c "$ORIGINAL_LOCKS" || fail "historical_lock_modified_by_v2_build"
 test -z "$(git -C "$ROOT" status --porcelain)" || fail "research_tracked_files_mutated"
