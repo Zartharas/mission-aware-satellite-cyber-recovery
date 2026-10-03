@@ -1,16 +1,9 @@
-# Paper 2 — CEAS Space Journal preparation (R1)
+# Paper 2 — CEAS Space Journal R2 preparation
 
-**Status:** `CEAS_R1_AUTHOR_SCIENTIFIC_REVIEW_REQUIRED__DRAFT_PR__NOT_MERGED__NO_SUBMISSION`
-
-Author-controlled, separate venue-specific manuscript adaptation of canonical Paper-2 R4. Intended article type: **Original Research Article**. Planned fee route: **traditional subscription (no APC)**, confirmed in Springer CEAS publishing options; no editor/portal interaction has occurred.
-
-Files:
-- `MANUSCRIPT_CEAS_R1_2026-10-01.md` — full R4-derived scientific manuscript candidate.
-- `LIVE_SCOPE_REQUIREMENTS_AUDIT_2026-10-01.md` — directly checked CEAS publisher requirements and open compliance gates.
-- `PRESERVATION_AND_PORTFOLIO_AUDIT_R1_2026-10-01.md` — science preservation and other-paper separation.
-- `STATUS_R1.json` — machine-readable bounded authorization.
-- `../../scripts/audit_paper2_ceas_r1.py` (repository root scripts/) — exact body/references and branch-whitelist audit.
-
-**Do not**: reinterpret S3X as RF loss, S6X as external replication, present one integrated flight-recovery architecture, pool populations, modify source R4/Figure 1, auto-convert sensitive unpublished research material into public uploads, merge without author review, or submit without separate authorization.
-
-The authoritative R4 remains `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_REBUILD_MANUSCRIPT_R4_2026-10-01.md`, blob `069e319864b1f5c1ee201b31872e68572fea1923`.
+Current: R2 substantive manuscript and controlled publisher-format review preview. PR #213 remains draft, unmerged and unsubmitted.
+Source authorities: merged main 4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4; canonical R4 blob 069e319864b1f5c1ee201b31872e68572fea1923; historical CEAS R1 blob a16fba122ad1b42a54c26bffee68ff05ad477b51.
+Current R2 manuscript: MANUSCRIPT_CEAS_R2_2026-10-02.md, blob e1160c4cb5607ead24f7ba87de978a3198b88c76.
+Article type: proposed Original Research Article. Proposed traditional subscription route; CEAS lists no APC for that route.
+Evidence: original Studies 3/4/6 independently frozen; S3X is an external-timing sensitivity analysis; S6X a constructed executable existence demonstration. Five original result tables and Figure 1 unchanged.
+Companions: REFERENCE_AND_CLAIM_AUDIT_R2_2026-10-02.md, DATA_AND_CODE_MANIFEST_R2_2026-10-02.md, SUBMISSION_READINESS_R2_2026-10-02.md, STATUS_R2.json. Audit: scripts/audit_paper2_ceas_r2.py. Preview build: scripts/build_paper2_ceas_r2_preview.sh.
+No publisher portal activity, contact, archival DOI deposit, new scientific execution, or merge is implied. Insert and verify active correspondence metadata only in controlled publisher-facing derivative. Author must confirm data/code access conditions and declarations before final submission.

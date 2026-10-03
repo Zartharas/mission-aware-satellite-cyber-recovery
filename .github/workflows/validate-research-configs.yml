@@ -137,8 +137,20 @@ jobs:
           )
           git worktree remove "$R4_WORKTREE"
 
-      - name: Audit Paper 2 CEAS R1 manuscript scientific-preservation adaptation
-        run: python scripts/audit_paper2_ceas_r1.py
+      - name: Audit historical Paper 2 CEAS R1 at its exact authorized head
+        run: |
+          R1_HEAD="ff56f853eb2b7a51e93610ed84ffc4c0e946ee95"
+          R1_WORKTREE="$RUNNER_TEMP/paper2-r1-historical-audit"
+          git cat-file -e "$R1_HEAD^{commit}"
+          git worktree add --detach "$R1_WORKTREE" "$R1_HEAD"
+          (
+            cd "$R1_WORKTREE"
+            python scripts/audit_paper2_ceas_r1.py
+          )
+          git worktree remove "$R1_WORKTREE"
+
+      - name: Audit Paper 2 CEAS R2 substantive manuscript and source integrity
+        run: python scripts/audit_paper2_ceas_r2.py
 
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
@@ -184,3 +196,32 @@ jobs:
 
       - name: Confirm validation produced no tracked-file drift
         run: git diff --exit-code
+
+  ceas-r2-review-preview:
+    if: github.event_name == 'pull_request' && github.head_ref == 'publication/paper2-ceas-r1-controlled-adaptation-20261001'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install CEAS manuscript render dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends pandoc libreoffice-writer inkscape poppler-utils python3-docx
+      - name: Build CEAS R2 Word PDF and source figure preview
+        run: bash scripts/build_paper2_ceas_r2_preview.sh "$RUNNER_TEMP/ceas-r2-review"
+      - name: Upload CEAS R2 editable reviewer preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: Paper2_CEAS_R2_Review_Proof
+          path: |
+            ${{ runner.temp }}/ceas-r2-review/PAPER2_CEAS_R2_REVIEW_PROOF.docx
+            ${{ runner.temp }}/ceas-r2-review/PAPER2_CEAS_R2_REVIEW_PROOF.pdf
+            ${{ runner.temp }}/ceas-r2-review/Fig1.eps
+            ${{ runner.temp }}/ceas-r2-review/Fig1_original.svg
+            ${{ runner.temp }}/ceas-r2-review/REVIEW_STATUS.txt
+          if-no-files-found: error
+          retention-days: 14
