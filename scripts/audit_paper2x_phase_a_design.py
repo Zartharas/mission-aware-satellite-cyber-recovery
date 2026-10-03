@@ -36,6 +36,11 @@ for k in ("scripts/run_wp6_p7_mission_aware_integration.sh",
 chk("no new scientific" in sh.lower() or "no paper-1/p7 policy code" in sh.lower(),"NO_OTHER_PAPER_POLICY")
 chk("docker run --rm --platform linux/amd64 --network" in sh,"INTERNAL_GROUND_SENDER")
 chk("P2X_PHASE_A_RESULT=PARTIAL_CFS_INGEST_PROOF_ONLY" in sh,"NO_FULL_GATE_ACCEPTANCE")
+ft=(ROOT/"scripts/restore_paper2x_phase_a_fortytwo.sh").read_text()
+for token in ("wrong_project_root","fortytwo_binary_differs_from_july_freeze_hold_before_NOS3_build","eda252bf31f27850e867e698cfdd963e143ead1f","9c0062d2a447a6340e7c191850ff952d3f8768dd307e3e7fb141e777961e60c7","--network none","make GUIFLAG= SHADERFLAG= 42","historical_nos3_build_lock_changed","FORTYTWO_DESTINATION=MISSING","RUNTIME_EXECUTED=NO"):
+    chk(token in ft,"FORTYTWO_OFFLINE_RECONSTRUCTION_GUARD_"+token)
+for forbidden in ("make clean","scripts/build_nominal_nos3.sh","run-ci-noop","git push","docker pull"):
+    chk(forbidden not in ft,"FORTYTWO_RECONSTRUCTION_OUT_OF_SCOPE_"+forbidden)
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -55,6 +60,7 @@ wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
 chk("paper2x-design-historical-audit" in wf and "python scripts/audit_paper2x_phase_a_design.py" in wf,"WORKFLOW_SCOPE")
 allowed={
 ".github/workflows/validate-research-configs.yml",
+"scripts/restore_paper2x_phase_a_fortytwo.sh",
 "paper2x/phase_a/PHASE_A_AUTHORIZATION_2026-10-03.json",
 "paper2x/phase_a/RUNBOOK_2026-10-03.md",
 "paper2x/phase_a/COSMOS_GROUND_OBSERVATION_TEMPLATE.json",
