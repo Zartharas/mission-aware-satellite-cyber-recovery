@@ -15,11 +15,15 @@ test -z "$(git -C "$ROOT" status --porcelain)" || fail research_tree_dirty
 command -v docker >/dev/null 2>&1 || fail docker_unavailable
 test "$(docker image inspect "$IMAGE" --format '{{.Os}}/{{.Architecture}}' 2>/dev/null)" = "linux/amd64" || fail locked_image_wrong_arch
 
-docker run --rm --read-only --platform linux/amd64 --network none \
+# Attach the heredoc to the container stdin. Docker without -i silently delivered EOF
+# to bash -s in the original pilot, causing a false outer PASS with no inner run.
+# Capture both streams and fail closed on non-zero status or missing exact markers.
+if ! PROBE_OUTPUT="$(docker run --rm -i --read-only --platform linux/amd64 --network none \
   --tmpfs /tmp:rw,exec,mode=1777,size=128m \
-  --user "$(id -u):$(id -g)" -e HOME=/tmp "$IMAGE" bash -s <<'IN_CONTAINER'
+  --user "$(id -u):$(id -g)" -e HOME=/tmp "$IMAGE" bash -s 2>&1 <<'IN_CONTAINER'
 set -Eeuo pipefail
 DIR=/tmp/p2x-v2d-cmake-launcher
+trap 'rc=$?; echo "P2X_V2D_INNER_FAILURE=rc:$rc line:$LINENO"; for log in "$DIR/config-a.log" "$DIR/compile-a.log" "$DIR/config-b.log" "$DIR/compile-b.log"; do if [ -f "$log" ]; then echo "P2X_V2D_DIAGNOSTIC_LOG=$log"; tail -n 14 "$log"; fi; done' ERR
 mkdir -p "$DIR/source"
 cat > "$DIR/source/CMakeLists.txt" <<'CMAKE'
 cmake_minimum_required(VERSION 3.17)
@@ -99,8 +103,26 @@ print("P2X_V2D_GCNO_HEADER_REPRODUCIBILITY=PASS")
 print("P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED")
 PY
 IN_CONTAINER
+)"; then
+  printf '%s\n' "$PROBE_OUTPUT"
+  fail "container_execution_or_inner_assertion_failed"
+fi
+printf '%s\n' "$PROBE_OUTPUT"
+
+# Inner result markers must be emitted by ACTUAL executed fixture, not merely
+# occur in the unexecuted source text. Exactly one each; missing/duplicate fails.
+for marker in \
+  "P2X_V2D_SOURCE_UNIQUE_SEED_STRINGS=PASS" \
+  "P2X_V2D_CMAKE_COMPILER_LAUNCHER_REPEATABILITY=PASS" \
+  "P2X_V2D_GCNO_HEADER_REPRODUCIBILITY=PASS" \
+  "P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED"
+do
+  count="$(printf '%s\n' "$PROBE_OUTPUT" | grep -Fxc -- "$marker" || true)"
+  test "$count" = "1" || fail "missing_or_duplicate_inner_marker:$marker:count=$count"
+done
 
 test -z "$(git -C "$ROOT" status --porcelain)" || fail host_repo_changed
+echo "P2X_V2D_INNER_GATE=PASS"
 echo "P2X_V2D_PROBE=PASS"
 echo "HOST_NOS3_SOURCE_MUTATION=NO"
 echo "NEW_NOS3_BUILD_EXECUTED=NO"

@@ -108,6 +108,21 @@ for token in ("--read-only","--network none","--tmpfs /tmp:",
      "P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED",
      "HOST_NOS3_SOURCE_MUTATION=NO"):
     chk(token in v2d,"V2D_ISOLATED_CMAKE_PROBE_"+token)
+# Regression: the first pilot omitted Docker -i, so the heredoc reached EOF in
+# bash -s inside Docker and the wrapper emitted a FALSE PASS without running the
+# fixture. Require stdin forwarding and exact captured in-container witnesses.
+chk("docker run --rm -i --read-only" in v2d,"V2D_DOCKER_STDIN_ATTACHED")
+chk('PROBE_OUTPUT="$(docker run' in v2d and
+    'bash -s 2>&1 <<\'IN_CONTAINER\'' in v2d,"V2D_IN_CONTAINER_OUTPUT_CAPTURED")
+chk("grep -Fxc --" in v2d and
+    'test "$count" = "1" || fail' in v2d,"V2D_EXACT_INNER_MARKERS_REQUIRED")
+for token in ("P2X_V2D_SOURCE_UNIQUE_SEED_STRINGS=PASS",
+              "P2X_V2D_CMAKE_COMPILER_LAUNCHER_REPEATABILITY=PASS",
+              "P2X_V2D_GCNO_HEADER_REPRODUCIBILITY=PASS",
+              "P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED"):
+    chk(token in v2d.split("IN_CONTAINER\n)",1)[-1],"V2D_OUTER_GATE_"+token)
+chk(v2d.index('echo "P2X_V2D_INNER_GATE=PASS"') <
+    v2d.index('echo "P2X_V2D_PROBE=PASS"'),"V2D_NO_FALSE_OUTER_PASS")
 for forbidden in ("--mount","rm -rf","docker pull","make build-fsw","run-ci-noop"):
     chk(forbidden not in v2d,"V2D_DISALLOWED_"+forbidden)
 v2dnote=(D/"GCOV_DETERMINISM_DIAGNOSIS_2026-10-03.md").read_text()
