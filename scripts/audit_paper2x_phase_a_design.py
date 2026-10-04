@@ -101,6 +101,20 @@ for token in ("TWO_INDEPENDENT_OFFLINE_BUILDS_MATCH__RUNTIME_UNTESTED",
     chk(token in readback,"V2_READBACK_"+token)
 chk("P2X_V2_MANIFEST" in sh and "verify_paper2x_phase_a_v2.py" in sh and
     "environment_v2_build_manifest_sha256" in sh,"P2X_RUNTIME_BOUND_TO_V2_MANIFEST")
+v2d=(ROOT/"scripts/probe_paper2x_v2d_cmake_launcher.sh").read_text()
+for token in ("--read-only","--network none","--tmpfs /tmp:",
+     "CMAKE_C_COMPILER_LAUNCHER","-frandom-seed=",
+     "P2X_V2D_SOURCE_UNIQUE_SEED_STRINGS=PASS",
+     "P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED",
+     "HOST_NOS3_SOURCE_MUTATION=NO"):
+    chk(token in v2d,"V2D_ISOLATED_CMAKE_PROBE_"+token)
+for forbidden in ("--mount","rm -rf","docker pull","make build-fsw","run-ci-noop"):
+    chk(forbidden not in v2d,"V2D_DISALLOWED_"+forbidden)
+v2dnote=(D/"GCOV_DETERMINISM_DIAGNOSIS_2026-10-03.md").read_text()
+for token in ("4294967295","83379182","83381227",
+    "10/10","BUILD_BYTE_REPRODUCTION_HOLD",
+    "source-specific","No full NOS3 rebuild"):
+    chk(token.lower() in v2dnote.lower(),"V2D_GCOV_EVIDENCE_"+token)
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -120,6 +134,8 @@ wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
 chk("paper2x-design-historical-audit" in wf and "python scripts/audit_paper2x_phase_a_design.py" in wf,"WORKFLOW_SCOPE")
 allowed={
 ".github/workflows/validate-research-configs.yml",
+"scripts/probe_paper2x_v2d_cmake_launcher.sh",
+"paper2x/phase_a/GCOV_DETERMINISM_DIAGNOSIS_2026-10-03.md",
 "scripts/finalize_paper2x_phase_a_v2.py",
 "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
 "scripts/build_paper2x_phase_a_nos3_v2.sh",
