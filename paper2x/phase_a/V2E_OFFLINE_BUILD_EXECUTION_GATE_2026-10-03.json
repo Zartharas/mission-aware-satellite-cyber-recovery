@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "record_id": "P2X-PHASE-A-V2E-OFFLINE-BUILD-EXECUTION-GATE-2026-10-03",
+  "experiment_id": "P2X-NOS3-RG-001",
+  "decision": "DESIGN_AND_STATIC_VALIDATION_ONLY",
+  "execution_authorized": false,
+  "author_review_required": true,
+  "authorized_source_proposal": "paper2x/phase_a/DETERMINISTIC_V2E_REBUILD_PROPOSAL_2026-10-03.md",
+  "preexisting_v2_hold_must_remain": true,
+  "authorization_scope": {
+    "v2e_implementation": true,
+    "static_validation": true,
+    "offline_full_build": false,
+    "nominal_runtime": false,
+    "cosmos": false,
+    "faults": false,
+    "merge_pr215": false
+  },
+  "evidence_status": "V2D_LAUNCHER_PILOT_PASS__V2E_FULL_BUILD_NOT_RUN",
+  "environment_final_acceptance": false
+}

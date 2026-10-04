@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "record_id": "P2X-PHASE-A-AUTHORIZED-2026-10-03",
+  "experiment_id": "P2X-NOS3-RG-001",
+  "phase": "PHASE_A_SOURCE_LOCK_AND_NOMINAL_GROUND_LINK_PREFLIGHT",
+  "author_authorization": "User explicitly accepted Phase A after design-only draft PR #214; bounded source/host readiness and harmless nominal command/telemetry proof only.",
+  "parent_design_commit": "b23f2785c3168ecb228098fa641412589cef9d86",
+  "original_main": "4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4",
+  "approved_actions": [
+    "read_only_git_docker_source_and_image_pin_verification",
+    "run_existing_pinned_nominal_NOS3_21_component_runtime",
+    "send_exactly_one_registered_benign_SAMPLE_NOOP_inside_isolated_network",
+    "record_cFS_application_NOOP_receipt_with_before_after_evidence",
+    "separate_pinned_COSMOS_radio_TO_enable_and_CFE_ES_NOOP_downlink_proof_with_ground_telemetry_snapshots",
+    "retain_run_scoped_logs_and_source_checksums",
+    "independent_manual_review_of_result_evidence"
+  ],
+  "prohibited_actions": [
+    "change_NOS3_or_cFS_or_LC_source",
+    "trigger_P7_or_other_paper_policy_code",
+    "fault_injection",
+    "generate_F1_F2_C0_C1_C2_primary_results",
+    "use_truth_oracle_as_gate_input",
+    "merge_PR214_or_phaseA_branch",
+    "modify_Paper2_R4_or_CEAS_R2",
+    "publish_experimental_outcomes_or_submit_CEAS",
+    "contact_live_spacecraft_or_groundstation_or_external_operational_target",
+    "mint_archival_DOI"
+  ],
+  "locked_nos3": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+  "locked_nos3_lc_submodule": "5daef363c95d71c1ff3c5e9dcd4dddab560e8b39",
+  "locked_image": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+  "local_execution_environment": "Author workstation NOS3 checkout and Docker, not ChatGPT container",
+  "current_session_observed": {
+    "session_os": "Linux",
+    "session_docker_binary_available": false,
+    "session_pinned_nos3_workspace_mounted": false,
+    "run_attempted_in_this_session": false,
+    "source_code_inspection_pass": true,
+    "historical_2026_07_25_nominal_runtime_lock_present": true,
+    "historical_record_not_fresh_phaseA_evidence": true,
+    "operator_observed_wrong_clone_destination": "/Users/zarthras/Documents/Development Projects/omniroute-auth-keeper-r16-17/external/nos3",
+    "operator_observed_lc": "5daef363c95d71c1ff3c5e9dcd4dddab560e8b39",
+    "operator_observed_hwlib": "d65f77dea94467b7cb71053eb2f58f7a0cde3b02",
+    "note": "Operator pasted source-only clone executed in unrelated OmniRoute root. Do not treat as satellite repo host pass; prevent wrong root and independently verify moved or newly staged checkout."
+  },
+  "acceptance_criteria": {
+    "source_host_pin_and_submodule_match": true,
+    "new_nominal_runtime_21_components_and_cleanup_confirmed": true,
+    "new_benign_cfs_NOOP_marker_increment_exactly_1": true,
+    "COSMOS_command_through_radio_and_telemetry_counter_evidence_required": true,
+    "screen_captures_and_raw_logs_for_independent_review": true,
+    "observational_claim_before_independent_review": "PARTIAL_PENDING"
+  },
+  "gate": "AUTHOR_APPROVED_V2_CANDIDATE_POLICY__LOCAL_BUILD_AND_RUNTIME_EVIDENCE_PENDING",
+  "locked_nos3_hwlib_submodule": "d65f77dea94467b7cb71053eb2f58f7a0cde3b02",
+  "v2_authorization_record": "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
+  "v2_candidate_policy_approved": true,
+  "v2_offline_nos3_reconstruction_authorized": true,
+  "v2_actual_binary_acceptance": "TWO_INDEPENDENT_OFFLINE_NOS3_BUILDS_AND_READBACK_REQUIRED",
+  "v2_historical_reference_relation": "DESCRIPTIVE_ONLY_NO_OLD_LOCK_MUTATION"
+}
