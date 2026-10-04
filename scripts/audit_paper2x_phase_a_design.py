@@ -205,6 +205,13 @@ chk(no_build.returncode!=0 and
     no_build.stdout+no_build.stderr,"V2E_PRE_SIDE_EFFECT_BUILD_DENIAL")
 print("P2X_V2E_IMPLEMENTATION_AND_NEGATIVE_AUTHORIZATION_AUDIT=PASS")
 print("P2X_V2E_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
+handoff=(D/"P2X_V2E_CONTINUATION_HANDOFF_2026-10-04.md").read_text()
+for token in ("22404f78ecfb73b57d56a6a6817c96232e9ef653",
+              "37176565708","BUILD_BYTE_REPRODUCTION_HOLD",
+              "execution_authorized=false","9/9",
+              "separate_v2e_authorization_absent__no_build",
+              "P2X_V2D_INNER_GATE=PASS","draft/unmerged"):
+    chk(token.lower() in handoff.lower(),"V2E_HANDOFF_"+token)
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -227,6 +234,7 @@ allowed={
 "scripts/probe_paper2x_v2d_cmake_launcher.sh",
 "paper2x/phase_a/GCOV_DETERMINISM_DIAGNOSIS_2026-10-03.md",
 "paper2x/phase_a/DETERMINISTIC_V2E_REBUILD_PROPOSAL_2026-10-03.md",
+"paper2x/phase_a/P2X_V2E_CONTINUATION_HANDOFF_2026-10-04.md",
 "scripts/p2x_v2e_seed_launcher.py",
 "scripts/build_paper2x_phase_a_nos3_v2e.py",
 "scripts/verify_paper2x_phase_a_v2e.py",
