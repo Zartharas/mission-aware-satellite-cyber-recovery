@@ -140,6 +140,12 @@ for token in ("4294967295","83379182","83381227",
     "10/10","BUILD_BYTE_REPRODUCTION_HOLD",
     "source-specific","No full NOS3 rebuild"):
     chk(token.lower() in v2dnote.lower(),"V2D_GCOV_EVIDENCE_"+token)
+v2e=(D/"DETERMINISTIC_V2E_REBUILD_PROPOSAL_2026-10-03.md").read_text()
+for token in ("PROSPECTIVE_V2E_DESIGN_READY__NO_FULL_REBUILD_AUTHORIZED_BY_THIS_RECORD",
+             "202610030000","p2x-v2e-builder","source/object",
+             "9/9 raw exact byte identities","BUILDDATE/HOSTNAME/USER",
+             "BUILD_BYTE_REPRODUCTION_HOLD","RUNTIME_UNTESTED"):
+    chk(token.lower() in v2e.lower(),"V2E_DESIGN_"+token)
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -161,6 +167,7 @@ allowed={
 ".github/workflows/validate-research-configs.yml",
 "scripts/probe_paper2x_v2d_cmake_launcher.sh",
 "paper2x/phase_a/GCOV_DETERMINISM_DIAGNOSIS_2026-10-03.md",
+"paper2x/phase_a/DETERMINISTIC_V2E_REBUILD_PROPOSAL_2026-10-03.md",
 "scripts/finalize_paper2x_phase_a_v2.py",
 "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
 "scripts/build_paper2x_phase_a_nos3_v2.sh",
