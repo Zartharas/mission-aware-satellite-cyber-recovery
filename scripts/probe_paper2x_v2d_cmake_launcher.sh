@@ -17,10 +17,13 @@ test "$(docker image inspect "$IMAGE" --format '{{.Os}}/{{.Architecture}}' 2>/de
 
 # Attach the heredoc to the container stdin. Docker without -i silently delivered EOF
 # to bash -s in the original pilot, causing a false outer PASS with no inner run.
-# Capture both streams and fail closed on non-zero status or missing exact markers.
-if ! PROBE_OUTPUT="$(docker run --rm -i --read-only --platform linux/amd64 --network none \
+# Write to an ephemeral HOST /tmp log to avoid heredoc within a quoted $(...)
+# expression, whose parsing differs in macOS Bash 3.2. Never stage in NOS3.
+PROBE_LOG="$(mktemp "${TMPDIR:-/tmp}/p2x-v2d-inner.XXXXXX")" || fail temporary_probe_log_unavailable
+trap 'rm -f -- "$PROBE_LOG"' EXIT
+if docker run --rm -i --read-only --platform linux/amd64 --network none \
   --tmpfs /tmp:rw,exec,mode=1777,size=128m \
-  --user "$(id -u):$(id -g)" -e HOME=/tmp "$IMAGE" bash -s 2>&1 <<'IN_CONTAINER'
+  --user "$(id -u):$(id -g)" -e HOME=/tmp "$IMAGE" bash -s >"$PROBE_LOG" 2>&1 <<'IN_CONTAINER'
 set -Eeuo pipefail
 DIR=/tmp/p2x-v2d-cmake-launcher
 trap 'rc=$?; echo "P2X_V2D_INNER_FAILURE=rc:$rc line:$LINENO"; for log in "$DIR/config-a.log" "$DIR/compile-a.log" "$DIR/config-b.log" "$DIR/compile-b.log"; do if [ -f "$log" ]; then echo "P2X_V2D_DIAGNOSTIC_LOG=$log"; tail -n 14 "$log"; fi; done' ERR
@@ -103,11 +106,12 @@ print("P2X_V2D_GCNO_HEADER_REPRODUCIBILITY=PASS")
 print("P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED")
 PY
 IN_CONTAINER
-)"; then
-  printf '%s\n' "$PROBE_OUTPUT"
+then
+  cat "$PROBE_LOG"
+else
+  cat "$PROBE_LOG"
   fail "container_execution_or_inner_assertion_failed"
 fi
-printf '%s\n' "$PROBE_OUTPUT"
 
 # Inner result markers must be emitted by ACTUAL executed fixture, not merely
 # occur in the unexecuted source text. Exactly one each; missing/duplicate fails.
@@ -117,7 +121,7 @@ for marker in \
   "P2X_V2D_GCNO_HEADER_REPRODUCIBILITY=PASS" \
   "P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED"
 do
-  count="$(printf '%s\n' "$PROBE_OUTPUT" | grep -Fxc -- "$marker" || true)"
+  count="$(grep -Fxc -- "$marker" "$PROBE_LOG" || true)"
   test "$count" = "1" || fail "missing_or_duplicate_inner_marker:$marker:count=$count"
 done
 

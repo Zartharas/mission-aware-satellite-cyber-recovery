@@ -111,18 +111,28 @@ for token in ("--read-only","--network none","--tmpfs /tmp:",
 # Regression: the first pilot omitted Docker -i, so the heredoc reached EOF in
 # bash -s inside Docker and the wrapper emitted a FALSE PASS without running the
 # fixture. Require stdin forwarding and exact captured in-container witnesses.
-chk("docker run --rm -i --read-only" in v2d,"V2D_DOCKER_STDIN_ATTACHED")
-chk('PROBE_OUTPUT="$(docker run' in v2d and
-    'bash -s 2>&1 <<\'IN_CONTAINER\'' in v2d,"V2D_IN_CONTAINER_OUTPUT_CAPTURED")
-chk("grep -Fxc --" in v2d and
+# Second pilot regression: the quoted command substitution containing a heredoc
+# failed bash -n on the author's macOS Bash (3.2). Keep a portable direct if/heredoc,
+# write only an ephemeral host /tmp log, require observed in-container markers.
+chk("if docker run --rm -i --read-only" in v2d,"V2D_DOCKER_STDIN_ATTACHED")
+chk('PROBE_LOG="$(mktemp' in v2d and
+    """trap 'rm -f -- "$PROBE_LOG"' EXIT""" in v2d,"V2D_EPHEMERAL_LOG_AUTO_CLEANUP")
+chk('bash -s >"$PROBE_LOG" 2>&1 <<\'IN_CONTAINER\'' in v2d and
+    "IN_CONTAINER\nthen\n" in v2d,"V2D_PORTABLE_HEREDOC_EXIT_CAPTURE")
+chk("PROBE_OUTPUT" not in v2d,"V2D_NO_MAC_BASH_NESTED_HEREDOC_REGRESSION")
+chk('count="$(grep -Fxc -- "$marker" "$PROBE_LOG" || true)"' in v2d and
     'test "$count" = "1" || fail' in v2d,"V2D_EXACT_INNER_MARKERS_REQUIRED")
+outer=v2d.split("IN_CONTAINER\nthen\n",1)
+chk(len(outer)==2,"V2D_HEREDOC_TERMINATION")
 for token in ("P2X_V2D_SOURCE_UNIQUE_SEED_STRINGS=PASS",
               "P2X_V2D_CMAKE_COMPILER_LAUNCHER_REPEATABILITY=PASS",
               "P2X_V2D_GCNO_HEADER_REPRODUCIBILITY=PASS",
               "P2X_V2D_FULL_NOS3_BYTE_REPRODUCIBILITY=NOT_TESTED"):
-    chk(token in v2d.split("IN_CONTAINER\n)",1)[-1],"V2D_OUTER_GATE_"+token)
+    chk(token in outer[1],"V2D_OUTER_GATE_"+token)
 chk(v2d.index('echo "P2X_V2D_INNER_GATE=PASS"') <
     v2d.index('echo "P2X_V2D_PROBE=PASS"'),"V2D_NO_FALSE_OUTER_PASS")
+chk(subprocess.run(["bash","-n",str(ROOT/"scripts/probe_paper2x_v2d_cmake_launcher.sh")],
+                   cwd=ROOT,capture_output=True).returncode==0,"V2D_PORTABLE_STRUCTURE_SYNTAX")
 for forbidden in ("--mount","rm -rf","docker pull","make build-fsw","run-ci-noop"):
     chk(forbidden not in v2d,"V2D_DISALLOWED_"+forbidden)
 v2dnote=(D/"GCOV_DETERMINISM_DIAGNOSIS_2026-10-03.md").read_text()
