@@ -138,6 +138,8 @@ def stage(source: Path, target: Path) -> None:
         require(git(sub, "rev-parse", "HEAD") == rev, "staged_submodule_revision:" + rel)
         gitdir = Path(git(sub, "rev-parse", "--absolute-git-dir")).resolve()
         require(gitdir.is_relative_to(target.resolve()), "staged_gitdir_external_alias:" + rel)
+        require(Path(git(sub, "rev-parse", "--show-toplevel")).resolve() == sub.resolve(),
+                "staged_submodule_worktree_external_alias:" + rel)
     require(not any(line[:1] in ("-", "+", "U") for line in
                     git(target, "submodule", "status", "--recursive").splitlines()),
             "staged_recursive_submodule_drift")

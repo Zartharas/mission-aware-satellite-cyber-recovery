@@ -102,6 +102,8 @@ def source_check(src: Path) -> None:
     for rel in ("fsw/apps/lc", "fsw/apps/hwlib"):
         target = Path(git(src / rel, "rev-parse", "--absolute-git-dir")).resolve()
         check(target.is_relative_to(src.resolve()), "copied_submodule_external_gitdir:" + rel)
+        check(Path(git(src / rel, "rev-parse", "--show-toplevel")).resolve()
+              == (src / rel).resolve(), "copied_submodule_external_worktree:" + rel)
     check(not any(line[:1] in ("+", "-", "U") for line in
                   git(src, "submodule", "status", "--recursive").splitlines()),
           "recursive_submodule_drift")
