@@ -146,6 +146,64 @@ for token in ("PROSPECTIVE_V2E_DESIGN_READY__NO_FULL_REBUILD_AUTHORIZED_BY_THIS_
              "9/9 raw exact byte identities","BUILDDATE/HOSTNAME/USER",
              "BUILD_BYTE_REPRODUCTION_HOLD","RUNTIME_UNTESTED"):
     chk(token.lower() in v2e.lower(),"V2E_DESIGN_"+token)
+# Prospective v2e implementation is allowed for STATIC VALIDATION ONLY. Its tracked
+# execution gate must stay closed until a separate explicit author decision.
+v2e_gate=json.loads((D/"V2E_OFFLINE_BUILD_EXECUTION_GATE_2026-10-03.json").read_text())
+chk(v2e_gate["record_id"]==
+    "P2X-PHASE-A-V2E-OFFLINE-BUILD-EXECUTION-GATE-2026-10-03" and
+    v2e_gate["experiment_id"]=="P2X-NOS3-RG-001","V2E_DISTINCT_SCOPE")
+chk(v2e_gate["decision"]=="DESIGN_AND_STATIC_VALIDATION_ONLY" and
+    v2e_gate["execution_authorized"] is False and
+    v2e_gate["authorization_scope"]["offline_full_build"] is False and
+    v2e_gate["environment_final_acceptance"] is False,"V2E_AUTHOR_FULL_REBUILD_NOT_APPROVED")
+launcher=(ROOT/"scripts/p2x_v2e_seed_launcher.py").read_text()
+builder=(ROOT/"scripts/build_paper2x_phase_a_nos3_v2e.py").read_text()
+v2e_readback=(ROOT/"scripts/verify_paper2x_phase_a_v2e.py").read_text()
+for t in ("P2X-v2e\\x00","P2X_V2E_SEED_SOURCE=", "-frandom-seed=",
+          "source", "obj", "os.execv(compiler", "path_outside_fixed_container_root"):
+    chk(t in launcher,"V2E_STABLE_SOURCE_AND_OBJECT_SEED_"+t)
+for t in ("--inspect", "--self-test", "--build",
+          "separate_v2e_authorization_absent__no_build",
+          'if mode == ["--build"]:', "execution_authorized",
+          "shutil.copytree(source, target, symlinks=True, ignore=ignore_builds(source))",
+          "original_v2_hold_manifest_sha256", "p2xa-nos3-v2e-build-",
+          "BUILDDATE=", "HOSTNAME=", "USER=",
+          "CMAKE_C_COMPILER_LAUNCHER=/usr/bin/python3;",
+          "--network", "--hostname", "BUILD_HOST",
+          "p2x_v2e_seed_launcher.py", "seed_pairs", "primary",
+          "repeat", "nine_raw_SHA_mismatch_preserve_both_new_builds",
+          "verify_paper2x_phase_a_v2e.py", "no_runtime_performed"):
+    chk(t in builder,"V2E_BUILDER_BOUNDARY_"+t)
+for forbidden in ("rm -rf", "make clean", "scripts/build_nominal_nos3.sh",
+                  "run-ci-noop", "docker pull"):
+    chk(forbidden not in builder,"V2E_NO_DESTRUCTIVE_OR_RUNTIME_COMMAND_"+forbidden)
+for t in ("p2x-v2e-build-manifest.json",
+          "V2E_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
+          "original_v2_hold_manifest_sha256",
+          "OLD_PRIMARY", "OLD_REPEAT", "historical_locks_sha256_before",
+          "historical_locks_sha256_after", "seed_value",
+          "source_check", "raw_sha_or_byte_size_difference:",
+          "P2X_V2E_INDEPENDENT_NINE_RAW_SHA256_READBACK=PASS",
+          "P2X_V2E_ENVIRONMENT_FINAL_ACCEPTANCE=NO"):
+    chk(t in v2e_readback,"V2E_INDEPENDENT_READBACK_"+t)
+chk("from build_paper2x_phase_a_nos3_v2e" not in v2e_readback and
+    "import build_paper2x_phase_a_nos3_v2e" not in v2e_readback,
+    "V2E_READBACK_NOT_INDEPENDENT")
+for script,marker in (
+    ("p2x_v2e_seed_launcher.py","P2X_V2E_SOURCE_OBJECT_SEED_SELF_TEST=PASS"),
+    ("build_paper2x_phase_a_nos3_v2e.py","P2X_V2E_EXCLUDE_OLD_BUILD_OUTPUTS_SELF_TEST=PASS"),
+    ("verify_paper2x_phase_a_v2e.py","P2X_V2E_RAW_BYTE_NEGATIVE_CONTROL=PASS")):
+    out=subprocess.run(["python3",str(ROOT/"scripts"/script),"--self-test"],
+                       capture_output=True,text=True,cwd=ROOT)
+    chk(out.returncode==0 and marker in out.stdout,
+        "V2E_STATIC_SELF_TEST_"+script+":"+out.stderr[:150])
+no_build=subprocess.run(["python3",str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2e.py"),
+                         "--build"],capture_output=True,text=True,cwd=ROOT)
+chk(no_build.returncode!=0 and
+    "P2X_V2E_BUILDER_HOLD=separate_v2e_authorization_absent__no_build" in
+    no_build.stdout+no_build.stderr,"V2E_PRE_SIDE_EFFECT_BUILD_DENIAL")
+print("P2X_V2E_IMPLEMENTATION_AND_NEGATIVE_AUTHORIZATION_AUDIT=PASS")
+print("P2X_V2E_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
 template=json.loads((D/"COSMOS_GROUND_OBSERVATION_TEMPLATE.json").read_text())
 chk(template["session_id"] is None and template["observed_utc"] is None,"UNFILLED_GROUND_TEMPLATE")
 chk(template["pin_nos3"]==data["locked_nos3"],"PINNED_TEMPLATE")
@@ -168,6 +226,10 @@ allowed={
 "scripts/probe_paper2x_v2d_cmake_launcher.sh",
 "paper2x/phase_a/GCOV_DETERMINISM_DIAGNOSIS_2026-10-03.md",
 "paper2x/phase_a/DETERMINISTIC_V2E_REBUILD_PROPOSAL_2026-10-03.md",
+"scripts/p2x_v2e_seed_launcher.py",
+"scripts/build_paper2x_phase_a_nos3_v2e.py",
+"scripts/verify_paper2x_phase_a_v2e.py",
+"paper2x/phase_a/V2E_OFFLINE_BUILD_EXECUTION_GATE_2026-10-03.json",
 "scripts/finalize_paper2x_phase_a_v2.py",
 "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
 "scripts/build_paper2x_phase_a_nos3_v2.sh",
