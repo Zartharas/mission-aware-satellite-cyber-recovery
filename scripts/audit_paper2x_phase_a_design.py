@@ -223,6 +223,47 @@ else:
     print("P2X_V2E_PRE_SIDE_EFFECT_BUILD_DENIAL=NOT_RUN_AFTER_AUTHOR_AUTHORIZATION")
     print("P2X_V2E_FULL_OFFLINE_BUILD=AUTHOR_AUTHORIZED_HOST_ONLY")
 print("P2X_V2E_IMPLEMENTATION_AND_AUTHORIZATION_AUDIT=PASS")
+
+v2f=(D/"V2F_GIT_METADATA_DETERMINISM_PROPOSAL_2026-10-05.md").read_text()
+for token in ("V2F_DESIGN_AND_STATIC_VALIDATION_ONLY__NO_BUILD_AUTHORIZED",
+              "GIT_CONFIG_COUNT=1","GIT_CONFIG_KEY_0=safe.directory",
+              "GIT_CONFIG_VALUE_0=/work/nos3","v1_07_05",
+              "v0.0.13-119-gaa5559c","9/9",
+              "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED"):
+    chk(token.lower() in v2f.lower(),"V2F_DESIGN_"+token)
+v2f_gate=json.loads((D/"V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json").read_text())
+chk(v2f_gate["record_id"]==
+    "P2X-PHASE-A-V2F-OFFLINE-BUILD-EXECUTION-GATE-2026-10-05" and
+    v2f_gate["experiment_id"]=="P2X-NOS3-RG-001","V2F_DISTINCT_SCOPE")
+chk(v2f_gate["decision"]=="DESIGN_AND_STATIC_VALIDATION_ONLY" and
+    v2f_gate["execution_authorized"] is False and
+    v2f_gate["authorization_scope"]["v2f_design"] is True and
+    v2f_gate["authorization_scope"]["static_validation"] is True and
+    v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
+    v2f_gate["authorization_scope"]["offline_full_build"] is False and
+    v2f_gate["authorization_scope"]["nominal_runtime"] is False and
+    v2f_gate["authorization_scope"]["cosmos"] is False and
+    v2f_gate["authorization_scope"]["faults"] is False and
+    v2f_gate["authorization_scope"]["merge_pr215"] is False and
+    v2f_gate["environment_final_acceptance"] is False,
+    "V2F_DESIGN_STATIC_ONLY_FIREWALL")
+v2f_static=(ROOT/"scripts/p2x_v2f_git_metadata_gate.py").read_text()
+for token in ("GIT_CONFIG_COUNT","GIT_CONFIG_KEY_0","safe.directory",
+              "GIT_CONFIG_VALUE_0","/work/nos3","v1_07_05",
+              "v0.0.13-119-gaa5559c","READ_ONLY_HOST_PROBE=NOT_AUTHORIZED",
+              "FULL_BUILD=NOT_AUTHORIZED"):
+    chk(token in v2f_static,"V2F_STATIC_GATE_"+token)
+for forbidden in ("docker run","make build-fsw","run-ci-noop","docker pull","rm -rf"):
+    chk(forbidden not in v2f_static,"V2F_STATIC_NO_EXECUTION_"+forbidden)
+v2f_test=subprocess.run(
+    ["python3",str(ROOT/"scripts/p2x_v2f_git_metadata_gate.py"),"--self-test"],
+    capture_output=True,text=True,cwd=ROOT)
+chk(v2f_test.returncode==0 and
+    "P2X_V2F_SAFE_DIRECTORY_ENV_CONTRACT=PASS" in v2f_test.stdout and
+    "P2X_V2F_EXECUTION_AUTHORIZATION=CLOSED" in v2f_test.stdout,
+    "V2F_STATIC_SELF_TEST:"+v2f_test.stderr[:180])
+print("P2X_V2F_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
+
 handoff=(D/"P2X_V2E_CONTINUATION_HANDOFF_2026-10-04.md").read_text()
 for token in ("22404f78ecfb73b57d56a6a6817c96232e9ef653",
               "37176565708","BUILD_BYTE_REPRODUCTION_HOLD",
@@ -257,6 +298,9 @@ allowed={
 "scripts/build_paper2x_phase_a_nos3_v2e.py",
 "scripts/verify_paper2x_phase_a_v2e.py",
 "paper2x/phase_a/V2E_OFFLINE_BUILD_EXECUTION_GATE_2026-10-03.json",
+"paper2x/phase_a/V2F_GIT_METADATA_DETERMINISM_PROPOSAL_2026-10-05.md",
+"paper2x/phase_a/V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json",
+"scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/finalize_paper2x_phase_a_v2.py",
 "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
 "scripts/build_paper2x_phase_a_nos3_v2.sh",
