@@ -310,12 +310,27 @@ def main() -> None:
     baseline = preserved()
     verify_pristine(baseline)
     if mode == ["--inspect"]:
-        require(policy["execution_authorized"] is False and
-                policy["authorization_scope"]["offline_full_build"] is False,
-                "design_gate_unexpectedly_open")
+        closed = (
+            policy["decision"] == "DESIGN_AND_STATIC_VALIDATION_ONLY" and
+            policy["execution_authorized"] is False and
+            policy["authorization_scope"]["offline_full_build"] is False
+        )
+        authorized = (
+            policy["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2E_OFFLINE_REBUILD" and
+            policy["execution_authorized"] is True and
+            policy["authorization_scope"]["offline_full_build"] is True
+        )
+        require(closed or authorized, "invalid_v2e_execution_gate_state")
+        require(policy["authorization_scope"]["nominal_runtime"] is False and
+                policy["authorization_scope"]["cosmos"] is False and
+                policy["authorization_scope"]["faults"] is False and
+                policy["authorization_scope"]["merge_pr215"] is False and
+                policy["environment_final_acceptance"] is False,
+                "runtime_science_or_merge_scope_unexpectedly_open")
         print("P2X_V2E_READ_ONLY_INSPECTION=PASS")
         print("P2X_V2E_ORIGINAL_8_OF_9_HOLD=PRESERVED")
-        print("P2X_V2E_BUILD_EXECUTION=NOT_AUTHORIZED")
+        print("P2X_V2E_BUILD_EXECUTION=" +
+              ("AUTHORIZED_NOT_RUN" if authorized else "NOT_AUTHORIZED"))
         print("P2X_V2E_RUNTIME_EXECUTED=NO")
         return
     # Distinct prospective authorization gate. Earlier v2 approval is NOT re-used.
