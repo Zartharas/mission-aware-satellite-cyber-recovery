@@ -173,7 +173,12 @@ def self_test() -> None:
         gate["execution_authorized"] is True and
         gate["authorization_scope"]["offline_full_build"] is True
     )
-    require(closed or authorized, "self_test_invalid_authorization_gate")
+    held = (
+        gate["decision"] == "V2E_EXECUTED_HOLD__V2F_NOT_AUTHORIZED" and
+        gate["execution_authorized"] is False and
+        gate["authorization_scope"]["offline_full_build"] is False
+    )
+    require(closed or authorized or held, "self_test_invalid_authorization_gate")
     require(gate["authorization_scope"]["nominal_runtime"] is False and
             gate["authorization_scope"]["cosmos"] is False and
             gate["authorization_scope"]["faults"] is False and
@@ -184,7 +189,8 @@ def self_test() -> None:
     print("P2X_V2E_ORIGINAL_STAGING_INPUT_PRESERVED=PASS")
     print("P2X_V2E_RAW_SHA_SELF_TEST=PASS")
     print("P2X_V2E_FULL_BUILD_AUTHORIZATION=" +
-          ("AUTHORIZED_HOST_ONLY" if authorized else "CLOSED"))
+          ("AUTHORIZED_HOST_ONLY" if authorized else
+           "CLOSED_AFTER_HOLD" if held else "CLOSED"))
 
 
 def seed_pairs(log: str, label: str) -> dict[tuple[str, str], str]:
@@ -333,7 +339,12 @@ def main() -> None:
             policy["execution_authorized"] is True and
             policy["authorization_scope"]["offline_full_build"] is True
         )
-        require(closed or authorized, "invalid_v2e_execution_gate_state")
+        held = (
+            policy["decision"] == "V2E_EXECUTED_HOLD__V2F_NOT_AUTHORIZED" and
+            policy["execution_authorized"] is False and
+            policy["authorization_scope"]["offline_full_build"] is False
+        )
+        require(closed or authorized or held, "invalid_v2e_execution_gate_state")
         require(policy["authorization_scope"]["nominal_runtime"] is False and
                 policy["authorization_scope"]["cosmos"] is False and
                 policy["authorization_scope"]["faults"] is False and
@@ -343,7 +354,8 @@ def main() -> None:
         print("P2X_V2E_READ_ONLY_INSPECTION=PASS")
         print("P2X_V2E_ORIGINAL_8_OF_9_HOLD=PRESERVED")
         print("P2X_V2E_BUILD_EXECUTION=" +
-              ("AUTHORIZED_NOT_RUN" if authorized else "NOT_AUTHORIZED"))
+              ("AUTHORIZED_NOT_RUN" if authorized else
+               "HOLD_PRESERVED_NO_RERUN" if held else "NOT_AUTHORIZED"))
         print("P2X_V2E_RUNTIME_EXECUTED=NO")
         return
     # Distinct prospective authorization gate. Earlier v2 approval is NOT re-used.
