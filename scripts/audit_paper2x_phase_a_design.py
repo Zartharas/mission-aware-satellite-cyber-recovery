@@ -152,10 +152,18 @@ v2e_gate=json.loads((D/"V2E_OFFLINE_BUILD_EXECUTION_GATE_2026-10-03.json").read_
 chk(v2e_gate["record_id"]==
     "P2X-PHASE-A-V2E-OFFLINE-BUILD-EXECUTION-GATE-2026-10-03" and
     v2e_gate["experiment_id"]=="P2X-NOS3-RG-001","V2E_DISTINCT_SCOPE")
-chk(v2e_gate["decision"]=="DESIGN_AND_STATIC_VALIDATION_ONLY" and
-    v2e_gate["execution_authorized"] is False and
-    v2e_gate["authorization_scope"]["offline_full_build"] is False and
-    v2e_gate["environment_final_acceptance"] is False,"V2E_AUTHOR_FULL_REBUILD_NOT_APPROVED")
+v2e_closed=(v2e_gate["decision"]=="DESIGN_AND_STATIC_VALIDATION_ONLY" and
+            v2e_gate["execution_authorized"] is False and
+            v2e_gate["authorization_scope"]["offline_full_build"] is False)
+v2e_authorized=(v2e_gate["decision"]=="AUTHOR_EXPLICITLY_APPROVED_V2E_OFFLINE_REBUILD" and
+                v2e_gate["execution_authorized"] is True and
+                v2e_gate["authorization_scope"]["offline_full_build"] is True)
+chk((v2e_closed or v2e_authorized) and
+    v2e_gate["authorization_scope"]["nominal_runtime"] is False and
+    v2e_gate["authorization_scope"]["cosmos"] is False and
+    v2e_gate["authorization_scope"]["faults"] is False and
+    v2e_gate["authorization_scope"]["merge_pr215"] is False and
+    v2e_gate["environment_final_acceptance"] is False,"V2E_AUTHORIZATION_SCOPE_FIREWALL")
 launcher=(ROOT/"scripts/p2x_v2e_seed_launcher.py").read_text()
 builder=(ROOT/"scripts/build_paper2x_phase_a_nos3_v2e.py").read_text()
 v2e_readback=(ROOT/"scripts/verify_paper2x_phase_a_v2e.py").read_text()
@@ -198,13 +206,19 @@ for script,marker in (
                        capture_output=True,text=True,cwd=ROOT)
     chk(out.returncode==0 and marker in out.stdout,
         "V2E_STATIC_SELF_TEST_"+script+":"+out.stderr[:150])
-no_build=subprocess.run(["python3",str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2e.py"),
-                         "--build"],capture_output=True,text=True,cwd=ROOT)
-chk(no_build.returncode!=0 and
-    "P2X_V2E_BUILDER_HOLD=separate_v2e_authorization_absent__no_build" in
-    no_build.stdout+no_build.stderr,"V2E_PRE_SIDE_EFFECT_BUILD_DENIAL")
-print("P2X_V2E_IMPLEMENTATION_AND_NEGATIVE_AUTHORIZATION_AUDIT=PASS")
-print("P2X_V2E_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
+if v2e_closed:
+    no_build=subprocess.run(["python3",str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2e.py"),
+                             "--build"],capture_output=True,text=True,cwd=ROOT)
+    chk(no_build.returncode!=0 and
+        "P2X_V2E_BUILDER_HOLD=separate_v2e_authorization_absent__no_build" in
+        no_build.stdout+no_build.stderr,"V2E_PRE_SIDE_EFFECT_BUILD_DENIAL")
+    print("P2X_V2E_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
+else:
+    # Once the author opens the host-only build gate, CI must never invoke --build:
+    # doing so could turn a static workflow into an experiment on a capable runner.
+    print("P2X_V2E_PRE_SIDE_EFFECT_BUILD_DENIAL=NOT_RUN_AFTER_AUTHOR_AUTHORIZATION")
+    print("P2X_V2E_FULL_OFFLINE_BUILD=AUTHOR_AUTHORIZED_HOST_ONLY")
+print("P2X_V2E_IMPLEMENTATION_AND_AUTHORIZATION_AUDIT=PASS")
 handoff=(D/"P2X_V2E_CONTINUATION_HANDOFF_2026-10-04.md").read_text()
 for token in ("22404f78ecfb73b57d56a6a6817c96232e9ef653",
               "37176565708","BUILD_BYTE_REPRODUCTION_HOLD",
