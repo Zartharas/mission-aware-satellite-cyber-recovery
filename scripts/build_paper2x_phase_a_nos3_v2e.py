@@ -165,13 +165,26 @@ def self_test() -> None:
     require(a != b and a == hashlib.sha256(b"two copies").hexdigest(),
             "raw_sha_comparison_self_test")
     gate = json.loads(GATE.read_text())
-    require(gate["execution_authorized"] is False and
-            gate["authorization_scope"]["offline_full_build"] is False,
-            "self_test_requires_design_only_gate")
+    closed = (gate["decision"] == "DESIGN_AND_STATIC_VALIDATION_ONLY" and
+              gate["execution_authorized"] is False and
+              gate["authorization_scope"]["offline_full_build"] is False)
+    authorized = (
+        gate["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2E_OFFLINE_REBUILD" and
+        gate["execution_authorized"] is True and
+        gate["authorization_scope"]["offline_full_build"] is True
+    )
+    require(closed or authorized, "self_test_invalid_authorization_gate")
+    require(gate["authorization_scope"]["nominal_runtime"] is False and
+            gate["authorization_scope"]["cosmos"] is False and
+            gate["authorization_scope"]["faults"] is False and
+            gate["authorization_scope"]["merge_pr215"] is False and
+            gate["environment_final_acceptance"] is False,
+            "self_test_runtime_science_or_merge_scope_open")
     print("P2X_V2E_EXCLUDE_OLD_BUILD_OUTPUTS_SELF_TEST=PASS")
     print("P2X_V2E_ORIGINAL_STAGING_INPUT_PRESERVED=PASS")
     print("P2X_V2E_RAW_SHA_SELF_TEST=PASS")
-    print("P2X_V2E_FULL_BUILD_AUTHORIZATION=CLOSED")
+    print("P2X_V2E_FULL_BUILD_AUTHORIZATION=" +
+          ("AUTHORIZED_HOST_ONLY" if authorized else "CLOSED"))
 
 
 def seed_pairs(log: str, label: str) -> dict[tuple[str, str], str]:
