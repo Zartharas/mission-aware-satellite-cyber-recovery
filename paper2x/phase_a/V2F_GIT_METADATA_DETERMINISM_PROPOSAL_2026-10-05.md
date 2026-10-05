@@ -90,7 +90,7 @@ If v2f execution is separately authorized later, retain:
 - the existing source/object-specific GCC `-frandom-seed` launcher;
 - two independently staged clean source populations;
 - original NOS3 build order;
-- strict raw SHA-256 and byte-size identity for all nine required artifacts;
+- strict 9/9 raw SHA-256 and byte-size identity for all nine required artifacts;
 - independent read-back;
 - immutable original v2 and v2e HOLD evidence.
 
