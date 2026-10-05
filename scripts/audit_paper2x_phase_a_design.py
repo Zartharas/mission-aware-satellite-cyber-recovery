@@ -158,7 +158,10 @@ v2e_closed=(v2e_gate["decision"]=="DESIGN_AND_STATIC_VALIDATION_ONLY" and
 v2e_authorized=(v2e_gate["decision"]=="AUTHOR_EXPLICITLY_APPROVED_V2E_OFFLINE_REBUILD" and
                 v2e_gate["execution_authorized"] is True and
                 v2e_gate["authorization_scope"]["offline_full_build"] is True)
-chk((v2e_closed or v2e_authorized) and
+v2e_held=(v2e_gate["decision"]=="V2E_EXECUTED_HOLD__V2F_NOT_AUTHORIZED" and
+          v2e_gate["execution_authorized"] is False and
+          v2e_gate["authorization_scope"]["offline_full_build"] is False)
+chk((v2e_closed or v2e_authorized or v2e_held) and
     v2e_gate["authorization_scope"]["nominal_runtime"] is False and
     v2e_gate["authorization_scope"]["cosmos"] is False and
     v2e_gate["authorization_scope"]["faults"] is False and
@@ -206,13 +209,14 @@ for script,marker in (
                        capture_output=True,text=True,cwd=ROOT)
     chk(out.returncode==0 and marker in out.stdout,
         "V2E_STATIC_SELF_TEST_"+script+":"+out.stderr[:150])
-if v2e_closed:
+if v2e_closed or v2e_held:
     no_build=subprocess.run(["python3",str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2e.py"),
                              "--build"],capture_output=True,text=True,cwd=ROOT)
     chk(no_build.returncode!=0 and
         "P2X_V2E_BUILDER_HOLD=separate_v2e_authorization_absent__no_build" in
         no_build.stdout+no_build.stderr,"V2E_PRE_SIDE_EFFECT_BUILD_DENIAL")
-    print("P2X_V2E_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
+    print("P2X_V2E_FULL_OFFLINE_BUILD=" +
+          ("HOLD_PRESERVED_NO_RERUN" if v2e_held else "NOT_AUTHORIZED"))
 else:
     # Once the author opens the host-only build gate, CI must never invoke --build:
     # doing so could turn a static workflow into an experiment on a capable runner.
