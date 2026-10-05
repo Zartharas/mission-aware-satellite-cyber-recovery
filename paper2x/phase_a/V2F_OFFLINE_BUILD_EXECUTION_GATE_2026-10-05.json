@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "record_id": "P2X-PHASE-A-V2F-OFFLINE-BUILD-EXECUTION-GATE-2026-10-05",
+  "experiment_id": "P2X-NOS3-RG-001",
+  "decision": "DESIGN_AND_STATIC_VALIDATION_ONLY",
+  "execution_authorized": false,
+  "author_review_required": true,
+  "authorization_basis": "Sole author authorized v2f design and static validation after the preserved v2e 8/9 HOLD and pinned-OCI safe.directory diagnosis.",
+  "parent_v2e_evidence_id": "p2xa-nos3-v2e-build-20261005T141959Z-7c8ceaa570",
+  "parent_v2e_manifest_sha256": "25c2b15b5344f8c05dde8c4b85881571859d8601d15d972c6908978ecbfa5938",
+  "parent_v2e_result": "BUILD_BYTE_REPRODUCTION_HOLD",
+  "proposed_git_safe_directory": "/work/nos3",
+  "expected_nos3_describe": "v1_07_05",
+  "expected_onair_submodule_head": "aa5559c0f234eba263041b6007573f16870194e5",
+  "expected_onair_submodule_describe": "v0.0.13-119-gaa5559c",
+  "authorization_scope": {
+    "v2f_design": true,
+    "static_validation": true,
+    "read_only_host_probe": false,
+    "offline_full_build": false,
+    "nominal_runtime": false,
+    "cosmos": false,
+    "faults": false,
+    "merge_pr215": false
+  },
+  "evidence_status": "V2F_DESIGN_STATIC_ONLY__NO_BUILD_OR_RUNTIME_AUTHORIZED",
+  "environment_final_acceptance": false
+}
