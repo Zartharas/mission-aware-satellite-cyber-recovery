@@ -2,7 +2,7 @@
   "schema": 1,
   "record_id": "P2X-PHASE-A-V2F-OFFLINE-BUILD-EXECUTION-GATE-2026-10-05",
   "experiment_id": "P2X-NOS3-RG-001",
-  "decision": "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED",
+  "decision": "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
   "execution_authorized": false,
   "author_review_required": true,
   "authorization_basis": "Sole author authorized v2f design and static validation after the preserved v2e 8/9 HOLD and pinned-OCI safe.directory diagnosis.",
@@ -21,9 +21,10 @@
     "nominal_runtime": false,
     "cosmos": false,
     "faults": false,
-    "merge_pr215": false
+    "merge_pr215": false,
+    "v2f_implementation": true
   },
-  "evidence_status": "V2F_GIT_METADATA_CONTROL_MECHANISM_PASS__FULL_BUILD_NOT_AUTHORIZED",
+  "evidence_status": "V2F_IMPLEMENTATION_STATIC_ONLY__PROBE_PASS_PRESERVED__FULL_BUILD_NOT_AUTHORIZED",
   "environment_final_acceptance": false,
   "probe_authorized": false,
   "probe_authorization_date": "2026-10-06",
@@ -35,5 +36,9 @@
   "probe_log_basename": "P2X_V2F_GIT_METADATA_PROBE_20261006T134847Z.log",
   "descriptor_map_sha256": "499525c90430ae0dd17fc297be0388b2eae51fdb6623f3d338b0a2f392460278",
   "probe_trials_primary": 5,
-  "probe_trials_repeat": 5
+  "probe_trials_repeat": 5,
+  "implementation_authorization_date": "2026-10-06",
+  "implementation_authorization_basis": "Sole author explicitly authorized v2f dual-offline-build implementation and static validation after post-probe CI #1361 succeeded and the read-only safe.directory mechanism probe passed.",
+  "implementation_parent_head": "dac2491a2d6adca90479e9312583788b75562b9b",
+  "implementation_parent_workflow_run": 1361
 }
