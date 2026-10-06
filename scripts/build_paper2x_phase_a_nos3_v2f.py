@@ -184,8 +184,8 @@ def git_env_args() -> list[str]:
     ]
 
 
-def common_docker(source: Path) -> list[str]:
-    return [
+def common_docker(source: Path, extra_options: list[str] | None = None) -> list[str]:
+    options = [
         "docker", "run", "--rm", "--platform", "linux/amd64",
         "--network", "none", "--hostname", BUILD_HOST,
         "--user", str(os.getuid()) + ":" + str(os.getgid()),
@@ -198,15 +198,19 @@ def common_docker(source: Path) -> list[str]:
         "--mount", "type=bind,source=" + str(source) + ",target=/work/nos3",
         "--mount", "type=bind,source=" + str(LAUNCHER) +
                    ",target=/opt/p2x_v2e_seed_launcher.py,readonly",
-        "--workdir", "/work/nos3", IMAGE,
     ]
+    if extra_options:
+        options.extend(extra_options)
+    options.extend(["--workdir", "/work/nos3", IMAGE])
+    return options
 
 
 def configure_and_descriptor(source: Path, label: str, evidence: Path) -> dict:
     logpath = evidence / (label + "-configure.log")
-    cmd = common_docker(source) + [
+    cmd = common_docker(source, [
         "--mount", "type=bind,source=" + str(DESCRIPTOR_HELPER) +
                    ",target=/opt/p2x_v2f_descriptor_map.py,readonly",
+    ]) + [
         "bash", "-lc",
         'set -Eeuo pipefail; '
         'printf "container_workdir=%s\\n" "$(pwd -P)"; '
@@ -301,6 +305,17 @@ def self_test() -> None:
         "--env", "GIT_CONFIG_KEY_0=safe.directory",
         "--env", "GIT_CONFIG_VALUE_0=/work/nos3",
     ], "safe_directory_env_contract")
+    probe_source = Path("/tmp/p2x-v2f-self-test-source")
+    docker_args = common_docker(probe_source, [
+        "--mount", "type=bind,source=/tmp/helper,target=/opt/helper,readonly",
+    ])
+    image_index = docker_args.index(IMAGE)
+    require(docker_args.index("--mount", docker_args.index("--mount") + 1) < image_index,
+            "descriptor_helper_mount_after_image")
+    require(docker_args[image_index - 2:image_index] == ["--workdir", "/work/nos3"],
+            "image_not_after_workdir")
+    require(all(not arg.startswith("--mount") for arg in docker_args[image_index + 1:]),
+            "docker_option_after_image")
     policy = json.loads(GATE.read_text(encoding="utf-8"))
     closed = (
         policy["execution_authorized"] is False and
