@@ -341,7 +341,8 @@ for token in ("--inspect","--self-test","--build",
               "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
               "nine_raw_SHA_mismatch_preserve_both_new_builds",
               "verify_paper2x_phase_a_v2f.py","old_v2e_evidence_overwritten",
-              "no_runtime_performed"):
+              "no_runtime_performed","extra_options: list[str] | None",
+              "descriptor_helper_mount_after_image","docker_option_after_image"):
     chk(token in v2f_builder,"V2F_BUILDER_"+token)
 for forbidden in ("rm -rf","make clean","scripts/build_nominal_nos3.sh",
                   "run-ci-noop","docker pull"):
