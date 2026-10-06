@@ -282,7 +282,7 @@ v2f_static=(ROOT/"scripts/p2x_v2f_git_metadata_gate.py").read_text()
 for token in ("GIT_CONFIG_COUNT","GIT_CONFIG_KEY_0","safe.directory",
               "GIT_CONFIG_VALUE_0","/work/nos3","v1_07_05",
               "v0.0.13-119-gaa5559c","READ_ONLY_HOST_PROBE=",
-              "FULL_BUILD=NOT_AUTHORIZED"):
+              "P2X_V2F_FULL_BUILD=","AUTHORIZED_NOT_RUN","NOT_AUTHORIZED"):
     chk(token in v2f_static,"V2F_STATIC_GATE_"+token)
 for forbidden in ("docker run","make build-fsw","run-ci-noop","docker pull","rm -rf"):
     chk(forbidden not in v2f_static,"V2F_STATIC_NO_EXECUTION_"+forbidden)
