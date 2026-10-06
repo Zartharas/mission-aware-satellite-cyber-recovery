@@ -352,12 +352,12 @@ for script,marker in (
     ("p2x_v2f_descriptor_map.py","P2X_V2F_DESCRIPTOR_HELPER_SELF_TEST=PASS"),
     ("build_paper2x_phase_a_nos3_v2f.py","P2X_V2F_DESCRIPTOR_MAP_GATE_SELF_TEST=PASS"),
     ("verify_paper2x_phase_a_v2f.py","P2X_V2F_RAW_BYTE_NEGATIVE_CONTROL=PASS")):
-    out=subprocess.run([sys.executable,str(ROOT/"scripts"/script),"--self-test"],
+    out=subprocess.run(["python3",str(ROOT/"scripts"/script),"--self-test"],
                        capture_output=True,text=True,cwd=ROOT)
     chk(out.returncode==0 and marker in out.stdout,
         "V2F_IMPLEMENTATION_SELF_TEST_"+script+":"+out.stderr[:160])
 no_v2f_build=subprocess.run(
-    [sys.executable,str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2f.py"),"--build"],
+    ["python3",str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2f.py"),"--build"],
     capture_output=True,text=True,cwd=ROOT)
 chk(no_v2f_build.returncode!=0 and
     "P2X_V2F_BUILDER_HOLD=separate_v2f_authorization_absent__no_build" in
