@@ -235,22 +235,28 @@ v2f_gate=json.loads((D/"V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json").read_
 chk(v2f_gate["record_id"]==
     "P2X-PHASE-A-V2F-OFFLINE-BUILD-EXECUTION-GATE-2026-10-05" and
     v2f_gate["experiment_id"]=="P2X-NOS3-RG-001","V2F_DISTINCT_SCOPE")
-chk(v2f_gate["decision"]=="DESIGN_AND_STATIC_VALIDATION_ONLY" and
+v2f_design_only=(v2f_gate["decision"]=="DESIGN_AND_STATIC_VALIDATION_ONLY" and
+                 v2f_gate.get("probe_authorized",False) is False and
+                 v2f_gate["authorization_scope"]["read_only_host_probe"] is False)
+v2f_probe_authorized=(v2f_gate["decision"]==
+    "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_HOST_PROBE" and
+    v2f_gate.get("probe_authorized") is True and
+    v2f_gate["authorization_scope"]["read_only_host_probe"] is True)
+chk((v2f_design_only or v2f_probe_authorized) and
     v2f_gate["execution_authorized"] is False and
     v2f_gate["authorization_scope"]["v2f_design"] is True and
     v2f_gate["authorization_scope"]["static_validation"] is True and
-    v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
     v2f_gate["authorization_scope"]["offline_full_build"] is False and
     v2f_gate["authorization_scope"]["nominal_runtime"] is False and
     v2f_gate["authorization_scope"]["cosmos"] is False and
     v2f_gate["authorization_scope"]["faults"] is False and
     v2f_gate["authorization_scope"]["merge_pr215"] is False and
     v2f_gate["environment_final_acceptance"] is False,
-    "V2F_DESIGN_STATIC_ONLY_FIREWALL")
+    "V2F_PROBE_SCOPE_FIREWALL")
 v2f_static=(ROOT/"scripts/p2x_v2f_git_metadata_gate.py").read_text()
 for token in ("GIT_CONFIG_COUNT","GIT_CONFIG_KEY_0","safe.directory",
               "GIT_CONFIG_VALUE_0","/work/nos3","v1_07_05",
-              "v0.0.13-119-gaa5559c","READ_ONLY_HOST_PROBE=NOT_AUTHORIZED",
+              "v0.0.13-119-gaa5559c","READ_ONLY_HOST_PROBE=",
               "FULL_BUILD=NOT_AUTHORIZED"):
     chk(token in v2f_static,"V2F_STATIC_GATE_"+token)
 for forbidden in ("docker run","make build-fsw","run-ci-noop","docker pull","rm -rf"):
@@ -260,9 +266,33 @@ v2f_test=subprocess.run(
     capture_output=True,text=True,cwd=ROOT)
 chk(v2f_test.returncode==0 and
     "P2X_V2F_SAFE_DIRECTORY_ENV_CONTRACT=PASS" in v2f_test.stdout and
-    "P2X_V2F_EXECUTION_AUTHORIZATION=CLOSED" in v2f_test.stdout,
+    "P2X_V2F_EXECUTION_AUTHORIZATION=FULL_BUILD_CLOSED" in v2f_test.stdout and
+    ("P2X_V2F_READ_ONLY_HOST_PROBE=AUTHORIZED" in v2f_test.stdout
+     if v2f_probe_authorized else
+     "P2X_V2F_READ_ONLY_HOST_PROBE=NOT_AUTHORIZED" in v2f_test.stdout),
     "V2F_STATIC_SELF_TEST:"+v2f_test.stderr[:180])
 print("P2X_V2F_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
+
+v2f_probe=(ROOT/"scripts/probe_paper2x_v2f_git_metadata.py").read_text()
+for token in ("--read-only","--network","none","GIT_CONFIG_COUNT=1",
+              "GIT_CONFIG_KEY_0=safe.directory","GIT_CONFIG_VALUE_0=/work/nos3",
+              "mission_vars.cache","dependency_descriptors","TRIALS = 5",
+              "P2X_V2F_DEPENDENCY_DESCRIPTOR_MAP_REPEATABILITY=PASS",
+              "P2X_V2F_FULL_BUILD_AUTHORIZATION=NO",
+              "P2X_V2F_ENVIRONMENT_FINAL_ACCEPTANCE=NO"):
+    chk(token in v2f_probe,"V2F_READ_ONLY_PROBE_"+token)
+for forbidden in ("make build-fsw","make build-sim","make build-cryptolib",
+                  "run-ci-noop","docker pull","rm -rf"):
+    chk(forbidden not in v2f_probe,"V2F_READ_ONLY_PROBE_NO_"+forbidden)
+probe_test=subprocess.run(
+    ["python3",str(ROOT/"scripts/probe_paper2x_v2f_git_metadata.py"),"--self-test"],
+    capture_output=True,text=True,cwd=ROOT)
+chk(probe_test.returncode==0 and
+    "P2X_V2F_PROBE_STATIC_SELF_TEST=PASS" in probe_test.stdout and
+    "P2X_V2F_BUILD_EXECUTED=NO" in probe_test.stdout,
+    "V2F_READ_ONLY_PROBE_STATIC_SELF_TEST:"+probe_test.stderr[:180])
+print("P2X_V2F_READ_ONLY_PROBE_STATIC_AUDIT=PASS")
+
 
 handoff=(D/"P2X_V2E_CONTINUATION_HANDOFF_2026-10-04.md").read_text()
 for token in ("22404f78ecfb73b57d56a6a6817c96232e9ef653",
