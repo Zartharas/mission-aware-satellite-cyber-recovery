@@ -47,7 +47,8 @@ def validate_gate() -> dict:
             "wrong_experiment")
     design_only = gate["decision"] == "DESIGN_AND_STATIC_VALIDATION_ONLY"
     probe_authorized = gate["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_HOST_PROBE"
-    require(design_only or probe_authorized, "invalid_decision")
+    probe_pass = gate["decision"] == "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED"
+    require(design_only or probe_authorized or probe_pass, "invalid_decision")
     require(gate["execution_authorized"] is False,
             "full_execution_authorized")
     scope = gate["authorization_scope"]
@@ -56,6 +57,7 @@ def validate_gate() -> dict:
             "design_static_scope_missing")
     require(scope["read_only_host_probe"] is probe_authorized and
             gate.get("probe_authorized", False) is probe_authorized and
+            (gate.get("probe_result") == "PASS" if probe_pass else True) and
             scope["offline_full_build"] is False and
             scope["nominal_runtime"] is False and
             scope["cosmos"] is False and
@@ -114,9 +116,11 @@ def self_test() -> None:
     print("P2X_V2F_DESCRIPTOR_EXPECTATION_SELF_TEST=PASS")
     g = validate_gate()
     probe_authorized = g["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_HOST_PROBE"
+    probe_pass = g["decision"] == "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED"
     print("P2X_V2F_EXECUTION_AUTHORIZATION=FULL_BUILD_CLOSED")
     print("P2X_V2F_READ_ONLY_HOST_PROBE=" +
-          ("AUTHORIZED" if probe_authorized else "NOT_AUTHORIZED"))
+          ("AUTHORIZED" if probe_authorized else
+           "PASS_RECORDED_CLOSED" if probe_pass else "NOT_AUTHORIZED"))
     print("P2X_V2F_DOCKER_EXECUTED=NO")
     print("P2X_V2F_BUILD_EXECUTED=NO")
 
@@ -132,6 +136,8 @@ def inspect() -> None:
     print("P2X_V2F_READ_ONLY_HOST_PROBE=" +
           ("AUTHORIZED" if gate["decision"] ==
            "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_HOST_PROBE"
+           else "PASS_RECORDED_CLOSED" if gate["decision"] ==
+           "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED"
            else "NOT_AUTHORIZED"))
     print("P2X_V2F_FULL_BUILD=NOT_AUTHORIZED")
     print("P2X_V2F_RUNTIME=NOT_AUTHORIZED")
