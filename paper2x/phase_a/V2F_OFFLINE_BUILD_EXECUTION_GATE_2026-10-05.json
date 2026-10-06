@@ -2,9 +2,9 @@
   "schema": 1,
   "record_id": "P2X-PHASE-A-V2F-OFFLINE-BUILD-EXECUTION-GATE-2026-10-05",
   "experiment_id": "P2X-NOS3-RG-001",
-  "decision": "DESIGN_AND_STATIC_VALIDATION_ONLY",
+  "decision": "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_HOST_PROBE",
   "execution_authorized": false,
-  "author_review_required": true,
+  "author_review_required": false,
   "authorization_basis": "Sole author authorized v2f design and static validation after the preserved v2e 8/9 HOLD and pinned-OCI safe.directory diagnosis.",
   "parent_v2e_evidence_id": "p2xa-nos3-v2e-build-20261005T141959Z-7c8ceaa570",
   "parent_v2e_manifest_sha256": "25c2b15b5344f8c05dde8c4b85881571859d8601d15d972c6908978ecbfa5938",
@@ -16,13 +16,18 @@
   "authorization_scope": {
     "v2f_design": true,
     "static_validation": true,
-    "read_only_host_probe": false,
+    "read_only_host_probe": true,
     "offline_full_build": false,
     "nominal_runtime": false,
     "cosmos": false,
     "faults": false,
     "merge_pr215": false
   },
-  "evidence_status": "V2F_DESIGN_STATIC_ONLY__NO_BUILD_OR_RUNTIME_AUTHORIZED",
-  "environment_final_acceptance": false
+  "evidence_status": "V2F_READ_ONLY_HOST_PROBE_AUTHORIZED__FULL_BUILD_AND_RUNTIME_CLOSED",
+  "environment_final_acceptance": false,
+  "probe_authorized": true,
+  "probe_authorization_date": "2026-10-06",
+  "probe_authorization_basis": "Sole author explicitly authorized the read-only v2f pinned-OCI mechanism probe after exact-head v2f design/static validation succeeded.",
+  "design_static_validated_head": "98d8346e44aa453051abb84f8c0034b8bf06878f",
+  "design_static_validated_workflow_run": 1353
 }
