@@ -257,12 +257,21 @@ v2f_implementation_static=(v2f_gate["decision"]==
     v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
     v2f_gate.get("descriptor_map_sha256")==
     "499525c90430ae0dd17fc297be0388b2eae51fdb6623f3d338b0a2f392460278")
+v2f_build_authorized=(v2f_gate["decision"]==
+    "AUTHOR_EXPLICITLY_APPROVED_V2F_OFFLINE_REBUILD" and
+    v2f_gate.get("probe_authorized") is False and
+    v2f_gate.get("probe_result")=="PASS" and
+    v2f_gate.get("implementation_static_validation")=="PASS" and
+    v2f_gate["authorization_scope"].get("v2f_implementation") is True and
+    v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
+    v2f_gate.get("descriptor_map_sha256")==
+    "499525c90430ae0dd17fc297be0388b2eae51fdb6623f3d338b0a2f392460278")
 chk((v2f_design_only or v2f_probe_authorized or v2f_probe_pass or
-     v2f_implementation_static) and
-    v2f_gate["execution_authorized"] is False and
+     v2f_implementation_static or v2f_build_authorized) and
+    v2f_gate["execution_authorized"] is v2f_build_authorized and
     v2f_gate["authorization_scope"]["v2f_design"] is True and
     v2f_gate["authorization_scope"]["static_validation"] is True and
-    v2f_gate["authorization_scope"]["offline_full_build"] is False and
+    v2f_gate["authorization_scope"]["offline_full_build"] is v2f_build_authorized and
     v2f_gate["authorization_scope"]["nominal_runtime"] is False and
     v2f_gate["authorization_scope"]["cosmos"] is False and
     v2f_gate["authorization_scope"]["faults"] is False and
@@ -282,11 +291,13 @@ v2f_test=subprocess.run(
     capture_output=True,text=True,cwd=ROOT)
 chk(v2f_test.returncode==0 and
     "P2X_V2F_SAFE_DIRECTORY_ENV_CONTRACT=PASS" in v2f_test.stdout and
-    "P2X_V2F_EXECUTION_AUTHORIZATION=FULL_BUILD_CLOSED" in v2f_test.stdout and
+    (("P2X_V2F_EXECUTION_AUTHORIZATION=FULL_BUILD_AUTHORIZED_HOST_ONLY" in v2f_test.stdout)
+     if v2f_build_authorized else
+     ("P2X_V2F_EXECUTION_AUTHORIZATION=FULL_BUILD_CLOSED" in v2f_test.stdout)) and
     ("P2X_V2F_READ_ONLY_HOST_PROBE=AUTHORIZED" in v2f_test.stdout
      if v2f_probe_authorized else
      "P2X_V2F_READ_ONLY_HOST_PROBE=PASS_RECORDED_CLOSED" in v2f_test.stdout
-     if (v2f_probe_pass or v2f_implementation_static) else
+     if (v2f_probe_pass or v2f_implementation_static or v2f_build_authorized) else
      "P2X_V2F_READ_ONLY_HOST_PROBE=NOT_AUTHORIZED" in v2f_test.stdout),
     "V2F_STATIC_SELF_TEST:"+v2f_test.stderr[:180])
 print("P2X_V2F_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
@@ -356,15 +367,19 @@ for script,marker in (
                        capture_output=True,text=True,cwd=ROOT)
     chk(out.returncode==0 and marker in out.stdout,
         "V2F_IMPLEMENTATION_SELF_TEST_"+script+":"+out.stderr[:160])
-no_v2f_build=subprocess.run(
-    ["python3",str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2f.py"),"--build"],
-    capture_output=True,text=True,cwd=ROOT)
-chk(no_v2f_build.returncode!=0 and
-    "P2X_V2F_BUILDER_HOLD=separate_v2f_authorization_absent__no_build" in
-    no_v2f_build.stdout+no_v2f_build.stderr,
-    "V2F_PRE_SIDE_EFFECT_BUILD_DENIAL")
+if not v2f_build_authorized:
+    no_v2f_build=subprocess.run(
+        ["python3",str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2f.py"),"--build"],
+        capture_output=True,text=True,cwd=ROOT)
+    chk(no_v2f_build.returncode!=0 and
+        "P2X_V2F_BUILDER_HOLD=separate_v2f_authorization_absent__no_build" in
+        no_v2f_build.stdout+no_v2f_build.stderr,
+        "V2F_PRE_SIDE_EFFECT_BUILD_DENIAL")
+    print("P2X_V2F_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
+else:
+    print("P2X_V2F_PRE_SIDE_EFFECT_BUILD_DENIAL=NOT_RUN_AFTER_AUTHOR_AUTHORIZATION")
+    print("P2X_V2F_FULL_OFFLINE_BUILD=AUTHOR_AUTHORIZED_HOST_ONLY")
 print("P2X_V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_AUDIT=PASS")
-print("P2X_V2F_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
 
 
 
