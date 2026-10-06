@@ -249,7 +249,16 @@ v2f_probe_pass=(v2f_gate["decision"]==
     v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
     v2f_gate.get("descriptor_map_sha256")==
     "499525c90430ae0dd17fc297be0388b2eae51fdb6623f3d338b0a2f392460278")
-chk((v2f_design_only or v2f_probe_authorized or v2f_probe_pass) and
+v2f_implementation_static=(v2f_gate["decision"]==
+    "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED" and
+    v2f_gate.get("probe_authorized") is False and
+    v2f_gate.get("probe_result")=="PASS" and
+    v2f_gate["authorization_scope"].get("v2f_implementation") is True and
+    v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
+    v2f_gate.get("descriptor_map_sha256")==
+    "499525c90430ae0dd17fc297be0388b2eae51fdb6623f3d338b0a2f392460278")
+chk((v2f_design_only or v2f_probe_authorized or v2f_probe_pass or
+     v2f_implementation_static) and
     v2f_gate["execution_authorized"] is False and
     v2f_gate["authorization_scope"]["v2f_design"] is True and
     v2f_gate["authorization_scope"]["static_validation"] is True and
@@ -277,7 +286,7 @@ chk(v2f_test.returncode==0 and
     ("P2X_V2F_READ_ONLY_HOST_PROBE=AUTHORIZED" in v2f_test.stdout
      if v2f_probe_authorized else
      "P2X_V2F_READ_ONLY_HOST_PROBE=PASS_RECORDED_CLOSED" in v2f_test.stdout
-     if v2f_probe_pass else
+     if (v2f_probe_pass or v2f_implementation_static) else
      "P2X_V2F_READ_ONLY_HOST_PROBE=NOT_AUTHORIZED" in v2f_test.stdout),
     "V2F_STATIC_SELF_TEST:"+v2f_test.stderr[:180])
 print("P2X_V2F_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
@@ -301,6 +310,62 @@ chk(probe_test.returncode==0 and
     "P2X_V2F_BUILD_EXECUTED=NO" in probe_test.stdout,
     "V2F_READ_ONLY_PROBE_STATIC_SELF_TEST:"+probe_test.stderr[:180])
 print("P2X_V2F_READ_ONLY_PROBE_STATIC_AUDIT=PASS")
+
+v2f_desc=(ROOT/"scripts/p2x_v2f_descriptor_map.py").read_text()
+v2f_builder=(ROOT/"scripts/build_paper2x_phase_a_nos3_v2f.py").read_text()
+v2f_readback=(ROOT/"scripts/verify_paper2x_phase_a_v2f.py").read_text()
+for token in ("mission_vars.cache","GIT_CONFIG_COUNT","GIT_CONFIG_KEY_0",
+              "safe.directory","GIT_CONFIG_VALUE_0","/work/nos3",
+              "v1_07_05","v0.0.13-119-gaa5559c","dependency_descriptors"):
+    chk(token in v2f_desc,"V2F_DESCRIPTOR_HELPER_"+token)
+for forbidden in ("docker run","make build-fsw","run-ci-noop","docker pull","rm -rf"):
+    chk(forbidden not in v2f_desc,"V2F_DESCRIPTOR_HELPER_NO_"+forbidden)
+for token in ("--inspect","--self-test","--build",
+              "separate_v2f_authorization_absent__no_build",
+              "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
+              "GIT_CONFIG_COUNT=1","GIT_CONFIG_KEY_0=safe.directory",
+              "GIT_CONFIG_VALUE_0=/work/nos3","configure_and_descriptor",
+              "prebuild_dependency_descriptor_maps_differ",
+              "p2xa-nos3-v2f-build-","p2x-v2f-build-manifest.json",
+              "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
+              "nine_raw_SHA_mismatch_preserve_both_new_builds",
+              "verify_paper2x_phase_a_v2f.py","old_v2e_evidence_overwritten",
+              "no_runtime_performed"):
+    chk(token in v2f_builder,"V2F_BUILDER_"+token)
+for forbidden in ("rm -rf","make clean","scripts/build_nominal_nos3.sh",
+                  "run-ci-noop","docker pull"):
+    chk(forbidden not in v2f_builder,"V2F_BUILDER_NO_"+forbidden)
+for token in ("p2x-v2f-build-manifest.json",
+              "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
+              "git_safe_directory_injected_ephemerally",
+              "prebuild_dependency_descriptor_maps_identical",
+              "dependency_descriptor_map_sha256","probe_descriptor_map_sha256",
+              "preserved_v2e_manifest_sha256","onair_version_not_stabilized",
+              "P2X_V2F_INDEPENDENT_NINE_RAW_SHA256_READBACK=PASS",
+              "P2X_V2F_DEPENDENCY_DESCRIPTOR_MAP_READBACK=PASS",
+              "P2X_V2F_ENVIRONMENT_FINAL_ACCEPTANCE=NO"):
+    chk(token in v2f_readback,"V2F_READBACK_"+token)
+chk("from build_paper2x_phase_a_nos3_v2f" not in v2f_readback and
+    "import build_paper2x_phase_a_nos3_v2f" not in v2f_readback,
+    "V2F_READBACK_NOT_INDEPENDENT")
+for script,marker in (
+    ("p2x_v2f_descriptor_map.py","P2X_V2F_DESCRIPTOR_HELPER_SELF_TEST=PASS"),
+    ("build_paper2x_phase_a_nos3_v2f.py","P2X_V2F_DESCRIPTOR_MAP_GATE_SELF_TEST=PASS"),
+    ("verify_paper2x_phase_a_v2f.py","P2X_V2F_RAW_BYTE_NEGATIVE_CONTROL=PASS")):
+    out=subprocess.run([sys.executable,str(ROOT/"scripts"/script),"--self-test"],
+                       capture_output=True,text=True,cwd=ROOT)
+    chk(out.returncode==0 and marker in out.stdout,
+        "V2F_IMPLEMENTATION_SELF_TEST_"+script+":"+out.stderr[:160])
+no_v2f_build=subprocess.run(
+    [sys.executable,str(ROOT/"scripts/build_paper2x_phase_a_nos3_v2f.py"),"--build"],
+    capture_output=True,text=True,cwd=ROOT)
+chk(no_v2f_build.returncode!=0 and
+    "P2X_V2F_BUILDER_HOLD=separate_v2f_authorization_absent__no_build" in
+    no_v2f_build.stdout+no_v2f_build.stderr,
+    "V2F_PRE_SIDE_EFFECT_BUILD_DENIAL")
+print("P2X_V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_AUDIT=PASS")
+print("P2X_V2F_FULL_OFFLINE_BUILD=NOT_AUTHORIZED")
+
 
 
 handoff=(D/"P2X_V2E_CONTINUATION_HANDOFF_2026-10-04.md").read_text()
