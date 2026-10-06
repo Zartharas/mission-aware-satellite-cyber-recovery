@@ -331,6 +331,7 @@ allowed={
 "paper2x/phase_a/V2F_GIT_METADATA_DETERMINISM_PROPOSAL_2026-10-05.md",
 "paper2x/phase_a/V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json",
 "scripts/p2x_v2f_git_metadata_gate.py",
+"scripts/probe_paper2x_v2f_git_metadata.py",
 "scripts/finalize_paper2x_phase_a_v2.py",
 "paper2x/phase_a/ENVIRONMENT_V2_AUTHORIZATION_2026-10-03.json",
 "scripts/build_paper2x_phase_a_nos3_v2.sh",
