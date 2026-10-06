@@ -24,7 +24,7 @@
     "merge_pr215": false,
     "v2f_implementation": true
   },
-  "evidence_status": "V2F_IMPLEMENTATION_STATIC_ONLY__PROBE_PASS_PRESERVED__FULL_BUILD_NOT_AUTHORIZED",
+  "evidence_status": "V2F_IMPLEMENTATION_STATIC_VALIDATED__FULL_BUILD_NOT_AUTHORIZED",
   "environment_final_acceptance": false,
   "probe_authorized": false,
   "probe_authorization_date": "2026-10-06",
@@ -40,5 +40,9 @@
   "implementation_authorization_date": "2026-10-06",
   "implementation_authorization_basis": "Sole author explicitly authorized v2f dual-offline-build implementation and static validation after post-probe CI #1361 succeeded and the read-only safe.directory mechanism probe passed.",
   "implementation_parent_head": "dac2491a2d6adca90479e9312583788b75562b9b",
-  "implementation_parent_workflow_run": 1361
+  "implementation_parent_workflow_run": 1361,
+  "implementation_static_validation": "PASS",
+  "implementation_static_validated_head": "bf5b3fa54a4b0f384efdf93a34b8f03656015a8f",
+  "implementation_static_validated_workflow_run": 1371,
+  "implementation_static_validated_workflow_run_id": 37478764321
 }
