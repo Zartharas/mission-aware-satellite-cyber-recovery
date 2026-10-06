@@ -302,15 +302,29 @@ def self_test() -> None:
         "--env", "GIT_CONFIG_VALUE_0=/work/nos3",
     ], "safe_directory_env_contract")
     policy = json.loads(GATE.read_text(encoding="utf-8"))
-    require(policy["execution_authorized"] is False and
-            policy["authorization_scope"]["offline_full_build"] is False and
-            policy["decision"] ==
-            "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
-            "self_test_requires_closed_v2f_build_gate")
+    closed = (
+        policy["execution_authorized"] is False and
+        policy["authorization_scope"]["offline_full_build"] is False and
+        policy["decision"] ==
+        "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED"
+    )
+    authorized = (
+        policy["execution_authorized"] is True and
+        policy["authorization_scope"]["offline_full_build"] is True and
+        policy["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2F_OFFLINE_REBUILD"
+    )
+    require(closed or authorized, "self_test_invalid_v2f_build_gate")
+    require(policy["authorization_scope"]["nominal_runtime"] is False and
+            policy["authorization_scope"]["cosmos"] is False and
+            policy["authorization_scope"]["faults"] is False and
+            policy["authorization_scope"]["merge_pr215"] is False and
+            policy["environment_final_acceptance"] is False,
+            "self_test_runtime_science_or_merge_scope_open")
     print("P2X_V2F_EXCLUDE_OLD_BUILD_OUTPUTS_SELF_TEST=PASS")
     print("P2X_V2F_SAFE_DIRECTORY_ENV_SELF_TEST=PASS")
     print("P2X_V2F_DESCRIPTOR_MAP_GATE_SELF_TEST=PASS")
-    print("P2X_V2F_FULL_BUILD_AUTHORIZATION=CLOSED")
+    print("P2X_V2F_FULL_BUILD_AUTHORIZATION=" +
+          ("AUTHORIZED_HOST_ONLY" if authorized else "CLOSED"))
 
 
 def manifest_for(out: Path, initial: dict[str, object],
@@ -417,11 +431,18 @@ def main() -> None:
     verify_pristine(baseline)
 
     if mode == ["--inspect"]:
-        require(policy["execution_authorized"] is False and
-                policy["authorization_scope"]["offline_full_build"] is False and
-                policy["decision"] ==
-                "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
-                "v2f_implementation_gate_unexpected_state")
+        closed = (
+            policy["execution_authorized"] is False and
+            policy["authorization_scope"]["offline_full_build"] is False and
+            policy["decision"] ==
+            "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED"
+        )
+        authorized = (
+            policy["execution_authorized"] is True and
+            policy["authorization_scope"]["offline_full_build"] is True and
+            policy["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2F_OFFLINE_REBUILD"
+        )
+        require(closed or authorized, "v2f_implementation_gate_unexpected_state")
         require(policy["probe_result"] == "PASS" and
                 policy["descriptor_map_sha256"] == PROBE_MAP_SHA,
                 "probe_pass_not_bound")
@@ -433,7 +454,8 @@ def main() -> None:
                 "runtime_science_or_merge_scope_open")
         print("P2X_V2F_IMPLEMENTATION_STATIC_INSPECTION=PASS")
         print("P2X_V2F_PROBE_PASS_BOUND=PASS")
-        print("P2X_V2F_FULL_BUILD=NOT_AUTHORIZED")
+        print("P2X_V2F_FULL_BUILD=" +
+              ("AUTHORIZED_NOT_RUN" if authorized else "NOT_AUTHORIZED"))
         print("P2X_V2F_RUNTIME=NOT_AUTHORIZED")
         return
 
