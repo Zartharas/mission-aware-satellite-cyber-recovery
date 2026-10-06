@@ -242,7 +242,14 @@ v2f_probe_authorized=(v2f_gate["decision"]==
     "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_HOST_PROBE" and
     v2f_gate.get("probe_authorized") is True and
     v2f_gate["authorization_scope"]["read_only_host_probe"] is True)
-chk((v2f_design_only or v2f_probe_authorized) and
+v2f_probe_pass=(v2f_gate["decision"]==
+    "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED" and
+    v2f_gate.get("probe_authorized") is False and
+    v2f_gate.get("probe_result")=="PASS" and
+    v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
+    v2f_gate.get("descriptor_map_sha256")==
+    "499525c90430ae0dd17fc297be0388b2eae51fdb6623f3d338b0a2f392460278")
+chk((v2f_design_only or v2f_probe_authorized or v2f_probe_pass) and
     v2f_gate["execution_authorized"] is False and
     v2f_gate["authorization_scope"]["v2f_design"] is True and
     v2f_gate["authorization_scope"]["static_validation"] is True and
@@ -269,6 +276,8 @@ chk(v2f_test.returncode==0 and
     "P2X_V2F_EXECUTION_AUTHORIZATION=FULL_BUILD_CLOSED" in v2f_test.stdout and
     ("P2X_V2F_READ_ONLY_HOST_PROBE=AUTHORIZED" in v2f_test.stdout
      if v2f_probe_authorized else
+     "P2X_V2F_READ_ONLY_HOST_PROBE=PASS_RECORDED_CLOSED" in v2f_test.stdout
+     if v2f_probe_pass else
      "P2X_V2F_READ_ONLY_HOST_PROBE=NOT_AUTHORIZED" in v2f_test.stdout),
     "V2F_STATIC_SELF_TEST:"+v2f_test.stderr[:180])
 print("P2X_V2F_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
