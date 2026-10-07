@@ -66,7 +66,7 @@ LOCKS = ("fortytwo-lock.txt", "nominal-build-lock.txt",
 RECIPE = (
     "bash ./scripts/cfg/config.sh",
     "mkdir -p fsw/build",
-    "cd fsw/build && cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
+    "CFS_APP_PATH=../components MISSION_DEFS=../cfg/build/ MISSIONCONFIG=../cfg/build/nos3 cd fsw/build && cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
     "P2X v2f dependency-descriptor gate",
     "make --no-print-directory -C fsw/build mission-install",
     "make build-sim",
@@ -235,6 +235,9 @@ def common_docker(source: Path, extra_options: list[str] | None = None,
         "--env", "BUILDDATE=" + BUILD_DATE,
         "--env", "HOSTNAME=" + BUILD_HOST,
         "--env", "USER=" + BUILD_USER,
+        "--env", "CFS_APP_PATH=../components",
+        "--env", "MISSION_DEFS=../cfg/build/",
+        "--env", "MISSIONCONFIG=../cfg/build/nos3",
         *git_env_args_from_paths(safe_dirs if safe_dirs is not None
                                  else safe_directory_paths(source)),
         "--env", "CMAKE_C_COMPILER_LAUNCHER=/usr/bin/python3;/opt/p2x_v2e_seed_launcher.py",
@@ -259,6 +262,8 @@ def configure_and_descriptor(source: Path, label: str, evidence: Path) -> dict:
         'printf "container_workdir=%s\\n" "$(pwd -P)"; '
         'printf "P2X_V2F_SAFE_DIRECTORY=%s\\n" "$GIT_CONFIG_VALUE_0"; '
         'printf "P2X_V2F_SAFE_DIRECTORY_COUNT=%s\\n" "$GIT_CONFIG_COUNT"; '
+        'printf "P2X_V2F_CFS_ENV=CFS_APP_PATH=%s MISSION_DEFS=%s MISSIONCONFIG=%s\\n" '
+        '"$CFS_APP_PATH" "$MISSION_DEFS" "$MISSIONCONFIG"; '
         'bash ./scripts/cfg/config.sh; '
         'mkdir -p fsw/build; '
         'cd fsw/build; '
@@ -378,6 +383,14 @@ def self_test() -> None:
             "image_not_after_workdir")
     require(all(not arg.startswith("--mount") for arg in docker_args[image_index + 1:]),
             "docker_option_after_image")
+    require("--env" in docker_args and
+            "CFS_APP_PATH=../components" in docker_args and
+            "MISSION_DEFS=../cfg/build/" in docker_args and
+            "MISSIONCONFIG=../cfg/build/nos3" in docker_args,
+            "cfs_makefile_export_contract")
+    require(RECIPE.index("P2X v2f dependency-descriptor gate") <
+            RECIPE.index("make --no-print-directory -C fsw/build mission-install"),
+            "descriptor_gate_not_before_compilation")
     policy = json.loads(GATE.read_text(encoding="utf-8"))
     closed = (
         policy["execution_authorized"] is False and
@@ -440,6 +453,9 @@ def manifest_for(out: Path, initial: dict[str, object],
         "git_safe_directories": safe_directory_paths(primary),
         "git_safe_directory_policy": "root_plus_registered_recursive_submodule_worktrees",
         "git_safe_directory_injected_ephemerally": True,
+        "cfs_app_path": "../components",
+        "mission_defs": "../cfg/build/",
+        "missionconfig": "../cfg/build/nos3",
         "prebuild_dependency_descriptor_maps_identical": True,
         "dependency_descriptor_map_sha256": descriptor_sha,
         "probe_descriptor_map_sha256": PROBE_MAP_SHA,
@@ -557,6 +573,9 @@ def main() -> None:
             "canonical_nos3": NOS3,
             "safe_directory": SAFE_DIR,
             "safe_directory_policy": "root_plus_registered_recursive_submodule_worktrees",
+            "cfs_app_path": "../components",
+            "mission_defs": "../cfg/build/",
+            "missionconfig": "../cfg/build/nos3",
             "preserved_v2_manifest_sha256": baseline["v2_manifest_sha256"],
             "preserved_v2e_manifest_sha256": baseline["v2e_manifest_sha256"],
             "historical_locks_before": baseline["july_locks_sha256"],
