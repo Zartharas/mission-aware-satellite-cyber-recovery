@@ -43,7 +43,7 @@ LOCKS = ("fortytwo-lock.txt", "nominal-build-lock.txt",
 RECIPE = (
     "bash ./scripts/cfg/config.sh",
     "mkdir -p fsw/build",
-    "cd fsw/build && cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
+    "CFS_APP_PATH=../components MISSION_DEFS=../cfg/build/ MISSIONCONFIG=../cfg/build/nos3 cd fsw/build && cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
     "P2X v2f dependency-descriptor gate",
     "make --no-print-directory -C fsw/build mission-install",
     "make build-sim",
@@ -177,6 +177,9 @@ def main() -> None:
           m["git_safe_directory_policy"] ==
           "root_plus_registered_recursive_submodule_worktrees" and
           m["git_safe_directory_injected_ephemerally"] is True and
+          m["cfs_app_path"] == "../components" and
+          m["mission_defs"] == "../cfg/build/" and
+          m["missionconfig"] == "../cfg/build/nos3" and
           m["prebuild_dependency_descriptor_maps_identical"] is True,
           "safe_directory_or_descriptor_gate")
     check(m["probe_descriptor_map_sha256"] == PROBE_MAP_SHA,
