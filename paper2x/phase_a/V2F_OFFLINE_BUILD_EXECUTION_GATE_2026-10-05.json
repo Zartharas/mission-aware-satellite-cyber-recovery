@@ -24,7 +24,7 @@
     "merge_pr215": false,
     "v2f_implementation": true
   },
-  "evidence_status": "V2F_SECOND_HOST_ATTEMPT_HOLD__CONFIGURE_OR_DESCRIPTOR_FAILED_PRIMARY__NO_RERUN_AUTHORIZED",
+  "evidence_status": "V2F_SECOND_HOLD_ROOT_CAUSE_CONFIRMED__STATIC_SCOPE_CORRECTION_UNDER_VALIDATION__NO_RERUN_AUTHORIZED",
   "environment_final_acceptance": false,
   "probe_authorized": false,
   "probe_authorization_date": "2026-10-06",
@@ -72,5 +72,13 @@
   "second_full_build_attempt_failure_marker": "P2X_V2F_BUILDER_HOLD=configure_or_descriptor_failed:primary",
   "second_full_build_attempt_evidence_id": "p2xa-nos3-v2f-build-20261007T142229Z-651bd447ee",
   "second_full_build_attempt_log_basename": "P2X_V2F_CORRECTED_DUAL_OFFLINE_BUILD_20261007T142225Z.log",
-  "second_full_build_attempt_rerun_authorized": false
+  "second_full_build_attempt_rerun_authorized": false,
+  "second_full_build_attempt_root_cause": "ROOT_ONLY_SAFE_DIRECTORY_POLICY_DID_NOT_TRUST_FRESH_STAGED_ONAIR_SUBMODULE",
+  "second_full_build_attempt_config_sh_completed": true,
+  "second_full_build_attempt_fsw_cmake_completed": false,
+  "second_full_build_attempt_compilation_executed": false,
+  "second_full_build_attempt_descriptor_helper_reached": true,
+  "prospective_git_safe_directory_policy": "ROOT_PLUS_ALL_REGISTERED_RECURSIVE_SUBMODULE_WORKTREES",
+  "prospective_fsw_split_policy": "CONFIG_SH__CMAKE_ONLY__DESCRIPTOR_GATE__MISSION_INSTALL__SIM__CRYPTOLIB",
+  "prospective_correction_authorized_scope": "STATIC_IMPLEMENTATION_AND_VALIDATION_ONLY"
 }
