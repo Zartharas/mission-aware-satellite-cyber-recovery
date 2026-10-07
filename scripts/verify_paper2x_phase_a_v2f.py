@@ -159,6 +159,8 @@ def main() -> None:
     check(m["schema"] == 1 and m["experiment_id"] == "P2X-NOS3-RG-001" and
           m["phase"] == "P2X_PHASE_A_PROSPECTIVE_V2F_OFFLINE_BUILD_ONLY",
           "manifest_scope")
+    primary = (evidence / "primary/source").resolve()
+    repeat = (evidence / "repeat/source").resolve()
     check(m["classification"] ==
           "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
           "raw_nine_identity_not_accepted")
@@ -189,8 +191,6 @@ def main() -> None:
     check(m["no_runtime_performed"] is True and m["no_scientific_observations"] is True,
           "runtime_or_science_claim")
 
-    primary = (evidence / "primary/source").resolve()
-    repeat = (evidence / "repeat/source").resolve()
     check(primary != repeat and primary != CANONICAL.resolve() and repeat != CANONICAL.resolve(),
           "source_alias")
     check(Path(m["primary_source_root"]).resolve() == primary and
