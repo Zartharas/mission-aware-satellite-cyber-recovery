@@ -428,6 +428,48 @@ for filename in ("RUNBOOK_2026-10-03.md",):
     for token in ("A0","A1","A2","A3","CFS_RADIO","TO_ENABLE_OUTPUT","radio_sim",
                   "5011","CFE_ES_NOOP","COSMOS_GSW_PLATFORM_BLOCKED"):
         chk(token in doc,"RUNBOOK_"+token)
+runtime_gate=json.loads((D/"V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.json").read_text())
+chk(runtime_gate["record_id"]==
+    "P2X-PHASE-A-V2F-NOMINAL-RUNTIME-QUALIFICATION-GATE-2026-10-07" and
+    runtime_gate["experiment_id"]=="P2X-NOS3-RG-001",
+    "V2F_RUNTIME_DESIGN_DISTINCT_SCOPE")
+chk(runtime_gate["decision"]==
+    "V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_ONLY__EXECUTION_NOT_AUTHORIZED" and
+    runtime_gate["execution_authorized"] is False and
+    runtime_gate["authorization_scope"]["nominal_runtime_execution"] is False and
+    runtime_gate["authorization_scope"]["benign_internal_cfs_noop"] is False and
+    runtime_gate["authorization_scope"]["cosmos"] is False and
+    runtime_gate["authorization_scope"]["faults"] is False and
+    runtime_gate["authorization_scope"]["scientific_observations"] is False and
+    runtime_gate["authorization_scope"]["final_environment_acceptance"] is False and
+    runtime_gate["authorization_scope"]["merge_pr215"] is False and
+    runtime_gate["environment_final_acceptance"] is False,
+    "V2F_RUNTIME_DESIGN_SCOPE_FIREWALL")
+chk(runtime_gate["parent_v2f_manifest_sha256"] is None and
+    runtime_gate["parent_v2f_manifest_sha256_status"]==
+    "PENDING_READ_ONLY_HOST_READBACK" and
+    runtime_gate["parent_v2f_manifest_sha256_required_before_runtime_authorization"] is True,
+    "V2F_RUNTIME_MANIFEST_HASH_FAIL_CLOSED")
+runtime_static=(ROOT/"scripts/audit_paper2x_phase_a_v2f_runtime_design.py").read_text()
+for token in ("P2X_V2F_MANIFEST","verify_paper2x_phase_a_v2f.py",
+              "PENDING_READ_ONLY_HOST_READBACK",
+              "LEGACY_V2_BOUND_BLOCKED","EXECUTION_CAPABLE_BLOCKED",
+              "P2X_V2F_RUNTIME_EXECUTION=NOT_AUTHORIZED",
+              "P2X_V2F_FINAL_ENVIRONMENT_ACCEPTANCE=NO"):
+    chk(token in runtime_static,"V2F_RUNTIME_STATIC_"+token)
+chk("import subprocess" not in runtime_static and "subprocess." not in runtime_static,
+    "V2F_RUNTIME_STATIC_NO_PROCESS_EXECUTION")
+runtime_test=subprocess.run(
+    ["python3",str(ROOT/"scripts/audit_paper2x_phase_a_v2f_runtime_design.py"),
+     "--self-test"],capture_output=True,text=True,cwd=ROOT)
+chk(runtime_test.returncode==0 and
+    "P2X_V2F_RUNTIME_DESIGN_GATE=PASS" in runtime_test.stdout and
+    "P2X_V2F_CURRENT_NOMINAL_RUNNER=LEGACY_V2_BOUND_BLOCKED" in runtime_test.stdout and
+    "P2X_V2F_NOMINAL_PREFLIGHT=EXECUTION_CAPABLE_BLOCKED" in runtime_test.stdout and
+    "P2X_V2F_RUNTIME_EXECUTION=NOT_AUTHORIZED" in runtime_test.stdout,
+    "V2F_RUNTIME_STATIC_SELF_TEST:"+runtime_test.stderr[:180])
+print("P2X_V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
+
 wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
 chk("paper2x-design-historical-audit" in wf and "python scripts/audit_paper2x_phase_a_design.py" in wf,"WORKFLOW_SCOPE")
 allowed={
@@ -442,6 +484,8 @@ allowed={
 "paper2x/phase_a/V2E_OFFLINE_BUILD_EXECUTION_GATE_2026-10-03.json",
 "paper2x/phase_a/V2F_GIT_METADATA_DETERMINISM_PROPOSAL_2026-10-05.md",
 "paper2x/phase_a/V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json",
+"paper2x/phase_a/V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.json",
+"scripts/audit_paper2x_phase_a_v2f_runtime_design.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/probe_paper2x_v2f_git_metadata.py",
 "scripts/p2x_v2f_descriptor_map.py",
