@@ -63,8 +63,15 @@ ARTIFACTS = (
 )
 LOCKS = ("fortytwo-lock.txt", "nominal-build-lock.txt",
          "nominal-runtime-preflight-lock.txt", "nos3-submodule-lock.txt")
-RECIPE = ("bash ./scripts/cfg/config.sh", "make build-fsw",
-          "make build-sim", "make build-cryptolib")
+RECIPE = (
+    "bash ./scripts/cfg/config.sh",
+    "mkdir -p fsw/build",
+    "cd fsw/build && cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
+    "P2X v2f dependency-descriptor gate",
+    "make --no-print-directory -C fsw/build mission-install",
+    "make build-sim",
+    "make build-cryptolib",
+)
 
 
 def require(ok: bool, why: str) -> None:
@@ -89,6 +96,44 @@ def git(where: Path, *args: str) -> str:
     return subprocess.check_output(
         ["git", "-C", str(where), *args], text=True, stderr=subprocess.PIPE
     ).strip()
+
+
+def submodule_paths_from_status(text: str) -> list[str]:
+    paths = []
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        parts = line.split()
+        require(len(parts) >= 2, "malformed_submodule_status")
+        rel = parts[1]
+        p = Path(rel)
+        require(not p.is_absolute() and ".." not in p.parts,
+                "unsafe_submodule_path:" + rel)
+        paths.append(rel)
+    require(len(paths) == len(set(paths)), "duplicate_submodule_path")
+    return sorted(paths)
+
+
+def safe_directory_paths(source: Path) -> list[str]:
+    status = git(source, "submodule", "status", "--recursive")
+    rels = submodule_paths_from_status(status)
+    values = [SAFE_DIR] + [SAFE_DIR + "/" + rel for rel in rels]
+    require(SAFE_DIR + "/components/onair/fsw" in values,
+            "onair_submodule_not_registered")
+    return values
+
+
+def git_env_args_from_paths(paths: list[str]) -> list[str]:
+    require(paths and paths[0] == SAFE_DIR, "safe_directory_root_first")
+    require(len(paths) == len(set(paths)), "safe_directory_duplicate")
+    args = ["--env", "GIT_CONFIG_COUNT=" + str(len(paths))]
+    for idx, value in enumerate(paths):
+        args.extend([
+            "--env", f"GIT_CONFIG_KEY_{idx}=safe.directory",
+            "--env", f"GIT_CONFIG_VALUE_{idx}={value}",
+        ])
+    return args
 
 
 def stamps() -> dict[str, str]:
@@ -176,15 +221,12 @@ def stage(source: Path, target: Path) -> None:
             "staged_recursive_submodule_drift")
 
 
-def git_env_args() -> list[str]:
-    return [
-        "--env", "GIT_CONFIG_COUNT=1",
-        "--env", "GIT_CONFIG_KEY_0=safe.directory",
-        "--env", "GIT_CONFIG_VALUE_0=" + SAFE_DIR,
-    ]
+def git_env_args(source: Path) -> list[str]:
+    return git_env_args_from_paths(safe_directory_paths(source))
 
 
-def common_docker(source: Path, extra_options: list[str] | None = None) -> list[str]:
+def common_docker(source: Path, extra_options: list[str] | None = None,
+                  safe_dirs: list[str] | None = None) -> list[str]:
     options = [
         "docker", "run", "--rm", "--platform", "linux/amd64",
         "--network", "none", "--hostname", BUILD_HOST,
@@ -193,7 +235,8 @@ def common_docker(source: Path, extra_options: list[str] | None = None) -> list[
         "--env", "BUILDDATE=" + BUILD_DATE,
         "--env", "HOSTNAME=" + BUILD_HOST,
         "--env", "USER=" + BUILD_USER,
-        *git_env_args(),
+        *git_env_args_from_paths(safe_dirs if safe_dirs is not None
+                                 else safe_directory_paths(source)),
         "--env", "CMAKE_C_COMPILER_LAUNCHER=/usr/bin/python3;/opt/p2x_v2e_seed_launcher.py",
         "--mount", "type=bind,source=" + str(source) + ",target=/work/nos3",
         "--mount", "type=bind,source=" + str(LAUNCHER) +
@@ -215,7 +258,12 @@ def configure_and_descriptor(source: Path, label: str, evidence: Path) -> dict:
         'set -Eeuo pipefail; '
         'printf "container_workdir=%s\\n" "$(pwd -P)"; '
         'printf "P2X_V2F_SAFE_DIRECTORY=%s\\n" "$GIT_CONFIG_VALUE_0"; '
+        'printf "P2X_V2F_SAFE_DIRECTORY_COUNT=%s\\n" "$GIT_CONFIG_COUNT"; '
         'bash ./scripts/cfg/config.sh; '
+        'mkdir -p fsw/build; '
+        'cd fsw/build; '
+        'cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe; '
+        'cd /work/nos3; '
         'printf "P2X_V2F_DESCRIPTOR_MAP_JSON="; '
         'python3 /opt/p2x_v2f_descriptor_map.py --emit'
     ]
@@ -226,7 +274,9 @@ def configure_and_descriptor(source: Path, label: str, evidence: Path) -> dict:
     found = re.findall(r"^P2X_V2F_DESCRIPTOR_MAP_JSON=(\{.*\})$", text, re.MULTILINE)
     require(len(found) == 1, "descriptor_map_witness_count:" + label)
     data = json.loads(found[0])
+    expected_safe_dirs = safe_directory_paths(source)
     require(data["safe_directory"] == SAFE_DIR and
+            data["safe_directories"] == expected_safe_dirs and
             data["nos3_head"] == NOS3 and data["nos3_describe"] == "v1_07_05" and
             data["onair_submodule_head"] == "aa5559c0f234eba263041b6007573f16870194e5" and
             data["onair_submodule_describe"] == "v0.0.13-119-gaa5559c",
@@ -267,8 +317,10 @@ def compile_configured(source: Path, label: str, evidence: Path) -> dict[tuple[s
         'printf "CFE_SYNTHETIC_BUILDDATE=%s HOSTNAME=%s USER=%s\\n" '
         '"$BUILDDATE" "$HOSTNAME" "$USER"; '
         'printf "P2X_V2F_SAFE_DIRECTORY=%s\\n" "$GIT_CONFIG_VALUE_0"; '
+        'printf "P2X_V2F_SAFE_DIRECTORY_COUNT=%s\\n" "$GIT_CONFIG_COUNT"; '
         'gcc --version | head -n 1; ld --version | head -n 1; '
-        'make build-fsw; make build-sim; make build-cryptolib'
+        'make --no-print-directory -C fsw/build mission-install; '
+        'make build-sim; make build-cryptolib'
     ]
     with logpath.open("x", encoding="utf-8") as log:
         p = subprocess.run(cmd, stdout=log, stderr=subprocess.STDOUT, check=False)
@@ -300,15 +352,25 @@ def self_test() -> None:
     x = {"dependency_descriptors": [{"dependency": "a", "path": "/work/nos3/a", "describe": "x"}]}
     require(canonical_json(x) == canonical_json(json.loads(canonical_json(x))),
             "descriptor_canonicalization")
-    require(git_env_args() == [
-        "--env", "GIT_CONFIG_COUNT=1",
-        "--env", "GIT_CONFIG_KEY_0=safe.directory",
-        "--env", "GIT_CONFIG_VALUE_0=/work/nos3",
-    ], "safe_directory_env_contract")
+    sample_status = """ aa5559c components/onair/fsw (v0.0.13)
+ 1234567 fsw/apps/lc (heads/main)
+ 7654321 fsw/apps/hwlib (heads/master)
+"""
+    sample_paths = submodule_paths_from_status(sample_status)
+    require(sample_paths == [
+        "components/onair/fsw", "fsw/apps/hwlib", "fsw/apps/lc"
+    ], "submodule_status_parser")
+    sample_safe_dirs = [SAFE_DIR] + [SAFE_DIR + "/" + x for x in sample_paths]
+    sample_env = git_env_args_from_paths(sample_safe_dirs)
+    require(sample_env[0:2] == ["--env", "GIT_CONFIG_COUNT=4"] and
+            "GIT_CONFIG_VALUE_1=/work/nos3/components/onair/fsw" in sample_env and
+            "GIT_CONFIG_VALUE_2=/work/nos3/fsw/apps/hwlib" in sample_env and
+            "GIT_CONFIG_VALUE_3=/work/nos3/fsw/apps/lc" in sample_env,
+            "safe_directory_env_contract")
     probe_source = Path("/tmp/p2x-v2f-self-test-source")
     docker_args = common_docker(probe_source, [
         "--mount", "type=bind,source=/tmp/helper,target=/opt/helper,readonly",
-    ])
+    ], safe_dirs=sample_safe_dirs)
     image_index = docker_args.index(IMAGE)
     require(docker_args.index("--mount", docker_args.index("--mount") + 1) < image_index,
             "descriptor_helper_mount_after_image")
@@ -375,6 +437,8 @@ def manifest_for(out: Path, initial: dict[str, object],
         "image": IMAGE, "platform": "linux/amd64", "network": "none",
         "container_workdir": "/work/nos3",
         "git_safe_directory": SAFE_DIR,
+        "git_safe_directories": safe_directory_paths(primary),
+        "git_safe_directory_policy": "root_plus_registered_recursive_submodule_worktrees",
         "git_safe_directory_injected_ephemerally": True,
         "prebuild_dependency_descriptor_maps_identical": True,
         "dependency_descriptor_map_sha256": descriptor_sha,
@@ -492,6 +556,7 @@ def main() -> None:
             "image": IMAGE,
             "canonical_nos3": NOS3,
             "safe_directory": SAFE_DIR,
+            "safe_directory_policy": "root_plus_registered_recursive_submodule_worktrees",
             "preserved_v2_manifest_sha256": baseline["v2_manifest_sha256"],
             "preserved_v2e_manifest_sha256": baseline["v2e_manifest_sha256"],
             "historical_locks_before": baseline["july_locks_sha256"],
