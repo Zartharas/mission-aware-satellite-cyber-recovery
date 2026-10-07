@@ -266,8 +266,18 @@ v2f_build_authorized=(v2f_gate["decision"]==
     v2f_gate["authorization_scope"]["read_only_host_probe"] is False and
     v2f_gate.get("descriptor_map_sha256")==
     "499525c90430ae0dd17fc297be0388b2eae51fdb6623f3d338b0a2f392460278")
+v2f_build_pass=(v2f_gate["decision"]==
+    "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED" and
+    v2f_gate["execution_authorized"] is False and
+    v2f_gate["authorization_scope"]["offline_full_build"] is False and
+    v2f_gate.get("third_attempt_result")=="PASS" and
+    v2f_gate.get("third_attempt_raw_artifact_identity")=="9_OF_9" and
+    v2f_gate.get("third_attempt_independent_readback")=="PASS" and
+    v2f_gate.get("third_attempt_runtime_tested") is False and
+    v2f_gate.get("third_attempt_cosmos_tested") is False and
+    v2f_gate.get("third_attempt_fault_campaign_executed") is False)
 chk((v2f_design_only or v2f_probe_authorized or v2f_probe_pass or
-     v2f_implementation_static or v2f_build_authorized) and
+     v2f_implementation_static or v2f_build_authorized or v2f_build_pass) and
     v2f_gate["execution_authorized"] is v2f_build_authorized and
     v2f_gate["authorization_scope"]["v2f_design"] is True and
     v2f_gate["authorization_scope"]["static_validation"] is True and
@@ -297,7 +307,7 @@ chk(v2f_test.returncode==0 and
     ("P2X_V2F_READ_ONLY_HOST_PROBE=AUTHORIZED" in v2f_test.stdout
      if v2f_probe_authorized else
      "P2X_V2F_READ_ONLY_HOST_PROBE=PASS_RECORDED_CLOSED" in v2f_test.stdout
-     if (v2f_probe_pass or v2f_implementation_static or v2f_build_authorized) else
+     if (v2f_probe_pass or v2f_implementation_static or v2f_build_authorized or v2f_build_pass) else
      "P2X_V2F_READ_ONLY_HOST_PROBE=NOT_AUTHORIZED" in v2f_test.stdout),
     "V2F_STATIC_SELF_TEST:"+v2f_test.stderr[:180])
 print("P2X_V2F_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
