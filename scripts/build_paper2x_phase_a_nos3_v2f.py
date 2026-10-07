@@ -396,8 +396,10 @@ def self_test() -> None:
     closed = (
         policy["execution_authorized"] is False and
         policy["authorization_scope"]["offline_full_build"] is False and
-        policy["decision"] ==
-        "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED"
+        policy["decision"] in (
+            "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
+            "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
+        )
     )
     authorized = (
         policy["execution_authorized"] is True and
@@ -530,8 +532,10 @@ def main() -> None:
         closed = (
             policy["execution_authorized"] is False and
             policy["authorization_scope"]["offline_full_build"] is False and
-            policy["decision"] ==
-            "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED"
+            policy["decision"] in (
+                "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
+                "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
+            )
         )
         authorized = (
             policy["execution_authorized"] is True and
