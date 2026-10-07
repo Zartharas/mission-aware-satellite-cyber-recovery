@@ -47,10 +47,27 @@ def parse_cache(path: Path) -> dict[str, str]:
     return {lines[i]: lines[i + 1] for i in range(0, len(lines), 2)}
 
 
+def safe_directories_from_env() -> list[str]:
+    raw = os.environ.get("GIT_CONFIG_COUNT")
+    require(raw is not None and raw.isdigit(), "git_config_count")
+    count = int(raw)
+    require(count >= 2, "git_safe_directory_scope_too_narrow")
+    values = []
+    for idx in range(count):
+        require(os.environ.get(f"GIT_CONFIG_KEY_{idx}") == "safe.directory",
+                "git_config_key:" + str(idx))
+        value = os.environ.get(f"GIT_CONFIG_VALUE_{idx}")
+        require(bool(value), "git_config_value:" + str(idx))
+        values.append(value)
+    require(values[0] == "/work/nos3", "git_safe_directory_root")
+    require("/work/nos3/components/onair/fsw" in values,
+            "git_safe_directory_onair_submodule")
+    require(len(values) == len(set(values)), "git_safe_directory_duplicate")
+    return values
+
+
 def emit() -> None:
-    require(os.environ.get("GIT_CONFIG_COUNT") == "1", "git_config_count")
-    require(os.environ.get("GIT_CONFIG_KEY_0") == "safe.directory", "git_config_key")
-    require(os.environ.get("GIT_CONFIG_VALUE_0") == "/work/nos3", "git_config_value")
+    safe_directories = safe_directories_from_env()
 
     require(run_git("/work/nos3", "rev-parse", "HEAD") == NOS3, "nos3_head")
     require(run_git("/work/nos3", "describe", "--tags", "--always", "--dirty") ==
@@ -90,6 +107,7 @@ def emit() -> None:
         "schema": 1,
         "experiment_id": "P2X-NOS3-RG-001",
         "safe_directory": "/work/nos3",
+        "safe_directories": safe_directories,
         "nos3_head": NOS3,
         "nos3_describe": NOS3_DESC,
         "onair_parent_describe": NOS3_DESC,
@@ -106,6 +124,15 @@ def self_test() -> None:
             {"A": "1", "B": "2"}, "cache_parser_fixture")
     require(NOS3_DESC == "v1_07_05" and
             ONAIR_DESC == "v0.0.13-119-gaa5559c", "descriptor_fixture")
+    sample = {
+        "GIT_CONFIG_COUNT": "2",
+        "GIT_CONFIG_KEY_0": "safe.directory",
+        "GIT_CONFIG_VALUE_0": "/work/nos3",
+        "GIT_CONFIG_KEY_1": "safe.directory",
+        "GIT_CONFIG_VALUE_1": "/work/nos3/components/onair/fsw",
+    }
+    require(sample["GIT_CONFIG_VALUE_0"] != sample["GIT_CONFIG_VALUE_1"],
+            "safe_directory_fixture_distinct")
     print("P2X_V2F_DESCRIPTOR_HELPER_SELF_TEST=PASS")
     print("P2X_V2F_BUILD_EXECUTED=NO")
     print("P2X_V2F_RUNTIME_EXECUTED=NO")
