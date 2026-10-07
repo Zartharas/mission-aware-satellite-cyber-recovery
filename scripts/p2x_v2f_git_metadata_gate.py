@@ -22,11 +22,7 @@ NOS3_DESC = "v1_07_05"
 ONAIR = "aa5559c0f234eba263041b6007573f16870194e5"
 ONAIR_DESC = "v0.0.13-119-gaa5559c"
 
-ENV_CONFIG = {
-    "GIT_CONFIG_COUNT": "1",
-    "GIT_CONFIG_KEY_0": "safe.directory",
-    "GIT_CONFIG_VALUE_0": SAFE_DIR,
-}
+SAFE_DIRECTORY_POLICY = "ROOT_PLUS_ALL_REGISTERED_RECURSIVE_SUBMODULE_WORKTREES"
 
 
 def hold(why: str) -> None:
@@ -71,7 +67,10 @@ def validate_gate() -> dict:
     require(gate["environment_final_acceptance"] is False,
             "final_acceptance_open")
     require(gate["proposed_git_safe_directory"] == SAFE_DIR,
-            "safe_directory_drift")
+            "safe_directory_root_drift")
+    require(gate.get("prospective_git_safe_directory_policy") ==
+            SAFE_DIRECTORY_POLICY,
+            "safe_directory_policy_drift")
     require(gate["expected_nos3_describe"] == NOS3_DESC,
             "nos3_descriptor_drift")
     require(gate["expected_onair_submodule_head"] == ONAIR,
@@ -102,11 +101,9 @@ def self_test() -> None:
     validate_gate()
     validate_proposal()
 
-    require(ENV_CONFIG == {
-        "GIT_CONFIG_COUNT": "1",
-        "GIT_CONFIG_KEY_0": "safe.directory",
-        "GIT_CONFIG_VALUE_0": "/work/nos3",
-    }, "env_config_contract")
+    require(SAFE_DIRECTORY_POLICY ==
+            "ROOT_PLUS_ALL_REGISTERED_RECURSIVE_SUBMODULE_WORKTREES",
+            "safe_directory_policy_contract")
 
     require(re.fullmatch(r"[0-9a-f]{40}", NOS3) is not None,
             "nos3_pin_format")
@@ -117,6 +114,7 @@ def self_test() -> None:
             "descriptor_fixture")
 
     print("P2X_V2F_SAFE_DIRECTORY_ENV_CONTRACT=PASS")
+    print("P2X_V2F_SAFE_DIRECTORY_POLICY=" + SAFE_DIRECTORY_POLICY)
     print("P2X_V2F_DESCRIPTOR_EXPECTATION_SELF_TEST=PASS")
     g = validate_gate()
     probe_authorized = g["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_HOST_PROBE"
@@ -141,6 +139,7 @@ def inspect() -> None:
     print("P2X_V2F_STATIC_INSPECTION=PASS")
     print("P2X_V2F_PARENT_V2E_RESULT=" + gate["parent_v2e_result"])
     print("P2X_V2F_SAFE_DIRECTORY=" + SAFE_DIR)
+    print("P2X_V2F_SAFE_DIRECTORY_POLICY=" + SAFE_DIRECTORY_POLICY)
     print("P2X_V2F_EXPECTED_NOS3_DESCRIBE=" + NOS3_DESC)
     print("P2X_V2F_EXPECTED_ONAIR_SUBMODULE_DESCRIBE=" + ONAIR_DESC)
     print("P2X_V2F_READ_ONLY_HOST_PROBE=" +
