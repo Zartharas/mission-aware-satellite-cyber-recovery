@@ -46,8 +46,9 @@ def validate_gate() -> dict:
     probe_pass = gate["decision"] == "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED"
     implementation_static = gate["decision"] == "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED"
     build_authorized = gate["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2F_OFFLINE_REBUILD"
+    build_pass = gate["decision"] == "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED"
     require(design_only or probe_authorized or probe_pass or implementation_static or
-            build_authorized, "invalid_decision")
+            build_authorized or build_pass, "invalid_decision")
     require(gate["execution_authorized"] is build_authorized,
             "execution_authorization_state")
     scope = gate["authorization_scope"]
@@ -57,7 +58,7 @@ def validate_gate() -> dict:
     require(scope["read_only_host_probe"] is probe_authorized and
             gate.get("probe_authorized", False) is probe_authorized and
             (gate.get("probe_result") == "PASS"
-             if (probe_pass or implementation_static or build_authorized) else True) and
+             if (probe_pass or implementation_static or build_authorized or build_pass) else True) and
             scope["offline_full_build"] is build_authorized and
             scope["nominal_runtime"] is False and
             scope["cosmos"] is False and
@@ -121,13 +122,14 @@ def self_test() -> None:
     probe_pass = g["decision"] == "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED"
     implementation_static = g["decision"] == "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED"
     build_authorized = g["decision"] == "AUTHOR_EXPLICITLY_APPROVED_V2F_OFFLINE_REBUILD"
+    build_pass = g["decision"] == "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED"
     print("P2X_V2F_EXECUTION_AUTHORIZATION=" +
           ("FULL_BUILD_AUTHORIZED_HOST_ONLY" if build_authorized
            else "FULL_BUILD_CLOSED"))
     print("P2X_V2F_READ_ONLY_HOST_PROBE=" +
           ("AUTHORIZED" if probe_authorized else
            "PASS_RECORDED_CLOSED" if
-           (probe_pass or implementation_static or build_authorized)
+           (probe_pass or implementation_static or build_authorized or build_pass)
            else "NOT_AUTHORIZED"))
     print("P2X_V2F_DOCKER_EXECUTED=NO")
     print("P2X_V2F_BUILD_EXECUTED=NO")
@@ -148,7 +150,8 @@ def inspect() -> None:
            else "PASS_RECORDED_CLOSED" if gate["decision"] in (
                "V2F_READ_ONLY_PROBE_PASS__FULL_BUILD_NOT_AUTHORIZED",
                "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
-               "AUTHOR_EXPLICITLY_APPROVED_V2F_OFFLINE_REBUILD")
+               "AUTHOR_EXPLICITLY_APPROVED_V2F_OFFLINE_REBUILD",
+               "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED")
            else "NOT_AUTHORIZED"))
     print("P2X_V2F_FULL_BUILD=" +
           ("AUTHORIZED_NOT_RUN" if gate["decision"] ==
