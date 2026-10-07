@@ -327,29 +327,37 @@ v2f_builder=(ROOT/"scripts/build_paper2x_phase_a_nos3_v2f.py").read_text()
 v2f_readback=(ROOT/"scripts/verify_paper2x_phase_a_v2f.py").read_text()
 for token in ("mission_vars.cache","GIT_CONFIG_COUNT","GIT_CONFIG_KEY_0",
               "safe.directory","GIT_CONFIG_VALUE_0","/work/nos3",
-              "v1_07_05","v0.0.13-119-gaa5559c","dependency_descriptors"):
+              "git_safe_directory_scope_too_narrow","safe_directories",
+              "components/onair/fsw","v1_07_05","v0.0.13-119-gaa5559c",
+              "dependency_descriptors"):
     chk(token in v2f_desc,"V2F_DESCRIPTOR_HELPER_"+token)
 for forbidden in ("docker run","make build-fsw","run-ci-noop","docker pull","rm -rf"):
     chk(forbidden not in v2f_desc,"V2F_DESCRIPTOR_HELPER_NO_"+forbidden)
 for token in ("--inspect","--self-test","--build",
               "separate_v2f_authorization_absent__no_build",
               "V2F_IMPLEMENTATION_AND_STATIC_VALIDATION_ONLY__FULL_BUILD_NOT_AUTHORIZED",
-              "GIT_CONFIG_COUNT=1","GIT_CONFIG_KEY_0=safe.directory",
-              "GIT_CONFIG_VALUE_0=/work/nos3","configure_and_descriptor",
+              "GIT_CONFIG_COUNT=","safe.directory",
+              "GIT_CONFIG_VALUE_0=/work/nos3","submodule_paths_from_status",
+              "safe_directory_paths","configure_and_descriptor",
               "prebuild_dependency_descriptor_maps_differ",
               "p2xa-nos3-v2f-build-","p2x-v2f-build-manifest.json",
               "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
               "nine_raw_SHA_mismatch_preserve_both_new_builds",
               "verify_paper2x_phase_a_v2f.py","old_v2e_evidence_overwritten",
               "no_runtime_performed","extra_options: list[str] | None",
-              "descriptor_helper_mount_after_image","docker_option_after_image"):
+              "descriptor_helper_mount_after_image","docker_option_after_image",
+              "ROOT_PLUS_ALL_REGISTERED_RECURSIVE_SUBMODULE_WORKTREES",
+              "cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
+              "make --no-print-directory -C fsw/build mission-install",
+              "git_safe_directories"):
     chk(token in v2f_builder,"V2F_BUILDER_"+token)
 for forbidden in ("rm -rf","make clean","scripts/build_nominal_nos3.sh",
                   "run-ci-noop","docker pull"):
     chk(forbidden not in v2f_builder,"V2F_BUILDER_NO_"+forbidden)
 for token in ("p2x-v2f-build-manifest.json",
               "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
-              "git_safe_directory_injected_ephemerally",
+              "git_safe_directory_injected_ephemerally","git_safe_directories",
+              "root_plus_registered_recursive_submodule_worktrees",
               "prebuild_dependency_descriptor_maps_identical",
               "dependency_descriptor_map_sha256","probe_descriptor_map_sha256",
               "preserved_v2e_manifest_sha256","onair_version_not_stabilized",
