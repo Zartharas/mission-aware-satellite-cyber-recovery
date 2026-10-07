@@ -40,8 +40,15 @@ NINE = (
 )
 LOCKS = ("fortytwo-lock.txt", "nominal-build-lock.txt",
          "nominal-runtime-preflight-lock.txt", "nos3-submodule-lock.txt")
-RECIPE = ("bash ./scripts/cfg/config.sh", "make build-fsw",
-          "make build-sim", "make build-cryptolib")
+RECIPE = (
+    "bash ./scripts/cfg/config.sh",
+    "mkdir -p fsw/build",
+    "cd fsw/build && cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
+    "P2X v2f dependency-descriptor gate",
+    "make --no-print-directory -C fsw/build mission-install",
+    "make build-sim",
+    "make build-cryptolib",
+)
 
 
 def deny(reason: str) -> None:
@@ -76,6 +83,31 @@ def seed_value(source: str, obj: str) -> str:
     return "P2X-NOS3-RG-001:v2e:" + hashlib.sha256(
         ("P2X-v2e\x00" + source + "\x00" + obj).encode("utf-8")
     ).hexdigest()
+
+
+def submodule_paths_from_status(text: str) -> list[str]:
+    paths = []
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        parts = line.split()
+        check(len(parts) >= 2, "malformed_submodule_status")
+        rel = parts[1]
+        p = Path(rel)
+        check(not p.is_absolute() and ".." not in p.parts,
+              "unsafe_submodule_path:" + rel)
+        paths.append(rel)
+    check(len(paths) == len(set(paths)), "duplicate_submodule_path")
+    return sorted(paths)
+
+
+def safe_directory_paths(src: Path) -> list[str]:
+    rels = submodule_paths_from_status(git(src, "submodule", "status", "--recursive"))
+    values = ["/work/nos3"] + ["/work/nos3/" + rel for rel in rels]
+    check("/work/nos3/components/onair/fsw" in values,
+          "onair_submodule_not_registered")
+    return values
 
 
 def source_check(src: Path) -> None:
@@ -137,7 +169,11 @@ def main() -> None:
     check(m["image"] == IMAGE and m["platform"] == "linux/amd64" and
           m["network"] == "none" and m["container_workdir"] == "/work/nos3" and
           tuple(m["build_recipe"]) == RECIPE, "image_platform_recipe")
+    expected_safe_dirs = safe_directory_paths(primary)
     check(m["git_safe_directory"] == "/work/nos3" and
+          m["git_safe_directories"] == expected_safe_dirs and
+          m["git_safe_directory_policy"] ==
+          "root_plus_registered_recursive_submodule_worktrees" and
           m["git_safe_directory_injected_ephemerally"] is True and
           m["prebuild_dependency_descriptor_maps_identical"] is True,
           "safe_directory_or_descriptor_gate")
@@ -203,6 +239,8 @@ def main() -> None:
               "descriptor_map_file_hash:" + label)
         descriptor_maps[label] = json.loads(p.read_text(encoding="utf-8"))
         check(descriptor_maps[label]["safe_directory"] == "/work/nos3" and
+              descriptor_maps[label]["safe_directories"] ==
+              safe_directory_paths(primary if label == "primary" else repeat) and
               descriptor_maps[label]["nos3_head"] == PIN and
               descriptor_maps[label]["nos3_describe"] == "v1_07_05" and
               descriptor_maps[label]["onair_submodule_head"] ==
@@ -222,6 +260,7 @@ def main() -> None:
         seen_units, seen_seeds = set(), set()
         log = (evidence / (label + "-build.log")).read_text(encoding="utf-8", errors="replace")
         check("P2X_V2F_SAFE_DIRECTORY=/work/nos3" in log and
+              "P2X_V2F_SAFE_DIRECTORY_COUNT=" in log and
               "[100%] Built target standalone" in log and
               "CFE_SYNTHETIC_BUILDDATE=202610030000" in log and
               "HOSTNAME=p2x-v2e-builder USER=p2x-builder" in log,
