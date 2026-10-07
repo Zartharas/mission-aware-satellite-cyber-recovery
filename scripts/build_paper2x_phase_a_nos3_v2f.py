@@ -48,6 +48,7 @@ BUILD_DATE = "202610030000"
 BUILD_HOST = "p2x-v2e-builder"
 BUILD_USER = "p2x-builder"
 SAFE_DIR = "/work/nos3"
+SAFE_DIRECTORY_POLICY = "ROOT_PLUS_ALL_REGISTERED_RECURSIVE_SUBMODULE_WORKTREES"
 
 BUILD_DIRS = ("cfg/build", "fsw/build", "sims/build", "gsw/build")
 ARTIFACTS = (
