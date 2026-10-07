@@ -349,6 +349,9 @@ for token in ("--inspect","--self-test","--build",
               "ROOT_PLUS_ALL_REGISTERED_RECURSIVE_SUBMODULE_WORKTREES",
               "cmake -DCMAKE_INSTALL_PREFIX=exe -DCMAKE_BUILD_TYPE=debug ../cfe",
               "make --no-print-directory -C fsw/build mission-install",
+              "CFS_APP_PATH=../components","MISSION_DEFS=../cfg/build/",
+              "MISSIONCONFIG=../cfg/build/nos3",
+              "descriptor_gate_not_before_compilation",
               "git_safe_directories"):
     chk(token in v2f_builder,"V2F_BUILDER_"+token)
 for forbidden in ("rm -rf","make clean","scripts/build_nominal_nos3.sh",
