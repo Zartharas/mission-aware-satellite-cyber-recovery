@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Static-only P2X v2f workspace contract auditor. No workspace IO or execution."""
-import argparse
+import sys
 import copy
 import json
 from pathlib import Path, PurePosixPath
@@ -183,16 +183,15 @@ def self_test(c: dict, gate: dict) -> None:
 
 
 def main() -> None:
-    p = argparse.ArgumentParser()
-    p.add_argument("mode", choices=("--inspect", "--self-test", "--materialize",
-                                   "--verify-workspace", "--run"))
-    args = p.parse_args()
-    if args.mode in ("--materialize", "--verify-workspace", "--run"):
+    mode = sys.argv[1:]
+    if mode in (["--materialize"], ["--verify-workspace"], ["--run"]):
         raise SystemExit("P2X_V2F_WORKSPACE_EXECUTION_HOLD=STATIC_DESIGN_ONLY")
+    require(mode in (["--inspect"], ["--self-test"]),
+            "usage:--inspect_or_--self-test__execution_denied")
     c = json.loads(CONTRACT.read_text(encoding="utf-8"))
     gate = json.loads(GATE.read_text(encoding="utf-8"))
     check_contract(c, gate)
-    if args.mode == "--self-test":
+    if mode == ["--self-test"]:
         self_test(c, gate)
     print("P2X_V2F_WORKSPACE_CONTRACT_STATIC=PASS")
     print("P2X_V2F_WORKSPACE_MATERIALIZATION=NOT_AUTHORIZED")
