@@ -433,9 +433,14 @@ chk(runtime_gate["record_id"]==
     "P2X-PHASE-A-V2F-NOMINAL-RUNTIME-QUALIFICATION-GATE-2026-10-07" and
     runtime_gate["experiment_id"]=="P2X-NOS3-RG-001",
     "V2F_RUNTIME_DESIGN_DISTINCT_SCOPE")
-chk(runtime_gate["decision"]==
-    "V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_ONLY__EXECUTION_NOT_AUTHORIZED" and
+runtime_design_only=(runtime_gate["decision"]==
+    "V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_ONLY__EXECUTION_NOT_AUTHORIZED")
+runtime_readback_authorized=(runtime_gate["decision"]==
+    "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_MANIFEST_BINDING")
+chk((runtime_design_only or runtime_readback_authorized) and
     runtime_gate["execution_authorized"] is False and
+    runtime_gate["authorization_scope"]["read_only_manifest_hash_readback"] is
+    runtime_readback_authorized and
     runtime_gate["authorization_scope"]["nominal_runtime_execution"] is False and
     runtime_gate["authorization_scope"]["benign_internal_cfs_noop"] is False and
     runtime_gate["authorization_scope"]["cosmos"] is False and
@@ -445,14 +450,18 @@ chk(runtime_gate["decision"]==
     runtime_gate["authorization_scope"]["merge_pr215"] is False and
     runtime_gate["environment_final_acceptance"] is False,
     "V2F_RUNTIME_DESIGN_SCOPE_FIREWALL")
+expected_runtime_hash_status=(
+    "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK"
+    if runtime_readback_authorized else
+    "PENDING_READ_ONLY_HOST_READBACK")
 chk(runtime_gate["parent_v2f_manifest_sha256"] is None and
     runtime_gate["parent_v2f_manifest_sha256_status"]==
-    "PENDING_READ_ONLY_HOST_READBACK" and
+    expected_runtime_hash_status and
     runtime_gate["parent_v2f_manifest_sha256_required_before_runtime_authorization"] is True,
     "V2F_RUNTIME_MANIFEST_HASH_FAIL_CLOSED")
 runtime_static=(ROOT/"scripts/audit_paper2x_phase_a_v2f_runtime_design.py").read_text()
 for token in ("P2X_V2F_MANIFEST","verify_paper2x_phase_a_v2f.py",
-              "PENDING_READ_ONLY_HOST_READBACK",
+              "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK",
               "LEGACY_V2_BOUND_BLOCKED","EXECUTION_CAPABLE_BLOCKED",
               "P2X_V2F_RUNTIME_EXECUTION=NOT_AUTHORIZED",
               "P2X_V2F_FINAL_ENVIRONMENT_ACCEPTANCE=NO"):
@@ -486,6 +495,7 @@ allowed={
 "paper2x/phase_a/V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json",
 "paper2x/phase_a/V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.json",
 "scripts/audit_paper2x_phase_a_v2f_runtime_design.py",
+"scripts/readback_paper2x_phase_a_v2f_manifest.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/probe_paper2x_v2f_git_metadata.py",
 "scripts/p2x_v2f_descriptor_map.py",
