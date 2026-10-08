@@ -539,7 +539,7 @@ variance_gate=json.loads((D/"V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.j
 variance_proposal=json.loads((D/"V2F_EXACT_55_VARIANCE_DISPOSITION_PROPOSAL_2026-10-08.json").read_text())
 variance_rows=variance_proposal["proposal"]["exact_paths"]
 variance_paths=[r["path"] for r in variance_rows]
-variance_bytes=("\\n".join(variance_paths)+"\\n").encode("utf-8")
+variance_bytes=("\n".join(variance_paths)+"\n").encode("utf-8")
 variance_source=variance_proposal["source"]
 chk(variance_gate["v2f_55_variance_disposition_status"]==
     "STATIC_CONDITIONAL_PROPOSAL__EXCLUSIONS_NOT_AUTHORIZED" and
