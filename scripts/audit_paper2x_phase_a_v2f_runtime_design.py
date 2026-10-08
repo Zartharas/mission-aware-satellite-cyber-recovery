@@ -14,6 +14,8 @@ GATE = D / "V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.json"
 V2F_GATE = D / "V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json"
 NOMINAL = ROOT / "scripts" / "run_paper2x_phase_a_nominal.sh"
 PREFLIGHT = ROOT / "scripts" / "run_nominal_runtime_preflight.sh"
+CANDIDATE = ROOT / "scripts" / "p2x_v2f_nominal_runtime_candidate.py"
+DESIGN = D / "V2F_NOMINAL_RUNTIME_LAUNCHER_DESIGN_2026-10-08.md"
 READBACK = ROOT / "scripts" / "readback_paper2x_phase_a_v2f_manifest.py"
 
 EXPECTED_MANIFEST_SHA256 = "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee"
@@ -37,6 +39,8 @@ def audit() -> None:
     nominal = NOMINAL.read_text(encoding="utf-8")
     preflight = PREFLIGHT.read_text(encoding="utf-8")
     readback = READBACK.read_text(encoding="utf-8")
+    candidate = CANDIDATE.read_text(encoding="utf-8")
+    design = DESIGN.read_text(encoding="utf-8")
 
     require(gate["record_id"] ==
             "P2X-PHASE-A-V2F-NOMINAL-RUNTIME-QUALIFICATION-GATE-2026-10-07",
@@ -161,6 +165,39 @@ def audit() -> None:
                       "shell=True", ".write_text(", ".unlink(", ".mkdir("):
         require(forbidden not in readback,
                 "readback_not_read_only:" + forbidden)
+
+    plan = gate["nominal_launcher_candidate"]
+    require(gate["nominal_launcher_design_status"] ==
+            "STATIC_CANDIDATE_PREPARED__NOT_EXECUTABLE" and
+            gate["nominal_launcher_design_candidate"] ==
+            "scripts/p2x_v2f_nominal_runtime_candidate.py" and
+            plan["candidate_mode"] == "STATIC_INSPECT_AND_SELF_TEST_ONLY" and
+            plan["runtime_execution_entrypoint"] ==
+            "UNIMPLEMENTED_AND_HARD_DENIED" and
+            plan["parent_manifest_sha256"] == EXPECTED_MANIFEST_SHA256 and
+            plan["legacy_canonical_nos3_mount_forbidden"] is True and
+            plan["direct_preserved_build_evidence_runtime_mount_forbidden"] is True and
+            plan["require_separately_materialized_fresh_runtime_workspace"] is True and
+            plan["runtime_workspace_materialization_implemented"] is False and
+            plan["runtime_workspace_independent_validation_implemented"] is False and
+            plan["runtime_launcher_v2f_binding_implemented"] is False and
+            plan["runtime_authorized"] is False,
+            "nominal_candidate_not_static_and_closed")
+    for token in ("P2X_V2F_NOMINAL_RUNTIME_HOLD=",
+                  "not_implemented__separate_authorization_required",
+                  "P2X_V2F_RUNTIME_WORKSPACE=NOT_MATERIALIZED",
+                  "P2X_V2F_LEGACY_V2_RUNNER=BLOCKED",
+                  "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED",
+                  EXPECTED_MANIFEST_SHA256):
+        require(token in candidate, "nominal_candidate_missing:" + token)
+    for forbidden in ("import subprocess", "import os", "docker run",
+                      "docker network", "os.system", "subprocess.",
+                      "run_nominal_runtime_preflight.sh", ".write_text(",
+                      ".mkdir(", "P2X_V2_MANIFEST"):
+        require(forbidden not in candidate, "candidate_execution_risk:" + forbidden)
+    for token in ("primary/source", "separate fresh", "21 NOS3/42/cFS",
+                  "internal-only", "not runtime authorization"):
+        require(token.lower() in design.lower(), "design_contract_missing:" + token)
 
     require(gate["runtime_execution_result"] == "NOT_RUN" and
             gate["cosmos_result"] == "NOT_RUN" and

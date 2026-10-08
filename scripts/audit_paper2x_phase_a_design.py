@@ -486,6 +486,21 @@ chk(runtime_test.returncode==0 and
     "P2X_V2F_NOMINAL_PREFLIGHT=EXECUTION_CAPABLE_BLOCKED" in runtime_test.stdout and
     "P2X_V2F_RUNTIME_EXECUTION=NOT_AUTHORIZED" in runtime_test.stdout,
     "V2F_RUNTIME_STATIC_SELF_TEST:"+runtime_test.stderr[:180])
+candidate_source=(ROOT/"scripts/p2x_v2f_nominal_runtime_candidate.py").read_text()
+chk("import subprocess" not in candidate_source and
+    "docker run" not in candidate_source and
+    "run_nominal_runtime_preflight.sh" not in candidate_source,
+    "V2F_NOMINAL_CANDIDATE_NO_EXECUTION_CODE")
+for mode,expected_rc,marker in (
+    ("--self-test",0,"P2X_V2F_NOMINAL_CANDIDATE_STATIC=PASS"),
+    ("--run",1,"P2X_V2F_NOMINAL_RUNTIME_HOLD=not_implemented__separate_authorization_required")):
+    test=subprocess.run(
+        ["python3",str(ROOT/"scripts/p2x_v2f_nominal_runtime_candidate.py"),mode],
+        capture_output=True,text=True,cwd=ROOT)
+    chk((test.returncode==0 if expected_rc==0 else test.returncode!=0) and
+        marker in test.stdout+test.stderr,
+        "V2F_NOMINAL_CANDIDATE_"+mode+":"+test.stderr[:180])
+print("P2X_V2F_NOMINAL_RUNTIME_CANDIDATE_STATIC_AND_DENIAL=PASS")
 print("P2X_V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
 
 wf=(ROOT/".github/workflows/validate-research-configs.yml").read_text()
@@ -504,6 +519,8 @@ allowed={
 "paper2x/phase_a/V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json",
 "paper2x/phase_a/V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.json",
 "scripts/audit_paper2x_phase_a_v2f_runtime_design.py",
+"scripts/p2x_v2f_nominal_runtime_candidate.py",
+"paper2x/phase_a/V2F_NOMINAL_RUNTIME_LAUNCHER_DESIGN_2026-10-08.md",
 "scripts/readback_paper2x_phase_a_v2f_manifest.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/probe_paper2x_v2f_git_metadata.py",
