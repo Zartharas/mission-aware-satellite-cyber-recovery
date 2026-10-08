@@ -1,6 +1,6 @@
 # P2X v2f runtime workspace — materialization and independent verification design
 
-**Status:** `STATIC_DESIGN_ONLY__MATERIALIZATION_NOT_AUTHORIZED`. The sole author authorized the contract/design after exact-head workflow **#1419 SUCCESS** on `639d2c89ff922b0c746f4101cbf6f1338bdeb66d`. No workspace has been created or copied; no runtime started.
+**Status:** `STATIC_DESIGN_ONLY__MATERIALIZATION_NOT_AUTHORIZED`. The sole author authorized the contract/design after exact-head workflow **#1419 SUCCESS** on `639d2c89ff922b0c746f4101cbf6f1338bdeb66d`. No workspace has been created or copied; no runtime started. This is **not runtime authorization**, and no full runtime dependency closure is claimed.
 
 ## Parent binding (read-only source authority)
 
