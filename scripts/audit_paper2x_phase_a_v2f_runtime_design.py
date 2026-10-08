@@ -14,6 +14,7 @@ GATE = D / "V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.json"
 V2F_GATE = D / "V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json"
 NOMINAL = ROOT / "scripts" / "run_paper2x_phase_a_nominal.sh"
 PREFLIGHT = ROOT / "scripts" / "run_nominal_runtime_preflight.sh"
+READBACK = ROOT / "scripts" / "readback_paper2x_phase_a_v2f_manifest.py"
 
 EXPECTED_HEAD = "8f5faef3830646eae065e8210216a2ed4301316c"
 EXPECTED_EVIDENCE = "p2xa-nos3-v2f-build-20261007T185149Z-a61cae46f1"
@@ -34,22 +35,31 @@ def audit() -> None:
     v2f = json.loads(V2F_GATE.read_text(encoding="utf-8"))
     nominal = NOMINAL.read_text(encoding="utf-8")
     preflight = PREFLIGHT.read_text(encoding="utf-8")
+    readback = READBACK.read_text(encoding="utf-8")
 
     require(gate["record_id"] ==
             "P2X-PHASE-A-V2F-NOMINAL-RUNTIME-QUALIFICATION-GATE-2026-10-07",
             "wrong_runtime_gate")
     require(gate["experiment_id"] == "P2X-NOS3-RG-001",
             "wrong_experiment")
-    require(gate["decision"] ==
-            "V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_ONLY__EXECUTION_NOT_AUTHORIZED",
-            "runtime_gate_not_design_only")
+    design_only = gate["decision"] == (
+        "V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_ONLY__EXECUTION_NOT_AUTHORIZED"
+    )
+    readback_authorized = gate["decision"] == (
+        "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_MANIFEST_BINDING"
+    )
+    require(design_only or readback_authorized,
+            "runtime_gate_invalid_state")
     require(gate["execution_authorized"] is False,
             "runtime_execution_authorized")
+    require(gate.get("read_only_manifest_binding_authorized", False)
+            is readback_authorized,
+            "read_only_binding_authorization_state")
 
     scope = gate["authorization_scope"]
     require(scope["runtime_design"] is True and
             scope["static_validation"] is True and
-            scope["read_only_manifest_hash_readback"] is False and
+            scope["read_only_manifest_hash_readback"] is readback_authorized and
             scope["nominal_runtime_execution"] is False and
             scope["benign_internal_cfs_noop"] is False and
             scope["cosmos"] is False and
@@ -86,9 +96,13 @@ def audit() -> None:
             "artifacts/runtime/" + EXPECTED_EVIDENCE +
             "/p2x-v2f-build-manifest.json",
             "manifest_path_drift")
+    expected_hash_status = (
+        "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK"
+        if readback_authorized else
+        "PENDING_READ_ONLY_HOST_READBACK"
+    )
     require(gate["parent_v2f_manifest_sha256"] is None and
-            gate["parent_v2f_manifest_sha256_status"] ==
-            "PENDING_READ_ONLY_HOST_READBACK" and
+            gate["parent_v2f_manifest_sha256_status"] == expected_hash_status and
             gate["parent_v2f_manifest_sha256_required_before_runtime_authorization"]
             is True,
             "manifest_hash_fail_closed")
@@ -118,6 +132,20 @@ def audit() -> None:
             "NOMINAL_RUNTIME_PREFLIGHT_STATUS=PASS" in preflight,
             "preflight_execution_capability_not_detected")
 
+    for token in ("P2X_V2F_MANIFEST_READBACK=PASS",
+                  "P2X_V2F_MANIFEST_SHA256=",
+                  "verify_paper2x_phase_a_v2f.py",
+                  "P2X_V2F_RUNTIME_EXECUTED=NO",
+                  "P2X_V2F_FINAL_ENVIRONMENT_ACCEPTANCE=NO"):
+        require(token in readback, "readback_contract_missing:" + token)
+    for forbidden in ("docker run", "docker network",
+                      "run_nominal_runtime_preflight.sh",
+                      "run_paper2x_phase_a_nominal.sh",
+                      "cleanup_nominal_runtime.sh",
+                      "shell=True", ".write_text(", ".unlink(", ".mkdir("):
+        require(forbidden not in readback,
+                "readback_not_read_only:" + forbidden)
+
     require(gate["runtime_execution_result"] == "NOT_RUN" and
             gate["cosmos_result"] == "NOT_RUN" and
             gate["fault_campaign_result"] == "NOT_RUN" and
@@ -127,7 +155,9 @@ def audit() -> None:
 
     print("P2X_V2F_RUNTIME_DESIGN_GATE=PASS")
     print("P2X_V2F_PARENT_BUILD_9_OF_9=BOUND")
-    print("P2X_V2F_MANIFEST_SHA256=PENDING_READ_ONLY_HOST_READBACK")
+    print("P2X_V2F_MANIFEST_SHA256=" + expected_hash_status)
+    print("P2X_V2F_MANIFEST_READBACK_AUTHORIZATION=" +
+          ("AUTHORIZED_READ_ONLY_HOST_ONLY" if readback_authorized else "CLOSED"))
     print("P2X_V2F_CURRENT_NOMINAL_RUNNER=LEGACY_V2_BOUND_BLOCKED")
     print("P2X_V2F_NOMINAL_PREFLIGHT=EXECUTION_CAPABLE_BLOCKED")
     print("P2X_V2F_RUNTIME_EXECUTION=NOT_AUTHORIZED")
