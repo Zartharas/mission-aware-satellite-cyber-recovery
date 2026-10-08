@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "record_id": "P2X-PHASE-A-V2E-OFFLINE-BUILD-EXECUTION-GATE-2026-10-03",
+  "experiment_id": "P2X-NOS3-RG-001",
+  "decision": "V2E_EXECUTED_HOLD__V2F_NOT_AUTHORIZED",
+  "execution_authorized": false,
+  "author_review_required": true,
+  "author_authorization_date": "2026-10-05",
+  "authorization_basis": "The separately authorized v2e dual offline build was executed once at 694067405c7d964265f786ade4d266ba51519866 and preserved a strict 8/9 raw-byte HOLD.",
+  "host_static_checkpoint_head": "fe9cc39bffe000b64e7a93080f74ba0c4f8aa4ed",
+  "host_static_checkpoint": "PASS",
+  "authorized_source_proposal": "paper2x/phase_a/DETERMINISTIC_V2E_REBUILD_PROPOSAL_2026-10-03.md",
+  "executed_authorization_head": "694067405c7d964265f786ade4d266ba51519866",
+  "executed_evidence_id": "p2xa-nos3-v2e-build-20261005T141959Z-7c8ceaa570",
+  "executed_manifest_sha256": "25c2b15b5344f8c05dde8c4b85881571859d8601d15d972c6908978ecbfa5938",
+  "executed_result": "BUILD_BYTE_REPRODUCTION_HOLD",
+  "preexisting_v2_hold_must_remain": true,
+  "authorization_scope": {
+    "v2e_implementation": true,
+    "static_validation": true,
+    "offline_full_build": false,
+    "nominal_runtime": false,
+    "cosmos": false,
+    "faults": false,
+    "merge_pr215": false
+  },
+  "evidence_status": "V2E_8_OF_9_HOLD_PRESERVED__SAFE_DIRECTORY_ROOT_CAUSE_UNDER_DIAGNOSIS__V2F_NOT_AUTHORIZED",
+  "environment_final_acceptance": false
+}

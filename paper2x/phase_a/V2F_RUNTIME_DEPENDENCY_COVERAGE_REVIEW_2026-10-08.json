@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "record_id": "P2X-V2F-RUNTIME-DEPENDENCY-AND-MATERIALIZER-VERIFIER-STATIC-REVIEW-2026-10-08",
+  "experiment_id": "P2X-NOS3-RG-001",
+  "classification": "STATIC_SOURCE_CODE_REVIEW_ONLY__NO_WORKSPACE_PROOF",
+  "authority": {
+    "reviewed_head": "98b57564c6f448299b63584e32dc0aeabb023725",
+    "validated_workflow_run": 1422,
+    "validated_workflow_run_id": 37796520897,
+    "v2f_executed_head": "8f5faef3830646eae065e8210216a2ed4301316c",
+    "evidence_id": "p2xa-nos3-v2f-build-20261007T185149Z-a61cae46f1",
+    "manifest_sha256": "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee",
+    "qualified_raw_artifacts": 9,
+    "runtime_tested": false
+  },
+  "inventory_coverage": "CANDIDATE_DEPENDENCY_CLASSES_IDENTIFIED__ACTUAL_FRESH_WORKSPACE_INVENTORY_NOT_COLLECTED",
+  "runtime_dependency_closure": "UNRESOLVED",
+  "reviewed_sources": [
+    "scripts/run_nominal_runtime_preflight.sh",
+    "scripts/run_paper2x_phase_a_nominal.sh",
+    "scripts/nos3_runtime_material.py",
+    "scripts/verify_paper2x_phase_a_v2f.py",
+    "paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_CONTRACT_2026-10-08.json"
+  ],
+  "qualified_nine_artifacts": [
+    "cfg/build/launch.sh",
+    "fsw/build/exe/cpu1/core-cpu1",
+    "sims/build/bin/nos3-single-simulator",
+    "sims/build/bin/nos3-sim-cmdbus-bridge",
+    "gsw/build/support/standalone",
+    "cfg/build/InOut/Inp_Sim.txt",
+    "cfg/build/InOut/Inp_IPC.txt",
+    "sims/build/bin/nos_engine_server_config.json",
+    "sims/build/bin/nos3-simulator.xml"
+  ],
+  "dependency_classes": [
+    {
+      "id": "NINE_RAW_BUILD_OUTPUTS",
+      "source_scope": "PRESERVED_PRIMARY_NOS3",
+      "path_examples": [
+        "cfg/build/launch.sh",
+        "fsw/build/exe/cpu1/core-cpu1",
+        "sims/build/bin/nos3-single-simulator",
+        "sims/build/bin/nos3-sim-cmdbus-bridge",
+        "gsw/build/support/standalone",
+        "cfg/build/InOut/Inp_Sim.txt",
+        "cfg/build/InOut/Inp_IPC.txt",
+        "sims/build/bin/nos_engine_server_config.json",
+        "sims/build/bin/nos3-simulator.xml"
+      ],
+      "requirement": "Nine raw paths match across primary/repeat; this alone does not establish runtime dependency closure.",
+      "source_trace": "scripts/verify_paper2x_phase_a_v2f.py",
+      "coverage": "RAW_BUILD_9_OF_9_ONLY",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "SIMULATOR_LIBRARIES_AND_NON_NINE_BINARIES",
+      "source_scope": "PRESERVED_PRIMARY_NOS3",
+      "path_examples": [
+        "sims/build/lib",
+        "sims/build/bin"
+      ],
+      "requirement": "Enumerate every dynamically linked simulator library and executable/resource beyond the nine; fail on unclassified files.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh; scripts/nos3_runtime_material.py",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "CFS_RUNTIME_LIBRARIES_TABLES_CONFIG",
+      "source_scope": "PRESERVED_PRIMARY_NOS3",
+      "path_examples": [
+        "fsw/build/exe/cpu1"
+      ],
+      "requirement": "Enumerate libraries, cf/ and data/ directories, table files, cFS config and runtime-writable subpaths; establish writable overlay rather than mutating frozen input.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh; scripts/nos3_runtime_material.py",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "NOS3_CONFIGURATION_RESOURCES",
+      "source_scope": "PRESERVED_PRIMARY_NOS3",
+      "path_examples": [
+        "cfg/build/InOut",
+        "sims/build/bin/nos3-simulator.xml",
+        "sims/build/bin/nos_engine_server_config.json"
+      ],
+      "requirement": "Inventory all input and auxiliary files and validate semantics for exact runtime topology; nine verified paths do not prove all referenced resources.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "CRYPTO_STANDALONE_RUNTIME_SUPPORT",
+      "source_scope": "PRESERVED_PRIMARY_NOS3",
+      "path_examples": [
+        "gsw/build"
+      ],
+      "requirement": "Account for standalone executable, shared libraries, runtime inputs and any unexpected generated files; no inference from its binary alone.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "FORTYTWO_FROZEN_BINARY_AND_SUPPORT",
+      "source_scope": "PINNED_FORTYTWO",
+      "path_examples": [
+        "42"
+      ],
+      "requirement": "Verify commit and frozen executable hash; enumerate companion runtime resources before copying into separate run-scoped tree.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "FORTYTWO_INOUT_DERIVATION",
+      "source_scope": "DERIVED_RUN_SCOPED",
+      "path_examples": [
+        "cfg/build/InOut/Inp_Sim.txt",
+        "cfg/build/InOut/Inp_IPC.txt"
+      ],
+      "requirement": "Derive headless Inp_Sim in a separate run-scoped InOut directory; record base hash, deterministic textual delta, output hash and IPC sequence; do not edit build artifacts.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "ENGINE_AND_CONTAINER_RUNTIME",
+      "source_scope": "PINNED_OCI_IMAGE",
+      "path_examples": [
+        "/usr/bin/nos_engine_server_standalone",
+        "/usr/lib",
+        "/usr/local/lib"
+      ],
+      "requirement": "Bind exact OCI digest and verify execution-time image contents, arch, dynamic link closure, user and filesystem mounts rather than inventing host source paths.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "INTERPROCESS_IPC_AND_NETWORK",
+      "source_scope": "RUNTIME_CONTRACT_ONLY",
+      "path_examples": [
+        "nos_engine_server_config.json",
+        "Inp_IPC.txt"
+      ],
+      "requirement": "Inventory internal-network aliases, TCP listeners including truth 9999 and radio 8010, cFS UDP 5012, startup sequencing and no host-published ports; no execution under this review.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh; scripts/run_paper2x_phase_a_nominal.sh",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "FILESYSTEM_METADATA_AND_SUBMODULES",
+      "source_scope": "PRESERVED_PRIMARY_NOS3",
+      "path_examples": [
+        "."
+      ],
+      "requirement": "Survey full recursive file tree with bytes, type, size, mode, symlink targets, nlink and .git metadata; reject escapes, special files and outside-tree gitdirs, and do not transplant legacy exclusions.",
+      "source_trace": "scripts/nos3_runtime_material.py; scripts/verify_paper2x_phase_a_v2f.py",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    },
+    {
+      "id": "EVIDENCE_LOGGING_AND_RUN_MUTATIONS",
+      "source_scope": "DERIVED_RUN_SCOPED",
+      "path_examples": [
+        "artifacts/runtime"
+      ],
+      "requirement": "Define separately writable logs, temp files, cFS persistence and cleanup by exact run label; no source hardlinks, no direct frozen mounts, no ambiguous deletion.",
+      "source_trace": "scripts/run_nominal_runtime_preflight.sh; scripts/cleanup_nominal_runtime.sh",
+      "coverage": "UNVERIFIED",
+      "runtime_observed": false,
+      "workspace_inventory_collected": false
+    }
+  ],
+  "legacy_materializer": {
+    "status": "NOT_V2F_AUTHORIZED_OR_BOUND",
+    "source_roots_historical_canonical_nos3": true,
+    "july_exclusions_not_adopted": true,
+    "reuse_without_exact_v2f_review_forbidden": true
+  },
+  "future_materializer_design": {
+    "status": "INTERFACE_DESIGN_ONLY__NO_EXECUTABLE_IMPLEMENTATION",
+    "required_phases": [
+      "AUTHOR_APPROVAL_BEFORE_ANY_HOST_INVENTORY_OR_COPY",
+      "REVALIDATE_PARENT_MANIFEST_SHA_AND_INDEPENDENT_NINE_RAW_ARTIFACT_READBACK",
+      "READ_ONLY_COMPLETE_RECURSIVE_INVENTORY_OF_PRIMARY_REPEAT_AND_FORTYTWO",
+      "RESOLVE_EXACT_INCLUDE_EXCLUDE_PATHS_AND_RUNTIME_DEPENDENCY_CLOSURE",
+      "EXCLUSIVE_CREATE_RUN_SCOPED_STAGE_ON_SAME_FILESYSTEM_AS_FINAL",
+      "NO_FOLLOW_COPY_SOURCE_AND_FORTYTWO_INDEPENDENTLY_NO_HARDLINKS",
+      "VERIFY_BEFORE_ATOMIC_PUBLICATION_THEN_INDEPENDENT_POST_PUBLICATION_READBACK",
+      "PROVE_ORIGINAL_FROZEN_EVIDENCE_UNCHANGED"
+    ],
+    "output_manifest_fields": [
+      "schema",
+      "experiment_id",
+      "parent_sha256",
+      "evidence_id",
+      "run_id",
+      "source_root",
+      "destination_relative",
+      "entry_type",
+      "size_bytes",
+      "mode",
+      "sha256",
+      "symlink_target",
+      "nlink",
+      "exclusion_reason",
+      "derivation_parent_sha256",
+      "derivation_output_sha256",
+      "manifest_sha256_detached"
+    ],
+    "preserve_binary_build_artifacts": true,
+    "unsupported_file_class_fail_closed": true,
+    "casefold_unicode_collision_guard": true,
+    "allow_implicit_exclusion": false,
+    "allow_source_hardlink_alias": false,
+    "publish_before_independent_check": false,
+    "source_inventory_emitted": false,
+    "workspace_materialized": false
+  },
+  "future_independent_verifier_design": {
+    "status": "INDEPENDENT_VERIFIER_NOT_IMPLEMENTED",
+    "separate_implementation_required": true,
+    "inspect_manifest_bytes_and_pins": true,
+    "rewalk_source_and_destination_with_no_symlink_follow": true,
+    "verify_complete_file_type_mode_size_sha": true,
+    "compare_entire_included_set_and_explicit_exclusions": true,
+    "detect_duplicate_unicode_casefold_and_prefix_collisions": true,
+    "reject_hardlink_alias_to_source": true,
+    "reject_symlink_outside_destination_root": true,
+    "reject_any_unlisted_or_missing_destination_entry": true,
+    "compare_pre_and_post_protected_evidence_hashes": true,
+    "verify_fortytwo_binary_and_headless_derivation_provenance": true,
+    "validate_runtime_dependency_closure_separately_from_nine_build_artifacts": true,
+    "fail_on_unreviewed_variance": true,
+    "results_observed": false,
+    "negative_controls_required": [
+      "manifest_sha_mismatch",
+      "nine_artifact_digest_tampered",
+      "extra_destination_file",
+      "missing_destination_file",
+      "mode_mismatch",
+      "symlink_escape",
+      "source_destination_hardlink",
+      "unapproved_exclusion",
+      "unicode_case_collision",
+      "fortytwo_hash_mismatch",
+      "headless_derivation_unrecorded",
+      "source_modified_after_copy",
+      "runtime_dependency_unresolved",
+      "workspace_already_exists"
+    ]
+  },
+  "authorization_scope": {
+    "design_review": true,
+    "static_validation": true,
+    "host_inventory_capture": false,
+    "workspace_materialization": false,
+    "workspace_verification_execution": false,
+    "nominal_runtime": false,
+    "benign_noop": false,
+    "cosmos": false,
+    "faults": false,
+    "scientific_observations": false,
+    "final_environment_acceptance": false,
+    "merge_pr215": false
+  }
+}

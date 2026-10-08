@@ -137,8 +137,22 @@ jobs:
           )
           git worktree remove "$R4_WORKTREE"
 
-      - name: Audit prospective Paper 2 NOS3 recovery-gate design (no execution)
-        run: python scripts/audit_paper2x_design.py
+      - name: Audit historical Paper 2 P2X design at exact approved head
+        run: |
+          D_HEAD="b23f2785c3168ecb228098fa641412589cef9d86"
+          D_WORKTREE="$RUNNER_TEMP/paper2x-design-historical-audit"
+          git cat-file -e "$D_HEAD^{commit}"
+          git worktree add --detach "$D_WORKTREE" "$D_HEAD"
+          (
+            cd "$D_WORKTREE"
+            python scripts/audit_paper2x_design.py
+          )
+          git worktree remove "$D_WORKTREE"
+
+      - name: Audit authorized P2X Phase A host runner scope (static only)
+        run: |
+          python scripts/audit_paper2x_phase_a_design.py
+          python scripts/verify_paper2x_phase_a_evidence.py --check-template
 
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py

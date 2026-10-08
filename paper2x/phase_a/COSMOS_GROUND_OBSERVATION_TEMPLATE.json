@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "experiment_id": "P2X-NOS3-RG-001",
+  "classification": "COSMOS_GROUND_EVIDENCE_OPERATOR_RECORD_NOT_YET_OBSERVED",
+  "session_id": null,
+  "observed_utc": null,
+  "pin_nos3": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+  "ground": {
+    "ground_system": "COSMOS4_on_pinned_NOS3",
+    "radio_target": "CFS_RADIO",
+    "enable_output_command": "TO_ENABLE_OUTPUT",
+    "dest_ip": "radio_sim",
+    "dest_port": 5011,
+    "noop_target": "CFS_RADIO",
+    "noop_command": "CFE_ES_NOOP",
+    "telemetry_target": "CFS_RADIO",
+    "telemetry_counter_field": "CMDCOUNTER",
+    "radio_tx_bytes_before": null,
+    "radio_tx_bytes_after": null,
+    "radio_rx_bytes_before": null,
+    "radio_rx_bytes_after": null,
+    "counter_before": null,
+    "counter_after": null,
+    "cfs_console_event_observed": null
+  },
+  "evidence_files": {
+    "cosmos_before": "cosmos_before.png",
+    "cosmos_after": "cosmos_after.png",
+    "cosmos_radio_txrx": "cosmos_radio_txrx.png",
+    "cfs_console": "cfs_console_noop.png",
+    "ground_command_log": "cosmos_commands.txt"
+  },
+  "scope": {
+    "fault_injection": false,
+    "primary_scientific_results": false,
+    "independent_visual_review_completed": false
+  }
+}
