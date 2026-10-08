@@ -17,6 +17,9 @@ PREFLIGHT = ROOT / "scripts" / "run_nominal_runtime_preflight.sh"
 CANDIDATE = ROOT / "scripts" / "p2x_v2f_nominal_runtime_candidate.py"
 DESIGN = D / "V2F_NOMINAL_RUNTIME_LAUNCHER_DESIGN_2026-10-08.md"
 READBACK = ROOT / "scripts" / "readback_paper2x_phase_a_v2f_manifest.py"
+WORKSPACE_CONTRACT = D / "V2F_RUNTIME_WORKSPACE_MATERIALIZATION_CONTRACT_2026-10-08.json"
+WORKSPACE_DESIGN = D / "V2F_RUNTIME_WORKSPACE_MATERIALIZATION_DESIGN_2026-10-08.md"
+WORKSPACE_AUDITOR = ROOT / "scripts" / "audit_paper2x_v2f_workspace_contract.py"
 
 EXPECTED_MANIFEST_SHA256 = "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee"
 EXPECTED_HEAD = "8f5faef3830646eae065e8210216a2ed4301316c"
@@ -41,6 +44,9 @@ def audit() -> None:
     readback = READBACK.read_text(encoding="utf-8")
     candidate = CANDIDATE.read_text(encoding="utf-8")
     design = DESIGN.read_text(encoding="utf-8")
+    workspace = json.loads(WORKSPACE_CONTRACT.read_text(encoding="utf-8"))
+    workspace_design = WORKSPACE_DESIGN.read_text(encoding="utf-8")
+    workspace_auditor = WORKSPACE_AUDITOR.read_text(encoding="utf-8")
 
     require(gate["record_id"] ==
             "P2X-PHASE-A-V2F-NOMINAL-RUNTIME-QUALIFICATION-GATE-2026-10-07",
@@ -198,6 +204,41 @@ def audit() -> None:
     for token in ("primary/source", "separate fresh", "21 NOS3/42/cFS",
                   "internal-only", "not runtime authorization"):
         require(token.lower() in design.lower(), "design_contract_missing:" + token)
+
+    require(gate["runtime_workspace_design_status"] ==
+            "STATIC_CONTRACT_ONLY__NO_WORKSPACE_CREATED" and
+            gate["runtime_workspace_design_parent_head"] ==
+            "639d2c89ff922b0c746f4101cbf6f1338bdeb66d" and
+            gate["runtime_workspace_contract"] ==
+            "paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_CONTRACT_2026-10-08.json" and
+            gate["runtime_workspace_static_validator"] ==
+            "scripts/audit_paper2x_v2f_workspace_contract.py" and
+            gate["runtime_workspace_materialization_authorized"] is False and
+            gate["runtime_workspace_materialized"] is False and
+            gate["runtime_workspace_independent_verification_implemented"] is False and
+            gate["runtime_workspace_independent_verification_executed"] is False and
+            gate["runtime_workspace_runtime_authorized"] is False and
+            gate["runtime_workspace_evidence_id"] is None and
+            gate["runtime_workspace_sha256"] is None,
+            "workspace_design_firewall")
+    require(workspace["classification"] ==
+            "STATIC_DESIGN_ONLY__MATERIALIZATION_NOT_AUTHORIZED" and
+            workspace["provenance"]["manifest_sha256"] ==
+            EXPECTED_MANIFEST_SHA256 and
+            workspace["required_fresh_workspace_inventory"]["runtime_dependency_closure_status"] ==
+            "UNRESOLVED" and
+            workspace["future_workspace"]["materialization_performed"] is False and
+            workspace["independent_verification_contract"]["proof_observed"] is False,
+            "workspace_static_contract_binding")
+    for item in ("No workspace has been created", "complete recursive",
+                 "UNRESOLVED", "NOT IMPLEMENTED", "not runtime authorization"):
+        require(item.lower() in workspace_design.lower(),
+                "workspace_design_missing:" + item)
+    for item in ("P2X_V2F_WORKSPACE_EXECUTION_HOLD=STATIC_DESIGN_ONLY",
+                 "P2X_V2F_WORKSPACE_MATERIALIZATION=NOT_AUTHORIZED",
+                 "P2X_V2F_INDEPENDENT_WORKSPACE_VERIFICATION=NOT_EXECUTED",
+                 "P2X_V2F_WORKSPACE_CONTRACT_NEGATIVE_CONTROLS=PASS"):
+        require(item in workspace_auditor, "workspace_auditor_missing:" + item)
 
     require(gate["runtime_execution_result"] == "NOT_RUN" and
             gate["cosmos_result"] == "NOT_RUN" and

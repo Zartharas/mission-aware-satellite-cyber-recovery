@@ -29,7 +29,11 @@
     "V2F_SPECIFIC_NOMINAL_RUNTIME_LAUNCHER_EXECUTION_PATH_NOT_IMPLEMENTED",
     "FRESH_RUNTIME_WORKSPACE_MATERIALIZATION_AND_INDEPENDENT_VERIFICATION_NOT_IMPLEMENTED",
     "LEGACY_PREFLIGHT_HARDCODES_CANONICAL_EXTERNAL_NOS3_AND_MUTABLE_RUNTIME_MOUNTS",
-    "SEPARATE_EXPLICIT_AUTHOR_RUNTIME_EXECUTION_AUTHORIZATION_ABSENT"
+    "SEPARATE_EXPLICIT_AUTHOR_RUNTIME_EXECUTION_AUTHORIZATION_ABSENT",
+    "RUNTIME_WORKSPACE_MATERIALIZATION_CONTRACT_STATIC_ONLY_NOT_IMPLEMENTED",
+    "RUNTIME_DEPENDENCY_CLOSURE_NOT_ESTABLISHED",
+    "INDEPENDENT_WORKSPACE_VERIFIER_NOT_IMPLEMENTED_OR_RUN",
+    "NO_AUTHOR_AUTHORIZATION_TO_MATERIALIZE_OR_EXECUTE"
   ],
   "required_future_v2f_runtime_binding": {
     "manifest_environment_variable": "P2X_V2F_MANIFEST",
@@ -100,5 +104,18 @@
     "prospective_network": "INTERNAL_ONLY_NO_HOST_PORTS",
     "requested_runtime_stages": "DESIGN_ONLY",
     "runtime_authorized": false
-  }
+  },
+  "runtime_workspace_design_status": "STATIC_CONTRACT_ONLY__NO_WORKSPACE_CREATED",
+  "runtime_workspace_design_parent_head": "639d2c89ff922b0c746f4101cbf6f1338bdeb66d",
+  "runtime_workspace_design_authorization_scope": "SOLE_AUTHOR_APPROVED_STATIC_WORKSPACE_MATERIALIZATION_AND_INDEPENDENT_VERIFICATION_CONTRACT",
+  "runtime_workspace_contract": "paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_CONTRACT_2026-10-08.json",
+  "runtime_workspace_design_document": "paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_DESIGN_2026-10-08.md",
+  "runtime_workspace_static_validator": "scripts/audit_paper2x_v2f_workspace_contract.py",
+  "runtime_workspace_materialization_authorized": false,
+  "runtime_workspace_materialized": false,
+  "runtime_workspace_independent_verification_implemented": false,
+  "runtime_workspace_independent_verification_executed": false,
+  "runtime_workspace_runtime_authorized": false,
+  "runtime_workspace_evidence_id": null,
+  "runtime_workspace_sha256": null
 }

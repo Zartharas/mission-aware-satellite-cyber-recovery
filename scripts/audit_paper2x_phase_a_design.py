@@ -508,6 +508,27 @@ for mode,expected_rc,marker in (
     chk((test.returncode==0 if expected_rc==0 else test.returncode!=0) and
         marker in test.stdout+test.stderr,
         "V2F_NOMINAL_CANDIDATE_"+mode+":"+test.stderr[:180])
+workspace_validator=(ROOT/"scripts/audit_paper2x_v2f_workspace_contract.py").read_text()
+workspace_ast=__import__("ast").parse(workspace_validator)
+chk(not any(
+    isinstance(node,(__import__("ast").Import,__import__("ast").ImportFrom)) and
+    (any(alias.name.split(".")[0] in ("subprocess","os","shutil") for alias in node.names)
+     if isinstance(node,__import__("ast").Import) else
+     (node.module or "").split(".")[0] in ("subprocess","os","shutil"))
+    for node in __import__("ast").walk(workspace_ast)),
+    "V2F_WORKSPACE_CONTRACT_NO_EXECUTION_IMPORTS")
+for mode,expect_success,marker in (
+    ("--self-test",True,"P2X_V2F_WORKSPACE_CONTRACT_NEGATIVE_CONTROLS=PASS"),
+    ("--materialize",False,"P2X_V2F_WORKSPACE_EXECUTION_HOLD=STATIC_DESIGN_ONLY"),
+    ("--verify-workspace",False,"P2X_V2F_WORKSPACE_EXECUTION_HOLD=STATIC_DESIGN_ONLY"),
+    ("--run",False,"P2X_V2F_WORKSPACE_EXECUTION_HOLD=STATIC_DESIGN_ONLY")):
+    test=subprocess.run(
+        ["python3",str(ROOT/"scripts/audit_paper2x_v2f_workspace_contract.py"),mode],
+        capture_output=True,text=True,cwd=ROOT)
+    chk((test.returncode==0 if expect_success else test.returncode!=0) and
+        marker in test.stdout+test.stderr,
+        "V2F_WORKSPACE_DESIGN_STATIC_"+mode+":"+test.stderr[:180])
+print("P2X_V2F_WORKSPACE_DESIGN_STATIC_AND_NEGATIVE_CONTROLS=PASS")
 print("P2X_V2F_NOMINAL_RUNTIME_CANDIDATE_STATIC_AND_DENIAL=PASS")
 print("P2X_V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
 
@@ -529,6 +550,9 @@ allowed={
 "scripts/audit_paper2x_phase_a_v2f_runtime_design.py",
 "scripts/p2x_v2f_nominal_runtime_candidate.py",
 "paper2x/phase_a/V2F_NOMINAL_RUNTIME_LAUNCHER_DESIGN_2026-10-08.md",
+"paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_CONTRACT_2026-10-08.json",
+"paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_DESIGN_2026-10-08.md",
+"scripts/audit_paper2x_v2f_workspace_contract.py",
 "scripts/readback_paper2x_phase_a_v2f_manifest.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/probe_paper2x_v2f_git_metadata.py",
