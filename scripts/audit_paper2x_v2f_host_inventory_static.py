@@ -17,14 +17,34 @@ def chk(ok: bool, why: str) -> None:
 def main() -> None:
     g = json.loads(GATE.read_text(encoding="utf-8"))
     s = TOOL.read_text(encoding="utf-8")
-    chk(g["read_only_host_inventory_authorized"] is True and
+    result_path = ROOT / "paper2x/phase_a/V2F_HOST_INVENTORY_AUTHOR_REPORTED_RESULT_2026-10-08.json"
+    reported = json.loads(result_path.read_text(encoding="utf-8"))
+    chk(g["read_only_host_inventory_authorized"] is False and
+        g["read_only_host_inventory_completed"] is True and
+        g["read_only_host_inventory_status"] ==
+        "HOST_REPORTED_PASS__AUTHORIZATION_CONSUMED__FILE_LEVEL_REVIEW_PENDING" and
+        g["read_only_host_inventory_result"] == "AUTHOR_REPORTED_READ_ONLY_PASS" and
         g["read_only_host_inventory_parent_head"] ==
         "ee3f4f4736b19982e375170eb2479ed3c6584db9" and
         g["read_only_host_inventory_parent_workflow"] == 1423 and
-        g["read_only_host_inventory_status"] ==
-        "AUTHORIZED_HOST_ONLY__NOT_YET_RUN" and
-        g["read_only_host_inventory_authorized_attempt_limit"] == 1 and
-        g["authorization_scope"]["read_only_host_inventory"] is True and
+        g["read_only_host_inventory_authorized_attempt_limit"] == 0 and
+        g["read_only_host_inventory_attempts_executed"] == 1 and
+        g["authorization_scope"]["read_only_host_inventory"] is False and
+        g["read_only_host_inventory_report_sha256"] ==
+        "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38" and
+        g["read_only_host_inventory_entries_reported"] == 50617 and
+        g["read_only_host_inventory_raw_report_received"] is False and
+        g["read_only_host_inventory_full_file_level_review_completed"] is False and
+        g["read_only_host_inventory_runtime_dependency_closure"] == "UNRESOLVED" and
+        reported["classification"] ==
+        "AUTHOR_HOST_REPORT_PASS__FILE_LEVEL_JSONL_NOT_REVIEWED" and
+        reported["reported_entries"] == 50617 and
+        reported["raw_jsonl_received_by_assistant"] is False and
+        reported["full_inventory_path_reviewed"] is False and
+        reported["all_20089_primary_repeat_file_hashes_independently_compared"] is False and
+        reported["runtime_dependency_closure"] == "UNRESOLVED" and
+        sum(x[t] for x in reported["reported_totals"].values()
+              for t in ("regular_file","directory","symlink","special")) == 50617 and
         g["execution_authorized"] is False and
         g["runtime_workspace_materialization_authorized"] is False and
         g["runtime_workspace_materialized"] is False and
@@ -54,7 +74,8 @@ def main() -> None:
         "P2X_V2F_WORKSPACE_MATERIALIZED=NO" in s,
         "read_only_contract_missing")
     tests = [("--self-test",True,"P2X_V2F_HOST_INVENTORY_SELF_TEST=PASS"),
-             ("--inspect",True,"P2X_V2F_HOST_INVENTORY_AUTHORIZATION=READ_ONLY_HOST_ONLY")]
+             ("--inspect",True,"P2X_V2F_HOST_INVENTORY_AUTHORIZATION=CLOSED_CONSUMED"),
+             ("--inventory",False,"P2X_V2F_HOST_INVENTORY_HOLD=not_authorized_or_gate_drift")]
     for mode,ok,marker in tests:
         p = subprocess.run([sys.executable,str(TOOL),mode],
             cwd=ROOT,capture_output=True,text=True)

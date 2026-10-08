@@ -59,20 +59,28 @@ def hfile(p: Path) -> str:
             "file_changed_during_hash:" + str(p))
     return h.hexdigest()
 
-def gate_check() -> dict:
+def gate_check(*, allow_completed: bool = False) -> dict:
     g = json.loads(GATE.read_text(encoding="utf-8"))
     scope = g["authorization_scope"]
+    authorized = g["read_only_host_inventory_authorized"] is True
+    closed = (g["read_only_host_inventory_authorized"] is False and
+              g["read_only_host_inventory_status"] ==
+              "HOST_REPORTED_PASS__AUTHORIZATION_CONSUMED__FILE_LEVEL_REVIEW_PENDING" and
+              g["read_only_host_inventory_completed"] is True and
+              g["read_only_host_inventory_attempts_executed"] == 1 and
+              g["read_only_host_inventory_authorized_attempt_limit"] == 0 and
+              g["read_only_host_inventory_report_sha256"] ==
+              "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38" and
+              g["read_only_host_inventory_raw_report_received"] is False and
+              g["read_only_host_inventory_full_file_level_review_completed"] is False)
     require(g["decision"] == "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED"
             and g["parent_v2f_evidence_id"] == EVIDENCE
             and g["parent_v2f_manifest_sha256"] == MANIFEST_SHA
-            and g["read_only_host_inventory_authorized"] is True
-            and g["read_only_host_inventory_status"] ==
-            "AUTHORIZED_HOST_ONLY__NOT_YET_RUN"
+            and (authorized or (allow_completed and closed))
             and g["read_only_host_inventory_parent_head"] ==
             "ee3f4f4736b19982e375170eb2479ed3c6584db9"
             and g["read_only_host_inventory_parent_workflow"] == 1423
-            and g["read_only_host_inventory_authorized_attempt_limit"] == 1
-            and scope["read_only_host_inventory"] is True
+            and scope["read_only_host_inventory"] is authorized
             and g["execution_authorized"] is False
             and g["runtime_workspace_materialization_authorized"] is False
             and g["runtime_workspace_materialized"] is False
@@ -143,7 +151,7 @@ def scan(label: str, root: Path, emit, totals: dict, qualified: dict) -> None:
             emit(row)
 
 def self_test() -> None:
-    gate_check()
+    gate_check(allow_completed=True)
     require(classify_symlink("x/y", "../../z").startswith("ESCAPES")
             and classify_symlink("x/y", "/tmp/x").startswith("ABSOLUTE")
             and classify_symlink("x/y", "../z") ==
@@ -217,8 +225,10 @@ def main() -> None:
     require(args in (["--inspect"],["--self-test"],["--inventory"]),
             "usage:--inspect_--self-test_--inventory")
     if args == ["--inspect"]:
-        gate_check()
-        print("P2X_V2F_HOST_INVENTORY_AUTHORIZATION=READ_ONLY_HOST_ONLY")
+        g = gate_check(allow_completed=True)
+        print("P2X_V2F_HOST_INVENTORY_AUTHORIZATION=" +
+              ("READ_ONLY_HOST_ONLY" if g["read_only_host_inventory_authorized"]
+               else "CLOSED_CONSUMED"))
         print("P2X_V2F_RUNTIME_EXECUTED=NO")
     elif args == ["--self-test"]:
         self_test()

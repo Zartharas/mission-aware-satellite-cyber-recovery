@@ -564,6 +564,7 @@ allowed={
 "scripts/audit_paper2x_v2f_workspace_contract.py",
 "scripts/inventory_paper2x_v2f_sources_readonly.py",
 "scripts/audit_paper2x_v2f_host_inventory_static.py",
+"paper2x/phase_a/V2F_HOST_INVENTORY_AUTHOR_REPORTED_RESULT_2026-10-08.json",
 "scripts/readback_paper2x_phase_a_v2f_manifest.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/probe_paper2x_v2f_git_metadata.py",
