@@ -475,7 +475,15 @@ for token in ("P2X_V2F_MANIFEST","verify_paper2x_phase_a_v2f.py",
               "P2X_V2F_RUNTIME_EXECUTION=NOT_AUTHORIZED",
               "P2X_V2F_FINAL_ENVIRONMENT_ACCEPTANCE=NO"):
     chk(token in runtime_static,"V2F_RUNTIME_STATIC_"+token)
-chk("import subprocess" not in runtime_static and "subprocess." not in runtime_static,
+runtime_syntax=__import__("ast").parse(runtime_static)
+chk(not any(
+    (isinstance(node,__import__("ast").Import) and
+     any(alias.name == "subprocess" for alias in node.names)) or
+    (isinstance(node,__import__("ast").ImportFrom) and node.module == "subprocess") or
+    (isinstance(node,__import__("ast").Attribute) and
+     isinstance(node.value,__import__("ast").Name) and
+     node.value.id == "subprocess")
+    for node in __import__("ast").walk(runtime_syntax)),
     "V2F_RUNTIME_STATIC_NO_PROCESS_EXECUTION")
 runtime_test=subprocess.run(
     ["python3",str(ROOT/"scripts/audit_paper2x_phase_a_v2f_runtime_design.py"),
