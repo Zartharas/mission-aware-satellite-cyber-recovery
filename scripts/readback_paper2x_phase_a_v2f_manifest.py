@@ -41,20 +41,25 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def validate_gate() -> dict:
+def validate_gate(*, allow_completed: bool = False) -> dict:
     gate = json.loads(GATE.read_text(encoding="utf-8"))
     require(gate["record_id"] ==
             "P2X-PHASE-A-V2F-NOMINAL-RUNTIME-QUALIFICATION-GATE-2026-10-07",
             "wrong_gate")
-    require(gate["decision"] ==
-            "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_MANIFEST_BINDING",
-            "read_only_binding_not_authorized")
-    require(gate.get("read_only_manifest_binding_authorized") is True,
-            "read_only_binding_flag_closed")
+    authorized = gate["decision"] == (
+        "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_MANIFEST_BINDING"
+    )
+    completed = gate["decision"] == (
+        "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED"
+    )
+    require(authorized or (allow_completed and completed),
+            "read_only_binding_not_authorized_or_consumed")
+    require(gate.get("read_only_manifest_binding_authorized") is authorized,
+            "read_only_binding_authorization_state")
     require(gate["execution_authorized"] is False,
             "runtime_execution_open")
     scope = gate["authorization_scope"]
-    require(scope["read_only_manifest_hash_readback"] is True and
+    require(scope["read_only_manifest_hash_readback"] is authorized and
             scope["nominal_runtime_execution"] is False and
             scope["benign_internal_cfs_noop"] is False and
             scope["cosmos"] is False and
@@ -70,10 +75,20 @@ def validate_gate() -> dict:
             gate["parent_v2f_raw_artifact_identity"] == "9_OF_9" and
             gate["parent_v2f_independent_readback"] == "PASS",
             "parent_binding_drift")
-    require(gate["parent_v2f_manifest_sha256"] is None and
-            gate["parent_v2f_manifest_sha256_status"] ==
-            "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK",
-            "manifest_hash_already_bound_or_state_drift")
+    if completed:
+        require(gate["parent_v2f_manifest_sha256"] ==
+                "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee" and
+                gate["parent_v2f_manifest_sha256_status"] ==
+                "VERIFIED_READ_ONLY_HOST_READBACK" and
+                gate.get("read_only_manifest_binding_completed") is True and
+                gate.get("read_only_manifest_binding_result") == "PASS" and
+                gate.get("read_only_manifest_binding_evidence_unchanged") is True,
+                "completed_binding_record_drift")
+    else:
+        require(gate["parent_v2f_manifest_sha256"] is None and
+                gate["parent_v2f_manifest_sha256_status"] ==
+                "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK",
+                "manifest_hash_already_bound_or_state_drift")
     require(gate["runtime_execution_result"] == "NOT_RUN" and
             gate["environment_final_acceptance"] is False,
             "false_runtime_state")
@@ -81,7 +96,7 @@ def validate_gate() -> dict:
 
 
 def self_test() -> None:
-    gate = validate_gate()
+    gate = validate_gate(allow_completed=True)
     require(gate["read_only_manifest_binding_parent_workflow_run"] == 1412,
             "authorization_parent_workflow_drift")
     require(gate["read_only_manifest_binding_parent_head"] ==

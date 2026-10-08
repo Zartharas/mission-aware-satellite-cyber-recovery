@@ -16,6 +16,7 @@ NOMINAL = ROOT / "scripts" / "run_paper2x_phase_a_nominal.sh"
 PREFLIGHT = ROOT / "scripts" / "run_nominal_runtime_preflight.sh"
 READBACK = ROOT / "scripts" / "readback_paper2x_phase_a_v2f_manifest.py"
 
+EXPECTED_MANIFEST_SHA256 = "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee"
 EXPECTED_HEAD = "8f5faef3830646eae065e8210216a2ed4301316c"
 EXPECTED_EVIDENCE = "p2xa-nos3-v2f-build-20261007T185149Z-a61cae46f1"
 EXPECTED_DESCRIPTOR = "08ea45ca09c9a82b5456bea1f93cf325c1a61a8ae4332c5a8dea1b7d4dfbb736"
@@ -48,7 +49,10 @@ def audit() -> None:
     readback_authorized = gate["decision"] == (
         "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_MANIFEST_BINDING"
     )
-    require(design_only or readback_authorized,
+    manifest_bound = gate["decision"] == (
+        "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED"
+    )
+    require(design_only or readback_authorized or manifest_bound,
             "runtime_gate_invalid_state")
     require(gate["execution_authorized"] is False,
             "runtime_execution_authorized")
@@ -97,15 +101,27 @@ def audit() -> None:
             "/p2x-v2f-build-manifest.json",
             "manifest_path_drift")
     expected_hash_status = (
-        "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK"
-        if readback_authorized else
+        "VERIFIED_READ_ONLY_HOST_READBACK" if manifest_bound else
+        "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK" if readback_authorized else
         "PENDING_READ_ONLY_HOST_READBACK"
     )
-    require(gate["parent_v2f_manifest_sha256"] is None and
-            gate["parent_v2f_manifest_sha256_status"] == expected_hash_status and
+    require(gate["parent_v2f_manifest_sha256_status"] == expected_hash_status and
             gate["parent_v2f_manifest_sha256_required_before_runtime_authorization"]
             is True,
-            "manifest_hash_fail_closed")
+            "manifest_hash_state_drift")
+    if manifest_bound:
+        require(gate["parent_v2f_manifest_sha256"] == EXPECTED_MANIFEST_SHA256 and
+                gate.get("read_only_manifest_binding_completed") is True and
+                gate.get("read_only_manifest_binding_result") == "PASS" and
+                gate.get("read_only_manifest_binding_evidence_unchanged") is True and
+                gate.get("read_only_manifest_binding_independent_verifier_pass") is True and
+                gate.get("read_only_manifest_binding_worktree_clean") is True and
+                gate.get("read_only_manifest_binding_verified_head") ==
+                "e76b51e80a94dc3826fb39d268c681ad6d4c6450",
+                "manifest_readback_bound_provenance")
+    else:
+        require(gate["parent_v2f_manifest_sha256"] is None,
+                "manifest_hash_unexpectedly_bound")
 
     future = gate["required_future_v2f_runtime_binding"]
     require(future["manifest_environment_variable"] == "P2X_V2F_MANIFEST" and

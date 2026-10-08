@@ -437,7 +437,10 @@ runtime_design_only=(runtime_gate["decision"]==
     "V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_ONLY__EXECUTION_NOT_AUTHORIZED")
 runtime_readback_authorized=(runtime_gate["decision"]==
     "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_MANIFEST_BINDING")
-chk((runtime_design_only or runtime_readback_authorized) and
+runtime_manifest_bound=(runtime_gate["decision"]==
+    "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED")
+chk((runtime_design_only or runtime_readback_authorized or
+     runtime_manifest_bound) and
     runtime_gate["execution_authorized"] is False and
     runtime_gate["authorization_scope"]["read_only_manifest_hash_readback"] is
     runtime_readback_authorized and
@@ -451,14 +454,20 @@ chk((runtime_design_only or runtime_readback_authorized) and
     runtime_gate["environment_final_acceptance"] is False,
     "V2F_RUNTIME_DESIGN_SCOPE_FIREWALL")
 expected_runtime_hash_status=(
-    "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK"
-    if runtime_readback_authorized else
+    "VERIFIED_READ_ONLY_HOST_READBACK" if runtime_manifest_bound else
+    "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK" if runtime_readback_authorized else
     "PENDING_READ_ONLY_HOST_READBACK")
-chk(runtime_gate["parent_v2f_manifest_sha256"] is None and
-    runtime_gate["parent_v2f_manifest_sha256_status"]==
+chk(runtime_gate["parent_v2f_manifest_sha256_status"]==
     expected_runtime_hash_status and
-    runtime_gate["parent_v2f_manifest_sha256_required_before_runtime_authorization"] is True,
-    "V2F_RUNTIME_MANIFEST_HASH_FAIL_CLOSED")
+    runtime_gate["parent_v2f_manifest_sha256_required_before_runtime_authorization"] is True and
+    (runtime_gate["parent_v2f_manifest_sha256"]==
+     "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee"
+     if runtime_manifest_bound else runtime_gate["parent_v2f_manifest_sha256"] is None) and
+    (runtime_gate.get("read_only_manifest_binding_completed") is True and
+     runtime_gate.get("read_only_manifest_binding_result")=="PASS" and
+     runtime_gate.get("read_only_manifest_binding_evidence_unchanged") is True
+     if runtime_manifest_bound else True),
+    "V2F_RUNTIME_MANIFEST_HASH_STATE_FIREWALL")
 runtime_static=(ROOT/"scripts/audit_paper2x_phase_a_v2f_runtime_design.py").read_text()
 for token in ("P2X_V2F_MANIFEST","verify_paper2x_phase_a_v2f.py",
               "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK",

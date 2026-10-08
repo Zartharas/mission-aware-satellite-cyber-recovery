@@ -2,17 +2,17 @@
   "schema": 1,
   "record_id": "P2X-PHASE-A-V2F-NOMINAL-RUNTIME-QUALIFICATION-GATE-2026-10-07",
   "experiment_id": "P2X-NOS3-RG-001",
-  "decision": "AUTHOR_EXPLICITLY_APPROVED_V2F_READ_ONLY_MANIFEST_BINDING",
+  "decision": "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED",
   "execution_authorized": false,
-  "author_review_required": false,
+  "author_review_required": true,
   "authorization_basis": "Sole author authorized runtime qualification design and static validation only after the v2f 9/9 offline-build PASS; no runtime execution was authorized.",
   "parent_v2f_gate": "paper2x/phase_a/V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json",
   "parent_v2f_decision": "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
   "parent_v2f_executed_head": "8f5faef3830646eae065e8210216a2ed4301316c",
   "parent_v2f_evidence_id": "p2xa-nos3-v2f-build-20261007T185149Z-a61cae46f1",
   "parent_v2f_manifest_relative_path": "artifacts/runtime/p2xa-nos3-v2f-build-20261007T185149Z-a61cae46f1/p2x-v2f-build-manifest.json",
-  "parent_v2f_manifest_sha256": null,
-  "parent_v2f_manifest_sha256_status": "PENDING_AUTHORIZED_READ_ONLY_HOST_READBACK",
+  "parent_v2f_manifest_sha256": "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee",
+  "parent_v2f_manifest_sha256_status": "VERIFIED_READ_ONLY_HOST_READBACK",
   "parent_v2f_manifest_sha256_required_before_runtime_authorization": true,
   "parent_v2f_descriptor_map_sha256": "08ea45ca09c9a82b5456bea1f93cf325c1a61a8ae4332c5a8dea1b7d4dfbb736",
   "parent_v2f_raw_artifact_identity": "9_OF_9",
@@ -24,7 +24,6 @@
     "cleanup": "scripts/cleanup_nominal_runtime.sh"
   },
   "current_runtime_blockers": [
-    "V2F_MANIFEST_SHA256_NOT_YET_BOUND",
     "CURRENT_NOMINAL_WRAPPER_IS_BOUND_TO_P2X_V2_MANIFEST_AND_VERIFY_PAPER2X_PHASE_A_V2_PY",
     "ACTUAL_NOMINAL_PREFLIGHT_CREATES_DOCKER_NETWORK_AND_STARTS_RUNTIME_COMPONENTS"
   ],
@@ -41,7 +40,7 @@
   "authorization_scope": {
     "runtime_design": true,
     "static_validation": true,
-    "read_only_manifest_hash_readback": true,
+    "read_only_manifest_hash_readback": false,
     "nominal_runtime_execution": false,
     "benign_internal_cfs_noop": false,
     "cosmos": false,
@@ -55,10 +54,17 @@
   "fault_campaign_result": "NOT_RUN",
   "scientific_observations_generated": false,
   "environment_final_acceptance": false,
-  "read_only_manifest_binding_authorized": true,
+  "read_only_manifest_binding_authorized": false,
   "read_only_manifest_binding_authorization_date": "2026-10-08",
   "read_only_manifest_binding_authorization_basis": "Sole author explicitly continued the prepared read-only v2f manifest SHA-256 binding step after exact-head workflow #1412 succeeded. This does not authorize nominal runtime execution.",
   "read_only_manifest_binding_parent_head": "21cac2c161a16fdddd5f541ceb5ff8df5b7f8d19",
   "read_only_manifest_binding_parent_workflow_run": 1412,
-  "read_only_manifest_binding_parent_workflow_run_id": 37680714775
+  "read_only_manifest_binding_parent_workflow_run_id": 37680714775,
+  "read_only_manifest_binding_completed": true,
+  "read_only_manifest_binding_result": "PASS",
+  "read_only_manifest_binding_verified_head": "e76b51e80a94dc3826fb39d268c681ad6d4c6450",
+  "read_only_manifest_binding_evidence_unchanged": true,
+  "read_only_manifest_binding_independent_verifier_pass": true,
+  "read_only_manifest_binding_worktree_clean": true,
+  "read_only_manifest_binding_evidence_source": "sole_author_host_terminal_output_2026-10-08"
 }
