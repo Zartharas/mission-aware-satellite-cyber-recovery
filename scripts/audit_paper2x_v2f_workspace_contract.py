@@ -40,6 +40,56 @@ def safe_relative(path: str) -> bool:
 
 
 def check_contract(c: dict, gate: dict) -> None:
+    review_path = ROOT / "paper2x/phase_a/V2F_RUNTIME_DEPENDENCY_COVERAGE_REVIEW_2026-10-08.json"
+    r = json.loads(review_path.read_text(encoding="utf-8"))
+    require(r["record_id"] ==
+            "P2X-V2F-RUNTIME-DEPENDENCY-AND-MATERIALIZER-VERIFIER-STATIC-REVIEW-2026-10-08" and
+            r["classification"] == "STATIC_SOURCE_CODE_REVIEW_ONLY__NO_WORKSPACE_PROOF" and
+            r["authority"]["reviewed_head"] == "98b57564c6f448299b63584e32dc0aeabb023725" and
+            r["authority"]["validated_workflow_run"] == 1422 and
+            r["authority"]["evidence_id"] == EVIDENCE and
+            r["authority"]["manifest_sha256"] == MANIFEST_SHA and
+            r["authority"]["qualified_raw_artifacts"] == 9 and
+            r["authority"]["runtime_tested"] is False,
+            "review_parent_authority")
+    require(r["qualified_nine_artifacts"] == NINE and
+            r["runtime_dependency_closure"] == "UNRESOLVED" and
+            r["inventory_coverage"] ==
+            "CANDIDATE_DEPENDENCY_CLASSES_IDENTIFIED__ACTUAL_FRESH_WORKSPACE_INVENTORY_NOT_COLLECTED",
+            "review_not_actual_inventory")
+    classes = r["dependency_classes"]
+    require(len(classes) == 11 and
+            len(set(x["id"] for x in classes)) == len(classes) and
+            all(x["coverage"] in ("RAW_BUILD_9_OF_9_ONLY", "UNVERIFIED") and
+                x["runtime_observed"] is False and
+                x["workspace_inventory_collected"] is False and
+                x["path_examples"] and x["source_trace"]
+                for x in classes) and
+            sum(x["coverage"] == "RAW_BUILD_9_OF_9_ONLY" for x in classes) == 1,
+            "review_coverage_false_claim")
+    require(r["legacy_materializer"]["status"] == "NOT_V2F_AUTHORIZED_OR_BOUND" and
+            r["legacy_materializer"]["july_exclusions_not_adopted"] is True and
+            r["legacy_materializer"]["reuse_without_exact_v2f_review_forbidden"] is True,
+            "legacy_materializer_scope")
+    builder = r["future_materializer_design"]
+    verifier = r["future_independent_verifier_design"]
+    require(builder["status"] == "INTERFACE_DESIGN_ONLY__NO_EXECUTABLE_IMPLEMENTATION" and
+            builder["source_inventory_emitted"] is False and
+            builder["workspace_materialized"] is False and
+            builder["allow_implicit_exclusion"] is False and
+            builder["publish_before_independent_check"] is False and
+            len(builder["required_phases"]) == 8 and
+            verifier["status"] == "INDEPENDENT_VERIFIER_NOT_IMPLEMENTED" and
+            verifier["separate_implementation_required"] is True and
+            verifier["results_observed"] is False and
+            len(verifier["negative_controls_required"]) >= 10 and
+            len(set(verifier["negative_controls_required"])) ==
+            len(verifier["negative_controls_required"]) and
+            all(x is False for k,x in r["authorization_scope"].items()
+                if k not in ("design_review","static_validation")) and
+            r["authorization_scope"]["design_review"] is True and
+            r["authorization_scope"]["static_validation"] is True,
+            "future_implementation_or_execution_open")
     require(c["record_id"] ==
             "P2X-V2F-RUNTIME-WORKSPACE-MATERIALIZATION-AND-INDEPENDENT-VERIFICATION-CONTRACT-2026-10-08" and
             c["experiment_id"] == "P2X-NOS3-RG-001" and

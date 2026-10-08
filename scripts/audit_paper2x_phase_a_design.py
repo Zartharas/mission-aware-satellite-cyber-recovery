@@ -552,6 +552,8 @@ allowed={
 "paper2x/phase_a/V2F_NOMINAL_RUNTIME_LAUNCHER_DESIGN_2026-10-08.md",
 "paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_CONTRACT_2026-10-08.json",
 "paper2x/phase_a/V2F_RUNTIME_WORKSPACE_MATERIALIZATION_DESIGN_2026-10-08.md",
+"paper2x/phase_a/V2F_RUNTIME_DEPENDENCY_COVERAGE_REVIEW_2026-10-08.json",
+"paper2x/phase_a/V2F_RUNTIME_MATERIALIZER_VERIFIER_DESIGN_REVIEW_2026-10-08.md",
 "scripts/audit_paper2x_v2f_workspace_contract.py",
 "scripts/readback_paper2x_phase_a_v2f_manifest.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
