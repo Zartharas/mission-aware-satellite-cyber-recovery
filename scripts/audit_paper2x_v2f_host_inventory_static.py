@@ -19,10 +19,12 @@ def main() -> None:
     s = TOOL.read_text(encoding="utf-8")
     result_path = ROOT / "paper2x/phase_a/V2F_HOST_INVENTORY_AUTHOR_REPORTED_RESULT_2026-10-08.json"
     reported = json.loads(result_path.read_text(encoding="utf-8"))
+    reconciliation_path = ROOT / "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.json"
+    reconciliation = json.loads(reconciliation_path.read_text(encoding="utf-8"))
     chk(g["read_only_host_inventory_authorized"] is False and
         g["read_only_host_inventory_completed"] is True and
         g["read_only_host_inventory_status"] ==
-        "HOST_REPORTED_PASS__AUTHORIZATION_CONSUMED__FILE_LEVEL_REVIEW_PENDING" and
+        "UPLOADED_JSONL_RECONCILED__55_METADATA_AND_CMAKE_LOG_HASH_VARIANCES__RUNTIME_UNTESTED" and
         g["read_only_host_inventory_result"] == "AUTHOR_REPORTED_READ_ONLY_PASS" and
         g["read_only_host_inventory_parent_head"] ==
         "ee3f4f4736b19982e375170eb2479ed3c6584db9" and
@@ -33,15 +35,37 @@ def main() -> None:
         g["read_only_host_inventory_report_sha256"] ==
         "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38" and
         g["read_only_host_inventory_entries_reported"] == 50617 and
-        g["read_only_host_inventory_raw_report_received"] is False and
-        g["read_only_host_inventory_full_file_level_review_completed"] is False and
+        g["read_only_host_inventory_raw_report_received"] is True and
+        g["read_only_host_inventory_full_file_level_review_completed"] is True and
+        g["read_only_host_inventory_full_primary_repeat_hash_differences"] == 55 and
+        g["read_only_host_inventory_git_index_hash_differences"] == 51 and
+        g["read_only_host_inventory_cmake_log_hash_differences"] == 4 and
+        g["read_only_host_inventory_all_files_byte_identical"] is False and
+        g["read_only_host_inventory_reconciliation_record"] ==
+        "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.json" and
         g["read_only_host_inventory_runtime_dependency_closure"] == "UNRESOLVED" and
         reported["classification"] ==
-        "AUTHOR_HOST_REPORT_PASS__FILE_LEVEL_JSONL_NOT_REVIEWED" and
+        "AUTHOR_HOST_REPORT_PASS__UPLOADED_JSONL_INDEPENDENTLY_RECONCILED__55_HASH_VARIANCES" and
         reported["reported_entries"] == 50617 and
-        reported["raw_jsonl_received_by_assistant"] is False and
-        reported["full_inventory_path_reviewed"] is False and
-        reported["all_20089_primary_repeat_file_hashes_independently_compared"] is False and
+        reported["raw_jsonl_received_by_assistant"] is True and
+        reported["full_inventory_path_reviewed"] is True and
+        reported["all_20089_primary_repeat_file_hashes_independently_compared"] is True and
+        reported["all_regular_files_byte_identical"] is False and
+        reported["file_hashes_differ_count"] == 55 and
+        reconciliation["classification"] ==
+        "COMPLETE_UPLOADED_JSONL_REVIEW__55_HASH_VARIANCES__RUNTIME_DEPENDENCY_CLOSURE_UNRESOLVED" and
+        reconciliation["uploaded_evidence_zip_member_inventory_sha256"] ==
+        "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38" and
+        reconciliation["jsonl_structure"]["entries"] == 50617 and
+        reconciliation["jsonl_structure"]["invalid_records"] == 0 and
+        reconciliation["primary_repeat_reconciliation"]["regular_file_sha256_match"] == 20034 and
+        reconciliation["primary_repeat_reconciliation"]["regular_file_sha256_differ"] == 55 and
+        reconciliation["primary_repeat_reconciliation"]["differing_hashes_git_index_metadata"] == 51 and
+        reconciliation["primary_repeat_reconciliation"]["differing_hashes_cmake_configure_log"] == 4 and
+        reconciliation["primary_repeat_reconciliation"]["full_population_tree_byte_identical"] is False and
+        reconciliation["evidence_integrity"]["actual_host_source_bytes_reread_by_assistant"] is False and
+        reconciliation["runtime_dependency_closure"] == "UNRESOLVED" and
+        reconciliation["nominal_runtime_authorized"] is False and
         reported["runtime_dependency_closure"] == "UNRESOLVED" and
         sum(x[t] for x in reported["reported_totals"].values()
               for t in ("regular_file","directory","symlink","special")) == 50617 and

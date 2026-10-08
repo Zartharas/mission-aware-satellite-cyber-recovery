@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "record_id": "P2X-V2F-UPLOADED-INVENTORY-INDEPENDENT-RECONCILIATION-2026-10-08",
+  "experiment_id": "P2X-NOS3-RG-001",
+  "classification": "COMPLETE_UPLOADED_JSONL_REVIEW__55_HASH_VARIANCES__RUNTIME_DEPENDENCY_CLOSURE_UNRESOLVED",
+  "source_inventory_authorized_head": "30cd02b9a5b61224893091c63b401dc49d554270",
+  "inventory_closeout_exact_head": "aa5776a731e0e4a375b394123a892916871d3818",
+  "inventory_closeout_ci_run_number": 1425,
+  "inventory_closeout_ci_run_id": 37806444631,
+  "original_manifest_sha256": "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee",
+  "evidence_id": "p2xa-nos3-v2f-build-20261007T185149Z-a61cae46f1",
+  "uploaded_evidence_zip_member_inventory_sha256": "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38",
+  "uploaded_evidence_zip_member_diagnostics_sha256": "f770806e11e3a452a37c8b6e4a8ca6fa0d35e0daa688d6237a58a286af043f88",
+  "independently_recomputed_record_prefix_sha256": "e5fdf798b23b83026005fa03c534f3c02a5743641929da2760930062bc733eb9",
+  "jsonl_structure": {
+    "headers": 1,
+    "entries": 50617,
+    "summaries": 1,
+    "invalid_records": 0,
+    "duplicate_root_relative_paths": 0
+  },
+  "source_populations": {
+    "primary": {
+      "entries": 24742,
+      "regular_files": 20089,
+      "directories": 4642,
+      "symlinks": 11,
+      "special_files": 0,
+      "regular_bytes": 1782093243
+    },
+    "repeat": {
+      "entries": 24742,
+      "regular_files": 20089,
+      "directories": 4642,
+      "symlinks": 11,
+      "special_files": 0,
+      "regular_bytes": 1782093243
+    },
+    "fortytwo": {
+      "entries": 1133,
+      "regular_files": 1054,
+      "directories": 79,
+      "symlinks": 0,
+      "special_files": 0,
+      "regular_bytes": 1217382426
+    }
+  },
+  "primary_repeat_reconciliation": {
+    "relative_path_sets_identical": true,
+    "shared_relative_paths": 24742,
+    "primary_only_relative_paths": 0,
+    "repeat_only_relative_paths": 0,
+    "regular_files_each": 20089,
+    "regular_file_sha256_match": 20034,
+    "regular_file_sha256_differ": 55,
+    "differing_hashes_git_index_metadata": 51,
+    "differing_hashes_cmake_configure_log": 4,
+    "filename_type_mode_size_nlink_symlink_target_differences": 0,
+    "all_20089_regular_files_byte_identical": false,
+    "nine_qualified_build_artifacts_in_55_differences": false,
+    "full_population_tree_byte_identical": false,
+    "complete_source_dependency_closure_verified": false
+  },
+  "observed_cmake_log_differences": [
+    "fsw/build/CMakeFiles/CMakeConfigureLog.yaml",
+    "fsw/build/amd64-nos3/default_cpu1/CMakeFiles/CMakeConfigureLog.yaml",
+    "gsw/build/CMakeFiles/CMakeConfigureLog.yaml",
+    "sims/build/CMakeFiles/CMakeConfigureLog.yaml"
+  ],
+  "git_index_differences_category": ".git/index and .git/modules/**/index (51 SHA-256 variances)",
+  "symlinks": {
+    "primary_symlinks": 11,
+    "repeat_symlinks": 11,
+    "fortytwo_symlinks": 0,
+    "all_primary_repeat_symlink_targets_equal": true,
+    "primary_unique_symlinks_count": 11,
+    "group": "gsw/yamcs examples and test resources",
+    "all_11_lexically_within_source_root": true,
+    "all_11_resolved_relative_target_paths_present_as_inventory_directories": true,
+    "filesystem_dereference_or_runtime_mounts_verified": false
+  },
+  "author_reported_fortytwo_binary_sha256_pass": true,
+  "evidence_integrity": {
+    "both_zip_members_match_previously_recorded_sha256": true,
+    "decoded_every_jsonl_record": true,
+    "recomputed_record_prefix_checksum_matches_summary": true,
+    "diagnostics_text_confirms_read_only_pass": true,
+    "actual_host_source_bytes_reread_by_assistant": false,
+    "independent_evidence_level": "UPLOADED_JSONL_CONTENT_NOT_HOST_FILESYSTEM"
+  },
+  "reviewed_semantics": {
+    "git_index_files_may_contain_checkout_specific_metadata": true,
+    "cmake_logs_may_contain_configuration_session_metadata": true,
+    "difference_cause_independently_proven": false,
+    "exclusions_authorized": false,
+    "new_build_attempt_authorized": false,
+    "host_rescan_authorized": false
+  },
+  "next_requirements": [
+    "DEFINE_EXACT_PATH_RUNTIME_MATERIALIZATION_INCLUDE_EXCLUDE_POLICY_WITH_PROVENANCE",
+    "TREAT_51_GIT_INDEX_AND_4_CMAKE_CONFIG_LOG_VARIANCES_AS_UNRESOLVED_UNTIL_EXPLICIT_CLASSIFICATION",
+    "REVIEW_REQUIRED_RUNTIME_LIBRARIES_CONFIGURATIONS_TABLES_AND_INOUT_DERIVATIONS",
+    "FUTURE_SEPARATE_WORKSPACE_MATERIALIZER_AND_INDEPENDENT_VERIFIER_DESIGN_AND_AUTHORIZATION",
+    "NO_RUNTIME_CLOSURE_CLAIM_FROM_INVENTORY_ONLY"
+  ],
+  "runtime_dependency_closure": "UNRESOLVED",
+  "workspace_materialization_authorized": false,
+  "workspace_materialized": false,
+  "nominal_runtime_authorized": false,
+  "nominal_runtime_executed": false,
+  "cosmos_authorized": false,
+  "fault_campaign_authorized": false,
+  "new_scientific_observations": false,
+  "final_environment_acceptance": false,
+  "merge_pr215_authorized": false
+}

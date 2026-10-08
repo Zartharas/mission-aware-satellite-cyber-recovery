@@ -126,7 +126,7 @@
   "read_only_host_inventory_parent_workflow_run_id": 37797914542,
   "read_only_host_inventory_scope": "PRESERVED_PRIMARY_REPEAT_AND_PINNED_FORTYTWO_READ_ONLY_FULL_RECURSIVE_INVENTORY",
   "read_only_host_inventory_tool": "scripts/inventory_paper2x_v2f_sources_readonly.py",
-  "read_only_host_inventory_status": "HOST_REPORTED_PASS__AUTHORIZATION_CONSUMED__FILE_LEVEL_REVIEW_PENDING",
+  "read_only_host_inventory_status": "UPLOADED_JSONL_RECONCILED__55_METADATA_AND_CMAKE_LOG_HASH_VARIANCES__RUNTIME_UNTESTED",
   "read_only_host_inventory_observed_sha256": null,
   "read_only_host_inventory_authorized_attempt_limit": 0,
   "read_only_host_inventory_completed": true,
@@ -136,7 +136,13 @@
   "read_only_host_inventory_report_sha256": "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38",
   "read_only_host_inventory_pre_summary_record_sha256": "e5fdf798b23b83026005fa03c534f3c02a5743641929da2760930062bc733eb9",
   "read_only_host_inventory_entries_reported": 50617,
-  "read_only_host_inventory_raw_report_received": false,
-  "read_only_host_inventory_full_file_level_review_completed": false,
-  "read_only_host_inventory_runtime_dependency_closure": "UNRESOLVED"
+  "read_only_host_inventory_raw_report_received": true,
+  "read_only_host_inventory_full_file_level_review_completed": true,
+  "read_only_host_inventory_runtime_dependency_closure": "UNRESOLVED",
+  "read_only_host_inventory_independent_uploaded_jsonl_sha256_verified": true,
+  "read_only_host_inventory_full_primary_repeat_hash_differences": 55,
+  "read_only_host_inventory_git_index_hash_differences": 51,
+  "read_only_host_inventory_cmake_log_hash_differences": 4,
+  "read_only_host_inventory_all_files_byte_identical": false,
+  "read_only_host_inventory_reconciliation_record": "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.json"
 }

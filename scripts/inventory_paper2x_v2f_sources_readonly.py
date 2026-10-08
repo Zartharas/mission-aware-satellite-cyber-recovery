@@ -65,14 +65,16 @@ def gate_check(*, allow_completed: bool = False) -> dict:
     authorized = g["read_only_host_inventory_authorized"] is True
     closed = (g["read_only_host_inventory_authorized"] is False and
               g["read_only_host_inventory_status"] ==
-              "HOST_REPORTED_PASS__AUTHORIZATION_CONSUMED__FILE_LEVEL_REVIEW_PENDING" and
+              "UPLOADED_JSONL_RECONCILED__55_METADATA_AND_CMAKE_LOG_HASH_VARIANCES__RUNTIME_UNTESTED" and
               g["read_only_host_inventory_completed"] is True and
               g["read_only_host_inventory_attempts_executed"] == 1 and
               g["read_only_host_inventory_authorized_attempt_limit"] == 0 and
               g["read_only_host_inventory_report_sha256"] ==
               "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38" and
-              g["read_only_host_inventory_raw_report_received"] is False and
-              g["read_only_host_inventory_full_file_level_review_completed"] is False)
+              g["read_only_host_inventory_raw_report_received"] is True and
+              g["read_only_host_inventory_full_file_level_review_completed"] is True and
+              g["read_only_host_inventory_full_primary_repeat_hash_differences"] == 55 and
+              g["read_only_host_inventory_all_files_byte_identical"] is False)
     require(g["decision"] == "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED"
             and g["parent_v2f_evidence_id"] == EVIDENCE
             and g["parent_v2f_manifest_sha256"] == MANIFEST_SHA
