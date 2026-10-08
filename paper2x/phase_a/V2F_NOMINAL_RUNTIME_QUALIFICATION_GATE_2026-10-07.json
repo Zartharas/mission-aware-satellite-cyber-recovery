@@ -4,7 +4,7 @@
   "experiment_id": "P2X-NOS3-RG-001",
   "decision": "V2F_MANIFEST_SHA256_BOUND__RUNTIME_NOT_AUTHORIZED",
   "execution_authorized": false,
-  "author_review_required": true,
+  "author_review_required": false,
   "authorization_basis": "Sole author authorized runtime qualification design and static validation only after the v2f 9/9 offline-build PASS; no runtime execution was authorized.",
   "parent_v2f_gate": "paper2x/phase_a/V2F_OFFLINE_BUILD_EXECUTION_GATE_2026-10-05.json",
   "parent_v2f_decision": "V2F_DUAL_OFFLINE_BUILD_BYTE_IDENTITY_PASS__RUNTIME_UNTESTED",
@@ -55,7 +55,8 @@
     "faults": false,
     "scientific_observations": false,
     "final_environment_acceptance": false,
-    "merge_pr215": false
+    "merge_pr215": false,
+    "read_only_host_inventory": true
   },
   "runtime_execution_result": "NOT_RUN",
   "cosmos_result": "NOT_RUN",
@@ -117,5 +118,15 @@
   "runtime_workspace_independent_verification_executed": false,
   "runtime_workspace_runtime_authorized": false,
   "runtime_workspace_evidence_id": null,
-  "runtime_workspace_sha256": null
+  "runtime_workspace_sha256": null,
+  "read_only_host_inventory_authorized": true,
+  "read_only_host_inventory_authorization_date": "2026-10-08",
+  "read_only_host_inventory_parent_head": "ee3f4f4736b19982e375170eb2479ed3c6584db9",
+  "read_only_host_inventory_parent_workflow": 1423,
+  "read_only_host_inventory_parent_workflow_run_id": 37797914542,
+  "read_only_host_inventory_scope": "PRESERVED_PRIMARY_REPEAT_AND_PINNED_FORTYTWO_READ_ONLY_FULL_RECURSIVE_INVENTORY",
+  "read_only_host_inventory_tool": "scripts/inventory_paper2x_v2f_sources_readonly.py",
+  "read_only_host_inventory_status": "AUTHORIZED_HOST_ONLY__NOT_YET_RUN",
+  "read_only_host_inventory_observed_sha256": null,
+  "read_only_host_inventory_authorized_attempt_limit": 1
 }

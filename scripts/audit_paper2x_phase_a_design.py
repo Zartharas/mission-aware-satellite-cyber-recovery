@@ -528,6 +528,13 @@ for mode,expect_success,marker in (
     chk((test.returncode==0 if expect_success else test.returncode!=0) and
         marker in test.stdout+test.stderr,
         "V2F_WORKSPACE_DESIGN_STATIC_"+mode+":"+test.stderr[:180])
+host_inv=subprocess.run(
+    ["python3",str(ROOT/"scripts/audit_paper2x_v2f_host_inventory_static.py")],
+    capture_output=True,text=True,cwd=ROOT)
+chk(host_inv.returncode==0 and
+    "P2X_V2F_HOST_INVENTORY_STATIC_AUDIT=PASS" in host_inv.stdout and
+    "P2X_V2F_HOST_INVENTORY_EXECUTED_IN_CI=NO" in host_inv.stdout,
+    "P2X_V2F_HOST_INVENTORY_STATIC:"+host_inv.stderr[:180])
 print("P2X_V2F_WORKSPACE_DESIGN_STATIC_AND_NEGATIVE_CONTROLS=PASS")
 print("P2X_V2F_NOMINAL_RUNTIME_CANDIDATE_STATIC_AND_DENIAL=PASS")
 print("P2X_V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
@@ -555,6 +562,8 @@ allowed={
 "paper2x/phase_a/V2F_RUNTIME_DEPENDENCY_COVERAGE_REVIEW_2026-10-08.json",
 "paper2x/phase_a/V2F_RUNTIME_MATERIALIZER_VERIFIER_DESIGN_REVIEW_2026-10-08.md",
 "scripts/audit_paper2x_v2f_workspace_contract.py",
+"scripts/inventory_paper2x_v2f_sources_readonly.py",
+"scripts/audit_paper2x_v2f_host_inventory_static.py",
 "scripts/readback_paper2x_phase_a_v2f_manifest.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/probe_paper2x_v2f_git_metadata.py",
