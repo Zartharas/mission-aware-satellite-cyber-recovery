@@ -1,0 +1,405 @@
+{
+  "schema": 1,
+  "record_id": "P2X-V2F-EXACT-55-VARIANCE-DISPOSITION-PROPOSAL-2026-10-08",
+  "experiment_id": "P2X-NOS3-RG-001",
+  "classification": "STATIC_EXACT_PATH_PROPOSAL_ONLY__NO_EXCLUSIONS_APPLIED",
+  "authorization_basis": "Sole author approved exact 55 variance review and conditional inclusion/exclusion proposal after CI #1426 terminal SUCCESS; no execution or exclusions approved",
+  "source": {
+    "reviewed_head": "276330544700661f756c58e02cf8b3a86b493d40",
+    "validated_workflow_run": 1426,
+    "validated_workflow_id": 37816008927,
+    "reconciliation": "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.json",
+    "source_inventory_jsonl_sha256": "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38",
+    "source_diagnostics_sha256": "f770806e11e3a452a37c8b6e4a8ca6fa0d35e0daa688d6237a58a286af043f88",
+    "source_variance_csv_sha256": "abc92c738d2d58adef7174ca8bd313b79ab9d8294c2421a74c633785c20d745c",
+    "exact_path_sequence_sha256_newline": "216fa6147bc4a32c0aee8eda5f882cf11d6df3839447ba32c785c2e9c6c3dc80",
+    "parent_manifest_sha256": "cb5e84137cb090adc8fb24b9b2f78c0d239d2fb93c74393a0e8b71815cc86dee"
+  },
+  "observed": {
+    "raw_build_artifacts_9_of_9": "PASS",
+    "compared_regular_files_each": 20089,
+    "identical_sha256_count": 20034,
+    "different_sha256_count": 55,
+    "git_index_variances": 51,
+    "cmake_configure_log_variances": 4,
+    "all_regular_file_bytes_identical": false,
+    "runtime_dependency_closure": "UNRESOLVED"
+  },
+  "proposal": {
+    "decision": "CLASSIFY_55_AS_CONDITIONAL_METADATA_OMISSION_CANDIDATES__NO_APPLIED_EXCLUSIONS",
+    "exact_paths": [
+      {
+        "path": ".git/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/arducam/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/blackboard/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/cryptolib/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_adcs/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_css/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_eps/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_fss/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_imu/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_mag/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_radio/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_reaction_wheel/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_star_tracker/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_thruster/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/generic_torquer/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/mgr/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/novatel_oem615/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/onair/fsw/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/sample/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/syn/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/syn/modules/synopsis/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/components/syn/modules/synopsis/modules/json/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/cf/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/ci/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/ci_lab/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/ds/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/fm/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/hwlib/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/io_lib/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/lc/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/sbn/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/sc/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/sch/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/to/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/apps/to_lab/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/cfe/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/fprime/fprime-nos3/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/fprime/fprime-nos3/modules/lib/fprime/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/fprime/fprime-nos3/modules/lib/fprime/modules/googletest/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/osal/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/psp/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/fsw/tools/elf2cfetbl/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/gsw/OrbitInviewPowerPrediction/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/gsw/ait/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/gsw/cosmos/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/gsw/yamcs/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/sbn_client/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/sims/nos_time_driver/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/sims/sim_common/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/sims/sim_terminal/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": ".git/modules/sims/truth_42_sim/index",
+        "variance_class": "GIT_INDEX_METADATA",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "GIT_INDEX_CHECKOUT_STATE_NOT_RUNTIME_ARTIFACT__REQUIRES_NO_GIT_EXECUTION_PROOF"
+      },
+      {
+        "path": "fsw/build/CMakeFiles/CMakeConfigureLog.yaml",
+        "variance_class": "CMAKE_CONFIGURE_LOG",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "BUILD_CONFIGURE_DIAGNOSTIC_NOT_PROVEN_RUNTIME_INPUT"
+      },
+      {
+        "path": "fsw/build/amd64-nos3/default_cpu1/CMakeFiles/CMakeConfigureLog.yaml",
+        "variance_class": "CMAKE_CONFIGURE_LOG",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "BUILD_CONFIGURE_DIAGNOSTIC_NOT_PROVEN_RUNTIME_INPUT"
+      },
+      {
+        "path": "gsw/build/CMakeFiles/CMakeConfigureLog.yaml",
+        "variance_class": "CMAKE_CONFIGURE_LOG",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "BUILD_CONFIGURE_DIAGNOSTIC_NOT_PROVEN_RUNTIME_INPUT"
+      },
+      {
+        "path": "sims/build/CMakeFiles/CMakeConfigureLog.yaml",
+        "variance_class": "CMAKE_CONFIGURE_LOG",
+        "proposed_disposition": "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED",
+        "reason_code": "BUILD_CONFIGURE_DIAGNOSTIC_NOT_PROVEN_RUNTIME_INPUT"
+      }
+    ],
+    "exact_path_count": 55,
+    "proposal_is_executable": false,
+    "exclusion_approval": false,
+    "exclusions_applied": 0,
+    "excluded_paths": [],
+    "historical_july_exclusions_adopted": false,
+    "blanket_dot_git_exclusion_authorized": false,
+    "blanket_cmake_exclusion_authorized": false,
+    "preserved_primary_and_repeat_evidence_must_remain_unchanged": true,
+    "preserve_all_9_qualified_build_outputs": true,
+    "file_hashes_source_of_truth": "uploaded_original_jsonl_and_55_variance_csv; per-path SHA values not duplicated in this design-only proposal",
+    "class_gates": {
+      "GIT_INDEX_METADATA": [
+        "Prove every future runtime workspace command and mounted container launch does not require Git indexes or Git object metadata",
+        "Perform source revision, submodule and descriptor-map provenance checks against immutable evidence before any separately authorized workspace operation",
+        "Inventory and explicitly decide remaining .git metadata, .git files and nested submodule gitdir references; exclude neither by glob nor assumption",
+        "Retain entire preserved source population unmodified; never delete or mutate Git indexes",
+        "Obtain separate author approval of exact omissions and independently validate a subsequent workspace manifest"
+      ],
+      "CMAKE_CONFIGURE_LOG": [
+        "Show by source-level runtime entrypoint dependency review that the four named CMakeConfigureLog.yaml files are never read at launch/runtime",
+        "Preserve compilation/configuration evidence and its divergent hashes in original protected source trees",
+        "Do not confuse excluding configure diagnostics from a runtime copy with deterministic rebuild qualification",
+        "Review any generated runtime configuration or build directories separately; do not use broad CMakeFiles or *.yaml exclusion rules",
+        "Obtain separate author approval of exact omissions and independently validate a subsequent workspace manifest"
+      ]
+    },
+    "unclassified_other_files_policy": "NO_POLICY_GRANTED; exhaustive dependency closure and include/exclude matrix still required"
+  },
+  "current_scopes": {
+    "host_inventory_rerun_authorized": false,
+    "materialization_authorized": false,
+    "workspace_copy_performed": false,
+    "independent_workspace_verification_executed": false,
+    "nominal_runtime_authorized": false,
+    "benign_cfs_noop_authorized": false,
+    "cosmos_authorized": false,
+    "faults_authorized": false,
+    "scientific_observations_authorized": false,
+    "final_environment_acceptance": false,
+    "merge_pr215_authorized": false
+  },
+  "disposition": "PROPOSAL_REVIEW_READY__AUTHOR_APPROVAL_OF_APPLIED_POLICY_STILL_REQUIRED"
+}

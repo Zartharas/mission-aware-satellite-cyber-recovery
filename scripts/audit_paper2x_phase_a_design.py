@@ -535,6 +535,59 @@ chk(host_inv.returncode==0 and
     "P2X_V2F_HOST_INVENTORY_STATIC_AUDIT=PASS" in host_inv.stdout and
     "P2X_V2F_HOST_INVENTORY_EXECUTED_IN_CI=NO" in host_inv.stdout,
     "P2X_V2F_HOST_INVENTORY_STATIC:"+host_inv.stderr[:180])
+variance_gate=json.loads((D/"V2F_NOMINAL_RUNTIME_QUALIFICATION_GATE_2026-10-07.json").read_text())
+variance_proposal=json.loads((D/"V2F_EXACT_55_VARIANCE_DISPOSITION_PROPOSAL_2026-10-08.json").read_text())
+variance_rows=variance_proposal["proposal"]["exact_paths"]
+variance_paths=[r["path"] for r in variance_rows]
+variance_bytes=("\\n".join(variance_paths)+"\\n").encode("utf-8")
+variance_source=variance_proposal["source"]
+chk(variance_gate["v2f_55_variance_disposition_status"]==
+    "STATIC_CONDITIONAL_PROPOSAL__EXCLUSIONS_NOT_AUTHORIZED" and
+    variance_gate["v2f_55_variance_disposition_parent_head"]=="276330544700661f756c58e02cf8b3a86b493d40" and
+    variance_gate["v2f_55_variance_disposition_parent_workflow"]==1426 and
+    variance_gate["v2f_55_variance_exclusions_authorized"] is False and
+    variance_gate["v2f_55_variance_exclusions_applied"] is False and
+    variance_gate["v2f_55_variance_excluded_paths"]==0 and
+    variance_gate["v2f_55_variance_runtime_dependency_closure"]=="UNRESOLVED",
+    "V2F_VARIANCE_GATE_CLOSED")
+chk(variance_proposal["classification"]==
+    "STATIC_EXACT_PATH_PROPOSAL_ONLY__NO_EXCLUSIONS_APPLIED" and
+    variance_source["reviewed_head"]=="276330544700661f756c58e02cf8b3a86b493d40" and
+    variance_source["source_inventory_jsonl_sha256"]==
+    "edeba9101e56000a4ca1eb12f67105a05865627c5d39416db521991b6bf50e38" and
+    variance_source["source_variance_csv_sha256"]==
+    "abc92c738d2d58adef7174ca8bd313b79ab9d8294c2421a74c633785c20d745c" and
+    __import__("hashlib").sha256(variance_bytes).hexdigest()==
+    "216fa6147bc4a32c0aee8eda5f882cf11d6df3839447ba32c785c2e9c6c3dc80",
+    "V2F_VARIANCE_EXACT_EVIDENCE_BINDING")
+chk(len(variance_paths)==55 and len(set(variance_paths))==55 and
+    all(isinstance(x,str) and not x.startswith("/") and
+        ".." not in x.split("/") for x in variance_paths) and
+    sum(r["variance_class"]=="GIT_INDEX_METADATA" for r in variance_rows)==51 and
+    sum(r["variance_class"]=="CMAKE_CONFIGURE_LOG" for r in variance_rows)==4 and
+    all((r["path"]==".git/index" or
+         (r["path"].startswith(".git/modules/") and r["path"].endswith("/index")))
+        for r in variance_rows if r["variance_class"]=="GIT_INDEX_METADATA") and
+    set(r["path"] for r in variance_rows if r["variance_class"]=="CMAKE_CONFIGURE_LOG")=={
+        "fsw/build/CMakeFiles/CMakeConfigureLog.yaml",
+        "fsw/build/amd64-nos3/default_cpu1/CMakeFiles/CMakeConfigureLog.yaml",
+        "gsw/build/CMakeFiles/CMakeConfigureLog.yaml",
+        "sims/build/CMakeFiles/CMakeConfigureLog.yaml"} and
+    all(r["proposed_disposition"]==
+        "CONDITIONAL_NONRUNTIME_WORKSPACE_OMISSION__NOT_APPROVED" for r in variance_rows),
+    "V2F_VARIANCE_55_PATH_AND_CLASS_SCOPE")
+chk(variance_proposal["proposal"]["exclusion_approval"] is False and
+    variance_proposal["proposal"]["exclusions_applied"]==0 and
+    variance_proposal["proposal"]["excluded_paths"]==[] and
+    variance_proposal["proposal"]["blanket_dot_git_exclusion_authorized"] is False and
+    variance_proposal["proposal"]["blanket_cmake_exclusion_authorized"] is False and
+    variance_proposal["proposal"]["preserve_all_9_qualified_build_outputs"] is True and
+    variance_proposal["observed"]["all_regular_file_bytes_identical"] is False and
+    variance_proposal["observed"]["runtime_dependency_closure"]=="UNRESOLVED" and
+    all(v is False for v in variance_proposal["current_scopes"].values()),
+    "V2F_VARIANCE_PROPOSAL_DOES_NOT_APPLY")
+print("P2X_V2F_55_VARIANCE_PROPOSAL_STATIC_AUDIT=PASS")
+print("P2X_V2F_55_EXCLUSIONS_APPLIED=NO")
 print("P2X_V2F_WORKSPACE_DESIGN_STATIC_AND_NEGATIVE_CONTROLS=PASS")
 print("P2X_V2F_NOMINAL_RUNTIME_CANDIDATE_STATIC_AND_DENIAL=PASS")
 print("P2X_V2F_RUNTIME_DESIGN_AND_STATIC_VALIDATION_AUDIT=PASS")
@@ -567,6 +620,8 @@ allowed={
 "paper2x/phase_a/V2F_HOST_INVENTORY_AUTHOR_REPORTED_RESULT_2026-10-08.json",
 "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.json",
 "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.md",
+"paper2x/phase_a/V2F_EXACT_55_VARIANCE_DISPOSITION_PROPOSAL_2026-10-08.json",
+"paper2x/phase_a/V2F_EXACT_55_VARIANCE_DISPOSITION_REVIEW_2026-10-08.md",
 "scripts/readback_paper2x_phase_a_v2f_manifest.py",
 "scripts/p2x_v2f_git_metadata_gate.py",
 "scripts/probe_paper2x_v2f_git_metadata.py",

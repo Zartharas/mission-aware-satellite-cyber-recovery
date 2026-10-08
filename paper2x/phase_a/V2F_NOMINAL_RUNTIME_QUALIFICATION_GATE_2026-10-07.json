@@ -144,5 +144,16 @@
   "read_only_host_inventory_git_index_hash_differences": 51,
   "read_only_host_inventory_cmake_log_hash_differences": 4,
   "read_only_host_inventory_all_files_byte_identical": false,
-  "read_only_host_inventory_reconciliation_record": "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.json"
+  "read_only_host_inventory_reconciliation_record": "paper2x/phase_a/V2F_UPLOADED_INVENTORY_RECONCILIATION_2026-10-08.json",
+  "v2f_55_variance_disposition_status": "STATIC_CONDITIONAL_PROPOSAL__EXCLUSIONS_NOT_AUTHORIZED",
+  "v2f_55_variance_disposition_parent_head": "276330544700661f756c58e02cf8b3a86b493d40",
+  "v2f_55_variance_disposition_parent_workflow": 1426,
+  "v2f_55_variance_disposition_parent_workflow_id": 37816008927,
+  "v2f_55_variance_disposition_proposal": "paper2x/phase_a/V2F_EXACT_55_VARIANCE_DISPOSITION_PROPOSAL_2026-10-08.json",
+  "v2f_55_variance_disposition_review": "paper2x/phase_a/V2F_EXACT_55_VARIANCE_DISPOSITION_REVIEW_2026-10-08.md",
+  "v2f_55_variance_exclusions_authorized": false,
+  "v2f_55_variance_exclusions_applied": false,
+  "v2f_55_variance_proposed_exact_paths": 55,
+  "v2f_55_variance_excluded_paths": 0,
+  "v2f_55_variance_runtime_dependency_closure": "UNRESOLVED"
 }
