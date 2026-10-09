@@ -28,46 +28,113 @@ def find_soffice():
              if Path("/Applications/LibreOffice.app/Contents/MacOS/soffice").exists() else None))
 
 def format_docx_table_pagination(doc):
-    """Presentation-only Word pagination; preserve table cells and scientific values."""
+    """Edit only Word layout. Fail closed on unexpected Pandoc OOXML structure."""
     import re
     from zipfile import ZipFile
+
+    # Each width tuple sums to 9360 twips (6.5in); cells and manuscript values
+    # are preserved. The two dense tables use 9pt rather than default text size.
+    widths = (
+        (2189, 2016, 2419, 2736),
+        (2304, 1800, 2808, 2448),
+        (1440, 4032, 3888),
+        (1008, 1944, 2880, 3528),
+        (3600, 5760),
+    )
+    def font_size(run, half_points):
+        tag = f'<w:sz w:val="{half_points}" />'
+        if '<w:rPr>' in run:
+            return run.replace('<w:rPr>', '<w:rPr>' + tag, 1)
+        return run.replace('<w:r>', '<w:r><w:rPr>' + tag + '</w:rPr>', 1)
+
     with ZipFile(doc, "r") as source:
         members = [(info, source.read(info.filename)) for info in source.infolist()]
-    updated = []
+    output = []
     for info, data in members:
         if info.filename == "word/document.xml":
             xml = data.decode("utf-8")
-            for number in (4, 5):
-                marker = f">Table {number}</w:t>"
-                matches = [p for p in re.findall(r"<w:p>.*?</w:p>", xml, re.DOTALL) if marker in p]
-                require(len(matches) == 1, f"table_{number}_caption_missing_or_ambiguous")
-                paragraph = matches[0]
-                require("<w:pPr>" in paragraph, f"table_{number}_caption_properties_missing")
-                xml = xml.replace(paragraph, paragraph.replace("<w:pPr>",
-                                  "<w:pPr><w:pageBreakBefore />", 1), 1)
-            def adjust_table(match):
-                def adjust_row(row_match):
-                    row = row_match.group(0)
-                    if "<w:cantSplit" in row:
-                        return row
-                    if "<w:trPr>" in row:
-                        return row.replace("<w:trPr>", "<w:trPr><w:cantSplit />", 1)
-                    return row.replace("<w:tr>", "<w:tr><w:trPr><w:cantSplit /></w:trPr>", 1)
-                return re.sub(r"<w:tr>.*?</w:tr>", adjust_row, match.group(0), flags=re.DOTALL)
-            xml, count = re.subn(r"<w:tbl>.*?</w:tbl>", adjust_table, xml, flags=re.DOTALL)
-            require(count == 5, "expected_five_word_tables_for_pagination")
+            require(all(len(re.findall(r'>Table '+str(n)+r'</w:t>', xml)) == 1
+                        for n in range(1, 6)),
+                    "five_table_captions_missing_or_ambiguous")
+            def paragraph_edit(match):
+                para = match.group(0)
+                if re.search(r'>Table [1-5]</w:t>', para):
+                    require('<w:pPr>' in para, "table_caption_properties_missing")
+                    # Keep each table caption with the following table; avoid
+                    # unconditional page breaks that create large blank regions.
+                    para = para.replace('<w:pageBreakBefore />', '')
+                    return para.replace('<w:pPr>', '<w:pPr><w:keepNext />', 1)
+                if re.search(r'>\[\d{1,2}\] ', para):
+                    require('<w:pPr>' in para, "reference_paragraph_properties_missing")
+                    para = para.replace(
+                        '<w:pPr>',
+                        '<w:pPr><w:spacing w:before="0" w:after="50" '
+                        'w:line="240" w:lineRule="auto" />', 1)
+                    return re.sub(r'<w:r>.*?</w:r>',
+                                  lambda r: font_size(r.group(0), 20),
+                                  para, flags=re.DOTALL)
+                return para
+            require(len(re.findall(r'>\[\d{1,2}\] ', xml)) == 19,
+                    "expected_19_numbered_reference_paragraphs")
+            xml = re.sub(r'<w:p>.*?</w:p>', paragraph_edit,
+                         xml, flags=re.DOTALL)
+
+            index = [0]
+            def table_edit(match):
+                i = index[0]
+                index[0] += 1
+                table = match.group(0)
+                require(i < 5, "more_than_five_tables")
+                require('<w:tblPr>' in table, "table_properties_missing")
+                table = table.replace('<w:tblPr>',
+                                      '<w:tblPr><w:tblLayout w:type="fixed" />', 1)
+                old_grid = re.search(r'<w:tblGrid>.*?</w:tblGrid>',
+                                     table, flags=re.DOTALL)
+                require(old_grid is not None, "table_grid_missing")
+                grid = '<w:tblGrid>' + ''.join(
+                    f'<w:gridCol w:w="{w}" />' for w in widths[i]
+                ) + '</w:tblGrid>'
+                table = table.replace(old_grid.group(0), grid, 1)
+                rows = re.findall(r'<w:tr>.*?</w:tr>',
+                                  table, flags=re.DOTALL)
+                require(rows, "empty_table")
+                for row in rows:
+                    cells = re.findall(r'<w:tc>.*?</w:tc>',
+                                       row, flags=re.DOTALL)
+                    require(len(cells) == len(widths[i]),
+                            "unexpected_table_column_count")
+                    updated_row = row
+                    for col, cell in enumerate(cells):
+                        require('<w:tcPr />' in cell,
+                                "unexpected_pandoc_cell_properties")
+                        replacement = cell.replace(
+                            '<w:tcPr />',
+                            f'<w:tcPr><w:tcW w:w="{widths[i][col]}" '
+                            'w:type="dxa" /></w:tcPr>', 1)
+                        if i in (0, 1):
+                            replacement = re.sub(
+                                r'<w:r>.*?</w:r>',
+                                lambda r: font_size(r.group(0), 18),
+                                replacement, flags=re.DOTALL)
+                        updated_row = updated_row.replace(cell, replacement, 1)
+                    table = table.replace(row, updated_row, 1)
+                return table
+            xml = re.sub(r'<w:tbl>.*?</w:tbl>', table_edit,
+                         xml, flags=re.DOTALL)
+            require(index[0] == 5, "expected_five_word_tables")
             data = xml.encode("utf-8")
-        updated.append((info, data))
+        output.append((info, data))
     with tempfile.NamedTemporaryFile(prefix="ceas-layout-", suffix=".docx",
                                      delete=False, dir=str(doc.parent)) as tmp:
         staged = Path(tmp.name)
     try:
-        with ZipFile(staged, "w") as output:
-            for info, data in updated:
-                output.writestr(info, data)
+        with ZipFile(staged, "w") as dest:
+            for info, data in output:
+                dest.writestr(info, data)
         staged.replace(doc)
     finally:
         staged.unlink(missing_ok=True)
+
 
 def main():
     ap=argparse.ArgumentParser()
