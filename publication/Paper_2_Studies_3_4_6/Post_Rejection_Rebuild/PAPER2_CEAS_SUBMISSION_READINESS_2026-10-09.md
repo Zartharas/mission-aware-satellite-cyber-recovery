@@ -26,3 +26,9 @@ Verified format: **150–250 abstract words**, **4–6 keywords**, editable Word
 5. Finalize declarations, generate a clean manuscript without placeholders, prepare upload files and portal field map, then request an explicit **final submit** instruction. No submission or merge is authorized by this preparation work.
 
 **No** P2X v2f runtime, COSMOS, faults, manuscript scientific recomputation, or PR #215 merge is required for CEAS editorial submission; the separate P2X validation track remains closed and its 55 inventory hash variances are not paper results.
+
+## 2026-10-09 CEAS first-pass terminology and citation correction
+
+The CEAS-specific abstract has 228 whitespace-delimited words. It replaces S3X/S6X/cFS/ESA shorthands with descriptive phrases so an editor can read the abstract without undefined project-specific abbreviations. The canonical Fig. 1 caption drops terminal punctuation under the journal's published artwork rule; its scientific content and original vector source remain unchanged.
+
+Reference **[6]** is the IETF `draft-ietf-rats-multi-verifier-00` Internet-Draft (published online 2026-05-05, expires 2026-11-06) and was a work-in-progress document at the source-review checkpoint. CEAS instructs authors to list published or accepted works in References and otherwise use text mentions for unpublished works. **Do not silently treat this draft as a peer-reviewed or finalized standard.** Before submission either substantiate an allowable published-version citation or modify the relevant in-text context/references with a claim-preserving editorial check. DOI/reference validation for the other entries remains separately required.

@@ -21,11 +21,15 @@ def main():
     hash_obj=subprocess.check_output(["git","hash-object",str(R4)],cwd=ROOT,text=True).strip()
     chk(hash_obj=="069e319864b1f5c1ee201b31872e68572fea1923","immutable_r4_blob_drift")
     ab=target.split("## Abstract\n\n",1)[1].split("**Keywords:**",1)[0].strip()
-    chk(150<=len(ab.split())<=250 and len(ab.split())==215,"abstract_length_or_drift")
+    chk(150<=len(ab.split())<=250 and len(ab.split())==228,"abstract_length_or_drift")
     kw=target.split("**Keywords:**",1)[1].split("\n",1)[0]
     chk(len([x for x in kw.split(";") if x.strip()])==6,"keywords_not_six")
-    chk(target.count("**Fig. 1**")==1 and target.count("![Fig. 1")==1,
+    fig_caption=next((x for x in target.splitlines() if x.startswith("**Fig. 1** ")),None)
+    chk(target.count("**Fig. 1**")==1 and target.count("![Fig. 1")==1 and
+        fig_caption is not None and not fig_caption.endswith("."),
         "figure_caption_or_embedding")
+    chk(not any(x in ab for x in ("S3X","S6X"," cFS"," ESA ")),
+        "undefined_abstract_abbreviation")
     chk(all(target.count("**Table "+str(n)+"**")==1 for n in range(1,6)),
         "not_five_arabic_tables")
     chk(all(("#" not in line or not re.match(r"^## [IVX]+\\.",line))
