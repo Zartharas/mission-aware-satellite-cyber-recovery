@@ -26,6 +26,49 @@ def find_soffice():
     return (shutil.which("soffice") or
             ("/Applications/LibreOffice.app/Contents/MacOS/soffice"
              if Path("/Applications/LibreOffice.app/Contents/MacOS/soffice").exists() else None))
+
+def format_docx_table_pagination(doc):
+    """Presentation-only Word pagination; preserve table cells and scientific values."""
+    import re
+    from zipfile import ZipFile
+    with ZipFile(doc, "r") as source:
+        members = [(info, source.read(info.filename)) for info in source.infolist()]
+    updated = []
+    for info, data in members:
+        if info.filename == "word/document.xml":
+            xml = data.decode("utf-8")
+            for number in (4, 5):
+                marker = f">Table {number}</w:t>"
+                matches = [p for p in re.findall(r"<w:p>.*?</w:p>", xml, re.DOTALL) if marker in p]
+                require(len(matches) == 1, f"table_{number}_caption_missing_or_ambiguous")
+                paragraph = matches[0]
+                require("<w:pPr>" in paragraph, f"table_{number}_caption_properties_missing")
+                xml = xml.replace(paragraph, paragraph.replace("<w:pPr>",
+                                  "<w:pPr><w:pageBreakBefore />", 1), 1)
+            def adjust_table(match):
+                def adjust_row(row_match):
+                    row = row_match.group(0)
+                    if "<w:cantSplit" in row:
+                        return row
+                    if "<w:trPr>" in row:
+                        return row.replace("<w:trPr>", "<w:trPr><w:cantSplit />", 1)
+                    return row.replace("<w:tr>", "<w:tr><w:trPr><w:cantSplit /></w:trPr>", 1)
+                return re.sub(r"<w:tr>.*?</w:tr>", adjust_row, match.group(0), flags=re.DOTALL)
+            xml, count = re.subn(r"<w:tbl>.*?</w:tbl>", adjust_table, xml, flags=re.DOTALL)
+            require(count == 5, "expected_five_word_tables_for_pagination")
+            data = xml.encode("utf-8")
+        updated.append((info, data))
+    with tempfile.NamedTemporaryFile(prefix="ceas-layout-", suffix=".docx",
+                                     delete=False, dir=str(doc.parent)) as tmp:
+        staged = Path(tmp.name)
+    try:
+        with ZipFile(staged, "w") as output:
+            for info, data in updated:
+                output.writestr(info, data)
+        staged.replace(doc)
+    finally:
+        staged.unlink(missing_ok=True)
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--check",action="store_true")
@@ -59,6 +102,7 @@ def main():
         doc=stage/"PAPER2_CEAS_R5_DRAFT.docx"
         subprocess.run(["pandoc",str(md),"--from=markdown","--to=docx",
                         "--standalone","--output",str(doc)],check=True)
+        format_docx_table_pagination(doc)
         subprocess.run([find_soffice(),"--headless","--convert-to","pdf",
                         "--outdir",str(stage),str(doc)],check=True)
         pdf=doc.with_suffix(".pdf")

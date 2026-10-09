@@ -58,6 +58,7 @@ Spacecraft security combines cyber trust decisions with operational constraints 
 Within that broader landscape, Vanlyssel et al. analyze internal trust boundaries in modular flight software and show how compromised components can abuse legitimate interfaces [2]. Curbo and Falco argue for testable secure-by-design flight-software requirements [3], and Utsash et al. experimentally evaluate a zero-trust implementation against selected replay and malicious-software-injection scenarios [18]. Silent Subversion is the closest recent comparison to the trusted-producer problem studied here: a compromised vendor-supplied component produces telemetry that remains syntactically legitimate to downstream tooling [14]. That work establishes attack feasibility and mission relevance. Paper 2 instead characterizes the qualification boundary: when policy-visible freshness, signature, producer-composition, and artifact-assurance signals do or do not distinguish hidden truth.
 
 SPARTA CM0044 provides a complementary recovery perspective by specifying cyber-safe operation from an integrity-protected, validated software/configuration baseline [4]. The present work therefore does not claim that trusted baselines, integrity checks, zero-trust controls, signatures, false telemetry, or cyber-safe recovery are new. Its contribution is the finite, mechanism-specific map of residual qualification assumptions after those types of evidence are represented at the decision boundary.
+
 ### 2.2 Evidence Freshness and Semantic Trust
 
 RFC 9334 distinguishes Evidence from appraisal and from the relying-party decision that consumes the result [5]. Freshness is part of that appraisal problem: sufficiently recent evidence can reduce stale-state risk, but freshness cannot ensure that the state represented by the record has not changed immediately after observation or that a trusted producer is semantically truthful.
@@ -100,19 +101,19 @@ These expressions provide a common manuscript vocabulary, not a pooled endpoint.
 
 **Table 1** Qualification layers and frozen populations
 
-| Evidence layer | Experiment | Research-only adjudication | Principal visible evidence | Population | Contact/timing treatment |
-|---|---|---|---|---:|---|
-| Temporal runtime evidence | Study 3, S3-K4E-001 | Hidden authorization | Signature, claim, freshness, record availability, security signal | 1,380 trajectories | K0 continuous and synthetic K4 contact |
-| External timing stress test | S3X-ETA-001 | Hidden authorization in frozen Study-3 semantics | Same B0/B2/S1 semantics; ESA timing structure only | 34,542 cases over 1,919 intervals | Empirical-hiatus proxy vs matched immediate-refresh control |
-| Producer composition | Study 4, S4-MPQ-001 | Hidden authorization | Signed producer claims, vote threshold, synthetic provenance-domain count | 4,608 observations | No contact model |
-| Artifact assurance | Study 6, S6-SCTR-001 | Objective baseline correctness | Signature, digest, provenance, reproduced build, review, approval | 420 observations | No contact model |
-| Executable artifact-assurance stress test | S6X-EAP-001 | External research functional adjudication | Same six Study-6-aligned qualification signals; functional harness remains outside the gate | 396 observations/repetition × 2 deterministic repetitions | No contact model |
+| Study / evidence layer | Research-only adjudication | Decision-visible evidence | Population and contact/timing |
+| --- | --- | --- | --- |
+| Study 3, S3-K4E-001 — Temporal runtime evidence | Hidden authorization | Signature, claim, freshness, record availability, security signal | 1,380 trajectories; K0 continuous and synthetic K4 contact |
+| S3X-ETA-001 — External timing stress test | Hidden authorization in frozen Study-3 semantics | Same B0/B2/S1 semantics; ESA timing structure only | 34,542 cases over 1,919 intervals; Empirical-hiatus proxy vs matched immediate-refresh control |
+| Study 4, S4-MPQ-001 — Producer composition | Hidden authorization | Signed producer claims, vote threshold, synthetic provenance-domain count | 4,608 observations; No contact model |
+| Study 6, S6-SCTR-001 — Artifact assurance | Objective baseline correctness | Signature, digest, provenance, reproduced build, review, approval | 420 observations; No contact model |
+| S6X-EAP-001 — Executable artifact-assurance stress test | External research functional adjudication | Same six Study-6-aligned qualification signals; functional harness remains outside the gate | 396 observations/repetition × 2 deterministic repetitions; No contact model |
 
 The arithmetic sum of these populations is not a meaningful sample size. Study 3 uses trajectories, S3X uses interval-policy-evidence-arm cases, Study 4 uses rule-by-subset observations, and Study 6 uses artifact-state and assurance-unavailability observations. No pooled N, pooled rate, pooled confidence interval, or combined policy score is defined.
 
 Fig. 1 summarizes the three residual trust boundaries at the level of the qualification observation set. The panels compare mechanisms qualitatively; they are not sequential recovery stages, do not exchange experimental outputs, and do not share a pooled denominator. The subordinate S3X inset supplies external timing structure for the Study-3 mechanism. S6X separately instantiates the Study-6 artifact residual with executable evidence, as reported in Table 5, without becoming a fourth main panel.
 
-![Fig. 1. Three separately evaluated residual trust boundaries in satellite cyber-recovery qualification.](figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg)
+![](figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg)
 
 **Fig. 1** Residual trust boundaries across three separately frozen qualification studies. (a) Temporal evidence (Study 3), including the subordinate S3X timing-proxy stress test: a truthful pre-onset cache can create bounded B0 exposure, while a false-but-valid trusted-producer claim can survive signature-only qualification; the ESA intervals are evidence-refresh proxies, not observed RF/contact outages. (b) Producer composition (Study 4): vote thresholds and synthetic provenance-domain requirements change first/systematic failure and benign-unavailability boundaries conditionally, not monotonically. (c) Recovery-artifact assurance (Study 6): composition excludes modeled integrity/provenance failures but leaves `APPROVED_BAD_SOURCE` when all six gate-visible signals remain true. The panels present a qualitative, nonpooled synthesis, not a serial architecture or a globally preferred rule. S6X is a separate executable stress test of the Study-6 residual, documented in Table 5; it is neither an additional Figure-1 panel nor an external empirical replication
 
@@ -213,19 +214,19 @@ The externally sourced hiatus therefore postpones the modeled manifestation of t
 
 **Table 2** RQ1 temporal qualification results with study-specific units
 
-| Evidence population | Condition | Policy / comparison | Qualification result | Exposure / timing statement |
-|---|---|---|---|---|
-| Study 3 | Persistent V5, K0 | B0 | 46/46 unsafe-qualified | Mean 122.500 logical s |
-| Study 3 | Persistent V5, K0 | S1 | 46/46 unsafe-qualified | Mean 122.500 logical s |
-| Study 3 | Persistent V5, K0 | B2 | 0/46 unsafe-qualified | 0 logical s |
-| Study 3 | Persistent V5, K4 | B0 | 46/46 unsafe-qualified | Mean 55.326 logical s |
-| Study 3 | Persistent V5, K4 | S1 | 46/46 unsafe-qualified | Mean 49.022 logical s |
-| Study 3 | Persistent V5, K4 | B2 | 0/46 unsafe-qualified | 0 logical s |
-| Study 3 | Truthful V0, K4 | B0 | 3/46 unsafe-qualified from PRE_ONSET_CACHE | Mean 0.326 logical s |
-| S3X | Empirical hiatus | B0 minus S1 cache-origin contrast | 5,757/5,757 comparisons have the same difference | +1 cadence unit |
-| S3X | V4 at first refresh | All policies, both timing arms | Affected record non-qualifying in 11,514 cases | Signature invalid |
-| S3X | V5 at first refresh | B0 + S1 | 7,676/7,676 unsafe-qualified | q=0 in control; q=g_i in hiatus |
-| S3X | V5 at first refresh | B2 | 3,838/3,838 non-qualifying | Same classification in both timing arms |
+| Population and condition | Policy / comparison | Qualification result | Exposure / timing |
+| --- | --- | --- | --- |
+| Study 3 — Persistent V5, K0 | B0 | 46/46 unsafe-qualified | Mean 122.500 logical s |
+| Study 3 — Persistent V5, K0 | S1 | 46/46 unsafe-qualified | Mean 122.500 logical s |
+| Study 3 — Persistent V5, K0 | B2 | 0/46 unsafe-qualified | 0 logical s |
+| Study 3 — Persistent V5, K4 | B0 | 46/46 unsafe-qualified | Mean 55.326 logical s |
+| Study 3 — Persistent V5, K4 | S1 | 46/46 unsafe-qualified | Mean 49.022 logical s |
+| Study 3 — Persistent V5, K4 | B2 | 0/46 unsafe-qualified | 0 logical s |
+| Study 3 — Truthful V0, K4 | B0 | 3/46 unsafe-qualified from PRE_ONSET_CACHE | Mean 0.326 logical s |
+| S3X — Empirical hiatus | B0 minus S1 cache-origin contrast | 5,757/5,757 comparisons have the same difference | +1 cadence unit |
+| S3X — V4 at first refresh | All policies, both timing arms | Affected record non-qualifying in 11,514 cases | Signature invalid |
+| S3X — V5 at first refresh | B0 + S1 | 7,676/7,676 unsafe-qualified | q=0 in control; q=g_i in hiatus |
+| S3X — V5 at first refresh | B2 | 3,838/3,838 non-qualifying | Same classification in both timing arms |
 
 Study-3 logical seconds and S3X cadence units are distinct analysis units and are not converted or pooled.
 
@@ -343,13 +344,15 @@ The six-signal G5 composite gate leaves only APPROVED_BAD_SOURCE. In that state 
 **Table 4** Study-6 residual incorrect-state and benign-loss counts
 
 | Gate | Visible requirements | Incorrect states remaining qualified | Benign unavailable-signal subsets rejected |
-|---|---:|---:|---:|
-| G0_SIGNATURE_ONLY | 1 | 4/5 | 32/64 |
-| G1_SIGNATURE_TARGET_DIGEST | 2 | 3/5 | 48/64 |
-| G2_SIGNATURE_PROVENANCE | 2 | 3/5 | 48/64 |
-| G3_PROVENANCE_REPRODUCED_BUILD | 3 | 2/5 | 56/64 |
-| G4_PROVENANCE_SOURCE_REVIEW | 3 | 2/5 | 56/64 |
-| G5_COMPOSITE | 6 | 1/5 | 63/64 |
+| --- | ---: | ---: | ---: |
+| G0 | 1 | 4/5 | 32/64 |
+| G1 | 2 | 3/5 | 48/64 |
+| G2 | 2 | 3/5 | 48/64 |
+| G3 | 3 | 2/5 | 56/64 |
+| G4 | 3 | 2/5 | 56/64 |
+| G5 | 6 | 1/5 | 63/64 |
+
+G0–G5 abbreviate the full gate identifiers defined in Section 6.1.
 
 ### 6.3 Assurance Composition Has a Benign Evidence Cost
 

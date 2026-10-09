@@ -25,13 +25,17 @@ def main():
     kw=target.split("**Keywords:**",1)[1].split("\n",1)[0]
     chk(len([x for x in kw.split(";") if x.strip()])==6,"keywords_not_six")
     fig_caption=next((x for x in target.splitlines() if x.startswith("**Fig. 1** ")),None)
-    chk(target.count("**Fig. 1**")==1 and target.count("![Fig. 1")==1 and
+    chk(target.count("**Fig. 1**")==1 and target.count("![](figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg)")==1 and
         fig_caption is not None and not fig_caption.endswith("."),
         "figure_caption_or_embedding")
     chk(not any(x in ab for x in ("S3X","S6X"," cFS"," ESA ")),
         "undefined_abstract_abbreviation")
     chk(all(target.count("**Table "+str(n)+"**")==1 for n in range(1,6)),
         "not_five_arabic_tables")
+    chk("decision boundary.\n\n### 2.2 Evidence Freshness and Semantic Trust" in target,
+        "heading_2_2_separator_missing")
+    chk("G0–G5 abbreviate the full gate identifiers" in target,
+        "table4_full_gate_legend_missing")
     chk(all(("#" not in line or not re.match(r"^## [IVX]+\\.",line))
             for line in target.splitlines()),"old_roman_headings")
     chk(all("[{}]".format(i) in target for i in range(1,20)) and

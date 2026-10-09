@@ -75,7 +75,8 @@
     "DOCX_PDF_RENDER_AND_LAYOUT_QA_NOT_COMPLETED",
     "REFERENCE_AND_FIGURE_FINAL_QA_NOT_COMPLETED",
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
-    "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN"
+    "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
+    "NEW_EXACT_HEAD_WORD_PDF_REBUILD_AND_ALL_PAGE_VISUAL_QA_PENDING"
   ],
   "references_review": {
     "total": 20,
@@ -92,5 +93,21 @@
     "original_screened_count": 20,
     "current_manuscript_entries": 19
   },
-  "repo_visibility_live_20261009": "PUBLIC__NOT_ALL_FROZEN_ARTIFACTS_CONFIRMED_ACCESSIBLE"
+  "repo_visibility_live_20261009": "PUBLIC__NOT_ALL_FROZEN_ARTIFACTS_CONFIRMED_ACCESSIBLE",
+  "visual_qa_history": [
+    {
+      "source_head": "a979b28e690b462cb7e9e01196e6ca0a28784406",
+      "pdf_pages": 32,
+      "preview_docx_sha256": "20dc7b505fa8746ebf2b06993fe832da720112a85d8c98f3490cea64a3789b58",
+      "preview_pdf_sha256": "28553bf0fc7be0500978d15c6dbc497384014cd1eddc8b75cb1a06fe75c1cdf5",
+      "verdict": "FAIL",
+      "findings": [
+        "TABLE_1_UNREADABLE",
+        "FIGURE_1_DUPLICATE_CAPTION",
+        "HEADING_2_2_LITERAL_MARKDOWN",
+        "TABLE_4_GATE_WRAP",
+        "TABLE_5_PAGINATION"
+      ]
+    }
+  ]
 }
