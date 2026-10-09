@@ -32,3 +32,7 @@ Verified format: **150–250 abstract words**, **4–6 keywords**, editable Word
 The CEAS-specific abstract has 228 whitespace-delimited words. It replaces S3X/S6X/cFS/ESA shorthands with descriptive phrases so an editor can read the abstract without undefined project-specific abbreviations. The canonical Fig. 1 caption drops terminal punctuation under the journal's published artwork rule; its scientific content and original vector source remain unchanged.
 
 Reference **[6]** is the IETF `draft-ietf-rats-multi-verifier-00` Internet-Draft (published online 2026-05-05, expires 2026-11-06) and was a work-in-progress document at the source-review checkpoint. CEAS instructs authors to list published or accepted works in References and otherwise use text mentions for unpublished works. **Do not silently treat this draft as a peer-reviewed or finalized standard.** Before submission either substantiate an allowable published-version citation or modify the relevant in-text context/references with a claim-preserving editorial check. DOI/reference validation for the other entries remains separately required.
+
+## Bibliography source screen
+
+The separate [CEAS reference-integrity record](PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.md) audits all 20 references by identifier lookup and known official sources, preserving ambiguities and the IETF Internet-Draft HOLD. This is NOT final bibliographic verification and does not change frozen claims.

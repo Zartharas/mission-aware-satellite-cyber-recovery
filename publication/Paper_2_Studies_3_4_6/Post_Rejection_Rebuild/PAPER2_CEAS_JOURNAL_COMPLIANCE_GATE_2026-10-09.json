@@ -53,7 +53,7 @@
     "manuscript_docx": "NOT_RENDERED",
     "manuscript_pdf": "NOT_RENDERED",
     "figure_visual_qa": "PENDING",
-    "bibliography_reference_verification": "PENDING__REFERENCE_6_IETF_WORK_IN_PROGRESS_HOLD",
+    "bibliography_reference_verification": "BATCH_SCREENED__MANUAL_CHECK_AND_REFERENCE_6_REVIEW_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
     "funding_conflicts_email": "PENDING_AUTHOR",
     "portal_submission": "NOT_STARTED"
@@ -74,18 +74,20 @@
     "DOCX_PDF_RENDER_AND_LAYOUT_QA_NOT_COMPLETED",
     "REFERENCE_AND_FIGURE_FINAL_QA_NOT_COMPLETED",
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
-    "REFERENCE_6_UNPUBLISHED_IETF_DRAFT_MUST_BE_RECONCILED_WITH_JOURNAL_RULE"
+    "REFERENCE_6_UNPUBLISHED_IETF_DRAFT_MUST_BE_RECONCILED_WITH_JOURNAL_RULE",
+    "COMPLETE_REFERENCE_AND_IETF_DRAFT_ACCEPTABILITY_REVIEW"
   ],
   "references_review": {
-    "count": 20,
-    "verified_external_subset": [
-      "[17] DOI 10.3390/aerospace13030249"
-    ],
-    "unresolved_work_in_progress": [
-      "[6] draft-ietf-rats-multi-verifier-00"
-    ],
-    "source_policy": "Springer CEAS references list published or accepted publications; unpublished work normally only text mention",
-    "reference_6_status": "HOLD_CHECK_JOURNAL_POLICY_AND_FIND_PUBLISHED_CITATION_OR_REWORK_TEXT",
-    "all_20_bibliography_entries_externally_verified": false
+    "total": 20,
+    "batch": {
+      "matched": 14,
+      "mismatch": 1,
+      "not_found": 5,
+      "retracted_reported": 0
+    },
+    "report": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
+    "reference_6": "IETF_WORK_IN_PROGRESS_HOLD",
+    "reference_13": "GENERIC_TITLE_HEURISTIC_MISMATCH_NOT_FABRICATION",
+    "full_manual_verified": false
   }
 }

@@ -105,6 +105,8 @@ allowed={
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_SUBMISSION_READINESS_2026-10-09.md",
 "scripts/audit_paper2_ceas_r5.py",
 "scripts/build_paper2_ceas_package.py",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.md",
 }
 changed=set(subprocess.check_output(["git","diff","--name-only",f"{BASE}...HEAD"],cwd=ROOT,text=True).splitlines())
 req(changed==allowed,"branch diff whitelist drift: "+str(sorted(changed^allowed)))

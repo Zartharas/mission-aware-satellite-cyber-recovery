@@ -542,7 +542,7 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 [5] H. Birkholz, D. Thaler, M. Richardson, N. Smith, and W. Pan, “Remote ATtestation procedureS (RATS) architecture,” RFC 9334, Jan. 2023, https://doi.org/10.17487/RFC9334.
 
-[6] Y. Deshpande, J. Zhang, H. Labiod, and H. Birkholz, “Remote attestation with multiple verifiers,” IETF, Internet-Draft draft-ietf-rats-multi-verifier-00, May 2026, work in progress.
+[6] Y. Deshpande, J. Zhang, H. Labiod, and H. Birkholz, “Remote attestation with multiple verifiers,” IETF, Internet-Draft draft-ietf-rats-multi-verifier-00, May 2026, work in progress. https://datatracker.ietf.org/doc/draft-ietf-rats-multi-verifier/
 
 [7] D. Malkhi and M. Reiter, “Byzantine quorum systems,” Distrib. Comput., vol. 11, no. 4, pp. 203–213, Oct. 1998, https://doi.org/10.1007/s004460050050.
 
@@ -552,7 +552,7 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 [10] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, “in-toto: Providing farm-to-table guarantees for bits and bytes,” in Proc. 28th USENIX Security Symp. (USENIX Security 19), Santa Clara, CA, USA, Aug. 2019, pp. 1393–1410.
 
-[11] The Update Framework, “The Update Framework Specification, v1.0.36,” Aug. 10, 2026.
+[11] The Update Framework, “The Update Framework Specification, v1.0.36,” Aug. 10, 2026. https://theupdateframework.github.io/specification/v1.0.36/
 
 [12] SLSA, “Source: Requirements for producing source,” SLSA Specification, v1.2. Accessed: Sep. 28, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/source-requirements
 

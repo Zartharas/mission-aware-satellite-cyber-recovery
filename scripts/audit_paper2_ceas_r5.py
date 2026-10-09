@@ -48,6 +48,16 @@ def main():
         "does not pool S6X with Study 6",
     ):
         chk(anchor.lower() in target.lower(),"frozen_scope_missing:"+anchor)
+    refscreen=json.loads((D/"PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json").read_text(encoding="utf-8"))
+    chk(refscreen["total"]==20 and
+        refscreen["automated"]["matched"]==14 and
+        refscreen["automated"]["mismatch"]==1 and
+        refscreen["automated"]["not_found"]==5 and
+        refscreen["automated"]["retracted_reported"]==0 and
+        refscreen["full_manual_reference_qa"] is False and
+        "https://datatracker.ietf.org/doc/draft-ietf-rats-multi-verifier/" in target and
+        "https://theupdateframework.github.io/specification/v1.0.36/" in target,
+        "CEAS_REFERENCE_SCREEN_FIREWALL")
     chk(gate["article_type"]=="Original Research Article" and
         gate["manuscript_r4_blob_immutable"]==hash_obj and
         gate["deliverables"]["manuscript_docx"]=="NOT_RENDERED" and
