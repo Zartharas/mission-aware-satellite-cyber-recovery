@@ -13,11 +13,11 @@ A satellite cyber-recovery qualification decision relies on observable evidence 
 
 ## 1 Introduction
 
-A satellite cyber-recovery qualification mechanism does not act on hidden truth. It acts on evidence: signed records, measured state, producer agreement, provenance, build assurance, approval, and whatever timing context is available when the decision must be made. In a spacecraft setting, that distinction matters because communication can be intermittent, physical access is unavailable after launch, subsystems are tightly coupled, and mission continuity can constrain when evidence can be refreshed or checked [1]. NIST frames commercial satellite cybersecurity as a mission risk-management problem spanning space and supporting operational environments [18], while NASA's Space Security Best Practices Guide organizes mission-security controls around prevention, mitigation, and recovery [20]. Contemporary surveys likewise show a broad satellite-security landscape spanning space, ground, communication-link, and network layers [16], [17]. The narrower problem here is whether the evidence visible to a recovery-qualification decision is sufficient to distinguish a modeled safe state from an unsafe one.
+A satellite cyber-recovery qualification mechanism does not act on hidden truth. It acts on evidence: signed records, measured state, producer agreement, provenance, build assurance, approval, and whatever timing context is available when the decision must be made. In a spacecraft setting, that distinction matters because communication can be intermittent, physical access is unavailable after launch, subsystems are tightly coupled, and mission continuity can constrain when evidence can be refreshed or checked [1]. NIST frames commercial satellite cybersecurity as a mission risk-management problem spanning space and supporting operational environments [17], while NASA's Space Security Best Practices Guide organizes mission-security controls around prevention, mitigation, and recovery [19]. Contemporary surveys likewise show a broad satellite-security landscape spanning space, ground, communication-link, and network layers [15], [16]. The narrower problem here is whether the evidence visible to a recovery-qualification decision is sufficient to distinguish a modeled safe state from an unsafe one.
 
-Prior work provides strong mechanisms for the individual pieces of this problem. Satellite cybersecurity research has examined internal trust boundaries and testable cyber-resilience requirements [2], [3], while laboratory work has evaluated zero-trust controls against selected satellite attack scenarios [19]. SPARTA's CM0044 cyber-safe mode specifies recovery from an integrity-protected, validated software/configuration baseline [4]. The RATS architecture separates Evidence, appraisal, and relying-party decisions and treats freshness as an explicit concern [5], while current RATS work considers compositions involving multiple Verifiers [6]. Quorum systems formalize threshold trust and availability relationships [7], [8], and satellite-oriented trusted-execution work has used Byzantine-tolerant endorsement quorums [9]. Software supply-chain systems provide signed metadata, hashes, provenance, source/build assurance, and update-security mechanisms [10]–[13]. Those mechanisms are established prior art.
+Prior work provides strong mechanisms for the individual pieces of this problem. Satellite cybersecurity research has examined internal trust boundaries and testable cyber-resilience requirements [2], [3], while laboratory work has evaluated zero-trust controls against selected satellite attack scenarios [18]. SPARTA's CM0044 cyber-safe mode specifies recovery from an integrity-protected, validated software/configuration baseline [4]. The published RATS architecture separates Evidence, appraisal, and relying-party decisions, treats freshness as an explicit concern, and permits multiple entities to cooperate in a RATS role [5]. Quorum systems formalize threshold trust and availability relationships [6], [7], and satellite-oriented trusted-execution work has used Byzantine-tolerant endorsement quorums [8]. Software supply-chain systems provide signed metadata, hashes, provenance, source/build assurance, and update-security mechanisms [9]–[12]. Those mechanisms are established prior art.
 
-The unresolved qualification question is narrower. A recovery gate can receive evidence that is authentic, fresh, sufficiently numerous, provenance-qualified, or approved and still lack a signal that distinguishes the relevant hidden failure. Recent spacecraft research makes that concern concrete: Silent Subversion demonstrates that a compromised vendor-supplied onboard component can emit telemetry in the expected format and cadence that ground tooling accepts as legitimate [15]. This paper does not claim legitimate-looking false telemetry as a new phenomenon. It asks when explicit recovery-qualification rules remain unable to distinguish hidden truth despite freshness, signatures, producer composition, or artifact-assurance evidence. The common problem is **observability**: a decision cannot discriminate a mismatch that is absent from the variables it is allowed to observe.
+The unresolved qualification question is narrower. A recovery gate can receive evidence that is authentic, fresh, sufficiently numerous, provenance-qualified, or approved and still lack a signal that distinguishes the relevant hidden failure. Recent spacecraft research makes that concern concrete: Silent Subversion demonstrates that a compromised vendor-supplied onboard component can emit telemetry in the expected format and cadence that ground tooling accepts as legitimate [14]. This paper does not claim legitimate-looking false telemetry as a new phenomenon. It asks when explicit recovery-qualification rules remain unable to distinguish hidden truth despite freshness, signatures, producer composition, or artifact-assurance evidence. The common problem is **observability**: a decision cannot discriminate a mismatch that is absent from the variables it is allowed to observe.
 
 This paper evaluates that problem through three separately frozen finite experiments and two separately governed stress tests. The three core studies remain scientifically independent and are not pooled:
 
@@ -53,9 +53,9 @@ Fourth, **residual identity is the common systems result**. Across all three cor
 
 ### 2.1 Satellite Cybersecurity and Recovery
 
-Spacecraft security combines cyber trust decisions with operational constraints that can differ from continuously connected terrestrial systems. Thummala, Rice, and Falco identify communication gaps, permanent loss of physical access after launch, tight subsystem coupling, and mission-continuity requirements as interacting characteristics of space cybersecurity [1]. NIST IR 8270 frames commercial satellite cybersecurity as a risk-management problem requiring space-specific treatment [18], and NASA's mission-security guidance emphasizes risk-based protection across both vehicle and ground elements [20]. Recent broad reviews catalog threats and defenses across satellite network, space, ground, and link layers [16], [17].
+Spacecraft security combines cyber trust decisions with operational constraints that can differ from continuously connected terrestrial systems. Thummala, Rice, and Falco identify communication gaps, permanent loss of physical access after launch, tight subsystem coupling, and mission-continuity requirements as interacting characteristics of space cybersecurity [1]. NIST IR 8270 frames commercial satellite cybersecurity as a risk-management problem requiring space-specific treatment [17], and NASA's mission-security guidance emphasizes risk-based protection across both vehicle and ground elements [19]. Recent broad reviews catalog threats and defenses across satellite network, space, ground, and link layers [15], [16].
 
-Within that broader landscape, Vanlyssel et al. analyze internal trust boundaries in modular flight software and show how compromised components can abuse legitimate interfaces [2]. Curbo and Falco argue for testable secure-by-design flight-software requirements [3], and Utsash et al. experimentally evaluate a zero-trust implementation against selected replay and malicious-software-injection scenarios [19]. Silent Subversion is the closest recent comparison to the trusted-producer problem studied here: a compromised vendor-supplied component produces telemetry that remains syntactically legitimate to downstream tooling [15]. That work establishes attack feasibility and mission relevance. Paper 2 instead characterizes the qualification boundary: when policy-visible freshness, signature, producer-composition, and artifact-assurance signals do or do not distinguish hidden truth.
+Within that broader landscape, Vanlyssel et al. analyze internal trust boundaries in modular flight software and show how compromised components can abuse legitimate interfaces [2]. Curbo and Falco argue for testable secure-by-design flight-software requirements [3], and Utsash et al. experimentally evaluate a zero-trust implementation against selected replay and malicious-software-injection scenarios [18]. Silent Subversion is the closest recent comparison to the trusted-producer problem studied here: a compromised vendor-supplied component produces telemetry that remains syntactically legitimate to downstream tooling [14]. That work establishes attack feasibility and mission relevance. Paper 2 instead characterizes the qualification boundary: when policy-visible freshness, signature, producer-composition, and artifact-assurance signals do or do not distinguish hidden truth.
 
 SPARTA CM0044 provides a complementary recovery perspective by specifying cyber-safe operation from an integrity-protected, validated software/configuration baseline [4]. The present work therefore does not claim that trusted baselines, integrity checks, zero-trust controls, signatures, false telemetry, or cyber-safe recovery are new. Its contribution is the finite, mechanism-specific map of residual qualification assumptions after those types of evidence are represented at the decision boundary.
 ### 2.2 Evidence Freshness and Semantic Trust
@@ -64,23 +64,23 @@ RFC 9334 distinguishes Evidence from appraisal and from the relying-party decisi
 
 That distinction motivates Study 3. The model separately represents (1) a truthful record that remains fresh for a bounded period after hidden authorization changes, (2) a post-signature alteration that invalidates the affected signature, and (3) a false claim validly signed by the modeled trusted producer. The contribution is not that freshness and signatures matter; it is the exact finite-grid characterization of which failure remains after each visible check.
 
-The 2026 RATS multiple-Verifier draft considers hierarchical, cascaded, and hybrid verifier compositions [6]. Study 4 is different: it models multiple **evidence producers** feeding one qualification rule, not multiple Verifiers distributing appraisal. Preserving that distinction prevents producer-count results from being overstated as a general multi-Verifier result.
+RFC 9334 permits multiple entities to cooperate in implementing RATS roles and describes composite attestation arrangements [5]. Study 4 is different: it models multiple **evidence producers** feeding one qualification rule, not multiple Verifiers distributing appraisal. Preserving that distinction prevents producer-count results from being overstated as a general multi-Verifier result.
 
 ### 2.3 Quorum and Provenance Composition
 
-Quorum systems establish formal relationships among threshold structure, fault assumptions, consistency, and availability [7], [8]. Space Fabric applies Byzantine-tolerant endorsement quorums and diversified trust components in a satellite-enhanced trusted-execution architecture [9]. Study 4 therefore does not claim novelty for quorum thresholds or diversity itself.
+Quorum systems establish formal relationships among threshold structure, fault assumptions, consistency, and availability [6], [7]. Space Fabric applies Byzantine-tolerant endorsement quorums and diversified trust components in a satellite-enhanced trusted-execution architecture [8]. Study 4 therefore does not claim novelty for quorum thresholds or diversity itself.
 
 Its narrower contribution is an exhaustive failure map for one frozen recovery-evidence model: seven producers assigned to three synthetic provenance domains and evaluated under 18 total-vote/domain rules. The study distinguishes the **first** affected-producer count at which failure becomes possible from the **systematic** count at which every same-size subset fails. This exposes when provenance structure changes subset dependence even when the first threshold does not move.
 
 ### 2.4 Recovery-Artifact Assurance
 
-in-toto provides cryptographically verifiable supply-chain metadata [10]. TUF uses signed metadata, trusted roles, hashes, expiration, versioning, and configurable thresholds to secure software updates [11]. SLSA specifies source and build assurance requirements [12] and explicitly recognizes limits when the producer itself is intentionally malicious [13]. These mechanisms establish the assurance primitives used to motivate Study 6.
+in-toto provides cryptographically verifiable supply-chain metadata [9]. TUF uses signed metadata, trusted roles, hashes, expiration, versioning, and configurable thresholds to secure software updates [10]. SLSA specifies source and build assurance requirements [11] and explicitly recognizes limits when the producer itself is intentionally malicious [12]. These mechanisms establish the assurance primitives used to motivate Study 6.
 
 Study 6 asks a different question: given visible signals analogous to signature, digest, provenance, reproduced build, source review, and release approval, which prespecified incorrect recovery-artifact states remain qualified by each gate? Its contribution is the residual-state identity, not a new supply-chain standard.
 
 ### 2.5 External Timing Source for S3X
 
-The S3X extension uses ESA Anomaly Dataset v2 [14]. The source contains real spacecraft telemetry, but S3X uses only timestamp structure from Missions 1 and 2. The frozen 1,919-member P99_X10 population is defined by extreme positive inter-sample intervals relative to each channel’s frozen cadence estimate. Those intervals are **not** labeled RF loss, ground-station visibility loss, spacecraft outage, command-path unavailability, or cyberattack truth. They serve only as externally sourced evidence-refresh-hiatus proxies.
+The S3X extension uses ESA Anomaly Dataset v2 [13]. The source contains real spacecraft telemetry, but S3X uses only timestamp structure from Missions 1 and 2. The frozen 1,919-member P99_X10 population is defined by extreme positive inter-sample intervals relative to each channel’s frozen cadence estimate. Those intervals are **not** labeled RF loss, ground-station visibility loss, spacecraft outage, command-path unavailability, or cyberattack truth. They serve only as externally sourced evidence-refresh-hiatus proxies.
 
 This use of an external timing population provides an external-source timing stress test of the Study-3 decision semantics while preserving a strict claim boundary: S3X is not an external empirical replication of Study 3.
 
@@ -154,7 +154,7 @@ These values are exact properties of the frozen Study-3 grid. They are not estim
 
 S3X asks whether the Study-3 distinction survives when evidence-refresh timing is driven by an externally sourced, separately frozen telemetry interval population rather than the synthetic K4 schedule.
 
-The source is ESA Anomaly Dataset v2 [14]. Missions 1 and 2 contribute 176 telemetry channels. A prespecified eight-rule cadence-sensitivity analysis was performed; P99_X10 was selected after that analysis and then frozen before timestamp-trace extraction and recovery replay. The resulting trace population contains 1,919 positive inter-sample intervals satisfying the strict relation:
+The source is ESA Anomaly Dataset v2 [13]. Missions 1 and 2 contribute 176 telemetry channels. A prespecified eight-rule cadence-sensitivity analysis was performed; P99_X10 was selected after that analysis and then frozen before timestamp-trace extraction and recovery replay. The resulting trace population contains 1,919 positive inter-sample intervals satisfying the strict relation:
 
 delta_seconds > 10 × cadence_p99_seconds.
 
@@ -464,7 +464,7 @@ Study 3 uses logical model time. Its K4 treatment is synthetic and does not repr
 
 For S3X, the candidate-rule family was prespecified as an eight-rule cadence-sensitivity analysis. P99_X10 was selected after that analysis and then frozen before trace extraction and Phase-7 replay; no post-freeze rule or interval-membership retuning was permitted.
 
-S3X uses ESA telemetry inter-sample timing from Missions 1 and 2 [14]. The P99_X10 intervals are **timing inputs only**. They are not RF contact-loss observations, command-link outages, ground-station visibility losses, spacecraft outages, or measured recovery latencies. V4 and V5 are modeled trust states and are not labels supplied by ESA.
+S3X uses ESA telemetry inter-sample timing from Missions 1 and 2 [13]. The P99_X10 intervals are **timing inputs only**. They are not RF contact-loss observations, command-link outages, ground-station visibility losses, spacecraft outages, or measured recovery latencies. V4 and V5 are modeled trust states and are not labels supplied by ESA.
 
 Cadence units are extension analysis units. They are not spacecraft processor time, network latency, operator response time, or flight recovery latency.
 
@@ -524,9 +524,9 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 **Ethics approval and consent.** The reported finite-model and software-fixture studies do not describe human participants or animal experiments. [AUTHOR CONFIRM the applicable not-required statements and any third-party data permissions.]
 
-**Data availability.** The underlying research records and reproducibility materials are currently maintained in a controlled private research repository. The ESA telemetry source is cited in the references. [AUTHOR ACTION REQUIRED: Establish an accurate reviewer-access mechanism or release/archiving plan and state conditions of reuse. Do not claim that private source files are publicly available.]
+**Data availability.** The ESA Anomaly Dataset v2 timing source is independently archived at the cited Zenodo record [13]. Study-specific frozen derived results and source/build artifacts have separate preservation arrangements; their comprehensive reviewer accessibility has not been verified. [AUTHOR ACTION REQUIRED: Identify exact accessible files, verify permissions and source-reuse terms, and establish reviewer access or a release plan. The visible GitHub repository does not establish availability of all locally ignored frozen artifacts.]
 
-**Code availability.** The analytical and experimental configuration code is preserved under version control. [AUTHOR ACTION REQUIRED: Decide which reproducibility code and derived artifacts can be made available to reviewers and how access will be granted.]
+**Code availability.** Analytical and validation code is version-controlled, but this does not establish public availability of all external inputs or local runtime artifacts. [AUTHOR ACTION REQUIRED: Confirm the exact shareable revision, licenses, source subsets, and any controlled-access reviewer material.]
 
 **AI-assisted drafting.** Substantive drafting and editorial assistance is described in the dedicated section above. The sole human author is responsible for the final text, results, analyses, and disclosures.
 
@@ -542,32 +542,31 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 [5] H. Birkholz, D. Thaler, M. Richardson, N. Smith, and W. Pan, “Remote ATtestation procedureS (RATS) architecture,” RFC 9334, Jan. 2023, https://doi.org/10.17487/RFC9334.
 
-[6] Y. Deshpande, J. Zhang, H. Labiod, and H. Birkholz, “Remote attestation with multiple verifiers,” IETF, Internet-Draft draft-ietf-rats-multi-verifier-00, May 2026, work in progress. https://datatracker.ietf.org/doc/draft-ietf-rats-multi-verifier/
 
-[7] D. Malkhi and M. Reiter, “Byzantine quorum systems,” Distrib. Comput., vol. 11, no. 4, pp. 203–213, Oct. 1998, https://doi.org/10.1007/s004460050050.
+[6] D. Malkhi and M. Reiter, “Byzantine quorum systems,” Distrib. Comput., vol. 11, no. 4, pp. 203–213, Oct. 1998, https://doi.org/10.1007/s004460050050.
 
-[8] O. Alpos, C. Cachin, B. Tackmann, and L. Zanolini, “Asymmetric distributed trust,” Distrib. Comput., vol. 37, no. 3, pp. 247–277, May 2024, https://doi.org/10.1007/s00446-024-00469-1.
+[7] O. Alpos, C. Cachin, B. Tackmann, and L. Zanolini, “Asymmetric distributed trust,” Distrib. Comput., vol. 37, no. 3, pp. 247–277, 2024, https://doi.org/10.1007/s00446-024-00469-1.
 
-[9] F. Rezabek, D. Malkhi, and A. Yahalom, “Space Fabric: A satellite-enhanced trusted execution architecture,” 2026, arXiv:2603.23745.
+[8] F. Rezabek, D. Malkhi, and A. Yahalom, “Space Fabric: A satellite-enhanced trusted execution architecture,” 2026, arXiv:2603.23745.
 
-[10] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, “in-toto: Providing farm-to-table guarantees for bits and bytes,” in Proc. 28th USENIX Security Symp. (USENIX Security 19), Santa Clara, CA, USA, Aug. 2019, pp. 1393–1410.
+[9] S. Torres-Arias, H. Afzali, T. K. Kuppusamy, R. Curtmola, and J. Cappos, “in-toto: Providing farm-to-table guarantees for bits and bytes,” in Proc. 28th USENIX Security Symp. (USENIX Security 19), Santa Clara, CA, USA, Aug. 2019, pp. 1393–1410.
 
-[11] The Update Framework, “The Update Framework Specification, v1.0.36,” Aug. 10, 2026. https://theupdateframework.github.io/specification/v1.0.36/
+[10] The Update Framework, “The Update Framework Specification, v1.0.36,” Aug. 10, 2026. https://theupdateframework.github.io/specification/v1.0.36/
 
-[12] SLSA, “Source: Requirements for producing source,” SLSA Specification, v1.2. Accessed: Sep. 28, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/source-requirements
+[11] SLSA, “Source: Requirements for producing source,” SLSA Specification, v1.2. Accessed: Sep. 28, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/source-requirements
 
-[13] SLSA, “Threats & mitigations,” SLSA Specification, v1.2. Accessed: Sep. 28, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/threats
+[12] SLSA, “Threats & mitigations,” SLSA Specification, v1.2. Accessed: Sep. 28, 2026. [Online]. Available: https://slsa.dev/spec/v1.2/threats
 
-[14] G. De Canio, K. Kotowski, and C. Haskamp, “ESA Anomaly Dataset,” Zenodo, 2025, https://doi.org/10.5281/zenodo.15237121.
+[13] G. De Canio, K. Kotowski, and C. Haskamp, “ESA Anomaly Dataset,” Zenodo, 2025, https://doi.org/10.5281/zenodo.15237121.
 
-[15] J. Vanlyssel, G.-C. Roman, and A. Anwar, “Silent Subversion: Sensor Spoofing Attacks via Supply Chain Implants in Satellite Systems,” in 2026 IEEE Aerospace Conference, pp. 1–10, 2026, https://doi.org/10.1109/AERO66936.2026.11519913.
+[14] J. Vanlyssel, G.-C. Roman, and A. Anwar, “Silent Subversion: Sensor Spoofing Attacks via Supply Chain Implants in Satellite Systems,” in 2026 IEEE Aerospace Conference, pp. 1–10, 2026, https://doi.org/10.1109/AERO66936.2026.11519913.
 
-[16] S. Salim, N. Moustafa, and M. Reisslein, “Cybersecurity of Satellite Communications Systems: A Comprehensive Survey of the Space, Ground, and Links Segments,” IEEE Communications Surveys & Tutorials, vol. 27, no. 1, pp. 372–425, 2025, https://doi.org/10.1109/COMST.2024.3408277.
+[15] S. Salim, N. Moustafa, and M. Reisslein, “Cybersecurity of Satellite Communications Systems: A Comprehensive Survey of the Space, Ground, and Links Segments,” IEEE Communications Surveys & Tutorials, vol. 27, no. 1, pp. 372–425, 2025, https://doi.org/10.1109/COMST.2024.3408277.
 
-[17] B. Wang et al., “A Comprehensive Literature Review of Cybersecurity in Satellite Networks,” Aerospace, vol. 13, no. 3, p. 249, 2026, https://doi.org/10.3390/aerospace13030249.
+[16] B. Wang et al., “A Comprehensive Literature Review of Cybersecurity in Satellite Networks,” Aerospace, vol. 13, no. 3, p. 249, 2026, https://doi.org/10.3390/aerospace13030249.
 
-[18] M. Scholl and T. Suloway, “Introduction to Cybersecurity for Commercial Satellite Operations,” NIST IR 8270, Jul. 2023, https://doi.org/10.6028/NIST.IR.8270.
+[17] M. Scholl and T. Suloway, “Introduction to Cybersecurity for Commercial Satellite Operations,” NIST IR 8270, Jul. 2023, https://doi.org/10.6028/NIST.IR.8270.
 
-[19] M. M. Utsash, G. Kavallieratos, K. Antonakopoulos, and S. K. Katsikas, “Investigating the Effectiveness of Zero–Trust Architecture for Satellite Cybersecurity,” in Proc. 11th International Conference on Information Systems Security and Privacy (ICISSP), vol. 2, pp. 133–140, 2025, https://doi.org/10.5220/0013103200003899.
+[18] M. M. Utsash, G. Kavallieratos, K. Antonakopoulos, and S. K. Katsikas, “Investigating the Effectiveness of Zero–Trust Architecture for Satellite Cybersecurity,” in Proc. 11th International Conference on Information Systems Security and Privacy (ICISSP), vol. 2, pp. 133–140, 2025, https://doi.org/10.5220/0013103200003899.
 
-[20] National Aeronautics and Space Administration, “Space Security: Best Practices Guide,” Rev. B, Jan. 19, 2024. Accessed: Sep. 28, 2026. [Online]. Available: https://swehb.nasa.gov/spaces/SWEHBVD/pages/146540183/7.22+-+Space+Security+Best+Practices+Guide
+[19] National Aeronautics and Space Administration, “Space Security: Best Practices Guide,” Rev. B, Jan. 19, 2024. Accessed: Sep. 28, 2026. [Online]. Available: https://swehb.nasa.gov/spaces/SWEHBVD/pages/146540183/7.22+-+Space+Security+Best+Practices+Guide

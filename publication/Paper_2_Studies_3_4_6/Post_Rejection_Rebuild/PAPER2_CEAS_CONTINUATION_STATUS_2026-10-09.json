@@ -31,22 +31,30 @@
     "draft_renderer": "scripts/build_paper2_ceas_package.py",
     "abstract_whitespace_word_count": 228,
     "keywords_count": 6,
-    "reference_entries": 20,
+    "reference_entries": 19,
     "tables": 5,
     "figure_1": 1,
     "reference_batch": {
       "matched": 14,
       "heuristic_mismatch": 1,
       "not_indexed": 5,
-      "retractions_reported": 0
+      "retractions_reported": 0,
+      "original_screened_count": 20
     },
-    "unresolved_reference_6": "IETF multi-verifier Internet-Draft is a work in progress; CEAS reference acceptability requires review",
+    "unresolved_reference_6": "REMOVED_ORIGINAL_DRAFT_AND_RENUMBERED_REMAINING_19",
     "declared_controls": {
       "portal_actions": false,
       "submission": false,
       "merge_pr216": false
     },
-    "ready_for_submission": false
+    "ready_for_submission": false,
+    "reference_manual_verification_complete": false,
+    "git_repo_visibility_checked_20261009": "PUBLIC",
+    "exact_head_ci_1435": {
+      "head": "1ee5f22ddb4c29b9f09e14bb7ed041ca2879d3c1",
+      "run_id": 37939755849,
+      "conclusion": "success"
+    }
   },
   "optional_p2x": {
     "pr_number": 215,
@@ -90,11 +98,11 @@
     "CONFIRM_FUNDING_AND_FINANCIAL_NONFINANCIAL_COMPETING_INTERESTS",
     "CONFIRM_AUTHORS_CONTRIBUTIONS_ETHICS_AND_PERMISSIONS",
     "DECIDE_REVIEWER_ACCESSIBLE_DATA_AND_CODE_AVAILABILITY_AND_PRIVATE_REPOSITORY_POLICY",
-    "MANUALLY_VERIFY_ALL_20_REFERENCES_AND_RESOLVE_IETF_DRAFT_6",
     "CHECK_FIGURE_1_AND_FIVE_TABLES_VISUALLY",
     "RENDER_EDITABLE_DOCX_AND_ACCOMPANYING_PDF_AND_REVIEW_EVERY_PAGE",
     "PREPARE_FINAL_CEAS_PORTAL_FIELDS_AND_SUBMISSION_MANIFEST",
-    "OBTAIN_SEPARATE_FINAL_AUTHOR_SUBMISSION_APPROVAL"
+    "OBTAIN_SEPARATE_FINAL_AUTHOR_SUBMISSION_APPROVAL",
+    "FINAL_19_SOURCE_BY_SOURCE_REFERENCE_QA_INCOMPLETE"
   ],
   "prohibition": "Never invent empirical results, author declarations, DOI verifications, paper overlap, final acceptance or CI results. Do not silently merge PRs or submit to CEAS."
 }

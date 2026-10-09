@@ -34,8 +34,9 @@ def main():
         "not_five_arabic_tables")
     chk(all(("#" not in line or not re.match(r"^## [IVX]+\\.",line))
             for line in target.splitlines()),"old_roman_headings")
-    chk(all("[{}]".format(i) in target for i in range(1,21)),
-        "reference_number_missing")
+    chk(all("[{}]".format(i) in target for i in range(1,20)) and
+        [int(x) for x in re.findall(r"^\[(\d+)\]\s", target, re.MULTILINE)] == list(range(1,20)),
+        "reference_number_missing_or_reference_count_not_19")
     chk(target.count("## Statements and Declarations")==1 and
         "## AI assistance and author responsibility" in target and
         "## References" in target,"declarations_or_ai_missing")
@@ -55,7 +56,7 @@ def main():
         refscreen["automated"]["not_found"]==5 and
         refscreen["automated"]["retracted_reported"]==0 and
         refscreen["full_manual_reference_qa"] is False and
-        "https://datatracker.ietf.org/doc/draft-ietf-rats-multi-verifier/" in target and
+        "draft-ietf-rats-multi-verifier" not in target and
         "https://theupdateframework.github.io/specification/v1.0.36/" in target,
         "CEAS_REFERENCE_SCREEN_FIREWALL")
     chk(gate["article_type"]=="Original Research Article" and

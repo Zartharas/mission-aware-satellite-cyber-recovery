@@ -34,7 +34,8 @@
     "significant_ai_drafting_disclose_beyond_copyediting": true,
     "allow_no_simultaneous_submission": true,
     "confirmed_original_research_page_limit": null,
-    "no_article_processing_charge_guaranteed": false
+    "no_article_processing_charge_guaranteed": false,
+    "reference_entries_current": 19
   },
   "manuscript_integrity": {
     "study3_4_6_frozen": true,
@@ -53,7 +54,7 @@
     "manuscript_docx": "NOT_RENDERED",
     "manuscript_pdf": "NOT_RENDERED",
     "figure_visual_qa": "PENDING",
-    "bibliography_reference_verification": "BATCH_SCREENED__MANUAL_CHECK_AND_REFERENCE_6_REVIEW_PENDING",
+    "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
     "funding_conflicts_email": "PENDING_AUTHOR",
     "portal_submission": "NOT_STARTED"
@@ -74,8 +75,7 @@
     "DOCX_PDF_RENDER_AND_LAYOUT_QA_NOT_COMPLETED",
     "REFERENCE_AND_FIGURE_FINAL_QA_NOT_COMPLETED",
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
-    "REFERENCE_6_UNPUBLISHED_IETF_DRAFT_MUST_BE_RECONCILED_WITH_JOURNAL_RULE",
-    "COMPLETE_REFERENCE_AND_IETF_DRAFT_ACCEPTABILITY_REVIEW"
+    "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN"
   ],
   "references_review": {
     "total": 20,
@@ -86,8 +86,11 @@
       "retracted_reported": 0
     },
     "report": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
-    "reference_6": "IETF_WORK_IN_PROGRESS_HOLD",
+    "reference_6": "ORIGINAL_IETF_DRAFT_REMOVED_RENUMBERED_7_TO_20_AS_6_TO_19",
     "reference_13": "GENERIC_TITLE_HEURISTIC_MISMATCH_NOT_FABRICATION",
-    "full_manual_verified": false
-  }
+    "full_manual_verified": false,
+    "original_screened_count": 20,
+    "current_manuscript_entries": 19
+  },
+  "repo_visibility_live_20261009": "PUBLIC__NOT_ALL_FROZEN_ARTIFACTS_CONFIRMED_ACCESSIBLE"
 }

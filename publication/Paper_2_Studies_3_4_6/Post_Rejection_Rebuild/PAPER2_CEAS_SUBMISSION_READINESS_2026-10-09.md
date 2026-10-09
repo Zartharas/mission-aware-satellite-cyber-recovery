@@ -10,7 +10,7 @@ Verified format: **150–250 abstract words**, **4–6 keywords**, editable Word
 
 ## Prepared files
 
-- `PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md`: complete venue-specific R5 editorial source derived from the R4 body; includes reformatted headings, table/figure numbering, 215-word abstract, six keywords, AI disclosure and declarations requiring author confirmation.
+- `PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md`: complete venue-specific R5 editorial source derived from the R4 body; includes reformatted headings, table/figure numbering, 228-word abstract, six keywords, AI disclosure and declarations requiring author confirmation.
 - `PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md`: verified sole-author identity carried from prior Paper-2 submission; confirm correspondence email and final author statements.
 - `PAPER2_CEAS_COVER_LETTER_DRAFT_2026-10-09.md`: venue-specific contribution and scope summary, marked unsent.
 - `PAPER2_CEAS_JOURNAL_COMPLIANCE_GATE_2026-10-09.json`: machine-readable status, exact submission holds and immutable source binding.
@@ -36,3 +36,11 @@ Reference **[6]** is the IETF `draft-ietf-rats-multi-verifier-00` Internet-Draft
 ## Bibliography source screen
 
 The separate [CEAS reference-integrity record](PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.md) audits all 20 references by identifier lookup and known official sources, preserving ambiguities and the IETF Internet-Draft HOLD. This is NOT final bibliographic verification and does not change frozen claims.
+
+## 2026-10-09 bounded reference-resolution and repository-access update
+
+Exact pre-edit head `1ee5f22ddb4c29b9f09e14bb7ed041ca2879d3c1` passed workflow #1435 (`37939755849`). Original 20-reference automated screening results remain historical; following primary-source checks, the unpublished IETF Internet-Draft [6] was removed from R5, the applicable RATS architectural distinction was referenced to published RFC 9334 [5], and original [7]–[20] were renumbered as [6]–[19]. Source-to-claim semantics remain narrow. The current manuscript contains 19 entries; the separately prepared source ledger records the original 20-reference screening population and remaining metadata gaps. The final bibliographic gate is still HOLD.
+
+The GitHub API currently returns repository visibility `public`; the earlier assertion of a `private` repository was not accurate for this verified state. Public repository visibility does not prove that separately preserved ignored canonical outputs and external inputs are reviewer-accessible. The data/code statements therefore remain explicitly conditional on author confirmation.
+
+The author-host rendering attempt failed closed at `libreoffice_required_for_pdf`, so DOCX/PDF page-layout QA and final portal readiness remain unverified.
