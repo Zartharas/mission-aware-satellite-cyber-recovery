@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-CEAS-NEW-CHAT-CONTINUATION-2026-10-09",
+  "project": "Satellite Dissertation Paper",
+  "repository": "Zartharas/mission-aware-satellite-cyber-recovery",
+  "verified_live_main_on_handoff": "4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4",
+  "publication": {
+    "pr_number": 216,
+    "pr_url": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/216",
+    "branch": "publication/paper2-r5-readiness-20261008",
+    "pre_handoff_head": "723b1ce374c339c54e52d648f95dba67c97f6224",
+    "successful_workflow": {
+      "name": "Validate research configurations",
+      "run_number": 1434,
+      "run_id": 37938128591,
+      "conclusion": "success",
+      "head_sha": "723b1ce374c339c54e52d648f95dba67c97f6224"
+    },
+    "status": "DRAFT__OPEN__UNMERGED__CEAS_PREPARATION_NOT_SUBMITTED",
+    "target_venue": "CEAS Space Journal",
+    "publisher": "Springer Nature",
+    "article_type": "Original Research Article",
+    "original_venue_neutral_r4_blob": "069e319864b1f5c1ee201b31872e68572fea1923",
+    "manuscript": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md",
+    "title_page": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md",
+    "cover_letter": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_COVER_LETTER_DRAFT_2026-10-09.md",
+    "gate": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_JOURNAL_COMPLIANCE_GATE_2026-10-09.json",
+    "references_review": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
+    "readiness": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_SUBMISSION_READINESS_2026-10-09.md",
+    "static_audit": "scripts/audit_paper2_ceas_r5.py",
+    "draft_renderer": "scripts/build_paper2_ceas_package.py",
+    "abstract_whitespace_word_count": 228,
+    "keywords_count": 6,
+    "reference_entries": 20,
+    "tables": 5,
+    "figure_1": 1,
+    "reference_batch": {
+      "matched": 14,
+      "heuristic_mismatch": 1,
+      "not_indexed": 5,
+      "retractions_reported": 0
+    },
+    "unresolved_reference_6": "IETF multi-verifier Internet-Draft is a work in progress; CEAS reference acceptability requires review",
+    "declared_controls": {
+      "portal_actions": false,
+      "submission": false,
+      "merge_pr216": false
+    },
+    "ready_for_submission": false
+  },
+  "optional_p2x": {
+    "pr_number": 215,
+    "pr_url": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/215",
+    "head": "0a5ab758a4b7f0002c3407d269efc7bb4cb22499",
+    "successful_workflow": {
+      "run_number": 1428,
+      "run_id": 37819118655,
+      "conclusion": "success"
+    },
+    "frozen_9_raw_build_artifacts": "PASS",
+    "full_source_sha_differences": {
+      "git_indexes": 51,
+      "cmake_configuration_logs": 4,
+      "applied_exclusions": 0
+    },
+    "runtime_dependency_closure": "UNRESOLVED",
+    "allowed_runtime_execution": false,
+    "allowed_workspace_materialization": false,
+    "allowed_merge": false,
+    "scientific_role_in_r5": "NONE; this experimental track is not required to claim frozen R4 study results"
+  },
+  "science": {
+    "original_studies": [
+      3,
+      4,
+      6
+    ],
+    "external_extensions": [
+      "S3X timing proxy",
+      "S6X executable residual stress test"
+    ],
+    "populations_pooled": false,
+    "operational_satellite_recovery_claimed": false,
+    "prior_taes_r10_immutable": true,
+    "historical_taes_result": "Editorial prescreen rejection on 2026-09-26 without external peer review",
+    "sole_independent_author": true
+  },
+  "open_submission_blockers": [
+    "VERIFY_SOLE_AUTHOR_LEGAL_NAME_AFFILIATION_AND_CORRESPONDING_EMAIL",
+    "CONFIRM_FUNDING_AND_FINANCIAL_NONFINANCIAL_COMPETING_INTERESTS",
+    "CONFIRM_AUTHORS_CONTRIBUTIONS_ETHICS_AND_PERMISSIONS",
+    "DECIDE_REVIEWER_ACCESSIBLE_DATA_AND_CODE_AVAILABILITY_AND_PRIVATE_REPOSITORY_POLICY",
+    "MANUALLY_VERIFY_ALL_20_REFERENCES_AND_RESOLVE_IETF_DRAFT_6",
+    "CHECK_FIGURE_1_AND_FIVE_TABLES_VISUALLY",
+    "RENDER_EDITABLE_DOCX_AND_ACCOMPANYING_PDF_AND_REVIEW_EVERY_PAGE",
+    "PREPARE_FINAL_CEAS_PORTAL_FIELDS_AND_SUBMISSION_MANIFEST",
+    "OBTAIN_SEPARATE_FINAL_AUTHOR_SUBMISSION_APPROVAL"
+  ],
+  "prohibition": "Never invent empirical results, author declarations, DOI verifications, paper overlap, final acceptance or CI results. Do not silently merge PRs or submit to CEAS."
+}

@@ -78,7 +78,7 @@ def main():
                                      "finalize_data_code_availability",
                                      "verify_references_and_figure",
                                      "resolve_author_portal_fields"]}
-        (out/"BUILD_AUDIT.json").write_text(json.dumps(report,indent=2)+"\\n",encoding="utf-8")
+        (out/"BUILD_AUDIT.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
     print("CEAS_PREVIEW_RENDERED=YES")
     print("CEAS_SUBMISSION_READY=NO")
     print("OUTPUT_DIRECTORY="+str(out))
