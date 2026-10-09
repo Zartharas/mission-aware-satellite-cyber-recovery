@@ -107,6 +107,7 @@ allowed={
 "scripts/build_paper2_ceas_package.py",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_SOURCE_LEDGER_2026-10-09.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_NEW_CHAT_HANDOFF_2026-10-09.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_CONTINUATION_STATUS_2026-10-09.json",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_NEW_CHAT_HANDOFF_2026-10-09.md",
