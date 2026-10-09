@@ -133,6 +133,15 @@ def format_docx_table_pagination(doc):
                             updated_row = updated_row.replace(
                                 '<w:tr>',
                                 '<w:tr><w:trPr><w:cantSplit /></w:trPr>', 1)
+                    if i == 4 and row != rows[-1]:
+                        require('<w:keepNext' not in updated_row and
+                                '<w:p><w:pPr>' in updated_row,
+                                "table5_unexpected_keep_together_structure")
+                        # Let Word keep Table 5 with its caption when space is
+                        # insufficient; no hard-coded page break or text edit.
+                        updated_row = updated_row.replace(
+                            '<w:p><w:pPr>',
+                            '<w:p><w:pPr><w:keepNext />')
                     table = table.replace(row, updated_row, 1)
                 return table
             xml = re.sub(r'<w:tbl>.*?</w:tbl>', table_edit,

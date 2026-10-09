@@ -92,7 +92,23 @@
       "figure1_print_qa": "HOLD_INTERNAL_TEXT_TOO_SMALL",
       "paragraph_text_coverage": "253_OF_253_SUBSTANTIVE_DOCX_PARAGRAPHS"
     },
-    "next_preview_required_after_table2_layout_fix": true
+    "next_preview_required_after_table2_layout_fix": true,
+    "exact_head_ci_1440": {
+      "head": "c21c1ab3f6a246e38d220eaecc6ff68717003444",
+      "run_id": 37978658906,
+      "conclusion": "success"
+    },
+    "fourth_rendered_preview": {
+      "source_head": "c21c1ab3f6a246e38d220eaecc6ff68717003444",
+      "pdf_pages": 29,
+      "docx_sha256": "70c0a8ca8bb3f505868bafd78efbdc387ad2596d81f3ae37153775ed4ac3173b",
+      "pdf_sha256": "a8c606dc22583ba8f774c705656c353549577daf43f005874986f04f882a21c8",
+      "visual_qa": "HOLD",
+      "table2_page": "13_COMPLETE",
+      "table5_pages": "19_20_SPLIT",
+      "local_table5_keep_together_test": "PASS_29_PAGES_CONTENT_PARITY",
+      "new_author_host_render": "PENDING"
+    }
   },
   "optional_p2x": {
     "pr_number": 215,
@@ -144,7 +160,9 @@
     "NEW_CEAS_R5_DOCUMENT_RENDER_AND_32_PAGE_DEFECT_REGRESSION_QA",
     "THIRD_EXACT_HEAD_CEAS_LAYOUT_QA_REQUIRED_AFTER_VALIDATED_WORD_ONLY_REFLOW",
     "NEW_EXACT_HEAD_TABLE2_REBUILD_AND_VISUAL_QA",
-    "FIGURE_1_PRINT_LEGIBILITY"
+    "FIGURE_1_PRINT_LEGIBILITY",
+    "TABLE5_REBUILD_AND_ALL_PAGE_QA_PENDING",
+    "FIGURE1_PRINT_SIZE_LABELS_TOO_SMALL"
   ],
   "prohibition": "Never invent empirical results, author declarations, DOI verifications, paper overlap, final acceptance or CI results. Do not silently merge PRs or submit to CEAS."
 }
