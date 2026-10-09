@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-CEAS-SPACE-JOURNAL-PRE-SUBMISSION-GATE-2026-10-09",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "journal": "CEAS Space Journal",
+  "publisher": "Springer Nature",
+  "article_type": "Original Research Article",
+  "verified_official_guidelines_url": "https://link.springer.com/journal/12567/submission-guidelines",
+  "verified_official_scope_url": "https://link.springer.com/journal/12567/aims-and-scope",
+  "review_date": "2026-10-09",
+  "journal_model": "HYBRID",
+  "peer_review": "SINGLE_BLIND",
+  "manuscript_r4_blob_immutable": "069e319864b1f5c1ee201b31872e68572fea1923",
+  "candidate_r5": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md",
+  "requirements": {
+    "abstract_words_min": 150,
+    "abstract_words_max": 250,
+    "abstract_candidate_words": 215,
+    "keywords_min": 4,
+    "keywords_max": 6,
+    "keywords_current": 6,
+    "original_research_includes_theoretical_numerical_experimental": true,
+    "editable_source_format": [
+      "DOCX",
+      "LATEX"
+    ],
+    "docx_requires_pdf": true,
+    "decimal_headings_no_more_than_three_levels": true,
+    "numbered_references_square_brackets": true,
+    "tables_numbered_arabic": true,
+    "figure_captions_fig_arabic": true,
+    "original_research_data_availability_statement_required": true,
+    "submission_interface_contributions_and_competing_interest_required": true,
+    "significant_ai_drafting_disclose_beyond_copyediting": true,
+    "allow_no_simultaneous_submission": true,
+    "confirmed_original_research_page_limit": null,
+    "no_article_processing_charge_guaranteed": false
+  },
+  "manuscript_integrity": {
+    "study3_4_6_frozen": true,
+    "s3x_s6x_separately_governed": true,
+    "no_p2x_runtime_claim": true,
+    "no_operational_satellite_recovery_claim": true,
+    "no_scientific_reexecution": true,
+    "no_prior_taes_package_mutation": true
+  },
+  "deliverables": {
+    "manuscript_md": "PREPARED_DRAFT",
+    "title_page_md": "PREPARED_DRAFT",
+    "cover_letter_md": "PREPARED_DRAFT",
+    "journal_policy_review": "VERIFIED",
+    "renderer": "SOURCE_SCRIPT_PENDING_LOCAL_EXECUTION",
+    "manuscript_docx": "NOT_RENDERED",
+    "manuscript_pdf": "NOT_RENDERED",
+    "figure_visual_qa": "PENDING",
+    "bibliography_reference_verification": "PENDING",
+    "data_code_access_plan": "PENDING_AUTHOR",
+    "funding_conflicts_email": "PENDING_AUTHOR",
+    "portal_submission": "NOT_STARTED"
+  },
+  "authorization": {
+    "publisher_specific_derivative_design": true,
+    "portal_actions": false,
+    "submission": false,
+    "merge_pr216": false,
+    "merge_pr215": false,
+    "workspace_materialization": false,
+    "runtime_execution": false
+  },
+  "final_submission_ready": false,
+  "reason_for_hold": [
+    "AUTHOR_EMAIL_FUNDING_COMPETING_INTERESTS_AND_DISCLOSURES_NOT_CONFIRMED",
+    "ACCESSIBLE_CODE_DATA_AVAILABILITY_NOT_FINALIZED",
+    "DOCX_PDF_RENDER_AND_LAYOUT_QA_NOT_COMPLETED",
+    "REFERENCE_AND_FIGURE_FINAL_QA_NOT_COMPLETED",
+    "PORTAL_SUBMISSION_NOT_AUTHORIZED"
+  ]
+}
