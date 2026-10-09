@@ -75,7 +75,24 @@
       "docx_sha256": "0aeb2c3b0ae80b829fffe60670d19410c1cc90ea392928308ccb562e583210ef",
       "visual_qa": "HOLD",
       "changed_layout_test_pass": "LOCAL_SANDBOX_29_PAGE_RETYPESETTING_EXPERIMENT_NOT_FINAL"
-    }
+    },
+    "exact_head_ci_1439": {
+      "head": "35f035f79f4335811a4f048ab01732adc1c4f011",
+      "run_number": 1439,
+      "run_id": 37974650149,
+      "conclusion": "success"
+    },
+    "third_rendered_preview": {
+      "source_head": "35f035f79f4335811a4f048ab01732adc1c4f011",
+      "pdf_pages": 29,
+      "docx_sha256": "3067cd516a5e0dd4f51e14a57a27f886f8549225b252624ebcfdb94f35438eb9",
+      "pdf_sha256": "06236cb2092fc2f1020a84d78cb2b0f627f490359da14790b1431b8400310d7e",
+      "visual_qa": "HOLD",
+      "remaining_layout_defect": "TABLE2_LAST_ROW_SPLIT_PAGES_13_TO_14",
+      "figure1_print_qa": "HOLD_INTERNAL_TEXT_TOO_SMALL",
+      "paragraph_text_coverage": "253_OF_253_SUBSTANTIVE_DOCX_PARAGRAPHS"
+    },
+    "next_preview_required_after_table2_layout_fix": true
   },
   "optional_p2x": {
     "pr_number": 215,
@@ -125,7 +142,9 @@
     "OBTAIN_SEPARATE_FINAL_AUTHOR_SUBMISSION_APPROVAL",
     "FINAL_19_SOURCE_BY_SOURCE_REFERENCE_QA_INCOMPLETE",
     "NEW_CEAS_R5_DOCUMENT_RENDER_AND_32_PAGE_DEFECT_REGRESSION_QA",
-    "THIRD_EXACT_HEAD_CEAS_LAYOUT_QA_REQUIRED_AFTER_VALIDATED_WORD_ONLY_REFLOW"
+    "THIRD_EXACT_HEAD_CEAS_LAYOUT_QA_REQUIRED_AFTER_VALIDATED_WORD_ONLY_REFLOW",
+    "NEW_EXACT_HEAD_TABLE2_REBUILD_AND_VISUAL_QA",
+    "FIGURE_1_PRINT_LEGIBILITY"
   ],
   "prohibition": "Never invent empirical results, author declarations, DOI verifications, paper overlap, final acceptance or CI results. Do not silently merge PRs or submit to CEAS."
 }

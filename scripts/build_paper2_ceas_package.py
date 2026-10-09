@@ -116,7 +116,23 @@ def format_docx_table_pagination(doc):
                                 r'<w:r>.*?</w:r>',
                                 lambda r: font_size(r.group(0), 18),
                                 replacement, flags=re.DOTALL)
+                        if i == 1:
+                            require('<w:pPr>' in replacement and
+                                    '<w:spacing ' not in replacement,
+                                    "table2_unexpected_cell_paragraph_format")
+                            replacement = replacement.replace(
+                                '</w:pPr>',
+                                '<w:spacing w:before="0" w:after="0" '
+                                'w:line="221" w:lineRule="auto" /></w:pPr>')
                         updated_row = updated_row.replace(cell, replacement, 1)
+                    if i == 1:
+                        if '<w:trPr>' in updated_row:
+                            updated_row = updated_row.replace(
+                                '<w:trPr>', '<w:trPr><w:cantSplit />', 1)
+                        else:
+                            updated_row = updated_row.replace(
+                                '<w:tr>',
+                                '<w:tr><w:trPr><w:cantSplit /></w:trPr>', 1)
                     table = table.replace(row, updated_row, 1)
                 return table
             xml = re.sub(r'<w:tbl>.*?</w:tbl>', table_edit,
