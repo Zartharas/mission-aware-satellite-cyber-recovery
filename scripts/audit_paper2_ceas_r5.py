@@ -35,8 +35,15 @@ def main():
         "prohibited_extension_or_legacy_figure_reintroduced")
     ab=target.split("## Abstract\n\n",1)[1].split("**Keywords:**",1)[0].strip()
     chk(150<=len(ab.split())<=250 and len(ab.split())==228,"abstract_length_or_drift")
-    chk("**Aman Kumar Singh**  \\nIndependent Researcher, The Woodlands, Texas, United States  \\nORCID: 0009-0008-9752-3743  \\n**Corresponding author email:** aman.singh2406@live.com" in target and
-        target.count("aman.singh2406@live.com")==1 and
+    header=target.splitlines()[:6]
+    chk(header == [
+            "# Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance",
+            "",
+            "**Aman Kumar Singh**  ",
+            "Independent Researcher, The Woodlands, Texas, United States  ",
+            "ORCID: 0009-0008-9752-3743  ",
+            "**Corresponding author email:** aman.singh2406@live.com",
+        ] and target.count("aman.singh2406@live.com")==1 and
         "[AUTHOR CONFIRM CURRENT CONTACT EMAIL]" not in target,
         "confirmed_corresponding_author_email_or_line_breaks_drift")
     kw=target.split("**Keywords:**",1)[1].split("\n",1)[0]

@@ -150,7 +150,7 @@ def format_docx_table_pagination(doc):
                          xml, flags=re.DOTALL)
             require(index[0] == 5, "expected_five_word_tables")
             # Image bytes unchanged; apply accessibility metadata in DrawingML.
-            props = re.findall(r'<wp:docPr\\b[^>]*/>', xml)
+            props = re.findall(r'<wp:docPr\b[^>]*/>', xml)
             require(len(props) == 1 and 'descr=""' in props[0] and 'title=""' in props[0],
                     "expected_one_unannotated_figure_drawing")
             require('"' not in FIGURE_ALT and '&' not in FIGURE_ALT and
