@@ -1,7 +1,8 @@
 # Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance
 
 **Aman Kumar Singh**  
-Independent Researcher, The Woodlands, Texas, United States  
+Independent Researcher  
+The Woodlands, Texas, United States  
 ORCID: 0009-0008-9752-3743  
 **Corresponding author email:** aman.singh2406@live.com
 
@@ -521,7 +522,7 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 **Funding.** This research received no external funding.
 
-**Competing interests.** [AUTHOR CONFIRM: Disclose any relevant financial or nonfinancial interests, including employment or consultancy relationships that could reasonably be perceived as influencing this manuscript, or affirm none. Do not publish this placeholder.]
+**Competing interests.** The author declares no competing interests.
 
 **Author contributions.** Aman Kumar Singh is the sole author and takes responsibility for study design, analysis, interpretation, and the final manuscript. [AUTHOR CONFIRM this description before portal submission.]
 

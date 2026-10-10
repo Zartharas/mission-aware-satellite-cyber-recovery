@@ -7,7 +7,7 @@ Springer Nature
 
 Dear Editor-in-Chief,
 
-Please consider my manuscript, **“Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance,”** as an **Original Research Article** in *CEAS Space Journal*. I am its sole author and corresponding author, working as an independent researcher.
+Please consider my manuscript, **“Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance,”** as an **Original Research Article** in *CEAS Space Journal*. I am its sole author and corresponding author, working as an independent researcher without an institutional affiliation.
 
 The paper examines a space-systems qualification problem: when can satellite cyber-recovery decisions distinguish safe from unsafe states using the evidence actually available to the decision mechanism? Across three separately frozen deterministic studies, we analyze limits arising from evidence freshness and trusted-producer semantics, multi-producer provenance and voting, and recovery-artifact assurance. Two separately governed stress tests provide an external telemetry timing proxy and a controlled executable cFS/Limit Checker fixture. Together, they identify engineering conditions under which authenticated or assurance-composed evidence remains insufficient to establish correctness.
 

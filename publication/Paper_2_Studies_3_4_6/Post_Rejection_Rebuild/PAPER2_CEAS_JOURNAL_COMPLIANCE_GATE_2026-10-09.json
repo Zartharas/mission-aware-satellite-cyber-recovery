@@ -56,7 +56,7 @@
     "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
     "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
-    "funding_conflicts_email": "EMAIL_AND_NO_EXTERNAL_FUNDING_CONFIRMED__CONFLICTS_AND_IN_KIND_SUPPORT_PENDING_AUTHOR",
+    "funding_conflicts_email": "EMAIL_NO_EXTERNAL_FUNDING_NO_COMPETING_INTERESTS_CONFIRMED__IN_KIND_ETHICS_AND_ACCESS_PENDING_AUTHOR",
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING"
   },
@@ -76,9 +76,10 @@
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
     "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA",
-    "AUTHOR_COMPETING_INTERESTS_NONFINANCIAL_SUPPORT_ETHICS_ACKNOWLEDGMENTS_AND_DATA_PERMISSION_STATEMENTS_OPEN",
+    "AUTHOR_NONFINANCIAL_OR_IN_KIND_SUPPORT_ETHICS_ACKNOWLEDGMENTS_AND_DATA_PERMISSION_STATEMENTS_OPEN",
     "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA",
-    "FUNDING_DECLARATION_CHANGE_REQUIRES_FRESH_PREVIEW_BEFORE_SUBMISSION"
+    "FUNDING_DECLARATION_CHANGE_REQUIRES_FRESH_PREVIEW_BEFORE_SUBMISSION",
+    "SOLE_AUTHOR_IDENTITY_AND_CONFLICT_DECLARATION_REQUIRES_FRESH_PREVIEW_QA"
   ],
   "references_review": {
     "total": 20,
@@ -212,11 +213,16 @@
   "author_contact": {
     "name": "Aman Kumar Singh",
     "sole_author": true,
-    "affiliation": "Independent Researcher, The Woodlands, Texas, United States",
+    "affiliation": null,
     "orcid": "0009-0008-9752-3743",
     "email": "aman.singh2406@live.com",
     "confirmation": "CONFIRMED_BY_AUTHOR_2026-10-10",
-    "other_declarations_author_confirmed": false
+    "other_declarations_author_confirmed": false,
+    "role": "Independent Researcher",
+    "location": "The Woodlands, Texas, United States",
+    "institutional_affiliation": null,
+    "no_institutional_affiliation_confirmed": true,
+    "no_coauthors_author_confirmed": true
   },
   "figure1_accessibility": {
     "alt_text": "Three nonpooled trust boundaries: Study 3 validly signed false producer evidence with S3X timing proxy; Study 4 vote and synthetic provenance composition; Study 6 an approved bad-source artifact with S6X functional adjudication outside the six-signal gate.",
@@ -238,6 +244,12 @@
     "author_confirmation": "2026-10-10",
     "scope": "External financial funding only; institutional or in-kind support not separately confirmed",
     "other_support_confirmed": false,
-    "competing_interests_confirmed": false
+    "competing_interests_confirmed": true
+  },
+  "competing_interests_declaration": {
+    "statement": "The author declares no competing interests.",
+    "author_confirmed_on": "2026-10-10",
+    "scope": "Financial and nonfinancial competing interests",
+    "sole_author": true
   }
 }

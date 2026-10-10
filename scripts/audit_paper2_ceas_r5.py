@@ -35,17 +35,18 @@ def main():
         "prohibited_extension_or_legacy_figure_reintroduced")
     ab=target.split("## Abstract\n\n",1)[1].split("**Keywords:**",1)[0].strip()
     chk(150<=len(ab.split())<=250 and len(ab.split())==228,"abstract_length_or_drift")
-    header=target.splitlines()[:6]
+    header=target.splitlines()[:7]
     chk(header == [
             "# Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance",
             "",
             "**Aman Kumar Singh**  ",
-            "Independent Researcher, The Woodlands, Texas, United States  ",
+            "Independent Researcher  ",
+            "The Woodlands, Texas, United States  ",
             "ORCID: 0009-0008-9752-3743  ",
             "**Corresponding author email:** aman.singh2406@live.com",
         ] and target.count("aman.singh2406@live.com")==1 and
         "[AUTHOR CONFIRM CURRENT CONTACT EMAIL]" not in target,
-        "confirmed_corresponding_author_email_or_line_breaks_drift")
+        "independent_sole_author_contact_and_line_breaks_drift")
     kw=target.split("**Keywords:**",1)[1].split("\n",1)[0]
     chk(len([x for x in kw.split(";") if x.strip()])==6,"keywords_not_six")
     fig_caption=next((x for x in target.splitlines() if x.startswith("**Fig. 1** ")),None)
@@ -122,8 +123,21 @@ def main():
         "[AUTHOR CONFIRM: State whether any financial" not in target and
         gate.get("funding_declaration",{}).get("statement")=="This research received no external funding." and
         gate["funding_declaration"].get("other_support_confirmed") is False and
-        gate["funding_declaration"].get("competing_interests_confirmed") is False,
+        gate["funding_declaration"].get("competing_interests_confirmed") is True,
         "author_confirmed_funding_declaration_drift")
+    chk("**Competing interests.** The author declares no competing interests." in target and
+        target.count("**Competing interests.** The author declares no competing interests.")==1 and
+        "[AUTHOR CONFIRM: Disclose any relevant financial" not in target and
+        gate.get("competing_interests_declaration",{}).get("statement")=="The author declares no competing interests." and
+        gate["competing_interests_declaration"].get("sole_author") is True and
+        gate.get("author_contact",{}).get("sole_author") is True and
+        gate["author_contact"].get("no_coauthors_author_confirmed") is True and
+        gate["author_contact"].get("no_institutional_affiliation_confirmed") is True and
+        gate["author_contact"].get("institutional_affiliation") is None and
+        gate["author_contact"].get("role")=="Independent Researcher" and
+        gate["author_contact"].get("location")=="The Woodlands, Texas, United States" and
+        gate.get("funding_declaration",{}).get("competing_interests_confirmed") is True,
+        "sole_author_independent_status_and_conflicts_drift")
     chk("[AUTHOR CONFIRM" in target and "[AUTHOR ACTION REQUIRED" in target,
         "unverified_statements_silently_filled")
     print("PAPER2_CEAS_R5_EDITORIAL_STATIC=PASS")
