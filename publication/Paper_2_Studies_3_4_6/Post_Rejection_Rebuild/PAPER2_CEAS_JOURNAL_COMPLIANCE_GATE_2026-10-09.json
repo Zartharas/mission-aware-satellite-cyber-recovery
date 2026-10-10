@@ -56,7 +56,7 @@
     "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
     "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
-    "funding_conflicts_email": "PENDING_AUTHOR",
+    "funding_conflicts_email": "EMAIL_CONFIRMED__FUNDING_CONFLICTS_PENDING_AUTHOR",
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING"
   },
@@ -72,11 +72,12 @@
   },
   "final_submission_ready": false,
   "reason_for_hold": [
-    "AUTHOR_EMAIL_FUNDING_COMPETING_INTERESTS_AND_DISCLOSURES_NOT_CONFIRMED",
     "ACCESSIBLE_CODE_DATA_AVAILABILITY_NOT_FINALIZED",
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
-    "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA"
+    "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA",
+    "AUTHOR_FUNDING_COMPETING_INTERESTS_ETHICS_ACKNOWLEDGMENTS_AND_DATA_PERMISSION_STATEMENTS_OPEN",
+    "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA"
   ],
   "references_review": {
     "total": 20,
@@ -206,5 +207,29 @@
     "full_source_docx_pdf_visual_qa": "PENDING",
     "submission_ready": false,
     "notes": "CEAS-only three-panel scientific synthesis; S3X and S6X subordinate; no pooled results; no P2X/S4X; historical 29-page QA cannot transfer."
+  },
+  "author_contact": {
+    "name": "Aman Kumar Singh",
+    "sole_author": true,
+    "affiliation": "Independent Researcher, The Woodlands, Texas, United States",
+    "orcid": "0009-0008-9752-3743",
+    "email": "aman.singh2406@live.com",
+    "confirmation": "CONFIRMED_BY_AUTHOR_2026-10-10",
+    "other_declarations_author_confirmed": false
+  },
+  "figure1_accessibility": {
+    "alt_text": "Three nonpooled trust boundaries: Study 3 validly signed false producer evidence with S3X timing proxy; Study 4 vote and synthetic provenance composition; Study 6 an approved bad-source artifact with S6X functional adjudication outside the six-signal gate.",
+    "word_alt_title": "Figure 1: Residual trust boundaries in satellite cyber-recovery qualification",
+    "word_alt_implemented_in_builder": true,
+    "new_docx_visual_qa": "PENDING"
+  },
+  "previous_source_preview_verified": {
+    "head": "39049ec676e8f05aac8adcef668f0d21123c21ca",
+    "docx_sha256": "8dadf75399117260e4730c5359d02d32ba78e4d82c15bb7bc3f20e02654b71ef",
+    "pdf_sha256": "9bfa6531d301f362602672a5f57a8c6609671860ed17fd1cb7611d3847dca4c2",
+    "pages": 29,
+    "tables": 5,
+    "figure_page": 9,
+    "assessment": "PASS_PREVIOUS_LAYOUT__NEW_EMAIL_ALT_BUILD_PENDING"
   }
 }

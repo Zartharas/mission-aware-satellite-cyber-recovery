@@ -14,6 +14,8 @@ SOURCE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEA
 AUDIT=ROOT/"scripts/audit_paper2_ceas_r5.py"
 FIGURE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
 IMAGE_REL="figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
+FIGURE_ALT="Three nonpooled trust boundaries: Study 3 validly signed false producer evidence with S3X timing proxy; Study 4 vote and synthetic provenance composition; Study 6 an approved bad-source artifact with S6X functional adjudication outside the six-signal gate."
+FIGURE_ALT_TITLE="Figure 1: Residual trust boundaries in satellite cyber-recovery qualification"
 
 def require(cond,msg):
     if not cond:raise SystemExit("PAPER2_CEAS_PACKAGE_HOLD="+msg)
@@ -147,6 +149,19 @@ def format_docx_table_pagination(doc):
             xml = re.sub(r'<w:tbl>.*?</w:tbl>', table_edit,
                          xml, flags=re.DOTALL)
             require(index[0] == 5, "expected_five_word_tables")
+            # Image bytes unchanged; apply accessibility metadata in DrawingML.
+            props = re.findall(r'<wp:docPr\\b[^>]*/>', xml)
+            require(len(props) == 1 and 'descr=""' in props[0] and 'title=""' in props[0],
+                    "expected_one_unannotated_figure_drawing")
+            require('"' not in FIGURE_ALT and '&' not in FIGURE_ALT and
+                    '"' not in FIGURE_ALT_TITLE and '&' not in FIGURE_ALT_TITLE,
+                    "figure_alt_xml_escape_required")
+            modified = props[0].replace('descr=""', 'descr="' + FIGURE_ALT + '"', 1)
+            modified = modified.replace('title=""', 'title="' + FIGURE_ALT_TITLE + '"', 1)
+            xml = xml.replace(props[0], modified, 1)
+            require(xml.count('descr="' + FIGURE_ALT + '"') == 1 and
+                    xml.count('title="' + FIGURE_ALT_TITLE + '"') == 1,
+                    "figure_alt_text_not_inserted_once")
             data = xml.encode("utf-8")
         output.append((info, data))
     with tempfile.NamedTemporaryFile(prefix="ceas-layout-", suffix=".docx",
@@ -202,6 +217,11 @@ def main():
         subprocess.run(["pandoc",str(md),"--from=markdown","--to=docx",
                         "--standalone","--output",str(doc)],check=True)
         format_docx_table_pagination(doc)
+        with __import__("zipfile").ZipFile(doc, "r") as checked:
+            word_xml = checked.read("word/document.xml").decode("utf-8")
+            require(word_xml.count('descr="' + FIGURE_ALT + '"') == 1 and
+                    word_xml.count('title="' + FIGURE_ALT_TITLE + '"') == 1,
+                    "figure_accessibility_not_verified_in_docx")
         subprocess.run([find_soffice(),"--headless","--convert-to","pdf",
                         "--outdir",str(stage),str(doc)],check=True)
         pdf=doc.with_suffix(".pdf")
@@ -214,6 +234,9 @@ def main():
         shutil.copy2(FIGURE,out/FIGURE.name)
         report={"classification":"DRAFT_PREVIEW__NOT_SUBMISSION_READY",
                 "ceas_figure1_svg_sha256":hash_file(FIGURE),
+                "corresponding_email_author_confirmed":"aman.singh2406@live.com",
+                "figure1_word_alt_text":FIGURE_ALT,
+                "figure1_word_accessibility_qa":"PASS_DOCX_OOXML",
                 "figure1_author_approved_for_draft_integration":True,
                 "previous_visual_qa_not_transferable":True,
                 "r4_immutable_git_blob":"069e319864b1f5c1ee201b31872fea1923",

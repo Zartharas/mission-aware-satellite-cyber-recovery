@@ -35,6 +35,10 @@ def main():
         "prohibited_extension_or_legacy_figure_reintroduced")
     ab=target.split("## Abstract\n\n",1)[1].split("**Keywords:**",1)[0].strip()
     chk(150<=len(ab.split())<=250 and len(ab.split())==228,"abstract_length_or_drift")
+    chk("**Aman Kumar Singh**  \\nIndependent Researcher, The Woodlands, Texas, United States  \\nORCID: 0009-0008-9752-3743  \\n**Corresponding author email:** aman.singh2406@live.com" in target and
+        target.count("aman.singh2406@live.com")==1 and
+        "[AUTHOR CONFIRM CURRENT CONTACT EMAIL]" not in target,
+        "confirmed_corresponding_author_email_or_line_breaks_drift")
     kw=target.split("**Keywords:**",1)[1].split("\n",1)[0]
     chk(len([x for x in kw.split(";") if x.strip()])==6,"keywords_not_six")
     fig_caption=next((x for x in target.splitlines() if x.startswith("**Fig. 1** ")),None)
@@ -76,6 +80,15 @@ def main():
         "draft-ietf-rats-multi-verifier" not in target and
         "https://theupdateframework.github.io/specification/v1.0.36/" in target,
         "CEAS_REFERENCE_SCREEN_FIREWALL")
+    contact=gate.get("author_contact",{})
+    chk(contact.get("email")=="aman.singh2406@live.com" and contact.get("sole_author") is True and
+        contact.get("other_declarations_author_confirmed") is False,
+        "author_contact_confirmation_drift")
+    access=gate.get("figure1_accessibility",{})
+    chk(access.get("alt_text")=="Three nonpooled trust boundaries: Study 3 validly signed false producer evidence with S3X timing proxy; Study 4 vote and synthetic provenance composition; Study 6 an approved bad-source artifact with S6X functional adjudication outside the six-signal gate." and
+        access.get("word_alt_implemented_in_builder") is True and
+        access.get("new_docx_visual_qa")=="PENDING",
+        "figure_alt_gate_drift")
     deliverables=gate["deliverables"]
     figure_record=gate.get("figure1_ceas_derivative",{})
     fifth=gate.get("visual_qa_history", [])[-1:]

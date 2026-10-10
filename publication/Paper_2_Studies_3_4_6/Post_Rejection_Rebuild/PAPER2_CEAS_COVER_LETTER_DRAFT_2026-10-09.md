@@ -22,5 +22,5 @@ Thank you for considering this manuscript.
 Sincerely,  
 Aman Kumar Singh  
 Independent Researcher  
-Corresponding email: [AUTHOR CONFIRM]
+Corresponding email: aman.singh2406@live.com
 ORCID: 0009-0008-9752-3743

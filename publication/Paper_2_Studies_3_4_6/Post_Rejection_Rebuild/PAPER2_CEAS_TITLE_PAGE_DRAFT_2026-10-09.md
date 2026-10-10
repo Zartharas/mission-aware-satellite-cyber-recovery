@@ -3,7 +3,7 @@
 **Aman Kumar Singh**  
 Independent Researcher, The Woodlands, Texas, United States  
 ORCID: 0009-0008-9752-3743  
-**Corresponding email:** [AUTHOR VERIFY BEFORE SUBMISSION]
+**Corresponding email:** aman.singh2406@live.com
 
 **Article type:** Original Research Article  
 **Target:** CEAS Space Journal (Springer Nature)  
