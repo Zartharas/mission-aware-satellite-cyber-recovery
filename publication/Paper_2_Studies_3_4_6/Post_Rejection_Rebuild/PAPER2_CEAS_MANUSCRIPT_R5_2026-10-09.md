@@ -116,7 +116,7 @@ Fig. 1 summarizes the three residual trust boundaries at the level of the qualif
 
 ![](figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg)
 
-**Fig. 1** Residual trust boundaries across three separately frozen qualification studies. (a) Temporal evidence (Study 3), including the subordinate S3X timing-proxy stress test: a truthful pre-onset cache can create bounded B0 exposure, while a false-but-valid trusted-producer claim can survive signature-only qualification; the ESA intervals are evidence-refresh proxies, not observed RF/contact outages. (b) Producer composition (Study 4): vote thresholds and synthetic provenance-domain requirements change first/systematic failure and benign-unavailability boundaries conditionally, not monotonically. (c) Recovery-artifact assurance (Study 6): composition excludes modeled integrity/provenance failures but leaves `APPROVED_BAD_SOURCE` when all six gate-visible signals remain true. The panels present a qualitative, nonpooled synthesis, not a serial architecture or a globally preferred rule. S6X is a separate executable stress test of the Study-6 residual, documented in Table 5; it is neither an additional Figure-1 panel nor an external empirical replication
+**Fig. 1** Residual trust boundaries across three separately frozen qualification studies. (a) Temporal evidence (Study 3), including the subordinate S3X timing-proxy stress test: a truthful pre-onset cache can create bounded B0 exposure, while a false-but-valid trusted-producer claim can survive signature-only qualification; the ESA intervals are evidence-refresh proxies, not observed RF/contact outages. (b) Producer composition (Study 4): vote thresholds and synthetic provenance-domain requirements change first/systematic failure and benign-unavailability boundaries conditionally, not monotonically. (c) Recovery-artifact assurance (Study 6): composition excludes modeled integrity/provenance failures but leaves `APPROVED_BAD_SOURCE` when all six gate-visible signals remain true. The panels present a qualitative, nonpooled synthesis, not a serial architecture or a globally preferred rule. S6X is a separate executable stress test of the Study-6 residual, documented in Table 5; it is neither an additional Figure-1 panel nor an external empirical replication Figure 1 schematic composition and layout were assisted by OpenAI ChatGPT (web interface); the author verified all panel mechanisms against the frozen study evidence
 
 
 ## 4 RQ1 — Temporal Evidence and the Trusted-Producer Boundary
@@ -516,7 +516,7 @@ The paper does not identify a globally best policy, quorum rule, or assurance ga
 
 ## AI assistance and author responsibility
 
-OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial level to assist with manuscript restructuring, prose development, claim-to-source organization, and publication-preparation scripts. It was not used to generate or modify the frozen experimental results. The author independently reviewed and verified the claims, calculations, source bindings, and repository evidence and assumes responsibility for the manuscript. This disclosure must be adapted to the policy of the eventual target venue before submission.
+OpenAI ChatGPT, accessed through its web interface (ChatGPT Web), assisted with manuscript organization, substantive drafting and editing, reference organization, publication-preparation scripts, and the schematic composition and layout of Figure 1. The author reviewed the AI-assisted prose and visual presentation against the frozen study evidence and original sources. ChatGPT was not an author and did not generate, rerun, or alter frozen experimental results. Aman Kumar Singh independently led and approved the research design, computational execution, analysis, interpretation, and manuscript, and remains solely accountable for accuracy, source attribution, and research integrity. [AUTHOR CONFIRM: whether the exact ChatGPT model version can be identified for final publisher disclosure.]
 
 ## Statements and Declarations
 
@@ -526,7 +526,7 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 **Competing interests.** The author declares no competing interests.
 
-**Author contributions.** Aman Kumar Singh is the sole author and takes responsibility for study design, analysis, interpretation, and the final manuscript. [AUTHOR CONFIRM this description before portal submission.]
+**Author contributions.** Aman Kumar Singh is the sole author. He conceived and designed the research, conducted the computational work and analysis, interpreted the findings, prepared and critically reviewed the manuscript, and approved the final manuscript. He takes full responsibility for the work.
 
 **Ethics approval and consent.** This research involved no human participants or animal experiments. Institutional ethics approval and informed consent were not required. Third-party source-data licensing and reuse permissions remain subject to separate verification.
 
@@ -534,7 +534,7 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 **Code availability.** Analytical and validation code is version-controlled, but this does not establish public availability of all external inputs or local runtime artifacts. [AUTHOR ACTION REQUIRED: Confirm the exact shareable revision, licenses, source subsets, and any controlled-access reviewer material.]
 
-**AI-assisted drafting.** Substantive drafting and editorial assistance is described in the dedicated section above. The sole human author is responsible for the final text, results, analyses, and disclosures.
+**AI-assisted preparation.** OpenAI ChatGPT (ChatGPT Web) provided disclosed writing, editorial, organizational, publication-script, and Figure 1 schematic-layout assistance as described above. The sole human author verified the material and assumes full responsibility. ChatGPT is not credited as an author.
 
 ## References
 

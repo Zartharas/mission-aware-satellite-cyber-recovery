@@ -60,7 +60,9 @@
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING",
     "ethics_declaration": "SOLE_AUTHOR_CONFIRMED_NO_HUMAN_OR_ANIMAL_RESEARCH__NO_ETHICS_APPROVAL_REQUIRED",
-    "acknowledgments": "SOLE_AUTHOR_CONFIRMED_NONE"
+    "acknowledgments": "SOLE_AUTHOR_CONFIRMED_NONE",
+    "author_contributions": "SOLE_AUTHOR_CONFIRMED_ALL_ROLES_AND_FINAL_APPROVAL",
+    "ai_assistance": "CHATGPT_WEB_DISCLOSED__VERSION_AND_PUBLISHER_REVIEW_PENDING"
   },
   "authorization": {
     "publisher_specific_derivative_design": true,
@@ -78,12 +80,14 @@
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
     "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA",
-    "AUTHOR_CONTRIBUTIONS_THIRD_PARTY_DATA_PERMISSIONS_AND_ACCESS_STATEMENTS_OPEN",
+    "THIRD_PARTY_DATA_PERMISSIONS_AND_REVIEWER_ACCESS_STATEMENTS_OPEN",
     "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA",
     "FUNDING_DECLARATION_CHANGE_REQUIRES_FRESH_PREVIEW_BEFORE_SUBMISSION",
     "SOLE_AUTHOR_IDENTITY_AND_CONFLICT_DECLARATION_REQUIRES_FRESH_PREVIEW_QA",
     "ETHICS_DECLARATION_CHANGE_REQUIRES_NEW_SOURCE_DOCX_PDF_VISUAL_QA",
-    "ACKNOWLEDGMENTS_DECLARATION_CHANGE_REQUIRES_FRESH_EXACT_SOURCE_DOCX_PDF_QA"
+    "ACKNOWLEDGMENTS_DECLARATION_CHANGE_REQUIRES_FRESH_EXACT_SOURCE_DOCX_PDF_QA",
+    "AI_TOOL_VERSION_AND_FIGURE_DISCLOSURE_FINAL_PUBLISHER_REVIEW_OPEN",
+    "AUTHOR_CONTRIBUTIONS_AND_AI_TEXT_CHANGE_REQUIRES_NEW_DOCX_PDF_VISUAL_QA"
   ],
   "references_review": {
     "total": 20,
@@ -290,5 +294,32 @@
     "no_people_to_acknowledge": true,
     "no_organizations_to_acknowledge": true,
     "verification_scope": "Author-confirmed none; does not establish third-party data licences or reviewer-data access"
+  },
+  "author_contributions_declaration": {
+    "statement": "Aman Kumar Singh is the sole author. He conceived and designed the research, conducted the computational work and analysis, interpreted the findings, prepared and critically reviewed the manuscript, and approved the final manuscript. He takes full responsibility for the work.",
+    "sole_author": "Aman Kumar Singh",
+    "research_conception_and_design": true,
+    "computational_execution_and_analysis": true,
+    "interpretation": true,
+    "manuscript_preparation": true,
+    "critical_review": true,
+    "final_approval": true,
+    "confirmation_date": "2026-10-10",
+    "no_coauthors": true
+  },
+  "ai_assistance_declaration": {
+    "tool": "OpenAI ChatGPT",
+    "access_method": "ChatGPT Web (web interface)",
+    "model_version": "NOT_VERIFIED__DO_NOT_INFER",
+    "manuscript_organization": true,
+    "substantive_drafting_editing": true,
+    "reference_organization": true,
+    "publication_preparation_scripts": true,
+    "figure1_schematic_layout_assistance": true,
+    "author_verified": true,
+    "authorship_conferred_to_ai": false,
+    "frozen_scientific_results_generated_or_modified_by_ai": false,
+    "figure_caption_disclosure_included": true,
+    "publisher_final_review": "PENDING__MODEL_IDENTITY_NOT_VERIFIED"
   }
 }

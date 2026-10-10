@@ -12,6 +12,6 @@ ORCID: 0009-0008-9752-3743
 
 **Acknowledgments:** None.
 
-**Contribution:** Sole author; responsible for study design, computational work, interpretation, and manuscript. [AUTHOR CONFIRM]
+**Contribution:** Sole author; research conception and design, computational execution and analysis, interpretation, manuscript preparation, critical review, and final approval.
 
 **Declarations:** See the manuscript's Statements and Declarations section; all bracketed placeholders must be resolved before submission.
