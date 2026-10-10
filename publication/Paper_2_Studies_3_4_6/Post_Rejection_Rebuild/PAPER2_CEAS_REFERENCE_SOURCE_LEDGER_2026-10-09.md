@@ -125,3 +125,18 @@ Controlled Paper 2 R5 reference scope: 19 entries. Original publisher, standards
 - **Novelty boundary:** no source independently establishes that Paper 2's finite-model outputs, S3X external timing proxies, or S6X test fixture are an operational flight recovery demonstration; preserve frozen populations separately and do not misrepresent reviews/specifications as validating novel results.
 
 Review performed through publicly accessible first-party pages and identified institutional indexes. Unavailable primary full text was not guessed or replaced. No manuscript numerical results, experiments, or bibliography entries were changed.
+
+## 2026-10-10 independent indexed-citation and editorial-notice screen (19)
+
+An additional **19-entry batch check** was performed using Scholar Sidekick's identifier/title matcher with correction/retraction screening enabled. Results: **14 matched / 1 apparent mismatch / 4 not found / 0 ambiguous / 0 errors / 0 reported retractions**. These are **database coverage and citation-identity signals**, not conclusive proof of all original-source facts, complete publisher metadata, or a universal absence of editorial notices.
+
+| Reference | Batch verdict | Source-level adjudication |
+|---|---|---|
+| [1], [2], [3], [5], [6], [7], [8], [9], [13], [14], [15], [16], [17], [18] | MATCHED (14) | Identifier/title identity corroborated; the conference pagination and claim alignment holds [3]/[14] remain separately open. |
+| [4] SPARTA CM0044 | NOT_FOUND | Non-journal, official dynamic online countermeasure; actual URL and content confirmed directly at https://sparta.aerospace.org/countermeasures/CM0044 . Do not call fabricated. |
+| [10] TUF v1.0.36 | NOT_FOUND | Versioned project technical specification, https://theupdateframework.github.io/specification/v1.0.36/ ; not necessarily indexed as a scholarly DOI. |
+| [11] SLSA Source v1.2 | NOT_FOUND | Official approved standards/specification document: https://slsa.dev/spec/v1.2/source-requirements . |
+| [12] SLSA Threats & mitigations v1.2 | APPARENT MISMATCH | The title-only matcher linked an unrelated DOI 10.1201/9780429053603-4 (*Threat Mitigation*). This is **automated false association**, because the manuscript actually cites https://slsa.dev/spec/v1.2/threats and attributes it to SLSA v1.2; do not replace original source with the unrelated DOI. |
+| [19] NASA Space Security guide Rev B | NOT_FOUND | Original NASA site and Rev B publicly released document verify this government guide. Not finding a journal DOI is expected for this technical guide and not evidence of fabrication. |
+
+**Editorial notices:** no checked index entry returned a retraction flag. An index-negative result is NOT a guarantee that there is no notice or later correction; make a final publisher/author-page amendment check before journal submission. The original tracked 20-reference screening is preserved separately; this is a new 19-entry check against R5 bibliography. No manuscript reference numbers, URLs, research claims or frozen data have been changed.

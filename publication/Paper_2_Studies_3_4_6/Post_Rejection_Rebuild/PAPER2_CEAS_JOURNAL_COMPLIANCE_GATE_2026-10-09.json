@@ -336,7 +336,28 @@
     "all_in_text_claims_original_full_text_verified": false,
     "final_amendment_retraction_review_complete": false,
     "manual_final_reference_certification": false,
-    "evidence_document": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_SOURCE_LEDGER_2026-10-09.md"
+    "evidence_document": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_SOURCE_LEDGER_2026-10-09.md",
+    "independent_19_entry_screen": {
+      "tool": "Scholar Sidekick (identifier/title batch with retraction screening)",
+      "matched": 14,
+      "mismatch_reported": 1,
+      "not_found_reported": 4,
+      "ambiguous": 0,
+      "errors": 0,
+      "retraction_flags_reported": 0,
+      "total": 19,
+      "reported_mismatch_reference": 12,
+      "mismatch_adjudication": "FALSE_ASSOCIATION_TO_UNRELATED_GENERIC_TITLE__OFFICIAL_SLSA_V1_2_URL_CONFIRMED",
+      "not_found_references": [
+        4,
+        10,
+        11,
+        19
+      ],
+      "unindexed_technical_sources_not_citation_fabrication": true,
+      "zero_retraction_flags_is_final_proof": false,
+      "publisher_metadata_full_check_complete": false
+    }
   },
   "reviewer_access_plan_20261010": {
     "status": "DESIGN_DOCUMENTED__REVIEWER_FILES_NOT_RELEASED",
