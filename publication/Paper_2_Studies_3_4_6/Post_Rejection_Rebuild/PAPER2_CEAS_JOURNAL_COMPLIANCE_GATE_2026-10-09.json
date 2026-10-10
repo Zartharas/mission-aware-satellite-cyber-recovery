@@ -50,14 +50,15 @@
     "title_page_md": "PREPARED_DRAFT",
     "cover_letter_md": "PREPARED_DRAFT",
     "journal_policy_review": "VERIFIED",
-    "renderer": "SOURCE_SCRIPT_PENDING_LOCAL_EXECUTION",
-    "manuscript_docx": "NOT_RENDERED",
-    "manuscript_pdf": "NOT_RENDERED",
-    "figure_visual_qa": "PENDING",
+    "renderer": "AUTHOR_HOST_PREVIEW_BUILDER_VALIDATED__SOURCE_ONLY",
+    "manuscript_docx": "DRAFT_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD",
+    "manuscript_pdf": "DRAFT_29_PAGES_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD",
+    "figure_visual_qa": "HOLD_INTERNAL_LABELS_TOO_SMALL_AT_PRINT_SIZE",
     "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
     "funding_conflicts_email": "PENDING_AUTHOR",
-    "portal_submission": "NOT_STARTED"
+    "portal_submission": "NOT_STARTED",
+    "five_tables_visual_qa": "PASS_ALL_TABLES_SINGLE_PAGE_FIFTH_PREVIEW"
   },
   "authorization": {
     "publisher_specific_derivative_design": true,
@@ -72,15 +73,9 @@
   "reason_for_hold": [
     "AUTHOR_EMAIL_FUNDING_COMPETING_INTERESTS_AND_DISCLOSURES_NOT_CONFIRMED",
     "ACCESSIBLE_CODE_DATA_AVAILABILITY_NOT_FINALIZED",
-    "DOCX_PDF_RENDER_AND_LAYOUT_QA_NOT_COMPLETED",
-    "REFERENCE_AND_FIGURE_FINAL_QA_NOT_COMPLETED",
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
-    "NEW_EXACT_HEAD_WORD_PDF_REBUILD_AND_ALL_PAGE_VISUAL_QA_PENDING",
-    "THIRD_EXACT_HEAD_LAYOUT_REBUILD_AND_FULL_VISUAL_QA_PENDING",
-    "NEW_EXACT_HEAD_TABLE2_LAYOUT_FIX_REBUILD_AND_ALL_PAGE_QA_PENDING",
     "FIGURE1_INTERNAL_LABELS_PRINT_SIZE_LEGIBILITY_HOLD",
-    "TABLE_5_AUTHOR_HOST_KEEP_TOGETHER_REBUILD_AND_VISUAL_QA_PENDING",
     "FIGURE_1_INTERNAL_TEXT_PRINT_LEGIBILITY_HOLD"
   ],
   "references_review": {
@@ -174,6 +169,30 @@
         "REFERENCE_MANUAL_VERIFICATION"
       ],
       "local_table5_keep_next_test": "PASS_29_PAGES_NO_CONTENT_CHANGE_AUTHOR_HOST_PENDING"
+    },
+    {
+      "source_head": "0fa0ee59af9e2b05aafc42c23795c2539f5af188",
+      "pdf_pages": 29,
+      "preview_docx_sha256": "0d34aac12d658ef2f4bc3294f34cc0650afd6b1addb85c31896d8b54b2cb9bec",
+      "preview_pdf_sha256": "afb111d9989bb0155593d1adafb4be21a59d973ae38a09f93a38793ceb9db6bf",
+      "verdict": "TABLE_PAGINATION_PASS__OVERALL_SUBMISSION_HOLD",
+      "table_pages": {
+        "table_1": 8,
+        "table_2": 13,
+        "table_3": 15,
+        "table_4": 18,
+        "table_5": 20
+      },
+      "word_body_paragraphs_unchanged_from_fourth": 268,
+      "all_five_table_cell_contents_unchanged": true,
+      "all_29_pages_rendered_and_reviewed": true,
+      "open": [
+        "FIGURE1_INTERNAL_LABEL_PRINT_LEGIBILITY",
+        "AUTHOR_EMAIL_AND_DECLARATIONS",
+        "REVIEWER_ACCESSIBLE_DATA_CODE",
+        "FINAL_19_REFERENCE_SOURCE_VERIFICATION",
+        "PORTAL_FIELDS_AND_EXPLICIT_SUBMISSION_APPROVAL"
+      ]
     }
   ]
 }

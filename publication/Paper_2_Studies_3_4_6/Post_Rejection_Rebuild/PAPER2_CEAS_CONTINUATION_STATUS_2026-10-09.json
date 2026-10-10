@@ -62,7 +62,7 @@
       "docx_sha256": "20dc7b505fa8746ebf2b06993fe832da720112a85d8c98f3490cea64a3789b58",
       "visual_qa": "FAIL"
     },
-    "new_head_visual_qa_required": true,
+    "new_head_visual_qa_required": false,
     "exact_head_ci_1438": {
       "head": "41cf5b8f4b128b7eeb07a36063b14b0f6c2fa513",
       "run_id": 37972985997,
@@ -92,7 +92,7 @@
       "figure1_print_qa": "HOLD_INTERNAL_TEXT_TOO_SMALL",
       "paragraph_text_coverage": "253_OF_253_SUBSTANTIVE_DOCX_PARAGRAPHS"
     },
-    "next_preview_required_after_table2_layout_fix": true,
+    "next_preview_required_after_table2_layout_fix": false,
     "exact_head_ci_1440": {
       "head": "c21c1ab3f6a246e38d220eaecc6ff68717003444",
       "run_id": 37978658906,
@@ -108,6 +108,31 @@
       "table5_pages": "19_20_SPLIT",
       "local_table5_keep_together_test": "PASS_29_PAGES_CONTENT_PARITY",
       "new_author_host_render": "PENDING"
+    },
+    "exact_head_ci_1441": {
+      "head": "0fa0ee59af9e2b05aafc42c23795c2539f5af188",
+      "run_number": 1441,
+      "run_id": 37985307024,
+      "conclusion": "success"
+    },
+    "fifth_rendered_preview": {
+      "source_head": "0fa0ee59af9e2b05aafc42c23795c2539f5af188",
+      "author_host_out_dir": "PAPER2_CEAS_R5_PREVIEW_20261010T012718Z",
+      "pdf_pages": 29,
+      "docx_sha256": "0d34aac12d658ef2f4bc3294f34cc0650afd6b1addb85c31896d8b54b2cb9bec",
+      "pdf_sha256": "afb111d9989bb0155593d1adafb4be21a59d973ae38a09f93a38793ceb9db6bf",
+      "docx_body_paragraph_text_parity_with_fourth": "268_OF_268",
+      "all_five_table_cell_text_parity_with_fourth": true,
+      "table_pages": [
+        8,
+        13,
+        15,
+        18,
+        20
+      ],
+      "table_pagination_qa": "PASS",
+      "figure1_print_qa": "HOLD",
+      "submission_ready": false
     }
   },
   "optional_p2x": {
@@ -152,17 +177,14 @@
     "CONFIRM_FUNDING_AND_FINANCIAL_NONFINANCIAL_COMPETING_INTERESTS",
     "CONFIRM_AUTHORS_CONTRIBUTIONS_ETHICS_AND_PERMISSIONS",
     "DECIDE_REVIEWER_ACCESSIBLE_DATA_AND_CODE_AVAILABILITY_AND_PRIVATE_REPOSITORY_POLICY",
-    "CHECK_FIGURE_1_AND_FIVE_TABLES_VISUALLY",
-    "RENDER_EDITABLE_DOCX_AND_ACCOMPANYING_PDF_AND_REVIEW_EVERY_PAGE",
     "PREPARE_FINAL_CEAS_PORTAL_FIELDS_AND_SUBMISSION_MANIFEST",
     "OBTAIN_SEPARATE_FINAL_AUTHOR_SUBMISSION_APPROVAL",
     "FINAL_19_SOURCE_BY_SOURCE_REFERENCE_QA_INCOMPLETE",
-    "NEW_CEAS_R5_DOCUMENT_RENDER_AND_32_PAGE_DEFECT_REGRESSION_QA",
-    "THIRD_EXACT_HEAD_CEAS_LAYOUT_QA_REQUIRED_AFTER_VALIDATED_WORD_ONLY_REFLOW",
-    "NEW_EXACT_HEAD_TABLE2_REBUILD_AND_VISUAL_QA",
     "FIGURE_1_PRINT_LEGIBILITY",
-    "TABLE5_REBUILD_AND_ALL_PAGE_QA_PENDING",
-    "FIGURE1_PRINT_SIZE_LABELS_TOO_SMALL"
+    "FIGURE1_PRINT_SIZE_LABELS_TOO_SMALL",
+    "FIGURE1_REDESIGN_OR_PRINT_SIZE_LEGIBILITY_AND_RE_RENDER",
+    "AUTHOR_APPROVED_CEAS_DISCLOSURES_AND_DATA_CODE_REVIEWER_ACCESS",
+    "FINAL_19_REFERENCE_VERIFICATION_AND_CEAS_PORTAL_PACKAGE"
   ],
   "prohibition": "Never invent empirical results, author declarations, DOI verifications, paper overlap, final acceptance or CI results. Do not silently merge PRs or submit to CEAS."
 }
