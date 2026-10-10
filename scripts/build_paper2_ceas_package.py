@@ -171,7 +171,12 @@ def main():
     r=subprocess.run(["python3",str(AUDIT)],cwd=ROOT,check=False,capture_output=True,text=True)
     require(r.returncode==0,"static_audit:"+r.stdout+r.stderr)
     print(r.stdout,end="")
+    require(FIGURE.is_file(),"ceas_authorized_figure_derivative_missing")
+    require(IMAGE_REL==str(FIGURE.relative_to(SOURCE.parent)),"figure_path_and_markdown_reference_diverged")
+    require(SOURCE.read_text(encoding="utf-8").count("![]("+IMAGE_REL+")")==1,
+            "approved_figure_reference_not_exactly_once")
     if a.check:
+        print("CEAS_FIGURE_SOURCE_BINDING=PASS")
         print("CEAS_PACKAGE_RENDER=NOT_EXECUTED")
         return
     require(a.out_dir is not None,"external_out_dir_required")
