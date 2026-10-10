@@ -97,10 +97,46 @@ allowed={
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R4_FIGURE1_INSERTION_2026-10-01.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R4_LIVE_PREVENUE_SCOPE_SCREEN_2026-10-01.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R4_PREVENUE_STATUS.json",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R5_PUBLICATION_READINESS_AND_ABSTRACT_CANDIDATE_2026-10-08.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_COVER_LETTER_DRAFT_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_JOURNAL_COMPLIANCE_GATE_2026-10-09.json",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_SUBMISSION_READINESS_2026-10-09.md",
+"scripts/audit_paper2_ceas_r5.py",
+"scripts/build_paper2_ceas_package.py",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_SOURCE_LEDGER_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_NEW_CHAT_HANDOFF_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_CONTINUATION_STATUS_2026-10-09.json",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_NEW_CHAT_HANDOFF_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_CONTINUATION_STATUS_2026-10-09.json",
 }
 changed=set(subprocess.check_output(["git","diff","--name-only",f"{BASE}...HEAD"],cwd=ROOT,text=True).splitlines())
 req(changed==allowed,"branch diff whitelist drift: "+str(sorted(changed^allowed)))
+r5_text=(D/"PAPER2_R5_PUBLICATION_READINESS_AND_ABSTRACT_CANDIDATE_2026-10-08.md").read_text(encoding="utf-8")
+for token in (
+    "no changes to the authoritative R4 source",
+    "P2X is not an R4 study population",
+    "No venue lock",
+    "no submission",
+    "R5_PREVENUE_READINESS_REVIEW_PREPARED__NO_VENUE_LOCK__NO_SUBMISSION"):
+    req(token.lower() in r5_text.lower(), "R5 scope missing: "+token)
+abstract=r5_text.split("## Condensed abstract candidate — editorial draft only",1)[1].split("**Draft abstract whitespace-word count:**",1)[0]
+req(150<=len(abstract.split())<=250,"R5 abstract length out of advisory envelope")
+req("source manuscript" not in r5_text or "preserve" in r5_text,
+    "R5 science source disposition unexpected")
 req("python scripts/audit_paper2_r4_prevenue_figure_insertion.py" in WORKFLOW.read_text(),"missing R4 CI hook")
+ceas=subprocess.run(["python3",str(ROOT/"scripts/audit_paper2_ceas_r5.py")],cwd=ROOT,
+    capture_output=True,text=True)
+req(ceas.returncode==0 and "PAPER2_CEAS_R5_EDITORIAL_STATIC=PASS" in ceas.stdout,
+    "CEAS R5 controlled-derivative audit: "+ceas.stdout+ceas.stderr)
+package=subprocess.run(["python3",str(ROOT/"scripts/build_paper2_ceas_package.py"),"--check"],
+    cwd=ROOT,capture_output=True,text=True)
+req(package.returncode==0 and "CEAS_PACKAGE_RENDER=NOT_EXECUTED" in package.stdout,
+    "CEAS source-only build check: "+package.stdout+package.stderr)
 print("paper2_r4_prevenue_figure_insertion_audit=PASS")
 print("r3_blob_preserved=YES")
 print("figure1_svg_sha256_preserved=YES")

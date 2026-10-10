@@ -1,0 +1,428 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-CEAS-SPACE-JOURNAL-PRE-SUBMISSION-GATE-2026-10-09",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "journal": "CEAS Space Journal",
+  "publisher": "Springer Nature",
+  "article_type": "Original Research Article",
+  "verified_official_guidelines_url": "https://link.springer.com/journal/12567/submission-guidelines",
+  "verified_official_scope_url": "https://link.springer.com/journal/12567/aims-and-scope",
+  "review_date": "2026-10-09",
+  "journal_model": "HYBRID",
+  "peer_review": "SINGLE_BLIND",
+  "manuscript_r4_blob_immutable": "069e319864b1f5c1ee201b31872e68572fea1923",
+  "candidate_r5": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md",
+  "requirements": {
+    "abstract_words_min": 150,
+    "abstract_words_max": 250,
+    "abstract_candidate_words": 228,
+    "keywords_min": 4,
+    "keywords_max": 6,
+    "keywords_current": 6,
+    "original_research_includes_theoretical_numerical_experimental": true,
+    "editable_source_format": [
+      "DOCX",
+      "LATEX"
+    ],
+    "docx_requires_pdf": true,
+    "decimal_headings_no_more_than_three_levels": true,
+    "numbered_references_square_brackets": true,
+    "tables_numbered_arabic": true,
+    "figure_captions_fig_arabic": true,
+    "original_research_data_availability_statement_required": true,
+    "submission_interface_contributions_and_competing_interest_required": true,
+    "significant_ai_drafting_disclose_beyond_copyediting": true,
+    "allow_no_simultaneous_submission": true,
+    "confirmed_original_research_page_limit": null,
+    "no_article_processing_charge_guaranteed": false,
+    "reference_entries_current": 19
+  },
+  "manuscript_integrity": {
+    "study3_4_6_frozen": true,
+    "s3x_s6x_separately_governed": true,
+    "no_p2x_runtime_claim": true,
+    "no_operational_satellite_recovery_claim": true,
+    "no_scientific_reexecution": true,
+    "no_prior_taes_package_mutation": true
+  },
+  "deliverables": {
+    "manuscript_md": "PREPARED_DRAFT",
+    "title_page_md": "PREPARED_DRAFT",
+    "cover_letter_md": "PREPARED_DRAFT",
+    "journal_policy_review": "VERIFIED",
+    "renderer": "CEAS_APPROVED_FIGURE_SOURCE_BOUND__FRESH_AUTHOR_HOST_PREVIEW_PENDING",
+    "manuscript_docx": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
+    "manuscript_pdf": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
+    "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
+    "bibliography_reference_verification": "ALL_19_SPOT_AUDITED__CROSSREF_PAGE_FIELDS_3_14_MATCH__IEEE_PDF_AND_CLAIM_QA_PENDING",
+    "data_code_access_plan": "ZENODO_V2_RIGHTS_METADATA_ABSENT__REVIEWER_RELEASE_UNAUTHORIZED",
+    "funding_conflicts_email": "SOLE_AUTHOR_EMAIL_NO_EXTERNAL_OR_IN_KIND_SUPPORT_NO_COMPETING_INTERESTS_CONFIRMED__OTHER_DECLARATIONS_PENDING",
+    "portal_submission": "NOT_STARTED",
+    "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING",
+    "ethics_declaration": "SOLE_AUTHOR_CONFIRMED_NO_HUMAN_OR_ANIMAL_RESEARCH__NO_ETHICS_APPROVAL_REQUIRED",
+    "acknowledgments": "SOLE_AUTHOR_CONFIRMED_NONE",
+    "author_contributions": "SOLE_AUTHOR_CONFIRMED_ALL_ROLES_AND_FINAL_APPROVAL",
+    "ai_assistance": "CHATGPT_WEB_DISCLOSED__VERSION_AND_PUBLISHER_REVIEW_PENDING"
+  },
+  "authorization": {
+    "publisher_specific_derivative_design": true,
+    "portal_actions": false,
+    "submission": false,
+    "merge_pr216": false,
+    "merge_pr215": false,
+    "workspace_materialization": false,
+    "runtime_execution": false,
+    "ceas_figure_draft_integration": true
+  },
+  "final_submission_ready": false,
+  "reason_for_hold": [
+    "ACCESSIBLE_CODE_DATA_AVAILABILITY_NOT_FINALIZED",
+    "PORTAL_SUBMISSION_NOT_AUTHORIZED",
+    "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
+    "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA",
+    "THIRD_PARTY_DATA_PERMISSIONS_AND_REVIEWER_ACCESS_STATEMENTS_OPEN",
+    "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA",
+    "FUNDING_DECLARATION_CHANGE_REQUIRES_FRESH_PREVIEW_BEFORE_SUBMISSION",
+    "SOLE_AUTHOR_IDENTITY_AND_CONFLICT_DECLARATION_REQUIRES_FRESH_PREVIEW_QA",
+    "ETHICS_DECLARATION_CHANGE_REQUIRES_NEW_SOURCE_DOCX_PDF_VISUAL_QA",
+    "ACKNOWLEDGMENTS_DECLARATION_CHANGE_REQUIRES_FRESH_EXACT_SOURCE_DOCX_PDF_QA",
+    "AI_TOOL_VERSION_AND_FIGURE_DISCLOSURE_FINAL_PUBLISHER_REVIEW_OPEN",
+    "AUTHOR_CONTRIBUTIONS_AND_AI_TEXT_CHANGE_REQUIRES_NEW_DOCX_PDF_VISUAL_QA"
+  ],
+  "references_review": {
+    "total": 20,
+    "batch": {
+      "matched": 14,
+      "mismatch": 1,
+      "not_found": 5,
+      "retracted_reported": 0
+    },
+    "report": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
+    "reference_6": "ORIGINAL_IETF_DRAFT_REMOVED_RENUMBERED_7_TO_20_AS_6_TO_19",
+    "reference_13": "GENERIC_TITLE_HEURISTIC_MISMATCH_NOT_FABRICATION",
+    "full_manual_verified": false,
+    "original_screened_count": 20,
+    "current_manuscript_entries": 19
+  },
+  "repo_visibility_live_20261009": "PUBLIC__NOT_ALL_FROZEN_ARTIFACTS_CONFIRMED_ACCESSIBLE",
+  "visual_qa_history": [
+    {
+      "source_head": "a979b28e690b462cb7e9e01196e6ca0a28784406",
+      "pdf_pages": 32,
+      "preview_docx_sha256": "20dc7b505fa8746ebf2b06993fe832da720112a85d8c98f3490cea64a3789b58",
+      "preview_pdf_sha256": "28553bf0fc7be0500978d15c6dbc497384014cd1eddc8b75cb1a06fe75c1cdf5",
+      "verdict": "FAIL",
+      "findings": [
+        "TABLE_1_UNREADABLE",
+        "FIGURE_1_DUPLICATE_CAPTION",
+        "HEADING_2_2_LITERAL_MARKDOWN",
+        "TABLE_4_GATE_WRAP",
+        "TABLE_5_PAGINATION"
+      ]
+    },
+    {
+      "source_head": "41cf5b8f4b128b7eeb07a36063b14b0f6c2fa513",
+      "pdf_pages": 31,
+      "preview_docx_sha256": "0aeb2c3b0ae80b829fffe60670d19410c1cc90ea392928308ccb562e583210ef",
+      "preview_pdf_sha256": "3d925eeaaed21b3b7ed70d6b9c308a737c01bc3cf8b5c1d3cc9f4eaad804d111",
+      "verdict": "HOLD",
+      "resolved": [
+        "SECTION_2_2_HEADING",
+        "FIGURE_1_DUPLICATE_CAPTION",
+        "TABLE_4_GATE_LABELS",
+        "TABLE_5_ROW_CONTINUITY"
+      ],
+      "open": [
+        "TABLE_1_CAPTION_ORPHAN_AND_WRAP",
+        "TABLE_2_WORD_WRAP_AND_CONTINUATION",
+        "REFERENCE_19_ORPHAN",
+        "FIGURE_1_PRINT_LEGIBILITY",
+        "AUTHOR_DECLARATIONS_AND_DATA_ACCESS"
+      ]
+    },
+    {
+      "source_head": "35f035f79f4335811a4f048ab01732adc1c4f011",
+      "pdf_pages": 29,
+      "preview_docx_sha256": "3067cd516a5e0dd4f51e14a57a27f886f8549225b252624ebcfdb94f35438eb9",
+      "preview_pdf_sha256": "06236cb2092fc2f1020a84d78cb2b0f627f490359da14790b1431b8400310d7e",
+      "verdict": "HOLD",
+      "fixed": [
+        "TABLE1_CAPTION_AND_ROWS_TOGETHER",
+        "TABLE3_SINGLE_PAGE",
+        "TABLE4_SINGLE_PAGE",
+        "TABLE5_SINGLE_PAGE",
+        "REFERENCE19_NO_LONGER_ALONE"
+      ],
+      "open": [
+        "TABLE2_LAST_ROW_SPLIT_PAGES13_14",
+        "FIGURE1_INTERNAL_TEXT_TOO_SMALL",
+        "AUTHOR_METADATA_AND_DECLARATIONS_PENDING",
+        "DATA_CODE_ACCESS_AND_REFERENCES_UNRESOLVED"
+      ],
+      "local_table2_fix": "OFF_REPOSITORY_OOXML_PARAGRAPH_SPACING_AND_ROW_NOSPLIT_TEST_PASSED_29_PAGES_CONTENT_PARITY"
+    },
+    {
+      "source_head": "c21c1ab3f6a246e38d220eaecc6ff68717003444",
+      "pdf_pages": 29,
+      "preview_docx_sha256": "70c0a8ca8bb3f505868bafd78efbdc387ad2596d81f3ae37153775ed4ac3173b",
+      "preview_pdf_sha256": "a8c606dc22583ba8f774c705656c353549577daf43f005874986f04f882a21c8",
+      "verdict": "HOLD",
+      "fixed": [
+        "TABLE_2_WHOLE_ON_PAGE_13",
+        "TABLE_1_3_4_UNSPLIT",
+        "REFERENCE_19_NOT_STRANDED"
+      ],
+      "open": [
+        "TABLE_5_SPLIT_PAGES_19_20",
+        "FIGURE_1_PRINT_LEGIBILITY",
+        "AUTHOR_DECLARATIONS",
+        "DATA_CODE_ACCESS",
+        "REFERENCE_MANUAL_VERIFICATION"
+      ],
+      "local_table5_keep_next_test": "PASS_29_PAGES_NO_CONTENT_CHANGE_AUTHOR_HOST_PENDING"
+    },
+    {
+      "source_head": "0fa0ee59af9e2b05aafc42c23795c2539f5af188",
+      "pdf_pages": 29,
+      "preview_docx_sha256": "0d34aac12d658ef2f4bc3294f34cc0650afd6b1addb85c31896d8b54b2cb9bec",
+      "preview_pdf_sha256": "afb111d9989bb0155593d1adafb4be21a59d973ae38a09f93a38793ceb9db6bf",
+      "verdict": "TABLE_PAGINATION_PASS__OVERALL_SUBMISSION_HOLD",
+      "table_pages": {
+        "table_1": 8,
+        "table_2": 13,
+        "table_3": 15,
+        "table_4": 18,
+        "table_5": 20
+      },
+      "word_body_paragraphs_unchanged_from_fourth": 268,
+      "all_five_table_cell_contents_unchanged": true,
+      "all_29_pages_rendered_and_reviewed": true,
+      "open": [
+        "FIGURE1_INTERNAL_LABEL_PRINT_LEGIBILITY",
+        "AUTHOR_EMAIL_AND_DECLARATIONS",
+        "REVIEWER_ACCESSIBLE_DATA_CODE",
+        "FINAL_19_REFERENCE_SOURCE_VERIFICATION",
+        "PORTAL_FIELDS_AND_EXPLICIT_SUBMISSION_APPROVAL"
+      ]
+    }
+  ],
+  "figure1_ceas_derivative": {
+    "path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg",
+    "svg_sha256": "b83c9614879a66184495f3905a5d3866eb8cbdffd7e1ee6065f8eaf49748e119",
+    "svg_git_blob_sha1": "728fa602ee1b73a363ed56173b695f778cd0b89d",
+    "original_preserved_path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg",
+    "original_svg_sha256": "adfdfaf833c8624bb405209be22ef6b2f002cdec53f081ce097f67e728eedffc",
+    "author_approved_draft_integration": true,
+    "author_approval_date": "2026-10-10",
+    "full_source_docx_pdf_visual_qa": "PENDING",
+    "submission_ready": false,
+    "notes": "CEAS-only three-panel scientific synthesis; S3X and S6X subordinate; no pooled results; no P2X/S4X; historical 29-page QA cannot transfer."
+  },
+  "author_contact": {
+    "name": "Aman Kumar Singh",
+    "sole_author": true,
+    "affiliation": null,
+    "orcid": "0009-0008-9752-3743",
+    "email": "aman.singh2406@live.com",
+    "confirmation": "CONFIRMED_BY_AUTHOR_2026-10-10",
+    "other_declarations_author_confirmed": false,
+    "role": "Independent Researcher",
+    "location": "The Woodlands, Texas, United States",
+    "institutional_affiliation": null,
+    "no_institutional_affiliation_confirmed": true,
+    "no_coauthors_author_confirmed": true
+  },
+  "figure1_accessibility": {
+    "alt_text": "Three nonpooled trust boundaries: Study 3 validly signed false producer evidence with S3X timing proxy; Study 4 vote and synthetic provenance composition; Study 6 an approved bad-source artifact with S6X functional adjudication outside the six-signal gate.",
+    "word_alt_title": "Figure 1: Residual trust boundaries in satellite cyber-recovery qualification",
+    "word_alt_implemented_in_builder": true,
+    "new_docx_visual_qa": "PENDING"
+  },
+  "previous_source_preview_verified": {
+    "head": "39049ec676e8f05aac8adcef668f0d21123c21ca",
+    "docx_sha256": "8dadf75399117260e4730c5359d02d32ba78e4d82c15bb7bc3f20e02654b71ef",
+    "pdf_sha256": "9bfa6531d301f362602672a5f57a8c6609671860ed17fd1cb7611d3847dca4c2",
+    "pages": 29,
+    "tables": 5,
+    "figure_page": 9,
+    "assessment": "PASS_PREVIOUS_LAYOUT__NEW_EMAIL_ALT_BUILD_PENDING"
+  },
+  "funding_declaration": {
+    "statement": "This research received no external funding or institutional or third-party in-kind support. The author conducted the research independently using personal resources.",
+    "author_confirmation": "2026-10-10",
+    "scope": "No external financial funding, no institutional or third-party in-kind support, personal resources only",
+    "own_equipment_computing_and_facilities": true,
+    "external_funding_received": false,
+    "institutional_support_received": false,
+    "third_party_in_kind_support_received": false,
+    "other_support_confirmed": true,
+    "competing_interests_confirmed": true
+  },
+  "competing_interests_declaration": {
+    "statement": "The author declares no competing interests.",
+    "author_confirmed_on": "2026-10-10",
+    "scope": "Financial and nonfinancial competing interests",
+    "sole_author": true
+  },
+  "reviewer_access_permission_review": {
+    "status": "HOLD__NO_DISTRIBUTION_AUTHORIZED",
+    "esa_dataset_reference": "10.5281/zenodo.15237121",
+    "related_official_license_repository": "https://github.com/esa/anomaly-dataset/blob/main/LICENSE",
+    "license_identifier_indicated_upstream": "CC BY 3.0 IGO",
+    "license_version_crosswalk_to_zenodo_v2": "UNVERIFIED",
+    "zenodo_v2_visible_specific_license": "NOT_DISPLAYED_IN_RETRIEVED_PAGE",
+    "derivative_1919_intervals_public_release": "NOT_AUTHORIZED",
+    "original_study3_study4_archives_on_author_host": "SHA_VERIFIED_AUTHOR_HOST__NO_REVIEWER_LINK",
+    "s3x_s6x_locally_ignored_evidence": "HASH_VERIFIED_AUTHOR_HOST__NO_REVIEWER_LINK",
+    "paper2x_and_s4x": "EXCLUDED",
+    "publication_link_or_doi": "NONE",
+    "note": "Author-host public Zenodo v2 REST metadata has open access and null license/rights/version fields. This is missing metadata, not proof that reuse is forbidden; older ESA repository CC BY 3.0 IGO requires explicit applicability review for v2 and S3X derivatives. Crossref IEEE metadata does not affect ESA rights.",
+    "zenodo_v2_rest_probe": {
+      "record": 15237121,
+      "doi": "10.5281/zenodo.15237121",
+      "api_public_access": "open",
+      "api_license": null,
+      "api_rights": null,
+      "api_version": null,
+      "human_landing_page_version": "v2",
+      "version_specific_redistribution_license_verified": false,
+      "no_raw_telemetry_download": true
+    },
+    "derived_1919_intervals_public_release": "NOT_AUTHORIZED"
+  },
+  "ethics_declaration": {
+    "statement": "This research involved no human participants or animal experiments. Institutional ethics approval and informed consent were not required.",
+    "author_confirmation": "2026-10-10",
+    "human_participants": false,
+    "animal_experiments": false,
+    "institutional_ethics_approval_required": false,
+    "informed_consent_required": false,
+    "third_party_data_license_status": "UNVERIFIED_SEPARATE_RIGHTS_GATE",
+    "source_data_permissions_confirmed": false
+  },
+  "acknowledgments_declaration": {
+    "statement": "None.",
+    "author_confirmed_on": "2026-10-10",
+    "no_people_to_acknowledge": true,
+    "no_organizations_to_acknowledge": true,
+    "verification_scope": "Author-confirmed none; does not establish third-party data licences or reviewer-data access"
+  },
+  "author_contributions_declaration": {
+    "statement": "Aman Kumar Singh is the sole author. He conceived and designed the research, conducted the computational work and analysis, interpreted the findings, prepared and critically reviewed the manuscript, and approved the final manuscript. He takes full responsibility for the work.",
+    "sole_author": "Aman Kumar Singh",
+    "research_conception_and_design": true,
+    "computational_execution_and_analysis": true,
+    "interpretation": true,
+    "manuscript_preparation": true,
+    "critical_review": true,
+    "final_approval": true,
+    "confirmation_date": "2026-10-10",
+    "no_coauthors": true
+  },
+  "ai_assistance_declaration": {
+    "tool": "OpenAI ChatGPT",
+    "access_method": "ChatGPT Web (web interface)",
+    "model_version": "NOT_VERIFIED__DO_NOT_INFER",
+    "manuscript_organization": true,
+    "substantive_drafting_editing": true,
+    "reference_organization": true,
+    "publication_preparation_scripts": true,
+    "figure1_schematic_layout_assistance": true,
+    "author_verified": true,
+    "authorship_conferred_to_ai": false,
+    "frozen_scientific_results_generated_or_modified_by_ai": false,
+    "figure_caption_disclosure_included": true,
+    "publisher_final_review": "PENDING__MODEL_IDENTITY_NOT_VERIFIED"
+  },
+  "references_review_20261010": {
+    "kind": "REFERENCE_LEVEL_PRIMARY_ORIGIN_SPOT_AUDIT__NOT_FULL_CERTIFICATION",
+    "entries_checked": 19,
+    "expected_entries": 19,
+    "ieee_primary_pagination_pending": [
+      3,
+      14
+    ],
+    "additional_permission_check": [
+      13
+    ],
+    "all_in_text_claims_original_full_text_verified": false,
+    "final_amendment_retraction_review_complete": false,
+    "manual_final_reference_certification": false,
+    "evidence_document": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_SOURCE_LEDGER_2026-10-09.md",
+    "independent_19_entry_screen": {
+      "tool": "Scholar Sidekick (identifier/title batch with retraction screening)",
+      "matched": 14,
+      "mismatch_reported": 1,
+      "not_found_reported": 4,
+      "ambiguous": 0,
+      "errors": 0,
+      "retraction_flags_reported": 0,
+      "total": 19,
+      "reported_mismatch_reference": 12,
+      "mismatch_adjudication": "FALSE_ASSOCIATION_TO_UNRELATED_GENERIC_TITLE__OFFICIAL_SLSA_V1_2_URL_CONFIRMED",
+      "not_found_references": [
+        4,
+        10,
+        11,
+        19
+      ],
+      "unindexed_technical_sources_not_citation_fabrication": true,
+      "zero_retraction_flags_is_final_proof": false,
+      "publisher_metadata_full_check_complete": false
+    },
+    "crossref_probe": {
+      "source": "Author-host public metadata probe JSON, independently hashed in review",
+      "upload_filename": "PAPER2_CEAS_METADATA_20261010T202420Z.json",
+      "sha256": "760c449e973334050a1bb8b4f98e740723c61d5a9f7a8f847dd8dae69bcd5065",
+      "bytes": 3804,
+      "generated_utc": "2026-10-10T20:24:20.124327+00:00",
+      "errors": 0,
+      "records_retrieved": 2,
+      "doi_3": {
+        "doi": "10.1109/aero63441.2025.11068629",
+        "authors": [
+          "James Curbo",
+          "Gregory Falco"
+        ],
+        "crossref_pages": "1-20",
+        "r5_pages": "1-20",
+        "page_metadata_matches_manuscript": true
+      },
+      "doi_14": {
+        "doi": "10.1109/aero66936.2026.11519913",
+        "authors": [
+          "Jack Vanlyssel",
+          "Gruia-Catalin Roman",
+          "Afsah Anwar"
+        ],
+        "crossref_pages": "1-10",
+        "r5_pages": "1-10",
+        "page_metadata_matches_manuscript": true
+      },
+      "full_ieee_publisher_pdfs_inspected": false,
+      "all_manuscript_claims_fully_verified": false
+    },
+    "ieee_crossref_page_fields_confirmed": [
+      3,
+      14
+    ],
+    "ieee_pdf_page_span_verified": false
+  },
+  "reviewer_access_plan_20261010": {
+    "status": "DESIGN_DOCUMENTED__REVIEWER_FILES_NOT_RELEASED",
+    "study_populations": [
+      "Study3",
+      "Study4",
+      "Study6",
+      "S3X",
+      "S6X"
+    ],
+    "separate_studies_not_pooled": true,
+    "source_esa_v2_rights_verified": false,
+    "reviewer_link_verified": false,
+    "author_authorization_to_distribute": false,
+    "frozen_output_reexecution_authorized": false,
+    "study3_derived_discrepancies": "13_cells_25_numeric_deltas_documented_UNRESOLVED",
+    "next_gate": "AUTHOR_HOST_METADATA_ONLY_HASH_INVENTORY__EXACT_PATHS_AND_RIGHTS"
+  }
+}
