@@ -63,10 +63,30 @@ def main():
         "draft-ietf-rats-multi-verifier" not in target and
         "https://theupdateframework.github.io/specification/v1.0.36/" in target,
         "CEAS_REFERENCE_SCREEN_FIREWALL")
+    deliverables=gate["deliverables"]
+    not_rendered=(deliverables["manuscript_docx"]=="NOT_RENDERED" and
+                  deliverables["manuscript_pdf"]=="NOT_RENDERED")
+    fifth=gate.get("visual_qa_history", [])[-1:]
+    verified_draft=(deliverables["manuscript_docx"]==
+                    "DRAFT_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD" and
+                    deliverables["manuscript_pdf"]==
+                    "DRAFT_29_PAGES_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD" and
+                    deliverables["five_tables_visual_qa"]==
+                    "PASS_ALL_TABLES_SINGLE_PAGE_FIFTH_PREVIEW" and
+                    deliverables["figure_visual_qa"]==
+                    "HOLD_INTERNAL_LABELS_TOO_SMALL_AT_PRINT_SIZE" and
+                    len(fifth)==1 and
+                    fifth[0]["verdict"]==
+                    "TABLE_PAGINATION_PASS__OVERALL_SUBMISSION_HOLD" and
+                    fifth[0]["source_head"]==
+                    "0fa0ee59af9e2b05aafc42c23795c2539f5af188" and
+                    fifth[0]["preview_docx_sha256"]==
+                    "0d34aac12d658ef2f4bc3294f34cc0650afd6b1addb85c31896d8b54b2cb9bec" and
+                    fifth[0]["preview_pdf_sha256"]==
+                    "afb111d9989bb0155593d1adafb4be21a59d973ae38a09f93a38793ceb9db6bf")
     chk(gate["article_type"]=="Original Research Article" and
         gate["manuscript_r4_blob_immutable"]==hash_obj and
-        gate["deliverables"]["manuscript_docx"]=="NOT_RENDERED" and
-        gate["deliverables"]["manuscript_pdf"]=="NOT_RENDERED" and
+        (not_rendered or verified_draft) and
         gate["final_submission_ready"] is False and
         gate["authorization"]["portal_actions"] is False and
         gate["authorization"]["runtime_execution"] is False,
