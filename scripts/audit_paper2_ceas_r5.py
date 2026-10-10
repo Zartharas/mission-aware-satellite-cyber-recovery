@@ -152,6 +152,16 @@ def main():
         gate["ethics_declaration"].get("source_data_permissions_confirmed") is False and
         gate["ethics_declaration"].get("third_party_data_license_status")=="UNVERIFIED_SEPARATE_RIGHTS_GATE",
         "author_confirmed_ethics_statement_or_data_rights_hold_drift")
+    chk("**Acknowledgments.** None." in target and target.count("**Acknowledgments.** None.")==1 and
+        gate.get("acknowledgments_declaration",{}).get("statement")=="None." and
+        gate["acknowledgments_declaration"].get("no_people_to_acknowledge") is True and
+        gate["acknowledgments_declaration"].get("no_organizations_to_acknowledge") is True and
+        gate.get("deliverables",{}).get("acknowledgments")=="SOLE_AUTHOR_CONFIRMED_NONE" and
+        "[AUTHOR CONFIRM whether any individuals, organizations" not in
+            (D/"PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md").read_text(encoding="utf-8") and
+        "**Acknowledgments:** None." in
+            (D/"PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md").read_text(encoding="utf-8"),
+        "author_confirmed_acknowledgments_drift")
     chk("[AUTHOR CONFIRM" in target and "[AUTHOR ACTION REQUIRED" in target,
         "unverified_statements_silently_filled")
     print("PAPER2_CEAS_R5_EDITORIAL_STATIC=PASS")

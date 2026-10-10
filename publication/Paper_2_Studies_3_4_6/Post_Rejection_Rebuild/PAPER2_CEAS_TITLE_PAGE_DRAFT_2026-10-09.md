@@ -10,7 +10,7 @@ ORCID: 0009-0008-9752-3743
 **Target:** CEAS Space Journal (Springer Nature)  
 **Submission status:** DRAFT; author verification required
 
-**Acknowledgments:** [AUTHOR CONFIRM whether any individuals, organizations, or facilities require acknowledgment. Do not imply external institutional sponsorship without evidence.]
+**Acknowledgments:** None.
 
 **Contribution:** Sole author; responsible for study design, computational work, interpretation, and manuscript. [AUTHOR CONFIRM]
 

@@ -520,6 +520,8 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 ## Statements and Declarations
 
+**Acknowledgments.** None.
+
 **Funding.** This research received no external funding or institutional or third-party in-kind support. The author conducted the research independently using personal resources.
 
 **Competing interests.** The author declares no competing interests.

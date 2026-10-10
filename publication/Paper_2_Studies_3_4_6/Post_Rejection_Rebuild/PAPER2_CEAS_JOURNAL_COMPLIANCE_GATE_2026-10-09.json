@@ -59,7 +59,8 @@
     "funding_conflicts_email": "SOLE_AUTHOR_EMAIL_NO_EXTERNAL_OR_IN_KIND_SUPPORT_NO_COMPETING_INTERESTS_CONFIRMED__OTHER_DECLARATIONS_PENDING",
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING",
-    "ethics_declaration": "SOLE_AUTHOR_CONFIRMED_NO_HUMAN_OR_ANIMAL_RESEARCH__NO_ETHICS_APPROVAL_REQUIRED"
+    "ethics_declaration": "SOLE_AUTHOR_CONFIRMED_NO_HUMAN_OR_ANIMAL_RESEARCH__NO_ETHICS_APPROVAL_REQUIRED",
+    "acknowledgments": "SOLE_AUTHOR_CONFIRMED_NONE"
   },
   "authorization": {
     "publisher_specific_derivative_design": true,
@@ -77,11 +78,12 @@
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
     "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA",
-    "AUTHOR_ACKNOWLEDGMENTS_THIRD_PARTY_DATA_PERMISSIONS_AND_ACCESS_STATEMENTS_OPEN",
+    "AUTHOR_CONTRIBUTIONS_THIRD_PARTY_DATA_PERMISSIONS_AND_ACCESS_STATEMENTS_OPEN",
     "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA",
     "FUNDING_DECLARATION_CHANGE_REQUIRES_FRESH_PREVIEW_BEFORE_SUBMISSION",
     "SOLE_AUTHOR_IDENTITY_AND_CONFLICT_DECLARATION_REQUIRES_FRESH_PREVIEW_QA",
-    "ETHICS_DECLARATION_CHANGE_REQUIRES_NEW_SOURCE_DOCX_PDF_VISUAL_QA"
+    "ETHICS_DECLARATION_CHANGE_REQUIRES_NEW_SOURCE_DOCX_PDF_VISUAL_QA",
+    "ACKNOWLEDGMENTS_DECLARATION_CHANGE_REQUIRES_FRESH_EXACT_SOURCE_DOCX_PDF_QA"
   ],
   "references_review": {
     "total": 20,
@@ -281,5 +283,12 @@
     "informed_consent_required": false,
     "third_party_data_license_status": "UNVERIFIED_SEPARATE_RIGHTS_GATE",
     "source_data_permissions_confirmed": false
+  },
+  "acknowledgments_declaration": {
+    "statement": "None.",
+    "author_confirmed_on": "2026-10-10",
+    "no_people_to_acknowledge": true,
+    "no_organizations_to_acknowledge": true,
+    "verification_scope": "Author-confirmed none; does not establish third-party data licences or reviewer-data access"
   }
 }
