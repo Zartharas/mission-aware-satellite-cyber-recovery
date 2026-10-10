@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md"
 AUDIT=ROOT/"scripts/audit_paper2_ceas_r5.py"
-FIGURE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg"
+FIGURE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
 IMAGE_REL="figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg"
 
 def require(cond,msg):
@@ -180,7 +180,7 @@ def main():
     require(ROOT != out and ROOT not in out.parents,"refuse_repository_output")
     require(shutil.which("pandoc") is not None,"pandoc_required")
     require(find_soffice() is not None,"libreoffice_required_for_pdf")
-    require(FIGURE.is_file(),"canonical_figure_missing")
+    require(FIGURE.is_file(),"ceas_authorized_figure_derivative_missing")
     try:import cairosvg
     except ImportError:raise SystemExit("PAPER2_CEAS_PACKAGE_HOLD=python_cairosvg_required")
     content=SOURCE.read_text(encoding="utf-8")
@@ -206,6 +206,9 @@ def main():
         shutil.copy2(pdf,out/pdf.name)
         shutil.copy2(FIGURE,out/FIGURE.name)
         report={"classification":"DRAFT_PREVIEW__NOT_SUBMISSION_READY",
+                "ceas_figure1_svg_sha256":hash_file(FIGURE),
+                "figure1_author_approved_for_draft_integration":True,
+                "previous_visual_qa_not_transferable":True,
                 "r4_immutable_git_blob":"069e319864b1f5c1ee201b31872fea1923",
                 "source_sha256":hash_file(SOURCE),
                 "artifacts":{p.name:hash_file(p) for p in out.iterdir()},

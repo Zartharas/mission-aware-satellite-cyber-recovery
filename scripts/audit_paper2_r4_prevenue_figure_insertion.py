@@ -99,6 +99,7 @@ allowed={
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R4_PREVENUE_STATUS.json",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R5_PUBLICATION_READINESS_AND_ABSTRACT_CANDIDATE_2026-10-08.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md",
+"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_COVER_LETTER_DRAFT_2026-10-09.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_JOURNAL_COMPLIANCE_GATE_2026-10-09.json",

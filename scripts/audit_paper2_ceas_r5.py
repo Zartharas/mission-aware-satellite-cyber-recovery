@@ -20,12 +20,25 @@ def main():
     gate=json.loads(GUIDE.read_text(encoding="utf-8"))
     hash_obj=subprocess.check_output(["git","hash-object",str(R4)],cwd=ROOT,text=True).strip()
     chk(hash_obj=="069e319864b1f5c1ee201b31872e68572fea1923","immutable_r4_blob_drift")
+    ceas_figure=D/"figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
+    original_figure=D/"figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg"
+    chk(ceas_figure.is_file() and original_figure.is_file(),"ceas_or_legacy_figure_missing")
+    chk(hashlib.sha256(ceas_figure.read_bytes()).hexdigest()=="b83c9614879a66184495f3905a5d3866eb8cbdffd7e1ee6065f8eaf49748e119" and
+        hashlib.sha256(original_figure.read_bytes()).hexdigest()=="adfdfaf833c8624bb405209be22ef6b2f002cdec53f081ce097f67e728eedffc",
+        "approved_ceas_figure_or_immutable_legacy_figure_drift")
+    svg=ceas_figure.read_text(encoding="utf-8")
+    for token in ("(a)  Study 3", "(b)  Study 4", "(c)  Study 6",
+                  "V5 can qualify", "S3X:", "S6X:", "APPROVED_BAD_SOURCE",
+                  "timing proxies, not measured RF outages", "not visible to the six-signal gate"):
+        chk(token in svg, "approved_figure_scientific_label_missing:"+token)
+    chk("P2X" not in svg and "S4X" not in svg and target.count("![](figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg)")==0,
+        "prohibited_extension_or_legacy_figure_reintroduced")
     ab=target.split("## Abstract\n\n",1)[1].split("**Keywords:**",1)[0].strip()
     chk(150<=len(ab.split())<=250 and len(ab.split())==228,"abstract_length_or_drift")
     kw=target.split("**Keywords:**",1)[1].split("\n",1)[0]
     chk(len([x for x in kw.split(";") if x.strip()])==6,"keywords_not_six")
     fig_caption=next((x for x in target.splitlines() if x.startswith("**Fig. 1** ")),None)
-    chk(target.count("**Fig. 1**")==1 and target.count("![](figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg)")==1 and
+    chk(target.count("**Fig. 1**")==1 and target.count("![](figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg)")==1 and
         fig_caption is not None and not fig_caption.endswith("."),
         "figure_caption_or_embedding")
     chk(not any(x in ab for x in ("S3X","S6X"," cFS"," ESA ")),
@@ -64,26 +77,20 @@ def main():
         "https://theupdateframework.github.io/specification/v1.0.36/" in target,
         "CEAS_REFERENCE_SCREEN_FIREWALL")
     deliverables=gate["deliverables"]
-    not_rendered=(deliverables["manuscript_docx"]=="NOT_RENDERED" and
-                  deliverables["manuscript_pdf"]=="NOT_RENDERED")
+    figure_record=gate.get("figure1_ceas_derivative",{})
     fifth=gate.get("visual_qa_history", [])[-1:]
-    verified_draft=(deliverables["manuscript_docx"]==
-                    "DRAFT_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD" and
-                    deliverables["manuscript_pdf"]==
-                    "DRAFT_29_PAGES_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD" and
-                    deliverables["five_tables_visual_qa"]==
-                    "PASS_ALL_TABLES_SINGLE_PAGE_FIFTH_PREVIEW" and
-                    deliverables["figure_visual_qa"]==
-                    "HOLD_INTERNAL_LABELS_TOO_SMALL_AT_PRINT_SIZE" and
-                    len(fifth)==1 and
-                    fifth[0]["verdict"]==
-                    "TABLE_PAGINATION_PASS__OVERALL_SUBMISSION_HOLD" and
-                    fifth[0]["source_head"]==
-                    "0fa0ee59af9e2b05aafc42c23795c2539f5af188" and
-                    fifth[0]["preview_docx_sha256"]==
-                    "0d34aac12d658ef2f4bc3294f34cc0650afd6b1addb85c31896d8b54b2cb9bec" and
-                    fifth[0]["preview_pdf_sha256"]==
-                    "afb111d9989bb0155593d1adafb4be21a59d973ae38a09f93a38793ceb9db6bf")
+    chk(figure_record.get("svg_sha256")=="b83c9614879a66184495f3905a5d3866eb8cbdffd7e1ee6065f8eaf49748e119" and
+        figure_record.get("svg_git_blob_sha1")=="728fa602ee1b73a363ed56173b695f778cd0b89d" and
+        figure_record.get("path")=="publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg" and
+        figure_record.get("author_approved_draft_integration") is True and
+        figure_record.get("full_source_docx_pdf_visual_qa")=="PENDING" and
+        deliverables["figure_visual_qa"]=="APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING" and
+        deliverables["manuscript_docx"]=="HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING" and
+        deliverables["manuscript_pdf"]=="HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING" and
+        deliverables["five_tables_visual_qa"]=="HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING" and
+        len(fifth)==1 and fifth[0]["source_head"]=="0fa0ee59af9e2b05aafc42c23795c2539f5af188" and
+        fifth[0]["verdict"]=="TABLE_PAGINATION_PASS__OVERALL_SUBMISSION_HOLD",
+        "ceas_figure_integration_or_historical_preview_guard")
     chk(gate["article_type"]=="Original Research Article" and
         gate["manuscript_r4_blob_immutable"]==hash_obj and
         (not_rendered or verified_draft) and

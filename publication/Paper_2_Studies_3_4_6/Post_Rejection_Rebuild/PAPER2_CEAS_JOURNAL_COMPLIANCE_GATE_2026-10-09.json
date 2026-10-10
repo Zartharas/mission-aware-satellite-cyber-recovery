@@ -50,15 +50,15 @@
     "title_page_md": "PREPARED_DRAFT",
     "cover_letter_md": "PREPARED_DRAFT",
     "journal_policy_review": "VERIFIED",
-    "renderer": "AUTHOR_HOST_PREVIEW_BUILDER_VALIDATED__SOURCE_ONLY",
-    "manuscript_docx": "DRAFT_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD",
-    "manuscript_pdf": "DRAFT_29_PAGES_RENDERED_HASH_VERIFIED__FINAL_SUBMISSION_HOLD",
-    "figure_visual_qa": "HOLD_INTERNAL_LABELS_TOO_SMALL_AT_PRINT_SIZE",
+    "renderer": "CEAS_APPROVED_FIGURE_SOURCE_BOUND__FRESH_AUTHOR_HOST_PREVIEW_PENDING",
+    "manuscript_docx": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
+    "manuscript_pdf": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
+    "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
     "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
     "funding_conflicts_email": "PENDING_AUTHOR",
     "portal_submission": "NOT_STARTED",
-    "five_tables_visual_qa": "PASS_ALL_TABLES_SINGLE_PAGE_FIFTH_PREVIEW"
+    "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING"
   },
   "authorization": {
     "publisher_specific_derivative_design": true,
@@ -67,7 +67,8 @@
     "merge_pr216": false,
     "merge_pr215": false,
     "workspace_materialization": false,
-    "runtime_execution": false
+    "runtime_execution": false,
+    "ceas_figure_draft_integration": true
   },
   "final_submission_ready": false,
   "reason_for_hold": [
@@ -75,8 +76,7 @@
     "ACCESSIBLE_CODE_DATA_AVAILABILITY_NOT_FINALIZED",
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
-    "FIGURE1_INTERNAL_LABELS_PRINT_SIZE_LEGIBILITY_HOLD",
-    "FIGURE_1_INTERNAL_TEXT_PRINT_LEGIBILITY_HOLD"
+    "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA"
   ],
   "references_review": {
     "total": 20,
@@ -194,5 +194,17 @@
         "PORTAL_FIELDS_AND_EXPLICIT_SUBMISSION_APPROVAL"
       ]
     }
-  ]
+  ],
+  "figure1_ceas_derivative": {
+    "path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg",
+    "svg_sha256": "b83c9614879a66184495f3905a5d3866eb8cbdffd7e1ee6065f8eaf49748e119",
+    "svg_git_blob_sha1": "728fa602ee1b73a363ed56173b695f778cd0b89d",
+    "original_preserved_path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg",
+    "original_svg_sha256": "adfdfaf833c8624bb405209be22ef6b2f002cdec53f081ce097f67e728eedffc",
+    "author_approved_draft_integration": true,
+    "author_approval_date": "2026-10-10",
+    "full_source_docx_pdf_visual_qa": "PENDING",
+    "submission_ready": false,
+    "notes": "CEAS-only three-panel scientific synthesis; S3X and S6X subordinate; no pooled results; no P2X/S4X; historical 29-page QA cannot transfer."
+  }
 }
