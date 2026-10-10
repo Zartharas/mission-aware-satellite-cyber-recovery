@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md"
 AUDIT=ROOT/"scripts/audit_paper2_ceas_r5.py"
 FIGURE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
-IMAGE_REL="figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg"
+IMAGE_REL="figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
 
 def require(cond,msg):
     if not cond:raise SystemExit("PAPER2_CEAS_PACKAGE_HOLD="+msg)
@@ -184,7 +184,9 @@ def main():
     try:import cairosvg
     except ImportError:raise SystemExit("PAPER2_CEAS_PACKAGE_HOLD=python_cairosvg_required")
     content=SOURCE.read_text(encoding="utf-8")
-    require(IMAGE_REL in content,"expected_canonical_figure_reference_missing")
+    require(IMAGE_REL in content,"expected_approved_figure_reference_missing")
+    require(IMAGE_REL==str(FIGURE.relative_to(SOURCE.parent)),"figure_path_and_markdown_reference_diverged")
+    require(content.count("![]("+IMAGE_REL+")")==1,"figure_reference_not_exactly_once")
     with tempfile.TemporaryDirectory(prefix="p2-ceas-stage-") as root:
         stage=Path(root)
         img=stage/"ceas_figure_1.png"
