@@ -68,3 +68,60 @@ Additional original publication pages inspected for current R5 references:
 - **CEAS** official author guide https://link.springer.com/journal/12567/submission-guidelines requires source data/code availability statements reflecting real access and terms; 19-item original-source claim-by-claim review is **not completed**. This ledger entry records a targeted check only; historical 20-entry automated screen remains a different scope.
 
 No science claim, numerical result, reference metadata or manuscript bibliography entry has been silently changed by this licensing examination.
+
+## 2026-10-10 primary-origin source-to-claim spot audit for all 19 references (not final bibliography certification)
+
+Controlled Paper 2 R5 reference scope: 19 entries. Original publisher, standards author, government or dataset records were checked where accessible; separate preprint/secondary-only limitations are explicit. This table **does not certify** every manuscript assertion or reference formatting field, and does not supersede the preserved 20-entry earlier automated screening.
+
+| R5 reference | Original or authoritative record | Verified audit class | Manuscript claim checked / supported | Outstanding limitation |
+|---|---|---|---|---|
+| [1] | NDSS 2026 SpaceSec PDF | PRIMARY_SOURCE_CLAIM_SPOT_CHECK | The spacecraft-specific communication gaps, lack of physical access, and mission-continuity constraints stated in Introduction/Related Work match the primary text. | Complete line-by-line context/corrections review pending |
+| [2] | arXiv 2608.14532 | ORIGINAL_PREPRINT_CLAIM_SPOT_CHECK | Original authors and architectural cFS internal-trust boundary/legitimate privilege use align with manuscript. | Preprint only; final publication status and retraction review open |
+| [3] | Curbo/Falco 2025 IEEE Aero | SECONDARY_METADATA__PRIMARY_BLOCKED | Authors/title/DOI 10.1109/AERO63441.2025.11068629 corroborated via author bibliography and indexed record; testable requirements claim plausible. | Official IEEE primary inaccessible to automated check; pp 1–20 and exact claim passage UNVERIFIED |
+| [4] | SPARTA CM0044 cyber-safe mode | PRIMARY_SOURCE_CLAIM_SPOT_CHECK | Official cyber-safe-mode countermeasure explicitly calls for validated, protected recovery baseline. | Countermeasure guidance, NOT new spacecraft experiment; final full-source review pending |
+| [5] | IETF RFC 9334 (RATS) | PRIMARY_SOURCE_CLAIM_SPOT_CHECK | RFC Section 10 explicitly discusses freshness, cached attestations, and race conditions after evidence creation; roles distinct. | Informational RFC; final full-source claim context open |
+| [6] | Malkhi/Reiter Byzantine quorum systems | INSTITUTIONAL_METADATA_AND_ORIGINAL_AUTHOR_PAPER | Duke author institutional record corroborates 1998 Distributed Computing 11(4):203–213, DOI 10.1007/s004460050050. Original author's paper available at https://malkhi.com/files/byzquorums-STOC1997.pdf for conceptual consistency. | The author-hosted PDF is a different 1997 conference version; do NOT claim exact 1998 publisher PDF checked |
+| [7] | Asymmetric distributed trust, Distributed Computing 2024 | PUBLISHER_SOURCE_CLAIM_SPOT_CHECK | Publisher paper 37:247–277 discusses asymmetric Byzantine quorum systems and consistency/availability assumptions. | No operational source independence inferred |
+| [8] | Space Fabric, arXiv 2603.23745 | ORIGINAL_PREPRINT_CLAIM_SPOT_CHECK | Authors and Satellite Execution Assurance Protocol Byzantine endorsement quorum confirmed in original abstract. | Preprint, not peer-reviewed journal evidence; publication status pending |
+| [9] | in-toto, USENIX Security 2019 | PUBLISHER_SOURCE_CLAIM_SPOT_CHECK | Author list and supply-chain cryptographic integrity mechanism supported by original conference page. | Precise page extent requires final bibliography sweep |
+| [10] | TUF Specification v1.0.36 | OFFICIAL_STANDARD_CONTENT_CHECK | Official versioned spec describes signed metadata/update roles, expiry, hashes, threshold mechanisms. | Version release date originally corroborated separately; recheck release tag at final certification |
+| [11] | SLSA Source v1.2 requirements | OFFICIAL_STANDARD_CONTENT_CHECK | Approved source-track requirements cover source history, provenance and controls. | No claim Paper 2 itself satisfies SLSA levels |
+| [12] | SLSA Threats & Mitigations v1.2 | OFFICIAL_STANDARD_CONTENT_CHECK | Published threats text supports limits of build/source assurance. | No guarantee against malicious approved-source semantics |
+| [13] | ESA Anomaly Dataset Zenodo v2 | ORIGINAL_DATASET_METADATA__RIGHTS_HOLD | v2, 2025-04-17, DOI 10.5281/zenodo.15237121, ESA publisher, Missions 1–3 dataset available. S3X uses Missions 1/2 timestamps as proxies only. | Exact v2 redistribution terms not displayed; NIH dataset catalog says rights information unavailable; do not release derived intervals |
+| [14] | Silent Subversion IEEE Aero 2026 | ORIGINAL_PREPRINT_CLAIM_SPOT_CHECK__IEEE_FINAL_BLOCKED | Original authors/paper abstract confirms NASA NOS3 simulated compromised component produced legitimate-looking telemetry accepted by COSMOS ground software. | IEEE DOI 10.1109/AERO66936.2026.11519913 indexed elsewhere, but publisher pagination pp 1–10 UNVERIFIED |
+| [15] | Salim/Moustafa/Reisslein satellite survey | PUBLISHER_METADATA_AND_ABSTRACT_CHECK | IEEE 27(1):372–425 (2025), DOI 10.1109/COMST.2024.3408277, surveys space/ground/link threats. | Review work, not the three frozen experiment results |
+| [16] | Wang et al. satellite networks review | PUBLISHER_SOURCE_CLAIM_SPOT_CHECK | Aerospace 13(3):249 (2026), survey of satellite network threat/defense layers. | Review/survey, not empirical recovery-gate replication |
+| [17] | NIST IR 8270 commercial satellite cybersecurity | GOVERNMENT_PRIMARY_METADATA_AND_SCOPE | Scholl/Suloway 2023 NIST IR 8270 addresses risk management for satellite operations. | Does not independently validate any Paper 2 finite-model outcome |
+| [18] | ICISSP 2025 zero trust satellite controls | PUBLISHER_SOURCE_METADATA_AND_ABSTRACT_CHECK | Publisher confirms title, all four authors, pp 133–140, DOI 10.5220/0013103200003899. | Selected laboratory use cases are not an equivalence of R5 qualification gates |
+| [19] | NASA Space Security Best Practices Guide Rev B | NASA_PRIMARY_REV_DATE_VERIFIED | Official NASA Rev B guide, issued 2024-01-19, covers mission security guidance including secure recovery. | Page-specific prevention/recovery wording and complete original-source citation audit pending |
+
+### Original-source URLs mapped to the 19 entries
+
+- [1] https://www.ndss-symposium.org/wp-content/uploads/spacesec26-55.pdf
+- [2] https://arxiv.org/abs/2608.14532
+- [3] https://ieeexplore.ieee.org/document/11068629
+- [4] https://sparta.aerospace.org/countermeasures/CM0044
+- [5] https://www.rfc-editor.org/info/rfc9334/
+- [6] https://scholars.duke.edu/publication/1493996
+- [7] https://link.springer.com/article/10.1007/s00446-024-00469-1
+- [8] https://arxiv.org/abs/2603.23745
+- [9] https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias
+- [10] https://theupdateframework.github.io/specification/v1.0.36/
+- [11] https://slsa.dev/spec/v1.2/source-requirements
+- [12] https://slsa.dev/spec/v1.2/threats
+- [13] https://zenodo.org/records/15237121
+- [14] https://arxiv.org/abs/2603.10388
+- [15] https://ieeexplore.ieee.org/abstract/document/10546924/citations
+- [16] https://www.mdpi.com/2226-4310/13/3/249
+- [17] https://www.nist.gov/publications/introduction-cybersecurity-commercial-satellite-operations
+- [18] https://www.scitepress.org/PublishedPapers/2025/131032/
+- [19] https://swehb.nasa.gov/spaces/SWEHBVD/pages/146540183/7.22+-+Space+Security+Best+Practices+Guide
+
+### Release blockers and editorial safeguards
+
+- **[3], [14]:** Do not certify 2025/2026 IEEE conference page ranges by applying preprint page counts or relying on index snippets. The official IEEE landing pages return a JavaScript/robot barrier in available tools. Obtain final IEEE publisher BibTeX/RIS or PDF from the author's lawful access, or omit unverified page ranges in a journal-compliant style after policy review.
+- **[13]:** Original Zenodo record v2 has a Rights/License heading but no human-readable licence identifier in retrieved HTML. The U.S. NLM dataset catalog for DOI 10.5281/zenodo.15237121 explicitly states Rights: No information provided; contact repository owner (https://datasetcatalog.nlm.nih.gov/dataset?q=0002296812). Separate official ESA GitHub `LICENSE` has CC BY 3.0 IGO but its README links older record 12528696, so version-specific v2 terms remain unresolved. Do not assume original timestamp trace redistribution allowed solely from an open download.
+- **Claim classification:** [1], [2], [4], [5], [7], [8], [9], [11], [12], [14], [16] have bounded source-content spot checks; [3], [6], [10], [13], [15], [17], [18], [19] have a mixture of metadata, defined scope, or original-revision checks. A full sentence-by-sentence claim-to-source audit, amendment/retraction check and consistent Springer bibliography format are still open.
+- **Novelty boundary:** no source independently establishes that Paper 2's finite-model outputs, S3X external timing proxies, or S6X test fixture are an operational flight recovery demonstration; preserve frozen populations separately and do not misrepresent reviews/specifications as validating novel results.
+
+Review performed through publicly accessible first-party pages and identified institutional indexes. Unavailable primary full text was not guessed or replaced. No manuscript numerical results, experiments, or bibliography entries were changed.

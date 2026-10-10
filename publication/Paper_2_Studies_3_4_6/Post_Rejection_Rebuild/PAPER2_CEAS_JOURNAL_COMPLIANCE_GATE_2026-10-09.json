@@ -54,8 +54,8 @@
     "manuscript_docx": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
     "manuscript_pdf": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
     "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
-    "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
-    "data_code_access_plan": "PENDING_AUTHOR",
+    "bibliography_reference_verification": "REFERENCE_LEVEL_SPOT_AUDIT_19_OF_19__FULL_CLAIM_AND_IEEE_QA_PENDING",
+    "data_code_access_plan": "DOCUMENTED_UNRELEASED__RIGHTS_AND_REAL_REVIEWER_ACCESS_PENDING",
     "funding_conflicts_email": "SOLE_AUTHOR_EMAIL_NO_EXTERNAL_OR_IN_KIND_SUPPORT_NO_COMPETING_INTERESTS_CONFIRMED__OTHER_DECLARATIONS_PENDING",
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING",
@@ -321,5 +321,38 @@
     "frozen_scientific_results_generated_or_modified_by_ai": false,
     "figure_caption_disclosure_included": true,
     "publisher_final_review": "PENDING__MODEL_IDENTITY_NOT_VERIFIED"
+  },
+  "references_review_20261010": {
+    "kind": "REFERENCE_LEVEL_PRIMARY_ORIGIN_SPOT_AUDIT__NOT_FULL_CERTIFICATION",
+    "entries_checked": 19,
+    "expected_entries": 19,
+    "ieee_primary_pagination_pending": [
+      3,
+      14
+    ],
+    "additional_permission_check": [
+      13
+    ],
+    "all_in_text_claims_original_full_text_verified": false,
+    "final_amendment_retraction_review_complete": false,
+    "manual_final_reference_certification": false,
+    "evidence_document": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_SOURCE_LEDGER_2026-10-09.md"
+  },
+  "reviewer_access_plan_20261010": {
+    "status": "DESIGN_DOCUMENTED__REVIEWER_FILES_NOT_RELEASED",
+    "study_populations": [
+      "Study3",
+      "Study4",
+      "Study6",
+      "S3X",
+      "S6X"
+    ],
+    "separate_studies_not_pooled": true,
+    "source_esa_v2_rights_verified": false,
+    "reviewer_link_verified": false,
+    "author_authorization_to_distribute": false,
+    "frozen_output_reexecution_authorized": false,
+    "study3_derived_discrepancies": "13_cells_25_numeric_deltas_documented_UNRESOLVED",
+    "next_gate": "AUTHOR_HOST_METADATA_ONLY_HASH_INVENTORY__EXACT_PATHS_AND_RIGHTS"
   }
 }
