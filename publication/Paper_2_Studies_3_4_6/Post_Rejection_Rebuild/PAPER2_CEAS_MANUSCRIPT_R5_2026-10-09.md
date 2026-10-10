@@ -519,7 +519,7 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 ## Statements and Declarations
 
-**Funding.** [AUTHOR CONFIRM: State whether any financial, institutional, equipment, or other research support was received. Do not publish this placeholder.]
+**Funding.** This research received no external funding.
 
 **Competing interests.** [AUTHOR CONFIRM: Disclose any relevant financial or nonfinancial interests, including employment or consultancy relationships that could reasonably be perceived as influencing this manuscript, or affirm none. Do not publish this placeholder.]
 

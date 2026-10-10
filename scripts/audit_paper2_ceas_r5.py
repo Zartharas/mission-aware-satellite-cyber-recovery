@@ -117,6 +117,13 @@ def main():
         gate["authorization"]["portal_actions"] is False and
         gate["authorization"]["runtime_execution"] is False,
         "submission_or_runtime_scope_open")
+    chk("**Funding.** This research received no external funding." in target and
+        target.count("**Funding.** This research received no external funding.")==1 and
+        "[AUTHOR CONFIRM: State whether any financial" not in target and
+        gate.get("funding_declaration",{}).get("statement")=="This research received no external funding." and
+        gate["funding_declaration"].get("other_support_confirmed") is False and
+        gate["funding_declaration"].get("competing_interests_confirmed") is False,
+        "author_confirmed_funding_declaration_drift")
     chk("[AUTHOR CONFIRM" in target and "[AUTHOR ACTION REQUIRED" in target,
         "unverified_statements_silently_filled")
     print("PAPER2_CEAS_R5_EDITORIAL_STATIC=PASS")

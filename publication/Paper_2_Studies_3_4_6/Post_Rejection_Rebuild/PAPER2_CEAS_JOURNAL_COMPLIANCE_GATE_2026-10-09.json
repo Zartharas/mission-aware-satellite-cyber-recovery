@@ -56,7 +56,7 @@
     "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
     "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
-    "funding_conflicts_email": "EMAIL_CONFIRMED__FUNDING_CONFLICTS_PENDING_AUTHOR",
+    "funding_conflicts_email": "EMAIL_AND_NO_EXTERNAL_FUNDING_CONFIRMED__CONFLICTS_AND_IN_KIND_SUPPORT_PENDING_AUTHOR",
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING"
   },
@@ -76,8 +76,9 @@
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
     "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA",
-    "AUTHOR_FUNDING_COMPETING_INTERESTS_ETHICS_ACKNOWLEDGMENTS_AND_DATA_PERMISSION_STATEMENTS_OPEN",
-    "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA"
+    "AUTHOR_COMPETING_INTERESTS_NONFINANCIAL_SUPPORT_ETHICS_ACKNOWLEDGMENTS_AND_DATA_PERMISSION_STATEMENTS_OPEN",
+    "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA",
+    "FUNDING_DECLARATION_CHANGE_REQUIRES_FRESH_PREVIEW_BEFORE_SUBMISSION"
   ],
   "references_review": {
     "total": 20,
@@ -231,5 +232,12 @@
     "tables": 5,
     "figure_page": 9,
     "assessment": "PASS_PREVIOUS_LAYOUT__NEW_EMAIL_ALT_BUILD_PENDING"
+  },
+  "funding_declaration": {
+    "statement": "This research received no external funding.",
+    "author_confirmation": "2026-10-10",
+    "scope": "External financial funding only; institutional or in-kind support not separately confirmed",
+    "other_support_confirmed": false,
+    "competing_interests_confirmed": false
   }
 }
