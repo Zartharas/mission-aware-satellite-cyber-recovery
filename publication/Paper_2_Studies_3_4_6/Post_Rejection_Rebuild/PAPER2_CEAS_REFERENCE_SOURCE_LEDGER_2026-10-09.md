@@ -37,3 +37,25 @@ Confirm original [3] publisher-primary pagination and original [15] IEEE publish
 - **Current [3]** (original [3]): IEEE Aerospace Conference 2025 paper's authors/title/DOI independently corroborated by Curbo's publication list, author-posted full paper, ResearchGate DOI metadata and publisher proceedings table of contents. Still withhold full bibliographic completion until IEEE primary record/pagination are checked. Sources: https://curbo.space/publications/ , https://www.researchgate.net/publication/388733648_Testable_Cyber_Requirements_for_Space_Flight_Software , https://www.proceedings.com/content/081/081100webtoc.pdf
 
 **Submission gate remains CLOSED:** these spot checks do not amount to all nineteen references' claim-to-source verification, retraction screening, DOI/style validation, source-license confirmation, or reviewer-access QA. Do not change original 20-entry screening counts or mark manual QA complete. No P2X reuse or study result mutation.
+
+## 2026-10-09 continuing primary-origin review (not a complete manual bibliography certification)
+
+Additional original publication pages inspected for current R5 references:
+
+| Current R5 | Primary source examined | What is supported | Open caveat |
+|---:|---|---|---|
+| 1 | https://www.ndss-symposium.org/wp-content/uploads/spacesec26-55.pdf | NDSS SpaceSec 2026 proceedings PDF identifies Thummala/Rice/Falco, title, date and DOI | Final sentence-by-sentence claim alignment and current correction/retraction screen |
+| 2 | https://arxiv.org/abs/2608.14532 | Original arXiv preprint confirms named authors and subject | Preprint/non-peer-reviewed status must remain explicit; journal reference policy review |
+| 4 | https://sparta.aerospace.org/countermeasures/CM0044 | CM0044 is the official SPARTA Cyber-safe Mode countermeasure | Avoid treating countermeasure guidance as an observed experiment |
+| 5 | https://www.rfc-editor.org/info/rfc9334/ | Published RFC 9334 author order and RATS evidence/appraisal architecture | Informational RFC; avoid implying Standards Track |
+| 8 | https://arxiv.org/abs/2603.23745 | Original arXiv Space Fabric preprint and three authors | Preprint/non-peer-reviewed status and CEAS published-only bibliography policy review |
+| 9 | https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias | Original USENIX title, five authors, proceedings pages 1393–1410 | Claim-context verification still required |
+| 11 | https://slsa.dev/spec/v1.2/source-requirements | Approved SLSA v1.2 source-track requirements | Cite as specification, not as validation of Paper 2 compliance |
+| 12 | https://slsa.dev/spec/v1.2/threats | Approved SLSA v1.2 threats and mitigations | Full claim-context verification still required |
+| 13 | https://zenodo.org/records/15237121 | Original ESA dataset v2 record, publisher/creator identities, DOI and April 2025 date | Dataset distribution/reuse rights and source-derived trace access pending |
+| 15 | https://ieeexplore.ieee.org/abstract/document/10546924/authors | IEEE original bibliographic page: title, DOI, vol. 27 no. 1, pp. 372–425 | Recheck cited claim against full work |
+| 16 | https://www.mdpi.com/2226-4310/13/3/249 | Publisher version: *Aerospace* 13(3), 249 (2026), Wang et al. | Review article, not recovery-gate experimental validation |
+| 17 | https://www.nist.gov/publications/introduction-cybersecurity-commercial-satellite-operations | NIST IR 8270, Scholl/Suloway, July 2023, DOI | Do not inflate general risk-management report into recovery experiment |
+| 18 | https://www.scitepress.org/PublishedPapers/2025/131032/ | SciTePress original ICISSP 2025, authors, pp. 133–140, DOI | Related-work comparator; not direct equivalent of R5 gates |
+
+**Unfinished source checks:** current [3] primary IEEE record pagination, current [14] IEEE primary author/title/pagination, current [19] NASA full document revision/date, final source-to-claim alignment for all references, two arXiv preprint publishing-status compliance, verified source-data reuse license, and independent current correction/retraction checks. Previously supported original [6], [7], [10] metadata notes remain in the preceding ledger entries. All substantive research claims, figures, numbers and study populations remain untouched; this is bibliography evidence only.
