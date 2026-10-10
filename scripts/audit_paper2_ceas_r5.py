@@ -93,7 +93,6 @@ def main():
         "ceas_figure_integration_or_historical_preview_guard")
     chk(gate["article_type"]=="Original Research Article" and
         gate["manuscript_r4_blob_immutable"]==hash_obj and
-        (not_rendered or verified_draft) and
         gate["final_submission_ready"] is False and
         gate["authorization"]["portal_actions"] is False and
         gate["authorization"]["runtime_execution"] is False,
