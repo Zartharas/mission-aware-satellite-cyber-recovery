@@ -118,13 +118,17 @@ def main():
         gate["authorization"]["portal_actions"] is False and
         gate["authorization"]["runtime_execution"] is False,
         "submission_or_runtime_scope_open")
-    chk("**Funding.** This research received no external funding." in target and
-        target.count("**Funding.** This research received no external funding.")==1 and
+    chk("**Funding.** This research received no external funding or institutional or third-party in-kind support. The author conducted the research independently using personal resources." in target and
+        target.count("**Funding.** This research received no external funding or institutional or third-party in-kind support. The author conducted the research independently using personal resources.")==1 and
         "[AUTHOR CONFIRM: State whether any financial" not in target and
-        gate.get("funding_declaration",{}).get("statement")=="This research received no external funding." and
-        gate["funding_declaration"].get("other_support_confirmed") is False and
+        gate.get("funding_declaration",{}).get("statement")=="This research received no external funding or institutional or third-party in-kind support. The author conducted the research independently using personal resources." and
+        gate["funding_declaration"].get("other_support_confirmed") is True and
+        gate["funding_declaration"].get("own_equipment_computing_and_facilities") is True and
+        gate["funding_declaration"].get("external_funding_received") is False and
+        gate["funding_declaration"].get("institutional_support_received") is False and
+        gate["funding_declaration"].get("third_party_in_kind_support_received") is False and
         gate["funding_declaration"].get("competing_interests_confirmed") is True,
-        "author_confirmed_funding_declaration_drift")
+        "author_confirmed_funding_and_own_resource_declaration_drift")
     chk("**Competing interests.** The author declares no competing interests." in target and
         target.count("**Competing interests.** The author declares no competing interests.")==1 and
         "[AUTHOR CONFIRM: Disclose any relevant financial" not in target and

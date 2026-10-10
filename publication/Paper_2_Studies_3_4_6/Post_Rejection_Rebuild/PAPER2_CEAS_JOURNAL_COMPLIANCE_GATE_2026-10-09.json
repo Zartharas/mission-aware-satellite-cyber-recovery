@@ -56,7 +56,7 @@
     "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
     "bibliography_reference_verification": "ORIGINAL_BATCH_PRESERVED__DRAFT_6_REMOVED__FINAL_MANUAL_QA_PENDING",
     "data_code_access_plan": "PENDING_AUTHOR",
-    "funding_conflicts_email": "EMAIL_NO_EXTERNAL_FUNDING_NO_COMPETING_INTERESTS_CONFIRMED__IN_KIND_ETHICS_AND_ACCESS_PENDING_AUTHOR",
+    "funding_conflicts_email": "SOLE_AUTHOR_EMAIL_NO_EXTERNAL_OR_IN_KIND_SUPPORT_NO_COMPETING_INTERESTS_CONFIRMED__OTHER_DECLARATIONS_PENDING",
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING"
   },
@@ -76,7 +76,7 @@
     "PORTAL_SUBMISSION_NOT_AUTHORIZED",
     "FINAL_19_REFERENCE_ORIGINAL_SOURCE_AND_DOI_VALIDATION_OPEN",
     "NEW_CEAS_FIGURE_REQUIRES_FRESH_SOURCE_DOCX_PDF_PAGE_BY_PAGE_VISUAL_QA",
-    "AUTHOR_NONFINANCIAL_OR_IN_KIND_SUPPORT_ETHICS_ACKNOWLEDGMENTS_AND_DATA_PERMISSION_STATEMENTS_OPEN",
+    "AUTHOR_ETHICS_ACKNOWLEDGMENTS_THIRD_PARTY_DATA_PERMISSIONS_AND_ACCESS_STATEMENTS_OPEN",
     "NEW_TITLE_PAGE_AND_ALT_TEXT_REQUIRE_FRESH_DOCX_PDF_VISUAL_QA",
     "FUNDING_DECLARATION_CHANGE_REQUIRES_FRESH_PREVIEW_BEFORE_SUBMISSION",
     "SOLE_AUTHOR_IDENTITY_AND_CONFLICT_DECLARATION_REQUIRES_FRESH_PREVIEW_QA"
@@ -240,10 +240,14 @@
     "assessment": "PASS_PREVIOUS_LAYOUT__NEW_EMAIL_ALT_BUILD_PENDING"
   },
   "funding_declaration": {
-    "statement": "This research received no external funding.",
+    "statement": "This research received no external funding or institutional or third-party in-kind support. The author conducted the research independently using personal resources.",
     "author_confirmation": "2026-10-10",
-    "scope": "External financial funding only; institutional or in-kind support not separately confirmed",
-    "other_support_confirmed": false,
+    "scope": "No external financial funding, no institutional or third-party in-kind support, personal resources only",
+    "own_equipment_computing_and_facilities": true,
+    "external_funding_received": false,
+    "institutional_support_received": false,
+    "third_party_in_kind_support_received": false,
+    "other_support_confirmed": true,
     "competing_interests_confirmed": true
   },
   "competing_interests_declaration": {
@@ -251,5 +255,19 @@
     "author_confirmed_on": "2026-10-10",
     "scope": "Financial and nonfinancial competing interests",
     "sole_author": true
+  },
+  "reviewer_access_permission_review": {
+    "status": "HOLD__NO_DISTRIBUTION_AUTHORIZED",
+    "esa_dataset_reference": "10.5281/zenodo.15237121",
+    "related_official_license_repository": "https://github.com/esa/anomaly-dataset/blob/main/LICENSE",
+    "license_identifier_indicated_upstream": "CC BY 3.0 IGO",
+    "license_version_crosswalk_to_zenodo_v2": "UNVERIFIED",
+    "zenodo_v2_visible_specific_license": "NOT_DISPLAYED_IN_RETRIEVED_PAGE",
+    "derivative_1919_intervals_public_release": "NOT_AUTHORIZED",
+    "original_study3_study4_archives_on_author_host": "SHA_VERIFIED_AUTHOR_HOST__NO_REVIEWER_LINK",
+    "s3x_s6x_locally_ignored_evidence": "HASH_VERIFIED_AUTHOR_HOST__NO_REVIEWER_LINK",
+    "paper2x_and_s4x": "EXCLUDED",
+    "publication_link_or_doi": "NONE",
+    "note": "ESA upstream repository's licence suggests conditional reuse rights, but verify exact v2 source record and derivative permissions plus attribution/changes/no-endorsement; do not publish before author release authorization."
   }
 }
