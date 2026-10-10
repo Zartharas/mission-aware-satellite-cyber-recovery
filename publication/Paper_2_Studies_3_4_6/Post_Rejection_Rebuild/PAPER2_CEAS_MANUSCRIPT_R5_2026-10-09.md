@@ -526,7 +526,7 @@ OpenAI ChatGPT (GPT-5.6 Sol) was used at a substantive drafting and editorial le
 
 **Author contributions.** Aman Kumar Singh is the sole author and takes responsibility for study design, analysis, interpretation, and the final manuscript. [AUTHOR CONFIRM this description before portal submission.]
 
-**Ethics approval and consent.** The reported finite-model and software-fixture studies do not describe human participants or animal experiments. [AUTHOR CONFIRM the applicable not-required statements and any third-party data permissions.]
+**Ethics approval and consent.** This research involved no human participants or animal experiments. Institutional ethics approval and informed consent were not required. Third-party source-data licensing and reuse permissions remain subject to separate verification.
 
 **Data availability.** The ESA Anomaly Dataset v2 timing source is independently archived at the cited Zenodo record [13]. Study-specific frozen derived results and source/build artifacts have separate preservation arrangements; their comprehensive reviewer accessibility has not been verified. [AUTHOR ACTION REQUIRED: Identify exact accessible files, verify permissions and source-reuse terms, and establish reviewer access or a release plan. The visible GitHub repository does not establish availability of all locally ignored frozen artifacts.]
 

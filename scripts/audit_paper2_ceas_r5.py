@@ -142,6 +142,16 @@ def main():
         gate["author_contact"].get("location")=="The Woodlands, Texas, United States" and
         gate.get("funding_declaration",{}).get("competing_interests_confirmed") is True,
         "sole_author_independent_status_and_conflicts_drift")
+    chk("**Ethics approval and consent.** This research involved no human participants or animal experiments. Institutional ethics approval and informed consent were not required. Third-party source-data licensing and reuse permissions remain subject to separate verification." in target and
+        target.count("**Ethics approval and consent.** This research involved no human participants or animal experiments. Institutional ethics approval and informed consent were not required. Third-party source-data licensing and reuse permissions remain subject to separate verification.")==1 and
+        "[AUTHOR CONFIRM the applicable not-required statements" not in target and
+        gate.get("ethics_declaration",{}).get("human_participants") is False and
+        gate["ethics_declaration"].get("animal_experiments") is False and
+        gate["ethics_declaration"].get("institutional_ethics_approval_required") is False and
+        gate["ethics_declaration"].get("informed_consent_required") is False and
+        gate["ethics_declaration"].get("source_data_permissions_confirmed") is False and
+        gate["ethics_declaration"].get("third_party_data_license_status")=="UNVERIFIED_SEPARATE_RIGHTS_GATE",
+        "author_confirmed_ethics_statement_or_data_rights_hold_drift")
     chk("[AUTHOR CONFIRM" in target and "[AUTHOR ACTION REQUIRED" in target,
         "unverified_statements_silently_filled")
     print("PAPER2_CEAS_R5_EDITORIAL_STATIC=PASS")
