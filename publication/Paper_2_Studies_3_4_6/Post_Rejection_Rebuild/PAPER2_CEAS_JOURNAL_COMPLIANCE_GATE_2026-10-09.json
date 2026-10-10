@@ -54,8 +54,8 @@
     "manuscript_docx": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
     "manuscript_pdf": "HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING",
     "figure_visual_qa": "APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING",
-    "bibliography_reference_verification": "REFERENCE_LEVEL_SPOT_AUDIT_19_OF_19__FULL_CLAIM_AND_IEEE_QA_PENDING",
-    "data_code_access_plan": "DOCUMENTED_UNRELEASED__RIGHTS_AND_REAL_REVIEWER_ACCESS_PENDING",
+    "bibliography_reference_verification": "ALL_19_SPOT_AUDITED__CROSSREF_PAGE_FIELDS_3_14_MATCH__IEEE_PDF_AND_CLAIM_QA_PENDING",
+    "data_code_access_plan": "ZENODO_V2_RIGHTS_METADATA_ABSENT__REVIEWER_RELEASE_UNAUTHORIZED",
     "funding_conflicts_email": "SOLE_AUTHOR_EMAIL_NO_EXTERNAL_OR_IN_KIND_SUPPORT_NO_COMPETING_INTERESTS_CONFIRMED__OTHER_DECLARATIONS_PENDING",
     "portal_submission": "NOT_STARTED",
     "five_tables_visual_qa": "HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING",
@@ -276,7 +276,19 @@
     "s3x_s6x_locally_ignored_evidence": "HASH_VERIFIED_AUTHOR_HOST__NO_REVIEWER_LINK",
     "paper2x_and_s4x": "EXCLUDED",
     "publication_link_or_doi": "NONE",
-    "note": "ESA upstream repository's licence suggests conditional reuse rights, but verify exact v2 source record and derivative permissions plus attribution/changes/no-endorsement; do not publish before author release authorization."
+    "note": "Author-host public Zenodo v2 REST metadata has open access and null license/rights/version fields. This is missing metadata, not proof that reuse is forbidden; older ESA repository CC BY 3.0 IGO requires explicit applicability review for v2 and S3X derivatives. Crossref IEEE metadata does not affect ESA rights.",
+    "zenodo_v2_rest_probe": {
+      "record": 15237121,
+      "doi": "10.5281/zenodo.15237121",
+      "api_public_access": "open",
+      "api_license": null,
+      "api_rights": null,
+      "api_version": null,
+      "human_landing_page_version": "v2",
+      "version_specific_redistribution_license_verified": false,
+      "no_raw_telemetry_download": true
+    },
+    "derived_1919_intervals_public_release": "NOT_AUTHORIZED"
   },
   "ethics_declaration": {
     "statement": "This research involved no human participants or animal experiments. Institutional ethics approval and informed consent were not required.",
@@ -357,7 +369,44 @@
       "unindexed_technical_sources_not_citation_fabrication": true,
       "zero_retraction_flags_is_final_proof": false,
       "publisher_metadata_full_check_complete": false
-    }
+    },
+    "crossref_probe": {
+      "source": "Author-host public metadata probe JSON, independently hashed in review",
+      "upload_filename": "PAPER2_CEAS_METADATA_20261010T202420Z.json",
+      "sha256": "760c449e973334050a1bb8b4f98e740723c61d5a9f7a8f847dd8dae69bcd5065",
+      "bytes": 3804,
+      "generated_utc": "2026-10-10T20:24:20.124327+00:00",
+      "errors": 0,
+      "records_retrieved": 2,
+      "doi_3": {
+        "doi": "10.1109/aero63441.2025.11068629",
+        "authors": [
+          "James Curbo",
+          "Gregory Falco"
+        ],
+        "crossref_pages": "1-20",
+        "r5_pages": "1-20",
+        "page_metadata_matches_manuscript": true
+      },
+      "doi_14": {
+        "doi": "10.1109/aero66936.2026.11519913",
+        "authors": [
+          "Jack Vanlyssel",
+          "Gruia-Catalin Roman",
+          "Afsah Anwar"
+        ],
+        "crossref_pages": "1-10",
+        "r5_pages": "1-10",
+        "page_metadata_matches_manuscript": true
+      },
+      "full_ieee_publisher_pdfs_inspected": false,
+      "all_manuscript_claims_fully_verified": false
+    },
+    "ieee_crossref_page_fields_confirmed": [
+      3,
+      14
+    ],
+    "ieee_pdf_page_span_verified": false
   },
   "reviewer_access_plan_20261010": {
     "status": "DESIGN_DOCUMENTED__REVIEWER_FILES_NOT_RELEASED",
