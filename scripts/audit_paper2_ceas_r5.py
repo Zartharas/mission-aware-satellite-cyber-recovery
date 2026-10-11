@@ -27,6 +27,14 @@ def main():
         hashlib.sha256(original_figure.read_bytes()).hexdigest()=="adfdfaf833c8624bb405209be22ef6b2f002cdec53f081ce097f67e728eedffc",
         "approved_ceas_figure_or_immutable_legacy_figure_drift")
     svg=ceas_figure.read_text(encoding="utf-8")
+    legibility_candidate=D/"figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5_LEGIBILITY_CANDIDATE_20261011.svg"
+    chk(legibility_candidate.is_file(),"figure_legibility_candidate_missing")
+    expected_candidate=(svg.replace('font-size="25"','font-size="31"')
+                              .replace('font-size="23"','font-size="27"')
+                              .replace('font-size="29"','font-size="34"'))
+    chk(legibility_candidate.read_text(encoding="utf-8")==expected_candidate and
+        legibility_candidate.read_bytes()!=ceas_figure.read_bytes(),
+        "figure_candidate_must_change_only_reviewed_font_sizes")
     for token in ("(a)  Study 3", "(b)  Study 4", "(c)  Study 6",
                   "V5 can qualify", "S3X:", "S6X:", "APPROVED_BAD_SOURCE",
                   "timing proxies, not measured RF outages", "not visible to the six-signal gate"):
@@ -53,6 +61,10 @@ def main():
     chk(target.count("**Fig. 1**")==1 and target.count("![](figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg)")==1 and
         fig_caption is not None and not fig_caption.endswith("."),
         "figure_caption_or_embedding")
+    chk("nor an external empirical replication. Figure 1 schematic composition" in fig_caption and
+        "model version not independently verifiable from retained records" in fig_caption and
+        "nor an external empirical replication Figure 1" not in fig_caption,
+        "figure_caption_missing_separator_or_ai_disclosure")
     chk(not any(x in ab for x in ("S3X","S6X"," cFS"," ESA ")),
         "undefined_abstract_abbreviation")
     chk(all(target.count("**Table "+str(n)+"**")==1 for n in range(1,6)),
@@ -162,8 +174,13 @@ def main():
         "**Acknowledgments:** None." in
             (D/"PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md").read_text(encoding="utf-8"),
         "author_confirmed_acknowledgments_drift")
-    chk("[AUTHOR CONFIRM" in target and "[AUTHOR ACTION REQUIRED" in target,
-        "unverified_statements_silently_filled")
+    chk("[AUTHOR CONFIRM" not in target and "[AUTHOR ACTION REQUIRED" not in target and
+        "The exact underlying ChatGPT model version could not be independently verified" in target and
+        "Rights to redistribute the version-specific ESA-derived intervals remain unverified" in target and
+        "access arrangements for the locally preserved complete reviewer evidence have not been established" in target and
+        "The revision and permitted contents of any complete reviewer-accessible reproducibility package remain to be finalized" in target and
+        "no unrestricted redistribution" in target,
+        "unverified_statements_misrepresented_or_publication_placeholders_remaining")
     print("PAPER2_CEAS_R5_EDITORIAL_STATIC=PASS")
     print("FROZEN_R4_SOURCE=UNCHANGED")
     print("STUDY3_STUDY4_STUDY6_S3X_S6X=SEPARATE")
