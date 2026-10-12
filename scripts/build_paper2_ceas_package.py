@@ -11,6 +11,8 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md"
+R4_SOURCE=SOURCE.with_name("PAPER2_REBUILD_MANUSCRIPT_R4_2026-10-01.md")
+R4_EXPECTED_GIT_BLOB="069e319864b1f5c1ee201b31872e68572fea1923"
 AUDIT=ROOT/"scripts/audit_paper2_ceas_r5.py"
 FIGURE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5_LEGIBILITY_CANDIDATE_20261011.svg"
 FIGURE_ORIGINAL=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
@@ -192,12 +194,17 @@ def main():
     r=subprocess.run(["python3",str(AUDIT)],cwd=ROOT,check=False,capture_output=True,text=True)
     require(r.returncode==0,"static_audit:"+r.stdout+r.stderr)
     print(r.stdout,end="")
+    r4_git_blob=subprocess.check_output(
+        ["git","hash-object",str(R4_SOURCE)],cwd=ROOT,text=True).strip()
+    require(len(r4_git_blob)==40 and r4_git_blob==R4_EXPECTED_GIT_BLOB,
+            "immutable_r4_build_metadata_blob_mismatch")
     require(FIGURE.is_file() and FIGURE_ORIGINAL.is_file(),
             "author_selected_or_preserved_original_figure_missing")
     require(IMAGE_REL==str(FIGURE.relative_to(SOURCE.parent)),"figure_path_and_markdown_reference_diverged")
     require(SOURCE.read_text(encoding="utf-8").count("![]("+IMAGE_REL+")")==1,
             "approved_figure_reference_not_exactly_once")
     if a.check:
+        print("CEAS_R4_BUILD_AUDIT_BLOB_VALIDATED=YES")
         print("CEAS_FIGURE_SOURCE_BINDING=PASS")
         print("CEAS_PACKAGE_RENDER=NOT_EXECUTED")
         return
@@ -250,7 +257,7 @@ def main():
                 "figure1_author_approved_for_draft_integration":not a.original_figure_baseline,
                 "candidate_figure1_submission_approval":"AUTHOR_APPROVED_2026_10_12__NEW_HEAD_QA_PENDING" if not a.original_figure_baseline else "HISTORICAL_ORIGINAL_FOR_QA_ONLY",
                 "previous_visual_qa_not_transferable":True,
-                "r4_immutable_git_blob":"069e319864b1f5c1ee201b31872fea1923",
+                "r4_immutable_git_blob":r4_git_blob,
                 "source_sha256":hash_file(SOURCE),
                 "artifacts":{p.name:hash_file(p) for p in out.iterdir()},
                 "required_human_qa":["inspect_every_rendered_pdf_page",
