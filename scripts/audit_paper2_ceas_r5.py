@@ -58,7 +58,8 @@ def main():
     kw=target.split("**Keywords:**",1)[1].split("\n",1)[0]
     chk(len([x for x in kw.split(";") if x.strip()])==6,"keywords_not_six")
     fig_caption=next((x for x in target.splitlines() if x.startswith("**Fig. 1** ")),None)
-    chk(target.count("**Fig. 1**")==1 and target.count("![](figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg)")==1 and
+    chk(target.count("**Fig. 1**")==1 and target.count("![](figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5_LEGIBILITY_CANDIDATE_20261011.svg)")==1 and
+        target.count("![](figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg)")==0 and
         fig_caption is not None and not fig_caption.endswith("."),
         "figure_caption_or_embedding")
     chk("nor an external empirical replication. Figure 1 schematic composition" in fig_caption and
@@ -111,13 +112,32 @@ def main():
         "figure_alt_gate_drift")
     deliverables=gate["deliverables"]
     figure_record=gate.get("figure1_ceas_derivative",{})
+    selection=gate.get("figure1_r5_adoption_20261012",{})
+    selected_rel="publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5_LEGIBILITY_CANDIDATE_20261011.svg"
+    original_rel="publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
+    chk(selection.get("selection")=="AUTHOR_AUTHORIZED_ADOPTION_2026_10_12" and
+        selection.get("selected_publication_figure_path")==selected_rel and
+        selection.get("selected_publication_figure_blob_sha1")=="7a69579e9e812fbebe10b45215824a19e52ed89e" and
+        selection.get("preserved_original_figure_path")==original_rel and
+        selection.get("preserved_original_figure_blob_sha1")=="728fa602ee1b73a363ed56173b695f778cd0b89d" and
+        selection.get("source_head_for_reviewed_A_B")=="e5240cc8233dabda60d39e4775f26f89b9222c0c" and
+        selection.get("reviewed_candidate_pdf_sha256")=="5f7370f96c4884788177104e9bd8b612437ec82e89b8747047bf6930b051fb9b" and
+        selection.get("new_head_docx_pdf_qa")=="PENDING_AFTER_FIGURE_SOURCE_BINDING" and
+        selection.get("source_rights_and_reviewer_access")=="HOLD" and
+        selection.get("publication_submitted") is False and
+        selection.get("merge_authorized") is False and
+        deliverables.get("renderer")=="AUTHOR_APPROVED_LARGER_TYPE_FIGURE_SELECTED__FRESH_EXACT_HEAD_PREVIEW_PENDING",
+        "adopted_publication_figure_authority_or_hold_drift")
+    chk(legibility_candidate.read_text(encoding="utf-8")==expected_candidate and
+        ceas_figure.read_text(encoding="utf-8")==svg,
+        "new_publication_figure_must_remain_only_larger_font_derivative")
     fifth=gate.get("visual_qa_history", [])[-1:]
     chk(figure_record.get("svg_sha256")=="b83c9614879a66184495f3905a5d3866eb8cbdffd7e1ee6065f8eaf49748e119" and
         figure_record.get("svg_git_blob_sha1")=="728fa602ee1b73a363ed56173b695f778cd0b89d" and
         figure_record.get("path")=="publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg" and
         figure_record.get("author_approved_draft_integration") is True and
         figure_record.get("full_source_docx_pdf_visual_qa")=="PENDING" and
-        deliverables["figure_visual_qa"]=="APPROVED_CEAS_DERIVATIVE__FULL_SOURCE_RENDER_QA_PENDING" and
+        deliverables["figure_visual_qa"]=="LARGER_TYPE_A_B_29_PAGE_REVIEW_PASS__NEW_SOURCE_HEAD_QA_PENDING" and
         deliverables["manuscript_docx"]=="HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING" and
         deliverables["manuscript_pdf"]=="HISTORICAL_FIFTH_PREVIEW_VALIDATED__FRESH_RENDER_PENDING" and
         deliverables["five_tables_visual_qa"]=="HISTORICAL_FIFTH_PREVIEW_PASS__FRESH_RENDER_PENDING" and
@@ -184,6 +204,7 @@ def main():
     print("PAPER2_CEAS_R5_EDITORIAL_STATIC=PASS")
     print("FROZEN_R4_SOURCE=UNCHANGED")
     print("STUDY3_STUDY4_STUDY6_S3X_S6X=SEPARATE")
+    print("CEAS_R5_FIGURE1=AUTHOR_APPROVED_LARGER_TYPE_SELECTED")
     print("CEAS_DOCX_PDF_VISUAL_QA=PENDING")
     print("CEAS_SUBMISSION=NOT_AUTHORIZED")
 if __name__=="__main__":main()
