@@ -12,9 +12,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md"
 AUDIT=ROOT/"scripts/audit_paper2_ceas_r5.py"
-FIGURE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
-FIGURE_LEGIBILITY_CANDIDATE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5_LEGIBILITY_CANDIDATE_20261011.svg"
-IMAGE_REL="figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
+FIGURE=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5_LEGIBILITY_CANDIDATE_20261011.svg"
+FIGURE_ORIGINAL=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5.svg"
+IMAGE_REL="figures/PAPER2_CEAS_FIG1_TRUST_BOUNDARIES_R5_LEGIBILITY_CANDIDATE_20261011.svg"
 FIGURE_ALT="Three nonpooled trust boundaries: Study 3 validly signed false producer evidence with S3X timing proxy; Study 4 vote and synthetic provenance composition; Study 6 an approved bad-source artifact with S6X functional adjudication outside the six-signal gate."
 FIGURE_ALT_TITLE="Figure 1: Residual trust boundaries in satellite cyber-recovery qualification"
 
@@ -181,18 +181,19 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--check",action="store_true")
     ap.add_argument("--draft-preview",action="store_true")
-    ap.add_argument("--figure-legibility-candidate",action="store_true",
-                    help="Render separate larger-type figure candidate for visual QA only")
+    ap.add_argument("--original-figure-baseline",action="store_true",
+                    help="Opt in to historical original figure for diagnostic A/B review; not the selected R5 draft")
     ap.add_argument("--out-dir")
     a=ap.parse_args()
     require(a.check != a.draft_preview,"choose_exactly_one_of_check_or_draft_preview")
-    require(not a.figure_legibility_candidate or a.draft_preview,
-            "figure_candidate_requires_draft_preview")
-    selected_figure=FIGURE_LEGIBILITY_CANDIDATE if a.figure_legibility_candidate else FIGURE
+    require(not a.original_figure_baseline or a.draft_preview,
+            "original_figure_baseline_requires_draft_preview")
+    selected_figure=FIGURE_ORIGINAL if a.original_figure_baseline else FIGURE
     r=subprocess.run(["python3",str(AUDIT)],cwd=ROOT,check=False,capture_output=True,text=True)
     require(r.returncode==0,"static_audit:"+r.stdout+r.stderr)
     print(r.stdout,end="")
-    require(FIGURE.is_file(),"ceas_authorized_figure_derivative_missing")
+    require(FIGURE.is_file() and FIGURE_ORIGINAL.is_file(),
+            "author_selected_or_preserved_original_figure_missing")
     require(IMAGE_REL==str(FIGURE.relative_to(SOURCE.parent)),"figure_path_and_markdown_reference_diverged")
     require(SOURCE.read_text(encoding="utf-8").count("![]("+IMAGE_REL+")")==1,
             "approved_figure_reference_not_exactly_once")
@@ -240,13 +241,14 @@ def main():
         shutil.copy2(selected_figure,out/selected_figure.name)
         report={"classification":"DRAFT_PREVIEW__NOT_SUBMISSION_READY",
                 "ceas_figure1_svg_sha256":hash_file(selected_figure),
-                "approved_original_figure1_sha256":hash_file(FIGURE),
-                "figure1_legibility_candidate_preview":a.figure_legibility_candidate,
+                "approved_original_figure1_sha256":hash_file(FIGURE_ORIGINAL),
+                "figure1_larger_type_adopted_in_manuscript":True,
+                "diagnostic_original_figure_selected_for_render":a.original_figure_baseline,
                 "corresponding_email_author_confirmed":"aman.singh2406@live.com",
                 "figure1_word_alt_text":FIGURE_ALT,
                 "figure1_word_accessibility_qa":"PASS_DOCX_OOXML",
-                "figure1_author_approved_for_draft_integration":not a.figure_legibility_candidate,
-                "candidate_figure1_submission_approval":"PENDING_IF_CANDIDATE" if a.figure_legibility_candidate else "NOT_APPLICABLE",
+                "figure1_author_approved_for_draft_integration":not a.original_figure_baseline,
+                "candidate_figure1_submission_approval":"AUTHOR_APPROVED_2026_10_12__NEW_HEAD_QA_PENDING" if not a.original_figure_baseline else "HISTORICAL_ORIGINAL_FOR_QA_ONLY",
                 "previous_visual_qa_not_transferable":True,
                 "r4_immutable_git_blob":"069e319864b1f5c1ee201b31872fea1923",
                 "source_sha256":hash_file(SOURCE),
