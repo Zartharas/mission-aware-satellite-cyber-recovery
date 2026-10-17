@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import tempfile
@@ -79,8 +80,8 @@ def format_docx_table_pagination(doc):
                                   lambda r: font_size(r.group(0), 20),
                                   para, flags=re.DOTALL)
                 return para
-            require(len(re.findall(r'>\[\d{1,2}\] ', xml)) == 19,
-                    "expected_19_numbered_reference_paragraphs")
+            require(len(re.findall(r'>\[\d{1,2}\] ', xml)) == 17,
+                    "expected_17_numbered_reference_paragraphs")
             xml = re.sub(r'<w:p>.*?</w:p>', paragraph_edit,
                          xml, flags=re.DOTALL)
 
@@ -236,6 +237,8 @@ def main():
             require(word_xml.count('descr="' + FIGURE_ALT + '"') == 1 and
                     word_xml.count('title="' + FIGURE_ALT_TITLE + '"') == 1,
                     "figure_accessibility_not_verified_in_docx")
+            require(len(re.findall(r'<m:oMath(?=[\\s>])', word_xml)) >= 4,
+                    "four_editable_word_equations_missing")
         subprocess.run([find_soffice(),"--headless","--convert-to","pdf",
                         "--outdir",str(stage),str(doc)],check=True)
         pdf=doc.with_suffix(".pdf")
