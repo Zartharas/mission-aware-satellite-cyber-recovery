@@ -102,7 +102,7 @@
     "reference_13": "GENERIC_TITLE_HEURISTIC_MISMATCH_NOT_FABRICATION",
     "full_manual_verified": false,
     "original_screened_count": 20,
-    "current_manuscript_entries": 19
+    "current_manuscript_entries": 17
   },
   "repo_visibility_live_20261009": "PUBLIC__NOT_ALL_FROZEN_ARTIFACTS_CONFIRMED_ACCESSIBLE",
   "visual_qa_history": [
@@ -439,5 +439,25 @@
     "frozen_output_reexecution_authorized": false,
     "study3_derived_discrepancies": "13_cells_25_numeric_deltas_documented_UNRESOLVED",
     "next_gate": "AUTHOR_HOST_METADATA_ONLY_HASH_INVENTORY__EXACT_PATHS_AND_RIGHTS"
+  },
+  "ceas_preprint_editorial_20261016": {
+    "source_reference_count": 19,
+    "current_numbered_references": 17,
+    "journal_specific_rule": "PUBLISHED_OR_ACCEPTED_IN_NUMBERED_REFERENCES__UNPUBLISHED_IN_TEXT",
+    "original_preprints_removed_from_numbered_list": [
+      2,
+      8
+    ],
+    "preprints_attributed_unumbered_in_body": [
+      "https://arxiv.org/abs/2608.14532",
+      "https://arxiv.org/abs/2603.23745"
+    ],
+    "renumbering": "old1_to_new1__old3_to7_minus1__old9_to19_minus2",
+    "historical_screen_count_preserved": 20,
+    "display_equations_converted": 4,
+    "final_primary_source_claim_review_complete": false,
+    "latest_29_page_qa_applies_to_new_source": false,
+    "esa_v2_derived_intervals_redistribution_authorized": false,
+    "submission_authorized": false
   }
 }

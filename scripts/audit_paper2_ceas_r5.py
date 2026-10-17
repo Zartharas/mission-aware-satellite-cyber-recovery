@@ -76,9 +76,15 @@ def main():
         "table4_full_gate_legend_missing")
     chk(all(("#" not in line or not re.match(r"^## [IVX]+\\.",line))
             for line in target.splitlines()),"old_roman_headings")
-    chk(all("[{}]".format(i) in target for i in range(1,20)) and
-        [int(x) for x in re.findall(r"^\[(\d+)\]\s", target, re.MULTILINE)] == list(range(1,20)),
-        "reference_number_missing_or_reference_count_not_19")
+    chk(all("[{}]".format(i) in target for i in range(1,18)) and
+        [int(x) for x in re.findall(r"^\[(\d+)\]\s", target, re.MULTILINE)] == list(range(1,18)),
+        "reference_number_missing_or_reference_count_not_17")
+    chk(target.count("https://arxiv.org/abs/2608.14532")==2 and
+        target.count("https://arxiv.org/abs/2603.23745")==2 and
+        gate.get("references_review",{}).get("current_manuscript_entries")==17 and
+        gate.get("ceas_preprint_editorial_20261016",{}).get("source_reference_count")==19 and
+        target.count("$")==8,
+        "ceas_preprint_textual_attribution_or_display_math_drift")
     chk(target.count("## Statements and Declarations")==1 and
         "## AI assistance and author responsibility" in target and
         "## References" in target,"declarations_or_ai_missing")
