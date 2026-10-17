@@ -84,6 +84,10 @@ def main():
         gate.get("references_review",{}).get("current_manuscript_entries")==17 and
         gate.get("ceas_preprint_editorial_20261016",{}).get("source_reference_count")==19 and
         target.count("$$")==8 and
+        target.count("\\text{delta\\_seconds}")==2 and
+        target.count("\\text{cadence\\_p99\\_seconds}")==2 and
+        "\\mathrm{delta\\_seconds}" not in target and
+        "\\mathrm{cadence\\_p99\\_seconds}" not in target and
         all(expr in target for expr in (
             "U_j = 1[Q_j(E_j) = 1",
             "C_j = 1[Q_j(E_j) = 0",

@@ -163,13 +163,13 @@ S3X asks whether the Study-3 distinction survives when evidence-refresh timing i
 The source is ESA Anomaly Dataset v2 [11]. Missions 1 and 2 contribute 176 telemetry channels. A prespecified eight-rule cadence-sensitivity analysis was performed; P99_X10 was selected after that analysis and then frozen before timestamp-trace extraction and recovery replay. The resulting trace population contains 1,919 positive inter-sample intervals satisfying the strict relation:
 
 $$
-\mathrm{delta\_seconds} > 10 \times \mathrm{cadence\_p99\_seconds}.
+\text{delta\_seconds} > 10 \times \text{cadence\_p99\_seconds}.
 $$
 
 For each frozen interval i:
 
 $$
-g_i = \frac{\mathrm{delta\_seconds}_i}{\mathrm{cadence\_p99\_seconds}_i},
+g_i = \frac{\text{delta\_seconds}_i}{\text{cadence\_p99\_seconds}_i},
 $$
 
 so every selected interval satisfies g_i > 10.
