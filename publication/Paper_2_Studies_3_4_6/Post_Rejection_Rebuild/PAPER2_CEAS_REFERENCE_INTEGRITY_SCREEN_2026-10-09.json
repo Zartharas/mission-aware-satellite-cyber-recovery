@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "PAPER2-CEAS-20-REFERENCE-INTEGRITY-SCREEN-2026-10-09",
+  "manuscript": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md",
+  "total": 20,
+  "automated": {
+    "matched": 14,
+    "mismatch": 1,
+    "not_found": 5,
+    "retracted_reported": 0
+  },
+  "matched_refs": [
+    1,
+    2,
+    3,
+    5,
+    7,
+    8,
+    9,
+    10,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "unindexed_refs": [
+    4,
+    6,
+    11,
+    12,
+    20
+  ],
+  "heuristic_mismatch_ref": 13,
+  "notices": {
+    "6": "IETF multi-verifier draft May 5 2026, expires Nov 6 2026; not finalized standard; editorial review required",
+    "13": "Official SLSA Threats and mitigations v1.2 page exists; automated generic-title mapping is not evidence of fabrication"
+  },
+  "verified_web_urls": {
+    "4": "https://sparta.aerospace.org/countermeasures/CM0044",
+    "6": "https://datatracker.ietf.org/doc/draft-ietf-rats-multi-verifier/",
+    "11": "https://theupdateframework.github.io/specification/v1.0.36/",
+    "12": "https://slsa.dev/spec/v1.2/source-requirements",
+    "13": "https://slsa.dev/spec/v1.2/threats",
+    "20": "https://swehb.nasa.gov/spaces/SWEHBVD/pages/146540183/7.22+-+Space+Security+Best+Practices+Guide"
+  },
+  "full_manual_reference_qa": false,
+  "final_submission_ready": false,
+  "scientific_results_changed": false
+}

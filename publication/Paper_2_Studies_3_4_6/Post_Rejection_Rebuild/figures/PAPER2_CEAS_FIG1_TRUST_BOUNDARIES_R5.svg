@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="970" viewBox="0 0 1200 970" role="img" aria-labelledby="desc">
+<desc id="desc">Three separate recovery qualification evidence boundaries: Study 3 signed but false evidence under a trusted producer; Study 4 quorum and provenance composition; Study 6 artifact-assurance signal insufficiency. S3X supplies timing-proxy sensitivity within Study 3 and S6X provides a separate executable artifact stress within Study 6. No pooled experiments.</desc>
+<rect width="1200" height="970" fill="#fff"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#111">
+<rect x="10" y="10" width="1180" height="298" rx="11" ry="11" fill="#fff" stroke="#111" stroke-width="2.4" />
+<text x="30" y="53" font-size="29" font-weight="700">(a)  Study 3  |  Temporal evidence</text>
+<line x1="22" y1="72" x2="1178" y2="72" stroke="#222" stroke-width="2" />
+<line x1="592" y1="83" x2="592" y2="227" stroke="#888" stroke-width="1.8"/>
+<text x="33" y="112" font-size="25" font-weight="700">Gate-visible evidence</text>
+<text x="33" y="158" font-size="25">Valid signatures and freshness</text>
+<text x="33" y="196" font-size="25">Authorization and security signals</text>
+<text x="610" y="112" font-size="25" font-weight="700">Hidden trust boundary</text>
+<text x="610" y="158" font-size="25">False-but-valid V5 can qualify</text>
+<text x="610" y="196" font-size="25">for B0/S1; B2 excludes V5</text>
+<line x1="22" y1="227" x2="1178" y2="227" stroke="#222" stroke-width="1.5" />
+<text x="32" y="260" font-size="25">S3X: timing hiatus changes V5 arrival, not qualification</text>
+<text x="32" y="289" font-size="23">ESA intervals are timing proxies, not measured RF outages</text>
+<rect x="10" y="321" width="1180" height="298" rx="11" ry="11" fill="#fff" stroke="#111" stroke-width="2.4" />
+<text x="30" y="364" font-size="29" font-weight="700">(b)  Study 4  |  Producer composition</text>
+<line x1="22" y1="383" x2="1178" y2="383" stroke="#222" stroke-width="2" />
+<line x1="592" y1="394" x2="592" y2="538" stroke="#888" stroke-width="1.8"/>
+<text x="33" y="423" font-size="25" font-weight="700">Gate-visible evidence</text>
+<text x="33" y="469" font-size="25">Signed votes and vote threshold</text>
+<text x="33" y="507" font-size="25">Synthetic provenance-domain count</text>
+<text x="610" y="423" font-size="25" font-weight="700">Hidden trust boundary</text>
+<text x="610" y="469" font-size="25">Equal-size compromised subsets</text>
+<text x="610" y="507" font-size="25">can differ by domain makeup</text>
+<line x1="22" y1="538" x2="1178" y2="538" stroke="#222" stroke-width="1.5" />
+<text x="32" y="571" font-size="25">Provenance shifts unsafe-qualification and benign-loss limits</text>
+<text x="32" y="600" font-size="23">Synthetic domains do not establish real-world independence</text>
+<rect x="10" y="632" width="1180" height="298" rx="11" ry="11" fill="#fff" stroke="#111" stroke-width="2.4" />
+<text x="30" y="675" font-size="29" font-weight="700">(c)  Study 6  |  Artifact assurance</text>
+<line x1="22" y1="694" x2="1178" y2="694" stroke="#222" stroke-width="2" />
+<line x1="592" y1="705" x2="592" y2="849" stroke="#888" stroke-width="1.8"/>
+<text x="33" y="734" font-size="25" font-weight="700">Gate-visible evidence</text>
+<text x="33" y="780" font-size="25">Signature, digest and provenance</text>
+<text x="33" y="818" font-size="25">Rebuild, review and approval</text>
+<text x="610" y="734" font-size="25" font-weight="700">Hidden trust boundary</text>
+<text x="610" y="780" font-size="25">APPROVED_BAD_SOURCE remains</text>
+<text x="610" y="818" font-size="25">qualified under composite G5</text>
+<line x1="22" y1="849" x2="1178" y2="849" stroke="#222" stroke-width="1.5" />
+<text x="32" y="882" font-size="25">S6X: functional test detects the controlled error</text>
+<text x="32" y="911" font-size="23">but its result is not visible to the six-signal gate</text>
+</g>
+</svg>
