@@ -91,7 +91,7 @@ def main():
         all(expr in target for expr in (
             "U_j = 1[Q_j(E_j) = 1",
             "C_j = 1[Q_j(E_j) = 0",
-            "\\mathrm{delta\\_seconds} > 10",
+            "\\text{delta\\_seconds} > 10",
             "g_i = \\frac{")),
         "ceas_preprint_textual_attribution_or_display_math_drift")
     chk(target.count("## Statements and Declarations")==1 and
