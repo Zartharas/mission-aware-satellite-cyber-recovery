@@ -21,7 +21,7 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2 has since been submitted to CEAS Space Journal on 2026-10-19 and is undergoing technical checks; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
+The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2 has since been submitted to CEAS Space Journal on 2026-10-19 and is undergoing technical checks; Paper 3 now has frozen Study 7E evidence and an unmerged IJCIP R3 manuscript-preparation draft PR #168; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
@@ -92,7 +92,7 @@ Study-7 durable evidence remains frozen:
 
 The handling editor recognized the assurance concern and reproducible setup but found the contribution insufficiently developed, citing the directness of the central finding, lack of a concrete spacecraft recovery architecture, unvalidated trust assumptions, and lack of an equal-information deterministic corroboration comparator.
 
-A separate prospective extension, `S7E-AERC-001`, is proposed but not implemented or authorized for execution. Study 7 and any future Study 7E must remain separate populations.
+The separate extension `S7E-AERC-001` was subsequently implemented, independently audited and formally frozen: 196 held-out scenarios and 784 policy decisions, with zero invalid scenarios or audit mismatches. Study 7 and Study 7E remain separate populations. [Current Paper 3 cross-chat handoff](publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_STUDY7E_CURRENT_HANDOFF_2026-10-20.md).
 
 The historical Paper-3 `Journal_of_Aerospace_Information_Systems/` directory was never submitted and remains superseded venue-development provenance.
 
@@ -102,9 +102,9 @@ The Acta decision supplied no external reviewer reports and no specific methodol
 
 ## Next publication-development work
 
-Paper 3 is now in a controlled post-rejection recovery phase under explicit author authorization. The completed CEAS rejection audit concludes that manuscript-only retargeting is insufficient and proposes a separate prospective extension, `S7E-AERC-001`, to add a concrete spacecraft recovery architecture, validated trust-domain separation, and equal-information deterministic/learned comparators.
+Paper 3's prospective Study 7E architecture extension passed its corrected cFS smoke and bounded NOS3 feasibility checks. Standalone cFS v7.0.1 was selected, and Study 7E science was formally frozen. The rebuilt Study 7 + Study 7E IJCIP R3 package is prepared in [draft PR #168](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/168), awaiting verification of journal-specific requirements and final publisher-file QA under [Issue #221](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/221).
 
-No Study-7 rerun or retroactive comparator addition is permitted. No Study-7E execution is authorized yet.
+Study 7 and the sealed Study 7E held-out execution must not be rerun, pooled or retroactively changed. PR #168 merge and journal submission remain separately gated and **not authorized**.
 
 The independent remaining-study audit, including Study 5 / `S5-CUCD-001`, remains separate from Paper 3 recovery and must not be pooled into this publication line.
 
