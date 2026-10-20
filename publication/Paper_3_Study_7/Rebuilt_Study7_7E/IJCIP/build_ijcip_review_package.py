@@ -75,8 +75,8 @@ def main():
         # keeping the Study 7 example table readable at normal page width.
         s7_aliases = {
             "SAFE_CORROBORATED": "SAFE",
-            "V5_INDEPENDENT_DISAGREEMENT": "V5 independent",
-            "V5_CORRELATED_FALSE_CORROBORATION": "V5 correlated",
+            "V5_INDEPENDENT_DISAGREEMENT": "V5 indep.",
+            "V5_CORRELATED_FALSE_CORROBORATION": "V5 corr.",
         }
         for row in d.tables[2].rows[1:]:
             name = row.cells[0].text
@@ -84,8 +84,8 @@ def main():
                 row.cells[0].text = s7_aliases[name]
         s7_note = d.add_paragraph(
             "Study 7 scenario-label key: SAFE = SAFE_CORROBORATED; "
-            "V5 independent = V5_INDEPENDENT_DISAGREEMENT; "
-            "V5 correlated = V5_CORRELATED_FALSE_CORROBORATION."
+            "V5 indep. = V5_INDEPENDENT_DISAGREEMENT; "
+            "V5 corr. = V5_CORRELATED_FALSE_CORROBORATION."
         )
         for segment in s7_note.runs:
             segment.font.size=Pt(8.5)
@@ -101,6 +101,8 @@ def main():
         # policy rows and their legend across adjacent pages.
         d.tables[4]._element.addprevious(note._element)
         for paragraph in d.paragraphs:
+            if paragraph.text.startswith("4.2 Study 7E: aggregate held-out outcomes"):
+                paragraph.paragraph_format.page_break_before=True
             if paragraph.text.startswith("4.3 Held-out block results"):
                 paragraph.paragraph_format.page_break_before=True
         d.save(docx)
