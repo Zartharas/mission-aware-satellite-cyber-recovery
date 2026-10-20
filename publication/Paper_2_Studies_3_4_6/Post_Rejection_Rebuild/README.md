@@ -3,7 +3,11 @@
 > **CURRENT CEAS PAPER-2 PUBLISHER STATUS (2026-10-19): SUBMISSION RECEIVED; TECHNICAL CHECK.** The phases and authorization gates in this README are **historical research checkpoints**, not the current journal submission state. See [the RevB handoff/current-status addendum](CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md) and the [verified publisher receipt on Issue #217](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467). The sole-author RevB ZIP and original evidence are maintained locally, not committed to GitHub. PR #216 remains **OPEN/DRAFT/UNMERGED**; do not infer acceptance or authorization for data release.
 
 
-**Status:** `PHASE5C_AUTHORIZED__P99_X10_GAP_RULE_FROZEN__NO_TRACE_EXTRACTION__NO_SCIENTIFIC_EXECUTION`  
+## Historical phase-by-phase provenance (not current status)
+
+The dated steps and previously applicable permissions below document the research sequence at their own checkpoints. They must not be interpreted as currently forbidding already completed and separately frozen S3X/S6X work or the subsequently received CEAS submission.
+
+**Historical 2026-09-26 checkpoint status:** `PHASE5C_AUTHORIZED__P99_X10_GAP_RULE_FROZEN__NO_TRACE_EXTRACTION__NO_SCIENTIFIC_EXECUTION`  
 **Authorization date:** 2026-09-26  
 **Branch:** `paper2/post-rejection-rebuild`  
 **Branch base:** `972a273f699cc1df39597f358e0fdb5369de342a`
