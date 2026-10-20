@@ -1,6 +1,6 @@
 # Current Publication State
 
-**Current-state date:** 2026-09-26
+**Current-state date:** 2026-10-20 (Paper 2 reconciled; other papers retain their last independently recorded updates)
 
 **Study 8E extension update:** 2026-09-20
 
@@ -14,13 +14,13 @@
 
 **Paper 4 IJSCCN editorial decision update:** 2026-09-24
 
-**Paper 2 TAES decision/rebuild update:** 2026-09-26
+**Paper 2 CEAS submission status update:** 2026-10-19 (prior TAES decision: 2026-09-26)
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening on 2026-09-26 without external peer review and has progressed through author-authorized post-rejection design into a Phase-3 pre-execution state: S3X source verification/source identity freeze is authorized locally, and an S6X implementation workspace with static pre-runtime validation is authorized; scientific execution remains closed. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening 2026-09-26 without external review, then submitted in rebuilt RevB form to CEAS Space Journal on 2026-10-19; the confirmed portal status is Technical Check. Study 3/4/6 and S3X/S6X separately frozen evidence remain scientifically distinct. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -62,25 +62,33 @@ Study 8 remains a separate deterministic finite modeled population of 3,456 posi
 
 The IJSCCN decision does not alter Study 8, Study 8E, Results-002, TRACE-002, or any frozen scientific artifact. The submitted R5 package remains historical provenance. Wiley Transfer Desk suggestions may be reviewed as candidates only; no automatic transfer is authorized. The fresh venue-fit audit is recorded at `publication/Paper_4_Study_8/NEXT_VENUE_AUDIT_2026-09-24.md`; no new venue is locked.
 
-### Paper 2 - Studies 3 + 4 + 6
+### Paper 2 - Studies 3 + 4 + 6 (separate S3X/S6X qualification work)
+
+**CURRENT: CEAS Space Journal RevB submission**
+
+- **Title:** Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance
+- **Sole corresponding author:** Aman Kumar Singh
+- **Received:** 2026-10-19; portal version v1.0
+- **Portal tracking ID:** `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` (not independently verified as a journal-assigned manuscript number)
+- **Status:** `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; neither external peer review nor acceptance verified
+- **Publisher manuscript:** `CEAS_Paper2_Manuscript_Final_2026-10-19_RevB.docx`
+- **Seven-file author-local RevB ZIP SHA-256:** `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f`
+- **Receipt authority:** [Issue #217](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467)
+- **Current handoff:** `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md`
+- **Publication source:** PR #216 OPEN/DRAFT/UNMERGED; not part of `main`
+
+Publisher DOCX/PDF/ZIP and private evidence are deliberately Mac-local, not publicly committed. Optional Research Square In Review was selected; no posted preprint/DOI is verified. Preserve scientific limits: original Study 3 (1,380 deterministic trajectories), Study 4 (4,608 exact observations), Study 6 (420 observations) are frozen and **unpooled**. S3X comprises 1,919 ESA v2 timestamp **inter-sample timing proxies**, not observed RF outages. S6X provides separately frozen controlled-build research-fixture evidence, **two repetitions of 396 observations**, not spacecraft flight validation. The Study 3 accepted-original ZIP differs from the tracked auxiliary CSV; neither can be silently changed. Source/derivative rights and restricted evidence reviewer-access remain unresolved.
+
+**HISTORICAL: rejected TAES initial submission**
 
 - **Journal:** IEEE Transactions on Aerospace and Electronic Systems
-- **Title:** Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance
-- **Article type:** Regular Paper
-- **Submitted:** 2026-09-07
+- **Submitted:** 2026-09-07; `TAES-2026-4182`
 - **Research Exchange UUID:** `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
-- **Manuscript ID:** `TAES-2026-4182`
-- **Decision date:** 2026-09-26
-- **State:** `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`
-- **Authority:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_PACKAGE_STATUS.json`
+- **Decision:** `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW` on 2026-09-26
 - **Decision record:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_EDITORIAL_DECISION_2026-09-26.md`
-- **Rebuild workspace:** `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`
+- **Frozen source:** TAES R10 publisher package and core-study evidence preserved
 
-The TAES editors identified narrow/unclear aerospace contribution, difficult prose, an unclear research-gap/RQ connection, and experiment-oriented rather than finding-oriented contributions. The decision did not identify a frozen-result, numerical, reproducibility, or integrity defect.
-
-Studies 3, 4, and 6 remain immutable and separate: Study 3 = 1,380 deterministic trajectories; Study 4 = 4,608 exact rule-by-subset observations; Study 6 = 420 exact observations. There is no pooled Paper-2 sample size.
-
-Phase 1 and Phase 2 completed the editorial/theory audit, source screening, and prospective design work. After PR #173 CI succeeded and the branch was merged, the author authorized Phase 3 on 2026-09-26. `study3x/` may now perform local ESA-v2 archive verification and source-identity freeze only; `study6x/` may now host implementation and static/pre-runtime validation only. S3X gap-rule freeze, trace extraction, recovery replay, and scientific results remain unauthorized. S6X build, fixture application to a build, signing, independent rebuild, gate execution, and scientific results remain unauthorized. Manuscript rewrite, venue lock, and publisher submission remain unauthorized.
+Earlier Phase-1 through Phase-7F authorization and pre-execution gates were historical milestones that led to the submitted CEAS RevB cycle; they are **not current** permission restrictions. P2X draft PRs #214/#215 are separate prospective NOS3 work and not supporting evidence in the submitted article. Any later manuscript revision, public data release or new scientific experiment needs distinct authorization.
 
 ### Paper 3 - Study 7
 

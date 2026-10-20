@@ -21,13 +21,13 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2 is in a controlled Phase-3 pre-execution rebuild state; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
+The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2 has since been submitted to CEAS Space Journal on 2026-10-19 and is undergoing technical checks; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
 | Paper 1 | Studies 1 + 2 | AIAA Journal of Aerospace Information Systems | `2026-09-I012066` | 2026-09-05 | Editorial/peer-review workflow |
 | Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `Rejected` (decision recorded 2026-09-19) |
-| Paper 2 | Studies 3 + 4 + 6 | IEEE Transactions on Aerospace and Electronic Systems | `TAES-2026-4182` | 2026-09-07 | `Rejected` at editorial pre-screening 2026-09-26; no external review |
+| Paper 2 | Studies 3 + 4 + 6; separate S3X/S6X qualifications | CEAS Space Journal (latest submission) | Portal tracking ID `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` | 2026-10-19 | `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; prior TAES rejection remains historical |
 | Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Rejected` (decision 2026-09-22) |
 
 Submitted and rejected packages remain frozen as provenance. Do not modify active publisher-facing packages without a journal request, and do not alter the rejected Acta package. Study 8 retargeting must begin from the frozen source science through a new controlled venue-specific package.
@@ -62,11 +62,13 @@ Manuscript ID: `AA-D-26-02872`.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
-`publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
+**Latest submitted article:** *Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance* — CEAS Space Journal, received 2026-10-19. The portal reports **TECHNICAL CHECK**, not external peer review or acceptance. The v1.0 portal tracking ID is `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` (not independently confirmed as the journal-assigned manuscript number). See [verified portal receipt](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467) and the [current RevB handoff](publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md).
 
-Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
+**Author-local submission package:** `CEAS_Paper2_Submission_Ready_2026-10-19_RevB.zip`, whole ZIP SHA-256 `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f`. Publisher DOCX/PDF, private original evidence and rights-restricted material remain on the author's Mac, not in this public repository. Publication-source [PR #216](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/216) remains draft/unmerged, not a part of `main`; optional Research Square preprint posting has not been verified.
 
-TAES manuscript ID: `TAES-2026-4182`. Decision: editorial pre-screen rejection on 2026-09-26, no external peer review. The R10 package and Studies 3/4/6 remain frozen. Post-rejection governance is under `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`; `study3x/` is authorized only for local ESA-v2 source verification/source identity freeze, and `study6x/` is authorized only for implementation plus static/pre-runtime validation. No new scientific execution is authorized.
+**Historical TAES submission:** `TAES-2026-4182`, submitted 2026-09-07 and rejected at editorial prescreen on 2026-09-26 without external peer review. R10 artifacts remain frozen under `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`. The historical Phase-1 through Phase-7F milestones, now completed, remain under `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
+
+**Scientific boundaries:** Original Studies 3, 4 and 6 are separately frozen and unpooled; S3X provides ESA v2 timestamp **timing proxies**, not RF outage observations; S6X is an independently governed research cFS/Limit Checker fixture, not flight validation or a vulnerability finding. The accepted-original Study 3 ZIP and tracked auxiliary CSV differ and remain unreconciled; neither file may be silently rewritten. Do not redistribute ESA v2 derivative rows absent source rights clearance.
 
 ### Paper 3 - Study 7
 

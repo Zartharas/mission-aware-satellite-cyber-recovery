@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-09-26
+Last updated: 2026-10-20 (Paper 2 publisher state reconciled; other papers retain last verified entries)
 
 ## Current focus
 
@@ -8,10 +8,10 @@ The repository now contains four submitted publication lines:
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems as manuscript `2026-09-I012066` on 2026-09-05.
 2. **Paper 4:** rebuilt Study 8 + Study 8E manuscript, submitted to IJSCCN as manuscript `4920969` on 2026-09-22; rejected at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied. The earlier Acta rejection remains historical provenance.
-3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems on 2026-09-07; manuscript `TAES-2026-4182` was rejected at editorial pre-screening on 2026-09-26 without external peer review.
+3. **Paper 2:** Studies 3 + 4 + 6, **CEAS Space Journal RevB submission received 2026-10-19 and under TECHNICAL CHECK**; prior TAES `TAES-2026-4182` was rejected at editorial pre-screening 2026-09-26.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; rejected by handling-editor editorial assessment on 2026-09-22.
 
-Paper 1 remains frozen pending journal action. Paper 2's rejected R10 package and Studies 3/4/6 remain frozen. Paper 2 has progressed to a separate Phase-3 pre-execution workstream: S3X local source verification/source freeze and S6X implementation/static validation are authorized, but no new scientific execution is authorized. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
+Paper 1 remains frozen pending journal action. Paper 2's rejected TAES R10, original Studies 3/4/6 and separately governed S3X/S6X results remain frozen. Its latest RevB CEAS submission was received 2026-10-19 (Technical Check); former Phase-3 pre-execution gates are historical, not the live publisher status. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
 
 This is a journal/research publication workflow, not a dissertation-revision workflow.
 
@@ -57,22 +57,21 @@ The next Paper 4 gate is a fresh venue-fit audit plus optional review of Wiley T
 
 ### Paper 2 - Studies 3 + 4 + 6
 
-- Journal: IEEE Transactions on Aerospace and Electronic Systems
-- Submitted: 2026-09-07
-- Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
-- Manuscript ID: `TAES-2026-4182`
-- Decision date: 2026-09-26
-- State: `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`
-- Authority: `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_PACKAGE_STATUS.json`
-- Decision record: `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_EDITORIAL_DECISION_2026-09-26.md`
-- Rebuild state: `PHASE3_PREEXECUTION__S3X_SOURCE_VERIFICATION_AND_S6X_STATIC_IMPLEMENTATION__NO_SCIENTIFIC_EXECUTION`
-- Rebuild workspace: `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`
-- S3X workspace: `study3x/`
-- S6X workspace: `study6x/`
+**CURRENT: CEAS Space Journal RevB**
 
-Paper 2 retains Studies 3, 4, and 6 as three immutable, unpooled frozen populations. The rejection does not authorize rerunning them.
+- Journal: CEAS Space Journal (Springer Nature).
+- Article: *Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance*.
+- Sole corresponding author: Aman Kumar Singh.
+- Submitted/received: 2026-10-19, portal v1.0.
+- Portal tracking ID: `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` (not separately verified as journal-assigned manuscript number).
+- Current publisher stage: `SUBMISSION_RECEIVED__TECHNICAL_CHECK`, **not** external review or acceptance.
+- Authority: [Issue #217 receipt](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467), plus `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md`.
+- Author-local final package: `CEAS_Paper2_Submission_Ready_2026-10-19_RevB.zip`, whole-package SHA-256 `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f`; publisher assets/original evidence are intentionally not committed.
+- Source-review PR #216: OPEN/DRAFT/UNMERGED; does not imply the publication source is on `main`. Optional Research Square posting chosen, with no public preprint/DOI confirmed.
 
-Phase 1 derived the Study-4 threshold formulas, Study-6 observational-equivalence result, and Study-3 freshness/semantic-truth distinction from existing frozen artifacts. Phase 2 completed source/invariant design. Phase 3 now authorizes only local S3X source verification/source identity freeze and S6X implementation/static pre-runtime validation. S4X remains on hold. No build-backed or recovery-policy scientific execution is authorized.
+The three separately frozen core populations remain Study 3 = 1,380 trajectories, Study 4 = 4,608 rule/subset observations, Study 6 = 420 assurance observations. S3X = 1,919 ESA v2 **inter-sample timing proxies**; S6X = two controlled-fixture repetitions of 396 observations. Never pool results, treat proxies as observed RF outages, or treat a research fixture as spacecraft operational validation. Original Study 3 ZIP versus tracked auxiliary CSV results differ and remain unreconciled; derivative rights and reviewer access remain restricted.
+
+**HISTORICAL: TAES initial submission.** `TAES-2026-4182` submitted 2026-09-07, editorial prescreen rejection 2026-09-26 without external peer review; rejected R10/decision artifacts remain immutable under `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`. The Phase-1 through Phase-7F authorization records are dated historical provenance, not current restrictions on the submitted CEAS cycle. P2X PRs #214 and #215 remain separate draft future-work candidates, not empirical evidence of this submitted manuscript.
 
 ### Paper 3 - Study 7
 
@@ -108,13 +107,13 @@ Proposed extension: `S7E-AERC-001` / Architecture-Grounded Equal-Information Rec
 
 The prospective protocol and implementation/test plans are now drafted for author review. The design specifies equal-information policy pairs, five trust-domain topologies, thirteen fault/compromise profiles, 84 training architecture scenarios, and 196 canonical evaluation/control scenarios yielding 784 planned evaluation decisions. These are prospective design quantities, not results. No implementation workspace or scientific execution is authorized.
 
-## Paper 2 post-rejection Phase-1 gate
+## Historical Paper 2 post-rejection Phase-1 gate (completed checkpoint)
 
 Author authorization on 2026-09-26 establishes a separate Paper-2 workstream:
 
 `PHASE1_DESIGN_REVIEW_REQUIRED_BEFORE_ANY_EXTENSION_EXECUTION`
 
-The current tasks are editorial diagnosis, theory/generalization audit, non-overlap control, and review of draft S3X/S4X/S6X protocols. This workstream does not alter Study 5, Paper 3, or Paper 4.
+These were the tasks at the September 26 checkpoint: editorial diagnosis, theory/generalization audit, non-overlap control and S3X/S4X/S6X protocol review. They are preserved as history; the current Paper-2 publisher state is the October 19 CEAS submission above. This historical workstream did not alter Study 5, Paper 3, or Paper 4.
 
 ## Remaining eligible publication candidates
 

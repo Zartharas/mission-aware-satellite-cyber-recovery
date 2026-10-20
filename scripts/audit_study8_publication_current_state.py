@@ -4,7 +4,7 @@
 Historical Study-8 technical-close, source-publication freeze, and Acta
 package-freeze artifacts retain their stage-local wording. This checker binds
 those frozen records and submitted publisher bytes while validating the live
-2026-09-26 repository publication state.
+2026-10-20 cross-publication record (Paper 2 CEAS status reconciled; the Study-8 frozen checks remain unchanged).
 
 The checker never executes scientific analysis and never modifies frozen
 evidence, statistics, or publisher-facing files.
@@ -56,7 +56,7 @@ EXPECTED_SUBMITTED_FILES = {
 CURRENT_DOCS = {
     "docs/CURRENT_PUBLICATION_STATE.md": {
         "required": (
-            "**Current-state date:** 2026-09-26",
+            "**Current-state date:** 2026-10-20",
             "four publication lines that have been submitted",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_NORMALIZED_STATUS,
@@ -75,7 +75,7 @@ CURRENT_DOCS = {
     },
     "docs/PUBLICATION_PHASE_MAP.md": {
         "required": (
-            "**Current-state reference:** 2026-09-26",
+            "**Current-state reference:** 2026-10-20",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
             PAPER2_ID,
