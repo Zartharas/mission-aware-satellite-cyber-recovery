@@ -71,6 +71,25 @@ def main():
                     for paragraph in cell.paragraphs:
                         for segment in paragraph.runs:
                             segment.font.size = Pt(8.5)
+        # Preserve full scenario identifiers in this adjacent legend while
+        # keeping the Study 7 example table readable at normal page width.
+        s7_aliases = {
+            "SAFE_CORROBORATED": "SAFE",
+            "V5_INDEPENDENT_DISAGREEMENT": "V5 independent",
+            "V5_CORRELATED_FALSE_CORROBORATION": "V5 correlated",
+        }
+        for row in d.tables[2].rows[1:]:
+            name = row.cells[0].text
+            if name in s7_aliases:
+                row.cells[0].text = s7_aliases[name]
+        s7_note = d.add_paragraph(
+            "Study 7 scenario-label key: SAFE = SAFE_CORROBORATED; "
+            "V5 independent = V5_INDEPENDENT_DISAGREEMENT; "
+            "V5 correlated = V5_CORRELATED_FALSE_CORROBORATION."
+        )
+        for segment in s7_note.runs:
+            segment.font.size=Pt(8.5)
+        d.tables[2]._element.addnext(s7_note._element)
         note = d.add_paragraph(
             "Table-label key: D0 = D0_BASE; L0 = L0_BASE; "
             "D1 = D1_CORROBORATED; L1 = L1_CORROBORATED. "
@@ -78,7 +97,9 @@ def main():
         )
         for segment in note.runs:
             segment.font.size=Pt(8.5)
-        d.tables[4]._element.addnext(note._element)
+        # Put the key BEFORE the table: otherwise the current PDF splits
+        # policy rows and their legend across adjacent pages.
+        d.tables[4]._element.addprevious(note._element)
         for paragraph in d.paragraphs:
             if paragraph.text.startswith("4.3 Held-out block results"):
                 paragraph.paragraph_format.page_break_before=True
