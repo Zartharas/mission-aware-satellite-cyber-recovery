@@ -4,11 +4,11 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening on 2026-09-26 without external peer review and is now in a controlled Phase-3 pre-execution rebuild state. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
+The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and is undergoing technical checks. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
 2. **Paper 4:** Study 8 + Study 8E rebuilt manuscript, most recently submitted to IJSCCN; prior Acta submission retained as historical provenance.
-3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems.
+3. **Paper 2:** Studies 3 + 4 + 6 (separate S3X/S6X extensions), latest CEAS Space Journal submission received 2026-10-19; prior TAES rejection preserved.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal.
 
 Separately frozen study populations must never be silently pooled or reused as new evidence merely because they remain in the repository.
@@ -50,21 +50,35 @@ The IJSCCN decision does not alter frozen Study 8 or Study 8E science. The submi
 
 ## Paper 2 - Studies 3 + 4 + 6
 
+### Current: CEAS Space Journal RevB submission
+
+- **Journal:** CEAS Space Journal (Springer Nature)
+- **Title:** Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance
+- **Sole author:** Aman Kumar Singh
+- **Article type:** Research; single-anonymous peer-review process
+- **Submission date:** 2026-10-19
+- **Portal tracking ID:** `38cc76f5-ab6b-4b8e-b6ba-24727db86b48`, v1.0 (**not** separately verified as a journal-assigned manuscript number)
+- **Current state:** `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; no peer-review or acceptance claim
+- **Receipt:** [Issue #217 confirmation](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467)
+- **Verified author-local RevB ZIP SHA-256:** `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f` (not a checksum of publisher-stored bytes)
+- **Current handoff:** [CEAS RevB submission handoff](Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md)
+- **Publication-source review:** [PR #216](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/216), OPEN/DRAFT/UNMERGED; not merged into `main`
+
+The publisher DOCX/PDF, source ZIP, original Actions ZIPs and private evidence remain on the author's Mac rather than in public GitHub. Optional Research Square In Review was selected, but no public posting or DOI is verified. Evidence-reviewer access, ESA v2 derivative rights and the accepted-original Study 3 versus auxiliary CSV discrepancy remain unresolved/protected. Studies 3, 4 and 6 are frozen separately; S3X timing proxies and S6X research-fixture validations are **not pooled** and are not operational spacecraft validation.
+
+### Historical: TAES initial submission and rejection
+
 - **Journal:** IEEE Transactions on Aerospace and Electronic Systems
-- **Title:** Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance
+- **Prior title:** Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance
 - **Article type:** Regular Paper
-- **Submission date:** 2026-09-07
+- **Submitted:** 2026-09-07
 - **Research Exchange UUID:** `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
 - **Manuscript ID:** `TAES-2026-4182`
-- **Decision date:** 2026-09-26
-- **Current state:** `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`
-- **Package:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
+- **Decision:** `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW` on 2026-09-26
+- **Frozen package:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
 - **Decision record:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_EDITORIAL_DECISION_2026-09-26.md`
-- **Post-rejection workspace:** `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`
 
-The submitted R10 package remains immutable provenance. Studies 3, 4, and 6 remain frozen and separate.
-
-The post-rejection work has progressed through Phase 1 and Phase 2 design into Phase 3. `study3x/` is authorized for local ESA-v2 source verification/source identity freeze only, and `study6x/` is authorized for implementation plus static/pre-runtime validation only. No S3X trace extraction/recovery replay, no S6X build or artifact execution, no manuscript rewrite, no venue lock, and no publisher submission is authorized.
+Earlier rebuild permissions and phase gates are date-bound **historical provenance**, not current submission restrictions. The original frozen study artifacts and all historical records remain unchanged.
 
 ## Paper 3 - Study 7
 
