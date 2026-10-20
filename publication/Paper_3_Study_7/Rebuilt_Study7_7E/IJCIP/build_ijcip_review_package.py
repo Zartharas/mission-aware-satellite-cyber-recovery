@@ -44,6 +44,45 @@ def main():
         markdown.write_text(body, encoding="utf-8")
         docx = OUT / "PAPER3_IJCIP_MANUSCRIPT_REVIEW_ONLY.docx"
         run(["pandoc","--from=gfm","--to=docx","--standalone","--resource-path",str(tmp),"-o",str(docx),str(markdown)])
+        # Review layout only: render concise labels in tables, but preserve
+        # the scientific manuscript text and frozen result identities.
+        from docx import Document
+        from docx.shared import Pt
+        d = Document(docx)
+        if len(d.tables) != 8:
+            raise AssertionError("review DOCX expected eight original tables")
+        aliases = {
+            "D0_BASE":"D0", "L0_BASE":"L0",
+            "D1_CORROBORATED":"D1", "L1_CORROBORATED":"L1"
+        }
+        for table_index, table in enumerate(d.tables):
+            for row_index, row in enumerate(table.rows):
+                for cell in row.cells:
+                    if table_index in (4,5,6):
+                        label = aliases.get(cell.text,cell.text)
+                        if table_index==4 and row_index==0:
+                            label = {
+                                "Objective errors":"Errors",
+                                "Unsafe proceed":"Unsafe",
+                                "False-conservative hold":"FCH"
+                            }.get(label,label)
+                        if label != cell.text:
+                            cell.text = label
+                    for paragraph in cell.paragraphs:
+                        for segment in paragraph.runs:
+                            segment.font.size = Pt(8.5)
+        note = d.add_paragraph(
+            "Table-label key: D0 = D0_BASE; L0 = L0_BASE; "
+            "D1 = D1_CORROBORATED; L1 = L1_CORROBORATED. "
+            "Unsafe = unsafe proceed; FCH = false-conservative hold."
+        )
+        for segment in note.runs:
+            segment.font.size=Pt(8.5)
+        d.tables[4]._element.addnext(note._element)
+        for paragraph in d.paragraphs:
+            if paragraph.text.startswith("4.3 Held-out block results"):
+                paragraph.paragraph_format.page_break_before=True
+        d.save(docx)
         for filename,outname,fmt in (
             ("IJCIP_COVER_LETTER_AUTHOR_REVIEW_DRAFT_2026-10-20.md","IJCIP_COVER_LETTER_REVIEW_ONLY.docx","gfm"),
             ("IJCIP_HIGHLIGHTS_R1.txt","IJCIP_HIGHLIGHTS_REVIEW_ONLY.docx","markdown")
