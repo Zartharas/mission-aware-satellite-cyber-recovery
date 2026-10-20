@@ -36,7 +36,12 @@ def main():
     digest = hashlib.sha256(counts_file.read_bytes()).hexdigest()
     verify(digest == checkpoint["artifact_file_sha256"]["exact_endpoint_counts.json"], "frozen counts artifact SHA256 drift")
     table = {}
-    for line in manuscript.splitlines():
+    # The same policy identifiers also appear in the topology-controlled table.
+    # Select only Section 4.2; any ambiguity in its aggregate table fails closed.
+    aggregate_section = manuscript.split("### 4.2 Study 7E: aggregate held-out outcomes", 1)[1].split(
+        "### 4.3 Held-out block results", 1
+    )[0]
+    for line in aggregate_section.splitlines():
         if re.match(r"^\|\s*(D0_BASE|L0_BASE|D1_CORROBORATED|L1_CORROBORATED)\s*\|", line):
             parts = [p.strip() for p in line.strip().strip("|").split("|")]
             verify(len(parts) == 6 and parts[0] not in table, "ambiguous overall table")
