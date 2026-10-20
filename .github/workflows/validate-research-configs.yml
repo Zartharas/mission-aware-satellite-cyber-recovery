@@ -44,6 +44,9 @@ jobs:
           trap 'rm -rf .venv-analysis/audit-scope-probe local-audit-scope-probe' EXIT
           python scripts/audit_repository_release_gate.py
 
+      - name: Audit CEAS Paper 2 current submission state across repository indexes
+        run: python scripts/audit_paper2_ceas_current_state.py
+
       - name: Audit Paper 2 Phase 6 timestamp trace design
         run: python scripts/audit_paper2_post_rejection_phase6_timestamp_trace_design.py
 
