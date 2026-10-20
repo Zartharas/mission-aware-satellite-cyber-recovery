@@ -523,7 +523,7 @@ The protocol implementations, analysis code, validation code, model-freeze recor
 
 ### Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 
-During the preparation of this work, the author used OpenAI ChatGPT to support literature organization and source discovery, manuscript structuring and drafting, consistency and compliance checking, and language refinement. The author reviewed and edited the AI-assisted material, verified references and quantitative claims against primary sources and frozen repository evidence, and takes full responsibility for the content of the publication.
+During the preparation of this work, the author used OpenAI ChatGPT to support literature organization and source discovery, manuscript structuring and drafting, consistency and compliance checking, language refinement, and drafting programmatic SVG/figure preparation code. The two explanatory figures were prepared from authored layout specifications and, for the results figure, exact frozen source counts; no generative image model was used to invent or modify experimental data. The author reviewed the rendered graphics and independently checked their numerical labels against the frozen record. The author reviewed and edited the AI-assisted material, verified references and quantitative claims against primary sources and frozen repository evidence, and takes full responsibility for the content of the publication.
 
 ## References
 [1] Space Attack Research and Tactic Analysis (SPARTA), "Cyber-safe Mode," Countermeasure CM0044, The Aerospace Corporation. Available: https://sparta.aerospace.org/countermeasures/CM0044

@@ -2,7 +2,7 @@
 
 Dear Editor,
 
-Please consider our manuscript, **“Architecture-Grounded Trust Separation for Satellite Cyber-Recovery Decisions in Space-Enabled Critical Infrastructure,”** as a full research article for the *International Journal of Critical Infrastructure Protection*.
+Please consider my manuscript, **“Architecture-Grounded Trust Separation for Satellite Cyber-Recovery Decisions in Space-Enabled Critical Infrastructure,”** as a full research article for the *International Journal of Critical Infrastructure Protection*.
 
 Space-enabled services support communications and other critical-infrastructure operations. This manuscript examines a specific assurance problem: whether apparently valid evidence is sufficient to authorize a cyber-recovery action when the evidence paths may share compromised trust domains. The study focuses on recovery-decision correctness rather than anomaly detection accuracy.
 
