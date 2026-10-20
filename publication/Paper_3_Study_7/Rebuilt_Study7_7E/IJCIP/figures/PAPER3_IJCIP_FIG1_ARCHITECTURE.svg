@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" width="1220" height="752" viewBox="0 0 1220 752"><title id="title">Study 7E modeled architecture and two evidence boundaries</title><desc id="desc">Five experimental trust domains; cFS engineering qualification shown separately from canonical Python held-out decision inference. Research-only objective truth never enters policy inputs. No integrated onboard learned inference is claimed.</desc><rect width="1220" height="752" fill="white"/>
+<text x="40" y="38" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" text-anchor="start" fill="#233247">Figure 1 — Study 7E architecture and scientific execution boundary</text>
+<rect x="40" y="61" width="215" height="58" rx="12" fill="#eaf2fa" stroke="#496789" stroke-width="1.5"/>
+<text x="148" y="97" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="middle" fill="#233247">Source domain</text>
+<rect x="275" y="61" width="215" height="58" rx="12" fill="#eaf2fa" stroke="#496789" stroke-width="1.5"/>
+<text x="383" y="97" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="middle" fill="#233247">Key domain</text>
+<rect x="510" y="61" width="215" height="58" rx="12" fill="#eaf2fa" stroke="#496789" stroke-width="1.5"/>
+<text x="618" y="97" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="middle" fill="#233247">Execution domain</text>
+<rect x="745" y="61" width="215" height="58" rx="12" fill="#eaf2fa" stroke="#496789" stroke-width="1.5"/>
+<text x="853" y="97" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="middle" fill="#233247">Transport domain</text>
+<rect x="980" y="61" width="215" height="58" rx="12" fill="#eaf2fa" stroke="#496789" stroke-width="1.5"/>
+<text x="1088" y="97" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="middle" fill="#233247">Authority domain</text>
+<text x="40" y="155" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#233247">A. cFS engineering qualification: bounded component/message tests</text>
+<rect x="40" y="175" width="320" height="132" rx="12" fill="#f1f6fb" stroke="#496789" stroke-width="1.5"/>
+<text x="54" y="202" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">Producers + health source</text>
+<text x="54" y="243" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Primary / corroborating evidence</text>
+<text x="54" y="274" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Readiness and authorization inputs</text>
+<rect x="449" y="175" width="327" height="132" rx="12" fill="#f1f6fb" stroke="#496789" stroke-width="1.5"/>
+<text x="463" y="202" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">cFE / Software Bus contracts</text>
+<text x="463" y="243" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Signed-evidence qualifier</text>
+<text x="463" y="274" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Validation and message routing</text>
+<rect x="864" y="175" width="314" height="132" rx="12" fill="#f1f6fb" stroke="#496789" stroke-width="1.5"/>
+<text x="878" y="202" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">Deterministic binding + sink</text>
+<text x="878" y="243" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">D0/D1 engineering checks</text>
+<text x="878" y="274" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Recovery-action sink</text>
+<path d="M360 246 H440 M776 246 H855" stroke="#215f9c" stroke-width="4" fill="none"/><path d="M440 246 l-15 -9 v18 z M855 246 l-15 -9 v18 z" fill="#215f9c"/>
+<text x="40" y="332" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" text-anchor="start" fill="#8d3d22">Engineering success is not a canonical Study 7E policy-execution result.</text>
+<line x1="40" y1="356" x2="1180" y2="356" stroke="#7c8997" stroke-width="2" stroke-dasharray="10 8"/>
+<text x="40" y="396" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#233247">B. Frozen Python inference: 196 held-out scenarios / 784 policy decisions</text>
+<rect x="40" y="416" width="320" height="134" rx="12" fill="#eaf7f1" stroke="#347b60" stroke-width="1.5"/>
+<text x="54" y="443" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">Controlled finite scenarios</text>
+<text x="54" y="486" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Faults F0–F12 and topologies</text>
+<text x="54" y="517" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Policy-visible vectors</text>
+<rect x="449" y="416" width="327" height="134" rx="12" fill="#eaf7f1" stroke="#347b60" stroke-width="1.5"/>
+<text x="463" y="443" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">Frozen policy comparisons</text>
+<text x="463" y="486" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Equal base inputs: D0 / L0</text>
+<text x="463" y="517" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Equal corroborated inputs: D1 / L1</text>
+<rect x="864" y="416" width="314" height="134" rx="12" fill="#eaf7f1" stroke="#347b60" stroke-width="1.5"/>
+<text x="878" y="443" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">Decision outputs + audit</text>
+<text x="878" y="486" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">ENTER_RECOVERY_GATE or HOLD</text>
+<text x="878" y="517" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Exact count and hash reconciliation</text>
+<path d="M360 487 H440 M776 487 H855" stroke="#277755" stroke-width="4" fill="none"/><path d="M440 487 l-15 -9 v18 z M855 487 l-15 -9 v18 z" fill="#277755"/>
+<rect x="40" y="577" width="555" height="98" rx="12" fill="#fff2ed" stroke="#b2735c" stroke-width="1.5"/>
+<text x="55" y="607" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">Research-only adjudication (outside policy inputs)</text>
+<text x="55" y="638" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">True authorization, readiness, fault and aliasing</text>
+<text x="55" y="659" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" text-anchor="start" fill="#9b3d2d">NEVER supplied to D0, L0, D1 or L1</text>
+<rect x="615" y="577" width="563" height="98" rx="12" fill="#f4f5f9" stroke="#8292a4" stroke-width="1.5"/>
+<text x="630" y="607" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#233247">Strict interpretation boundary</text>
+<text x="630" y="638" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">No flight qualification, RF performance, operational risk</text>
+<text x="630" y="659" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">or end-to-end onboard learned-policy validation</text>
+<text x="40" y="704" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Diagram expresses contract correspondence only; no claimed live runtime path connects lanes A and B.</text>
+<text x="40" y="731" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#233247">Study 7 (1,033 modeled observations) is a separate frozen population, not included in this graphic.</text>
+</svg>

@@ -1,0 +1,22 @@
+name: Paper 3 IJCIP R3 science and figure guard
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/paper3-ijcip-r3-evidence-gate.yml"
+      - "scripts/audit_paper3_ijcip_r3_enhancements.py"
+      - "publication/Paper_3_Study_7/Rebuilt_Study7_7E/**"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Read-only frozen evidence and manuscript check
+        run: python scripts/audit_paper3_ijcip_r3_enhancements.py
+      - name: No tracked source changes after validation
+        run: git diff --exit-code

@@ -22,7 +22,7 @@ A record can remain signed, current, and structurally acceptable to a recovery g
 
 These questions are distinct from conventional satellite machine-learning performance studies. Recent spacecraft ML work has emphasized anomaly detection, telemetry classification, model comparison, and adaptation to changing mission data [4]-[6]. Those are important upstream problems, but a high-performing detector does not by itself establish that a downstream recovery action is justified. Aerospace ML assurance literature likewise treats confidence as a lifecycle evidence problem involving requirements, data, model behavior, integration, verification, validation, robustness, traceability, and system context rather than only predictive performance [3]. Partial observability and latent state are also established safety problems in their own right [7], [8]. The novelty claimed here is therefore not a new theory of hidden state, secure spacecraft recovery, resilient flight-software architecture, cFS security, or evidence redundancy. Prior work has addressed trusted-hardware spacecraft recovery, software-resilient space-system architectures, mission-specific cybersecurity architecture, cFS attack surfaces, malicious spacecraft peripherals, and adversarial risk around satellite ML [14]-[20]. The narrower contribution here is a controlled satellite cyber-recovery assurance construction that separates information availability, selector class, and trust-domain architecture, then freezes learned models before evaluating equal-information policy pairs on held-out faults and trust topologies.
 
-The paper reports two separate frozen studies.
+The paper reports two separate frozen studies. Their distinctive result is not a new learner or a new theory of hidden state: equal-information deterministic/learned policy pairs disagree on held-out cases, and the value of corroboration depends jointly on selector behavior and modeled trust-domain faults. Unlike separate Paper 2 work on evidence freshness, producer composition and artifact qualification, the endpoints here concern policy decisions under matched inputs and prospectively frozen architecture faults; no Paper 2 observations are imported.
 
 **Study 7 / S7-LSO-001** is the information-sufficiency foundation. It evaluates a deterministic visible-only comparator, a learned selector trained on the same eight visible features, and a corroboration-aware learned selector. The complete finite population contains 1,033 observations. The study asks whether exact fit to a visible rule implies correctness when relevant adjudication truth is hidden and how a corroborating observable changes that boundary when it is independent versus correlated with the compromised evidence path.
 
@@ -158,6 +158,10 @@ ENTER_RECOVERY_GATE if and only if security signal, true authorization, and true
 The cFS engineering qualification path compiled and executed the producer bridge, signed-evidence qualifier, deterministic D0/D1 binding, and recovery sink on the selected standalone cFS baseline. It demonstrated a nominal signed-evidence path, fail-closed behavior for post-signature transport corruption, sticky equivocation detection for the execution-compromise construction, and malformed-ingress rejection. No Study-7E scientific scenario was executed during that engineering qualification.
 
 The canonical held-out scientific inference is therefore best described as **cFS-grounded, not flight-software-in-the-loop learned inference**. The frozen architecture and evidence contracts are grounded in the cFS implementation surfaces, while held-out policy evaluation uses frozen deterministic rules and hash-verified decision-tree model artifacts in a bound Python environment, with an independently implemented semantic-tree interpreter auditing learned decisions.
+
+![Architecture of the separate cFS engineering qualification and Python held-out inference lanes, with research-only truth excluded from selector inputs](figures/PAPER3_IJCIP_FIG1_ARCHITECTURE.svg)
+
+**Figure 1.** Experimental architecture and evidence boundary. The five source/key/execution/transport/authority domains are modeled identities, not certified physical or organizational independence. The separate cFS engineering and frozen Python held-out lanes do not demonstrate onboard learned-policy execution or an operational spacecraft–ground loop.
 
 ### 3.4 Equal-information policy contracts
 
@@ -306,6 +310,10 @@ Study 7E produced the following exact aggregate counts over 196 held-out scenari
 | L1_CORROBORATED | 43 | 31 | 12 | 66 | 130 |
 
 These counts do not support a global policy ranking. D1 has the fewest unsafe proceeds but the most false-conservative holds and the most total objective errors. L1 has the most unsafe proceeds but the fewest false-conservative holds. A single aggregate error total would therefore conceal materially different safety/availability behavior.
+
+![Grouped bars of unsafe proceeds and false-conservative holds for four Study 7E policies](figures/PAPER3_IJCIP_FIG2_ENDPOINTS.svg)
+
+**Figure 2.** Exact counts for each selector across the same 196 Study 7E held-out scenarios. Unsafe proceeds and false-conservative holds are different failure types, not a single mission-weighted cost. The adverse F12 transfer and C0 all-HOLD controls are preserved in the results below.
 
 ### 4.3 Held-out block results
 
