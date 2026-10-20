@@ -41,7 +41,9 @@ PAPER2_PHASE5C_REL = Path("scripts/audit_paper2_post_rejection_phase5c_p99x10_ga
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
-    "**Current-state date:** 2026-10-20",\n    "SUBMISSION_RECEIVED__TECHNICAL_CHECK",\n    "38cc76f5-ab6b-4b8e-b6ba-24727db86b48",
+    "**Current-state date:** 2026-10-20",
+    "SUBMISSION_RECEIVED__TECHNICAL_CHECK",
+    "38cc76f5-ab6b-4b8e-b6ba-24727db86b48",
     "four publication lines that have been submitted",
     "2026-09-I012066",
     "AA-D-26-02872",
