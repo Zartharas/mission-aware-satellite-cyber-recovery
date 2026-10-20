@@ -80,6 +80,34 @@ def main():
         verify(marker in manuscript, "essential qualification removed: "+marker)
     for marker in ("Paper 1","Paper 2","Paper 4","Paper 5","P2X","NO new scientific observation","NOT GRANTED"):
         verify(marker in guard, "cross-study firewall missing: "+marker)
+
+    # A bibliography-entry count is not enough: journal submission needs
+    # deterministic first-appearance numbering and no missing reference.
+    require_refs = manuscript.split("## References\\n", 1)
+    verify(len(require_refs) == 2, "reference-section boundary missing")
+    text_before_refs, bib = require_refs
+    bibliography = list(re.finditer(r"^\\[(\\d+)\\]\\s+(.+)$", bib, re.MULTILINE))
+    verify(len(bibliography) == 24, "expected 24 separately numbered bibliographic items")
+    verify([int(m.group(1)) for m in bibliography] == list(range(1, 25)), "reference items not consecutively numbered")
+    citation_order = []
+    for m in re.finditer(r"\\[(\\d+)\\](?:[-–]\\[(\\d+)\\])?", text_before_refs):
+        first = int(m.group(1))
+        last = int(m.group(2)) if m.group(2) else first
+        verify(1 <= first <= last <= 24, "invalid citation range")
+        for ref_id in range(first, last + 1):
+            if ref_id not in citation_order:
+                citation_order.append(ref_id)
+    verify(citation_order == list(range(1, 25)), "citations not ordered by first appearance")
+    verify("https://www.govinfo.gov/app/details/GOVPUB-PREX23-PURL-gpo193490" in bib, "preserved historical government source missing")
+    verify("https://www.whitehouse.gov/wp-content/uploads/2021/12/united-states-space-priorities-framework" not in bib, "broken historical URL remains")
+    abstract = manuscript.split("## Abstract\\n", 1)[1].split("**Keywords:**", 1)[0]
+    abstract_words = len(abstract.strip().split())
+    verify(abstract_words <= 250, "conservative 250-word abstract preparation cap exceeded")
+    highlights = (R3 / "IJCIP_HIGHLIGHTS_R1.txt").read_text(encoding="utf-8").splitlines()
+    highlights = [line.strip().lstrip("•- ").strip() for line in highlights if line.strip()]
+    verify(3 <= len(highlights) <= 5 and all(len(h) <= 85 for h in highlights), "highlights 3-5 / 85-character guidance violated")
+    print("PAPER3_R3_REFERENCE_ORDER_1_TO_24=PASS")
+    print("PAPER3_IJCIP_PROVISIONAL_ABSTRACT_HIGHLIGHTS=PASS")
     print("PAPER3_FROZEN_STUDY7_AND_STUDY7E=PASS")
     print("PAPER3_MANUSCRIPT_ENDPOINTS_AND_FIGURES=PASS")
     print("PAPER3_CROSS_STUDY_FIREWALL=PASS")
