@@ -10,7 +10,7 @@
 
 **Paper 4 IJSCCN R5 rebuild-gate update:** 2026-09-21
 
-**Paper 3 CEAS decision/recovery update:** 2026-09-22
+**Paper 3 Study 7E / IJCIP draft continuity update:** 2026-10-20 (original CEAS decision: 2026-09-22)
 
 **Paper 4 IJSCCN editorial decision update:** 2026-09-24
 
@@ -20,7 +20,7 @@ This is the canonical cross-publication handoff for the `mission-aware-satellite
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening 2026-09-26 without external review, then submitted in rebuilt RevB form to CEAS Space Journal on 2026-10-19; the confirmed portal status is Technical Check. Study 3/4/6 and S3X/S6X separately frozen evidence remain scientifically distinct. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening 2026-09-26 without external review, then submitted in rebuilt RevB form to CEAS Space Journal on 2026-10-19; the confirmed portal status is Technical Check. Study 3/4/6 and S3X/S6X separately frozen evidence remain scientifically distinct. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3's originally rejected Study-7-only CEAS package remains frozen. The separate Study 7E extension has since completed qualified cFS/NOS3 engineering gates, a standalone-cFS stack decision, a sealed canonical scientific execution, and a formal result freeze. Rebuilt Paper 3 (Study 7 + Study 7E, unpooled) is in an IJCIP-specific R3 preparation draft PR #168; it has not been submitted or merged.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -117,24 +117,22 @@ Durable Study-7 evidence:
 
 The earlier `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory remains historical, unsubmitted Paper-3 development provenance only.
 
-## Paper 3 post-rejection recovery gate
+## Paper 3 post-rejection recovery — current Study 7E and IJCIP state
 
-The author explicitly authorized a rejection-to-research-requirements audit on 2026-09-22.
+**Current as of 2026-10-20:** Study 7E is formally frozen and PR #167 was merged. The earlier 2026-09-22 protocol-draft/implementation-only gates below this branch's historical review files are not current execution restrictions. Read the exact-state [2026-10-20 Paper-3 handoff](../publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_STUDY7E_CURRENT_HANDOFF_2026-10-20.md) before resuming.
 
-Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
+- **Experiment:** `S7E-AERC-001`; architecture-grounded equal-information recovery comparators under correlated trust failures.
+- **Corrected cFS Gate 1:** `PASS`, workflow run `35868263684`. Standalone cFS `v7.0.1` / `088b2fa828db9ff7e00733f1908e0eeb59f66ce3`. This proves limited cFE custom-app/Software Bus smoke, not complete recovery policy runtime.
+- **Bounded NOS3 Gate 2:** `PASS`, workflow run `35870689230`. NOS3 `v1_07_05` / `5a3bdee6be9a2c67fdf994ae6db56d5c60395302`; no integrated Study 7E NOS3 runtime established.
+- **Stack selected:** standalone NASA cFS v7.0.1 for the study; NOS3 retained as build-feasible reference, with no mixed dependency pins.
+- **Protocol/environment/model/result:** frozen under `S7E-AERC-FREEZE-001`, `S7E-AERC-MODEL-FREEZE-001`, and `S7E-AERC-RESULT-FREEZE-001`.
+- **Held-out scientific execution:** `S7E-AERC-HELDOUT-EXEC-001` sealed. E1 = 84, E2 = 104, C0 = 8, total **196 scenarios / 784 policy decisions**, 0 invalid, 0 independent-audit mismatches. Durable original archive SHA-256 `cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35`.
+- **PR #167:** merged as `740cc4984387b2c4f14b337b76d66198406f22c4` on 2026-09-24.
+- **Rebuilt manuscript:** [PR #168](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/168) **OPEN/DRAFT/UNMERGED** at `375aa5bc5808ddace8bb124df73eb184a61b9765`; head CI run `36012450683` SUCCESS.
+- **Working venue:** International Journal of Critical Infrastructure Protection (IJCIP), targeted for preparation only. R3 path on PR #168: `publication/Paper_3_Study_7/Rebuilt_Study7_7E/IJCIP/PAPER3_IJCIP_MANUSCRIPT_R3.md`; preservation audit PASS. Journal-specific requirements still require live Guide/portal reconciliation after an earlier HTTP 403.
+- **Next managed gate:** [Issue #221](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/221), source/venue compliance and final DOCX/PDF/visual QA. Explicit separate author decisions required for PR #168 merge and publisher submission.
 
-Proposed extension:
-
-- **Experiment ID:** `S7E-AERC-001`
-- **Working title:** Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures
-- **Status:** `PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED`
-- **Proposal:** `publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md`
-
-The extension now has a draft prospective protocol, implementation plan, test/audit plan, architecture source ledger, and candidate environment baseline. The design uses a cFS-grounded reference architecture, five explicit trust-domain topologies, twelve fault/compromise profiles, and equal-information deterministic/learned policy pairs.
-
-Prospective design quantities are 84 training architecture scenarios and 196 canonical evaluation/control scenarios, producing 784 canonical evaluation policy-decision observations. The complete manifest contains 280 scenarios after adding direct execution-domain fault coverage. These are planned counts, not scientific results.
-
-No `study7e/` execution workspace, canonical run, or new scientific result is authorized yet. Study 7 and any future Study 7E remain separate populations and must not be pooled.
+The original Study 7 uses 1,033 frozen modeled observations. It must **not** be pooled with Study 7E or silently amended. Neither study supports universal policy ranking, operational spacecraft performance, certification, or probabilistic reliability claims. No retraining, re-execution under the sealed ID, new evidence epoch or result edit is authorized by this status reconciliation.
 
 ## Current post-rejection Study 8 gate and Study 8E extension
 
@@ -254,7 +252,7 @@ Do not rerun TRACE-002 merely to clean the stale metadata label without a new ex
 
 ## Deferred independent publication work
 
-Paper 3 is now a separately authorized post-rejection recovery workstream. Study 7 remains frozen and consumed by the Paper-3 line; it must not be reused as new experimental evidence elsewhere. Any new Paper-3 evidence must come from a separately prospectively designed extension such as proposed `S7E-AERC-001`.
+Paper 3 already contains independently frozen Study 7 and Study 7E evidence; they remain separately scoped and must never be pooled or repurposed as fresh experimental observations. The current next gate concerns the draft IJCIP R3 publication package, not new Paper-3 science.
 
 The remaining-study candidate audit remains separate while the Paper 4 / Study 8 + Study 8E fresh venue-fit audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
 
