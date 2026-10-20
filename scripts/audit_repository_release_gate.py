@@ -9,7 +9,7 @@ and tracker wording while leaving frozen scientific records unchanged.
 This wrapper creates a detached temporary worktree at HEAD, overlays the
 caller's Git-tracked working-tree state, runs the historical core audit, and
 permits only the exact known stale-current-state failures when the authoritative
-2026-09-26 publication-state record is present. Any additional or different
+2026-10-20 publication-state record (including the 2026-10-19 Paper 2 CEAS receipt) is present. Any additional or different
 core failure still fails closed. The current Study-8 publication-state overlay
 and Repository Review v3 remediation audit then run normally.
 
@@ -41,7 +41,7 @@ PAPER2_PHASE5C_REL = Path("scripts/audit_paper2_post_rejection_phase5c_p99x10_ga
 
 CURRENT_STATE_REL = Path("docs/CURRENT_PUBLICATION_STATE.md")
 CURRENT_STATE_REQUIRED = (
-    "**Current-state date:** 2026-09-26",
+    "**Current-state date:** 2026-10-20",\n    "SUBMISSION_RECEIVED__TECHNICAL_CHECK",\n    "38cc76f5-ab6b-4b8e-b6ba-24727db86b48",
     "four publication lines that have been submitted",
     "2026-09-I012066",
     "AA-D-26-02872",
@@ -179,7 +179,7 @@ def authoritative_current_state_is_bound(audit_root: Path) -> bool:
             print(f"missing_current_state_token={token}", file=sys.stderr)
         return False
 
-    print("authoritative_current_publication_state=PASS_2026_09_26")
+    print("authoritative_current_publication_state=PASS_2026_10_20_PAPER2_CEAS")
     return True
 
 
