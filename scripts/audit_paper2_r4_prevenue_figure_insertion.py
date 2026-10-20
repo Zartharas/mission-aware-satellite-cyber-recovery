@@ -10,6 +10,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 D=ROOT/"publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild"
 BASE="d3cf8af3def805db7fda97dbda457b7c21f80c84"
+R4_MERGE="4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4"
 R3=D/"PAPER2_REBUILD_MANUSCRIPT_R3_2026-09-30.md"
 R4=D/"PAPER2_REBUILD_MANUSCRIPT_R4_2026-10-01.md"
 FIG=D/"figures/PAPER2_R2_FIGURE1_RESIDUAL_BOUNDARIES.svg"
@@ -98,7 +99,11 @@ allowed={
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R4_LIVE_PREVENUE_SCOPE_SCREEN_2026-10-01.md",
 "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_R4_PREVENUE_STATUS.json",
 }
-changed=set(subprocess.check_output(["git","diff","--name-only",f"{BASE}...HEAD"],cwd=ROOT,text=True).splitlines())
+# Audit the frozen R4 change set at its verified merge commit, not later HEAD.
+# The bound blob checks above still reject mutations to the R4 manuscript,
+# Figure 1, science records, and R4 authorization artifacts.
+subprocess.run(["git","merge-base","--is-ancestor",R4_MERGE,"HEAD"],cwd=ROOT,check=True)
+changed=set(subprocess.check_output(["git","diff","--name-only",f"{BASE}...{R4_MERGE}"],cwd=ROOT,text=True).splitlines())
 req(changed==allowed,"branch diff whitelist drift: "+str(sorted(changed^allowed)))
 req("python scripts/audit_paper2_r4_prevenue_figure_insertion.py" in WORKFLOW.read_text(),"missing R4 CI hook")
 print("paper2_r4_prevenue_figure_insertion_audit=PASS")
