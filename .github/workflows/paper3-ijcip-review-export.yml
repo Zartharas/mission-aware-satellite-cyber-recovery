@@ -28,6 +28,8 @@ jobs:
           sudo apt-get update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends pandoc libreoffice-writer poppler-utils
           python -m pip install --disable-pip-version-check cairosvg==2.7.1 python-docx==1.2.0
+      - name: Reconstruct original frozen Study 7E held-out archive (unpublished deposit candidate)
+        run: python publication/Paper_3_Study_7/Rebuilt_Study7_7E/IJCIP/prepare_study7e_deposit_candidate.py
       - name: Build candidate Word and PDF review files
         env:
           PAPER3_SOURCE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}

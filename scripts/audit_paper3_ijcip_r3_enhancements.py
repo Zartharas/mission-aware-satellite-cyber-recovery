@@ -98,6 +98,16 @@ def main():
             "table caption must precede native table with one blank line"
         )
     print("PAPER3_R3_NUMBERED_NATIVE_TABLE_CAPTIONS=PASS")
+    for n in (1, 2):
+        cap = manuscript.split("**Figure " + str(n) + ".**", 1)
+        verify(len(cap) == 2 and "AI-use disclosure: OpenAI ChatGPT" in cap[1].split("\n", 1)[0], "Figure AI disclosure missing")
+        graphic = R3 / "figures" / ("PAPER3_IJCIP_FIG1_ARCHITECTURE.svg" if n == 1 else "PAPER3_IJCIP_FIG2_ENDPOINTS.svg")
+        verify("Figure " + str(n) + " —" not in graphic.read_text(encoding="utf-8"), "number/title inside figure artwork")
+    for n in range(1, 9):
+        verify(manuscript.split("## References\n", 1)[0].count("Table " + str(n)) >= 2, "table not cited in prose")
+    verify("[27]" in manuscript and "10.5281/zenodo.22732060" in manuscript, "Study 7 dataset citation absent")
+    verify("Study 7E data-repository deposit" in manuscript and "must be supplied before submission" in manuscript, "Study 7E archival deposit release gate absent")
+    print("PAPER3_IJCIP_FIGURE_DISCLOSURE_AND_DATA_SHARING_GATE=PASS")
     for marker in ("Paper 1","Paper 2","Paper 4","Paper 5","P2X","NO new scientific observation","NOT GRANTED"):
         verify(marker in guard, "cross-study firewall missing: "+marker)
 
@@ -107,17 +117,17 @@ def main():
     verify(len(require_refs) == 2, "reference-section boundary missing")
     text_before_refs, bib = require_refs
     bibliography = list(re.finditer(r"^\[(\d+)\]\s+(.+)$", bib, re.MULTILINE))
-    verify(len(bibliography) == 26, "expected 26 separately numbered bibliographic items")
-    verify([int(m.group(1)) for m in bibliography] == list(range(1, 27)), "reference items not consecutively numbered")
+    verify(len(bibliography) == 27, "expected 27 separately numbered bibliographic items")
+    verify([int(m.group(1)) for m in bibliography] == list(range(1, 28)), "reference items not consecutively numbered")
     citation_order = []
     for m in re.finditer(r"\[(\d+)\](?:[-–]\[(\d+)\])?", text_before_refs):
         first = int(m.group(1))
         last = int(m.group(2)) if m.group(2) else first
-        verify(1 <= first <= last <= 26, "invalid citation range")
+        verify(1 <= first <= last <= 27, "invalid citation range")
         for ref_id in range(first, last + 1):
             if ref_id not in citation_order:
                 citation_order.append(ref_id)
-    verify(citation_order == list(range(1, 27)), "citations not ordered by first appearance")
+    verify(citation_order == list(range(1, 28)), "citations not ordered by first appearance")
     verify("https://www.govinfo.gov/app/details/GOVPUB-PREX23-PURL-gpo193490" in bib, "preserved historical government source missing")
     verify("https://www.whitehouse.gov/wp-content/uploads/2021/12/united-states-space-priorities-framework" not in bib, "broken historical URL remains")
     abstract = manuscript.split("## Abstract\n", 1)[1].split("**Keywords:**", 1)[0]
@@ -126,7 +136,7 @@ def main():
     highlights = (R3 / "IJCIP_HIGHLIGHTS_R1.txt").read_text(encoding="utf-8").splitlines()
     highlights = [line.strip().lstrip("•- ").strip() for line in highlights if line.strip()]
     verify(3 <= len(highlights) <= 5 and all(len(h) <= 85 for h in highlights), "highlights 3-5 / 85-character guidance violated")
-    print("PAPER3_R3_REFERENCE_ORDER_1_TO_26=PASS")
+    print("PAPER3_R3_REFERENCE_ORDER_1_TO_27=PASS")
     print("PAPER3_IJCIP_PROVISIONAL_ABSTRACT_HIGHLIGHTS=PASS")
     print("PAPER3_FROZEN_STUDY7_AND_STUDY7E=PASS")
     print("PAPER3_MANUSCRIPT_ENDPOINTS_AND_FIGURES=PASS")

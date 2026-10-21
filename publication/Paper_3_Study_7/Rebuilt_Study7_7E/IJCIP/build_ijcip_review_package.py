@@ -39,6 +39,11 @@ def main():
             png = tmp / "figures" / (name + ".png")
             cairosvg.svg2png(url=str(svg), write_to=str(png), output_width=2400)
             shutil.copyfile(png, OUT / (name + "_REVIEW.png"))
+            number = "1" if name.endswith("ARCHITECTURE") else "2"
+            vector = OUT / ("FIGURE_" + number + "_IJCIP_VECTOR.pdf")
+            cairosvg.svg2pdf(url=str(svg), write_to=str(vector), output_width=720)
+            if not vector.read_bytes().startswith(b"%PDF-"):
+                raise AssertionError("separate PDF vector artwork invalid")
             body = body.replace("figures/" + name + ".svg", "figures/" + name + ".png")
         markdown = tmp / "manuscript.md"
         markdown.write_text(body, encoding="utf-8")
@@ -106,7 +111,7 @@ def main():
             segment.font.size=Pt(8.5)
         # Put the key BEFORE the table: otherwise the current PDF splits
         # policy rows and their legend across adjacent pages.
-        d.tables[4]._element.addprevious(note._element)
+        d.tables[4]._element.addnext(note._element)
         for paragraph in d.paragraphs:
             if paragraph.text.startswith("Table 3. Study 7 hidden-truth collision"):
                 paragraph.paragraph_format.page_break_before = True
@@ -122,7 +127,22 @@ def main():
             run(["pandoc","-f",fmt,"-t","docx","--standalone","-o",str(OUT/outname),str(AREA/filename)])
         meta = (AREA/"IJCIP_SUBMISSION_METADATA_DRAFT.md").read_text(encoding="utf-8")
         title = tmp/"title.md"
-        title.write_text("# Author details — author verification only\n\n"+meta+"\n",encoding="utf-8")
+        if "Aman Kumar Singh" not in meta or "Independent Researcher" not in meta:
+            raise AssertionError("author identity/affiliation metadata missing")
+        matched = re.search(r"Corresponding-author email:\s*(\S+)", meta)
+        if not matched:
+            raise AssertionError("correspondence email missing")
+        title_text = (
+            "# Title page — author review only\n\n"
+            "**Title:** " + manuscript.splitlines()[0][2:] + "\n\n"
+            "**Sole author and corresponding author:** Aman Kumar Singh\n\n"
+            "**Affiliation:** Independent Researcher, The Woodlands, Texas, United States\n\n"
+            "**Full postal affiliation:** [AUTHOR MUST CONFIRM BEFORE UPLOAD]\n\n"
+            "**Correspondence email:** " + matched.group(1) + "\n\n"
+            "**ORCID:** 0009-0008-9752-3743\n\n"
+            "**Status:** Author-review candidate, not journal-upload authorized.\n"
+        )
+        title.write_text(title_text, encoding="utf-8")
         run(["pandoc","-f","gfm","-t","docx","--standalone","-o",str(OUT/"IJCIP_TITLE_PAGE_REVIEW_ONLY.docx"),str(title)])
         run(["libreoffice","-env:UserInstallation="+(tmp/"lo_profile").as_uri(),"--headless","--convert-to","pdf","--outdir",str(OUT),str(docx)])
         pdf = OUT/"PAPER3_IJCIP_MANUSCRIPT_REVIEW_ONLY.pdf"
@@ -137,7 +157,7 @@ def main():
         run(["pdfinfo",str(pdf)])
         receipt={"status":"REVIEW_ONLY_NOT_PUBLISHER_READY","source_sha256":digest(source),
                  "source_head":os.environ.get("PAPER3_SOURCE_HEAD","NOT_BOUND"),
-                 "new_experiment":False,"journal_specific_rules_verified":False,
+                 "new_experiment":False,"official_ijcip_guide_verified":True,"portal_fields_verified":False,
                  "author_confirmation":False,"visual_qa":False,"artifacts":{}}
         for artifact in sorted(OUT.iterdir()):
             if artifact.is_file() and artifact.name!="REVIEW_ONLY_SHA256_MANIFEST.json":
