@@ -85,6 +85,8 @@ The selected Study-7E environment is standalone cFS v7.0.1 at the frozen commit 
 
 The critical-infrastructure relevance of the study is architectural and service-enabling rather than a claim that the experiment models an entire infrastructure sector. U.S. space policy describes space systems as an essential component of critical infrastructure because they both provide important services directly and enable other infrastructure sectors and industries [2]. CISA identifies satellite as part of communications infrastructure and documents communications dependencies spanning energy, transportation, water and wastewater, emergency services, information technology, and financial services [3]. SPD-5 establishes cybersecurity principles for protecting space systems and supporting infrastructure [4].
 
+Two articles published in this journal provide closer critical-infrastructure context: a protection-system design for interconnected space-control ground stations [25] and an examination of cyber attacks affecting critical infrastructures and satellite communications [26]. Those contributions frame the relevance of spacecraft and ground-segment security to infrastructure protection. The present experiment instead isolates recovery-authorization policy outputs under identical paired policy inputs and deliberately faulted evidence-trust relationships; it does not claim to implement or measure the ground-station protections or communication disruptions discussed in those publications.
+
 Within that context, the experimental unit in this paper remains a spacecraft cyber-recovery decision. The study measures whether a modeled recovery gate proceeds unsafely or holds conservatively under specified evidence and trust-domain conditions. It does not simulate downstream telecommunications loss, financial disruption, transportation interruption, defense mission effects, or other cross-sector cascades. The infrastructure-protection contribution is therefore a bounded assurance result about the cyber-recovery layer of a space-enabled asset, not a system-level estimate of societal infrastructure resilience.
 
 ## 3. Two-Study Research Design
@@ -589,3 +591,7 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 [23] NASA Goddard Space Flight Center, "Software Bus Network (SBN)," NASA Software Catalog, GSC-16917-1. Available: https://software.nasa.gov/software/GSC-16917-1
 
 [24] NASA, "NASA Operational Simulator for Small Satellites (NOS3)," NASA Software Catalog, GSC-17737-1. Available: https://software.nasa.gov/software/GSC-17737-1
+
+[25] A. Cantelli-Forti, A. Capria, A. L. Saverino, F. Berizzi, D. Adami, and C. Callegari, "Critical infrastructure protection system design based on SCOUT multitech seCurity system for intercOnnected space control groUnd staTions," *International Journal of Critical Infrastructure Protection*, vol. 32, Art. 100407, 2021, doi: 10.1016/j.ijcip.2020.100407.
+
+[26] A. Carlo and K. Obergfaell, "Cyber attacks on critical infrastructures and satellite communications," *International Journal of Critical Infrastructure Protection*, vol. 46, Art. 100701, 2024, doi: 10.1016/j.ijcip.2024.100701.

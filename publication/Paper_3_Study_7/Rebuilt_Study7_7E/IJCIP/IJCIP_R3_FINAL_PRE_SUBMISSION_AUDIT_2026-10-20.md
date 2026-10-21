@@ -25,7 +25,7 @@
 
 ## Reviewer-readable submission artifact checks
 
-- [x] Manuscript has 24 unique citations in first-appearance order and numbered bibliography entries. Source DOI/metadata audit exists, with institution-only entries distinguished from scholarly DOI checks.
+- [x] Manuscript has 26 unique cited sources in first-appearance order and numbered bibliography entries. The original 24-source audit is preserved as a versioned historical record; two publisher-verified IJCIP context papers were appended with no numerical or experiment changes. Source DOI/metadata audit exists, with institution-only entries distinguished from scholarly DOI checks.
 - [x] Eight Markdown-native data tables have consecutively numbered, descriptive captions in the publication source. Table counts are unchanged; no scientific rows were modified.
 - [x] Two evidence-bound SVG figures are inserted: a trust-domain/execution-boundary diagram and a count-only endpoint visualization. The figures are diagrams/plots, not external empirical data or generative images.
 - [x] R3 has two AI-use disclosures covering protocol/research assistance and editorial/figure-code assistance; sole-author credit remains unchanged.
@@ -33,7 +33,7 @@
 - [x] All three CI workflows passed on prior exact review head `f47c4f5f197fac36c20c2dda9f638853e7ec012f` (general run #1504, science/figure #11, export #6). A **new exact-head** run is required for this caption-enhanced candidate. Do not reuse prior-green status for this commit.
 - [ ] Reinspect the newly generated DOCX/PDF pages after the eight captions, especially 3.1, 4.1–4.3, 4.6 and 4.8, and confirm that captions stay with their tables and that none crosses pages awkwardly.
 - [ ] Confirm the authoritative guide, editorial portal file types, article/abstract length requirements, manuscript style, figures/artwork slots and reviewer/blinding model.
-- [ ] Final human verification of all 24 publishers' authors/year/volume/DOI/pagination data and journal-title abbreviation policy; references with agency landing pages require agency-specific verification.
+- [ ] Final human verification of all 26 sources' authors/year/volume/DOI/pagination data and journal-title abbreviation policy; references with agency landing pages require agency-specific verification.
 - [ ] Confirm the sole-author legal name, independent affiliation, active corresponding email, ORCID and title-page fields as authored in `IJCIP_SUBMISSION_METADATA_DRAFT.md`; this audit deliberately does not repeat personal contact information.
 - [ ] Confirm originality, simultaneous-submission status, overlap with the earlier **rejected and unpublished** Study-7 CEAS manuscript, data/code release rights, funding, competing interests, artwork provenance and AI-use declarations.
 - [ ] Human review of reviewer PDF, separate cover letter, highlights and title page; then verify portal-generated proof after permitted upload and **before** final Submit.
@@ -45,3 +45,7 @@ The author permitted controlled manuscript preparation, scientific/visual QA and
 Because GitHub API reported repository visibility **public**, the draft manuscript should be assumed publicly accessible. Do not introduce new credentials, confidential correspondence, unpublished personal information or restricted licensed content into tracked files.
 
 **Terminal gate:** `REVIEW_ONLY_NOT_SUBMISSION_READY` until all mandatory publisher/author release checks are actually satisfied.
+
+## Subsequent journal-specific contextual literature addition
+
+Two already-published IJCIP sources were added after the initial 24-item bibliography audit: SCOUT ground-station security DOI `10.1016/j.ijcip.2020.100407` and satellite/CI cyber-attack discussion DOI `10.1016/j.ijcip.2024.100701`. Both passed independent identifier-to-title checks, with no retraction flags as of this audit. They supply venue-contextual prior work only and do **not** enter any experimental endpoint, model, source archive, or frozen claim. Current source bibliography target: **26**.

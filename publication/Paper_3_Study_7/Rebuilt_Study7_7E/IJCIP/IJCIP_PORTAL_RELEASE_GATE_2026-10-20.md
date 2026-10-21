@@ -8,7 +8,7 @@
 - [x] Figure 1 states cFS engineering vs Python held-out inference separately; Figure 2 reproduces four aggregate endpoint pairs.
 - [x] Adverse F12 learned transfer and C0 all-HOLD null control retained; no global policy ranking.
 - [x] Other paper populations and P2X/S3X/S4X excluded; rejection lessons used only for editing and positioning.
-- [x] All 24 references numbered in first-appearance order in the proposed manuscript; government 2021 historical URL replaced with GovInfo preservation link.
+- [x] All 26 references numbered in first-appearance order in the proposed manuscript; government 2021 historical URL replaced with GovInfo preservation link.
 - [x] Separate Methods AI assistance provenance and manuscript-preparation declaration retained.
 - [x] Five prepared highlights contain at most 85 characters each in source file.
 

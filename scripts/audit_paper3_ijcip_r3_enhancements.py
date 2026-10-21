@@ -107,13 +107,13 @@ def main():
     verify(len(require_refs) == 2, "reference-section boundary missing")
     text_before_refs, bib = require_refs
     bibliography = list(re.finditer(r"^\[(\d+)\]\s+(.+)$", bib, re.MULTILINE))
-    verify(len(bibliography) == 24, "expected 24 separately numbered bibliographic items")
-    verify([int(m.group(1)) for m in bibliography] == list(range(1, 25)), "reference items not consecutively numbered")
+    verify(len(bibliography) == 26, "expected 26 separately numbered bibliographic items")
+    verify([int(m.group(1)) for m in bibliography] == list(range(1, 27)), "reference items not consecutively numbered")
     citation_order = []
     for m in re.finditer(r"\[(\d+)\](?:[-–]\[(\d+)\])?", text_before_refs):
         first = int(m.group(1))
         last = int(m.group(2)) if m.group(2) else first
-        verify(1 <= first <= last <= 24, "invalid citation range")
+        verify(1 <= first <= last <= 26, "invalid citation range")
         for ref_id in range(first, last + 1):
             if ref_id not in citation_order:
                 citation_order.append(ref_id)
