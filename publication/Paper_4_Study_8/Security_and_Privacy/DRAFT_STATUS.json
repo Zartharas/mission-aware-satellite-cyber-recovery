@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "record_id": "P4-SPY-VENUE-LOCK-R1-20261020",
+  "date_local": "2026-10-20",
+  "venue": "Security and Privacy",
+  "publisher": "Wiley",
+  "journal_issn": "2475-6725",
+  "target_article_type": "Original Paper",
+  "status": "VENUE_LOCKED__DERIVATIVE_R1_SOURCE_CREATED__AUTHOR_REVIEW_PENDING",
+  "source_main_sha": "7fd87eb1bbfb5ec811bb1f8ec29b4532ac5ff425",
+  "source_manuscript_path": "publication/Paper_4_Study_8/IJSCCN/MANUSCRIPT_IJSCCN_R5.md",
+  "source_manuscript_blob_sha": "7aa1b6d08dd1c35e9ec6c7460fd81c87641ec6f2",
+  "derivative_manuscript_path": "publication/Paper_4_Study_8/Security_and_Privacy/MANUSCRIPT_SPY_R1.md",
+  "manuscript_changes": [
+    "short_title_under_40_characters",
+    "seven_keywords"
+  ],
+  "manuscript_scientific_changes": 0,
+  "author_count": 1,
+  "author_identifiers_privacy": "PLACEHOLDERS_ONLY__LOCAL_PERSONALIZATION_REQUIRED",
+  "paper4_architecture": [
+    "S8-PQC-ICR-001",
+    "S8E-ECTV-001"
+  ],
+  "data_populations_statistically_pooled": false,
+  "study8e_canonical_result_freeze": "S8E-CANON-RESULTS-002-FREEZE-001",
+  "study8e_trace": "S8E-SATNOGS-TRACE-002",
+  "results_001_scientifically_admissible": false,
+  "previous_submission_packages_modified": false,
+  "paper5_evidence_imported": false,
+  "new_scientific_execution_authorized": false,
+  "statistical_reanalysis_authorized": false,
+  "wiley_transfer_desk_recommendation_received": "2026-10-02",
+  "wiley_transfer_authorized": false,
+  "publisher_submission_authorized": false,
+  "venue_selected_by_author": true,
+  "publication_model_choice_authorized": false,
+  "author_facing_qa": "PENDING_FULL_EDITORIAL_REFERENCE_DATA_ACCESS_FIGURE_AND_VISUAL_QA",
+  "guidelines_url": "https://onlinelibrary.wiley.com/page/journal/24756725/homepage/forauthors.html",
+  "oa_url": "https://onlinelibrary.wiley.com/page/journal/24756725/homepage/fundedaccess.html",
+  "bibliography_note": "R1 retains existing R5 insertion marker; exported publisher references require separate source build and audit",
+  "next_gate": "REVIEW_DRAFT_PR__VALIDATE_VENUE_SPECIFIC_MANUSCRIPT_AND_REFERENCES__AUTHOR_APPROVAL_BEFORE_FINAL_PACKAGE"
+}
