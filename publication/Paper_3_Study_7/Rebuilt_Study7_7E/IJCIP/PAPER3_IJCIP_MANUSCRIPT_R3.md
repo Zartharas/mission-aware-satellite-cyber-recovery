@@ -16,13 +16,13 @@ Space systems directly provide or enable services used by communications, transp
 
 Cyber detection and cyber recovery answer different questions. Detection identifies evidence that something may be wrong; recovery logic must decide what action is justified after that signal, using only the state visible to the decision process. Space-domain response concepts such as cyber-safe mode similarly connect cyber-threat recognition to a controlled transition toward a trusted or integrity-protected state [1]. That transition creates an assurance problem when the evidence authorizing recovery is itself exposed to compromise.
 
-Space systems are relevant to critical-infrastructure protection because they directly provide important services and enable other infrastructure sectors and industries [22]. CISA's Communications infrastructure description explicitly includes satellite systems and identifies communications dependencies across energy, transportation, water and wastewater, emergency services, information technology, and financial services [23]. U.S. space-cybersecurity policy likewise calls for protecting space assets and supporting infrastructure from cyber threats [24]. This paper therefore treats spacecraft recovery assurance as a protection problem for a space-enabled critical-infrastructure asset. It does **not** claim that the controlled experiments quantify cross-sector cascading failures, national-level consequences, or operational service-outage probabilities.
+Space systems are relevant to critical-infrastructure protection because they directly provide important services and enable other infrastructure sectors and industries [2]. CISA's Communications infrastructure description explicitly includes satellite systems and identifies communications dependencies across energy, transportation, water and wastewater, emergency services, information technology, and financial services [3]. U.S. space-cybersecurity policy likewise calls for protecting space assets and supporting infrastructure from cyber threats [4]. This paper therefore treats spacecraft recovery assurance as a protection problem for a space-enabled critical-infrastructure asset. It does **not** claim that the controlled experiments quantify cross-sector cascading failures, national-level consequences, or operational service-outage probabilities.
 
-A record can remain signed, current, and structurally acceptable to a recovery gate while being false relative to a state that the selector cannot observe. A prior experiment in this research program instantiated that signed-but-false condition as an antecedent deterministic recovery boundary [2]. The present work does not reuse those observations as new evidence. Instead, it asks two downstream questions. First, can learning overcome such a boundary when the learned selector sees the same information as a deterministic rule? Second, once an additional corroborating path is introduced, what happens when its trust relationship is represented as an architecture rather than a single stipulated independence bit?
+A record can remain signed, current, and structurally acceptable to a recovery gate while being false relative to a state that the selector cannot observe. A prior experiment in this research program instantiated that signed-but-false condition as an antecedent deterministic recovery boundary [5]. The present work does not reuse those observations as new evidence. Instead, it asks two downstream questions. First, can learning overcome such a boundary when the learned selector sees the same information as a deterministic rule? Second, once an additional corroborating path is introduced, what happens when its trust relationship is represented as an architecture rather than a single stipulated independence bit?
 
-These questions are distinct from conventional satellite machine-learning performance studies. Recent spacecraft ML work has emphasized anomaly detection, telemetry classification, model comparison, and adaptation to changing mission data [4]-[6]. Those are important upstream problems, but a high-performing detector does not by itself establish that a downstream recovery action is justified. Aerospace ML assurance literature likewise treats confidence as a lifecycle evidence problem involving requirements, data, model behavior, integration, verification, validation, robustness, traceability, and system context rather than only predictive performance [3]. Partial observability and latent state are also established safety problems in their own right [7], [8]. The novelty claimed here is therefore not a new theory of hidden state, secure spacecraft recovery, resilient flight-software architecture, cFS security, or evidence redundancy. Prior work has addressed trusted-hardware spacecraft recovery, software-resilient space-system architectures, mission-specific cybersecurity architecture, cFS attack surfaces, malicious spacecraft peripherals, and adversarial risk around satellite ML [14]-[20]. The narrower contribution here is a controlled satellite cyber-recovery assurance construction that separates information availability, selector class, and trust-domain architecture, then freezes learned models before evaluating equal-information policy pairs on held-out faults and trust topologies.
+These questions are distinct from conventional satellite machine-learning performance studies. Recent spacecraft ML work has emphasized anomaly detection, telemetry classification, model comparison, and adaptation to changing mission data [6]-[8]. Those are important upstream problems, but a high-performing detector does not by itself establish that a downstream recovery action is justified. Aerospace ML assurance literature likewise treats confidence as a lifecycle evidence problem involving requirements, data, model behavior, integration, verification, validation, robustness, traceability, and system context rather than only predictive performance [9]. Partial observability and latent state are also established safety problems in their own right [10], [11]. The novelty claimed here is therefore not a new theory of hidden state, secure spacecraft recovery, resilient flight-software architecture, cFS security, or evidence redundancy. Prior work has addressed trusted-hardware spacecraft recovery, software-resilient space-system architectures, mission-specific cybersecurity architecture, cFS attack surfaces, malicious spacecraft peripherals, and adversarial risk around satellite ML [12]-[18]. The narrower contribution here is a controlled satellite cyber-recovery assurance construction that separates information availability, selector class, and trust-domain architecture, then freezes learned models before evaluating equal-information policy pairs on held-out faults and trust topologies.
 
-The paper reports two separate frozen studies.
+The paper reports two separate frozen studies. Their distinctive result is not a new learner or a new theory of hidden state: equal-information deterministic/learned policy pairs disagree on held-out cases, and the value of corroboration depends jointly on selector behavior and modeled trust-domain faults. Unlike separate Paper 2 work on evidence freshness, producer composition and artifact qualification, the endpoints here concern policy decisions under matched inputs and prospectively frozen architecture faults; no Paper 2 observations are imported.
 
 **Study 7 / S7-LSO-001** is the information-sufficiency foundation. It evaluates a deterministic visible-only comparator, a learned selector trained on the same eight visible features, and a corroboration-aware learned selector. The complete finite population contains 1,033 observations. The study asks whether exact fit to a visible rule implies correctness when relevant adjudication truth is hidden and how a corroborating observable changes that boundary when it is independent versus correlated with the compromised evidence path.
 
@@ -48,27 +48,27 @@ The paper does not claim global superiority of learned or deterministic logic, o
 
 ### 2.1 Recovery authorization versus anomaly detection
 
-Satellite anomaly-detection research provides important evidence on telemetry representation and detector behavior. The OPS-SAT benchmark supplies labeled spacecraft telemetry fragments and evaluates a broad range of anomaly-detection algorithms [4]. Transformer-based work has compared deep architectures for satellite telemetry anomaly detection [5], while validation-gated continual learning addresses changing telemetry distributions and data scarcity [6]. These studies concern identifying anomalous conditions from telemetry. The present work begins after a security signal is already part of the policy-visible state and asks whether the evidence available to a recovery selector justifies entering a recovery gate.
+Satellite anomaly-detection research provides important evidence on telemetry representation and detector behavior. The OPS-SAT benchmark supplies labeled spacecraft telemetry fragments and evaluates a broad range of anomaly-detection algorithms [6]. Transformer-based work has compared deep architectures for satellite telemetry anomaly detection [7], while validation-gated continual learning addresses changing telemetry distributions and data scarcity [8]. These studies concern identifying anomalous conditions from telemetry. The present work begins after a security signal is already part of the policy-visible state and asks whether the evidence available to a recovery selector justifies entering a recovery gate.
 
 This distinction matters because recovery actions can alter mission state. A selector may receive apparently valid evidence from a path whose producer, key, execution environment, transport, or authorizing authority has been compromised. The resulting assurance question is not only whether the selector has low classification error but whether its inputs distinguish the states that matter for a safe recovery decision.
 
 ### 2.2 Learning-enabled assurance and partial observability
 
-NASA guidance for learning-enabled aerospace components emphasizes that assurance depends on evidence across the component and system lifecycle, including requirements, model and data properties, integration, coverage, traceability, verification, validation, and robustness [3]. The present studies fit that framing by treating model behavior and input provenance as separate assurance objects. They do not attempt to establish a certification method or sufficient evidence set.
+NASA guidance for learning-enabled aerospace components emphasizes that assurance depends on evidence across the component and system lifecycle, including requirements, model and data properties, integration, coverage, traceability, verification, validation, and robustness [9]. The present studies fit that framing by treating model behavior and input provenance as separate assurance objects. They do not attempt to establish a certification method or sufficient evidence set.
 
-The general problem of safe decision making under partial observability is established. Safe action-model learning under partial observability [7] and safety certification with latent variables [8] illustrate broader theoretical settings in which unobserved state constrains what can be inferred or guaranteed. Study 7 therefore does not claim that an unobserved variable is a novel ML problem. Its purpose is narrower: to make the information boundary explicit in a satellite cyber-recovery selector, evaluate the complete modeled visible state space, and then carry the question into an architecture where trust-path relationships can be faulted and measured.
+The general problem of safe decision making under partial observability is established. Safe action-model learning under partial observability [10] and safety certification with latent variables [11] illustrate broader theoretical settings in which unobserved state constrains what can be inferred or guaranteed. Study 7 therefore does not claim that an unobserved variable is a novel ML problem. Its purpose is narrower: to make the information boundary explicit in a satellite cyber-recovery selector, evaluate the complete modeled visible state space, and then carry the question into an architecture where trust-path relationships can be faulted and measured.
 
 ### 2.3 Secure recovery and resilient spacecraft software
 
-Secure spacecraft recovery and resilient software architecture are established research areas. Juliato and Gebotys proposed trusted-hardware mechanisms and recovery protocols for restoring spacecraft and cryptographic capabilities after failures or attacks [19]. Phillips, Mazzuchi, and Sarkani treated software resiliency as a systems-engineering and architecture problem spanning the space-system lifecycle [21]. Driouch, Bah, and Guennoun later proposed a mission-specific defensible cybersecurity architecture based on threat analysis and layered controls [20]. These works establish that secure recovery, architectural resilience, and mission-specific cybersecurity are not novel concepts by themselves.
+Secure spacecraft recovery and resilient software architecture are established research areas. Juliato and Gebotys proposed trusted-hardware mechanisms and recovery protocols for restoring spacecraft and cryptographic capabilities after failures or attacks [17]. Phillips, Mazzuchi, and Sarkani treated software resiliency as a systems-engineering and architecture problem spanning the space-system lifecycle [19]. Driouch, Bah, and Guennoun later proposed a mission-specific defensible cybersecurity architecture based on threat analysis and layered controls [18]. These works establish that secure recovery, architectural resilience, and mission-specific cybersecurity are not novel concepts by themselves.
 
-Recent flight-software research also narrows any broad cFS novelty claim. Curbo and Falco analyze the spacecraft flight-software attack surface and argue for architectural simplification and stronger security principles [14]. McAmis et al. demonstrate, using cFS, a security/reliability dilemma created by a malicious spacecraft peripheral [15]. A contemporaneous 2026 preprint by Vanlyssel et al. analyzes authority, identity, communication, observability, and persistence in cFS and reports experiments with a malicious onboard component [16]. Because [16] is a preprint, it is used as contemporaneous positioning evidence rather than peer-reviewed validation.
+Recent flight-software research also narrows any broad cFS novelty claim. Curbo and Falco analyze the spacecraft flight-software attack surface and argue for architectural simplification and stronger security principles [12]. McAmis et al. demonstrate, using cFS, a security/reliability dilemma created by a malicious spacecraft peripheral [13]. A contemporaneous 2026 preprint by Vanlyssel et al. analyzes authority, identity, communication, observability, and persistence in cFS and reports experiments with a malicious onboard component [14]. Because [14] is a preprint, it is used as contemporaneous positioning evidence rather than peer-reviewed validation.
 
 Study 7E therefore does not claim to introduce secure spacecraft recovery, cFS security, or trust boundaries. Its narrower question is how a frozen recovery selector behaves when policy-visible evidence is held equal within deterministic/learned pairs while source, key, execution, transport, and authority relationships are prospectively instantiated and faulted.
 
 ### 2.4 Satellite ML security and the remaining assurance gap
 
-Satellite ML security is also developing rapidly. Shigol et al. provide a structured risk assessment of adversarial-ML threats for satellite applications, including integrity risks and mitigations such as resilient data pipelines and runtime monitoring [17]. Belali et al. propose S-LARF, a system-level framework that hardens spaceborne anomaly-detection pipelines against adversarial ML and evaluates architectural controls using spacecraft telemetry and FPGA deployment [18]. These studies strengthen the case that ML security must be considered at system level, but they remain primarily focused on ML threat assessment, anomaly-detection security, or adversarial robustness.
+Satellite ML security is also developing rapidly. Shigol et al. provide a structured risk assessment of adversarial-ML threats for satellite applications, including integrity risks and mitigations such as resilient data pipelines and runtime monitoring [15]. Belali et al. propose S-LARF, a system-level framework that hardens spaceborne anomaly-detection pipelines against adversarial ML and evaluates architectural controls using spacecraft telemetry and FPGA deployment [16]. These studies strengthen the case that ML security must be considered at system level, but they remain primarily focused on ML threat assessment, anomaly-detection security, or adversarial robustness.
 
 The present paper addresses a different downstream decision boundary. It does not evaluate anomaly-detector accuracy or adversarial perturbation robustness. It asks whether recovery authorization is justified after a security signal exists, whether deterministic and learned selectors behave differently under byte-identical inputs, and how those decisions change when evidence paths share or separate experimentally defined trust domains.
 
@@ -76,14 +76,16 @@ A targeted literature search updated through 24 September 2026 located the adjac
 
 ### 2.5 Spacecraft recovery architecture substrate
 
-Study 7E uses NASA core Flight System documentation as an architecture substrate rather than as scientific validation. cFS is a reusable embedded flight-software framework built around cFE services and application-level components [9], [10]. The reference design uses cFE Software Bus concepts for local publish/subscribe communication, Health & Safety as a bounded readiness/health source, and Software Bus Network concepts where the experimental topology requires cross-instance transport [11], [12]. NOS3 is retained as an integration and simulation reference but is not the selected Study-7E baseline [13].
+Study 7E uses NASA core Flight System documentation as an architecture substrate rather than as scientific validation. cFS is a reusable embedded flight-software framework built around cFE services and application-level components [20], [21]. The reference design uses cFE Software Bus concepts for local publish/subscribe communication, Health & Safety as a bounded readiness/health source, and Software Bus Network concepts where the experimental topology requires cross-instance transport [22], [23]. NOS3 is retained as an integration and simulation reference but is not the selected Study-7E baseline [24].
 
 The selected Study-7E environment is standalone cFS v7.0.1 at the frozen commit recorded in the protocol freeze. The architecture is explicitly a research reference implementation. It is not a NASA flight distribution, flight qualification, or operational mission validation.
 
 
 ### 2.6 Space-enabled critical-infrastructure context
 
-The critical-infrastructure relevance of the study is architectural and service-enabling rather than a claim that the experiment models an entire infrastructure sector. U.S. space policy describes space systems as an essential component of critical infrastructure because they both provide important services directly and enable other infrastructure sectors and industries [22]. CISA identifies satellite as part of communications infrastructure and documents communications dependencies spanning energy, transportation, water and wastewater, emergency services, information technology, and financial services [23]. SPD-5 establishes cybersecurity principles for protecting space systems and supporting infrastructure [24].
+The critical-infrastructure relevance of the study is architectural and service-enabling rather than a claim that the experiment models an entire infrastructure sector. U.S. space policy describes space systems as an essential component of critical infrastructure because they both provide important services directly and enable other infrastructure sectors and industries [2]. CISA identifies satellite as part of communications infrastructure and documents communications dependencies spanning energy, transportation, water and wastewater, emergency services, information technology, and financial services [3]. SPD-5 establishes cybersecurity principles for protecting space systems and supporting infrastructure [4].
+
+Two articles published in this journal provide closer critical-infrastructure context: a protection-system design for interconnected space-control ground stations [25] and an examination of cyber attacks affecting critical infrastructures and satellite communications [26]. Those contributions frame the relevance of spacecraft and ground-segment security to infrastructure protection. The present experiment instead isolates recovery-authorization policy outputs under identical paired policy inputs and deliberately faulted evidence-trust relationships; it does not claim to implement or measure the ground-station protections or communication disruptions discussed in those publications.
 
 Within that context, the experimental unit in this paper remains a spacecraft cyber-recovery decision. The study measures whether a modeled recovery gate proceeds unsafely or holds conservatively under specified evidence and trust-domain conditions. It does not simulate downstream telecommunications loss, financial disruption, transportation interruption, defense mission effects, or other cross-sector cascades. The infrastructure-protection contribution is therefore a bounded assurance result about the cyber-recovery layer of a space-enabled asset, not a system-level estimate of societal infrastructure resilience.
 
@@ -91,7 +93,9 @@ Within that context, the experimental unit in this paper remains a spacecraft cy
 
 ### 3.1 Scientific separation
 
-The two studies are synthesized narratively but remain separate populations and provenance chains.
+The two studies are synthesized narratively but remain separate populations and provenance chains. Table 1 compares their separately frozen scientific units.
+
+**Table 1.** Study 7 and Study 7E designs, units of analysis, and scientific evidence boundaries.
 
 | Dimension | Study 7 / S7-LSO-001 | Study 7E / S7E-AERC-001 |
 |---|---|---|
@@ -159,6 +163,12 @@ The cFS engineering qualification path compiled and executed the producer bridge
 
 The canonical held-out scientific inference is therefore best described as **cFS-grounded, not flight-software-in-the-loop learned inference**. The frozen architecture and evidence contracts are grounded in the cFS implementation surfaces, while held-out policy evaluation uses frozen deterministic rules and hash-verified decision-tree model artifacts in a bound Python environment, with an independently implemented semantic-tree interpreter auditing learned decisions.
 
+Figure 1 distinguishes bounded cFS engineering checks from the separate frozen Python policy evaluation.
+
+![Architecture of the separate cFS engineering qualification and Python held-out inference lanes, with research-only truth excluded from selector inputs](figures/PAPER3_IJCIP_FIG1_ARCHITECTURE.svg)
+
+**Figure 1.** Experimental architecture and evidence boundary. The five source/key/execution/transport/authority domains are modeled identities, not certified physical or organizational independence. The separate cFS engineering and frozen Python held-out lanes do not demonstrate onboard learned-policy execution or an operational spacecraft–ground loop. AI-use disclosure: OpenAI ChatGPT assisted in drafting the reproducible SVG preparation code; the author reviewed the scientific diagram and its architectural boundaries.
+
 ### 3.4 Equal-information policy contracts
 
 Study 7E defines two policy-visible feature sets.
@@ -205,7 +215,9 @@ Each evidence path is assigned experimental identifiers for five domains:
 - transport; and
 - authorization authority.
 
-The five frozen topologies progressively separate these domains.
+The five frozen topologies progressively separate these domains, as shown in Table 2.
+
+**Table 2.** Frozen Study 7E experimental trust-domain topology classes.
 
 | Topology | Separate domains |
 |---|---|
@@ -273,7 +285,9 @@ In Study-7 Block A, D0 and L0 each evaluate all 256 visible states. Both have ze
 
 In Block B, L1 evaluates all 512 extended visible states. It has exactly two objective errors: one unsafe proceed and one false-conservative hold. Both occur when visible authorization and corroboration disagree in an otherwise fully qualifying security state.
 
-Block C contains the hidden-truth collision.
+Block C contains the hidden-truth collision described in Table 3.
+
+**Table 3.** Study 7 hidden-truth collision and corroboration conditions.
 
 | Scenario / block | D0 result | L0 result | L1 result | Interpretation |
 |---|---|---|---|---|
@@ -281,7 +295,9 @@ Block C contains the hidden-truth collision.
 | V5_INDEPENDENT_DISAGREEMENT | unsafe proceed | unsafe proceed | correct hold | corroboration distinguishes hidden-false state |
 | V5_CORRELATED_FALSE_CORROBORATION | unsafe proceed | unsafe proceed | unsafe proceed | corroboration shares the false condition |
 
-The full exact Study-7 counts are:
+The full exact Study 7 counts are given in Table 4:
+
+**Table 4.** Exact Study 7 finite-population policy outcomes by experimental block.
 
 | Block | Policy | N | Errors | Unsafe proceed | False-conservative hold | Proceed |
 |---|---|---:|---:|---:|---:|---:|
@@ -296,7 +312,9 @@ Study 7 therefore answers the foundation question in two parts. Learning the vis
 
 ### 4.2 Study 7E: aggregate held-out outcomes
 
-Study 7E produced the following exact aggregate counts over 196 held-out scenarios per policy.
+Table 5 gives the exact aggregate counts for each policy across the 196 held-out Study 7E scenarios.
+
+**Table 5.** Exact held-out Study 7E endpoints across 196 scenarios per policy.
 
 | Policy | Objective errors | Unsafe proceed | False-conservative hold | ENTER | HOLD |
 |---|---:|---:|---:|---:|---:|
@@ -307,9 +325,17 @@ Study 7E produced the following exact aggregate counts over 196 held-out scenari
 
 These counts do not support a global policy ranking. D1 has the fewest unsafe proceeds but the most false-conservative holds and the most total objective errors. L1 has the most unsafe proceeds but the fewest false-conservative holds. A single aggregate error total would therefore conceal materially different safety/availability behavior.
 
+Figure 2 plots the two distinct error outcomes for the four frozen Study 7E selectors.
+
+![Grouped bars of unsafe proceeds and false-conservative holds for four Study 7E policies](figures/PAPER3_IJCIP_FIG2_ENDPOINTS.svg)
+
+**Figure 2.** Exact counts for each selector across the same 196 Study 7E held-out scenarios. Unsafe proceeds and false-conservative holds are different failure types, not a single mission-weighted cost. The adverse F12 transfer and C0 all-HOLD controls are preserved in the results below. AI-use disclosure: OpenAI ChatGPT assisted in drafting the SVG preparation code; the author verified the plotted counts against the frozen Study 7E endpoint records.
+
 ### 4.3 Held-out block results
 
-Block-level exact counts, written as errors / unsafe proceed / false-conservative hold, are:
+Table 6 reports block-level exact counts as errors / unsafe proceed / false-conservative hold:
+
+**Table 6.** Study 7E outcomes by held-out block (objective errors / unsafe proceeds / false-conservative holds).
 
 | Block | D0_BASE | L0_BASE | D1_CORROBORATED | L1_CORROBORATED |
 |---|---|---|---|---|
@@ -357,7 +383,9 @@ The directions are therefore opposite across the two policy classes. Corroborati
 
 ### 4.6 Topology-controlled trust separation
 
-Aggregate topology comparisons can be confounded when fault sets differ. The frozen review therefore compares the common F6-F12 subset, in which each topology contributes 28 scenarios.
+Aggregate topology comparisons can be confounded when fault sets differ. The frozen review compares the common F6-F12 subset in Table 7, where each topology contributes 28 scenarios.
+
+**Table 7.** Equal-fault-set Study 7E F6–F12 topology comparison (28 scenarios per topology).
 
 | Policy | T0 error/unsafe/FCH | T1 | T2 | T3 | T4 |
 |---|---|---|---|---|---|
@@ -383,6 +411,10 @@ F12, primary execution compromise, is an adverse learned-transfer counterexample
 These cases prevent a simple narrative in which more domain separation automatically improves every selector.
 
 ### 4.8 Frozen Study-7E hypothesis disposition
+
+Table 8 retains the frozen hypothesis dispositions, including partial support and adverse evidence.
+
+**Table 8.** Frozen Study 7E hypothesis dispositions and supporting evidence.
 
 | Hypothesis | Frozen disposition | Evidence |
 |---|---|---|
@@ -507,7 +539,7 @@ Not applicable. The studies did not involve human participants, identifiable hum
 
 ### Data availability
 
-The Study 7 protocol, canonical result records, policy summary, and separately implemented audit materials are publicly available in the mission-aware-satellite-cyber-recovery repository. The accepted Study 7 evidence is also preserved in the Zenodo dataset *Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence*, version DOI 10.5281/zenodo.22732060 (concept DOI 10.5281/zenodo.22732059). Study 7E protocol, model-freeze, held-out evaluation, result-freeze, exact endpoint, audit, and durable raw-artifact preservation records are maintained in the same public repository. No confidential, proprietary, or human-subject data are used.
+The Study 7 protocol, canonical outputs, and independently implemented audit are publicly available at https://github.com/Zartharas/mission-aware-satellite-cyber-recovery. Accepted Study 7 evidence is additionally preserved as a Zenodo dataset, version DOI https://doi.org/10.5281/zenodo.22732060 [27] (concept DOI https://doi.org/10.5281/zenodo.22732059). Study 7E's separately frozen protocol, model state, endpoint counts, and exact original held-out Actions archive are preserved publicly under result-freeze S7E-AERC-RESULT-FREEZE-001 in the same repository. A separate Study 7E data-repository deposit and persistent identifier are in preparation and must be supplied before submission. The two scientific populations are never pooled. No confidential, proprietary, or human-subject data are used.
 
 ### Code availability
 
@@ -515,54 +547,59 @@ The protocol implementations, analysis code, validation code, model-freeze recor
 
 ### Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 
-During the preparation of this work, the author used OpenAI ChatGPT to support literature organization and source discovery, manuscript structuring and drafting, consistency and compliance checking, and language refinement. The author reviewed and edited the AI-assisted material, verified references and quantitative claims against primary sources and frozen repository evidence, and takes full responsibility for the content of the publication.
+During the preparation of this work, the author used OpenAI ChatGPT to support literature organization and source discovery, manuscript structuring and drafting, consistency and compliance checking, language refinement, and drafting programmatic SVG/figure preparation code. The two explanatory figures were prepared from authored layout specifications and, for the results figure, exact frozen source counts; no generative image model was used to invent or modify experimental data. The author reviewed the rendered graphics and independently checked their numerical labels against the frozen record. The author reviewed and edited the AI-assisted material, verified references and quantitative claims against primary sources and frozen repository evidence, and takes full responsibility for the content of the publication.
 
 ## References
-
 [1] Space Attack Research and Tactic Analysis (SPARTA), "Cyber-safe Mode," Countermeasure CM0044, The Aerospace Corporation. Available: https://sparta.aerospace.org/countermeasures/CM0044
 
-[2] A. Singh, *Mission-Aware Satellite Cyber Response and Trusted Recovery — Study 2 Phase-6 Source Evidence*, dataset, Zenodo, ver. 1.0.0, Sep. 4, 2026, doi: 10.5281/zenodo.22289114.
+[2] Executive Office of the President, *United States Space Priorities Framework*, Dec. 2021. Available: https://www.govinfo.gov/app/details/GOVPUB-PREX23-PURL-gpo193490 (accessed 20 October 2026)
 
-[3] A. Agogino et al., *Recommendations on Evidence and Process for Certification of Learning-enabled Components in Aerospace Systems*, NASA Technical Memorandum, Document ID 20240006865, Jun. 7, 2024. Available: https://ntrs.nasa.gov/citations/20240006865
+[3] Cybersecurity and Infrastructure Security Agency, "Communications Systems," Infrastructure Dependency Primer. Available: https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/resilience-services/infrastructure-dependency-primer/learn/communications
 
-[4] B. Ruszczak, K. Kotowski, D. Evans, et al., "The OPS-SAT benchmark for detecting anomalies in satellite telemetry," *Scientific Data*, vol. 12, Art. no. 710, 2025, doi: 10.1038/s41597-025-05035-3.
+[4] U.S. Department of Commerce, Office of Space Commerce, "President Signs Space Cybersecurity Policy Directive," Sep. 4, 2020. Available: https://space.commerce.gov/president-signs-space-cybersecurity-policy-directive/ (accessed 20 October 2026)
 
-[5] A. Fejjari, A. Delavault, R. Camilleri, and G. Valentino, "Transformer-based anomaly detection for satellite telemetry data," *Acta Astronautica*, vol. 238, Part A, pp. 739-745, 2026, doi: 10.1016/j.actaastro.2025.09.035.
+[5] A. Singh, *Mission-Aware Satellite Cyber Response and Trusted Recovery — Study 2 Phase-6 Source Evidence*, dataset, Zenodo, ver. 1.0.0, Sep. 4, 2026, doi: 10.5281/zenodo.22289114.
 
-[6] N. Kuhn, B. Sánchez Gómez, N. Moreno Blasco, P. Caserman, and F. Antonello, "Validation-gated continual learning for anomaly detection in satellite telemetry," *Acta Astronautica*, vol. 249, pp. 971-985, 2026, doi: 10.1016/j.actaastro.2026.07.065.
+[6] B. Ruszczak, K. Kotowski, D. Evans, et al., "The OPS-SAT benchmark for detecting anomalies in satellite telemetry," *Sci. Data*, vol. 12, Art. no. 710, 2025, doi: 10.1038/s41597-025-05035-3.
 
-[7] H. S. Le, B. Juba, and R. Stern, "Learning Safe Action Models with Partial Observability," *Proceedings of the AAAI Conference on Artificial Intelligence*, vol. 38, no. 18, pp. 20159-20167, 2024, doi: 10.1609/aaai.v38i18.29995.
+[7] A. Fejjari, A. Delavault, R. Camilleri, and G. Valentino, "Transformer-based anomaly detection for satellite telemetry data," *Acta Astronaut.*, vol. 238, Part A, pp. 739-745, 2026, doi: 10.1016/j.actaastro.2025.09.035.
 
-[8] H. Jing and Y. Nakahira, "Safety Certificate against Latent Variables with Partially Unidentifiable Dynamics," *Proceedings of the 42nd International Conference on Machine Learning*, PMLR, vol. 267, pp. 28288-28303, 2025. Available: https://proceedings.mlr.press/v267/jing25b.html
+[8] N. Kuhn, B. Sánchez Gómez, N. Moreno Blasco, P. Caserman, and F. Antonello, "Validation-gated continual learning for anomaly detection in satellite telemetry," *Acta Astronaut.*, vol. 249, pp. 971-985, 2026, doi: 10.1016/j.actaastro.2026.07.065.
 
-[9] NASA Goddard Space Flight Center, "Core Flight System (cFS)," NASA Software Catalog, GSC-18719-1. Available: https://software.nasa.gov/software/GSC-18719-1
+[9] A. Agogino et al., *Recommendations on Evidence and Process for Certification of Learning-enabled Components in Aerospace Systems*, NASA Technical Memorandum, Document ID 20240006865, Jun. 7, 2024. Available: https://ntrs.nasa.gov/citations/20240006865 (accessed 20 October 2026)
 
-[10] NASA Goddard Space Flight Center, "Core Flight Executive Version 6.7," NASA Software Catalog, GSC-18128-1. Available: https://software.nasa.gov/software/GSC-18128-1
+[10] H. S. Le, B. Juba, and R. Stern, "Learning Safe Action Models with Partial Observability," *Proceedings of the AAAI Conference on Artificial Intelligence*, vol. 38, no. 18, pp. 20159-20167, 2024, doi: 10.1609/aaai.v38i18.29995.
 
-[11] NASA Goddard Space Flight Center, "Health and Safety (HS)," NASA Software Catalog, GSC-18476-1. Available: https://software.nasa.gov/software/GSC-18476-1
+[11] H. Jing and Y. Nakahira, "Safety Certificate against Latent Variables with Partially Unidentifiable Dynamics," *Proceedings of the 42nd International Conference on Machine Learning*, PMLR, vol. 267, pp. 28288-28303, 2025. Available: https://proceedings.mlr.press/v267/jing25b.html
 
-[12] NASA Goddard Space Flight Center, "Software Bus Network (SBN)," NASA Software Catalog, GSC-16917-1. Available: https://software.nasa.gov/software/GSC-16917-1
+[12] J. Curbo and G. Falco, "Attack Surface Analysis for Spacecraft Flight Software," in *Proc. 2024 IEEE 10th International Conference on Space Mission Challenges for Information Technology (SMC-IT)*, pp. 22-30, 2024, doi: 10.1109/SMC-IT61443.2024.00010.
 
-[13] NASA, "NASA Operational Simulator for Small Satellites (NOS3)," NASA Software Catalog, GSC-17737-1. Available: https://software.nasa.gov/software/GSC-17737-1
+[13] R. McAmis, C. Willison, R. Skowyra, and S. Mergendahl, "The Compromised Satellite Peripheral Dilemma," *Workshop on the Security of Space and Satellite Systems (SpaceSec 2026)*, 2026, doi: 10.14722/spacesec.2026.23045.
 
-[14] J. Curbo and G. Falco, "Attack Surface Analysis for Spacecraft Flight Software," in *Proc. 2024 IEEE 10th International Conference on Space Mission Challenges for Information Technology (SMC-IT)*, pp. 22-30, 2024, doi: 10.1109/SMC-IT61443.2024.00010.
+[14] J. Vanlyssel, G.-C. Roman, K. Cook, S. Rahaman, and A. Anwar, "Trust Without Boundaries: An Architectural Analysis of Satellite Flight Software," arXiv:2608.14532, 2026. Preprint.
 
-[15] R. McAmis, C. Willison, R. Skowyra, and S. Mergendahl, "The Compromised Satellite Peripheral Dilemma," *Workshop on the Security of Space and Satellite Systems (SpaceSec 2026)*, 2026, doi: 10.14722/spacesec.2026.23045.
+[15] S. Shigol, R. Peled, A. Shapira, Y. Elovici, and A. Shabtai, "Risk Assessment for ML-Based Applications in Satellite Systems," *Workshop on the Security of Space and Satellite Systems (SpaceSec 2026)*, 2026, doi: 10.14722/spacesec.2026.23005.
 
-[16] J. Vanlyssel, G.-C. Roman, K. Cook, S. Rahaman, and A. Anwar, "Trust Without Boundaries: An Architectural Analysis of Satellite Flight Software," arXiv:2608.14532, 2026. Preprint.
+[16] F. Belali, A. Essetty, and S. Bah, "S-LARF: Layered Adversarial Resilience Framework for spaceborne anomaly detection," *Int. J. Crit. Infrastruct. Prot.*, 2026, Art. 100851, doi: 10.1016/j.ijcip.2026.100851.
 
-[17] S. Shigol, R. Peled, A. Shapira, Y. Elovici, and A. Shabtai, "Risk Assessment for ML-Based Applications in Satellite Systems," *Workshop on the Security of Space and Satellite Systems (SpaceSec 2026)*, 2026, doi: 10.14722/spacesec.2026.23005.
+[17] M. Juliato and C. Gebotys, "A methodology for secure recovery of spacecrafts based on a trusted hardware platform," *Adv. Space Res.*, vol. 59, no. 4, pp. 1077-1094, 2017, doi: 10.1016/j.asr.2016.11.014.
 
-[18] F. Belali, A. Essetty, and S. Bah, "S-LARF: Layered Adversarial Resilience Framework for spaceborne anomaly detection," *International Journal of Critical Infrastructure Protection*, 2026, Art. 100851, doi: 10.1016/j.ijcip.2026.100851.
+[18] O. Driouch, S. Bah, and Z. Guennoun, "A Holistic Approach to Build a Defensible Cybersecurity Architecture for New Space Missions," *New Space*, vol. 11, no. 4, pp. 203-218, 2023, doi: 10.1089/space.2022.0029.
 
-[19] M. Juliato and C. Gebotys, "A methodology for secure recovery of spacecrafts based on a trusted hardware platform," *Advances in Space Research*, vol. 59, no. 4, pp. 1077-1094, 2017, doi: 10.1016/j.asr.2016.11.014.
+[19] D. M. Phillips, T. A. Mazzuchi, and S. Sarkani, "An architecture, system engineering, and acquisition approach for space system software resiliency," *Inf. Softw. Technol.*, vol. 94, pp. 150-164, 2018, doi: 10.1016/j.infsof.2017.10.006.
 
-[20] O. Driouch, S. Bah, and Z. Guennoun, "A Holistic Approach to Build a Defensible Cybersecurity Architecture for New Space Missions," *New Space*, vol. 11, no. 4, pp. 203-218, 2023, doi: 10.1089/space.2022.0029.
+[20] NASA Goddard Space Flight Center, "cFS Framework," NASA Software Catalog, GSC-18719-1. Available: https://software.nasa.gov/software/GSC-18719-1 (accessed 20 October 2026)
 
-[21] D. M. Phillips, T. A. Mazzuchi, and S. Sarkani, "An architecture, system engineering, and acquisition approach for space system software resiliency," *Information and Software Technology*, vol. 94, pp. 150-164, 2018, doi: 10.1016/j.infsof.2017.10.006.
+[21] NASA Goddard Space Flight Center, "Core Flight Executive Version 6.7," NASA Software Catalog, GSC-18128-1. Available: https://software.nasa.gov/software/GSC-18128-1 (accessed 20 October 2026)
 
-[22] Executive Office of the President, *United States Space Priorities Framework*, Dec. 2021. Available: https://www.whitehouse.gov/wp-content/uploads/2021/12/united-states-space-priorities-framework-_-december-1-2021.pdf
+[22] NASA Goddard Space Flight Center, "Core Flight System (cFS) Health & Safety (HS) Application version 2.3.2," NASA Software Catalog, GSC-18476-1. Available: https://software.nasa.gov/software/GSC-18476-1 (accessed 20 October 2026)
 
-[23] Cybersecurity and Infrastructure Security Agency, "Communications Systems," Infrastructure Dependency Primer. Available: https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/resilience-services/infrastructure-dependency-primer/learn/communications
+[23] NASA Goddard Space Flight Center, "Core Flight System (CFS) Software Bus Network (SBN) Application, Version 1.0," NASA Software Catalog, GSC-16917-1. Available: https://software.nasa.gov/software/GSC-16917-1 (accessed 20 October 2026)
 
-[24] U.S. Department of Commerce, Office of Space Commerce, "President Signs Space Cybersecurity Policy Directive," Sep. 4, 2020. Available: https://space.commerce.gov/president-signs-space-cybersecurity-policy-directive/
+[24] NASA, "NASA Operational Simulator for Small Satellites (NOS^3)," NASA Software Catalog, GSC-17737-1. Available: https://software.nasa.gov/software/GSC-17737-1 (accessed 20 October 2026)
+
+[25] A. Cantelli-Forti, A. Capria, A. L. Saverino, F. Berizzi, D. Adami, and C. Callegari, "Critical infrastructure protection system design based on SCOUT multitech seCurity system for intercOnnected space control groUnd staTions," *Int. J. Crit. Infrastruct. Prot.*, vol. 32, Art. 100407, 2021, doi: 10.1016/j.ijcip.2020.100407.
+
+[26] A. Carlo and K. Obergfaell, "Cyber attacks on critical infrastructures and satellite communications," *Int. J. Crit. Infrastruct. Prot.*, vol. 46, Art. 100701, 2024, doi: 10.1016/j.ijcip.2024.100701.
+
+[27] [dataset] A. K. Singh, *Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence*, Zenodo, 2026. https://doi.org/10.5281/zenodo.22732060.
