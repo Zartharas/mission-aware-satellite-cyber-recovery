@@ -19,7 +19,7 @@ Architecture-Grounded Trust Separation for Satellite Cyber-Recovery Decisions in
 Aman Kumar Singh  
 Sole author and corresponding author  
 Independent Researcher  
-The Woodlands, Texas, United States  
+The Woodlands, Texas 77380, United States  
 ORCID: 0009-0008-9752-3743  
 Corresponding-author email: asingh65430@ucumberlands.edu
 
@@ -70,3 +70,9 @@ Paper 3 uses Study 7 + Study 7E as its new experimental evidence. Study 2/V5 is 
 ## Submission control
 
 Do not press final Submit without explicit author authorization after the live IJCIP portal audit.
+
+## Corresponding-author identity evidence and confirmation gate
+
+Prior CEAS Paper 3 portal materials on repository main explicitly use: given names `Aman Kumar`, family name `Singh`, sole corresponding author, `Independent Researcher`, city `The Woodlands`, `Texas`, USA, ORCID `0009-0008-9752-3743`, and the `asingh65430@ucumberlands.edu` manuscript email. The full city/state/ZIP affiliation `Independent Researcher, The Woodlands, Texas 77380, United States` also appears in earlier publication materials. No street number is invented. These are reused previously author-approved publication fields, not a newly inferred residential address. Before final upload the author must attest that these fields remain accurate.
+
+Elsevier official title-page guide asks a full affiliation postal address; if the portal specifically requires street information, the author must supply their chosen publishable mailing address or appropriate research correspondence address. **Do not use account login email as manuscript correspondence.**

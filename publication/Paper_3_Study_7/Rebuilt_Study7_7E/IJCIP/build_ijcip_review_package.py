@@ -139,10 +139,10 @@ def main():
             "**Title:** " + manuscript.splitlines()[0][2:] + "\n\n"
             "**Sole author and corresponding author:** Aman Kumar Singh\n\n"
             "**Affiliation:** Independent Researcher, The Woodlands, Texas, United States\n\n"
-            "**Full postal affiliation:** [AUTHOR MUST CONFIRM BEFORE UPLOAD]\n\n"
+            "**Postal affiliation:** Independent Researcher, The Woodlands, Texas 77380, United States\n\n"
             "**Correspondence email:** " + matched.group(1) + "\n\n"
             "**ORCID:** 0009-0008-9752-3743\n\n"
-            "**Status:** Author-review candidate, not journal-upload authorized.\n"
+            "**Status:** Author-review copy. Corresponding author must approve accuracy before upload.\n"
         )
         title.write_text(title_text, encoding="utf-8")
         run(["pandoc","-f","gfm","-t","docx","--standalone","-o",str(OUT/"IJCIP_TITLE_PAGE_REVIEW_ONLY.docx"),str(title)])
