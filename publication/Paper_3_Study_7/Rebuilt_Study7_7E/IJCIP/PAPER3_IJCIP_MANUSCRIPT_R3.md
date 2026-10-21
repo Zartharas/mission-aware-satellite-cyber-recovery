@@ -602,4 +602,4 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 
 [26] A. Carlo and K. Obergfaell, "Cyber attacks on critical infrastructures and satellite communications," *International Journal of Critical Infrastructure Protection*, vol. 46, Art. 100701, 2024, doi: 10.1016/j.ijcip.2024.100701.
 
-[27] A. K. Singh, *Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence* [dataset], Zenodo, 2026. https://doi.org/10.5281/zenodo.22732060.
+[27] [dataset] A. K. Singh, *Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence*, Zenodo, 2026. https://doi.org/10.5281/zenodo.22732060.

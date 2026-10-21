@@ -25,7 +25,7 @@
 
 ## Reviewer-readable submission artifact checks
 
-- [x] Manuscript has 26 unique cited sources in first-appearance order and numbered bibliography entries. The original 24-source audit is preserved as a versioned historical record; two publisher-verified IJCIP context papers were appended with no numerical or experiment changes. Source DOI/metadata audit exists, with institution-only entries distinguished from scholarly DOI checks.
+- [x] Manuscript has 27 unique cited sources (26 background sources and a Study 7 Zenodo [dataset] reference) in first-appearance order and numbered bibliography entries. The original 24-source audit is preserved as a versioned historical record; two publisher-verified IJCIP context papers were appended with no numerical or experiment changes. Source DOI/metadata audit exists, with institution-only entries distinguished from scholarly DOI checks.
 - [x] Eight Markdown-native data tables have consecutively numbered, descriptive captions in the publication source. Table counts are unchanged; no scientific rows were modified.
 - [x] Two evidence-bound SVG figures are inserted: a trust-domain/execution-boundary diagram and a count-only endpoint visualization. The figures are diagrams/plots, not external empirical data or generative images.
 - [x] R3 has two AI-use disclosures covering protocol/research assistance and editorial/figure-code assistance; sole-author credit remains unchanged.
@@ -49,3 +49,7 @@ Because GitHub API reported repository visibility **public**, the draft manuscri
 ## Subsequent journal-specific contextual literature addition
 
 Two already-published IJCIP sources were added after the initial 24-item bibliography audit: SCOUT ground-station security DOI `10.1016/j.ijcip.2020.100407` and satellite/CI cyber-attack discussion DOI `10.1016/j.ijcip.2024.100701`. Both passed independent identifier-to-title checks, with no retraction flags as of this audit. They supply venue-contextual prior work only and do **not** enter any experimental endpoint, model, source archive, or frozen claim. Current source bibliography target: **26**.
+
+## Official IJCIP Guide resolution (2026-10-20)
+
+The author supplied the complete 20-page Elsevier Guide, PDF SHA-256 ca09c345cef2c90b1d06432d26551cf08c1e6d7f287aa47e5940827caf7d2a2e. This supersedes the historical HTTP 403 blocker and third-party length estimates. Author-facing data deposit, declarations-tool DOCX, full postal address and final publisher proof remain open. See IJCIP_OFFICIAL_GUIDE_COMPLIANCE_AUDIT_2026-10-20.md. Study 7E has a new independently checksum-verified deposit candidate; it has NOT been uploaded/published and has no new DOI.

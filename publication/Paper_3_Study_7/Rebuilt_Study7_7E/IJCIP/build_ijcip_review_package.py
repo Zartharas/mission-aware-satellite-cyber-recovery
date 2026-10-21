@@ -117,6 +117,8 @@ def main():
                 paragraph.paragraph_format.page_break_before = True
             if paragraph.text.startswith("4.2 Study 7E: aggregate held-out outcomes"):
                 paragraph.paragraph_format.page_break_before=True
+            if paragraph.text.startswith("Figure 2 plots the two distinct error outcomes"):
+                paragraph.paragraph_format.page_break_before=True
             if paragraph.text.startswith("4.3 Held-out block results"):
                 paragraph.paragraph_format.page_break_before=True
         d.save(docx)
