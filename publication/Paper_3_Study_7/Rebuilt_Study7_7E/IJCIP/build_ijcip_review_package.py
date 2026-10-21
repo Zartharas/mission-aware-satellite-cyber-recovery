@@ -58,7 +58,7 @@ def main():
         for table_index, table in enumerate(d.tables):
             for row_index, row in enumerate(table.rows):
                 for cell in row.cells:
-                    if table_index in (4,5,6):
+                    if table_index in (3,4,5,6):
                         label = aliases.get(cell.text,cell.text)
                         if table_index in (3,4) and row_index==0:
                             label = {
