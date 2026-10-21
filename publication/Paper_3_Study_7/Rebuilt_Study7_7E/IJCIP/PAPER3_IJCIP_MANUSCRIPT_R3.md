@@ -552,11 +552,11 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 ## References
 [1] Space Attack Research and Tactic Analysis (SPARTA), "Cyber-safe Mode," Countermeasure CM0044, The Aerospace Corporation. Available: https://sparta.aerospace.org/countermeasures/CM0044
 
-[2] Executive Office of the President, *United States Space Priorities Framework*, Dec. 2021. Available: https://www.govinfo.gov/app/details/GOVPUB-PREX23-PURL-gpo193490
+[2] Executive Office of the President, *United States Space Priorities Framework*, Dec. 2021. Available: https://www.govinfo.gov/app/details/GOVPUB-PREX23-PURL-gpo193490 (accessed 20 October 2026)
 
 [3] Cybersecurity and Infrastructure Security Agency, "Communications Systems," Infrastructure Dependency Primer. Available: https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/resilience-services/infrastructure-dependency-primer/learn/communications
 
-[4] U.S. Department of Commerce, Office of Space Commerce, "President Signs Space Cybersecurity Policy Directive," Sep. 4, 2020. Available: https://space.commerce.gov/president-signs-space-cybersecurity-policy-directive/
+[4] U.S. Department of Commerce, Office of Space Commerce, "President Signs Space Cybersecurity Policy Directive," Sep. 4, 2020. Available: https://space.commerce.gov/president-signs-space-cybersecurity-policy-directive/ (accessed 20 October 2026)
 
 [5] A. Singh, *Mission-Aware Satellite Cyber Response and Trusted Recovery — Study 2 Phase-6 Source Evidence*, dataset, Zenodo, ver. 1.0.0, Sep. 4, 2026, doi: 10.5281/zenodo.22289114.
 
@@ -566,7 +566,7 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 
 [8] N. Kuhn, B. Sánchez Gómez, N. Moreno Blasco, P. Caserman, and F. Antonello, "Validation-gated continual learning for anomaly detection in satellite telemetry," *Acta Astronaut.*, vol. 249, pp. 971-985, 2026, doi: 10.1016/j.actaastro.2026.07.065.
 
-[9] A. Agogino et al., *Recommendations on Evidence and Process for Certification of Learning-enabled Components in Aerospace Systems*, NASA Technical Memorandum, Document ID 20240006865, Jun. 7, 2024. Available: https://ntrs.nasa.gov/citations/20240006865
+[9] A. Agogino et al., *Recommendations on Evidence and Process for Certification of Learning-enabled Components in Aerospace Systems*, NASA Technical Memorandum, Document ID 20240006865, Jun. 7, 2024. Available: https://ntrs.nasa.gov/citations/20240006865 (accessed 20 October 2026)
 
 [10] H. S. Le, B. Juba, and R. Stern, "Learning Safe Action Models with Partial Observability," *Proceedings of the AAAI Conference on Artificial Intelligence*, vol. 38, no. 18, pp. 20159-20167, 2024, doi: 10.1609/aaai.v38i18.29995.
 
@@ -588,15 +588,15 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 
 [19] D. M. Phillips, T. A. Mazzuchi, and S. Sarkani, "An architecture, system engineering, and acquisition approach for space system software resiliency," *Inf. Softw. Technol.*, vol. 94, pp. 150-164, 2018, doi: 10.1016/j.infsof.2017.10.006.
 
-[20] NASA Goddard Space Flight Center, "Core Flight System (cFS)," NASA Software Catalog, GSC-18719-1. Available: https://software.nasa.gov/software/GSC-18719-1
+[20] NASA Goddard Space Flight Center, "cFS Framework," NASA Software Catalog, GSC-18719-1. Available: https://software.nasa.gov/software/GSC-18719-1 (accessed 20 October 2026)
 
-[21] NASA Goddard Space Flight Center, "Core Flight Executive Version 6.7," NASA Software Catalog, GSC-18128-1. Available: https://software.nasa.gov/software/GSC-18128-1
+[21] NASA Goddard Space Flight Center, "Core Flight Executive Version 6.7," NASA Software Catalog, GSC-18128-1. Available: https://software.nasa.gov/software/GSC-18128-1 (accessed 20 October 2026)
 
-[22] NASA Goddard Space Flight Center, "Health and Safety (HS)," NASA Software Catalog, GSC-18476-1. Available: https://software.nasa.gov/software/GSC-18476-1
+[22] NASA Goddard Space Flight Center, "Core Flight System (cFS) Health & Safety (HS) Application version 2.3.2," NASA Software Catalog, GSC-18476-1. Available: https://software.nasa.gov/software/GSC-18476-1 (accessed 20 October 2026)
 
-[23] NASA Goddard Space Flight Center, "Software Bus Network (SBN)," NASA Software Catalog, GSC-16917-1. Available: https://software.nasa.gov/software/GSC-16917-1
+[23] NASA Goddard Space Flight Center, "Core Flight System (CFS) Software Bus Network (SBN) Application, Version 1.0," NASA Software Catalog, GSC-16917-1. Available: https://software.nasa.gov/software/GSC-16917-1 (accessed 20 October 2026)
 
-[24] NASA, "NASA Operational Simulator for Small Satellites (NOS3)," NASA Software Catalog, GSC-17737-1. Available: https://software.nasa.gov/software/GSC-17737-1
+[24] NASA, "NASA Operational Simulator for Small Satellites (NOS^3)," NASA Software Catalog, GSC-17737-1. Available: https://software.nasa.gov/software/GSC-17737-1 (accessed 20 October 2026)
 
 [25] A. Cantelli-Forti, A. Capria, A. L. Saverino, F. Berizzi, D. Adami, and C. Callegari, "Critical infrastructure protection system design based on SCOUT multitech seCurity system for intercOnnected space control groUnd staTions," *Int. J. Crit. Infrastruct. Prot.*, vol. 32, Art. 100407, 2021, doi: 10.1016/j.ijcip.2020.100407.
 
