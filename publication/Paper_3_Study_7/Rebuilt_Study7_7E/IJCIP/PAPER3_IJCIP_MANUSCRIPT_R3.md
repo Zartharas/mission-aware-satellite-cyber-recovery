@@ -560,11 +560,11 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 
 [5] A. Singh, *Mission-Aware Satellite Cyber Response and Trusted Recovery — Study 2 Phase-6 Source Evidence*, dataset, Zenodo, ver. 1.0.0, Sep. 4, 2026, doi: 10.5281/zenodo.22289114.
 
-[6] B. Ruszczak, K. Kotowski, D. Evans, et al., "The OPS-SAT benchmark for detecting anomalies in satellite telemetry," *Scientific Data*, vol. 12, Art. no. 710, 2025, doi: 10.1038/s41597-025-05035-3.
+[6] B. Ruszczak, K. Kotowski, D. Evans, et al., "The OPS-SAT benchmark for detecting anomalies in satellite telemetry," *Sci. Data*, vol. 12, Art. no. 710, 2025, doi: 10.1038/s41597-025-05035-3.
 
-[7] A. Fejjari, A. Delavault, R. Camilleri, and G. Valentino, "Transformer-based anomaly detection for satellite telemetry data," *Acta Astronautica*, vol. 238, Part A, pp. 739-745, 2026, doi: 10.1016/j.actaastro.2025.09.035.
+[7] A. Fejjari, A. Delavault, R. Camilleri, and G. Valentino, "Transformer-based anomaly detection for satellite telemetry data," *Acta Astronaut.*, vol. 238, Part A, pp. 739-745, 2026, doi: 10.1016/j.actaastro.2025.09.035.
 
-[8] N. Kuhn, B. Sánchez Gómez, N. Moreno Blasco, P. Caserman, and F. Antonello, "Validation-gated continual learning for anomaly detection in satellite telemetry," *Acta Astronautica*, vol. 249, pp. 971-985, 2026, doi: 10.1016/j.actaastro.2026.07.065.
+[8] N. Kuhn, B. Sánchez Gómez, N. Moreno Blasco, P. Caserman, and F. Antonello, "Validation-gated continual learning for anomaly detection in satellite telemetry," *Acta Astronaut.*, vol. 249, pp. 971-985, 2026, doi: 10.1016/j.actaastro.2026.07.065.
 
 [9] A. Agogino et al., *Recommendations on Evidence and Process for Certification of Learning-enabled Components in Aerospace Systems*, NASA Technical Memorandum, Document ID 20240006865, Jun. 7, 2024. Available: https://ntrs.nasa.gov/citations/20240006865
 
@@ -580,13 +580,13 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 
 [15] S. Shigol, R. Peled, A. Shapira, Y. Elovici, and A. Shabtai, "Risk Assessment for ML-Based Applications in Satellite Systems," *Workshop on the Security of Space and Satellite Systems (SpaceSec 2026)*, 2026, doi: 10.14722/spacesec.2026.23005.
 
-[16] F. Belali, A. Essetty, and S. Bah, "S-LARF: Layered Adversarial Resilience Framework for spaceborne anomaly detection," *International Journal of Critical Infrastructure Protection*, 2026, Art. 100851, doi: 10.1016/j.ijcip.2026.100851.
+[16] F. Belali, A. Essetty, and S. Bah, "S-LARF: Layered Adversarial Resilience Framework for spaceborne anomaly detection," *Int. J. Crit. Infrastruct. Prot.*, 2026, Art. 100851, doi: 10.1016/j.ijcip.2026.100851.
 
-[17] M. Juliato and C. Gebotys, "A methodology for secure recovery of spacecrafts based on a trusted hardware platform," *Advances in Space Research*, vol. 59, no. 4, pp. 1077-1094, 2017, doi: 10.1016/j.asr.2016.11.014.
+[17] M. Juliato and C. Gebotys, "A methodology for secure recovery of spacecrafts based on a trusted hardware platform," *Adv. Space Res.*, vol. 59, no. 4, pp. 1077-1094, 2017, doi: 10.1016/j.asr.2016.11.014.
 
 [18] O. Driouch, S. Bah, and Z. Guennoun, "A Holistic Approach to Build a Defensible Cybersecurity Architecture for New Space Missions," *New Space*, vol. 11, no. 4, pp. 203-218, 2023, doi: 10.1089/space.2022.0029.
 
-[19] D. M. Phillips, T. A. Mazzuchi, and S. Sarkani, "An architecture, system engineering, and acquisition approach for space system software resiliency," *Information and Software Technology*, vol. 94, pp. 150-164, 2018, doi: 10.1016/j.infsof.2017.10.006.
+[19] D. M. Phillips, T. A. Mazzuchi, and S. Sarkani, "An architecture, system engineering, and acquisition approach for space system software resiliency," *Inf. Softw. Technol.*, vol. 94, pp. 150-164, 2018, doi: 10.1016/j.infsof.2017.10.006.
 
 [20] NASA Goddard Space Flight Center, "Core Flight System (cFS)," NASA Software Catalog, GSC-18719-1. Available: https://software.nasa.gov/software/GSC-18719-1
 
@@ -598,8 +598,8 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 
 [24] NASA, "NASA Operational Simulator for Small Satellites (NOS3)," NASA Software Catalog, GSC-17737-1. Available: https://software.nasa.gov/software/GSC-17737-1
 
-[25] A. Cantelli-Forti, A. Capria, A. L. Saverino, F. Berizzi, D. Adami, and C. Callegari, "Critical infrastructure protection system design based on SCOUT multitech seCurity system for intercOnnected space control groUnd staTions," *International Journal of Critical Infrastructure Protection*, vol. 32, Art. 100407, 2021, doi: 10.1016/j.ijcip.2020.100407.
+[25] A. Cantelli-Forti, A. Capria, A. L. Saverino, F. Berizzi, D. Adami, and C. Callegari, "Critical infrastructure protection system design based on SCOUT multitech seCurity system for intercOnnected space control groUnd staTions," *Int. J. Crit. Infrastruct. Prot.*, vol. 32, Art. 100407, 2021, doi: 10.1016/j.ijcip.2020.100407.
 
-[26] A. Carlo and K. Obergfaell, "Cyber attacks on critical infrastructures and satellite communications," *International Journal of Critical Infrastructure Protection*, vol. 46, Art. 100701, 2024, doi: 10.1016/j.ijcip.2024.100701.
+[26] A. Carlo and K. Obergfaell, "Cyber attacks on critical infrastructures and satellite communications," *Int. J. Crit. Infrastruct. Prot.*, vol. 46, Art. 100701, 2024, doi: 10.1016/j.ijcip.2024.100701.
 
 [27] [dataset] A. K. Singh, *Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence*, Zenodo, 2026. https://doi.org/10.5281/zenodo.22732060.
