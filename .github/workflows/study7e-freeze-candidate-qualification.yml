@@ -1,0 +1,94 @@
+name: Study 7E freeze candidate qualification
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "study7e/configs/ep_author_approval_2026-09-23.json"
+      - "study7e/configs/protocol_environment_freeze_candidate_001.json"
+      - "study7e/FREEZE_CANDIDATE_STATE.json"
+      - "study7e/tests/test_freeze_candidate.py"
+      - "study7e/tools/freeze_candidate_keycheck.c"
+      - ".github/workflows/study7e-freeze-candidate-qualification.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freeze-candidate-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out exact candidate head
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Run freeze-candidate contract tests
+        run: |
+          set -euo pipefail
+          python -m unittest -v study7e.tests.test_freeze_candidate
+          echo "freeze_candidate_contract=PASS"
+          echo "protocol_frozen=false"
+          echo "environment_frozen=false"
+          echo "production_models_trained=false"
+          echo "canonical_execution_authorized=false"
+          echo "scientific_results_generated=false"
+
+  deterministic-public-keys:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out exact candidate head
+        uses: actions/checkout@v6
+
+      - name: Fetch exact Monocypher 4.0.3 source
+        run: |
+          set -euo pipefail
+          git init /tmp/monocypher
+          git -C /tmp/monocypher remote add origin https://github.com/LoupVaillant/Monocypher.git
+          git -C /tmp/monocypher fetch --depth=1 origin ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f
+          git -C /tmp/monocypher checkout --detach FETCH_HEAD
+          test "$(git -C /tmp/monocypher rev-parse HEAD)" = "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f"
+
+      - name: Compile deterministic public-key checker
+        run: |
+          set -euo pipefail
+          cc -std=c99 -O2 -Wall -Wextra -Werror \
+            -I /tmp/monocypher/src \
+            -I /tmp/monocypher/src/optional \
+            study7e/tools/freeze_candidate_keycheck.c \
+            /tmp/monocypher/src/monocypher.c \
+            /tmp/monocypher/src/optional/monocypher-ed25519.c \
+            -o /tmp/freeze_candidate_keycheck
+
+      - name: Verify deterministic non-secret public-key fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          derive() {
+            local alias="$1"
+            python -c 'import hashlib,sys; sys.stdout.buffer.write(hashlib.sha256(("S7E-AERC-001|ED25519-TEST-SEED-V1|" + sys.argv[1]).encode()).digest())' "$alias" | /tmp/freeze_candidate_keycheck
+          }
+
+          corr="$(derive 'corroborator:key')"
+          primary="$(derive 'primary:key')"
+          shared="$(derive 'shared:key')"
+
+          test "$corr" = "de0c03b33c639ba174f6624d8a1fd22bafb05d26d68de27c00e527896f8230f7"
+          test "$primary" = "dbb7c494d3bd557bdc844290584b7656e8aa6be84bfe3692800ded82464cf421"
+          test "$shared" = "1817b4f3dae5ba2836905919d8e55445e9739fa255ea69cfb34e6e24cd0331a0"
+
+          test "$(printf '%s' "$corr" | xxd -r -p | sha256sum | awk '{print $1}')" = "39baaf1156a64feb6f20f0887f46eeb3a2ce85b7581b3169290a7793c854a4af"
+          test "$(printf '%s' "$primary" | xxd -r -p | sha256sum | awk '{print $1}')" = "5a4bff1401c7e398a832f2bfe7fe361bf292537c897908b5c48af3b4df2de996"
+          test "$(printf '%s' "$shared" | xxd -r -p | sha256sum | awk '{print $1}')" = "4f2e3a0f6a4721ff3ec3ec55f90d7ecad59319377fe36d0a9736979b2159ec3b"
+
+          echo "freeze_candidate_public_keys=PASS"
+          echo "persistent_private_key_files=false"
+          echo "private_key_in_cfs=false"
+          echo "scientific_results_generated=false"

@@ -1,0 +1,36 @@
+name: Study 8E SatNOGS pair-filter identity diagnostic
+on:
+  push:
+    branches:
+      - study8e/trace-artifacts-implementation-freeze-20260920
+    paths:
+      - "study8e/validation/diagnose_satnogs_pair_filter.py"
+      - ".github/workflows/study8e-diagnose-satnogs-filter.yml"
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Clone official SatNOGS Network 1.134
+        run: |
+          git clone --quiet --depth 1 --branch 1.134 https://gitlab.com/librespacefoundation/satnogs/satnogs-network.git /tmp/satnogs-network
+          git -C /tmp/satnogs-network rev-parse HEAD
+      - name: Diagnose filter and serializer identity semantics
+        run: |
+          mkdir -p study8e/evidence/filter_diagnostic
+          python study8e/validation/diagnose_satnogs_pair_filter.py \
+            --source-root /tmp/satnogs-network \
+            --output study8e/evidence/filter_diagnostic/satnogs_pair_filter_identity.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: study8e-satnogs-filter-identity-diagnostic
+          path: study8e/evidence/filter_diagnostic/satnogs_pair_filter_identity.json
+          if-no-files-found: error
+          retention-days: 30
+      - run: git diff --exit-code

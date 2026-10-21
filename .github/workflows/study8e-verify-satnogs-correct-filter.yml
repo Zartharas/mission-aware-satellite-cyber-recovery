@@ -1,0 +1,31 @@
+name: Study 8E verify corrected SatNOGS pair filter
+on:
+  push:
+    branches:
+      - study8e/trace-artifacts-implementation-freeze-20260920
+    paths:
+      - "study8e/validation/verify_satnogs_correct_filter.py"
+      - ".github/workflows/study8e-verify-satnogs-correct-filter.yml"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Verify live norad_cat_id plus ground_station filter
+        run: |
+          mkdir -p study8e/evidence/filter_diagnostic
+          python study8e/validation/verify_satnogs_correct_filter.py \
+            --output study8e/evidence/filter_diagnostic/satnogs_correct_filter_identity.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: study8e-satnogs-correct-filter-identity
+          path: study8e/evidence/filter_diagnostic/satnogs_correct_filter_identity.json
+          if-no-files-found: error
+          retention-days: 30
+      - run: git diff --exit-code

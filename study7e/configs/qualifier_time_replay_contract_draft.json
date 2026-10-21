@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "DRAFT__NOT_FROZEN__NO_POLICY_BINDING",
+  "purpose": "Candidate deterministic qualifier semantics for controlled logical time, applicability, replay/sequence handling, contradiction state, and feature independence.",
+  "controlled_time": {
+    "unit": "logical_tick",
+    "wall_clock_dependency": false,
+    "issued_logical_time_signed": true,
+    "evaluation_time_source": "scenario harness controlled value",
+    "freshness_max_age_ticks": "UNRESOLVED_NUMERIC_VALUE__EXTERNAL_QUALIFIER_CONFIG",
+    "fresh_rule": "issued_logical_time <= now_tick AND (now_tick - issued_logical_time) <= freshness_max_age_ticks",
+    "future_timestamp_rule": "fresh=0",
+    "producer_controls_freshness_threshold": false
+  },
+  "context_gate": {
+    "signed_scenario_id_required": true,
+    "scenario_id_policy_visible": false,
+    "expected_scenario_id_source": "frozen scenario registry derived from final manifest",
+    "scenario_id_mapping": "PROPOSED__opaque u32 ordinal/registry ID; final mapping not frozen",
+    "wrong_scenario_behavior": "drop as non-applicable; do not update path state; if no applicable evidence exists, path snapshot is absent/all-zero",
+    "expected_epoch_source": "scenario harness controlled value",
+    "epoch_rule": "epoch_valid=1 iff signed evidence_epoch == expected_epoch",
+    "epoch_semantics": "UNRESOLVED_BEFORE_FREEZE"
+  },
+  "structural_completeness": {
+    "complete_feature_is_structural_only": true,
+    "required": [
+      "applicable expected scenario/path",
+      "exact 64-byte canonical body",
+      "domain separator exact",
+      "schema version exact",
+      "producer role valid",
+      "authorization_value binary",
+      "reserved8 zero",
+      "reserved32 zero",
+      "mandatory fixed-width IDs/timestamps parseable and nonzero where required"
+    ],
+    "explicitly_excluded": [
+      "signature success",
+      "source trust",
+      "freshness success",
+      "epoch success"
+    ],
+    "malformed_behavior": "no applicable evidence snapshot update; absent/all-zero if no other applicable evidence exists"
+  },
+  "feature_derivation": {
+    "signature_valid": "1 only when key_id resolves in the test public-key registry for the path/role and Ed25519 verification succeeds over exact 64-byte body; otherwise 0",
+    "source_trusted": "registry lookup of signed opaque source_id for producer role; independent of signature_valid",
+    "fresh": "controlled-time rule applied to parsed issued_logical_time; independent of signature_valid",
+    "epoch_valid": "signed evidence_epoch equals expected_epoch; independent of signature_valid",
+    "complete": "structural completeness/applicability only",
+    "authorization": "if complete=1 preserve parsed signed authorization_value even when signature_valid=0; otherwise 0",
+    "noncontradictory": "path-local sequence/equivocation state; independent from cross-path disagreement"
+  },
+  "sequence_and_replay": {
+    "state_key": [
+      "scenario_id",
+      "producer_role",
+      "source_id",
+      "key_id",
+      "evidence_epoch"
+    ],
+    "baseline_updates_only_from": "structurally complete, applicable, cryptographically valid evidence",
+    "first_valid_sequence": "accept as baseline",
+    "greater_sequence": "accept and advance baseline",
+    "equal_sequence_identical_body": "idempotent duplicate; no contradiction",
+    "equal_sequence_different_body": "sticky path contradiction; noncontradictory=0; do not silently choose consistency",
+    "lower_sequence": "sequence rollback/replay inconsistency; noncontradictory=0; do not roll baseline backward",
+    "invalid_signature_sequence_effect": "does not advance authenticated sequence baseline",
+    "contradiction_sticky_until": "scenario/epoch path-state reset",
+    "cross_path_disagreement": "does not itself set noncontradictory=0"
+  },
+  "absent_evidence_snapshot": {
+    "signature_valid": 0,
+    "source_trusted": 0,
+    "fresh": 0,
+    "epoch_valid": 0,
+    "noncontradictory": 0,
+    "complete": 0,
+    "authorization": 0
+  },
+  "invalid_signature_snapshot": {
+    "precondition": "structurally complete and applicable",
+    "signature_valid": 0,
+    "authorization": "preserve parsed claim",
+    "complete": 1,
+    "source_trusted": "derive independently",
+    "fresh": "derive independently",
+    "epoch_valid": "derive independently",
+    "noncontradictory": "reflect current path-local contradiction state; invalid signature itself does not advance sequence baseline"
+  },
+  "reset_semantics": {
+    "reset_on_scenario_change": true,
+    "reset_on_expected_epoch_change": true,
+    "persist_across_duplicate_messages_within_same_scenario_epoch": true
+  },
+  "unresolved_before_freeze": [
+    "numeric freshness_max_age_ticks",
+    "final logical-tick scale/unit interpretation",
+    "final expected_epoch semantics/value mapping",
+    "final scenario_id u32 registry mapping",
+    "whether lower-sequence replay should also emit a separate audit reason code",
+    "exact qualifier implementation/state persistence boundary across cFS processes"
+  ],
+  "approvals": {
+    "author_approval": false,
+    "protocol_freeze": false,
+    "policy_binding_authorized": false,
+    "canonical_execution_authorized": false
+  }
+}

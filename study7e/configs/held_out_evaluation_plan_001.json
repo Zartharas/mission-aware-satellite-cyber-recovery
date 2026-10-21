@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "protocol_freeze_id": "S7E-AERC-FREEZE-001",
+  "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
+  "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
+  "date": "2026-09-23",
+  "state": "PLAN_QUALIFIED_GREEN__HELD_OUT_INFERENCE_NOT_AUTHORIZED",
+  "scope": "Preparation and review of the held-out E1/E2/C0 evaluation plan only. No held-out feature materialization for inference, no model prediction, no canonical scientific execution, no PR merge, and no publication/result claims.",
+  "frozen_inputs": {
+    "model_freeze_manifest": {
+      "path": "study7e/MODEL_FREEZE_MANIFEST_001.json",
+      "blob_sha": "8dd024e3fce50b8b506ff75de4ab559fd62ef6d7"
+    },
+    "design": {
+      "path": "study7e/src/aerc_design.py",
+      "blob_sha": "57fa869827a7d1665ebad1ac94b93b66728e68a9"
+    },
+    "protocol_draft_record": {
+      "path": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_DRAFT_2026-09-22.md"
+    },
+    "l0_semantic_sha256": "1060d526704f21d4ee72be1ace6916c061b0c254de64246b1f469a576ba42ef1",
+    "l1_semantic_sha256": "499fc92b714948c9a837861d4810051f51ab014f3f261a13df85646f7832f558",
+    "l0_runtime_sha256": "5b38a0088c4dd0cb2ce3739993cd2d9ee7949eb1a86c188ca1bd95b38cb5f4b1",
+    "l1_runtime_sha256": "6c4b589766f1df51fad2bde80350000f24c53b215ef345079fd81a8a7b98b960",
+    "dependency_inventory_sha256": "023a745c1edde1a929030fbc15245811f828365aba11b0485c5b139a402fdd08"
+  },
+  "research_questions": {
+    "RQ1": "Equal-information policy comparison: deterministic versus learned selectors under identical policy-visible evidence.",
+    "RQ2": "Trust-domain separation: changes in unsafe-recovery and false-conservative outcomes as source/key/execution/transport/authority separation changes.",
+    "RQ3": "Common-cause failure: conditions under which corroboration benefit collapses under shared-domain/common-cause compromise.",
+    "RQ4": "Topology/fault transfer: learned-selector behavior on fault classes and higher-separation topologies excluded from training."
+  },
+  "held_out_population": {
+    "blocks": {
+      "E1": {
+        "purpose": "unseen fault classes",
+        "count": 84,
+        "true_authorization": [
+          0,
+          1
+        ],
+        "true_health_ready": [
+          0,
+          1
+        ],
+        "security_signal": 1,
+        "topologies": [
+          "T0_SHARED_ALL",
+          "T1_SEPARATE_SOURCE_EXEC",
+          "T2_SEPARATE_SOURCE_KEY_EXEC"
+        ],
+        "fault_profiles": [
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "F10",
+          "F11",
+          "F12"
+        ]
+      },
+      "E2": {
+        "purpose": "held-out topology transfer",
+        "count": 104,
+        "true_authorization": [
+          0,
+          1
+        ],
+        "true_health_ready": [
+          0,
+          1
+        ],
+        "security_signal": 1,
+        "topologies": [
+          "T3_SEPARATE_THROUGH_TRANSPORT",
+          "T4_SEPARATE_ALL"
+        ],
+        "fault_profiles": [
+          "F0",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "F10",
+          "F11",
+          "F12"
+        ]
+      },
+      "C0": {
+        "purpose": "held-out-topology no-security-signal control",
+        "count": 8,
+        "true_authorization": [
+          0,
+          1
+        ],
+        "true_health_ready": [
+          0,
+          1
+        ],
+        "security_signal": 0,
+        "topologies": [
+          "T3_SEPARATE_THROUGH_TRANSPORT",
+          "T4_SEPARATE_ALL"
+        ],
+        "fault_profiles": [
+          "F0"
+        ]
+      }
+    },
+    "block_order": [
+      "E1",
+      "E2",
+      "C0"
+    ],
+    "row_order": "block order above, then ascending numeric scenario suffix",
+    "total_scenarios": 196,
+    "policies_per_scenario": 4,
+    "policy_order": [
+      "D0_BASE",
+      "L0_BASE",
+      "D1_CORROBORATED",
+      "L1_CORROBORATED"
+    ],
+    "total_policy_decisions": 784,
+    "training_blocks_prohibited": [
+      "TR0",
+      "TR1"
+    ]
+  },
+  "inference_preflight": {
+    "authorization_required": "study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json",
+    "authorization_must_be_absent_during_plan_qualification": true,
+    "executable_evaluation_workflow_must_be_absent_during_plan_qualification": true,
+    "required_checks_before_any_future_inference": [
+      "S7E-AERC-FREEZE-001 integrity green",
+      "S7E-AERC-MODEL-FREEZE-001 integrity green",
+      "separate held-out evaluation authorization exists and exactly names S7E-AERC-HELDOUT-PLAN-001",
+      "decoded L0/L1 joblib SHA-256 values match the model-freeze manifest",
+      "Python/dependency inventory matches the model-freeze binding before any joblib load",
+      "scenario manifest hash is bound before evaluation",
+      "exact expected held-out cardinalities 84/104/8 and total 196 are verified",
+      "TR0/TR1 are excluded from evaluation outputs",
+      "policy input schemas are exactly the frozen 9-feature and 16-feature orders"
+    ],
+    "trusted_joblib_loading_only": true,
+    "no_deserialization_during_plan_qualification": true
+  },
+  "execution_design": {
+    "one_canonical_attempt_per_scenario": true,
+    "no_hidden_retry": true,
+    "attempts_ledger_required": true,
+    "scenario_order": "held_out_population.row_order",
+    "policy_order": "held_out_population.policy_order",
+    "primary_policy_engine": {
+      "D0_BASE": "frozen deterministic comparator over exact BASE_FEATURES",
+      "L0_BASE": "hash-verified frozen L0 joblib under bound runtime environment",
+      "D1_CORROBORATED": "frozen deterministic comparator over exact EXTENDED_FEATURES",
+      "L1_CORROBORATED": "hash-verified frozen L1 joblib under bound runtime environment"
+    },
+    "independent_audit_engine": {
+      "deterministic_policies": "separately implemented rule evaluator from frozen definitions",
+      "learned_policies": "pure semantic-tree interpreter over frozen canonical semantic JSON; do not deserialize joblib",
+      "required_identity": "audit action must equal primary action for every learned-policy decision",
+      "audit_failure_effect": "scenario invalid and campaign not eligible for final aggregate release"
+    },
+    "equal_information_invariant": {
+      "D0_L0": "exact serialized base-feature bytes identical",
+      "D1_L1": "exact serialized extended-feature bytes identical",
+      "hash_algorithm": "SHA-256",
+      "mismatch_effect": "scenario invalid"
+    },
+    "truth_join": "Research-only objective action and topology/fault metadata are joined only after policy input capture and policy decisions; they are never supplied to a policy engine."
+  },
+  "validity_rule": {
+    "scenario_valid_iff": [
+      "expected topology instantiated",
+      "expected domain-alias map recorded",
+      "intended fault confirmed by harness instrumentation",
+      "D0/L0 receive byte-identical paired inputs",
+      "D1/L1 receive byte-identical paired inputs",
+      "research-only adjudication truth absent from policy inputs",
+      "all four decisions emitted",
+      "primary and independent-audit learned actions agree",
+      "action sink records the same scenario ID",
+      "hash/provenance records complete"
+    ],
+    "final_analysis_release_requires_invalid_scenarios": 0,
+    "if_any_invalid": "retain the attempt and explicit invalid reason; do not compute/release final complete-population aggregate results from that execution; no hidden replacement scenario or silent retry",
+    "retry_policy": "any later campaign attempt requires a new explicit execution identifier and retains prior invalid attempt provenance"
+  },
+  "decision_record_schema": {
+    "canonical_format": "UTF-8 canonical JSON Lines; lexicographic keys; separators ',' ':'; terminal newline",
+    "one_record_per_policy_decision": true,
+    "fields": [
+      "execution_id",
+      "attempt_id",
+      "scenario_id",
+      "block",
+      "policy_id",
+      "policy_input_sha256",
+      "action",
+      "audit_action",
+      "audit_match",
+      "objective_action",
+      "true_authorization",
+      "true_health_ready",
+      "security_signal",
+      "topology",
+      "fault_profile",
+      "valid",
+      "invalid_reason"
+    ],
+    "privileged_fields_not_present_in_policy_input": true,
+    "expected_records_if_complete_valid_execution": 784
+  },
+  "scenario_record_schema": {
+    "one_record_per_scenario": true,
+    "expected_records": 196,
+    "required_fields": [
+      "execution_id",
+      "attempt_id",
+      "scenario_id",
+      "block",
+      "topology",
+      "fault_profile",
+      "domain_alias_map_sha256",
+      "fault_confirmation",
+      "base_input_sha256",
+      "extended_input_sha256",
+      "four_decisions_present",
+      "valid",
+      "invalid_reason"
+    ]
+  },
+  "primary_endpoints": {
+    "per_policy_per_block": [
+      "objective_decision_error = count(action != objective_action)",
+      "unsafe_proceed = count(action == ENTER_RECOVERY_GATE and objective_action == HOLD)",
+      "false_conservative_hold = count(action == HOLD and objective_action == ENTER_RECOVERY_GATE)",
+      "exact action counts for HOLD and ENTER_RECOVERY_GATE"
+    ],
+    "paired_policy_disagreement": [
+      "D0_BASE versus L0_BASE exact disagreement count",
+      "D1_CORROBORATED versus L1_CORROBORATED exact disagreement count"
+    ],
+    "trust_architecture": [
+      "exact unsafe_proceed count changes across topology strata",
+      "exact false_conservative_hold count changes across topology strata",
+      "corroboration delta within deterministic class: D1_CORROBORATED minus D0_BASE",
+      "corroboration delta within learned class: L1_CORROBORATED minus L0_BASE",
+      "common-cause behavior under F10 and F11, stratified by topology and especially shared-authority T0-T3 versus authority-separated T4"
+    ],
+    "finite_population_rule": "All endpoints are exact finite-population counts. Descriptive proportions may be reported only with exact numerators and denominators."
+  },
+  "secondary_endpoints": [
+    "topology-specific confusion tables",
+    "fault-profile-specific action tables",
+    "policy disagreement by topology and fault profile",
+    "frozen learner tree structure and depth (reported from freeze manifest, not recomputed by held-out fitting)",
+    "frozen learner feature-use trace",
+    "training error reported separately from the frozen training record and never pooled with held-out outcomes",
+    "E1 unseen-fault exact errors",
+    "E2 held-out-topology exact errors",
+    "C0 spurious recovery-gate entries"
+  ],
+  "analysis_rules": {
+    "significance_testing": false,
+    "confidence_intervals_for_operational_probability": false,
+    "global_policy_ranking": false,
+    "aggregate_requires_topology_and_fault_stratification": true,
+    "null_and_adverse_findings_retained": true,
+    "no_post_hoc_scenario_deletion": true,
+    "training_and_held_out_populations_never_pooled": true,
+    "study7_and_study7e_never_pooled": true,
+    "no_post_evaluation_model_or_hyperparameter_change": true
+  },
+  "planned_outputs": {
+    "raw": [
+      "heldout/scenario_attempts.jsonl",
+      "heldout/policy_decisions.jsonl",
+      "heldout/invalid_attempts.jsonl"
+    ],
+    "provenance": [
+      "heldout/execution_manifest.json",
+      "heldout/model_and_environment_binding.json",
+      "heldout/input_hash_manifest.json"
+    ],
+    "analysis": [
+      "heldout/exact_endpoint_counts.json",
+      "heldout/topology_fault_tables.json",
+      "heldout/paired_disagreements.json",
+      "heldout/audit_reconciliation.json"
+    ],
+    "output_hash_manifest_required": true
+  },
+  "review": {
+    "review_state": "TECHNICAL_REVIEW_COMPLETE__PLAN_SUITABLE_FOR_STATIC_QUALIFICATION",
+    "findings": [
+      "The plan preserves all primary and secondary endpoints predeclared by the prospective protocol.",
+      "The complete finite population makes exact counts and descriptive proportions appropriate; significance testing is intentionally excluded.",
+      "Primary joblib inference and independent semantic-tree audit provide implementation diversity without refitting models.",
+      "Zero invalid scenarios are required before complete-population aggregate results can be released.",
+      "Topology/fault stratification prevents aggregate counts from being presented as a global policy ranking.",
+      "Research-only truth is joined after decision capture and remains prohibited from policy input."
+    ],
+    "blocking_findings": [],
+    "recommendation": "QUALIFY_PLAN_AND_REQUIRE_SEPARATE_HELD_OUT_INFERENCE_AUTHORIZATION"
+  },
+  "authorization": {
+    "plan_preparation_and_review_authorized": true,
+    "held_out_inference_authorized": false,
+    "canonical_scientific_execution_authorized": false,
+    "pr_merge_authorized": false,
+    "publication_or_result_claims_authorized": false
+  },
+  "next_gate": "Separate explicit authorization before creating a held-out inference authorization record or executing any E1/E2/C0 prediction.",
+  "qualification": {
+    "source_commit": "05fd846f3e257b0343c3fbf7a2a510a97b4efd86",
+    "workflow": "Study 7E held-out evaluation plan qualification",
+    "run_id": 35947043358,
+    "job_id": 107467211282,
+    "conclusion": "success",
+    "model_freeze_integrity_run_id": 35947043318,
+    "model_freeze_integrity_job_id": 107467211247,
+    "model_freeze_integrity_conclusion": "success",
+    "held_out_inference_executed": false
+  }
+}

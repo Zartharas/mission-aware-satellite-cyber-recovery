@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "record_date_local": "2026-09-19",
+  "status": "SOURCE_IDENTITY_AND_SCHEMA_VERIFIED",
+  "source": {
+    "name": "SatNOGS Network observations API",
+    "base_url": "https://network.satnogs.org/api/observations/",
+    "api_access": "public",
+    "license": "CC BY-SA",
+    "verified_source_release": "1.134",
+    "verified_source_commit": "9c55e92850b4f5c11c52a72371685fb8cfff1507"
+  },
+  "live_probe": {
+    "workflow_run": 35490130712,
+    "workflow_head": "1be57c8dee3d88272a572825dcb8a361c564ed30",
+    "artifact_id": 10598628041,
+    "artifact_zip_sha256": "f7a8b6afb787391cad26c4df639b877e912960223f155a174fa614bda6b41240",
+    "response_sha256": "d7f9b231c42dbbb924251c0140fbfeb37d3c7c457facf45387baac2049213745",
+    "http_status": 200,
+    "response_shape": "JSON array",
+    "records_returned": 25,
+    "cursor_link_header_present": true,
+    "required_fields": {
+      "id": "integer",
+      "start": "string",
+      "end": "string",
+      "ground_station": "integer",
+      "norad_cat_id": "integer"
+    },
+    "required_fields_all_present": true,
+    "row_values_persisted": false
+  },
+  "official_source_configuration": {
+    "workflow_run": 35490243682,
+    "workflow_head": "232722e0b2c659b6d64784ae541ad5c60351f5b9",
+    "artifact_id": 10597984203,
+    "artifact_zip_sha256": "56aacd0da294f56c42c779e5ae2c7b68c5294dbe200bddfc9c2df10c7fb56283",
+    "report_sha256": "ed66a95ba42390438b1c28a4f430d9f1a23f5648948d27dbefd9134e69bfa16a",
+    "observation_cursor_page_size": 25,
+    "observation_cursor_ordering": ["-start", "-end"],
+    "anonymous_observation_get_default_rate": "60/hour",
+    "authenticated_observation_get_default_rate": "240/hour"
+  },
+  "semantic_boundary": {
+    "start_end_role": "observation-opportunity timing proxy only",
+    "transmitter_baud_is_payload_capacity": false,
+    "observation_status_is_cryptographic_trust_or_authorization": false,
+    "tle_epoch_is_cryptographic_epoch_validity": false,
+    "station_or_satellite_identity_is_cryptographic_trust": false,
+    "observation_existence_proves_bidirectional_command_contact": false
+  },
+  "study8_modified": false,
+  "acta_package_modified": false,
+  "timing_endpoint_computed": false,
+  "recovery_endpoint_computed": false
+}

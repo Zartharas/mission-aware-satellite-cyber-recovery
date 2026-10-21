@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "trust_domains": [
+    "source",
+    "key",
+    "execution",
+    "transport",
+    "authority"
+  ],
+  "topologies": {
+    "T0_SHARED_ALL": {
+      "separate": []
+    },
+    "T1_SEPARATE_SOURCE_EXEC": {
+      "separate": [
+        "source",
+        "execution"
+      ]
+    },
+    "T2_SEPARATE_SOURCE_KEY_EXEC": {
+      "separate": [
+        "source",
+        "key",
+        "execution"
+      ]
+    },
+    "T3_SEPARATE_THROUGH_TRANSPORT": {
+      "separate": [
+        "source",
+        "key",
+        "execution",
+        "transport"
+      ]
+    },
+    "T4_SEPARATE_ALL": {
+      "separate": [
+        "source",
+        "key",
+        "execution",
+        "transport",
+        "authority"
+      ]
+    }
+  },
+  "interpretation_guard": "Separate means separate experimental domain identifiers/instances, not operational or certification-grade independence."
+}

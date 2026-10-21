@@ -1,0 +1,37 @@
+name: Study 8E rebuild corrected SatNOGS population
+
+on:
+  push:
+    branches:
+      - study8e/trace-artifacts-implementation-freeze-20260920
+    paths:
+      - "study8e/validation/select_satnogs_population.py"
+      - "study8e/PROTOCOL_DEVIATION_SATNOGS_FILTER_PARAM_20260920.json"
+      - ".github/workflows/study8e-rebuild-satnogs-population.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Compile corrected selector
+        run: python -m py_compile study8e/validation/select_satnogs_population.py
+      - name: Rebuild corrected deterministic population
+        run: |
+          mkdir -p study8e/evidence/population_rebuild
+          python study8e/validation/select_satnogs_population.py \
+            --output study8e/evidence/population_rebuild/satnogs_pair_selection_pop002.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: study8e-satnogs-population-rebuild-pop002
+          path: study8e/evidence/population_rebuild/satnogs_pair_selection_pop002.json
+          if-no-files-found: error
+          retention-days: 30
+      - run: git diff --exit-code

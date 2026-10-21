@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "POST_REJECTION_REBUILD_PHASE7B_PRE_RUNTIME_IMPLEMENTATION",
+  "status": "PHASE7B_IMPLEMENTATION_PREPARED__SYNTHETIC_VALIDATION_ONLY__NO_REAL_EXECUTION",
+  "preparation_date": "2026-09-27",
+  "branch": "paper2/post-rejection-phase7b-replay-implementation",
+  "branch_base_commit": "445435aaa1618e0a08df35071221451f35ef5e98",
+  "predecessor": {
+    "phase7a_pr": 189,
+    "phase7a_merge_commit": "445435aaa1618e0a08df35071221451f35ef5e98",
+    "phase7a_post_merge_ci_run_number": 1254,
+    "phase7a_post_merge_ci_run_id": 36364705657,
+    "phase7a_post_merge_ci_conclusion": "success",
+    "trace_population_freeze_effective": true,
+    "phase7_design_contract_effective": true
+  },
+  "implementation_candidate": {
+    "id": "S3X-PHASE7-IMPLEMENTATION-CANDIDATE-001",
+    "primary_blob": "09a1c887f8861a6e5dba6059cab2ab906befbbcd",
+    "reference_blob": "9e13446323be67115950374cb5debfaa7532a17e",
+    "expected_cases_after_later_authorized_runtime": 34542
+  },
+  "authorized_now": {
+    "primary_implementation": true,
+    "separately_implemented_reference": true,
+    "synthetic_fixture_validation": true,
+    "fail_closed_audit_and_tests": true,
+    "draft_pr_and_premerge_ci": true
+  },
+  "still_closed": {
+    "real_frozen_interval_artifact_read": true,
+    "real_1919_interval_expansion": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "manuscript_claim_use": true,
+    "implementation_freeze_effectivity": true,
+    "runtime_authorization": true,
+    "p99_x10_retuning": true,
+    "interval_membership_retuning": true,
+    "study3_modification": true,
+    "study3_s3x_pooling": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7B_IMPLEMENTATION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

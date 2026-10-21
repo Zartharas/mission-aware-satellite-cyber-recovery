@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "record_id": "S8E-CANON-RESULTS-002-AUDIT-001",
+  "date_local": "2026-09-20",
+  "status": "CORRECTED_CANONICAL_RESULTS_AUDITED__FORMAL_RESULT_FREEZE_PENDING",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "runner_freeze": "S8E-CANON-RUNNER-004",
+  "evidence_identity": {
+    "population_freeze": "S8E-SATNOGS-POP-002",
+    "trace_freeze": "S8E-SATNOGS-TRACE-002",
+    "implementation_freeze": "S8E-IMPLFREEZE-001",
+    "trace_pairs": 20,
+    "trace_records": 476,
+    "trace_jsonl_sha256": "6f80a44fa6cfa63a70df49de3ba447de3d59efe0632208180f26552f37b46a8e"
+  },
+  "canonical_execution": {
+    "workflow_run": 35536583594,
+    "head_sha": "d49d4ba43c451564f697188ca88deb463895792d",
+    "conclusion": "success",
+    "artifact_id": 10613372166,
+    "artifact_name": "study8e-canonical-results-002",
+    "artifact_zip_sha256": "3e9c6c7899a9853682d29fa92ea37589c4684db49b16a0a289be054a3553bfee",
+    "artifact_bytes": 617450,
+    "runner_unit_tests_passed": 10,
+    "deterministic_passes": 2,
+    "byte_identical_outputs": true,
+    "independent_case_mismatches": 0
+  },
+  "corrected_scientific_findings": {
+    "eligible_anchor_count": 454,
+    "canonical_case_count": 65376,
+    "cases_per_anchor": 144,
+    "finite_threshold_count": 17640,
+    "nonfinite_threshold_count": 47736,
+    "finite_fraction": {
+      "numerator": 17640,
+      "denominator": 65376,
+      "fraction": "245/908",
+      "decimal_6": "0.269824"
+    },
+    "finite_threshold_bps_summary": {
+      "minimum": 48,
+      "median": "345",
+      "maximum": 57727
+    },
+    "finite_by_horizon": {
+      "6h": {
+        "finite": 1152,
+        "total": 21792,
+        "fraction": "12/227",
+        "decimal_6": "0.052863"
+      },
+      "12h": {
+        "finite": 4488,
+        "total": 21792,
+        "fraction": "187/908",
+        "decimal_6": "0.205947"
+      },
+      "24h": {
+        "finite": 12000,
+        "total": 21792,
+        "fraction": "125/227",
+        "decimal_6": "0.550661"
+      }
+    },
+    "finite_by_disruption": {
+      "A0_NONE": {
+        "finite": 6624,
+        "total": 16344,
+        "fraction": "92/227",
+        "decimal_6": "0.405286"
+      },
+      "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT": {
+        "finite": 6624,
+        "total": 16344,
+        "fraction": "92/227",
+        "decimal_6": "0.405286"
+      },
+      "A2_DELAY_FIRST_TRANSITION_PROOF_ONE_CONTACT": {
+        "finite": 2196,
+        "total": 16344,
+        "fraction": "61/454",
+        "decimal_6": "0.134361"
+      },
+      "A3_STALE_EPOCH_REPLAY_AT_COMMIT": {
+        "finite": 2196,
+        "total": 16344,
+        "fraction": "61/454",
+        "decimal_6": "0.134361"
+      }
+    },
+    "policy_feasibility": {
+      "each_policy_finite": 4410,
+      "each_policy_total": 16344,
+      "each_policy_fraction": "245/908",
+      "policy_feasibility_identical_across_P0_P1_P2_P3": true
+    },
+    "profile_feasibility": {
+      "each_profile_finite": 5880,
+      "each_profile_total": 21792,
+      "each_profile_fraction": "245/908",
+      "profile_feasibility_identical_across_three_profiles": true
+    },
+    "p3_vs_p1": {
+      "matched_comparison_count": 16344,
+      "both_finite": 4410,
+      "both_nonfinite": 11934,
+      "both_finite_equal_threshold": 4410,
+      "p3_lower_threshold": 0,
+      "p3_higher_threshold": 0,
+      "threshold_difference_minimum": 0,
+      "threshold_difference_median": "0",
+      "threshold_difference_maximum": 0
+    },
+    "profile_burden_ordering": {
+      "matched_comparison_count": 21792,
+      "ordering_preserved_count": 21792,
+      "ordering_violation_count": 0
+    },
+    "structural_safety_fields": {
+      "rollback_invoked_sum_at_finite_thresholds": 0,
+      "rollback_invoked_sum_at_nonfinite_sufficient_bounds": 0,
+      "stale_epoch_acceptance_sum_at_finite_thresholds": 0,
+      "stale_epoch_acceptance_sum_at_nonfinite_sufficient_bounds": 0
+    }
+  },
+  "corrected_result_hashes": {
+    "ANCHOR_MANIFEST.csv": "e45561d4dc30cace106a0f1e3be2f3801967ecc798d4b7db2c9a52d1ed8c93a9",
+    "CANONICAL_CASE_RESULTS.csv": "be0ea2b4da2228bf270ab8ef51bb8625a633346ac6e0b3ebd5fa2134496583fd",
+    "CANONICAL_FINDINGS.json": "9e2ac149d827ff6189983c1b576778d6f31b22dd7218232661a88ecef42e0773",
+    "INDEPENDENT_AUDIT.json": "8a66ff3c9c5f3070a6f1effcb0e21a21243ea6bbd747a1b4baf09406c37181fd",
+    "P3_P1_CONTRASTS.csv": "3053b42cf30591bb56c23dc5f0b83244dec34ea933943900a4b2a3f25e93d559",
+    "PROFILE_ORDERING_CHECKS.csv": "eab36d1511c182e299288e6d23a1cde0fae285ed97d3c382dbdb2a2e868e50f0",
+    "TRACE_TIMING_GAPS.csv": "9cad90c5d5984c87d82bca0495e77c7343a7a3ce5742ddbe93ee57541080bfc2",
+    "TRACE_TIMING_SUMMARY.csv": "c8f88d5255b56543b915e65e24b2fa24c1f7d513e8cd1e6cb76845d1880b8a2b",
+    "TRACE_TIMING_WINDOWS.csv": "59c6a3beaa9831a58174dcd0776ef8c404fcd37783b307044d2f9ee9dcad0c0d",
+    "RESULTS_HASH_MANIFEST.json": "02fbca01d1b45c0e254b9d12c349d4681d424b10805258a24013d17d9118d53f",
+    "RUNTIME_PACKAGE_MANIFEST.json": "0a4e21fd19ab9422edd36bfcdc9b4848a5b360a9a7e6addbe3b5320391c7e674"
+  },
+  "invalidated_prior_results": {
+    "record": "S8E-CANON-RESULTS-001-INVALIDATION",
+    "workflow_run": 35529423881,
+    "artifact_id": 10610543345,
+    "artifact_zip_sha256": "18fd00a0370cb49395af6d1df0b84c02ed9e905cf66ad58d7b2da3579df7d04c",
+    "known_misclassified_nonfinite_cases": 24,
+    "prior_profile_ordering_violations": 4,
+    "reusable": false
+  },
+  "package_metadata_note": {
+    "issue_id": "S8E-CANON-PACKAGE-METADATA-NOTE-001",
+    "scientific_result_affected": false,
+    "description": "The corrected CANONICAL_FINDINGS.json identifies results_id S8E-CANON-RESULTS-002, but the generated RESULTS_HASH_MANIFEST.json retains the stale metadata label S8E-CANON-RESULTS-001. The file hashes inside that manifest correspond to the corrected result files. The immutable GitHub Actions artifact is not rewritten. This audit record is the authoritative external binding of the corrected package to S8E-CANON-RESULTS-002 pending a formal result-freeze decision.",
+    "future_runner_fix_recommended": true,
+    "reexecution_required_for_scientific_validity": false
+  },
+  "claim_boundary": {
+    "satnogs_observation_is_operational_command_contact": false,
+    "satnogs_baud_is_payload_throughput": false,
+    "modeled_rate_is_hypothetical_uniform_effective_payload_rate": true,
+    "original_study8_logical_slots_are_physical_seconds": false,
+    "pooling_with_frozen_study8": false,
+    "external_replication_claim": false,
+    "causal_between_trace_timing_claim": false,
+    "flight_hardware_or_rf_performance_claim": false
+  },
+  "result_freeze_permitted_after_review": true,
+  "result_freeze_completed": false,
+  "manuscript_integration_permitted_now": false,
+  "publisher_submission_permitted_now": false,
+  "next_gate": "EXPLICIT_AUTHOR_REVIEW_AND_FORMAL_RESULT_FREEZE_DECISION__THEN_MANUSCRIPT_INTEGRATION_STRATEGY"
+}

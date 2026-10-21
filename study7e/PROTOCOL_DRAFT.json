@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "title": "Architecture-Grounded Equal-Information Recovery Comparators Under Correlated Trust Failures",
+  "state": "DRAFT__NOT_FROZEN__CANONICAL_EXECUTION_PROHIBITED",
+  "base_main_commit": "efb0d135b962034c325c2e268c1e0fdb61712516",
+  "antecedent_study": "S7-LSO-001",
+  "policy_pairs": {
+    "base": [
+      "D0_BASE",
+      "L0_BASE"
+    ],
+    "corroborated": [
+      "D1_CORROBORATED",
+      "L1_CORROBORATED"
+    ]
+  },
+  "topologies": [
+    "T0_SHARED_ALL",
+    "T1_SEPARATE_SOURCE_EXEC",
+    "T2_SEPARATE_SOURCE_KEY_EXEC",
+    "T3_SEPARATE_THROUGH_TRANSPORT",
+    "T4_SEPARATE_ALL"
+  ],
+  "fault_profiles": [
+    "F0",
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8",
+    "F9",
+    "F10",
+    "F11",
+    "F12"
+  ],
+  "blocks": {
+    "TR1": {
+      "scenarios": 72,
+      "canonical_evaluation": false
+    },
+    "TR0": {
+      "scenarios": 12,
+      "canonical_evaluation": false
+    },
+    "E1": {
+      "scenarios": 84,
+      "canonical_evaluation": true
+    },
+    "E2": {
+      "scenarios": 104,
+      "canonical_evaluation": true
+    },
+    "C0": {
+      "scenarios": 8,
+      "canonical_evaluation": true
+    }
+  },
+  "expected_counts": {
+    "total_manifest_scenarios": 280,
+    "training_scenarios": 84,
+    "canonical_evaluation_scenarios": 196,
+    "decisions_per_evaluation_scenario": 4,
+    "canonical_evaluation_policy_decisions": 784
+  },
+  "execution_gate": {
+    "canonical_execution_authorized": false,
+    "authorization_file": "study7e/CANONICAL_EXECUTION_AUTHORIZATION.json",
+    "authorization_file_must_be_absent_in_current_phase": true,
+    "canonical_workflow_must_be_absent_in_current_phase": true
+  },
+  "claim_boundaries": {
+    "no_operational_spacecraft_probability": true,
+    "no_flight_qualification": true,
+    "no_certification_sufficiency": true,
+    "no_global_ml_superiority": true,
+    "study7_and_study7e_unpooled": true
+  },
+  "design_review": {
+    "review_id": "S7E-AERC-PROTOCOL-REVIEW-R1",
+    "finding": "Original draft omitted security_signal=0 from training while evaluating it in C0",
+    "correction": "Add TR0 on T0-T2/F0 and restrict C0 to held-out T3-T4/F0",
+    "status": "CORRECTED_BEFORE_PROTOCOL_FREEZE_AND_BEFORE_SCIENTIFIC_EXECUTION"
+  },
+  "design_review_r2": {
+    "review_id": "S7E-AERC-PROTOCOL-REVIEW-R2",
+    "finding": "Execution trust domain was defined but not directly exercised by a fault profile",
+    "correction": "Added F12 PRIMARY_EXECUTION_COMPROMISE as an unseen E1 fault and included it in held-out-topology E2",
+    "status": "CORRECTED_BEFORE_PROTOCOL_FREEZE_AND_BEFORE_SCIENTIFIC_EXECUTION"
+  },
+  "implementation_environment": {
+    "state": "PRE_FREEZE_BASELINE_SELECTED__NOT_FROZEN",
+    "selected_stack": "standalone_cFS_v7.0.1",
+    "selected_tag_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
+    "canonical_environment_frozen": false,
+    "nos3_disposition": "BOUNDED_FEASIBILITY_REFERENCE__NOT_SELECTED_FOR_BASELINE"
+  }
+}

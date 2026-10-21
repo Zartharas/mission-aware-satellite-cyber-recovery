@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-PHASE7F-INTERPRETATION-CLAIM-USE-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "date_local": "2026-09-28",
+  "status": "INTERPRETATION_AND_CLAIM_USE_PACKAGE_PREPARED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "branch_base_commit": "74c124290fce0f46f1687f277edeff28d4d82dc1",
+  "result_freeze": {
+    "effective": true,
+    "freeze_id": "S3X-PHASE7-RESULT-FREEZE-001",
+    "main_commit": "74c124290fce0f46f1687f277edeff28d4d82dc1",
+    "post_merge_ci_run_number": 1266,
+    "post_merge_ci_conclusion": "success"
+  },
+  "authorized_now": {
+    "scientific_interpretation": true,
+    "rebuild_manuscript_claim_use_preparation": true,
+    "scientific_reexecution": false,
+    "result_mutation": false,
+    "historical_r10_mutation": false
+  },
+  "claim_scope": {
+    "structural_exact_claims": "PREPARED_FOR_AUTHOR_REVIEW",
+    "output_distribution_claims_not_directly_inspected": "WITHHELD",
+    "external_empirical_replication_claim": false,
+    "study3_s3x_pooling": false,
+    "global_policy_ranking": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7F_INTERPRETATION_CLAIM_USE_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

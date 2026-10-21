@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "record_id": "S8E-CANON-AUTH-CORRECTION-001",
+  "date_local": "2026-09-20",
+  "status": "AUTHORIZATION_SCOPE_CORRECTED_BEFORE_CANONICAL_EXECUTION",
+  "prior_state": {
+    "main_commit": "2ef6bf63ab6b98ec0cbeb8585b0214dcaf98e9be",
+    "prior_authorization_file": "study8e/CANONICAL_EXECUTION_AUTHORIZATION_20260920.json",
+    "prior_interpretation": "The prior file interpreted 'Please continue the work, I authorize.' as also authorizing real TRACE-002 canonical execution after protocol merge."
+  },
+  "correction_basis": "The assistant's explicit scope statement for that user authorization limited the stage to canonical execution-protocol freeze and stated that no TRACE-002 scientific endpoint would be computed in that stage. The broader repository interpretation therefore exceeded the stated gate and is corrected prospectively.",
+  "execution_state_at_correction": {
+    "canonical_workflow_dispatch_runs": 0,
+    "canonical_real_trace_scientific_endpoints_computed": false,
+    "canonical_results_frozen": false,
+    "manuscript_claims_based_on_canonical_results": false
+  },
+  "corrected_rule": "Real TRACE-002 canonical execution requires a new explicit author authorization after the corrected protocol/governance package is merged and post-merge validated.",
+  "go_live_artifact_required": "study8e/CANONICAL_EXECUTION_GO_LIVE.json",
+  "integrity": {
+    "study8_frozen_science_modified": false,
+    "acta_package_modified": false,
+    "trace002_modified": false,
+    "scientific_runner_logic_modified": false
+  }
+}

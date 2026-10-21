@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "EP_1_THROUGH_EP_5_APPROVED_FOR_FREEZE_CANDIDATE_PREPARATION_ONLY",
+  "basis_head": "ae96db64da3e00551d05f05996f6e4af82d6cfbe",
+  "source": "explicit author approval in project conversation",
+  "approved_statement": "I approve EP-1 through EP-5 as the Study-7E pre-freeze execution-parameter candidate, subject to the documented boundaries. This does not authorize canonical execution, L0/L1 production training/freeze, PR merge, or publication claims.",
+  "decisions": {
+    "EP-1": true,
+    "EP-2": true,
+    "EP-3": true,
+    "EP-4": true,
+    "EP-5": true
+  },
+  "authorized_next_scope": "prepare and qualify a protocol/environment freeze candidate",
+  "not_authorized": {
+    "protocol_freeze": true,
+    "environment_freeze": true,
+    "production_model_training": true,
+    "production_model_freeze": true,
+    "canonical_execution": true,
+    "pr_merge": true,
+    "publication_claims": true
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-POST-REJECTION-MANUSCRIPT-REBUILD-R2-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "date_local": "2026-09-28",
+  "status": "VENUE_NEUTRAL_REBUILD_R2_PREPARED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "authorized_main_commit": "21dc6444045a8d7668cb5b44b6e39a259567807b",
+  "authorization_gate": "AUTHOR_REVIEW_BEFORE_REBUILD_R2_EDITORIAL_REFERENCE_INTEGRATION",
+  "immutable_prior_manuscript": {
+    "path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_REBUILD_MANUSCRIPT_R1_2026-09-28.md",
+    "git_blob_sha1": "822aa4257f15b76f16fed35c1131b2063923b0c8",
+    "mutation_authorized": false
+  },
+  "authoritative_audit": {
+    "record_id": "PAPER2-REBUILD-R1-DETAILED-AUDIT-001",
+    "merge_commit": "21dc6444045a8d7668cb5b44b6e39a259567807b",
+    "post_merge_ci_run_number": 1275,
+    "post_merge_ci_run_id": 36466692999,
+    "post_merge_ci_conclusion": "success",
+    "audit_report_blob": "0a0edfc621041b35e7b0a31c1c9bb223fc847ca1",
+    "reference_refresh_blob": "70086ae516c53e1966f4e6539880c0955c81f5ec"
+  },
+  "r2_changes": {
+    "qualification_specific_title_and_rq": true,
+    "p99_x10_selection_chronology_explicit": true,
+    "silent_subversion_novelty_boundary_integrated": true,
+    "contemporary_satellite_literature_integrated": true,
+    "esa_reference_metadata_corrected": true,
+    "sparta_specific_countermeasure_citation": true,
+    "rq1_compact_table_integrated": true,
+    "figure1_redesign_specified_not_generated": true,
+    "governance_repetition_reduced": true
+  },
+  "science_controls": {
+    "study3_mutation": false,
+    "study4_mutation": false,
+    "study6_mutation": false,
+    "s3x_mutation": false,
+    "scientific_reexecution": false,
+    "result_mutation": false,
+    "study3_s3x_pooling": false,
+    "external_empirical_replication_claim": false,
+    "global_policy_ranking": false
+  },
+  "publication_controls": {
+    "venue_lock": false,
+    "publisher_specific_formatting": false,
+    "final_submission_package": false,
+    "figure_generation_authorized": false
+  },
+  "r2_metrics": {
+    "word_count": 6666,
+    "frozen_term_occurrences": 27,
+    "does_not_term_occurrences": 27
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_REBUILD_R2_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

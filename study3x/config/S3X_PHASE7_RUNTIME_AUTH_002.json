@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "authorization_id": "S3X-PHASE7-RUNTIME-AUTH-002",
+  "supersedes_authorization_id": "S3X-PHASE7-RUNTIME-AUTH-001",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "PHASE7D_CORRECTED_RUNTIME_AUTHORIZATION",
+  "preparation_date": "2026-09-27",
+  "status": "PREPARED_ON_FEATURE_BRANCH__NOT_EFFECTIVE",
+  "correction_predecessor": {
+    "prior_authorization_id": "S3X-PHASE7-RUNTIME-AUTH-001",
+    "prior_authorization_merge_commit": "1396a82657ff0613b9a1abb0b645e1daa172eb27",
+    "prior_authorization_post_merge_ci_run_number": 1259,
+    "prior_authorization_post_merge_ci_run_id": 36369380963,
+    "prior_execution_attempt": "STOPPED_BEFORE_CASE_GENERATION",
+    "prior_execution_failure": "decimal-exact threshold relationship check incompatible with frozen Phase-6 float serialization contract",
+    "frozen_input_sha256_verified_during_failed_attempt": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc"
+  },
+  "frozen_bindings": {
+    "protocol_blob": "f42fe8c0c58ee3b9152e629f5673bd5c71ffede4",
+    "trace_freeze_blob": "ed0bdcec443b7f0c3ee80d441e1122f32e499d3e",
+    "corrected_implementation_candidate_blob": "d7ee15c6a2bfe818ee016eadba0893ef74aa8f18",
+    "primary_v2_blob": "40e3bd0406f1f0bedecbac9cb1386699a8619318",
+    "reference_v2_blob": "26444d206f18bededa656b1de56d9ba0948c6ef3",
+    "population_runtime_v2_blob": "f2a789edd24a0e23ff0d256312fc7d2b7e656573",
+    "population_validator_v2_blob": "15796f7b8e2da3f92e941021839b387ad365394e",
+    "frozen_interval_csv_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "local_runtime_gate_v2": {
+      "path": "study3x/validation/run_local_phase7_replay_v2.sh",
+      "git_blob_sha1": "95cb497cd0465a34e1e8e17609c4e5f781ba8aaf"
+    }
+  },
+  "numerical_contract": {
+    "phase6_membership_semantics": "BINARY_FLOAT",
+    "threshold_check": "float(threshold_seconds) == float(cadence_p99_seconds) * 10.0",
+    "strict_membership_check": "float(delta_seconds) > float(threshold_seconds)",
+    "normalized_hiatus_analysis": "exact rational arithmetic from canonical CSV decimal tokens",
+    "tolerance_or_epsilon_introduced": false,
+    "gap_rule_retuned": false,
+    "membership_reselected": false
+  },
+  "authorization_scope": {
+    "real_frozen_interval_artifact_read_authorized": true,
+    "real_1919_interval_expansion_authorized": true,
+    "recovery_policy_execution_authorized": true,
+    "scientific_execution_authorized": true,
+    "independent_reference_validation_authorized": true,
+    "deterministic_repeat_execution_authorized": true,
+    "result_freeze_authorized": false,
+    "manuscript_claim_use_authorized": false,
+    "p99_x10_retuning_authorized": false,
+    "interval_membership_retuning_authorized": false,
+    "study3_modification_authorized": false,
+    "study3_s3x_pooling_authorized": false
+  },
+  "runtime_constraints": {
+    "required_branch": "main",
+    "clean_tracked_worktree_required": true,
+    "authorization_record_must_be_tracked_and_unmodified": true,
+    "frozen_interval_input_path_expected": "study3x/local_freeze_work/phase6_run1/S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv",
+    "frozen_interval_count": 1919,
+    "cases_per_interval": 18,
+    "expected_case_count": 34542,
+    "expected_matched_comparison_rows": 30704,
+    "output_root": "study3x/local_freeze_work/",
+    "output_directory_must_be_empty_or_absent": true,
+    "canonical_run_directories": [
+      "study3x/local_freeze_work/phase7_authorized_run1_001",
+      "study3x/local_freeze_work/phase7_authorized_run2_001"
+    ]
+  },
+  "deterministic_repeatability": {
+    "two_clean_output_directories_required": true,
+    "byte_identical_sha256_required": true,
+    "accepted_primary_reference_case_mismatches": 0,
+    "accepted_matched_comparison_mismatches": 0,
+    "required_matching_artifacts": [
+      "S3X_PHASE7_CASE_RESULTS_001.csv",
+      "S3X_PHASE7_MATCHED_COMPARISONS_001.csv",
+      "S3X_PHASE7_SUMMARY_001.json",
+      "S3X_PHASE7_INDEPENDENT_VALIDATION_001.json",
+      "S3X_PHASE7_RESULTS_HASH_MANIFEST_001.json"
+    ]
+  },
+  "result_freeze_boundary": {
+    "result_freeze_authorized_now": false,
+    "manuscript_claim_use_authorized_now": false,
+    "canonical_output_commit_authorized_now": false,
+    "result_freeze_requires_separate_author_review": true
+  },
+  "execution_state_at_record_creation": {
+    "corrected_real_replay_performed": false,
+    "corrected_scientific_results_generated": false,
+    "corrected_independent_validation_performed": false,
+    "corrected_repeat_execution_performed": false,
+    "result_population_frozen": false,
+    "manuscript_claim_use": false
+  },
+  "effectivity": {
+    "record_effective_only_when_tracked_on_main": true,
+    "creation_state": "PREPARED_ON_FEATURE_BRANCH",
+    "record_merge_requires_separate_author_review": true,
+    "post_merge_ci_required_before_reexecution": true,
+    "actual_corrected_runtime_execution_requires_explicit_post_merge_author_instruction": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7D_CORRECTION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

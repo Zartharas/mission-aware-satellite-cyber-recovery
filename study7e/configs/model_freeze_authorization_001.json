@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "authorization_id": "S7E-AERC-MODEL-FREEZE-AUTH-001",
+  "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
+  "experiment_id": "S7E-AERC-001",
+  "protocol_freeze_id": "S7E-AERC-FREEZE-001",
+  "candidate_id": "S7E-AERC-MODEL-FREEZE-CANDIDATE-001",
+  "review_id": "S7E-AERC-MODEL-FREEZE-REVIEW-001",
+  "date": "2026-09-23",
+  "state": "AUTHORIZED_MODEL_FREEZE_ONLY",
+  "author_statement": "I authorize activation of S7E-AERC-MODEL-FREEZE-001 using S7E-AERC-MODEL-FREEZE-CANDIDATE-001 as the candidate of record, subject to the preservation and integrity controls in S7E-AERC-MODEL-FREEZE-REVIEW-001. This authorizes model freeze only. It does not authorize E1/E2/C0 held-out evaluation, canonical scientific execution, PR #167 merge, or publication/result claims.",
+  "authorized": {
+    "model_freeze_activation": true,
+    "durable_candidate_preservation": true,
+    "hash_environment_enforcement": true
+  },
+  "not_authorized": {
+    "held_out_evaluation": true,
+    "canonical_scientific_execution": true,
+    "pr_167_merge": true,
+    "publication_or_result_claims": true
+  }
+}

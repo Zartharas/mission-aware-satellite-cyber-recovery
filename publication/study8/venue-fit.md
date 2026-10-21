@@ -3,7 +3,7 @@
 **Initial verification date:** 2026-09-03  
 **Final venue selection date:** 2026-09-05  
 **Submission date:** 2026-09-06  
-**Current disposition:** `ACTA_ASTRONAUTICA_SELECTED_AND_SUBMITTED`  
+**Current disposition:** `ACTA_ASTRONAUTICA_REJECTED__RETARGET_AUDIT_REQUIRED`  
 **Acta manuscript ID:** `AA-D-26-02872`
 
 This file preserves the initial comparative venue assessment while recording the later author-approved selection and completed submission. The initial ranking below is historical planning provenance and must not be mistaken for the current publisher state.
@@ -44,12 +44,16 @@ The manuscript was submitted to **Acta Astronautica** on **2026-09-06** and assi
 
 - manuscript ID: `AA-D-26-02872`
 - article type: `Research paper`
-- current status: `With Editor`
+- final disposition: `Rejected` (decision recorded 2026-09-19)
 
 Current submitted-state authority:
 
 `publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`
 
-## Current rule
+## Acta decision and current rule
 
-Do not reopen venue selection for Study 8 while `AA-D-26-02872` is active at Acta Astronautica. Fallback venues remain historical contingency options only and should be reconsidered only if the Acta submission is formally closed without publication.
+The author supplied a rejection letter from Acta Astronautica on 2026-09-19. The editor stated that the problems addressed were potentially of interest to the readership but that the manuscript did not meet the journal's required quality standard. No external reviewer reports or specific methodological defects were included in the supplied decision.
+
+The Acta submission is therefore formally closed without publication. The historical fallback list is now eligible for **fresh reconsideration**, but it must not be treated as an automatic next-venue ranking. Scope, policy, topical precedent, fees, manuscript fit, and the quality weaknesses of the submitted version must be rechecked live before any new venue is selected.
+
+Do not change frozen Study 8 science to satisfy a venue. Retargeting may revise manuscript framing, presentation, literature positioning, and venue-specific formatting through a new controlled package.

@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "deviation_id": "S8E-DEV-SATNOGS-FILTER-PARAM-002",
+  "recorded_date_local": "2026-09-20",
+  "status": "PROSPECTIVE_CORRECTION_BEFORE_TIMING_OR_RECOVERY_ENDPOINTS",
+  "supersedes_for_pair_filtering": "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001 qualification query syntax only",
+  "authority": {
+    "satnogs_release": "1.134",
+    "satnogs_source_commit": "9c55e92850b4f5c11c52a72371685fb8cfff1507",
+    "filter_module": "network/api/filters.py",
+    "serializer_module": "network/api/serializers.py"
+  },
+  "correct_query": {
+    "norad_parameter": "norad_cat_id",
+    "station_parameter": "ground_station",
+    "date_parameters": ["start","end"],
+    "format": "json"
+  },
+  "unchanged_selection_rules": {
+    "seed_windows": "exactly the ten windows already frozen in S8E-DEV-SATNOGS-CURSOR-THROTTLE-001",
+    "candidate_rank": "SHA256('SATNOGS|' + norad_cat_id + '|' + ground_station) ascending",
+    "minimum_pair_observations": 20,
+    "maximum_pairs_per_norad_cat_id": 2,
+    "maximum_pairs_per_ground_station": 2,
+    "target_pairs": 32,
+    "hard_request_cap": 50,
+    "no_result_dependent_tuning": true
+  },
+  "information_state": {
+    "real_trace_timing_distribution_inspected": false,
+    "real_trace_gap_distribution_inspected": false,
+    "real_trace_burstiness_inspected": false,
+    "payload_rate_threshold_computed": false,
+    "recovery_endpoint_computed": false,
+    "policy_or_profile_endpoint_computed": false
+  },
+  "next_gate": "VERIFY_CORRECT_FILTER_WITH_IDENTITY_ONLY_REQUEST__THEN_REBUILD_POP002"
+}

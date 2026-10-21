@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "authorization_id": "S7E-AERC-HELDOUT-AUTH-001",
+  "execution_id": "S7E-AERC-HELDOUT-EXEC-001",
+  "experiment_id": "S7E-AERC-001",
+  "protocol_freeze_id": "S7E-AERC-FREEZE-001",
+  "model_freeze_id": "S7E-AERC-MODEL-FREEZE-001",
+  "plan_id": "S7E-AERC-HELDOUT-PLAN-001",
+  "date": "2026-09-23",
+  "state": "AUTHORIZED_FOR_EXACT_HELD_OUT_SCIENTIFIC_EVALUATION_ONLY",
+  "author_statement": "I authorize execution of the Study 7E E1/E2/C0 held-out evaluation under S7E-AERC-HELDOUT-PLAN-001 using the frozen models in S7E-AERC-MODEL-FREEZE-001. This authorizes the 196-scenario / 784-decision scientific evaluation, validity/audit checks, and computation of the predeclared exact endpoints only. It does not authorize post-hoc model changes, PR #167 merge, manuscript/publication result claims, or any expansion beyond the frozen Study 7E protocol.",
+  "authorized": {
+    "held_out_blocks": [
+      "E1",
+      "E2",
+      "C0"
+    ],
+    "scenarios": 196,
+    "policy_decisions": 784,
+    "validity_and_independent_audit": true,
+    "predeclared_exact_endpoints": true,
+    "canonical_scientific_execution_for_this_defined_population": true
+  },
+  "prohibited": {
+    "post_hoc_model_change": true,
+    "hyperparameter_change": true,
+    "retraining": true,
+    "population_expansion": true,
+    "endpoint_expansion": true,
+    "hidden_retry": true,
+    "pr_167_merge": true,
+    "manuscript_or_publication_result_claims": true
+  }
+}

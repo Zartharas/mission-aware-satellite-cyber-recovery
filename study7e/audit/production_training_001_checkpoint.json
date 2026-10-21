@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "checkpoint_id": "S7E-AERC-PRODUCTION-TRAINING-CHECKPOINT-001",
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "plan_id": "S7E-AERC-TRAINPLAN-001",
+  "authorization_id": "S7E-AERC-TRAIN-AUTH-001",
+  "local_date": "2026-09-23",
+  "scope": "deterministic TR0/TR1 production training and model-freeze candidate preparation only",
+  "candidate_of_record": {
+    "run_id": 35939164352,
+    "job_id": 107442994831,
+    "source_commit": "65e8afd21316bdb40928ff30d3a1534c3893ad34",
+    "artifact_id": 10784198198,
+    "candidate_payload_sha256": "49dd341bbef9f5ba694c2b127a30246cbe612f1598458b85594a4078503d4dfb"
+  },
+  "attempts": [
+    {
+      "run_id": 35938879282,
+      "result": "failed_before_fit",
+      "reason": "new execution-contract test imported a renamed runner helper; frozen and existing boundary tests passed; training step was skipped",
+      "scientific_or_frozen_input_change_required": false,
+      "model_fit_executed": false,
+      "authoritative": false
+    },
+    {
+      "run_id": 35939164352,
+      "job_id": 107442994831,
+      "source_commit": "65e8afd21316bdb40928ff30d3a1534c3893ad34",
+      "result": "success",
+      "contract_tests": {"passed": 23, "failed": 0},
+      "prefit_binding": "PASS",
+      "production_training": "PASS",
+      "model_freeze_candidate_gate": "PASS",
+      "authoritative": true
+    },
+    {
+      "run_id": 35939421477,
+      "job_id": 107443797286,
+      "source_commit": "83ceeee61749f001528fbd7bfff6635dff0b9afe",
+      "result": "successful_unintended_duplicate_reexecution",
+      "cause": "PR changed-file path semantics retriggered the workflow on the checkpoint commit",
+      "dataset_dependency_semantic_and_primary_artifact_hashes_match_candidate_of_record": true,
+      "candidate_payload_sha256": "e75233af93d871cfdeb12a178ffd5e5f26edf1edfe46b813de54468b37f47d23",
+      "artifact_id": 10784436482,
+      "artifact_zip_sha256": "98e1106df78db1f16c03d8896ca0fd9a3a553807005a8ce871f0f75cdc35df11",
+      "held_out_evaluation_executed": false,
+      "authoritative": false
+    }
+  ],
+  "training_evidence": {
+    "partition": {"TR0": 12, "TR1": 72, "TOTAL": 84},
+    "labels": {"HOLD": 66, "ENTER_RECOVERY_GATE": 18},
+    "dataset_sha256": {
+      "L0_BASE": "435b938b714d7eeb87284af8a2beb823a0d8e5a4a2220d96e784411a64680f20",
+      "L1_CORROBORATED": "70e3fc366d8c618a3e27d533aa436b1230d6231a82759f1dfb67850ca343df61"
+    },
+    "dependency_inventory_sha256": "023a745c1edde1a929030fbc15245811f828365aba11b0485c5b139a402fdd08",
+    "runtime": {
+      "python": "3.11.16",
+      "pip": "26.2.1",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "joblib": "1.6.0",
+      "threadpoolctl": "3.7.0",
+      "cloudpickle": "3.1.2",
+      "narwhals": "2.26.0"
+    },
+    "semantic_model_sha256": {
+      "L0_BASE": "1060d526704f21d4ee72be1ace6916c061b0c254de64246b1f469a576ba42ef1",
+      "L1_CORROBORATED": "499fc92b714948c9a837861d4810051f51ab014f3f261a13df85646f7832f558"
+    },
+    "primary_runtime_artifact_sha256": {
+      "L0_BASE": "5b38a0088c4dd0cb2ce3739993cd2d9ee7949eb1a86c188ca1bd95b38cb5f4b1",
+      "L1_CORROBORATED": "6c4b589766f1df51fad2bde80350000f24c53b215ef345079fd81a8a7b98b960"
+    },
+    "primary_audit_semantic_identity": true,
+    "model_freeze_candidate_sha256": "49dd341bbef9f5ba694c2b127a30246cbe612f1598458b85594a4078503d4dfb"
+  },
+  "artifact": {
+    "id": 10784198198,
+    "name": "S7E-AERC-MODEL-FREEZE-CANDIDATE-001-65e8afd21316bdb40928ff30d3a1534c3893ad34",
+    "files": 14,
+    "size_bytes": 13032,
+    "zip_sha256": "e7d92ab35f34df5f34e54c7e8245e43663bdc4f20717aae643d5dbbc3ff68e01",
+    "expired_at_checkpoint": false,
+    "expires_at_utc": "2026-10-24T00:36:42Z"
+  },
+  "adversarial_review": {
+    "held_out_training_leakage_observed": false,
+    "held_out_prediction_or_metrics_path_present": false,
+    "privileged_fields_allowed_by_training_contract": false,
+    "dataset_and_dependency_hashes_bound_before_fit": true,
+    "primary_audit_semantic_mismatch_observed": false,
+    "repository_model_binary_committed": false,
+    "model_freeze_activated": false,
+    "canonical_execution_activated": false,
+    "automatic_production_training_trigger_sealed": true
+  },
+  "hard_stop": {
+    "production_models_frozen": false,
+    "held_out_evaluation_executed": false,
+    "canonical_execution_authorized": false,
+    "scientific_results_generated": false,
+    "pr_167_merge_authorized": false,
+    "publication_or_result_claims_authorized": false
+  },
+  "next_gate": "separate explicit model-freeze review and authorization"
+}

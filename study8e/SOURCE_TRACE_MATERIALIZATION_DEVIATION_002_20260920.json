@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "deviation_id": "S8E-DEV-SATNOGS-TRACE-CAP-002",
+  "recorded_date_local": "2026-09-20",
+  "status": "PROSPECTIVE_POP002_TRACE_MATERIALIZATION_RULE__BEFORE_TIMING_ENDPOINT_INSPECTION",
+  "supersedes": "S8E-DEV-SATNOGS-TRACE-CAP-001",
+  "population_freeze": "S8E-SATNOGS-POP-002",
+  "reason": "Corrected POP-002 contains 20 valid pairs and some qualifying first pages contain 20-24 records rather than 25. The earlier 32 x 25 = 800 rule cannot apply without replacing valid pairs or following extra pages after seeing population outcomes.",
+  "materialization_rule": {
+    "selected_pairs": 20,
+    "requests": 20,
+    "query_filter": [
+      "start",
+      "end",
+      "norad_cat_id",
+      "ground_station",
+      "format=json"
+    ],
+    "ordering": [
+      "-start",
+      "-end"
+    ],
+    "records_per_pair": "exactly the first-page count already frozen for that pair in S8E-SATNOGS-POP-002",
+    "expected_total_records": 476,
+    "expected_count_distribution": {
+      "20": 3,
+      "21": 1,
+      "23": 2,
+      "24": 1,
+      "25": 13
+    },
+    "follow_next_cursor": false,
+    "substitute_pairs": false,
+    "expand_population": false,
+    "persisted_fields": [
+      "id",
+      "start",
+      "end",
+      "ground_station",
+      "norad_cat_id"
+    ]
+  },
+  "fail_closed_conditions": [
+    "returned row identity does not exactly match requested norad_cat_id and ground_station",
+    "returned record count differs from the pair-specific frozen first-page count",
+    "timestamp is not parseable and timezone-aware",
+    "start is not strictly before end",
+    "record falls outside the frozen June source window"
+  ],
+  "information_state_before_rule": {
+    "timing_distribution_inspected": false,
+    "gap_distribution_inspected": false,
+    "burstiness_inspected": false,
+    "payload_rate_threshold_computed": false,
+    "recovery_endpoint_computed": false
+  },
+  "claim_boundary": "The materialized corpus is the frozen first-page projection of POP-002, not all observations for the 20 pairs and not a representative sample of SatNOGS.",
+  "next_gate": "MATERIALIZE_HASH_AND_VALIDATE_476_RECORD_CORPUS"
+}

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "record_id": "S8E-CANON-GOLIVE-001-CLOSEOUT",
+  "date_local": "2026-09-20",
+  "status": "CONSUMED__EXECUTION_COMPLETED__RESULT_INVALIDATED_BEFORE_FREEZE",
+  "authorization_id": "S8E-CANON-GOLIVE-001",
+  "activation_id": "S8E-CANON-ACTIVATE-001",
+  "activation_merge_commit": "a7ebd658842bd5d5a5976982464daf70ba8946b0",
+  "canonical_workflow_run": 35529423881,
+  "workflow_technical_conclusion": "success",
+  "scientific_result_disposition": "INVALIDATED_BEFORE_RESULT_FREEZE",
+  "invalidation_record": "S8E-CANON-RESULTS-001-INVALIDATION",
+  "defect_record": "S8E-CANON-BOUND-DEFECT-001",
+  "reusable_for_reexecution": false,
+  "new_go_live_required_for_reexecution": true
+}

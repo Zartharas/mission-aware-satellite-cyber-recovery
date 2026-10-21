@@ -1,0 +1,277 @@
+{
+  "schema": 1,
+  "protocol_id": "S3X-PHASE7-RECOVERY-REPLAY-DESIGN-001",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "PHASE7A_RECOVERY_POLICY_REPLAY_DESIGN",
+  "status": "DESIGN_ONLY__NO_RECOVERY_OR_SCIENTIFIC_EXECUTION_AUTHORIZED",
+  "design_date": "2026-09-27",
+  "branch_base_main_commit": "38b45cd5e4674c78b432f24bfff2457affb3cb12",
+  "research_question": "When the frozen P99_X10 telemetry inter-sample intervals are used only as cadence-normalized evidence-refresh-hiatus proxies, do the frozen Study-3 B0/B2/S1 decision semantics preserve the distinction between bounded truthful-cache exposure and false-but-valid producer evidence at the first modeled refresh after the hiatus?",
+  "frozen_inputs": {
+    "trace_population_freeze": {
+      "freeze_id": "S3X-P99X10-TRACE-POPULATION-FREEZE-001",
+      "path": "study3x/config/S3X_PHASE6_TRACE_POPULATION_FREEZE_001.json",
+      "git_blob_sha1": "ed0bdcec443b7f0c3ee80d441e1122f32e499d3e",
+      "channels": 176,
+      "intervals": 1919,
+      "channels_with_intervals": 171,
+      "channels_with_zero_intervals": 5,
+      "canonical_channel_projection_sha256": "f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1",
+      "interval_csv_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+      "summary_json_sha256": "9d7bcafac252cb39023c86e84db37bdb6ab6c674b2360622e4c43486d41756c5",
+      "manifest_json_sha256": "9be6db23bb7229da0aae17f0c4073a04c314d5079e595ab69c00aa0ee7a29983",
+      "validation_json_sha256": "a1116119d56465f0a7aa990ad379441d0f373848c25b99c3369348228facf647"
+    },
+    "study3_semantics": {
+      "experiment_id": "S3-K4E-001",
+      "protocol_path": "study3/STUDY3_PROTOCOL.json",
+      "protocol_git_blob_sha1": "ba798c3fddc5400cb45103c5fb2694b6ecfd475c",
+      "temporal_model_path": "study3/src/temporal_model.py",
+      "temporal_model_git_blob_sha1": "b13e62456c144db0e12808bf700586c1c844c33d",
+      "results_freeze_path": "study3/results/RESULTS_FREEZE.json",
+      "results_freeze_git_blob_sha1": "afb81cad030c3c6e638c9b9807a9c214f293daa5",
+      "parent_population_is_read_only": true,
+      "pool_with_parent_study": false
+    }
+  },
+  "source_timing_abstraction": {
+    "source_fact": "Each frozen member is a P99_X10-positive extreme telemetry inter-sample interval with exact preceding/following source timestamps.",
+    "external_timing_role": "Timing structure only.",
+    "cadence_unit_definition": "For interval i, one extension cadence unit is that channel's frozen cadence_p99_seconds from the canonical interval CSV.",
+    "normalized_hiatus_formula": "g_i = delta_seconds / cadence_p99_seconds",
+    "frozen_membership_implication": "Because P99_X10 requires delta_seconds > 10 * cadence_p99_seconds, every frozen interval has g_i > 10.",
+    "arithmetic_requirement": "Parse canonical decimal strings deterministically; no threshold or membership recomputation/retuning is allowed in Phase 7.",
+    "gap_arm_proxy": "refresh_opportunity_proxy=false strictly between the frozen preceding and following timestamps and true at the modeled first refresh at the following timestamp.",
+    "control_arm_proxy": "matched modeled control with immediate post-onset refresh and no hiatus; interval/channel identity is retained only for pairing.",
+    "operational_contact_claim": false,
+    "rf_outage_claim": false,
+    "spacecraft_outage_claim": false,
+    "command_availability_claim": false
+  },
+  "modeled_state_transition": {
+    "pre_hiatus_record": "Immediately before q=0, a validly signed authorization=true record is present.",
+    "onset_ordering": "At q=0 immediately after that pre-hiatus record, modeled hidden authorization changes from true to false and the modeled security signal becomes true.",
+    "hidden_truth_available_to_policy": false,
+    "freshness_normalization": "Study-3 EVIDENCE_TTL_S/EPOCH_S equals 1; Phase 7 preserves this one-epoch freshness relation as one channel-specific cadence unit rather than treating Study-3 logical seconds as physical seconds.",
+    "pre_hiatus_cache_fresh_through_units": 1,
+    "pre_hiatus_cache_exposure_measure_units": 1,
+    "first_refresh_timing_gap_arm": "q=g_i",
+    "first_refresh_timing_control_arm": "q=0",
+    "repeated_post_refresh_behavior_modeled": false,
+    "reason_repeated_refresh_excluded": "The frozen 1,919-interval artifact identifies the bounding timestamps of each selected interval but does not itself define a repeated post-hiatus refresh schedule; therefore ONE_SHOT versus PERSISTENT treatment is not identifiable in this phase."
+  },
+  "evidence_states": {
+    "V0": {
+      "label": "TRUTHFUL_POST_ONSET",
+      "first_refresh_claim_authorization_valid": false,
+      "first_refresh_signature_valid": true,
+      "treatment_affected": false
+    },
+    "V4": {
+      "label": "POST_SIGNATURE_VALUE_MANIPULATION",
+      "first_refresh_claim_authorization_valid": true,
+      "first_refresh_signature_valid": false,
+      "treatment_affected": true
+    },
+    "V5": {
+      "label": "FALSE_BUT_VALID_TRUSTED_PRODUCER",
+      "first_refresh_claim_authorization_valid": true,
+      "first_refresh_signature_valid": true,
+      "treatment_affected": true
+    }
+  },
+  "policy_binding": {
+    "policies": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ],
+    "security_signal_for_post_onset_evaluation": true,
+    "adapter_input_mapping": "The extension's refresh_opportunity_proxy is supplied only to the Study-3 policy input named contact. This is a model adapter and is not a claim that ESA telemetry sampling equals RF/command contact.",
+    "post_onset_truth_table": {
+      "S2_B0_FAIL_CLOSED": {
+        "qualified_proxy_false": "PROCEED_TO_RECOVERY_GATE",
+        "qualified_proxy_true": "PROCEED_TO_RECOVERY_GATE",
+        "unqualified_proxy_false": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+        "unqualified_proxy_true": "RESTRICT_AND_REQUEST_AUTHORIZATION"
+      },
+      "S2_B2_RISK_THRESHOLD": {
+        "qualified_proxy_false": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+        "qualified_proxy_true": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+        "unqualified_proxy_false": "HOLD_AND_REQUIRE_EVIDENCE",
+        "unqualified_proxy_true": "HOLD_AND_REQUIRE_EVIDENCE"
+      },
+      "S2_S1_EVIDENCE_AWARE": {
+        "qualified_proxy_false": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+        "qualified_proxy_true": "PROCEED_TO_RECOVERY_GATE",
+        "unqualified_proxy_false": "HOLD_AND_REQUIRE_EVIDENCE",
+        "unqualified_proxy_true": "HOLD_AND_REQUIRE_EVIDENCE"
+      }
+    },
+    "gate_qualification_rule": "action == PROCEED_TO_RECOVERY_GATE AND evidence_qualified AND claim_authorization_valid == true",
+    "permissive_actions": [
+      "PRESERVE_LIMITED_OPERATION",
+      "PROCEED_TO_RECOVERY_GATE"
+    ],
+    "protective_actions": [
+      "HOLD_AND_REQUIRE_EVIDENCE",
+      "RESTRICT_AND_REQUEST_AUTHORIZATION"
+    ]
+  },
+  "factor_grid": {
+    "intervals": 1919,
+    "policies": 3,
+    "evidence_states": 3,
+    "timing_arms": [
+      "EMPIRICAL_HIATUS_PROXY",
+      "MATCHED_CONTINUOUS_REFRESH_CONTROL"
+    ],
+    "persistence_dimension": false,
+    "expected_cases_formula": "1919 * 3 * 3 * 2",
+    "expected_cases": 34542,
+    "statistical_unit": "interval x policy x evidence_state x timing_arm case",
+    "repeated_cases_are_not_independent_samples": true
+  },
+  "case_evaluation": {
+    "hiatus_phase": {
+      "gap_arm_only": true,
+      "record_source": "pre-hiatus truthful authorization=true cache",
+      "no_new_record_before_resumption": true,
+      "cache_qualification_origin": "PRE_ONSET_CACHE",
+      "cache_freshness_units": 1,
+      "after_cache_expiry": "evidence_qualified=false until modeled first refresh"
+    },
+    "first_refresh_phase": {
+      "gap_arm_time": "q=g_i",
+      "control_arm_time": "q=0",
+      "record_semantics": "V0/V4/V5 as bound above",
+      "policy_evaluation": "exact frozen Study-3 select_action semantics via separately audited extension adapter",
+      "unsafe_qualified_definition": "modeled hidden authorization is false AND recovery gate is policy-visible qualified",
+      "unsafe_permissive_definition": "modeled hidden authorization is false AND selected action is in the frozen Study-3 permissive-action set"
+    }
+  },
+  "primary_endpoints": [
+    "cache_origin_unsafe_qualified_exposure_cadence_units",
+    "protective_hiatus_duration_cadence_units",
+    "first_refresh_action",
+    "first_refresh_gate_qualified",
+    "first_refresh_unsafe_permissive",
+    "first_refresh_unsafe_qualified",
+    "first_refresh_unsafe_qualification_origin",
+    "v5_first_refresh_qualification_delay_cadence_units"
+  ],
+  "context_endpoints": [
+    "delta_seconds",
+    "cadence_p99_seconds",
+    "normalized_hiatus_units"
+  ],
+  "prespecified_matched_comparisons": {
+    "gap_vs_continuous_v5": {
+      "match_on": [
+        "interval_id",
+        "policy",
+        "evidence_state=V5"
+      ],
+      "outputs": [
+        "first_refresh gate-qualification agreement/disagreement classification",
+        "difference in V5-origin first-qualification timing in cadence units where both arms qualify",
+        "difference in cache-origin unsafe-qualified exposure"
+      ]
+    },
+    "b0_vs_s1_gap_cache_boundary": {
+      "match_on": [
+        "interval_id",
+        "evidence_state",
+        "timing_arm=EMPIRICAL_HIATUS_PROXY"
+      ],
+      "outputs": [
+        "difference in cache-origin unsafe-qualified exposure cadence units"
+      ]
+    },
+    "b0_s1_vs_b2_v5_resumption": {
+      "match_on": [
+        "interval_id",
+        "evidence_state=V5",
+        "timing_arm"
+      ],
+      "outputs": [
+        "exact first-refresh unsafe-qualified classification by policy"
+      ]
+    }
+  },
+  "analysis_rules": {
+    "population_type": "complete finite frozen Phase-6C interval population crossed with a prospectively defined deterministic modeled factor grid",
+    "allowed": [
+      "exact counts",
+      "exact proportions",
+      "minimum",
+      "median",
+      "maximum",
+      "finite-population arithmetic means where explicitly defined",
+      "deterministic matched differences",
+      "per-mission and per-channel descriptive summaries only when all prespecified groups are retained"
+    ],
+    "prohibited": [
+      "sampling p-values",
+      "confidence intervals",
+      "bootstrap intervals",
+      "permutation tests",
+      "post-hoc interval exclusion",
+      "outcome-dependent subgroup creation",
+      "weighted global policy score",
+      "global policy ranking",
+      "pooling with S3-K4E-001",
+      "claiming the ESA interval population is representative of all spacecraft or all telemetry"
+    ]
+  },
+  "implementation_and_validation_requirements": {
+    "primary_implementation_required": true,
+    "separately_implemented_reference_validator_required": true,
+    "exact_case_level_comparison_required": true,
+    "accepted_mismatch_count": 0,
+    "deterministic_repeat_execution_required": true,
+    "two_clean_output_directories_required": true,
+    "byte_identical_scientific_output_sha256_required": true,
+    "wall_clock_metadata_in_scientific_outputs_allowed": false,
+    "local_input_path_expected": "study3x/local_freeze_work/phase6_run1/S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv",
+    "input_sha256_must_equal_frozen_hash": true,
+    "local_outputs_must_remain_ignored_until_separate_result_freeze": true
+  },
+  "planned_outputs": [
+    "S3X_PHASE7_CASE_RESULTS_001.csv",
+    "S3X_PHASE7_MATCHED_COMPARISONS_001.csv",
+    "S3X_PHASE7_SUMMARY_001.json",
+    "S3X_PHASE7_INDEPENDENT_VALIDATION_001.json",
+    "S3X_PHASE7_RESULTS_HASH_MANIFEST_001.json"
+  ],
+  "interpretation_controls": [
+    "ESA telemetry inter-sample intervals are timing inputs only and are not RF contact-loss observations.",
+    "refresh_opportunity_proxy is a modeled evidence-refresh abstraction and is not operational command availability.",
+    "V4 and V5 are modeled trust states and are not labels present in the ESA dataset.",
+    "A telemetry anomaly is not asserted to be a cyberattack.",
+    "Observed gap duration is not spacecraft recovery latency.",
+    "Cadence-normalized units are extension analysis units, not spacecraft, network, operator, or flight latency.",
+    "The extension may corroborate or fail to corroborate qualitative model behavior under this timing abstraction; it is not external empirical replication of Study 3.",
+    "S3X results remain a separate finite population and must not be appended to or pooled with the 1,380 Study-3 trajectories."
+  ],
+  "authorization_model": {
+    "phase7a_design_authorized": true,
+    "implementation_authorized": false,
+    "recovery_policy_execution_authorized": false,
+    "scientific_execution_authorized": false,
+    "manuscript_claim_use_authorized": false,
+    "runtime_requires_separate_versioned_authorization_record": true,
+    "protocol_merge_requires_separate_author_review": true,
+    "post_merge_ci_required_before_any_implementation_or_execution_authorization": true
+  },
+  "gates": {
+    "trace_population_frozen": true,
+    "phase7_design_prepared": true,
+    "phase7_design_merged": false,
+    "phase7_implementation_frozen": false,
+    "recovery_policy_execution_performed": false,
+    "scientific_results_generated": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7A_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

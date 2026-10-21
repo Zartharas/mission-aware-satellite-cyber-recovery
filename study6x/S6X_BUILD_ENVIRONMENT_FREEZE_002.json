@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "freeze_id": "S6X-BUILD-ENVIRONMENT-FREEZE-002",
+  "status": "CANDIDATE_VERIFIED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "authorized_main_commit": "78790a85f63cbed87a199f27e41ff69672a45200",
+  "source_evidence": {
+    "source_kind": "AUTHOR_SUPPLIED_LOCAL_OUTPUT__NOT_TRACKED_BYTES",
+    "materialization_transcript_sha256": "bf21da1f896b1375742545f045b2be4569de58b9a0350886bc6f5214ff20d22f",
+    "authorized_materialization_candidate_json_sha256": "ac22af3e11637120e3db8ba90415653cc6b052c2e53864059ab65a3506d529ed",
+    "authorized_materialization_log_sha256": "dc1baac5152960abd57d8cfe4b02025ffaa9082d746268989f3d41197cf59875"
+  },
+  "environment": {
+    "environment_id": "S6X-BUILD-ENVIRONMENT-002",
+    "supersedes_environment_id": "S6X-BUILD-ENVIRONMENT-001",
+    "platform": "linux/amd64",
+    "base_image": "amd64/ubuntu:noble-20260911@sha256:496754492fb28b4d3049432f2ca787449331e23fb14f0dd3fffea86bf5a93eb4",
+    "local_image_id": "sha256:5c7549f7fdeef8198126c6759056db78d0f358afcfedb3f2e4972bfadd33674c",
+    "saved_image_tar_sha256": "fb6a35cf6499de64042da62858de93a8b3c43940fa19ec11d26012f83b5ca331",
+    "tool_versions": [
+      "gcc=gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "cmake=cmake version 3.28.3",
+      "make=GNU Make 4.3",
+      "git=git version 2.43.0",
+      "jq=jq-1.7",
+      "python=Python 3.12.3",
+      "openssl=OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)"
+    ],
+    "host_kernel_context": "Linux 7.0.12-linuxkit x86_64",
+    "candidate_json_status": "ENVIRONMENT_V2_FREEZE_CANDIDATE__NO_CFS_BUILD_EXECUTED"
+  },
+  "tracked_bindings": {
+    "attempt001_failure_freeze_blob": "d381cc8ac4faf1d9ae465bbf76bed85f3353732b",
+    "protocol_correction_002_blob": "90b1d14e1b80d4c2d04404c46feae11ced26fb2b",
+    "environment_v2_materialization_auth_blob": "c007d432bf2334a80b37e23b2dcfdf8060272d37",
+    "environment_002_dockerfile_blob": "4e3c150e03129c7e84c08a7570d04b9b883dda6b",
+    "environment_002_prepare_script_blob": "e729cbafbadeab7ce899cd18f5c82e2a2b7015bb",
+    "environment_v2_handoff_blob": "bc385d2df53260179dd25ea865669965784dca82",
+    "environment_v2_materialization_status_blob": "5c397adb9c775548db8a42a3b3e1ee6bd1649db8"
+  },
+  "preserved_pre_authorization_materialization": {
+    "disposition": "PRESERVED_HISTORICAL_LOCAL_EVIDENCE__NOT_FROZEN_AS_AUTHORIZED_ENVIRONMENT_IDENTITY",
+    "image_id": "sha256:dab117b2fd70ed1cafaa29689212615a3c7faf0063b36cecb9f7cc55b2d1d0e9",
+    "image_tar_sha256": "571c32894280d3f69183c643b9461d19b8c69836371dbacfb090478cbc6bb918",
+    "candidate_json_sha256": "5cb3c47ba9a431893e6693908af1de53140ca4a01ae896dbd02ae323b0d426b7",
+    "materialization_log_sha256": "3f173e4b876b3e320b0e241b0ada2f5e1775120e3ae3514d25144d41ea004cf1"
+  },
+  "preserved_attempt_001": {
+    "status": "FAILED_CLOSED_PRE_SCIENTIFIC_OBSERVATION_GENERATION__TOOLING_ONLY",
+    "console_log_sha256": "8882e854fa150491d5948ff7e0c081f21f4323b8c7b35be2da77a51ca38173dd",
+    "canonical_execution_001_reuse_authorized": false
+  },
+  "verified_negative_actions": {
+    "cfs_build_executed": false,
+    "fixture_applied": false,
+    "artifact_signing_executed": false,
+    "independent_rebuild_executed": false,
+    "gate_execution_executed": false,
+    "scientific_execution": false,
+    "canonical_results_generated": false,
+    "result_freeze_executed": false,
+    "manuscript_claim_use_executed": false
+  },
+  "docker_warning": {
+    "observed": "FromPlatformFlagConstDisallowed",
+    "disposition": "NON_BLOCKING_STYLE_WARNING__PLATFORM_PIN_IS_INTENTIONAL_FOR_S6X_ENVIRONMENT_IDENTITY"
+  },
+  "authorization": {
+    "environment_identity_freeze_on_merge": true,
+    "corrected_runtime_authorization_002_authorized": false,
+    "cfs_build_authorized": false,
+    "semantic_fixture_application_to_build_authorized": false,
+    "artifact_signing_authorized": false,
+    "provenance_observation_generation_authorized": false,
+    "independent_rebuild_authorized": false,
+    "gate_execution_authorized": false,
+    "scientific_execution_authorized": false,
+    "canonical_results_authorized": false,
+    "result_freeze_authorized": false,
+    "manuscript_claim_use_authorized": false,
+    "figure_revision_authorized": false,
+    "study6_s6x_pooling_authorized": false,
+    "venue_lock_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ENVIRONMENT_V2_FREEZE_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

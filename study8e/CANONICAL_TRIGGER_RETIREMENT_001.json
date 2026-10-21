@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "record_id": "S8E-CANON-TRIGGER-RETIREMENT-001",
+  "date_local": "2026-09-20",
+  "status": "STALE_ONE_TIME_DISPATCH_PATH_RETIRED_BEFORE_CANONICAL_SCIENTIFIC_EXECUTION",
+  "retired_artifacts": [
+    ".github/workflows/study8e-canonical-dispatch-bridge.yml",
+    "study8e/CANONICAL_EXECUTION_TRIGGER_001.json"
+  ],
+  "reason": "The one-time dispatch bridge and trigger were created under the superseded canonical authorization / runner-freeze state. After PR #136, canonical execution requires the hardened S8E-CANON-RUNNER-003 workflow plus a separately merged CANONICAL_EXECUTION_GO_LIVE.json authorization artifact. Retaining the older bridge/trigger creates unnecessary ambiguity and an alternate dispatch path.",
+  "historical_dispatch": {
+    "workflow_run": 35525450194,
+    "event": "workflow_dispatch",
+    "head_sha": "4304972ab3815a693387255bae5989476c1c5912",
+    "conclusion": "failure",
+    "trace002_downloaded_and_hash_verified": true,
+    "canonical_runner_compile_status": "FAIL",
+    "canonical_runner_unit_tests_executed": false,
+    "canonical_execution_pass_1_executed": false,
+    "canonical_execution_pass_2_executed": false,
+    "deterministic_output_comparison_executed": false,
+    "canonical_evidence_package_built": false,
+    "canonical_result_artifact_uploaded": false,
+    "scientific_endpoint_computed": false
+  },
+  "current_authoritative_execution_path": {
+    "protocol_id": "S8E-CANON-EXEC-001",
+    "runner_freeze": "S8E-CANON-RUNNER-003",
+    "workflow": ".github/workflows/study8e-canonical-execution.yml",
+    "manual_dispatch_only": true,
+    "required_go_live_artifact": "study8e/CANONICAL_EXECUTION_GO_LIVE.json",
+    "current_go_live_artifact_present": false,
+    "canonical_execution_currently_authorized": false
+  },
+  "integrity": {
+    "study8_frozen_science_modified": false,
+    "trace002_modified": false,
+    "pop002_modified": false,
+    "acta_package_modified": false,
+    "canonical_scientific_results_exist": false
+  },
+  "next_gate": "MERGE_AND_POST_MERGE_VALIDATE_RETIREMENT__THEN_SEPARATE_EXPLICIT_CANONICAL_EXECUTION_AUTHORIZATION"
+}

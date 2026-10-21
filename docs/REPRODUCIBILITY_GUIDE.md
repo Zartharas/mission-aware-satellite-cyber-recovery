@@ -56,12 +56,12 @@ Frozen target-neutral publication package:
 
 `publication/study8/`
 
-Current submitted Acta state:
+Acta submission/decision state:
 
 - journal: Acta Astronautica
 - manuscript ID: `AA-D-26-02872`
 - submitted: 2026-09-06
-- current status: `With Editor`
+- final Acta status: `Rejected` (editorial decision recorded 2026-09-19)
 - submitted package freeze: `S8-ACTA-PKGFREEZE-002`
 - submitted package source commit: `f5e9a1d4553737e534821bf647463abfd44fa0dd`
 
@@ -69,6 +69,7 @@ Canonical live publisher-state records:
 
 - `publication/Paper_4_Study_8/Acta_Astronautica/README_CURRENT.md`
 - `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
+- `publication/Paper_4_Study_8/Acta_Astronautica/EDITORIAL_DECISION_REJECTED_2026-09-19.md`
 
 Historical pre-submission freeze-002 files intentionally retain their stage-local wording and must not be rewritten merely to appear current.
 
@@ -149,9 +150,10 @@ That check should confirm:
 - source publication freeze remains intact;
 - canonical observations SHA-256 remains `cfc65b6663be4e9f17a00ed102730f8642efcbbd844045acce032ff09a0bcabf`;
 - manuscript ID is `AA-D-26-02872`;
-- publisher state is `With Editor`;
+- publisher state is `Rejected` after the editorial decision recorded 2026-09-19;
 - exact submitted file hashes match `S8-ACTA-PKGFREEZE-002`;
-- no scientific reexecution or statistical reanalysis is recorded.
+- no scientific reexecution or statistical reanalysis is recorded;
+- the rejection supplied no external reviewer reports and did not itself alter the frozen evidence or submitted-file hashes.
 
 ## 6. Interpretation boundaries during reproduction
 
@@ -182,11 +184,11 @@ If a future replication is performed, store it as a new evidence object with its
 
 ## 8. Submitted-paper rule
 
-Paper 1 and Study-8 Paper 4 are already submitted.
+Paper 1 remains submitted. Study-8 Paper 4 was submitted to Acta and later rejected.
 
-Do not modify their submitted publisher-facing files merely to improve wording, formatting, or publication optics while editorial review is active.
+Do not modify the exact rejected Acta publisher-facing files; retain them as provenance. Retargeting must use a new controlled venue-specific package derived from the frozen Study 8 source package. Presentation and framing may be improved, but frozen scientific evidence and results must not be silently changed.
 
-Changes are permitted only if the relevant journal explicitly requests a revision or the submission is otherwise formally reopened under a new controlled revision gate.
+Active submissions remain immutable unless the relevant journal requests a correction or revision.
 
 ## 9. Next publication-development work
 

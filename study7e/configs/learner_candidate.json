@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "state": "CANDIDATE__NOT_FROZEN__NO_MODEL_ARTIFACTS",
+  "algorithm": "DecisionTreeClassifier",
+  "library": "scikit-learn",
+  "library_version": null,
+  "shared_rule": {
+    "criterion": "TO_BE_SELECTED_BEFORE_PROTOCOL_FREEZE",
+    "splitter": "TO_BE_SELECTED_BEFORE_PROTOCOL_FREEZE",
+    "max_depth": "TO_BE_SELECTED_BEFORE_PROTOCOL_FREEZE",
+    "min_samples_split": "TO_BE_SELECTED_BEFORE_PROTOCOL_FREEZE",
+    "min_samples_leaf": "TO_BE_SELECTED_BEFORE_PROTOCOL_FREEZE",
+    "class_weight": "TO_BE_SELECTED_BEFORE_PROTOCOL_FREEZE",
+    "random_state": "TO_BE_SELECTED_BEFORE_PROTOCOL_FREEZE"
+  },
+  "policies": {
+    "L0_BASE": {
+      "feature_schema": "BASE_FEATURES"
+    },
+    "L1_CORROBORATED": {
+      "feature_schema": "EXTENDED_FEATURES"
+    }
+  },
+  "training_blocks": [
+    "TR0",
+    "TR1"
+  ],
+  "prohibited_training_blocks": [
+    "E1",
+    "E2",
+    "C0"
+  ],
+  "training_scenarios": 84,
+  "model_training_performed": false,
+  "production_model_freeze_performed": false,
+  "note": "This file specifies the candidate training contract only. Selecting final hyperparameters and training/final-freezing production models require a later author-approved freeze phase."
+}

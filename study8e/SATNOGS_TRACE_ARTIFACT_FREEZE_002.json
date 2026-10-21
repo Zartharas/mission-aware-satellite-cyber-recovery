@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-SATNOGS-TRACE-002",
+  "freeze_date_local": "2026-09-20",
+  "status": "TRACE_ARTIFACT_FROZEN_ON_BRANCH__NO_TIMING_ENDPOINTS_COMPUTED",
+  "population_freeze": "S8E-SATNOGS-POP-002",
+  "materialization_deviation": "S8E-DEV-SATNOGS-TRACE-CAP-002",
+  "execution": {
+    "workflow_run": 35493369936,
+    "workflow_head": "1ef6770e0902dba72a83954416432457451ad18e",
+    "artifact_id": 10600470520,
+    "artifact_zip_sha256": "5e06da499540842bc826188977cd66216bf4348e115a16db00c2dd9d8ee0855f",
+    "manifest_sha256": "a53f2f59f9474f68e6d809d4c6e78833451571e1986fe07c4169f3d5af77075a"
+  },
+  "corpus": {
+    "pairs": 20,
+    "records": 476,
+    "requests": 20,
+    "canonical_jsonl": {
+      "file": "satnogs_pop002_firstpage_476.jsonl",
+      "bytes": 66206,
+      "sha256": "6f80a44fa6cfa63a70df49de3ba447de3d59efe0632208180f26552f37b46a8e"
+    },
+    "csv_projection": {
+      "file": "satnogs_pop002_firstpage_476.csv",
+      "bytes": 31040,
+      "sha256": "1624c86ceb4c2ec4862770f3f40f79975a235ce22b5588e8f58d20b15bdf9cae"
+    },
+    "pairs_with_additional_cursor_pages": 13,
+    "pairs_exhausted_on_first_page": 7,
+    "persisted_fields": [
+      "id",
+      "start",
+      "end",
+      "ground_station",
+      "norad_cat_id"
+    ]
+  },
+  "validation": {
+    "all_pair_record_counts_match_pop002_freeze": true,
+    "all_pair_identifiers_match_pop002_freeze": true,
+    "all_observation_ids_unique_across_corpus": true,
+    "all_timestamps_parseable_and_timezone_aware": true,
+    "all_start_before_end": true,
+    "all_rows_within_frozen_source_window": true
+  },
+  "claim_boundary": {
+    "full_pair_history": false,
+    "full_june_satnogs_population": false,
+    "representative_sample": false,
+    "artifact_description": "Frozen first-page projection of the 20 corrected POP-002 satellite-station pairs under SatNOGS release 1.134 descending start/end ordering.",
+    "timing_statistics_not_yet_computed": true,
+    "recovery_results_not_yet_computed": true
+  },
+  "integrity": {
+    "study8_modified": false,
+    "acta_package_modified": false,
+    "study9_results_imported": false
+  },
+  "next_gate": "IMPLEMENTATION_FREEZE_ON_SYNTHETIC_FIXTURES__NO_REAL_TRACE_ENDPOINT_EXECUTION"
+}

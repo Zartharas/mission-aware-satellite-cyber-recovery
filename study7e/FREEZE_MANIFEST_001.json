@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "candidate_id": "S7E-AERC-FC-001",
+  "date": "2026-09-23",
+  "state": "FROZEN__MODELS_UNTRAINED__CANONICAL_EXECUTION_PROHIBITED",
+  "qualified_candidate_head": "aeb14388e6355e84bd7b33d498945b16f3c2ebe6",
+  "freeze_authorization_commit": "9dd9202645d1d11eca9973b6f393747a95f19451",
+  "freeze_authorization_record": "study7e/configs/freeze_authorization_001.json",
+  "candidate_config": "study7e/configs/protocol_environment_freeze_candidate_001.json",
+  "candidate_config_blob_sha": "b04349413621d72520a39da5f326073003db945b",
+  "qualification": {
+    "freeze_candidate_workflow_id": 365530271,
+    "freeze_candidate_run_id": 35922344027,
+    "contract_job_id": 107389099534,
+    "deterministic_public_keys_job_id": 107389099391,
+    "precanonical_workflow_id": 364617426,
+    "precanonical_run_id": 35922344075,
+    "precanonical_contracts_job_id": 107389099454,
+    "precanonical_upstream_identities_job_id": 107389099288,
+    "qualification_green": true
+  },
+  "frozen_components": {
+    "protocol": true,
+    "environment": true,
+    "public_key_registry": true,
+    "fault_transformations": true,
+    "learner_protocol": true
+  },
+  "explicitly_not_authorized": {
+    "production_L0_L1_training": true,
+    "production_model_freeze": true,
+    "canonical_scientific_execution": true,
+    "pr_167_merge": true,
+    "publication_or_result_claims": true
+  },
+  "frozen_environment": {
+    "flight_software_stack": "standalone_cFS_v7.0.1",
+    "cfs_commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3",
+    "signature_verifier": "Monocypher_4.0.3",
+    "monocypher_commit": "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+    "algorithm": "Ed25519_RFC8032",
+    "learner_python": "3.11.16",
+    "learner_scikit_learn": "1.9.1"
+  },
+  "frozen_execution_parameters": {
+    "clock": "scenario_local_logical_tick",
+    "freshness_max_age_ticks": 0,
+    "nominal_issue_tick": 0,
+    "nominal_evaluation_tick": 0,
+    "stale_fault_evaluation_tick": 1,
+    "evidence_epoch": 1,
+    "opaque_registry_algorithm": "SHA256_FIRST4_U32_BE_WITH_ZERO_COLLISION_RETRY_V1",
+    "registry_canonical_json_sha256": "b7f7e3a600115411158fc1baea61f0d5b936138a3b66b237464d3d22d1a980c0",
+    "scenario_registry_entries": 280,
+    "scenario_registry_collisions": 0
+  },
+  "frozen_public_key_registry": "study7e/configs/frozen_public_key_registry_001.json",
+  "frozen_fault_transformations": "study7e/configs/frozen_fault_transformations_001.json",
+  "frozen_learner_protocol": "study7e/configs/frozen_learner_protocol_001.json",
+  "frozen_environment_record": "study7e/configs/frozen_environment_001.json",
+  "bound_git_blobs": {
+    "study7e/PROTOCOL_DRAFT.json": "cce8f9cdfd82ff8f9ce4160998778f50a247abcb",
+    "study7e/configs/candidate_environment.json": "0b93df199f673d833f1df9974e00c1332319ec8c",
+    "study7e/configs/execution_parameters_candidate_2026-09-23.json": "fc2ee992b5c710f466433898694637d637f77833",
+    "study7e/configs/signed_evidence_contract_draft.json": "e55138461c30f60208ca1a219c598e3e676d126a",
+    "study7e/configs/qualifier_time_replay_contract_draft.json": "39a28c37815262e85816a994e378a7fc029343ed",
+    "study7e/configs/fault_transformations_draft.json": "292db65822a866bce5e4ad50278b98090bf4d24b",
+    "study7e/configs/policy_contracts.json": "b178a2d02c26dfec93b7b459702b175d11eb520c",
+    "study7e/configs/learner_candidate.json": "27fcb388261f7e58af41dd2032bbc8353ef38f19",
+    "study7e/configs/signature_dependency_candidates.json": "78016bcde354b73d253e0527dc59046be3c6064b",
+    "study7e/src/aerc_design.py": "57fa869827a7d1665ebad1ac94b93b66728e68a9",
+    "study7e/tools/generate_scenario_manifest.py": "a20e7f27d1a68f15bb89f95a1563f3c99d0ddf80",
+    "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md": "3f4b7d4fe60102bebeb3dd20215a98bfe71c551f"
+  },
+  "amendment_rule": "Any semantic or bound-input change after this freeze requires a new freeze candidate, new freeze identifier, re-qualification, and explicit author approval before use. Changes affecting signed-evidence schema, public-key registry, or execution contract require a new evidence epoch rather than mutation of epoch 1.",
+  "model_state": {
+    "production_models_trained": false,
+    "production_models_frozen": false
+  },
+  "execution_state": {
+    "canonical_execution_authorized": false,
+    "canonical_results_generated": false
+  }
+}

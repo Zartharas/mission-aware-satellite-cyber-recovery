@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "candidate_id": "S7E-AERC-RESULT-FREEZE-CANDIDATE-001",
+  "proposed_freeze_id": "S7E-AERC-RESULT-FREEZE-001",
+  "review_id": "S7E-AERC-RESULT-FREEZE-REVIEW-001",
+  "experiment_id": "S7E-AERC-001",
+  "execution_id": "S7E-AERC-HELDOUT-EXEC-001",
+  "result_checkpoint_id": "S7E-AERC-HELDOUT-RESULTS-001",
+  "date_local": "2026-09-23",
+  "basis_head": "2e2ccbd19ecc87457f9092c5cba631ebc7e9804a",
+  "state": "CANDIDATE_PREPARED__AUTHOR_RESULT_FREEZE_APPROVAL_REQUIRED__PUBLICATION_NOT_AUTHORIZED",
+  "evidence_binding": {
+    "result_checkpoint": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json",
+    "exact_endpoint_counts": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/exact_endpoint_counts.json",
+    "audit_reconciliation": "study7e/results/S7E-AERC-HELDOUT-EXEC-001/audit_reconciliation.json",
+    "raw_artifact_id": 10787499194,
+    "raw_artifact_sha256": "cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35",
+    "raw_artifact_expires_at_utc": "2026-10-24T02:50:03Z",
+    "topology_fault_tables_sha256": "4c24c9db4a9ce86d510df43dac7f709196af56d5cac7c769f69e07d528d95991",
+    "policy_decisions_sha256": "ff6c3d553bf31b7dddc4c5206c9a8111795261f9466581e0757b7a782a315ce0",
+    "scenario_attempts_sha256": "297770841b110df02f14a25237f43c09999d8423fc434756b56e941da8dac81a",
+    "output_hash_manifest_sha256": "634657f75f568868504653b65558e937a3f552f62613ded03be56d9edacddead"
+  },
+  "review_integrity": {
+    "repository_validation_run_35951474152": "success",
+    "all_study7e_workflows_at_basis_head_green": true,
+    "artifact_sha256_recomputed_matches_checkpoint": true,
+    "artifact_member_hashes_recomputed_match_manifest": true,
+    "scenario_count": 196,
+    "policy_decision_count": 784,
+    "invalid_scenarios": 0,
+    "audit_mismatches": 0,
+    "four_policies_per_scenario": true,
+    "equal_information_pair_hashes_verified": true,
+    "objective_action_recomputed": true,
+    "training_blocks_absent_from_held_out_outputs": true,
+    "endpoint_counts_recomputed_match_checkpoint": true
+  },
+  "hypothesis_review": {
+    "H1": {
+      "disposition": "SUPPORTED",
+      "basis": "Equal-information hashes are identical within both policy pairs and nonzero paired disagreements are observed."
+    },
+    "H2": {
+      "disposition": "PARTIALLY_SUPPORTED",
+      "basis": "Domain separation is instantiated and fault-confirmed, but endpoint outcomes do not improve monotonically as separation increases."
+    },
+    "H3": {
+      "disposition": "PARTIALLY_SUPPORTED",
+      "basis": "F10 shows deterministic shared-authority common-cause collapse and T4 recovery of one unsafe reduction; F11 and learned behavior are not universal extensions of that pattern."
+    },
+    "H4": {
+      "disposition": "PARTIALLY_SUPPORTED",
+      "basis": "Deterministic corroboration shows the expected safety/availability trade-off; learned corroboration moves in the opposite direction."
+    },
+    "H5": {
+      "disposition": "SUPPORTED",
+      "basis": "Learned behavior differs on unseen faults and held-out topologies, with no prespecified direction required."
+    }
+  },
+  "key_adversarial_findings": [
+    "No aggregate global policy ranking is supported.",
+    "In the common F6-F12 subset, L1 unsafe proceeds rise from 3/28 at T0 to 6/28 at T4.",
+    "Under F12, L1 is error-free at T0 but has one unsafe proceed per four scenarios at each T1-T4 while L0 remains error-free.",
+    "Under F10/F11, L1 is error-free at T0-T3 but has one unsafe proceed at T4 while L0 remains error-free.",
+    "D1 adds false-conservative holds under F6 and F8 without reducing unsafe proceeds in the common topology-controlled subset.",
+    "C0 is a null/control finding: all policies HOLD in all eight no-signal scenarios with zero error.",
+    "Historical freeze manifests retain stage-local status text and must remain immutable provenance records.",
+    "The raw Actions artifact is temporary; durable preservation is recommended before or with result-freeze activation."
+  ],
+  "candidate_decision": {
+    "scientific_internal_consistency": "PASS",
+    "eligible_for_author_result_freeze_decision": true,
+    "freeze_activated": false,
+    "durable_raw_artifact_preservation_recommended": true
+  },
+  "activation_requirements": [
+    "Explicit author authorization to activate S7E-AERC-RESULT-FREEZE-001.",
+    "Durably preserve or archive the byte-exact raw artifact before its GitHub Actions expiry, preferably in the authorized freeze change.",
+    "Bind the activated freeze to the existing checkpoint, artifact, and member hashes.",
+    "Retain adverse, null, and counterexample findings without post-hoc reinterpretation.",
+    "Keep PR #167 merge and manuscript/publication claim authorization as separate later gates."
+  ],
+  "unsupported_claims": [
+    "global policy superiority or winner",
+    "global ML superiority",
+    "universal corroboration benefit",
+    "monotonic policy benefit from greater trust-domain separation",
+    "operational spacecraft safety/failure/recovery probability",
+    "flight qualification or certification sufficiency",
+    "NASA endorsement",
+    "RF-link or unmeasured hardware performance",
+    "independence beyond the instantiated experimental trust domains"
+  ],
+  "governance": {
+    "rerun_scientific_campaign": false,
+    "model_retraining_or_change": false,
+    "endpoint_or_population_change": false,
+    "pr_167_merge_authorized": false,
+    "publication_or_result_claims_authorized": false,
+    "next_gate": "explicit author authorization to activate S7E-AERC-RESULT-FREEZE-001"
+  }
+}

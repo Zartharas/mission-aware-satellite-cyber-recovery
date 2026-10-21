@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "record_kind": "MODEL_FREEZE_CANDIDATE_CHECKPOINT_METADATA",
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "plan_id": "S7E-AERC-TRAINPLAN-001",
+  "authorization_id": "S7E-AERC-TRAIN-AUTH-001",
+  "candidate_id": "S7E-AERC-MODEL-FREEZE-CANDIDATE-001",
+  "local_date": "2026-09-23",
+  "state": "MODEL_FREEZE_CANDIDATE__NOT_FROZEN__HELD_OUT_EVALUATION_PROHIBITED",
+  "candidate_of_record": true,
+  "source_training_commit": "65e8afd21316bdb40928ff30d3a1534c3893ad34",
+  "workflow": {
+    "name": "Study 7E production training 001",
+    "run_id": 35939164352,
+    "job_id": 107442994831,
+    "conclusion": "success",
+    "completed_at_utc": "2026-09-24T00:36:46Z"
+  },
+  "training_partition": {
+    "blocks": ["TR0", "TR1"],
+    "TR0": 12,
+    "TR1": 72,
+    "total": 84,
+    "label_counts": {
+      "HOLD": 66,
+      "ENTER_RECOVERY_GATE": 18
+    },
+    "held_out_blocks": ["E1", "E2", "C0"]
+  },
+  "dataset_sha256": {
+    "L0_BASE": "435b938b714d7eeb87284af8a2beb823a0d8e5a4a2220d96e784411a64680f20",
+    "L1_CORROBORATED": "70e3fc366d8c618a3e27d533aa436b1230d6231a82759f1dfb67850ca343df61"
+  },
+  "dependency_provenance": {
+    "inventory_sha256": "023a745c1edde1a929030fbc15245811f828365aba11b0485c5b139a402fdd08",
+    "python": "3.11.16",
+    "pip": "26.2.1",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0",
+    "additional_resolved_packages_observed": {
+      "cloudpickle": "3.1.2",
+      "narwhals": "2.26.0"
+    },
+    "complete_inventory_is_bound_by_sha256_in_candidate_artifact": true
+  },
+  "model_identity": {
+    "L0_BASE": {
+      "semantic_sha256": "1060d526704f21d4ee72be1ace6916c061b0c254de64246b1f469a576ba42ef1",
+      "primary_audit_semantic_identity": true,
+      "primary_runtime_artifact_sha256": "5b38a0088c4dd0cb2ce3739993cd2d9ee7949eb1a86c188ca1bd95b38cb5f4b1"
+    },
+    "L1_CORROBORATED": {
+      "semantic_sha256": "499fc92b714948c9a837861d4810051f51ab014f3f261a13df85646f7832f558",
+      "primary_audit_semantic_identity": true,
+      "primary_runtime_artifact_sha256": "6c4b589766f1df51fad2bde80350000f24c53b215ef345079fd81a8a7b98b960"
+    }
+  },
+  "candidate_payload": {
+    "sha256": "49dd341bbef9f5ba694c2b127a30246cbe612f1598458b85594a4078503d4dfb",
+    "stored_as_github_actions_artifact": true,
+    "artifact_id": 10784198198,
+    "artifact_name": "S7E-AERC-MODEL-FREEZE-CANDIDATE-001-65e8afd21316bdb40928ff30d3a1534c3893ad34",
+    "artifact_size_bytes": 13032,
+    "artifact_zip_sha256": "e7d92ab35f34df5f34e54c7e8245e43663bdc4f20717aae643d5dbbc3ff68e01",
+    "artifact_file_count": 14,
+    "artifact_expired_at_checkpoint": false,
+    "artifact_expires_at_utc": "2026-10-24T00:36:42Z"
+  },
+  "non_authoritative_reexecution": {
+    "occurred": true,
+    "cause": "pull_request paths filtering evaluated the PR changed-file set and retriggered the one-shot workflow after the checkpoint commit",
+    "run_id": 35939421477,
+    "job_id": 107443797286,
+    "source_commit": "83ceeee61749f001528fbd7bfff6635dff0b9afe",
+    "artifact_id": 10784436482,
+    "artifact_zip_sha256": "98e1106df78db1f16c03d8896ca0fd9a3a553807005a8ce871f0f75cdc35df11",
+    "candidate_payload_sha256": "e75233af93d871cfdeb12a178ffd5e5f26edf1edfe46b813de54468b37f47d23",
+    "dataset_hashes_match_candidate_of_record": true,
+    "dependency_inventory_hash_matches_candidate_of_record": true,
+    "semantic_model_hashes_match_candidate_of_record": true,
+    "primary_runtime_artifact_hashes_match_candidate_of_record": true,
+    "held_out_evaluation_executed": false,
+    "authoritative": false
+  },
+  "validation": {
+    "contract_tests_passed": 23,
+    "contract_tests_failed": 0,
+    "prefit_binding_passed": true,
+    "primary_audit_semantic_identity_passed": true,
+    "model_freeze_candidate_gate_passed": true,
+    "automatic_production_training_trigger_sealed_after_checkpoint": true
+  },
+  "gates": {
+    "production_training_authorized": true,
+    "production_models_trained": true,
+    "production_models_frozen": false,
+    "held_out_evaluation_executed": false,
+    "canonical_execution_authorized": false,
+    "canonical_results_generated": false,
+    "pr_167_merge_authorized": false,
+    "publication_or_result_claims_authorized": false
+  },
+  "next_gate": "separate explicit model-freeze review and authorization before any E1/E2/C0 inference"
+}

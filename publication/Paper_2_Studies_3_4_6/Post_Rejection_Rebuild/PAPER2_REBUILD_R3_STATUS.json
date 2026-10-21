@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-POST-REJECTION-MANUSCRIPT-REBUILD-R3-S6X-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "date_local": "2026-09-30",
+  "status": "S6X_INTERPRETATION_CLAIM_USE_AND_R3_PREPARED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "authorized_main_commit": "2ddbd795c4734654f421616de996911fa62ee27a",
+  "authorization_gate": "AUTHOR_REVIEW_AFTER_S6X_CANONICAL_RESULT_FREEZE_004_AND_POSTMERGE_CI_BEFORE_MANUSCRIPT_INTERPRETATION_AND_CLAIM_USE",
+  "immutable_prior_manuscript": {
+    "path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_REBUILD_MANUSCRIPT_R2_2026-09-28.md",
+    "git_blob_sha1": "9e3f345a3a16102c39bb978f4e522c261e80cfb4",
+    "mutation_authorized": false
+  },
+  "s6x_claim_use": {
+    "record_id": "S6X-INTERPRETATION-CLAIM-USE-001",
+    "record_blob": "a0786f278d5315b438ad6416a91be8cb16262b83",
+    "effective_result_freeze_id": "S6X-CANONICAL-RESULT-FREEZE-004",
+    "effective_result_freeze_blob": "2e6b213b994062fd108e4b8435d9c0c36d93fdc0",
+    "result_freeze_main_commit": "2ddbd795c4734654f421616de996911fa62ee27a",
+    "post_merge_ci_run_number": 1314,
+    "post_merge_ci_run_id": 36808689393,
+    "post_merge_ci_conclusion": "success"
+  },
+  "r3_candidate": {
+    "path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_REBUILD_MANUSCRIPT_R3_2026-09-30.md",
+    "git_blob_sha1": "2182ea02634854da92d6d6049e6fdd269b11bac8",
+    "word_count": 7628,
+    "authoritative_after_effective_merge": true
+  },
+  "display_decision": {
+    "table_v_added": true,
+    "figure1_revision_required": false,
+    "figure1_mutation": false,
+    "display_decision_blob": "d8f85d295f1bed53bcf81b5cb0cd0cd8a6958c96"
+  },
+  "science_controls": {
+    "study3_mutation": false,
+    "study4_mutation": false,
+    "study6_mutation": false,
+    "s3x_mutation": false,
+    "s6x_result_mutation": false,
+    "scientific_reexecution": false,
+    "study6_s6x_pooling": false,
+    "external_empirical_replication_claim": false,
+    "cfs_lc_vulnerability_claim": false,
+    "operational_risk_probability_claim": false,
+    "global_policy_ranking": false
+  },
+  "publication_controls": {
+    "historical_taes_r10_mutation": false,
+    "r2_mutation": false,
+    "venue_lock": false,
+    "publisher_specific_formatting": false,
+    "final_submission_package": false,
+    "figure1_revision": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_INTERPRETATION_CLAIM_USE_AND_R3_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

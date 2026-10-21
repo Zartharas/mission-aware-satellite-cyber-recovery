@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "record_id": "S8E-POP001-INVALIDATION-001",
+  "recorded_date_local": "2026-09-20",
+  "status": "S8E-SATNOGS-POP-001_INVALIDATED_BEFORE_ENDPOINT_ANALYSIS",
+  "invalidated_freeze_id": "S8E-SATNOGS-POP-001",
+  "invalidated_merge_commit": "80a73d47f9ffd7289eec309a48d61c4dbcf1405b",
+  "trigger": {
+    "failed_materialization_workflow_run": 35492745344,
+    "failed_materialization_head": "3f9808cbadeac13a5a18d0c6b73da7890b8685dd",
+    "failure": "Pair-filtered response for frozen pair 63235 x 4242 contained observations with other NORAD identifiers while station 4242 matched.",
+    "identity_diagnostic_workflow_run": 35492817504,
+    "identity_diagnostic_artifact_id": 10599481985,
+    "identity_diagnostic_artifact_zip_sha256": "4e7dc4ce9f6debbaaa63b90f96d04793ca3291d9feb785abaee39d54a5cc8588",
+    "diagnostic_target_pair": {
+      "norad_cat_id": 63235,
+      "ground_station": 4242
+    },
+    "diagnostic_records": 25,
+    "diagnostic_distinct_ground_station": [4242],
+    "diagnostic_distinct_norad_cat_id": [49263,60526,63235,68460,68506,68635,69015,98330,98332,98347,98370]
+  },
+  "root_cause": {
+    "used_query_parameter": "satellite__norad_cat_id",
+    "live_release": "1.134",
+    "live_source_commit": "9c55e92850b4f5c11c52a72371685fb8cfff1507",
+    "live_observation_filter_parameter": "norad_cat_id",
+    "live_filter_behavior": "filter_by_norad_cat_id resolves the current NORAD identifier to SatNOGS satellite IDs and filters Observation.sat_id by the resolved ID set.",
+    "serializer_behavior": "norad_cat_id is computed from the observation sat_id through the live satellite cache.",
+    "documentation_mismatch": "The generated OpenAPI client documentation still advertises satellite__norad_cat_id even though the release 1.134 ObservationFilter exposes norad_cat_id."
+  },
+  "scientific_effect": {
+    "seed_candidate_discovery_affected": false,
+    "pair_qualification_affected": true,
+    "qualification_interpretation": "The prior qualification queries established station activity but did not establish >=20 observations for each satellite-station pair.",
+    "selected_pair_population_scientifically_usable": false,
+    "timing_endpoints_computed_from_invalid_population": false,
+    "recovery_endpoints_computed_from_invalid_population": false,
+    "manuscript_claims_based_on_invalid_population": false,
+    "study8_frozen_science_affected": false,
+    "acta_package_affected": false
+  },
+  "disposition": {
+    "delete_or_rewrite_historical_pop001": false,
+    "preserve_pop001_as_historical_record": true,
+    "supersede_with": "S8E-SATNOGS-POP-002",
+    "required_correction": "Re-run deterministic seed discovery and pair qualification using live release 1.134 parameter norad_cat_id plus ground_station, retaining all other prospectively frozen selection rules and hard request cap.",
+    "endpoint_execution_blocked_until_pop002_merged": true
+  }
+}

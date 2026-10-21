@@ -1,0 +1,121 @@
+name: Study 7E Ed25519 dependency feasibility
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monocypher-ed25519:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact Study 7E head
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Clone exact Monocypher 4.0.3 revision
+        run: |
+          set -euo pipefail
+          git init /tmp/monocypher
+          git -C /tmp/monocypher remote add origin https://github.com/LoupVaillant/Monocypher.git
+          git -C /tmp/monocypher fetch --depth=1 origin ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f
+          git -C /tmp/monocypher checkout --detach FETCH_HEAD
+          test "$(git -C /tmp/monocypher rev-parse HEAD)" = "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f"
+          grep -q '^4.0.3$' /tmp/monocypher/CHANGELOG.md
+          grep -q 'SPDX-License-Identifier: BSD-2-Clause OR CC0-1.0' /tmp/monocypher/src/optional/monocypher-ed25519.h
+          grep -q 'crypto_ed25519_check' /tmp/monocypher/src/optional/monocypher-ed25519.h
+          echo "monocypher_revision=ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f"
+          echo "monocypher_version=4.0.3"
+
+      - name: Compile verification-only source subset
+        run: |
+          set -euo pipefail
+          cd /tmp/monocypher
+          cc -std=c99 -O2 -fPIC -ffunction-sections -fdata-sections -Wall -Wextra             -I src -I src/optional             -c src/monocypher.c -o /tmp/monocypher.o
+          cc -std=c99 -O2 -fPIC -ffunction-sections -fdata-sections -Wall -Wextra             -I src -I src/optional             -c src/optional/monocypher-ed25519.c -o /tmp/monocypher-ed25519.o
+          ar rcs /tmp/libaerc_monocypher_ed25519.a /tmp/monocypher.o /tmp/monocypher-ed25519.o
+          cc -std=c99 -O2 -ffunction-sections -fdata-sections -Wall -Wextra             -I src -I src/optional             "$GITHUB_WORKSPACE/study7e/feasibility/ed25519/rfc8032_monocypher_test.c"             /tmp/libaerc_monocypher_ed25519.a             -Wl,--gc-sections             -o /tmp/monocypher_rfc8032_test
+          echo "monocypher_compile=PASS"
+
+      - name: Run RFC 8032 verification checks
+        run: |
+          set -euo pipefail
+          /tmp/monocypher_rfc8032_test | tee /tmp/monocypher_ed25519_report.txt
+          grep -F "MONOCYPHER_RFC8032_ED25519_VERIFY=PASS" /tmp/monocypher_ed25519_report.txt
+          grep -F "MONOCYPHER_MUTATED_SIGNATURE_REJECT=PASS" /tmp/monocypher_ed25519_report.txt
+          grep -F "MONOCYPHER_ZERO_SIGNATURE_REJECT=PASS" /tmp/monocypher_ed25519_report.txt
+          grep -F "MONOCYPHER_CHANGED_MESSAGE_REJECT=PASS" /tmp/monocypher_ed25519_report.txt
+          {
+            echo "monocypher_selected_source_bytes=136736"
+            echo "monocypher_static_subset_bytes=$(stat -c%s /tmp/libaerc_monocypher_ed25519.a)"
+            echo "monocypher_test_binary_bytes=$(stat -c%s /tmp/monocypher_rfc8032_test)"
+            echo "secret_key_in_flight_software=false"
+            echo "scientific_results_generated=false"
+          } | tee -a /tmp/monocypher_ed25519_report.txt
+
+      - name: Preserve Monocypher feasibility report
+        uses: actions/upload-artifact@v4
+        with:
+          name: study7e-monocypher-ed25519-feasibility
+          path: /tmp/monocypher_ed25519_report.txt
+          if-no-files-found: error
+
+  libsodium-ed25519:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out exact Study 7E head
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Fetch source-of-truth libsodium 1.0.22 tarball
+        run: |
+          set -euo pipefail
+          curl -fsSLo /tmp/libsodium-1.0.22.tar.gz             https://download.libsodium.org/libsodium/releases/libsodium-1.0.22.tar.gz
+          echo "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349  /tmp/libsodium-1.0.22.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/libsodium-1.0.22.tar.gz -C /tmp
+          grep -q 'AC_INIT(\[libsodium\],\[1.0.22\]' /tmp/libsodium-1.0.22/configure.ac
+          grep -q 'crypto_sign_verify_detached' /tmp/libsodium-1.0.22/src/libsodium/include/sodium/crypto_sign.h
+          grep -q 'ge25519_is_on_main_subgroup' /tmp/libsodium-1.0.22/src/libsodium/crypto_core/ed25519/core_ed25519.c
+          echo "libsodium_version=1.0.22"
+          echo "libsodium_release_commit=77e1ce5d6dee871c49ef211222ba18ef0c486bda"
+          echo "libsodium_tarball_sha256=adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349"
+
+      - name: Build static libsodium candidate
+        run: |
+          set -euo pipefail
+          cd /tmp/libsodium-1.0.22
+          ./configure             --disable-shared             --enable-static             --disable-pie             --disable-ssp             --without-pthreads
+          make -j2
+          test -f src/libsodium/.libs/libsodium.a
+          echo "libsodium_static_build=PASS"
+
+      - name: Compile and run RFC 8032 verification checks
+        run: |
+          set -euo pipefail
+          cd /tmp/libsodium-1.0.22
+          cc -std=c99 -O2 -ffunction-sections -fdata-sections -Wall -Wextra             -I src/libsodium/include             "$GITHUB_WORKSPACE/study7e/feasibility/ed25519/rfc8032_libsodium_test.c"             src/libsodium/.libs/libsodium.a             -Wl,--gc-sections             -o /tmp/libsodium_rfc8032_test
+          /tmp/libsodium_rfc8032_test | tee /tmp/libsodium_ed25519_report.txt
+          grep -F "LIBSODIUM_RFC8032_ED25519_VERIFY=PASS" /tmp/libsodium_ed25519_report.txt
+          grep -F "LIBSODIUM_MUTATED_SIGNATURE_REJECT=PASS" /tmp/libsodium_ed25519_report.txt
+          grep -F "LIBSODIUM_ZERO_SIGNATURE_REJECT=PASS" /tmp/libsodium_ed25519_report.txt
+          grep -F "LIBSODIUM_CHANGED_MESSAGE_REJECT=PASS" /tmp/libsodium_ed25519_report.txt
+          {
+            echo "libsodium_static_archive_bytes=$(stat -c%s src/libsodium/.libs/libsodium.a)"
+            echo "libsodium_test_binary_bytes=$(stat -c%s /tmp/libsodium_rfc8032_test)"
+            echo "secret_key_in_flight_software=false"
+            echo "scientific_results_generated=false"
+          } | tee -a /tmp/libsodium_ed25519_report.txt
+
+      - name: Preserve libsodium feasibility report
+        uses: actions/upload-artifact@v4
+        with:
+          name: study7e-libsodium-ed25519-feasibility
+          path: /tmp/libsodium_ed25519_report.txt
+          if-no-files-found: error

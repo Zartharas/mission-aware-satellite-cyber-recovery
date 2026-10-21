@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-POST-REJECTION-MANUSCRIPT-REBUILD-R1-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "date_local": "2026-09-28",
+  "status": "VENUE_NEUTRAL_REBUILD_R1_PREPARED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "authorized_main_commit": "c69160b26f0a06578446e24ba490aac374502b47",
+  "authorization_gate": "AUTHOR_REVIEW_BEFORE_POST_REJECTION_MANUSCRIPT_REBUILD_INTEGRATION",
+  "authorized_scope": {
+    "new_rebuild_manuscript_editing": true,
+    "historical_taes_r10_mutation": false,
+    "scientific_reexecution": false,
+    "result_mutation": false,
+    "new_venue_lock": false
+  },
+  "scientific_foundation": {
+    "study3": {
+      "experiment_id": "S3-K4E-001",
+      "population": 1380,
+      "mutable": false
+    },
+    "study4": {
+      "experiment_id": "S4-MPQ-001",
+      "population": 4608,
+      "mutable": false
+    },
+    "study6": {
+      "experiment_id": "S6-SCTR-001",
+      "population": 420,
+      "mutable": false
+    },
+    "s3x": {
+      "experiment_id": "S3X-ETA-001",
+      "trace_intervals": 1919,
+      "phase7_cases": 34542,
+      "matched_comparisons": 30704,
+      "pooled_with_study3": false,
+      "external_empirical_replication": false
+    }
+  },
+  "bound_authority": {
+    "phase7_result_freeze_effective": true,
+    "phase7f_claim_use_effective": true,
+    "phase7f_merge_commit": "c69160b26f0a06578446e24ba490aac374502b47",
+    "phase7f_post_merge_ci_run_number": 1270,
+    "phase7f_post_merge_ci_run_id": 36446420272,
+    "phase7f_post_merge_ci_conclusion": "success"
+  },
+  "rebuild_outputs": {
+    "manuscript": "PAPER2_REBUILD_MANUSCRIPT_R1_2026-09-28.md",
+    "claim_source_map": "PAPER2_REBUILD_CLAIM_SOURCE_MAP_R1_2026-09-28.md",
+    "venue_state": "VENUE_NEUTRAL"
+  },
+  "editorial_objectives": [
+    "make the research gap and central question visible immediately",
+    "lead result sections with findings",
+    "integrate S3X under RQ1 without pooling with Study 3",
+    "compress repeated non-claim language into one validity section",
+    "preserve exact frozen counts and interpretation firewalls"
+  ],
+  "downstream_still_closed": {
+    "venue_lock": false,
+    "publisher_specific_formatting": false,
+    "final_submission_package": false,
+    "historical_r10_rewrite": false,
+    "scientific_rerun": false,
+    "result_mutation": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_REBUILD_R1_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-CANON-RUNNER-001",
+  "date_local": "2026-09-20",
+  "status": "CANONICAL_RUNNER_FREEZE_CANDIDATE__WORKFLOW_DISPATCH_ONLY__NO_REAL_TRACE_EXECUTION_YET",
+  "base_main_commit": "7905fe17453350d76d349e8fdb03c06b5c8a7021",
+  "protocol_id": "S8E-CANON-EXEC-001",
+  "files": {
+    "study8e/analysis/run_canonical_execution.py": {
+      "git_blob_sha1": "ae6b24a3573eab9d2e59f6c7b149412a76bf4f6c",
+      "role": "canonical deterministic TRACE-002 endpoint and comparison harness"
+    },
+    "study8e/tests/test_canonical_execution_runner.py": {
+      "git_blob_sha1": "d7e3f841b7ff1270656d022eb3910b77c17c1305",
+      "role": "synthetic helper and threshold tests"
+    },
+    ".github/workflows/study8e-canonical-execution.yml": {
+      "git_blob_sha1": "e99eb0b4780b3ec9f1f101cde9fc69ee6c6ae0aa",
+      "role": "manual workflow_dispatch-only canonical execution workflow"
+    }
+  },
+  "workflow_controls": {
+    "automatic_push_trigger": false,
+    "manual_workflow_dispatch_only": true,
+    "permissions": [
+      "contents:read",
+      "actions:read"
+    ],
+    "exact_trace_artifact_id": 10600470520,
+    "verify_trace_zip_sha256": true,
+    "verify_trace_manifest_sha256": true,
+    "verify_trace_jsonl_sha256": true,
+    "verify_frozen_implementation_git_blobs": true,
+    "canonical_primary_passes": 2,
+    "require_byte_identical_repeat": true,
+    "independent_reference_audit_required": true,
+    "artifact_retention_days": 90,
+    "no_satnogs_api_fallback": true
+  },
+  "scientific_output_properties": {
+    "wall_clock_timestamps": false,
+    "random_values": false,
+    "machine_paths": false,
+    "deterministic_hash_manifest": true,
+    "output_id": "S8E-CANON-RESULTS-001"
+  },
+  "current_execution_state": {
+    "real_trace_scientific_endpoints_computed": false,
+    "canonical_workflow_dispatched": false,
+    "results_frozen": false
+  },
+  "next_gate": "MERGE_RUNNER_AFTER_REPOSITORY_VALIDATION__POST_MERGE_VALIDATE__THEN_WORKFLOW_DISPATCH_UNDER_S8E-CANON-AUTH-001"
+}

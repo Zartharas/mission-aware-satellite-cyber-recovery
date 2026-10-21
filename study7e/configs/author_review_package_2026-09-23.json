@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "APPROVED_FOR_PRECANONICAL_IMPLEMENTATION_ONLY__NO_FREEZE__NO_CANONICAL_EXECUTION",
+  "basis_head": "d204988f0a09f77a70f474c35e04cf694329aa2d",
+  "evidence_checkpoints": [
+    "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
+    "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
+    "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md",
+    "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md",
+    "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md"
+  ],
+  "requested_author_decisions": [
+    {
+      "id": "AR-1",
+      "topic": "signed_evidence_v2_layout",
+      "recommendation": "APPROVE_FOR_PRECANONICAL_IMPLEMENTATION_ONLY",
+      "proposal": "64-byte explicit big-endian body with signed opaque scenario/source/authority/key IDs, 64-bit epoch/logical-time/sequence, domain separator S7E-AERC-AUTH-V1, and no topology/fault labels."
+    },
+    {
+      "id": "AR-2",
+      "topic": "signing_key_placement",
+      "recommendation": "APPROVE_FOR_PRECANONICAL_IMPLEMENTATION_ONLY",
+      "proposal": "Keep all private test keys outside cFS FSW in a deterministic local host-side signing harness; producer/qualifier/verifier/decision/sink FSW remain private-key-free."
+    },
+    {
+      "id": "AR-3",
+      "topic": "t4_authority_representation",
+      "recommendation": "APPROVE_FOR_PRECANONICAL_IMPLEMENTATION_ONLY",
+      "proposal": "Represent authority separation with signed opaque authority_id plus research-only harness provenance/state; do not add a second authority-signature hierarchy."
+    },
+    {
+      "id": "AR-4",
+      "topic": "qualifier_semantics",
+      "recommendation": "APPROVE_FOR_PRECANONICAL_IMPLEMENTATION_ONLY",
+      "proposal": "Structural-only completeness; authorization claim preserved independently for structurally complete evidence; controlled logical time; exact duplicates idempotent; valid rollback/equivocation drives path-local noncontradictory=0; invalid signatures do not advance authenticated sequence state."
+    },
+    {
+      "id": "AR-5",
+      "topic": "fault_transformations",
+      "recommendation": "APPROVE_FOR_PRECANONICAL_IMPLEMENTATION_ONLY",
+      "proposal": "Use the current draft F0-F12 stage transforms, including F9 post-signature XOR of epoch LSB at byte 47 and F12 separately signed same-sequence opposite-authorization equivocation."
+    }
+  ],
+  "explicitly_not_requested_for_approval": [
+    "protocol freeze",
+    "environment freeze",
+    "final numeric freshness threshold",
+    "final epoch mapping",
+    "final scenario/source/key/authority registry values",
+    "final test key material or hashes",
+    "production L0/L1 model training or freeze",
+    "verifier-to-policy binding as canonical semantics",
+    "canonical scientific execution",
+    "PR merge"
+  ],
+  "if_author_approves_requested_decisions": {
+    "next_scope": "continue pre-canonical implementation only",
+    "allowed_next_work": [
+      "implement cFS qualifier plumbing against the approved draft semantics using configurable, non-frozen timing/registry values",
+      "implement producer message plumbing with host-side deterministic signing boundary",
+      "add contract/runtime tests and leakage guards",
+      "continue proof-before-freeze engineering validation"
+    ],
+    "still_prohibited": [
+      "canonical scientific scenario execution",
+      "production model training/freeze",
+      "final protocol/environment freeze",
+      "final experiment key freeze",
+      "publisher claims from Study 7E results"
+    ]
+  },
+  "approvals": {
+    "author_review_completed": true,
+    "ar_1": true,
+    "ar_2": true,
+    "ar_3": true,
+    "ar_4": true,
+    "ar_5": true,
+    "protocol_freeze": false,
+    "canonical_execution_authorized": false
+  },
+  "approval_record": {
+    "date": "2026-09-23",
+    "approval_scope": "AR-1 through AR-5 for pre-canonical implementation only, subject to the boundaries in the author-review package",
+    "source": "explicit author approval in project conversation",
+    "approval_commit_parent": "834351e1edf5ead056a0ed57362435f8c980b8c6"
+  },
+  "approval_record_path": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md"
+}

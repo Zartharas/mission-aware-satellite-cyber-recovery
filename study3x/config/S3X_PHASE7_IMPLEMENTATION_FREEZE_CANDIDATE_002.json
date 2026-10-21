@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "implementation_candidate_id": "S3X-PHASE7-IMPLEMENTATION-CANDIDATE-002",
+  "supersedes_implementation_candidate_id": "S3X-PHASE7-IMPLEMENTATION-CANDIDATE-001",
+  "experiment_id": "S3X-ETA-001",
+  "protocol_id": "S3X-PHASE7-RECOVERY-REPLAY-DESIGN-001",
+  "phase": "PHASE7D_FLOAT_SERIALIZATION_CONTRACT_CORRECTION",
+  "status": "CORRECTED_IMPLEMENTATION_CANDIDATE__NOT_EFFECTIVE__NO_SCIENTIFIC_RESULTS",
+  "preparation_date": "2026-09-27",
+  "branch_base_main_commit": "1396a82657ff0613b9a1abb0b645e1daa172eb27",
+  "correction_basis": {
+    "observed_failure_stage": "PHASE7_AUTHORIZED_RUN1__INTERVAL_PARSE_BEFORE_CASE_GENERATION",
+    "observed_exception": "ValueError: frozen P99_X10 threshold relationship is inconsistent",
+    "root_cause": "Phase 6 computed threshold_seconds as binary-float cadence_p99_seconds * 10.0 and serialized cadence and threshold independently. Candidate 001 incorrectly re-parsed the two CSV strings as exact decimals and required exact decimal multiplication equality.",
+    "frozen_phase6_contract": "float(row['threshold_seconds']) == float(row['cadence_p99_seconds']) * 10.0 and float(row['delta_seconds']) > float(row['threshold_seconds'])",
+    "frozen_population_changed": false,
+    "p99_x10_rule_changed": false,
+    "interval_membership_changed": false,
+    "scientific_cases_generated_by_failed_attempt": 0,
+    "scientific_results_generated_by_failed_attempt": false
+  },
+  "frozen_bindings": {
+    "trace_population_freeze_id": "S3X-P99X10-TRACE-POPULATION-FREEZE-001",
+    "trace_population_freeze_git_blob_sha1": "ed0bdcec443b7f0c3ee80d441e1122f32e499d3e",
+    "phase7_protocol_git_blob_sha1": "f42fe8c0c58ee3b9152e629f5673bd5c71ffede4",
+    "phase6_extractor_git_blob_sha1": "e660224cc2752101007ce00b03f08a1f04671365",
+    "phase6_validator_path": "study3x/validation/validate_p99_x10_timestamp_intervals.py",
+    "parent_study3_temporal_model_git_blob_sha1": "b13e62456c144db0e12808bf700586c1c844c33d",
+    "frozen_interval_artifact_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "frozen_interval_count": 1919,
+    "expected_case_count": 34542
+  },
+  "implementation_files": {
+    "primary": {
+      "path": "study3x/src/recovery_replay_v2.py",
+      "git_blob_sha1": "40e3bd0406f1f0bedecbac9cb1386699a8619318",
+      "role": "PRIMARY_PHASE7_CASE_EVALUATOR_FLOAT_CONTRACT_CORRECTED"
+    },
+    "reference": {
+      "path": "study3x/audit/reference_replay_v2.py",
+      "git_blob_sha1": "26444d206f18bededa656b1de56d9ba0948c6ef3",
+      "role": "SEPARATELY_IMPLEMENTED_REFERENCE_EVALUATOR_FLOAT_CONTRACT_CORRECTED"
+    },
+    "population_runtime": {
+      "path": "study3x/runtime/run_phase7_replay_v2.py",
+      "git_blob_sha1": "f2a789edd24a0e23ff0d256312fc7d2b7e656573"
+    },
+    "population_validator": {
+      "path": "study3x/audit/validate_phase7_replay_v2.py",
+      "git_blob_sha1": "15796f7b8e2da3f92e941021839b387ad365394e"
+    }
+  },
+  "numerical_contract": {
+    "membership_and_threshold_validation": "PHASE6_BINARY_FLOAT_SEMANTICS",
+    "cadence_normalization_analysis": "EXACT_RATIONAL_FROM_CANONICAL_DECIMAL_TOKENS",
+    "threshold_relation": "float(threshold_token) == float(cadence_token) * 10.0",
+    "strict_membership_relation": "float(delta_token) > float(threshold_token)",
+    "tolerance_added": false,
+    "epsilon_added": false,
+    "retuning_performed": false
+  },
+  "pre_runtime_scope": {
+    "synthetic_fixture_execution_authorized": true,
+    "corrected_runtime_preparation_authorized": true,
+    "real_frozen_interval_reexecution_authorized": false,
+    "scientific_execution_authorized": false,
+    "result_freeze_authorized": false,
+    "manuscript_claim_use_authorized": false
+  },
+  "effectivity": {
+    "implementation_effective_now": false,
+    "candidate_merge_requires_separate_author_review": true,
+    "post_merge_ci_required_before_reexecution": true,
+    "corrected_runtime_authorization_requires_separate_versioned_record": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7D_CORRECTION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

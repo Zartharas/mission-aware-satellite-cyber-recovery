@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE3_PREEXECUTION",
+  "status": "AUTHORIZED_S3X_SOURCE_VERIFICATION_AND_S6X_PRE_RUNTIME_IMPLEMENTATION__NO_SCIENTIFIC_EXECUTION",
+  "authorization_date": "2026-09-26",
+  "branch": "paper2/post-rejection-phase3-preexecution",
+  "branch_base_commit": "a2b6f2e02c4075d2e9cd1976888dae38464a11c1",
+  "predecessor": {
+    "pull_request": 173,
+    "merge_commit": "a2b6f2e02c4075d2e9cd1976888dae38464a11c1",
+    "pre_merge_ci": {
+      "run_id": 36268050167,
+      "run_number": 1208,
+      "conclusion": "success"
+    },
+    "post_merge_ci": {
+      "run_id": 36268665292,
+      "run_number": 1209,
+      "conclusion": "success"
+    }
+  },
+  "frozen_foundation": {
+    "study3": {
+      "experiment_id": "S3-K4E-001",
+      "population": 1380,
+      "mutable": false
+    },
+    "study4": {
+      "experiment_id": "S4-MPQ-001",
+      "population": 4608,
+      "mutable": false
+    },
+    "study6": {
+      "experiment_id": "S6-SCTR-001",
+      "population": 420,
+      "mutable": false
+    },
+    "pooling_allowed": false
+  },
+  "s3x": {
+    "experiment_id": "S3X-ETA-001",
+    "workspace": "study3x/",
+    "local_source_verification_authorized": true,
+    "source_identity_freeze_authorized": true,
+    "source_identity_freeze_completed": false,
+    "gap_rule_freeze_authorized": false,
+    "trace_extraction_authorized": false,
+    "scientific_execution_authorized": false,
+    "blocker": "Exact ESA v2 Mission-1/Mission-2 archive bytes and extracted directories are not available in the connected repository environment; local verification must produce the freeze record."
+  },
+  "s4x": {
+    "experiment_id": "S4X-JCU-001",
+    "state": "HOLD__NOT_CURRENTLY_JUSTIFIED__EXECUTION_NOT_AUTHORIZED"
+  },
+  "s6x": {
+    "experiment_id": "S6X-EAP-001",
+    "workspace": "study6x/",
+    "implementation_workspace_authorized": true,
+    "pre_runtime_validation_authorized": true,
+    "independent_oracle_implemented": true,
+    "fixture_patch_materialized": true,
+    "build_authorized": false,
+    "fixture_application_to_build_authorized": false,
+    "artifact_signing_authorized": false,
+    "scientific_execution_authorized": false,
+    "canonical_results_authorized": false
+  },
+  "manuscript": {
+    "rewrite_authorized": false,
+    "venue_lock_authorized": false,
+    "publisher_submission_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE3_CI_AND_LOCAL_S3X_SOURCE_FREEZE_OUTPUT_BEFORE_ANY_BUILD_OR_SCIENTIFIC_EXECUTION"
+}

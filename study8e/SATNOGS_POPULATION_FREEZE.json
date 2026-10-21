@@ -1,0 +1,285 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-SATNOGS-POP-001",
+  "freeze_date_local": "2026-09-19",
+  "status": "POPULATION_FROZEN_ON_BRANCH__AWAITING_REPOSITORY_MERGE",
+  "base_main_commit": "2096ec190b73229dca67cbd83a850cb62d46b7f6",
+  "protocol_deviation": "S8E-DEV-SATNOGS-CURSOR-THROTTLE-001",
+  "source_window_utc": {
+    "start": "2026-06-01T00:00:00Z",
+    "end_exclusive": "2026-07-01T00:00:00Z"
+  },
+  "selection_execution": {
+    "workflow_run": 35490417295,
+    "workflow_head": "de9704d8f3c53a3c11290da24fc8a1b67d010b1a",
+    "artifact_id": 10598628520,
+    "artifact_zip_sha256": "0c25938e96ac10d47a5f62f3b1c43c1705b26876383f36d6951e1fafd83055fc",
+    "selection_report_sha256": "8296b2af0f303afa1b2b8c7ae2975813194f25c50443bc41a3bc86d0b0d0a2e7",
+    "status": "TARGET_REACHED",
+    "requests_issued": 42,
+    "hard_request_cap": 50,
+    "seed_requests": 10,
+    "unique_candidate_pairs_discovered": 149,
+    "candidate_pair_pool_sha256": "f7ed79e0c4829519c195e6759594613816e38c3883aeff20b5631950ca485e3d",
+    "invalid_identifier_rows": 2,
+    "candidates_evaluated": 32,
+    "candidates_rejected_below_threshold": 0,
+    "candidates_skipped_due_to_entity_caps": 7,
+    "selected_pair_count": 32
+  },
+  "pair_eligibility": {
+    "minimum_observations_in_source_window": 20,
+    "qualification_first_page_size": 25,
+    "all_selected_pairs_had_full_first_page": true,
+    "all_selected_pair_qualification_responses_had_next_cursor": true,
+    "claim": "Each selected pair is proven to have at least 25 June-window observations and therefore satisfies the preregistered >=20 threshold. Exact total observation counts were not computed at this gate."
+  },
+  "selected_pairs": [
+    {
+      "selection_order": 1,
+      "norad_cat_id": 63235,
+      "ground_station": 4242,
+      "rank_sha256": "04ce2cc6ec3d574429677f63d2b604a5ca29c95b09a752eaadf8ab7c0e412a61",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 2,
+      "norad_cat_id": 27844,
+      "ground_station": 766,
+      "rank_sha256": "05da5dba4ec3ab719dfb17f68cf2d470d6f9d0000ee5a032e324ecd6a0c3e055",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 3,
+      "norad_cat_id": 26931,
+      "ground_station": 766,
+      "rank_sha256": "060de395b73ddc32483399220df09e71c02cb2568df5311d6116be65eeffdcd9",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 4,
+      "norad_cat_id": 46504,
+      "ground_station": 4497,
+      "rank_sha256": "0ab94fa01876bdfa16bf1d4840014668ce237cf713632f4e1fdc01d7abc35454",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 5,
+      "norad_cat_id": 59588,
+      "ground_station": 4497,
+      "rank_sha256": "0d610625d8109408841e366b7f3d4cc7b7b8bd115d6a87f9dcb8ba52f4a884b5",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 6,
+      "norad_cat_id": 60243,
+      "ground_station": 1864,
+      "rank_sha256": "0d78428f7085ec294686742089f25e0ae2889d599bb8556629c9f49a19e3308a",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 7,
+      "norad_cat_id": 39133,
+      "ground_station": 1864,
+      "rank_sha256": "0fd2e911e23908cd393a64a34a5504327591f879203db482ce1bea56c0fd6d67",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 8,
+      "norad_cat_id": 57176,
+      "ground_station": 91,
+      "rank_sha256": "107ff8004cc74210cdbcec7fc1478a2fe0b0f3e51cc804caeb3530b036e34ed7",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 9,
+      "norad_cat_id": 64550,
+      "ground_station": 4365,
+      "rank_sha256": "15d0cc82a3ecdf0f0d65c76c867bd5004521c0cdc0c57a3f799b03e986ff01d6",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 10,
+      "norad_cat_id": 46506,
+      "ground_station": 1861,
+      "rank_sha256": "17b5dc3fda5408ce217218f2c719c6a60a6598ccabc94a166b9a4fe9640ed6c6",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 11,
+      "norad_cat_id": 63235,
+      "ground_station": 3623,
+      "rank_sha256": "182eb451f9f9821c131de054ed3367e05fffcaa753e2ecf72b343ee8cd9c4fed",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 12,
+      "norad_cat_id": 40014,
+      "ground_station": 4451,
+      "rank_sha256": "198b2a469444a2045ca97f234311b8be210a0cd6c184e1a2629567f2d500be3b",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 13,
+      "norad_cat_id": 56192,
+      "ground_station": 3538,
+      "rank_sha256": "1b6383f6eaa1c29eb2134b98c0742c4974e15e5a1cff9d392f6af633fac3ac60",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 14,
+      "norad_cat_id": 98879,
+      "ground_station": 91,
+      "rank_sha256": "1dfb727ae51bf1d6ce58db166d06f65fa224258a64047cc09c68f9da8042d7fb",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 15,
+      "norad_cat_id": 41340,
+      "ground_station": 71,
+      "rank_sha256": "1ebc8bad9ec73993a1104f3bc3ece0441971c185c2384033cace52f62603d4c0",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 16,
+      "norad_cat_id": 61736,
+      "ground_station": 4320,
+      "rank_sha256": "225fd5df2bcf13a3e3960a095999320f43f45c5c60d905e4927394f94d1d88d9",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 17,
+      "norad_cat_id": 49263,
+      "ground_station": 2173,
+      "rank_sha256": "226b1323d0d339a392ebd208d21f3dc5d14ad4828d04654fdfcca8238d23777e",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 18,
+      "norad_cat_id": 43879,
+      "ground_station": 4869,
+      "rank_sha256": "22a1ff34d9c50492d308930356c5fcec012fb25b4747cc8230fa0ea1686cee2b",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 19,
+      "norad_cat_id": 40014,
+      "ground_station": 4460,
+      "rank_sha256": "25d4e26581113b167244b27f8f836bd0fd9a4591de4e2df0b12b45566067bc72",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 20,
+      "norad_cat_id": 27844,
+      "ground_station": 812,
+      "rank_sha256": "2619a97ce2bf75a0243c08dcf42115be50d1e1d40e0cc3da7d689fd826802de2",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 21,
+      "norad_cat_id": 48606,
+      "ground_station": 6,
+      "rank_sha256": "27fc6da4fd1b7bfbdad4b11a0b00ae19e24f5b5d530483dd48bc3e9149b3f68f",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 22,
+      "norad_cat_id": 43879,
+      "ground_station": 4136,
+      "rank_sha256": "28b73f0e575df3a8e72b9ef862acf44694cd440e87f71417128f571ea62d16f8",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 23,
+      "norad_cat_id": 62713,
+      "ground_station": 4365,
+      "rank_sha256": "29af2deaaadb57fe0202b53cb273cc72bf6ec24758c3ffaa45eb3377ec6d4aab",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 24,
+      "norad_cat_id": 67391,
+      "ground_station": 4451,
+      "rank_sha256": "32d9aac6080bfbfe0d5d231383330dfee4df7728bfc0d80072cc8c39c5d4c385",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 25,
+      "norad_cat_id": 25682,
+      "ground_station": 4690,
+      "rank_sha256": "33c5e2680dad4f7480e78629f4a5e0bf7f48571d006f925b0ca9cafdee566a2e",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 26,
+      "norad_cat_id": 62628,
+      "ground_station": 3020,
+      "rank_sha256": "3865c565279e4d7abc902566341955d580917f74b1f3a42b258777e26e96edac",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 27,
+      "norad_cat_id": 27939,
+      "ground_station": 812,
+      "rank_sha256": "3a1b2d4d5e012b77927f1c93fcf60328975de51e7741106bbbcd65f63b80b21c",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 28,
+      "norad_cat_id": 61748,
+      "ground_station": 4186,
+      "rank_sha256": "4084cef602815e2b18af5c53bdc856d1f6efad0882682ab3819cf45d935a68af",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 29,
+      "norad_cat_id": 63242,
+      "ground_station": 1156,
+      "rank_sha256": "41ce3457a6d9b3745720c44cb69d8e3c0c7349cdda3cc3dbf8a7c66368640883",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 30,
+      "norad_cat_id": 98330,
+      "ground_station": 3093,
+      "rank_sha256": "4236f506193c7a30b2b328ba753073c95998a668c7718612a6205e9c27723d3f",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 31,
+      "norad_cat_id": 98367,
+      "ground_station": 4355,
+      "rank_sha256": "425e7685589bdb7d3a4bf85accd66c3140956872f33756d57c3e0b00954dc437",
+      "eligibility_lower_bound_observations": 25
+    },
+    {
+      "selection_order": 32,
+      "norad_cat_id": 48606,
+      "ground_station": 4111,
+      "rank_sha256": "48d6948514bee0564eafc63140b937737be1eb3adf53ca6e23a9caf1d8ea7aaa",
+      "eligibility_lower_bound_observations": 25
+    }
+  ],
+  "population_claim_boundary": {
+    "population_is_all_satnogs_june_pairs": false,
+    "representative_sample_claim": false,
+    "population_description": "Prospectively defined deterministic rate-bounded SatNOGS trace-pair population discovered from ten frozen June seed windows and qualified only by identifier, >=20 observation threshold, deterministic hash rank, and maximum-two-per-entity caps.",
+    "pooling_with_study8": false,
+    "external_replication_claim": false
+  },
+  "unexecuted_endpoints": {
+    "contact_duration_distribution": true,
+    "inter_opportunity_gap_distribution": true,
+    "gap_variability_burstiness": true,
+    "payload_rate_threshold": true,
+    "policy_profile_recovery_results": true,
+    "canonical_external_trace_execution": true
+  },
+  "integrity": {
+    "study8_frozen_science_modified": false,
+    "acta_package_modified": false,
+    "study9_results_imported": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AND_REPOSITORY_MERGE_AUTHORIZATION__THEN_SELECTED_TRACE_ARTIFACT_ACQUISITION_AND_IMPLEMENTATION_FREEZE"
+}

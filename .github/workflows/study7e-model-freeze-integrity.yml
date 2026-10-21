@@ -1,0 +1,43 @@
+name: Study 7E model freeze integrity
+
+on:
+  pull_request:
+    paths:
+      - "study7e/MODEL_FREEZE_MANIFEST_001.json"
+      - "study7e/PRODUCTION_TRAINING_STATE.json"
+      - "study7e/configs/model_freeze_authorization_001.json"
+      - "study7e/frozen_models/S7E-AERC-MODEL-FREEZE-001/**"
+      - "study7e/tests/test_model_freeze_integrity.py"
+      - ".github/workflows/study7e-model-freeze-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  model-freeze-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Verify frozen model bytes and closed downstream gates
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import inspect
+          import study7e.tests.test_model_freeze_integrity as t
+          tests = [(name, fn) for name, fn in inspect.getmembers(t, inspect.isfunction) if name.startswith("test_")]
+          assert tests, "no model-freeze integrity tests discovered"
+          for name, fn in tests:
+              fn()
+              print(f"{name}=PASS")
+          print(f"model_freeze_integrity_tests={len(tests)}")
+          PY
+          echo "study7e_model_freeze_integrity=PASS"
+          echo "production_models_frozen=true"
+          echo "held_out_evaluation_executed=false"
+          echo "canonical_execution_authorized=false"
+          echo "pr_merge_authorized=false"

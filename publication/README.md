@@ -4,11 +4,11 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository now contains **four submitted publication lines**. All are frozen pending publisher action.
+The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and is undergoing technical checks. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
-2. **Paper 4:** Study 8, submitted to Acta Astronautica.
-3. **Paper 2:** Studies 3 + 4 + 6, submitted to IEEE Transactions on Aerospace and Electronic Systems.
+2. **Paper 4:** Study 8 + Study 8E rebuilt manuscript, most recently submitted to IJSCCN; prior Acta submission retained as historical provenance.
+3. **Paper 2:** Studies 3 + 4 + 6 (separate S3X/S6X extensions), latest CEAS Space Journal submission received 2026-10-19; prior TAES rejection preserved.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal.
 
 Separately frozen study populations must never be silently pooled or reused as new evidence merely because they remain in the repository.
@@ -30,22 +30,55 @@ Study 1 remains 720 VALID observations and Study 2 remains 3,872 VALID observati
 - **Title:** Contact-Aware Cryptographic Agility for Trusted Post-Compromise Recovery in Intermittently Connected Space Systems
 - **Manuscript ID:** `AA-D-26-02872`
 - **Submission date:** 2026-09-06
-- **Current state:** `With Editor`
+- **Current state:** `Rejected` / `REJECTED__EDITORIAL_DECISION`
+- **Decision recorded:** 2026-09-19
 - **Authority:** `publication/Paper_4_Study_8/Acta_Astronautica/ACTA_SUBMISSION_STATUS.json`
 
-Study 8 remains a separate deterministic modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`.
+Study 8 remains a separate deterministic modeled population of 3,456 positions. Its frozen primary result remains `P3 - P1 = 0/1 = 0.000000 percentage points`. Acta supplied no external reviewer reports and did not enumerate a specific methodological defect in the decision letter.
+
+### Rebuilt Paper 4 - Study 8 + Study 8E
+
+- **Journal:** International Journal of Satellite Communications and Networking
+- **Manuscript ID:** `4920969`
+- **Submission date:** 2026-09-22
+- **Decision date:** 2026-09-24
+- **Current state:** `REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW`
+- **Authority:** `publication/Paper_4_Study_8/IJSCCN/PACKAGE_STATUS.json`
+- **Decision record:** `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
+
+The IJSCCN decision does not alter frozen Study 8 or Study 8E science. The submitted R5 package remains immutable historical provenance. The next Paper 4 action is a fresh venue-fit audit plus optional review of Wiley Transfer Desk suggestions; no automatic transfer is authorized.
 
 ## Paper 2 - Studies 3 + 4 + 6
 
-- **Journal:** IEEE Transactions on Aerospace and Electronic Systems
-- **Title:** Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance
-- **Article type:** Regular Paper
-- **Submission date:** 2026-09-07
-- **Research Exchange UUID:** `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
-- **Current state:** `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`
-- **Package:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
+### Current: CEAS Space Journal RevB submission
 
-Paper 2 uses Studies 3, 4, and 6 only and keeps their frozen populations separate.
+- **Journal:** CEAS Space Journal (Springer Nature)
+- **Title:** Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance
+- **Sole author:** Aman Kumar Singh
+- **Article type:** Research; single-anonymous peer-review process
+- **Submission date:** 2026-10-19
+- **Portal tracking ID:** `38cc76f5-ab6b-4b8e-b6ba-24727db86b48`, v1.0 (**not** separately verified as a journal-assigned manuscript number)
+- **Current state:** `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; no peer-review or acceptance claim
+- **Receipt:** [Issue #217 confirmation](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467)
+- **Verified author-local RevB ZIP SHA-256:** `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f` (not a checksum of publisher-stored bytes)
+- **Current handoff:** [CEAS RevB submission handoff](Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md)
+- **Publication-source review:** [PR #216](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/216), OPEN/DRAFT/UNMERGED; not merged into `main`
+
+The publisher DOCX/PDF, source ZIP, original Actions ZIPs and private evidence remain on the author's Mac rather than in public GitHub. Optional Research Square In Review was selected, but no public posting or DOI is verified. Evidence-reviewer access, ESA v2 derivative rights and the accepted-original Study 3 versus auxiliary CSV discrepancy remain unresolved/protected. Studies 3, 4 and 6 are frozen separately; S3X timing proxies and S6X research-fixture validations are **not pooled** and are not operational spacecraft validation.
+
+### Historical: TAES initial submission and rejection
+
+- **Journal:** IEEE Transactions on Aerospace and Electronic Systems
+- **Prior title:** Residual Trust Boundaries in Satellite Cyber Recovery: Temporal Evidence, Producer Composition, and Artifact Assurance
+- **Article type:** Regular Paper
+- **Submitted:** 2026-09-07
+- **Research Exchange UUID:** `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`
+- **Manuscript ID:** `TAES-2026-4182`
+- **Decision:** `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW` on 2026-09-26
+- **Frozen package:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/`
+- **Decision record:** `publication/Paper_2_Studies_3_4_6/IEEE_Transactions_on_Aerospace_and_Electronic_Systems/TAES_EDITORIAL_DECISION_2026-09-26.md`
+
+Earlier rebuild permissions and phase gates are date-bound **historical provenance**, not current submission restrictions. The original frozen study artifacts and all historical records remain unchanged.
 
 ## Paper 3 - Study 7
 
@@ -56,27 +89,42 @@ Paper 2 uses Studies 3, 4, and 6 only and keeps their frozen populations separat
 - **Submission ID:** `6db04a31-8223-4aaf-af02-e4bafe06ef89`
 - **Submission version:** `v.1.0`
 - **Submission date:** 2026-09-13
-- **Current state:** `SUBMITTED__TECHNICAL_CHECK`
+- **Decision date:** 2026-09-22
+- **Current state:** `REJECTED__EDITORIAL_ASSESSMENT`
 - **Current authority:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`
-- **Initial-submission record:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_INITIAL_SUBMISSION_RECORD_2026-09-13.md`
-- **Current README:** `publication/Paper_3_Study_7/CEAS_Space_Journal/README_CURRENT.md`
+- **Decision record:** `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-09-22.md`
+- **Recovery audit:** `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`
 
-Paper 3 uses Study 7 only. Study 7 remains exactly 1,033 modeled observations.
+Paper 3's rejected CEAS package used Study 7 only. Study 7 remains exactly 1,033 modeled observations and is immutable.
 
 Durable evidence:
 
 - Zenodo version DOI: `10.5281/zenodo.22732060`
 - Zenodo concept DOI: `10.5281/zenodo.22732059`
 
-The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory is retained only as historical, unsubmitted venue-development provenance. It is superseded by the CEAS package.
+The rejection audit finds that a manuscript-only retarget is insufficient. A new prospective extension, `S7E-AERC-001`, is proposed to address architecture grounding, trust-domain validation, and equal-information deterministic/learned comparison. It has not been implemented or executed.
 
-## Next independent publication work
+The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory remains historical, unsubmitted venue-development provenance.
 
-Paper 3 and Study 7 are no longer candidates. They are consumed by the submitted CEAS publication line.
+## Paper 4 post-IJSCCN gate
 
-The next action is a read-only audit over the remaining eligible work, including Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+The immediate active publication-development priority is the Paper 4 post-IJSCCN venue-retarget workstream; it is not a scientific rerun.
 
-No next venue or manuscript package is currently locked. Fresh novelty, overlap, reproducibility, claim-boundary, and live-venue review are required before a new publication branch is created.
+The rejected Acta package and rejected IJSCCN R5 package remain immutable historical provenance. A future retarget may adapt presentation, framing, literature positioning, explanatory depth, figures/tables, and venue formatting only within the frozen Study 8 + Study 8E claim boundaries. No Wiley transfer or fallback venue is automatically selected.
+
+Canonical handoff:
+
+`publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`
+
+Paper 4 is the Study 8 publication. Do not confuse it with Study 4 / `S4-MPQ-001`, which is already part of submitted Paper 2 / TAES.
+
+## Deferred independent publication work
+
+Paper 3 recovery is now a separately authorized workstream. Frozen Study 7 remains part of that publication line, and any future Study 7E will be separately designed and unpooled.
+
+The independent remaining-study audit is still separate. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+
+No remaining-study evidence may be imported into Paper 3 merely to answer the CEAS rejection.
 
 ## Current-state authority order
 

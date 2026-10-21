@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "candidate_id": "S7E-AERC-FC-001",
+  "date": "2026-09-23",
+  "state": "AUTHOR_FREEZE_APPROVED",
+  "source": "explicit author approval in project conversation",
+  "approved_statement": "I approve S7E-AERC-FC-001 for Study 7E protocol, environment, public-key registry, fault-transformation, and learner-protocol freeze. This approval does not authorize production L0/L1 training or model freeze, canonical scientific execution, PR #167 merge, or publication/result claims.",
+  "authorized": {
+    "protocol_freeze": true,
+    "environment_freeze": true,
+    "public_key_registry_freeze": true,
+    "fault_transformations_freeze": true,
+    "learner_protocol_freeze": true
+  },
+  "not_authorized": {
+    "production_L0_L1_training": true,
+    "production_model_freeze": true,
+    "canonical_scientific_execution": true,
+    "pr_167_merge": true,
+    "publication_or_result_claims": true
+  }
+}

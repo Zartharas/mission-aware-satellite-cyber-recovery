@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-PREVENUE-R4-FIGURE1-INSERTION-AND-LIVE-VENUE-SCREEN-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "preparation_date": "2026-10-01",
+  "status": "R4_FIGURE1_INSERTION_AND_PREVENUE_SCREEN_PREPARED__NOT_EFFECTIVE_UNTIL_APPROVED_MERGE",
+  "author_instruction": "Begin next bounded publication-preparation phase following successful R3 merge and post-merge CI; final venue, publisher formatting, and submission remain separately gated.",
+  "base_main": "d3cf8af3def805db7fda97dbda457b7c21f80c84",
+  "preceding_ci": {
+    "run_number": 1316,
+    "run_id": 36867210065,
+    "conclusion": "success",
+    "exact_head": "d3cf8af3def805db7fda97dbda457b7c21f80c84"
+  },
+  "predecessors": {
+    "manuscript_r3_git_blob_sha1": "2182ea02634854da92d6d6049e6fdd269b11bac8",
+    "manuscript_r2_git_blob_sha1": "9e3f345a3a16102c39bb978f4e522c261e80cfb4",
+    "canonical_figure1_svg_git_blob_sha1": "5f68ac156b4e27c7bfd99e006623196c250c94a1",
+    "canonical_figure1_svg_sha256": "adfdfaf833c8624bb405209be22ef6b2f002cdec53f081ce097f67e728eedffc",
+    "figure1_revision_3_visual_scientific_qa": "PASS",
+    "s6x_result_freeze_git_blob_sha1": "2e6b213b994062fd108e4b8435d9c0c36d93fdc0",
+    "s6x_claim_use_record_git_blob_sha1": "a0786f278d5315b438ad6416a91be8cb16262b83"
+  },
+  "candidate": {
+    "manuscript_r4_path": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_REBUILD_MANUSCRIPT_R4_2026-10-01.md",
+    "manuscript_r4_git_blob_sha1": "069e319864b1f5c1ee201b31872e68572fea1923",
+    "word_like_count": 7863,
+    "figure1_insert_position": "SECTION_III_AFTER_TABLE_I_STUDY_SEPARATION_BEFORE_SECTION_IV",
+    "figure1_original_svg_preserved": true,
+    "figure1_caption_number": 1,
+    "figure1_first_citation_before_display": true,
+    "table_v_preserved": true,
+    "three_core_studies_separate": true,
+    "s3x_study3_pooling": false,
+    "s6x_study6_pooling": false,
+    "s6x_as_fourth_figure_panel": false
+  },
+  "companion_records": {
+    "exact_figure_insertion_git_blob_sha1": "63a67b805350e1766cbb9dbcd961bb84290bb63e",
+    "live_venue_screen_git_blob_sha1": "75548203fc0bd0bb5d5666b72f9805b64a995915",
+    "venue_candidates": [
+      "Journal of Information Security and Applications",
+      "IEEE Systems Journal",
+      "Aerospace"
+    ]
+  },
+  "publication_boundaries": {
+    "venue_locked": false,
+    "publisher_specific_derivative_created": false,
+    "source_manuscript_r3_mutated": false,
+    "source_figure1_svg_mutated": false,
+    "raw_scientific_data_mutated": false,
+    "historical_taes_r10_mutated": false,
+    "scientific_reexecution": false,
+    "result_reinterpretation_outside_s6x_claim_firewall": false,
+    "author_metadata_or_declarations_invented": false,
+    "submission_package_created": false,
+    "publisher_portal_action": false,
+    "manuscript_submitted": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PAPER2_R4_FIGURE1_INSERTION_AND_PREVENUE_SCREEN_PR_AND_PREMERGE_CI_BEFORE_MERGE_AND_VENUE_LOCK"
+}

@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_id": "S8E-IMPLFREEZE-001",
+  "freeze_date_local": "2026-09-20",
+  "status": "IMPLEMENTATION_FREEZE_CANDIDATE__SYNTHETIC_VALIDATION_PASS__REAL_TRACE_EXECUTION_NOT_AUTHORIZED",
+  "base_main_commit": "80a73d47f9ffd7289eec309a48d61c4dbcf1405b",
+  "input_evidence": {
+    "population_freeze": "S8E-SATNOGS-POP-002",
+    "trace_artifact_freeze": "S8E-SATNOGS-TRACE-002",
+    "real_trace_loaded_by_validation": false
+  },
+  "implementation_files": {
+    "study8e/src/external_contact_recovery_model.py": {
+      "git_blob_sha1": "d339075d1c8584e3685eb20eba903f25c28ec7ef",
+      "role": "primary continuous-time extension implementation"
+    },
+    "study8e/audit/independent_external_reference.py": {
+      "git_blob_sha1": "8ee105bc293a3dcc967cd3f84ba3be63b365b617",
+      "role": "structurally independent synthetic reference implementation"
+    },
+    "study8e/tests/test_external_contact_recovery_model.py": {
+      "git_blob_sha1": "65e3240ea2f9e770da1be5a939a2b534768a7f30",
+      "role": "behavioral unit-test contract"
+    },
+    "study8e/validation/run_synthetic_implementation_audit.py": {
+      "git_blob_sha1": "b6b0e56095e91b0fb84c8f70002730167dc30128",
+      "role": "cross-implementation synthetic audit harness"
+    }
+  },
+  "synthetic_validation": {
+    "workflow_run": 35493635591,
+    "workflow_head": "60c24288df04d16682c7c9374d76b4e0849fd7ab",
+    "artifact_id": 10600505720,
+    "artifact_zip_sha256": "771906138eb627bce1c61a8946353c6b16eee885d159b5cdba0def438e92a0ca",
+    "audit_report_sha256": "09af6ee5853f2233ccdc4be0b342af3a5f248aa0f870443f0b6588e1c8e7fa04",
+    "compile_status": "PASS",
+    "behavioral_unit_tests": 10,
+    "behavioral_unit_test_failures": 0,
+    "independent_fixture_count": 3,
+    "independent_comparisons": 144,
+    "independent_mismatches": 0,
+    "tracked_file_drift": false
+  },
+  "frozen_semantics": {
+    "time_representation": "exact rational elapsed seconds via fractions.Fraction",
+    "overlapping_or_abutting_windows": "merged before evaluation",
+    "horizon_rule": "TRUST_RESTORED must complete strictly before horizon",
+    "capacity_rule": "floor(rate_bps * window_duration_seconds / 8) whole modeled payload bytes",
+    "rate_semantics": "hypothetical uniform effective payload rate; not measured SatNOGS throughput",
+    "crypto_object_sizes": "read-only inheritance from frozen Study 8 exact ML-KEM/ML-DSA modeled object budgets",
+    "object_order": "read-only inheritance from frozen Study 8 transition-object priority",
+    "disruption_semantics": "A0-A3 mechanistically reused with continuous-time event ordering",
+    "p3_guard": "deterministic pre-commit comparison of remaining modeled commit+confirmation bytes against nominal remaining modeled window capacity before horizon",
+    "direct_execution_guard": "module __main__ exits; no canonical real-trace execution entrypoint is enabled by the freeze candidate"
+  },
+  "threshold_solver": {
+    "endpoint": "minimum positive integer hypothetical uniform effective payload rate in bps",
+    "method": "monotone binary search with success/failure postcondition checks",
+    "no_finite_threshold_within_bound": "returns null",
+    "synthetic_boundary_test": "PROFILE_512_44/P1/A0 with one 20-second window requires 5025 bps under strict completion-before-horizon rule"
+  },
+  "scope_boundary": {
+    "canonical_real_trace_execution_performed": false,
+    "real_trace_duration_distribution_computed": false,
+    "real_trace_gap_distribution_computed": false,
+    "real_trace_burstiness_computed": false,
+    "real_trace_payload_rate_threshold_computed": false,
+    "real_trace_policy_or_profile_endpoint_computed": false,
+    "study8_modified": false,
+    "acta_package_modified": false
+  },
+  "next_gate": "REPOSITORY_REVIEW_AND_MERGE_AUTHORIZATION__THEN_SEPARATE_CANONICAL_EXECUTION_PROTOCOL_AND_AUTHORIZATION"
+}

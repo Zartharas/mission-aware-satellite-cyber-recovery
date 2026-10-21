@@ -1,0 +1,26 @@
+name: Study 7E production training 001 (sealed)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  training-sealed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Report consumed one-shot training authorization
+        run: |
+          set -euo pipefail
+          echo "authorization_id=S7E-AERC-TRAIN-AUTH-001"
+          echo "authorization_consumed=true"
+          echo "automatic_retraining_enabled=false"
+          echo "production_models_frozen=false"
+          echo "held_out_evaluation_executed=false"
+          echo "canonical_execution_authorized=false"
+          echo "pr_merge_authorized=false"
+          echo "publication_or_result_claims_authorized=false"
+          echo "candidate_of_record_run_id=35939164352"
+          echo "next_gate=separate_explicit_model_freeze_review_and_authorization"

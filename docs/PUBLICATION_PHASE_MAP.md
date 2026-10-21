@@ -1,6 +1,10 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-09-13
+**Current-state reference:** 2026-10-20 (Paper 2 reconciled; other papers retain last separately recorded dates)
+
+**Paper 4 IJSCCN decision overlay:** 2026-09-24
+
+**Paper 2 CEAS submission overlay:** 2026-10-19 (TAES 2026-09-26 decision remains historical)
 
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
@@ -26,26 +30,49 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       Journal: Acta Astronautica
 |       Manuscript ID: AA-D-26-02872
 |       Submitted: 2026-09-06
-|       State: With Editor
+|       State: Rejected - editorial decision recorded 2026-09-19
 |
-+-- PHASE 3 - SUBMITTED
++-- PHASE 3 - PAPER 2 HISTORICAL TAES SUBMISSION
 |   +-- PAPER 2: Studies 3 + 4 + 6
 |       Journal: IEEE Transactions on Aerospace and Electronic Systems
-|       Submitted: 2026-09-07
-|       Research Exchange UUID: cd1dfa89-4a24-4451-bdd4-af31ce3367f4
+|       Submitted: 2026-09-07; TAES-2026-4182
+|       Decision: rejected at editorial pre-screening 2026-09-26; no external review
+|
++-- PHASE 3R - PAPER 2 REBUILD, HISTORICAL MILESTONES
+|   +-- Separately governed S3X and S6X executed and frozen
+|       Earlier pre-execution gates are dated provenance, not current status
+|
++-- PHASE 3S - PAPER 2 CURRENT CEAS REV-B SUBMISSION
+|   +-- Journal: CEAS Space Journal
+|       Received: 2026-10-19, portal tracking ID 38cc76f5-ab6b-4b8e-b6ba-24727db86b48
+|       Status: SUBMISSION_RECEIVED__TECHNICAL_CHECK (not peer review/acceptance)
+|       Authority: Paper 2 RevB handoff and Issue #217 receipt
 |
 +-- PHASE 4 - SUBMITTED
 |   +-- PAPER 3: Study 7 / S7-LSO-001
 |       Journal: CEAS Space Journal
 |       Submission ID: 6db04a31-8223-4aaf-af02-e4bafe06ef89
 |       Submitted: 2026-09-13
-|       State: Technical check
+|       State: Rejected - handling-editor decision 2026-09-22
+|
++-- PHASE 4R - PAPER 3 RECOVERY
+|   +-- PROSPECTIVE EXTENSION DESIGN
+|       Proposed experiment: S7E-AERC-001
+|       State: PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED
 |
 +-- PHASE 5 - NEXT ACTIVE GATE
+|   +-- PAPER 4 / STUDY 8 + STUDY 8E FRESH VENUE-FIT AUDIT
+|       Latest manuscript: IJSCCN 4920969
+|       Submitted: 2026-09-22
+|       Decision: rejected 2026-09-24 as out of scope; no external review supplied
+|       State: IJSCCN_OUT_OF_SCOPE_CLOSEOUT__FRESH_VENUE_FIT_AUDIT
+|       Decision record: publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md
+|
++-- PHASE 6 - DEFERRED
     +-- REMAINING-CANDIDATE AUDIT
         +-- Study 5 / S5-CUCD-001
         +-- any other still-eligible repository study not consumed by Papers 1, 2, 3, or 4
-        State: READ_ONLY_CANDIDATE_SELECTION_REQUIRED
+        State: DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE
 ```
 
 ## Phase 1 - Paper 1
@@ -62,14 +89,18 @@ No Paper-1 scientific or publisher-facing artifact should change unless JAIS req
 
 ## Phase 2 - Paper 4
 
-- Study: Study 8 / `S8-PQC-ICR-001`.
-- Frozen population: 3,456 deterministic modeled positions.
-- Venue: Acta Astronautica.
-- Manuscript ID: `AA-D-26-02872`.
-- Submitted: 2026-09-06.
-- Current state: `With Editor`.
+- Studies: Study 8 / `S8-PQC-ICR-001` plus separately frozen Study 8E / `S8E-ECTV-001`.
+- Study 8 population: 3,456 deterministic modeled positions.
+- Study 8E authority: `S8E-CANON-RESULTS-002-FREEZE-001`.
+- Latest venue: International Journal of Satellite Communications and Networking.
+- Manuscript ID: `4920969`.
+- Submitted: 2026-09-22.
+- Decision date: 2026-09-24.
+- Current state: `REJECTED__EDITORIAL_SCREENING__OUT_OF_SCOPE__NO_EXTERNAL_REVIEW`.
+- Decision record: `publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`.
+- Prior Acta manuscript `AA-D-26-02872` remains immutable historical provenance.
 
-No Study-8 scientific or publisher-facing artifact should change unless Acta requests a revision.
+The IJSCCN decision supplied no external reviewer reports and identified no specific technical or methodological defect. Study 8 and Study 8E remain separate and unpooled. Neither study should be rerun or reanalyzed merely to improve publication prospects.
 
 ## Phase 3 - Paper 2
 
@@ -77,39 +108,81 @@ No Study-8 scientific or publisher-facing artifact should change unless Acta req
 - Venue: IEEE Transactions on Aerospace and Electronic Systems.
 - Submitted: 2026-09-07.
 - Research Exchange UUID: `cd1dfa89-4a24-4451-bdd4-af31ce3367f4`.
-- State: `R10_INITIAL_SUBMISSION_COMPLETE__UNDER_EDITORIAL_PROCESSING`.
+- Manuscript ID: `TAES-2026-4182`.
+- Decision date: 2026-09-26.
+- State: `REJECTED__EDITORIAL_PRESCREEN__NO_EXTERNAL_REVIEW`.
 
-The three scientific populations remain separate and there is no pooled Paper-2 sample size.
+The three scientific populations remain separate and immutable; there is no pooled Paper-2 sample size. The R10 package is historical provenance.
+
+## Phase 3R - Paper 2 post-rejection rebuild (historical)
+
+The Phase-1 authorization dated 2026-09-26 and later Phase-2 through Phase-7F audit/freeze gates are **historical implementation milestones**, not current limitations on the already-submitted CEAS RevB article. The original three study populations, S3X external timing-proxy analysis, and separately executed S6X fixture remain independently frozen and unpooled. R10 TAES and interim R1–R4 manuscripts remain historical provenance, not current submissions.
+
+- Governance workspace: `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/`.
+- S3X workspace: `study3x/` — 1,919 ESA v2 inter-sample timing proxies, not measured RF outages; source/derivative redistribution rights not independently cleared.
+- S6X workspace: `study6x/` — controlled cFS/Limit Checker research builds; two repetitions of 396 modeled/fixture observations, no operational spacecraft validation.
+- Historical phases and artifacts are preserved; no scientific rerun, result replacement, or retrospective pooling is permitted.
+
+## Phase 3S - Paper 2 current CEAS submission (2026-10-19)
+
+- **Journal:** CEAS Space Journal (Springer Nature).
+- **Article:** *Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance*.
+- **Sole author:** Aman Kumar Singh.
+- **Submitted and received:** 2026-10-19, v1.0.
+- **Publisher portal tracking ID:** `38cc76f5-ab6b-4b8e-b6ba-24727db86b48`; not independently confirmed as a separately assigned journal manuscript number.
+- **Current state:** `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; no external review/acceptance established.
+- **Authority:** [Issue #217 receipt](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467) and `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md`.
+- **Current governance:** Wait for actual technical-check/journal communication; do not submit again or invent a decision. Keep original submission ZIP and restricted evidence private on author Mac. PR #216 remains open/draft/unmerged, separate from submitted publisher byte files. Further journal revisions, data release, or scientific execution require separate authorization.
 
 ## Phase 4 - Paper 3
 
-Paper 3 is complete at the initial-submission gate.
+Paper 3 completed its CEAS initial-submission gate and was rejected after handling-editor editorial assessment.
 
 - Study: Study 7 / `S7-LSO-001` only.
 - Frozen population: 1,033 exact modeled observations.
 - Venue: CEAS Space Journal.
 - Title: **Observability Limits of Learned Satellite Cyber-Recovery Decisions Under Compromised Evidence**.
-- Article type: Research.
-- Topic: Artificial Intelligence in Space.
-- Peer review: Single anonymous.
 - Submission ID: `6db04a31-8223-4aaf-af02-e4bafe06ef89`.
-- Submission version: `v.1.0`.
 - Submitted: 2026-09-13.
-- Current state: `SUBMITTED__TECHNICAL_CHECK`.
+- Decision date: 2026-09-22.
+- Current state: `REJECTED__EDITORIAL_ASSESSMENT`.
 - Current authority: `publication/Paper_3_Study_7/CEAS_Space_Journal/CEAS_SUBMISSION_STATUS.json`.
 
-Zenodo Study-7 evidence:
+The handling editor recognized a relevant assurance concern and reproducible setup but identified missing architecture grounding, validated trust assumptions, and an equal-information deterministic corroboration comparator. The rejected CEAS package and frozen Study 7 remain immutable provenance.
 
-- version DOI: `10.5281/zenodo.22732060`
-- concept DOI: `10.5281/zenodo.22732059`
+## Phase 4R - Paper 3 post-rejection recovery
 
-The historical Paper-3 JAIS folder was not submitted and is superseded venue-development provenance only.
+The author authorized a structured rejection-to-research-requirements audit on 2026-09-22.
 
-No Paper-3 scientific or publisher-facing artifact should change unless CEAS requests a technical correction or revision.
+- Audit result: `NEW_PROSPECTIVE_EXTENSION_REQUIRED`.
+- Proposed experiment: `S7E-AERC-001`.
+- Current design state: `PROTOCOL_DRAFT_COMPLETE__AUTHOR_REVIEW_REQUIRED__EXECUTION_NOT_AUTHORIZED`.
+- Recovery audit: `publication/Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_CEAS_REJECTION_TO_RESEARCH_REQUIREMENTS_AUDIT_2026-09-22.md`.
+- Proposal: `publication/Paper_3_Study_7/Post_Rejection_Rebuild/STUDY7E_AERC_PROSPECTIVE_EXTENSION_PROPOSAL_2026-09-22.md`.
 
-## Phase 5 - Remaining-candidate audit
+No Study-7 rerun, retroactive comparator addition, or Study-7E execution is authorized. Any future Study 7E remains a separate population.
 
-The next publication is not preselected.
+## Paper 4 post-IJSCCN retargeting gate
+
+IJSCCN manuscript `4920969` is closed by editorial scope rejection. No Wiley Transfer Desk recommendation or fallback venue is automatically activated. The exact IJSCCN R5 package remains immutable provenance.
+
+Historical predecessor gate, retained for provenance and release-gate compatibility: `POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT`. Its historical handoff remains `publication/Paper_4_Study_8/POST_REJECTION_RESUBMISSION_HANDOFF_2026-09-19.md`; neither is the current Paper 4 gate.
+
+## Phase 5 - Paper 4 / Study 8 + Study 8E fresh venue-fit audit
+
+This is the immediate active Paper-4 publication-development gate.
+
+Decision authority:
+
+`publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md`
+
+The work begins with a fresh live venue assessment against the actual rebuilt manuscript scope: satellite/space systems, cybersecurity, post-quantum cryptography, trusted recovery/key-state transition, intermittent connectivity, and contact/opportunity modeling. Transfer Desk suggestions may be inspected but do not constitute venue approval.
+
+Study 8 and Study 8E remain separate populations. Paper 5 / Study 9 remains outside this retarget gate. No new target venue is locked. Final venue lock, transfer, and publisher submission remain separate explicit author-approval gates.
+
+## Phase 6 - Remaining-candidate audit
+
+The next independent publication after the active Paper-4 retarget decision is not preselected.
 
 Known remaining work includes Study 5 / `S5-CUCD-001` plus any other repository experiment that is complete, provenance-bound, scientifically independent, and not already consumed by Papers 1, 2, 3, or 4.
 
@@ -117,13 +190,14 @@ The next-paper audit must include fresh literature review, novelty/self-overlap 
 
 Study 5 remains a portability/external-validity boundary study and must not be misrepresented as measuring detector accuracy, recall, false-positive rate, or packet-level recovery effectiveness.
 
-## Recommended operational order from 2026-09-13
+## Recommended operational order from 2026-09-24
 
-1. Keep Papers 1, 2, 3, and 4 frozen while their journal workflows proceed.
-2. Record publisher status changes without modifying submitted scientific packages.
-3. Start the next publication only with a read-only audit of remaining eligible studies from clean `main`.
-4. Select a candidate publication boundary before creating any new venue branch.
-5. Keep actual publisher submission as a separate explicit author-authorization gate.
+1. Keep Papers 1 and 2 frozen while their journal workflows proceed; keep rejected Paper-3 CEAS and Paper-4 Acta/IJSCCN packages frozen as provenance.
+2. Review Wiley Transfer Desk suggestions if received, without approving transfer.
+3. Perform a fresh live venue-fit review for the rebuilt Study 8 + Study 8E manuscript.
+4. Preserve the existing scientific claim boundaries and reject venues that require unsupported operational-performance claims.
+5. Present the venue shortlist and adaptation plan before creating a new venue-specific package.
+6. Keep any transfer or publisher submission as a separate explicit author-authorization gate.
 
 ## Governance rules
 
@@ -140,7 +214,10 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | Phase | Publication unit | Studies | Current venue/state | Next gate |
 |---|---|---|---|---|
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
-| 2 | Paper 4 | Study 8 | Acta `AA-D-26-02872`, With Editor | Wait for journal action |
-| 3 | Paper 2 | Studies 3 + 4 + 6 | TAES, submitted | Wait for journal action |
-| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, Technical check | Wait for journal action |
-| 5 | Next independent candidate | Remaining eligible studies | Not venue-locked | Read-only candidate audit |
+| 2 | Paper 4 | Study 8 + Study 8E | IJSCCN `4920969`, rejected 2026-09-24 as out of scope | Fresh venue-fit audit; review Transfer Desk suggestions only as candidates |
+| 3 | Paper 2 prior TAES | Studies 3 + 4 + 6 | TAES `TAES-2026-4182`, rejected at editorial pre-screen 2026-09-26 | Historical immutable R10 provenance |
+| 3R | Paper 2 historical rebuild | Studies 3 + 4 + 6; separate S3X/S6X | Completed separately frozen model/fixture research milestones | Retain exact original artifacts and research claim boundaries |\n| 3S | Paper 2 current CEAS | Studies 3 + 4 + 6; separately governed S3X/S6X | CEAS submission received 2026-10-19; `TECHNICAL_CHECK` | Monitor publisher; no acceptance or new data-release claim |
+| 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
+| 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
+| 5 | Paper 4 retarget | Study 8 + Study 8E | IJSCCN scope rejection; next venue not locked | Live venue-fit audit with no scientific rerun |
+| 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |

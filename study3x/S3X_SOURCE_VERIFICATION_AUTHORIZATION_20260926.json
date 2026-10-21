@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "experiment_id": "S3X-ETA-001",
+  "authorization_date": "2026-09-26",
+  "authorization_basis": "Author explicitly authorized the next S3X source-verification/source-freeze phase after PR #173 CI completed successfully.",
+  "predecessor": {
+    "pull_request": 173,
+    "merge_commit": "a2b6f2e02c4075d2e9cd1976888dae38464a11c1",
+    "post_merge_ci": {
+      "workflow": "Validate research configurations",
+      "run_id": 36268665292,
+      "run_number": 1209,
+      "conclusion": "success"
+    }
+  },
+  "permissions": {
+    "local_archive_verification_authorized": true,
+    "local_sha256_computation_authorized": true,
+    "source_schema_inspection_authorized": true,
+    "source_identity_freeze_authorized": true,
+    "gap_rule_freeze_authorized": false,
+    "trace_extraction_authorized": false,
+    "recovery_policy_execution_authorized": false,
+    "scientific_execution_authorized": false,
+    "manuscript_claim_use_authorized": false
+  },
+  "source": {
+    "dataset": "ESA Anomaly Dataset",
+    "version": "v2",
+    "doi": "10.5281/zenodo.15237121",
+    "missions": [
+      "ESA-Mission1",
+      "ESA-Mission2"
+    ]
+  },
+  "current_state": "AUTHORIZED__AWAITING_LOCAL_SOURCE_BYTES"
+}

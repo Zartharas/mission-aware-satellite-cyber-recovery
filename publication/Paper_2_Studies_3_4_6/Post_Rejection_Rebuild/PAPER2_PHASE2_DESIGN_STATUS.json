@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE2_DESIGN",
+  "status": "AUTHORIZED_SOURCE_METADATA_AND_INVARIANT_FIXTURE_DESIGN_COMPLETE__NO_EXECUTION",
+  "authorization_date": "2026-09-26",
+  "branch": "paper2/post-rejection-phase2-design",
+  "branch_base_commit": "db744891dc9a726ad51b25543c5f3ee90c0ce4e7",
+  "prior_merge": {
+    "pull_request": 172,
+    "merge_commit": "db744891dc9a726ad51b25543c5f3ee90c0ce4e7",
+    "post_merge_ci": {
+      "workflow": "Validate research configurations",
+      "run_id": 36267400739,
+      "run_number": 1205,
+      "conclusion": "success"
+    }
+  },
+  "s3x": {
+    "experiment_id": "S3X-ETA-001",
+    "state": "SOURCE_FREEZE_CANDIDATE_PREPARED__LOCAL_ARCHIVE_HASH_AND_SCHEMA_REPORT_REQUIRED__NO_SCIENTIFIC_EXECUTION",
+    "metadata_schema_record": "S3X_METADATA_SCHEMA_INSPECTION_R2_2026-09-26.md",
+    "source_freeze_candidate": "S3X_SOURCE_FREEZE_CANDIDATE_R1.json",
+    "inspector": "scripts/inspect_s3x_esa_schema.py",
+    "source_freeze_authorized": false,
+    "trace_extraction_authorized": false,
+    "recovery_policy_execution_authorized": false
+  },
+  "s4x": {
+    "experiment_id": "S4X-JCU-001",
+    "state": "HOLD__NOT_CURRENTLY_JUSTIFIED__EXECUTION_NOT_AUTHORIZED"
+  },
+  "s6x": {
+    "experiment_id": "S6X-EAP-001",
+    "state": "SOURCE_PIN_AND_INVARIANT_DESIGN_COMPLETE__IMPLEMENTATION_AND_BUILD_REQUIRE_SEPARATE_AUTHORIZATION",
+    "invariant_design_record": "S6X_INVARIANT_FIXTURE_DESIGN_R2_2026-09-26.md",
+    "source_pin_candidate": "S6X_SOURCE_PIN_CANDIDATE_R1.json",
+    "implementation_authorized": false,
+    "build_authorized": false,
+    "artifact_mutation_authorized": false,
+    "scientific_execution_authorized": false
+  },
+  "manuscript": {
+    "rewrite_authorized": false,
+    "venue_lock_authorized": false,
+    "publisher_submission_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_BEFORE_S3X_FINAL_SOURCE_FREEZE_OR_S6X_IMPLEMENTATION_WORKSPACE"
+}

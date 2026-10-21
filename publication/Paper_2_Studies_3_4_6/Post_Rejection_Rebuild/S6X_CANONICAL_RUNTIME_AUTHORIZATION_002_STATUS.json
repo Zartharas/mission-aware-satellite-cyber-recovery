@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S6X-EAP-001",
+  "phase": "S6X_CORRECTED_CANONICAL_RUNTIME_AUTHORIZATION_002_PREPARATION",
+  "status": "CORRECTED_RUNTIME_AUTHORIZATION_002_PREPARED__NOT_EFFECTIVE__NO_SCIENTIFIC_EXECUTION",
+  "preparation_date": "2026-09-29",
+  "branch": "paper2/s6x-corrected-runtime-auth-002",
+  "branch_base_commit": "8f58b198b12886387130757476632193f5821fc2",
+  "predecessor": {
+    "environment_freeze_id": "S6X-BUILD-ENVIRONMENT-FREEZE-002",
+    "environment_freeze_merge_commit": "8f58b198b12886387130757476632193f5821fc2",
+    "environment_freeze_post_merge_ci_run_number": 1305,
+    "environment_freeze_post_merge_ci_run_id": 36655074056,
+    "environment_freeze_post_merge_ci_conclusion": "success",
+    "environment_freeze_governance_effective": true,
+    "runtime_auth_001": "IMMUTABLE_HISTORICAL_RECORD__SUPERSEDED_FOR_FUTURE_EXECUTION",
+    "attempt_001": "PRESERVED_FAILED_CLOSED_TOOLING_ONLY"
+  },
+  "authorization_candidate": {
+    "id": "S6X-CANONICAL-RUNTIME-AUTH-002",
+    "authorization_blob": "a7bdaf9b177e644ed7e932c5723507c264c0277a",
+    "planned_gate_observations_per_run": 396,
+    "planned_repetitions": 2,
+    "planned_total_builds": 8,
+    "corrected_artifact_path": "build-native_std/exe/cpu1/cf/lc.so",
+    "environment_image_id": "sha256:5c7549f7fdeef8198126c6759056db78d0f358afcfedb3f2e4972bfadd33674c",
+    "environment_tar_sha256": "fb6a35cf6499de64042da62858de93a8b3c43940fa19ec11d26012f83b5ca331",
+    "authorization_effective_now": false
+  },
+  "versioned_runtime_artifacts": {
+    "evidence_schema": "study6x/S6X_EVIDENCE_SCHEMA_002.json",
+    "runtime_population_generator": "study6x/runtime/run_canonical_population_002.py",
+    "independent_validator": "study6x/audit/validate_canonical_execution_002.py",
+    "execution_runner": "study6x/validation/run_local_canonical_execution_002.sh",
+    "scientific_logic_changed": false,
+    "operational_bindings_corrected": true
+  },
+  "executed_now": {
+    "cfs_build": false,
+    "semantic_fixture_application": false,
+    "artifact_signing": false,
+    "independent_rebuild": false,
+    "gate_execution": false,
+    "scientific_execution": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_CORRECTED_RUNTIME_AUTHORIZATION_002_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

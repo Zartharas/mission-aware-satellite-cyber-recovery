@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "authorization_id": "S7E-AERC-PR167-MERGE-AUTH-001",
+  "experiment_id": "S7E-AERC-001",
+  "result_freeze_id": "S7E-AERC-RESULT-FREEZE-001",
+  "pull_request_number": 167,
+  "authorization_date_local": "2026-09-23",
+  "authorized_parent_head": "7829801b772b0bf01a41280a8197fbaa4c1485f5",
+  "author_statement_summary": "Author explicitly authorized merge of PR #167 after the result freeze and green pre-merge validation. Publication/manuscript result claims remain a separate later gate.",
+  "merge_authorized": true,
+  "preferred_merge_method": "squash",
+  "post_merge_main_ci_verification_required": true,
+  "result_freeze_may_change": false,
+  "scientific_execution_may_rerun": false,
+  "frozen_models_may_change": false,
+  "endpoint_or_population_change_authorized": false,
+  "manuscript_or_publication_result_claims_authorized": false,
+  "publisher_submission_authorized": false,
+  "status": "PR167_MERGE_AUTHORIZED__POST_MERGE_MAIN_CI_REQUIRED__PUBLICATION_CLAIMS_NOT_AUTHORIZED"
+}

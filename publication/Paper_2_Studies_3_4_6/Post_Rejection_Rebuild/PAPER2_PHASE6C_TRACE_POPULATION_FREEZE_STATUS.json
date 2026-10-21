@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "POST_REJECTION_REBUILD_PHASE6C_TRACE_POPULATION_FREEZE",
+  "status": "TRACE_POPULATION_FREEZE_RECORD_PREPARED__NOT_EFFECTIVE",
+  "preparation_date": "2026-09-27",
+  "branch": "paper2/post-rejection-phase6c-trace-population-freeze",
+  "branch_base_commit": "5b835b442b8be5a8556790324b8f234d08943def",
+  "validated_execution": {
+    "source_identity_verification": "PASS",
+    "candidate_timestamp_extraction_run1": "PASS",
+    "candidate_timestamp_extraction_run2": "PASS",
+    "independent_repository_validation_both_runs": "PASS",
+    "deterministic_repeatability": "PASS",
+    "channels": 176,
+    "total_intervals": 1919,
+    "channels_with_intervals": 171,
+    "channels_with_zero_intervals": 5,
+    "canonical_channel_projection_sha256": "f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1"
+  },
+  "freeze_record": {
+    "path": "study3x/config/S3X_PHASE6_TRACE_POPULATION_FREEZE_001.json",
+    "freeze_id": "S3X-P99X10-TRACE-POPULATION-FREEZE-001",
+    "creation_state": "PREPARED_ON_FEATURE_BRANCH",
+    "effective_condition": "tracked and unmodified on main after separately authorized merge",
+    "trace_population_frozen_now": false
+  },
+  "prohibited_before_separate_later_authorization": {
+    "merge_without_author_review": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "manuscript_claim_use": true,
+    "gap_rule_retuning": true,
+    "interval_membership_retuning": true,
+    "frozen_study_modification": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE6C_TRACE_FREEZE_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

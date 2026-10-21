@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "deviation_id": "S8E-DEV-SATNOGS-TRACE-CAP-001",
+  "recorded_date_local": "2026-09-20",
+  "status": "PROSPECTIVE_TRACE_MATERIALIZATION_RULE__BEFORE_TIMING_ENDPOINT_INSPECTION",
+  "trigger": {
+    "description": "The selected 32 trace pairs each have at least 25 June observations and may have additional cursor pages. Full-month exhaustive materialization would require an unknown number of additional public API requests. To keep canonical source acquisition deterministic, bounded, and within the documented anonymous request allowance, the extension will materialize exactly the first 25 June records for each frozen pair under the official SatNOGS observation ordering (-start, -end).",
+    "population_freeze": "S8E-SATNOGS-POP-001",
+    "population_merge_commit": "80a73d47f9ffd7289eec309a48d61c4dbcf1405b",
+    "source_release": "1.134",
+    "source_commit": "9c55e92850b4f5c11c52a72371685fb8cfff1507",
+    "official_page_size": 25,
+    "official_ordering": ["-start", "-end"],
+    "documented_anonymous_observation_get_rate": "60/hour"
+  },
+  "information_state_before_deviation": {
+    "selected_pair_identities_known": true,
+    "selected_pair_exact_total_observation_counts_known": false,
+    "selected_pair_timestamp_values_persisted": false,
+    "duration_distribution_inspected": false,
+    "inter_opportunity_gap_distribution_inspected": false,
+    "burstiness_or_gap_variability_inspected": false,
+    "payload_rate_threshold_computed": false,
+    "policy_or_profile_outcomes_inspected": false,
+    "canonical_recovery_execution_performed": false
+  },
+  "materialization_rule": {
+    "source_window_utc": {
+      "start": "2026-06-01T00:00:00Z",
+      "end_exclusive": "2026-07-01T00:00:00Z"
+    },
+    "pairs": 32,
+    "requests": 32,
+    "records_per_pair": 25,
+    "expected_materialized_records": 800,
+    "query_filter": ["start", "end", "satellite__norad_cat_id", "ground_station", "format=json"],
+    "record_ordering": ["-start", "-end"],
+    "persisted_fields_only": ["id", "start", "end", "ground_station", "norad_cat_id"],
+    "later_cursor_pages_followed": false,
+    "selection_after_timestamp_inspection": false,
+    "pair_or_record_substitution_permitted": false
+  },
+  "claim_boundary_effect": {
+    "full_month_trace_claim_permitted": false,
+    "representative_random_sample_claim_permitted": false,
+    "canonical_trace_population_description": "For each of the 32 prospectively frozen SatNOGS satellite-station pairs, the canonical Study 8E timing artifact contains exactly the first 25 June 2026 observations returned under the official descending start/end ordering.",
+    "exact_materialized_record_count": 800,
+    "study8_claims_changed": false,
+    "acta_package_changed": false
+  },
+  "stopping_rule": "If any pair does not return exactly 25 valid matching records in the frozen source window, fail closed and record a new protocol deviation before any timing endpoint computation.",
+  "next_gate": "MATERIALIZE_AND_HASH_800_RECORD_TRACE_CORPUS__NO_TIMING_ENDPOINTS"
+}

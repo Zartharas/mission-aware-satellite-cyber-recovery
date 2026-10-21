@@ -1,0 +1,26 @@
+name: Study 7E result freeze integrity
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/study7e-result-freeze-integrity.yml"
+      - "study7e/RESULT_FREEZE_MANIFEST_001.json"
+      - "study7e/RESULT_FREEZE_STATE.json"
+      - "study7e/configs/result_freeze_authorization_001.json"
+      - "study7e/configs/result_freeze_candidate_001.json"
+      - "study7e/results/S7E-AERC-HELDOUT-EXEC-001/**"
+      - "study7e/frozen_results/S7E-AERC-RESULT-FREEZE-001/**"
+      - "study7e/validation/validate_result_freeze_001.py"
+      - "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RESULT_FREEZE_*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-result-freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate frozen Study 7E results and durable artifact
+        run: python study7e/validation/validate_result_freeze_001.py

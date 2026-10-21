@@ -1,0 +1,52 @@
+name: Study 8E SatNOGS source configuration audit
+
+on:
+  push:
+    branches:
+      - study8e/source-identity-population-freeze-20260919
+    paths:
+      - "study8e/validation/inspect_satnogs_network_source.py"
+      - ".github/workflows/study8e-satnogs-source-config-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out Study 8E branch
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Clone official SatNOGS Network source at release 1.134
+        run: |
+          git clone --quiet --depth 1 --branch 1.134 \
+            https://gitlab.com/librespacefoundation/satnogs/satnogs-network.git \
+            /tmp/satnogs-network
+          git -C /tmp/satnogs-network rev-parse HEAD
+          git -C /tmp/satnogs-network describe --tags --exact-match
+
+      - name: Inspect pagination and throttle configuration
+        run: |
+          mkdir -p study8e/evidence/source_config
+          python study8e/validation/inspect_satnogs_network_source.py \
+            --source-root /tmp/satnogs-network \
+            --output study8e/evidence/source_config/satnogs_1_134_pagination_throttle_audit.json
+
+      - name: Upload source configuration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: study8e-satnogs-source-config-audit
+          path: study8e/evidence/source_config/satnogs_1_134_pagination_throttle_audit.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code

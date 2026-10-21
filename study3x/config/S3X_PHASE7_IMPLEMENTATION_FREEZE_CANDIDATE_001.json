@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "implementation_candidate_id": "S3X-PHASE7-IMPLEMENTATION-CANDIDATE-001",
+  "experiment_id": "S3X-ETA-001",
+  "protocol_id": "S3X-PHASE7-RECOVERY-REPLAY-DESIGN-001",
+  "status": "PRE_RUNTIME_IMPLEMENTATION_CANDIDATE__NOT_FROZEN__NO_REAL_DATA_EXECUTION",
+  "preparation_date": "2026-09-27",
+  "branch_base_main_commit": "445435aaa1618e0a08df35071221451f35ef5e98",
+  "frozen_bindings": {
+    "trace_population_freeze_id": "S3X-P99X10-TRACE-POPULATION-FREEZE-001",
+    "trace_population_freeze_git_blob_sha1": "ed0bdcec443b7f0c3ee80d441e1122f32e499d3e",
+    "phase7_protocol_git_blob_sha1": "f42fe8c0c58ee3b9152e629f5673bd5c71ffede4",
+    "parent_study3_temporal_model_git_blob_sha1": "b13e62456c144db0e12808bf700586c1c844c33d",
+    "frozen_interval_artifact_sha256": "cfa4fa3d88cb525237cbfe347fabe8485021351f3b639bdb58f79c575d8a51bc",
+    "frozen_interval_count": 1919,
+    "expected_case_count": 34542
+  },
+  "implementation_files": {
+    "primary": {
+      "path": "study3x/src/recovery_replay.py",
+      "git_blob_sha1": "09a1c887f8861a6e5dba6059cab2ab906befbbcd",
+      "role": "PRIMARY_PHASE7_CASE_EVALUATOR"
+    },
+    "reference": {
+      "path": "study3x/audit/reference_replay.py",
+      "git_blob_sha1": "9e13446323be67115950374cb5debfaa7532a17e",
+      "role": "SEPARATELY_IMPLEMENTED_REFERENCE_EVALUATOR"
+    }
+  },
+  "pre_runtime_scope": {
+    "synthetic_fixture_execution_authorized": true,
+    "frozen_interval_artifact_hash_guard_implemented": true,
+    "exact_case_level_primary_reference_comparison_required": true,
+    "accepted_primary_reference_mismatches": 0,
+    "real_frozen_interval_artifact_read_authorized": false,
+    "real_1919_interval_expansion_authorized": false,
+    "recovery_policy_execution_authorized": false,
+    "scientific_execution_authorized": false,
+    "manuscript_claim_use_authorized": false
+  },
+  "implementation_controls": {
+    "direct_module_execution_fails_closed": true,
+    "primary_imports_parent_study3_select_action": true,
+    "reference_does_not_import_primary_implementation": true,
+    "reference_reimplements_policy_table": true,
+    "timing_arithmetic_is_exact_rational": true,
+    "no_wall_clock_metadata_in_case_evaluation": true,
+    "no_randomness": true,
+    "no_network_access": true,
+    "no_source_trace_membership_selection": true,
+    "no_gap_rule_retuning": true
+  },
+  "scientific_boundaries": [
+    "Synthetic fixture checks are software verification only and are not S3X scientific results.",
+    "No real frozen interval is evaluated in Phase 7B CI.",
+    "The implementation does not infer RF contact loss, command availability, spacecraft outage, cyberattack truth, or operational recovery latency.",
+    "The implementation remains bound to the separately frozen 1,919-interval population but does not execute that population."
+  ],
+  "effectivity": {
+    "implementation_frozen_now": false,
+    "candidate_merge_requires_separate_author_review": true,
+    "post_merge_ci_required_before_any_later_runtime_authorization": true,
+    "runtime_authorization_requires_separate_versioned_record": true
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7B_IMPLEMENTATION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

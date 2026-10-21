@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "state": "FROZEN_FAULT_TRANSFORMATIONS",
+  "source_path": "study7e/configs/fault_transformations_draft.json",
+  "source_blob_sha": "292db65822a866bce5e4ad50278b98090bf4d24b",
+  "profile_count": 13,
+  "profiles": ["F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12"],
+  "critical_transform_bindings": {
+    "F5_F6": "exact signed evidence evaluated one logical tick after nominal under freshness_max_age_ticks=0",
+    "F9": "post-signature XOR 0x01 at signed-body byte 47",
+    "F11": "F10 authority-stage mutation followed by F9 transport mutation",
+    "F12": "two separately signed same-sequence opposite-authorization bodies"
+  },
+  "amendment_requires_new_freeze_id": true,
+  "canonical_execution_authorized": false
+}

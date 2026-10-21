@@ -1,0 +1,184 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "date": "2026-09-23",
+  "state": "TECHNICAL_REVIEW_COMPLETE__AUTHOR_APPROVAL_NOT_GRANTED",
+  "reviewed_contract": "study7e/configs/signed_evidence_contract_draft.json",
+  "disposition": "REVISE_CANDIDATE_BEFORE_AUTHOR_APPROVAL",
+  "scientific_execution_authorized": false,
+  "freeze_authorized": false,
+  "findings": [
+    {
+      "id": "R1-F1",
+      "severity": "BLOCKING",
+      "issue": "Candidate signed body does not bind scenario/context identity.",
+      "risk": "A valid signed evidence object could be spliced across experimental scenarios if epoch/time/sequence values collide or are replayed.",
+      "recommendation": "Sign an opaque scenario_id/context ID. The ID must not encode topology or fault identity and must remain policy-invisible metadata."
+    },
+    {
+      "id": "R1-F2",
+      "severity": "MAJOR",
+      "issue": "Authorization extraction on signature failure is unresolved.",
+      "risk": "Forcing authorization to zero on every crypto failure would collapse an independent policy-visible feature into signature validity and alter equal-information semantics.",
+      "recommendation": "For structurally complete evidence, preserve the parsed signed authorization_value independently of signature_valid. For absent or structurally invalid evidence, set authorization=0 and complete=0."
+    },
+    {
+      "id": "R1-F3",
+      "severity": "MAJOR",
+      "issue": "Completeness semantics are too broad/ambiguous.",
+      "risk": "Including trust or signature success in complete would duplicate other feature meanings.",
+      "recommendation": "Define complete as structural completeness only: exact canonical length, valid domain separator/version/role/authorization/reserved fields, and parseable mandatory fields. Unknown/untrusted IDs affect their dedicated features, not complete."
+    },
+    {
+      "id": "R1-F4",
+      "severity": "MAJOR",
+      "issue": "Noncontradictory semantics are unresolved.",
+      "risk": "Cross-path disagreement and same-path equivocation could be conflated.",
+      "recommendation": "Define noncontradictory per evidence path. Identical duplicates are not contradictions; two different structurally complete bodies for the same scenario/role/source/epoch/sequence make the path contradictory."
+    },
+    {
+      "id": "R1-F5",
+      "severity": "MAJOR",
+      "issue": "Freshness-bound ownership is unresolved.",
+      "risk": "Allowing the producer to sign/select its own freshness bound would let compromised producers weaken freshness enforcement.",
+      "recommendation": "Keep freshness thresholds in frozen qualifier configuration, not in producer-controlled signed bytes. Sign only issued logical time and epoch."
+    },
+    {
+      "id": "R1-F6",
+      "severity": "MAJOR",
+      "issue": "Registry IDs could accidentally encode topology/fault semantics.",
+      "risk": "Semantic IDs create avoidable truth/topology leakage and brittle policy coupling.",
+      "recommendation": "Use opaque nonzero numeric source/key/authority IDs. Topology manifests may alias IDs, but the numeric values must not encode topology or fault class."
+    },
+    {
+      "id": "R1-F7",
+      "severity": "BLOCKING",
+      "issue": "Signing-key placement is inconsistent across current design artifacts.",
+      "risk": "The implementation plan says producer apps emit signed evidence while the current verifier/dependency guardrails prohibit secret keys in flight software.",
+      "recommendation": "Before producer implementation, explicitly choose either (A) external deterministic test signing service/harness with cFS producers emitting pre-signed evidence, or (B) narrowly scoped producer-only cFS signing components and revise the no-secret-key guardrail to apply to verifier/qualifier/decision FSW. Do not proceed implicitly."
+    },
+    {
+      "id": "R1-F8",
+      "severity": "BLOCKING",
+      "issue": "T4 separate-authority representation remains unspecified.",
+      "risk": "Authority-domain separation cannot be tested faithfully without a stable representation/keying provenance rule.",
+      "recommendation": "Freeze whether signed authority_id plus harness provenance is sufficient or whether the authority requires a separate cryptographic assertion/key layer."
+    }
+  ],
+  "recommended_candidate_v2": {
+    "status": "PROPOSED_BY_TECHNICAL_REVIEW__NOT_FROZEN",
+    "byte_order": "big_endian_network_order",
+    "candidate_message_bytes": 64,
+    "domain_separator_ascii": "S7E-AERC-AUTH-V1",
+    "fields": [
+      {
+        "offset": 0,
+        "size": 16,
+        "name": "domain_separator"
+      },
+      {
+        "offset": 16,
+        "size": 1,
+        "name": "schema_version"
+      },
+      {
+        "offset": 17,
+        "size": 1,
+        "name": "producer_role"
+      },
+      {
+        "offset": 18,
+        "size": 1,
+        "name": "authorization_value"
+      },
+      {
+        "offset": 19,
+        "size": 1,
+        "name": "reserved8"
+      },
+      {
+        "offset": 20,
+        "size": 4,
+        "name": "scenario_id"
+      },
+      {
+        "offset": 24,
+        "size": 4,
+        "name": "source_id"
+      },
+      {
+        "offset": 28,
+        "size": 4,
+        "name": "authority_id"
+      },
+      {
+        "offset": 32,
+        "size": 4,
+        "name": "key_id"
+      },
+      {
+        "offset": 36,
+        "size": 4,
+        "name": "reserved32"
+      },
+      {
+        "offset": 40,
+        "size": 8,
+        "name": "evidence_epoch"
+      },
+      {
+        "offset": 48,
+        "size": 8,
+        "name": "issued_logical_time"
+      },
+      {
+        "offset": 56,
+        "size": 8,
+        "name": "evidence_sequence"
+      }
+    ],
+    "notes": [
+      "scenario_id is signed but remains policy-invisible metadata",
+      "reserved8 and reserved32 must be zero",
+      "explicit byte construction remains mandatory; native struct serialization remains prohibited",
+      "64-byte body fits the qualified engineering verifier message capacity exactly"
+    ]
+  },
+  "recommended_qualifier_semantics": {
+    "absent_evidence": {
+      "signature_valid": 0,
+      "source_trusted": 0,
+      "fresh": 0,
+      "epoch_valid": 0,
+      "noncontradictory": 0,
+      "complete": 0,
+      "authorization": 0
+    },
+    "structurally_complete_but_invalid_signature": {
+      "complete": 1,
+      "authorization": "preserve parsed signed claim byte",
+      "signature_valid": 0,
+      "note": "other quality features are independently derived"
+    },
+    "completeness": "structural only; do not duplicate trust/signature/freshness semantics",
+    "freshness_bound": "external frozen qualifier configuration",
+    "contradiction_scope": "same evidence path within signed scenario/epoch/sequence identity",
+    "duplicate_rule": "byte-identical duplicate is not a contradiction"
+  },
+  "blocking_before_freeze": [
+    "Resolve signing-key placement.",
+    "Resolve T4 authority representation.",
+    "Review/approve candidate v2 scenario binding and 64-byte layout.",
+    "Freeze logical-time unit and freshness thresholds.",
+    "Freeze replay/sequence acceptance rule.",
+    "Freeze source/key/authority registries and test public-key generation provenance.",
+    "Freeze byte-level fault transformations F3/F4/F9/F10/F11/F12."
+  ],
+  "approvals": {
+    "technical_review_complete": true,
+    "author_approval": false,
+    "protocol_freeze": false,
+    "policy_binding_authorized": false,
+    "canonical_execution_authorized": false
+  }
+}

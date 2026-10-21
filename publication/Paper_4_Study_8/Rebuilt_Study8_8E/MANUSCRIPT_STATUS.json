@@ -1,0 +1,72 @@
+{
+  "schema": 3,
+  "record_id": "P4-REBUILT-S8-S8E-MANUSCRIPT-INTEGRATION-001",
+  "date_local": "2026-09-24",
+  "status": "IJSCCN_R5_REJECTED__OUT_OF_SCOPE__SCIENTIFIC_BOUNDARIES_PRESERVED",
+  "architecture": {
+    "study8": "S8-PQC-ICR-001",
+    "study8e": "S8E-ECTV-001",
+    "combined_in_one_manuscript": true,
+    "populations_pooled": false,
+    "logical_slots_converted_to_physical_time": false
+  },
+  "manuscript": {
+    "venue_locked": false,
+    "locked_venue": null,
+    "locked_venue_abbreviation": null,
+    "submitted_title": "Post-Quantum Trusted Recovery Under Intermittent Connectivity: Feasibility Across Modeled Contact Budgets and Public Observation-Opportunity Timing",
+    "venue_specific_derivative_path": "publication/Paper_4_Study_8/IJSCCN/",
+    "submitted_manuscript_source_head": "829e23836fc378f40bb5211bfbe2599882e30bc7",
+    "venue_lock_active": false,
+    "last_submitted_venue": "International Journal of Satellite Communications and Networking",
+    "last_submitted_venue_abbreviation": "IJSCCN",
+    "next_venue_locked": false
+  },
+  "evidence": {
+    "study8_modified": false,
+    "study8e_modified": false,
+    "rejected_acta_package_modified": false,
+    "results_001_used_scientifically": false,
+    "results_002_freeze": "S8E-CANON-RESULTS-002-FREEZE-001",
+    "paper5_evidence_imported": false,
+    "scientific_reanalysis_performed_for_r5": false
+  },
+  "authorization": {
+    "manuscript_integration_authorized": true,
+    "new_scientific_execution_authorized": false,
+    "venue_lock_authorized": true,
+    "publisher_submission_authorized": true,
+    "publisher_submission_authorization_date_local": "2026-09-22"
+  },
+  "submission": {
+    "submitted": true,
+    "submission_date_local": "2026-09-22",
+    "journal_manuscript_id": "4920969",
+    "portal_status_after_submission": "IN_SCREENING",
+    "final_reviewer_pdf_gate": "PASS",
+    "final_reviewer_pdf_pages": 27,
+    "author_photo_format": "JPEG"
+  },
+  "review": {
+    "author_scientific_review": "PASS_WITH_CONTROLLED_LANGUAGE_REFINEMENTS__NO_SCIENTIFIC_CHANGE",
+    "paper4_paper5_non_overlap": "PASS",
+    "study8_study8e_non_pooling": "PASS",
+    "publisher_visual_qa": "PASS",
+    "final_portal_reconciliation": "PASS"
+  },
+  "privacy": {
+    "author_photo_local_only": true,
+    "private_contact_metadata_local_only": true,
+    "personalized_packages_ignored_by_git": true
+  },
+  "next_gate": "FRESH_VENUE_FIT_AUDIT__TRANSFER_DESK_REVIEW_OPTIONAL__NO_AUTOMATIC_TRANSFER__NO_SCIENTIFIC_RERUN",
+  "decision": {
+    "journal_manuscript_id": "4920969",
+    "decision_date_local": "2026-09-24",
+    "decision_type": "EDITORIAL_SCREENING_REJECTION",
+    "reason": "OUT_OF_SCOPE",
+    "external_reviewer_reports_supplied": false,
+    "scientific_change": false,
+    "decision_record": "publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "phase": "POST_REJECTION_REBUILD_PHASE5B_P99X10_PREFREEZE_VALIDATION",
+  "status": "AUTHORIZED_PREFREEZE_VALIDATION_TOOLING__AWAITING_CI_AND_LOCAL_EXECUTION",
+  "authorization_date": "2026-09-26",
+  "branch": "paper2/post-rejection-phase5b-p99x10-prefreeze",
+  "branch_base_commit": "6c8d91b75e7ad994bfb02d041ba46a0eab52b89b",
+  "predecessor": {
+    "phase5a_merge_commit": "6c8d91b75e7ad994bfb02d041ba46a0eab52b89b",
+    "phase5a_post_merge_ci": {
+      "run_id": 36289567400,
+      "run_number": 1223,
+      "conclusion": "success"
+    },
+    "local_r2_execution": {
+      "status": "PASS",
+      "output_schema_version": 2,
+      "channels_analyzed": 176,
+      "candidate_rules": 8,
+      "sensitivity_rows": 1408,
+      "worktree_clean_after_run": true,
+      "outputs": {
+        "sensitivity_csv": {
+          "file": "S3X_GAP_SENSITIVITY_002.csv",
+          "sha256": "f690dd230b2897dd74ec880be0de9c207cbb3c975fb4f7740bb18b49df55b88e"
+        },
+        "delta_frequency_csv": {
+          "file": "S3X_DELTA_FREQUENCIES_002.csv",
+          "sha256": "1399dde74c0cad144e4be4b5c0af201030eaf9ae70621c8b5b70ff9a52b78349"
+        },
+        "summary_json": {
+          "file": "S3X_GAP_SENSITIVITY_SUMMARY_002.json",
+          "sha256": "c57fb506c08f03f69f3bed7326355bc97a318f7b6b5015c7745cc3e956865cc6"
+        }
+      }
+    }
+  },
+  "prefreeze_candidate": {
+    "rule": "P99_X10",
+    "status": "ADVANCED_TO_PREFREEZE_VALIDATION_NOT_SELECTED_NOT_FROZEN",
+    "formula": "threshold_seconds = 10 * channel-specific cadence_p99_seconds",
+    "comparison": "positive inter-sample delta > threshold_seconds",
+    "expected_channels": 176,
+    "expected_total_exceedance_count": 1919,
+    "expected_channels_with_exceedances": 171,
+    "expected_channels_with_zero_exceedances": 5,
+    "expected_zero_exceedance_channels": [
+      "ESA-Mission2/channel_66.zip",
+      "ESA-Mission2/channel_67.zip",
+      "ESA-Mission2/channel_68.zip",
+      "ESA-Mission2/channel_69.zip",
+      "ESA-Mission2/channel_100.zip"
+    ],
+    "canonical_channel_projection_sha256": "f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1",
+    "canonical_projection_columns": [
+      "mission",
+      "channel_file",
+      "channel_sha256",
+      "positive_delta_count",
+      "cadence_p99_seconds",
+      "threshold_seconds",
+      "exceedance_count"
+    ]
+  },
+  "rationale": {
+    "descriptive_only": true,
+    "notes": [
+      "P99_X10 is advanced only for pre-freeze validation because it is one channel-adaptive formula already included in the prespecified Phase-5 sensitivity family.",
+      "No cadence-class-specific multiplier is introduced in Phase 5B.",
+      "The MAX_P99_MEDIAN family is not advanced in Phase 5B.",
+      "Advancement does not constitute gap-rule selection, freeze, operational validation, or a scientific result."
+    ]
+  },
+  "authorized": {
+    "verify_exact_r2_input_hashes": true,
+    "verify_p99_x10_formula": true,
+    "verify_strict_greater_than_output_invariants": true,
+    "verify_channel_level_projection_hash": true,
+    "verify_1919_aggregate": true,
+    "verify_five_zero_exceedance_channels": true,
+    "emit_local_aggregate_prefreeze_validation_record": true
+  },
+  "prohibited": {
+    "gap_rule_selection": true,
+    "gap_rule_freeze": true,
+    "timestamp_level_gap_trace_emission": true,
+    "trace_population_freeze": true,
+    "recovery_policy_execution": true,
+    "scientific_execution": true,
+    "manuscript_claim_use": true
+  },
+  "planned_local_output": "study3x/local_freeze_work/S3X_P99_X10_PREFREEZE_VALIDATION_001.json",
+  "next_gate": "AUTHOR_REVIEW_OF_P99_X10_PRE_FREEZE_VALIDATION_BEFORE_GAP_RULE_FREEZE_OR_TIMESTAMP_TRACE_EXTRACTION"
+}

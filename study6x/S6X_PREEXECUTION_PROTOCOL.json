@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "phase": "PRE_RUNTIME_IMPLEMENTATION",
+  "source_pin_id": "S6X-CFS-LC-V701-PIN-001",
+  "frozen_study6_dependency": "S6-SCTR-001",
+  "populations_pooled": false,
+  "assurance_signals": [
+    "signature_valid",
+    "independent_target_digest_match",
+    "provenance_valid",
+    "independent_reproduced_build_match",
+    "source_review_attested",
+    "release_approved"
+  ],
+  "gate_definitions": {
+    "G0_SIGNATURE_ONLY": [
+      "signature_valid"
+    ],
+    "G1_SIGNATURE_TARGET_DIGEST": [
+      "signature_valid",
+      "independent_target_digest_match"
+    ],
+    "G2_SIGNATURE_PROVENANCE": [
+      "signature_valid",
+      "provenance_valid"
+    ],
+    "G3_PROVENANCE_REPRODUCED_BUILD": [
+      "signature_valid",
+      "provenance_valid",
+      "independent_reproduced_build_match"
+    ],
+    "G4_PROVENANCE_SOURCE_REVIEW": [
+      "signature_valid",
+      "provenance_valid",
+      "source_review_attested"
+    ],
+    "G5_COMPOSITE": [
+      "signature_valid",
+      "independent_target_digest_match",
+      "provenance_valid",
+      "independent_reproduced_build_match",
+      "source_review_attested",
+      "release_approved"
+    ]
+  },
+  "objective_correctness_adjudicator": {
+    "gate_visible": false,
+    "invariant_id": "S6X-LC-GTGE-BOUNDARY-001",
+    "datatype": "signed_int32",
+    "compare_value": 0,
+    "cases": [
+      {
+        "operator": "GT",
+        "wp_value": -1,
+        "expected": false
+      },
+      {
+        "operator": "GT",
+        "wp_value": 0,
+        "expected": false
+      },
+      {
+        "operator": "GT",
+        "wp_value": 1,
+        "expected": true
+      },
+      {
+        "operator": "GE",
+        "wp_value": -1,
+        "expected": false
+      },
+      {
+        "operator": "GE",
+        "wp_value": 0,
+        "expected": true
+      },
+      {
+        "operator": "GE",
+        "wp_value": 1,
+        "expected": true
+      }
+    ]
+  },
+  "fixture": {
+    "fixture_id": "S6X_FIXTURE_GT_EQ_BOUNDARY_001",
+    "baseline": "WPValue > CompareValue",
+    "controlled_incorrect": "WPValue >= CompareValue",
+    "patch_path": "fixtures/S6X_FIXTURE_GT_EQ_BOUNDARY_001.patch",
+    "applied": false
+  },
+  "build_authorized": false,
+  "scientific_execution_authorized": false,
+  "canonical_results_authorized": false
+}

@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "state": "SELECTED_FOR_PRECANONICAL_CFS_VERIFICATION_INTEGRATION__NOT_FROZEN",
+  "algorithm_candidate": "Ed25519_RFC8032",
+  "use_case": "verification_only",
+  "requirements": {
+    "secret_key_in_flight_software": false,
+    "public_key_bytes": 32,
+    "signature_bytes": 64,
+    "canonical_message_bytes_required": true,
+    "caller_input_length_validation_required": true,
+    "rfc8032_positive_and_negative_vectors_required": true,
+    "dependency_revision_must_be_pinned": true,
+    "license_must_be_recorded": true,
+    "fips_claim": false,
+    "flight_qualification_claim": false
+  },
+  "candidates": {
+    "monocypher": {
+      "version": "4.0.3",
+      "commit": "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+      "license": "BSD-2-Clause OR CC0-1.0",
+      "verification_api": "crypto_ed25519_check",
+      "public_key_bytes": 32,
+      "signature_bytes": 64,
+      "source_subset": [
+        "src/monocypher.c",
+        "src/monocypher.h",
+        "src/optional/monocypher-ed25519.c",
+        "src/optional/monocypher-ed25519.h"
+      ],
+      "selected_source_subset_bytes": 136736,
+      "security_note": "4.0.3 fixes the 2026 EdDSA/Ed25519 timing-leak issue; verifier integration must still enforce exact input lengths because Monocypher documents no input-length validation.",
+      "feasibility_state": "GREEN__SELECTED_FOR_PRECANONICAL_INTEGRATION",
+      "feasibility_evidence": {
+        "head": "e5ce0606f23ffbb9c1f80fe6f0f32feda70c3242",
+        "workflow_id": 365298193,
+        "workflow_run_id": 35887743822,
+        "job_id": 107272117959,
+        "artifact_id": 10764060669,
+        "artifact_digest": "sha256:9c83f78b9c963ca641e543e7f509652f66bd1175c7f7f6966e777e3dbfde0833",
+        "rfc8032_verify": true,
+        "mutated_signature_rejected": true,
+        "zero_signature_rejected": true,
+        "changed_message_rejected": true,
+        "selected_source_bytes": 136736,
+        "static_subset_bytes": 97982,
+        "test_binary_bytes": 33728
+      }
+    },
+    "libsodium": {
+      "version": "1.0.22",
+      "commit": "77e1ce5d6dee871c49ef211222ba18ef0c486bda",
+      "official_tarball_sha256": "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349",
+      "license": "ISC",
+      "verification_api": "crypto_sign_verify_detached",
+      "public_key_bytes": 32,
+      "signature_bytes": 64,
+      "security_note": "1.0.22 includes the prior crypto_core_ed25519_is_valid_point security fix. The official 1.0.22 tarball is treated as source of truth because the release tag was corrected after publication.",
+      "feasibility_state": "GREEN__REFERENCE_ALTERNATIVE",
+      "feasibility_evidence": {
+        "head": "e5ce0606f23ffbb9c1f80fe6f0f32feda70c3242",
+        "workflow_id": 365298193,
+        "workflow_run_id": 35887743822,
+        "job_id": 107272118271,
+        "artifact_id": 10764075880,
+        "artifact_digest": "sha256:5294101bd3ed217faf80c69c6ea3808c56c5ac75fd4b7d6d512aabc44eb2220e",
+        "rfc8032_verify": true,
+        "mutated_signature_rejected": true,
+        "zero_signature_rejected": true,
+        "changed_message_rejected": true,
+        "static_archive_bytes": 927808,
+        "test_binary_bytes": 314960
+      }
+    },
+    "openssl": {
+      "version": "3.6.4",
+      "commit": "d3c1b1169b3569ff3069e5b399f47b2b28e03d79",
+      "license": "Apache-2.0",
+      "verification_api": "EVP_DigestVerify",
+      "disposition": "REFERENCE_ONLY__NOT_BOUNDED_COMPILE",
+      "reason": "General-purpose provider/TLS/crypto runtime is substantially broader than the verification-only Study-7E requirement."
+    },
+    "nasa_cryptolib": {
+      "version": "1.5.0",
+      "commit": "c9109bd190180e297a1fe1d1906976e1fdcd3caf",
+      "disposition": "REFERENCE_ONLY__NOT_BOUNDED_COMPILE",
+      "reason": "Targets CCSDS SDLS-EP/data-link security; no direct Ed25519 verification surface was identified in the reviewed release."
+    }
+  },
+  "finalists": [
+    "monocypher",
+    "libsodium"
+  ],
+  "selected_candidate": "monocypher",
+  "selection_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
+  "selection_scope": "pre-canonical cFS Ed25519 verification integration only",
+  "selection_rationale": [
+    "Both finalists passed the same RFC 8032 positive and negative verification checks.",
+    "Monocypher provides the smaller tested verification source/runtime surface for the verification-only Study-7E requirement.",
+    "Monocypher 4.0.3 is pinned at the timing-leak-fix release.",
+    "The integration wrapper must enforce exact public-key, signature, message-size, and cFE packet-size checks because Monocypher does not perform input validation.",
+    "No signing key is permitted in flight software and no FIPS, certification, or flight-qualification claim is made."
+  ],
+  "integration_contract": {
+    "state": "CFS_VERIFICATION_BOUNDARY_RUNTIME_GREEN__NOT_AUTHORIZATION_BOUND",
+    "request_mid": "0x0EE8",
+    "result_mid": "0x0EE9",
+    "wire_version": 1,
+    "engineering_key_id": 1,
+    "engineering_public_key_provenance": "RFC8032_SECTION_7_1_TEST_1__PUBLIC_ONLY",
+    "public_key_bytes": 32,
+    "signature_bytes": 64,
+    "message_capacity_bytes": 64,
+    "exact_cfe_packet_size_required": true,
+    "zero_padding_required": true,
+    "secret_key_present": false,
+    "signing_runtime_present": false,
+    "policy_authorization_binding_present": false,
+    "production_public_key_registry_frozen": false,
+    "runtime_evidence": {
+      "qualification_head": "2c5725e0c43114a087da1087f7fb1d94814661e0",
+      "workflow_id": 365269942,
+      "workflow_run_id": 35890910760,
+      "job_id": 107282876318,
+      "artifact_id": 10765340878,
+      "artifact_digest": "sha256:ef74d724eb61548ad41b59356b77874a4285c34b6fdcab40ce712553576c0496",
+      "valid_signature_results": 2,
+      "crypto_reject_results": 3,
+      "malformed_requests_rejected_without_result": 5,
+      "final_verification_sequence": 5,
+      "secret_key_in_flight_software": false,
+      "policy_authorization_binding_present": false,
+      "scientific_results_generated": false
+    },
+    "canonical_authorization_message_defined": false
+  }
+}

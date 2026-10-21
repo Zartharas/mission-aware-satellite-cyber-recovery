@@ -1,0 +1,85 @@
+name: Study 8E one-time corrected canonical activation 002
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - study8e/CANONICAL_EXECUTION_ACTIVATION_002.json
+      - .github/workflows/study8e-canonical-go-live-activate-002.yml
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  activate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out activation commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Verify exact activation binding
+        env:
+          EXPECTED_PARENT: aa29d4ecac056f4984d3cc0d787fc5085bd5d28b
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD^)" = "$EXPECTED_PARENT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("study8e/CANONICAL_EXECUTION_ACTIVATION_002.json").read_text())
+          g=json.loads(Path("study8e/CANONICAL_EXECUTION_GO_LIVE_002.json").read_text())
+          assert a["activation_id"] == "S8E-CANON-ACTIVATE-002"
+          assert a["authorization_id"] == "S8E-CANON-GOLIVE-002"
+          assert a["validated_go_live_main"] == "aa29d4ecac056f4984d3cc0d787fc5085bd5d28b"
+          assert a["runner_freeze"] == "S8E-CANON-RUNNER-004"
+          assert g["authorization_id"] == "S8E-CANON-GOLIVE-002"
+          assert g["status"] == "AUTHORIZED"
+          assert g["canonical_execution_authorized"] is True
+          assert g["runner_freeze"] == "S8E-CANON-RUNNER-004"
+          PY
+
+      - name: Verify current main still equals activation commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          current="$(gh api "repos/$REPO/branches/main" --jq .commit.sha)"
+          test "$current" = "$HEAD_SHA"
+
+      - name: Refuse duplicate corrected dispatch for this activation head
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          count="$(gh api "repos/$REPO/actions/workflows/study8e-canonical-execution.yml/runs?event=workflow_dispatch&per_page=100" --jq "[.workflow_runs[] | select(.head_sha == \"$HEAD_SHA\")] | length")"
+          test "$count" = "0"
+
+      - name: Dispatch corrected canonical workflow exactly once
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh workflow run study8e-canonical-execution.yml --repo "$REPO" --ref main -f authorization_id=S8E-CANON-GOLIVE-002
+
+      - name: Confirm exactly one corrected dispatch became visible
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          for i in {1..30}; do
+            count="$(gh api "repos/$REPO/actions/workflows/study8e-canonical-execution.yml/runs?event=workflow_dispatch&per_page=100" --jq "[.workflow_runs[] | select(.head_sha == \"$HEAD_SHA\")] | length")"
+            if [ "$count" = "1" ]; then exit 0; fi
+            if [ "$count" -gt 1 ]; then exit 1; fi
+            sleep 2
+          done
+          exit 1

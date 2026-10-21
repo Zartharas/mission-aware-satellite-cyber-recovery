@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-PHASE7E-RESULT-FREEZE-PREP-001",
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S3X-ETA-001",
+  "date_local": "2026-09-28",
+  "status": "RESULT_FREEZE_RECORD_PREPARED__NOT_EFFECTIVE__MANUSCRIPT_USE_CLOSED",
+  "branch_base_commit": "3d31316ba4b3a0a3e04229a62e776cbeaae8680d",
+  "authorized_scope": {
+    "result_freeze_and_provenance_closeout": true,
+    "canonical_output_bytes_commit": false,
+    "manuscript_claim_use": false,
+    "manuscript_rewrite": false
+  },
+  "execution_evidence": {
+    "corrected_two_run_replay": "PASS",
+    "cases_each_run": 34542,
+    "matched_comparison_rows_each_run": 30704,
+    "case_level_mismatches_each_run": 0,
+    "matched_comparison_mismatches_each_run": 0,
+    "all_five_canonical_outputs_byte_identical": true,
+    "tracked_repository_drift": 0
+  },
+  "freeze_record": {
+    "freeze_id": "S3X-PHASE7-RESULT-FREEZE-001",
+    "result_freeze_active_now": false,
+    "effective_only_after_separately_authorized_merge_and_successful_post_merge_ci": true
+  },
+  "current_boundaries": {
+    "result_interpretation_authorized": false,
+    "manuscript_claim_use_authorized": false,
+    "manuscript_rewrite_authorized": false,
+    "canonical_output_bytes_commit_authorized": false,
+    "scientific_reexecution_authorized": false,
+    "p99_x10_retuning_authorized": false,
+    "interval_membership_retuning_authorized": false,
+    "study3_modification_authorized": false,
+    "study3_s3x_pooling_authorized": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE7E_RESULT_FREEZE_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

@@ -1,0 +1,49 @@
+name: Study 7E production training plan qualification
+
+on:
+  pull_request:
+    paths:
+      - "study7e/configs/production_training_run_plan_001.json"
+      - "study7e/configs/production_training_authorization_001.json"
+      - "study7e/TRAINING_PLAN_STATE.json"
+      - "study7e/tests/test_production_training_run_plan.py"
+      - "study7e/FREEZE_MANIFEST_001.json"
+      - "study7e/configs/frozen_learner_protocol_001.json"
+      - "study7e/models/training_contracts.py"
+      - "study7e/src/aerc_design.py"
+      - ".github/workflows/study7e-training-plan-qualification.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  training-plan-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out exact PR head
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Qualify frozen plan and separate training authorization
+        run: |
+          set -euo pipefail
+          python -m py_compile study7e/tests/test_production_training_run_plan.py
+          python -m unittest -v study7e.tests.test_production_training_run_plan
+          test -f study7e/configs/production_training_authorization_001.json
+          ! find study7e -type f \( -name '*.pkl' -o -name '*.pickle' -o -name '*.joblib' -o -name '*.onnx' \) -print -quit | grep -q .
+          echo "study7e_training_plan=PASS"
+          echo "production_training_authorized=true"
+          echo "production_models_frozen=false"
+          echo "held_out_evaluation_executed=false"
+          echo "canonical_execution_authorized=false"
+          echo "scientific_results_generated=false"
+          echo "pr_merge_authorized=false"

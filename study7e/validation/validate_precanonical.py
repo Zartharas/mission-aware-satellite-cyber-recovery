@@ -1,0 +1,450 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+
+from study7e.src.aerc_design import (
+    FAULT_PROFILES,
+    TOPOLOGY_SEPARATION,
+    build_scenario_manifest,
+    manifest_counts,
+)
+
+
+class ValidationError(RuntimeError):
+    pass
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ValidationError(message)
+
+
+def load_json(path: Path) -> dict:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    require(isinstance(value, dict), f"{path} must contain a JSON object")
+    return value
+
+
+def main() -> int:
+    protocol = load_json(ROOT / "study7e/PROTOCOL_DRAFT.json")
+    state = load_json(ROOT / "study7e/IMPLEMENTATION_STATE.json")
+    topologies = load_json(ROOT / "study7e/configs/topologies.json")
+    faults = load_json(ROOT / "study7e/configs/fault_profiles.json")
+    policy = load_json(ROOT / "study7e/configs/policy_contracts.json")
+    env = load_json(ROOT / "study7e/configs/candidate_environment.json")
+    learner = load_json(ROOT / "study7e/configs/learner_candidate.json")
+    signed_evidence = load_json(ROOT / "study7e/configs/signed_evidence_contract_draft.json")
+    signed_evidence_review = load_json(ROOT / "study7e/configs/signed_evidence_contract_review_r1.json")
+    signed_evidence_resolution = load_json(ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json")
+    qualifier_time_replay = load_json(ROOT / "study7e/configs/qualifier_time_replay_contract_draft.json")
+    fault_transforms = load_json(ROOT / "study7e/configs/fault_transformations_draft.json")
+    author_review = load_json(ROOT / "study7e/configs/author_review_package_2026-09-23.json")
+    execution_params = load_json(ROOT / "study7e/configs/execution_parameters_candidate_2026-09-23.json")
+    signature_deps = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
+
+    require(protocol["experiment_id"] == "S7E-AERC-001", "protocol experiment id drift")
+    require("NOT_FROZEN" in protocol["state"], "draft protocol unexpectedly frozen")
+    require(protocol["execution_gate"]["canonical_execution_authorized"] is False, "protocol prematurely authorizes execution")
+    require(state["canonical_scientific_execution_authorized"] is False, "implementation state prematurely authorizes execution")
+    require(state["canonical_results_generated"] is False, "implementation state claims canonical results")
+    require(state["production_models_frozen"] is False, "production models prematurely frozen")
+
+    auth = ROOT / "study7e/CANONICAL_EXECUTION_AUTHORIZATION.json"
+    require(not auth.exists(), "canonical execution authorization file must not exist in implementation phase")
+
+    canonical_workflow = ROOT / ".github/workflows/study7e-canonical-execution.yml"
+    require(not canonical_workflow.exists(), "canonical execution workflow must not exist in implementation phase")
+
+    results_dir = ROOT / "study7e/results"
+    if results_dir.exists() and any(results_dir.rglob("*")):
+        checkpoint_path = results_dir / "S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json"
+        require(checkpoint_path.is_file(), "unexpected scientific results exist without the authorized held-out checkpoint")
+        checkpoint = load_json(checkpoint_path)
+        require(
+            checkpoint["state"] == "VALID_COMPLETE_POPULATION_RESULTS_CHECKPOINTED__PUBLICATION_CLAIMS_NOT_AUTHORIZED",
+            "held-out result checkpoint state drift",
+        )
+        require(checkpoint["validity"]["invalid_scenarios"] == 0, "sealed held-out checkpoint contains invalid scenarios")
+        require(checkpoint["validity"]["audit_mismatches"] == 0, "sealed held-out checkpoint contains audit mismatches")
+        require(checkpoint["governance"]["one_shot_execution_sealed"] is True, "held-out execution is not sealed")
+        require(checkpoint["governance"]["retry_authorized"] is False, "held-out retry authorized unexpectedly")
+        require(checkpoint["governance"]["post_hoc_model_change_authorized"] is False, "post-hoc model change authorized unexpectedly")
+        require(checkpoint["governance"]["model_retraining_authorized"] is False, "model retraining authorized unexpectedly")
+        require(checkpoint["governance"]["pr_merge_authorized"] is False, "PR merge authorized through result checkpoint")
+        require(checkpoint["governance"]["publication_or_result_claims_authorized"] is False, "publication claims authorized through result checkpoint")
+
+    model_dir = ROOT / "study7e/models"
+    prohibited_model_artifacts = (
+        model_dir / "frozen_model_manifest.json",
+        model_dir / "L0_BASE.joblib",
+        model_dir / "L1_CORROBORATED.joblib",
+        model_dir / "L0_BASE.pkl",
+        model_dir / "L1_CORROBORATED.pkl",
+        model_dir / "L0_BASE.onnx",
+        model_dir / "L1_CORROBORATED.onnx",
+    )
+    require(not any(path.exists() for path in prohibited_model_artifacts), "frozen/serialized production model artifact exists prematurely")
+
+    require(set(topologies["topologies"]) == set(TOPOLOGY_SEPARATION), "topology config/code drift")
+    require(set(faults["profiles"]) == set(FAULT_PROFILES), "fault config/code drift")
+
+    counts = manifest_counts(build_scenario_manifest())
+    expected = protocol["expected_counts"]
+    require(counts["TOTAL"] == expected["total_manifest_scenarios"] == 280, "manifest total drift")
+    require(counts["TR1"] == 72, "TR1 count drift")
+    require(counts["TR0"] == 12, "TR0 count drift")
+    require(counts["TRAINING_SCENARIOS"] == expected["training_scenarios"] == 84, "training count drift")
+    require(counts["E1"] == 84, "E1 count drift")
+    require(counts["E2"] == 104, "E2 count drift")
+    require(counts["C0"] == 8, "C0 count drift")
+    require(counts["CANONICAL_EVAL_SCENARIOS"] == expected["canonical_evaluation_scenarios"] == 196, "evaluation count drift")
+    require(counts["CANONICAL_EVAL_POLICY_DECISIONS"] == expected["canonical_evaluation_policy_decisions"] == 784, "decision count drift")
+
+    require(len(policy["base_features"]) == 9, "base feature count drift")
+    require(len(policy["corroborated_additional_features"]) == 7, "corroborated feature count drift")
+    snapshot_contract = policy["cfs_snapshot_contract"]
+    require(snapshot_contract["state"] == "PRECANONICAL_IMPLEMENTATION_CONTRACT", "cFS snapshot contract state drift")
+    require(snapshot_contract["base_mid"] == "0x0EE5", "base snapshot MID drift")
+    require(snapshot_contract["corroborated_mid"] == "0x0EE6", "corroborated snapshot MID drift")
+    require(snapshot_contract["decision_mid"] == "0x0EE7", "policy decision MID drift")
+    require(snapshot_contract["feature_slots"] == 16, "policy feature-slot count drift")
+    require(snapshot_contract["base_feature_count"] == 9, "policy base feature-count drift")
+    require(snapshot_contract["corroborated_feature_count"] == 16, "policy corroborated feature-count drift")
+    require(snapshot_contract["binary_only"] is True, "policy binary-only guard lost")
+    require(snapshot_contract["base_unused_slots_must_be_zero"] is True, "base unused-slot guard lost")
+    require(snapshot_contract["reserved_bytes_must_be_zero"] is True, "policy reserved-byte guard lost")
+    require(snapshot_contract["learned_policy_runtime_implemented"] is False, "learned policy runtime implemented prematurely")
+    require(snapshot_contract["signature_verification_implemented"] is False, "signature verification claimed prematurely")
+    require(env["cfs"]["tag_commit"] == "088b2fa828db9ff7e00733f1908e0eeb59f66ce3", "cFS candidate commit drift")
+    require(env["nos3"]["tag_commit"] == "5a3bdee6be9a2c67fdf994ae6db56d5c60395302", "NOS3 candidate commit drift")
+    require(
+        env["state"] == "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
+        "environment selection state drift",
+    )
+    require(
+        env["stack_selection"]["state"] == "PRE_FREEZE_IMPLEMENTATION_BASELINE_SELECTED__NOT_CANONICAL_FREEZE",
+        "pre-freeze stack selection state drift",
+    )
+    require(env["stack_selection"]["selected_candidate"] == "standalone_cFS_v7.0.1", "unexpected implementation baseline")
+    require(env["stack_selection"]["author_review_completed"] is True, "stack selection lacks author review")
+    require(env["stack_selection"]["canonical_environment_frozen"] is False, "environment frozen prematurely")
+    require(protocol["implementation_environment"]["selected_stack"] == "standalone_cFS_v7.0.1", "protocol/environment stack decision drift")
+    require(protocol["implementation_environment"]["canonical_environment_frozen"] is False, "protocol environment frozen prematurely")
+    require(
+        env["stack_selection"]["mixing_standalone_cfs_and_nos3_pinned_fsw_without_compatibility_study"] == "PROHIBITED",
+        "candidate stack-mixing prohibition lost",
+    )
+
+    require(learner["state"] == "CANDIDATE__NOT_FROZEN__NO_MODEL_ARTIFACTS", "learner candidate state drift")
+    require(learner["library"] == "scikit-learn", "learner library drift")
+    require(learner["library_version"] is None, "learner library version frozen prematurely")
+    require(learner["training_blocks"] == ["TR0", "TR1"], "training-block contract drift")
+    require(learner["prohibited_training_blocks"] == ["E1", "E2", "C0"], "evaluation leakage guard drift")
+    require(learner["training_scenarios"] == 84, "learner training count drift")
+    require(learner["model_training_performed"] is False, "production learner trained prematurely")
+    require(learner["production_model_freeze_performed"] is False, "production learner frozen prematurely")
+
+    sigdep = load_json(ROOT / "study7e/configs/signature_dependency_candidates.json")
+    require(
+        sigdep["state"] == "SELECTED_FOR_PRECANONICAL_CFS_VERIFICATION_INTEGRATION__NOT_FROZEN",
+        "signature dependency selection state drift",
+    )
+    require(sigdep["selected_candidate"] == "monocypher", "unexpected Ed25519 verification dependency")
+    require(
+        sigdep["candidates"]["monocypher"]["commit"] == "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+        "Monocypher revision drift",
+    )
+    require(
+        sigdep["candidates"]["monocypher"]["version"] == "4.0.3",
+        "Monocypher version drift",
+    )
+    require(
+        sigdep["requirements"]["secret_key_in_flight_software"] is False,
+        "flight-software secret-key prohibition lost",
+    )
+
+    require(
+        signature_deps["state"] == "SELECTED_FOR_PRECANONICAL_CFS_VERIFICATION_INTEGRATION__NOT_FROZEN",
+        "signature dependency state drift",
+    )
+    require(signature_deps["algorithm_candidate"] == "Ed25519_RFC8032", "signature algorithm candidate drift")
+    require(signature_deps["use_case"] == "verification_only", "signature dependency use-case drift")
+    require(signature_deps["requirements"]["secret_key_in_flight_software"] is False, "secret key allowed in flight software")
+    require(signature_deps["requirements"]["public_key_bytes"] == 32, "Ed25519 public-key length drift")
+    require(signature_deps["requirements"]["signature_bytes"] == 64, "Ed25519 signature length drift")
+    require(signature_deps["selected_candidate"] == "monocypher", "signature dependency selection drift")
+    require(signature_deps["candidates"]["monocypher"]["commit"] == "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f", "Monocypher pin drift")
+    require(signature_deps["candidates"]["libsodium"]["commit"] == "77e1ce5d6dee871c49ef211222ba18ef0c486bda", "libsodium pin drift")
+    require(signature_deps["candidates"]["libsodium"]["official_tarball_sha256"] == "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349", "libsodium tarball digest drift")
+    sigwire = signature_deps["integration_contract"]
+    require(sigwire["state"] == "CFS_VERIFICATION_BOUNDARY_RUNTIME_GREEN__NOT_AUTHORIZATION_BOUND", "signature verifier integration state drift")
+    require(sigwire["request_mid"] == "0x0EE8", "signature verifier request MID drift")
+    require(sigwire["result_mid"] == "0x0EE9", "signature verifier result MID drift")
+    require(sigwire["wire_version"] == 1, "signature verifier wire version drift")
+    require(sigwire["public_key_bytes"] == 32, "signature verifier public-key size drift")
+    require(sigwire["signature_bytes"] == 64, "signature verifier signature size drift")
+    require(sigwire["message_capacity_bytes"] == 64, "signature verifier message capacity drift")
+    require(sigwire["exact_cfe_packet_size_required"] is True, "signature verifier packet-size guard lost")
+    require(sigwire["zero_padding_required"] is True, "signature verifier zero-padding guard lost")
+    require(sigwire["secret_key_present"] is False, "secret key added to verifier boundary")
+    require(sigwire["signing_runtime_present"] is False, "signing runtime added prematurely")
+    require(sigwire["policy_authorization_binding_present"] is False, "verification bound to authorization prematurely")
+    require(sigwire["production_public_key_registry_frozen"] is False, "production public-key registry frozen prematurely")
+    require(sigwire["canonical_authorization_message_defined"] is False, "canonical authorization bytes defined without review")
+    require(sigwire["runtime_evidence"]["valid_signature_results"] == 2, "signature verifier positive-case evidence drift")
+    require(sigwire["runtime_evidence"]["crypto_reject_results"] == 3, "signature verifier crypto-rejection evidence drift")
+    require(sigwire["runtime_evidence"]["malformed_requests_rejected_without_result"] == 5, "signature verifier malformed-input evidence drift")
+    require(sigwire["runtime_evidence"]["final_verification_sequence"] == 5, "signature verifier sequence evidence drift")
+
+    require(signed_evidence["state"] == "DRAFT_V2__NOT_FROZEN__NO_POLICY_BINDING", "signed-evidence draft state drift")
+    require(signed_evidence["active_candidate"] == "candidate_serialization_v2", "signed-evidence active candidate drift")
+    require(
+        signed_evidence["candidate_serialization_v1"]["status"] == "SUPERSEDED_BY_TECHNICAL_REVIEW_R1__HISTORICAL",
+        "signed-evidence v1 history/status drift",
+    )
+    candidate_body = signed_evidence["candidate_serialization_v2"]
+    require(candidate_body["status"] == "PROPOSED_AFTER_TECHNICAL_REVIEW_R1__NOT_FROZEN", "signed-evidence v2 unexpectedly frozen")
+    require(candidate_body["encoding"] == "fixed_width_binary", "signed-evidence encoding drift")
+    require(candidate_body["byte_order"] == "big_endian_network_order", "signed-evidence byte-order drift")
+    require(candidate_body["c_struct_memcpy_serialization"] == "PROHIBITED", "native C struct serialization allowed")
+    require(candidate_body["domain_separator_ascii"] == "S7E-AERC-AUTH-V1", "signed-evidence domain separator drift")
+    require(candidate_body["candidate_message_bytes"] == 64, "signed-evidence v2 candidate length drift")
+    require(candidate_body["signed_region"] == {"offset": 0, "size": 64}, "signed-evidence v2 signed-region drift")
+    require(candidate_body["fields"][5]["name"] == "scenario_id", "signed-evidence v2 scenario binding lost")
+    require(candidate_body["topology_fault_identity_in_signed_body"] is False, "topology/fault identity leaked into signed body")
+    require(signed_evidence["experiment_public_key_registry_draft"]["state"] == "NOT_POPULATED__NOT_FROZEN", "public-key registry frozen prematurely")
+    require(signed_evidence["experiment_public_key_registry_draft"]["secret_key_in_verifier_flight_software"] is False, "secret key allowed in verifier FSW")
+    require(len(signed_evidence["unresolved_decisions"]) >= 10, "signed-evidence unresolved-design guard weakened")
+    require(not any(signed_evidence["freeze_gates"].values()), "signed-evidence freeze gate enabled prematurely")
+    require(
+        signed_evidence_review["state"] == "TECHNICAL_REVIEW_COMPLETE__AUTHOR_APPROVAL_NOT_GRANTED",
+        "signed-evidence review state drift",
+    )
+    require(signed_evidence_review["disposition"] == "REVISE_CANDIDATE_BEFORE_AUTHOR_APPROVAL", "signed-evidence review disposition drift")
+    require(signed_evidence_review["recommended_candidate_v2"]["candidate_message_bytes"] == 64, "reviewed signed-evidence candidate size drift")
+    require(signed_evidence_review["recommended_candidate_v2"]["fields"][5]["name"] == "scenario_id", "reviewed scenario binding lost")
+    require(signed_evidence_review["approvals"]["author_approval"] is False, "signed-evidence author approval recorded prematurely")
+    require(signed_evidence_review["approvals"]["protocol_freeze"] is False, "signed-evidence protocol freeze recorded prematurely")
+    require(signed_evidence_review["approvals"]["policy_binding_authorized"] is False, "signed-evidence policy binding authorized prematurely")
+    require(
+        signed_evidence_resolution["state"] == "TECHNICAL_DRAFT_RESOLUTION__AUTHOR_APPROVAL_NOT_GRANTED__NOT_FROZEN",
+        "signed-evidence architecture resolution state drift",
+    )
+    require(
+        signed_evidence_resolution["signing_key_placement"]["selected_draft_pattern"] == "EXTERNAL_DETERMINISTIC_TEST_SIGNING_HARNESS",
+        "signing-key placement draft drift",
+    )
+    require(
+        signed_evidence_resolution["t4_authority_representation"]["selected_draft_pattern"] == "SIGNED_OPAQUE_AUTHORITY_ID_PLUS_HARNESS_PROVENANCE__NO_SECOND_AUTHORITY_SIGNATURE",
+        "T4 authority representation draft drift",
+    )
+    require(
+        signed_evidence_resolution["signing_key_placement"]["producer_fsw_contains_secret_key"] is False,
+        "producer FSW secret-key guard lost",
+    )
+    require(
+        signed_evidence_resolution["approvals"]["author_approval"] is False
+        and signed_evidence_resolution["approvals"]["protocol_freeze"] is False
+        and signed_evidence_resolution["approvals"]["policy_binding_authorized"] is False
+        and signed_evidence_resolution["approvals"]["canonical_execution_authorized"] is False,
+        "architecture draft approval/freeze gate enabled prematurely",
+    )
+    require(qualifier_time_replay["state"] == "DRAFT__NOT_FROZEN__NO_POLICY_BINDING", "qualifier time/replay draft state drift")
+    require(qualifier_time_replay["controlled_time"]["wall_clock_dependency"] is False, "wall-clock dependency introduced")
+    require(qualifier_time_replay["controlled_time"]["producer_controls_freshness_threshold"] is False, "producer-controlled freshness threshold introduced")
+    require(qualifier_time_replay["structural_completeness"]["complete_feature_is_structural_only"] is True, "completeness semantics drift")
+    require(qualifier_time_replay["sequence_and_replay"]["equal_sequence_identical_body"].startswith("idempotent"), "duplicate semantics drift")
+    require("sticky path contradiction" in qualifier_time_replay["sequence_and_replay"]["equal_sequence_different_body"], "equivocation semantics drift")
+    require(qualifier_time_replay["approvals"]["author_approval"] is False, "qualifier draft approved prematurely")
+    require(fault_transforms["state"] == "DRAFT__NOT_FROZEN__BYTE_STAGE_TRANSFORMS_PROPOSED", "fault transformation draft state drift")
+    require(len(fault_transforms["profiles"]) == 13, "fault transformation profile count drift")
+    require("offset 47" in fault_transforms["profiles"]["F9"]["transformation"], "F9 candidate byte transformation drift")
+    require("two separately signed" in fault_transforms["profiles"]["F12"]["transformation"], "F12 equivocation candidate drift")
+    require(fault_transforms["approvals"]["byte_transformations_frozen"] is False, "fault transforms frozen prematurely")
+    require(author_review["state"] == "APPROVED_FOR_PRECANONICAL_IMPLEMENTATION_ONLY__NO_FREEZE__NO_CANONICAL_EXECUTION", "author-review package state drift")
+    require(len(author_review["requested_author_decisions"]) == 5, "author-review decision count drift")
+    require(author_review["approvals"]["author_review_completed"] is True, "author review approval missing")
+    require(all(author_review["approvals"][key] for key in ("ar_1","ar_2","ar_3","ar_4","ar_5")), "AR-1 through AR-5 approval drift")
+    require(author_review["approvals"]["protocol_freeze"] is False, "protocol freeze recorded through author-review package")
+    require(author_review["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized through author-review package")
+    require(
+        execution_params["state"] == "TECHNICAL_CANDIDATE__AUTHOR_APPROVAL_REQUIRED__NOT_FROZEN",
+        "execution-parameter candidate state drift",
+    )
+    require(execution_params["controlled_time"]["freshness_max_age_ticks"] == 0, "freshness candidate drift")
+    require(execution_params["controlled_time"]["wall_clock_dependency"] is False, "wall-clock dependency introduced")
+    require(execution_params["evidence_epoch"]["expected_epoch"] == 1, "evidence epoch candidate drift")
+    require(execution_params["evidence_epoch"]["scenario_specific"] is False, "scenario-specific epoch introduced")
+    require(execution_params["opaque_registry_algorithm"]["hash"] == "SHA-256", "opaque registry hash drift")
+    require(execution_params["opaque_registry_algorithm"]["scenario_registry"]["expected_entries"] == 280, "scenario registry count drift")
+    require(execution_params["opaque_registry_algorithm"]["scenario_registry"]["current_candidate_collisions"] == 0, "scenario registry collision evidence drift")
+    require(execution_params["deterministic_test_keys"]["persistent_private_key_files"] is False, "persistent private-key file introduced")
+    require(execution_params["deterministic_test_keys"]["cfs_private_key_present"] is False, "private key introduced into cFS")
+    require(execution_params["fault_transform_freeze_candidate"]["status"].endswith("FINAL_FREEZE_NOT_YET_AUTHORIZED"), "fault transforms frozen without approval")
+    require(execution_params["approvals"]["author_review_completed"] is False, "execution parameters approved prematurely")
+    require(not any(execution_params["approvals"][key] for key in ("ep_1","ep_2","ep_3","ep_4","ep_5")), "execution parameter decision recorded prematurely")
+    require(execution_params["approvals"]["protocol_freeze"] is False, "protocol frozen prematurely")
+    require(execution_params["approvals"]["environment_freeze"] is False, "environment frozen prematurely")
+    require(execution_params["approvals"]["canonical_execution_authorized"] is False, "canonical execution authorized prematurely")
+    pq_state = state["producer_qualifier_precanonical_binding"]
+    require(pq_state["state"] == "RUNTIME_GREEN__PRECANONICAL__NOT_FROZEN", "producer/qualifier implementation state drift")
+    require(pq_state["evidence_ingress_mid"] == "0x0EEA", "producer ingress MID drift")
+    require(pq_state["qualifier_evidence_mid"] == "0x0EEB", "qualifier evidence MID drift")
+    require(pq_state["qualifier_context_mid"] == "0x0EEC", "qualifier context MID drift")
+    require(pq_state["producer_private_key_present"] is False, "private key added to producer FSW")
+    require(pq_state["qualifier_private_key_present"] is False, "private key added to qualifier FSW")
+    require(pq_state["engineering_public_key_registry"]["state"] == "NONFINAL_ENGINEERING_ONLY", "engineering key registry frozen unexpectedly")
+    require(pq_state["timing_values_frozen"] is False, "qualifier timing frozen prematurely")
+    require(pq_state["epoch_values_frozen"] is False, "qualifier epoch values frozen prematurely")
+    require(pq_state["registry_values_frozen"] is False, "qualifier registries frozen prematurely")
+    require(pq_state["canonical_policy_binding_frozen"] is False, "canonical policy binding frozen prematurely")
+    require(pq_state["production_models_trained"] is False, "producer/qualifier gate trained production models")
+    require(pq_state["scientific_results_generated"] is False, "producer/qualifier gate generated scientific results")
+    require(pq_state["precanonical_policy_binding_present"] is True, "producer/qualifier pre-canonical binding evidence lost")
+    require(pq_state["runtime_evidence"]["workflow_run_id"] == 35911617367, "producer/qualifier workflow evidence drift")
+    require(pq_state["runtime_evidence"]["job_id"] == 107352621226, "producer/qualifier job evidence drift")
+    require(pq_state["runtime_evidence"]["artifact_id"] == 10774070814, "producer/qualifier artifact evidence drift")
+    require(pq_state["runtime_evidence"]["valid_primary_base_enter"] is True, "producer/qualifier primary positive evidence lost")
+    require(pq_state["runtime_evidence"]["valid_corroborated_enter"] is True, "producer/qualifier corroborated positive evidence lost")
+    require(pq_state["runtime_evidence"]["f9_transport_corruption_hold"] is True, "producer/qualifier F9 evidence lost")
+    require(pq_state["runtime_evidence"]["f12_equivocation_hold"] is True, "producer/qualifier F12 evidence lost")
+    require(pq_state["runtime_evidence"]["malformed_ingress_rejected"] is True, "producer ingress rejection evidence lost")
+    require(pq_state["runtime_evidence"]["private_key_in_cfs_fsw"] is False, "producer/qualifier runtime reports private key in cFS FSW")
+    require(pq_state["runtime_evidence"]["research_truth_visible_to_qualifier_runtime"] is False, "research truth exposed to qualifier runtime")
+    qualifier_fault_state = state["qualifier_fault_feasibility"]
+    require(qualifier_fault_state["state"] == "HOST_ONLY_RUNTIME_GREEN__ENGINEERING_ONLY", "qualifier/fault feasibility state drift")
+    require(qualifier_fault_state["policy_decisions_executed"] == 0, "qualifier/fault gate executed policy decisions")
+    require(qualifier_fault_state["production_models_trained"] is False, "qualifier/fault gate trained production models")
+    require(qualifier_fault_state["scientific_results_generated"] is False, "qualifier/fault gate generated scientific results")
+    require(qualifier_fault_state["workflow_run_id"] == 35898052702, "qualifier/fault workflow evidence drift")
+    require(qualifier_fault_state["job_id"] == 107306900171, "qualifier/fault job evidence drift")
+    require(qualifier_fault_state["artifact_id"] == 10768381197, "qualifier/fault artifact evidence drift")
+    require(qualifier_fault_state["tests_passed"] == 17, "qualifier/fault test-count evidence drift")
+    require(qualifier_fault_state["fault_profiles_tested"] == 13, "qualifier/fault profile-count evidence drift")
+    require(qualifier_fault_state["feature_independence_checked"] is True, "qualifier feature-independence evidence lost")
+    require(qualifier_fault_state["replay_equivocation_checked"] is True, "qualifier replay/equivocation evidence lost")
+    require(qualifier_fault_state["topology_propagation_checked"] is True, "qualifier topology-propagation evidence lost")
+    signed_v2_state = state["signed_evidence_v2_feasibility"]
+    require(signed_v2_state["state"] == "HOST_SIDE_RUNTIME_GREEN__ENGINEERING_ONLY", "signed-evidence v2 feasibility state drift")
+    require(signed_v2_state["candidate_bytes"] == 64, "signed-evidence v2 feasibility byte-length drift")
+    require(signed_v2_state["private_key_in_cfs_fsw"] is False, "signed-evidence v2 test key leaked into cFS FSW")
+    require(signed_v2_state["final_key_registry_frozen"] is False, "signed-evidence v2 key registry frozen prematurely")
+    require(signed_v2_state["policy_binding"] is False, "signed-evidence v2 policy binding enabled prematurely")
+    require(signed_v2_state["workflow_run_id"] == 35896385014, "signed-evidence v2 workflow evidence drift")
+    require(signed_v2_state["job_id"] == 107301223761, "signed-evidence v2 job evidence drift")
+    require(signed_v2_state["artifact_id"] == 10767022256, "signed-evidence v2 artifact evidence drift")
+    require(signed_v2_state["body_sha256"] == "d877eb02f03851e34889b635c40008ec5b9eaa48cc0669720356ef6caaa92c73", "signed-evidence v2 body digest drift")
+    require(signed_v2_state["engineering_public_key_hex"] == "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a", "signed-evidence v2 engineering public key drift")
+    require(signed_v2_state["checks"]["serialize_parse"] is True, "signed-evidence v2 serialize/parse evidence lost")
+    require(signed_v2_state["checks"]["sign_verify"] is True, "signed-evidence v2 sign/verify evidence lost")
+    require(signed_v2_state["checks"]["protected_field_mutations_rejected"] is True, "signed-evidence v2 mutation rejection evidence lost")
+    require(signed_v2_state["scientific_results_generated"] is False, "signed-evidence v2 generated scientific results")
+
+    required_precanonical_files = (
+        ROOT / "study7e/audit/independent_design_audit.py",
+        ROOT / "study7e/validation/check_fsw_truth_leakage.py",
+        ROOT / "study7e/fsw/aerc_bus_probe/CMakeLists.txt",
+        ROOT / "study7e/fsw/aerc_bus_probe/fsw/inc/aerc_bus_probe.h",
+        ROOT / "study7e/fsw/aerc_bus_probe/fsw/src/aerc_bus_probe.c",
+        ROOT / "study7e/fsw/aerc_sbn_probe/fsw/src/aerc_sbn_probe.c",
+        ROOT / "study7e/fsw/aerc_hs_probe/fsw/src/aerc_hs_probe.c",
+        ROOT / "study7e/fsw/aerc_recovery_sink/fsw/src/aerc_recovery_sink.c",
+        ROOT / "study7e/fsw/aerc_sink_probe/fsw/src/aerc_sink_probe.c",
+        ROOT / "study7e/fsw/aerc_policy/fsw/src/aerc_policy.c",
+        ROOT / "study7e/fsw/aerc_policy_probe/fsw/src/aerc_policy_probe.c",
+        ROOT / "study7e/fsw/aerc_sigverify/bootstrap_monocypher.sh",
+        ROOT / "study7e/fsw/aerc_sigverify/fsw/src/aerc_ed25519_wrapper.c",
+        ROOT / "study7e/fsw/aerc_sigverify/fsw/src/aerc_sigverify.c",
+        ROOT / "study7e/fsw/aerc_sigverify_probe/fsw/src/aerc_sigverify_probe.c",
+        ROOT / "study7e/fsw/aerc_evidence_common/inc/aerc_evidence_common.h",
+        ROOT / "study7e/fsw/aerc_eprod/fsw/src/aerc_eprod.c",
+        ROOT / "study7e/fsw/aerc_qualifier/fsw/src/aerc_qualifier.c",
+        ROOT / "study7e/fsw/aerc_qualifier_probe/fsw/src/aerc_qualifier_probe.c",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_CFS_PRESELECTION_SEAMS_CHECKPOINT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_SELECTION_DECISION_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RECOVERY_SINK_CHECKPOINT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_DEPENDENCY_DECISION_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_ED25519_CFS_BOUNDARY_CHECKPOINT_2026-09-23.md",
+        ROOT / "study7e/configs/signed_evidence_contract_draft.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_DRAFT_2026-09-23.md",
+        ROOT / "study7e/configs/signed_evidence_contract_review_r1.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_CONTRACT_REVIEW_R1_2026-09-23.md",
+        ROOT / "study7e/configs/signed_evidence_architecture_resolution_draft.json",
+        ROOT / "study7e/configs/qualifier_time_replay_contract_draft.json",
+        ROOT / "study7e/configs/fault_transformations_draft.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_AND_FAULT_CONTRACT_DRAFT_2026-09-23.md",
+        ROOT / "study7e/feasibility/qualifier_fault/qualifier_fault_model.py",
+        ROOT / "study7e/feasibility/qualifier_fault/test_qualifier_fault_model.py",
+        ROOT / ".github/workflows/study7e-qualifier-fault-feasibility.yml",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_QUALIFIER_FAULT_FEASIBILITY_CHECKPOINT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md",
+        ROOT / "study7e/configs/author_review_package_2026-09-23.json",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_REVIEW_PACKAGE_2026-09-23.md",
+        ROOT / "study7e/configs/execution_parameters_candidate_2026-09-23.json",
+        ROOT / "study7e/tests/test_execution_parameters_candidate.py",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_EXECUTION_PARAMETERS_TECHNICAL_REVIEW_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_AUTHOR_APPROVAL_2026-09-23.md",
+        ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.h",
+        ROOT / "study7e/feasibility/signed_evidence_v2/aerc_signed_evidence_v2.c",
+        ROOT / "study7e/feasibility/signed_evidence_v2/signed_evidence_v2_monocypher_test.c",
+        ROOT / ".github/workflows/study7e-signed-evidence-v2-feasibility.yml",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_V2_FEASIBILITY_CHECKPOINT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_SIGNED_EVIDENCE_ARCHITECTURE_RESOLUTION_DRAFT_2026-09-23.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_POLICY_SNAPSHOT_D0_D1_CHECKPOINT_2026-09-23.md",
+        ROOT / ".github/workflows/study7e-cfs-runtime-smoke.yml",
+        ROOT / ".github/workflows/study7e-cfs-baseline-feasibility.yml",
+        ROOT / ".github/workflows/study7e-ed25519-dependency-feasibility.yml",
+        ROOT / "study7e/configs/signature_dependency_candidates.json",
+        ROOT / "study7e/feasibility/ed25519/rfc8032_monocypher_test.c",
+        ROOT / "study7e/feasibility/ed25519/rfc8032_libsodium_test.c",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_REVIEW_R1_2026-09-22.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PROTOCOL_REVIEW_R2_2026-09-22.md",
+        ROOT / "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_STACK_COMPATIBILITY_DECISION_2026-09-22.md",
+    )
+    for required in required_precanonical_files:
+        require(required.is_file(), f"missing pre-canonical control: {required.relative_to(ROOT)}")
+
+    fsw_text = "\n".join(
+        path.read_text(encoding="utf-8", errors="ignore")
+        for path in (ROOT / "study7e/fsw").rglob("*")
+        if path.is_file() and path.suffix.lower() in {".c", ".h", ".md", ".txt", ".cmake"}
+    ).lower()
+    for prohibited_token in (
+        "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
+        "4ccd089b28ff96da9db6c346ec114e0f5b8a319f35aba624da8cf6ed4fb8a6fb",
+        "crypto_ed25519_sign(",
+    ):
+        require(prohibited_token not in fsw_text, f"private signing material/API leaked into tracked cFS FSW: {prohibited_token}")
+
+    print("Study 7E pre-canonical implementation validation: PASS")
+    print("experiment_id=S7E-AERC-001")
+    print("manifest_total=280")
+    print("training_scenarios=84")
+    print("canonical_evaluation_scenarios=196")
+    print("planned_evaluation_decisions=784")
+    print("candidate_stack_selected=true")
+    print("candidate_stack=standalone_cFS_v7.0.1")
+    print("canonical_environment_frozen=false")
+    print("historical_precanonical_model_training_guard_preserved=true")
+    print("historical_precanonical_model_freeze_guard_preserved=true")
+    checkpoint_path = ROOT / "study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json"
+    if checkpoint_path.is_file():
+        checkpoint = load_json(checkpoint_path)
+        print("authorized_held_out_results_checkpoint_present=true")
+        print(f"authorized_held_out_invalid_scenarios={checkpoint['validity']['invalid_scenarios']}")
+        print(f"authorized_held_out_audit_mismatches={checkpoint['validity']['audit_mismatches']}")
+        print(f"publication_or_result_claims_authorized={str(checkpoint['governance']['publication_or_result_claims_authorized']).lower()}")
+        print(f"pr_merge_authorized={str(checkpoint['governance']['pr_merge_authorized']).lower()}")
+    else:
+        print("authorized_held_out_results_checkpoint_present=false")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

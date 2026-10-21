@@ -1,0 +1,189 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "plan_id": "S7E-AERC-TRAINPLAN-001",
+  "date": "2026-09-23",
+  "state": "RUN_PLAN_READY_FOR_QUALIFICATION__TRAINING_NOT_AUTHORIZED",
+  "basis_head": "23134e2762bf06f5599608b0bb1f9962ce94ff1c",
+  "scope": "deterministic production L0/L1 training run preparation and review only; no model fit, model freeze, held-out evaluation, canonical scientific execution, PR merge, or publication/result claims",
+  "frozen_inputs": {
+    "freeze_manifest": {
+      "path": "study7e/FREEZE_MANIFEST_001.json",
+      "blob_sha": "180c23ea85fa48a4561657acbdf035f47ef3f0ad"
+    },
+    "learner_protocol": {
+      "path": "study7e/configs/frozen_learner_protocol_001.json",
+      "blob_sha": "4cae09516887d3507c8928e97dd26f79096793aa"
+    },
+    "design": {
+      "path": "study7e/src/aerc_design.py",
+      "blob_sha": "57fa869827a7d1665ebad1ac94b93b66728e68a9"
+    },
+    "training_contracts": {
+      "path": "study7e/models/training_contracts.py",
+      "blob_sha_at_plan_basis": "afff0909294e64d6fff6301b39c264c4708d108b"
+    }
+  },
+  "training_partition": {
+    "allowed_blocks": ["TR0", "TR1"],
+    "prohibited_blocks": ["E1", "E2", "C0"],
+    "canonical_block_order": ["TR0", "TR1"],
+    "canonical_row_order": "block order above, then ascending numeric scenario suffix",
+    "counts": {
+      "TR0": 12,
+      "TR1": 72,
+      "TOTAL": 84
+    },
+    "expected_target_distribution": {
+      "HOLD": 66,
+      "ENTER_RECOVERY_GATE": 18
+    },
+    "target_rule": "study7e.src.aerc_design.objective_action(scenario)",
+    "label_is_research_side_only": true
+  },
+  "learners": {
+    "L0_BASE": {
+      "feature_schema": "BASE_FEATURES",
+      "feature_order": [
+        "primary_signature_valid",
+        "primary_source_trusted",
+        "primary_fresh",
+        "primary_epoch_valid",
+        "primary_noncontradictory",
+        "primary_complete",
+        "primary_authorization",
+        "health_ready",
+        "security_signal"
+      ],
+      "records": 84
+    },
+    "L1_CORROBORATED": {
+      "feature_schema": "EXTENDED_FEATURES",
+      "feature_order": [
+        "primary_signature_valid",
+        "primary_source_trusted",
+        "primary_fresh",
+        "primary_epoch_valid",
+        "primary_noncontradictory",
+        "primary_complete",
+        "primary_authorization",
+        "health_ready",
+        "security_signal",
+        "corr_signature_valid",
+        "corr_source_trusted",
+        "corr_fresh",
+        "corr_epoch_valid",
+        "corr_noncontradictory",
+        "corr_complete",
+        "corr_authorization"
+      ],
+      "records": 84
+    }
+  },
+  "privileged_fields_prohibited_from_model_inputs": [
+    "true_authorization",
+    "true_health_ready",
+    "objective_action",
+    "fault_profile",
+    "topology",
+    "domain_alias_map"
+  ],
+  "snapshot_materialization": {
+    "source": "frozen producer/qualifier/policy-snapshot semantics bound by S7E-AERC-FREEZE-001",
+    "one_snapshot_per_training_scenario": true,
+    "policy_feature_projection": "use the frozen L0/L1 feature orders exactly",
+    "research_label_join_stage": "after policy snapshot capture and feature projection",
+    "fault_topology_metadata_passed_to_model": false,
+    "evaluation_block_capture_for_training": false
+  },
+  "dataset_canonicalization": {
+    "format": "UTF-8 canonical JSON Lines",
+    "one_record_per_line": true,
+    "json_key_order": "lexicographic",
+    "json_separators": [",", ":"],
+    "terminal_newline": true,
+    "record_fields": ["scenario_id", "block", "policy_id", "features", "target"],
+    "dataset_files": {
+      "L0_BASE": "training_inputs/L0_BASE.jsonl",
+      "L1_CORROBORATED": "training_inputs/L1_CORROBORATED.jsonl"
+    },
+    "required_pre_fit_hash": "SHA-256 over exact dataset bytes",
+    "fit_must_abort_if_hash_not_bound_in_training_provenance": true
+  },
+  "runtime": {
+    "python": "3.11.16",
+    "scikit_learn": "1.9.1",
+    "algorithm": "DecisionTreeClassifier",
+    "hyperparameters": {
+      "criterion": "gini",
+      "splitter": "best",
+      "max_depth": null,
+      "min_samples_split": 2,
+      "min_samples_leaf": 1,
+      "max_features": null,
+      "class_weight": null,
+      "ccp_alpha": 0.0,
+      "random_state": 2571582253
+    },
+    "dependency_provenance": {
+      "exact_transitive_versions_pre_frozen": false,
+      "require_isolated_environment": true,
+      "require_dependency_inventory_before_fit": true,
+      "required_inventory": [
+        "python version",
+        "pip version",
+        "scikit-learn version",
+        "numpy version",
+        "scipy version",
+        "joblib version",
+        "threadpoolctl version",
+        "installed-distribution inventory"
+      ],
+      "require_inventory_sha256": true,
+      "note": "The freeze pins Python and scikit-learn. Exact resolved transitive versions must be captured as training provenance before fit; this records the concrete training environment without silently changing the frozen scientific protocol."
+    }
+  },
+  "future_authorized_training_sequence": [
+    "verify S7E-AERC-FREEZE-001 integrity is green",
+    "verify a separate production-training authorization record exists and matches this plan ID",
+    "create isolated frozen-version learner environment",
+    "record exact dependency inventory and its SHA-256 before fit",
+    "materialize only TR0/TR1 snapshots and research-side targets",
+    "validate 12/72/84 partition and 66/18 target distribution",
+    "canonicalize L0 and L1 JSONL datasets and bind both SHA-256 hashes",
+    "verify privileged fields and E1/E2/C0 are absent from model inputs",
+    "fit one primary L0 and one primary L1 estimator with frozen hyperparameters",
+    "perform one deterministic audit refit per learner from the identical bound dataset bytes",
+    "require primary and audit semantic model fingerprints to match per learner",
+    "produce a model-freeze candidate with dataset, environment, model semantic, and runtime-artifact hashes",
+    "stop before held-out evaluation and request separate model-freeze authorization"
+  ],
+  "model_identity_plan": {
+    "semantic_fingerprint_required": true,
+    "semantic_export": "canonical JSON representation of learned decision-tree structure and metadata; floating values encoded losslessly",
+    "runtime_artifact_hash_required": true,
+    "primary_audit_semantic_hash_equality_required": true,
+    "artifact_format_selection_finalized_at_model_freeze_candidate": true,
+    "no_model_artifact_is_authoritative_until_separate_model_freeze": true
+  },
+  "prohibited_during_plan_qualification": {
+    "model_fit": true,
+    "model_serialization": true,
+    "held_out_evaluation": true,
+    "E1_E2_C0_access_for_training": true,
+    "hyperparameter_tuning": true,
+    "production_model_freeze": true,
+    "canonical_scientific_execution": true,
+    "pr_167_merge": true,
+    "publication_or_result_claims": true
+  },
+  "authorization": {
+    "plan_preparation_approved": true,
+    "production_training_authorized": false,
+    "production_model_freeze_authorized": false,
+    "canonical_execution_authorized": false,
+    "pr_merge_authorized": false
+  },
+  "next_gate": "qualify and review this deterministic run plan; actual production L0/L1 training requires separate explicit author authorization"
+}

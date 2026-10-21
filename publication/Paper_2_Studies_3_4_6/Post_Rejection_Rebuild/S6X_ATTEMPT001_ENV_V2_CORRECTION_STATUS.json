@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "experiment_id": "S6X-EAP-001",
+  "record_id": "S6X-ATTEMPT001-ENV-V2-CORRECTION-STATUS-001",
+  "status": "FAILURE_FREEZE_AND_ENV_V2_CORRECTION_PREPARED__NO_NEW_BUILD_OR_SCIENCE",
+  "authoritative_base_commit": "cfb76ef62ed081c9cdaac450e420cca3c5507542",
+  "attempt_001_failure_freeze_prepared": true,
+  "environment_001_immutable": true,
+  "runtime_auth_001_immutable": true,
+  "environment_v2_design_prepared": true,
+  "protocol_correction_002_prepared": true,
+  "environment_v2_materialized": false,
+  "cfs_build_executed": false,
+  "scientific_execution": false,
+  "canonical_results_generated": false,
+  "result_freeze": false,
+  "manuscript_claim_use": false,
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ATTEMPT001_FAILURE_FREEZE_ENV_V2_CORRECTION_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

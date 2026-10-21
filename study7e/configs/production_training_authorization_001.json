@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "plan_id": "S7E-AERC-TRAINPLAN-001",
+  "authorization_id": "S7E-AERC-TRAIN-AUTH-001",
+  "date": "2026-09-23",
+  "state": "AUTHORIZED_FOR_DETERMINISTIC_PRODUCTION_TRAINING_ONLY",
+  "basis_head": "9f5e86c84c9f12b4a5330ed2a759bae389f28235",
+  "plan_path": "study7e/configs/production_training_run_plan_001.json",
+  "plan_blob_sha": "6f13b422c93f77334ec86c6a4008454e16f8cf9e",
+  "authorized": {
+    "tr0_tr1_dataset_materialization": true,
+    "dependency_provenance_capture": true,
+    "primary_l0_fit": true,
+    "primary_l1_fit": true,
+    "audit_l0_refit": true,
+    "audit_l1_refit": true,
+    "model_freeze_candidate_preparation": true
+  },
+  "not_authorized": {
+    "production_model_freeze": true,
+    "e1_e2_c0_held_out_evaluation": true,
+    "canonical_scientific_execution": true,
+    "pr_167_merge": true,
+    "publication_or_result_claims": true
+  },
+  "execution_stop": "after model-freeze candidate preparation and before any E1/E2/C0 inference or model-freeze activation"
+}

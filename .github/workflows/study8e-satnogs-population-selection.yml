@@ -1,0 +1,46 @@
+name: Study 8E deterministic SatNOGS population selection
+
+on:
+  push:
+    branches:
+      - study8e/source-identity-population-freeze-20260919
+    paths:
+      - "study8e/validation/select_satnogs_population.py"
+      - "study8e/PROTOCOL_DEVIATION_SATNOGS_CURSOR_THROTTLE_20260919.json"
+      - ".github/workflows/study8e-satnogs-population-selection.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  select:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact Study 8E branch
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Run deterministic rate-bounded population selection
+        run: |
+          mkdir -p study8e/evidence/population_selection
+          python study8e/validation/select_satnogs_population.py \
+            --output study8e/evidence/population_selection/satnogs_pair_selection.json
+
+      - name: Upload population-selection evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: study8e-satnogs-population-selection
+          path: study8e/evidence/population_selection/satnogs_pair_selection.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Confirm no tracked-file drift
+        if: success()
+        run: git diff --exit-code

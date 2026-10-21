@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "freeze_id": "S7E-AERC-FREEZE-001",
+  "plan_id": "S7E-AERC-TRAINPLAN-001",
+  "date": "2026-09-23",
+  "state": "RUN_PLAN_QUALIFIED_GREEN__TRAINING_NOT_AUTHORIZED",
+  "plan": "study7e/configs/production_training_run_plan_001.json",
+  "review_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCTION_TRAINING_RUN_PLAN_001_2026-09-23.md",
+  "qualification_checkpoint": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCTION_TRAINING_RUN_PLAN_001_QUALIFICATION_CHECKPOINT_2026-09-23.md",
+  "qualification": {
+    "head": "81a532687f1cb2b5acd0cde28cf1df7f9e991f1e",
+    "workflow_id": 365567611,
+    "workflow_run_id": 35928546194,
+    "job_id": 107409378272,
+    "tests_passed": 8,
+    "marker": "study7e_training_plan=PASS",
+    "green": true
+  },
+  "production_training_authorized": false,
+  "production_models_trained": false,
+  "production_models_frozen": false,
+  "held_out_evaluation_executed": false,
+  "canonical_execution_authorized": false,
+  "canonical_results_generated": false,
+  "pr_merge_authorized": false,
+  "next_gate": "obtain separate explicit authorization before any deterministic L0/L1 production fit under S7E-AERC-TRAINPLAN-001"
+}

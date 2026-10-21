@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "candidate_id": "S7E-AERC-FC-001",
+  "date": "2026-09-23",
+  "state": "PROTOCOL_ENVIRONMENT_FREEZE_CANDIDATE__NOT_FROZEN__AUTHOR_APPROVAL_REQUIRED",
+  "basis_head": "ae96db64da3e00551d05f05996f6e4af82d6cfbe",
+  "ep_approval_record": "study7e/configs/ep_author_approval_2026-09-23.json",
+  "scope": "candidate protocol/environment specification only; no production model training, canonical execution, merge, or publication claims",
+  "selected_runtime": {
+    "flight_software_stack": {
+      "name": "standalone_cFS_v7.0.1",
+      "commit": "088b2fa828db9ff7e00733f1908e0eeb59f66ce3"
+    },
+    "signature_verifier": {
+      "name": "Monocypher",
+      "version": "4.0.3",
+      "commit": "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+      "algorithm": "Ed25519_RFC8032"
+    },
+    "learner_runtime_candidate": {
+      "python": "3.11.16",
+      "scikit_learn": "1.9.1",
+      "state": "CANDIDATE_ONLY__NO_MODEL_TRAINING_OR_FREEZE"
+    }
+  },
+  "approved_execution_parameters": {
+    "freshness_max_age_ticks": 0,
+    "nominal_issue_tick": 0,
+    "nominal_evaluation_tick": 0,
+    "stale_fault_evaluation_tick": 1,
+    "evidence_epoch": 1,
+    "opaque_registry_algorithm": "SHA256_FIRST4_U32_BE_WITH_ZERO_COLLISION_RETRY_V1",
+    "registry_canonical_json_sha256": "b7f7e3a600115411158fc1baea61f0d5b936138a3b66b237464d3d22d1a980c0",
+    "scenario_registry_entries": 280,
+    "scenario_registry_collisions": 0,
+    "deterministic_test_key_derivation": "SHA256(UTF8('S7E-AERC-001|ED25519-TEST-SEED-V1|' + key_domain_alias))",
+    "persistent_private_key_files": false,
+    "private_key_in_cfs": false
+  },
+  "opaque_domain_ids": {
+    "source": {
+      "corroborator:source": "0xE699F59F",
+      "primary:source": "0x0B094571",
+      "shared:source": "0x6620B4D8"
+    },
+    "key": {
+      "corroborator:key": "0x9532BF30",
+      "primary:key": "0xC9B0FE66",
+      "shared:key": "0x39262168"
+    },
+    "authority": {
+      "corroborator:authority": "0x51378641",
+      "primary:authority": "0x53B10C72",
+      "shared:authority": "0x988DA2DE"
+    },
+    "execution": {
+      "corroborator:execution": "0x4273F568",
+      "primary:execution": "0x8D98B704",
+      "shared:execution": "0xA328942D"
+    },
+    "transport": {
+      "corroborator:transport": "0x39FB1E50",
+      "primary:transport": "0x155846AA",
+      "shared:transport": "0xA2703474"
+    }
+  },
+  "test_public_key_registry_candidate": {
+    "state": "CANDIDATE__CRYPTO_DERIVATION_QUALIFICATION_REQUIRED__NOT_FROZEN",
+    "entries": [
+      {
+        "key_domain": "corroborator:key",
+        "key_id": "0x9532BF30",
+        "public_key_hex": "de0c03b33c639ba174f6624d8a1fd22bafb05d26d68de27c00e527896f8230f7",
+        "public_key_sha256": "39baaf1156a64feb6f20f0887f46eeb3a2ce85b7581b3169290a7793c854a4af"
+      },
+      {
+        "key_domain": "primary:key",
+        "key_id": "0xC9B0FE66",
+        "public_key_hex": "dbb7c494d3bd557bdc844290584b7656e8aa6be84bfe3692800ded82464cf421",
+        "public_key_sha256": "5a4bff1401c7e398a832f2bfe7fe361bf292537c897908b5c48af3b4df2de996"
+      },
+      {
+        "key_domain": "shared:key",
+        "key_id": "0x39262168",
+        "public_key_hex": "1817b4f3dae5ba2836905919d8e55445e9739fa255ea69cfb34e6e24cd0331a0",
+        "public_key_sha256": "4f2e3a0f6a4721ff3ec3ec55f90d7ecad59319377fe36d0a9736979b2159ec3b"
+      }
+    ],
+    "secret_seed_or_private_key_committed": false,
+    "operational_use": "PROHIBITED"
+  },
+  "fault_transform_candidate": {
+    "source": "study7e/configs/fault_transformations_draft.json",
+    "source_blob_sha": "292db65822a866bce5e4ad50278b98090bf4d24b",
+    "profiles": 13,
+    "f9": "post-signature XOR 0x01 at signed-body byte 47",
+    "f11": "F10 authority-stage mutation followed by F9 transport mutation",
+    "f12": "two separately signed same-sequence opposite-authorization bodies",
+    "frozen": false
+  },
+  "learner_protocol_candidate": {
+    "state": "PROPOSED_FOR_FREEZE_REVIEW__NOT_TRAINED__NOT_FROZEN",
+    "algorithm": "DecisionTreeClassifier",
+    "shared_for_L0_and_L1": true,
+    "feature_schemas": {
+      "L0_BASE": "BASE_FEATURES",
+      "L1_CORROBORATED": "EXTENDED_FEATURES"
+    },
+    "training_blocks": ["TR0", "TR1"],
+    "prohibited_training_blocks": ["E1", "E2", "C0"],
+    "training_scenarios": 84,
+    "hyperparameters": {
+      "criterion": "gini",
+      "splitter": "best",
+      "max_depth": null,
+      "min_samples_split": 2,
+      "min_samples_leaf": 1,
+      "max_features": null,
+      "class_weight": null,
+      "ccp_alpha": 0.0,
+      "random_state": 2571582253
+    },
+    "random_state_derivation": "first_4_bytes_big_endian(SHA256('S7E-AERC-001|LEARNER-RANDOM-STATE-V1'))",
+    "selection_rule": "fixed shared hyperparameters; no tuning on E1/E2/C0; no post-hoc hyperparameter selection from evaluation outcomes",
+    "rationale": "Use an untuned, fully expressive deterministic tree with the same rule for both learned comparators, minimizing model-selection confounding while leaving generalization to the held-out fault/topology blocks.",
+    "model_training_performed": false,
+    "production_model_freeze_performed": false
+  },
+  "bound_git_blobs": {
+    "study7e/PROTOCOL_DRAFT.json": "cce8f9cdfd82ff8f9ce4160998778f50a247abcb",
+    "study7e/configs/candidate_environment.json": "0b93df199f673d833f1df9974e00c1332319ec8c",
+    "study7e/configs/execution_parameters_candidate_2026-09-23.json": "fc2ee992b5c710f466433898694637d637f77833",
+    "study7e/configs/signed_evidence_contract_draft.json": "e55138461c30f60208ca1a219c598e3e676d126a",
+    "study7e/configs/qualifier_time_replay_contract_draft.json": "39a28c37815262e85816a994e378a7fc029343ed",
+    "study7e/configs/fault_transformations_draft.json": "292db65822a866bce5e4ad50278b98090bf4d24b",
+    "study7e/configs/policy_contracts.json": "b178a2d02c26dfec93b7b459702b175d11eb520c",
+    "study7e/configs/learner_candidate.json": "27fcb388261f7e58af41dd2032bbc8353ef38f19",
+    "study7e/configs/signature_dependency_candidates.json": "78016bcde354b73d253e0527dc59046be3c6064b",
+    "study7e/src/aerc_design.py": "57fa869827a7d1665ebad1ac94b93b66728e68a9",
+    "study7e/tools/generate_scenario_manifest.py": "a20e7f27d1a68f15bb89f95a1563f3c99d0ddf80",
+    "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_PRODUCER_QUALIFIER_RUNTIME_CHECKPOINT_2026-09-23.md": "3f4b7d4fe60102bebeb3dd20215a98bfe71c551f"
+  },
+  "qualified_runtime_evidence": {
+    "producer_qualifier_head": "ea58629c70a6022343db6a7bce7ee05cd08083e0",
+    "producer_qualifier_workflow_run_id": 35911617367,
+    "producer_qualifier_job_id": 107352621226,
+    "producer_qualifier_artifact_id": 10774070814,
+    "producer_qualifier_artifact_digest": "sha256:5d8f3a49a411e0acf6993d9742b8cb148e7a11c187bbeb5038516164aeed8ff8",
+    "study7e_scientific_scenarios_executed": 0,
+    "scientific_results_generated": false
+  },
+  "adversarial_review": {
+    "registry_collision_guard_required": true,
+    "test_keys_explicitly_non_secret": true,
+    "wall_clock_dependency": false,
+    "fault_or_topology_label_policy_leakage_allowed": false,
+    "evaluation_blocks_allowed_in_training": false,
+    "shared_learner_rule_required": true,
+    "model_tuning_on_evaluation_prohibited": true,
+    "canonical_results_allowed": false
+  },
+  "freeze_gates": {
+    "author_freeze_approval": false,
+    "protocol_frozen": false,
+    "environment_frozen": false,
+    "public_key_registry_frozen": false,
+    "fault_transformations_frozen": false,
+    "learner_protocol_frozen": false,
+    "production_models_trained": false,
+    "production_models_frozen": false,
+    "canonical_execution_authorized": false,
+    "pr_merge_authorized": false
+  },
+  "next_gate": "qualify this freeze candidate, then obtain separate explicit author approval before changing any freeze gate"
+}

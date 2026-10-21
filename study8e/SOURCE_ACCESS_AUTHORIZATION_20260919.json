@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "authorization_date_local": "2026-09-19",
+  "authorization_timezone": "America/Chicago",
+  "authorization_basis": "Author explicitly authorized source-identity and schema-only verification followed by deterministic SatNOGS population freezing under the merged Study 8E protocol.",
+  "base_main_commit": "2096ec190b73229dca67cbd83a850cb62d46b7f6",
+  "authorized": {
+    "satnogs_bounded_api_probe": true,
+    "satnogs_required_field_schema_verification": true,
+    "satnogs_pagination_and_rate_limit_verification": true,
+    "satnogs_minimum_row_access_for_predeclared_population_selection": true,
+    "satnogs_source_window_extraction_for_pair_counting_and_record_validity": true,
+    "satnogs_deterministic_pair_selection": true,
+    "satnogs_population_freeze_artifact_creation": true
+  },
+  "not_authorized": {
+    "contact_duration_distribution_analysis": true,
+    "inter_contact_gap_analysis": true,
+    "gap_variability_or_burstiness_analysis": true,
+    "payload_rate_threshold_computation": true,
+    "study8e_recovery_runner_implementation": true,
+    "canonical_external_trace_execution": true,
+    "policy_or_profile_endpoint_computation": true,
+    "study8_frozen_science_modification": true,
+    "acta_submitted_package_modification": true,
+    "publisher_submission": true
+  },
+  "data_minimization": {
+    "permitted_primary_fields": [
+      "id",
+      "start",
+      "end",
+      "ground_station",
+      "norad_cat_id"
+    ],
+    "selection_permitted_uses": [
+      "source-window membership",
+      "record parse/validity checks",
+      "pair observation counts",
+      "norad_cat_id",
+      "ground_station",
+      "deterministic SHA-256 pair rank",
+      "predeclared per-satellite and per-station caps"
+    ],
+    "selection_forbidden_uses": [
+      "duration values",
+      "inter-opportunity gap values",
+      "clustering",
+      "status outcomes",
+      "transmitter baud",
+      "recovery results",
+      "policy results",
+      "profile results"
+    ]
+  },
+  "next_gate_after_population_freeze": "AUTHOR_REVIEW_AND_MERGE_AUTHORIZATION__NO_CANONICAL_EXECUTION"
+}

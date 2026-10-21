@@ -1,0 +1,49 @@
+name: Study 7E held-out evaluation plan qualification
+
+on:
+  pull_request:
+    paths:
+      - "study7e/configs/held_out_evaluation_plan_001.json"
+      - "study7e/HELD_OUT_EVALUATION_PLAN_STATE.json"
+      - "study7e/tests/test_held_out_evaluation_plan.py"
+      - ".github/workflows/study7e-held-out-evaluation-plan-qualification.yml"
+      - "study7e/MODEL_FREEZE_MANIFEST_001.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  held-out-plan-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Static plan qualification only
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import inspect
+          import study7e.tests.test_held_out_evaluation_plan as plan_tests
+          import study7e.tests.test_held_out_result_checkpoint as result_tests
+          tests = []
+          for module in (plan_tests, result_tests):
+              tests.extend((n, f) for n, f in inspect.getmembers(module, inspect.isfunction) if n.startswith("test_"))
+          assert tests
+          for name, fn in tests:
+              fn()
+              print(f"{name}=PASS")
+          print(f"held_out_plan_and_result_contract_tests={len(tests)}")
+          PY
+          test -e study7e/HELD_OUT_EVALUATION_AUTHORIZATION.json
+          test -e study7e/results/S7E-AERC-HELDOUT-EXEC-001/result_checkpoint.json
+          test ! -e study7e/CANONICAL_EXECUTION_AUTHORIZATION.json
+          test ! -e .github/workflows/study7e-canonical-execution.yml
+          echo "held_out_plan_and_result_qualification=PASS"
+          echo "held_out_evaluation_executed=true"
+          echo "canonical_results_generated=true"
+          echo "pr_merge_authorized=false"
+          echo "publication_or_result_claims_authorized=false"

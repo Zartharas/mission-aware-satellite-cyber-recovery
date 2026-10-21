@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "freeze_candidate_date": "2026-09-19",
+  "status": "PROTOCOL_FREEZE_CANDIDATE__NO_EXTERNAL_DATA_ROWS_ACCESSED",
+  "base_main_commit": "d8716e4dde73730c69e4c97c79a4968a663ccf10",
+  "bound_candidate_content_commit": "7002db1911920fd2aa80f71f457f1e4b9a834544",
+  "hash_note": "git_blob_sha1 values bind exact repository file bytes at the bound candidate commit. Final merged protocol freeze may additionally record SHA-256 without changing the bound content.",
+  "files": {
+    "study8e/STUDY8E_PROTOCOL.json": {
+      "git_blob_sha1": "3be65477148ab5fb10d03b82a1643d1e8e0d3466"
+    },
+    "study8e/CONTACT_TRACE_MAPPING_RUBRIC.json": {
+      "git_blob_sha1": "6d4774ee5bf9473abff42eddbc8e26a4b3fe6615"
+    },
+    "study8e/CANDIDATE_SOURCE_REGISTER.md": {
+      "git_blob_sha1": "393481cec8d8b2fe5623332e0e0a0045f4e0343d"
+    },
+    "study8e/CLAIM_BOUNDARY.md": {
+      "git_blob_sha1": "dd2e122f8cc197b6c9ab1fbeb90e2077719afee3"
+    },
+    "study8e/PROVENANCE_INDEPENDENCE_PLAN.md": {
+      "git_blob_sha1": "eeed384c799ab99534aba086c21105d551403f5b"
+    },
+    "study8e/README.md": {
+      "git_blob_sha1": "8d0cb95c1f1c346df91327e4c75f3ef48dc8db30"
+    }
+  },
+  "pre_data_assertions": {
+    "satnogs_rows_accessed": false,
+    "opssat_rows_downloaded": false,
+    "lens_measurement_archives_downloaded": false,
+    "study8e_endpoint_values_computed": false,
+    "study8e_runner_implemented": false,
+    "study8_modified": false,
+    "acta_package_modified": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AND_MERGE_AUTHORIZATION"
+}

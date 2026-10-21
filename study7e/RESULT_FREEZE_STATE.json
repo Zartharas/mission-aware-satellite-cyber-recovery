@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "experiment_id": "S7E-AERC-001",
+  "result_freeze_id": "S7E-AERC-RESULT-FREEZE-001",
+  "authorization_id": "S7E-AERC-RESULT-FREEZE-AUTH-001",
+  "candidate_id": "S7E-AERC-RESULT-FREEZE-CANDIDATE-001",
+  "review_id": "S7E-AERC-RESULT-FREEZE-REVIEW-001",
+  "state": "RESULTS_FROZEN__DURABLE_ARTIFACT_PRESERVED__PR_MERGE_NOT_AUTHORIZED__PUBLICATION_NOT_AUTHORIZED",
+  "date_local": "2026-09-23",
+  "source_result_review_head": "35f91246aea06aa679dfb36d15b8a245f1de4b5d",
+  "result_freeze_active": true,
+  "scientific_execution_of_record": "S7E-AERC-HELDOUT-EXEC-001",
+  "scientific_execution_sealed": true,
+  "durable_raw_artifact_preserved": true,
+  "durable_artifact_decoded_sha256": "cc436ee98e20bb13643f58af738f42885b499a81bddad2766cb90f3e0860da35",
+  "frozen_population": {
+    "E1": 84,
+    "E2": 104,
+    "C0": 8,
+    "total_scenarios": 196,
+    "total_policy_decisions": 784
+  },
+  "hypothesis_disposition": {
+    "H1": "SUPPORTED",
+    "H2": "PARTIALLY_SUPPORTED",
+    "H3": "PARTIALLY_SUPPORTED",
+    "H4": "PARTIALLY_SUPPORTED",
+    "H5": "SUPPORTED"
+  },
+  "prohibited": {
+    "rerun_same_execution_id": true,
+    "model_retraining_or_post_hoc_change": true,
+    "endpoint_or_population_expansion": true,
+    "pr_167_merge": true,
+    "manuscript_or_publication_result_claims": true
+  },
+  "records": {
+    "authorization": "study7e/configs/result_freeze_authorization_001.json",
+    "manifest": "study7e/RESULT_FREEZE_MANIFEST_001.json",
+    "candidate": "study7e/configs/result_freeze_candidate_001.json",
+    "scientific_review": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RESULT_FREEZE_CANDIDATE_001_REVIEW_2026-09-23.md",
+    "freeze_record": "publication/Paper_3_Study_7/Post_Rejection_Rebuild/S7E_AERC_RESULT_FREEZE_001_RECORD_2026-09-23.md"
+  },
+  "next_gate": "verify post-freeze CI; PR #167 merge and manuscript/publication result claims each require separate explicit author authorization"
+}

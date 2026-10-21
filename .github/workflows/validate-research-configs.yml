@@ -44,6 +44,93 @@ jobs:
           trap 'rm -rf .venv-analysis/audit-scope-probe local-audit-scope-probe' EXIT
           python scripts/audit_repository_release_gate.py
 
+      - name: Audit CEAS Paper 2 current submission state across repository indexes
+        run: python scripts/audit_paper2_ceas_current_state.py
+
+      - name: Audit Paper 2 Phase 6 timestamp trace design
+        run: python scripts/audit_paper2_post_rejection_phase6_timestamp_trace_design.py
+
+      - name: Audit Paper 2 Phase 6B timestamp extraction authorization
+        run: python scripts/audit_paper2_post_rejection_phase6b_timestamp_extraction_authorization.py
+
+      - name: Audit Paper 2 Phase 6C trace population freeze preparation
+        run: python scripts/audit_paper2_post_rejection_phase6c_trace_population_freeze.py
+
+      - name: Audit Paper 2 Phase 7A recovery replay design
+        run: python scripts/audit_paper2_post_rejection_phase7a_recovery_replay_design.py
+
+      - name: Audit Paper 2 Phase 7B replay implementation
+        run: python scripts/audit_paper2_post_rejection_phase7b_replay_implementation.py
+
+      - name: Audit Paper 2 Phase 7C runtime authorization preparation
+        run: python scripts/audit_paper2_post_rejection_phase7c_runtime_authorization.py
+
+      - name: Audit Paper 2 Phase 7D float-contract correction
+        run: python scripts/audit_paper2_post_rejection_phase7d_float_contract_correction.py
+
+      - name: Audit Paper 2 Phase 7E result-freeze preparation
+        run: python scripts/audit_paper2_post_rejection_phase7e_result_freeze.py
+
+      - name: Audit Paper 2 Phase 7F interpretation and claim use
+        run: python scripts/audit_paper2_post_rejection_phase7f_interpretation_claim_use.py
+
+      - name: Audit Paper 2 post-rejection manuscript rebuild R1
+        run: python scripts/audit_paper2_post_rejection_manuscript_rebuild_r1.py
+
+      - name: Audit Paper 2 Rebuild R1 detailed editorial and reference review
+        run: python scripts/audit_paper2_rebuild_r1_detailed_audit.py
+
+      - name: Audit Paper 2 post-rejection manuscript rebuild R2
+        run: python scripts/audit_paper2_post_rejection_manuscript_rebuild_r2.py
+
+      - name: Audit Paper 2 R2 Figure 1 source and visual QA package
+        run: python scripts/audit_paper2_r2_figure1.py
+
+      - name: Audit Paper 2 S6X pre-runtime closeout and build design
+        run: python scripts/audit_paper2_s6x_pre_runtime_closeout_build_design.py
+
+      - name: Audit Paper 2 S6X build-environment freeze
+        run: python scripts/audit_paper2_s6x_build_environment_freeze.py
+
+      - name: Audit Paper 2 S6X canonical runtime authorization
+        run: python scripts/audit_paper2_s6x_canonical_runtime_authorization.py
+
+      - name: Audit Paper 2 S6X Attempt 001 failure freeze and Environment v2 correction
+        run: python scripts/audit_paper2_s6x_attempt001_env_v2_correction.py
+
+      - name: Audit Paper 2 S6X Environment v2 materialization handoff
+        run: python scripts/audit_paper2_s6x_env_v2_materialization_handoff.py
+
+      - name: Audit Paper 2 S6X Environment v2 freeze
+        run: python scripts/audit_paper2_s6x_build_environment_v2_freeze.py
+
+      - name: Audit Paper 2 S6X corrected runtime authorization 002
+        run: python scripts/audit_paper2_s6x_corrected_runtime_authorization_002.py
+
+      - name: Audit Paper 2 S6X Attempt 002 failure freeze and runner correction 003
+        run: python scripts/audit_paper2_s6x_attempt002_correction003.py
+
+      - name: Audit Paper 2 S6X Attempt 003 failure freeze and reporting correction 004
+        run: python scripts/audit_paper2_s6x_attempt003_correction004.py
+
+      - name: Audit Paper 2 S6X canonical result freeze 004
+        run: python scripts/audit_paper2_s6x_canonical_result_freeze_004.py
+
+      - name: Audit Paper 2 S6X interpretation, claim use, and R3
+        run: |
+          R3_HEAD="d3cf8af3def805db7fda97dbda457b7c21f80c84"
+          R3_WORKTREE="$RUNNER_TEMP/paper2-r3-historical-audit"
+          git cat-file -e "$R3_HEAD^{commit}"
+          git worktree add --detach "$R3_WORKTREE" "$R3_HEAD"
+          (
+            cd "$R3_WORKTREE"
+            python scripts/audit_paper2_s6x_interpretation_claim_use_r3.py
+          )
+          git worktree remove "$R3_WORKTREE"
+
+      - name: Audit Paper 2 R4 pre-venue figure insertion and venue scope screen
+        run: python scripts/audit_paper2_r4_prevenue_figure_insertion.py
+
       - name: Audit bibliography metadata integrity
         run: python scripts/audit_bibliography_metadata.py
 

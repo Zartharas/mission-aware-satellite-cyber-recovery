@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "paper_id": "PAPER2_STUDIES_3_4_6",
+  "experiment_id": "S6X-EAP-001",
+  "phase": "S6X_ATTEMPT003_FAILURE_FREEZE_AND_POST_EXECUTION_REPORTING_CORRECTION_004_PREPARATION",
+  "status": "ATTEMPT003_FROZEN__SCIENTIFIC_ACCEPTANCE_PASS__RUNNER_TERMINAL_FAIL__CORRECTION_004_AND_RUNTIME_AUTHORIZATION_004_PREPARED__NOT_EFFECTIVE__NO_EXECUTION_004",
+  "preparation_date": "2026-09-30",
+  "branch": "paper2/s6x-attempt003-freeze-correction-004",
+  "branch_base_commit": "4cfb3b2d890658fec7d475c74998af1d41bd206e",
+  "attempt_003": {
+    "freeze_id": "S6X-EXEC-ATTEMPT-003-FAILURE-FREEZE-001",
+    "freeze_blob": "44059848fe984b2de0e06a61b8416575266fab72",
+    "status": "FAILED_CLOSED_AFTER_COMPLETE_SCIENTIFIC_EXECUTION_AND_VALIDATION__POST_EXECUTION_RESULT_HASH_REPORTING_VARIABLE_EXPANSION_CONTROL_DEFECT",
+    "scientific_acceptance": "PASS",
+    "runner_terminal_pass": false,
+    "observations_per_repetition": 396,
+    "repetitions": 2,
+    "total_builds": 8,
+    "primary_reference_gate_mismatches": 0,
+    "independent_validation": "PASS",
+    "all_five_repeat_result_hashes_match": true,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "correction_004": {
+    "id": "S6X-BUILD-EXECUTION-PROTOCOL-CORRECTION-004",
+    "blob": "2146de81c09a6c8b240e257fed09618baa1aa33f",
+    "scope": "POST_EXECUTION_REPORTING_VARIABLE_EXPANSION_ONLY",
+    "scientific_logic_changed": false,
+    "acceptance_thresholds_changed": false
+  },
+  "authorization_candidate": {
+    "id": "S6X-CANONICAL-RUNTIME-AUTH-004",
+    "authorization_blob": "d5a329be6c0803c5345845746c66844db8cfb552",
+    "planned_campaign": "S6X_CANONICAL_EXECUTION_004",
+    "planned_gate_observations_per_run": 396,
+    "planned_repetitions": 2,
+    "planned_total_builds": 8,
+    "artifact_path": "build-native_std/exe/cpu1/cf/lc.so",
+    "authorization_effective_now": false
+  },
+  "versioned_runtime_artifacts": {
+    "evidence_schema": "study6x/S6X_EVIDENCE_SCHEMA_004.json",
+    "runtime_population_generator": "study6x/runtime/run_canonical_population_004.py",
+    "independent_validator": "study6x/audit/validate_canonical_execution_004.py",
+    "execution_runner": "study6x/validation/run_local_canonical_execution_004.sh",
+    "evidence_schema_blob": "af697b5407bf1eda49667109d208aa9e57030494",
+    "runtime_population_generator_blob": "965fde110b7dc754553efe08b1530beeba752908",
+    "independent_validator_blob": "b4c7a81ae74e118d820ae2ada107d9e15e40ed2e",
+    "execution_runner_blob": "99088f34886c50d38efaabf1c0aca4679fe07342"
+  },
+  "executed_now": {
+    "campaign_004_started": false,
+    "cfs_build": false,
+    "semantic_fixture_application": false,
+    "artifact_signing": false,
+    "independent_rebuild": false,
+    "gate_execution": false,
+    "scientific_execution": false,
+    "result_freeze": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_S6X_ATTEMPT003_FAILURE_FREEZE_AND_REPORTING_PROTOCOL_CORRECTION_004_PR_AND_PREMERGE_CI_BEFORE_MERGE"
+}

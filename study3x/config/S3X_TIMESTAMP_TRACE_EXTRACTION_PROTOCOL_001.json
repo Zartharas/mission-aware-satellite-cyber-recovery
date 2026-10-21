@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "protocol_id": "S3X-PHASE6-TIMESTAMP-TRACE-EXTRACTION-PROTOCOL-001",
+  "experiment_id": "S3X-ETA-001",
+  "phase": "PHASE6A_TIMESTAMP_LEVEL_TRACE_EXTRACTION_DESIGN",
+  "status": "DESIGN_ONLY__NO_TIMESTAMP_EXTRACTION_AUTHORIZED",
+  "authorization_date": "2026-09-27",
+  "branch_base_commit": "1d36b224e46c15653f0c5d76dce6da26f7d9a6e1",
+  "upstream": {
+    "source_freeze": {
+      "freeze_id": "S3X-ESA-V2-SOURCE-FREEZE-001",
+      "sha256": "dd1d71dc074588c12cae24c3718ed758fabd36c41b22755f57ccf98964db9f27",
+      "mission_archive_sha256": {
+        "ESA-Mission1": "ba28f761b1deab4dbba4728793bff139fea39dbf9cf0d9c559d619ffe75d5a72",
+        "ESA-Mission2": "e8a89be1917b6754a10bd323441e87a82c8cf2e84ed162442c2dcf72ecc346d5"
+      },
+      "schema_report_sha256": {
+        "ESA-Mission1": "696ad9bfa90ff37e2c22bb7eb0c1778af4225a09b02038130698d402b53aaa0a",
+        "ESA-Mission2": "25533581a3585a8b3056081e1e47f4907d7664103aad5527e374510c0ffba62e"
+      },
+      "channel_counts": {
+        "ESA-Mission1": 76,
+        "ESA-Mission2": 100,
+        "total": 176
+      }
+    },
+    "gap_rule_freeze": {
+      "freeze_id": "S3X-P99X10-GAP-RULE-FREEZE-001",
+      "rule": "P99_X10",
+      "formula": "threshold_seconds = 10 * channel-specific cadence_p99_seconds",
+      "comparison": "positive inter-sample delta > threshold_seconds",
+      "comparison_operator": ">",
+      "multiplier": 10,
+      "reference_statistic": "channel-specific cadence_p99_seconds",
+      "selection_characterization": "DATA_INFORMED_SELECTION_FROM_PRESPECIFIED_PHASE5_CANDIDATE_FAMILY"
+    },
+    "prefreeze_validation": {
+      "sha256": "cdf9894a6bf1f3dbe9dadb11ec1484b0c540118b05d108d7a38ed33af5930be0",
+      "channels": 176,
+      "total_exceedance_count": 1919,
+      "channels_with_exceedances": 171,
+      "channels_with_zero_exceedances": 5,
+      "canonical_channel_projection_sha256": "f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1"
+    }
+  },
+  "numeric_method": {
+    "timestamp_index_conversion": "pandas.to_datetime(dataframe.index)",
+    "timestamp_integer_representation": "pandas DatetimeIndex.asi8 nanoseconds",
+    "delta_definition": "adjacent timestamp nanosecond difference",
+    "eligible_delta_domain": "strictly positive deltas only",
+    "seconds_conversion": "delta_nanoseconds / 1000000000.0",
+    "p99_method": "repository quantile_linear linear interpolation",
+    "p99_quantile": 0.99,
+    "threshold_formula": "cadence_p99_seconds * 10.0",
+    "comparison_operator": ">",
+    "threshold_runtime_override_allowed": false,
+    "multiplier_runtime_override_allowed": false
+  },
+  "interval_identity": {
+    "prefix": "S3X-INT-",
+    "digest": "SHA-256",
+    "preimage_fields": [
+      "experiment_id",
+      "gap_rule_freeze_id",
+      "mission",
+      "channel_file",
+      "channel_sha256",
+      "preceding_timestamp_ns",
+      "following_timestamp_ns"
+    ],
+    "delimiter": "|",
+    "digest_truncation_allowed": false
+  },
+  "ordering": [
+    "fixed mission order ESA-Mission1 then ESA-Mission2",
+    "numeric channel number",
+    "preceding_timestamp_ns ascending",
+    "following_timestamp_ns ascending",
+    "interval_id ascending"
+  ],
+  "candidate_output": {
+    "local_root": "study3x/local_freeze_work/phase6",
+    "csv": "S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv",
+    "summary_json": "S3X_P99_X10_TIMESTAMP_INTERVALS_SUMMARY_001.json",
+    "manifest_json": "S3X_P99_X10_TIMESTAMP_INTERVALS_MANIFEST_001.json",
+    "validation_json": "S3X_P99_X10_TIMESTAMP_INTERVALS_VALIDATION_001.json",
+    "repository_tracking_allowed_in_phase6a": false,
+    "trace_population_frozen_by_output": false
+  },
+  "expected_invariants": {
+    "channels": 176,
+    "total_intervals": 1919,
+    "channels_with_intervals": 171,
+    "channels_with_zero_intervals": 5,
+    "zero_interval_channels": [
+      "ESA-Mission2/channel_66.zip",
+      "ESA-Mission2/channel_67.zip",
+      "ESA-Mission2/channel_68.zip",
+      "ESA-Mission2/channel_69.zip",
+      "ESA-Mission2/channel_100.zip"
+    ],
+    "canonical_channel_projection_sha256": "f15338f1790f60d83d2c849542f6d6e3b21a8c49f7d413cdc5098e35952294d1",
+    "invariants_are_validation_constraints_not_retuning_targets": true
+  },
+  "authorization_model": {
+    "phase6a_design_authorized": true,
+    "timestamp_level_extraction_authorized": false,
+    "runtime_requires_separate_versioned_authorization_record": true,
+    "runtime_authorization_record_committed": false
+  },
+  "interpretation_controls": [
+    "A P99_X10-positive observation is an extreme telemetry inter-sample interval diagnostic.",
+    "A telemetry interval is not asserted to be RF contact loss.",
+    "A telemetry interval is not asserted to be ground-station visibility loss.",
+    "A telemetry interval is not asserted to be spacecraft outage.",
+    "A telemetry anomaly is not asserted to be cyberattack truth.",
+    "Interval duration is not asserted to be onboard recovery latency.",
+    "Interval status is not asserted to be operational command availability."
+  ],
+  "gates": {
+    "source_identity_frozen": true,
+    "gap_rule_frozen": true,
+    "timestamp_level_extraction_authorized": false,
+    "timestamp_level_extraction_performed": false,
+    "trace_population_frozen": false,
+    "recovery_policy_execution_performed": false,
+    "scientific_results_generated": false,
+    "manuscript_claim_use": false
+  },
+  "next_gate": "AUTHOR_REVIEW_AFTER_PHASE6_DESIGN_PR_AND_PREMERGE_CI_BEFORE_MERGE",
+  "determinism_validation": {
+    "repeat_execution_required": true,
+    "independent_output_directories_required": true,
+    "required_matching_artifacts": [
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_001.csv",
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_SUMMARY_001.json",
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_MANIFEST_001.json",
+      "S3X_P99_X10_TIMESTAMP_INTERVALS_VALIDATION_001.json"
+    ],
+    "byte_identical_sha256_required": true,
+    "variable_wall_clock_metadata_allowed_in_canonical_outputs": false,
+    "required_before_trace_population_freeze_review": true
+  }
+}

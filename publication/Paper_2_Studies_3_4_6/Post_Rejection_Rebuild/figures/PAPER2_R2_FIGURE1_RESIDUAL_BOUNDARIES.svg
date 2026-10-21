@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1432" height="1160" viewBox="0 0 1432 1160">
+<style>
+text { font-family: Arial, Helvetica, sans-serif; fill: #000; }
+.panel { fill: #fff; stroke: #000; stroke-width: 2; }
+.header { fill: #eeeeee; }
+.inset { fill: #f7f7f7; stroke: #000; stroke-width: 1.5; stroke-dasharray: 7 5; }
+.rule { stroke: #000; stroke-width: 1.2; }
+</style>
+<rect x="0" y="0" width="1432" height="1160" fill="#fff"/>
+<text x="716.0" y="36" text-anchor="middle" font-size="22" font-weight="700">Three separately evaluated experiments | qualitative synthesis only</text>
+<text x="716.0" y="67" text-anchor="middle" font-size="19">No pooled population | no experimental data flow between panels</text>
+
+<rect class="panel" x="36" y="115" rx="18" ry="18" width="441" height="900"/>
+<rect class="header" x="38" y="117" rx="16" ry="16" width="437" height="92"/>
+<text x="60" y="153" font-size="24" font-weight="700">Study 3</text>
+<text x="60" y="187" font-size="18">Temporal qualification</text>
+<rect class="panel" x="495" y="115" rx="18" ry="18" width="441" height="900"/>
+<rect class="header" x="497" y="117" rx="16" ry="16" width="437" height="92"/>
+<text x="519" y="153" font-size="24" font-weight="700">Study 4</text>
+<text x="519" y="187" font-size="18">Producer composition</text>
+<rect class="panel" x="954" y="115" rx="18" ry="18" width="441" height="900"/>
+<rect class="header" x="956" y="117" rx="16" ry="16" width="437" height="92"/>
+<text x="978" y="153" font-size="24" font-weight="700">Study 6</text>
+<text x="978" y="187" font-size="18">Artifact assurance</text>
+<text x="60" y="243" font-size="18" font-weight="700">Gate-visible evidence</text>
+<text x="60" y="271" font-size="16" font-weight="normal">
+<tspan x="60" dy="0">Signature validity; freshness;</tspan>
+<tspan x="60" dy="19.52">received authorization evidence;</tspan>
+<tspan x="60" dy="19.52">record availability; security</tspan>
+<tspan x="60" dy="19.52">signal.</tspan>
+</text>
+<text x="60" y="366.08" font-size="18" font-weight="700">Research-only truth</text>
+<text x="60" y="394.08" font-size="16" font-weight="normal">
+<tspan x="60" dy="0">Hidden authorization truth.</tspan>
+</text>
+<text x="60" y="430.59999999999997" font-size="18" font-weight="700">Residual boundary</text>
+<text x="60" y="458.59999999999997" font-size="16" font-weight="normal">
+<tspan x="60" dy="0">Fresh, validly signed V5 evidence</tspan>
+<tspan x="60" dy="19.52">can remain false; a truthful</tspan>
+<tspan x="60" dy="19.52">pre-onset cache can briefly lag a</tspan>
+<tspan x="60" dy="19.52">state change.</tspan>
+</text>
+<text x="60" y="553.68" font-size="18" font-weight="700">Effect of stronger composition</text>
+<text x="60" y="581.68" font-size="16" font-weight="normal">
+<tspan x="60" dy="0">K4 restriction reduces selected</tspan>
+<tspan x="60" dy="19.52">modeled exposure but does not</tspan>
+<tspan x="60" dy="19.52">eliminate persistent V5</tspan>
+<tspan x="60" dy="19.52">qualification for B0/S1.</tspan>
+</text>
+<rect class="inset" x="58" y="650" rx="12" ry="12" width="397" height="330"/>
+<text x="74" y="678" font-size="17.5" font-weight="700">S3X external-source timing stress test</text>
+<text x="75" y="706" font-size="13.7" font-weight="normal">
+<tspan x="75" dy="0">• 1,919 P99_X10 timestamp intervals</tspan>
+</text>
+<text x="75" y="726.6" font-size="13.7" font-weight="normal">
+<tspan x="75" dy="0">• Empirical hiatus vs matched q=0 refresh</tspan>
+</text>
+<text x="75" y="747.2" font-size="13.7" font-weight="normal">
+<tspan x="75" dy="0">• B0 cache: +1 cadence unit in 5,757</tspan>
+<tspan x="75" dy="16.1">comparisons</tspan>
+</text>
+<text x="75" y="783.9000000000001" font-size="13.7" font-weight="normal">
+<tspan x="75" dy="0">• V4 affected record: non-qualifying</tspan>
+</text>
+<text x="75" y="804.5000000000001" font-size="13.7" font-weight="normal">
+<tspan x="75" dy="0">• V5 first refresh: B0/S1 qualify; B2</tspan>
+<tspan x="75" dy="16.1">does not</tspan>
+</text>
+<text x="75" y="841.2000000000002" font-size="13.7" font-weight="normal">
+<tspan x="75" dy="0">• Timing changes q, not classification</tspan>
+</text>
+<line class="rule" x1="72" y1="882" x2="441" y2="882"/>
+<text x="75" y="909" font-size="13.2">K4 = synthetic contact modeling</text>
+<text x="75" y="928" font-size="13.2">S3X = timing proxy, not observed RF/contact loss</text>
+<text x="75" y="947" font-size="13.2">Not external empirical replication of Study 3</text>
+<text x="519" y="243" font-size="18" font-weight="700">Gate-visible evidence</text>
+<text x="519" y="271" font-size="16" font-weight="normal">
+<tspan x="519" dy="0">Signed producer claims; vote</tspan>
+<tspan x="519" dy="19.52">threshold; synthetic</tspan>
+<tspan x="519" dy="19.52">provenance-domain count.</tspan>
+</text>
+<text x="519" y="346.56" font-size="18" font-weight="700">Research-only truth</text>
+<text x="519" y="374.56" font-size="16" font-weight="normal">
+<tspan x="519" dy="0">Hidden authorization truth.</tspan>
+</text>
+<text x="519" y="411.08" font-size="18" font-weight="700">Residual boundary</text>
+<text x="519" y="439.08" font-size="16" font-weight="normal">
+<tspan x="519" dy="0">Same-size compromised subsets can</tspan>
+<tspan x="519" dy="19.52">differ because provenance-domain</tspan>
+<tspan x="519" dy="19.52">composition differs.</tspan>
+</text>
+<text x="519" y="514.64" font-size="18" font-weight="700">Effect of stronger composition</text>
+<text x="519" y="542.64" font-size="16" font-weight="normal">
+<tspan x="519" dy="0">Provenance can delay systematic</tspan>
+<tspan x="519" dy="19.52">unsafe qualification, cause</tspan>
+<tspan x="519" dy="19.52">earlier benign rejection for</tspan>
+<tspan x="519" dy="19.52">selected subsets, and have null</tspan>
+<tspan x="519" dy="19.52">threshold effects.</tspan>
+</text>
+<line class="rule" x1="517" y1="860" x2="914" y2="860"/>
+<text x="519" y="893" font-size="14.7" font-weight="normal">
+<tspan x="519" dy="0">Synthetic provenance domains are model</tspan>
+<tspan x="519" dy="18.2">labels; they do not establish real</tspan>
+<tspan x="519" dy="18.2">organizational, hardware,</tspan>
+<tspan x="519" dy="18.2">administrative, or supply-chain</tspan>
+<tspan x="519" dy="18.2">independence.</tspan>
+</text>
+<text x="978" y="243" font-size="18" font-weight="700">Gate-visible evidence</text>
+<text x="978" y="271" font-size="16" font-weight="normal">
+<tspan x="978" dy="0">Signature; digest; provenance;</tspan>
+<tspan x="978" dy="19.52">reproduced-build match;</tspan>
+<tspan x="978" dy="19.52">source-review attestation; release</tspan>
+<tspan x="978" dy="19.52">approval.</tspan>
+</text>
+<text x="978" y="366.08" font-size="18" font-weight="700">Research-only truth</text>
+<text x="978" y="394.08" font-size="16" font-weight="normal">
+<tspan x="978" dy="0">Objective baseline correctness.</tspan>
+</text>
+<text x="978" y="430.59999999999997" font-size="18" font-weight="700">Residual boundary</text>
+<text x="978" y="458.59999999999997" font-size="16" font-weight="normal">
+<tspan x="978" dy="0">APPROVED_BAD_SOURCE remains</tspan>
+<tspan x="978" dy="19.52">qualified when all six</tspan>
+<tspan x="978" dy="19.52">gate-visible assurance signals are</tspan>
+<tspan x="978" dy="19.52">true.</tspan>
+</text>
+<text x="978" y="553.68" font-size="18" font-weight="700">Effect of stronger composition</text>
+<text x="978" y="581.68" font-size="16" font-weight="normal">
+<tspan x="978" dy="0">Additional signals close specified</tspan>
+<tspan x="978" dy="19.52">modeled states while increasing</tspan>
+<tspan x="978" dy="19.52">sensitivity to benign</tspan>
+<tspan x="978" dy="19.52">assurance-signal loss.</tspan>
+</text>
+<line class="rule" x1="976" y1="860" x2="1373" y2="860"/>
+<text x="978" y="893" font-size="14.7" font-weight="normal">
+<tspan x="978" dy="0">The six-state, six-gate model is a</tspan>
+<tspan x="978" dy="18.2">finite observability model, not a</tspan>
+<tspan x="978" dy="18.2">production supply-chain experiment or</tspan>
+<tspan x="978" dy="18.2">operational failure probability.</tspan>
+</text>
+
+<text x="716.0" y="1063" text-anchor="middle" font-size="17" font-weight="700">Parallel residual trust boundaries at the qualification layer</text>
+<text x="716.0" y="1095" text-anchor="middle" font-size="15.3">Separately evaluated populations; qualitative synthesis only; no pooled population; no experimental data flow.</text>
+<text x="716.0" y="1125" text-anchor="middle" font-size="14.3">Study 3 K4 is synthetic contact modeling. S3X intervals are external timing proxies, not observed RF/contact loss.</text>
+</svg>
