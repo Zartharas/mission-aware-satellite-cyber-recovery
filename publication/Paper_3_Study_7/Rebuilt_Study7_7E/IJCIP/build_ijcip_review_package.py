@@ -60,7 +60,7 @@ def main():
                 for cell in row.cells:
                     if table_index in (4,5,6):
                         label = aliases.get(cell.text,cell.text)
-                        if table_index==4 and row_index==0:
+                        if table_index in (3,4) and row_index==0:
                             label = {
                                 "Objective errors":"Errors",
                                 "Unsafe proceed":"Unsafe",
@@ -90,6 +90,13 @@ def main():
         for segment in s7_note.runs:
             segment.font.size=Pt(8.5)
         d.tables[2]._element.addnext(s7_note._element)
+        s7_error_note = d.add_paragraph(
+            "Table 4 column abbreviations: Unsafe = unsafe proceed; "
+            "FCH = false-conservative hold."
+        )
+        for segment in s7_error_note.runs:
+            segment.font.size = Pt(8.5)
+        d.tables[3]._element.addnext(s7_error_note._element)
         note = d.add_paragraph(
             "Table-label key: D0 = D0_BASE; L0 = L0_BASE; "
             "D1 = D1_CORROBORATED; L1 = L1_CORROBORATED. "
@@ -101,6 +108,8 @@ def main():
         # policy rows and their legend across adjacent pages.
         d.tables[4]._element.addprevious(note._element)
         for paragraph in d.paragraphs:
+            if paragraph.text.startswith("Table 3. Study 7 hidden-truth collision"):
+                paragraph.paragraph_format.page_break_before = True
             if paragraph.text.startswith("4.2 Study 7E: aggregate held-out outcomes"):
                 paragraph.paragraph_format.page_break_before=True
             if paragraph.text.startswith("4.3 Held-out block results"):
