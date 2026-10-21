@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-      - name: Validate science, data figures, 24 citations, and statements
+      - name: Validate science, figures, ordered bibliography, and statements
         run: python scripts/audit_paper3_ijcip_r3_enhancements.py
       - name: Install build tools
         run: |
