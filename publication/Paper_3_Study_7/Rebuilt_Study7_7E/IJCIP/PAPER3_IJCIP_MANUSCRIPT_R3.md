@@ -93,6 +93,7 @@ Within that context, the experimental unit in this paper remains a spacecraft cy
 
 The two studies are synthesized narratively but remain separate populations and provenance chains.
 
+**Table 1.** Study 7 and Study 7E designs, units of analysis, and scientific evidence boundaries.
 | Dimension | Study 7 / S7-LSO-001 | Study 7E / S7E-AERC-001 |
 |---|---|---|
 | Scientific role | information-sufficiency foundation | architecture-grounded prospective extension |
@@ -211,6 +212,7 @@ Each evidence path is assigned experimental identifiers for five domains:
 
 The five frozen topologies progressively separate these domains.
 
+**Table 2.** Frozen Study 7E experimental trust-domain topology classes.
 | Topology | Separate domains |
 |---|---|
 | T0_SHARED_ALL | none |
@@ -279,6 +281,7 @@ In Block B, L1 evaluates all 512 extended visible states. It has exactly two obj
 
 Block C contains the hidden-truth collision.
 
+**Table 3.** Study 7 hidden-truth collision and corroboration conditions.
 | Scenario / block | D0 result | L0 result | L1 result | Interpretation |
 |---|---|---|---|---|
 | SAFE_CORROBORATED | correct proceed | correct proceed | correct proceed | visible and hidden authorization agree |
@@ -287,6 +290,7 @@ Block C contains the hidden-truth collision.
 
 The full exact Study-7 counts are:
 
+**Table 4.** Exact Study 7 finite-population policy outcomes by experimental block.
 | Block | Policy | N | Errors | Unsafe proceed | False-conservative hold | Proceed |
 |---|---|---:|---:|---:|---:|---:|
 | A | D0 | 256 | 0 | 0 | 0 | 3 |
@@ -302,6 +306,7 @@ Study 7 therefore answers the foundation question in two parts. Learning the vis
 
 Study 7E produced the following exact aggregate counts over 196 held-out scenarios per policy.
 
+**Table 5.** Exact held-out Study 7E endpoints across 196 scenarios per policy.
 | Policy | Objective errors | Unsafe proceed | False-conservative hold | ENTER | HOLD |
 |---|---:|---:|---:|---:|---:|
 | D0_BASE | 40 | 9 | 31 | 25 | 171 |
@@ -319,6 +324,7 @@ These counts do not support a global policy ranking. D1 has the fewest unsafe pr
 
 Block-level exact counts, written as errors / unsafe proceed / false-conservative hold, are:
 
+**Table 6.** Study 7E outcomes by held-out block (objective errors / unsafe proceeds / false-conservative holds).
 | Block | D0_BASE | L0_BASE | D1_CORROBORATED | L1_CORROBORATED |
 |---|---|---|---|---|
 | E1 unseen faults, n=84 | 18 / 3 / 15 | 21 / 9 / 12 | 24 / 3 / 21 | 17 / 11 / 6 |
@@ -367,6 +373,7 @@ The directions are therefore opposite across the two policy classes. Corroborati
 
 Aggregate topology comparisons can be confounded when fault sets differ. The frozen review therefore compares the common F6-F12 subset, in which each topology contributes 28 scenarios.
 
+**Table 7.** Equal-fault-set Study 7E F6–F12 topology comparison (28 scenarios per topology).
 | Policy | T0 error/unsafe/FCH | T1 | T2 | T3 | T4 |
 |---|---|---|---|---|---|
 | D0_BASE | 6/1/5 | 6/1/5 | 6/1/5 | 6/1/5 | 6/1/5 |
@@ -392,6 +399,7 @@ These cases prevent a simple narrative in which more domain separation automatic
 
 ### 4.8 Frozen Study-7E hypothesis disposition
 
+**Table 8.** Frozen Study 7E hypothesis dispositions and supporting evidence.
 | Hypothesis | Frozen disposition | Evidence |
 |---|---|---|
 | H1: equal-information comparison separates information advantage from policy behavior | SUPPORTED | equal paired hashes plus nonzero D0/L0 and D1/L1 disagreement |

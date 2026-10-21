@@ -78,6 +78,25 @@ def main():
         verify(bars[p] == (r["unsafe_proceed"],r["false_conservative_hold"]), "graphic endpoints drift")
     for marker in ("No combined sample size or pooled error rate is computed","not flight-software-in-the-loop learned inference","F12","C0 no-signal","No Study-7 or Study-7E scientific execution is rerun","Declaration of generative AI and AI-assisted technologies"):
         verify(marker in manuscript, "essential qualification removed: "+marker)
+    # Publication display contract: all eight native tables must carry unique,
+    # consecutively numbered manuscript-source captions immediately before them.
+    caption_lines = manuscript.splitlines()
+    caption_indices = [
+        i for i, line in enumerate(caption_lines)
+        if re.match(r"^\*\*Table [1-8]\.\*\* ", line)
+    ]
+    verify(len(caption_indices) == 8, "expected eight numbered Table captions")
+    for table_number, line_index in enumerate(caption_indices, start=1):
+        verify(
+            caption_lines[line_index].startswith(f"**Table {table_number}.** "),
+            "table captions out of manuscript order"
+        )
+        verify(
+            line_index + 1 < len(caption_lines)
+            and caption_lines[line_index+1].startswith("| "),
+            "table caption not adjacent to native table"
+        )
+    print("PAPER3_R3_NUMBERED_NATIVE_TABLE_CAPTIONS=PASS")
     for marker in ("Paper 1","Paper 2","Paper 4","Paper 5","P2X","NO new scientific observation","NOT GRANTED"):
         verify(marker in guard, "cross-study firewall missing: "+marker)
 
