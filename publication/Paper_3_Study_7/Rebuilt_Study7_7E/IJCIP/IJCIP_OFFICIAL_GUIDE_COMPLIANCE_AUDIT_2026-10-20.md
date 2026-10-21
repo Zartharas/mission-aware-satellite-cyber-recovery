@@ -32,3 +32,11 @@ Only Paper 3 study populations are reported: Study 7 = 1,033 modeled observation
 6. Preview the actual publisher portal PDF after separately authorized upload; then request distinct explicit approval before final Submit.
 
 Neither PR #168, PR #222 nor PR #223 is authorized to merge by this audit. The repository reports public visibility: treat drafts as public; do not introduce confidential or proprietary data.
+
+## 2026-10-20 live primary-source bibliography QA
+
+- ISO/LTWA abbreviated journal titles where verified: Sci. Data; Acta Astronaut.; Int. J. Crit. Infrastruct. Prot.; Adv. Space Res.; Inf. Softw. Technol. Source scientific titles, DOI strings and empirical claims unchanged.
+- Real 2026-10-20 live-access dates added only to eight URLs directly verified during this check: references [2] GovInfo, [4] Office of Space Commerce, [9] NASA technical report and [20]–[24] NASA Software Catalog. Their official NASA catalog reference titles were corrected for entries [20], [22], [23], [24].
+- Web-only [1] SPARTA timed out and [3] CISA direct access remains restricted from the research browser; **do not invent** a last-accessed date. Obtain direct browser verification before publisher submission. Some proceedings, agency and preprint reference formatting still needs final source/venue-format verification.
+- Study 7 Zenodo DOI [27] is in the manuscript bibliography and data availability, but the record metadata was inaccessible to the external research browser. The author must verify title, creators, version, license and DOI on the actual Zenodo landing page before submission.
+- Study 7E separate DOI remains **NOT ASSIGNED**; only checksum-bound unpublished deposit candidate exists. Publishing it requires its own explicit release/rights and metadata review.

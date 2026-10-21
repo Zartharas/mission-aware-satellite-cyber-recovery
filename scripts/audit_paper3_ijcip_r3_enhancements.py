@@ -136,6 +136,13 @@ def main():
     highlights = (R3 / "IJCIP_HIGHLIGHTS_R1.txt").read_text(encoding="utf-8").splitlines()
     highlights = [line.strip().lstrip("•- ").strip() for line in highlights if line.strip()]
     verify(3 <= len(highlights) <= 5 and all(len(h) <= 85 for h in highlights), "highlights 3-5 / 85-character guidance violated")
+    for refid in (2, 4, 9, 20, 21, 22, 23, 24):
+        ref_line = re.search(r"^\\[" + str(refid) + r"\\]\\s+.+$", bib, re.MULTILINE)
+        verify(ref_line is not None and "(accessed 20 October 2026)" in ref_line.group(0), "verified source access date missing")
+    for abbreviation in ("Sci. Data", "Acta Astronaut.", "Int. J. Crit. Infrastruct. Prot.", "Adv. Space Res.", "Inf. Softw. Technol."):
+        verify("*" + abbreviation + "*" in bib, "LTWA bibliography name missing")
+    verify("[27] [dataset]" in bib, "IJCIP dataset reference marker missing")
+    print("PAPER3_IJCIP_LIVE_SOURCE_AND_LTWA_CHECK=PASS")
     print("PAPER3_R3_REFERENCE_ORDER_1_TO_27=PASS")
     print("PAPER3_IJCIP_PROVISIONAL_ABSTRACT_HIGHLIGHTS=PASS")
     print("PAPER3_FROZEN_STUDY7_AND_STUDY7E=PASS")
