@@ -93,7 +93,7 @@ Within that context, the experimental unit in this paper remains a spacecraft cy
 
 ### 3.1 Scientific separation
 
-The two studies are synthesized narratively but remain separate populations and provenance chains.
+The two studies are synthesized narratively but remain separate populations and provenance chains. Table 1 compares their separately frozen scientific units.
 
 **Table 1.** Study 7 and Study 7E designs, units of analysis, and scientific evidence boundaries.
 
@@ -163,9 +163,11 @@ The cFS engineering qualification path compiled and executed the producer bridge
 
 The canonical held-out scientific inference is therefore best described as **cFS-grounded, not flight-software-in-the-loop learned inference**. The frozen architecture and evidence contracts are grounded in the cFS implementation surfaces, while held-out policy evaluation uses frozen deterministic rules and hash-verified decision-tree model artifacts in a bound Python environment, with an independently implemented semantic-tree interpreter auditing learned decisions.
 
+Figure 1 distinguishes bounded cFS engineering checks from the separate frozen Python policy evaluation.
+
 ![Architecture of the separate cFS engineering qualification and Python held-out inference lanes, with research-only truth excluded from selector inputs](figures/PAPER3_IJCIP_FIG1_ARCHITECTURE.svg)
 
-**Figure 1.** Experimental architecture and evidence boundary. The five source/key/execution/transport/authority domains are modeled identities, not certified physical or organizational independence. The separate cFS engineering and frozen Python held-out lanes do not demonstrate onboard learned-policy execution or an operational spacecraft–ground loop.
+**Figure 1.** Experimental architecture and evidence boundary. The five source/key/execution/transport/authority domains are modeled identities, not certified physical or organizational independence. The separate cFS engineering and frozen Python held-out lanes do not demonstrate onboard learned-policy execution or an operational spacecraft–ground loop. AI-use disclosure: OpenAI ChatGPT assisted in drafting the reproducible SVG preparation code; the author reviewed the scientific diagram and its architectural boundaries.
 
 ### 3.4 Equal-information policy contracts
 
@@ -213,7 +215,7 @@ Each evidence path is assigned experimental identifiers for five domains:
 - transport; and
 - authorization authority.
 
-The five frozen topologies progressively separate these domains.
+The five frozen topologies progressively separate these domains, as shown in Table 2.
 
 **Table 2.** Frozen Study 7E experimental trust-domain topology classes.
 
@@ -283,7 +285,7 @@ In Study-7 Block A, D0 and L0 each evaluate all 256 visible states. Both have ze
 
 In Block B, L1 evaluates all 512 extended visible states. It has exactly two objective errors: one unsafe proceed and one false-conservative hold. Both occur when visible authorization and corroboration disagree in an otherwise fully qualifying security state.
 
-Block C contains the hidden-truth collision.
+Block C contains the hidden-truth collision described in Table 3.
 
 **Table 3.** Study 7 hidden-truth collision and corroboration conditions.
 
@@ -293,7 +295,7 @@ Block C contains the hidden-truth collision.
 | V5_INDEPENDENT_DISAGREEMENT | unsafe proceed | unsafe proceed | correct hold | corroboration distinguishes hidden-false state |
 | V5_CORRELATED_FALSE_CORROBORATION | unsafe proceed | unsafe proceed | unsafe proceed | corroboration shares the false condition |
 
-The full exact Study-7 counts are:
+The full exact Study 7 counts are given in Table 4:
 
 **Table 4.** Exact Study 7 finite-population policy outcomes by experimental block.
 
@@ -310,7 +312,7 @@ Study 7 therefore answers the foundation question in two parts. Learning the vis
 
 ### 4.2 Study 7E: aggregate held-out outcomes
 
-Study 7E produced the following exact aggregate counts over 196 held-out scenarios per policy.
+Table 5 gives the exact aggregate counts for each policy across the 196 held-out Study 7E scenarios.
 
 **Table 5.** Exact held-out Study 7E endpoints across 196 scenarios per policy.
 
@@ -323,13 +325,15 @@ Study 7E produced the following exact aggregate counts over 196 held-out scenari
 
 These counts do not support a global policy ranking. D1 has the fewest unsafe proceeds but the most false-conservative holds and the most total objective errors. L1 has the most unsafe proceeds but the fewest false-conservative holds. A single aggregate error total would therefore conceal materially different safety/availability behavior.
 
+Figure 2 plots the two distinct error outcomes for the four frozen Study 7E selectors.
+
 ![Grouped bars of unsafe proceeds and false-conservative holds for four Study 7E policies](figures/PAPER3_IJCIP_FIG2_ENDPOINTS.svg)
 
-**Figure 2.** Exact counts for each selector across the same 196 Study 7E held-out scenarios. Unsafe proceeds and false-conservative holds are different failure types, not a single mission-weighted cost. The adverse F12 transfer and C0 all-HOLD controls are preserved in the results below.
+**Figure 2.** Exact counts for each selector across the same 196 Study 7E held-out scenarios. Unsafe proceeds and false-conservative holds are different failure types, not a single mission-weighted cost. The adverse F12 transfer and C0 all-HOLD controls are preserved in the results below. AI-use disclosure: OpenAI ChatGPT assisted in drafting the SVG preparation code; the author verified the plotted counts against the frozen Study 7E endpoint records.
 
 ### 4.3 Held-out block results
 
-Block-level exact counts, written as errors / unsafe proceed / false-conservative hold, are:
+Table 6 reports block-level exact counts as errors / unsafe proceed / false-conservative hold:
 
 **Table 6.** Study 7E outcomes by held-out block (objective errors / unsafe proceeds / false-conservative holds).
 
@@ -379,7 +383,7 @@ The directions are therefore opposite across the two policy classes. Corroborati
 
 ### 4.6 Topology-controlled trust separation
 
-Aggregate topology comparisons can be confounded when fault sets differ. The frozen review therefore compares the common F6-F12 subset, in which each topology contributes 28 scenarios.
+Aggregate topology comparisons can be confounded when fault sets differ. The frozen review compares the common F6-F12 subset in Table 7, where each topology contributes 28 scenarios.
 
 **Table 7.** Equal-fault-set Study 7E F6–F12 topology comparison (28 scenarios per topology).
 
@@ -407,6 +411,8 @@ F12, primary execution compromise, is an adverse learned-transfer counterexample
 These cases prevent a simple narrative in which more domain separation automatically improves every selector.
 
 ### 4.8 Frozen Study-7E hypothesis disposition
+
+Table 8 retains the frozen hypothesis dispositions, including partial support and adverse evidence.
 
 **Table 8.** Frozen Study 7E hypothesis dispositions and supporting evidence.
 
@@ -533,7 +539,7 @@ Not applicable. The studies did not involve human participants, identifiable hum
 
 ### Data availability
 
-The Study 7 protocol, canonical result records, policy summary, and separately implemented audit materials are publicly available in the mission-aware-satellite-cyber-recovery repository. The accepted Study 7 evidence is also preserved in the Zenodo dataset *Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence*, version DOI 10.5281/zenodo.22732060 (concept DOI 10.5281/zenodo.22732059). Study 7E protocol, model-freeze, held-out evaluation, result-freeze, exact endpoint, audit, and durable raw-artifact preservation records are maintained in the same public repository. No confidential, proprietary, or human-subject data are used.
+The Study 7 protocol, canonical outputs, and independently implemented audit are publicly available at https://github.com/Zartharas/mission-aware-satellite-cyber-recovery. Accepted Study 7 evidence is additionally preserved as a Zenodo dataset, version DOI https://doi.org/10.5281/zenodo.22732060 [27] (concept DOI https://doi.org/10.5281/zenodo.22732059). Study 7E's separately frozen protocol, model state, endpoint counts, and exact original held-out Actions archive are preserved publicly under result-freeze S7E-AERC-RESULT-FREEZE-001 in the same repository. A separate Study 7E data-repository deposit and persistent identifier are in preparation and must be supplied before submission. The two scientific populations are never pooled. No confidential, proprietary, or human-subject data are used.
 
 ### Code availability
 
@@ -595,3 +601,5 @@ During the preparation of this work, the author used OpenAI ChatGPT to support l
 [25] A. Cantelli-Forti, A. Capria, A. L. Saverino, F. Berizzi, D. Adami, and C. Callegari, "Critical infrastructure protection system design based on SCOUT multitech seCurity system for intercOnnected space control groUnd staTions," *International Journal of Critical Infrastructure Protection*, vol. 32, Art. 100407, 2021, doi: 10.1016/j.ijcip.2020.100407.
 
 [26] A. Carlo and K. Obergfaell, "Cyber attacks on critical infrastructures and satellite communications," *International Journal of Critical Infrastructure Protection*, vol. 46, Art. 100701, 2024, doi: 10.1016/j.ijcip.2024.100701.
+
+[27] A. K. Singh, *Mission-Aware Satellite Cyber Recovery - Study 7 Learned Selector Observability Evidence* [dataset], Zenodo, 2026. https://doi.org/10.5281/zenodo.22732060.
