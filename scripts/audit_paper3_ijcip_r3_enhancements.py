@@ -92,9 +92,10 @@ def main():
             "table captions out of manuscript order"
         )
         verify(
-            line_index + 1 < len(caption_lines)
-            and caption_lines[line_index+1].startswith("| "),
-            "table caption not adjacent to native table"
+            line_index + 2 < len(caption_lines)
+            and caption_lines[line_index+1] == ""
+            and caption_lines[line_index+2].startswith("| "),
+            "table caption must precede native table with one blank line"
         )
     print("PAPER3_R3_NUMBERED_NATIVE_TABLE_CAPTIONS=PASS")
     for marker in ("Paper 1","Paper 2","Paper 4","Paper 5","P2X","NO new scientific observation","NOT GRANTED"):
