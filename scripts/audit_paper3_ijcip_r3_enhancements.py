@@ -117,7 +117,7 @@ def main():
         for ref_id in range(first, last + 1):
             if ref_id not in citation_order:
                 citation_order.append(ref_id)
-    verify(citation_order == list(range(1, 25)), "citations not ordered by first appearance")
+    verify(citation_order == list(range(1, 27)), "citations not ordered by first appearance")
     verify("https://www.govinfo.gov/app/details/GOVPUB-PREX23-PURL-gpo193490" in bib, "preserved historical government source missing")
     verify("https://www.whitehouse.gov/wp-content/uploads/2021/12/united-states-space-priorities-framework" not in bib, "broken historical URL remains")
     abstract = manuscript.split("## Abstract\n", 1)[1].split("**Keywords:**", 1)[0]
@@ -126,7 +126,7 @@ def main():
     highlights = (R3 / "IJCIP_HIGHLIGHTS_R1.txt").read_text(encoding="utf-8").splitlines()
     highlights = [line.strip().lstrip("•- ").strip() for line in highlights if line.strip()]
     verify(3 <= len(highlights) <= 5 and all(len(h) <= 85 for h in highlights), "highlights 3-5 / 85-character guidance violated")
-    print("PAPER3_R3_REFERENCE_ORDER_1_TO_24=PASS")
+    print("PAPER3_R3_REFERENCE_ORDER_1_TO_26=PASS")
     print("PAPER3_IJCIP_PROVISIONAL_ABSTRACT_HIGHLIGHTS=PASS")
     print("PAPER3_FROZEN_STUDY7_AND_STUDY7E=PASS")
     print("PAPER3_MANUSCRIPT_ENDPOINTS_AND_FIGURES=PASS")
