@@ -1,0 +1,257 @@
+{
+  "schema": 1,
+  "record_id": "PAPER2-CEAS-NEW-CHAT-CONTINUATION-2026-10-09",
+  "project": "Satellite Dissertation Paper",
+  "repository": "Zartharas/mission-aware-satellite-cyber-recovery",
+  "verified_live_main_on_handoff": "4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4",
+  "publication": {
+    "pr_number": 216,
+    "pr_url": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/216",
+    "branch": "publication/paper2-r5-readiness-20261008",
+    "pre_handoff_head": "b6eb6b74df1ff3869dd9f8915b1b78ceeea04560",
+    "successful_workflow": {
+      "name": "Validate research configurations",
+      "run_number": 1465,
+      "run_id": 38083892611,
+      "conclusion": "success",
+      "head_sha": "b6eb6b74df1ff3869dd9f8915b1b78ceeea04560"
+    },
+    "status": "DRAFT__OPEN__UNMERGED__NO_RELEASE__NO_CEAS_SUBMISSION",
+    "target_venue": "CEAS Space Journal",
+    "publisher": "Springer Nature",
+    "article_type": "Original Research Article",
+    "original_venue_neutral_r4_blob": "069e319864b1f5c1ee201b31872e68572fea1923",
+    "manuscript": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_MANUSCRIPT_R5_2026-10-09.md",
+    "title_page": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_TITLE_PAGE_DRAFT_2026-10-09.md",
+    "cover_letter": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_COVER_LETTER_DRAFT_2026-10-09.md",
+    "gate": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_JOURNAL_COMPLIANCE_GATE_2026-10-09.json",
+    "references_review": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_REFERENCE_INTEGRITY_SCREEN_2026-10-09.json",
+    "readiness": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_SUBMISSION_READINESS_2026-10-09.md",
+    "static_audit": "scripts/audit_paper2_ceas_r5.py",
+    "draft_renderer": "scripts/build_paper2_ceas_package.py",
+    "abstract_whitespace_word_count": 228,
+    "keywords_count": 6,
+    "reference_entries": 19,
+    "tables": 5,
+    "figure_1": 1,
+    "reference_batch": {
+      "current_manuscript_screen_20261010": {
+        "total": 19,
+        "matched": 14,
+        "false_generic_title_mismatch": 1,
+        "official_unindexed": 4,
+        "retraction_flags_reported": 0,
+        "final_retraction_clearance": false
+      },
+      "historical_batch_20_preserved": true
+    },
+    "unresolved_reference_6": "REMOVED_ORIGINAL_DRAFT_AND_RENUMBERED_REMAINING_19",
+    "declared_controls": {
+      "portal_actions": false,
+      "submission": false,
+      "merge_pr216": false
+    },
+    "ready_for_submission": false,
+    "reference_manual_verification_complete": false,
+    "git_repo_visibility_checked_20261009": "PUBLIC",
+    "exact_head_ci_1435": {
+      "head": "1ee5f22ddb4c29b9f09e14bb7ed041ca2879d3c1",
+      "run_id": 37939755849,
+      "conclusion": "success"
+    },
+    "initial_rendered_preview": {
+      "source_head": "a979b28e690b462cb7e9e01196e6ca0a28784406",
+      "pdf_pages": 32,
+      "pdf_sha256": "28553bf0fc7be0500978d15c6dbc497384014cd1eddc8b75cb1a06fe75c1cdf5",
+      "docx_sha256": "20dc7b505fa8746ebf2b06993fe832da720112a85d8c98f3490cea64a3789b58",
+      "visual_qa": "FAIL"
+    },
+    "new_head_visual_qa_required": true,
+    "exact_head_ci_1438": {
+      "head": "41cf5b8f4b128b7eeb07a36063b14b0f6c2fa513",
+      "run_id": 37972985997,
+      "conclusion": "success"
+    },
+    "second_rendered_preview": {
+      "source_head": "41cf5b8f4b128b7eeb07a36063b14b0f6c2fa513",
+      "pdf_pages": 31,
+      "pdf_sha256": "3d925eeaaed21b3b7ed70d6b9c308a737c01bc3cf8b5c1d3cc9f4eaad804d111",
+      "docx_sha256": "0aeb2c3b0ae80b829fffe60670d19410c1cc90ea392928308ccb562e583210ef",
+      "visual_qa": "HOLD",
+      "changed_layout_test_pass": "LOCAL_SANDBOX_29_PAGE_RETYPESETTING_EXPERIMENT_NOT_FINAL"
+    },
+    "exact_head_ci_1439": {
+      "head": "35f035f79f4335811a4f048ab01732adc1c4f011",
+      "run_number": 1439,
+      "run_id": 37974650149,
+      "conclusion": "success"
+    },
+    "third_rendered_preview": {
+      "source_head": "35f035f79f4335811a4f048ab01732adc1c4f011",
+      "pdf_pages": 29,
+      "docx_sha256": "3067cd516a5e0dd4f51e14a57a27f886f8549225b252624ebcfdb94f35438eb9",
+      "pdf_sha256": "06236cb2092fc2f1020a84d78cb2b0f627f490359da14790b1431b8400310d7e",
+      "visual_qa": "HOLD",
+      "remaining_layout_defect": "TABLE2_LAST_ROW_SPLIT_PAGES_13_TO_14",
+      "figure1_print_qa": "HOLD_INTERNAL_TEXT_TOO_SMALL",
+      "paragraph_text_coverage": "253_OF_253_SUBSTANTIVE_DOCX_PARAGRAPHS"
+    },
+    "next_preview_required_after_table2_layout_fix": false,
+    "exact_head_ci_1440": {
+      "head": "c21c1ab3f6a246e38d220eaecc6ff68717003444",
+      "run_id": 37978658906,
+      "conclusion": "success"
+    },
+    "fourth_rendered_preview": {
+      "source_head": "c21c1ab3f6a246e38d220eaecc6ff68717003444",
+      "pdf_pages": 29,
+      "docx_sha256": "70c0a8ca8bb3f505868bafd78efbdc387ad2596d81f3ae37153775ed4ac3173b",
+      "pdf_sha256": "a8c606dc22583ba8f774c705656c353549577daf43f005874986f04f882a21c8",
+      "visual_qa": "HOLD",
+      "table2_page": "13_COMPLETE",
+      "table5_pages": "19_20_SPLIT",
+      "local_table5_keep_together_test": "PASS_29_PAGES_CONTENT_PARITY",
+      "new_author_host_render": "PENDING"
+    },
+    "exact_head_ci_1441": {
+      "head": "0fa0ee59af9e2b05aafc42c23795c2539f5af188",
+      "run_number": 1441,
+      "run_id": 37985307024,
+      "conclusion": "success"
+    },
+    "fifth_rendered_preview": {
+      "source_head": "0fa0ee59af9e2b05aafc42c23795c2539f5af188",
+      "author_host_out_dir": "PAPER2_CEAS_R5_PREVIEW_20261010T012718Z",
+      "pdf_pages": 29,
+      "docx_sha256": "0d34aac12d658ef2f4bc3294f34cc0650afd6b1addb85c31896d8b54b2cb9bec",
+      "pdf_sha256": "afb111d9989bb0155593d1adafb4be21a59d973ae38a09f93a38793ceb9db6bf",
+      "docx_body_paragraph_text_parity_with_fourth": "268_OF_268",
+      "all_five_table_cell_text_parity_with_fourth": true,
+      "table_pages": [
+        8,
+        13,
+        15,
+        18,
+        20
+      ],
+      "table_pagination_qa": "PASS",
+      "figure1_print_qa": "HOLD",
+      "submission_ready": false
+    },
+    "reviewed_source_preview_is_historical": {
+      "source_head": "b8f41a4855032bc6f2882b54eee4884ed6c4483d",
+      "pages": 29,
+      "word_native_tables": 5,
+      "figure_page": 9,
+      "docx_sha256": "0408c9ea0f50dc3fa27924b55c7c5b64770f1847bb6e770df9ef288f0a3cc036",
+      "pdf_sha256": "7d7fe10521de8f0789ec322b063b81b7d6dd43d41d6426584651b06feaf94b65",
+      "classification": "HISTORICAL_ONLY__R5_SOURCE_CHANGED_AFTER"
+    }
+  },
+  "optional_p2x": {
+    "pr_number": 215,
+    "pr_url": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/215",
+    "head": "0a5ab758a4b7f0002c3407d269efc7bb4cb22499",
+    "successful_workflow": {
+      "run_number": 1428,
+      "run_id": 37819118655,
+      "conclusion": "success"
+    },
+    "frozen_9_raw_build_artifacts": "PASS",
+    "full_source_sha_differences": {
+      "git_indexes": 51,
+      "cmake_configuration_logs": 4,
+      "applied_exclusions": 0
+    },
+    "runtime_dependency_closure": "UNRESOLVED",
+    "allowed_runtime_execution": false,
+    "allowed_workspace_materialization": false,
+    "allowed_merge": false,
+    "scientific_role_in_r5": "NONE; this experimental track is not required to claim frozen R4 study results"
+  },
+  "science": {
+    "original_studies": [
+      3,
+      4,
+      6
+    ],
+    "external_extensions": [
+      "S3X timing proxy",
+      "S6X executable residual stress test"
+    ],
+    "populations_pooled": false,
+    "operational_satellite_recovery_claimed": false,
+    "prior_taes_r10_immutable": true,
+    "historical_taes_result": "Editorial prescreen rejection on 2026-09-26 without external peer review",
+    "sole_independent_author": true
+  },
+  "open_submission_blockers": [
+    "FULL_19_IN_TEXT_CLAIM_TO_PRIMARY_SOURCE_VERIFICATION_AND_EDITORIAL_NOTICES_OPEN",
+    "IEEE_3_14_CROSSREF_PAGE_FIELDS_MATCH__FINAL_PUBLISHER_PDFS_NOT_INSPECTED",
+    "ESA_V2_SOURCE_LICENCE_AND_1919_DERIVED_TRACE_REUSE_RIGHTS_UNVERIFIED",
+    "RIGHTS_CLEARED_ACTUAL_REVIEWER_ACCESS_AND_DATA_CODE_AVAILABILITY_NOT_ESTABLISHED",
+    "STUDY3_FROZEN_ZIP_VS_TRACKED_25_NUMERIC_VALUES_13_CELLS_PROVENANCE_NOT_RESOLVED",
+    "AI_FIGURE1_TOOL_VERSION_PUBLISHER_POLICY_FINAL_REVIEW",
+    "NEW_EXACT_HEAD_MANUSCRIPT_DOCX_PDF_VISUAL_A11Y_QA_REQUIRED",
+    "FINAL_COVER_LETTER_ORIGINALITY_PARALLEL_SUBMISSION_AND_PERMISSIONS_ATTESTATIONS",
+    "EXPLICIT_AUTHOR_APPROVAL_REQUIRED_FOR_ANY_PR_MERGE_RELEASE_OR_CEAS_PORTAL_SUBMISSION"
+  ],
+  "prohibition": "Draft only. Never merge PR #216 or #215, run experiments, release private raw/frozen datasets, infer ESA v2 derivative rights or unpublished IEEE full text, or submit to CEAS without new explicit user authorization.",
+  "author_declarations_confirmed_20261010": {
+    "name": "Aman Kumar Singh",
+    "role": "Independent Researcher",
+    "institutional_affiliation": null,
+    "location": "The Woodlands, Texas, United States",
+    "orcid": "0009-0008-9752-3743",
+    "email": "aman.singh2406@live.com",
+    "sole_human_author": true,
+    "no_coauthors": true,
+    "external_funding": false,
+    "own_resources_only": true,
+    "external_in_kind_support": false,
+    "competing_interests": false,
+    "acknowledgments": "None",
+    "human_participants": false,
+    "animal_experiments": false,
+    "ethics_approval_required": false,
+    "sole_person_responsible_for_design_execution_analysis_interpretation_final_approval": true,
+    "ai_access": "OpenAI ChatGPT Web",
+    "ai_model_version": "NOT_VERIFIED",
+    "ai_visual_caption_disclosure": true
+  },
+  "metadata_probe_20261010": {
+    "uploaded_filename": "PAPER2_CEAS_METADATA_20261010T202420Z.json",
+    "bytes": 3804,
+    "sha256": "760c449e973334050a1bb8b4f98e740723c61d5a9f7a8f847dd8dae69bcd5065",
+    "errors": 0,
+    "crossref3_page": "1-20",
+    "crossref14_page": "1-10",
+    "manuscript_page_fields_match": true,
+    "publisher_pdf_content_reviewed": false,
+    "zenodo_record": 15237121,
+    "zenodo_doi": "10.5281/zenodo.15237121",
+    "zenodo_access": "open",
+    "zenodo_license": null,
+    "zenodo_rights": null,
+    "esa_v2_derived_redistribution_rights_verified": false
+  },
+  "latest_project_management": {
+    "open_prm_issue": 217,
+    "url": "https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217",
+    "publication_pr": 216,
+    "publication_pr_state": "DRAFT_UNMERGED",
+    "p2x_optional_pr": 215,
+    "p2x_head_verified": "0a5ab758a4b7f0002c3407d269efc7bb4cb22499",
+    "p2x_scientific_role_in_r5": "NONE"
+  },
+  "handoff_latest_verified_pre_commit": {
+    "date": "2026-10-10",
+    "branch": "publication/paper2-r5-readiness-20261008",
+    "pre_handoff_head": "b6eb6b74df1ff3869dd9f8915b1b78ceeea04560",
+    "exact_ci_run": 1465,
+    "exact_ci_run_id": 38083892611,
+    "exact_ci_conclusion": "success",
+    "handoff_markdown": "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/PAPER2_CEAS_NEW_CHAT_HANDOFF_2026-10-09.md",
+    "note": "PRE-HANDOFF commit, not expected to remain branch HEAD after this file is committed. New chat must verify actual post-handoff HEAD and its CI."
+  }
+}
