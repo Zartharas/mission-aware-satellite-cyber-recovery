@@ -4,7 +4,7 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and is undergoing technical checks. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
+The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and is undergoing technical checks. Paper 3 was rejected by CEAS Space Journal on 2026-09-22, then developed separately frozen Study 7E evidence; its rebuilt Study 7 + Study 7E IJCIP R3 manuscript remains a draft, unmerged and unsubmitted. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
 2. **Paper 4:** Study 8 + Study 8E rebuilt manuscript, most recently submitted to IJSCCN; prior Acta submission retained as historical provenance.
@@ -102,7 +102,7 @@ Durable evidence:
 - Zenodo version DOI: `10.5281/zenodo.22732060`
 - Zenodo concept DOI: `10.5281/zenodo.22732059`
 
-The rejection audit finds that a manuscript-only retarget is insufficient. A new prospective extension, `S7E-AERC-001`, is proposed to address architecture grounding, trust-domain validation, and equal-information deterministic/learned comparison. It has not been implemented or executed.
+The post-rejection `S7E-AERC-001` extension has completed cFS/NOS3 engineering gates, selected standalone cFS v7.0.1, and been formally frozen after its sole held-out execution (196 scenarios, 784 decisions, 0 invalid and 0 independent-audit mismatches). Study 7 and Study 7E are **separate, unpooled** populations. See [current Paper 3 handoff](Paper_3_Study_7/Post_Rejection_Rebuild/PAPER3_STUDY7E_CURRENT_HANDOFF_2026-10-20.md) and [draft PR #168](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/168). Submission is **not authorized**; remaining venue and package checks are tracked in [Issue #221](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/221).
 
 The older `publication/Paper_3_Study_7/Journal_of_Aerospace_Information_Systems/` directory remains historical, unsubmitted venue-development provenance.
 
@@ -120,7 +120,7 @@ Paper 4 is the Study 8 publication. Do not confuse it with Study 4 / `S4-MPQ-001
 
 ## Deferred independent publication work
 
-Paper 3 recovery is now a separately authorized workstream. Frozen Study 7 remains part of that publication line, and any future Study 7E will be separately designed and unpooled.
+Paper 3 recovery now comprises separately frozen Study 7 and Study 7E evidence. Their finite observation populations are never pooled; IJCIP R3 publication preparation is a distinct unmerged/unsubmitted gate.
 
 The independent remaining-study audit is still separate. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
 
