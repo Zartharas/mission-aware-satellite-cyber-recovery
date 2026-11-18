@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "experiment_id": "S8E-ECTV-001",
+  "implementation_id": "S8E-IMPL-001",
+  "date": "2026-09-20",
+  "status": "IMPLEMENTATION_SPEC_FROZEN_BEFORE_RUNNER_EXECUTION",
+  "base_main_commit": "80a73d47f9ffd7289eec309a48d61c4dbcf1405b",
+  "inherits_read_only_from_study8": {
+    "object_sizes": "study8/STUDY8_CRYPTO_OBJECT_BUDGETS.json",
+    "object_priority": [
+      "recovery_authority_assertion_signature",
+      "successor_kem_encapsulation_key",
+      "successor_signature_verification_key",
+      "kem_ciphertext",
+      "transition_proof_signature",
+      "new_epoch_commit_signature",
+      "post_commit_confirmation_signature"
+    ],
+    "profiles": [
+      "PROFILE_512_44",
+      "PROFILE_768_65",
+      "PROFILE_1024_87"
+    ],
+    "policies": [
+      "P0_HARD_CUTOVER",
+      "P1_STAGED_CUTOVER",
+      "P2_HYBRID_OVERLAP",
+      "P3_CONTACT_AWARE_STAGED"
+    ],
+    "disruptions": [
+      "A0_NONE",
+      "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT",
+      "A2_DELAY_FIRST_TRANSITION_PROOF_ONE_CONTACT",
+      "A3_STALE_EPOCH_REPLAY_AT_COMMIT"
+    ],
+    "state_machine": [
+      "COMPROMISED",
+      "RECOVERY_AUTHORITY_ESTABLISHED",
+      "SUCCESSOR_CRYPTO_PROFILE_SELECTED",
+      "SUCCESSOR_KEY_MATERIAL_STAGED",
+      "TRANSITION_PROOF_ACCEPTED",
+      "NEW_EPOCH_COMMITTED",
+      "OLD_EPOCH_REVOKED",
+      "TRUST_RESTORED"
+    ]
+  },
+  "external_trace_semantics": {
+    "time_unit": "integer_microseconds_relative_to_compromise_anchor",
+    "input_window_shape": "[start_us,end_us]",
+    "input_window_requirement": "end_us > start_us >= 0",
+    "merge_rule": "sort by start_us then union overlapping or directly abutting windows",
+    "same_window_reuse_after_anchor": false,
+    "anchor_semantics": "canonical runs will define each eligible compromise anchor as the end of a merged source observation-opportunity window; the runner itself receives only later relative windows",
+    "cross_station_merge": false,
+    "cross_satellite_merge": false
+  },
+  "hypothetical_rate_semantics": {
+    "rate_unit": "integer_bits_per_second",
+    "minimum_rate_domain": "positive integers",
+    "capacity_formula": "floor(window_duration_microseconds * rate_bps / 8000000)",
+    "capacity_semantics": "extension-model hypothetical uniform net payload bytes available only during accepted observation-opportunity windows; not measured SatNOGS throughput",
+    "framing_transport_rf_overhead_modeled": false,
+    "zero_capacity_window_rule": "If floor(window_duration_microseconds * rate_bps / 8000000) is zero, the window is not an eligible transmission opportunity, consumes no transition attempt, and does not trigger A2 or A3."
+  },
+  "horizons": {
+    "hours": [
+      6,
+      12,
+      24
+    ],
+    "deadline_rule": "TRUST_RESTORED must occur at elapsed_microseconds strictly less than horizon_microseconds",
+    "window_clipping_rule": "a window starting before the horizon is clipped at the horizon boundary for byte-capacity arithmetic; windows starting at or after the horizon are excluded"
+  },
+  "scheduler": {
+    "rule": "within each observation-opportunity window, repeatedly transmit the highest-priority ready incomplete object; newly unlocked objects may use remaining capacity in the same window; partial bytes persist except under A1",
+    "byte_integrity": "all transferred cryptographic bytes are integer bytes",
+    "object_actionability": "an object becomes actionable only after all bytes have arrived",
+    "event_timestamp_rule": "Within one positive-capacity window, proof/commit/completion elapsed timestamps are start_us + ceil(cumulative_bytes_consumed_in_that_window * 8000000 / rate_bps); A1-discarded bytes count as consumed capacity. This preserves fractional-rate carry across object boundaries within the same window."
+  },
+  "disruption_adaptation": {
+    "A0_NONE": "no disruption",
+    "A1_DROP_FIRST_LARGEST_OBJECT_FRAGMENT": "same Study 8 tie-break and semantics: the first allocation in the first window carrying the selected largest object is discarded once; consumed capacity is not restored; retransmission may use remaining capacity in that same window if any",
+    "A2_DELAY_FIRST_TRANSITION_PROOF_ONE_CONTACT": "when transition proof first becomes ready, the first eligible observation-opportunity window at that point is consumed for the delay and no transition-proof bytes are sent in that window; later eligible windows may continue",
+    "A3_STALE_EPOCH_REPLAY_AT_COMMIT": "at the first logical commit opportunity, stale replay is rejected, consumes that observation-opportunity window for commit progression, adds zero modeled bytes, increments the transition-attempt counter once, and defers legitimate commit to a later eligible window"
+  },
+  "p3_guard": {
+    "visible_inputs": [
+      "frozen future observation-opportunity windows inside selected horizon",
+      "hypothetical rate_bps",
+      "profile object sizes",
+      "bytes already delivered",
+      "current protocol state"
+    ],
+    "forbidden_inputs": [
+      "future disruption events",
+      "future outcomes",
+      "unobserved adversary actions"
+    ],
+    "rule": "before sending new_epoch_commit_signature, remaining modeled capacity strictly before the horizon, including unused bytes in the current window, must be at least the unsent commit-signature bytes plus unsent post-commit-confirmation bytes"
+  },
+  "terminal_state_precedence": [
+    "STALE_EPOCH_ACCEPTED",
+    "EPOCH_DIVERGENCE_if_commit_completed_but_confirmation_incomplete_at_horizon",
+    "CONTACT_BUDGET_EXHAUSTED_if_P3_guard_blocked",
+    "INSUFFICIENT_MATERIAL_TRANSFER_if_any_required_precommit_object_incomplete",
+    "RECOVERY_DEADLINE_EXCEEDED_otherwise"
+  ],
+  "state_costs": {
+    "legacy_exposure": "integer elapsed microseconds from anchor to commit or horizon for P1/P2/P3; zero for P0",
+    "control_unavailable": "integer elapsed microseconds from anchor to commit or horizon for P0; zero for P1/P2/P3",
+    "dual_epoch_overlap": "integer elapsed microseconds from proof acceptance to commit or horizon for P2; zero for all other policies"
+  },
+  "minimum_rate_solver": {
+    "target": "smallest positive integer rate_bps producing TRUST_RESTORED under the exact trace/profile/policy/disruption/horizon condition",
+    "structural_infeasibility": "if success cannot occur even when every non-empty eligible window is treated as having enough bytes to finish all currently transmissible objects, return no finite threshold",
+    "search_method": "deterministic monotone integer binary search after a deterministic upper-bound doubling phase",
+    "maximum_search_rate_bps": 1000000000000,
+    "failure_at_maximum_rate": "NO_FINITE_RATE_IDENTIFIED_WITHIN_FROZEN_SEARCH_DOMAIN"
+  },
+  "synthetic_fixture_requirements": [
+    "window merge and horizon clipping",
+    "exact integer-byte capacity arithmetic",
+    "A1 discarded first largest-object allocation",
+    "A2 one-window proof delay",
+    "A3 one-window stale-replay deferment",
+    "P3 guard no future-disruption visibility",
+    "P0/P1/P2/P3 state-cost semantics",
+    "strict horizon boundary",
+    "primary and independent implementation parity",
+    "minimum-rate solver returns exact smallest integer bps on hand-constructed fixtures",
+    "direct canonical entrypoint remains disabled"
+  ],
+  "canonical_execution_authorized": false,
+  "real_trace_endpoint_computation_authorized": false
+}
