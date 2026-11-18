@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "authorization_id": "PAPER3-S7-S7E-MANUSCRIPT-INTEGRATION-AUTH-001",
+  "paper_id": "PAPER_3",
+  "studies": [
+    "S7-LSO-001",
+    "S7E-AERC-001"
+  ],
+  "authorization_date_local": "2026-09-24",
+  "source_main_commit": "740cc4984387b2c4f14b337b76d66198406f22c4",
+  "author_statement_summary": "Author explicitly authorized integration of the frozen Study 7 and Study 7E findings into the rebuilt Paper 3 manuscript and publication materials after Study 7E result freeze and PR #167 merge.",
+  "authorized": {
+    "create_venue_neutral_rebuilt_manuscript": true,
+    "create_publication_architecture_and_nonoverlap_gate": true,
+    "create_claim_ledger": true,
+    "create_integration_plan": true,
+    "report_frozen_study7_findings": true,
+    "report_frozen_study7e_findings": true,
+    "synthesize_studies_narratively_without_pooling": true,
+    "create_publication_materials_for_internal_review": true
+  },
+  "prohibited": {
+    "modify_study7_frozen_science": true,
+    "modify_study7e_frozen_science": true,
+    "rerun_study7": true,
+    "rerun_study7e": true,
+    "pool_study7_and_study7e_populations": true,
+    "modify_rejected_ceas_package": true,
+    "venue_lock_without_separate_review": true,
+    "publisher_submission": true,
+    "claim_operational_spacecraft_probability": true,
+    "claim_global_policy_or_ml_superiority": true
+  },
+  "status": "VENUE_NEUTRAL_MANUSCRIPT_INTEGRATION_AUTHORIZED__PUBLISHER_SUBMISSION_NOT_AUTHORIZED"
+}
