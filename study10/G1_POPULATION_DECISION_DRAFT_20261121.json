@@ -53,7 +53,8 @@
       "n_channels_reported": 9,
       "source_release_identity": "PENDING_LOCAL_TO_ZENODO_RELEASE_MD5_MATCH",
       "rights": "OPEN",
-      "independent_replicate": "MISSION_INDEPENDENT_FROM_ESA_ADB_BUT_CURATOR_OVERLAP_PRESENT"
+      "independent_replicate": "ESA_ADB_ANONYMIZED_MISSION_OVERLAP_UNVERIFIED",
+      "independence_check": "Do not treat OPS-SAT as an independent mission-level replication until evidence establishes none of the three anonymized ESA-ADB missions is OPS-SAT or derived from the same underlying telemetry; common researchers and ESA provenance alone cannot resolve overlap"
     }
   ],
   "sensitivity_only": [
@@ -98,7 +99,8 @@
     "no_label_to_recovery_variable": true,
     "no_telemetry_row_level_execution": true,
     "no_implicit_independence_from_three_esa_missions": true,
-    "potential_not_evaluable_decision_time": true
+    "potential_not_evaluable_decision_time": true,
+    "source_families_are_not_assumed_independent": true
   },
   "remaining_gates": [
     "ESA_V1_V2_DATA_RIGHTS_NOT_RESOLVED",
@@ -107,7 +109,8 @@
     "NO_INDEPENDENT_SEMANTIC_ADJUDICATION_FREEZE",
     "SYNTHETIC_CONTROLS_DRAFT_NOT_FROZEN",
     "NO_ATOMIC_PROTOCOL_FREEZE",
-    "NO_REAL_DATA_EXECUTION_AUTHORIZATION"
+    "NO_REAL_DATA_EXECUTION_AUTHORIZATION",
+    "ESA_OPS_SAT_MISSION_AND_TELEMETRY_PROVENANCE_OVERLAP_UNRESOLVED"
   ],
   "excluded_from_this_phase": [
     "DATASET_EXTRACTION",
