@@ -1,6 +1,6 @@
 # Research Tracker
 
-Last updated: 2026-10-20 (Paper 2 publisher state reconciled; other papers retain last verified entries)
+Last updated: 2026-11-21 (Paper 2 CEAS rejection reconciled; other papers retain last verified entries)
 
 ## Current focus
 
@@ -8,10 +8,10 @@ The repository now contains four submitted publication lines:
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems as manuscript `2026-09-I012066` on 2026-09-05.
 2. **Paper 4:** rebuilt Study 8 + Study 8E manuscript, submitted to IJSCCN as manuscript `4920969` on 2026-09-22; rejected at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied. The earlier Acta rejection remains historical provenance.
-3. **Paper 2:** Studies 3 + 4 + 6, **CEAS Space Journal RevB submission received 2026-10-19 and under TECHNICAL CHECK**; prior TAES `TAES-2026-4182` was rejected at editorial pre-screening 2026-09-26.
+3. **Paper 2:** Studies 3 + 4 + 6, **CEAS Space Journal RevB received 2026-10-19, editorially REJECTED 2026-10-22; recommended transfer NOT COMPLETED**; prior TAES `TAES-2026-4182` was rejected at editorial pre-screening 2026-09-26.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; rejected by handling-editor editorial assessment on 2026-09-22.
 
-Paper 1 remains frozen pending journal action. Paper 2's rejected TAES R10, original Studies 3/4/6 and separately governed S3X/S6X results remain frozen. Its latest RevB CEAS submission was received 2026-10-19 (Technical Check); former Phase-3 pre-execution gates are historical, not the live publisher status. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
+Paper 1 remains frozen pending journal action. Paper 2's rejected TAES R10, original Studies 3/4/6 and separately governed S3X/S6X results remain frozen. Its latest CEAS RevB submission was received 2026-10-19 and REJECTED 2026-10-22 after editorial assessment; the proposed transfer was not completed by 2026-11-01; former Phase-3 pre-execution gates are historical, not the live publisher status. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
 
 This is a journal/research publication workflow, not a dissertation-revision workflow.
 
@@ -57,15 +57,17 @@ The next Paper 4 gate is a fresh venue-fit audit plus optional review of Wiley T
 
 ### Paper 2 - Studies 3 + 4 + 6
 
-**CURRENT: CEAS Space Journal RevB**
+**CURRENT: CEAS Space Journal editorial rejection, 2026-10-22**
 
 - Journal: CEAS Space Journal (Springer Nature).
 - Article: *Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance*.
 - Sole corresponding author: Aman Kumar Singh.
 - Submitted/received: 2026-10-19, portal v1.0.
 - Portal tracking ID: `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` (not separately verified as journal-assigned manuscript number).
-- Current publisher stage: `SUBMISSION_RECEIVED__TECHNICAL_CHECK`, **not** external review or acceptance.
-- Authority: [Issue #217 receipt](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467), plus `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md`.
+- Current publisher stage: `REJECTED__EDITORIAL_ASSESSMENT__2026-10-22`; editor considered the manuscript more prose-like than scientific. No external reviewer reports were supplied in the decision. `TRANSFER_NOT_COMPLETED` (Springer Nature message 2026-11-01).
+- Primary editorial decision record: `publication/Paper_2_Studies_3_4_6/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-10-22.md` (metadata; original email remains private in Outlook).
+- Next research gate: author-approved scientific-contribution and claim-to-evidence audit, then venue-fit selection; no manuscript rewrite, experiment, preprint publication, public data release or journal transfer approved by this status change.
+- Historical submission receipt: [Issue #217](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467), plus `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md`.
 - Author-local final package: `CEAS_Paper2_Submission_Ready_2026-10-19_RevB.zip`, whole-package SHA-256 `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f`; publisher assets/original evidence are intentionally not committed.
 - Source-review PR #216: OPEN/DRAFT/UNMERGED; does not imply the publication source is on `main`. Optional Research Square posting chosen, with no public preprint/DOI confirmed.
 
