@@ -23,17 +23,18 @@
     "scientific_execution": "NOT_AUTHORIZED",
     "publication_submission": "NOT_AUTHORIZED",
     "cross_source_mission_independence": "NOT_ESTABLISHED",
-    "ops_sat_public_release_disambiguation": "V1_AND_V2_IDENTIFIED_LOCAL_MATCH_PENDING",
-    "ops_sat_local_identity": "NOT_YET_VERIFIED"
+    "ops_sat_public_release_disambiguation": "V1_AND_V2_PUBLISHED_CHECKSUMS_RECORDED_V2_SELECTED_BY_LOCAL_IDENTITY",
+    "ops_sat_local_identity": "PASS_AUTHOR_REPORTED_ZENODO_V2_MD5_AND_PRIOR_SHA256",
+    "ops_sat_data_reuse_rights": "UNRESOLVED",
+    "ops_sat_evidence_independent_local_rehash_by_assistant": false
   },
   "stop_reasons": [
     "ESA_DATASET_LICENSE_NOT_IDENTIFIABLE_FROM_RENDERED_ZENODO_RIGHTS",
-    "OPS_SAT_DATA_RELEASE_AND_RIGHTS_REQUIRE_CONFIRMATION",
+    "OPS_SAT_V2_DATA_REUSE_RIGHTS_REQUIRE_CONFIRMATION",
     "SYNTHETIC_CONTROL_ORACLE_NOT_INDEPENDENTLY_VALIDATED",
     "COHORT_MEMBERSHIP_NOT_FROZEN",
     "NO_SOURCE_MAPPING_FREEZE",
-    "ESA_OPS_SAT_MISSION_OVERLAP_UNRESOLVED",
-    "OPS_SAT_V1_V2_LOCAL_FILE_IDENTITY_NOT_YET_VERIFIED"
+    "ESA_OPS_SAT_MISSION_OVERLAP_UNRESOLVED"
   ],
   "approval": {
     "author_authorized_g1_documentation_preparation": true,
@@ -46,5 +47,5 @@
     "paper5_modification_authorized": false,
     "third_party_outreach_authorized": false
   },
-  "next_gate": "CHECK_OPS_SAT_TWO_CSVS_AGAINST_ZENODO_V1_AND_V2_MD5_AND_PREVIOUS_SHA256; REVIEW_REUSE_LICENSE; CHECK_ESA_OPS_OVERLAP; INDEPENDENT_CONTROLS_REVIEW; SEPARATE_ATOMIC_FREEZE"
+  "next_gate": "CONFIRM_ESA_AND_OPS_V2_DATASET_LICENSES_AND_PERMISSIONS; CHECK_ESA_OPS_MISSION_OVERLAP; INDEPENDENT_CONTROLS_REVIEW; APPROVE_EXACT_COHORTS; SEPARATE_ATOMIC_FREEZE"
 }

@@ -46,12 +46,12 @@
       "id": "OPS_SAT_AD_SEGMENTS",
       "source_family": "OPS_SAT_AD",
       "role": "PRIMARY_CANDIDATE",
-      "source_doi": null,
+      "source_doi": "10.5281/zenodo.15108715",
       "unit": "eight recovery variables per OPS-SAT source stratum",
       "segment_count_reported": 2123,
       "raw_samples_reported": 303493,
       "n_channels_reported": 9,
-      "source_release_identity": "UNRESOLVED_PENDING_DUAL_VERSION_MD5_AND_PRIOR_SHA256_LOCAL_CHECK",
+      "source_release_identity": "PASS_USER_LOCAL_ZENODO_V2_AND_PRIOR_INTAKE_SHA256",
       "rights": "OPEN",
       "independent_replicate": "ESA_ADB_ANONYMIZED_MISSION_OVERLAP_UNVERIFIED",
       "independence_check": "Do not treat OPS-SAT as an independent mission-level replication until evidence establishes none of the three anonymized ESA-ADB missions is OPS-SAT or derived from the same underlying telemetry; common researchers and ESA provenance alone cannot resolve overlap",
@@ -71,7 +71,32 @@
           "segments_csv_md5": "72f109630abb933a386106897a631188"
         }
       },
-      "version_selection_rule": "Use exact pair MD5 match only; do not infer from bundled notebooks or LICENSE; preserve prior SHA256 check as separate evidence"
+      "version_selection_rule": "Use exact pair MD5 match only; do not infer from bundled notebooks or LICENSE; preserve prior SHA256 check as separate evidence",
+      "selected_release": "v2",
+      "local_identity_evidence": {
+        "evidence_source": "AUTHOR_REPORTED_LOCAL_MACBOOK_RUN_OUTPUT_2026-11-21",
+        "independent_rehash_of_macbook_csvs_performed_by_assistant": false,
+        "checker_basename": "Paper5_OPSSAT_Zenodo_Release_Identity_Check_v2.py",
+        "checker_sha256_verified_in_assistant_container": "9f5b9476dafe5ed51977d4ac7d15c79e1384c44f5f9e79bf862452c37e3dc7b2",
+        "report_requested_basename": "Paper5_OPSSAT_Zenodo_Release_Identity_Report_2026-11-21.json",
+        "report_bytes_attached_and_independently_reviewed": false,
+        "checker_stdout": "PASS_ZENODO_V2_AND_PRIOR_INTAKE_SHA256",
+        "identified_release": "v2",
+        "zenodo_record": "15108715",
+        "files": {
+          "dataset.csv": {
+            "md5": "5246fdc5e4630a4cecbf7fb6bc8b795e",
+            "sha256": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02",
+            "prior_sha256_match": true
+          },
+          "segments.csv": {
+            "md5": "72f109630abb933a386106897a631188",
+            "sha256": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba",
+            "prior_sha256_match": true
+          }
+        },
+        "scope_limit": "Exact CSV byte identity to Zenodo v2, not data reuse rights, sample independence, label validity, recovery-state semantics, or experimental authorization"
+      }
     }
   ],
   "sensitivity_only": [
@@ -121,7 +146,7 @@
   },
   "remaining_gates": [
     "ESA_V1_V2_DATA_RIGHTS_NOT_RESOLVED",
-    "OPS_SAT_DATA_RELEASE_IDENTITY_AND_RIGHTS_NOT_RESOLVED",
+    "OPS_SAT_V2_DATA_RIGHTS_NOT_RESOLVED",
     "HACKASAT_SECONDARY_FILE_LEVEL_LICENSE_OPEN",
     "NO_INDEPENDENT_SEMANTIC_ADJUDICATION_FREEZE",
     "SYNTHETIC_CONTROLS_DRAFT_NOT_FROZEN",
