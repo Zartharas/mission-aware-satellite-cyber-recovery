@@ -13,18 +13,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PORTAL_ID = "38cc76f5-ab6b-4b8e-b6ba-24727db86b48"
 RECEIPT = "issuecomment-6275866467"
-STATE = "SUBMISSION_RECEIVED__TECHNICAL_CHECK"
+STATE = "REJECTED__EDITORIAL_ASSESSMENT__2026-10-22"
+DECISION_DATE = "2026-10-22"
+DECISION_FILE = "CEAS_EDITORIAL_DECISION_2026-10-22.md"
+TRANSFER_STATE = "TRANSFER_NOT_COMPLETED"
 DATE = "2026-10-19"
 ZIP_SHA = "cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f"
 
 TEXT_SURFACES = {
     "README.md": ("CEAS Space Journal", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "TAES-2026-4182"),
-    "publication/README.md": ("### Current: CEAS Space Journal RevB submission", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "### Historical: TAES initial submission and rejection"),
-    "docs/CURRENT_PUBLICATION_STATE.md": ("**Current-state date:** 2026-10-20", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: rejected TAES"),
-    "docs/PUBLICATION_PHASE_MAP.md": ("**Current-state reference:** 2026-10-20", "PHASE 3S - PAPER 2 CURRENT CEAS REV-B SUBMISSION", PORTAL_ID, RECEIPT, STATE, "Phase 3R - Paper 2 post-rejection rebuild (historical)"),
-    "tracker/RESEARCH_TRACKER.md": ("Last updated: 2026-10-20", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: TAES initial submission"),
+    "publication/README.md": ("### Latest decision: CEAS Space Journal RevB editorial rejection", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "### Historical: TAES initial submission and rejection"),
+    "docs/CURRENT_PUBLICATION_STATE.md": ("**Current-state date:** 2026-11-21", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: rejected TAES"),
+    "docs/PUBLICATION_PHASE_MAP.md": ("**Current-state reference:** 2026-11-21", "PHASE 3S - PAPER 2 LATEST CEAS REV-B EDITORIAL DECISION", PORTAL_ID, RECEIPT, STATE, "Phase 3R - Paper 2 post-rejection rebuild (historical)"),
+    "tracker/RESEARCH_TRACKER.md": ("Last updated: 2026-11-21", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: TAES initial submission"),
     "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/README.md": ("CURRENT CEAS PAPER-2 PUBLISHER STATUS", "Historical phase-by-phase provenance (not current status)", RECEIPT, "PHASE5C_AUTHORIZED"),
-    "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md": ("CURRENT STATUS / POST-SUBMISSION ADDENDUM", PORTAL_ID, RECEIPT, ZIP_SHA, "NOT submitted to CEAS"),
+    "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md": ("CURRENT DECISION / POST-SUBMISSION ADDENDUM", PORTAL_ID, RECEIPT, ZIP_SHA, "NOT submitted to CEAS"),
+    "publication/Paper_2_Studies_3_4_6/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-10-22.md": (STATE, DECISION_DATE, PORTAL_ID, TRANSFER_STATE, ZIP_SHA, "Wilhelm Kordulla"),
 }
 
 FORBIDDEN_ACTIVE = {
@@ -45,6 +49,7 @@ FORBIDDEN_ACTIVE = {
     ),
     "tracker/RESEARCH_TRACKER.md": (
         "Phase 3 now authorizes only local S3X source verification",
+        "SUBMISSION_RECEIVED__TECHNICAL_CHECK",
     ),
 }
 
@@ -75,7 +80,8 @@ require(row["manuscript_or_submission_id"] == PORTAL_ID, "Paper 2 CSV portal tra
 require(row["submission_date"] == DATE, "Paper 2 CSV submission date drift")
 require(row["current_status"] == STATE, "Paper 2 CSV status drift")
 require(row["frozen"].lower() == "true", "Paper 2 frozen guard drift")
-require(row["current_authority"].endswith("CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md"), "Paper 2 CSV authority drift")
+require(row["current_authority"].endswith(DECISION_FILE), "Paper 2 CSV authority drift")
 require("TAES-2026-4182" in row["next_action"], "historical TAES provenance absent")
+require("2026-10-22" in row["next_action"] and "NOT COMPLETED" in row["next_action"], "editorial rejection and transfer status absent")
 print("PAPER2_CURRENT_PUBLICATION_STATE_AUDIT=PASS")
 print("NO_RESEARCH_EXECUTION=YES")
