@@ -1,6 +1,6 @@
 # Current Publication State
 
-**Current-state date:** 2026-10-20 (Paper 2 reconciled; other papers retain their last independently recorded updates)
+**Current-state date:** 2026-11-21 (Paper 2 CEAS editorial decision reconciled; other papers retain their last independently recorded updates)
 
 **Study 8E extension update:** 2026-09-20
 
@@ -14,13 +14,13 @@
 
 **Paper 4 IJSCCN editorial decision update:** 2026-09-24
 
-**Paper 2 CEAS submission status update:** 2026-10-19 (prior TAES decision: 2026-09-26)
+**Paper 2 latest decision:** CEAS rejection 2026-10-22; transfer not completed 2026-11-01 (historical TAES rejection: 2026-09-26)
 
 This is the canonical cross-publication handoff for the `mission-aware-satellite-cyber-recovery` repository. Historical preparation, venue-fit, freeze, and handoff records retain the wording that was true when they were created; this file records the actual current publisher state.
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening 2026-09-26 without external review, then submitted in rebuilt RevB form to CEAS Space Journal on 2026-10-19; the confirmed portal status is Technical Check. Study 3/4/6 and S3X/S6X separately frozen evidence remain scientifically distinct. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening 2026-09-26 without external review, then submitted in rebuilt RevB form to CEAS Space Journal on 2026-10-19; the confirmed **editorial rejection date is 2026-10-22**, with the manuscript criticized as prose-like rather than sufficiently scientific; Springer Nature's November 1 message confirms the recommended transfer was not completed. Study 3/4/6 and S3X/S6X separately frozen evidence remain scientifically distinct. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -64,16 +64,19 @@ The IJSCCN decision does not alter Study 8, Study 8E, Results-002, TRACE-002, or
 
 ### Paper 2 - Studies 3 + 4 + 6 (separate S3X/S6X qualification work)
 
-**CURRENT: CEAS Space Journal RevB submission**
+**CURRENT: CEAS Space Journal RevB editorial rejection (2026-10-22)**
 
 - **Title:** Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance
 - **Sole corresponding author:** Aman Kumar Singh
 - **Received:** 2026-10-19; portal version v1.0
 - **Portal tracking ID:** `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` (not independently verified as a journal-assigned manuscript number)
-- **Status:** `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; neither external peer review nor acceptance verified
+- **Status:** `REJECTED__EDITORIAL_ASSESSMENT__2026-10-22`. Editor Wilhelm Kordulla confirmed rejection, describing the submission as more prose-like than scientific. Detailed methodological review reports and external peer review are **not verified**.
+- **Transfer:** `TRANSFER_NOT_COMPLETED` per Springer Nature follow-up 2026-11-01; the six journal suggestions are not acceptance offers.
+- **Decision authority:** `publication/Paper_2_Studies_3_4_6/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-10-22.md` (metadata; full private editorial email retained in author Outlook).
+- **Next gate:** scientific-contribution/claim-to-evidence audit under separate author approval; no automatic transfer, unapproved submission, research rerun, public data release or manuscript overwrite
 - **Publisher manuscript:** `CEAS_Paper2_Manuscript_Final_2026-10-19_RevB.docx`
 - **Seven-file author-local RevB ZIP SHA-256:** `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f`
-- **Receipt authority:** [Issue #217](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467)
+- **Historical October 19 submission receipt:** [Issue #217](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467)
 - **Current handoff:** `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md`
 - **Publication source:** PR #216 OPEN/DRAFT/UNMERGED; not part of `main`
 

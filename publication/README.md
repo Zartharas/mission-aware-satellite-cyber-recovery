@@ -4,11 +4,11 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and is undergoing technical checks. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
+The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and **rejected following editorial assessment on 2026-10-22**. Springer Nature suggested a transfer, but its 2026-11-01 follow-up confirmed **transfer not completed**. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
 2. **Paper 4:** Study 8 + Study 8E rebuilt manuscript, most recently submitted to IJSCCN; prior Acta submission retained as historical provenance.
-3. **Paper 2:** Studies 3 + 4 + 6 (separate S3X/S6X extensions), latest CEAS Space Journal submission received 2026-10-19; prior TAES rejection preserved.
+3. **Paper 2:** Studies 3 + 4 + 6 (separate S3X/S6X extensions), latest CEAS Space Journal submission received 2026-10-19 and editorially rejected 2026-10-22; prior TAES rejection preserved.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal.
 
 Separately frozen study populations must never be silently pooled or reused as new evidence merely because they remain in the repository.
@@ -50,7 +50,7 @@ The IJSCCN decision does not alter frozen Study 8 or Study 8E science. The submi
 
 ## Paper 2 - Studies 3 + 4 + 6
 
-### Current: CEAS Space Journal RevB submission
+### Latest decision: CEAS Space Journal RevB editorial rejection
 
 - **Journal:** CEAS Space Journal (Springer Nature)
 - **Title:** Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance
@@ -58,7 +58,9 @@ The IJSCCN decision does not alter frozen Study 8 or Study 8E science. The submi
 - **Article type:** Research; single-anonymous peer-review process
 - **Submission date:** 2026-10-19
 - **Portal tracking ID:** `38cc76f5-ab6b-4b8e-b6ba-24727db86b48`, v1.0 (**not** separately verified as a journal-assigned manuscript number)
-- **Current state:** `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; no peer-review or acceptance claim
+- **Current state:** `REJECTED__EDITORIAL_ASSESSMENT__2026-10-22`; editor assessed the manuscript as more prose-like than scientific; no external referee reports verified. **Transfer:** `TRANSFER_NOT_COMPLETED` (Springer Nature follow-up 2026-11-01).
+- **Decision evidence:** [CEAS editorial decision and transfer record](Paper_2_Studies_3_4_6/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-10-22.md) (private full email retained in author Outlook).
+- **Next gate:** author-approved scientific-contribution audit before any venue selection, transfer, resubmission or manuscript changes
 - **Receipt:** [Issue #217 confirmation](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467)
 - **Verified author-local RevB ZIP SHA-256:** `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f` (not a checksum of publisher-stored bytes)
 - **Current handoff:** [CEAS RevB submission handoff](Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md)
