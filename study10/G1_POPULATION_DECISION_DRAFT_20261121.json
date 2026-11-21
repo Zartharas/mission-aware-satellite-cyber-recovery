@@ -52,7 +52,7 @@
       "raw_samples_reported": 303493,
       "n_channels_reported": 9,
       "source_release_identity": "PASS_USER_LOCAL_ZENODO_V2_AND_PRIOR_INTAKE_SHA256",
-      "rights": "OPEN",
+      "rights": "V2_DATA_AND_SOFTWARE_MIT_LICENSE_TEXT_MATCHED_BOTH_PUBLISHED_MD5_AND_PRIOR_SHA256",
       "independent_replicate": "ESA_ADB_ANONYMIZED_MISSION_OVERLAP_UNVERIFIED",
       "independence_check": "Do not treat OPS-SAT as an independent mission-level replication until evidence establishes none of the three anonymized ESA-ADB missions is OPS-SAT or derived from the same underlying telemetry; common researchers and ESA provenance alone cannot resolve overlap",
       "candidate_release_dois": [
@@ -96,6 +96,20 @@
           }
         },
         "scope_limit": "Exact CSV byte identity to Zenodo v2, not data reuse rights, sample independence, label validity, recovery-state semantics, or experimental authorization"
+      },
+      "license_evidence": {
+        "source_record": "https://zenodo.org/records/15108715",
+        "zenodo_license_md5": "ea8befa9af2b37b7a54b5a16fc3712b0",
+        "prior_user_license_sha256": "76d2ff9834ed2bb1356d9f7eb303c289817374bb1d5bbe5af86817e73e0f47d2",
+        "upstream_license": "https://github.com/kplabs-pl/OPS-SAT-AD/blob/main/LICENSE",
+        "upstream_git_blob": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+        "reconstructed_text_bytes": 1091,
+        "reconstructed_text_md5": "ea8befa9af2b37b7a54b5a16fc3712b0",
+        "reconstructed_text_sha256": "76d2ff9834ed2bb1356d9f7eb303c289817374bb1d5bbe5af86817e73e0f47d2",
+        "license": "MIT License for OPS-SAT Dataset",
+        "covers": "software, data, and associated documentation",
+        "project_dataset_redistribution_authorized": false,
+        "legal_caveat": "File terms establish explicit depositor-granted MIT license for this dataset package; no conclusion about distinct third-party rights"
       }
     }
   ],
@@ -146,13 +160,13 @@
   },
   "remaining_gates": [
     "ESA_V1_V2_DATA_RIGHTS_NOT_RESOLVED",
-    "OPS_SAT_V2_DATA_RIGHTS_NOT_RESOLVED",
     "HACKASAT_SECONDARY_FILE_LEVEL_LICENSE_OPEN",
     "NO_INDEPENDENT_SEMANTIC_ADJUDICATION_FREEZE",
     "SYNTHETIC_CONTROLS_DRAFT_NOT_FROZEN",
     "NO_ATOMIC_PROTOCOL_FREEZE",
     "NO_REAL_DATA_EXECUTION_AUTHORIZATION",
-    "ESA_OPS_SAT_MISSION_AND_TELEMETRY_PROVENANCE_OVERLAP_UNRESOLVED"
+    "ESA_OPS_SAT_MISSION_AND_TELEMETRY_PROVENANCE_OVERLAP_UNRESOLVED",
+    "SOURCE_LICENSE_ATTRIBUTION_AND_THIRD_PARTY_RIGHTS_SCOPE_NOT_SIGNED_OFF"
   ],
   "excluded_from_this_phase": [
     "DATASET_EXTRACTION",
@@ -175,8 +189,8 @@
     "evidence_date": "2026-11-21",
     "ESA_ADB_v1": "AUTHOR_EXPLICIT_CC_BY_3_0_IGO_IN_2024_PAPER_FOR_EXACT_RELEASE_DOI",
     "ESA_ADB_v2": "AUTHOR_EXPLICIT_CC_BY_3_0_IGO_IN_V2_MANUSCRIPT_ZENODO_RIGHTS_VALUE_NOT_READ",
-    "OPS_SAT_AD_v2": "DATSET_LICENSE_SCOPE_UNCONFIRMED_DESPITE_SOURCE_BUNDLE_MIT_FILE",
-    "rights_resolution_for_freeze": "OPEN",
+    "OPS_SAT_AD_v2": "DATA_INCLUSIVE_MIT_LICENSE_IDENTITY_VERIFIED_TO_ZENODO_V2_AND_PRIOR_SHA256",
+    "rights_resolution_for_freeze": "PRIMARY_DATASET_LICENSE_DOCUMENTATION_PRESENT_ATTRIBUTION_AND_SCOPE_REVIEW_PENDING",
     "license_basis": [
       "https://arxiv.org/pdf/2406.17826",
       "https://openreview.net/pdf/eda113f9ebd4aa45678a791e19b33c8bdefd0e15.pdf",
@@ -190,6 +204,7 @@
     "OPS_paper": "https://www.nature.com/articles/s41597-025-05035-3",
     "evidence": "ESA anonymizes mission names and timelines; OPS-SAT is named and ESA-operated; both source lines share some researchers and ESA provenance",
     "conclusion": "Do not claim independent spacecraft replication without documented non-overlap; independent source family does not imply independent spacecraft",
-    "retrospective_outcome_fishing_prohibited": true
+    "retrospective_outcome_fishing_prohibited": true,
+    "additional_distinction": "The 2026 ESA DMLR paper calls the three ESA subjects 'large spacecraft'; OPS-SAT source paper identifies a 3U CubeSat. This supports apparent distinctness but is not an authenticated non-overlap mapping because ESA identities and timelines are anonymized."
   }
 }
