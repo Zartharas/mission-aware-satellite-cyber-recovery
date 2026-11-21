@@ -46,15 +46,32 @@
       "id": "OPS_SAT_AD_SEGMENTS",
       "source_family": "OPS_SAT_AD",
       "role": "PRIMARY_CANDIDATE",
-      "source_doi": "10.5281/zenodo.12588359",
+      "source_doi": null,
       "unit": "eight recovery variables per OPS-SAT source stratum",
       "segment_count_reported": 2123,
       "raw_samples_reported": 303493,
       "n_channels_reported": 9,
-      "source_release_identity": "PENDING_LOCAL_TO_ZENODO_RELEASE_MD5_MATCH",
+      "source_release_identity": "UNRESOLVED_PENDING_DUAL_VERSION_MD5_AND_PRIOR_SHA256_LOCAL_CHECK",
       "rights": "OPEN",
       "independent_replicate": "ESA_ADB_ANONYMIZED_MISSION_OVERLAP_UNVERIFIED",
-      "independence_check": "Do not treat OPS-SAT as an independent mission-level replication until evidence establishes none of the three anonymized ESA-ADB missions is OPS-SAT or derived from the same underlying telemetry; common researchers and ESA provenance alone cannot resolve overlap"
+      "independence_check": "Do not treat OPS-SAT as an independent mission-level replication until evidence establishes none of the three anonymized ESA-ADB missions is OPS-SAT or derived from the same underlying telemetry; common researchers and ESA provenance alone cannot resolve overlap",
+      "candidate_release_dois": [
+        "10.5281/zenodo.12588359",
+        "10.5281/zenodo.15108715"
+      ],
+      "expected_versions_from_source": {
+        "v1": {
+          "record": "12588359",
+          "dataset_csv_md5": "c12fb83863afa4463dec07303a20bb14",
+          "segments_csv_md5": "1f4b6ffd0359efac96a6698ff557e0f9"
+        },
+        "v2": {
+          "record": "15108715",
+          "dataset_csv_md5": "5246fdc5e4630a4cecbf7fb6bc8b795e",
+          "segments_csv_md5": "72f109630abb933a386106897a631188"
+        }
+      },
+      "version_selection_rule": "Use exact pair MD5 match only; do not infer from bundled notebooks or LICENSE; preserve prior SHA256 check as separate evidence"
     }
   ],
   "sensitivity_only": [

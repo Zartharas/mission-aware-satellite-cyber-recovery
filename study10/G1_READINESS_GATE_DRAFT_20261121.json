@@ -22,7 +22,9 @@
     "protocol_freeze": "HOLD",
     "scientific_execution": "NOT_AUTHORIZED",
     "publication_submission": "NOT_AUTHORIZED",
-    "cross_source_mission_independence": "NOT_ESTABLISHED"
+    "cross_source_mission_independence": "NOT_ESTABLISHED",
+    "ops_sat_public_release_disambiguation": "V1_AND_V2_IDENTIFIED_LOCAL_MATCH_PENDING",
+    "ops_sat_local_identity": "NOT_YET_VERIFIED"
   },
   "stop_reasons": [
     "ESA_DATASET_LICENSE_NOT_IDENTIFIABLE_FROM_RENDERED_ZENODO_RIGHTS",
@@ -30,7 +32,8 @@
     "SYNTHETIC_CONTROL_ORACLE_NOT_INDEPENDENTLY_VALIDATED",
     "COHORT_MEMBERSHIP_NOT_FROZEN",
     "NO_SOURCE_MAPPING_FREEZE",
-    "ESA_OPS_SAT_MISSION_OVERLAP_UNRESOLVED"
+    "ESA_OPS_SAT_MISSION_OVERLAP_UNRESOLVED",
+    "OPS_SAT_V1_V2_LOCAL_FILE_IDENTITY_NOT_YET_VERIFIED"
   ],
   "approval": {
     "author_authorized_g1_documentation_preparation": true,
@@ -43,5 +46,5 @@
     "paper5_modification_authorized": false,
     "third_party_outreach_authorized": false
   },
-  "next_gate": "RESOLVE_LICENSES_AND_OPS_RELEASE; CHECK_ESA_OPS_SAT_MISSION_OVERLAP; INDEPENDENTLY_REVIEW_CONTROLS; AUTHOR_DECISION_ON_COHORTS; FREEZE_ONLY_IN_SEPARATE_ATOMIC_RECORD"
+  "next_gate": "CHECK_OPS_SAT_TWO_CSVS_AGAINST_ZENODO_V1_AND_V2_MD5_AND_PREVIOUS_SHA256; REVIEW_REUSE_LICENSE; CHECK_ESA_OPS_OVERLAP; INDEPENDENT_CONTROLS_REVIEW; SEPARATE_ATOMIC_FREEZE"
 }
