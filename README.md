@@ -21,13 +21,13 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2 has since been submitted to CEAS Space Journal on 2026-10-19 and is undergoing technical checks; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
+The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2's CEAS Space Journal RevB submission was received on 2026-10-19 and **rejected on 2026-10-22** following editorial assessment; transfer was recommended but not completed as of the 2026-11-01 follow-up; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
 | Paper 1 | Studies 1 + 2 | AIAA Journal of Aerospace Information Systems | `2026-09-I012066` | 2026-09-05 | Editorial/peer-review workflow |
 | Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `Rejected` (decision recorded 2026-09-19) |
-| Paper 2 | Studies 3 + 4 + 6; separate S3X/S6X qualifications | CEAS Space Journal (latest submission) | Portal tracking ID `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` | 2026-10-19 | `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; prior TAES rejection remains historical |
+| Paper 2 | Studies 3 + 4 + 6; separate S3X/S6X qualifications | CEAS Space Journal (latest submission) | Portal tracking ID `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` | 2026-10-19 | `REJECTED__EDITORIAL_ASSESSMENT__2026-10-22`; transfer not completed; prior TAES rejection historical |
 | Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Rejected` (decision 2026-09-22) |
 
 Submitted and rejected packages remain frozen as provenance. Do not modify active publisher-facing packages without a journal request, and do not alter the rejected Acta package. Study 8 retargeting must begin from the frozen source science through a new controlled venue-specific package.
@@ -62,7 +62,7 @@ Manuscript ID: `AA-D-26-02872`.
 
 ### Paper 2 - Studies 3 + 4 + 6
 
-**Latest submitted article:** *Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance* — CEAS Space Journal, received 2026-10-19. The portal reports **TECHNICAL CHECK**, not external peer review or acceptance. The v1.0 portal tracking ID is `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` (not independently confirmed as the journal-assigned manuscript number). See [verified portal receipt](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467) and the [current RevB handoff](publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md).
+**Latest submitted article:** *Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance* — CEAS Space Journal, received 2026-10-19. CEAS **rejected the paper on 2026-10-22** after editorial discussion, citing prose-like rather than scientific presentation; the recommended transfer was **not completed** by 2026-11-01. No external reviewer report or acceptance was evidenced. The v1.0 portal tracking ID is `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` (not independently confirmed as the journal-assigned manuscript number). See [the editorial decision record](publication/Paper_2_Studies_3_4_6/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-10-22.md), [original submission receipt](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467) and [RevB handoff](publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md). No journal transfer, research rerun or public preprint posting has been verified.
 
 **Author-local submission package:** `CEAS_Paper2_Submission_Ready_2026-10-19_RevB.zip`, whole ZIP SHA-256 `cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f`. Publisher DOCX/PDF, private original evidence and rights-restricted material remain on the author's Mac, not in this public repository. Publication-source [PR #216](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/216) remains draft/unmerged, not a part of `main`; optional Research Square preprint posting has not been verified.
 
