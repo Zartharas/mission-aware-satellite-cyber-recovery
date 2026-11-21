@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "study_id": "S10-RSEI-001",
+  "date_utc": "2026-11-21",
+  "status": "G1_COHORT_DECISION_DRAFT_NOT_FROZEN",
+  "repository_base_main": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+  "purpose": "Prospective recovery-state semantic observability; not flight recovery effectiveness or detector transfer",
+  "primary_candidate_strata": [
+    {
+      "id": "ESA_ADB_V2_MISSION1",
+      "source_family": "ESA_ADB",
+      "role": "PRIMARY_CANDIDATE",
+      "source_doi": "10.5281/zenodo.15237121",
+      "mission": 1,
+      "channel_ids_reported": 76,
+      "release": "v2",
+      "unit": "eight recovery variables per mission stratum",
+      "rights": "OPEN",
+      "independent_replicate": false
+    },
+    {
+      "id": "ESA_ADB_V2_MISSION2",
+      "source_family": "ESA_ADB",
+      "role": "PRIMARY_CANDIDATE",
+      "source_doi": "10.5281/zenodo.15237121",
+      "mission": 2,
+      "channel_ids_reported": 100,
+      "release": "v2",
+      "unit": "eight recovery variables per mission stratum",
+      "rights": "OPEN",
+      "independent_replicate": false
+    },
+    {
+      "id": "ESA_ADB_V2_MISSION3",
+      "source_family": "ESA_ADB",
+      "role": "PRIMARY_CANDIDATE",
+      "source_doi": "10.5281/zenodo.15237121",
+      "mission": 3,
+      "channel_ids_reported": 48,
+      "release": "v2",
+      "unit": "eight recovery variables per mission stratum",
+      "rights": "OPEN",
+      "independent_replicate": false
+    },
+    {
+      "id": "OPS_SAT_AD_SEGMENTS",
+      "source_family": "OPS_SAT_AD",
+      "role": "PRIMARY_CANDIDATE",
+      "source_doi": "10.5281/zenodo.12588359",
+      "unit": "eight recovery variables per OPS-SAT source stratum",
+      "segment_count_reported": 2123,
+      "raw_samples_reported": 303493,
+      "n_channels_reported": 9,
+      "source_release_identity": "PENDING_LOCAL_TO_ZENODO_RELEASE_MD5_MATCH",
+      "rights": "OPEN",
+      "independent_replicate": "MISSION_INDEPENDENT_FROM_ESA_ADB_BUT_CURATOR_OVERLAP_PRESENT"
+    }
+  ],
+  "sensitivity_only": [
+    {
+      "id": "ESA_ADB_V1_MATCHED",
+      "role": "PAIRED_METADATA_RELEASE_SENSITIVITY",
+      "doi": "10.5281/zenodo.12528696",
+      "matches": [
+        "ESA_ADB_V2_MISSION1",
+        "ESA_ADB_V2_MISSION2",
+        "ESA_ADB_V2_MISSION3"
+      ],
+      "independent_replicate": false,
+      "rights": "OPEN"
+    }
+  ],
+  "secondary_only": [
+    {
+      "id": "HACKASAT4_COMPETITION",
+      "role": "SECONDARY_UNPOOLED_CHALLENGE_RECORDS",
+      "repository": "cromulencellc/hackasat-finals-2023",
+      "commit": "2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1",
+      "file_identity_count": 5,
+      "observational_origin": "COMPETITION_SCORING_INPUTS_NOT_VERIFIED_FLIGHT_RECORDS",
+      "rights": "COMPONENT_LEVEL_REVIEW_OPEN"
+    }
+  ],
+  "deferred": [
+    {
+      "id": "NASA_SMAP_MSL",
+      "role": "DEFERRED_NOT_INCLUDED",
+      "reason": "Unpinned artifact, license and independence review absent"
+    }
+  ],
+  "preregistered_intent_not_frozen": {
+    "primary_semantic_denominator_per_stratum": 8,
+    "source_family_strata": 2,
+    "primary_stratum_count": 4,
+    "primary_total_variable_slots_if_frozen_as_proposed": 32,
+    "no_empirical_pooling": true,
+    "no_cross_source_inferential_claims": true,
+    "no_label_to_recovery_variable": true,
+    "no_telemetry_row_level_execution": true,
+    "no_implicit_independence_from_three_esa_missions": true,
+    "potential_not_evaluable_decision_time": true
+  },
+  "remaining_gates": [
+    "ESA_V1_V2_DATA_RIGHTS_NOT_RESOLVED",
+    "OPS_SAT_DATA_RELEASE_IDENTITY_AND_RIGHTS_NOT_RESOLVED",
+    "HACKASAT_SECONDARY_FILE_LEVEL_LICENSE_OPEN",
+    "NO_INDEPENDENT_SEMANTIC_ADJUDICATION_FREEZE",
+    "SYNTHETIC_CONTROLS_DRAFT_NOT_FROZEN",
+    "NO_ATOMIC_PROTOCOL_FREEZE",
+    "NO_REAL_DATA_EXECUTION_AUTHORIZATION"
+  ],
+  "excluded_from_this_phase": [
+    "DATASET_EXTRACTION",
+    "REAL_DATA_ROW_LEVEL_ANALYSIS",
+    "SELECTOR_EXECUTION",
+    "MODEL_TRAINING",
+    "RESEARCH_RESULTS_GENERATION",
+    "SUBMISSION",
+    "STUDY9_MUTATION"
+  ],
+  "approval_state": {
+    "author_authorized_research_design_preparation": true,
+    "author_final_population_approval_recorded": false,
+    "protocol_frozen": false,
+    "independent_review_complete": false,
+    "scientific_execution_authorized": false,
+    "publisher_submission_authorized": false
+  }
+}

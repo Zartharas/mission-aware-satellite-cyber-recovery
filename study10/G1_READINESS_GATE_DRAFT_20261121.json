@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "study_id": "S10-RSEI-001",
+  "record_date_utc": "2026-11-21",
+  "status": "G1_DOCUMENTATION_PREPARED_G1_RIGHTS_AND_INDEPENDENT_REVIEW_OPEN",
+  "source_main_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+  "evidence_scope": "PUBLIC_SOURCE_AND_EXISTING_INTAKE_METADATA_ONLY",
+  "artifacts": [
+    "study10/G1_SOURCE_RIGHTS_REVIEW_DRAFT_20261121.md",
+    "study10/G1_POPULATION_DECISION_DRAFT_20261121.json",
+    "study10/G1_SEMANTIC_CONTROL_SPEC_DRAFT_20261121.md",
+    "study10/G1_READINESS_GATE_DRAFT_20261121.json"
+  ],
+  "outcomes": {
+    "dataset_rights": "PARTIAL_OPEN",
+    "population_options": "PROVISIONAL_DEFINED_NOT_FROZEN",
+    "category_unit_alignment": "PASSED_PRIOR_AUTHOR_LOCAL_CHECK",
+    "semantic_contract_consistency": "DRAFT_REVIEWED_AGAINST_FROZEN_RUBRIC",
+    "source_field_semantic_adjudication": "NOT_PERFORMED",
+    "synthetic_controls": "SPECIFIED_NOT_RUN_OR_FROZEN",
+    "independent_expert_adjudication": "NOT_COMPLETED",
+    "protocol_freeze": "HOLD",
+    "scientific_execution": "NOT_AUTHORIZED",
+    "publication_submission": "NOT_AUTHORIZED"
+  },
+  "stop_reasons": [
+    "ESA_DATASET_LICENSE_NOT_IDENTIFIABLE_FROM_RENDERED_ZENODO_RIGHTS",
+    "OPS_SAT_DATA_RELEASE_AND_RIGHTS_REQUIRE_CONFIRMATION",
+    "SYNTHETIC_CONTROL_ORACLE_NOT_INDEPENDENTLY_VALIDATED",
+    "COHORT_MEMBERSHIP_NOT_FROZEN",
+    "NO_SOURCE_MAPPING_FREEZE"
+  ],
+  "approval": {
+    "author_authorized_g1_documentation_preparation": true,
+    "create_review_branch_and_pr_authorized": true,
+    "merge_authorized": false,
+    "freeze_authorized": false,
+    "source_extraction_authorized": false,
+    "scientific_execution_authorized": false,
+    "study9_modification_authorized": false,
+    "paper5_modification_authorized": false,
+    "third_party_outreach_authorized": false
+  },
+  "next_gate": "RESOLVE_LICENSES_AND_OPS_RELEASE; INDEPENDENTLY REVIEW_CONTROLS; AUTHOR_DECISION_ON_COHORTS; FREEZE_ONLY_IN_SEPARATE_ATOMIC_RECORD"
+}
