@@ -246,3 +246,33 @@ The following **draft** expands `S10_SYN_P0` into an explicit synthetic-only sou
 
 **Static design acceptance:** The fixture can be checked for **schema completeness only**, not correctness of actual cryptographic verification, safe recovery, or behavior of the frozen selector. External independent reviewer/implementation parity has not occurred.
 
+
+## 9. Static four-policy selector action oracle (review design, **not independently validated or executed**)
+
+**Normative source:** exact checked `study2/src/study2_security/selectors.py` on repository `main` at `5ee451c2a739cbca7dc948d49239d985c6b4cc07`, whose selector implementation is pinned in frozen Study 9 with SHA-256 `3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505`. Study 9 freezes exactly four **primary** policies in order: `S2_B0_FAIL_CLOSED`, `S2_B1_FAIL_OPERATIONAL`, `S2_B2_RISK_THRESHOLD`, `S2_S1_EVIDENCE_AWARE`. Exclude the four `S2_ABL_*` mechanistic ablations. The results below follow a static manual interpretation of the published selector branches. **No selector function has been executed here.**
+
+Evidence qualifies only when `(signature_valid AND source_trusted) AND fresh AND epoch_valid AND NOT contradictory AND minimum_evidence_complete` is `true`. The selector then uses `security_signal` and `authorization_available` according to the separate policy-specific cases below. Unknown values are **not** admissible Boolean `ObservationSummary` inputs; unknown-state handling is a separate future exhaustively enumerated partial-state wrapper and must not be silently coerced.
+
+| Synthetic state (all deviations from P0 indicated) | Evidence qualified? | B0 fail-closed | B1 fail-operational | B2 risk-threshold | S1 evidence-aware |
+|---|---|---|---|---|---|
+| P0 qualified, signal=0, authorization=1 | TRUE | PROCEED | PRESERVE | PRESERVE | PROCEED |
+| N-FRESH fresh=0, all else P0 | FALSE | RESTRICT | PRESERVE | HOLD | HOLD |
+| N-CONTRA contradictory=1, all else P0 | FALSE | RESTRICT | PRESERVE | HOLD | HOLD |
+| N-SIGNAL signal=1, authorization=0, evidence qualified | TRUE | PROCEED | RESTRICT | RESTRICT | RESTRICT |
+| N-SIGNAL-AUTH signal=1, authorization=1, evidence qualified | TRUE | PROCEED | RESTRICT | RESTRICT | PROCEED |
+| N-AUTH signal=0, authorization=0, evidence qualified | TRUE | PROCEED | PRESERVE | PRESERVE | PROCEED |
+
+**Legend:** `PROCEED` = `PROCEED_TO_RECOVERY_GATE`; `PRESERVE` = `PRESERVE_LIMITED_OPERATION`; `RESTRICT` = `RESTRICT_AND_REQUEST_AUTHORIZATION`; `HOLD` = `HOLD_AND_REQUIRE_EVIDENCE`.
+
+The table is intentionally **not** an empirical result or a safety recommendation. It reflects that:
+- B0 proceeds whenever evidence qualifies, **irrespective** of signal or contact-path availability;
+- B1 preserves limited operations unless evidence qualifies **and** security signal is true; authorization availability is not directly consulted;
+- B2 holds if evidence fails; otherwise it restricts only when security signal is true; it likewise does not consult authorization availability;
+- S1 holds if evidence fails; if evidence qualifies, it restricts only when **both** security signal is true and authorization is unavailable.
+
+These policy definitions have intentionally different behavior, including cases that might appear operationally counterintuitive. **Do not change the policies to align with expected safety intuition**; the purpose of the draft oracle is to pin expectations from the existing frozen code.
+
+**Independent-oracle readiness gate:** A future separate reviewer or separately implemented standalone oracle must derive all four policy outputs **without calling the production selector**, pin its code or derivation, and compare it to the actual selector on a synthetic fixture suite after authorization for G3. Any mismatch blocks execution. This static table is an internal self-review artifact, not proof that such independent testing occurred, and **does not** satisfy the G2 prerequisite of freezing a validated, independent expected-output contract.
+
+**Negative evidence-only fixtures:** For a single bad signature, untrusted source, stale time, epoch mismatch, contradictory accepted claims, or missing accepted recovery criterion, set the corresponding **known** value to failure and recompute `evidence_qualified=false`. This rule does *not* apply when the value is unknown or when the source lacks decision-time observability; those cases are `UNKNOWN`/`NOT_EVALUABLE`, not an observed failure.
+
