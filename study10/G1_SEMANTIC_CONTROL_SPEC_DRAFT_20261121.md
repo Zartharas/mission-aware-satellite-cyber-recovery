@@ -81,6 +81,10 @@ This is a **mapping-oracle candidate**, not a selector-output oracle, proof of r
 
 **G4+ future source semantics/selector access (HOLD):** require rights clearance, G2/G3 pass, separate execution authorization and audit. When native decision time is not defensible, emit `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` and **no** row-level identifiability percentage.
 
+## 6. Claim boundary
+
+No anomaly label is a verified cyberattack; no telemetry status flag is cryptographic trust or command authorization; no structural identifiability is proof of safe recovery. No transferability, mission-scale effect, detector performance, or operational efficacy claim is authorized.
+
 ## 7. Adversarial semantic-control review (internal static review only; not independent human adjudication)
 
 **Review basis:** `study9/RECOVERY_STATE_MAPPING_RUBRIC.json`, `study9/SEMANTIC_ADJUDICATION_FREEZE.json`, and the unmodified `study2/` selector contract. Review examines the authored proposal for hidden assumptions; **no synthetic fixture, real dataset, mapping classifier, or selector was run**.
@@ -99,6 +103,146 @@ This is a **mapping-oracle candidate**, not a selector-output oracle, proof of r
 
 **Review disposition:** `INTERNAL_STATIC_ADVERSARIAL_REVIEW_COMPLETE_WITH_OPEN_FINDINGS`. This is **not** a second independent expert review, an independently executed test oracle, or final approval of semantic mappings. All listed concerns must be resolved or explicitly excluded before G2; unresolved high-severity items block freeze. No author approval, external peer review or scientific outcome is inferred from this assessment.
 
-## 6. Claim boundary
+## 8. Tightened synthetic fixture contract (proposed, **not executed or frozen**)
 
-No anomaly label is a verified cyberattack; no telemetry status flag is cryptographic trust or command authorization; no structural identifiability is proof of safe recovery. No transferability, mission-scale effect, detector performance, or operational efficacy claim is authorized.
+The following **draft** expands `S10_SYN_P0` into an explicit synthetic-only source-state contract. It is not a real satellite record, does not bind to ESA, OPS-SAT, Hack-A-Sat or any actual cryptographic key, and does not execute the frozen selector. The asserted `signature_valid` value is an **interface-level test stub**; testing signature verification cryptography requires a separate G3 test-key and verifier oracle after approval.
+
+```json
+{
+  "id": "S10_SYN_P0_V2_DRAFT",
+  "role": "SYNTHETIC_ONLY",
+  "purpose": "State-interface mapping oracle; NOT a cryptographic-verifier test nor a real-flight observation",
+  "decision_point": {
+    "subject": "SAT_TEST_A",
+    "time": 1050,
+    "clock": "SYNTHETIC_INTEGER_TIMELINE"
+  },
+  "cryptographic_check": {
+    "state": "known_true",
+    "basis": "synthetic_assumed_verifier_outcome",
+    "real_signature_verified": false
+  },
+  "trusted_source": {
+    "source_id": "SYN_SOURCE_A",
+    "membership": "known_true",
+    "membership_set_complete": true
+  },
+  "freshness": {
+    "issue_time": 1000,
+    "valid_from": 1000,
+    "valid_through": 1100,
+    "decision_time": 1050,
+    "known_valid": true,
+    "interval_boundary_convention": "PENDING_G2"
+  },
+  "evidence_epoch": {
+    "claimed": 7,
+    "expected": 7,
+    "same_subject": true,
+    "known_equal": true
+  },
+  "accepted_claims": {
+    "inventory_complete": true,
+    "as_of": 1050,
+    "subject": "SAT_TEST_A",
+    "claims": [
+      {
+        "subject": "SAT_TEST_A",
+        "key": "recovery_manifest",
+        "epoch": 7,
+        "value": "manifest_test_v1",
+        "accepted": true,
+        "current": true
+      }
+    ],
+    "no_other_accepted_current_claims_for_subject_key_epoch": true,
+    "contradictory": "known_false"
+  },
+  "accepted_recovery_criteria": {
+    "approved_version": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "integrity_measurement_valid": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "authorization_valid": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "measured_state_current": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "authorized_command_path_restored": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "ground_spacecraft_state_agreed": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "required_telemetry_restored": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "health_checks_passed": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "no_residual_unauthorized_state": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    },
+    "recovery_manifest_complete": {
+      "present": true,
+      "accepted": true,
+      "as_of": 1050
+    }
+  },
+  "operational_guard": {
+    "state": "known_false",
+    "native_visibility": "SYNTHETIC_TEST_ONLY",
+    "offline_ground_truth_substitute": false
+  },
+  "authorization_path": {
+    "state": "known_true",
+    "available_at": 1050,
+    "authorized_contact_path": "SYNTHETIC_PATH_A"
+  },
+  "expected_normalized_mapping": {
+    "signature_valid": true,
+    "source_trusted": true,
+    "fresh": true,
+    "epoch_valid": true,
+    "contradictory": false,
+    "minimum_evidence_complete": true,
+    "security_signal": false,
+    "authorization_available": true
+  },
+  "downstream_selector_expected_action": "UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE",
+  "effect": "DRAFT_SPECIFICATION_ONLY_NO_EXECUTION_NO_REAL_DATA"
+}
+```
+
+### Required fail-closed behavior to implement only after G3 approval
+
+1. **Known false versus unknown:** Source-state ingestion must retain a three-way distinction `known_true`, `known_false`, and `unknown` before any admissible completion. `unknown` may not be converted to `false` or `true`, counted as observed, or used to select an action.
+2. **Closed-world claims only in the synthetic fixture:** The one-item accepted-claims list above establishes `contradictory=false` only because `inventory_complete=true` and the explicit absence of other accepted current same-subject/same-key/same-epoch claims is a **synthetic premise**. A real dataset may not inherit this closed-world declaration.
+3. **Ten named accepted criteria:** The fixture has an explicit accepted/current `present=true` entry for each of the ten frozen recovery criteria. `S10_SYN_N_CRITERIA` removes **one acceptance/presence entry**, not merely a CSV column; its completeness state becomes known false only when the synthetic inventory is proven complete, otherwise `unknown`.
+4. **Temporal semantics:** This positive fixture is strictly internal to the 1000–1100 time window at 1050 and does not depend on boundary inclusion. Negative `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, and `S10_SYN_N_EPOCH_MISMATCH` must be specified with exact input mutation and expected error state **before** execution. Boundary comparisons at exactly 1000 or 1100 require a separate explicitly frozen convention; the current draft asserts none.
+5. **Policy oracle independence:** The `expected_normalized_mapping` is an input mapping oracle only. The `downstream_selector_expected_action` deliberately remains `UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE`. G2 must separately pin the exact selector SHA-256, specify each policy's expected action and action-set enumeration from an independently reviewed implementation, and capture any disagreement rather than adapting the fixture to test outcomes.
+6. **Dataset exclusion:** No synthetic state, source identity, timestamp, or ground truth participates in the ESA/OPS/Hack empirical denominator, mission-independence claims or external-application outcomes.
+
+**Static design acceptance:** The fixture can be checked for **schema completeness only**, not correctness of actual cryptographic verification, safe recovery, or behavior of the frozen selector. External independent reviewer/implementation parity has not occurred.
+

@@ -17,7 +17,7 @@
     "category_unit_alignment": "PASSED_PRIOR_AUTHOR_LOCAL_CHECK",
     "semantic_contract_consistency": "DRAFT_REVIEWED_AGAINST_FROZEN_RUBRIC",
     "source_field_semantic_adjudication": "NOT_PERFORMED",
-    "synthetic_controls": "SPECIFIED_NOT_RUN_OR_FROZEN",
+    "synthetic_controls": "V2_EXPLICIT_TRI_STATE_LEDGER_TEN_CRITERIA_DRAFT_NOT_EXECUTED_NOT_FROZEN",
     "independent_expert_adjudication": "NOT_COMPLETED",
     "protocol_freeze": "HOLD",
     "scientific_execution": "NOT_AUTHORIZED",
@@ -29,8 +29,9 @@
     "ops_sat_evidence_independent_local_rehash_by_assistant": false,
     "esa_v1_license_evidence": "AUTHOR_DECLARED_CC_BY_3_0_IGO_EXACT_V1_DOI",
     "esa_v2_license_evidence": "AUTHOR_DECLARED_CC_BY_3_0_IGO_V2_RELEASE_SCOPE_PENDING",
-    "internal_static_semantic_adversarial_review": "COMPLETE_WITH_HIGH_SEVERITY_OPEN_FINDINGS",
-    "ops_sat_license_sha256_cross_check": "PASS_LICENSE_MD5_AND_SHA256_MATCH_AUTHOR_PUBLISHED"
+    "internal_static_semantic_adversarial_review": "HIGH_RISK_PRE_FREEZE_CONCERNS_PARTIALLY_ADDRESSED_BY_DRAFT_FIXTURE_EXTERNAL_ORACLE_PENDING",
+    "ops_sat_license_sha256_cross_check": "PASS_LICENSE_MD5_AND_SHA256_MATCH_AUTHOR_PUBLISHED",
+    "synthetic_fixture_schema_contract": "REVIEW_DRAFT_ONLY"
   },
   "stop_reasons": [
     "ESA_V2_ZENODO_RIGHTS_VALUE_NOT_READ_DESPITE_AUTHOR_DECLARATION",
@@ -39,8 +40,8 @@
     "NO_SOURCE_MAPPING_FREEZE",
     "ESA_OPS_SAT_MISSION_OVERLAP_UNRESOLVED",
     "SYNTHETIC_POSITIVE_FIXTURE_INDEPENDENT_ORACLE_NOT_FROZEN",
-    "KNOWN_FALSE_VS_UNKNOWN_CLAIM_SET_BOUNDARY_NOT_FROZEN",
-    "LICENSE_ATTRIBUTION_AND_THIRD_PARTY_RIGHTS_SCOPE_REVIEW_UNAPPROVED"
+    "LICENSE_ATTRIBUTION_AND_THIRD_PARTY_RIGHTS_SCOPE_REVIEW_UNAPPROVED",
+    "SYNTHETIC_TRI_STATE_AND_CLAIM_LEDGER_DRAFT_PENDING_INDEPENDENT_FREEZE"
   ],
   "approval": {
     "author_authorized_g1_documentation_preparation": true,
@@ -53,5 +54,5 @@
     "paper5_modification_authorized": false,
     "third_party_outreach_authorized": false
   },
-  "next_gate": "REVIEW_FINAL_LICENSE_NOTICES_AND_LIMITED_RELEASE_SCOPES; CONFIRM_ANONYMIZED_ESA_V2_RECORD_RIGHTS_SCOPE; RETAIN_NO_INDEPENDENCE_CLAIM_FOR_OPS_SAT; CLOSE_HIGH_SEVERITY_SYNTHETIC_SPEC_FINDINGS; INDEPENDENT_ADJUDICATION_AND_AUTHOR_G2_APPROVAL"
+  "next_gate": "AUTHOR_APPROVE_ATTRIBUTION_AND_G1_POPULATION_RULES; INDEPENDENTLY_CHECK_SYNTHETIC_ORACLE_AND_SEMANTIC_CONTRACT; FREEZE_ONLY_AT_NEW_G2_GATE; KEEP_EXECUTION_CLOSED"
 }
