@@ -1,0 +1,361 @@
+{
+  "schema": 1,
+  "draft_date": "2026-11-21",
+  "study_id": "S10-RSEI-001",
+  "study_id_assignment": "PROVISIONAL_DEFAULT_BRANCH_SEARCH_ONLY",
+  "status": "DRAFT_FOR_REVIEW_NOT_FROZEN",
+  "scope": "PROSPECTIVE_EXTERNAL_APPLICABILITY_NO_SCIENTIFIC_ANALYSIS",
+  "source_repo": {
+    "full_name": "Zartharas/mission-aware-satellite-cyber-recovery",
+    "default_branch": "main",
+    "observed_main_commit": "660683a6561274bdbeadc84a5000436e8c5d5d1f",
+    "study9_experiment": "S9-RTSI-001",
+    "study9_results_freeze_sha256": "0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2",
+    "study9_selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "study9_rubric_path": "study9/RECOVERY_STATE_MAPPING_RUBRIC.json"
+  },
+  "authorization": {
+    "draft_document_creation_authorized": true,
+    "protocol_approved": false,
+    "preregistration_frozen": false,
+    "new_semantic_adjudication_authorized": false,
+    "dataset_extraction_authorized": false,
+    "row_level_execution_authorized": false,
+    "model_training_authorized": false,
+    "selector_execution_authorized": false,
+    "github_branch_creation_authorized_in_this_step": true,
+    "github_write_performed": true,
+    "study9_change_authorized": false,
+    "paper5_manuscript_change_authorized": false,
+    "publisher_submission_authorized": false,
+    "draft_pull_request_creation_authorized": true,
+    "merge_authorized": false,
+    "github_write_scope": "THREE_DRAFT_DOCUMENTATION_FILES_ONLY"
+  },
+  "previously_observed_evidence_before_protocol_freeze": [
+    "Six ESA archive published MD5 identity checks and author-reported SHA-256 values",
+    "ESA outer ZIP directory metadata, channel schema and channel version comparison",
+    "OPS-SAT dataset and segments counts, 9 channels, binary anomaly and constant text label",
+    "Hack-A-Sat CSV header inventory and identity hashes"
+  ],
+  "required_recovery_variables": [
+    "signature_valid",
+    "source_trusted",
+    "fresh",
+    "epoch_valid",
+    "contradictory",
+    "minimum_evidence_complete",
+    "security_signal",
+    "authorization_available"
+  ],
+  "source_family_independence": {
+    "ESA_ADB_V1_AND_V2": "SAME_SOURCE_RELEASE_FAMILY_MATCHED_COMPARISON_NOT_INDEPENDENT",
+    "ESA_THREE_MISSIONS": "SEPARATE_MISSION_STRATA_WITH_COMMON_CURATOR_SOURCE",
+    "OPS_SAT": "INDEPENDENT_MISSION_CANDIDATE_SHARED_INSTITUTIONAL_ECOSYSTEM_REVIEW",
+    "HACKASAT4": "COMPETITION_CONTEXT_SEPARATE_UNPOOLED",
+    "NASA_SMAP_MSL": "DEFERRED_NOT_INCLUDED"
+  },
+  "source_record_urls": {
+    "ESA_ADB_V1": "https://zenodo.org/records/12528696",
+    "ESA_ADB_V2": "https://zenodo.org/records/15237121",
+    "OPS_SAT_ARTICLE": "https://doi.org/10.1038/s41597-025-05035-3",
+    "OPS_SAT_CORRECTION": "https://doi.org/10.1038/s41597-025-05751-w",
+    "HACKASAT4": "https://github.com/cromulencellc/hackasat-finals-2023/tree/2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1/game_data/HAS4_FULL_GAME",
+    "NASA_HUNDMAN_2018": "https://doi.org/10.1145/3219819.3219845"
+  },
+  "esa_adb": {
+    "role": "V2_PROSPECTIVE_PRIMARY_V1_MATCHED_SENSITIVITY",
+    "rights_status": "LICENSE_AND_REDISTRIBUTION_TERMS_NOT_AFFIRMATIVELY_RESOLVED",
+    "identity_source": "PUBLISHED_ZENODO_MD5_AND_USER_RUN_LOCAL_CHECKER_OUTPUT",
+    "sha256_basis": "USER_REPORTED_LOCAL_HASH_NOT_INDEPENDENTLY_REHASHED_BY_THIS_ASSISTANT",
+    "archive_entries": [
+      {
+        "mission": 1,
+        "release": "v1",
+        "local_basename": "ESA-Mission1.zip",
+        "source_doi": "10.5281/zenodo.12528696",
+        "official_md5": "80750189d171f5f398fb3d96c49df12b",
+        "sha256_user_local_report": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+        "size_bytes": 3776246054,
+        "outer_zip_directory_entry_count": 780,
+        "outer_zip_directory_uncompressed_bytes": 3776362882,
+        "identity_prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "recent_metadata_gate": "PASS_ZIP_DIRECTORY_METADATA_ONLY",
+        "integrity_rehashed_in_metadata_inventory": false,
+        "unsafe_paths": 0,
+        "encrypted_members": 0,
+        "zip_member_header_content_integrity": "NOT_EXHAUSTIVELY_CHECKED"
+      },
+      {
+        "mission": 1,
+        "release": "v2",
+        "local_basename": "ESA-Mission1 (1).zip",
+        "source_doi": "10.5281/zenodo.15237121",
+        "official_md5": "9770ad12ed730238f37c42d5c27ab436",
+        "sha256_user_local_report": "ba28f761b1deab4dbba4728793bff139fea39dbf9cf0d9c559d619ffe75d5a72",
+        "size_bytes": 3776246073,
+        "outer_zip_directory_entry_count": 780,
+        "outer_zip_directory_uncompressed_bytes": 3776363122,
+        "identity_prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "recent_metadata_gate": "PASS_ZIP_DIRECTORY_METADATA_ONLY",
+        "integrity_rehashed_in_metadata_inventory": false,
+        "unsafe_paths": 0,
+        "encrypted_members": 0,
+        "zip_member_header_content_integrity": "NOT_EXHAUSTIVELY_CHECKED"
+      },
+      {
+        "mission": 2,
+        "release": "v1",
+        "local_basename": "ESA-Mission2.zip",
+        "source_doi": "10.5281/zenodo.12528696",
+        "official_md5": "0b7505b7f0731ca037ee889ca2a520ce",
+        "sha256_user_local_report": "843c3b5e0042178bfee650fcf7f16413ce8083dcfa5db53e6d37e0811dfb138d",
+        "size_bytes": 4098539912,
+        "outer_zip_directory_entry_count": 230,
+        "outer_zip_directory_uncompressed_bytes": 4099243015,
+        "identity_prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "recent_metadata_gate": "PASS_ZIP_DIRECTORY_METADATA_ONLY",
+        "integrity_rehashed_in_metadata_inventory": false,
+        "unsafe_paths": 0,
+        "encrypted_members": 0,
+        "zip_member_header_content_integrity": "NOT_EXHAUSTIVELY_CHECKED"
+      },
+      {
+        "mission": 2,
+        "release": "v2",
+        "local_basename": "ESA-Mission2 (1).zip",
+        "source_doi": "10.5281/zenodo.15237121",
+        "official_md5": "bfc72012691427d9327eb41f726ce45e",
+        "sha256_user_local_report": "e8a89be1917b6754a10bd323441e87a82c8cf2e84ed162442c2dcf72ecc346d5",
+        "size_bytes": 4098539932,
+        "outer_zip_directory_entry_count": 230,
+        "outer_zip_directory_uncompressed_bytes": 4099243187,
+        "identity_prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "recent_metadata_gate": "PASS_ZIP_DIRECTORY_METADATA_ONLY",
+        "integrity_rehashed_in_metadata_inventory": false,
+        "unsafe_paths": 0,
+        "encrypted_members": 0,
+        "zip_member_header_content_integrity": "NOT_EXHAUSTIVELY_CHECKED"
+      },
+      {
+        "mission": 3,
+        "release": "v1",
+        "local_basename": "ESA-Mission3.zip",
+        "source_doi": "10.5281/zenodo.12528696",
+        "official_md5": "34b8a8857e2242fb1f00b368b7421595",
+        "sha256_user_local_report": "4ed219e4d07c8a277b5c32d06f9a8a9ebc61fc231450bf21ce92079d25182b27",
+        "size_bytes": 3734403447,
+        "outer_zip_directory_entry_count": 52,
+        "outer_zip_directory_uncompressed_bytes": 3734582943,
+        "identity_prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "recent_metadata_gate": "PASS_ZIP_DIRECTORY_METADATA_ONLY",
+        "integrity_rehashed_in_metadata_inventory": false,
+        "unsafe_paths": 0,
+        "encrypted_members": 0,
+        "zip_member_header_content_integrity": "NOT_EXHAUSTIVELY_CHECKED"
+      },
+      {
+        "mission": 3,
+        "release": "v2",
+        "local_basename": "ESA-Mission3 (1).zip",
+        "source_doi": "10.5281/zenodo.15237121",
+        "official_md5": "d63943f09c81378acd9fc5e565ecc66e",
+        "sha256_user_local_report": "f426c4bb9857299c586e3c50f35ddb58b469a3e5565f586d4095bcb6cf532404",
+        "size_bytes": 3734403444,
+        "outer_zip_directory_entry_count": 52,
+        "outer_zip_directory_uncompressed_bytes": 3734582483,
+        "identity_prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "recent_metadata_gate": "PASS_ZIP_DIRECTORY_METADATA_ONLY",
+        "integrity_rehashed_in_metadata_inventory": false,
+        "unsafe_paths": 0,
+        "encrypted_members": 0,
+        "zip_member_header_content_integrity": "NOT_EXHAUSTIVELY_CHECKED"
+      }
+    ],
+    "mission_metadata_reconciliation": [
+      {
+        "mission": 1,
+        "channels_v1_v2_both": 76,
+        "added_channel_ids": 0,
+        "removed_channel_ids": 0,
+        "v2_categorical_yes": 0,
+        "v2_categorical_no": 76,
+        "v1_physical_unit_8_to_v2_blank": 0,
+        "categorical_set_equals_cleared_units_set": "PASS_USER_LOCAL_COMPARISON",
+        "other_common_field_changes": 0,
+        "outer_zip_changed_members": [
+          "ESA-Mission1/channels.csv"
+        ],
+        "changed_member_crc32_v1": "c71ef823",
+        "changed_member_crc32_v2": "cf8f9511",
+        "changed_member_size_v1": 3542,
+        "changed_member_size_v2": 3782,
+        "compression_v1": 8,
+        "compression_v2": 9,
+        "v2_channel_csv_uncompressed_crc_size_check": "PASS_USER_LOCAL_MAC_UNZIP",
+        "claim_boundary": "OUTER_DIRECTORY_METADATA_ONLY_NOT_INNER_PAYLOAD_CONTENT_EQUIVALENCE"
+      },
+      {
+        "mission": 2,
+        "channels_v1_v2_both": 100,
+        "added_channel_ids": 0,
+        "removed_channel_ids": 0,
+        "v2_categorical_yes": 10,
+        "v2_categorical_no": 90,
+        "v1_physical_unit_8_to_v2_blank": 10,
+        "categorical_set_equals_cleared_units_set": "PASS_USER_LOCAL_COMPARISON",
+        "other_common_field_changes": 0,
+        "outer_zip_changed_members": [
+          "ESA-Mission2/channels.csv"
+        ],
+        "changed_member_crc32_v1": "827210b5",
+        "changed_member_crc32_v2": "cffddf65",
+        "changed_member_size_v1": 4178,
+        "changed_member_size_v2": 4350,
+        "compression_v1": 8,
+        "compression_v2": 9,
+        "v2_channel_csv_uncompressed_crc_size_check": "PASS_USER_LOCAL_MAC_UNZIP",
+        "claim_boundary": "OUTER_DIRECTORY_METADATA_ONLY_NOT_INNER_PAYLOAD_CONTENT_EQUIVALENCE"
+      },
+      {
+        "mission": 3,
+        "channels_v1_v2_both": 48,
+        "added_channel_ids": 0,
+        "removed_channel_ids": 0,
+        "v2_categorical_yes": 44,
+        "v2_categorical_no": 4,
+        "v1_physical_unit_8_to_v2_blank": 44,
+        "categorical_set_equals_cleared_units_set": "PASS_USER_LOCAL_COMPARISON",
+        "other_common_field_changes": 0,
+        "outer_zip_changed_members": [
+          "ESA-Mission3/channels.csv"
+        ],
+        "changed_member_crc32_v1": "3421e777",
+        "changed_member_crc32_v2": "4bad8b5b",
+        "changed_member_size_v1": 2177,
+        "changed_member_size_v2": 1717,
+        "compression_v1": 8,
+        "compression_v2": 9,
+        "v2_channel_csv_uncompressed_crc_size_check": "PASS_USER_LOCAL_MAC_UNZIP",
+        "claim_boundary": "OUTER_DIRECTORY_METADATA_ONLY_NOT_INNER_PAYLOAD_CONTENT_EQUIVALENCE"
+      }
+    ],
+    "nested_archive_limitation": "Matching outer-directory CRC32 and uncompressed size are not a SHA-256 proof of nested member content identity. Inner archive CRC/decompression not fully tested.",
+    "esa_no_full_telemetry_extraction": true
+  },
+  "ops_sat_ad": {
+    "role": "CANDIDATE_INDEPENDENT_REAL_FLIGHT_SOURCE",
+    "paper_doi": "10.1038/s41597-025-05035-3",
+    "published_correction_doi": "10.1038/s41597-025-05751-w",
+    "licence_from_uploaded_license": "MIT",
+    "licence_independently_confirmed_from_upstream_code_release": "MIT_FOR_SOURCE_CODE_ON_PUBLISHER_PAGE",
+    "reproduction_or_distribution_rights_review": "NEEDS_SOURCE_BUNDLE_AND_PUBLICATION_ROLE_REVIEW",
+    "metrics_prior_intake": {
+      "dataset_csv_rows": 2123,
+      "dataset_csv_columns": 23,
+      "segments_csv_rows": 303493,
+      "segments_csv_columns": 8,
+      "telemetry_channels": 9,
+      "nominal_segments": 1689,
+      "anomalous_segments": 434,
+      "train_segments": 1594,
+      "test_segments": 529,
+      "cross_csv_segment_mismatches": 0
+    },
+    "source_paper_training_count_claim": 1494,
+    "discrepancy": "Paper reports 1,494 training segments while component counts and uploaded CSV yield 1,594; do not silently correct source paper.",
+    "segments_csv_text_label_value": "anomaly_FOR_ALL_ROWS",
+    "ground_truth_field": "integer anomaly 0/1; offline anomaly classification, not recovery-authorized cyberattack truth",
+    "files_sha256_from_prior_user_upload_audit": {
+      "dataset.csv": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02",
+      "segments.csv": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba",
+      "dataset_generator.ipynb": "409047fc42fbc415b7b16c85e24773127d1266e5034ae5be47b69d5323b120e2",
+      "modeling_examples.ipynb": "224f8a73561c25e421f1eb72b84a850118002eecf278642c690e8b4fce2d4faa",
+      "LICENSE": "76d2ff9834ed2bb1356d9f7eb303c289817374bb1d5bbe5af86817e73e0f47d2",
+      "requirements.txt": "fd06761596b7271f90cb7183ced57b96884d02ae74195b71dbe26b683a19aaaf"
+    }
+  },
+  "hackasat4": {
+    "role": "SECONDARY_COMPETITION_CONTEXT_UNPOOLED",
+    "repository": "cromulencellc/hackasat-finals-2023",
+    "commit": "2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1",
+    "relative_root": "game_data/HAS4_FULL_GAME",
+    "source_licensing": "PROJECT_MIT_WITH_FILE_FAMILY_EXCEPTIONS_CFS_NOSA_COSMOS_GPL_OSK_LGPL_VERIFY_BEFORE_REUSE",
+    "flight_provenance": "PER_RECORD_FLIGHT_ORIGIN_NOT_ESTABLISHED",
+    "local_intake_method": "ZIP_DIRECT_INSPECTION",
+    "uploaded_github_repo_zip_sha256_independently_verified": "5a9ea0ffe6382739c3d03166935ac9b10aba5fd77878ac2cb2602f48ef34a8e5",
+    "uploaded_github_repo_zip_bytes": 16395491,
+    "uploaded_zip_file_hash_scope": "RECEIVED_CHAT_ATTACHMENT_NOT_AUTHOR_LOCAL_FILE_HASH",
+    "processed_and_raw_file_entries": [
+      {
+        "relative_path": "processed_tlm/2023_08_10_00_00_00.0_GPS_GEODETIC.csv",
+        "size_bytes": 2183781,
+        "git_blob_sha1_upstream": "ad8e34ba9dead45208c28affff9cb6f0681a038f",
+        "sha256_from_local_report": "cd0ab92d244bc10db728cfa0f6e62662ef316779b7e0fd689d3dfaa3275d2faf",
+        "source_git_blob_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK",
+        "sha256_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK"
+      },
+      {
+        "relative_path": "processed_tlm/2023_08_10_00_00_00.0_SCRIPT_KIDDIE.csv",
+        "size_bytes": 2980,
+        "git_blob_sha1_upstream": "6fa02c57f8044535a9839d03c829eaf40f585989",
+        "sha256_from_local_report": "f3c355869f52c29caed2538f734d1a28a8bab67fa65404cc8f43db2d1956d495",
+        "source_git_blob_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK",
+        "sha256_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK"
+      },
+      {
+        "relative_path": "processed_tlm/2023_08_10_00_00_00.0_SCRIPT_STATUS.csv",
+        "size_bytes": 46908,
+        "git_blob_sha1_upstream": "03f356d745e1f7ea08faf9376743d507df2499bc",
+        "sha256_from_local_report": "8f90a749dec3e1fe95ec340b59f75c37268c76008666af69626a61e536009eda",
+        "source_git_blob_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK",
+        "sha256_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK"
+      },
+      {
+        "relative_path": "processed_tlm/2023_08_10_00_00_00.0_SPAP_METADATA.csv",
+        "size_bytes": 21585,
+        "git_blob_sha1_upstream": "d7e700b93451e709d21d53e0e224513e2a31aee9",
+        "sha256_from_local_report": "71a2199819178eba11e5c445679c524cd621c8b69e243c8a59de808a18843c11",
+        "source_git_blob_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK",
+        "sha256_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK"
+      },
+      {
+        "relative_path": "raw_tlm/raw_tlm.tar.gz",
+        "size_bytes": 736695,
+        "git_blob_sha1_upstream": "e9eab4cfbbfb92480f7687472afe9ae8ef64ec08",
+        "sha256_from_local_report": "3ca4ebbd4cee7ef4591d35017c3f8dd2607adb0806203e32a398c7f9aab4c8af",
+        "source_git_blob_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK",
+        "sha256_identity": "PASS_USER_LOCAL_AND_INDEPENDENT_ATTACHMENT_RECHECK"
+      }
+    ],
+    "raw_tar_member_headers_from_local_report": {
+      "member_count": 231,
+      "regular": 230,
+      "directory": 1,
+      "no_extraction": true,
+      "unsafe_or_special_members": []
+    }
+  },
+  "nasa_smap_msl": {
+    "role": "DEFERRED_NOT_PART_OF_PRIMARY_COHORT",
+    "reference_doi": "10.1145/3219819.3219845",
+    "dataset_identity_status": "NOT_PINNED",
+    "license_status": "NOT_VERIFIED",
+    "inclusion_authorized": false
+  },
+  "pre_registration_gates": {
+    "protocol_review": "OPEN",
+    "source_license_resolution": "OPEN",
+    "exact_population_freeze": "CLOSED",
+    "semantic_rubric_freeze": "CLOSED",
+    "synthetic_positive_control_specification": "CLOSED",
+    "scientific_execution": "CLOSED"
+  },
+  "evidence_file_names": [
+    "Paper5_OPSSAT_AD_ReadOnly_Intake_2026-11-21(1).md",
+    "Paper5_External_Dataset_Identity_Lock_2026-11-21.json",
+    "Paper5_External_Dataset_Metadata_Report_2026-11-21.json",
+    "Paper5_ESA_ADB_Version_Metadata_Diff_Report_2026-11-21.json (user-side output only; not attached)",
+    "2026-11-21 shell channel-metadata equality output (user-message evidence)"
+  ]
+}
