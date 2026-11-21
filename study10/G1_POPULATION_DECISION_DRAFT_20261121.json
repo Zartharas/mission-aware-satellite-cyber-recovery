@@ -206,5 +206,19 @@
     "conclusion": "Do not claim independent spacecraft replication without documented non-overlap; independent source family does not imply independent spacecraft",
     "retrospective_outcome_fishing_prohibited": true,
     "additional_distinction": "The 2026 ESA DMLR paper calls the three ESA subjects 'large spacecraft'; OPS-SAT source paper identifies a 3U CubeSat. This supports apparent distinctness but is not an authenticated non-overlap mapping because ESA identities and timelines are anonymized."
+  },
+  "population_overlap_decision_draft": {
+    "decision": "TREAT_ESA_OPS_SAT_AS_POTENTIALLY_DEPENDENT_WITHOUT_DEANONYMIZATION",
+    "evidence": "ESA three mission identities and timelines anonymized, OPS-SAT named 3U CubeSat; public size descriptions suggest separation but cannot prove it",
+    "proposed_handling": [
+      "Keep ESA v2 missions as three within-family descriptive strata",
+      "Keep OPS-SAT v2 as a distinct public source-family stratum without counting it as an independently replicated spacecraft population",
+      "No pooled denominator, cross-family hypothesis test, mission-independent confidence interval or effective sample-size claim",
+      "ESA v1 is a paired same-mission release comparator, never independent observations",
+      "If future rights-holder provenance clarifies identity overlap, record prospective protocol amendment before any outcome inspection; do not seek to deanonymize protected mission information",
+      "If overlap remains unresolved at G2, author may approve descriptive reporting only, explicitly state unresolved dependence, and prohibit independence claims"
+    ],
+    "author_approval_for_handling": false,
+    "independent_source_population_established": false
   }
 }
