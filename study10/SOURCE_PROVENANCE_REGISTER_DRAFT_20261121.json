@@ -29,8 +29,17 @@
     "paper5_manuscript_change_authorized": false,
     "publisher_submission_authorized": false,
     "draft_pull_request_creation_authorized": true,
-    "merge_authorized": false,
-    "github_write_scope": "THREE_DRAFT_DOCUMENTATION_FILES_ONLY"
+    "merge_authorized": true,
+    "github_write_scope": "THREE_DRAFT_DOCUMENTATION_FILES_ONLY",
+    "documentation_only_merge_authorized": true,
+    "merge_scope": "EXACT_THREE_STUDY10_DRAFT_DOCUMENTATION_PATHS_AFTER_CI_AND_SCOPE_REVIEW",
+    "scientific_protocol_freeze_authorized": false,
+    "scientific_protocol_freeze_blockers": [
+      "ESA_DATA_LICENSE_UNRESOLVED",
+      "COHORT_MEMBERSHIP_NOT_FROZEN",
+      "SYNTHETIC_CONTROLS_NOT_FROZEN",
+      "SEMANTIC_ADJUDICATION_NOT_FROZEN"
+    ]
   },
   "previously_observed_evidence_before_protocol_freeze": [
     "Six ESA archive published MD5 identity checks and author-reported SHA-256 values",

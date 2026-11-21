@@ -113,7 +113,7 @@ Use two independent reviewers or an independently implemented checker for the fi
 | G5 — Conditional row-level/selector experiment | Separate explicit approval with decision-time evidence, resource budget, SHA-256-bound run manifest, and audit | **CLOSED** |
 | G6 — Analysis/publication | Frozen, independently verified results; interpretation, originality, venue, and submission approval | **CLOSED** |
 
-Stop and record an explicit deviation if any archive identity changes, rights remain unclear, an unsupported decision-time join is required, a positive control fails, a code/rubric hash changes, nested archive integrity fails, or another source is proposed after G2. No silent “fix” or favorable substitution. The original draft-preparation authorization permitted only local document drafting and validation. Subsequent explicit author authorization permits a dedicated GitHub documentation-review branch and draft pull request containing only this protocol and its two provenance-register files. It does not authorize merging, scientific execution, dataset ingestion, model training, publisher upload, or changes to frozen Study 9 and the Paper 5 manuscript.
+Stop and record an explicit deviation if any archive identity changes, rights remain unclear, an unsupported decision-time join is required, a positive control fails, a code/rubric hash changes, nested archive integrity fails, or another source is proposed after G2. No silent “fix” or favorable substitution. The original draft-preparation authorization permitted only local document drafting and validation. Subsequent explicit author authorization permits a dedicated GitHub documentation-review branch and draft pull request containing only this protocol and its two provenance-register files. A later explicit author authorization permits the documentation-only draft PR to be merged **after complete CI success and exact-scope review**, without freezing or approving the prospective protocol. It does not authorize scientific execution, dataset ingestion, model training, publisher upload, or changes to frozen Study 9 and the Paper 5 manuscript.
 
 ## 11. Review decisions still required to lock
 
@@ -124,6 +124,8 @@ Stop and record an explicit deviation if any archive identity changes, rights re
 5. Freeze source manifest and accepted schema before setting the mapping matrix; independently review any proposed derivation registry (default empty).
 6. Design and freeze synthetic positive and negative controls, including failure actions and independent verifier.
 7. Only then consider a separate author authorization for implementation and later scientific execution. Preserve Study 9 and existing Paper 5 submission package unchanged.
+
+**Documentation publication authorization (2026-11-21):** The author has separately approved review and merge of this *draft-only* documentation subject to CI and scope verification. This authorization does not approve cohorts, resolve ESA source licensing, lock semantic rules, freeze preregistration, or authorize any experiment. The documents retain their draft status after merge.
 
 ## 12. Evidence references and traceability
 
