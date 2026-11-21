@@ -81,6 +81,24 @@ This is a **mapping-oracle candidate**, not a selector-output oracle, proof of r
 
 **G4+ future source semantics/selector access (HOLD):** require rights clearance, G2/G3 pass, separate execution authorization and audit. When native decision time is not defensible, emit `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` and **no** row-level identifiability percentage.
 
+## 7. Adversarial semantic-control review (internal static review only; not independent human adjudication)
+
+**Review basis:** `study9/RECOVERY_STATE_MAPPING_RUBRIC.json`, `study9/SEMANTIC_ADJUDICATION_FREEZE.json`, and the unmodified `study2/` selector contract. Review examines the authored proposal for hidden assumptions; **no synthetic fixture, real dataset, mapping classifier, or selector was run**.
+
+| Severity | Proposed control / observed design risk | Required pre-freeze resolution |
+|---|---|---|
+| HIGH | `S10_SYN_P0` currently represents `signature_valid=true` as an asserted simulated verification result, not a reproducible signature-verifier oracle. | Lock test-key fixture and verifier semantics, or explicitly label as a *synthetic state-interface-only* fixture and forbid cryptographic-verification claims. |
+| HIGH | `contradictory=false` is not established merely by seeing one claim unless the complete accepted current claim set at decision time is known. | Freeze an explicit closed-world synthetic accepted-claims ledger with subject/key/epoch, acceptance state, decision time and exhaustive competing-value check. Never transfer this closed-world assumption to a real dataset. |
+| HIGH | `minimum_evidence_complete=true` depends on ten accepted, current *recovery* criteria, not ten arbitrary named CSV attributes. | For synthetic positive control, enumerate all ten criteria with acceptance and decision-time availability; remove one accepted criterion in `S10_SYN_N_CRITERIA`. |
+| HIGH | False and missing are different states for `security_signal`, `authorization_available` and all other required Boolean interfaces. | Require tri-state input (`known_true`, `known_false`, `unknown`) at the measurement boundary; reject coercion `unknown -> false` or `unknown -> true`. |
+| HIGH | Native timestamp or event order cannot by itself define a recovery decision point. | If a source lacks an evidence issue time, validity interval and independently defined decision point, retain `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION`. |
+| MEDIUM | Source licenses and anonymized identity limit defensible cross-population replication claims. | Preserve source family and overlap ledger; report ESA Mission1/2/3 as common-curator mission strata, OPS mission overlap unresolved, ESA v1/v2 paired, Hack-A-Sat unpooled. |
+| MEDIUM | Candidate positive fixture has no independently calculated selector-output oracle. | Independently specify expected output from the **exact** pinned selector implementation, compare only after future G3 implementation approval, and preserve any mismatches. |
+| MEDIUM | Negative controls lack explicit boundary-value tests for time validity and epoch/claim relations. | Add unexecuted cases `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, `S10_SYN_N_EPOCH_MISMATCH`, `S10_SYN_N_CLAIM_EPOCH`, `S10_SYN_N_UNKNOWN_FALSE`. |
+| MEDIUM | A failed source-origin/decision-time mapping should not be silently dropped from denominators or assigned a favorable state. | Freeze separate `AMBIGUOUS`/`ABSENT` coverage versus `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` row-level action status, with precise counting denominator and reason. |
+
+**Review disposition:** `INTERNAL_STATIC_ADVERSARIAL_REVIEW_COMPLETE_WITH_OPEN_FINDINGS`. This is **not** a second independent expert review, an independently executed test oracle, or final approval of semantic mappings. All listed concerns must be resolved or explicitly excluded before G2; unresolved high-severity items block freeze. No author approval, external peer review or scientific outcome is inferred from this assessment.
+
 ## 6. Claim boundary
 
 No anomaly label is a verified cyberattack; no telemetry status flag is cryptographic trust or command authorization; no structural identifiability is proof of safe recovery. No transferability, mission-scale effect, detector performance, or operational efficacy claim is authorized.

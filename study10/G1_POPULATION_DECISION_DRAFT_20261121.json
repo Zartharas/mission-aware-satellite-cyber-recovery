@@ -170,5 +170,26 @@
     "independent_review_complete": false,
     "scientific_execution_authorized": false,
     "publisher_submission_authorized": false
+  },
+  "source_license_review_update": {
+    "evidence_date": "2026-11-21",
+    "ESA_ADB_v1": "AUTHOR_EXPLICIT_CC_BY_3_0_IGO_IN_2024_PAPER_FOR_EXACT_RELEASE_DOI",
+    "ESA_ADB_v2": "AUTHOR_EXPLICIT_CC_BY_3_0_IGO_IN_V2_MANUSCRIPT_ZENODO_RIGHTS_VALUE_NOT_READ",
+    "OPS_SAT_AD_v2": "DATSET_LICENSE_SCOPE_UNCONFIRMED_DESPITE_SOURCE_BUNDLE_MIT_FILE",
+    "rights_resolution_for_freeze": "OPEN",
+    "license_basis": [
+      "https://arxiv.org/pdf/2406.17826",
+      "https://openreview.net/pdf/eda113f9ebd4aa45678a791e19b33c8bdefd0e15.pdf",
+      "https://creativecommons.org/licenses/by/3.0/igo/"
+    ],
+    "interpretation": "Author statements are direct license evidence, but not conclusive for all third-party rights or distinct dataset payloads"
+  },
+  "source_independence_review_update": {
+    "status": "CROSS_SOURCE_MISSION_OVERLAP_NOT_ESTABLISHED",
+    "ESA_paper": "https://data.mlr.press/assets/pdf/v03-23.pdf",
+    "OPS_paper": "https://www.nature.com/articles/s41597-025-05035-3",
+    "evidence": "ESA anonymizes mission names and timelines; OPS-SAT is named and ESA-operated; both source lines share some researchers and ESA provenance",
+    "conclusion": "Do not claim independent spacecraft replication without documented non-overlap; independent source family does not imply independent spacecraft",
+    "retrospective_outcome_fishing_prohibited": true
   }
 }
