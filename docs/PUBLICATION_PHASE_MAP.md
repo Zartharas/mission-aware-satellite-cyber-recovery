@@ -1,10 +1,10 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-10-20 (Paper 2 reconciled; other papers retain last separately recorded dates)
+**Current-state reference:** 2026-11-21 (Paper 2 CEAS editorial rejection reconciled; other papers retain separately verified source dates)
 
 **Paper 4 IJSCCN decision overlay:** 2026-09-24
 
-**Paper 2 CEAS submission overlay:** 2026-10-19 (TAES 2026-09-26 decision remains historical)
+**Paper 2 latest CEAS editorial decision:** rejected 2026-10-22; recommended transfer NOT COMPLETED as of 2026-11-01 (prior TAES decision 2026-09-26 is historical)
 
 This document is the operational publication-order reference for the `mission-aware-satellite-cyber-recovery` research program. It is a publication/governance map only and does not alter any frozen study evidence or submitted publisher package.
 
@@ -42,11 +42,11 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |   +-- Separately governed S3X and S6X executed and frozen
 |       Earlier pre-execution gates are dated provenance, not current status
 |
-+-- PHASE 3S - PAPER 2 CURRENT CEAS REV-B SUBMISSION
++-- PHASE 3S - PAPER 2 LATEST CEAS REV-B EDITORIAL DECISION
 |   +-- Journal: CEAS Space Journal
 |       Received: 2026-10-19, portal tracking ID 38cc76f5-ab6b-4b8e-b6ba-24727db86b48
-|       Status: SUBMISSION_RECEIVED__TECHNICAL_CHECK (not peer review/acceptance)
-|       Authority: Paper 2 RevB handoff and Issue #217 receipt
+|       Status: REJECTED__EDITORIAL_ASSESSMENT__2026-10-22 (no external reviewer report verified)
+|       Authority: 2026-10-22 CEAS editorial decision record and Issue #217; transfer NOT COMPLETED
 |
 +-- PHASE 4 - SUBMITTED
 |   +-- PAPER 3: Study 7 / S7-LSO-001
@@ -123,16 +123,17 @@ The Phase-1 authorization dated 2026-09-26 and later Phase-2 through Phase-7F au
 - S6X workspace: `study6x/` — controlled cFS/Limit Checker research builds; two repetitions of 396 modeled/fixture observations, no operational spacecraft validation.
 - Historical phases and artifacts are preserved; no scientific rerun, result replacement, or retrospective pooling is permitted.
 
-## Phase 3S - Paper 2 current CEAS submission (2026-10-19)
+## Phase 3S - Paper 2 latest CEAS editorial rejection (2026-10-22)
 
 - **Journal:** CEAS Space Journal (Springer Nature).
 - **Article:** *Residual Trust Boundaries in Satellite Cyber-Recovery Qualification: Temporal Evidence, Producer Composition, and Artifact Assurance*.
 - **Sole author:** Aman Kumar Singh.
 - **Submitted and received:** 2026-10-19, v1.0.
 - **Publisher portal tracking ID:** `38cc76f5-ab6b-4b8e-b6ba-24727db86b48`; not independently confirmed as a separately assigned journal manuscript number.
-- **Current state:** `SUBMISSION_RECEIVED__TECHNICAL_CHECK`; no external review/acceptance established.
+- **Current state:** `REJECTED__EDITORIAL_ASSESSMENT__2026-10-22`; editor described the manuscript as more prose-like than scientific. No external referee reports verified. Transfer offered but `TRANSFER_NOT_COMPLETED` as of 2026-11-01.
+- **Editorial decision record:** `publication/Paper_2_Studies_3_4_6/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-10-22.md`; the original private Outlook email remains with the author.
 - **Authority:** [Issue #217 receipt](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/issues/217#issuecomment-6275866467) and `publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md`.
-- **Current governance:** Wait for actual technical-check/journal communication; do not submit again or invent a decision. Keep original submission ZIP and restricted evidence private on author Mac. PR #216 remains open/draft/unmerged, separate from submitted publisher byte files. Further journal revisions, data release, or scientific execution require separate authorization.
+- **Current governance:** The CEAS decision is final for this submission; do not transfer or resubmit automatically. Perform a separately authorized scientific-contribution audit and venue-fit assessment before any subsequent submission. Keep original submission ZIP and restricted evidence private on author Mac. PR #216 remains open/draft/unmerged, separate from submitted publisher byte files. Further journal revisions, data release, or scientific execution require separate authorization.
 
 ## Phase 4 - Paper 3
 
@@ -216,7 +217,7 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | 1 | Paper 1 | Studies 1 + 2 | JAIS `2026-09-I012066`, submitted | Wait for journal action |
 | 2 | Paper 4 | Study 8 + Study 8E | IJSCCN `4920969`, rejected 2026-09-24 as out of scope | Fresh venue-fit audit; review Transfer Desk suggestions only as candidates |
 | 3 | Paper 2 prior TAES | Studies 3 + 4 + 6 | TAES `TAES-2026-4182`, rejected at editorial pre-screen 2026-09-26 | Historical immutable R10 provenance |
-| 3R | Paper 2 historical rebuild | Studies 3 + 4 + 6; separate S3X/S6X | Completed separately frozen model/fixture research milestones | Retain exact original artifacts and research claim boundaries |\n| 3S | Paper 2 current CEAS | Studies 3 + 4 + 6; separately governed S3X/S6X | CEAS submission received 2026-10-19; `TECHNICAL_CHECK` | Monitor publisher; no acceptance or new data-release claim |
+| 3R | Paper 2 historical rebuild | Studies 3 + 4 + 6; separate S3X/S6X | Completed separately frozen model/fixture research milestones | Retain exact original artifacts and research claim boundaries |\n| 3S | Paper 2 current CEAS | Studies 3 + 4 + 6; separately governed S3X/S6X | CEAS RevB submitted 2026-10-19; rejected 2026-10-22; transfer NOT COMPLETED | Preserve rejection record and undertake author-approved scientific audit; no automatic transfer or new data release |
 | 4 | Paper 3 | Study 7 | CEAS `6db04a31-8223-4aaf-af02-e4bafe06ef89`, rejected 2026-09-22 | Preserve rejected package; recovery audit complete |
 | 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
 | 5 | Paper 4 retarget | Study 8 + Study 8E | IJSCCN scope rejection; next venue not locked | Live venue-fit audit with no scientific rerun |
