@@ -49,3 +49,20 @@
 **Review recommendation:** `G2_REVIEWED_HOLD_PENDING_CONDITIONS`. The G2 **candidate is internally consistent** on source/policy identities and controls but is **not yet ready to be represented as frozen**. A separate explicit sole-author G2 approval, legally adequate source-use determination, final source/population treatment, and an atomic immutable freeze record are still required. G3 synthetic execution and G4 real-data analysis remain prohibited at this checkpoint.
 
 **No impersonation of author sign-off:** This precheck is not the author's written decision. The user authorized reviewing the G2 candidate; that authorization must not be treated as `APPROVE_G2_FREEZE` or `MERGE_PR229`. All checklist boxes remain unchecked until personally affirmed or supported by a separate authorized validation event.
+
+## G2 scope-sensitive rights decision (author choice **NOT SELECTED**)
+
+Additional first-party evidence was documented in the G2 rights candidate: ESA's own `esa/anomaly-dataset` `LICENSE` identifies CC BY 3.0 IGO and its README points directly to v1; the v2 dataset authors separately state CC BY 3.0 IGO for the introduced dataset. OPS-SAT v2 carries a checksum-matched data-inclusive MIT license. These findings strengthen the source license trail but do not establish complete file-level third-party rights or a completed sole-author sign-off.
+
+The sole author must explicitly select **one** of the following before a future G2 freeze. None is selected by authorizing this document review.
+
+| Option | Proposed G2 treatment | Effect on G3 and G4 |
+|---|---|---|
+| `A_HOLD_ALL_RIGHTS_BEFORE_G2_FREEZE` | Continue **G2 HOLD** until exact ESA v2 rights scope, contributor attribution, and all relevant exceptions are signed off | G3/G4 remain closed |
+| `B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD` | Permit a future **separately authorized** prospective G2 freeze **only after locking the protocol and immutable version/hash record**, while documenting unresolved archive file-specific rights as *pre-G4* stop rules; **no claim of rights clearance** | G3 synthetic-only work requires its own authorization; G4 source analysis stays blocked until rights and notices are signed off |
+| `C_REVISE_OR_EXCLUDE_UNCLEAR_SOURCES` | Revise cohorts prospectively **before outcome inspection**; require new author approval for any exclusions, dependencies, denominators or methodological consequences | All scientific execution stays closed until amended G2 protocol is separately frozen |
+
+**Recommendation for sole-author consideration:** `B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD` is a viable *conditional research-governance design* because G2 locks study decisions before real source analysis; nevertheless, it is **not** an authorization or legal clearance. An unresolved license must never be translated into permission to run G4. Option B must be explicitly approved by the author, must satisfy all other G2 checks and freeze requirements, and must preserve a fail-closed pre-G4 rights gate. Option A remains the more conservative alternative.
+
+**Required future author decision record:** `PENDING_SELECTION`. Source rights approval for actual G4 use: `NOT_GIVEN`. Frozen protocol: `NO`. Third-party communications: `NONE`. No checkbox above is silently treated as complete.
+

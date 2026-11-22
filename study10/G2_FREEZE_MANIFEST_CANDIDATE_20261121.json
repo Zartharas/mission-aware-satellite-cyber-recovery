@@ -567,5 +567,35 @@
       "external_rights_holder_outreach_performed": false,
       "no_scientific_execution": true
     }
+  },
+  "g2_rights_policy_author_decision": {
+    "status": "PENDING_EXPLICIT_SOLE_AUTHOR_SELECTION",
+    "options": [
+      {
+        "id": "A_HOLD_ALL_RIGHTS_BEFORE_G2_FREEZE",
+        "freeze_conditional": false,
+        "source_G4_authorized": false
+      },
+      {
+        "id": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+        "freeze_conditional_only_with_future_separate_G2_approval": true,
+        "source_G4_authorized": false,
+        "requires_pre_G4_rights_clearance": true,
+        "requires_protocol_freeze_hash": true
+      },
+      {
+        "id": "C_REVISE_OR_EXCLUDE_UNCLEAR_SOURCES",
+        "requires_pre_outcome_protocol_amendment": true,
+        "source_G4_authorized": false
+      }
+    ],
+    "model_recommendation": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD_AS_POSSIBLE_METHOD_GOVERNANCE_NOT_APPROVAL",
+    "author_selection": null,
+    "author_approval_recorded": false,
+    "G2_freeze_decision": "NOT_REQUESTED_IN_THIS_DOCUMENT_CHANGE",
+    "G3_technical_execution_authorized": false,
+    "G4_real_data_source_access_authorized": false,
+    "external_rights_holder_outreach_performed": false,
+    "scope_limit": "Author may instead retain stricter A. G2 source-use gate cannot be removed by a license inference or this note."
   }
 }
