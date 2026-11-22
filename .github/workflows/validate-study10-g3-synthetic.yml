@@ -1,0 +1,40 @@
+name: Study 10 G3 synthetic-only parity
+on:
+  push:
+    branches:
+      - "study10/s10-rsei-001-g3-synthetic-validation"
+  pull_request:
+    paths:
+      - "study10/g3_synthetic_validator.py"
+      - ".github/workflows/validate-study10-g3-synthetic.yml"
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out frozen G2 and G3 harness
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install frozen Study 2 evidence API dependency
+        run: python -m pip install "cryptography==50.0.1"
+      - name: Execute 18 frozen controls and independent 1024-case selector parity
+        run: |
+          python -m compileall -q study10/g3_synthetic_validator.py
+          python study10/g3_synthetic_validator.py > study10_g3_synthetic_result.json
+          python -m json.tool study10_g3_synthetic_result.json > /dev/null
+          cat study10_g3_synthetic_result.json
+      - name: Save G3 scoped evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: study10-g3-synthetic-result
+          path: study10_g3_synthetic_result.json
+          if-no-files-found: error
+      - name: Ensure no tracked files changed
+        run: git diff --exit-code
