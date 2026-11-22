@@ -105,11 +105,11 @@ No anomaly label is a verified cyberattack; no telemetry status flag is cryptogr
 
 ## 8. Tightened synthetic fixture contract (proposed, **not executed or frozen**)
 
-The following **draft** expands `S10_SYN_P0` into an explicit synthetic-only source-state contract. It is not a real satellite record, does not bind to ESA, OPS-SAT, Hack-A-Sat or any actual cryptographic key, and does not execute the frozen selector. The asserted `signature_valid` value is an **interface-level test stub**; testing signature verification cryptography requires a separate G3 test-key and verifier oracle after approval.
+The following **v3 draft**, superseding the earlier one-claim v2 proposal, expands `S10_SYN_P0` into an explicit synthetic-only source-state contract. It is not a real satellite record, does not bind to ESA, OPS-SAT, Hack-A-Sat or any actual cryptographic key, and does not execute the frozen selector. The asserted `signature_valid` value is an **interface-level test stub**; testing signature verification cryptography requires a separate G3 test-key and verifier oracle after approval.
 
 ```json
 {
-  "id": "S10_SYN_P0_V2_DRAFT",
+  "id": "S10_SYN_P0_V3_DRAFT",
   "role": "SYNTHETIC_ONLY",
   "purpose": "State-interface mapping oracle; NOT a cryptographic-verifier test nor a real-flight observation",
   "decision_point": {
@@ -147,67 +147,222 @@ The following **draft** expands `S10_SYN_P0` into an explicit synthetic-only sou
     "subject": "SAT_TEST_A",
     "claims": [
       {
+        "claim_id": "S10_SYN_CLAIM_01",
+        "source_id": "SYN_SOURCE_A",
         "subject": "SAT_TEST_A",
-        "key": "recovery_manifest",
+        "key": "approved_version",
         "epoch": 7,
-        "value": "manifest_test_v1",
+        "sequence": 1,
+        "value": "SYNTHETIC_APPROVED_VERSION_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
         "accepted": true,
-        "current": true
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_02",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "integrity_measurement_valid",
+        "epoch": 7,
+        "sequence": 2,
+        "value": "SYNTHETIC_INTEGRITY_MEASUREMENT_VALID_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_03",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "authorization_valid",
+        "epoch": 7,
+        "sequence": 3,
+        "value": "SYNTHETIC_AUTHORIZATION_VALID_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_04",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "measured_state_current",
+        "epoch": 7,
+        "sequence": 4,
+        "value": "SYNTHETIC_MEASURED_STATE_CURRENT_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_05",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "authorized_command_path_restored",
+        "epoch": 7,
+        "sequence": 5,
+        "value": "SYNTHETIC_AUTHORIZED_COMMAND_PATH_RESTORED_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_06",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "ground_spacecraft_state_agreed",
+        "epoch": 7,
+        "sequence": 6,
+        "value": "SYNTHETIC_GROUND_SPACECRAFT_STATE_AGREED_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_07",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "required_telemetry_restored",
+        "epoch": 7,
+        "sequence": 7,
+        "value": "SYNTHETIC_REQUIRED_TELEMETRY_RESTORED_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_08",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "health_checks_passed",
+        "epoch": 7,
+        "sequence": 8,
+        "value": "SYNTHETIC_HEALTH_CHECKS_PASSED_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_09",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "no_residual_unauthorized_state",
+        "epoch": 7,
+        "sequence": 9,
+        "value": "SYNTHETIC_NO_RESIDUAL_UNAUTHORIZED_STATE_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+      },
+      {
+        "claim_id": "S10_SYN_CLAIM_10",
+        "source_id": "SYN_SOURCE_A",
+        "subject": "SAT_TEST_A",
+        "key": "recovery_manifest_complete",
+        "epoch": 7,
+        "sequence": 10,
+        "value": "SYNTHETIC_RECOVERY_MANIFEST_COMPLETE_EVIDENCE",
+        "issued_at": 1000,
+        "valid_through": 1100,
+        "accepted": true,
+        "current": true,
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
       }
     ],
     "no_other_accepted_current_claims_for_subject_key_epoch": true,
-    "contradictory": "known_false"
+    "contradictory": "known_false",
+    "no_other_accepted_current_claims_in_relevant_scope": true,
+    "current_claims_count": 10,
+    "claim_inventory_interpretation": "EXHAUSTIVE_SYNTHETIC_LEDGER_ONLY"
   },
   "accepted_recovery_criteria": {
     "approved_version": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_01",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "integrity_measurement_valid": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_02",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "authorization_valid": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_03",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "measured_state_current": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_04",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "authorized_command_path_restored": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_05",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "ground_spacecraft_state_agreed": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_06",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "required_telemetry_restored": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_07",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "health_checks_passed": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_08",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "no_residual_unauthorized_state": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_09",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     },
     "recovery_manifest_complete": {
       "present": true,
       "accepted": true,
-      "as_of": 1050
+      "as_of": 1050,
+      "claim_id": "S10_SYN_CLAIM_10",
+      "acceptance_provenance": "SYNTHETIC_INTERFACE_STUB_NOT_REAL_ATTESTATION"
     }
   },
   "operational_guard": {
@@ -231,20 +386,29 @@ The following **draft** expands `S10_SYN_P0` into an explicit synthetic-only sou
     "authorization_available": true
   },
   "downstream_selector_expected_action": "UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE",
-  "effect": "DRAFT_SPECIFICATION_ONLY_NO_EXECUTION_NO_REAL_DATA"
+  "effect": "DRAFT_SPECIFICATION_ONLY_NO_EXECUTION_NO_REAL_DATA",
+  "safety_contract": {
+    "no_real_signature_verification": true,
+    "no_cryptographic_acceptance_claim": true,
+    "no_telemetry_data_used": true,
+    "no_selector_executed": true,
+    "no_policy_oracle_validated": true,
+    "unknown_must_not_coerce_to_false": true,
+    "outcome_is_prospective_not_observed": true
+  }
 }
 ```
 
 ### Required fail-closed behavior to implement only after G3 approval
 
 1. **Known false versus unknown:** Source-state ingestion must retain a three-way distinction `known_true`, `known_false`, and `unknown` before any admissible completion. `unknown` may not be converted to `false` or `true`, counted as observed, or used to select an action.
-2. **Closed-world claims only in the synthetic fixture:** The one-item accepted-claims list above establishes `contradictory=false` only because `inventory_complete=true` and the explicit absence of other accepted current same-subject/same-key/same-epoch claims is a **synthetic premise**. A real dataset may not inherit this closed-world declaration.
-3. **Ten named accepted criteria:** The fixture has an explicit accepted/current `present=true` entry for each of the ten frozen recovery criteria. `S10_SYN_N_CRITERIA` removes **one acceptance/presence entry**, not merely a CSV column; its completeness state becomes known false only when the synthetic inventory is proven complete, otherwise `unknown`.
+2. **Closed-world claims only in the synthetic fixture:** The ten-item, criterion-linked accepted-claims ledger above establishes `contradictory=false` only because `inventory_complete=true` and the explicit absence of other accepted current same-subject/same-key/same-epoch claims is a **synthetic premise**. A real dataset may not inherit this closed-world declaration.
+3. **Ten named accepted criteria:** The fixture has an explicit accepted/current `present=true` entry with a unique `claim_id` for each of the ten frozen recovery criteria. The matching ten claim rows are synthetic interface premises, not actual signatures or verified operational claims. `S10_SYN_N_CRITERIA` removes **one acceptance/presence entry**, not merely a CSV column; its completeness state becomes known false only when the synthetic inventory is proven complete, otherwise `unknown`.
 4. **Temporal semantics:** This positive fixture is strictly internal to the 1000–1100 time window at 1050 and does not depend on boundary inclusion. Negative `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, and `S10_SYN_N_EPOCH_MISMATCH` must be specified with exact input mutation and expected error state **before** execution. Boundary comparisons at exactly 1000 or 1100 require a separate explicitly frozen convention; the current draft asserts none.
 5. **Policy oracle independence:** The `expected_normalized_mapping` is an input mapping oracle only. The `downstream_selector_expected_action` deliberately remains `UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE`. G2 must separately pin the exact selector SHA-256, specify each policy's expected action and action-set enumeration from an independently reviewed implementation, and capture any disagreement rather than adapting the fixture to test outcomes.
 6. **Dataset exclusion:** No synthetic state, source identity, timestamp, or ground truth participates in the ESA/OPS/Hack empirical denominator, mission-independence claims or external-application outcomes.
 
-**Static design acceptance:** The fixture can be checked for **schema completeness only**, not correctness of actual cryptographic verification, safe recovery, or behavior of the frozen selector. External independent reviewer/implementation parity has not occurred.
+**Static design acceptance:** The proposed v3 accepted-claim linkage and fixture can be checked for **schema completeness only**, not correctness of actual cryptographic verification, safe recovery, or behavior of the frozen selector. External independent reviewer/implementation parity has not occurred.
 
 
 ## 9. Static four-policy selector action oracle (review design, **not independently validated or executed**)
@@ -275,4 +439,24 @@ These policy definitions have intentionally different behavior, including cases 
 **Independent-oracle readiness gate:** A future separate reviewer or separately implemented standalone oracle must derive all four policy outputs **without calling the production selector**, pin its code or derivation, and compare it to the actual selector on a synthetic fixture suite after authorization for G3. Any mismatch blocks execution. This static table is an internal self-review artifact, not proof that such independent testing occurred, and **does not** satisfy the G2 prerequisite of freezing a validated, independent expected-output contract.
 
 **Negative evidence-only fixtures:** For a single bad signature, untrusted source, stale time, epoch mismatch, contradictory accepted claims, or missing accepted recovery criterion, set the corresponding **known** value to failure and recompute `evidence_qualified=false`. This rule does *not* apply when the value is unknown or when the source lacks decision-time observability; those cases are `UNKNOWN`/`NOT_EVALUABLE`, not an observed failure.
+
+
+## 10. Independent-review handoff checklist (G1 preparation only; review is pending)
+
+A reviewer independent of the protocol author must be provided (a) the exact immutable repository commit and Git blob IDs for the Study 2 selector and frozen Study 9 criteria, (b) the original G1 v3 synthetic fixture and all proposed negative-control mutations, and (c) the license and cohort provenance ledger **before** any trial results are available. Record reviewer identity, date, version, independence/COI declaration, and a signed decision; do not claim review from this checklist.
+
+The reviewer should return explicit, falsifiable verdicts with citations for:
+
+1. **Exact eight-value interface:** all variable definitions and all four policy IDs match the frozen Study 9 contracts, and the excluded ablations remain excluded.
+2. **Accepted claims and completeness:** each of the ten named criteria is linked to one accepted current *synthetic* claim. The ledger covers the entire relevant source/subject/key/epoch scope for this artificial fixture. No real-data closed-world assumption is licensed by the test.
+3. **Truth provenance:** `signature_valid=known_true` and `accepted=true` are synthetic state assumptions, not outputs of `verify_signed_evidence`; a separate real Ed25519 test fixture would require explicit implementation authorization.
+4. **Tri-state information preservation:** `unknown` remains distinguishable from `known_false` and `known_true`. The selector consumes only completed Boolean observations; never pass an unknown straight into the selector or default it to false.
+5. **Decision-time contract:** evidence validity and source trust are available at the same synthetic decision point, with explicit inclusive/exclusive interval convention agreed before execution.
+6. **Policy oracle reproducibility:** a separately written oracle (not importing or calling the production selector) must derive the exact actions for the four primary policies. Compare to the six expected-state cases and a *future* exhaustive 256-complete-state truth table per policy. This paragraph is a proposed test plan, **not** an executed result.
+7. **Partial-observation action sets:** only when a real future protocol defines a defensible decision point may a separate wrapper enumerate all admissible completions of unresolved variables; do not report a unique action if multiple completions disagree.
+8. **Source independence and rights:** source population overlap is unresolved; ESA mission strata cannot be treated as replicated independent spacecraft, and OPS-SAT v2 source rights and all attribution notices must be preserved.
+9. **Negative control failure behavior:** CRC-to-signature, APID-to-trust, timestamp-to-freshness, abnormal-label-to-security-signal, and command-to-authorization substitutions must be rejected without correction to an inferred Boolean.
+10. **Gate disposition:** independent reviewer must choose `PASS_G1_DESIGN_FOR_G2_CONSIDERATION`, `REVISE_G1`, or `BLOCK` with written reasons. A design-review PASS is **not** a data-use approval, formal preregistration, G3 implementation authorization, G4 mapping authorization, or empirical validation.
+
+**Current disposition:** `REVIEWER_NOT_ASSIGNED` and `NO_INDEPENDENT_ORACLE_EXECUTION`. Only the author may give separate future G2 freeze approval after all necessary artifacts are pinned and review outcomes are resolved. Until then `PREREGISTRATION_FREEZE=HOLD`.
 
