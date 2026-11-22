@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "document_type": "G2_PROTOCOL_FREEZE_RECEIPT",
+  "study_id": "S10-RSEI-001",
+  "publication_intent": "STANDALONE_SOLO_AUTHOR_RESEARCH_PAPER_NOT_A_DISSERTATION",
+  "working_title": "Recovery-State Semantic Observability Across Public Real-Flight and Space-Cyberchallenge Records",
+  "internal_governance_status": "G2_FROZEN_AT_PINNED_CONTENT_ADDRESSED_PAYLOAD",
+  "external_preregistration_status": "NOT_REGISTERED_IN_AN_EXTERNAL_PROTOCOL_REGISTRY",
+  "historical_prior_source_exposure_disclosed": true,
+  "approval": {
+    "gate": "G2-P10",
+    "human_reviewer_role": "SOLE_AUTHOR",
+    "approval_record_type": "EXPLICIT_CHAT_CONSENT_TO_FREEZE_NAMED_COMMIT",
+    "author_reply_verbatim": "yes, I authorize",
+    "asked_question": "Do you explicitly authorize freezing the Study 10 research-paper protocol at commit 8ed6a2b16233, under approved Option B, while retaining all pre-G4 source-rights restrictions and keeping G3/G4 execution and PR merging unauthorized?",
+    "approved_payload_commit": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "approval_observed_utc_date": "2026-11-22",
+    "original_approval_message_timestamp_independently_attested": false,
+    "signature_type": "ATTRIBUTABLE_CONVERSATIONAL_APPROVAL_NOT_DIGITALLY_SIGNED",
+    "scope": "FREEZE_ONLY_NAMED_G2_DESIGN_NOT_EXECUTE_MERGE_OR_SUBMIT",
+    "previous_author_G2_P01_to_P09_method_approvals_recorded": true,
+    "previous_author_Option_B_rights_policy_approval_recorded": true
+  },
+  "payload": {
+    "repository": "Zartharas/mission-aware-satellite-cyber-recovery",
+    "read_only_payload_commit": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "payload_commit_git_tree_sha1": "52e3e131810b9af35ae0757b143ea89c7ae86471",
+    "payload_from_draft_pr": 229,
+    "payload_base_pr": 228,
+    "payload_is_exact_author_approved_version": true,
+    "contents_sha256_algorithm": "SHA-256",
+    "git_blob_identity_algorithm": "Git object SHA-1",
+    "raw_bytes_convention": "Git blob exact UTF-8 bytes (incl stored LF newlines; no trimming, Unicode normalization or CRLF conversion)",
+    "files": [
+      {
+        "path": "study10/G2_AUTHOR_FREEZE_CHECKLIST_20261121.md",
+        "bytes": 17612,
+        "git_blob_sha1": "2f97ca279d2fec529629a6a4e485802dd0c533a5",
+        "sha256": "dec136712abd3066b2405604c12e2b437932a58ec568ecd878fb0373f76f3a12"
+      },
+      {
+        "path": "study10/G2_CANONICAL_PROTOCOL_CANDIDATE_20261121.md",
+        "bytes": 20249,
+        "git_blob_sha1": "12e5a76fa14f2c61d5fddcbe4d6b86f5d2923527",
+        "sha256": "5a4af1bc3470e69016988381a8d999cdfe8b69e047db7c9967282e6ebbc75028"
+      },
+      {
+        "path": "study10/G2_FREEZE_MANIFEST_CANDIDATE_20261121.json",
+        "bytes": 38035,
+        "git_blob_sha1": "a20ca25c439d97150c56eeec197cc891c83aa1ad",
+        "sha256": "2eb2cb1ec3a49de3ff61bd7bb1a4d186a45d6fddf7da98ec79d18f0dee9b4210"
+      },
+      {
+        "path": "study10/G2_SOURCE_RIGHTS_AND_ATTRIBUTION_CANDIDATE_20261121.md",
+        "bytes": 12973,
+        "git_blob_sha1": "3f550eab7dabed347bbf77805dadd06988a4ce9d",
+        "sha256": "8392f960e669d97873e83d4b9767fa25e5b6271764c1799065dcf5e90559b847"
+      }
+    ],
+    "normative_scope": [
+      "study10/G2_CANONICAL_PROTOCOL_CANDIDATE_20261121.md",
+      "study10/G2_SOURCE_RIGHTS_AND_ATTRIBUTION_CANDIDATE_20261121.md",
+      "study10/G2_FREEZE_MANIFEST_CANDIDATE_20261121.json",
+      "study10/G2_AUTHOR_FREEZE_CHECKLIST_20261121.md"
+    ],
+    "prior_source_pin_count": 12,
+    "prior_source_git_blob_pins": [
+      {
+        "path": "study10/G1_SOURCE_RIGHTS_REVIEW_DRAFT_20261121.md",
+        "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+        "git_blob_sha1": "2b94f9f4e1d8deba41bf99371fef0142bd7fcd37",
+        "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study10/G1_POPULATION_DECISION_DRAFT_20261121.json",
+        "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+        "git_blob_sha1": "911262bd7d02a3b79a08c74d939a42144682d134",
+        "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study10/G1_SEMANTIC_CONTROL_SPEC_DRAFT_20261121.md",
+        "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+        "git_blob_sha1": "29c97ef13c8bc92b51f09a1b3ad033dba9371081",
+        "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study10/G1_READINESS_GATE_DRAFT_20261121.json",
+        "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+        "git_blob_sha1": "efcf21f6d13e6f6344c4c36d4ea7be75570fe9a0",
+        "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study10/PROSPECTIVE_PROTOCOL_DRAFT_20261121.md",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "c64fb9fd37be332a3bfeeb05ca44a81ad5cfc67f",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study10/SOURCE_PROVENANCE_REGISTER_DRAFT_20261121.json",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "95cd4eec54aa22054477c3fcb84ee643f71d7f13",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study9/STUDY9_PROTOCOL.json",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "c298763d66f533c6e91b956293c0ae1a564486cd",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "ba18e5386fb854147570970cc6369ed0731b947c",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "aca6f9ddc7bbc14446b2a89968ec2a6a52bc1a16",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study9/POLICY_SCOPE_FREEZE.json",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "a29d73ae27ce26f0c7ba4c0a8c832d07bc29930c",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study2/src/study2_security/selectors.py",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      },
+      {
+        "path": "study2/src/study2_security/evidence.py",
+        "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+        "git_blob_sha1": "5d107ecb24f24fec14f1d817ab48db95be744556",
+        "role": "IMMUTABLE_PRIOR_SOURCE",
+        "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+      }
+    ],
+    "pinned_G1_document_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+    "pinned_research_source_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+    "embedded_candidate_not_frozen_status": "HISTORICAL_PRE_FREEZE_METADATA_AT_PAYLOAD_CREATION; THIS_SEPARATE_AUTHOR_APPROVED_RECEIPT_IS_THE_FREEZE_EVENT",
+    "no_mutation_of_frozen_source_files": true
+  },
+  "binding_Option_B_source_rights_policy": {
+    "policy_id": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "rights_clearance_for_source_data": false,
+    "hard_fail_closed_pre_G4_conditions": [
+      "ESA_V2_EXACT_RELEASE_SCOPE_AND_THIRD_PARTY_FILE_RIGHTS_SIGNOFF",
+      "ESA_V1_RELEASE_SCOPE_AND_ATTRIBUTION_IF_USED_FOR_PAIRED_SENSITIVITY",
+      "OPS_SAT_V2_RIGHTS_NOTICES_AND_ANY_EMBEDDED_THIRD_PARTY_EXCEPTIONS",
+      "HACKASAT4_SECONDARY_COMPONENT_FILE_RIGHTS_IF_PROCESSED",
+      "VERSIONED_SOURCE_IDENTITY_LOCAL_RECHECK_AND_ALL_APPLICABLE_ATTRIBUTION_NOTICES",
+      "SEPARATE_EXPLICIT_G4_EXECUTION_AND_SOURCE_USE_AUTHORIZATION"
+    ],
+    "ESA_OPS_release_specific_rights_and_notices_must_be_cleared_before_new_source_payload_use": true,
+    "Hack_A_Sat_4_secondary_file_specific_rights_still_unresolved": true,
+    "source_payload_public_redistribution_authorized": false,
+    "source_license_grant_not_fabricated": true,
+    "external_rights_holder_contacted": false
+  },
+  "scientific_controls": {
+    "G2_design": "FROZEN_ONLY_AT_EXACT_PAYLOAD_COMMIT",
+    "G3_synthetic_implementation": "NOT_AUTHORIZED",
+    "G3_standalone_technical_oracle_parity": "NOT_EXECUTED",
+    "G4_source_semantic_adjudication": "BLOCKED_RIGHTS_AND_EXPLICIT_AUTHORIZATION",
+    "G5_conditional_row_level_work": "NOT_AUTHORIZED",
+    "G6_publication_submission": "NOT_AUTHORIZED",
+    "changes_to_frozen_study9_sources": false,
+    "changes_to_study2_selector": false,
+    "changes_to_paper5_manuscript": false,
+    "dataset_bytes_downloaded_or_processed_in_freeze_step": false,
+    "scientific_endpoint_executed_in_freeze_step": false,
+    "source_replication_independence_claim": false,
+    "author_review_independent_personnel_claim": false
+  },
+  "repository_controls": {
+    "PR228_merge_authorized": false,
+    "PR229_merge_authorized": false,
+    "freeze_receipt_PR_merge_authorized": false,
+    "main_branch_mutation_authorized": false,
+    "freeze_receipt_branch_is_not_a_protected_tag": true,
+    "immutability_claim_scope": "GIT_COMMIT_AND_BLOB_CONTENT_ADDRESSED_IMMUTABILITY; BRANCH_POINTER_IS_MUTABLE_UNLESS_PROTECTED",
+    "content_replacement_policy": "NEVER_AMEND_OR_REWRITE_FROZEN_PAYLOAD_OR_FREEZE_RECEIPT; USE_NEW_TIMESTAMPED_PROTOCOL_DEVIATION_COMMIT_AFTER_NEW_AUTHOR_APPROVAL",
+    "no_signed_protected_tag_or_external_registry_claim": true
+  },
+  "receipt_record": {
+    "receipt_file": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "receipt_created_by": "ChatGPT on sole-author explicit G2-P10 instruction",
+    "receipt_payload_parent_commit": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "receipt_prepared_utc": "2026-11-22T06:23:35.707Z",
+    "effective_freeze_time_utc_source": "GITHUB_FREEZE_RECEIPT_COMMIT_COMMITTER_DATE_RETRIEVED_AND_VERIFIED_AFTER_COMMIT",
+    "receipt_git_commit_sha_source": "GITHUB_FREEZE_RECEIPT_COMMIT_RETRIEVED_AND_VERIFIED_AFTER_COMMIT",
+    "self_sha256_embedded": false,
+    "self_hash_exclusion_reason": "ACYCLIC_RECEIPT; git commit and blob SHA identifies actual receipt; self-hash documented separately",
+    "verification_required_before_claiming_completed": true
+  },
+  "integrity_assurances": [
+    "G2 payload SHA-256s were previously computed from byte-equivalent GitHub file contents and cross-checked by recomputing Git blob SHA-1",
+    "Latest candidate head GitHub Actions run 44987869448 completed success before author freeze approval",
+    "CI is generic repository validation, not a scientific oracle test",
+    "This receipt alone is not a journal submission, external preregistration, independent human review, license clearance, or technical oracle validation"
+  ]
+}
