@@ -84,3 +84,32 @@ A reproducibility record for future G2 must pin exact repository commit, Git blo
 - **PR merge:** `NOT AUTHORIZED`. This document branch must not bypass G1's four-file PR scope or merge itself into `main`.
 
 **Freeze decision requested by this document:** `NONE`. **Author freeze authorization:** `FALSE`. **Scientific execution:** `FALSE`. **Publication submission:** `FALSE`. No dataset semantic result or recovery-safety finding has been produced.
+
+## 9. Pre-freeze methods and reporting contract — candidate for separate author decision
+
+This section makes the already proposed estimands and boundaries operationally checkable **before future source-row or mapping endpoint inspection**. It is **not a freeze** and does not establish that any ESA, OPS-SAT or Hack-A-Sat field actually satisfies the rules. The sole author must explicitly accept the final version of these commitments in a later G2 decision.
+
+### 9.1 Fixed analysis frames and count rules
+
+| Tier | Prospective input frame | Required primary output | Valid denominator and limitations |
+|---|---|---|---|
+| A, primary | Four candidate source strata × the exact eight frozen variables | Eight mapping-class/visibility-role records per stratum; counts of `DIRECT`, `DERIVABLE_BY_PREDECLARED_RULE`, `AMBIGUOUS` and `ABSENT` | For **operational direct coverage**, numerator is the count of `DIRECT` with role `OPERATIONAL_NATIVE`; for operational direct-or-derivable, include `DERIVABLE_BY_PREDECLARED_RULE` **only** with `OPERATIONAL_NATIVE`; denominator **8 within each stratum**. These are **32 classification slots**, not independent spacecraft trials |
+| B, sensitivity | ESA v1 and v2 channel metadata paired by matching (mission, channel identifier) | Channel matching and metadata-change count, semantic change only when documented meaning changes | Within-mission paired metadata records; never count paired releases as replicated spacecraft or infer nested telemetry-byte equality from ZIP directory metadata |
+| C, gated | Only a later-authorized, native, decision-time documented state projection | Per `(source stratum, primary policy)`, full admissible action set and singleton/ambiguous outcome | **No** operational-row denominator or action-identifiability rate where native decision time or required variable semantics are unsupported. A singleton reachable-action set is structural, not safe or correct recovery |
+| D, synthetic-only | The ten-claim positive fixture and the **18 total proposed control cases (including the unchanged P0 baseline)** | Later G3 mapping/selector outputs against a separately implemented oracle and explicit failure trace | Never counted toward Tier A/B/C source coverage or actual flight evidence |
+
+**Mapping-class handling:** `AMBIGUOUS` is not `DIRECT` or `ABSENT` by default. An `ABSENT` verdict requires a reproducible **frozen schema inventory**, not merely failure to search for a field. Presence of a source `security_signal`-like label is insufficient without a documented operational guard. The derivation registry stays **empty** unless prospectively amended **before** the relevant source-field endpoint inspection, with explicit author approval; adding a favorable derivation post hoc is prohibited. Frozen Study 9 semantic rules are reused for their meaning, but the external Study 10 datasets require their own later evidence-based classifications; **Study 9 per-dataset results must not be copied as Study 10 outcomes**.
+
+### 9.2 Dataset eligibility and missingness
+
+Eligibility is decided from an exact *versioned source identity*, availability of a reliable published schema and a lawful intended use, all before semantic outcome inspection. Missing permission or unreadable/invalid original files must be recorded as a **pre-execution failure** and may lead only to an author-approved prospective source amendment. Lack of the eight recovery-state fields is a **legitimate source result**, never a reason to drop a source after examining semantic coverage. No rescue by external telemetry joins, synthetic metadata, inaccessible provider claims, or retrospective attack labels. Report the complete per-stratum classification vector and missingness rationale even for zero-coverage source strata whenever legally eligible.
+
+### 9.3 Future bounded-action evaluation
+
+Use the four primary frozen selector policies in their exact order without pooling. For any genuinely eligible decision-time state, let unresolved fields take every admissible Boolean completion consistent with **documented operational evidence**, and calculate the **set of distinct actions** for each policy; do not project a unique action if multiple completions disagree. **UNKNOWN** is retained at the Study 10 evidence interface and never silently passed as `False` to the Boolean Study 2 selector. If an operational decision time is absent, report `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` instead of computing fictitious row-level rates; mathematical all-unknown state sensitivity may be discussed only as explicitly synthetic/theoretical.
+
+### 9.4 Audit and preregistration timing
+
+The previously inspected ESA ZIP directory metadata and OPS-SAT schema, counts and anomaly labels predate the proposed G2 freeze. They are **declared exposure**, not prospective blind outcomes. This protocol is **not preregistered retroactively**. The future freeze record must capture an actual post-approval UTC timestamp, protocol content identity and commit/tag pins, and preserve all older draft Git histories. Publish/report any future source exclusion, stop, deviation, method change or unexpected license restriction without altering an existing frozen record.
+
+**Current disposition:** `PROPOSED_FOR_G2_AUTHOR_REVIEW`. No endpoint computed; no immutable freeze created; no source-use approval granted.

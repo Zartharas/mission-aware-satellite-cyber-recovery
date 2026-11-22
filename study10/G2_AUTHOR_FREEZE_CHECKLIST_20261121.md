@@ -66,3 +66,34 @@ Additional first-party evidence was documented in the G2 rights candidate: ESA's
 
 **Author rights-policy decision:** `B_APPROVED_POLICY_ONLY`. **G2 protocol-freeze approval:** `NOT_GIVEN`. **Source rights approval for actual G4 use:** `NOT_GIVEN`. **G3 synthetic implementation and G4 source execution:** `NOT_AUTHORIZED`. **PR merge:** `NOT_AUTHORIZED`. **Third-party communications:** `NONE`. No generic G2 freeze checkbox above is silently treated as complete.
 
+## G2 freeze-readiness decision matrix (prepared, **no new author sign-off**)
+
+All rows below are **candidate acceptance rules**, not evidence that a G2 freeze has occurred. An `AUTHOR_DECISION_PENDING` row must receive the sole author's separate, attributable disposition before the proposed freeze. `DEFER_TO_G3`/`HARD_PRE_G4` entries are **not approvals to execute**. The already approved Option B is preserved.
+
+| Decision ID | Required prospective contract | Current state | Latest permissible gate |
+|---|---|---|---|
+| `G2-P01` | Freeze exactly ESA v2 M1/M2/M3 and OPS-SAT v2 as **four descriptive, potentially dependent source strata**; ESA v1 paired-only, Hack-A-Sat secondary-only, NASA deferred | `AUTHOR_DECISION_PENDING` | **G2** |
+| `G2-P02` | Fix all eight frozen Study 9 variable meanings, ten criteria, four mapping classes and four visibility roles without modifying the frozen Study 9 files | `STATIC_SOURCE_CONTRACT_ALIGNED_AUTHOR_DECISION_PENDING` | **G2** |
+| `G2-P03` | Keep `permitted_deterministic_derivation_rules=[]`, with no undocumented post-result additions | `EMPTY_CANDIDATE_AUTHOR_DECISION_PENDING` | **G2** |
+| `G2-P04` | Fix 8-per-stratum operational coverage denominators; output 32 classification slots as finite-population descriptive records, **not 32 independent observations** | `STATIC_METHOD_DEFINED_AUTHOR_DECISION_PENDING` | **G2** |
+| `G2-P05` | Fix `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` and explicit unknown/false handling, four-policy action-set stratification and no source pooling | `STATIC_METHOD_DEFINED_AUTHOR_DECISION_PENDING` | **G2** |
+| `G2-P06` | Freeze the `S10_SYN_P0_V3_DRAFT` synthetic interface premise and **18 total prospective test cases including P0**, with a separate G3 technical oracle and stop-on-failure rule | `SPECIFIED_NOT_EXECUTED_AUTHOR_DECISION_PENDING` | **G2** design; **G3** actual tests |
+| `G2-P07` | Disclose prior ESA/OPS metadata, headers, labels and count exposure and the OPS-SAT 1,494/1,594 training-segment discrepancy | `DOCUMENTED_AUTHOR_DECISION_PENDING` | **G2** |
+| `G2-P08` | Adopt Option B as already approved; **unresolved ESA/OPS/Hack-A-Sat file-level rights remain hard pre-G4 source-use stops** | `OPTION_B_POLICY_APPROVED_G4_RIGHTS_NOT_CLEARED` | **G2** policy; **G4** file/notice sign-off |
+| `G2-P09` | Fix exact source identifiers and Git source pins; create a separate, immutable freeze receipt with actual candidate content digests and post-approval UTC time; never self-hash an in-progress manifest | `FREEZE_RECEIPT_NOT_CREATED_AUTHOR_DECISION_PENDING` | **G2** |
+| `G2-P10` | Record final **explicit** author verdict `APPROVE_G2_FREEZE`, `REVISE`, or `BLOCK` with the reviewed immutable candidate commit; stop until received | `AUTHOR_G2_FREEZE_VERDICT_NOT_PROVIDED` | **G2** |
+| `G3-T01` | Implement/test independent-code oracle, synthetic positive, negative and boundary suite; fail on parity divergence | `NOT_EXECUTED_NOT_AUTHORIZED` | **G3** after separate approval |
+| `G4-R01` | Confirm source version checks, exact ESA/OPS dataset reuse scope and all attribution/third-party exceptions, before *new* real-data payload access or analysis | `HARD_PRE_G4_NOT_CLEARED` | **G4** plus distinct source-use approval |
+| `G4-R02` | Verify nested payload integrity and any dataset-native decision-time/authorization-field lineage before source-specific operational estimands | `HARD_PRE_G4_NOT_CLEARED` | **G4/G5** after separate approval |
+
+### Future immutable freeze procedure (documentation plan only)
+
+1. **Before signing:** Resolve `G2-P01`–`G2-P09` with explicit author-reviewed decisions, including any Option B conditions deferred **only** to G4; decide and pin exactly which G2 documents and baseline frozen Study 9/Study 2 sources are normative.
+2. **Author decision:** Record `APPROVE_G2_FREEZE` expressly against the final candidate Git head and condition matrix. Do not infer approval from a generic continuation message. Record the actual UTC timestamp of the decision/receipt.
+3. **Immutable payload:** In a separately authorized action, create the final **content-stable** G2 protocol/rights/methodology/manifest files and a commit with exact Git blob IDs; compute SHA-256 of their actual bytes, with a deterministic UTF-8/newline convention. Preserve Git history and the prior draft unchanged.
+4. **Acyclic receipt:** Create a separate freeze-receipt file/commit referencing the already-existing payload commit, per-file SHA-256 digests, author decision and actual freeze timestamp. **Do not include the receipt's own hash in itself**. Prefer a protected immutable tag or archival release reference. No record is considered frozen until the receipt is committed and its references can be reopened and checked.
+5. **Post-freeze controls:** Retain G3/G4/G5/G6 as separately closed gates. Any later deviation is a new, timestamped amendment; never overwrite, rebase away or quietly repair the frozen receipt. Do not treat GitHub CI as independent scientific parity.
+
+**Pre-freeze data-integrity limitation:** Six earlier ESA ZIP and two OPS-SAT CSV identities are primarily **author-reported local intake checks**, with ESA inner members not fully checked. Their archived integrity and any legal permission remain separate hard **pre-G4** conditions under approved Option B. No source payload execution is part of this checklist.
+
+**Overall candidate recommendation:** `AUTHOR_G2_METHOD_DECISIONS_PENDING; OPTION_B_APPROVED; G2_HOLD`. This prepares a future decision; it does not issue one.
