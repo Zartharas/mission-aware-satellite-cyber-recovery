@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_SOURCE_READINESS_PREFLIGHT_CANDIDATE",
+  "review_date_utc": "2026-11-22",
+  "purpose": "DOCUMENT_PUBLIC_METADATA_RIGHTS_PROVENANCE_AND_SEPARATE_G4_AUTHORIZATION_READINESS",
+  "research_artifact": "STANDALONE_SOLO_AUTHOR_RESEARCH_PAPER_NOT_DISSERTATION",
+  "state": "HOLD_SOURCE_RIGHTS_INTEGRITY_AND_EXPLICIT_G4_AUTHORIZATION",
+  "scope": {
+    "current_work_authorized": "READ_ONLY_PUBLIC_SOURCE_METADATA_AND_INTERNAL_G4_PREFLIGHT_DOCUMENTATION",
+    "real_telemetry_payload_access_authorized": false,
+    "source_byte_download_or_extraction_performed": false,
+    "native_semantic_mapping_authorized": false,
+    "row_level_action_estimation_authorized": false,
+    "dataset_public_redistribution_authorized": false,
+    "publication_submission_authorized": false,
+    "pr_merge_authorized": false,
+    "outside_source_license_contact_authorized": false
+  },
+  "frozen_G2": {
+    "receipt_commit": "a346239d2de2770576c1ac95709fc799a5b82ddd",
+    "receipt_file": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "receipt_git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "payload_commit": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "payload_file_count": 4,
+    "rights_policy": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "G2_design_frozen": true,
+    "optionB_preG4_source_rights_gate_remains_blocked": true
+  },
+  "G3_evidence": {
+    "tested_commit": "5ec1c7d29a001cf0711a9e5b357e1937f69ef512",
+    "validator_git_blob_sha1": "ea940991bbfb784c9a47357daf5925c66883a1cd",
+    "dedicated_workflow_run": 44995819254,
+    "dedicated_run_conclusion": "success",
+    "repository_configuration_workflow_run": 44995819176,
+    "repository_run_conclusion": "success",
+    "synthetic_controls_passed": 18,
+    "synthetic_controls_total": 18,
+    "complete_boolean_states": 256,
+    "primary_policies": 4,
+    "standalone_oracle_comparisons_passed": 1024,
+    "frozen_evidence_requirements_api_checks_passed": 3,
+    "workflow_artifact_id": 14743093536,
+    "artifact_name": "study10-g3-synthetic-result",
+    "G3_result_immutable_freeze_performed": false,
+    "experimental_claim_boundary": "SYNTHETIC_INTERFACE_ONLY_NO_SIGNATURE_VERIFICATION_NO_REAL_SOURCE_MAPPING"
+  },
+  "source_identity_evidence": {
+    "esa_adb_archive_ids": [
+      {
+        "family": "ESA_ADB",
+        "release": "v1",
+        "mission": 1,
+        "doi": "10.5281/zenodo.12528696",
+        "zenodo_or_prior_registered_md5": "80750189d171f5f398fb3d96c49df12b",
+        "user_local_sha256_reported_not_independently_recomputed": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+        "prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "complete_inner_member_integrity_confirmed": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v2",
+        "mission": 1,
+        "doi": "10.5281/zenodo.15237121",
+        "zenodo_or_prior_registered_md5": "9770ad12ed730238f37c42d5c27ab436",
+        "user_local_sha256_reported_not_independently_recomputed": "ba28f761b1deab4dbba4728793bff139fea39dbf9cf0d9c559d619ffe75d5a72",
+        "prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "complete_inner_member_integrity_confirmed": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v1",
+        "mission": 2,
+        "doi": "10.5281/zenodo.12528696",
+        "zenodo_or_prior_registered_md5": "0b7505b7f0731ca037ee889ca2a520ce",
+        "user_local_sha256_reported_not_independently_recomputed": "843c3b5e0042178bfee650fcf7f16413ce8083dcfa5db53e6d37e0811dfb138d",
+        "prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "complete_inner_member_integrity_confirmed": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v2",
+        "mission": 2,
+        "doi": "10.5281/zenodo.15237121",
+        "zenodo_or_prior_registered_md5": "bfc72012691427d9327eb41f726ce45e",
+        "user_local_sha256_reported_not_independently_recomputed": "e8a89be1917b6754a10bd323441e87a82c8cf2e84ed162442c2dcf72ecc346d5",
+        "prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "complete_inner_member_integrity_confirmed": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v1",
+        "mission": 3,
+        "doi": "10.5281/zenodo.12528696",
+        "zenodo_or_prior_registered_md5": "34b8a8857e2242fb1f00b368b7421595",
+        "user_local_sha256_reported_not_independently_recomputed": "4ed219e4d07c8a277b5c32d06f9a8a9ebc61fc231450bf21ce92079d25182b27",
+        "prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "complete_inner_member_integrity_confirmed": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v2",
+        "mission": 3,
+        "doi": "10.5281/zenodo.15237121",
+        "zenodo_or_prior_registered_md5": "d63943f09c81378acd9fc5e565ecc66e",
+        "user_local_sha256_reported_not_independently_recomputed": "f426c4bb9857299c586e3c50f35ddb58b469a3e5565f586d4095bcb6cf532404",
+        "prior_local_checker": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "complete_inner_member_integrity_confirmed": false
+      }
+    ],
+    "ops_sat_v2": {
+      "doi": "10.5281/zenodo.15108715",
+      "files": [
+        {
+          "name": "dataset.csv",
+          "md5": "5246fdc5e4630a4cecbf7fb6bc8b795e",
+          "user_local_sha256_not_recomputed": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02"
+        },
+        {
+          "name": "segments.csv",
+          "md5": "72f109630abb933a386106897a631188",
+          "user_local_sha256_not_recomputed": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba"
+        },
+        {
+          "name": "LICENSE",
+          "md5": "ea8befa9af2b37b7a54b5a16fc3712b0",
+          "user_local_sha256_not_recomputed": "76d2ff9834ed2bb1356d9f7eb303c289817374bb1d5bbe5af86817e73e0f47d2"
+        }
+      ],
+      "license_git_blob_sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+      "old_training_segment_discrepancy": "PAPER_1494_VS_PRIOR_INTAKE_1594_NOT_RESOLVED"
+    },
+    "hackasat4": {
+      "source_repo": "cromulencellc/hackasat-finals-2023",
+      "pinned_commit": "2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1",
+      "source_role": "SECONDARY_UNPOOLED_CONTEST_CONTEXT",
+      "root_readme_git_blob_sha1": "2683d79b2875f78743b9f5170f9263f6281eccbb",
+      "pinned_readme_references": "LICENSE.md",
+      "pinned_readme_license_md_link_resolves": false,
+      "actual_root_license_path": ".LICENSE",
+      "actual_root_license_git_blob_sha1": "a086eaa939d79549c4b16fea778b86c1f87ed389",
+      "root_license_text_scope": "SOFTWARE_AND_ASSOCIATED_DOCUMENTATION_NOT_EXPLICIT_DATA_LICENSE",
+      "pinned_readme_exceptions": [
+        "cFS_NOSA_1_3",
+        "COSMOS_GPLV3",
+        "OSK_LGPL",
+        "FILE_SPECIFIC_HEADERS"
+      ],
+      "file_family_rights_cleared": false,
+      "actual_flight_origin_proven_for_candidate_files": false
+    }
+  },
+  "license_source_evidence": {
+    "ESA_v1": {
+      "source": "esa/anomaly-dataset",
+      "commit": "a969698e464788c961dbb646d3da24595c7c7a2b",
+      "license_file_git_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+      "status": "OFFICIAL_PROJECT_CC_BY_3_0_IGO_FILE_PRESENT_NOT_FILE_LEVEL_CLEARED"
+    },
+    "ESA_v2": {
+      "source": "https://zenodo.org/records/15237121",
+      "published_zenodo_md5_confirmed_in_public_page": true,
+      "zenodo_rendered_Rights_license_value_available": false,
+      "author_manuscript_license_statement_from_prior_G2_review": "CC_BY_3_0_IGO_NOT_INDEPENDENTLY_RECHECKED_IN_THIS_PHASE",
+      "status": "SOURCE_LICENSE_SCOPE_AUTHOR_SIGNOFF_PENDING"
+    },
+    "OPS_v2": {
+      "source": "https://zenodo.org/records/15108715",
+      "license_text_direct_first_party": "MIT_COVERS_SOFTWARE_DATA_DOCUMENTATION",
+      "license_md5_zenodo_visible": true,
+      "notices_final_approved": false,
+      "status": "LICENSE_EVIDENCE_STRONG_NOTICE_AND_EXCEPTION_SIGNOFF_PENDING"
+    },
+    "HackASat4": {
+      "source": "cromulencellc/hackasat-finals-2023",
+      "status": "SECONDARY_COMPONENT_LICENSE_EXCEPTION_CHECK_OPEN"
+    }
+  },
+  "hard_preG4_gates": [
+    {
+      "id": "G4-01",
+      "required_condition": "ESA_V2_EXACT_RELEASE_SCOPE_AND_THIRD_PARTY_FILE_RIGHTS_SIGNOFF",
+      "status": "HOLD",
+      "sole_author_signoff": false,
+      "actual_source_use_cleared": false,
+      "meaning": "Affirm exact ESA-ADB v2 dataset CC BY 3.0 IGO applicability for intended use; inspect any third-party component exceptions and accept citation/notice plan. Author statement is affirmative but exact Zenodo Rights value is not visible.",
+      "no_real_data_payload_access_in_this_review": true
+    },
+    {
+      "id": "G4-02",
+      "required_condition": "ESA_V1_RELEASE_SCOPE_AND_ATTRIBUTION_IF_USED_FOR_PAIRED_SENSITIVITY",
+      "status": "HOLD",
+      "sole_author_signoff": false,
+      "actual_source_use_cleared": false,
+      "meaning": "Confirm v1 license and contributors for matched release sensitivity; v1 is paired only, never independent flight replication.",
+      "no_real_data_payload_access_in_this_review": true
+    },
+    {
+      "id": "G4-03",
+      "required_condition": "OPS_SAT_V2_RIGHTS_NOTICES_AND_ANY_EMBEDDED_THIRD_PARTY_EXCEPTIONS",
+      "status": "HOLD",
+      "sole_author_signoff": false,
+      "actual_source_use_cleared": false,
+      "meaning": "Confirm OPS-SAT v2 data-inclusive MIT notice, record citation and third-party exceptions. Preserve full MIT notice if substantial portions are shared.",
+      "no_real_data_payload_access_in_this_review": true
+    },
+    {
+      "id": "G4-04",
+      "required_condition": "HACKASAT4_SECONDARY_COMPONENT_FILE_RIGHTS_IF_PROCESSED",
+      "status": "BLOCKED_IF_SECONDARY_SOURCE_USED",
+      "sole_author_signoff": false,
+      "actual_source_use_cleared": false,
+      "meaning": "Secondary Hack-A-Sat only: inspect component-level license and flight/contest provenance; source README references missing LICENSE.md while pinned root has .LICENSE. Do not process secondary dataset while unresolved.",
+      "no_real_data_payload_access_in_this_review": true
+    },
+    {
+      "id": "G4-05",
+      "required_condition": "VERSIONED_SOURCE_IDENTITY_LOCAL_RECHECK_AND_ALL_APPLICABLE_ATTRIBUTION_NOTICES",
+      "status": "HOLD",
+      "sole_author_signoff": false,
+      "actual_source_use_cleared": false,
+      "meaning": "Recompute versioned original-file MD5/SHA-256 from authorized local files and verify nested archive member integrity; retain notices and source isolation. Previous hashes were user-reported and ESA ZIP-directory only.",
+      "no_real_data_payload_access_in_this_review": true
+    },
+    {
+      "id": "G4-06",
+      "required_condition": "SEPARATE_EXPLICIT_G4_EXECUTION_AND_SOURCE_USE_AUTHORIZATION",
+      "status": "HOLD",
+      "sole_author_signoff": false,
+      "actual_source_use_cleared": false,
+      "meaning": "Obtain a new, explicit, separately scoped sole-author G4 source-use/execution decision after prerequisite evidence is recorded; G3 approval does not imply G4.",
+      "no_real_data_payload_access_in_this_review": true
+    }
+  ],
+  "approval": {
+    "G4_source_rights_signoff_recorded": false,
+    "G4_scientific_execution_authorization_recorded": false,
+    "G4_real_data_source_use_authorization_recorded": false,
+    "S10_G3_success_does_not_approve_G4": true,
+    "future_author_permission_required": true,
+    "no_overwrite_or_amendment_of_G2_frozen_protocol": true
+  },
+  "validation_intent": {
+    "no_payload_reading_during_preflight": true,
+    "fail_closed_G4_guard_required": true,
+    "gate_should_report_HOLD_until_explicit_new_signoffs": true,
+    "source_identity_rehash_and_nested_zip_validation_deferred_until_authorized": true,
+    "do_not_replace_prereg_population_after_field_outcome_exposure": true,
+    "no_cross_family_pooling_or_independence_claim": true
+  }
+}
