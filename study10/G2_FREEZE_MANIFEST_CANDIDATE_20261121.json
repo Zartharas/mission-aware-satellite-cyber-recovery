@@ -390,7 +390,54 @@
     "ESA_ADB_PUBLISHER": "European Space Agency",
     "ESA_EXACT_RECORD_LICENSE_FIELD": "VALUE_NOT_IDENTIFIED_IN_RENDERED_RIGHTS_PANEL",
     "ESA_AUTHOR_PUBLICATION_LICENSE_CLAIM": "CC_BY_3_0_IGO",
-    "ESA_CITATION_FORMAT_APPROVED_BY_AUTHOR": false
+    "ESA_CITATION_FORMAT_APPROVED_BY_AUTHOR": false,
+    "ESA_V1_OFFICIAL_GITHUB_DATASET_LICENSE": {
+      "repository": "esa/anomaly-dataset",
+      "pinned_commit": "a969698e464788c961dbb646d3da24595c7c7a2b",
+      "license_path": "LICENSE",
+      "license_git_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+      "license_text": "CC BY 3.0 IGO",
+      "readme_path": "README.md",
+      "readme_git_blob_sha1": "76f66a4550d0d8d3910b595d1c968bde9bbabed6",
+      "readme_identifies_exact_dataset_release": "10.5281/zenodo.12528696",
+      "evidence_level": "DIRECT_FIRST_PARTY_LICENSE_FILE_LINKED_TO_V1_DATASET_PROJECT",
+      "scope_limit": "Not per-file audit of external Zenodo telemetry payloads"
+    },
+    "ESA_V2_AUTHOR_PUBLICATION_LICENSE": {
+      "source": "https://openreview.net/pdf/eda113f9ebd4aa45678a791e19b33c8bdefd0e15.pdf",
+      "referenced_zenodo_record": "10.5281/zenodo.15237121",
+      "stated_dataset_license": "CC BY 3.0 IGO",
+      "stated_code_license": "MIT",
+      "evidence_level": "DIRECT_AUTHOR_STATEMENT_ABOUT_V2_DATASET",
+      "zenodo_record_license_value_extracted": false,
+      "third_party_exception_audit_completed": false
+    },
+    "OPS_SAT_V2_CREATOR_SOURCE": {
+      "source": "https://zenodo.org/records/15108715",
+      "displayed_creator": "Bogdan, Ruszczak",
+      "citation_normalized_creator": "Ruszczak, Bogdan",
+      "contributors": [
+        "Ruszczak, Bogdan",
+        "Kotowski, Krzysztof",
+        "Evans, David",
+        "Nalepa, Jakub"
+      ],
+      "publisher": "Ruszczak",
+      "upstream_dataset_mit_blob": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+      "zenodo_v2_license_md5": "ea8befa9af2b37b7a54b5a16fc3712b0",
+      "license_scope": "software, data, and associated documentation",
+      "attribution_format_signed_off": false
+    },
+    "permission_by_future_operation": {
+      "documentation_metadata": "CURRENT_PREPARATION_SCOPE_ONLY",
+      "future_synthetic_G3": "REQUIRES_SEPARATE_G3_AUTHOR_AUTHORIZATION",
+      "future_ESA_OPS_source_analysis": "HOLD_AUTHOR_SOURCE_SCOPE_SIGNOFF_AND_G4_AUTHORIZATION",
+      "secondary_HackASat_processing": "BLOCKED_FILE_SPECIFIC_RIGHTS_CHECK",
+      "public_raw_data_redistribution": "NOT_AUTHORIZED",
+      "operational_recovery_claim": "PROHIBITED_WITHOUT_NATIVE_EVIDENCE"
+    },
+    "dataset_license_evidence_strength": "ESA_V1_OFFICIAL_DATASET_PROJECT_LICENSE_FILE; ESA_V2_AUTHOR_PUBLICATION_DIRECT; OPS_V2_DATA_INCLUSIVE_MIT_FILE",
+    "final_source_use_scope_cleared": false
   },
   "gates": {
     "G1": "CONDITIONALLY_APPROVED_FOR_G2_CONSIDERATION",
@@ -401,7 +448,7 @@
     "G6": "CLOSED_PUBLICATION_NOT_AUTHORIZED"
   },
   "unresolved_G2_preapproval_items": [
-    "ESA_V2_PRECISE_LICENSE_SCOPE_AND_FORMATTED_CREATOR_CREDIT_SIGNOFF",
+    "ESA_V2_AUTHOR_LICENSE_EVIDENCE_DOCUMENTED_FINAL_SCOPE_AND_FORMATTED_ATTRIBUTION_SIGNOFF_PENDING",
     "THIRD_PARTY_RIGHTS_AND_HACKASAT_FILE_LEVEL_LICENSE_REVIEW",
     "CANONICAL_COHORT_MEMBERSHIP_AND_UNVERIFIED_DEPENDENCE_EXPLICIT_AUTHOR_FREEZE_DECISION",
     "PROTOCOL_TIMING_AND_PRIOR_SOURCE_EXPOSURE_DECLARATION",
@@ -506,6 +553,19 @@
       "SCIENTIFIC_EXECUTION",
       "PUBLISHER_SUBMISSION"
     ],
-    "risk_disclosure": "Author is sole reviewer; this precheck is analytical assistance, not external human review or independent legal assessment"
+    "risk_disclosure": "Author is sole reviewer; this precheck is analytical assistance, not external human review or independent legal assessment",
+    "source_rights_followup": {
+      "as_of_utc_date": "2026-11-22",
+      "rights_evidence_strengthened": true,
+      "ESA_v1_official_license_file_pinned": true,
+      "ESA_v2_direct_author_license_statement_documented": true,
+      "OPS_v2_zenodo_creator_credit_documented": true,
+      "ESA_v2_zenodo_rendered_license_value_still_unknown": true,
+      "third_party_file_rights_not_all_checked": true,
+      "author_rights_signoff_not_given": true,
+      "author_freeze_signoff_not_given": true,
+      "external_rights_holder_outreach_performed": false,
+      "no_scientific_execution": true
+    }
   }
 }
