@@ -133,7 +133,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
     "valid_through": 1100,
     "decision_time": 1050,
     "known_valid": true,
-    "interval_boundary_convention": "PENDING_G2"
+    "interval_boundary_convention": "INCLUSIVE_BOTH_ENDS_PER_FROZEN_EVIDENCE_VERIFIER_SYNTHETIC_FIXTURE_ONLY",
+    "valid_for_s": 100,
+    "now_s": 1050,
+    "authoritative_rule": "issued_at_s <= now_s <= issued_at_s + valid_for_s"
   },
   "evidence_epoch": {
     "claimed": 7,
@@ -158,7 +161,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_02",
@@ -172,7 +178,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_03",
@@ -186,7 +195,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_04",
@@ -200,7 +212,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_05",
@@ -214,7 +229,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_06",
@@ -228,7 +246,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_07",
@@ -242,7 +263,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_08",
@@ -256,7 +280,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_09",
@@ -270,7 +297,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       },
       {
         "claim_id": "S10_SYN_CLAIM_10",
@@ -284,7 +314,10 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
         "valid_through": 1100,
         "accepted": true,
         "current": true,
-        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED"
+        "acceptance_basis": "SYNTHETIC_PREMISE_NOT_CRYPTOGRAPHICALLY_VERIFIED",
+        "issued_at_s": 1000,
+        "valid_for_s": 100,
+        "timing_semantics": "INCLUSIVE_SYNTHETIC_VERIFIER_TIME_BOUNDARY"
       }
     ],
     "no_other_accepted_current_claims_for_subject_key_epoch": true,
@@ -404,7 +437,7 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
 1. **Known false versus unknown:** Source-state ingestion must retain a three-way distinction `known_true`, `known_false`, and `unknown` before any admissible completion. `unknown` may not be converted to `false` or `true`, counted as observed, or used to select an action.
 2. **Closed-world claims only in the synthetic fixture:** The ten-item, criterion-linked accepted-claims ledger above establishes `contradictory=false` only because `inventory_complete=true` and the explicit absence of other accepted current same-subject/same-key/same-epoch claims is a **synthetic premise**. A real dataset may not inherit this closed-world declaration.
 3. **Ten named accepted criteria:** The fixture has an explicit accepted/current `present=true` entry with a unique `claim_id` for each of the ten frozen recovery criteria. The matching ten claim rows are synthetic interface premises, not actual signatures or verified operational claims. `S10_SYN_N_CRITERIA` removes **one acceptance/presence entry**, not merely a CSV column; its completeness state becomes known false only when the synthetic inventory is proven complete, otherwise `unknown`.
-4. **Temporal semantics:** This positive fixture is strictly internal to the 1000–1100 time window at 1050 and does not depend on boundary inclusion. Negative `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, and `S10_SYN_N_EPOCH_MISMATCH` must be specified with exact input mutation and expected error state **before** execution. Boundary comparisons at exactly 1000 or 1100 require a separate explicitly frozen convention; the current draft asserts none.
+4. **Temporal semantics:** This positive fixture is strictly internal to the 1000–1100 time window at 1050 and does not depend on boundary inclusion. Negative `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, and `S10_SYN_N_EPOCH_MISMATCH` must be specified with exact input mutation and expected error state **before** execution. For this **synthetic verifier fixture only**, the frozen `study2/src/study2_security/evidence.py` rule is `issued_at_s <= now_s <= issued_at_s + valid_for_s` (both endpoints inclusive). Thus at `1000` and `1100` the synthetic time component is fresh, at `999` it is future evidence, and at `1101` it is expired. These are **static expected cases**, not executed tests. This does not create or imply an operational decision time for any ESA/OPS/Hack dataset.
 5. **Policy oracle independence:** The `expected_normalized_mapping` is an input mapping oracle only. The `downstream_selector_expected_action` deliberately remains `UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE`. G2 must separately pin the exact selector SHA-256, specify each policy's expected action and action-set enumeration from an independently reviewed implementation, and capture any disagreement rather than adapting the fixture to test outcomes.
 6. **Dataset exclusion:** No synthetic state, source identity, timestamp, or ground truth participates in the ESA/OPS/Hack empirical denominator, mission-independence claims or external-application outcomes.
 
