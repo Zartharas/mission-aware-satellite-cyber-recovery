@@ -421,5 +421,91 @@
     "paper5_modification_authorized": false,
     "third_party_contact_authorized": false
   },
-  "future_immutable_freeze_required": "Atomic separately approved freeze artifact with exact commit and SHA256s; candidate manifest is deliberately mutable and cannot self-certify"
+  "future_immutable_freeze_required": "Atomic separately approved freeze artifact with exact commit and SHA256s; candidate manifest is deliberately mutable and cannot self-certify",
+  "g2_author_review_precheck": {
+    "type": "INTERNAL_ASSISTANT_STATIC_PRECHECK_NOT_SOLE_AUTHOR_VERDICT",
+    "assessment_date_utc": "2026-11-21",
+    "reviewed_pr": 229,
+    "reviewed_precheck_head": "8c4bae227073f24fc66e7d3bda0ac5d6dca37f6b",
+    "source_git_blob_pins_checked": 12,
+    "source_git_blob_pins_matched": 12,
+    "check_method": "Read each pinned file from its pinned source Git commit and compare Git blob SHA-1 identity",
+    "reviewed_dimensions": [
+      {
+        "id": "G2-R1",
+        "name": "cohort_and_independence",
+        "status": "CONSISTENT_CANDIDATE_NOT_FROZEN"
+      },
+      {
+        "id": "G2-R2",
+        "name": "frozen_interface_policy_contract",
+        "status": "STATIC_PARITY_PASS"
+      },
+      {
+        "id": "G2-R3",
+        "name": "source_repository_git_blob_pins",
+        "status": "TWELVE_OF_TWELVE_MATCH"
+      },
+      {
+        "id": "G2-R4",
+        "name": "synthetic_control_design",
+        "status": "DESIGN_ONLY_G3_EXECUTION_PENDING"
+      },
+      {
+        "id": "G2-R5",
+        "name": "ESA_v2_release_rights_and_legal_scope",
+        "status": "SIGNOFF_HOLD"
+      },
+      {
+        "id": "G2-R6",
+        "name": "source_attribution_and_third_party",
+        "status": "SIGNOFF_HOLD"
+      },
+      {
+        "id": "G2-R7",
+        "name": "inner_archive_and_source_pre_execution_integrity",
+        "status": "PENDING"
+      },
+      {
+        "id": "G2-R8",
+        "name": "prior_source_exposure_and_training_segment_discrepancy",
+        "status": "DISCLOSED_NOT_RESOLVED"
+      },
+      {
+        "id": "G2-R9",
+        "name": "immutable_freeze_record",
+        "status": "NOT_CREATED_NO_APPROVAL"
+      },
+      {
+        "id": "G2-R10",
+        "name": "generic_CI",
+        "status": "G1_AND_G2_PRECHECK_HEAD_SUCCESS_NO_S10_SEMANTIC_CI"
+      }
+    ],
+    "source_license_observation": {
+      "public_zenodo_v2_record": "https://zenodo.org/records/15237121",
+      "zenodo_v2_rendered_rights_section": "HEADING_LICENSE_NO_VALUE_VISIBLE",
+      "author_CC_BY_3_0_IGO_statement": "CITED_IN_EXISTING_G1_RIGHTS_REVIEW",
+      "legal_determination_authorized": false,
+      "legal_determination_performed": false,
+      "conclusion": "NO_NEW_RIGHTS_CLEARANCE"
+    },
+    "CI": {
+      "G1_PR228_head_successful_run": 44967559702,
+      "G2_PR229_reviewed_head_successful_run": 44968279176,
+      "CI_scientific_oracle_validation": false,
+      "exact_new_head_CI_required_after_this_documentation_commit": true
+    },
+    "proposed_recommendation": "G2_REVIEWED_HOLD_PENDING_CONDITIONS",
+    "actual_author_G2_verdict": "NOT_PROVIDED",
+    "actual_author_freeze_approval": false,
+    "other_approvals_not_inferred": [
+      "MERGE",
+      "DATA_EXTRACTION",
+      "SYNTHETIC_EXECUTION",
+      "SCIENTIFIC_EXECUTION",
+      "PUBLISHER_SUBMISSION"
+    ],
+    "risk_disclosure": "Author is sole reviewer; this precheck is analytical assistance, not external human review or independent legal assessment"
+  }
 }
