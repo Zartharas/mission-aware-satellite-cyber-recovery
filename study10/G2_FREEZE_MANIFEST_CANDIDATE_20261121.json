@@ -1,0 +1,405 @@
+{
+  "schema": 1,
+  "study_id": "S10-RSEI-001",
+  "document_type": "G2_FREEZE_MANIFEST_CANDIDATE",
+  "candidate_preparation_date_utc": "2026-11-21",
+  "status": "G2_CANDIDATE_NOT_PREREGISTERED_NOT_FROZEN",
+  "base_repository": "Zartharas/mission-aware-satellite-cyber-recovery",
+  "g1_conditional_approval": {
+    "reviewed_pr": 228,
+    "preapproval_review_head": "7fc0ee788cf69e4955abb5354fcc100b43ca4b9a",
+    "g1_recorded_head": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+    "verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+    "conditional": true,
+    "source": "SOLE_AUTHOR_CONDITIONAL_G1_APPROVAL",
+    "g2_freeze_authorized": false
+  },
+  "source_file_git_blob_pins": [
+    {
+      "path": "study10/G1_SOURCE_RIGHTS_REVIEW_DRAFT_20261121.md",
+      "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+      "git_blob_sha1": "2b94f9f4e1d8deba41bf99371fef0142bd7fcd37",
+      "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study10/G1_POPULATION_DECISION_DRAFT_20261121.json",
+      "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+      "git_blob_sha1": "911262bd7d02a3b79a08c74d939a42144682d134",
+      "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study10/G1_SEMANTIC_CONTROL_SPEC_DRAFT_20261121.md",
+      "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+      "git_blob_sha1": "29c97ef13c8bc92b51f09a1b3ad033dba9371081",
+      "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study10/G1_READINESS_GATE_DRAFT_20261121.json",
+      "baseline_commit": "6cb2d1976f65cef0509329c59207b0e9d5c47681",
+      "git_blob_sha1": "efcf21f6d13e6f6344c4c36d4ea7be75570fe9a0",
+      "role": "CONDITIONALLY_APPROVED_G1_DRAFT",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study10/PROSPECTIVE_PROTOCOL_DRAFT_20261121.md",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "c64fb9fd37be332a3bfeeb05ca44a81ad5cfc67f",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study10/SOURCE_PROVENANCE_REGISTER_DRAFT_20261121.json",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "95cd4eec54aa22054477c3fcb84ee643f71d7f13",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study9/STUDY9_PROTOCOL.json",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "c298763d66f533c6e91b956293c0ae1a564486cd",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "ba18e5386fb854147570970cc6369ed0731b947c",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "aca6f9ddc7bbc14446b2a89968ec2a6a52bc1a16",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study9/POLICY_SCOPE_FREEZE.json",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "a29d73ae27ce26f0c7ba4c0a8c832d07bc29930c",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study2/src/study2_security/selectors.py",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    },
+    {
+      "path": "study2/src/study2_security/evidence.py",
+      "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "git_blob_sha1": "5d107ecb24f24fec14f1d817ab48db95be744556",
+      "role": "IMMUTABLE_PRIOR_SOURCE",
+      "hash_type": "GIT_BLOB_SHA1_NOT_SHA256"
+    }
+  ],
+  "pin_semantics": "All Git blob references are SHA-1 IDs for git objects, not independent file SHA-256 checks; normative Study 2 selector SHA-256 separately inherited from Study 9",
+  "selector": {
+    "path": "study2/src/study2_security/selectors.py",
+    "sha256_frozen": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "pinned_main_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+    "source_blob_sha1": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+    "modified": false
+  },
+  "frozen_interface": {
+    "variables": [
+      "signature_valid",
+      "source_trusted",
+      "fresh",
+      "epoch_valid",
+      "contradictory",
+      "minimum_evidence_complete",
+      "security_signal",
+      "authorization_available"
+    ],
+    "criteria": [
+      "approved_version",
+      "integrity_measurement_valid",
+      "authorization_valid",
+      "measured_state_current",
+      "authorized_command_path_restored",
+      "ground_spacecraft_state_agreed",
+      "required_telemetry_restored",
+      "health_checks_passed",
+      "no_residual_unauthorized_state",
+      "recovery_manifest_complete"
+    ],
+    "mapping_classes": [
+      "DIRECT",
+      "DERIVABLE_BY_PREDECLARED_RULE",
+      "AMBIGUOUS",
+      "ABSENT"
+    ],
+    "visibility_roles": [
+      "OPERATIONAL_NATIVE",
+      "OFFLINE_GROUND_TRUTH_ONLY",
+      "EXPERIMENT_METADATA_ONLY",
+      "DOCUMENTATION_ONLY"
+    ],
+    "permitted_derivations": [],
+    "derivation_status": "EMPTY_NO_NEW_RULES_AUTHORIZED"
+  },
+  "policies": {
+    "primary": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B1_FAIL_OPERATIONAL",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ],
+    "excluded_mechanistic_ablations": [
+      "S2_ABL_NO_FRESHNESS",
+      "S2_ABL_NO_CONTRADICTION",
+      "S2_ABL_NO_EPOCH",
+      "S2_ABL_NO_SIGNATURE_TRUST"
+    ],
+    "pooled_effects_allowed": false
+  },
+  "candidate_population": {
+    "status": "PROVISIONAL_NOT_FROZEN",
+    "primary_strata": [
+      {
+        "id": "ESA_ADB_V2_MISSION1",
+        "source_family": "ESA_ADB",
+        "doi": "10.5281/zenodo.15237121",
+        "mission": 1,
+        "reported_channels": 76,
+        "classification_slots": 8,
+        "independent_spacecraft_replication_claim_allowed": false
+      },
+      {
+        "id": "ESA_ADB_V2_MISSION2",
+        "source_family": "ESA_ADB",
+        "doi": "10.5281/zenodo.15237121",
+        "mission": 2,
+        "reported_channels": 100,
+        "classification_slots": 8,
+        "independent_spacecraft_replication_claim_allowed": false
+      },
+      {
+        "id": "ESA_ADB_V2_MISSION3",
+        "source_family": "ESA_ADB",
+        "doi": "10.5281/zenodo.15237121",
+        "mission": 3,
+        "reported_channels": 48,
+        "classification_slots": 8,
+        "independent_spacecraft_replication_claim_allowed": false
+      },
+      {
+        "id": "OPS_SAT_AD_SEGMENTS",
+        "source_family": "OPS_SAT_AD",
+        "doi": "10.5281/zenodo.15108715",
+        "mission": null,
+        "reported_channels": 9,
+        "classification_slots": 8,
+        "independent_spacecraft_replication_claim_allowed": false
+      }
+    ],
+    "reported_ESA_v2_channels": 224,
+    "total_proposed_semantic_classification_slots": 32,
+    "dependence": "ESA missions anonymized; OPS-SAT independent spacecraft lineage unverified; descriptive strata only",
+    "source_family_pooled_denominator_allowed": false,
+    "esa_v1": "MATCHED_RELEASE_SENSITIVITY_ONLY",
+    "hackasat4": "SECONDARY_UNPOOLED_COMPETITION_CONTEXT",
+    "nasa_smap_msl": "DEFERRED"
+  },
+  "dataset_file_identity": {
+    "ESA_ADB_archive_ids": [
+      {
+        "family": "ESA_ADB",
+        "release": "v1",
+        "mission": 1,
+        "doi": "10.5281/zenodo.12528696",
+        "published_md5": "80750189d171f5f398fb3d96c49df12b",
+        "sha256_author_reported": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+        "author_reported_identity_gate": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "inner_members_exhaustively_verified": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v2",
+        "mission": 1,
+        "doi": "10.5281/zenodo.15237121",
+        "published_md5": "9770ad12ed730238f37c42d5c27ab436",
+        "sha256_author_reported": "ba28f761b1deab4dbba4728793bff139fea39dbf9cf0d9c559d619ffe75d5a72",
+        "author_reported_identity_gate": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "inner_members_exhaustively_verified": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v1",
+        "mission": 2,
+        "doi": "10.5281/zenodo.12528696",
+        "published_md5": "0b7505b7f0731ca037ee889ca2a520ce",
+        "sha256_author_reported": "843c3b5e0042178bfee650fcf7f16413ce8083dcfa5db53e6d37e0811dfb138d",
+        "author_reported_identity_gate": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "inner_members_exhaustively_verified": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v2",
+        "mission": 2,
+        "doi": "10.5281/zenodo.15237121",
+        "published_md5": "bfc72012691427d9327eb41f726ce45e",
+        "sha256_author_reported": "e8a89be1917b6754a10bd323441e87a82c8cf2e84ed162442c2dcf72ecc346d5",
+        "author_reported_identity_gate": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "inner_members_exhaustively_verified": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v1",
+        "mission": 3,
+        "doi": "10.5281/zenodo.12528696",
+        "published_md5": "34b8a8857e2242fb1f00b368b7421595",
+        "sha256_author_reported": "4ed219e4d07c8a277b5c32d06f9a8a9ebc61fc231450bf21ce92079d25182b27",
+        "author_reported_identity_gate": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "inner_members_exhaustively_verified": false
+      },
+      {
+        "family": "ESA_ADB",
+        "release": "v2",
+        "mission": 3,
+        "doi": "10.5281/zenodo.15237121",
+        "published_md5": "d63943f09c81378acd9fc5e565ecc66e",
+        "sha256_author_reported": "f426c4bb9857299c586e3c50f35ddb58b469a3e5565f586d4095bcb6cf532404",
+        "author_reported_identity_gate": "PASS_IDENTITY_AND_ZIP_DIRECTORY",
+        "outer_directory_metadata_only": true,
+        "inner_members_exhaustively_verified": false
+      }
+    ],
+    "OPS_SAT_AD_v2": {
+      "doi": "10.5281/zenodo.15108715",
+      "source_identity": "USER_LOCAL_DUAL_MD5_AND_PRIOR_SHA256_MATCH",
+      "dataset_csv": {
+        "md5": "5246fdc5e4630a4cecbf7fb6bc8b795e",
+        "sha256_author_reported": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02"
+      },
+      "segments_csv": {
+        "md5": "72f109630abb933a386106897a631188",
+        "sha256_author_reported": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba"
+      },
+      "license_file_md5": "ea8befa9af2b37b7a54b5a16fc3712b0",
+      "license_file_sha256_author_reported": "76d2ff9834ed2bb1356d9f7eb303c289817374bb1d5bbe5af86817e73e0f47d2",
+      "raw_bytes_independently_rehashed_in_this_phase": false,
+      "source_semantics_not_executed": true
+    },
+    "HACKASAT4": {
+      "pinned_commit": "2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1",
+      "role": "SECONDARY_UNPOOLED",
+      "flight_status": "NOT_ESTABLISHED",
+      "file_override_rights_review": "PENDING"
+    }
+  },
+  "synthetic_controls": {
+    "fixture_id": "S10_SYN_P0_V3_DRAFT",
+    "source_spec_file": "study10/G1_SEMANTIC_CONTROL_SPEC_DRAFT_20261121.md",
+    "source_spec_blob_sha1": "29c97ef13c8bc92b51f09a1b3ad033dba9371081",
+    "assumed_accepted_claim_count": 10,
+    "required_value_keys": [
+      "approved_version",
+      "integrity_measurement_valid",
+      "authorization_valid",
+      "measured_state_current",
+      "authorized_command_path_restored",
+      "ground_spacecraft_state_agreed",
+      "required_telemetry_restored",
+      "health_checks_passed",
+      "no_residual_unauthorized_state",
+      "recovery_manifest_complete"
+    ],
+    "expected_normalized_inputs": {
+      "signature_valid": true,
+      "source_trusted": true,
+      "fresh": true,
+      "epoch_valid": true,
+      "contradictory": false,
+      "minimum_evidence_complete": true,
+      "security_signal": false,
+      "authorization_available": true
+    },
+    "mutation_case_ids": [
+      "P0_BASE",
+      "S10_SYN_T_LOWER",
+      "S10_SYN_T_UPPER",
+      "S10_SYN_N_FUTURE_ISSUE",
+      "S10_SYN_N_EXPIRED",
+      "S10_SYN_N_EPOCH_MISMATCH",
+      "S10_SYN_N_EPOCH_UNKNOWN",
+      "S10_SYN_N_CRITERIA",
+      "S10_SYN_N_CRITERIA_VALUE",
+      "S10_SYN_N_LEDGER_INCOMPLETE",
+      "S10_SYN_N_CONTRADICTION",
+      "S10_SYN_N_CRC",
+      "S10_SYN_N_APID",
+      "S10_SYN_N_TIME",
+      "S10_SYN_N_LABEL",
+      "S10_SYN_N_COMMAND",
+      "S10_SYN_N_MISSING",
+      "S10_SYN_N_MIXING"
+    ],
+    "mutation_case_count": 18,
+    "synthetic_only": true,
+    "selector_oracle_static_only": true,
+    "independent_technical_implementation_executed": false,
+    "no_real_signature_verification": true
+  },
+  "observation_endpoints": {
+    "tier_A": "EIGHT_PER_STRATUM_SEMANTIC_MAPPING_COVERAGE",
+    "tier_B": "PAIRED_ESA_V1_V2_METADATA_SENSITIVITY",
+    "tier_C": "CONDITIONAL_NATIVE_DECISION_TIME_AND_POLICY_STRATIFIED_REACHABLE_ACTION_SETS",
+    "tier_D": "SYNTHETIC_ONLY_METHOD_VALIDATION",
+    "unit": "SOURCE_STRATUM_X_RECOVERY_VARIABLE",
+    "denominator_per_stratum": 8,
+    "no_native_decision_time_result": "NOT_EVALUABLE_FOR_OPERATIONAL_ACTION_NO_ROW_LEVEL_RATE",
+    "unknown_to_bool_coercion_allowed": false
+  },
+  "rights_and_provenance": {
+    "state": "EVIDENCE_IDENTIFIED_FINAL_SCOPE_AND_ATTRIBUTION_REVIEW_PENDING",
+    "ESA_ADB_V1_V2": "AUTHORS_DECLARE_CC_BY_3_0_IGO_FINAL_RECORD_SCOPE_PENDING",
+    "OPS_SAT_V2": "MATCHED_DATA_INCLUSIVE_MIT_LICENSE_FILE",
+    "HACKASAT4": "PATH_LICENSE_EXCEPTIONS_PENDING",
+    "pre_freeze_exposure_disclosed": true,
+    "no_raw_datasets_in_git": true
+  },
+  "gates": {
+    "G1": "CONDITIONALLY_APPROVED_FOR_G2_CONSIDERATION",
+    "G2": "HOLD_NOT_FROZEN",
+    "G3": "CLOSED_IMPLEMENTATION_NOT_AUTHORIZED",
+    "G4": "CLOSED_SOURCE_ADJUDICATION_NOT_AUTHORIZED",
+    "G5": "CLOSED_ROW_LEVEL_NOT_AUTHORIZED",
+    "G6": "CLOSED_PUBLICATION_NOT_AUTHORIZED"
+  },
+  "unresolved_G2_preapproval_items": [
+    "ESA_V2_PRECISE_LICENSE_SCOPE_AND_RELEASE_ATTRIBUTION_SIGNOFF",
+    "THIRD_PARTY_RIGHTS_AND_HACKASAT_FILE_LEVEL_LICENSE_REVIEW",
+    "CANONICAL_COHORT_MEMBERSHIP_AND_UNVERIFIED_DEPENDENCE_EXPLICIT_AUTHOR_FREEZE_DECISION",
+    "PROTOCOL_TIMING_AND_PRIOR_SOURCE_EXPOSURE_DECLARATION",
+    "EXACT_FREEZE_ARTIFACT_SHA256_AND_UTC_TIMESTAMP_NOT_YET_CREATED",
+    "PROSPECTIVE_DERIVATION_REGISTRY_EMPTY_APPROVAL",
+    "G2_AUTHOR_FREEZE_AUTHORIZATION_NOT_GIVEN"
+  ],
+  "release_safeguards": {
+    "author_role": "SOLE_AUTHOR",
+    "no_external_human_reviewer_required": true,
+    "independent_technical_oracle_required_future_G3": true,
+    "merge_authorized": false,
+    "freeze_authorized": false,
+    "scientific_execution_authorized": false,
+    "dataset_extraction_authorized": false,
+    "study9_modification_authorized": false,
+    "paper5_modification_authorized": false,
+    "third_party_contact_authorized": false
+  },
+  "future_immutable_freeze_required": "Atomic separately approved freeze artifact with exact commit and SHA256s; candidate manifest is deliberately mutable and cannot self-certify"
+}
