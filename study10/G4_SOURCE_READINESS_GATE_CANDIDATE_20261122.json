@@ -253,5 +253,70 @@
     "source_identity_rehash_and_nested_zip_validation_deferred_until_authorized": true,
     "do_not_replace_prereg_population_after_field_outcome_exposure": true,
     "no_cross_family_pooling_or_independence_claim": true
+  },
+  "g4_sole_author_source_rights_review": {
+    "review_date_utc": "2026-11-22",
+    "scope": "REVIEW_PUBLIC_LICENSE_METADATA_AND_PREPARE_AUTHOR_DECISION_NO_RAW_DATA",
+    "user_consent_interpretation": "AUTHORIZE_G4_CHECKLIST_AND_RIGHTS_REVIEW_ONLY_NOT_SOURCE_USE_OR_G4_EXECUTION",
+    "verified_documentary_evidence": [
+      {
+        "gate": "G4-01",
+        "evidence": "DIRECT_V2_DATASET_AUTHOR_MANUSCRIPT_LICENSE_DISCLOSURE",
+        "doi": "10.5281/zenodo.15237121",
+        "license": "CC BY 3.0 IGO",
+        "author_statement_rechecked_in_public_PDF_text": true,
+        "source": "https://openreview.net/pdf/eda113f9ebd4aa45678a791e19b33c8bdefd0e15.pdf",
+        "zenodo_license_value_readable": false,
+        "embedded_rights_audit_completed": false,
+        "final_signoff": false
+      },
+      {
+        "gate": "G4-02",
+        "evidence": "OFFICIAL_ESA_REPOSITORY_V1_DATASET_LICENSE",
+        "doi": "10.5281/zenodo.12528696",
+        "license": "CC BY 3.0 IGO",
+        "license_repo_commit": "a969698e464788c961dbb646d3da24595c7c7a2b",
+        "license_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+        "embedded_rights_audit_completed": false,
+        "final_signoff": false
+      },
+      {
+        "gate": "G4-03",
+        "evidence": "DATA_INCLUSIVE_MIT_NOTICE_AND_ZENODO_V2_LICENSE_MD5",
+        "doi": "10.5281/zenodo.15108715",
+        "license": "MIT License for OPS-SAT Dataset",
+        "copyright": "2024 KP Labs",
+        "license_blob_sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+        "embedded_rights_audit_completed": false,
+        "final_signoff": false
+      },
+      {
+        "gate": "G4-04",
+        "evidence": "PINNED_README_MISSING_LICENSE_MD_BUT_DOT_LICENSE_EXISTS",
+        "repo": "cromulencellc/hackasat-finals-2023",
+        "ref": "2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1",
+        "root_license_blob_sha1": "a086eaa939d79549c4b16fea778b86c1f87ed389",
+        "game_data_license_scope_confirmed": false,
+        "secondary_use_blocked": true
+      }
+    ],
+    "proposed_rights_policy": {
+      "intended_use": "LOCAL_NON_RAW_DESCRIPTIVE_SEMANTIC_OBSERVABILITY_ONLY",
+      "primary_releases": [
+        "ESA_ADB_V2_M1_M2_M3",
+        "OPS_SAT_AD_V2"
+      ],
+      "paired_ESA_v1_conditional": true,
+      "hackasat4_secondary_remains_blocked": true,
+      "public_raw_telemetry_redistribution": false,
+      "future_derived_output_citations_and_change_notices_required": true,
+      "author_approved": false,
+      "separate_local_integrity_only_authorization_needed": true,
+      "separate_G4_scientific_authorization_needed": true
+    },
+    "signoff_state": "PENDING_AUTHOR_RIGHTS_SCOPE_DECISION_AND_FILE_SPECIFIC_EXCEPTIONS",
+    "no_existing_gates_waived": true,
+    "no_source_bytes_read_or_processed_this_review": true,
+    "no_pr_merge_authorization": true
   }
 }

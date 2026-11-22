@@ -19,6 +19,23 @@
 - [ ] **G4-05 source identity:** Only after source-use authorization, re-hash the exact original archive/CSV bytes locally and perform complete ESA archive-member integrity checks in a bounded isolated environment. Preserve method, hashes, paths and all source attribution notices.
 - [ ] **G4-06 execution decision:** Obtain a separate, explicit author G4 source-use and semantic-adjudication authorization referencing the exact source rights/identity evidence and approved G2/G3 record. A generic continuation statement for G4 *readiness* is insufficient.
 
+## Follow-up sole-author decision package (review completed; checkboxes NOT cleared)
+
+The source-rights review has now supplied an exact v2 ESA manuscript-based license statement, first-party v1 license evidence, an OPS-SAT data-inclusive MIT notice, and the Hack-A-Sat document-link discrepancy. These are **evidence findings**, not a verified absence of all third-party exceptions or approval for source-byte access.
+
+**Proposed G4 rights scope for a later explicit author decision:** local research on **ESA-ADB v2 primary** (three separate mission strata) and **OPS-SAT-AD v2 primary** for descriptive native semantic observability only; **ESA-ADB v1 paired-sensitivity** only after version-specific notices/signoff; **Hack-A-Sat game data excluded from initial G4 execution pending separate path-level review** (without deleting the frozen secondary protocol context). Future publication would share only cited **non-raw semantic classifications and aggregate descriptive results**, not rehost the original archives/CSV files. The full license obligations and any source-file exceptions must still be reviewed.
+
+| Future decision | Evidence now available | Author decision status |
+|---|---|---|
+| `R01`: ESA v2 intended use and notice | v2 author statement, official DOI/creator and MD5 metadata, CC BY 3.0 IGO terms | `PENDING_EXPLICIT_SIGNOFF_AND_FILE_RIGHTS_REVIEW` |
+| `R02`: ESA v1 paired comparison | Official first-party `LICENSE`, README ↔ exact v1 DOI | `PENDING_IF_USED` |
+| `R03`: OPS-SAT v2 intended use and notice | v2 DOI/creator/files, data-inclusive MIT text and license MD5 | `PENDING_EXPLICIT_SIGNOFF_AND_EXCEPTIONS` |
+| `R04`: Hack-A-Sat secondary | README + mismatched license filename + real `.LICENSE` | `BLOCKED_IF_USED` |
+| `R05`: actual original-file integrity | Earlier user-reported checksums, not freshly checked | `PENDING_NARROW_LOCAL_BYTE_ACCESS_AUTHORIZATION_AND_EXECUTION` |
+| `R06`: G4 scientific execution | G2 internal freeze, G3 PASS, G4 fail-closed preflight PASS | `NOT_AUTHORIZED` |
+
+**Explicit separation:** This turn authorizes checklist/right-scope **review and evidence documentation only**. It does not select `APPROVE_RIGHTS_SCOPE`, `AUTHORIZE_LOCAL_SOURCE_CHECKSUMS`, or `AUTHORIZE_G4_SCIENTIFIC_EXECUTION`. No checkbox earlier in this document is marked complete and the existing `G4_READINESS_HOLD` is unchanged.
+
 ## Additional scientific safeguards
 
 - [ ] Make a separately auditable, version-pinned G3 result-freeze receipt or justify why the existing immutable workflow run and artifact are adequate. Do not rewrite G2.
