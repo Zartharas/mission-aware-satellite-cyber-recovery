@@ -47,7 +47,9 @@
     "author_review_role": "SOLE_AUTHOR",
     "author_g1_review": "PENDING_NOT_YET_SIGNED",
     "external_human_review": "NOT_REQUIRED_BY_SOLO_STUDY_INTERNAL_GOVERNANCE",
-    "technical_separate_oracle": "FUTURE_G3_INDEPENDENT_IMPLEMENTATION_NOT_EXECUTED"
+    "technical_separate_oracle": "FUTURE_G3_INDEPENDENT_IMPLEMENTATION_NOT_EXECUTED",
+    "author_review_workbook": "FIVE_CRITERIA_EVIDENCE_PRECHECK_WRITTEN_AUTHOR_VERDICTS_PENDING",
+    "legacy_s10_draft_cohort_reconciliation": "G1_SUPERSEDING_RULE_PROPOSED_AUTHOR_G2_CONFIRMATION_REQUIRED"
   },
   "stop_reasons": [
     "ESA_V2_ZENODO_RIGHTS_VALUE_NOT_READ_DESPITE_AUTHOR_DECLARATION",
@@ -60,7 +62,8 @@
     "SELECTOR_STATIC_ORACLE_NOT_INDEPENDENTLY_REIMPLEMENTED_OR_EXECUTED",
     "SYNTHETIC_V3_AUTHOR_REVIEW_AND_G2_FREEZE_PENDING",
     "STUDY10_SPECIFIC_MUTATION_SUITE_NOT_IMPLEMENTED_OR_EXECUTED",
-    "AUTHOR_G1_REVIEW_VERDICT_PENDING"
+    "AUTHOR_G1_REVIEW_VERDICT_PENDING",
+    "LEGACY_S10_PROTOCOL_INDEPENDENCE_WORDING_TO_RECONCILE_AT_G2"
   ],
   "approval": {
     "author_authorized_g1_documentation_preparation": true,
@@ -76,7 +79,7 @@
     "external_human_review_required": false,
     "author_g1_verdict_recorded": false
   },
-  "next_gate": "SOLO_AUTHOR_G1_EVIDENCE_REVIEW_AND_SIGNED_VERDICT; RIGHTS_ATTRIBUTION_AND_COHORT_APPROVAL; SEPARATE_G2_PREREGISTRATION_FREEZE_DECISION; FUTURE_G3_SEPARATE_ORACLE_PARITY_BEFORE_REAL_DATA",
+  "next_gate": "AUTHOR_REVIEW_G1_A1_TO_A5_AND_EXPLICITLY_RECORD_VERDICT; THEN_CONSIDER_DOC_ONLY_PR_MERGE_AFTER_AUTHORIZATION_AND_CI; G2_FREEZE_REQUIRES_SEPARATE_AUTHOR_DECISION; G3_AND_REAL_DATA_CLOSED",
   "g1_solo_author_review_handoff": {
     "status": "SOLO_AUTHOR_REVIEW_HANDOFF_PREPARED_VERDICT_PENDING",
     "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
@@ -137,5 +140,56 @@
     "reviewer_independence_disclosure": "Author is reviewing own design; do not claim independent human review",
     "external_review_not_a_gate": true,
     "technical_oracle_independent_implementation_required_for_future_G3": true
+  },
+  "g1_solo_author_criterion_review": {
+    "assessment_type": "INTERNAL_ANALYTICAL_PRECHECK_NOT_AUTHOR_APPROVAL",
+    "basis_branch": "study10/s10-rsei-001-g1-readiness-rights-controls",
+    "basis_head_at_precheck": "4d38141f4dad7856a8cceff1076e0f088ad99cd8",
+    "final_head_must_be_pinned_at_author_verdict": true,
+    "investigator_role": "SOLE_AUTHOR",
+    "reviewed_criteria": [
+      {
+        "review_id": "G1-A1",
+        "criterion": "source_provenance_rights",
+        "suggested_status": "REVIEWABLE_WITH_CONDITIONS",
+        "author_verdict": "AWAITING_AUTHOR_VERDICT"
+      },
+      {
+        "review_id": "G1-A2",
+        "criterion": "population_selection_and_dependence",
+        "suggested_status": "REVIEWABLE_WITH_CROSS_DOCUMENT_CORRECTION",
+        "author_verdict": "AWAITING_AUTHOR_VERDICT"
+      },
+      {
+        "review_id": "G1-A3",
+        "criterion": "semantic_correctness",
+        "suggested_status": "STATIC_CONTRACT_ALIGNMENT_REVIEWABLE",
+        "author_verdict": "AWAITING_AUTHOR_VERDICT"
+      },
+      {
+        "review_id": "G1-A4",
+        "criterion": "synthetic_control_design",
+        "suggested_status": "SPECIFIED_ONLY_FUTURE_TECHNICAL_VALIDATION_REQUIRED",
+        "author_verdict": "AWAITING_AUTHOR_VERDICT"
+      },
+      {
+        "review_id": "G1-A5",
+        "criterion": "research_integrity",
+        "suggested_status": "DOCUMENTED_WITH_FUTURE_FREEZE_GATES",
+        "author_verdict": "AWAITING_AUTHOR_VERDICT"
+      }
+    ],
+    "author_verdict_options": [
+      "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+      "REVISE_G1",
+      "BLOCK"
+    ],
+    "author_verdict_recorded": false,
+    "overall_author_verdict": "PENDING",
+    "no_approval_inferred_from_task_authorization": true,
+    "key_cross_document_issue": "LEGACY_DRAFT_CALLS_OPS_SAT_INDEPENDENT_NEW_G1_PROPOSAL_DENIES_ESTABLISHED_INDEPENDENCE",
+    "technical_parity_required_later": true,
+    "technical_parity_executed": false,
+    "external_human_reviewer_required": false
   }
 }
