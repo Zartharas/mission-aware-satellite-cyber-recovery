@@ -186,8 +186,9 @@
     "publisher_submission_authorized": false,
     "reviewer_role": "SOLE_AUTHOR",
     "external_human_review_required": false,
-    "author_g1_review_completed": false,
-    "independent_review_complete_interpretation": "Legacy field retained: independent human review not conducted and not required"
+    "author_g1_review_completed": true,
+    "independent_review_complete_interpretation": "Legacy field retained: independent human review not conducted and not required",
+    "author_g1_decision": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION"
   },
   "source_license_review_update": {
     "evidence_date": "2026-11-21",
@@ -222,20 +223,24 @@
       "If future rights-holder provenance clarifies identity overlap, record prospective protocol amendment before any outcome inspection; do not seek to deanonymize protected mission information",
       "If overlap remains unresolved at G2, author may approve descriptive reporting only, explicitly state unresolved dependence, and prohibit independence claims"
     ],
-    "author_approval_for_handling": false,
-    "independent_source_population_established": false
+    "author_approval_for_handling": true,
+    "independent_source_population_established": false,
+    "author_approval_scope": "G1_CONDITIONAL_DESIGN_ONLY_G2_CANONICALIZATION_PENDING"
   },
   "solo_researcher_review_policy": {
     "recorded_utc_date": "2026-11-21",
     "author_statement": "Working solo; no independent external review required for internal study-design gates",
     "reviewer_role": "SOLE_AUTHOR",
-    "author_review_decision": "PENDING",
+    "author_review_decision": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
     "external_human_review_required": false,
     "separate_technical_oracle_implementation_planned": true,
     "technical_oracle_parity_performed": false,
     "g2_freeze_authorized": false,
     "study9_mutation_authorized": false,
-    "empirical_execution_authorized": false
+    "empirical_execution_authorized": false,
+    "author_review_decision_conditional": true,
+    "author_review_date_utc": "2026-11-21",
+    "author_review_basis_head": "7fc0ee788cf69e4955abb5354fcc100b43ca4b9a"
   },
   "g1_review_cross_document_precedence": {
     "status": "PREPARED_FOR_AUTHOR_DECISION_NOT_FROZEN",
@@ -244,9 +249,10 @@
     "superseding_proposed_term": "OPS_SAT_V2_SEPARATE_SOURCE_FAMILY_NOT_PROVEN_INDEPENDENT_SPACECRAFT",
     "original_legacy_wording": "Candidate independent real-flight cohort",
     "historical_edit_policy": "Keep original merged draft unmodified; exact future G2 candidate explicitly reconciles wording",
-    "author_acceptance": false,
+    "author_acceptance": true,
     "no_pooled_estimate": true,
     "no_source_family_independence_claim": true,
-    "no_deanonymization": true
+    "no_deanonymization": true,
+    "author_acceptance_scope": "G1_CONDITIONAL_DESCRIPTIVE_SOURCE_HANDLING_NOT_G2_FREEZE"
   }
 }
