@@ -1,0 +1,50 @@
+name: Study 10 G4 readiness fail-closed preflight
+on:
+  push:
+    branches:
+      - "study10/s10-rsei-001-g4-source-readiness"
+  pull_request:
+    paths:
+      - "study10/G4_*"
+      - "study10/g4_readiness_guard.py"
+      - ".github/workflows/validate-study10-g4-readiness.yml"
+permissions:
+  contents: read
+jobs:
+  rights-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out research documents only
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Audit frozen G2 hashes and confirm six closed source-rights gates
+        run: |
+          python -m compileall -q study10/g4_readiness_guard.py
+          python study10/g4_readiness_guard.py --audit > g4_readiness_audit.json
+          python -m json.tool g4_readiness_audit.json > /dev/null
+          cat g4_readiness_audit.json
+      - name: Prove G4 original-source execution path remains blocked
+        run: |
+          set +e
+          python study10/g4_readiness_guard.py --require-g4-execution > g4_execution_blocked.json
+          code=$?
+          set -e
+          test "$code" -eq 2
+          python -m json.tool g4_execution_blocked.json > /dev/null
+          grep -q BLOCKED_NO_AUTHOR_RIGHTS_SIGNOFF_OR_G4_AUTHORIZATION g4_execution_blocked.json
+      - name: Preserve read-only G4 preflight artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: study10-g4-readiness-hold
+          path: |
+            g4_readiness_audit.json
+            g4_execution_blocked.json
+          if-no-files-found: error
+      - name: Confirm no tracked-file drift
+        run: git diff --exit-code
