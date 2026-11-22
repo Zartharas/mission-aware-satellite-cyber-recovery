@@ -50,11 +50,11 @@
 
 **No impersonation of author sign-off:** This precheck is not the author's written decision. The user authorized reviewing the G2 candidate; that authorization must not be treated as `APPROVE_G2_FREEZE` or `MERGE_PR229`. All checklist boxes remain unchecked until personally affirmed or supported by a separate authorized validation event.
 
-## G2 scope-sensitive rights decision (author choice **NOT SELECTED**)
+## G2 scope-sensitive rights decision (Option B policy **APPROVED**, protocol **NOT FROZEN**)
 
 Additional first-party evidence was documented in the G2 rights candidate: ESA's own `esa/anomaly-dataset` `LICENSE` identifies CC BY 3.0 IGO and its README points directly to v1; the v2 dataset authors separately state CC BY 3.0 IGO for the introduced dataset. OPS-SAT v2 carries a checksum-matched data-inclusive MIT license. These findings strengthen the source license trail but do not establish complete file-level third-party rights or a completed sole-author sign-off.
 
-The sole author must explicitly select **one** of the following before a future G2 freeze. None is selected by authorizing this document review.
+**The sole author selected Option B by explicitly replying “yes, I authorize” to the question asking whether Option B should be recorded as the G2 rights-gating policy only.** The selection is recorded with date precision (November 21, 2026 local / November 22 UTC). The research design is **not** frozen and none of the general G2 freeze checklist boxes has been marked completed. The three alternatives are retained below for decision provenance.
 
 | Option | Proposed G2 treatment | Effect on G3 and G4 |
 |---|---|---|
@@ -62,7 +62,7 @@ The sole author must explicitly select **one** of the following before a future 
 | `B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD` | Permit a future **separately authorized** prospective G2 freeze **only after locking the protocol and immutable version/hash record**, while documenting unresolved archive file-specific rights as *pre-G4* stop rules; **no claim of rights clearance** | G3 synthetic-only work requires its own authorization; G4 source analysis stays blocked until rights and notices are signed off |
 | `C_REVISE_OR_EXCLUDE_UNCLEAR_SOURCES` | Revise cohorts prospectively **before outcome inspection**; require new author approval for any exclusions, dependencies, denominators or methodological consequences | All scientific execution stays closed until amended G2 protocol is separately frozen |
 
-**Recommendation for sole-author consideration:** `B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD` is a viable *conditional research-governance design* because G2 locks study decisions before real source analysis; nevertheless, it is **not** an authorization or legal clearance. An unresolved license must never be translated into permission to run G4. Option B must be explicitly approved by the author, must satisfy all other G2 checks and freeze requirements, and must preserve a fail-closed pre-G4 rights gate. Option A remains the more conservative alternative.
+**Recorded sole-author choice:** `B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD` is **APPROVED AS A POLICY**, not as a freeze, legal clearance or experiment. A separate author G2 approval and immutable freeze artifact remain mandatory. Any G4 access to ESA/OPS-SAT source data remains blocked until the applicable versioned rights, attribution, third-party material and source-identity conditions are signed off, and G4 scientific execution is separately approved. Hack-A-Sat secondary use remains blocked pending file-level exceptions. Option A/C remain historical alternatives, not currently selected.
 
-**Required future author decision record:** `PENDING_SELECTION`. Source rights approval for actual G4 use: `NOT_GIVEN`. Frozen protocol: `NO`. Third-party communications: `NONE`. No checkbox above is silently treated as complete.
+**Author rights-policy decision:** `B_APPROVED_POLICY_ONLY`. **G2 protocol-freeze approval:** `NOT_GIVEN`. **Source rights approval for actual G4 use:** `NOT_GIVEN`. **G3 synthetic implementation and G4 source execution:** `NOT_AUTHORIZED`. **PR merge:** `NOT_AUTHORIZED`. **Third-party communications:** `NONE`. No generic G2 freeze checkbox above is silently treated as complete.
 

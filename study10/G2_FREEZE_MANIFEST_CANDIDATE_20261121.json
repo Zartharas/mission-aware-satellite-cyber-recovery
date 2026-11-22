@@ -437,7 +437,11 @@
       "operational_recovery_claim": "PROHIBITED_WITHOUT_NATIVE_EVIDENCE"
     },
     "dataset_license_evidence_strength": "ESA_V1_OFFICIAL_DATASET_PROJECT_LICENSE_FILE; ESA_V2_AUTHOR_PUBLICATION_DIRECT; OPS_V2_DATA_INCLUSIVE_MIT_FILE",
-    "final_source_use_scope_cleared": false
+    "final_source_use_scope_cleared": false,
+    "approved_policy_option": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "author_policy_selection_recorded": true,
+    "source_use_gate": "HARD_FAIL_CLOSED_PRE_G4_SOURCE_IDENTITY_RIGHTS_ATTRIBUTION_AND_THIRD_PARTY_CHECK",
+    "unresolved_rights_gating_stage": "PRE_G4_MUST_PASS_PRIOR_TO_FIRST_EXTERNAL_DATA_ACCESS"
   },
   "gates": {
     "G1": "CONDITIONALLY_APPROVED_FOR_G2_CONSIDERATION",
@@ -448,13 +452,13 @@
     "G6": "CLOSED_PUBLICATION_NOT_AUTHORIZED"
   },
   "unresolved_G2_preapproval_items": [
-    "ESA_V2_AUTHOR_LICENSE_EVIDENCE_DOCUMENTED_FINAL_SCOPE_AND_FORMATTED_ATTRIBUTION_SIGNOFF_PENDING",
-    "THIRD_PARTY_RIGHTS_AND_HACKASAT_FILE_LEVEL_LICENSE_REVIEW",
     "CANONICAL_COHORT_MEMBERSHIP_AND_UNVERIFIED_DEPENDENCE_EXPLICIT_AUTHOR_FREEZE_DECISION",
     "PROTOCOL_TIMING_AND_PRIOR_SOURCE_EXPOSURE_DECLARATION",
     "EXACT_FREEZE_ARTIFACT_SHA256_AND_UTC_TIMESTAMP_NOT_YET_CREATED",
     "PROSPECTIVE_DERIVATION_REGISTRY_EMPTY_APPROVAL",
-    "G2_AUTHOR_FREEZE_AUTHORIZATION_NOT_GIVEN"
+    "G2_AUTHOR_FREEZE_AUTHORIZATION_NOT_GIVEN",
+    "G2_POLICY_B_HARD_PRE_G4_RIGHTS_STOP_MUST_BE_PRESERVED_IN_ATOMIC_FROZEN_PROTOCOL",
+    "AUTHOR_APPROVAL_OF_FINAL_G2_CANDIDATE_AND_ATOMIC_FREEZE_RECORD_STILL_PENDING"
   ],
   "release_safeguards": {
     "author_role": "SOLE_AUTHOR",
@@ -569,7 +573,7 @@
     }
   },
   "g2_rights_policy_author_decision": {
-    "status": "PENDING_EXPLICIT_SOLE_AUTHOR_SELECTION",
+    "status": "SOLE_AUTHOR_APPROVED_OPTION_B_POLICY_ONLY",
     "options": [
       {
         "id": "A_HOLD_ALL_RIGHTS_BEFORE_G2_FREEZE",
@@ -589,13 +593,34 @@
         "source_G4_authorized": false
       }
     ],
-    "model_recommendation": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD_AS_POSSIBLE_METHOD_GOVERNANCE_NOT_APPROVAL",
-    "author_selection": null,
-    "author_approval_recorded": false,
-    "G2_freeze_decision": "NOT_REQUESTED_IN_THIS_DOCUMENT_CHANGE",
+    "model_recommendation": "OPTION_B_PREVIOUSLY_RECOMMENDED_NOW_SELECTED_BY_SOLE_AUTHOR",
+    "author_selection": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "author_approval_recorded": true,
+    "G2_freeze_decision": "SEPARATE_EXPLICIT_G2_AUTHOR_APPROVAL_STILL_REQUIRED",
     "G3_technical_execution_authorized": false,
     "G4_real_data_source_access_authorized": false,
     "external_rights_holder_outreach_performed": false,
-    "scope_limit": "Author may instead retain stricter A. G2 source-use gate cannot be removed by a license inference or this note."
-  }
+    "scope_limit": "Option B permits prospective G2 protocol freeze only after separate approval and atomic reproducibility pins; unresolved file-specific rights/attribution remain strict pre-G4 stops. No merge, G3 execution, G4 analysis, dataset redistribution, or operational recovery claim is authorized.",
+    "author_approval_basis": {
+      "reply_verbatim": "yes, I authorize",
+      "exact_question": "Do you approve Option B as the G2 rights-gating policy? This would authorize recording that policy decision only, not freezing the protocol or executing research.",
+      "conversational_intent": "OPTION_B_POLICY_ONLY_NO_G2_FREEZE_OR_EXECUTION_OR_MERGE",
+      "recorded_local_date": "2026-11-21",
+      "recorded_utc_date": "2026-11-22",
+      "time_precision": "DATE_ONLY_FROM_CURRENT_CONVERSATION_CONTEXT; commit timestamp records writing time, not original message time",
+      "reviewer_role": "SOLE_AUTHOR",
+      "independence_claim": false
+    },
+    "freeze_permission_now": false,
+    "author_source_use_permission_now": false,
+    "author_merge_permission_now": false
+  },
+  "unresolved_source_use_requirements_pre_G4": [
+    "ESA_V2_EXACT_RELEASE_SCOPE_AND_THIRD_PARTY_FILE_RIGHTS_SIGNOFF",
+    "ESA_V1_RELEASE_SCOPE_AND_ATTRIBUTION_IF_USED_FOR_PAIRED_SENSITIVITY",
+    "OPS_SAT_V2_RIGHTS_NOTICES_AND_ANY_EMBEDDED_THIRD_PARTY_EXCEPTIONS",
+    "HACKASAT4_SECONDARY_COMPONENT_FILE_RIGHTS_IF_PROCESSED",
+    "VERSIONED_SOURCE_IDENTITY_LOCAL_RECHECK_AND_ALL_APPLICABLE_ATTRIBUTION_NOTICES",
+    "SEPARATE_EXPLICIT_G4_EXECUTION_AND_SOURCE_USE_AUTHORIZATION"
+  ]
 }
