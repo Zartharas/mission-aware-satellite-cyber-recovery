@@ -143,6 +143,71 @@ def baseline(f: dict) -> dict:
     return s
 
 
+def synthetic_operational_mapping(variable: str, fields: dict) -> bool | None:
+    """Require an explicit typed native verifier/guard outcome; no fallbacks."""
+    supported = {
+        "signature_valid": "verifier_signature_valid",
+        "source_trusted": "trust_registry_membership",
+        "fresh": "verifier_fresh_at_decision_time",
+        "security_signal": "native_operational_security_guard",
+        "authorization_available": "verified_authorized_path_available",
+    }
+    if variable not in supported:
+        raise ValueError("unsupported synthetic mapping target")
+    candidate = fields.get(supported[variable])
+    if candidate is None:
+        return None
+    if type(candidate) is not bool:
+        raise ValueError("native outcome must be an explicit Boolean")
+    return candidate
+
+
+def independent_flight_replication_allowed(source: dict) -> bool:
+    """Conservative synthetic source-lineage guard, not an empirical source assessment."""
+    return bool(source.get("lineage_independent") is True
+                and source.get("is_real_flight") is True
+                and source.get("paired_release") is False
+                and source.get("permission_to_pool") is True)
+
+
+def check_frozen_attestation_value_comparator(fixture: dict) -> int:
+    """Exercise actual AttestationResult API with explicit fake accepted-claim rows.
+
+    SIGNATURES ARE NOT VERIFIED: EvidenceVerification flags here are synthetic
+    premises, deliberately not outputs from verify_signed_evidence.
+    """
+    from study2_security.evidence import (
+        AttestationResult, EvidenceClaim, EvidenceVerification, SignedEvidence
+    )
+    required = fixture["synthetic_requirements_equality_contract"]["required_values"]
+    def from_rows(claims):
+        accepted = []
+        for claim in claims:
+            model = EvidenceClaim(
+                source_id=claim["source_id"], subject_id=claim["subject"],
+                key=claim["key"], value=claim["value"], epoch=claim["epoch"],
+                sequence=claim["sequence"], issued_at_s=claim["issued_at_s"],
+                valid_for_s=claim["valid_for_s"], provenance="G3_SYNTHETIC_STUB_ONLY"
+            )
+            # Empty signature is not verified; row acceptance is an explicit
+            # synthetic premise, never a cryptographic test or flight finding.
+            signed = SignedEvidence(claim=model, signature_b64="")
+            accepted.append(EvidenceVerification(
+                signed=signed, signature_valid=True, source_trusted=True,
+                fresh=True, epoch_valid=True, sequence_valid=True,
+                accepted=True, reasons=()
+            ))
+        result = AttestationResult(verifications=tuple(accepted), contradictions=())
+        return result.requirements_satisfied(required, subject_id=fixture["decision_point"]["subject"])
+    original = fixture["accepted_claims"]["claims"]
+    assert from_rows(original) is True
+    assert from_rows(original[:-1]) is False
+    mutated = copy.deepcopy(original)
+    mutated[-1]["value"] = "UNEXPECTED_TEST_VALUE"
+    assert from_rows(mutated) is False
+    return 3
+
+
 def run_controls(f: dict) -> dict[str, str]:
     base = baseline(f)
     results = {}
@@ -189,17 +254,28 @@ def run_controls(f: dict) -> dict[str, str]:
                       "S10_SYN_N_TIME": "fresh",
                       "S10_SYN_N_LABEL": "security_signal",
                       "S10_SYN_N_COMMAND": "authorization_available"}[case]
+            unsupported = {
+                "S10_SYN_N_CRC": {"crc_valid": True},
+                "S10_SYN_N_APID": {"ccsds_apid": 100},
+                "S10_SYN_N_TIME": {"packet_timestamp": 1050},
+                "S10_SYN_N_LABEL": {"offline_attack_label": True},
+                "S10_SYN_N_COMMAND": {"command_status": "sent"},
+            }[case]
             state = dict(base)
-            state[target] = None
+            state[target] = synthetic_operational_mapping(target, unsupported)
             ok = state[target] is None and all(state[k] == base[k] for k in VARIABLES if k != target)
         elif case == "S10_SYN_N_MISSING":
             state = dict.fromkeys(VARIABLES, None)
             ok = len(state) == 8 and all(v is None for v in state.values())
         elif case == "S10_SYN_N_MIXING":
-            # Explicitly reject any promotion of paired releases or a contest to independent flight trials.
-            bad = [{"paired_versions": True, "competition": False},
-                   {"paired_versions": False, "competition": True}]
-            ok = all(not (not row["paired_versions"] and not row["competition"]) for row in bad)
+            # Test a conservative source-lineage rule on two invalid examples.
+            bad = [
+                {"lineage_independent": False, "is_real_flight": True,
+                 "paired_release": True, "permission_to_pool": False},
+                {"lineage_independent": False, "is_real_flight": False,
+                 "paired_release": False, "permission_to_pool": False},
+            ]
+            ok = all(independent_flight_replication_allowed(row) is False for row in bad)
         else:
             raise AssertionError("Unregistered control: " + case)
         if not ok:
@@ -212,6 +288,7 @@ def main() -> None:
     fixture = frozen_fixture()
     state = baseline(fixture)
     controls = run_controls(fixture)
+    frozen_evidence_api_checks = check_frozen_attestation_value_comparator(fixture)
     manual_scenarios = [
         ({}, ("PROCEED_TO_RECOVERY_GATE", "PRESERVE_LIMITED_OPERATION",
               "PRESERVE_LIMITED_OPERATION", "PROCEED_TO_RECOVERY_GATE")),
@@ -248,6 +325,7 @@ def main() -> None:
     assert len(controls) == 18 and comparisons == 1024
     print(json.dumps({"study_id": "S10-RSEI-001", "gate": "G3_SYNTHETIC_ONLY",
                       "status": "PASS", "controls": controls,
+                      "frozen_evidence_requirements_api_checks": frozen_evidence_api_checks,
                       "control_count": len(controls), "synthetic_boolean_states": 256,
                       "primary_policies": POLICIES, "policy_parity_checks": comparisons,
                       "real_data_accessed": False, "real_signatures_verified": False,
