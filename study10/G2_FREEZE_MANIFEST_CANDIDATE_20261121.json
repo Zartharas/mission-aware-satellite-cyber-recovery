@@ -622,5 +622,147 @@
     "HACKASAT4_SECONDARY_COMPONENT_FILE_RIGHTS_IF_PROCESSED",
     "VERSIONED_SOURCE_IDENTITY_LOCAL_RECHECK_AND_ALL_APPLICABLE_ATTRIBUTION_NOTICES",
     "SEPARATE_EXPLICIT_G4_EXECUTION_AND_SOURCE_USE_AUTHORIZATION"
-  ]
+  ],
+  "g2_freeze_readiness_preflight": {
+    "schema": 1,
+    "scope": "G2_CANDIDATE_DOCUMENTATION_AND_STATIC_SOURCE_CONTRACT_REVIEW_ONLY",
+    "review_recorded_date_utc": "2026-11-22",
+    "reference_candidate_commit_before_manifest_update": "ab086fc9b8f020672efa20df738582f516eebcae",
+    "study_id": "S10-RSEI-001",
+    "candidate_nonmanifest_G2_document_git_blob_pins": [
+      {
+        "path": "study10/G2_CANONICAL_PROTOCOL_CANDIDATE_20261121.md",
+        "baseline_commit": "ab086fc9b8f020672efa20df738582f516eebcae",
+        "git_blob_sha1": "3b0be7757ee4782cf7f762978d35cbac384ca653",
+        "meaning": "CANDIDATE_DOCUMENT_VERSION_PROVENANCE_ONLY_NOT_A_FREEZE",
+        "sha256_of_exact_bytes": "NOT_YET_COMPUTED"
+      },
+      {
+        "path": "study10/G2_SOURCE_RIGHTS_AND_ATTRIBUTION_CANDIDATE_20261121.md",
+        "baseline_commit": "ab086fc9b8f020672efa20df738582f516eebcae",
+        "git_blob_sha1": "3f550eab7dabed347bbf77805dadd06988a4ce9d",
+        "meaning": "CANDIDATE_DOCUMENT_VERSION_PROVENANCE_ONLY_NOT_A_FREEZE",
+        "sha256_of_exact_bytes": "NOT_YET_COMPUTED"
+      },
+      {
+        "path": "study10/G2_AUTHOR_FREEZE_CHECKLIST_20261121.md",
+        "baseline_commit": "ab086fc9b8f020672efa20df738582f516eebcae",
+        "git_blob_sha1": "3d6295b3835f592f63959881fa515e7239599203",
+        "meaning": "CANDIDATE_DOCUMENT_VERSION_PROVENANCE_ONLY_NOT_A_FREEZE",
+        "sha256_of_exact_bytes": "NOT_YET_COMPUTED"
+      }
+    ],
+    "candidate_manifest_self_hash": "INTENTIONALLY_NOT_INCLUDED_TO_AVOID_CYCLIC_HASH",
+    "exact_bytes_sha256_status": "NOT_PERFORMED_AT_THIS_STAGE_FINAL_FREEZE_RECEIPT_REQUIRED",
+    "decisions": [
+      {
+        "id": "G2-P01",
+        "state": "PROPOSED_FOUR_DESCRIPTIVE_STRATA_AUTHOR_FINAL_G2_POPULATION_APPROVAL_PENDING",
+        "responsible_gate": "G2_AUTHOR_REVIEW",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P02",
+        "state": "EIGHT_VARIABLE_TEN_CRITERION_FOUR_CLASS_FOUR_VISIBILITY_STATIC_MATCH_AUTHOR_FINAL_G2_APPROVAL_PENDING",
+        "responsible_gate": "G2_AUTHOR_REVIEW",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P03",
+        "state": "EMPTY_DERIVATION_REGISTRY_PROPOSED_AUTHOR_G2_APPROVAL_PENDING",
+        "responsible_gate": "G2_AUTHOR_REVIEW",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P04",
+        "state": "DENOMINATOR_EIGHT_PER_STRATUM_AND_32_CLASSIFICATION_SLOTS_PROPOSED_AUTHOR_G2_APPROVAL_PENDING",
+        "responsible_gate": "G2_AUTHOR_REVIEW",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P05",
+        "state": "NO_NATIVE_DECISION_TIME_NOT_EVALUABLE_POLICY_STRATIFIED_UNKNOWN_HANDLING_PROPOSED_AUTHOR_G2_APPROVAL_PENDING",
+        "responsible_gate": "G2_AUTHOR_REVIEW",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P06",
+        "state": "18_TOTAL_CONTROLS_INCLUDING_P0_SPECIFIED_UNEXECUTED_AUTHOR_G2_APPROVAL_PENDING",
+        "responsible_gate": "G2_AUTHOR_REVIEW",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P07",
+        "state": "PRIOR_METADATA_LABEL_EXPOSURE_DISCLOSED_AUTHOR_FINAL_G2_ACKNOWLEDGMENT_PENDING",
+        "responsible_gate": "G2_AUTHOR_REVIEW",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P08",
+        "state": "OPTION_B_EXPLICIT_SOLE_AUTHOR_POLICY_APPROVAL_ALREADY_RECORDED_HARD_PRE_G4_RIGHTS_GATE_NOT_CLEARED",
+        "responsible_gate": "POLICY_APPROVED_PRE_G4_CONDITION",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P09",
+        "state": "SOURCE_GIT_BLOB_PINS_EXIST_OTHER_THREE_G2_DOC_BLOBS_PINNED_FINAL_ATOMIC_SHA256_AND_RECEIPT_NOT_CREATED",
+        "responsible_gate": "G2_FUTURE_FREEZE_PREP",
+        "author_G2_freeze_acceptance": false
+      },
+      {
+        "id": "G2-P10",
+        "state": "NO_EXPLICIT_G2_PROTOCOL_FREEZE_APPROVAL",
+        "responsible_gate": "G2_AUTHOR_DECISION_PENDING",
+        "author_G2_freeze_acceptance": false
+      }
+    ],
+    "primary_denominator_rule": {
+      "source_stratum_classification_slots": 8,
+      "source_strata_proposed": 4,
+      "total_descriptive_classification_slots": 32,
+      "not_independent_trials": true,
+      "eligible_direct_numerator": "mapping_class == DIRECT AND evidence_visibility_role == OPERATIONAL_NATIVE",
+      "eligible_direct_or_derivable_numerator": "mapping_class IN {DIRECT, DERIVABLE_BY_PREDECLARED_RULE} AND evidence_visibility_role == OPERATIONAL_NATIVE",
+      "no_source_family_pooling": true,
+      "unknown_not_false": true,
+      "no_native_decision_time_result": "NOT_EVALUABLE_FOR_OPERATIONAL_ACTION",
+      "policy_actions_separately_stratified": true
+    },
+    "prior_exposure": {
+      "schema_headers_metadata_counts_seen_before_future_G2_freeze": true,
+      "OPS_SAT_offline_labels_seen_before_future_G2_freeze": true,
+      "OPS_SAT_training_segment_article_vs_intake": "1494_PAPER_VS_1594_INTAKE_UNRESOLVED",
+      "no_retroactive_blinded_preregistration_claim": true,
+      "source_payload_newly_processed_in_this_document_review": false
+    },
+    "G2_option_B": {
+      "policy_selection_recorded": true,
+      "source_rights_evidence_is_not_actual_rights_clearance": true,
+      "hard_pre_G4_rights_gate": true,
+      "rights_gate_override_by_G2_freeze_allowed": false,
+      "source_bytes_public_redistribution_authorized": false,
+      "G3_or_G4_execution_authorized": false
+    },
+    "future_acyclic_freeze_receipt_procedure": {
+      "phase_0": "Receive explicit sole-author G2-P01..G2-P09 acceptance plus separate APPROVE_G2_FREEZE for a reviewed candidate Git head; unresolved rights explicitly deferred only as pre-G4 hard stops under approved Option B",
+      "phase_1": "Create content-stable normative G2 payload commit from author-approved version; preserve source and code identifiers; compute SHA-256 of exact UTF-8 bytes of payload files with an explicit newline convention",
+      "phase_2": "Create a distinct freeze receipt in a subsequent commit containing immutable payload commit SHA, per-file SHA-256 digests, UTC receipt time, author decision evidence and closed G3/G4/G5/G6 gates",
+      "phase_3": "Reopen and verify that payload commit and each source digest match receipt; tag/archive as appropriate; no overwrites, silent retroactive edits or self-referential receipt hash",
+      "freeze_triggered_by_this_preflight": false,
+      "author_freeze_approval_received": false
+    },
+    "operational_controls": {
+      "G2": "HOLD_NOT_FROZEN",
+      "G3": "NOT_AUTHORIZED",
+      "G4": "NOT_AUTHORIZED_NO_NEW_REAL_DATA_ACCESS",
+      "G5": "NOT_AUTHORIZED",
+      "G6": "NOT_AUTHORIZED",
+      "merge_of_prs_228_or_229": false,
+      "source_rights_scope_cleared": false,
+      "no_actual_selector_oracle_execution": true
+    },
+    "recommendation": "PREPARE_AUTHOR_G2_METHOD_DECISIONS_THEN_REQUEST_DISTINCT_G2_FREEZE_APPROVAL",
+    "independent_human_review_required": false,
+    "CI_scope": "GENERIC_JSON_AND_REPOSITORY_VALIDATION_NOT_SCIENTIFIC_PARITY"
+  }
 }
