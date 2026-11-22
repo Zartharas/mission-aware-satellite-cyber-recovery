@@ -60,6 +60,16 @@
 
 **Review conclusion:** `AUTHOR_SOURCE_RIGHTS_POLICY_REVIEW_PREPARED_NO_G4_SIGNOFF`. License **evidence** strengthened; all six hard pre-G4 gates remain closed. No original telemetry was fetched, read, analyzed, rehashed, extracted or redistributed during this review.
 
+## Sole-author intended-use and attribution policy approval (2026-11-22; no dataset-use clearance)
+
+The sole author replied **“yes, I authorize”** after being asked whether to approve the **proposed release-specific rights and attribution scope**, with a **separate** local source-file integrity authorization and G4 scientific execution still required afterward. Record this as `G4-SCOPE-POLICY-01: AUTHOR_APPROVED_INTENDED_USE_AND_ATTRIBUTION_PLAN_ONLY`. It is **not** an assertion that every embedded data file has been cleared by its rights holder or an approval to read original source bytes.
+
+**Approved prospectively:** ESA-ADB **v2** Missions 1/2/3 as separate primary descriptive strata, OPS-SAT-AD **v2** as the fourth primary descriptive stratum, ESA-ADB **v1** for conditional paired-release sensitivity only, and Hack-A-Sat 4 **excluded from initial source execution** pending its own path-level rights decision. Cite the exact source-version DOIs and separately attribute the related methods papers. Plan to publish **non-raw semantic classifications and descriptive summaries only**; no original ZIP/CSV/tar contents or substantial data redistribution. The source creators, CC BY 3.0 IGO license link and transformation/no-endorsement notices, and the full applicable KP Labs MIT copyright and permission notice remain required as applicable to downstream use. Final journal style may be chosen later but source identity and rights obligations cannot be dropped.
+
+**Not yet approved or demonstrated:** exact file-level third-party exceptions and complete intended-use license clearance; final format or inclusion of notices in a published artifact; any local original-file integrity/ZIP member check; G4 semantic adjudication; use of the Hack-A-Sat contest payloads; PR merging; manuscript publication. The G2-frozen population and four descriptive strata are **unchanged**. The six Option B pre-G4 stops **remain fail-closed**, and this decision changes **no** `G4-01` through `G4-06` source clearance status.
+
+The earlier review's `NOT_APPROVED` language referred to the previous documentary checkpoint. This later dated subsection supplies the **policy-only author decision** without rewriting or backdating the historical record. The machine-readable manifest records the same decision separately from `G4_source_rights_signoff_recorded=false`.
+
 ## Scope and blockers
 
 All six hard stop IDs are carried verbatim into `G4_SOURCE_READINESS_GATE_CANDIDATE_20261122.json`. The static `g4_readiness_guard.py` checks frozen G2 file digests and verifies **G4 remains blocked**. A PASS from that guard confirms a healthy hold, not eligibility to ingest telemetry. No ESA, OPS-SAT, or Hack-A-Sat raw dataset bytes were downloaded, rehashed, parsed, extracted or redistributed in this review.

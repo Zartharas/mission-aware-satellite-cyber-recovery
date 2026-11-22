@@ -36,6 +36,16 @@ The source-rights review has now supplied an exact v2 ESA manuscript-based licen
 
 **Explicit separation:** This turn authorizes checklist/right-scope **review and evidence documentation only**. It does not select `APPROVE_RIGHTS_SCOPE`, `AUTHORIZE_LOCAL_SOURCE_CHECKSUMS`, or `AUTHORIZE_G4_SCIENTIFIC_EXECUTION`. No checkbox earlier in this document is marked complete and the existing `G4_READINESS_HOLD` is unchanged.
 
+## Recorded sole-author G4-SCOPE-POLICY-01 decision (approved policy only)
+
+**Decision accepted:** The author approved the proposed **local, non-raw descriptive intended-use and attribution plan** on 2026-11-22 (UTC date precision; exact reply “yes, I authorize”). This applies to ESA-ADB v2's three separate mission strata and OPS-SAT-AD v2 as the fourth primary stratum; ESA-ADB v1 remains paired-sensitivity-only; Hack-A-Sat 4 remains barred from initial source processing until separately assessed. This is **not** approval for file-level rights exceptions, original-file access, data processing, redistribution, or manuscript submission.
+
+**Plan commitments:** exact versioned dataset DOI and creator credit, license link and changes/no-endorsement notices for licensed ESA material, complete KP Labs MIT copyright and permission notice if applicable, relevant associated-publication citations, and no raw telemetry dissemination.
+
+**Remaining author and technical decisions (all unchanged):** `G4-01/G4-02/G4-03` rights file-level and attribution-implementation signoff; `G4-04` Hack-A-Sat secondary file licenses if ever included; `G4-05` separately authorized, resource-bounded local checksum/full archive integrity validation; `G4-06` explicit G4 source access and scientific execution authorization. **All six original checkbox requirements above remain unchecked.**
+
+**Decision flags:** `INTENDED_USE_ATTRIBUTION_POLICY_APPROVED=true`; `FINAL_SOURCE_RIGHTS_CLEARED=false`; `LOCAL_INTEGRITY_CHECK_AUTHORIZED=false`; `G4_EXECUTION_AUTHORIZED=false`; `PR_MERGE_AUTHORIZED=false`.
+
 ## Additional scientific safeguards
 
 - [ ] Make a separately auditable, version-pinned G3 result-freeze receipt or justify why the existing immutable workflow run and artifact are adequate. Do not rewrite G2.

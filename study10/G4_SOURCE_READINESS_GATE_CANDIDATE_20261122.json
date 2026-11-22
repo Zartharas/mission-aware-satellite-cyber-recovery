@@ -244,7 +244,9 @@
     "G4_real_data_source_use_authorization_recorded": false,
     "S10_G3_success_does_not_approve_G4": true,
     "future_author_permission_required": true,
-    "no_overwrite_or_amendment_of_G2_frozen_protocol": true
+    "no_overwrite_or_amendment_of_G2_frozen_protocol": true,
+    "G4_intended_use_policy_approved": true,
+    "G4_intended_use_policy_decision_id": "G4-SCOPE-POLICY-01"
   },
   "validation_intent": {
     "no_payload_reading_during_preflight": true,
@@ -310,13 +312,36 @@
       "hackasat4_secondary_remains_blocked": true,
       "public_raw_telemetry_redistribution": false,
       "future_derived_output_citations_and_change_notices_required": true,
-      "author_approved": false,
+      "author_approved": true,
       "separate_local_integrity_only_authorization_needed": true,
-      "separate_G4_scientific_authorization_needed": true
+      "separate_G4_scientific_authorization_needed": true,
+      "author_approval_scope": "INTENDED_USE_AND_ATTRIBUTION_PLAN_ONLY_NOT_THIRD_PARTY_RIGHTS_CLEARANCE",
+      "author_approval_recorded_utc_date": "2026-11-22",
+      "author_approval_date_precision": "DATE_ONLY"
     },
-    "signoff_state": "PENDING_AUTHOR_RIGHTS_SCOPE_DECISION_AND_FILE_SPECIFIC_EXCEPTIONS",
+    "signoff_state": "AUTHOR_APPROVED_INTENDED_USE_AND_ATTRIBUTION_POLICY_SOURCE_RIGHTS_FILE_EXCEPTIONS_AND_G4_GATES_UNCLEARED",
     "no_existing_gates_waived": true,
     "no_source_bytes_read_or_processed_this_review": true,
-    "no_pr_merge_authorization": true
+    "no_pr_merge_authorization": true,
+    "author_scope_decision": {
+      "decision_id": "G4-SCOPE-POLICY-01",
+      "decision_type": "SOLE_AUTHOR_PROSPECTIVE_INTENDED_USE_ATTRIBUTION_PLAN_APPROVAL_ONLY",
+      "decision": "APPROVED_PLANNED_NON_RAW_DESCRIPTIVE_SCOPE_NOT_ACTUAL_DATA_USE",
+      "reply_verbatim": "yes, I authorize",
+      "question_context": "The next decision is whether to approve the proposed release-specific rights and attribution scope. After that, a separately authorized local source-file integrity check is needed before native semantic analysis.",
+      "recorded_date_utc": "2026-11-22",
+      "recorded_date_precision": "DATE_ONLY_FROM_CONVERSATION_CONTEXT",
+      "author_role": "SOLE_AUTHOR",
+      "source_approved_for_new_payload_access": false,
+      "release_specific_file_licenses_exhaustively_audited": false,
+      "author_final_G4_rights_clearance": false,
+      "release_notices_fully_implemented": false,
+      "local_byte_integrity_check_authorized": false,
+      "native_semantic_adjudication_authorized": false,
+      "G4_execution_authorized": false,
+      "PR_merge_authorized": false,
+      "publication_submission_authorized": false,
+      "research_output": "STANDALONE_RESEARCH_PAPER"
+    }
   }
 }
