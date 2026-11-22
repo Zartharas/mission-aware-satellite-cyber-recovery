@@ -428,6 +428,26 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
     "no_policy_oracle_validated": true,
     "unknown_must_not_coerce_to_false": true,
     "outcome_is_prospective_not_observed": true
+  },
+  "synthetic_requirements_equality_contract": {
+    "api_reference": "study2/src/study2_security/evidence.py::AttestationResult.requirements_satisfied",
+    "meaning": "Synthetic accepted current values must match every explicitly required value, not merely be present",
+    "required_values": {
+      "approved_version": "SYNTHETIC_APPROVED_VERSION_EVIDENCE",
+      "integrity_measurement_valid": "SYNTHETIC_INTEGRITY_MEASUREMENT_VALID_EVIDENCE",
+      "authorization_valid": "SYNTHETIC_AUTHORIZATION_VALID_EVIDENCE",
+      "measured_state_current": "SYNTHETIC_MEASURED_STATE_CURRENT_EVIDENCE",
+      "authorized_command_path_restored": "SYNTHETIC_AUTHORIZED_COMMAND_PATH_RESTORED_EVIDENCE",
+      "ground_spacecraft_state_agreed": "SYNTHETIC_GROUND_SPACECRAFT_STATE_AGREED_EVIDENCE",
+      "required_telemetry_restored": "SYNTHETIC_REQUIRED_TELEMETRY_RESTORED_EVIDENCE",
+      "health_checks_passed": "SYNTHETIC_HEALTH_CHECKS_PASSED_EVIDENCE",
+      "no_residual_unauthorized_state": "SYNTHETIC_NO_RESIDUAL_UNAUTHORIZED_STATE_EVIDENCE",
+      "recovery_manifest_complete": "SYNTHETIC_RECOVERY_MANIFEST_COMPLETE_EVIDENCE"
+    },
+    "all_ten_present_and_value_equal_is_assumed_in_this_synthetic_fixture": true,
+    "real_dataset_assurance": false,
+    "mutation_test_requirement": "If a current accepted claim is absent or its latest accepted value differs from the required value, expected requirements_satisfied=false within a complete synthetic claim ledger",
+    "no_actual_attestation_performed": true
   }
 }
 ```
@@ -436,7 +456,7 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
 
 1. **Known false versus unknown:** Source-state ingestion must retain a three-way distinction `known_true`, `known_false`, and `unknown` before any admissible completion. `unknown` may not be converted to `false` or `true`, counted as observed, or used to select an action.
 2. **Closed-world claims only in the synthetic fixture:** The ten-item, criterion-linked accepted-claims ledger above establishes `contradictory=false` only because `inventory_complete=true` and the explicit absence of other accepted current same-subject/same-key/same-epoch claims is a **synthetic premise**. A real dataset may not inherit this closed-world declaration.
-3. **Ten named accepted criteria:** The fixture has an explicit accepted/current `present=true` entry with a unique `claim_id` for each of the ten frozen recovery criteria. The matching ten claim rows are synthetic interface premises, not actual signatures or verified operational claims. `S10_SYN_N_CRITERIA` removes **one acceptance/presence entry**, not merely a CSV column; its completeness state becomes known false only when the synthetic inventory is proven complete, otherwise `unknown`.
+3. **Ten named accepted criteria:** The fixture has an explicit accepted/current `present=true` entry with a unique `claim_id` for each of the ten frozen recovery criteria. The matching ten claim rows are synthetic interface premises, not actual signatures or verified operational claims. The new `synthetic_requirements_equality_contract.required_values` dictionary identifies the exact required value of each criterion, matching the frozen `AttestationResult.requirements_satisfied` API's **key-presence plus expected-value equality** check. This resolves the earlier specification ambiguity without running the API or demonstrating real-world completeness. `S10_SYN_N_CRITERIA` removes **one acceptance/presence entry**, not merely a CSV column; its completeness state becomes known false only when the synthetic inventory is proven complete, otherwise `unknown`.
 4. **Temporal semantics:** This positive fixture is strictly internal to the 1000–1100 time window at 1050 and does not depend on boundary inclusion. Negative `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, and `S10_SYN_N_EPOCH_MISMATCH` must be specified with exact input mutation and expected error state **before** execution. For this **synthetic verifier fixture only**, the frozen `study2/src/study2_security/evidence.py` rule is `issued_at_s <= now_s <= issued_at_s + valid_for_s` (both endpoints inclusive). Thus at `1000` and `1100` the synthetic time component is fresh, at `999` it is future evidence, and at `1101` it is expired. These are **static expected cases**, not executed tests. This does not create or imply an operational decision time for any ESA/OPS/Hack dataset.
 5. **Policy oracle independence:** The `expected_normalized_mapping` is an input mapping oracle only. The `downstream_selector_expected_action` deliberately remains `UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE`. G2 must separately pin the exact selector SHA-256, specify each policy's expected action and action-set enumeration from an independently reviewed implementation, and capture any disagreement rather than adapting the fixture to test outcomes.
 6. **Dataset exclusion:** No synthetic state, source identity, timestamp, or ground truth participates in the ESA/OPS/Hack empirical denominator, mission-independence claims or external-application outcomes.
@@ -492,4 +512,33 @@ The reviewer should return explicit, falsifiable verdicts with citations for:
 10. **Gate disposition:** independent reviewer must choose `PASS_G1_DESIGN_FOR_G2_CONSIDERATION`, `REVISE_G1`, or `BLOCK` with written reasons. A design-review PASS is **not** a data-use approval, formal preregistration, G3 implementation authorization, G4 mapping authorization, or empirical validation.
 
 **Current disposition:** `REVIEWER_NOT_ASSIGNED` and `NO_INDEPENDENT_ORACLE_EXECUTION`. Only the author may give separate future G2 freeze approval after all necessary artifacts are pinned and review outcomes are resolved. Until then `PREREGISTRATION_FREEZE=HOLD`.
+
+## 11. Prospective negative-control mutation ledger (unexecuted G1 design)
+
+All cases below are **proposals for a future G3 synthetic-only test harness**. They name a single change relative to the `S10_SYN_P0_V3_DRAFT` baseline unless stated otherwise. Do **not** run them as part of G1 or reinterpret synthetic expected outcomes as empirical data. Unknown means an unavailable/undecidable interface value, **not** a negative verdict; no unknown may be passed directly to the frozen Boolean selector.
+
+| Case ID | Exact prospective mutation or source limitation | Expected observation-state outcome | Selector/coverage boundary |
+|---|---|---|---|
+| `P0_BASE` | No change to v3 P0 fixture | Eight known expected Boolean inputs; ten accepted current claims match ten required values, as a synthetic premise | Only a synthetic mapping-oracle candidate; action oracle is unexecuted |
+| `S10_SYN_T_LOWER` | Set synthetic decision time to `1000`, retaining issued `1000` and valid-for `100` | `fresh=known_true` under frozen inclusive verifier rule | Boundary check only |
+| `S10_SYN_T_UPPER` | Set synthetic decision time to `1100` with same issue/duration | `fresh=known_true` | Boundary check only |
+| `S10_SYN_N_FUTURE_ISSUE` | Decision time `999`, issue time `1000` | `fresh=known_false` for a **fully specified synthetic verification attempt** | Do not confuse with missing decision time |
+| `S10_SYN_N_EXPIRED` | Decision time `1101`, issue time `1000`, valid-for `100` | `fresh=known_false` for a fully specified synthetic verification attempt | No real dataset decision point implied |
+| `S10_SYN_N_EPOCH_MISMATCH` | Expected epoch changes to `8`, claimed epoch stays `7` for subject `SAT_TEST_A` | `epoch_valid=known_false` | Exact expected epoch is available in this synthetic case |
+| `S10_SYN_N_EPOCH_UNKNOWN` | Withhold expected epoch and any documented verifier result | `epoch_valid=unknown` as Study 10 source-data *observability* | Do not impute known false from the absence of an expected epoch; Study 2 verifier's internal missing-epoch rejection is not an observed source field |
+| `S10_SYN_N_CRITERIA` | Remove claim `S10_SYN_CLAIM_10` for `recovery_manifest_complete` while keeping the accepted-current-claim ledger explicitly exhaustive | `minimum_evidence_complete=known_false`, because one requirement is absent in a complete synthetic ledger | No recovery-complete status inferred from the other nine |
+| `S10_SYN_N_CRITERIA_VALUE` | Keep claim 10 accepted but change its value to `UNEXPECTED_TEST_VALUE`, leaving `required_values.recovery_manifest_complete` unchanged | Synthetic `requirements_satisfied=false` by key/value mismatch | Requires future independent oracle to check the equality API |
+| `S10_SYN_N_LEDGER_INCOMPLETE` | Mark claim inventory incomplete and omit claim 10 | `minimum_evidence_complete=unknown` | Cannot assert known false from an incomplete source |
+| `S10_SYN_N_CONTRADICTION` | Add `S10_SYN_SOURCE_B` as a separate synthetically trusted/accepted source with a different current value for subject `SAT_TEST_A`, key `approved_version`, epoch `7`; keep complete accepted ledger | `contradictory=known_true` by same-subject/key/epoch differing values across accepted sources | A second claim with no accepted-source semantics is insufficient |
+| `S10_SYN_N_CRC` | Replace signature-verifier outcome evidence with a packet CRC-valid flag only | `signature_valid=unknown`, not false or true | `DIRECT`/`DERIVABLE` signature mapping must be rejected |
+| `S10_SYN_N_APID` | Withhold trust-set membership, leave APID/source identifier only | `source_trusted=unknown` | Identifier is not trust evidence |
+| `S10_SYN_N_TIME` | Withhold validity interval and decision-time reference, retain timestamp alone | `fresh=unknown`; action `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` | Do not use telemetry time as a fabricated decision point |
+| `S10_SYN_N_LABEL` | Withhold native guard and retain retrospective anomaly/attack label only | `security_signal=unknown` | Offline truth is not an operational security guard |
+| `S10_SYN_N_COMMAND` | Withhold authorized-contact-path status, retain command or script status only | `authorization_available=unknown` | Command presence does not imply authority |
+| `S10_SYN_N_MISSING` | Remove all operational evidence fields and their verifier outcomes | All eight recovery-state variables `unknown` | No completed Boolean selector call or fabricated action rate |
+| `S10_SYN_N_MIXING` | Declare paired ESA v1/v2 files or Hack-A-Sat competition scoring as independent ESA flight replicates | Provenance classification rejected | No pooling, no spurious independent-study denominator |
+
+**Two separate distinctions must survive G2:** (1) an **observed, documented negative verifier result** versus an unknown variable because a source has no verifier output; and (2) a **fully specified synthetic** negative-time/epoch test versus a real telemetry sample without operational decision time. The frozen Study 2 verifier can return `False` for an unprovided expected epoch; that behavior must not be imported as an observed negative label for OPS-SAT or ESA data.
+
+**Independent-review obligations:** An external reviewer must verify these mutation semantics and the expected-value comparator before a future G2 freeze. A separately implemented oracle and actual selector parity remain **unexecuted G3 work**. No mutation IDs in this table are experimental outcomes.
 
