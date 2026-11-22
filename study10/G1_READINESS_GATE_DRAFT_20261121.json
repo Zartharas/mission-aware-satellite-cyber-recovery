@@ -41,7 +41,9 @@
     "synthetic_time_contract": "STATIC_FROZEN_EVIDENCE_VERIFIER_INCLUSIVE_ISSUE_AND_EXPIRY_BOUNDARIES_DRAFT",
     "synthetic_requirements_value_comparator": "EXPLICIT_TEN_KEY_VALUE_REQUIREMENTS_MAP_DRAFT_NOT_EXECUTED",
     "synthetic_negative_mutation_ledger": "EIGHTEEN_CASES_SPECIFIED_FOR_FUTURE_G3_NOT_RUN",
-    "validation_workflow_scope": "GENERAL_REPOSITORY_CHECKS_ONLY_NO_STUDY10_SPECIFIC_ORACLE_TEST"
+    "validation_workflow_scope": "GENERAL_REPOSITORY_CHECKS_ONLY_NO_STUDY10_SPECIFIC_ORACLE_TEST",
+    "pre_freeze_source_pins": "SIX_UNMODIFIED_FROZEN_SOURCE_BLOBS_BOUND_TO_BASE_COMMIT",
+    "independent_review_package": "HANDOFF_PINS_AVAILABLE_REVIEWER_UNASSIGNED"
   },
   "stop_reasons": [
     "ESA_V2_ZENODO_RIGHTS_VALUE_NOT_READ_DESPITE_AUTHOR_DECLARATION",
@@ -67,5 +69,61 @@
     "paper5_modification_authorized": false,
     "third_party_outreach_authorized": false
   },
-  "next_gate": "INDEPENDENT_PRE_FREEZE_REVIEW_OF_G1_V3_FIXTURE_AND_18_CONTROL_CASES; SOURCE_ATTRIBUTION_AND_COHORT_AUTHOR_DECISION; NEW_G2_FREEZE_AUTHORIZATION; G3_EXECUTION_CLOSED"
+  "next_gate": "INDEPENDENT_PRE_FREEZE_REVIEW_OF_G1_V3_FIXTURE_AND_18_CONTROL_CASES; SOURCE_ATTRIBUTION_AND_COHORT_AUTHOR_DECISION; NEW_G2_FREEZE_AUTHORIZATION; G3_EXECUTION_CLOSED",
+  "g1_independent_review_handoff": {
+    "status": "PREPARED_NOT_ASSIGNED_NOT_PERFORMED",
+    "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+    "source_git_blobs": [
+      {
+        "path": "study9/STUDY9_PROTOCOL.json",
+        "blob_sha1": "c298763d66f533c6e91b956293c0ae1a564486cd"
+      },
+      {
+        "path": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+        "blob_sha1": "ba18e5386fb854147570970cc6369ed0731b947c"
+      },
+      {
+        "path": "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+        "blob_sha1": "aca6f9ddc7bbc14446b2a89968ec2a6a52bc1a16"
+      },
+      {
+        "path": "study9/POLICY_SCOPE_FREEZE.json",
+        "blob_sha1": "a29d73ae27ce26f0c7ba4c0a8c832d07bc29930c"
+      },
+      {
+        "path": "study2/src/study2_security/selectors.py",
+        "blob_sha1": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23"
+      },
+      {
+        "path": "study2/src/study2_security/evidence.py",
+        "blob_sha1": "5d107ecb24f24fec14f1d817ab48db95be744556"
+      }
+    ],
+    "source_pin_type": "Git blob SHA-1 file identity at specified repository baseline; not independently recomputed local SHA-256",
+    "policy_ids": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B1_FAIL_OPERATIONAL",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ],
+    "excluded_policy_class": "S2_ABL_*",
+    "proposed_synthetic_fixture_id": "S10_SYN_P0_V3_DRAFT",
+    "proposed_negative_mutation_case_count": 18,
+    "source_code_not_changed": true,
+    "source_telemetry_not_accessed": true,
+    "reviewer_independent_of_author_required": true,
+    "external_reviewer_assigned": false,
+    "reviewer_decision_record_required": true,
+    "reviewer_expected_dispositions": [
+      "PASS_G1_DESIGN_FOR_G2_CONSIDERATION",
+      "REVISE_G1",
+      "BLOCK"
+    ],
+    "review_evidence_must_pin_head_sha_on_review_date": true,
+    "CI_workflow_path": ".github/workflows/validate-research-configs.yml",
+    "CI_limitation": "CI validates repo structure and general tests, not dedicated S10 semantic-oracle agreement",
+    "review_signoff_not_substitute_for_author_G2_approval": true,
+    "no_oracle_executed": true,
+    "no_scientific_protocol_frozen": true
+  }
 }
