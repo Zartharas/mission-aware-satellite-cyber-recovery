@@ -2,7 +2,7 @@
   "schema": 1,
   "study_id": "S10-RSEI-001",
   "record_date_utc": "2026-11-21",
-  "status": "G1_DOCUMENTATION_PREPARED_G1_RIGHTS_AND_INDEPENDENT_REVIEW_OPEN",
+  "status": "G1_SOLO_AUTHOR_REVIEW_ROLE_RECORDED_AUTHOR_VERDICT_PENDING",
   "source_main_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
   "evidence_scope": "PUBLIC_SOURCE_AND_EXISTING_INTAKE_METADATA_ONLY",
   "artifacts": [
@@ -18,7 +18,7 @@
     "semantic_contract_consistency": "DRAFT_REVIEWED_AGAINST_FROZEN_RUBRIC",
     "source_field_semantic_adjudication": "NOT_PERFORMED",
     "synthetic_controls": "V3_TEN_LINKED_CLAIMS_INCLUSIVE_SYNTHETIC_TIME_CONTRACT_NOT_EXECUTED",
-    "independent_expert_adjudication": "NOT_COMPLETED",
+    "independent_expert_adjudication": "NOT_COMPLETED_NOT_REQUIRED",
     "protocol_freeze": "HOLD",
     "scientific_execution": "NOT_AUTHORIZED",
     "publication_submission": "NOT_AUTHORIZED",
@@ -37,13 +37,17 @@
     "overlap_handling_design": "POTENTIAL_DEPENDENCE_NO_INDEPENDENCE_CLAIMS_DESCRIPTIVE_STRATA_DRAFT",
     "source_attribution_checklist": "WRITTEN_REVIEW_DRAFT_NOT_SIGNED_OFF",
     "internal_adversarial_resolution": "ONE_CLAIM_VS_TEN_CRITERIA_GAP_CORRECTED_AS_SYNTHETIC_LEDGER_WITHOUT_REAL_VERIFICATION",
-    "independent_reviewer_handoff": "CHECKLIST_PREPARED_REVIEWER_NOT_ASSIGNED",
+    "independent_reviewer_handoff": "SUPERSEDED_BY_SOLO_AUTHOR_REVIEW_CHECKLIST",
     "synthetic_time_contract": "STATIC_FROZEN_EVIDENCE_VERIFIER_INCLUSIVE_ISSUE_AND_EXPIRY_BOUNDARIES_DRAFT",
     "synthetic_requirements_value_comparator": "EXPLICIT_TEN_KEY_VALUE_REQUIREMENTS_MAP_DRAFT_NOT_EXECUTED",
     "synthetic_negative_mutation_ledger": "EIGHTEEN_CASES_SPECIFIED_FOR_FUTURE_G3_NOT_RUN",
     "validation_workflow_scope": "GENERAL_REPOSITORY_CHECKS_ONLY_NO_STUDY10_SPECIFIC_ORACLE_TEST",
     "pre_freeze_source_pins": "SIX_UNMODIFIED_FROZEN_SOURCE_BLOBS_BOUND_TO_BASE_COMMIT",
-    "independent_review_package": "HANDOFF_PINS_AVAILABLE_REVIEWER_UNASSIGNED"
+    "independent_review_package": "PINNED_SOURCE_HANDOFF_AVAILABLE_FOR_SOLO_AUTHOR_REVIEW",
+    "author_review_role": "SOLE_AUTHOR",
+    "author_g1_review": "PENDING_NOT_YET_SIGNED",
+    "external_human_review": "NOT_REQUIRED_BY_SOLO_STUDY_INTERNAL_GOVERNANCE",
+    "technical_separate_oracle": "FUTURE_G3_INDEPENDENT_IMPLEMENTATION_NOT_EXECUTED"
   },
   "stop_reasons": [
     "ESA_V2_ZENODO_RIGHTS_VALUE_NOT_READ_DESPITE_AUTHOR_DECLARATION",
@@ -54,9 +58,9 @@
     "SYNTHETIC_POSITIVE_FIXTURE_INDEPENDENT_ORACLE_NOT_FROZEN",
     "LICENSE_ATTRIBUTION_AND_THIRD_PARTY_RIGHTS_SCOPE_REVIEW_UNAPPROVED",
     "SELECTOR_STATIC_ORACLE_NOT_INDEPENDENTLY_REIMPLEMENTED_OR_EXECUTED",
-    "INDEPENDENT_REVIEWER_UNASSIGNED",
-    "SYNTHETIC_V3_FIXTURE_INDEPENDENT_REVIEW_AND_FREEZE_PENDING",
-    "STUDY10_SPECIFIC_MUTATION_SUITE_NOT_IMPLEMENTED_OR_EXECUTED"
+    "SYNTHETIC_V3_AUTHOR_REVIEW_AND_G2_FREEZE_PENDING",
+    "STUDY10_SPECIFIC_MUTATION_SUITE_NOT_IMPLEMENTED_OR_EXECUTED",
+    "AUTHOR_G1_REVIEW_VERDICT_PENDING"
   ],
   "approval": {
     "author_authorized_g1_documentation_preparation": true,
@@ -67,11 +71,14 @@
     "scientific_execution_authorized": false,
     "study9_modification_authorized": false,
     "paper5_modification_authorized": false,
-    "third_party_outreach_authorized": false
+    "third_party_outreach_authorized": false,
+    "solo_author_review_role_authorized": true,
+    "external_human_review_required": false,
+    "author_g1_verdict_recorded": false
   },
-  "next_gate": "INDEPENDENT_PRE_FREEZE_REVIEW_OF_G1_V3_FIXTURE_AND_18_CONTROL_CASES; SOURCE_ATTRIBUTION_AND_COHORT_AUTHOR_DECISION; NEW_G2_FREEZE_AUTHORIZATION; G3_EXECUTION_CLOSED",
-  "g1_independent_review_handoff": {
-    "status": "PREPARED_NOT_ASSIGNED_NOT_PERFORMED",
+  "next_gate": "SOLO_AUTHOR_G1_EVIDENCE_REVIEW_AND_SIGNED_VERDICT; RIGHTS_ATTRIBUTION_AND_COHORT_APPROVAL; SEPARATE_G2_PREREGISTRATION_FREEZE_DECISION; FUTURE_G3_SEPARATE_ORACLE_PARITY_BEFORE_REAL_DATA",
+  "g1_solo_author_review_handoff": {
+    "status": "SOLO_AUTHOR_REVIEW_HANDOFF_PREPARED_VERDICT_PENDING",
     "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
     "source_git_blobs": [
       {
@@ -111,11 +118,11 @@
     "proposed_negative_mutation_case_count": 18,
     "source_code_not_changed": true,
     "source_telemetry_not_accessed": true,
-    "reviewer_independent_of_author_required": true,
+    "reviewer_independent_of_author_required": false,
     "external_reviewer_assigned": false,
     "reviewer_decision_record_required": true,
     "reviewer_expected_dispositions": [
-      "PASS_G1_DESIGN_FOR_G2_CONSIDERATION",
+      "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
       "REVISE_G1",
       "BLOCK"
     ],
@@ -124,6 +131,11 @@
     "CI_limitation": "CI validates repo structure and general tests, not dedicated S10 semantic-oracle agreement",
     "review_signoff_not_substitute_for_author_G2_approval": true,
     "no_oracle_executed": true,
-    "no_scientific_protocol_frozen": true
+    "no_scientific_protocol_frozen": true,
+    "external_reviewer_required": false,
+    "author_reviewer_role": "SOLE_AUTHOR",
+    "reviewer_independence_disclosure": "Author is reviewing own design; do not claim independent human review",
+    "external_review_not_a_gate": true,
+    "technical_oracle_independent_implementation_required_for_future_G3": true
   }
 }

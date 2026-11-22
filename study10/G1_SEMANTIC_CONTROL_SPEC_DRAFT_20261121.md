@@ -1,6 +1,6 @@
 # S10-RSEI-001 — G1 semantic contract and synthetic-control design (REVIEW DRAFT)
 
-**Status:** `PRE_EXECUTION_SEMANTIC_REVIEW_DRAFT_NOT_FROZEN`. No actual source row, native field-to-variable mapping matrix, selector run, endpoint, synthetic control execution, or independent external reviewer decision has been produced.
+**Status:** `PRE_EXECUTION_SEMANTIC_REVIEW_DRAFT_NOT_FROZEN`. No actual source row, native field-to-variable mapping matrix, selector run, endpoint, synthetic control execution, or completed author sign-off has been produced.
 
 **Normative sources (unchanged):** `study9/RECOVERY_STATE_MAPPING_RUBRIC.json`, `study9/SEMANTIC_ADJUDICATION_FREEZE.json`, `study9/STUDY9_PROTOCOL.json`; downstream `study2/src/study2_security/selectors.py` frozen selector contract SHA-256 `3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505`. The new study must separately pin its exact commit/hash when freezing; the frozen Study 9 registry stays unchanged.
 
@@ -52,7 +52,7 @@ Expected normalized 8-variable fixture in frozen order:
   "authorization_available": true
 }
 ```
-This is a **mapping-oracle candidate**, not a selector-output oracle, proof of recovery safety, real dataset evidence, or computed endpoint. Independent expected selector outcomes must be established from the exact pinned frozen selector before any evaluator execution is authorized.
+This is a **mapping-oracle candidate**, not a selector-output oracle, proof of recovery safety, real dataset evidence, or computed endpoint. Expected selector outcomes must be documented against the pinned selector using a separate, non-circular specification. A standalone implementation must later be checked for parity after G3 approval; no external reviewer is required.
 
 ## 4. Proposed failure/negative-control matrix (not executed)
 
@@ -71,13 +71,13 @@ This is a **mapping-oracle candidate**, not a selector-output oracle, proof of r
 
 **Oracle restraint:** the negative tests reject invalid mappings; they **do not** assume the precise `AMBIGUOUS` versus `ABSENT` class until a documented synthetic source schema is frozen. A fixture with missing data cannot yield a quantified recovery-action identifiability rate.
 
-## 5. Independent review and quality gates
+## 5. Solo-author review and quality gates
 
-**G1 draft review now:** compare this table word-for-word with frozen Study 9 target semantics; flag ambiguous source provenance, decision-time assumptions, absent criteria, and any direct-rule exception without independent basis. This analysis is *not* independent external peer review.
+**G1 draft review now:** compare this table word-for-word with frozen Study 9 target semantics; flag ambiguous source provenance, decision-time assumptions, absent criteria, and any direct-rule exception without independent basis. This is an internal analytical aid to the sole author, not independent human review. External human review is not a project gate.
 
-**G2 future freeze (HOLD):** pin dataset rights/release IDs, exact primary cohorts, schemas, Study 9 rubric/selector SHA-256, new derivation registry (empty unless explicit amendment), ten criteria, synthetic fixture serialized inputs, exact expected outputs, exclusion/stop rules and independent reviewer identity or independent implementation plan. Obtain author approval at this new freeze gate. Distinguish a newly created preregistration timestamp from earlier source exposure; never claim complete pre-exposure blinding.
+**G2 future freeze (HOLD):** pin dataset rights/release IDs, exact primary cohorts, schemas, Study 9 rubric/selector SHA-256, new derivation registry (empty unless explicit amendment), ten criteria, synthetic fixture serialized inputs, exact expected outputs, exclusion/stop rules and a dated solo-author review decision and a separate technical-oracle implementation plan; no external human reviewer is required. Obtain author approval at this new freeze gate. Distinguish a newly created preregistration timestamp from earlier source exposure; never claim complete pre-exposure blinding.
 
-**G3 future synthetic implementation (HOLD):** code only after separate authorization; test fail-closed boundary, fixture invariants, no real-dataset paths, output manifest reproducibility and independent checker parity. A failure blocks G4.
+**G3 future synthetic implementation (HOLD):** code only after separate authorization; test fail-closed boundary, fixture invariants, no real-dataset paths, output manifest reproducibility and separately implemented oracle parity. A failure blocks G4.
 
 **G4+ future source semantics/selector access (HOLD):** require rights clearance, G2/G3 pass, separate execution authorization and audit. When native decision time is not defensible, emit `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` and **no** row-level identifiability percentage.
 
@@ -97,11 +97,11 @@ No anomaly label is a verified cyberattack; no telemetry status flag is cryptogr
 | HIGH | False and missing are different states for `security_signal`, `authorization_available` and all other required Boolean interfaces. | Require tri-state input (`known_true`, `known_false`, `unknown`) at the measurement boundary; reject coercion `unknown -> false` or `unknown -> true`. |
 | HIGH | Native timestamp or event order cannot by itself define a recovery decision point. | If a source lacks an evidence issue time, validity interval and independently defined decision point, retain `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION`. |
 | MEDIUM | Source licenses and anonymized identity limit defensible cross-population replication claims. | Preserve source family and overlap ledger; report ESA Mission1/2/3 as common-curator mission strata, OPS mission overlap unresolved, ESA v1/v2 paired, Hack-A-Sat unpooled. |
-| MEDIUM | Candidate positive fixture has no independently calculated selector-output oracle. | Independently specify expected output from the **exact** pinned selector implementation, compare only after future G3 implementation approval, and preserve any mismatches. |
+| MEDIUM | Candidate positive fixture has no independently calculated selector-output oracle. | Derive and review expected output from the **exact** pinned selector specification without executing it, compare only after future G3 implementation approval, and preserve any mismatches. |
 | MEDIUM | Negative controls lack explicit boundary-value tests for time validity and epoch/claim relations. | Add unexecuted cases `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, `S10_SYN_N_EPOCH_MISMATCH`, `S10_SYN_N_CLAIM_EPOCH`, `S10_SYN_N_UNKNOWN_FALSE`. |
 | MEDIUM | A failed source-origin/decision-time mapping should not be silently dropped from denominators or assigned a favorable state. | Freeze separate `AMBIGUOUS`/`ABSENT` coverage versus `NOT_EVALUABLE_FOR_OPERATIONAL_ACTION` row-level action status, with precise counting denominator and reason. |
 
-**Review disposition:** `INTERNAL_STATIC_ADVERSARIAL_REVIEW_COMPLETE_WITH_OPEN_FINDINGS`. This is **not** a second independent expert review, an independently executed test oracle, or final approval of semantic mappings. All listed concerns must be resolved or explicitly excluded before G2; unresolved high-severity items block freeze. No author approval, external peer review or scientific outcome is inferred from this assessment.
+**Review disposition:** `INTERNAL_STATIC_ADVERSARIAL_REVIEW_COMPLETE_WITH_OPEN_FINDINGS`. This is **not** a second independent expert review, an independently executed test oracle, or final approval of semantic mappings. All listed concerns must be resolved or explicitly excluded before G2; unresolved high-severity items block freeze. No author sign-off, external peer review or scientific outcome is inferred from this assessment.
 
 ## 8. Tightened synthetic fixture contract (proposed, **not executed or frozen**)
 
@@ -458,13 +458,13 @@ The following **v3 draft**, superseding the earlier one-claim v2 proposal, expan
 2. **Closed-world claims only in the synthetic fixture:** The ten-item, criterion-linked accepted-claims ledger above establishes `contradictory=false` only because `inventory_complete=true` and the explicit absence of other accepted current same-subject/same-key/same-epoch claims is a **synthetic premise**. A real dataset may not inherit this closed-world declaration.
 3. **Ten named accepted criteria:** The fixture has an explicit accepted/current `present=true` entry with a unique `claim_id` for each of the ten frozen recovery criteria. The matching ten claim rows are synthetic interface premises, not actual signatures or verified operational claims. The new `synthetic_requirements_equality_contract.required_values` dictionary identifies the exact required value of each criterion, matching the frozen `AttestationResult.requirements_satisfied` API's **key-presence plus expected-value equality** check. This resolves the earlier specification ambiguity without running the API or demonstrating real-world completeness. `S10_SYN_N_CRITERIA` removes **one acceptance/presence entry**, not merely a CSV column; its completeness state becomes known false only when the synthetic inventory is proven complete, otherwise `unknown`.
 4. **Temporal semantics:** This positive fixture is strictly internal to the 1000–1100 time window at 1050 and does not depend on boundary inclusion. Negative `S10_SYN_N_FUTURE_ISSUE`, `S10_SYN_N_EXPIRED`, and `S10_SYN_N_EPOCH_MISMATCH` must be specified with exact input mutation and expected error state **before** execution. For this **synthetic verifier fixture only**, the frozen `study2/src/study2_security/evidence.py` rule is `issued_at_s <= now_s <= issued_at_s + valid_for_s` (both endpoints inclusive). Thus at `1000` and `1100` the synthetic time component is fresh, at `999` it is future evidence, and at `1101` it is expired. These are **static expected cases**, not executed tests. This does not create or imply an operational decision time for any ESA/OPS/Hack dataset.
-5. **Policy oracle independence:** The `expected_normalized_mapping` is an input mapping oracle only. The `downstream_selector_expected_action` deliberately remains `UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE`. G2 must separately pin the exact selector SHA-256, specify each policy's expected action and action-set enumeration from an independently reviewed implementation, and capture any disagreement rather than adapting the fixture to test outcomes.
+5. **Policy oracle independence:** The `expected_normalized_mapping` is an input mapping oracle only. The `downstream_selector_expected_action` deliberately remains `UNDEFINED_PENDING_INDEPENDENT_EXACT_SELECTOR_ORACLE` as a legacy sentinel meaning *separate implementation parity not yet tested*, not an external human-review requirement. G2 must pin the exact selector SHA-256 and freeze author-reviewed expected policy actions plus a plan for a separately implemented oracle; G3 must check parity and record discrepancies before real-data semantic adjudication.
 6. **Dataset exclusion:** No synthetic state, source identity, timestamp, or ground truth participates in the ESA/OPS/Hack empirical denominator, mission-independence claims or external-application outcomes.
 
-**Static design acceptance:** The proposed v3 accepted-claim linkage and fixture can be checked for **schema completeness only**, not correctness of actual cryptographic verification, safe recovery, or behavior of the frozen selector. External independent reviewer/implementation parity has not occurred.
+**Static design acceptance:** The proposed v3 accepted-claim linkage and fixture can be checked for **schema completeness only**, not correctness of actual cryptographic verification, safe recovery, or behavior of the frozen selector. No external human review is planned, and separate technical-oracle parity has not occurred.
 
 
-## 9. Static four-policy selector action oracle (review design, **not independently validated or executed**)
+## 9. Static four-policy selector action oracle (review design, **not validated by a separate implementation or executed**)
 
 **Normative source:** exact checked `study2/src/study2_security/selectors.py` on repository `main` at `5ee451c2a739cbca7dc948d49239d985c6b4cc07`, whose selector implementation is pinned in frozen Study 9 with SHA-256 `3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505`. Study 9 freezes exactly four **primary** policies in order: `S2_B0_FAIL_CLOSED`, `S2_B1_FAIL_OPERATIONAL`, `S2_B2_RISK_THRESHOLD`, `S2_S1_EVIDENCE_AWARE`. Exclude the four `S2_ABL_*` mechanistic ablations. The results below follow a static manual interpretation of the published selector branches. **No selector function has been executed here.**
 
@@ -489,29 +489,29 @@ The table is intentionally **not** an empirical result or a safety recommendatio
 
 These policy definitions have intentionally different behavior, including cases that might appear operationally counterintuitive. **Do not change the policies to align with expected safety intuition**; the purpose of the draft oracle is to pin expectations from the existing frozen code.
 
-**Independent-oracle readiness gate:** A future separate reviewer or separately implemented standalone oracle must derive all four policy outputs **without calling the production selector**, pin its code or derivation, and compare it to the actual selector on a synthetic fixture suite after authorization for G3. Any mismatch blocks execution. This static table is an internal self-review artifact, not proof that such independent testing occurred, and **does not** satisfy the G2 prerequisite of freezing a validated, independent expected-output contract.
+**Separate-oracle readiness gate:** The solo researcher must prepare a standalone implementation that derives all four policy outputs **without importing or calling the production selector**, pin its code or derivation, and compare it with the frozen selector on a synthetic fixture suite only after authorization for G3. Any mismatch blocks execution. This static table is an internal self-review artifact, not proof that such independent testing occurred, and **does not** establish a validated oracle. G2 may freeze a documented, author-reviewed expected-output contract and test plan; actual parity testing remains a later G3 prerequisite before real-data work.
 
 **Negative evidence-only fixtures:** For a single bad signature, untrusted source, stale time, epoch mismatch, contradictory accepted claims, or missing accepted recovery criterion, set the corresponding **known** value to failure and recompute `evidence_qualified=false`. This rule does *not* apply when the value is unknown or when the source lacks decision-time observability; those cases are `UNKNOWN`/`NOT_EVALUABLE`, not an observed failure.
 
 
-## 10. Independent-review handoff checklist (G1 preparation only; review is pending)
+## 10. Solo-author review checklist (G1 preparation only; author sign-off pending)
 
-A reviewer independent of the protocol author must be provided (a) the exact immutable repository commit and Git blob IDs for the Study 2 selector and frozen Study 9 criteria, (b) the original G1 v3 synthetic fixture and all proposed negative-control mutations, and (c) the license and cohort provenance ledger **before** any trial results are available. Record reviewer identity, date, version, independence/COI declaration, and a signed decision; do not claim review from this checklist.
+The sole author must review (a) the exact immutable repository commit and Git blob IDs for the Study 2 selector and frozen Study 9 criteria, (b) the G1 v3 synthetic fixture and all proposed negative-control mutations, and (c) the license and cohort provenance ledger **before** any scientific trial results are available. Record reviewer role **SOLE_AUTHOR**, date, version, disclosed lack of personnel independence, evidence references and an explicit attributable decision. Do not claim independent human verification from this checklist.
 
-The reviewer should return explicit, falsifiable verdicts with citations for:
+The sole author should record explicit, falsifiable verdicts with citations for:
 
 1. **Exact eight-value interface:** all variable definitions and all four policy IDs match the frozen Study 9 contracts, and the excluded ablations remain excluded.
 2. **Accepted claims and completeness:** each of the ten named criteria is linked to one accepted current *synthetic* claim. The ledger covers the entire relevant source/subject/key/epoch scope for this artificial fixture. No real-data closed-world assumption is licensed by the test.
 3. **Truth provenance:** `signature_valid=known_true` and `accepted=true` are synthetic state assumptions, not outputs of `verify_signed_evidence`; a separate real Ed25519 test fixture would require explicit implementation authorization.
 4. **Tri-state information preservation:** `unknown` remains distinguishable from `known_false` and `known_true`. The selector consumes only completed Boolean observations; never pass an unknown straight into the selector or default it to false.
 5. **Decision-time contract:** evidence validity and source trust are available at the same synthetic decision point, with explicit inclusive/exclusive interval convention agreed before execution.
-6. **Policy oracle reproducibility:** a separately written oracle (not importing or calling the production selector) must derive the exact actions for the four primary policies. Compare to the six expected-state cases and a *future* exhaustive 256-complete-state truth table per policy. This paragraph is a proposed test plan, **not** an executed result.
+6. **Policy oracle reproducibility:** a separately written oracle (not importing or calling the production selector) must eventually derive the exact actions for the four primary policies; this means technical implementation separation, not a second reviewer. Compare to the six expected-state cases and a *future* exhaustive 256-complete-state truth table per policy. This paragraph is a proposed test plan, **not** an executed result.
 7. **Partial-observation action sets:** only when a real future protocol defines a defensible decision point may a separate wrapper enumerate all admissible completions of unresolved variables; do not report a unique action if multiple completions disagree.
 8. **Source independence and rights:** source population overlap is unresolved; ESA mission strata cannot be treated as replicated independent spacecraft, and OPS-SAT v2 source rights and all attribution notices must be preserved.
 9. **Negative control failure behavior:** CRC-to-signature, APID-to-trust, timestamp-to-freshness, abnormal-label-to-security-signal, and command-to-authorization substitutions must be rejected without correction to an inferred Boolean.
-10. **Gate disposition:** independent reviewer must choose `PASS_G1_DESIGN_FOR_G2_CONSIDERATION`, `REVISE_G1`, or `BLOCK` with written reasons. A design-review PASS is **not** a data-use approval, formal preregistration, G3 implementation authorization, G4 mapping authorization, or empirical validation.
+10. **Gate disposition:** the sole author must choose `AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION`, `REVISE_G1`, or `BLOCK` with written reasons. A design-review PASS is **not** a data-use approval, formal preregistration, G3 implementation authorization, G4 mapping authorization, or empirical validation.
 
-**Current disposition:** `REVIEWER_NOT_ASSIGNED` and `NO_INDEPENDENT_ORACLE_EXECUTION`. Only the author may give separate future G2 freeze approval after all necessary artifacts are pinned and review outcomes are resolved. Until then `PREREGISTRATION_FREEZE=HOLD`.
+**Current disposition:** `SOLE_AUTHOR_IDENTIFIED; AUTHOR_REVIEW_PENDING` and `NO_SEPARATE_ORACLE_EXECUTION`. Identifying the reviewer role is not a review verdict. A later G2 freeze requires separate explicit author approval, pinned artifacts, and resolved methodology/rights decisions. Until then `PREREGISTRATION_FREEZE=HOLD`.
 
 ## 11. Prospective negative-control mutation ledger (unexecuted G1 design)
 
@@ -542,5 +542,17 @@ All cases below are **proposals for a future G3 synthetic-only test harness**. T
 
 **Two separate distinctions must survive G2:** (1) an **observed, documented negative verifier result** versus an unknown variable because a source has no verifier output; and (2) a **fully specified synthetic** negative-time/epoch test versus a real telemetry sample without operational decision time. The frozen Study 2 verifier can return `False` for an unprovided expected epoch; that behavior must not be imported as an observed negative label for OPS-SAT or ESA data.
 
-**Independent-review obligations:** An external reviewer must verify these mutation semantics and the expected-value comparator before a future G2 freeze. A separately implemented oracle and actual selector parity remain **unexecuted G3 work**. No mutation IDs in this table are experimental outcomes.
+**Solo-author review obligations:** The author must assess these mutation semantics and the expected-value comparator before a future G2 freeze. No external human reviewer is required. A separately implemented oracle and actual selector parity remain **unexecuted G3 work**. No mutation IDs in this table are experimental outcomes.
 
+## 12. Solo-researcher governance decision (author statement; review verdict pending)
+
+**Investigator structure:** `SOLE_AUTHOR`. The study author has explicitly stated that the research is being conducted solo and does **not** require an independent external human reviewer as a G1/G2 internal gate. The previous draft requirement for a second human reviewer is superseded by this governance decision.
+
+**Safeguards retained:**
+- The author performs and records a dated, evidence-referenced G1 review, with an explicit disposition `AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION`, `REVISE_G1`, or `BLOCK`. The self-review and lack of personnel independence must be disclosed.
+- Exact dataset/version and code identities, clear population and license constraints, stopping rules, and the negative control cases remain documented.
+- A **separately written technical oracle**, not importing/calling the production selector, remains a reproducibility check; actual synthetic parity testing is future G3 implementation work subject to authorization. This is implementation independence, **not** independent human review.
+- G2 protocol freeze remains a *distinct future* author authorization. G3 implementation, G4 dataset-specific semantic adjudication, real-data execution, publisher submission, and repository merge are not authorized by this governance decision.
+- Any independent peer review required later by a journal, institution, or publication process remains outside this internal study-design policy.
+
+**Status:** `SOLO_AUTHOR_ROLE_RECORDED; AUTHOR_G1_VERDICT_PENDING; EXTERNAL_HUMAN_REVIEW_NOT_REQUIRED; G2_FREEZE_HOLD`.

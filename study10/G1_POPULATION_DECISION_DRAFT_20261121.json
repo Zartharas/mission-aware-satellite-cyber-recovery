@@ -161,7 +161,7 @@
   "remaining_gates": [
     "ESA_V1_V2_DATA_RIGHTS_NOT_RESOLVED",
     "HACKASAT_SECONDARY_FILE_LEVEL_LICENSE_OPEN",
-    "NO_INDEPENDENT_SEMANTIC_ADJUDICATION_FREEZE",
+    "NO_AUTHOR_APPROVED_SEMANTIC_ADJUDICATION_FREEZE",
     "SYNTHETIC_CONTROLS_DRAFT_NOT_FROZEN",
     "NO_ATOMIC_PROTOCOL_FREEZE",
     "NO_REAL_DATA_EXECUTION_AUTHORIZATION",
@@ -183,7 +183,11 @@
     "protocol_frozen": false,
     "independent_review_complete": false,
     "scientific_execution_authorized": false,
-    "publisher_submission_authorized": false
+    "publisher_submission_authorized": false,
+    "reviewer_role": "SOLE_AUTHOR",
+    "external_human_review_required": false,
+    "author_g1_review_completed": false,
+    "independent_review_complete_interpretation": "Legacy field retained: independent human review not conducted and not required"
   },
   "source_license_review_update": {
     "evidence_date": "2026-11-21",
@@ -220,5 +224,17 @@
     ],
     "author_approval_for_handling": false,
     "independent_source_population_established": false
+  },
+  "solo_researcher_review_policy": {
+    "recorded_utc_date": "2026-11-21",
+    "author_statement": "Working solo; no independent external review required for internal study-design gates",
+    "reviewer_role": "SOLE_AUTHOR",
+    "author_review_decision": "PENDING",
+    "external_human_review_required": false,
+    "separate_technical_oracle_implementation_planned": true,
+    "technical_oracle_parity_performed": false,
+    "g2_freeze_authorized": false,
+    "study9_mutation_authorized": false,
+    "empirical_execution_authorized": false
   }
 }
