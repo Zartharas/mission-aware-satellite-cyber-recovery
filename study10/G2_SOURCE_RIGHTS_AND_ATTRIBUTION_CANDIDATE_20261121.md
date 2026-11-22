@@ -12,7 +12,20 @@
 | Secondary Hack-A-Sat 4 contest context | `cromulencellc/hackasat-finals-2023` commit `2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1` | General repo MIT notice with **component-level exceptions**; game scoring input provenance only | No assumption of spacecraft-flight origin; examine path and embedded tar-member licenses before any reuse. Keep completely unpooled. |
 | NASA SMAP/MSL | Deferred | Not in this candidate population | Requires new prospective authorization and population amendment before inclusion |
 
-**Author attribution placeholder (not a completed citation list):** For ESA v1/v2, use each exact Zenodo deposit's contributor credits and the corresponding published article; do **not** infer all authors from a title, a version's unrelated paper, or generic ESA policy. OPS-SAT v2 notice must retain the data-inclusive MIT copyright text where required. The G1 evidence cites https://arxiv.org/pdf/2406.17826, https://openreview.net/pdf/eda113f9ebd4aa45678a791e19b33c8bdefd0e15.pdf, https://github.com/kplabs-pl/OPS-SAT-AD/blob/main/LICENSE, and the official license terms https://creativecommons.org/licenses/by/3.0/igo/.
+### ESA-ADB exact record creator/contributor attribution (official Zenodo metadata reviewed)
+
+**Record creators on both v1 `12528696` and v2 `15237121`:**
+1. Gabriele De Canio (contact; ESA/ESOC)
+2. Krzysztof Kotowski (KP Labs)
+3. Christoph Haskamp (Airbus, Germany)
+
+**Additional named research contributors on both records:** Jacek Andrzejewski, Bogdan Ruszczak, Jakub Nalepa, Daniel Lakey, Peter Collins, Aybike Kolmas, Mauro Bartesaghi, and Jose Martínez-Heras.
+
+The two official records both identify **European Space Agency** as publisher and list the contributor groups separately from the **three creators**. Cite the exact dataset DOI/version and give creators the dataset-author credit according to the eventual venue style; do not automatically insert all contributors into the byline or omit required acknowledgments. These exact names came from https://zenodo.org/records/12528696 and https://zenodo.org/records/15237121 as publicly rendered on the 2026-11-21 review. The **Rights > License** headings still did not expose a specific license value in the rendered landing-page text. The CC BY 3.0 IGO evidence continues to rest on the authors' publication statements and should not be misrepresented as directly visible metadata.
+
+**Attribution/citation draft, not final venue formatting:** De Canio, G.; Kotowski, K.; Haskamp, C. *ESA Anomaly Dataset* [dataset], European Space Agency, **v2 (2025)** DOI: https://doi.org/10.5281/zenodo.15237121. A separate citation to the **v1 (2024)** DOI must be used for the paired-sensitivity source. Verify preferred Zenodo citation export and journal style before release. OPS-SAT v2 notice must retain the data-inclusive MIT copyright terms when required.
+
+**Supporting publication/license references:** https://arxiv.org/pdf/2406.17826; https://openreview.net/pdf/eda113f9ebd4aa45678a791e19b33c8bdefd0e15.pdf; https://github.com/kplabs-pl/OPS-SAT-AD/blob/main/LICENSE; https://creativecommons.org/licenses/by/3.0/igo/.
 
 ## Prior release-identity evidence, not new checks
 
@@ -23,7 +36,7 @@
 
 ## Explicit stop rules / outstanding reviews
 
-1. **HOLD:** ESA v2 release-specific rights/third-party scope, exact contributor/notice line and permissions for intended derivative uses are not yet formally signed off.
+1. **HOLD:** ESA v2 release-specific rights/third-party scope, creator/contributor attribution format and permissions for intended derivative uses have not yet been formally signed off; exact creator names are now verified from the two Zenodo records.
 2. **HOLD for any raw redistribution:** file-level license scope must be confirmed and all required notices attached. Do not commit raw ESA or OPS-SAT telemetry to this public repository.
 3. If source rights are narrower than this candidate assumes, stop *before* examining new results; prepare a dated prospective exclusion or protocol amendment for separate author approval.
 4. Source rights evidence does not establish operational recoverability, independent spacecraft observations, or review by external counsel.

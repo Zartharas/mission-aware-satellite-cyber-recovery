@@ -370,7 +370,27 @@
     "OPS_SAT_V2": "MATCHED_DATA_INCLUSIVE_MIT_LICENSE_FILE",
     "HACKASAT4": "PATH_LICENSE_EXCEPTIONS_PENDING",
     "pre_freeze_exposure_disclosed": true,
-    "no_raw_datasets_in_git": true
+    "no_raw_datasets_in_git": true,
+    "ESA_ADB_RECORD_CREATORS_VERIFIED": [
+      "De Canio, Gabriele",
+      "Kotowski, Krzysztof",
+      "Haskamp, Christoph"
+    ],
+    "ESA_ADB_RECORD_RESEARCH_CONTRIBUTORS_VERIFIED": [
+      "Andrzejewski, Jacek",
+      "Ruszczak, Bogdan",
+      "Nalepa, Jakub",
+      "Lakey, Daniel",
+      "Collins, Peter",
+      "Kolmas, Aybike",
+      "Bartesaghi, Mauro",
+      "Martínez-Heras, Jose"
+    ],
+    "creators_verified_on_both_public_v1_and_v2_record_pages": true,
+    "ESA_ADB_PUBLISHER": "European Space Agency",
+    "ESA_EXACT_RECORD_LICENSE_FIELD": "VALUE_NOT_IDENTIFIED_IN_RENDERED_RIGHTS_PANEL",
+    "ESA_AUTHOR_PUBLICATION_LICENSE_CLAIM": "CC_BY_3_0_IGO",
+    "ESA_CITATION_FORMAT_APPROVED_BY_AUTHOR": false
   },
   "gates": {
     "G1": "CONDITIONALLY_APPROVED_FOR_G2_CONSIDERATION",
@@ -381,7 +401,7 @@
     "G6": "CLOSED_PUBLICATION_NOT_AUTHORIZED"
   },
   "unresolved_G2_preapproval_items": [
-    "ESA_V2_PRECISE_LICENSE_SCOPE_AND_RELEASE_ATTRIBUTION_SIGNOFF",
+    "ESA_V2_PRECISE_LICENSE_SCOPE_AND_FORMATTED_CREATOR_CREDIT_SIGNOFF",
     "THIRD_PARTY_RIGHTS_AND_HACKASAT_FILE_LEVEL_LICENSE_REVIEW",
     "CANONICAL_COHORT_MEMBERSHIP_AND_UNVERIFIED_DEPENDENCE_EXPLICIT_AUTHOR_FREEZE_DECISION",
     "PROTOCOL_TIMING_AND_PRIOR_SOURCE_EXPOSURE_DECLARATION",
