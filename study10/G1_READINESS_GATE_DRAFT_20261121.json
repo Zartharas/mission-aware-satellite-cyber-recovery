@@ -1,0 +1,289 @@
+{
+  "schema": 1,
+  "study_id": "S10-RSEI-001",
+  "record_date_utc": "2026-11-21",
+  "status": "G1_SOLE_AUTHOR_CONDITIONAL_APPROVAL_RECORDED_G2_HOLD",
+  "source_main_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+  "evidence_scope": "PUBLIC_SOURCE_AND_EXISTING_INTAKE_METADATA_ONLY",
+  "artifacts": [
+    "study10/G1_SOURCE_RIGHTS_REVIEW_DRAFT_20261121.md",
+    "study10/G1_POPULATION_DECISION_DRAFT_20261121.json",
+    "study10/G1_SEMANTIC_CONTROL_SPEC_DRAFT_20261121.md",
+    "study10/G1_READINESS_GATE_DRAFT_20261121.json"
+  ],
+  "outcomes": {
+    "dataset_rights": "PRIMARY_DATASET_LICENSE_DOCUMENTATION_PRESENT_ATTRIBUTION_AND_SCOPE_REVIEW_OPEN",
+    "population_options": "PROVISIONAL_DEFINED_NOT_FROZEN",
+    "category_unit_alignment": "PASSED_PRIOR_AUTHOR_LOCAL_CHECK",
+    "semantic_contract_consistency": "DRAFT_REVIEWED_AGAINST_FROZEN_RUBRIC",
+    "source_field_semantic_adjudication": "NOT_PERFORMED",
+    "synthetic_controls": "V3_TEN_LINKED_CLAIMS_INCLUSIVE_SYNTHETIC_TIME_CONTRACT_NOT_EXECUTED",
+    "independent_expert_adjudication": "NOT_COMPLETED_NOT_REQUIRED",
+    "protocol_freeze": "HOLD",
+    "scientific_execution": "NOT_AUTHORIZED",
+    "publication_submission": "NOT_AUTHORIZED",
+    "cross_source_mission_independence": "NOT_ESTABLISHED_DESPITE_INDICATIVE_SPACECRAFT_SIZE_DIFFERENCE",
+    "ops_sat_public_release_disambiguation": "V1_AND_V2_PUBLISHED_CHECKSUMS_RECORDED_V2_SELECTED_BY_LOCAL_IDENTITY",
+    "ops_sat_local_identity": "PASS_AUTHOR_REPORTED_ZENODO_V2_MD5_AND_PRIOR_SHA256",
+    "ops_sat_data_reuse_rights": "MIT_DATASET_LICENSE_TEXT_IDENTICAL_TO_ZENODO_V2_LICENSE_AND_USER_PRIOR_SHA256",
+    "ops_sat_evidence_independent_local_rehash_by_assistant": false,
+    "esa_v1_license_evidence": "AUTHOR_DECLARED_CC_BY_3_0_IGO_EXACT_V1_DOI",
+    "esa_v2_license_evidence": "AUTHOR_DECLARED_CC_BY_3_0_IGO_V2_RELEASE_SCOPE_PENDING",
+    "internal_static_semantic_adversarial_review": "HIGH_RISK_PRE_FREEZE_CONCERNS_PARTIALLY_ADDRESSED_BY_DRAFT_FIXTURE_EXTERNAL_ORACLE_PENDING",
+    "ops_sat_license_sha256_cross_check": "PASS_LICENSE_MD5_AND_SHA256_MATCH_AUTHOR_PUBLISHED",
+    "synthetic_fixture_schema_contract": "REVIEW_DRAFT_ONLY",
+    "selector_static_four_policy_oracle": "SPECIFIED_INTERNALLY_NOT_EXECUTED_NOT_INDEPENDENTLY_VALIDATED",
+    "policy_scope": "FOUR_FROZEN_STUDY9_PRIMARY_POLICIES_ABLATIONS_EXCLUDED",
+    "overlap_handling_design": "POTENTIAL_DEPENDENCE_NO_INDEPENDENCE_CLAIMS_DESCRIPTIVE_STRATA_DRAFT",
+    "source_attribution_checklist": "WRITTEN_REVIEW_DRAFT_NOT_SIGNED_OFF",
+    "internal_adversarial_resolution": "ONE_CLAIM_VS_TEN_CRITERIA_GAP_CORRECTED_AS_SYNTHETIC_LEDGER_WITHOUT_REAL_VERIFICATION",
+    "independent_reviewer_handoff": "SUPERSEDED_BY_SOLO_AUTHOR_REVIEW_CHECKLIST",
+    "synthetic_time_contract": "STATIC_FROZEN_EVIDENCE_VERIFIER_INCLUSIVE_ISSUE_AND_EXPIRY_BOUNDARIES_DRAFT",
+    "synthetic_requirements_value_comparator": "EXPLICIT_TEN_KEY_VALUE_REQUIREMENTS_MAP_DRAFT_NOT_EXECUTED",
+    "synthetic_negative_mutation_ledger": "EIGHTEEN_CASES_SPECIFIED_FOR_FUTURE_G3_NOT_RUN",
+    "validation_workflow_scope": "GENERAL_REPOSITORY_CHECKS_ONLY_NO_STUDY10_SPECIFIC_ORACLE_TEST",
+    "pre_freeze_source_pins": "SIX_UNMODIFIED_FROZEN_SOURCE_BLOBS_BOUND_TO_BASE_COMMIT",
+    "independent_review_package": "PINNED_SOURCE_HANDOFF_AVAILABLE_FOR_SOLO_AUTHOR_REVIEW",
+    "author_review_role": "SOLE_AUTHOR",
+    "author_g1_review": "CONDITIONALLY_ACCEPTED_FOR_G2_CONSIDERATION",
+    "external_human_review": "NOT_REQUIRED_BY_SOLO_STUDY_INTERNAL_GOVERNANCE",
+    "technical_separate_oracle": "FUTURE_G3_INDEPENDENT_IMPLEMENTATION_NOT_EXECUTED",
+    "author_review_workbook": "FIVE_CRITERIA_AUTHOR_CONDITIONAL_ACCEPTANCE_RECORDED",
+    "legacy_s10_draft_cohort_reconciliation": "AUTHOR_ACCEPTED_G1_DESCRIPTIVE_DEPENDENCE_RULE_G2_CANONICAL_DRAFT_CHANGE_PENDING"
+  },
+  "stop_reasons": [
+    "ESA_V2_ZENODO_RIGHTS_VALUE_NOT_READ_DESPITE_AUTHOR_DECLARATION",
+    "SYNTHETIC_CONTROL_ORACLE_NOT_INDEPENDENTLY_VALIDATED",
+    "COHORT_MEMBERSHIP_NOT_FROZEN",
+    "NO_SOURCE_MAPPING_FREEZE",
+    "ESA_OPS_SAT_UNVERIFIED_OVERLAP_HANDLING_REQUIRES_AUTHOR_G2_ACCEPTANCE",
+    "SYNTHETIC_POSITIVE_FIXTURE_INDEPENDENT_ORACLE_NOT_FROZEN",
+    "LICENSE_ATTRIBUTION_AND_THIRD_PARTY_RIGHTS_SCOPE_REVIEW_UNAPPROVED",
+    "SELECTOR_STATIC_ORACLE_NOT_INDEPENDENTLY_REIMPLEMENTED_OR_EXECUTED",
+    "SYNTHETIC_V3_G2_FREEZE_AND_FUTURE_G3_TEST_PENDING",
+    "STUDY10_SPECIFIC_MUTATION_SUITE_NOT_IMPLEMENTED_OR_EXECUTED",
+    "LEGACY_S10_PROTOCOL_INDEPENDENCE_WORDING_TO_RECONCILE_AT_G2"
+  ],
+  "approval": {
+    "author_authorized_g1_documentation_preparation": true,
+    "create_review_branch_and_pr_authorized": true,
+    "merge_authorized": false,
+    "freeze_authorized": false,
+    "source_extraction_authorized": false,
+    "scientific_execution_authorized": false,
+    "study9_modification_authorized": false,
+    "paper5_modification_authorized": false,
+    "third_party_outreach_authorized": false,
+    "solo_author_review_role_authorized": true,
+    "external_human_review_required": false,
+    "author_g1_verdict_recorded": true
+  },
+  "next_gate": "PREPARE_G2_CANONICAL_CANDIDATE_RESOLVING_G1_CONDITIONS; SEPARATE_EXPLICIT_G2_FREEZE_APPROVAL; G3_G4_AND_MERGE_NOT_AUTHORIZED",
+  "g1_solo_author_review_handoff": {
+    "status": "CONDITIONAL_G1_AUTHOR_VERDICT_RECORDED",
+    "baseline_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+    "source_git_blobs": [
+      {
+        "path": "study9/STUDY9_PROTOCOL.json",
+        "blob_sha1": "c298763d66f533c6e91b956293c0ae1a564486cd"
+      },
+      {
+        "path": "study9/SEMANTIC_ADJUDICATION_FREEZE.json",
+        "blob_sha1": "ba18e5386fb854147570970cc6369ed0731b947c"
+      },
+      {
+        "path": "study9/RECOVERY_STATE_MAPPING_RUBRIC.json",
+        "blob_sha1": "aca6f9ddc7bbc14446b2a89968ec2a6a52bc1a16"
+      },
+      {
+        "path": "study9/POLICY_SCOPE_FREEZE.json",
+        "blob_sha1": "a29d73ae27ce26f0c7ba4c0a8c832d07bc29930c"
+      },
+      {
+        "path": "study2/src/study2_security/selectors.py",
+        "blob_sha1": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23"
+      },
+      {
+        "path": "study2/src/study2_security/evidence.py",
+        "blob_sha1": "5d107ecb24f24fec14f1d817ab48db95be744556"
+      }
+    ],
+    "source_pin_type": "Git blob SHA-1 file identity at specified repository baseline; not independently recomputed local SHA-256",
+    "policy_ids": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B1_FAIL_OPERATIONAL",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ],
+    "excluded_policy_class": "S2_ABL_*",
+    "proposed_synthetic_fixture_id": "S10_SYN_P0_V3_DRAFT",
+    "proposed_negative_mutation_case_count": 18,
+    "source_code_not_changed": true,
+    "source_telemetry_not_accessed": true,
+    "reviewer_independent_of_author_required": false,
+    "external_reviewer_assigned": false,
+    "reviewer_decision_record_required": true,
+    "reviewer_expected_dispositions": [
+      "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+      "REVISE_G1",
+      "BLOCK"
+    ],
+    "review_evidence_must_pin_head_sha_on_review_date": true,
+    "CI_workflow_path": ".github/workflows/validate-research-configs.yml",
+    "CI_limitation": "CI validates repo structure and general tests, not dedicated S10 semantic-oracle agreement",
+    "review_signoff_not_substitute_for_author_G2_approval": true,
+    "no_oracle_executed": true,
+    "no_scientific_protocol_frozen": true,
+    "external_reviewer_required": false,
+    "author_reviewer_role": "SOLE_AUTHOR",
+    "reviewer_independence_disclosure": "Author is reviewing own design; do not claim independent human review",
+    "external_review_not_a_gate": true,
+    "technical_oracle_independent_implementation_required_for_future_G3": true,
+    "review_decision": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+    "author_review_basis_head": "7fc0ee788cf69e4955abb5354fcc100b43ca4b9a",
+    "review_date_utc": "2026-11-21"
+  },
+  "g1_solo_author_criterion_review": {
+    "assessment_type": "EXPLICIT_SOLO_AUTHOR_CONDITIONAL_G1_DECISION",
+    "basis_branch": "study10/s10-rsei-001-g1-readiness-rights-controls",
+    "basis_head_at_precheck": "4d38141f4dad7856a8cceff1076e0f088ad99cd8",
+    "final_head_must_be_pinned_at_author_verdict": true,
+    "investigator_role": "SOLE_AUTHOR",
+    "reviewed_criteria": [
+      {
+        "review_id": "G1-A1",
+        "criterion": "source_provenance_rights",
+        "suggested_status": "REVIEWABLE_WITH_CONDITIONS",
+        "author_verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+        "approval_scope": "CONDITIONAL_G1_DESIGN_FOR_G2_CONSIDERATION_ONLY",
+        "conditions_carried_to_g2": [
+          "Preserve exact ESA and OPS-SAT versioned source provenance and license documentation",
+          "Resolve release-specific attribution, ESA v2 coverage, and third-party exceptions before publishing or redistributing material"
+        ]
+      },
+      {
+        "review_id": "G1-A2",
+        "criterion": "population_selection_and_dependence",
+        "suggested_status": "REVIEWABLE_WITH_CROSS_DOCUMENT_CORRECTION",
+        "author_verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+        "approval_scope": "CONDITIONAL_G1_DESIGN_FOR_G2_CONSIDERATION_ONLY",
+        "conditions_carried_to_g2": [
+          "Four descriptive source strata; no independent spacecraft claim, pooling, or confidence interval",
+          "Explicitly reconcile original OPS-SAT 'independent' wording in future canonical G2 candidate",
+          "ESA v1 paired sensitivity, Hack-A-Sat unpooled secondary, NASA SMAP/MSL deferred"
+        ]
+      },
+      {
+        "review_id": "G1-A3",
+        "criterion": "semantic_correctness",
+        "suggested_status": "STATIC_CONTRACT_ALIGNMENT_REVIEWABLE",
+        "author_verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+        "approval_scope": "CONDITIONAL_G1_DESIGN_FOR_G2_CONSIDERATION_ONLY",
+        "conditions_carried_to_g2": [
+          "Preserve the frozen eight-variable semantics and ten accepted recovery criteria",
+          "No unsupported DIRECT/derived mappings or inferred decision time; unknown and ambiguous remain admissible outcomes"
+        ]
+      },
+      {
+        "review_id": "G1-A4",
+        "criterion": "synthetic_control_design",
+        "suggested_status": "SPECIFIED_ONLY_FUTURE_TECHNICAL_VALIDATION_REQUIRED",
+        "author_verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+        "approval_scope": "CONDITIONAL_G1_DESIGN_FOR_G2_CONSIDERATION_ONLY",
+        "conditions_carried_to_g2": [
+          "P0 synthetic fixture and 18 mutation cases approved only as unexecuted design",
+          "Standalone technical-oracle implementation and G3 parity tests required before G4",
+          "Synthetic signature-valid stub is not cryptographic assurance"
+        ]
+      },
+      {
+        "review_id": "G1-A5",
+        "criterion": "research_integrity",
+        "suggested_status": "DOCUMENTED_WITH_FUTURE_FREEZE_GATES",
+        "author_verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+        "approval_scope": "CONDITIONAL_G1_DESIGN_FOR_G2_CONSIDERATION_ONLY",
+        "conditions_carried_to_g2": [
+          "Retain provenance, source pins, solo-author disclosure, deviations and no operational efficacy claims",
+          "Separate G2 protocol freeze decision, G3/G4 execution authorizations, and PR merge authorization",
+          "Do not treat generic GitHub CI as Study 10 semantic-oracle verification"
+        ]
+      }
+    ],
+    "author_verdict_options": [
+      "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+      "REVISE_G1",
+      "BLOCK"
+    ],
+    "author_verdict_recorded": true,
+    "overall_author_verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+    "no_approval_inferred_from_task_authorization": false,
+    "key_cross_document_issue": "LEGACY_DRAFT_CALLS_OPS_SAT_INDEPENDENT_NEW_G1_PROPOSAL_DENIES_ESTABLISHED_INDEPENDENCE",
+    "technical_parity_required_later": true,
+    "technical_parity_executed": false,
+    "external_human_reviewer_required": false,
+    "conditional": true,
+    "reviewed_basis_head_at_author_approval": "7fc0ee788cf69e4955abb5354fcc100b43ca4b9a",
+    "author_reply_verbatim": "Yes, I authorize and approve.",
+    "reply_question_context": "Conditional approval of all G1-A1 through G1-A5 for G2 consideration with recorded conditions",
+    "author_decision_date_utc": "2026-11-21",
+    "time_precision": "DATE_ONLY; commit timestamp measures recording rather than author message time",
+    "author_review_role": "SOLE_AUTHOR",
+    "independent_human_review_claimed": false,
+    "g2_freeze_authorized_by_verdict": false,
+    "g3_execution_authorized_by_verdict": false,
+    "merge_authorized_by_verdict": false
+  },
+  "g1_author_decision_evidence": {
+    "schema": 1,
+    "study_id": "S10-RSEI-001",
+    "record_type": "SOLE_AUTHOR_CONDITIONAL_G1_APPROVAL",
+    "author_reply_verbatim": "Yes, I authorize and approve.",
+    "reply_question": "Do you approve G1-A1 through G1-A5 for G2 consideration, subject to those conditions, or revise any criterion?",
+    "date_utc": "2026-11-21",
+    "time_capture": "DATE_ONLY",
+    "reviewed_pr": 228,
+    "reviewed_head": "7fc0ee788cf69e4955abb5354fcc100b43ca4b9a",
+    "criteria": [
+      "G1-A1",
+      "G1-A2",
+      "G1-A3",
+      "G1-A4",
+      "G1-A5"
+    ],
+    "conditions": {
+      "G1-A1": [
+        "Preserve exact ESA and OPS-SAT versioned source provenance and license documentation",
+        "Resolve release-specific attribution, ESA v2 coverage, and third-party exceptions before publishing or redistributing material"
+      ],
+      "G1-A2": [
+        "Four descriptive source strata; no independent spacecraft claim, pooling, or confidence interval",
+        "Explicitly reconcile original OPS-SAT 'independent' wording in future canonical G2 candidate",
+        "ESA v1 paired sensitivity, Hack-A-Sat unpooled secondary, NASA SMAP/MSL deferred"
+      ],
+      "G1-A3": [
+        "Preserve the frozen eight-variable semantics and ten accepted recovery criteria",
+        "No unsupported DIRECT/derived mappings or inferred decision time; unknown and ambiguous remain admissible outcomes"
+      ],
+      "G1-A4": [
+        "P0 synthetic fixture and 18 mutation cases approved only as unexecuted design",
+        "Standalone technical-oracle implementation and G3 parity tests required before G4",
+        "Synthetic signature-valid stub is not cryptographic assurance"
+      ],
+      "G1-A5": [
+        "Retain provenance, source pins, solo-author disclosure, deviations and no operational efficacy claims",
+        "Separate G2 protocol freeze decision, G3/G4 execution authorizations, and PR merge authorization",
+        "Do not treat generic GitHub CI as Study 10 semantic-oracle verification"
+      ]
+    },
+    "overall_verdict": "AUTHOR_ACCEPT_G1_FOR_G2_CONSIDERATION",
+    "conditional": true,
+    "independent_human_review_claimed": false,
+    "g2_protocol_frozen": false,
+    "g2_freeze_authorized": false,
+    "empirical_execution_authorized": false,
+    "merge_authorized": false,
+    "publisher_submission_authorized": false,
+    "study9_changes_authorized": false,
+    "evidence_boundary": "Conversational affirmative answer, not cryptographically signed artifact; commit timestamp is recording time"
+  }
+}
