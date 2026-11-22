@@ -625,33 +625,39 @@
     "schema": 1,
     "scope": "G2_CANDIDATE_DOCUMENTATION_AND_STATIC_SOURCE_CONTRACT_REVIEW_ONLY",
     "review_recorded_date_utc": "2026-11-22",
-    "reference_candidate_commit_before_manifest_update": "ab086fc9b8f020672efa20df738582f516eebcae",
+    "reference_candidate_commit_before_manifest_update": "0243d1ea9285c477fed3a0ab30eff85250e7c62c",
     "study_id": "S10-RSEI-001",
     "candidate_nonmanifest_G2_document_git_blob_pins": [
       {
+        "path": "study10/G2_AUTHOR_FREEZE_CHECKLIST_20261121.md",
+        "baseline_commit": "0243d1ea9285c477fed3a0ab30eff85250e7c62c",
+        "git_blob_sha1": "2f97ca279d2fec529629a6a4e485802dd0c533a5",
+        "sha256_of_exact_bytes": "dec136712abd3066b2405604c12e2b437932a58ec568ecd878fb0373f76f3a12",
+        "hash_provenance": "SHA-256 computed over exact UTF-8 bytes; Git blob SHA-1 independently reproduced and matched GitHub; standard SHA-256/SHA-1 known-answer vectors passed",
+        "meaning": "POST_G2_P01_TO_P09_AUTHOR_APPROVAL_CANDIDATE_ONLY_NOT_A_G2_FREEZE",
+        "hash_type_note": "Git blob SHA-1 is Git object identity; separate SHA-256 is the file's raw byte digest"
+      },
+      {
         "path": "study10/G2_CANONICAL_PROTOCOL_CANDIDATE_20261121.md",
-        "baseline_commit": "ab086fc9b8f020672efa20df738582f516eebcae",
-        "git_blob_sha1": "3b0be7757ee4782cf7f762978d35cbac384ca653",
-        "meaning": "CANDIDATE_DOCUMENT_VERSION_PROVENANCE_ONLY_NOT_A_FREEZE",
-        "sha256_of_exact_bytes": "NOT_YET_COMPUTED"
+        "baseline_commit": "0243d1ea9285c477fed3a0ab30eff85250e7c62c",
+        "git_blob_sha1": "12e5a76fa14f2c61d5fddcbe4d6b86f5d2923527",
+        "sha256_of_exact_bytes": "5a4af1bc3470e69016988381a8d999cdfe8b69e047db7c9967282e6ebbc75028",
+        "hash_provenance": "SHA-256 computed over exact UTF-8 bytes; Git blob SHA-1 independently reproduced and matched GitHub; standard SHA-256/SHA-1 known-answer vectors passed",
+        "meaning": "POST_G2_P01_TO_P09_AUTHOR_APPROVAL_CANDIDATE_ONLY_NOT_A_G2_FREEZE",
+        "hash_type_note": "Git blob SHA-1 is Git object identity; separate SHA-256 is the file's raw byte digest"
       },
       {
         "path": "study10/G2_SOURCE_RIGHTS_AND_ATTRIBUTION_CANDIDATE_20261121.md",
-        "baseline_commit": "ab086fc9b8f020672efa20df738582f516eebcae",
+        "baseline_commit": "0243d1ea9285c477fed3a0ab30eff85250e7c62c",
         "git_blob_sha1": "3f550eab7dabed347bbf77805dadd06988a4ce9d",
-        "meaning": "CANDIDATE_DOCUMENT_VERSION_PROVENANCE_ONLY_NOT_A_FREEZE",
-        "sha256_of_exact_bytes": "NOT_YET_COMPUTED"
-      },
-      {
-        "path": "study10/G2_AUTHOR_FREEZE_CHECKLIST_20261121.md",
-        "baseline_commit": "ab086fc9b8f020672efa20df738582f516eebcae",
-        "git_blob_sha1": "3d6295b3835f592f63959881fa515e7239599203",
-        "meaning": "CANDIDATE_DOCUMENT_VERSION_PROVENANCE_ONLY_NOT_A_FREEZE",
-        "sha256_of_exact_bytes": "NOT_YET_COMPUTED"
+        "sha256_of_exact_bytes": "8392f960e669d97873e83d4b9767fa25e5b6271764c1799065dcf5e90559b847",
+        "hash_provenance": "SHA-256 computed over exact UTF-8 bytes; Git blob SHA-1 independently reproduced and matched GitHub; standard SHA-256/SHA-1 known-answer vectors passed",
+        "meaning": "POST_G2_P01_TO_P09_AUTHOR_APPROVAL_CANDIDATE_ONLY_NOT_A_G2_FREEZE",
+        "hash_type_note": "Git blob SHA-1 is Git object identity; separate SHA-256 is the file's raw byte digest"
       }
     ],
-    "candidate_manifest_self_hash": "INTENTIONALLY_NOT_INCLUDED_TO_AVOID_CYCLIC_HASH",
-    "exact_bytes_sha256_status": "NOT_PERFORMED_AT_THIS_STAGE_FINAL_FREEZE_RECEIPT_REQUIRED",
+    "candidate_manifest_self_hash": "EXCLUDED_TO_AVOID_SELF_REFERENCE; RECORD_MANIFEST_SHA256_IN_SEPARATE_PRE_FREEZE_PR_COMMENT_AND_FUTURE_POST_AUTHORIZATION_RECEIPT",
+    "exact_bytes_sha256_status": "THREE_NONMANIFEST_G2_DOCUMENT_DIGESTS_COMPUTED_AND_CROSSCHECKED; MANIFEST_DIGEST_TO_BE_RECORDED_OUTSIDE_ITSELF_AFTER_THIS_COMMIT",
     "decisions": [
       {
         "id": "G2-P01",
@@ -778,7 +784,7 @@
       "source_rights_scope_cleared": false,
       "no_actual_selector_oracle_execution": true
     },
-    "recommendation": "G2_P01_TO_P09_AUTHOR_ACCEPTED_PREPARE_FINAL_IMMUTABLE_FREEZE_CANDIDATE_G2_P10_APPROVAL_PENDING",
+    "recommendation": "AUTHOR_APPROVED_G2_P01_TO_P09; CONTENT_STABLE_CANDIDATE_PINS_PREPARED; EXPLICIT_G2_P10_FREEZE_PENDING",
     "independent_human_review_required": false,
     "CI_scope": "GENERIC_JSON_AND_REPOSITORY_VALIDATION_NOT_SCIENTIFIC_PARITY"
   },
@@ -820,5 +826,26 @@
     "manuscript_submission_authorized": false,
     "working_title": "Recovery-State Semantic Observability Across Public Real-Flight and Space-Cyberchallenge Records",
     "relation_to_prior_studies": "Builds on frozen Study 9 and Study 2 scientific definitions; independent paper aims, dataset citations, results and limitations required; no prior-result copying or uncited reuse"
+  },
+  "g2_content_stable_candidate_reference": {
+    "purpose": "G2_P10_SOLE_AUTHOR_REVIEW_PREPARATION_NOT_FREEZE",
+    "reviewed_method_approval_commit": "0243d1ea9285c477fed3a0ab30eff85250e7c62c",
+    "normative_protocol_path": "study10/G2_CANONICAL_PROTOCOL_CANDIDATE_20261121.md",
+    "supporting_documents": [
+      "study10/G2_AUTHOR_FREEZE_CHECKLIST_20261121.md",
+      "study10/G2_CANONICAL_PROTOCOL_CANDIDATE_20261121.md",
+      "study10/G2_SOURCE_RIGHTS_AND_ATTRIBUTION_CANDIDATE_20261121.md"
+    ],
+    "document_count_in_PR": 4,
+    "normalized_encoding": "Git blob exact UTF-8 bytes; LF as stored; no trimming, newline rewriting or Unicode normalization",
+    "three_nonmanifest_files_sha256_recorded": true,
+    "final_manifest_sha256_location": "OUT_OF_BAND_PR_229_PRE_FREEZE_CHECKPOINT; NOT_THIS_MANIFEST",
+    "g2_method_approval": "G2_P01_TO_P09_ACCEPTED",
+    "G2_P10_freeze_approval_received": false,
+    "freeze_receipt_committed": false,
+    "repository_merge_authorized": false,
+    "G3_G4_scientific_execution_authorized": false,
+    "G4_source_use_gate": "HARD_FAIL_CLOSED_UNDER_APPROVED_OPTION_B",
+    "external_registration_completed": false
   }
 }
