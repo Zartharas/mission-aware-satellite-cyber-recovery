@@ -1,0 +1,5 @@
+• Equal-input learned and deterministic recovery policies diverge under cyber faults
+• Trust-domain sharing exposes common-cause failures in recovery corroboration
+• Greater trust separation does not monotonically improve recovery decisions
+• Frozen held-out tests retain adverse transfer and no-signal control findings
+• Recovery assurance links spacecraft cyber decisions to critical infrastructure
