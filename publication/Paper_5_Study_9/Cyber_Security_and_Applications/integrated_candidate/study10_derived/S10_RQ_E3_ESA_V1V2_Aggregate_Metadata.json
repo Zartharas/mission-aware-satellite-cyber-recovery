@@ -1,0 +1,265 @@
+{
+  "G5_row_level_authorized": false,
+  "PR_merge_authorized": false,
+  "author_approved_scope": "OPTIONAL_RQ_E3_WITHIN_MISSION_CHANNEL_METADATA_FIELD_MATCHING_ONLY",
+  "channel_identifiers_in_report": false,
+  "dataset_release_v1_role": "PAIRED_SENSITIVITY_NOT_FIFTH_PRIMARY_STRATUM",
+  "frozen_source_whole_file_hashes_author_mac_reported_at_prior_boundary": true,
+  "local_detail_contains_hashed_channel_identifiers_but_no_metadata_values": true,
+  "matched_fields_are_not_automatic_semantic_changes": true,
+  "metadata_csv_payload_bytes_read_from_outer_ZIP_members": 6,
+  "metadata_values_in_report": false,
+  "nested_channel_archives_opened": false,
+  "no_new_recovery_state_mapping_or_operational_action_claim": true,
+  "original_telemetry_values_read": false,
+  "original_whole_file_MD5_SHA256_recomputed": false,
+  "per_mission": [
+    {
+      "channels_only_in_v1_count": 0,
+      "channels_only_in_v2_count": 0,
+      "common_nonidentifier_fields": [
+        "Group",
+        "Physical Unit",
+        "Subsystem",
+        "Target"
+      ],
+      "comparison_unit": "(mission, exact channel identifier, metadata column name)",
+      "detail_rows_local": 380,
+      "fields_only_in_v1": [],
+      "fields_only_in_v2": [
+        "Categorical"
+      ],
+      "matched_channel_count": 76,
+      "metadata_field_counts": {
+        "Categorical": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 76,
+          "different": 0,
+          "equal": 0
+        },
+        "Group": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 76
+        },
+        "Physical Unit": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 76
+        },
+        "Subsystem": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 76
+        },
+        "Target": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 76
+        }
+      },
+      "mission": 1,
+      "nested_zip_payload_changes": "NOT_INSPECTED",
+      "paired_common_field_cells": 304,
+      "paired_common_field_value_differences": 0,
+      "paired_common_field_value_equal": 304,
+      "semantic_meaning_changed": "NOT_DETERMINED_BY_METADATA_VALUE_COMPARISON",
+      "v1_channel_count": 76,
+      "v1_channels_csv_sha256": "92fe4582f1907e42129a764e52afddaef02de8e555e4c47302acd4225222abbf",
+      "v1_metadata_fields": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target"
+      ],
+      "v2_channel_count": 76,
+      "v2_channels_csv_sha256": "27a4d6819642effc2a590d49e5bd2c7a915c06a1eb78502c34bed055d1c76d5d",
+      "v2_metadata_fields": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target",
+        "Categorical"
+      ]
+    },
+    {
+      "channels_only_in_v1_count": 0,
+      "channels_only_in_v2_count": 0,
+      "common_nonidentifier_fields": [
+        "Group",
+        "Physical Unit",
+        "Subsystem",
+        "Target"
+      ],
+      "comparison_unit": "(mission, exact channel identifier, metadata column name)",
+      "detail_rows_local": 500,
+      "fields_only_in_v1": [],
+      "fields_only_in_v2": [
+        "Categorical"
+      ],
+      "matched_channel_count": 100,
+      "metadata_field_counts": {
+        "Categorical": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 100,
+          "different": 0,
+          "equal": 0
+        },
+        "Group": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 100
+        },
+        "Physical Unit": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 10,
+          "equal": 90
+        },
+        "Subsystem": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 100
+        },
+        "Target": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 100
+        }
+      },
+      "mission": 2,
+      "nested_zip_payload_changes": "NOT_INSPECTED",
+      "paired_common_field_cells": 400,
+      "paired_common_field_value_differences": 10,
+      "paired_common_field_value_equal": 390,
+      "semantic_meaning_changed": "NOT_DETERMINED_BY_METADATA_VALUE_COMPARISON",
+      "v1_channel_count": 100,
+      "v1_channels_csv_sha256": "0ec9b1b2c9150b55871c0589dff35c184d1188c450b028a1b706a13c0f7f8d4e",
+      "v1_metadata_fields": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target"
+      ],
+      "v2_channel_count": 100,
+      "v2_channels_csv_sha256": "ddd4e30be399ca28aa963b8b6d3f84c7ef10afb512e5cb4a7f11636a986cca98",
+      "v2_metadata_fields": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target",
+        "Categorical"
+      ]
+    },
+    {
+      "channels_only_in_v1_count": 0,
+      "channels_only_in_v2_count": 0,
+      "common_nonidentifier_fields": [
+        "Group",
+        "Physical Unit",
+        "Subsystem",
+        "Target"
+      ],
+      "comparison_unit": "(mission, exact channel identifier, metadata column name)",
+      "detail_rows_local": 240,
+      "fields_only_in_v1": [],
+      "fields_only_in_v2": [
+        "Categorical"
+      ],
+      "matched_channel_count": 48,
+      "metadata_field_counts": {
+        "Categorical": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 48,
+          "different": 0,
+          "equal": 0
+        },
+        "Group": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 48
+        },
+        "Physical Unit": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 44,
+          "equal": 4
+        },
+        "Subsystem": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 48
+        },
+        "Target": {
+          "column_only_in_v1": 0,
+          "column_only_in_v2": 0,
+          "different": 0,
+          "equal": 48
+        }
+      },
+      "mission": 3,
+      "nested_zip_payload_changes": "NOT_INSPECTED",
+      "paired_common_field_cells": 192,
+      "paired_common_field_value_differences": 44,
+      "paired_common_field_value_equal": 148,
+      "semantic_meaning_changed": "NOT_DETERMINED_BY_METADATA_VALUE_COMPARISON",
+      "v1_channel_count": 48,
+      "v1_channels_csv_sha256": "150fe9b6e51fddc9c71e5df76150564e8016fb7fd13243cb2677f5eefd8d089d",
+      "v1_metadata_fields": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target"
+      ],
+      "v2_channel_count": 48,
+      "v2_channels_csv_sha256": "a540212ccd85c34f8a3544cd2be91c07eee263ebc87b2ddaaa49fc466ec4a1d6",
+      "v2_metadata_fields": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target",
+        "Categorical"
+      ]
+    }
+  ],
+  "pickle_deserialization": false,
+  "post_preflight_source_metadata_change_guard": true,
+  "prior_ESA_layout_report_sha256_verified_local": "e298ebf2fd9b3a82d4f6a4083f79b4727969dbabeb76221da726c1bbb603cf38",
+  "prior_G4_05_execution_boundary_sha256": "39e64f82a22ca410a73ce84bd95af7fb36d8db60fb7497c9f57fc43ae06379cb",
+  "prior_G4_06_phase1_schema_sha256": "36aca9592b52ad6da0c78039d6f3c41ea4a0b1e09473a2fb88bc426aced8ab8c",
+  "publication_authorized": false,
+  "run_utc": "2026-11-23T15:42:04.699652+00:00",
+  "schema_version": 1,
+  "source_DOs": {
+    "ESA_v1": "10.5281/zenodo.12528696",
+    "ESA_v2": "10.5281/zenodo.15237121"
+  },
+  "stage": "G4_06_TIER_B_RQ_E3_METADATA_PAIRED_RELEASE",
+  "status": "RQ_E3_ESA_V1_V2_PAIRED_METADATA_COLLECTED_NOT_G5",
+  "study_id": "S10-RSEI-001",
+  "totals": {
+    "changed_common_field_values": 54,
+    "channels_only_v1": 0,
+    "channels_only_v2": 0,
+    "details_written_local_rows": 1120,
+    "matched_channels": 224,
+    "paired_common_field_cells": 896,
+    "v1_channels": 224,
+    "v2_channels": 224
+  }
+}
