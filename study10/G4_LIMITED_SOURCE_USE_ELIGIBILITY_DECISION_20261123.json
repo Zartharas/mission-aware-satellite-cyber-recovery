@@ -9,7 +9,7 @@
     "immediately_preceding_request": "The next authorization should address that precise source-use eligibility decision. If a mandatory condition still lacks sufficient evidence, it must remain on hold or be addressed through a separately approved prospective change.",
     "interpreted_as": "AUTHOR_AUTHORIZED_EVIDENCE_GROUNDED_ELIGIBILITY_DETERMINATION_AND_CANDIDATE_SIGNOFF_INSTRUMENT",
     "explicit_acceptance_of_exact_new_attestation_text": false,
-    "no_inference_of_third_party_rights": false,
+    "no_inference_of_third_party_rights": true,
     "no_G4_06_scientific_execution_approval": true,
     "no_PR_merge_approval": true
   },
