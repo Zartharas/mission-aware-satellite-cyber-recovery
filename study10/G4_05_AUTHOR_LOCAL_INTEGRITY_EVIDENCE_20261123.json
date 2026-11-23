@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_05_AUTHOR_EXECUTED_OFFLINE_LOCAL_SOURCE_INTEGRITY_EVIDENCE",
+  "publication_output": "STANDALONE_RESEARCH_PAPER_NOT_DISSERTATION",
+  "record_scope": "LOCAL_SOURCE_FILE_INTEGRITY_ONLY_NO_NATIVE_SEMANTIC_ADJUDICATION",
+  "observation_provenance": {
+    "basis": "SOLE_AUTHOR_PASTED_LOCAL_TERMINAL_JSON_OUTPUT_IN_CHAT; ORIGINAL_SOURCE_BYTES_AND_ORIGINAL_JSON_FILE_NOT_MOUNTED",
+    "operator": "SOLE_AUTHOR_LOCAL_MAC",
+    "claimed_tool_commit": "3945a39d4a55330c2166e485d19022e016760028",
+    "tool_source_git_blob_sha1": "f5d76faf5cbfc37a1391bbd7a287bea6ee23a158",
+    "reported_run_utc": "2026-11-23T01:31:30.209919+00:00",
+    "reported_report_basename": "Study10_G4_Local_Integrity_Only_Deflate64_Rerun.json",
+    "report_file_sha256": "NOT_PROVIDED; NOT_INDEPENDENTLY_ATTESTED",
+    "signed_execution_attestation": false,
+    "source_payloads_independently_rehashed_by_assistant": false,
+    "source_file_contents_uploaded_to_github": false,
+    "previous_failed_run_utc": "2026-11-23T01:00:23.628505+00:00",
+    "previous_failed_overall_status": "FAIL_LOCAL_INTEGRITY_OR_RESOURCE_LIMIT",
+    "previous_failed_number_passing": 6,
+    "previous_failed_root_cause": "ZIP_DEFLATE64_METHOD_9_NOT_IMPLEMENTED_IN_PYTHON_ZIPFILE_FOR_THREE_ESA_V2_CHANNELS_CSV",
+    "previous_failed_report_preserved_on_author_computer": "REQUESTED_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "pinned_methodology": {
+    "G2_frozen_payload_commit": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "G2_freeze_receipt_commit": "a346239d2de2770576c1ac95709fc799a5b82ddd",
+    "G2_frozen_manifest_git_blob_sha1": "a20ca25c439d97150c56eeec197cc891c83aa1ad",
+    "G2_frozen_manifest_sha256": "2eb2cb1ec3a49de3ff61bd7bb1a4d186a45d6fddf7da98ec79d18f0dee9b4210",
+    "G4_corrected_integrity_tool_commit": "3945a39d4a55330c2166e485d19022e016760028",
+    "archive_validation_level": "OUTER_AND_ONE_NESTED_ZIP_LEVEL_CRC",
+    "special_case": "ALLOWLIST_ONLY_ESA_V2_CHANNELS_CSV_DEFLATE64_USR_BIN_UNZIP_WITH_INDEPENDENT_DECOMPRESSED_SIZE_AND_CRC_COMPARISON",
+    "github_synthetic_tests_run": 45093916420,
+    "github_synthetic_tests_passed": 9,
+    "github_synthetic_tests_scope": "CHECKER_SOFTWARE_ONLY_NOT_AUTHOR_MAC_SOURCE_VALIDATION"
+  },
+  "author_reported_overall": {
+    "status": "PASS_ALL_NINE_LOCAL_IDENTITY_AND_NESTED_INTEGRITY",
+    "expected_sources": 9,
+    "present_sources": 9,
+    "hash_matched_sources": 9,
+    "passed_sources": 9,
+    "missing_sources": 0,
+    "esa_archives_full_outer_and_nested_crc_passed": 6,
+    "ops_sat_files_hash_passed": 3,
+    "original_telemetry_semantic_rows_inspected": 0,
+    "archive_members_extracted_as_named_files": 0,
+    "raw_telemetry_uploaded": false,
+    "G4_scientific_execution_authorized": false,
+    "PR_merge_authorized": false
+  },
+  "file_evidence": [
+    {
+      "id": "ESA_M1_v1",
+      "basename": "ESA-Mission1.zip",
+      "doi": "10.5281/zenodo.12528696",
+      "size_bytes": 3776246054,
+      "computed_md5_as_pasted": "80750189d171f5f398fb3d96c49df12b",
+      "computed_sha256_as_pasted": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_FULL_OUTER_AND_NESTED_CRC",
+      "archive_check": {
+        "outer_crc": "PASS",
+        "nested_crc": "PASS",
+        "outer_members": 780,
+        "outer_uncompressed_bytes": 3776362882,
+        "nested_archives": 774,
+        "nested_members": 774,
+        "nested_uncompressed_bytes": 8953387949,
+        "temporary_source_bytes_retained": false
+      }
+    },
+    {
+      "id": "ESA_M1_v2",
+      "basename": "ESA-Mission1 (1).zip",
+      "doi": "10.5281/zenodo.15237121",
+      "size_bytes": 3776246073,
+      "computed_md5_as_pasted": "9770ad12ed730238f37c42d5c27ab436",
+      "computed_sha256_as_pasted": "ba28f761b1deab4dbba4728793bff139fea39dbf9cf0d9c559d619ffe75d5a72",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_FULL_OUTER_AND_NESTED_CRC",
+      "archive_check": {
+        "outer_crc": "PASS",
+        "nested_crc": "PASS",
+        "outer_members": 780,
+        "outer_uncompressed_bytes": 3776363122,
+        "nested_archives": 774,
+        "nested_members": 774,
+        "nested_uncompressed_bytes": 8953387949,
+        "temporary_source_bytes_retained": false
+      }
+    },
+    {
+      "id": "ESA_M2_v1",
+      "basename": "ESA-Mission2.zip",
+      "doi": "10.5281/zenodo.12528696",
+      "size_bytes": 4098539912,
+      "computed_md5_as_pasted": "0b7505b7f0731ca037ee889ca2a520ce",
+      "computed_sha256_as_pasted": "843c3b5e0042178bfee650fcf7f16413ce8083dcfa5db53e6d37e0811dfb138d",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_FULL_OUTER_AND_NESTED_CRC",
+      "archive_check": {
+        "outer_crc": "PASS",
+        "nested_crc": "PASS",
+        "outer_members": 230,
+        "outer_uncompressed_bytes": 4099243015,
+        "nested_archives": 223,
+        "nested_members": 223,
+        "nested_uncompressed_bytes": 9781759159,
+        "temporary_source_bytes_retained": false
+      }
+    },
+    {
+      "id": "ESA_M2_v2",
+      "basename": "ESA-Mission2 (1).zip",
+      "doi": "10.5281/zenodo.15237121",
+      "size_bytes": 4098539932,
+      "computed_md5_as_pasted": "bfc72012691427d9327eb41f726ce45e",
+      "computed_sha256_as_pasted": "e8a89be1917b6754a10bd323441e87a82c8cf2e84ed162442c2dcf72ecc346d5",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_FULL_OUTER_AND_NESTED_CRC",
+      "archive_check": {
+        "outer_crc": "PASS",
+        "nested_crc": "PASS",
+        "outer_members": 230,
+        "outer_uncompressed_bytes": 4099243187,
+        "nested_archives": 223,
+        "nested_members": 223,
+        "nested_uncompressed_bytes": 9781759159,
+        "temporary_source_bytes_retained": false
+      }
+    },
+    {
+      "id": "ESA_M3_v1",
+      "basename": "ESA-Mission3.zip",
+      "doi": "10.5281/zenodo.12528696",
+      "size_bytes": 3734403447,
+      "computed_md5_as_pasted": "34b8a8857e2242fb1f00b368b7421595",
+      "computed_sha256_as_pasted": "4ed219e4d07c8a277b5c32d06f9a8a9ebc61fc231450bf21ce92079d25182b27",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_FULL_OUTER_AND_NESTED_CRC",
+      "archive_check": {
+        "outer_crc": "PASS",
+        "nested_crc": "PASS",
+        "outer_members": 52,
+        "outer_uncompressed_bytes": 3734582943,
+        "nested_archives": 48,
+        "nested_members": 48,
+        "nested_uncompressed_bytes": 13031639670,
+        "temporary_source_bytes_retained": false
+      }
+    },
+    {
+      "id": "ESA_M3_v2",
+      "basename": "ESA-Mission3 (1).zip",
+      "doi": "10.5281/zenodo.15237121",
+      "size_bytes": 3734403444,
+      "computed_md5_as_pasted": "d63943f09c81378acd9fc5e565ecc66e",
+      "computed_sha256_as_pasted": "f426c4bb9857299c586e3c50f35ddb58b469a3e5565f586d4095bcb6cf532404",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_FULL_OUTER_AND_NESTED_CRC",
+      "archive_check": {
+        "outer_crc": "PASS",
+        "nested_crc": "PASS",
+        "outer_members": 52,
+        "outer_uncompressed_bytes": 3734582483,
+        "nested_archives": 48,
+        "nested_members": 48,
+        "nested_uncompressed_bytes": 13031639670,
+        "temporary_source_bytes_retained": false
+      }
+    },
+    {
+      "id": "OPS_V2_dataset.csv",
+      "basename": "dataset.csv",
+      "doi": "10.5281/zenodo.15108715",
+      "size_bytes": 507550,
+      "computed_md5_as_pasted": "5246fdc5e4630a4cecbf7fb6bc8b795e",
+      "computed_sha256_as_pasted": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_MD5_SHA256"
+    },
+    {
+      "id": "OPS_V2_segments.csv",
+      "basename": "segments.csv",
+      "doi": "10.5281/zenodo.15108715",
+      "size_bytes": 18987091,
+      "computed_md5_as_pasted": "72f109630abb933a386106897a631188",
+      "computed_sha256_as_pasted": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_MD5_SHA256"
+    },
+    {
+      "id": "OPS_V2_LICENSE",
+      "basename": "LICENSE",
+      "doi": "10.5281/zenodo.15108715",
+      "size_bytes": 1091,
+      "computed_md5_as_pasted": "ea8befa9af2b37b7a54b5a16fc3712b0",
+      "computed_sha256_as_pasted": "76d2ff9834ed2bb1356d9f7eb303c289817374bb1d5bbe5af86817e73e0f47d2",
+      "compared_to_frozen_reference_md5_sha256": true,
+      "reported_status": "PASS_MD5_SHA256"
+    }
+  ],
+  "review_conclusions": {
+    "evidence_type": "AUTHOR_EXECUTED_LOCAL_RUN_ASSISTANT_CROSSCHECKED_PASTED_METADATA_AGAINST_FROZEN_SOURCE_HASHES_AND_TOOL_STATUS_LOGIC",
+    "G4_05_file_identity_and_archive_integrity_subcondition": "PASS_FOR_DEFINED_CONFIGURED_CHECK_SCOPE",
+    "G4_05_all_applicable_attribution_notices_condition": "NOT_YET_CLEARED",
+    "G4_05_full_gate_cleared": false,
+    "G4_01_ESA_v2_file_rights_signoff": false,
+    "G4_02_ESA_v1_if_used_rights_signoff": false,
+    "G4_03_OPS_v2_attribution_and_exceptions_signoff": false,
+    "G4_04_Hackasat4_secondary_file_use": "BLOCKED",
+    "G4_06_separate_G4_scientific_execution_authorized": false,
+    "G4_overall_gate": "HOLD",
+    "original_telemetry_processed_for_semantic_research": false,
+    "source_redistribution_authorized": false,
+    "PR_merge_authorized": false,
+    "publication_submission_authorized": false,
+    "study2_or_G2_frozen_protocol_edited": false,
+    "independent_attestation_by_assistant": false
+  }
+}
