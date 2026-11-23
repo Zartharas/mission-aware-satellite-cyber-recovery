@@ -55,3 +55,13 @@ The report contains **only filenames, DOI/release IDs, sizes, digests and summar
 ## Validation evidence
 
 The separately committed unit tests use **only freshly generated synthetic ZIP/CSV bytes**. GitHub Actions may test the harness and check that a checkout with no dataset originals returns `INCOMPLETE_SOURCE_FILES_NOT_MOUNTED`, but cannot attest the author's nine source files. A real source-integrity PASS must come from running the script on those authorized local bytes and verifying its output.
+
+## Deflate64 method-9 compatibility and rerun after previous archive failure
+
+A previous author-local integrity report dated 2026-11-23 verified **all nine** full-file published MD5 values and author-pinned SHA-256 values. The three ESA v1 archives passed full outer and nested CRC, and all three OPS-SAT files passed their hashes. The **three ESA v2 archives** stopped at `NotImplementedError` because their `ESA-Mission{1,2,3}/channels.csv` entries use **Deflate64 ZIP method 9**, which the standard Python `zipfile` decoder cannot decompress. That observation is documented in the older pre-freeze intake. It is an unsupported-decompression check, not proof of altered source bytes; do not change the failed run or mark it as PASS.
+
+The narrow correction runs **`/usr/bin/unzip -p` only on these three, exact allowlisted v2 `channels.csv` members**, streams decompressed bytes without printing them, and independently verifies the exact `ZipInfo.file_size` and expected `ZipInfo.CRC` against the output. It does not inspect CSV columns, stream any other ZIP member using an external tool, or skip CRC. The subprocess is invoked without a shell, with an output-size bound, time limit, and preserved input identity. If the system unzip utility is missing, unsupported, corrupt, times out or mismatches CRC, the audit **fails closed**. All nested archive checks remain as before. The helper uses only a local scratch directory and sends nothing over a network.
+
+For an existing, previously cloned `S10_G4_integrity_checkout`, update only the detached worktree to the corrected exact Git commit (which will be provided after the fix passes exact-head CI), then rerun the original nine-file command but write to a **new report filename**, leaving the original failed report intact for audit. The nine originals must remain on the Mac and must not enter GitHub, CI, any AI connector, or an external service.
+
+If this method-9-specific correction still encounters a failure, preserve the new JSON report and the *error code only* for review. Do not relabel it as PASS, bypass nested checks, change the frozen G2 source identities or execute G4 semantic research.

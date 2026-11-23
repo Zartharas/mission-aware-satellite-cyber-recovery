@@ -103,5 +103,52 @@ class SyntheticIntegrityTests(unittest.TestCase):
             got=audit.audit_one(e, outer_only=True, scratch=None, limits=audit.DEFAULT_LIMITS)
             self.assertEqual(got['status'], 'FAIL_BAD_PATH_OR_SYMLINK')
 
+
+# These tests specifically cover the Deflate64 method-9 compatibility fix.
+# They never use real ESA data or unpack telemetry from a third-party source.
+class SyntheticDeflate64FallbackTests(unittest.TestCase):
+    def test_external_stream_crc_of_allowed_synthetic_metadata(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t)
+            p=root/'synthetic-mission.zip'
+            payload=b'Channel,Group\nSYN-01,CONTROL\n' * 20
+            p.write_bytes(mkzip({'ESA-Mission1/channels.csv': payload}))
+            with zipfile.ZipFile(p) as z:
+                info=z.infolist()[0]
+                got=audit.verify_external_unzip_crc(p, info)
+                self.assertEqual(got,len(payload))
+                info.CRC ^= 1
+                with self.assertRaisesRegex(audit.IntegrityError,'DEFLATE64_EXTERNAL_SIZE_OR_CRC_MISMATCH'):
+                    audit.verify_external_unzip_crc(p,info)
+
+    def test_unapproved_metadata_member_never_uses_fallback(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t)
+            p=root/'synthetic-mission.zip'
+            p.write_bytes(mkzip({'ESA-Mission1/telemetry.csv':b'fake bytes only'}))
+            with zipfile.ZipFile(p) as z:
+                with self.assertRaisesRegex(audit.IntegrityError,'DEFLATE64_NON_ALLOWLISTED_MEMBER'):
+                    audit.verify_external_unzip_crc(p,z.infolist()[0])
+
+    def test_invalid_deflate64_data_fails_closed(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t)
+            p=root/'ESA-Mission1 (1).zip'
+            original=bytearray(mkzip({'ESA-Mission1/channels.csv':b'SYNTHETIC-NOT-DEFLATE64'}))
+            # Relabel the STORED member as method-9 without actually encoding it.
+            # This is deliberately *not* a valid Deflate64 file.
+            import struct
+            local=original.find(b'PK\x03\x04')
+            central=original.find(b'PK\x01\x02')
+            self.assertGreaterEqual(local,0)
+            self.assertGreaterEqual(central,0)
+            struct.pack_into('<H',original,local+8,9)
+            struct.pack_into('<H',original,central+10,9)
+            p.write_bytes(original)
+            expected=expected_for_file(p,1,len(b'SYNTHETIC-NOT-DEFLATE64'))
+            bad=audit.audit_one(expected,outer_only=False,scratch=root,limits=audit.DEFAULT_LIMITS)
+            self.assertEqual(bad['status'],'FAIL_INTEGRITY_OR_RESOURCE_LIMIT',bad)
+            self.assertIn('DEFLATE64',bad['failure_code'])
+
 if __name__ == '__main__':
     unittest.main()

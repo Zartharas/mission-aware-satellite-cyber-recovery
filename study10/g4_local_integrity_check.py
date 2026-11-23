@@ -15,12 +15,15 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import select
 import shutil
+import subprocess
 import stat
 import sys
 import tempfile
 import time
 import zipfile
+import zlib
 
 CHUNK = 1024 * 1024
 EXPECTED_FROZEN_G2_MANIFEST_SHA256 = "2eb2cb1ec3a49de3ff61bd7bb1a4d186a45d6fddf7da98ec79d18f0dee9b4210"
@@ -155,6 +158,72 @@ def drain(reader, *, max_bytes: int, deadline: float | None = None) -> int:
             raise IntegrityError("ZIP_MEMBER_STREAM_EXCEEDED_ALLOWED_SIZE")
 
 
+# ESA-ADB v2 has a known, narrowly scoped outer channels.csv using Deflate64
+# compression method 9. Python zipfile does not implement Deflate64. The system
+# unzip tool (Info-ZIP, already used in the pre-freeze local intake) does.
+DEFLATE64_METHOD = 9
+DEFLATE64_MAX_METADATA_BYTES = 16 * 1024 * 1024
+DEFLATE64_TOOL_MAX_SECONDS = 180
+
+
+def verify_external_unzip_crc(archive_path: Path, info: zipfile.ZipInfo,
+                              deadline: float | None = None) -> int:
+    """Bounded streaming subprocess check of *one named, non-sensitive* ZIP member.
+
+    Strictly no shell and no telemetry parsing. Independently verify member size
+    and CRC32; an external unzip exit code alone is never sufficient.
+    """
+    utility = Path("/usr/bin/unzip")
+    if not utility.is_file() or not os.access(utility, os.X_OK):
+        raise IntegrityError("DEFLATE64_TRUSTED_LOCAL_UNZIP_MISSING")
+    if info.file_size > DEFLATE64_MAX_METADATA_BYTES:
+        raise IntegrityError("DEFLATE64_METADATA_MEMBER_TOO_LARGE")
+    if info.filename not in {f"ESA-Mission{i}/channels.csv" for i in (1, 2, 3)}:
+        raise IntegrityError("DEFLATE64_NON_ALLOWLISTED_MEMBER")
+    if not archive_path.is_file() or archive_path.is_symlink():
+        raise IntegrityError("DEFLATE64_SOURCE_NOT_REGULAR_OR_SYMLINK")
+    end = time.monotonic() + DEFLATE64_TOOL_MAX_SECONDS
+    if deadline is not None:
+        end = min(end, deadline)
+    process = subprocess.Popen(
+        [str(utility), "-p", str(archive_path), info.filename],
+        stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+        cwd="/", env={"LC_ALL": "C", "PATH": "/usr/bin:/bin"},
+    )
+    count = 0
+    crc = 0
+    try:
+        assert process.stdout is not None
+        while True:
+            remaining = end - time.monotonic()
+            if remaining <= 0:
+                raise IntegrityError("DEFLATE64_EXTERNAL_UNZIP_TIMEOUT")
+            ready, _, _ = select.select([process.stdout], [], [], min(remaining, 5.0))
+            if not ready:
+                continue
+            data = os.read(process.stdout.fileno(), CHUNK)
+            if not data:
+                break
+            count += len(data)
+            if count > info.file_size or count > DEFLATE64_MAX_METADATA_BYTES:
+                raise IntegrityError("DEFLATE64_EXTERNAL_STREAM_SIZE_LIMIT")
+            crc = zlib.crc32(data, crc)
+        remaining = end - time.monotonic()
+        if remaining <= 0:
+            raise IntegrityError("DEFLATE64_EXTERNAL_UNZIP_TIMEOUT")
+        if process.wait(timeout=remaining) != 0:
+            raise IntegrityError("DEFLATE64_EXTERNAL_UNZIP_FAILED")
+        if count != info.file_size or crc != info.CRC:
+            raise IntegrityError("DEFLATE64_EXTERNAL_SIZE_OR_CRC_MISMATCH")
+        return count
+    finally:
+        if process.poll() is None:
+            process.kill()
+            process.wait(timeout=10)
+        if process.stdout is not None:
+            process.stdout.close()
+
+
 def inspect_zip(fp, expected: dict, *, outer_only: bool, scratch: Path | None,
                 limits: dict, deadline: float | None = None) -> dict:
     out = {"outer_crc": "NOT_RUN", "nested_crc": "NOT_RUN", "outer_members": 0,
@@ -175,7 +244,30 @@ def inspect_zip(fp, expected: dict, *, outer_only: bool, scratch: Path | None,
             ensure_runtime(deadline)
             if info.is_dir():
                 continue
-            # All outer members are fully streamed; ZipExtFile verifies CRC on EOF.
+            # Python zipfile lacks Deflate64 (method 9). Only the three known
+            # ESA-ADB v2 channels.csv members may use a bounded /usr/bin/unzip
+            # fallback, whose output is independently size/CRC verified.
+            if info.compress_type == DEFLATE64_METHOD:
+                if expected["id"] not in {"ESA_M1_v2", "ESA_M2_v2", "ESA_M3_v2"}:
+                    raise IntegrityError("DEFLATE64_UNEXPECTED_SOURCE_VERSION")
+                archive_path = expected["path"]
+                original_stat = os.fstat(fp.fileno())
+                observed_stat = os.stat(archive_path, follow_symlinks=False)
+                if (original_stat.st_dev, original_stat.st_ino, original_stat.st_size,
+                        original_stat.st_mtime_ns) != (observed_stat.st_dev,
+                        observed_stat.st_ino, observed_stat.st_size,
+                        observed_stat.st_mtime_ns):
+                    raise IntegrityError("DEFLATE64_SOURCE_CHANGED_AFTER_HASHING")
+                verify_external_unzip_crc(archive_path, info, deadline=deadline)
+                observed_stat = os.stat(archive_path, follow_symlinks=False)
+                if (original_stat.st_dev, original_stat.st_ino, original_stat.st_size,
+                        original_stat.st_mtime_ns) != (observed_stat.st_dev,
+                        observed_stat.st_ino, observed_stat.st_size,
+                        observed_stat.st_mtime_ns):
+                    raise IntegrityError("DEFLATE64_SOURCE_CHANGED_DURING_CHECK")
+                continue
+            # All normally supported outer members are fully streamed;
+            # ZipExtFile verifies their CRC on EOF.
             with outer.open(info, "r") as stream:
                 if info in nested and not outer_only:
                     if scratch is None:
