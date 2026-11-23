@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_PUBLIC_METADATA_LICENSE_AND_ATTRIBUTION_EVIDENCE_REVIEW",
+  "review_utc": "2026-11-23T01:45:52.464Z",
+  "review_scope": "FIRST_PARTY_PUBLIC_LICENSE_TEXT_AND_RELEASE_METADATA_ONLY; NO_ORIGINAL_SATELLITE_TELEMETRY_INSPECTED",
+  "study_output_classification": "STANDALONE_RESEARCH_PAPER",
+  "author_authorization_interpretation": "AUTHORIZED_RIGHTS_NOTICE_AND_EXCEPTION_REVIEW_AFTER_NINE_FILE_INTEGRITY_REPORT_HASH; NOT_G4_06_SOURCE_SEMANTIC_RESEARCH_EXECUTION",
+  "original_report_sha256_addendum": "study10/G4_05_REPORT_SHA256_ADDENDUM_20261123.json",
+  "license_sources": [
+    {
+      "gate": "G4-01",
+      "source": "ESA_ADB_V2_PRIMARY",
+      "versions": [
+        "v2"
+      ],
+      "data_doi": "10.5281/zenodo.15237121",
+      "official_release": "https://zenodo.org/records/15237121",
+      "creators": [
+        "De Canio, Gabriele",
+        "Kotowski, Krzysztof",
+        "Haskamp, Christoph"
+      ],
+      "published_date": "2025-04-17",
+      "public_zenodo_rights_value": "NOT_RENDERED",
+      "dataset_license_claim": "CC BY 3.0 IGO",
+      "claim_basis": "DATASET_AUTHOR_MANUSCRIPT_LICENSE_STATEMENT_RECORDED_IN_PRIOR_G4_REVIEW; CURRENT_OPENREVIEW_PDF_FETCH_CHALLENGED",
+      "supporting_first_party_repository": "https://github.com/esa/anomaly-dataset",
+      "supporting_repo_license_commit": "a969698e464788c961dbb646d3da24595c7c7a2b",
+      "supporting_repo_license_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+      "supporting_repo_version_scope": "V1_RECORD_LINKED_IN_REPOSITORY_README; NOT_PROOF_OF_V2_PER_FILE_LICENSE",
+      "reference_scope": "ESA_MISSIONS_1_2_3_DISTINCT_DESCRIPTIVE_STRATA_NOT_INDEPENDENT_SPACECRAFT_REPLICATIONS",
+      "applicable_license_link": "https://creativecommons.org/licenses/by/3.0/igo/",
+      "planned_notice": "CITE_EXACT_V2_DATASET_CREATORS_DOI_CC_BY_3_0_IGO_LICENSE_CHANGE_NOTICE_AND_NO_ENDORSEMENT; DO_NOT_REHOST_RAW_DATA",
+      "rights_exception_scope": "ESA_V2_ZIP_INNER_FILE_LEVEL_EXCEPTIONS_NOT_INSPECTED",
+      "status": "DOCUMENTARY_LICENSE_EVIDENCE_SUBSTANTIAL; RIGHTS_AND_FILE_EXCEPTIONS_FINAL_SIGNOFF_PENDING",
+      "author_final_rights_clearance": false
+    },
+    {
+      "gate": "G4-02",
+      "source": "ESA_ADB_V1_PAIRED_SENSITIVITY_ONLY",
+      "data_doi": "10.5281/zenodo.12528696",
+      "official_release": "https://zenodo.org/records/12528696",
+      "creators": [
+        "De Canio, Gabriele",
+        "Kotowski, Krzysztof",
+        "Haskamp, Christoph"
+      ],
+      "published_date": "2024-06-25",
+      "license": "CC BY 3.0 IGO",
+      "first_party_evidence": "OFFICIAL_ESA_GITHUB_REPOSITORY_LICENSE_AND_README_LINKING_V1_ZENODO_DOI",
+      "repository": "esa/anomaly-dataset",
+      "repository_commit": "a969698e464788c961dbb646d3da24595c7c7a2b",
+      "license_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+      "license_link": "https://creativecommons.org/licenses/by/3.0/igo/",
+      "file_exceptions": "NOT_PROVEN_ABSENT_IN_V1_ARCHIVE_MEMBERS",
+      "planned_notice": "VERSIONED_DOI_LICENSE_ATTRIBUTION_AND_PAIRED_RELEASE_NOT_INDEPENDENT_REPLICATION",
+      "status": "FIRST_PARTY_PROJECT_LICENSE_CONFIRMED_V1_FILE_EXCEPTIONS_PENDING_IF_USED",
+      "author_final_rights_clearance": false
+    },
+    {
+      "gate": "G4-03",
+      "source": "OPS_SAT_AD_V2_PRIMARY",
+      "data_doi": "10.5281/zenodo.15108715",
+      "official_release": "https://zenodo.org/records/15108715",
+      "creator_displayed": "Bogdan, Ruszczak",
+      "creator_normalized_from_contributor": "Ruszczak, Bogdan",
+      "published_date": "2024-06-24",
+      "published_date_needs_export_verification": true,
+      "recorded_file_names": [
+        "dataset.csv",
+        "segments.csv",
+        "LICENSE"
+      ],
+      "license_file_published_md5": "ea8befa9af2b37b7a54b5a16fc3712b0",
+      "author_local_license_md5_matched": true,
+      "author_local_license_sha256": "76d2ff9834ed2bb1356d9f7eb303c289817374bb1d5bbe5af86817e73e0f47d2",
+      "first_party_license_source": "https://zenodo.org/records/15108715/files/LICENSE?download=1",
+      "license_text_directly_fetched_from_official_v2_release": true,
+      "license": "MIT License for OPS-SAT Dataset",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "rights_scope_explicit": "SOFTWARE_DATA_AND_ASSOCIATED_DOCUMENTATION",
+      "permission_notice_required_for_copies_or_substantial_portions": true,
+      "first_party_project_license_blob_sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+      "source_tree_metadata": "UPSTREAM_PUBLIC_GITHUB_MAIN_TREE_HAD_ONE_LICENSE_FILE; NO_OTHER_LICENSE_FILENAME_IN_SEVEN_ITEMS",
+      "license_exception_scope": "ORIGINAL_CSV_INBAND_NOTICES_OR_THIRD_PARTY_RIGHTS_NOT_PROVEN_ABSENT_FROM_PUBLIC_FILE_NAME_SCAN",
+      "planned_notice": "DATASET_VERSION_DOI_CREATORS; COPYRIGHT_2024_KP_LABS; FULL_MIT_PERMISSION_AND_DISCLAIMER_WHERE_APPLICABLE; CITE_BENCHMARK_METHOD_PAPER_SEPARATELY",
+      "status": "EXACT_V2_FIRST_PARTY_DATA_LICENSE_DIRECTLY_VERIFIED; FILE_EXCEPTION_REVIEW_AND_IMPLEMENTATION_SIGNOFF_PENDING",
+      "author_final_rights_clearance": false
+    },
+    {
+      "gate": "G4-04",
+      "source": "HACKASAT4_OPTIONAL_SECONDARY_UNPOOLED",
+      "repo": "cromulencellc/hackasat-finals-2023",
+      "commit": "2cb4b5a50ed2835d97b5f07ac4467ea210bcb7f1",
+      "readme_git_blob": "2683d79b2875f78743b9f5170f9263f6281eccbb",
+      "license_file_displayed_in_readme": "LICENSE.md",
+      "license_file_exists": false,
+      "actual_license_path": ".LICENSE",
+      "actual_license_git_blob": "a086eaa939d79549c4b16fea778b86c1f87ed389",
+      "readme_general_statement": "MIT_UNLESS_OTHER_LICENSE_OR_HEADER",
+      "known_exceptions": [
+        "cFS_NOSA_v1.3",
+        "COSMOS_GPL_v3",
+        "OSK_LGPL",
+        "FILE_HEADER_EXCEPTIONS"
+      ],
+      "competition_context": "FINAL_GAME_DATA_INPUT_TO_SCORING; NOT_PROVEN_REAL_FLIGHT_REPLICATION",
+      "status": "EXCLUDED_FROM_INITIAL_G4_SOURCE_USE_AND_NOT_RIGHTS_CLEARED",
+      "required_for_initial_four_primary_strata": false,
+      "author_final_rights_clearance": false
+    }
+  ],
+  "preG4_conditions": [
+    {
+      "id": "G4-01",
+      "condition": "ESA_V2_EXACT_RELEASE_SCOPE_AND_THIRD_PARTY_FILE_RIGHTS_SIGNOFF",
+      "status": "HOLD"
+    },
+    {
+      "id": "G4-02",
+      "condition": "ESA_V1_RELEASE_SCOPE_AND_ATTRIBUTION_IF_USED_FOR_PAIRED_SENSITIVITY",
+      "status": "HOLD_IF_SENSITIVITY_INCLUDED"
+    },
+    {
+      "id": "G4-03",
+      "condition": "OPS_SAT_V2_RIGHTS_NOTICES_AND_ANY_EMBEDDED_THIRD_PARTY_EXCEPTIONS",
+      "status": "HOLD"
+    },
+    {
+      "id": "G4-04",
+      "condition": "HACKASAT4_SECONDARY_COMPONENT_FILE_RIGHTS_IF_PROCESSED",
+      "status": "BLOCKED_IF_SECONDARY_INCLUDED"
+    },
+    {
+      "id": "G4-05",
+      "condition": "VERSIONED_SOURCE_IDENTITY_LOCAL_RECHECK_AND_ALL_APPLICABLE_ATTRIBUTION_NOTICES",
+      "identity_subcondition": "PASS_AUTHOR_EXECUTED_NINE_FILES",
+      "notice_subcondition": "PENDING_IMPLEMENTATION_AND_SIGNOFF",
+      "status": "PARTIAL_NOT_WHOLE_GATE_CLEAR"
+    },
+    {
+      "id": "G4-06",
+      "condition": "SEPARATE_EXPLICIT_G4_EXECUTION_AND_SOURCE_USE_AUTHORIZATION",
+      "status": "HOLD"
+    }
+  ],
+  "methodology_constraints": {
+    "frozen_G2_content_commit": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "frozen_G2_receipt_commit": "a346239d2de2770576c1ac95709fc799a5b82ddd",
+    "G3_synthetic_validation_head": "5ec1c7d29a001cf0711a9e5b357e1937f69ef512",
+    "original_telemetry_retrieved_analyzed_or_uploaded_in_current_review": false,
+    "raw_dataset_public_redistribution_authorized": false,
+    "rights_holder_contacted": false,
+    "journal_submission_authorized": false,
+    "G4_06_scientific_execution_authorized": false,
+    "PR_merge_authorized": false,
+    "independent_legal_clearance_asserted": false,
+    "no_embedded_third_party_exceptions_asserted": false
+  },
+  "forward_actions": {
+    "citation_notices_draft": "study10/G4_SOURCE_CITATION_NOTICES_DRAFT_20261123.md",
+    "must_confirm_ESA_v2_Zenodo_rights_or_release_author_statement_at_version_scope": true,
+    "must_audit_ESA_zip_member_file_specific_rights": true,
+    "must_review_OPS_telemetry_file_level_exception_claims_before_signoff": true,
+    "must_record_author_final_exceptions_and_notices_decision": true,
+    "separate_author_G4_06_decision_required": true,
+    "no_license_assumed_from_metadata_only": true
+  }
+}

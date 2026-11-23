@@ -1,0 +1,50 @@
+name: Study 10 G4 rights-only metadata inventory tests
+on:
+  push:
+    branches:
+      - "study10/s10-rsei-001-g4-license-and-attribution-review-20261123"
+  pull_request:
+    paths:
+      - "study10/g4_license_metadata_inventory.py"
+      - "study10/test_g4_license_metadata_inventory.py"
+      - "study10/G4_*"
+      - ".github/workflows/validate-study10-g4-license-metadata.yml"
+permissions:
+  contents: read
+jobs:
+  rights-metadata-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout research files
+        uses: actions/checkout@v6
+      - name: Python environment
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Run synthetic rights-only central-directory unit tests
+        run: |
+          python -m compileall -q study10/g4_license_metadata_inventory.py study10/test_g4_license_metadata_inventory.py
+          python -m unittest discover -s study10 -p 'test_g4_license_metadata_inventory.py' -v
+      - name: Verify G2 immutable files and G4 gate still closed
+        run: |
+          python study10/g4_readiness_guard.py --audit > g4_rights_metadata_hold_audit.json
+          python - <<'PY'
+          import json
+          x=json.load(open('g4_rights_metadata_hold_audit.json', encoding='utf-8'))
+          assert x["gate"] == "HOLD"
+          assert x["hard_preG4_conditions_still_blocked"] == 6
+          assert x["original_telemetry_files_read"] == 0
+          assert x["G4_source_processing_authorized"] is False
+          print("PASS_RIGHTS_EVIDENCE_REVIEW_WITH_SIX_FAIL_CLOSED_G4_GATES")
+          PY
+      - name: Confirm G4 source execution remains blocked
+        run: |
+          set +e
+          python study10/g4_readiness_guard.py --require-g4-execution > g4_refusal.json
+          code=$?
+          set -e
+          test "$code" -eq 2
+          grep -q BLOCKED_NO_AUTHOR_RIGHTS_SIGNOFF_OR_G4_AUTHORIZATION g4_refusal.json
+      - name: Verify no tracked source changes
+        run: git diff --exit-code
