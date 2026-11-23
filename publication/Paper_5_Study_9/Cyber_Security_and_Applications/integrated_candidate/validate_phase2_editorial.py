@@ -55,7 +55,15 @@ def validate():
     for rq in ("RQ1", "RQ2", "RQ3", "RQ4", "RQ-E1", "RQ-E2", "RQ-E3", "RQ-E4", "RQ-E5"):
         assert manuscript.count(r"\texttt{" + rq + "} &") == 1, rq
         assert "| " + rq + " |" in ledger, rq
-    assert "Hack-A-Sat" in manuscript and "not enter the completed four-stratum" in manuscript
+    assert "Hack-A-Sat" in manuscript and "secondary, unpooled competition context" in manuscript
+    assert "G2-frozen" in manuscript and "the completed answer addresses the frozen primary comparison" in manuscript
+    assert "original semantic mapping-stability aspect of RQ-E3 remains unanswered" in manuscript
+    assert "OpenAI ChatGPT assisted with the layout" in manuscript
+    assert "The empirical contribution is the auditable source-to-predicate classification" in manuscript
+    assert "it does not independently rerun local source-sample inspection" in manuscript
+    refs = (HERE / "references.bib").read_text(encoding="utf-8")
+    for citation in ("im2026ccsds", "ramsey2026stargate", "qasim2026safe", "torstensson2026warrants"):
+        assert ("{" + citation + ",") in refs and (r"\cite{" + citation + "}") in manuscript, citation
     assert "no change of a recovery-state mapping class is established" in manuscript
     assert "16/16" in manuscript and "1,024" in manuscript
     print("PAPER5_PHASE2_EDITORIAL_FIELD_TRACEABILITY_PASS: 9 RQs, 24 S9 + 32 S10 mappings")
