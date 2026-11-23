@@ -25,7 +25,7 @@ The newest verified G4-05 record, `study10/G4_05_CURRENT_PREFLIGHT_VERIFIED_LOCA
 
 The **pinned source text and previously frozen G1 static review** predict the following results for P0 only:
 
-| Primary policy | Statistically unexecuted expected action |
+| Primary policy | Statically derived, unexecuted expected action |
 | --- | --- |
 | `S2_B0_FAIL_CLOSED` | `PROCEED_TO_RECOVERY_GATE` |
 | `S2_B1_FAIL_OPERATIONAL` | `PRESERVE_LIMITED_OPERATION` |
