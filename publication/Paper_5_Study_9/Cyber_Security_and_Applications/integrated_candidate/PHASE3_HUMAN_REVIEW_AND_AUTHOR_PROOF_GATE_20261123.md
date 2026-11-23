@@ -17,7 +17,7 @@
 | Public inputs | ESA v2 DOI `10.5281/zenodo.15237121`, ESA v1 comparison DOI `10.5281/zenodo.12528696`, OPS-SAT-AD v2 DOI `10.5281/zenodo.15108715`. No original bytes republished. Rights and channel-detail exceptions remain under author control. |
 | Integration and prior challenge | Exact Phase 2 assessed source commit `0dd962071b6adb16a9ad572046f9f90c59f922a7`; report added at `e171a2e7225c23539c56864cf7824ca90f9958b8`. See `PHASE2_ADVERSARIAL_REREVIEW_20261123.md`. |
 | Revised manuscript and supplement | Use the **current PR head**, not the above historical commits, for author PDF approval; source is `CSA_S9_S10_INTEGRATED_CANDIDATE.tex`, `references.bib`, `PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex` and `PHASE2_FIELD_LEVEL_EVIDENCE_APPENDIX.tex`. |
-| Exact checks | Phase 2 science input both workflows passed: `45265668348` LaTeX and `45265668356` repository. Review-document commit checks also passed: `45270778710` and `45270778729`. After Phase 3 manuscript edits, rerun / verify both latest workflows and record the revised PDF artifact IDs. |
+| Exact checks | The revised manuscript-bearing head `b844f92019ae3fce661e7308a24f8f5b04915f56` passed exact-head [LaTeX + 56-mapping validation `45279831571`](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/actions/runs/45279831571), producing the [artifact ZIP with PDF SHA-256 manifest](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/actions/runs/45279831571/artifacts/14868614567). See `PHASE4_PDF_VISUAL_AND_ARTIFACT_INTEGRITY_QA_20261123.md`. The repository-wide validation at this SHA must be checked separately. Any subsequent manuscript revision requires a new exact-head check. |
 
 ## A. Sole-author methods challenge — scientific appraisal, not external peer review
 
@@ -40,16 +40,17 @@ For each question, the author should provide a brief **evidence-based dispositio
 
 ## B. Author visual proof of two current-head PDFs
 
-Latest manuscript-bearing, exact-head build at `d373b77bb674b154b0bde55bc646a3f4c7e68b6e`: [LaTeX workflow `45273022615`](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/actions/runs/45273022615) **SUCCESS**; [repository validation `45273022994`](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/actions/runs/45273022994) **SUCCESS**. The compiled main PDF has **33 pages**, S1 **4 pages**, **zero overfull boxes** in both, and **129 underfull boxes** in the main PDF. Bibliography **24 entries, all cited**. The new documentation-only commits after that head do not certify an independently new PDF build: verify exact current PR head when reviewing artifacts. Author must inspect the PDFs corresponding to the pinned manuscript-bearing commit (or a later exact-head build with the same verified manuscript source).
+**Current manuscript-bearing QA basis:** commit `b844f92019ae3fce661e7308a24f8f5b04915f56`, exact-head LaTeX workflow [45279831571](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/actions/runs/45279831571) **SUCCESS**; main PDF **33 pages**, S1 **4 pages**, **zero overfull boxes** in both, **129 underfull** in the main PDF, **24 cited references**. The ZIP + enclosed SHA-256 manifest verifies both unmodified PDFs. A complete **assistant technical rendered-page review** is recorded in `PHASE4_PDF_VISUAL_AND_ARTIFACT_INTEGRITY_QA_20261123.md`; it does not substitute for **your final author proof**. Subsequent documentation-only commits do not change the verified manuscript bytes, but current-head CI should be checked again before final approval.
 
 - [ ] Retrieve latest run from [PR #255](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/255), Actions `Paper 5 integrated draft LaTeX validation`, and download its main + S1 PDF artifacts.
 - [ ] Record **final SHA, workflow run IDs and actual page counts**; confirm no unresolved citations, overfull boxes, errors or missing figures after edits.
 - [ ] Visually inspect **every main PDF page** at normal zoom: title/contact placeholders; abstract; nine-RQ table; closest-work table; diagram, caption and cross-references; ESA/OPS counts; appendix citations; bibliography legibility.
 - [ ] Inspect all **four or updated number of S1 pages**: 24 S9 + 32 S10 mappings visible; tables not cropped; source-field names, exclusion judgments and evidence roles readable.
 - [ ] Evaluate footnotes, page-break gaps, poor line breaks (especially any underfull warnings), typography and figure rendering. Log page numbers requiring edits, **not** just a technical pass.
-- [ ] Verify all LaTeX figure disclosures, including the exact ChatGPT tool/model history for initial diagram drafting, and ensure no image asserts fabricated observed data.
+- [ ] Verify Figure 1's factual content and updated disclosure: ChatGPT **GPT-6 revised the final LaTeX schematic on 23 Nov 2026**; the exact earlier-draft model is not documented. No observed-data imagery was generated. Approve this accurate provenance statement.
 - [ ] Approve or reject the typeset manuscript **with author name/date and exact final SHA**. The assistant must not check these boxes.
 
+**Assistant technical PDF visual QA:** `COMPLETED__NOT_INDEPENDENT_HUMAN_PROOF` (see Phase 4 report).  
 **Author PDF visual verification:** `NOT_PERFORMED`  
 **Author title/affiliation/correspondence approval:** `NOT_RECORDED`
 
