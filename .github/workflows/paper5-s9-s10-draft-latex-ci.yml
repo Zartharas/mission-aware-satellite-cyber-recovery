@@ -91,6 +91,17 @@ jobs:
           echo "SUPPLEMENT_SHA256=$(sha256sum PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf | awk '{print $1}')"
           echo "SUPPLEMENT_OVERFULL_HBOX_COUNT=$(grep -c 'Overfull \\hbox' PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log || true)"
           echo "PAPER5_PHASE2_SUPPLEMENT_COMPILED_PASS"
+      - name: Seal compiled review PDF bytes in artifact manifest
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: |
+          set -euo pipefail
+          sha256sum \
+            CSA_S9_S10_INTEGRATED_CANDIDATE.pdf \
+            PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf \
+            > PDF_REVIEW_SHA256SUMS.txt
+          sha256sum -c PDF_REVIEW_SHA256SUMS.txt
+          echo "PAPER5_FINAL_PACKAGED_PDF_DIGEST_MANIFEST_PASS"
+          cat PDF_REVIEW_SHA256SUMS.txt
       - name: Preserve review PDF and compilation logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -102,5 +113,6 @@ jobs:
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.blg
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PDF_REVIEW_SHA256SUMS.txt
           if-no-files-found: warn
           retention-days: 14
