@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "DRAFT_REVIEW_ONLY_NOT_PUBLISHED_OR_MERGED",
+  "study_id": "S10-RSEI-001",
+  "artifact_type": "PAPER5_S9_S10_INTEGRATION_SANITIZED_G4_DERIVED_EVIDENCE_MANIFEST",
+  "generation_basis": "author-uploaded derived Study 10 results; original bytes preserved",
+  "primary_sources": [
+    {
+      "doi": "10.5281/zenodo.15237121",
+      "role": "ESA v2: three descriptive source strata"
+    },
+    {
+      "doi": "10.5281/zenodo.15108715",
+      "role": "OPS-SAT v2: one descriptive source stratum"
+    },
+    {
+      "doi": "10.5281/zenodo.12528696",
+      "role": "ESA v1: optional matched sensitivity comparator only"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/study10_derived/S10_G4_TierA_32Slot_PublishedSchema.json",
+      "sha256": "f727bc80823d9fe5a47d44c361b9aefcdadc6b5a144331f2857079ce91508d1c",
+      "bytes": 82059,
+      "transport": "VERBATIM_USER_UPLOADED_DERIVED_JSON"
+    },
+    {
+      "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/study10_derived/S10_G4_TierC_16_StratumPolicy_NonEvaluable.json",
+      "sha256": "93dd4f92810a33f0dbe13dd11f842f732a4ccc9fac322a762fcab557185623f6",
+      "bytes": 18060,
+      "transport": "VERBATIM_USER_UPLOADED_DERIVED_JSON"
+    },
+    {
+      "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/study10_derived/S10_RQ_E3_ESA_V1V2_Aggregate_Metadata.json",
+      "sha256": "ba343e858b4d54256f8f4d8b118bb87a95a49a0d99baebc394ac5517c418ddc9",
+      "bytes": 8206,
+      "transport": "VERBATIM_USER_UPLOADED_DERIVED_JSON"
+    }
+  ],
+  "forbidden_uploads": [
+    "Original ESA ZIP archives or nested pickled telemetry",
+    "Original OPS-SAT CSV source data or telemetry values",
+    "Study10_RQ_E3_ESA_Paired_Metadata_Local_Detail_20261123T154204Z.csv",
+    "Original individual channel identifier mappings",
+    "Original scripts containing credentials, private identity or sensitive operational details"
+  ],
+  "content_guards": {
+    "tier_a_slots": 32,
+    "tier_a_ambiguous": 14,
+    "tier_a_absent": 18,
+    "tier_c_rows": 16,
+    "tier_c_result": "NOT_EVALUABLE_FOR_OPERATIONAL_ACTION",
+    "esa_v1v2_channels_matched": 224,
+    "esa_v1v2_changed_comparable_metadata_cells": 54,
+    "no_original_telemetry_uploaded": true,
+    "no_original_channel_identifiers_uploaded": true,
+    "no_local_detail_csv_uploaded": true,
+    "source_rights": "G4_RIGHTS_STANDARD_R1_CONDITIONAL; rights-holder file-specific exceptions NOT proven absent; this archive contains only derived result records",
+    "provenance_limit": "ESA nested layout source JSON itself was not uploaded; author-terminal-reported hash is retained in Tier A as an explicitly unverified receipt. Original study reports retain all original limitations."
+  },
+  "post_results_integration": true,
+  "study9_or_study2_frozen_source_modified": false,
+  "G5_executed": false,
+  "PR_merge_authorized": false,
+  "journal_submission_authorized": false
+}
