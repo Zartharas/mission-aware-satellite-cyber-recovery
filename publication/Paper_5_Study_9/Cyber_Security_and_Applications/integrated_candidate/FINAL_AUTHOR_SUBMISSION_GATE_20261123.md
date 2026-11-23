@@ -1,5 +1,7 @@
 # Paper 5 (Studies 9 + 10): author-only final submission gate
 
+> **Historical checkpoint, superseded for current technical readiness:** This file records an earlier, successfully built 23-page/15-reference candidate and older CI run IDs. It is preserved as evidence of the earlier gate, **not** a current manuscript readiness certificate. For the revised Phase 3 manuscript, use `PHASE3_HUMAN_REVIEW_AND_AUTHOR_PROOF_GATE_20261123.md` and the current PR head's latest two workflow runs. None of the author-only checkboxes below have been completed by subsequent editorial authorization. No journal submission or merge is approved.
+
 **Recorded:** 2026-11-23  
 **Stage:** `PRE_SUBMISSION_AUTHOR_CONFIRMATION_REQUIRED`  
 **Status:** `HOLD_NOT_SUBMITTED_NOT_MERGED`  
