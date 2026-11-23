@@ -1,11 +1,12 @@
-# Paper 5 Phase 3: human methods review and author PDF / publisher gate
+# Paper 5 Phase 3: sole-author methodological challenge, PDF proof and publisher gate
 
 **Prepared:** 2026-11-23  
-**Status:** `PENDING_HUMAN_REVIEW_AND_AUTHOR_APPROVAL`; **not submitted; PR #255 must remain draft and unmerged.**  
+**Status:** `SOLE_AUTHOR_CRITICAL_REVIEW_AND_AUTHOR_APPROVAL_PENDING`; **not submitted; PR #255 must remain draft and unmerged.**  
+**Sole-author resource decision (2026-11-23):** The author confirms that an external pre-submission human methods reviewer cannot be funded or arranged. **External pre-submission review is not a project requirement or submission blocker.** The journal's own independent reviewer selection remains the publisher's responsibility after editorial screening. This decision does not claim that the author has already completed the scientific appraisal or waived journal peer review.  
 **Authorizations:** Manuscript-only adversarial-remediation and preparation of human/visual review materials. No experiments, raw-source release, external manuscript transmission, journal upload or merge.  
 **Supersedes for current readiness only:** The 2026-11-23 `FINAL_AUTHOR_SUBMISSION_GATE_20261123.md`'s *old* 23-page/15-reference snapshot and corresponding old CI run numbers. Its author attestations remain **unanswered**, not superseded or automatically approved.
 
-## Research and source pins for human inspection
+## Research and source pins for author-led inspection
 
 | Evidence class | Canonical source, scope and verification boundary |
 |---|---|
@@ -18,24 +19,28 @@
 | Revised manuscript and supplement | Use the **current PR head**, not the above historical commits, for author PDF approval; source is `CSA_S9_S10_INTEGRATED_CANDIDATE.tex`, `references.bib`, `PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex` and `PHASE2_FIELD_LEVEL_EVIDENCE_APPENDIX.tex`. |
 | Exact checks | Phase 2 science input both workflows passed: `45265668348` LaTeX and `45265668356` repository. Review-document commit checks also passed: `45270778710` and `45270778729`. After Phase 3 manuscript edits, rerun / verify both latest workflows and record the revised PDF artifact IDs. |
 
-## A. Human methods reviewer — questions, not claimed answers
+## A. Sole-author methods challenge — scientific appraisal, not external peer review
 
-A reviewer with relevant domain and mathematical-method expertise should be given a current candidate, source-linked field judgments and the frozen protocols **only through an author-approved confidential process**. Do not send unpublished work to anyone automatically. Do not falsely describe this AI-authored gate as external peer review.
+**Resourcing and review model:** This is independent, unfunded, sole-author research. External human pre-submission review is **not obtainable** and **not required** as a private project gate. The author is responsible for final methodological judgments; AI-assisted adversarial analysis (recorded in `PHASE2_ADVERSARIAL_REREVIEW_20261123.md`), frozen source audits, code/tests, source-linked literature review and exact-head CI are inputs to that judgment, **not** outside expert endorsement. The journal's ordinary editor/reviewer assessment occurs only after an eventual submission and is **not** represented as having occurred here.
 
-- [ ] **Novelty:** Against TRACE, RTEF-IDS, AIRSS, CCSDS firewall, Stargate, SAFE and evidence-bound warrants, does this exact cross-product field-sufficiency audit add publishable knowledge? Identify its strongest *and* weakest original claim, with citations.
-- [ ] **Construct validity:** Is the fixed eight-predicate mission recovery contract sufficiently motivated, or is its zero-coverage endpoint effectively predictable because detection datasets cannot expose operational trust/authorization evidence?
-- [ ] **RQ1–RQ4:** Independently challenge each mapping class, the `Position_Anomaly` dataset-wide deviation, mathematical completion endpoint and 6/7/7/8 policy-specific sidecar minima.
-- [ ] **RQ-E1–RQ-E5:** Confirm G2 primary four-stratum scope, note secondary Hack-A-Sat not executed, distinguish 54 paired metadata differences from actual semantic-class transitions, confirm 16 `NOT_EVALUABLE` outcomes have no operational recovery-rate denominator, and separate synthetic harness parity from field validation.
-- [ ] **Threats to reproducibility:** Identify which exact source bytes, rights receipts, adjudicator decisions or tooling are missing from public source-to-result reproduction. Distinguish independently validated GitHub-derived results from author-only local report output.
-- [ ] **Generalization and ethics:** Check for accidental independence claims, unsafe recommendations, overclaims of real flight recovery, questionable rights notices, and unqualified missing-field interpretations.
-- [ ] **Recommendation:** Provide a written *accept for author revision / major revision / different venue / new preapproved study* appraisal and evidence, clearly naming reviewer and review date with permission. This checkbox must only be completed by the reviewer or author after receiving a real review.
+For each question, the author should provide a brief **evidence-based disposition** in a dated sole-author review note: `supported`, `limited but disclosed`, or `needs correction`, citing exact file/commit/page and identifying the strongest plausible counterargument. The assistant may draft and challenge this record, but must not sign or attest on behalf of the author.
 
-**Human reviewer identity / date / conflicts / notes:** `PENDING`  
-**Human external methods review:** `NOT_PERFORMED`
+- [ ] **Novelty:** Test this source-sufficiency audit against TRACE, RTEF-IDS, AIRSS, CCSDS firewall, Stargate, SAFE and evidence-bound warrants. Identify the narrow original contribution and the strongest competing interpretation, citing actual published material.
+- [ ] **Contract-driven results:** Critique whether a strict eight-predicate operational recovery interface makes zero qualifying coverage predictable for detection-oriented public sources. Acknowledge the selector's mathematically deterministic consequences and why the observational source-field audit remains useful.
+- [ ] **Study 9 (RQ1–RQ4):** Verify the 24 frozen source-to-predicate judgments, `Position_Anomaly` entire-field deviation, exhaustive selector completions, non-singleton action sets and 6/7/7/8 sidecar minima using frozen artifacts and checks.
+- [ ] **Study 10 (RQ-E1–RQ-E5):** Check the G2-frozen four primary strata, unexecuted Hack-A-Sat secondary arm, 32 Tier A mappings, 16 operational `NOT_EVALUABLE` outcomes, metadata-only E3 limitation (54 differences not semantic transitions), and the separate 18-case/1,024-oracle synthetic tests.
+- [ ] **Evidence and reproducibility:** Check hash pins, public DOIs, rights notices, excluded local source bytes and author-terminal-only receipt limits. Distinguish archived-result integrity checks from independently reproducing original source adjudications.
+- [ ] **Adversarial counterexamples:** Explicitly challenge any sentence implying flight effectiveness, dataset deficiency, guaranteed mission independence, universal sidecar requirements, general statistical inference or completed semantic-release stability.
+- [ ] **Author scientific decision:** Record a date, current commit, evidence ledger and reasoned **proceed with disclosed limitations / revise further / withdraw or change venue** judgment. The author alone must check this item after reviewing evidence. This is a scholarly self-assessment, not independent human peer review.
+
+**AI-assisted internal adversarial review:** `DOCUMENTED_NOT_EXTERNALLY_INDEPENDENT`  
+**External pre-submission human review:** `NOT_AVAILABLE_NOT_REQUIRED_FOR_INTERNAL_GATE`  
+**Journal peer review:** `NOT_STARTED; EDITORIAL_PROCESS_ONLY_AFTER_SUBMISSION`  
+**Sole-author signed scientific appraisal:** `PENDING`
 
 ## B. Author visual proof of two current-head PDFs
 
-Historical Phase 2 build yielded **31-page main PDF + 4-page separate S1 supplement**, zero overfull boxes, 123 underfull in main; this is **not** a guaranteed page count or log state for the revised manuscript. The bibliography after the editorial revision contains **24** source records (20 original + four source-verified closest-work additions), pending next exact-head LaTeX CI. Author must inspect artifacts built from the **latest** commit.
+Latest manuscript-bearing, exact-head build at `d373b77bb674b154b0bde55bc646a3f4c7e68b6e`: [LaTeX workflow `45273022615`](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/actions/runs/45273022615) **SUCCESS**; [repository validation `45273022994`](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/actions/runs/45273022994) **SUCCESS**. The compiled main PDF has **33 pages**, S1 **4 pages**, **zero overfull boxes** in both, and **129 underfull boxes** in the main PDF. Bibliography **24 entries, all cited**. The new documentation-only commits after that head do not certify an independently new PDF build: verify exact current PR head when reviewing artifacts. Author must inspect the PDFs corresponding to the pinned manuscript-bearing commit (or a later exact-head build with the same verified manuscript source).
 
 - [ ] Retrieve latest run from [PR #255](https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/pull/255), Actions `Paper 5 integrated draft LaTeX validation`, and download its main + S1 PDF artifacts.
 - [ ] Record **final SHA, workflow run IDs and actual page counts**; confirm no unresolved citations, overfull boxes, errors or missing figures after edits.
@@ -62,8 +67,8 @@ The current [CSA Guide for Authors](https://www.keaipublishing.com/en/journals/c
 - [ ] Check all 3–5 highlights, 3–6 keywords, live journal requirements, sponsor/acknowledgment disclosures, supplement caption and upload plan.
 - [ ] Provide specific approval for **final submission candidate at exact SHA**; the present permission to perform editorial work does not approve journal submission or merging.
 
-**Status:** `AUTHOR_CONFIRMATION_PENDING` / `HUMAN_REVIEW_PENDING` / `PR_DRAFT_NO_SUBMISSION`.
+**Status:** `AUTHOR_CONFIRMATION_PENDING` / `SOLE_AUTHOR_SCIENTIFIC_APPRAISAL_PENDING` / `AUTHOR_VISUAL_PROOF_PENDING` / `PR_DRAFT_NO_SUBMISSION`.
 
 ## D. Stopping rule
 
-Passing GitHub CI, presence of this checklist, current source citations, or success of a static validator **does not** certify scientific novelty, human review, license clearance, final PDF layout, model-version attribution or author attestations. Do not merge, upload to publisher, distribute raw data or run a new study without a separate explicit approval.
+Passing GitHub CI, presence of this checklist, current source citations, or success of a static validator **does not** establish scientifically sufficient novelty, independent external human review, license clearance, final PDF layout, model-version attribution or author attestations. Lack of external pre-submission review is documented and is **not itself a submission blocker**; the author must still critically assess scientific quality and accept the journal's own peer-review process. Do not merge, upload to publisher, distribute raw data or run a new study without a separate explicit approval.
