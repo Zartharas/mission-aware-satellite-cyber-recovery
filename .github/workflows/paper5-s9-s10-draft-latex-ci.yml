@@ -80,6 +80,17 @@ jobs:
           fi
           pdftotext CSA_S9_S10_INTEGRATED_CANDIDATE.pdf - | grep -F -q 'Recovery-State Semantic Observability'
           echo "PAPER5_INTEGRATED_DRAFT_LATEX_COMPILED_PASS"
+      - name: Compile separate field-level Supplementary Appendix S1
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: |
+          set -euo pipefail
+          latexmk -pdf -no-shell-escape -interaction=nonstopmode -halt-on-error -file-line-error \
+            PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex
+          test -s PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf
+          pdfinfo PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf | grep -E 'Pages:|Page size:'
+          echo "SUPPLEMENT_SHA256=$(sha256sum PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf | awk '{print $1}')"
+          echo "SUPPLEMENT_OVERFULL_HBOX_COUNT=$(grep -c 'Overfull \\hbox' PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log || true)"
+          echo "PAPER5_PHASE2_SUPPLEMENT_COMPILED_PASS"
       - name: Preserve review PDF and compilation logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -89,5 +100,7 @@ jobs:
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.pdf
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.log
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.blg
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log
           if-no-files-found: warn
           retention-days: 14
