@@ -49,6 +49,9 @@ jobs:
           assert all(x.startswith("- ") and len(x[2:]) <= 85 for x in highlights)
           print("STUDY10_ARCHIVE_HASHES_AND_HIGHLIGHTS_PASS")
           PY
+      - name: Assert frozen Study 9/10 science and Phase 1 manuscript anchors
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: python3 validate_phase0_science.py
       - name: Install LaTeX (no manuscript external network processing)
         run: |
           sudo apt-get update -qq
