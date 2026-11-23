@@ -60,7 +60,7 @@ def validate():
     assert "original semantic mapping-stability aspect of RQ-E3 remains unanswered" in manuscript
     assert "OpenAI ChatGPT assisted with the layout" in manuscript
     assert "The empirical contribution is the auditable source-to-predicate classification" in manuscript
-    assert "it does not independently rerun local source-sample inspection" in manuscript
+    assert "not an independent replay of original source inspection" in manuscript
     refs = (HERE / "references.bib").read_text(encoding="utf-8")
     for citation in ("im2026ccsds", "ramsey2026stargate", "qasim2026safe", "torstensson2026warrants"):
         assert ("{" + citation + ",") in refs and (r"\cite{" + citation + "}") in manuscript, citation
