@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_ESA_V2_VERSION_SPECIFIC_PUBLIC_LICENSE_CORROBORATION",
+  "review_date_utc": "2026-11-23",
+  "review_scope": "PUBLIC_FIRST_PARTY_METADATA_ONLY_NO_SATELLITE_PAYLOAD_BYTES",
+  "primary_zenodo": {
+    "dataset_name": "ESA Anomaly Dataset",
+    "dataset_version": "v2",
+    "doi": "10.5281/zenodo.15237121",
+    "official_release": "https://zenodo.org/records/15237121",
+    "official_page_rights_section_license_value": "NOT_RENDERED",
+    "license_clearance_from_zenodo_page": false
+  },
+  "new_evidence": {
+    "source_repository": "kplabs-pl/ESA-ADB",
+    "source_repo_description": "Code of the ESA Anomaly Detection Benchmark",
+    "repo_path": "data/preprocessed/esa-anomaly-dataset-metadata.json",
+    "source_link": "https://github.com/kplabs-pl/ESA-ADB/blob/main/data/preprocessed/esa-anomaly-dataset-metadata.json",
+    "source_ref_at_review": "main",
+    "git_blob_sha1_of_source_file": "9da81fadbaf96cdfd2c7d8c5b906f4d45f80f461",
+    "source_type": "BENCHMARK_PROJECT_MACHINE_READABLE_CROISSANT_DATASET_METADATA",
+    "declared_dataset_license": "Attribution 3.0 IGO (CC BY 3.0 IGO)",
+    "declared_license_url": "https://creativecommons.org/licenses/by/3.0/igo/",
+    "declared_creator": "European Space Agency",
+    "declared_publisher": "European Space Agency",
+    "declared_last_modified": "2025-04-17",
+    "dataset_file_urls_and_md5": [
+      {
+        "basename": "ESA-Mission1.zip",
+        "url": "https://zenodo.org/records/15237121/files/ESA-Mission1.zip",
+        "published_md5": "9770ad12ed730238f37c42d5c27ab436"
+      },
+      {
+        "basename": "ESA-Mission2.zip",
+        "url": "https://zenodo.org/records/15237121/files/ESA-Mission2.zip",
+        "published_md5": "bfc72012691427d9327eb41f726ce45e"
+      },
+      {
+        "basename": "ESA-Mission3.zip",
+        "url": "https://zenodo.org/records/15237121/files/ESA-Mission3.zip",
+        "published_md5": "d63943f09c81378acd9fc5e565ecc66e"
+      }
+    ],
+    "release_specific_file_identity_mapping": "THREE_MD5_VALUES_MATCH_FROZEN_G2_V2_FILE_IDENTITIES",
+    "author_rights_holder_confirmation_obtained": false,
+    "direct_v2_zenodo_license_grant_seen": false
+  },
+  "important_distinctions": [
+    "BENCHMARK_REPOSITORY_MIT_SOFTWARE_LICENSE_IS_NOT_A_DATA_LICENSE",
+    "BENCHMARK_README_LINKS_V1_DOI_BUT_THIS_SEPARATE_METADATA_FILE_LINKS_V2_FILES_BY_EXACT_URL_AND_MD5",
+    "BENCHMARK_SOURCE_DECLARATION_SUPPORTS_V2_DATASET_LEVEL_CC_BY_3_0_IGO_BUT_DOES_NOT_PROVE_ALL_MEMBER_RIGHTS_EXCEPTIONS",
+    "CURRENT_SOURCE_REF_MAIN_IS_MUTABLE; EXACT_GIT_BLOB_SHA1_RECORDED",
+    "ORIGINAL_TELEMETRY_AND_EMBEDDED_DATA_NOTICES_NOT_READ_DURING_THIS_PUBLIC_RESEARCH"
+  ],
+  "correlated_author_local_inventory": {
+    "report_sha256_author_supplied": "b9486430f6a2c25384d105fe96296411df4b2e4526a6d0e759a8c960e3b28584",
+    "recognized_license_filename_markers_found_in_2090_nested_zip_directories": 0,
+    "negative_rights_clearance_inference_allowed": false
+  },
+  "current_gate": "G4-01_HOLD_PENDING_VERSION_SCOPE_AND_EXCEPTION_FINAL_REVIEW",
+  "source_use_rights_final_signoff": false,
+  "g4_06_scientific_execution_authorized": false,
+  "pr_merge_authorized": false,
+  "follow_up": "ASSESS_WHETHER_FIRST_PARTY_V2_DATASET_METADATA_SUFFICIENT_FOR_DOCUMENTED_ATTRIBUTED_LOCAL_RESEARCH_USE; SEEK_RIGHTS_HOLDER_CONFIRMATION_IF_APPLICABILITY_OR_FILE_EXCEPTIONS_REMAIN_AMBIGUOUS; REVIEW_PUBLICATION_NOTICES_BEFORE_RELEASE"
+}
