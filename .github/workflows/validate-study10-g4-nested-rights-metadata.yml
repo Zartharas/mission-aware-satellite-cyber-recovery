@@ -1,0 +1,48 @@
+name: Study 10 G4 nested rights metadata synthetic tests
+on:
+  push:
+    branches:
+      - "study10/s10-rsei-001-g4-nested-rights-metadata-20261123"
+  pull_request:
+    paths:
+      - "study10/g4_nested_license_metadata_inventory.py"
+      - "study10/test_g4_nested_license_metadata_inventory.py"
+      - "study10/G4_NESTED_RIGHTS_METADATA_DESIGN_20261123.md"
+      - ".github/workflows/validate-study10-g4-nested-rights-metadata.yml"
+permissions:
+  contents: read
+jobs:
+  synthetic-only-and-six-gates-closed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout research files
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Synthetic nested ZIP metadata tests (no source files)
+        run: |
+          python3 -m compileall -q study10/g4_nested_license_metadata_inventory.py study10/test_g4_nested_license_metadata_inventory.py
+          python3 -m unittest discover -s study10 -p 'test_g4_nested_license_metadata_inventory.py' -v
+      - name: Verify G4 remains fail-closed
+        run: |
+          python3 study10/g4_readiness_guard.py --audit > /tmp/g4_nested_hold.json
+          python3 - <<'PY'
+          import json
+          x = json.load(open('/tmp/g4_nested_hold.json', encoding='utf-8'))
+          assert x['gate'] == 'HOLD'
+          assert x['hard_preG4_conditions_still_blocked'] == 6
+          assert x['original_telemetry_files_read'] == 0
+          assert x['G4_source_processing_authorized'] is False
+          print('PASS_SIX_G4_GATES_CLOSED')
+          PY
+          set +e
+          python3 study10/g4_readiness_guard.py --require-g4-execution > /tmp/g4_nested_refusal.json
+          code=$?
+          set -e
+          test "$code" -eq 2
+          grep -q BLOCKED_NO_AUTHOR_RIGHTS_SIGNOFF_OR_G4_AUTHORIZATION /tmp/g4_nested_refusal.json
+      - name: No CI-generated tracked changes
+        run: git diff --exit-code
