@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_V2_V3_RIGHTS_PREAMBLE_EVIDENCE_METADATA_ONLY",
+  "dated_utc": "2026-11-23",
+  "authorization_scope": "AUTHOR_APPROVED_METADATA_ONLY_EVIDENCE_ADDENDUM_AND_RESIDUAL_RIGHTS_CITATION_REVIEW",
+  "source_provenance": {
+    "V2_report": {
+      "basename": "Study10_G4_Rights_Preamble_Only.json",
+      "sha256": "3b8af9e18722aee475fcc871503ac3ff39137e81ff2fb9e57fbf3dcf4de51adb",
+      "report_bytes_received_and_independently_sha256_verified": true,
+      "file_size_bytes": 5329,
+      "recorded_utc": "2026-11-23T03:50:15.501942+00:00",
+      "local_report_sha_matches_user_stdout": true,
+      "report_sha256_publication_only": true,
+      "original_report_contents_not_committed": true,
+      "checked_prior_nested_report_sha256": "b9486430f6a2c25384d105fe96296411df4b2e4526a6d0e759a8c960e3b28584",
+      "status": "INCOMPLETE_OR_BOUNDED",
+      "source_count_expected_reported": 9,
+      "source_count_scanned_reported": 6,
+      "source_errors_or_partial_reported": 3,
+      "nested_zip_directories_reported": 2090,
+      "prefix_candidates_total": 26,
+      "csv_prefixes_examined": 23,
+      "unsupported_codec": 3,
+      "recognized_rights_category_hits": 0,
+      "non_comment_lines_parsed_for_scientific_semantics": false,
+      "actual_telemetry_semantic_analysis_performed": false,
+      "license_clearance_proved": false
+    },
+    "V3_completion": {
+      "basename": "Study10_G4_V2_Deflate64_Rights_Preamble_Only.json",
+      "sha256_author_reported": "0e12647f3c6437f196ae92f53e237f6a8fa85f705a79519c842e91c0598085d8",
+      "actual_report_bytes_received_or_independently_hashed": false,
+      "source": "AUTHOR_PASTED_MAC_TERMINAL_STDOUT_ONLY",
+      "bundle_basename": "Study10_G4_V2_Deflate64_Preamble_Bundle.zip",
+      "bundle_sha256": "20fb0ef2ed659fe12f7a61b5acc1e9c358a8d2354c145bce9d3ee885b1714232",
+      "bundle_sha256_independently_checked": true,
+      "status_from_terminal": "THREE_V2_PREFIX_GAPS_EXAMINED_RIGHTS_UNRESOLVED",
+      "terminal_footer": "RIGHTS_DEFLATE64_PREAMBLES_BOUNDED_COMPLETE",
+      "synthetic_tests_reported_passed": 14,
+      "targeted_sources": [
+        "ESA_M1_v2",
+        "ESA_M2_v2",
+        "ESA_M3_v2"
+      ],
+      "new_csv_prefixes_examined_reported": 3,
+      "recognized_rights_category_hits_reported": 0,
+      "failure_codes_reported": [
+        "NONE",
+        "NONE",
+        "NONE"
+      ],
+      "no_full_archive_or_broad_rescan_requested": true,
+      "report_identity_provenance": "AUTHOR_REPORTED_SHA256_UNTIL_ORIGINAL_REPORT_BYTES_INDEPENDENTLY_VERIFIED",
+      "license_clearance_proved": false
+    }
+  },
+  "per_source_summary": [
+    {
+      "source_id": "ESA_M1_v1",
+      "V2_candidates": 4,
+      "V2_prefixes": 4,
+      "V2_unsupported": 0,
+      "V3_completed": 0,
+      "total_bounded_prefixes": 4,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "ESA_M1_v2",
+      "V2_candidates": 4,
+      "V2_prefixes": 3,
+      "V2_unsupported": 1,
+      "V3_completed": 1,
+      "total_bounded_prefixes": 4,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_COMBINED_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "ESA_M2_v1",
+      "V2_candidates": 5,
+      "V2_prefixes": 5,
+      "V2_unsupported": 0,
+      "V3_completed": 0,
+      "total_bounded_prefixes": 5,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "ESA_M2_v2",
+      "V2_candidates": 5,
+      "V2_prefixes": 4,
+      "V2_unsupported": 1,
+      "V3_completed": 1,
+      "total_bounded_prefixes": 5,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_COMBINED_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "ESA_M3_v1",
+      "V2_candidates": 3,
+      "V2_prefixes": 3,
+      "V2_unsupported": 0,
+      "V3_completed": 0,
+      "total_bounded_prefixes": 3,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "ESA_M3_v2",
+      "V2_candidates": 3,
+      "V2_prefixes": 2,
+      "V2_unsupported": 1,
+      "V3_completed": 1,
+      "total_bounded_prefixes": 3,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_COMBINED_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "OPS_V2_dataset.csv",
+      "V2_candidates": 1,
+      "V2_prefixes": 1,
+      "V2_unsupported": 0,
+      "V3_completed": 0,
+      "total_bounded_prefixes": 1,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "OPS_V2_segments.csv",
+      "V2_candidates": 1,
+      "V2_prefixes": 1,
+      "V2_unsupported": 0,
+      "V3_completed": 0,
+      "total_bounded_prefixes": 1,
+      "marker_categories_hit": 0,
+      "status": "BOUNDED_DONE_NOT_RIGHTS_CLEARED"
+    },
+    {
+      "source_id": "OPS_V2_LICENSE",
+      "V2_candidates": 0,
+      "V2_prefixes": 0,
+      "V2_unsupported": 0,
+      "V3_completed": 0,
+      "total_bounded_prefixes": 0,
+      "marker_categories_hit": 0,
+      "status": "LICENSE_IDENTITY_CONFIRMED_NOT_REPUBLISHED"
+    }
+  ],
+  "combined_result": {
+    "v1_esa_prefixes_complete": 12,
+    "v2_esa_prefixes_complete": 12,
+    "ops_sat_v2_prefixes_complete": 2,
+    "total_csv_candidate_prefixes": 26,
+    "total_bounded_prefixes_inspected": 26,
+    "total_unsupported_codec_remaining_reported": 0,
+    "detected_notice_categories_total": 0,
+    "complete_bounded_prefix_coverage": true,
+    "unexamined_later_in_band_notices_possible": true,
+    "evidence_that_no_third_party_exceptions_exist": false,
+    "source_file_full_contents_inspected": false,
+    "science_or_semantic_telemetry_processing_performed": false,
+    "source_use_approval_implied": false
+  },
+  "source_rights_and_citation_review": {
+    "ESA_v2": {
+      "doi": "10.5281/zenodo.15237121",
+      "dataset_license": "CC BY 3.0 IGO",
+      "evidence": "RELEASE_LINKED_FIRST_PARTY_CROISSANT_AND_DATASET_AUTHOR",
+      "release_level_dataset_license_supported": true,
+      "final_member_exceptions_disposition": "UNRESOLVED",
+      "final_attribution_implementation": "FUTURE_ACTUAL_ARTIFACT_CHECK_REQUIRED",
+      "routine_rights_holder_contact_required": false,
+      "gate": "G4-01",
+      "state": "HOLD"
+    },
+    "ESA_v1": {
+      "doi": "10.5281/zenodo.12528696",
+      "dataset_license": "CC BY 3.0 IGO",
+      "role": "CONDITIONAL_PAIRED_SENSITIVITY_ONLY",
+      "first_party_evidence": "ESA_OFFICIAL_REPOSITORY_LICENSE_AND_README",
+      "final_member_exceptions_disposition": "UNRESOLVED",
+      "final_attribution_implementation": "FUTURE_ACTUAL_ARTIFACT_CHECK_REQUIRED",
+      "gate": "G4-02",
+      "state": "HOLD_IF_USED"
+    },
+    "OPS_SAT_v2": {
+      "doi": "10.5281/zenodo.15108715",
+      "license": "MIT License for OPS-SAT Dataset",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "license_applies_to": [
+        "software",
+        "data",
+        "associated documentation"
+      ],
+      "full_original_notice_required_for_copies_or_substantial_portions": true,
+      "no_raw_original_telemetry_redistribution_plan_approved": true,
+      "versioned_zenodo_creator_display": "Bogdan, Ruszczak",
+      "contributor_display": "Ruszczak, Bogdan",
+      "journal_methods_paper_author_name": "Bogdan Ruszczak",
+      "normalized_author_bibliography_provisional": true,
+      "zenodo_citation_export_independently_verified": false,
+      "public_record_display_publication_date": "2024-06-24",
+      "in_band_post_preamble_notices_undetermined": true,
+      "supplementary_rights_exceptions_disposition": "UNRESOLVED",
+      "final_notice_implementation": "FUTURE_ACTUAL_ARTIFACT_CHECK_REQUIRED",
+      "gate": "G4-03",
+      "state": "HOLD"
+    }
+  },
+  "G4_gates": [
+    {
+      "id": "G4-01",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "id": "G4-02",
+      "status": "HOLD_IF_USED",
+      "cleared": false
+    },
+    {
+      "id": "G4-03",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "id": "G4-04",
+      "status": "EXCLUDED_BLOCKED_IF_USED",
+      "cleared": false
+    },
+    {
+      "id": "G4-05",
+      "status": "PARTIAL",
+      "cleared": false,
+      "rights_preamble_subcheck": "BOUNDED_COMPLETE"
+    },
+    {
+      "id": "G4-06",
+      "status": "NOT_AUTHORIZED",
+      "cleared": false
+    }
+  ],
+  "preserved_controls": {
+    "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD": true,
+    "g2_frozen_files_changed": false,
+    "g3_frozen_files_changed": false,
+    "original_telemetry_uploaded_by_assistant": false,
+    "V2_full_sanitized_report_committed": false,
+    "V3_full_sanitized_report_committed": false,
+    "PR_merges_authorized": false,
+    "external_rights_holder_contact_authorized": false,
+    "original_source_semantic_execution_authorized": false,
+    "dataset_raw_redistribution_authorized": false,
+    "manuscript_submission_authorized": false,
+    "file_specific_rights_final_signoff": false
+  },
+  "unresolved_next_checkpoint": [
+    "OPTIONAL_INDEPENDENT_HASH_VERIFICATION_OF_AUTHOR_REPORTED_V3_SANITIZED_REPORT_IF_AUTHOR_CHOOSES_TO_PROVIDE_SAFE_SHA_PROOF",
+    "AUTHOR_SOURCE_USE_AND_ACCEPTED_RESIDUAL_RIGHTS_SCOPE_SIGNOFF_BY_SOURCE_VERSION",
+    "EVIDENCE_BASED_DISPOSITION_OF_KNOWN_OR_UNEXAMINED_IN_BAND_THIRD_PARTY_EXCEPTIONS",
+    "OPS_SAT_V2_CITATION_EXPORT_CREATOR_ORDER_VERIFICATION",
+    "ACTUAL_FUTURE_MANUSCRIPT_AND_SUPPLEMENT_NOTICE_IMPLEMENTATION_REVIEW",
+    "SEPARATE_EXPLICIT_G4_06_EXECUTION_APPROVAL_ONLY_AFTER_APPLICABLE_RIGHTS_GATES"
+  ]
+}
