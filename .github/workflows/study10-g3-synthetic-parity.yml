@@ -1,0 +1,52 @@
+name: Study 10 G3 synthetic-only oracle parity
+
+on:
+  pull_request:
+    paths:
+      - "study10/g3_independent_oracle.py"
+      - "study10/g3_synthetic_parity.py"
+      - "study10/test_g3_synthetic_parity.py"
+      - "study10/G1_SEMANTIC_CONTROL_SPEC_DRAFT_20261121.md"
+      - "study10/G2_FREEZE_MANIFEST_CANDIDATE_20261121.json"
+      - "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json"
+      - "study10/G3_STATIC_SYNTHETIC_ORACLE_READINESS_INVENTORY_20261123.json"
+      - "study2/src/study2_security/selectors.py"
+      - ".github/workflows/study10-g3-synthetic-parity.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: study10-g3-parity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  synthetic-parity:
+    name: Frozen synthetic control and independent oracle checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact PR code with read-only credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Run G3 integration regression tests against frozen G1
+        run: python3 -B -m unittest discover -s study10 -p 'test_g3_*.py' -v
+      - name: Run synthetic-only 18-case and exhaustive four-policy parity
+        run: |
+          python3 -B study10/g3_synthetic_parity.py --repo . --report "$RUNNER_TEMP/study10_g3_report.json"
+          sha256sum "$RUNNER_TEMP/study10_g3_report.json"
+      - name: Enforce G4-06 and merge authorization remain false
+        run: |
+          python3 - "$RUNNER_TEMP/study10_g3_report.json" <<'PY'
+          import json, sys
+          r=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert r["status"]=="G3_SYNTHETIC_PARITY_PASS_NOT_G4_AUTHORIZED"
+          assert r["synthetic_cases_passed"]==18
+          assert r["exhaustive_parity_comparisons"]==1024
+          assert r["parity_mismatch_count"]==0
+          assert r["G4_06_authorized"] is False
+          assert r["PR_merge_authorized"] is False
+          assert r["original_telemetry_processed"] is False
+          print("G3_SYNTHETIC_ONLY_PASS_NO_G4_06_NO_MERGE")
+          PY
