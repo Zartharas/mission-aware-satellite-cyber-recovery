@@ -1,0 +1,55 @@
+name: Paper 5 integrated draft LaTeX validation
+on:
+  pull_request:
+    paths:
+      - "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/**"
+      - ".github/workflows/paper5-s9-s10-draft-latex-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'paper5/study9-study10-integrated-manuscript-candidate-20261123' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR commit without persisted credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install LaTeX (no manuscript external network processing)
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+            latexmk texlive-latex-recommended texlive-latex-extra texlive-publishers \
+            texlive-fonts-recommended poppler-utils
+      - name: Compile exact manuscript
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: |
+          set -euo pipefail
+          echo "CI_PR_HEAD=$(git rev-parse HEAD)"
+          latexmk -pdf -no-shell-escape -interaction=nonstopmode -halt-on-error -file-line-error \
+            CSA_S9_S10_INTEGRATED_CANDIDATE.tex
+          test -s CSA_S9_S10_INTEGRATED_CANDIDATE.pdf
+          pdfinfo CSA_S9_S10_INTEGRATED_CANDIDATE.pdf | grep -E 'Pages:|Page size:|File size:'
+          echo "PDF_SHA256=$(sha256sum CSA_S9_S10_INTEGRATED_CANDIDATE.pdf | awk '{print $1}')"
+          echo "OVERFULL_HBOX_COUNT=$(grep -c 'Overfull \\hbox' CSA_S9_S10_INTEGRATED_CANDIDATE.log || true)"
+          echo "UNDERFULL_HBOX_COUNT=$(grep -c 'Underfull \\hbox' CSA_S9_S10_INTEGRATED_CANDIDATE.log || true)"
+          if grep -E 'Citation .* undefined|There were undefined references|I couldn.t open database file|I found no \\bibdata' CSA_S9_S10_INTEGRATED_CANDIDATE.log; then
+            echo "UNRESOLVED_CITATIONS_OR_REFERENCES_FAIL"
+            exit 1
+          fi
+          pdftotext CSA_S9_S10_INTEGRATED_CANDIDATE.pdf - | grep -F -q 'Recovery-State Semantic Observability'
+          echo "PAPER5_INTEGRATED_DRAFT_LATEX_COMPILED_PASS"
+      - name: Preserve review PDF and compilation logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: paper5-integrated-draft-latex-qa
+          path: |
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.blg
+          if-no-files-found: warn
+          retention-days: 14
