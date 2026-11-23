@@ -1,0 +1,171 @@
+% Phase 2 editorial appendix. Source fields and classes only; no original telemetry.
+\section{Field-level evidence and decision-time admission}
+\label{app:fieldledger}
+The following is an editorial presentation of the frozen source-to-predicate judgments, not a new adjudication. Each row is one required recovery predicate in one frozen dataset or published-schema stratum. The machine-readable original rationales and provenance remain in the repository files \url{study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/mapping_matrix.json} and \url{study10_derived/S10_G4_TierA_32Slot_PublishedSchema.json}. Field candidates are listed because they were considered, \emph{not} because they were accepted as decision-time recovery evidence. A missing candidate in this table does not prove the underlying mission lacks the capability. In the tables, A means \texttt{AMBIGUOUS}, X means \texttt{ABSENT}; Study 10 evidence-role suffixes are M (experiment metadata only), G (offline ground truth only), and D (documentation only). No row was direct or predeclared-derivable.
+
+\subsection{Study 9: frozen canonical source-field judgments}
+The Study 9 candidates were assessed against the required operational-native semantics. Explicitly excluded labels and non-equivalent substitutes remain visible. The special UNSW \url{Position_Anomaly} case reflects the recorded population-wide protocol deviation, not a new classification.
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+\begin{longtable}{@{}p{0.19\linewidth}p{0.06\linewidth}p{0.38\linewidth}p{0.27\linewidth}@{}}
+\caption{Study 9 source-to-predicate mapping, 24 preserved frozen rows. No original dataset rows are reproduced.}\label{tab:phase2s9fields}\\
+\toprule
+Predicate & Cl. & Considered field names / excluded substitutes & Why not qualified \\
+\midrule
+\endfirsthead
+\toprule Predicate & Cl. & Considered fields / excluded substitutes & Why not qualified \\
+\midrule
+\endhead
+\multicolumn{4}{@{}l}{\textbf{CuCD-ID v3}}\\
+% P2MAP S9 CUCD_ID_V3 signature_valid ABSENT
+\url{signature_valid} & X & \emph{None identified} & No qualifying cryptographic-verifier outcome. \\
+% P2MAP S9 CUCD_ID_V3 source_trusted AMBIGUOUS
+\url{source_trusted} & A & \url{MsgId};\allowbreak \url{ApId} & Source or channel identifier does not prove trust membership. \\
+% P2MAP S9 CUCD_ID_V3 fresh AMBIGUOUS
+\url{fresh} & A & \url{TimeRadians};\allowbreak \url{SlidingWindowMeanIntervalSec};\allowbreak \url{SlidingWindowMaxIntervalSec};\allowbreak \url{SlidingWindowMinIntervalSec} & No decision-time reference and evidence-validity interval. \\
+% P2MAP S9 CUCD_ID_V3 epoch_valid AMBIGUOUS
+\url{epoch_valid} & A & \url{SequenceCount} & No accepted claimed-versus-expected recovery-epoch test. \\
+% P2MAP S9 CUCD_ID_V3 contradictory ABSENT
+\url{contradictory} & X & \emph{None identified} & No accepted same-subject, same-key conflicting-claim ledger. \\
+% P2MAP S9 CUCD_ID_V3 minimum_evidence_complete AMBIGUOUS
+\url{minimum_evidence_complete} & A & \url{CommandErrorCounter};\allowbreak \url{IngestErrors};\allowbreak \url{FlowLengthInWindow};\allowbreak \url{MessageCountInWindow} & No verification of all ten accepted recovery criteria. \\
+% P2MAP S9 CUCD_ID_V3 security_signal ABSENT
+\url{security_signal} & X & \emph{None identified}\newline \emph{Excluded:} \url{Label} & Offline labels are not an operational guard at decision time. \\
+% P2MAP S9 CUCD_ID_V3 authorization_available ABSENT
+\url{authorization_available} & X & \emph{None identified}\newline \emph{Not a substitute:} \url{CmdCode} & Recorded commands do not prove live authorization or contact. \\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textbf{AegisSat 2025}}\\
+% P2MAP S9 AEGISSAT_2025 signature_valid ABSENT
+\url{signature_valid} & X & \emph{None identified} & No qualifying cryptographic-verifier outcome. \\
+% P2MAP S9 AEGISSAT_2025 source_trusted AMBIGUOUS
+\url{source_trusted} & A & \url{run_id};\allowbreak \url{cosmos_data.TPL_PACKET.CCSDS_APID};\allowbreak \url{cosmos_data.TPL_PACKET.CCSDS_PACKET_ID} & Source or channel identifier does not prove trust membership. \\
+% P2MAP S9 AEGISSAT_2025 fresh AMBIGUOUS
+\url{fresh} & A & \url{Epoch_Time};\allowbreak \url{UTC_Time};\allowbreak \url{cosmos_data.TPL_PACKET.PACKET_TIMESECONDS};\allowbreak \url{cosmos_data.TPL_PACKET.RECEIVED_TIMESECONDS} & No decision-time reference and evidence-validity interval. \\
+% P2MAP S9 AEGISSAT_2025 epoch_valid AMBIGUOUS
+\url{epoch_valid} & A & \url{Epoch_Time};\allowbreak \url{cosmos_data.TPL_PACKET.CCSDS_SEQUENCE_COUNT} & No accepted claimed-versus-expected recovery-epoch test. \\
+% P2MAP S9 AEGISSAT_2025 contradictory ABSENT
+\url{contradictory} & X & \emph{None identified} & No accepted same-subject, same-key conflicting-claim ledger. \\
+% P2MAP S9 AEGISSAT_2025 minimum_evidence_complete AMBIGUOUS
+\url{minimum_evidence_complete} & A & \url{cosmos_data.TPL_PACKET.RECEIVED_COUNT};\allowbreak \url{cosmos_data.OBC_PACKET.OBC_TELEMETRY_STORAGE_ERROR};\allowbreak \url{cosmos_data.OBC_PACKET.OBC_CLOCK_ERROR};\allowbreak \url{cosmos_data.EPS_PACKET.EPS_BATTERY_CONTROLLER_ERROR} & No verification of all ten accepted recovery criteria. \\
+% P2MAP S9 AEGISSAT_2025 security_signal ABSENT
+\url{security_signal} & X & \emph{None identified}\newline \emph{Excluded:} \url{attacks.cpuhightarget.duration};\allowbreak \url{attacks.cpuhightarget.target} & Offline labels are not an operational guard at decision time. \\
+% P2MAP S9 AEGISSAT_2025 authorization_available AMBIGUOUS
+\url{authorization_available} & A & \url{command} & Recorded commands do not prove live authorization or contact. \\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textbf{UNSW-IoTSAT 2026}}\\
+% P2MAP S9 UNSW_IOTSAT_2026 signature_valid AMBIGUOUS
+\url{signature_valid} & A & \url{RF_CRC_Errors} & No qualifying cryptographic-verifier outcome. \\
+% P2MAP S9 UNSW_IOTSAT_2026 source_trusted AMBIGUOUS
+\url{source_trusted} & A & \url{Satellite_ID} & Source or channel identifier does not prove trust membership. \\
+% P2MAP S9 UNSW_IOTSAT_2026 fresh AMBIGUOUS
+\url{fresh} & A & \url{Timestamp}\newline \emph{Excluded:} \url{Reception_Time} & No decision-time reference and evidence-validity interval. \\
+% P2MAP S9 UNSW_IOTSAT_2026 epoch_valid ABSENT
+\url{epoch_valid} & X & \emph{None identified} & No accepted claimed-versus-expected recovery-epoch test. \\
+% P2MAP S9 UNSW_IOTSAT_2026 contradictory ABSENT
+\url{contradictory} & X & \emph{None identified} & No accepted same-subject, same-key conflicting-claim ledger. \\
+% P2MAP S9 UNSW_IOTSAT_2026 minimum_evidence_complete AMBIGUOUS
+\url{minimum_evidence_complete} & A & \url{RF_CRC_Errors};\allowbreak \url{RF_Sync_Word_Detections};\allowbreak \url{Quality_Score}\newline \emph{Excluded:} \url{Data_Quality_Score} & No verification of all ten accepted recovery criteria. \\
+% P2MAP S9 UNSW_IOTSAT_2026 security_signal AMBIGUOUS
+\url{security_signal} & A & \url{Position_Anomaly} & Documented binary guard has 72 of 404,798 values outside 0/1. \\
+% P2MAP S9 UNSW_IOTSAT_2026 authorization_available ABSENT
+\url{authorization_available} & X & \emph{None identified} & Recorded commands do not prove live authorization or contact. \\
+\addlinespace[3pt]
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{Study 10: published-schema-only adjudications}
+The ESA v2 mission strata and OPS-SAT-AD v2 source are distinct \emph{descriptive} strata, not independent flight trials. Identifiers, timestamps, labels, and telecommand metadata shown as related candidates are assigned the frozen evidence-role suffix, not promoted to operational-native inputs. Some ESA inner-series structures are \emph{documented but uninspected}; their appearance as documented candidate names is not an assertion that nested payloads were opened. Hack-A-Sat was not in the completed four-stratum Tier A adjudication.
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+\begin{longtable}{@{}p{0.19\linewidth}p{0.075\linewidth}p{0.365\linewidth}p{0.26\linewidth}@{}}
+\caption{Study 10 Tier A source-to-predicate published-representation mapping, all 32 frozen slots. Class / evidence role use the abbreviations above.}\label{tab:phase2s10fields}\\
+\toprule Predicate & Cl./role & Published field names or documented structure & Decision-time shortfall \\
+\midrule
+\endfirsthead
+\toprule Predicate & Cl./role & Field names or documented structure & Decision-time shortfall \\
+\midrule
+\endhead
+\multicolumn{4}{@{}l}{\textbf{ESA v2 Mission 1}}\\
+% P2MAP S10 ESA_ADB_V2_MISSION1 signature_valid ABSENT DOCUMENTATION_ONLY
+\url{signature_valid} & X/D & \emph{None identified} & No qualifying cryptographic-verifier outcome. \\
+% P2MAP S10 ESA_ADB_V2_MISSION1 source_trusted AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{source_trusted} & A/M & \url{channels.csv:Channel};\allowbreak \url{channels.csv:Subsystem} & Source or channel identifier does not prove trust membership. \\
+% P2MAP S10 ESA_ADB_V2_MISSION1 fresh AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{fresh} & A/M & \url{labels.csv:StartTime};\allowbreak \url{labels.csv:EndTime};\allowbreak \url{channels/*.zip:timestamp_index (documented, not deserialized)} & No decision-time reference and evidence-validity interval. \\
+% P2MAP S10 ESA_ADB_V2_MISSION1 epoch_valid ABSENT DOCUMENTATION_ONLY
+\url{epoch_valid} & X/D & \emph{None identified} & No accepted claimed-versus-expected recovery-epoch test. \\
+% P2MAP S10 ESA_ADB_V2_MISSION1 contradictory ABSENT DOCUMENTATION_ONLY
+\url{contradictory} & X/D & \emph{None identified} & No accepted same-subject, same-key conflicting-claim ledger. \\
+% P2MAP S10 ESA_ADB_V2_MISSION1 minimum_evidence_complete ABSENT DOCUMENTATION_ONLY
+\url{minimum_evidence_complete} & X/D & \emph{None identified} & No verification of all ten accepted recovery criteria. \\
+% P2MAP S10 ESA_ADB_V2_MISSION1 security_signal AMBIGUOUS OFFLINE_GROUND_TRUTH_ONLY
+\url{security_signal} & A/G & \url{anomaly_types.csv:Class};\allowbreak \url{anomaly_types.csv:Subclass};\allowbreak \url{anomaly_types.csv:Category};\allowbreak \url{labels.csv:ID} & Offline labels are not an operational guard at decision time. \\
+% P2MAP S10 ESA_ADB_V2_MISSION1 authorization_available AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{authorization_available} & A/M & \url{telecommands.csv:Telecommand};\allowbreak \url{telecommands.csv:Priority};\allowbreak \url{telecommands/*.zip:execution_timestamps (author-documented, not opened)} & Recorded commands do not prove live authorization or contact. \\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textbf{ESA v2 Mission 2}}\\
+% P2MAP S10 ESA_ADB_V2_MISSION2 signature_valid ABSENT DOCUMENTATION_ONLY
+\url{signature_valid} & X/D & \emph{None identified} & No qualifying cryptographic-verifier outcome. \\
+% P2MAP S10 ESA_ADB_V2_MISSION2 source_trusted AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{source_trusted} & A/M & \url{channels.csv:Channel};\allowbreak \url{channels.csv:Subsystem} & Source or channel identifier does not prove trust membership. \\
+% P2MAP S10 ESA_ADB_V2_MISSION2 fresh AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{fresh} & A/M & \url{labels.csv:StartTime};\allowbreak \url{labels.csv:EndTime};\allowbreak \url{channels/*.zip:timestamp_index (documented, not deserialized)} & No decision-time reference and evidence-validity interval. \\
+% P2MAP S10 ESA_ADB_V2_MISSION2 epoch_valid ABSENT DOCUMENTATION_ONLY
+\url{epoch_valid} & X/D & \emph{None identified} & No accepted claimed-versus-expected recovery-epoch test. \\
+% P2MAP S10 ESA_ADB_V2_MISSION2 contradictory ABSENT DOCUMENTATION_ONLY
+\url{contradictory} & X/D & \emph{None identified} & No accepted same-subject, same-key conflicting-claim ledger. \\
+% P2MAP S10 ESA_ADB_V2_MISSION2 minimum_evidence_complete ABSENT DOCUMENTATION_ONLY
+\url{minimum_evidence_complete} & X/D & \emph{None identified} & No verification of all ten accepted recovery criteria. \\
+% P2MAP S10 ESA_ADB_V2_MISSION2 security_signal AMBIGUOUS OFFLINE_GROUND_TRUTH_ONLY
+\url{security_signal} & A/G & \url{anomaly_types.csv:Class};\allowbreak \url{anomaly_types.csv:Subclass};\allowbreak \url{anomaly_types.csv:Category};\allowbreak \url{labels.csv:ID} & Offline labels are not an operational guard at decision time. \\
+% P2MAP S10 ESA_ADB_V2_MISSION2 authorization_available AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{authorization_available} & A/M & \url{telecommands.csv:Telecommand};\allowbreak \url{telecommands.csv:Priority};\allowbreak \url{telecommands/*.zip:execution_timestamps (author-documented, not opened)} & Recorded commands do not prove live authorization or contact. \\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textbf{ESA v2 Mission 3}}\\
+% P2MAP S10 ESA_ADB_V2_MISSION3 signature_valid ABSENT DOCUMENTATION_ONLY
+\url{signature_valid} & X/D & \emph{None identified} & No qualifying cryptographic-verifier outcome. \\
+% P2MAP S10 ESA_ADB_V2_MISSION3 source_trusted AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{source_trusted} & A/M & \url{channels.csv:Channel};\allowbreak \url{channels.csv:Subsystem} & Source or channel identifier does not prove trust membership. \\
+% P2MAP S10 ESA_ADB_V2_MISSION3 fresh AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{fresh} & A/M & \url{labels.csv:StartTime};\allowbreak \url{labels.csv:EndTime};\allowbreak \url{channels/*.zip:timestamp_index (documented, not deserialized)} & No decision-time reference and evidence-validity interval. \\
+% P2MAP S10 ESA_ADB_V2_MISSION3 epoch_valid ABSENT DOCUMENTATION_ONLY
+\url{epoch_valid} & X/D & \emph{None identified} & No accepted claimed-versus-expected recovery-epoch test. \\
+% P2MAP S10 ESA_ADB_V2_MISSION3 contradictory ABSENT DOCUMENTATION_ONLY
+\url{contradictory} & X/D & \emph{None identified} & No accepted same-subject, same-key conflicting-claim ledger. \\
+% P2MAP S10 ESA_ADB_V2_MISSION3 minimum_evidence_complete ABSENT DOCUMENTATION_ONLY
+\url{minimum_evidence_complete} & X/D & \emph{None identified} & No verification of all ten accepted recovery criteria. \\
+% P2MAP S10 ESA_ADB_V2_MISSION3 security_signal AMBIGUOUS OFFLINE_GROUND_TRUTH_ONLY
+\url{security_signal} & A/G & \url{anomaly_types.csv:Class};\allowbreak \url{anomaly_types.csv:Subclass};\allowbreak \url{anomaly_types.csv:Category};\allowbreak \url{labels.csv:ID} & Offline labels are not an operational guard at decision time. \\
+% P2MAP S10 ESA_ADB_V2_MISSION3 authorization_available ABSENT DOCUMENTATION_ONLY
+\url{authorization_available} & X/D & \emph{None identified} & Recorded commands do not prove live authorization or contact. \\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textbf{OPS-SAT-AD v2}}\\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS signature_valid ABSENT DOCUMENTATION_ONLY
+\url{signature_valid} & X/D & \emph{None identified} & No qualifying cryptographic-verifier outcome. \\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS source_trusted AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{source_trusted} & A/M & \url{segments.csv:channel};\allowbreak \url{dataset.csv:channel} & Source or channel identifier does not prove trust membership. \\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS fresh AMBIGUOUS EXPERIMENT_METADATA_ONLY
+\url{fresh} & A/M & \url{segments.csv:timestamp};\allowbreak \url{segments.csv:sampling};\allowbreak \url{dataset.csv:duration} & No decision-time reference and evidence-validity interval. \\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS epoch_valid ABSENT DOCUMENTATION_ONLY
+\url{epoch_valid} & X/D & \emph{None identified} & No accepted claimed-versus-expected recovery-epoch test. \\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS contradictory ABSENT DOCUMENTATION_ONLY
+\url{contradictory} & X/D & \emph{None identified} & No accepted same-subject, same-key conflicting-claim ledger. \\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS minimum_evidence_complete ABSENT DOCUMENTATION_ONLY
+\url{minimum_evidence_complete} & X/D & \emph{None identified} & No verification of all ten accepted recovery criteria. \\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS security_signal AMBIGUOUS OFFLINE_GROUND_TRUTH_ONLY
+\url{security_signal} & A/G & \url{segments.csv:label};\allowbreak \url{segments.csv:anomaly};\allowbreak \url{dataset.csv:anomaly} & Offline labels are not an operational guard at decision time. \\
+% P2MAP S10 OPS_SAT_AD_SEGMENTS authorization_available ABSENT DOCUMENTATION_ONLY
+\url{authorization_available} & X/D & \emph{None identified} & Recorded commands do not prove live authorization or contact. \\
+\addlinespace[3pt]
+\bottomrule
+\end{longtable}
+\endgroup
+
+This appendix describes \emph{existing} field-level judgments. It does not establish original telemetry value semantics, recoverability, a cryptographic result, or operational authorization. The complete evidence roles, rationales and report-basis flags remain in the two immutable source JSON files cited above.
