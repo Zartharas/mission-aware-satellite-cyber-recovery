@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_05_CURRENT_LOCAL_IDENTITY_NOTICE_PREFLIGHT_RESULT_METADATA_ONLY",
+  "record_date_utc": "2026-11-23",
+  "provenance": {
+    "source": "SOLE_AUTHOR_MAC_EXECUTION_TERMINAL_AND_UPLOADED_SANITIZED_LOCAL_JSON",
+    "report_basename": "Study10_G4_05_Identity_Notice_Current_Preflight.json",
+    "report_sha256": "4a035980a8f10e60f5a645071761088e45e062827c4e974d3fca43a1d26f7bfc",
+    "report_size_bytes": 2917,
+    "uploaded_report_bytes_independently_received_and_sha256_verified": true,
+    "full_sanitized_local_json_committed": false,
+    "original_source_files_uploaded": false,
+    "original_dataset_file_bytes_inspected_by_assistant": false,
+    "original_nine_files_hashed_on_author_mac_not_rehashed_by_assistant": true,
+    "recorded_run_utc_report_value": "2026-11-23T05:21:59.653981+00:00",
+    "local_checkout_commit_from_terminal": "dfce2b9a620cd93911b0729462664b3b6b4560ea",
+    "local_clone_fetch_checkout_reported_success": true,
+    "local_test_runner_reported": "15/15 synthetic unit tests PASS",
+    "local_package_sha256_terminal_verified": "a4694ff9acd3c99f63850361fcc653ec940ce2a08e6ba59c8b836153896fcdf3",
+    "independent_interpretation": "REPORT_BYTES_HASH_AND_INTERNAL_INVARIANTS_VERIFIED_BY_ASSISTANT; ORIGINAL_MAC_SOURCE_READ_EXECUTION_IS_AUTHOR_REPORTED",
+    "no_personal_local_paths_committed": true
+  },
+  "expected_frozen_inputs": {
+    "frozen_G2_manifest_sha256_verified_by_local_report": "2eb2cb1ec3a49de3ff61bd7bb1a4d186a45d6fddf7da98ec79d18f0dee9b4210",
+    "frozen_G2_receipt_git_blob_sha1_verified_by_local_report": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "approved_R1_record_git_blob_sha1_verified_by_local_report": "812fd538b0fa5e8970996a8224c424d8dc8b7342",
+    "author_attestation_git_blob_sha1_verified_by_local_report": "92d0bfc3d6b52d2e0d78169577c8e4a433bafd54",
+    "prospective_notice_plan_git_blob_sha1_verified_by_local_report": "f475c5591457ecfbf731e932e43e65bd99b17cf9",
+    "reference_document": "study10/G4_05_IDENTITY_NOTICE_PREFLIGHT_AUTHORIZATION_AND_READINESS_20261123.json"
+  },
+  "local_report_checks": {
+    "terminal_status": "G4_05_CURRENT_CHECK_PASS_NOT_EXECUTION_AUTHORIZED",
+    "report_status": "G4_05_CURRENT_CHECK_PASS_NOT_EXECUTION_AUTHORIZED",
+    "source_files_expected": 9,
+    "source_files_dual_hash_passed": 9,
+    "complete_source_identity_at_run_in_report": true,
+    "source_rows": [
+      {
+        "id": "ESA_M1_v1",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "ESA_M1_v2",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "ESA_M2_v1",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "ESA_M2_v2",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "ESA_M3_v1",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "ESA_M3_v2",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "OPS_V2_dataset.csv",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "OPS_V2_segments.csv",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      },
+      {
+        "id": "OPS_V2_LICENSE",
+        "status": "PASS_FROZEN_DUAL_HASH"
+      }
+    ],
+    "prospective_notice_plan_check_passed": true,
+    "prospective_notice_check_count": 10,
+    "all_ten_notice_category_checks_passed": true,
+    "notice_categories": [
+      "ESA_CC_BY_3_0_IGO_license_uri",
+      "ESA_no_endorsement_and_changes",
+      "ESA_v1_conditional_DOI",
+      "ESA_v2_DOI",
+      "OPS_MIT_copyright",
+      "OPS_full_copy_notice_required_if_redistributed",
+      "OPS_v2_DOI",
+      "future_publication_audit_reserved",
+      "no_premature_actual_use_claims",
+      "raw_telemetry_no_redistribution_plan"
+    ],
+    "original_zip_members_decompressed_in_this_run": false,
+    "original_csv_rows_parsed_in_this_run": false,
+    "original_payload_uploaded_in_this_run": false,
+    "failure_codes_reported": [],
+    "no_auth_asserted_for_scientific_analysis": true
+  },
+  "independent_report_review": {
+    "uploaded_json_sha256_match": "PASS",
+    "report_study_id_and_schema": "PASS",
+    "report_expected_status": "PASS",
+    "exact_nine_expected_source_ids_and_dual_hash_results": "PASS",
+    "all_ten_notice_checks": "PASS",
+    "five_frozen_and_prospective_git_document_pins": "PASS",
+    "original_telemetry_not_parsed_per_report": "PASS",
+    "fail_closed_flags_and_future_recheck_requirement": "PASS",
+    "original_files_verified_by_assistant_against_source_bytes": false,
+    "report_integrity_check_is_not_independent_proof_original_mac_sources_unmodified": true
+  },
+  "gate_disposition_after_current_preflight": {
+    "R1_license_level_ESA_v2": "DOCUMENTARY_EVIDENCE_PASS_CONDITIONAL",
+    "R1_license_level_ESA_v1": "DOCUMENTARY_EVIDENCE_PASS_CONDITIONAL_IF_USED",
+    "R1_license_level_OPS_v2": "DOCUMENTARY_EVIDENCE_PASS_CONDITIONAL",
+    "G4_04": "EXCLUDED_BLOCKED_IF_USED",
+    "G4_05_current_identity_and_notice_plan": "CURRENT_PREFLIGHT_PASS_AT_RECORDED_RUN_TIMESTAMP",
+    "G4_05_overall": "PARTIAL_FUTURE_EXECUTION_BOUNDARY_RECHECK_AND_ACTUAL_PUBLICATION_NOTICES_PENDING",
+    "G4_05_permanent_gate_clearance": false,
+    "G4_06": "NOT_AUTHORIZED",
+    "G4_06_scientific_execution_permitted": false,
+    "PR_merge_permitted": false,
+    "actual_paper_notices_verified": false,
+    "no_exception_free_member_rights_proven": true,
+    "separate_new_execution_authorization_needed": true,
+    "future_source_identity_preflight_must_be_repeated_at_execution_boundary": true
+  },
+  "immutable_scientific_design": {
+    "original_G2_G3_modification": false,
+    "original_G2_Option_B_receipt_unchanged": true,
+    "future_R1_use_is_prospective_only": true,
+    "primary_source_strata": 4,
+    "recovery_semantic_variables_per_stratum": 8,
+    "prospective_primary_classification_slots": 32,
+    "ESA_v1_is_only_optional_paired_release_sensitivity": true,
+    "manuscript_submitted": false,
+    "original_semantic_analysis_performed": false
+  },
+  "next_checkpoints": [
+    "MAINTAIN_SOURCE_IDENTITY_AND_NOTICE_PREFLIGHT_EVIDENCE_WITHOUT_PUBLISHING_LOCAL_RAW_REPORT",
+    "RECHECK_FROZEN_NINE_FILE_IDENTITIES_IMMEDIATELY_BEFORE_ANY_FUTURE_SEPARATELY_AUTHORIZED_ORIGINAL_SOURCE_SEMANTIC_EXECUTION",
+    "REQUIRE_SEPARATE_EXPLICIT_G4_06_AUTHOR_APPROVAL_WHICH_IS_CURRENTLY_WITHHELD",
+    "CONFIRM_ACTUAL_MANUSCRIPT_AND_SUPPLEMENT_NOTICE_COMPLIANCE_BEFORE_FUTURE_PUBLICATION",
+    "REQUIRE_SEPARATE_PR_MERGE_AUTHORIZATION"
+  ]
+}
