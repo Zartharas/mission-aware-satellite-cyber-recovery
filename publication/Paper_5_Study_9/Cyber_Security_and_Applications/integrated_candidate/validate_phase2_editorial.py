@@ -58,7 +58,8 @@ def validate():
     assert "Hack-A-Sat" in manuscript and "secondary, unpooled competition context" in manuscript
     assert "G2-frozen" in manuscript and "the completed answer addresses the frozen primary comparison" in manuscript
     assert "original semantic mapping-stability aspect of RQ-E3 remains unanswered" in manuscript
-    assert "OpenAI ChatGPT assisted with the layout" in manuscript
+    assert "OpenAI ChatGPT (GPT-6, revision on 23 November 2026)" in manuscript
+    assert "the exact model used for its earlier draft was not recorded" in manuscript
     assert "The empirical contribution is the auditable source-to-predicate classification" in manuscript
     assert "not an independent replay of original source inspection" in manuscript
     refs = (HERE / "references.bib").read_text(encoding="utf-8")
