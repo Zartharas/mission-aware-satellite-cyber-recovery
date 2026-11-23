@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_NESTED_RIGHTS_METADATA_LOCAL_EVIDENCE_ADDENDUM",
+  "evidence_date_utc": "2026-11-23",
+  "provenance_classification": "AUTHOR_REPORTED_LOCAL_OUTPUT; REPORT_BYTES_NOT_UPLOADED_OR_INDEPENDENTLY_REHASHED",
+  "author_local_report_basename": "Study10_G4_Nested_License_Markers_Only.json",
+  "author_reported_report_sha256": "b9486430f6a2c25384d105fe96296411df4b2e4526a6d0e759a8c960e3b28584",
+  "author_reported_report_size_bytes": 4748,
+  "prior_top_level_report_sha256_author_supplied": "1b15ca458ce1f85ee4730e1b267dae4f023e60bf90689575b03930cd02fc00b5",
+  "inspector_commit_used_for_intended_checkout": "033cb68b79c167a9f75f6d0c890b85c3cf6ef47b",
+  "inspector_commit_confirmed_by_full_local_run_log": false,
+  "local_inspection_authorized_scope": "NESTED_ZIP_CONTAINER_DIRECTORY_METADATA_ONLY; NO INNER FILE EXTRACTION_OR_TELEMETRY_SEMANTICS",
+  "author_reported_status": "NESTED_DIRECTORY_MARKERS_INVENTORIED_RIGHTS_UNRESOLVED",
+  "source_archives_expected": 6,
+  "source_archives_scanned": 6,
+  "source_archives_with_errors": 0,
+  "nested_archive_count_attempted": 2090,
+  "deeper_zip_containers_not_opened": 0,
+  "outer_rights_marker_categories_and_counts": {},
+  "nested_rights_marker_categories_and_counts": {},
+  "source_breakdown": [
+    {
+      "source_id": "ESA_M1_v1",
+      "status": "DIRECTORIES_SCANNED_LICENSE_UNRESOLVED",
+      "nested_zip_containers_examined": 774,
+      "nested_rights_marker_categories_and_counts": {},
+      "file_level_rights_clearance": false
+    },
+    {
+      "source_id": "ESA_M1_v2",
+      "status": "DIRECTORIES_SCANNED_LICENSE_UNRESOLVED",
+      "nested_zip_containers_examined": 774,
+      "nested_rights_marker_categories_and_counts": {},
+      "file_level_rights_clearance": false
+    },
+    {
+      "source_id": "ESA_M2_v1",
+      "status": "DIRECTORIES_SCANNED_LICENSE_UNRESOLVED",
+      "nested_zip_containers_examined": 223,
+      "nested_rights_marker_categories_and_counts": {},
+      "file_level_rights_clearance": false
+    },
+    {
+      "source_id": "ESA_M2_v2",
+      "status": "DIRECTORIES_SCANNED_LICENSE_UNRESOLVED",
+      "nested_zip_containers_examined": 223,
+      "nested_rights_marker_categories_and_counts": {},
+      "file_level_rights_clearance": false
+    },
+    {
+      "source_id": "ESA_M3_v1",
+      "status": "DIRECTORIES_SCANNED_LICENSE_UNRESOLVED",
+      "nested_zip_containers_examined": 48,
+      "nested_rights_marker_categories_and_counts": {},
+      "file_level_rights_clearance": false
+    },
+    {
+      "source_id": "ESA_M3_v2",
+      "status": "DIRECTORIES_SCANNED_LICENSE_UNRESOLVED",
+      "nested_zip_containers_examined": 48,
+      "nested_rights_marker_categories_and_counts": {},
+      "file_level_rights_clearance": false
+    }
+  ],
+  "source_breakdown_nested_count_sum": 2090,
+  "author_reported_hash_recheck_result": "PASS_FOR_SHARED_LOCAL_REPORT_SHA256; NO_ASSISTANT_ACCESS_TO_REPORT_BYTES",
+  "marker_interpretation": "ZERO_RECOGNIZED_RIGHTS_FILENAME_MARKERS; ABSENCE_IS_NOT_PROOF_OF_NO_LICENSE_EXCEPTIONS",
+  "not_examined": [
+    "INNER_ZIP_MEMBER_PAYLOAD_CONTENTS",
+    "IN_BAND_DATA_NOTICES_OR_FIELD_SPECIFIC_RESTRICTIONS",
+    "NONSTANDARD_LICENSE_MARKER_FILENAMES",
+    "COMPLETE_SOURCE_RIGHTS_HOLDER_CHAIN"
+  ],
+  "source_archives_uploaded_to_github_or_chatgpt": false,
+  "original_telemetry_payload_rows_processed": false,
+  "rights_clearance_asserted": false,
+  "independent_legal_opinion_asserted": false,
+  "G4_01_ESA_V2": "HOLD_RELEASE_SPECIFIC_RIGHTS_AND_FILE_EXCEPTIONS",
+  "G4_02_ESA_V1": "HOLD_IF_USED_PAIRED_SENSITIVITY",
+  "G4_03_OPS_SAT_V2": "HOLD_MIT_NOTICE_AND_FILE_EXCEPTIONS",
+  "G4_04_HACKASAT4": "EXCLUDED_OPTIONAL_SECONDARY",
+  "G4_05": "PARTIAL_INTEGRITY_AND_FILENAME_INVENTORY_PASS; NOTICES_FINAL_SIGNOFF_PENDING",
+  "G4_06": "NOT_AUTHORIZED",
+  "PR_merge_authorized": false,
+  "research_scientific_results_asserted": false,
+  "signoff_pending": true
+}
