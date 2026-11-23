@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_CONSOLIDATED_SOURCE_USE_SIGNOFF_REVIEW",
+  "review_utc_date": "2026-11-23",
+  "review_outcome": "REVIEW_COMPLETED_SIGNOFF_WITHHELD",
+  "author_approval_scope": "DOCUMENTARY_SIGNOFF_REVIEW_ONLY",
+  "review_is_final_rights_clearance": false,
+  "frozen_g2_option_b": {
+    "policy": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "receipt_path": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "receipt_git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "governing_source_rights_clearance": false,
+    "pre_g4_conditions_preserved": true,
+    "frozen_protocol_files_modified": false,
+    "frozen_g3_modified": false
+  },
+  "primary_strata": 4,
+  "primary_variables_per_stratum": 8,
+  "primary_classification_slots": 32,
+  "planned_studies": [
+    {
+      "source": "ESA_ADB_V2",
+      "role": "THREE_DISTINCT_PRIMARY_DESCRIPTIVE_STRATA",
+      "doi": "10.5281/zenodo.15237121",
+      "license": "CC_BY_3_0_IGO",
+      "license_evidence": "FIRST_PARTY_VERSION_LINKED_AUTHOR_STATEMENT_AND_PROJECT_CROISSANT_METADATA",
+      "dataset_license_documentary_supported": true,
+      "license_uri": "https://creativecommons.org/licenses/by/3.0/igo/",
+      "attribution_plan_documented": true,
+      "original_source_member_payload_rights_inspected": false,
+      "file_specific_exceptions_proven_absent": false,
+      "rights_holder_contact_required_only_to_confirm_license_name": false,
+      "final_source_use_approval": false,
+      "final_notices_implemented": false,
+      "source_semantic_use_authorized": false,
+      "gate": "G4-01",
+      "gate_status": "HOLD",
+      "source_specific_open_items": [
+        "ESA_V2_MEMBER_RIGHTS_SCOPE_AND_IN_BAND_NOTICE_DISPOSITION",
+        "SOURCE_USE_AUTHOR_FINAL_SIGNOFF",
+        "FUTURE_PAPER_ATTRIBUTION_AND_CHANGE_NOTICE_IMPLEMENTATION"
+      ]
+    },
+    {
+      "source": "ESA_ADB_V1",
+      "role": "CONDITIONAL_PAIRED_RELEASE_SENSITIVITY_RQ_E3",
+      "doi": "10.5281/zenodo.12528696",
+      "license": "CC_BY_3_0_IGO",
+      "license_evidence": "ESA_OFFICIAL_REPOSITORY_LICENSE_AND_V1_README_DOI",
+      "dataset_license_documentary_supported": true,
+      "license_uri": "https://creativecommons.org/licenses/by/3.0/igo/",
+      "attribution_plan_documented": true,
+      "paired_matching_keys": [
+        "mission",
+        "channel identifier",
+        "metadata field"
+      ],
+      "independent_replicate": false,
+      "primary_population_increment": 0,
+      "conditional_retention_author_approved": true,
+      "original_source_member_payload_rights_inspected": false,
+      "file_specific_exceptions_proven_absent": false,
+      "final_source_use_approval": false,
+      "final_notices_implemented": false,
+      "source_semantic_use_authorized": false,
+      "gate": "G4-02",
+      "gate_status": "HOLD_IF_USED",
+      "source_specific_open_items": [
+        "ESA_V1_MEMBER_RIGHTS_SCOPE_AND_IN_BAND_NOTICE_DISPOSITION",
+        "PAIRED_RELEASE_SOURCE_USE_AUTHOR_FINAL_SIGNOFF",
+        "FUTURE_PAPER_ATTRIBUTION_AND_CHANGE_NOTICE_IMPLEMENTATION"
+      ]
+    },
+    {
+      "source": "OPS_SAT_AD_V2",
+      "role": "FOURTH_DISTINCT_PRIMARY_DESCRIPTIVE_STRATUM",
+      "doi": "10.5281/zenodo.15108715",
+      "license": "MIT_DATA_INCLUSIVE",
+      "license_evidence": "EXACT_ZENODO_V2_LICENSE_AND_PROJECT_GIT_BLOB",
+      "dataset_license_documentary_supported": true,
+      "license_uri": "https://zenodo.org/records/15108715/files/LICENSE?download=1",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "attribution_plan_documented": true,
+      "all_published_record_filenames": [
+        "dataset.csv",
+        "segments.csv",
+        "LICENSE",
+        "dataset_generator.ipynb",
+        "modeling_examples.ipynb",
+        "requirements.txt"
+      ],
+      "frozen_intake_scope": [
+        "dataset.csv",
+        "segments.csv",
+        "LICENSE"
+      ],
+      "out_of_scope_published_files": [
+        "dataset_generator.ipynb",
+        "modeling_examples.ipynb",
+        "requirements.txt"
+      ],
+      "raw_original_telemetry_redistribution_author_approved": false,
+      "full_original_MIT_copyright_and_permission_required_if_copies_or_substantial_portions_distributed": true,
+      "versioned_citation_export_retrieved_by_assistant": false,
+      "creator_display": "Bogdan, Ruszczak",
+      "contributor_display": "Ruszczak, Bogdan",
+      "original_CSV_in_band_notices_inspected": false,
+      "file_specific_exceptions_proven_absent": false,
+      "final_source_use_approval": false,
+      "final_notices_implemented": false,
+      "source_semantic_use_authorized": false,
+      "methods_publication_doi": "10.1038/s41597-025-05035-3",
+      "methods_correction_doi": "10.1038/s41597-025-05751-w",
+      "gate": "G4-03",
+      "gate_status": "HOLD",
+      "source_specific_open_items": [
+        "OPS_V2_CSV_RIGHTS_AND_IN_BAND_NOTICE_DISPOSITION",
+        "ZENODO_V2_CITATION_EXPORT_CREATOR_FORMAT_CONFIRMATION",
+        "FUTURE_MIT_NOTICE_IMPLEMENTATION_FOR_ANY_COPIES_OR_SUBSTANTIAL_PORTIONS",
+        "SOURCE_USE_AUTHOR_FINAL_SIGNOFF"
+      ]
+    }
+  ],
+  "author_reported_local_rights_inventory": {
+    "file_basename": "Study10_G4_Nested_License_Markers_Only.json",
+    "report_sha256_author_reported": "b9486430f6a2c25384d105fe96296411df4b2e4526a6d0e759a8c960e3b28584",
+    "number_of_ESA_archives": 6,
+    "nested_zip_central_directories_examined": 2090,
+    "matching_rights_marker_filenames_reported": 0,
+    "error_count_reported": 0,
+    "original_local_report_bytes_independently_reviewed": false,
+    "in_band_member_contents_examined": false,
+    "zero_markers_prove_no_exceptions": false
+  },
+  "gates": [
+    {
+      "gate_id": "G4-01",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "gate_id": "G4-02",
+      "status": "HOLD_IF_USED",
+      "cleared": false
+    },
+    {
+      "gate_id": "G4-03",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "gate_id": "G4-04",
+      "status": "EXCLUDED_BLOCKED_IF_USED",
+      "cleared": false
+    },
+    {
+      "gate_id": "G4-05",
+      "status": "PARTIAL",
+      "cleared": false
+    },
+    {
+      "gate_id": "G4-06",
+      "status": "NOT_AUTHORIZED",
+      "cleared": false
+    }
+  ],
+  "approval_controls": {
+    "review_authorized": true,
+    "data_source_rights_final_signoff": false,
+    "new_original_source_semantic_reads_authorized": false,
+    "rights_only_new_original_source_reads_authorized_under_this_review": false,
+    "g4_06_scientific_execution_authorized": false,
+    "dataset_upload_or_rehosting_authorized": false,
+    "manuscript_publication_or_submission_authorized": false,
+    "rights_holder_contact_authorized": false,
+    "pr_merge_authorized": false
+  },
+  "open_checkpoints": [
+    "RESTRICTED_FILE_SPECIFIC_RIGHTS_EVIDENCE_OR_EXPLICIT_EXCEPTION_DISPOSITION",
+    "ACTUAL_SOURCE_USE_AND_RESIDUAL_RISK_AUTHOR_SIGNOFF_BY_RELEASE",
+    "REAL_ARTIFACT_ATTRIBUTION_AND_MIT_COPY_NOTICE_IMPLEMENTATION_AFTER_ACTUAL_USE",
+    "OPS_V2_CREATOR_ORDER_CITATION_EXPORT_CONFIRMATION",
+    "SEPARATE_EXPLICIT_G4_06_AUTHOR_AUTHORIZATION_AFTER_RIGHTS_GATES",
+    "SEPARATE_PR_MERGE_AUTHORIZATION"
+  ],
+  "artifact_refs": {
+    "review": "study10/G4_CONSOLIDATED_SOURCE_USE_SIGNOFF_REVIEW_20261123.md",
+    "source_author_decisions": [
+      "study10/G4_01_ESA_V2_RIGHTS_SCOPE_DECISION_CANDIDATE_20261123.md",
+      "study10/G4_02_ESA_V1_CONDITIONAL_PAIRED_SENSITIVITY_AUTHOR_DECISION_20261123.json",
+      "study10/G4_03_OPS_SAT_V2_ATTRIBUTION_NON_REDISTRIBUTION_AUTHOR_DECISION_20261123.json"
+    ],
+    "conditional_notices": "study10/G4_PROSPECTIVE_PUBLICATION_SOURCE_NOTICES_20261123.md"
+  },
+  "outcome_note": "Public documentary licensing evidence and author-approved prospective scopes are established. This review did not access local original payloads or clear in-band/third-party exceptions. Source-use signoff and G4-06 remain unavailable."
+}
