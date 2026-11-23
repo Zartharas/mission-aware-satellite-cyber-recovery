@@ -101,6 +101,36 @@ These foundations motivate the central distinction in this paper: response selec
 
 The contribution therefore does not rest on claiming that semantic interoperability, space-system cyber response, or recovery are individually new. The research gap addressed here is their narrower conjunction: field-level semantic mapping across independently sourced public space-cyber datasets, exhaustive downstream action-identifiability analysis with missing state preserved as unknown, and minimal-sidecar derivation without using attack labels as operational truth.
 
+\subsection{Closest methods and limits of novelty}
+Actionability, incomplete-information reasoning, and evidence governance are established areas rather than inventions of this paper. NIST IR 8401 applies the Cybersecurity Framework to satellite ground-segment command and control \cite{nist2022ground}; NIST IR 8441 addresses the interfaces of heterogeneous hybrid satellite networks \cite{mccarthy2023hsn}. AIRSS addresses adaptive response in space systems \cite{sahakian2021airss}. In adjacent cyber-defense domains, TRACE constructs conformal candidate-action sets and a release gate for intrusion triage \cite{le2026trace}; RTEF-IDS defines separate authorization rules for admitting evidence, feedback and replacing retained history \cite{li2026rtef}; hybrid knowledge-based industrial CPS work studies response decision support \cite{guarino2026hybrid}. Thus neither evidence-conditioned response nor reasoning under uncertainty can be claimed as new.
+
+Table~\ref{tab:priorcompare} contrasts the \emph{evaluation objects}, not relative performance. Rows about work outside this paper are restricted to their documented objectives and accessible methods; a label of \emph{not assessed} does not imply that a competing system lacks an uninspected capability.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.15}
+\caption{Closest-method positioning. This is a descriptive scope comparison, not a performance benchmark of competing systems.}
+\label{tab:priorcompare}
+\begin{tabular}{@{}p{0.145\linewidth}p{0.162\linewidth}p{0.145\linewidth}p{0.155\linewidth}p{0.145\linewidth}p{0.156\linewidth}@{}}
+\toprule
+Work & Objective & Decision evidence & Unknown-state handling & Endpoint & Unit and validation \\
+\midrule
+NIST 8401/8441 \cite{nist2022ground,mccarthy2023hsn} & Space ground/HSN cyber risk and interfaces. & Stakeholder controls and security functions. & Framework-level risk guidance. & Cybersecurity posture and profile. & Guidance, not this field-level dataset test. \\
+AIRSS \cite{sahakian2021airss} & Space-system adaptive mitigation. & Threat/mitigation context in response research. & Specific evidentiary completeness not evaluated here. & Response/mitigation support. & Space response research report; no direct benchmark with these outputs. \\
+Harmonization \cite{akbar2023ontology,rodriguez2026harmonization} & Ontology and common security labels. & Dataset attributes and defensive concepts. & Semantic standardization, not this binary recovery contract. & Comparable representations. & Cyber/IoT studies, rather than space recovery decision rows. \\
+TRACE \cite{le2026trace} & Calibrated, action-governed IDS triage. & Detector posteriors, feasible feature alternatives. & Conformal plausible-action sets and release gates. & Triage action contract and selective release. & Multiple IDS benchmarks, feature-space evaluations. \\
+RTEF-IDS \cite{li2026rtef} & Reliable temporal intrusion-evidence updates. & Current and reviewed feedback evidence. & Admission, feedback and history-replacement rules. & Authorized evidence-state mutations. & IoT IDS experiments and analytic protocol. \\
+Hybrid CPS \cite{guarino2026hybrid} & Knowledge-supported intrusion response. & Cyber-physical state and knowledge model. & Hybrid inference/decision support; exact equivalence untested. & Response recommendation. & Industrial CPS study; not evaluated on these releases. \\
+ESA/OPS products \cite{esaad2025v2,opssat2024v2} & Anomaly-detection research resources. & Published telemetry/label metadata. & Recovery-state admission not their stated benchmark endpoint. & Detection/benchmark artifacts. & Real-flight data products; no mission recovery trial here. \\
+Studies 9/10 (this paper) & Audit decision-time recovery-state sufficiency. & Strict source-field to eight-predicate mapping. & Explicit unknowns; math completion or operational gate. & Exact policy ambiguity (S9); \texttt{NOT\_EVALUABLE} (S10). & Three frozen row populations; four descriptive schema strata. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+What is specific here is the reproducible composition of an eight-predicate source-admissibility rubric, a frozen exhaustive-completion action-set computation, and a separate operational-evaluability gate for published real-flight representations. This \emph{combination and its bounded negative findings} is the contribution. We do not claim first-of-kind uncertainty handling, superior response policies, new general mathematical theory, or independently demonstrated mission effectiveness. The repeated unknown-state outcome also leaves the marginal dataset-dependent action information at zero: the observed within-interface variation is in source-schema rationales, not in reachable policy actions.
+
 \section{Study Design}
 
 \subsection{Two-study design and nonexchangeable units}
