@@ -4,6 +4,7 @@
 \usepackage{array}
 \usepackage{url}
 \usepackage{amsmath}
+\usepackage{float}
 \usepackage{enumitem}
 
 \emergencystretch=2em
@@ -51,7 +52,7 @@ The principal contribution is an auditable, strictly bounded \emph{evidence-suff
 The integrating research question is: \emph{Under a fixed recovery-state semantic contract, which decision propositions are evidenced in public space-cyber and released real-flight anomaly-detection representations, and what downstream decision statements are justified when those propositions remain unknown?} Study 9 (\texttt{S9-RTSI-001}) addresses mathematical action-set identifiability for three frozen space-cyber datasets. Study 10 (\texttt{S10-RSEI-001}) assesses the published representations of ESA Anomaly Dataset v2 Missions 1--3 \cite{esaad2025v2} and OPS-SAT-AD v2 \cite{opssat2024v2}, with a separate operational evaluability gate. Their results are not exchangeable. The decision to combine them into one manuscript followed both results and is not a retrospectively preregistered joint experiment.
 
 \subsection{Two distinct estimands and permitted inferences}
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \small
 \caption{Pre-existing study endpoints. These are different analyses, not pooled trials or competing operational recovery-rate estimates.}
@@ -107,7 +108,7 @@ Actionability, incomplete-information reasoning, and evidence governance are est
 
 Table~\ref{tab:priorcompare} contrasts the \emph{evaluation objects}, not relative performance. Rows about work outside this paper are restricted to their documented objectives and accessible methods; a label of \emph{not assessed} does not imply that a competing system lacks an uninspected capability.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \scriptsize
 \setlength{\tabcolsep}{2pt}
@@ -156,7 +157,7 @@ The frozen Study 2 selector is used only as a bounded downstream decision interf
 \subsection{Hypothetical controller, threat and evidence authority}
 The evaluated interface is a bounded model of a hypothetical ground- or spacecraft-side \emph{recovery-decision actor}; it is not an implemented flight-control service. The assumed decision actor would obtain cryptographic-verifier results, an authorized-source policy, an epoch/time reference, an evidence-completeness rule, a contradiction assessment, a qualified security guard, and a mission-authorized recovery path from relevant authorities. A public anomaly benchmark cannot be assumed to encode these authorities simply because it records telemetry, simulator attacks, labels, channel identifiers, or command metadata. An adversary could seek to exploit untrusted or stale evidence or misleading offline labels; this study does \emph{not} simulate adversarial replays, forge signatures, compromise those authorities, demonstrate key management, or test real-time operator/spacecraft failover.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \scriptsize
 \caption{Decision-proposition rationale for the frozen eight-variable interface. Authorities and misuse consequences are conceptual design requirements, not observed source functions.}
@@ -250,7 +251,7 @@ Study 10 evaluated the v2 ESA Anomaly Dataset for Missions 1--3 \cite{esaad2025v
 
 Study 10's bounded source inventory checked nine version-pinned local files and the published metadata inventory described in Table~\ref{tab:stud10scope}. It inspected exactly 12 ESA metadata tables, plus the first-line headers only of the two OPS-SAT CSV files; it did \emph{not} inspect OPS-SAT rows, deserialize ESA nested pickled channel tables, or test operational telemetry samples. ESA v2 outer ZIP central directories accounted for 224 channel and 821 telecommand nested archives without opening their payloads. The author-reported ESA outer-layout report digest was not independently rehashed from uploaded report bytes; by contrast, the earlier G4-05 execution-boundary and G4-06 schema JSON files were independently received and hashed. Consequently \texttt{ABSENT} here means \emph{not represented by a qualifying field in the inspected published data-product schema}, not \emph{absent from the spacecraft or ground system}. The scope cannot rule out a recovery-relevant signal inside an uninspected payload, undocumented operator system, or alternate release.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \small
 \caption{Bounded published-representation inspection. The inventory identifies coverage of release metadata, not completeness of mission operational information.}
