@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_05_IDENTITY_NOTICE_PREFLIGHT_AUTHORIZATION_AND_TOOL_READINESS",
+  "prepared_utc_date": "2026-11-23",
+  "status": "G4_05_PREFLIGHT_TOOL_PREPARED_LOCAL_EXECUTION_PENDING",
+  "author_authorization": {
+    "verbatim": "yes, I approve",
+    "preceding_request": "The remaining work is completing the applicable G4-05 source-identity and notice preflight, followed by whatever separate research execution authorizations are required. Your explicit restrictions remain binding: no G4-06 execution and no PR merges.",
+    "scope": "G4_05_READ_ONLY_IDENTITY_AND_PROSPECTIVE_NOTICE_CHECK_ONLY",
+    "G4_06_authorized": false,
+    "PR_merge_authorized": false,
+    "scientific_semantic_analysis_authorized": false,
+    "raw_data_distribution_authorized": false,
+    "rights_holder_contact_authorized": false
+  },
+  "frozen_policy": {
+    "G2_receipt": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "original_Option_B_rights_state": "RIGHTS_CLEARANCE_FALSE_HISTORICAL_UNCHANGED",
+    "frozen_manifest_sha256": "2eb2cb1ec3a49de3ff61bd7bb1a4d186a45d6fddf7da98ec79d18f0dee9b4210"
+  },
+  "approved_prospective_R1": {
+    "document_path": "study10/G4_RIGHTS_STANDARD_R1_AUTHOR_APPROVAL_AND_SOURCE_ADJUDICATION_20261123.json",
+    "git_blob_sha1": "812fd538b0fa5e8970996a8224c424d8dc8b7342",
+    "three_sources_conditional_documentary_eligibility": true,
+    "semantic_authorization": false
+  },
+  "prior_author_attestation": {
+    "path": "study10/G4_LIMITED_SOURCE_USE_AUTHOR_ATTESTATION_APPROVAL_20261123.json",
+    "git_blob_sha1": "92d0bfc3d6b52d2e0d78169577c8e4a433bafd54"
+  },
+  "prospective_notice_plan": {
+    "path": "study10/G4_PROSPECTIVE_PUBLICATION_SOURCE_NOTICES_20261123.md",
+    "git_blob_sha1": "f475c5591457ecfbf731e932e43e65bd99b17cf9",
+    "notice_plan_documentary_evidence_confirmed": true,
+    "actual_manuscript_notice_implementation_completed": false,
+    "OPS_SAT_v2_creator_order_finalized": false
+  },
+  "local_preflight_bundle": {
+    "filename": "Study10_G4_05_Current_Identity_Notice_Preflight_Bundle.zip",
+    "sha256": "a4694ff9acd3c99f63850361fcc653ec940ce2a08e6ba59c8b836153896fcdf3",
+    "script": "g4_05_local_identity_notice_preflight.py",
+    "synthetic_test_file": "test_g4_05_local_identity_notice_preflight.py",
+    "launcher": "Study10_G4_05_Local_Run.sh",
+    "test_count": 15,
+    "synthetic_tests_all_passed": true,
+    "source_originals_tested_by_assistant": false,
+    "zip_test_passed": true,
+    "bash_syntax_checked": true,
+    "standalone_artifact_from_chat_not_committed_to_GitHub": true,
+    "no_automatic_git_fetch_or_checkout_inside_launcher": true
+  },
+  "local_preflight_run_requirements": {
+    "exact_clean_detached_repository_commit": "dfce2b9a620cd93911b0729462664b3b6b4560ea",
+    "checkout_directory": "~/Downloads/S10_G4_05_pinned_checkout",
+    "source_root_ESA": "~/Downloads",
+    "source_root_OPS": "~/Downloads",
+    "expected_files": 9,
+    "original_archive_members_decompressed": false,
+    "CSV_rows_parsed": false,
+    "non_telemetry_notice_document_checked_by_git_blob": true,
+    "source_frozen_MD5_SHA256_streams_required": true,
+    "report_filename": "~/Downloads/Study10_G4_05_Identity_Notice_Current_Preflight.json",
+    "report_output_no_overwrite": true,
+    "original_source_content_exported": false,
+    "expected_success": "G4_05_CURRENT_CHECK_PASS_NOT_EXECUTION_AUTHORIZED",
+    "user_real_execution_evidence_received": false
+  },
+  "future_boundary": {
+    "G4_05_current_identity_verified": false,
+    "G4_05_notice_plan_verified_by_local_run": false,
+    "G4_05_exec_boundary_recheck_needed": true,
+    "G4_05_permanently_cleared": false,
+    "G4_06_explicit_approval_received": false,
+    "PR_merge_approved": false,
+    "scientific_results_generated": false,
+    "real_source_upload": false,
+    "source_release_pinned_dois": [
+      "10.5281/zenodo.15237121",
+      "10.5281/zenodo.12528696",
+      "10.5281/zenodo.15108715"
+    ],
+    "R1_documentary_rights_conditional_pass_preserved": true
+  },
+  "G4_gates_as_of_preflight_preparation": [
+    {
+      "id": "G4-01",
+      "prospective_R1": "EVIDENCE_PASS_CONDITIONAL",
+      "historical": "HOLD"
+    },
+    {
+      "id": "G4-02",
+      "prospective_R1": "EVIDENCE_PASS_CONDITIONAL_IF_USED",
+      "historical": "HOLD_IF_USED"
+    },
+    {
+      "id": "G4-03",
+      "prospective_R1": "EVIDENCE_PASS_CONDITIONAL",
+      "historical": "HOLD"
+    },
+    {
+      "id": "G4-04",
+      "status": "EXCLUDED_BLOCKED_IF_USED"
+    },
+    {
+      "id": "G4-05",
+      "status": "PARTIAL_LOCAL_PREFLIGHT_PENDING"
+    },
+    {
+      "id": "G4-06",
+      "status": "NOT_AUTHORIZED"
+    }
+  ],
+  "remaining_actions": [
+    "RUN_APPROVED_READ_ONLY_NINE_SOURCE_LOCAL_IDENTITY_AND_NOTICE_PREFLIGHT_ON_AUTHOR_MAC_WITH_PINNED_REPO",
+    "VERIFY_SANITIZED_SUCCESS_SUMMARY_AND_AUTHOR_REPORTED_REPORT_SHA256_WITH_DISTINCT_PROVENANCE",
+    "REPEAT_SOURCE_IDENTITY_CHECK_AT_ACTUAL_FUTURE_SEPARATELY_APPROVED_EXECUTION_BOUNDARY",
+    "KEEP_G4_06_AND_PR_MERGE_DISABLED_UNLESS_EXPLICITLY_APPROVED_SEPARATELY"
+  ]
+}
