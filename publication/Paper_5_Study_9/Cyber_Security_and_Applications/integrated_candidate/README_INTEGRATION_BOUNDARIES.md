@@ -12,7 +12,7 @@ This candidate is a complete copy of the existing Paper 5 Study 9 LaTeX manuscri
 
 ## Source and citation requirements
 
-Study 9 original manuscript and 11 BibTeX entries are retained verbatim outside the deliberately revised title, abstract, introduction, additional study sections, conclusion and AI-use declaration. New versioned dataset references are appended, with creators drawn from Zenodo v2 records. ESA v1 original creator attribution is deliberately pending final version-specific verification. Confirm final dataset-license notice text and actual publication permissions at submission stage; no raw data redistributed.
+Study 9 original manuscript and 11 BibTeX entries are retained verbatim outside the deliberately revised title, abstract, introduction, additional study sections, conclusion and AI-use declaration. New versioned dataset references are appended, with creators drawn from Zenodo v2 records. ESA v1 creator attribution was verified against the versioned Zenodo record (De Canio, Kotowski, and Haskamp; DOI 10.5281/zenodo.12528696). Publisher formatting and full bibliographic QA remain subject to final review. Confirm final dataset-license notice text and actual publication permissions at submission stage; no raw data redistributed.
 
 ## Validation and open gates
 
