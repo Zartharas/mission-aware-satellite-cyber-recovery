@@ -1,0 +1,5 @@
+- Three space-cyber datasets showed 0/8 direct recovery-state coverage.
+- Four real-flight strata likewise lacked qualifying direct recovery fields.
+- Operational recovery-action assessment was not evaluable for real-flight data.
+- ESA releases matched 224 channels but differed in 54 shared metadata cells.
+- Separate frozen studies distinguish decision identifiability from observability.
