@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_02_ESA_V1_CONDITIONAL_PAIRED_SENSITIVITY_AUTHOR_DECISION",
+  "recorded_utc_date": "2026-11-23",
+  "authorization_basis": {
+    "author_decision_verbatim": "Yes, I authorize.",
+    "preceding_question": "Do you approve retaining ESA v1 solely as a conditional paired-release sensitivity comparator, with no independent replication claim and no original-source execution until separately authorized?",
+    "approval_interpretation": "RETAIN_ESA_V1_AS_CONDITIONAL_PAIRED_RELEASE_COMPARATOR_ONLY",
+    "authorization_is_source_semantic_execution": false,
+    "authorization_is_rights_holder_contact": false,
+    "authorization_is_release_specific_attribution_final_signoff": false,
+    "authorization_is_pr_merge": false
+  },
+  "scope": {
+    "dataset": "ESA Anomaly Dataset",
+    "release": "v1",
+    "doi": "10.5281/zenodo.12528696",
+    "release_role": "OPTIONAL_TIER_B_PAIRED_METADATA_RELEASE_SENSITIVITY",
+    "match_keys": [
+      "mission",
+      "channel identifier",
+      "metadata field"
+    ],
+    "reference_release": "ESA_ADB_V2_MISSIONS_1_2_3",
+    "research_question": "RQ-E3",
+    "separate_primary_population_increase": false,
+    "independent_replicate": false,
+    "ESA_v1_v2_independent_trial_count": false,
+    "raw_telemetry_payload_use_now": false,
+    "primary_strata_unchanged": 4,
+    "primary_variables_each": 8,
+    "primary_classification_slots_unchanged": 32,
+    "hypothesis_testing_or_cross_family_pooling_added": false,
+    "pre_result_eligibility_and_rights_conditions_preserved": true,
+    "archive_zip_byte_equality_inferred_from_directory": false
+  },
+  "license_and_rights": {
+    "dataset_level_license": "CC BY 3.0 IGO",
+    "first_party_license_file": "https://github.com/esa/anomaly-dataset/blob/a969698e464788c961dbb646d3da24595c7c7a2b/LICENSE",
+    "pinned_license_git_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+    "first_party_readme_links_v1_doi": true,
+    "metadata_license_name_confirmation_required_via_email": false,
+    "rights_and_notice_application_signed_off": false,
+    "file_specific_exceptions_absent_proven": false,
+    "original_author_report_sha256": "b9486430f6a2c25384d105fe96296411df4b2e4526a6d0e759a8c960e3b28584",
+    "rights_inventory_provenance": "AUTHOR_REPORTED_LOCAL_DIRECTORY_METADATA_ONLY",
+    "G4_02": "HOLD_IF_USED"
+  },
+  "guardrails": {
+    "G4_01": "HOLD_SOURCE_USE_SIGNOFF",
+    "G4_02": "HOLD_IF_USED",
+    "G4_03": "HOLD_NOTICE_AND_EXCEPTION_SIGNOFF",
+    "G4_04": "EXCLUDED",
+    "G4_05": "PARTIAL",
+    "G4_06": "NOT_AUTHORIZED",
+    "source_semantic_execution_authorized": false,
+    "PR_merges_authorized": false,
+    "paper_submission_authorized": false,
+    "original_data_upload_authorized": false,
+    "raw_rehosting_authorized": false,
+    "frozen_G2_and_G3_modification_authorized": false,
+    "scientific_findings_created_by_this_decision": false
+  },
+  "required_before_future_v1_use": [
+    "Determine file-specific applicability of CC BY 3.0 IGO and document residual exceptions/risk",
+    "Finalize conditional v1 attribution and modification notice in future manuscript",
+    "Obtain source-use and G4-06 execution authorization after mandatory pre-G4 rights gates",
+    "Ensure matching mission/channel/field keys are established without retrospective selection bias"
+  ],
+  "source_protocol_files_unchanged": [
+    "study10/G2_CANONICAL_PROTOCOL_CANDIDATE_20261121.md",
+    "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "study10/G1_POPULATION_DECISION_DRAFT_20261121.json"
+  ]
+}
