@@ -1,0 +1,59 @@
+name: Study 10 G4 local integrity harness tests (synthetic-only)
+on:
+  push:
+    branches:
+      - "study10/s10-rsei-001-g4-local-integrity"
+  pull_request:
+    paths:
+      - "study10/g4_local_integrity_check.py"
+      - "study10/test_g4_local_integrity_check.py"
+      - "study10/G4_LOCAL_INTEGRITY_INSTRUCTIONS.md"
+      - ".github/workflows/validate-study10-g4-local-integrity.yml"
+permissions:
+  contents: read
+jobs:
+  synthetic-harness-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Validate frozen G2 manifest, receipt and expected source count without source files
+        run: |
+          python - <<'PY'
+          import pathlib, sys
+          sys.path.insert(0, 'study10')
+          from g4_local_integrity_check import verify_local_manifest, expected_entries
+          root=pathlib.Path.cwd()
+          source=verify_local_manifest(root)
+          records=expected_entries(source, root/'NO_ESA_DATA', root/'NO_OPS_DATA')
+          assert len(records)==9
+          assert len([r for r in records if r['family']=='ESA_ADB'])==6
+          assert len([r for r in records if r['family']=='OPS_SAT_AD_V2'])==3
+          print('PASS_FROZEN_MANIFEST_AND_NINE_SOURCE_IDENTITIES')
+          PY
+      - name: Run synthetic ZIP tests only
+        run: |
+          python -m compileall -q study10/g4_local_integrity_check.py study10/test_g4_local_integrity_check.py
+          python -m unittest discover -s study10 -p 'test_g4_local_integrity_check.py' -v
+      - name: Confirm missing source files do NOT produce a false PASS
+        run: |
+          set +e
+          python study10/g4_local_integrity_check.py \
+            --repo "$PWD" --esa-dir /nonexistent/esa_source \
+            --ops-dir /nonexistent/ops_source --outer-only > g4_integrity_missing_sources.json
+          status=$?
+          set -e
+          test "$status" -eq 3
+          python - <<'PY'
+          import json
+          j=json.load(open('g4_integrity_missing_sources.json', encoding='utf-8'))
+          assert j['status']=='INCOMPLETE_SOURCE_FILES_NOT_MOUNTED'
+          assert j['source_files_missing']==9
+          assert not j['G4_scientific_execution_authorized']
+          print('PASS_FAIL_CLOSED_MISSING_ORIGINAL_DATASET_FILES')
+          PY
+      - name: Confirm no tracked-file modification
+        run: git diff --exit-code
