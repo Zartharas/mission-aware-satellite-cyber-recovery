@@ -1,6 +1,6 @@
 # Integrated Paper 5 manuscript candidate: Study 9 + Study 10
 
-Status: **DRAFT / EDITORIAL_VALIDATION_IN_PROGRESS / NO_SUBMISSION**. Study 9 original author manuscript and both frozen scientific studies remain unmodified. This review branch is not merged or publication-approved.
+Status: **DRAFT / TECHNICAL_CI_PASS / AUTHOR_CONFIRMATION_PENDING / NO_SUBMISSION**. Study 9 original author manuscript and both frozen scientific studies remain unmodified. This review branch is not merged or publication-approved.
 
 ## Identity and integration
 
@@ -32,9 +32,12 @@ The author-terminal-reported ESA nested layout JSON has not been independently u
 
 Target venue candidate: *Cyber Security and Applications*; verify its live instructions again at final submission. Manuscript: LaTeX elsarticle class; abstract <=350 words; keywords 3-6; companion `CSA_S9_S10_INTEGRATED_HIGHLIGHTS.txt` contains five items <=85 characters (excluding bullet prefix).
 
-The dedicated PR-only workflow `.github/workflows/paper5-s9-s10-draft-latex-ci.yml` compiles with `latexmk` and no shell escape, checks citations, and stores PDF/log as review artifacts. Earlier exact-head CI commit `52a810d3ed366c4d843ad0e5742bb33b7447da28` compiled 21 pages, zero overfull boxes and no unresolved references. The **newest editorial/archive revision requires a fresh exact-head CI pass** before claiming that result applies to it. The AegisSat proceedings source gives no confirmed conventional page interval; retain honest metadata rather than inventing pages to suppress BibTeX's nonfatal missing-pages warning.
+The dedicated PR-only workflow `.github/workflows/paper5-s9-s10-draft-latex-ci.yml` compiles with `latexmk` and no shell escape, checks citations, and stores PDF/log as review artifacts. The full editorial/archive revision passed exact-head CI at commit `c56cd44de9875b8f7c723af8f81c8df84afcf679` (LaTeX + derived evidence run `45236633869`, repository-wide validation run `45236633957`): 23 pages, zero overfull boxes, and no unresolved citations. Adding author-review documentation does not change the scientific manuscript; check the newest PR head's CI separately before any merge or submission. The AegisSat proceedings source gives no confirmed conventional page interval; retain honest metadata rather than inventing pages to suppress BibTeX's nonfatal missing-pages warning.
 
 ## Publication gates
+
+The separate `FINAL_AUTHOR_SUBMISSION_GATE_20261123.md` lists the explicit author-only decisions, live journal requirements and pending publisher-generated competing-interest Word declaration. Its creation is not confirmation that those declarations have been answered.
+
 
 - Author to verify title, academic affiliation, corresponding email and ORCID, funding/conflicts, source-specific rights/credits, original research exclusivity, editorial statements and citations.
 - Author to review the new integrated manuscript and its AI-assistance declaration before any submission.
