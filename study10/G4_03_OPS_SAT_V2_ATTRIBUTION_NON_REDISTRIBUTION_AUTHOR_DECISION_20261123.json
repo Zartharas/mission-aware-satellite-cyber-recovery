@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_03_OPS_SAT_AD_V2_ATTRIBUTION_NON_REDISTRIBUTION_AUTHOR_DECISION",
+  "recorded_date_utc": "2026-11-23",
+  "authorization_evidence": {
+    "author_response_verbatim": "yes, I authorize",
+    "approval_question": "Do you approve the proposed OPS-SAT v2 attribution and non-redistribution plan, with G4-03 remaining on hold pending final signoff?",
+    "decision": "AUTHOR_APPROVES_PROSPECTIVE_MIT_ATTRIBUTION_AND_NON_REDISTRIBUTION_PLAN_ONLY",
+    "expressly_retains_G4_03_hold": true,
+    "does_not_authorize_source_semantic_processing": true,
+    "does_not_authorize_PR_merge": true,
+    "does_not_authorize_manuscript_submission": true,
+    "does_not_assert_final_rights_clearance": true,
+    "external_rights_holder_contact_authorized": false
+  },
+  "source_identity": {
+    "dataset": "OPSSAT-AD - anomaly detection dataset for satellite telemetry",
+    "dataset_version": "v2",
+    "release_doi": "10.5281/zenodo.15108715",
+    "release_url": "https://zenodo.org/records/15108715",
+    "public_release_displayed_date": "2024-06-24",
+    "expected_allowlisted_files": [
+      "dataset.csv",
+      "segments.csv",
+      "LICENSE"
+    ],
+    "published_md5": {
+      "dataset.csv": "5246fdc5e4630a4cecbf7fb6bc8b795e",
+      "segments.csv": "72f109630abb933a386106897a631188",
+      "LICENSE": "ea8befa9af2b37b7a54b5a16fc3712b0"
+    },
+    "license_url": "https://zenodo.org/records/15108715/files/LICENSE?download=1",
+    "upstream_project_license_url": "https://github.com/kplabs-pl/OPS-SAT-AD/blob/main/LICENSE",
+    "upstream_project_license_git_blob_sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11"
+  },
+  "license_evidence": {
+    "license_title": "MIT License for OPS-SAT Dataset",
+    "copyright_notice": "Copyright (c) 2024 KP Labs",
+    "applies_to": [
+      "software",
+      "data",
+      "associated documentation"
+    ],
+    "dataset_level_license_documentation_verified": true,
+    "full_original_copyright_and_permission_notice_required_if_copies_or_substantial_portions_distributed": true,
+    "scholarly_dataset_citation_is_separate_from_license_notice": true,
+    "original_CSV_in_band_notices_examined": false,
+    "no_file_specific_exceptions_proven": false,
+    "independent_legal_opinion_provided": false
+  },
+  "authorized_plan": {
+    "intended_primary_role": "FOURTH_DISTINCT_PRIMARY_DESCRIPTIVE_SOURCE_STRATUM",
+    "primary_strata_total_unchanged": 4,
+    "primary_eight_variable_slots_total_unchanged": 32,
+    "dataset_reference_must_include_versioned_doi": true,
+    "provisional_dataset_citation": "Ruszczak, B. (2024). OPSSAT-AD - anomaly detection dataset for satellite telemetry (v2) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.15108715",
+    "citation_status": "PROVISIONAL_PENDING_VERSIONED_ZENODO_EXPORT_REVIEW",
+    "source_display_creator": "Bogdan, Ruszczak",
+    "source_contributor_display": "Ruszczak, Bogdan",
+    "associated_methods_paper_doi": "10.1038/s41597-025-05035-3",
+    "methods_publication_correction_doi": "10.1038/s41597-025-05751-w",
+    "future_manuscript_prospective_only": true,
+    "future_attribution_should_record": [
+      "versioned dataset DOI",
+      "MIT License for OPS-SAT Dataset",
+      "Copyright (c) 2024 KP Labs",
+      "applicable method-paper citation",
+      "accurate changes and derived-work statements"
+    ],
+    "raw_original_telemetry_redistribution_prohibited_by_author_plan": true,
+    "original_CSV_data_upload_or_rehosting_allowed": false,
+    "if_future_artifact_contains_licensed_copies_or_substantial_portions": "PRESERVE_FULL_ORIGINAL_MIT_COPYRIGHT_AND_PERMISSION_NOTICE_IN_THAT_ARTIFACT_SUBJECT_TO_SEPARATE_PUBLICATION_REVIEW",
+    "scope_of_derived_outputs": "NON_RAW_ONLY; EXPLICIT_SEPARATE_SECURITY_PRIVACY_AND_RECONSTRUCTABILITY_REVIEW_REQUIRED"
+  },
+  "open_matters": {
+    "verify_zenodo_v2_citation_export_author_order": true,
+    "inspect_or_otherwise_dispose_of_unknown_original_CSV_in_band_notices_before_rights_signoff": true,
+    "check_any_third_party_member_restrictions_before_source_semantic_execution": true,
+    "implement_and_review_final_publication_notice_in_actual_future_manuscript": true,
+    "review_any_supplement_or_reproducibility_publication_for_full_MIT_notice_if_applicable": true,
+    "no_automatic_inference_of_embedded_exception_absence": true,
+    "no_new_dataset_source_scan_authorized_by_this_decision": true
+  },
+  "governance": {
+    "G4_01": "DATASET_LICENSE_CONFIRMED; SOURCE_USE_AND_EXCEPTION_SIGNOFF_PENDING",
+    "G4_02": "RETAIN_V1_CONDITIONALLY; HOLD_IF_USED",
+    "G4_03": "HOLD_FINAL_NOTICE_AND_EMBEDDED_EXCEPTION_SIGNOFF",
+    "G4_04": "EXCLUDED",
+    "G4_05": "PARTIAL_INTEGRITY_AND_LICENSE_MARKER_INVENTORY; NOTICES_SIGNOFF_PENDING",
+    "G4_06": "NOT_AUTHORIZED",
+    "G4_03_gate_cleared": false,
+    "source_semantic_execution_authorized": false,
+    "PR_merge_authorized": false,
+    "dataset_redistribution_authorized": false,
+    "journal_submission_authorized": false,
+    "frozen_G2_or_G3_modified": false
+  },
+  "source_provenance": {
+    "versioned_zenodo_release": "https://zenodo.org/records/15108715",
+    "publicly_accessible_upstream_full_MIT_license": "https://github.com/kplabs-pl/OPS-SAT-AD/blob/main/LICENSE",
+    "first_party_license_git_blob_sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+    "prior_G4_documentary_review": "study10/G4_FINAL_DOCUMENTARY_RIGHTS_REVIEW_20261123.md",
+    "prior_prospective_notices": "study10/G4_PROSPECTIVE_PUBLICATION_SOURCE_NOTICES_20261123.md",
+    "local_original_file_evidence": "AUTHOR_REPORTED_ONLY; NO_NEW_LOCAL_SOURCE_SCAN_IN_THIS_RECORD"
+  }
+}
