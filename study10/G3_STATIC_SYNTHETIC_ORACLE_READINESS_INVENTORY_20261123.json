@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G3_STATIC_PREEXECUTION_SYNTHETIC_ORACLE_READINESS_AND_G4_GATE_REGISTER",
+  "prepared_utc_date": "2026-11-23",
+  "user_response_context": {
+    "exact_response": "yes, I authorize",
+    "selected_prior_result": "G4-05 current identity 9/9 PASS and notice 10/10 PASS; G4-06 explicitly NOT AUTHORIZED; PR merges NOT AUTHORIZED",
+    "interpretation": "ADVANCE_READ_ONLY_TECHNICAL_READINESS_PREPARATION_ONLY",
+    "specific_new_G3_execution_approval_in_response": false,
+    "specific_new_G4_06_execution_approval_in_response": false,
+    "PR_merge_authorized": false
+  },
+  "normative_pins": {
+    "frozen_G2_receipt_git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "frozen_G2_payload_commit": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "G2_frozen_manifest_git_blob_sha1": "a20ca25c439d97150c56eeec197cc891c83aa1ad",
+    "G1_semantic_control_spec_git_blob_sha1": "29c97ef13c8bc92b51f09a1b3ad033dba9371081",
+    "Study9_semantic_freeze_blob": "ba18e5386fb854147570970cc6369ed0731b947c",
+    "Study9_mapping_rubric_blob": "aca6f9ddc7bbc14446b2a89968ec2a6a52bc1a16",
+    "frozen_Study2_selector_git_blob_sha1": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+    "frozen_Study2_selector_SHA256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "latest_G4_05_evidence_sha256": "4a035980a8f10e60f5a645071761088e45e062827c4e974d3fca43a1d26f7bfc",
+    "G4_05_evidence_git_blob_sha1": "6501040b83f9c8657dc99201361618622de26c94",
+    "approved_R1_prospective_record_git_blob_sha1": "812fd538b0fa5e8970996a8224c424d8dc8b7342",
+    "source_spec_provenance": "PINNED_EXISTING_REPO_FILES_NOT_NEW_EXECUTED_TESTS"
+  },
+  "frozen_synthetic_contract": {
+    "fixture_id": "S10_SYN_P0_V3_DRAFT",
+    "status": "FROZEN_AS_G2_DESIGN_G3_NOT_YET_AUTHORIZED",
+    "synthetic_only": true,
+    "no_real_signatures_verified": true,
+    "accepted_claim_count": 10,
+    "exact_criteria": [
+      "approved_version",
+      "integrity_measurement_valid",
+      "authorization_valid",
+      "measured_state_current",
+      "authorized_command_path_restored",
+      "ground_spacecraft_state_agreed",
+      "required_telemetry_restored",
+      "health_checks_passed",
+      "no_residual_unauthorized_state",
+      "recovery_manifest_complete"
+    ],
+    "normalized_bool_order": [
+      "signature_valid",
+      "source_trusted",
+      "fresh",
+      "epoch_valid",
+      "contradictory",
+      "minimum_evidence_complete",
+      "security_signal",
+      "authorization_available"
+    ],
+    "P0_normalized_boolean_values": [
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true
+    ],
+    "P0_expected_actions_source": "STATIC_SOURCE_TEXT_REVIEW_NOT_INDEPENDENT_ORACLE",
+    "four_frozen_primary_policies": [
+      "S2_B0_FAIL_CLOSED",
+      "S2_B1_FAIL_OPERATIONAL",
+      "S2_B2_RISK_THRESHOLD",
+      "S2_S1_EVIDENCE_AWARE"
+    ],
+    "four_excluded_ablations": [
+      "S2_ABL_NO_FRESHNESS",
+      "S2_ABL_NO_CONTRADICTION",
+      "S2_ABL_NO_EPOCH",
+      "S2_ABL_NO_SIGNATURE_TRUST"
+    ],
+    "future_complete_boolean_state_combinations_per_policy": 256,
+    "G3_state": "NOT_EXECUTED",
+    "synthetic_control_cases": [
+      {
+        "id": "P0_BASE",
+        "synthetic_mutation": "EIGHT_KNOWN_BOOLEANS_AND_TEN_ACCEPTED_CURRENT_CLAIMS",
+        "source_defined_expected": "SYNTHETIC_INPUT_ONLY_NOT_EXECUTED",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_T_LOWER",
+        "synthetic_mutation": "ISOLATED_FRESHNESS_NOW_1000_ISSUED_1000_VALID_100",
+        "source_defined_expected": "FRESH_KNOWN_TRUE_INCLUSIVE_LOWER_BOUND",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_T_UPPER",
+        "synthetic_mutation": "ISOLATED_FRESHNESS_NOW_1100_ISSUED_1000_VALID_100",
+        "source_defined_expected": "FRESH_KNOWN_TRUE_INCLUSIVE_UPPER_BOUND",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_FUTURE_ISSUE",
+        "synthetic_mutation": "ISOLATED_FRESHNESS_NOW_999_ISSUED_1000_VALID_100",
+        "source_defined_expected": "FRESH_KNOWN_FALSE_SYNTHETIC_ONLY",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_EXPIRED",
+        "synthetic_mutation": "ISOLATED_FRESHNESS_NOW_1101_ISSUED_1000_VALID_100",
+        "source_defined_expected": "FRESH_KNOWN_FALSE_SYNTHETIC_ONLY",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_EPOCH_MISMATCH",
+        "synthetic_mutation": "EXPECTED_EPOCH_8_CLAIMED_EPOCH_7",
+        "source_defined_expected": "EPOCH_VALID_KNOWN_FALSE",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_EPOCH_UNKNOWN",
+        "synthetic_mutation": "EXPECTED_EPOCH_WITHHELD_NO_VERIFIER_RESULT",
+        "source_defined_expected": "EPOCH_VALID_UNKNOWN_NO_IMPUTATION",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_CRITERIA",
+        "synthetic_mutation": "CLAIM_10_ABSENT_ACCEPTED_FALSE_IN_EXHAUSTIVE_LEDGER",
+        "source_defined_expected": "MINIMUM_EVIDENCE_COMPLETE_KNOWN_FALSE",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_CRITERIA_VALUE",
+        "synthetic_mutation": "CLAIM_10_ACCEPTED_BUT_VALUE_MISMATCH",
+        "source_defined_expected": "SYNTHETIC_REQUIREMENTS_SATISFIED_FALSE",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_LEDGER_INCOMPLETE",
+        "synthetic_mutation": "LEDGER_INCOMPLETE_CLAIM_10_MISSING",
+        "source_defined_expected": "MINIMUM_EVIDENCE_COMPLETE_UNKNOWN",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_CONTRADICTION",
+        "synthetic_mutation": "SECOND_TRUSTED_ACCEPTED_CURRENT_SAME_SUBJECT_KEY_EPOCH_CLAIM_DIFFERENT_VALUE",
+        "source_defined_expected": "CONTRADICTORY_KNOWN_TRUE",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_CRC",
+        "synthetic_mutation": "CRC_FLAG_WITHOUT_CRYPTOGRAPHIC_VERIFIER_RESULT",
+        "source_defined_expected": "SIGNATURE_VALID_UNKNOWN",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_APID",
+        "synthetic_mutation": "SOURCE_ID_WITHOUT_TRUST_MEMBERSHIP",
+        "source_defined_expected": "SOURCE_TRUSTED_UNKNOWN",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_TIME",
+        "synthetic_mutation": "TIMESTAMP_WITHOUT_VALIDITY_INTERVAL_OR_DECISION_TIME",
+        "source_defined_expected": "FRESH_UNKNOWN_ACTION_NOT_EVALUABLE",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_LABEL",
+        "synthetic_mutation": "OFFLINE_ATTACK_LABEL_WITHOUT_NATIVE_GUARD",
+        "source_defined_expected": "SECURITY_SIGNAL_UNKNOWN",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_COMMAND",
+        "synthetic_mutation": "COMMAND_STATUS_WITHOUT_AUTHORIZATION_PATH",
+        "source_defined_expected": "AUTHORIZATION_AVAILABLE_UNKNOWN",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_MISSING",
+        "synthetic_mutation": "ALL_OPERATIONAL_EVIDENCE_WITHHELD",
+        "source_defined_expected": "ALL_EIGHT_UNKNOWN_NO_SELECTOR_CALL",
+        "executed": false
+      },
+      {
+        "id": "S10_SYN_N_MIXING",
+        "synthetic_mutation": "PAIRED_ESA_V1_V2_OR_CONTEST_AS_INDEPENDENT_REPLICATES",
+        "source_defined_expected": "REJECT_SOURCE_INDEPENDENCE_COHORT",
+        "executed": false
+      }
+    ],
+    "static_selector_examples": [
+      {
+        "id": "STATIC_P0",
+        "evidence_qualified": true,
+        "security_signal": false,
+        "authorization_available": true,
+        "expected_actions": {
+          "S2_B0_FAIL_CLOSED": "PROCEED_TO_RECOVERY_GATE",
+          "S2_B1_FAIL_OPERATIONAL": "PRESERVE_LIMITED_OPERATION",
+          "S2_B2_RISK_THRESHOLD": "PRESERVE_LIMITED_OPERATION",
+          "S2_S1_EVIDENCE_AWARE": "PROCEED_TO_RECOVERY_GATE"
+        },
+        "evidence_type": "STATIC_FROM_PINNED_G1_AND_FROZEN_SELECTOR_TEXT",
+        "selector_function_executed": false,
+        "independent_oracle_implemented": false,
+        "parity_test_performed": false
+      },
+      {
+        "id": "STATIC_FRESH_FALSE",
+        "evidence_qualified": false,
+        "security_signal": false,
+        "authorization_available": true,
+        "expected_actions": {
+          "S2_B0_FAIL_CLOSED": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+          "S2_B1_FAIL_OPERATIONAL": "PRESERVE_LIMITED_OPERATION",
+          "S2_B2_RISK_THRESHOLD": "HOLD_AND_REQUIRE_EVIDENCE",
+          "S2_S1_EVIDENCE_AWARE": "HOLD_AND_REQUIRE_EVIDENCE"
+        },
+        "evidence_type": "STATIC_FROM_PINNED_G1_AND_FROZEN_SELECTOR_TEXT",
+        "selector_function_executed": false,
+        "independent_oracle_implemented": false,
+        "parity_test_performed": false
+      },
+      {
+        "id": "STATIC_CONTRADICTORY_TRUE",
+        "evidence_qualified": false,
+        "security_signal": false,
+        "authorization_available": true,
+        "expected_actions": {
+          "S2_B0_FAIL_CLOSED": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+          "S2_B1_FAIL_OPERATIONAL": "PRESERVE_LIMITED_OPERATION",
+          "S2_B2_RISK_THRESHOLD": "HOLD_AND_REQUIRE_EVIDENCE",
+          "S2_S1_EVIDENCE_AWARE": "HOLD_AND_REQUIRE_EVIDENCE"
+        },
+        "evidence_type": "STATIC_FROM_PINNED_G1_AND_FROZEN_SELECTOR_TEXT",
+        "selector_function_executed": false,
+        "independent_oracle_implemented": false,
+        "parity_test_performed": false
+      },
+      {
+        "id": "STATIC_SIGNAL_TRUE_AUTH_FALSE",
+        "evidence_qualified": true,
+        "security_signal": true,
+        "authorization_available": false,
+        "expected_actions": {
+          "S2_B0_FAIL_CLOSED": "PROCEED_TO_RECOVERY_GATE",
+          "S2_B1_FAIL_OPERATIONAL": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+          "S2_B2_RISK_THRESHOLD": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+          "S2_S1_EVIDENCE_AWARE": "RESTRICT_AND_REQUEST_AUTHORIZATION"
+        },
+        "evidence_type": "STATIC_FROM_PINNED_G1_AND_FROZEN_SELECTOR_TEXT",
+        "selector_function_executed": false,
+        "independent_oracle_implemented": false,
+        "parity_test_performed": false
+      },
+      {
+        "id": "STATIC_SIGNAL_TRUE_AUTH_TRUE",
+        "evidence_qualified": true,
+        "security_signal": true,
+        "authorization_available": true,
+        "expected_actions": {
+          "S2_B0_FAIL_CLOSED": "PROCEED_TO_RECOVERY_GATE",
+          "S2_B1_FAIL_OPERATIONAL": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+          "S2_B2_RISK_THRESHOLD": "RESTRICT_AND_REQUEST_AUTHORIZATION",
+          "S2_S1_EVIDENCE_AWARE": "PROCEED_TO_RECOVERY_GATE"
+        },
+        "evidence_type": "STATIC_FROM_PINNED_G1_AND_FROZEN_SELECTOR_TEXT",
+        "selector_function_executed": false,
+        "independent_oracle_implemented": false,
+        "parity_test_performed": false
+      },
+      {
+        "id": "STATIC_SIGNAL_FALSE_AUTH_FALSE",
+        "evidence_qualified": true,
+        "security_signal": false,
+        "authorization_available": false,
+        "expected_actions": {
+          "S2_B0_FAIL_CLOSED": "PROCEED_TO_RECOVERY_GATE",
+          "S2_B1_FAIL_OPERATIONAL": "PRESERVE_LIMITED_OPERATION",
+          "S2_B2_RISK_THRESHOLD": "PRESERVE_LIMITED_OPERATION",
+          "S2_S1_EVIDENCE_AWARE": "PROCEED_TO_RECOVERY_GATE"
+        },
+        "evidence_type": "STATIC_FROM_PINNED_G1_AND_FROZEN_SELECTOR_TEXT",
+        "selector_function_executed": false,
+        "independent_oracle_implemented": false,
+        "parity_test_performed": false
+      }
+    ]
+  },
+  "future_G3_test_readiness_conditions": [
+    "EXPLICIT_G3_SYNTHETIC_ONLY_IMPLEMENTATION_AND_EXECUTION_AUTHORIZATION_BEFORE_RUN",
+    "SEPARATE_STANDALONE_ORACLE_SOURCE_NOT_IMPORTING_PRODUCTION_SELECTOR",
+    "PINNED_18_CASE_MUTATION_IDENTITY_AND_FIXTURE_VALUES",
+    "KNOWN_TRUE_KNOWN_FALSE_UNKNOWN_TRI_STATE_CONTRACT_WITHOUT_SILENT_DEFAULTS",
+    "INCLUSIVE_SYNTHETIC_TIME_BOUNDARY_ISSUED_LE_NOW_LE_ISSUED_PLUS_VALID",
+    "ONE_TO_ONE_TEN_ACCEPTED_CURRENT_SYNTHETIC_CLAIMS_TO_TEN_REQUIRED_VALUES_WITH_VALUE_EQUALITY",
+    "EVIDENCE_EPOCH_EXPECTED_VS_CLAIMED_AND_COMPLETE_LEDGER_CONTRADICTION_RULES",
+    "NO_REAL_CRYPTOSIGNATURE_CLAIM_AND_NO_REAL_TELEMETRY_PATHS",
+    "STUDY2_FROZEN_SELECTOR_SHA256_VERIFIED_BEFORE_PARITY",
+    "POLICY_SPECIFIC_256_BOOLEAN_STATE_PARITY_COMPARISON_FOR_ALL_FOUR_PRIMARY_POLICIES",
+    "NO_COMPUTATION_OF_NATIVE_G4_COVERAGE_OR_ACTION_RATES_FROM_SYNTHETIC_INPUTS",
+    "G3_PARITY_FAILURE_STOPS_G4_06",
+    "REPORT_CODE_AND_ENVIRONMENT_IDS_ERRORS_AND_AUTHOR_REVIEW_WITHOUT_FALSE_INDEPENDENT_HUMAN_REVIEW_CLAIM"
+  ],
+  "current_gate_summary": {
+    "R1_sources_documentary_conditionally_eligible": true,
+    "G4_05_current_identity_and_notice_plan": "PASS_AT_2026-11-23T05:21:59.653981+00:00",
+    "G4_05_future_execution_boundary_recheck_required": true,
+    "G3_authorized": false,
+    "G3_technical_oracle_implemented_and_validated": false,
+    "G3_selector_parity_executed": false,
+    "G4_06_authorized": false,
+    "G4_06_source_semantic_adjudication_executed": false,
+    "PR_merges_authorized": false,
+    "frozen_G2_G3_changed": false
+  },
+  "next_decision_required": "SEPARATE_EXPLICIT_G3_SYNTHETIC_ONLY_IMPLEMENTATION_AND_PARITY_AUTHORIZATION; THIS_READINESS_RECORD_DOES_NOT_AUTHORIZE_EITHER_G3_OR_G4_06",
+  "no_actions_taken": {
+    "source_dataset_rows_read": false,
+    "selector_function_called": false,
+    "synthetic_test_cases_executed": false,
+    "external_data_transmitted": false,
+    "PR_merged": false,
+    "manuscript_published": false
+  }
+}
