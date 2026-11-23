@@ -45,10 +45,10 @@ Do **not** publish a private street address, telephone number, employment record
 Current manuscript provides a general ChatGPT AI-use statement and a specific caption for its native LaTeX conceptual `fig:phase2gates` schematic. The applicable [Elsevier journal policy](https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals) permits AI-assisted conceptual flow diagrams with human verification, but the caption is expected to state the tool, **version**, and how used, and the general statement must also disclose use.
 
 - [ ] Inspect the actual figure against the source flow and approve it as an **explanatory schematic**, not an observational or invented research image.
-- [ ] Identify the exact **model/version originally used to draft the Figure 1 LaTeX**, from a reliable creation log. It is **not independently known** from the repository snapshot and **must not be guessed**. If version cannot be established, consult the journal before final caption approval rather than fabricating it.
+- [ ] Verify the final Figure 1 revision and its caption: the **current edited LaTeX diagram** was revised with OpenAI ChatGPT **GPT-6 on 23 November 2026** in a recorded assistant session; the exact model for an **earlier diagram draft remains unrecorded**. The caption discloses both facts. Do not claim the original model is known or suppress the draft caveat. Consult the journal if it requires further clarification.
 - [ ] Approve the general AI-use declaration after independently checking all references, inferences, and wording; keep the author solely accountable.
 
-**Initial model/version:** `NOT_VERIFIED`  
+**Figure revision model/version:** `OpenAI ChatGPT GPT-6 (2026-11-23; current edited schematic)`; **original prior draft model:** `UNKNOWN_NOT_INVENTED`  
 **Figure/overall AI declaration final author approval:** `PENDING`
 
 ## 5. Source rights, derived material and data availability
