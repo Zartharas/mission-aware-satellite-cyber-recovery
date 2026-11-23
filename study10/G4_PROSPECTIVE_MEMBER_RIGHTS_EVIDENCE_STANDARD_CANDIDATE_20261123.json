@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "PROSPECTIVE_G4_MEMBER_RIGHTS_EVIDENCE_STANDARD_CANDIDATE",
+  "prepared_utc_date": "2026-11-23",
+  "status": "PROPOSED_NOT_ACTIVATED",
+  "authorization_scope": {
+    "user_response_verbatim": "yes, I authorize",
+    "referring_task": "Targeted resolution of outstanding file-level third-party rights evidence condition or separately authorized prospective governance change if evidence cannot satisfy frozen condition; no broad telemetry scans",
+    "interpreted_as": "AUTHORIZE_PUBLIC_FIRST_PARTY_TARGETED_REVIEW_AND_DRAFT_OF_POSSIBLE_PROSPECTIVE_CHANGE_ONLY",
+    "user_has_explicitly_approved_this_exact_prospective_amendment_text": false,
+    "user_has_explicitly_authorized_G4_06": false,
+    "user_has_authorized_PR_merge": false,
+    "user_has_authorized_third_party_contact": false
+  },
+  "controlling_frozen_policy": {
+    "id": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "receipt": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "receipt_git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "historical_rights_clearance": false,
+    "original_G2_receipt_remains_immutable": true,
+    "candidate_does_not_retroactively_update_G2_or_G3": true
+  },
+  "evidence_determinations": [
+    {
+      "source": "ESA_ADB_V2",
+      "gate": "G4-01",
+      "doi": "10.5281/zenodo.15237121",
+      "rights": "CC BY 3.0 IGO",
+      "evidence_pins": {
+        "v2_project_Croissant_git_blob": "9da81fadbaf96cdfd2c7d8c5b906f4d45f80f461",
+        "first_party_ESA_repo_README_git_blob": "76f66a4550d0d8d3910b595d1c968bde9bbabed6"
+      },
+      "public_publisher": "European Space Agency",
+      "source_creators_by_institution": [
+        "ESA/ESOC",
+        "KP Labs",
+        "Airbus Germany"
+      ],
+      "first_party_versioned_file_grant_documentation": true,
+      "individual_member_exception_free_warranty_found": false,
+      "known_restrictive_file_rights_found": false,
+      "state": "DATASET_GRANT_SUPPORTED_MEMBER_SCOPE_UNVERIFIED"
+    },
+    {
+      "source": "ESA_ADB_V1",
+      "gate": "G4-02",
+      "doi": "10.5281/zenodo.12528696",
+      "rights": "CC BY 3.0 IGO",
+      "evidence_pins": {
+        "official_repository_license_git_blob": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+        "official_repository_README_git_blob": "76f66a4550d0d8d3910b595d1c968bde9bbabed6"
+      },
+      "first_party_versioned_release_and_project_license_documentation": true,
+      "optional_RQ_E3_only": true,
+      "individual_member_exception_free_warranty_found": false,
+      "known_restrictive_file_rights_found": false,
+      "state": "DATASET_GRANT_SUPPORTED_MEMBER_SCOPE_UNVERIFIED_IF_USED"
+    },
+    {
+      "source": "OPS_SAT_AD_V2",
+      "gate": "G4-03",
+      "doi": "10.5281/zenodo.15108715",
+      "rights": "MIT License for OPS-SAT Dataset",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "source_data_origin": "ESA-operated OPS-SAT spacecraft",
+      "exact_allowlisted_files": [
+        "dataset.csv",
+        "segments.csv",
+        "LICENSE"
+      ],
+      "file_specific_roles": {
+        "dataset_csv": "DERIVED_SEGMENT_FEATURES",
+        "segments_csv": "ACQUIRED_TELEMETRY"
+      },
+      "exact_deposit_license_is_data_inclusive": true,
+      "evidence_pins": {
+        "OPS_upstream_license_git_blob": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+        "OPS_upstream_README_git_blob": "46e76152d1766d11f446270f6452620b35201bf5"
+      },
+      "first_party_acquisition_authors": [
+        "B.R.",
+        "D.E. (ESA/ESOC affiliate)"
+      ],
+      "first_party_release": "https://zenodo.org/records/15108715",
+      "peer_reviewed_provenance": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12041257/",
+      "individually_signed_ESA_to_KP_Labs_data_rights_grant_found": false,
+      "individual_CSV_exception_free_warranty_found": false,
+      "known_restrictive_file_rights_found": false,
+      "state": "DATA_INCLUSIVE_MIT_GRANT_STRONGLY_SUPPORTED_RAW_DATA_CHAIN_OF_TITLE_NOT_INDEPENDENTLY_WARRANTED"
+    }
+  ],
+  "current_outcome": {
+    "positive_dataset_level_public_grants_supported": true,
+    "first_party_release_provenance_supported": true,
+    "author_limited_use_and_residual_uncertainty_attestation_signed": true,
+    "author_signed_record": "study10/G4_LIMITED_SOURCE_USE_AUTHOR_ATTESTATION_APPROVAL_20261123.json",
+    "no_positive_restrictive_notice_in_26_bounded_prefixes": true,
+    "no_proof_all_file_specific_exceptions_absent": true,
+    "frozen_member_level_signoff_requirements_not_yet_satisfied_by_strict_exception_free_reading": true,
+    "no_G4_gate_cleared": true
+  },
+  "proposed_prospective_eligibility_standard": {
+    "candidate_id": "G4_RIGHTS_STANDARD_R1",
+    "applies_only_after_separate_approval": true,
+    "applies_before_original_source_semantic_results": true,
+    "source_scope_exact_DOIs": [
+      "10.5281/zenodo.15237121",
+      "10.5281/zenodo.12528696",
+      "10.5281/zenodo.15108715"
+    ],
+    "local_offline_only": true,
+    "raw_original_data_redistribution_permitted": false,
+    "test": [
+      "Confirm exact versioned source record with trustworthy publisher/maintainer",
+      "Confirm a positive first-party grant explicitly covering the dataset/file class, and not just benchmark software",
+      "Tie grant to exact versioned source files or public release identity with reproducible hashes",
+      "Preserve any known third-party exceptions and honor narrower member-level restrictions when discovered",
+      "Record absent contrary terms only within scope actually checked, never assert universal absence",
+      "Require exact sole-author signoff of restricted intended use, residual uncertainty and stop-on-conflict",
+      "Keep source-specific DOI/license/attribution/changes/non-endorsement and full copyright/permission notices when redistribution of covered copies would occur",
+      "Prohibit source-semantic execution without separate G4-06 authorization and identity preflight",
+      "Stop on credible file-specific contradictory rights, privacy restriction, operational-security risk, or local hash mismatch, until a specific resolution is recorded"
+    ],
+    "exception_free_proof_required": false,
+    "explicit_exception_resolution_if_contradiction_known": true,
+    "author_risk_acceptance_substitutes_for_third_party_permission": false,
+    "independent_legal_opinion_asserted": false,
+    "positive_source_provenance_can_satisfy_reasonable_diligence_condition_if_author_approves": true,
+    "cannot_override_real_statutory_contractual_or_rightsholder_restrictions": true,
+    "publication_artifact_review_remains_separate": true
+  },
+  "approval_gate": {
+    "candidate_author_acceptance_missing": true,
+    "prospective_amendment_activation": false,
+    "existing_frozen_policy_replaced": false,
+    "source_use_authorized_now": false,
+    "mandatory_gate_status_after_this_candidate": [
+      {
+        "id": "G4-01",
+        "status": "HOLD",
+        "cleared": false
+      },
+      {
+        "id": "G4-02",
+        "status": "HOLD_IF_USED",
+        "cleared": false
+      },
+      {
+        "id": "G4-03",
+        "status": "HOLD",
+        "cleared": false
+      },
+      {
+        "id": "G4-04",
+        "status": "EXCLUDED_BLOCKED_IF_USED",
+        "cleared": false
+      },
+      {
+        "id": "G4-05",
+        "status": "PARTIAL",
+        "cleared": false
+      },
+      {
+        "id": "G4-06",
+        "status": "NOT_AUTHORIZED",
+        "cleared": false
+      }
+    ],
+    "required_if_author_chooses_amendment": "SEPARATE_EXPLICIT_APPROVAL_OF_THIS_EXACT_FORWARD_LOOKING_RIGHTS_EVIDENCE_STANDARD_AND_DATED_ADDITIVE_AMENDMENT_RECEIPT_THEN_NEW_SOURCE_SPECIFIC_SIGNOFF_CHECK",
+    "veto": "IF_ANY_IDENTIFIED_CONFLICTING_RIGHTS_NOTICE_IS_UNRESOLVED_DO_NOT_GRANT_SOURCE_USE",
+    "no_automatic_G4_06_even_after_amendment": true,
+    "no_automatic_PR_merge_even_after_amendment": true
+  },
+  "changes_performed": {
+    "original_telemetry_semantics_read": false,
+    "local_archives_scanned": false,
+    "external_rightsholder_contact": false,
+    "frozen_G2_G3_changed": false,
+    "PR_merge": false,
+    "manuscript_submission": false
+  }
+}
