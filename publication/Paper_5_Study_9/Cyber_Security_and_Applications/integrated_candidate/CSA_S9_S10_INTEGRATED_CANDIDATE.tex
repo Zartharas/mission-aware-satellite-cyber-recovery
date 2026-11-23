@@ -56,6 +56,7 @@ The integrating research question is: \emph{Under a fixed recovery-state semanti
 \small
 \caption{Pre-existing study endpoints. These are different analyses, not pooled trials or competing operational recovery-rate estimates.}
 \label{tab:estimands}
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.10\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}}
 \toprule
 Study & Evidence / observational unit & Endpoint and denominator & Permitted conclusion \\
@@ -118,12 +119,12 @@ Table~\ref{tab:priorcompare} contrasts the \emph{evaluation objects}, not relati
 Work & Objective & Decision evidence & Unknown-state handling & Endpoint & Unit and validation \\
 \midrule
 NIST 8401/8441 \cite{nist2022ground,mccarthy2023hsn} & Space ground/HSN cyber risk and interfaces. & Stakeholder controls and security functions. & Framework-level risk guidance. & Cybersecurity posture and profile. & Guidance, not this field-level dataset test. \\
-AIRSS \cite{sahakian2021airss} & Space-system adaptive mitigation. & Threat/mitigation context in response research. & Specific evidentiary completeness not evaluated here. & Response/mitigation support. & Space response research report; no direct benchmark with these outputs. \\
-Harmonization \cite{akbar2023ontology,rodriguez2026harmonization} & Ontology and common security labels. & Dataset attributes and defensive concepts. & Semantic standardization, not this binary recovery contract. & Comparable representations. & Cyber/IoT studies, rather than space recovery decision rows. \\
+AIRSS \cite{sahakian2021airss} & Space-system adaptive mitigation. & Threat context in response research. & Completeness not assessed here. & Mitigation support. & Space response research report; no direct benchmark with these outputs. \\
+Semantic maps \cite{akbar2023ontology,rodriguez2026harmonization} & Ontology and common security labels. & Dataset attributes and defensive concepts. & Semantic standardization, not this binary recovery contract. & Comparable representations. & Cyber/IoT studies, rather than space recovery decision rows. \\
 TRACE \cite{le2026trace} & Calibrated, action-governed IDS triage. & Detector posteriors, feasible feature alternatives. & Conformal plausible-action sets and release gates. & Triage action contract and selective release. & Multiple IDS benchmarks, feature-space evaluations. \\
 RTEF-IDS \cite{li2026rtef} & Reliable temporal intrusion-evidence updates. & Current and reviewed feedback evidence. & Admission, feedback and history-replacement rules. & Authorized evidence-state mutations. & IoT IDS experiments and analytic protocol. \\
 Hybrid CPS \cite{guarino2026hybrid} & Knowledge-supported intrusion response. & Cyber-physical state and knowledge model. & Hybrid inference/decision support; exact equivalence untested. & Response recommendation. & Industrial CPS study; not evaluated on these releases. \\
-ESA/OPS products \cite{esaad2025v2,opssat2024v2} & Anomaly-detection research resources. & Published telemetry/label metadata. & Recovery-state admission not their stated benchmark endpoint. & Detection/benchmark artifacts. & Real-flight data products; no mission recovery trial here. \\
+ESA/OPS products \cite{esaad2025v2,opssat2024v2} & Anomaly-detection research resources. & Published telemetry/label metadata. & Recovery-state admission not their stated benchmark endpoint. & Detection resources. & Real-flight data products; no mission recovery trial here. \\
 Studies 9/10 (this paper) & Audit decision-time recovery-state sufficiency. & Strict source-field to eight-predicate mapping. & Explicit unknowns; math completion or operational gate. & Exact policy ambiguity (S9); \texttt{NOT\_EVALUABLE} (S10). & Three frozen row populations; four descriptive schema strata. \\
 \bottomrule
 \end{tabular}
@@ -160,18 +161,19 @@ The evaluated interface is a bounded model of a hypothetical ground- or spacecra
 \scriptsize
 \caption{Decision-proposition rationale for the frozen eight-variable interface. Authorities and misuse consequences are conceptual design requirements, not observed source functions.}
 \label{tab:predicatecontract}
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.185\linewidth}>{\raggedright\arraybackslash}p{0.245\linewidth}>{\raggedright\arraybackslash}p{0.245\linewidth}>{\raggedright\arraybackslash}p{0.245\linewidth}}
 \toprule
 Predicate & Required decision-time authority & Insufficient surrogate & Risk if falsely accepted \\
 \midrule
 \texttt{signature\_valid} & Qualified cryptographic-verification outcome bound to accepted evidence. & CRC, message ID, attack label. & Accepting tampered or unauthenticated evidence. \\
-\texttt{source\_trusted} & Current source-admission policy or trust registry. & Source/application/satellite identifier. & Trusting an unapproved producer. \\
+\texttt{source\_trusted} & Current source-admission policy or trust registry. & Source identifier. & Trusting an unapproved producer. \\
 \texttt{fresh} & Decision-time reference and valid evidence-age window. & Timestamp without decision-time context. & Acting on stale or replayed evidence. \\
 \texttt{epoch\_valid} & Authoritative recovery/key/mission epoch binding. & Sequence counter or event time alone. & Cross-epoch or rolled-back state use. \\
 \texttt{contradictory} & Qualified check for conflicts among accepted propositions. & Anomaly class or severity tag. & Ignoring materially inconsistent evidence. \\
-\texttt{minimum\_evidence\_complete} & Mission-approved evidence checklist with verification status. & Many populated telemetry columns. & Prematurely authorizing recovery. \\
+\shortstack[l]{\texttt{minimum\_}\\\texttt{evidence\_}\\\texttt{complete}} & Mission-approved evidence checklist with verification status. & Many populated telemetry columns. & Prematurely authorizing recovery. \\
 \texttt{security\_signal} & Current, accepted security guard at decision instant. & Retrospective ground-truth label. & Treating offline truth as a live alarm. \\
-\texttt{authorization\_available} & Time-valid operator/mission permission and viable control path. & Historical command log or telecommand name. & Proceeding without operational authority. \\
+\shortstack[l]{\texttt{authorization\_}\\\texttt{available}} & Time-valid operator/mission permission and viable control path. & Historical command log or telecommand name. & Proceeding without operational authority. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -253,6 +255,7 @@ Study 10's bounded source inventory checked nine version-pinned local files and 
 \small
 \caption{Bounded published-representation inspection. The inventory identifies coverage of release metadata, not completeness of mission operational information.}
 \label{tab:stud10scope}
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.43\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
 \toprule
 Stratum & Released items whose schema was examined & Inspection boundary \\
@@ -263,7 +266,7 @@ ESA v2 M3 & \texttt{anomaly\_types.csv}, \texttt{channels.csv}, \texttt{labels.c
 OPS-SAT-AD v2 & \texttt{dataset.csv} derived-feature schema; \texttt{segments.csv} telemetry-segment schema. & First-line headers only (23 and 8 columns, respectively); no source sample values or rows. \\
 \bottomrule
 \end{tabular}
-\end{table>
+\end{table}
 
 Under the frozen conditional action rule, Study 10 could enumerate admissible policy action sets only for a defensible native recovery decision time and evidence-validity window. If that prerequisite was absent, the specified result was \texttt{NOT\_EVALUABLE\_FOR\_OPERATIONAL\_ACTION}, not a zero rate or an assumed false recovery-state vector. Separately, synthetic G3 controls tested 18 prespecified cases and all 256 complete Boolean inputs under each of four policies against an independent oracle; these are methodology tests and do not contribute to primary empirical coverage.
 
