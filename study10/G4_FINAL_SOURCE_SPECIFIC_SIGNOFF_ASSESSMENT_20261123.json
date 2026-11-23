@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_FINAL_SOURCE_SPECIFIC_SIGNOFF_ASSESSMENT_NOT_SIGNOFF",
+  "recorded_utc_date": "2026-11-23",
+  "author_authorization": {
+    "verbatim": "Yes, I authorize",
+    "direct_context": "Next step is a source-specific final signoff assessment, not another broad scan. Any signoff must distinguish acceptable residual uncertainty from restrictions requiring additional evidence or permissions.",
+    "authorized_act": "COMPLETE_DOCUMENTARY_SOURCE_SPECIFIC_SIGNOFF_ASSESSMENT_AND_CREATE_DRAFT_RECORD",
+    "authority_to_accept_unverified_member_rights_on_behalf_of_rights_holders": false,
+    "author_source_specific_final_use_signoff_in_this_exchange": false,
+    "G4_06_scientific_execution_approval": false,
+    "PR_merge_authorized": false,
+    "dataset_redistribution_authorized": false,
+    "rights_holder_contact_authorized": false
+  },
+  "governing_frozen_receipt": {
+    "policy": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "path": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "original_rights_clearance_for_source_data": false,
+    "file_exception_signoff_requires_positive_evidence_or_explicit_justified_treatment": true,
+    "rights_holder_permission_cannot_be_created_by_author_risk_acceptance": true,
+    "new_semantic_execution_remains_separately_authorized": true
+  },
+  "decision_rule": {
+    "hold_if_source_identity_not_version_pinned": true,
+    "hold_if_documented_license_scope_inconsistent_or_unknown_for_intended_use": true,
+    "hold_if_positive_third_party_restriction_unresolved": true,
+    "do_not_infer_zero_exceptions_from_prefix_search": true,
+    "absence_of_positive_conflict_in_bounded_sample_is_not_proof_of_later_absence": true,
+    "allowable_future_assessment": "Use first-party license evidence, narrowly bounded local non-redistributing intent, documented residual uncertainty, case-specific exception disposition and explicit author release-level approval; any actual conflicting term requires its own resolution before use.",
+    "no_silent_policy_waiver": true,
+    "publication_time_requirements_are_distinct_from_pre_execution_evidence": true
+  },
+  "evidence": {
+    "first_party_license_blob_checks": [
+      {
+        "source": "ESA_v1",
+        "sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+        "license": "CC BY 3.0 IGO"
+      },
+      {
+        "source": "ESA_v2",
+        "sha1": "9da81fadbaf96cdfd2c7d8c5b906f4d45f80f461",
+        "license": "CC BY 3.0 IGO",
+        "exact_mission_v2_doi": "10.5281/zenodo.15237121"
+      },
+      {
+        "source": "OPS_SAT_v2",
+        "sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+        "license": "MIT License for OPS-SAT Dataset",
+        "explicitly_includes_data": true
+      }
+    ],
+    "bounded_preamble": {
+      "V2_sanitized_report_sha256_independent": "3b8af9e18722aee475fcc871503ac3ff39137e81ff2fb9e57fbf3dcf4de51adb",
+      "V3_report_sha256_author_reported": "0e12647f3c6437f196ae92f53e237f6a8fa85f705a79519c842e91c0598085d8",
+      "V3_original_report_bytes_independently_verified": false,
+      "combined_ESA_v1_examined": 12,
+      "combined_ESA_v2_examined": 12,
+      "combined_OPS_examined": 2,
+      "combined_sampled_prefixes": 26,
+      "recognized_notice_markers": 0,
+      "full_file_in_band_rights_inspection_performed": false,
+      "third_party_exception_absence_proven": false
+    }
+  },
+  "source_signoff_assessments": [
+    {
+      "source": "ESA_ADB_v2",
+      "gate": "G4-01",
+      "exact_doi": "10.5281/zenodo.15237121",
+      "primary_mission_strata": 3,
+      "role": "PRIMARY_DESCRIPTIVE_MISSIONS_1_2_3",
+      "dataset_license": "CC BY 3.0 IGO",
+      "license_support_status": "RELEASE_LINKED_FIRST_PARTY_DOCUMENTARY_CONFIRMED",
+      "intended_use": "LOCAL_OFFLINE_NATIVE_FIELD_SEMANTIC_OBSERVABILITY_AFTER_SEPARATE_APPROVAL",
+      "distribution": "NO_ORIGINAL_TELEMETRY_PUBLIC_REDISTRIBUTION",
+      "notice_plan": "VERSIONED_DATASET_CREATORS_ESA_LICENSE_URI_CHANGE_DISCLOSURE_NO_ENDORSEMENT",
+      "known_conflicting_rights_in_bounded_preambles": "NONE_DETECTED",
+      "unexamined_member_specific_terms": "UNKNOWN_NOT_PROVEN_ABSENT",
+      "pre_G4_missing": [
+        "EXACT_MEMBER_RIGHTS_SCOPE_AND_THIRD_PARTY_EXCEPTIONS_DISPOSITION_TO_SATISFY_FROZEN_RECEIPT",
+        "EXPLICIT_AUTHOR_RELEASE_LEVEL_RIGHTS_AND_SOURCE_USE_SIGNOFF",
+        "CONFIRM_APPLICABLE_LICENSE_NOTICE_PLAN_AND_VERSION_IDENTITY_AT_EXECUTION_BOUNDARY"
+      ],
+      "before_publication_only": [
+        "REVIEW_ACTUAL_MANUSCRIPT_CC_BY_ATTRIBUTION_LICENSE_URI_AND_TRANSFORMATIONS",
+        "REVIEW_EACH_NON_RAW_OUTPUT_FOR_SENSITIVE_OR_RECONSTRUCTABLE_TELEMETRY"
+      ],
+      "author_final_signoff_present": false,
+      "status": "NOT_CLEARED_HOLD",
+      "reasons": [
+        "FIRST_PARTY_DATASET_LICENSE_CONFIRMED",
+        "THIRD_PARTY_MEMBER_SCOPE_NOT_DISPOSITED",
+        "EXPLICIT_FINAL_AUTHOR_SOURCE_USE_SIGNOFF_ABSENT"
+      ]
+    },
+    {
+      "source": "ESA_ADB_v1",
+      "gate": "G4-02",
+      "exact_doi": "10.5281/zenodo.12528696",
+      "role": "OPTIONAL_RQ_E3_PAIRED_RELEASE_SENSITIVITY_ONLY",
+      "independent_replication_count": 0,
+      "dataset_license": "CC BY 3.0 IGO",
+      "license_support_status": "OFFICIAL_ESA_V1_REPO_README_AND_LICENSE_CONFIRMED",
+      "intended_use": "LOCAL_OFFLINE_PAIRED_MISSION_CHANNEL_METADATA_COMPARISON_ONLY_IF_SEPARATELY_CLEARED",
+      "distribution": "NO_ORIGINAL_TELEMETRY_PUBLIC_REDISTRIBUTION",
+      "known_conflicting_rights_in_bounded_preambles": "NONE_DETECTED",
+      "unexamined_member_specific_terms": "UNKNOWN_NOT_PROVEN_ABSENT",
+      "pre_G4_missing": [
+        "OPTIONAL_V1_MEMBER_RIGHTS_EXCEPTION_AND_RELEASE_SCOPE_DISPOSITION_IF_INCLUDED",
+        "EXPLICIT_AUTHOR_V1_USE_AND_ATTRIBUTION_APPROVAL_IF_INCLUDED",
+        "SEPARATE_G4_06_APPROVAL_AFTER_RELEVANT_RIGHTS_GATES"
+      ],
+      "before_publication_only": [
+        "CITE_V1_SEPARATELY_AND_RETAIN_PAIRED_RELEASE_NON_INDEPENDENCE_DISCLOSURE",
+        "AUDIT_ACTUAL_MANUSCRIPT_AND_DERIVED_OUTPUTS_FOR_LICENSE_AND_SECURITY"
+      ],
+      "author_final_signoff_present": false,
+      "status": "NOT_CLEARED_HOLD_IF_USED",
+      "reasons": [
+        "DOCUMENTARY_CC_LICENSE_SUPPORTED",
+        "CONDITIONAL_INCLUSION_APPROVED_NOT_SOURCE_USE",
+        "MEMBER_EXCEPTIONS_UNRESOLVED"
+      ]
+    },
+    {
+      "source": "OPS_SAT_AD_v2",
+      "gate": "G4-03",
+      "exact_doi": "10.5281/zenodo.15108715",
+      "role": "FOURTH_DISTINCT_PRIMARY_DESCRIPTIVE_SOURCE_STRATUM",
+      "license": "MIT License for OPS-SAT Dataset",
+      "license_support_status": "DATA_INCLUSIVE_VERSION_SPECIFIC_TEXT_CONFIRMED",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "allowlisted_files": [
+        "dataset.csv",
+        "segments.csv",
+        "LICENSE"
+      ],
+      "dataset_license_full_notice_when_redistributing_copies_or_substantial_portions": true,
+      "intended_use": "LOCAL_OFFLINE_NATIVE_FIELD_SEMANTIC_OBSERVABILITY_AFTER_SEPARATE_APPROVAL",
+      "distribution": "NO_ORIGINAL_TELEMETRY_PUBLIC_REDISTRIBUTION",
+      "known_conflicting_rights_in_bounded_preambles": "NONE_DETECTED",
+      "unexamined_csv_later_in_band_terms": "UNKNOWN_NOT_PROVEN_ABSENT",
+      "pre_G4_missing": [
+        "CSV_MEMBER_THIRD_PARTY_EXCEPTION_AND_SOURCE_SCOPE_DISPOSITION_TO_SATISFY_FROZEN_RECEIPT",
+        "EXPLICIT_AUTHOR_OPS_V2_SOURCE_USE_AND_RIGHTS_SIGNOFF",
+        "CONFIRM_INTERNAL_MIT_ATTRIBUTION_AND_NO_RAW_REDISTRIBUTION_INTENDED_USE"
+      ],
+      "citation_review": {
+        "zenodo_creator_text": "Bogdan, Ruszczak",
+        "zenodo_contributor_text": "Ruszczak, Bogdan",
+        "methods_publication_name": "Bogdan Ruszczak",
+        "version_specific_export_independently_obtained": false,
+        "author_normalization": "PROVISIONAL_RUSZCZAK_B",
+        "source": "https://zenodo.org/records/15108715",
+        "confidence": "DATASET_DOI_CONFIRMED; FINAL_CREATOR_ORDER_FORMATTING_UNRESOLVED"
+      },
+      "before_publication_only": [
+        "VERIFY_VERSIONED_CITATION_EXPORT_OR_EQUIVALENT_PRIMARY_METADATA_BEFORE_JOURNAL_READY_REFERENCES",
+        "AUDIT_ACTUAL_MANUSCRIPT_CITATIONS_AND_RELEVANT_METHOD_PAPER_CORRECTION",
+        "INCLUDE_FULL_ORIGINAL_MIT_NOTICE_IN_ANY_ACTUAL_COPIES_OR_SUBSTANTIAL_PORTIONS",
+        "SCREEN_EACH_DERIVED_OUTPUT_FOR_SENSITIVE_OR_RECONSTRUCTABLE_SOURCE_DATA"
+      ],
+      "author_final_signoff_present": false,
+      "status": "NOT_CLEARED_HOLD",
+      "reasons": [
+        "POSITIVE_DATA_INCLUSIVE_MIT_EVIDENCE",
+        "CSV_MEMBER_SCOPE_UNRESOLVED",
+        "FINAL_SOURCE_USE_APPROVAL_ABSENT"
+      ]
+    }
+  ],
+  "proposed_author_signoff_text": {
+    "status": "PROPOSAL_ONLY_NOT_SIGNED",
+    "policy_acceptance": "I have reviewed exact versioned ESA v2, optional ESA v1 and OPS-SAT v2 records, and the limitations of the V2/V3 bounded-prefix inspections. I accept the documented restricted, local, no-raw-redistribution intended-use boundaries and acknowledge that unexamined member rights remain unknown, not established absent. I authorize proceeding to source-specific final rights eligibility review under the frozen G2 Option B criteria, without asserting authority over separately owned content. This is NOT G4-06 scientific execution authorization, PR merge authorization or publication approval.",
+    "caveat": "Author acceptance of unknown exposure is not evidence of third-party permission and by itself does not satisfy a mandatory file-level exception-rights signoff.",
+    "author_explicit_response_to_this_instrument_recorded": false
+  },
+  "gate_state": [
+    {
+      "id": "G4-01",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "id": "G4-02",
+      "status": "HOLD_IF_USED",
+      "cleared": false
+    },
+    {
+      "id": "G4-03",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "id": "G4-04",
+      "status": "EXCLUDED_BLOCKED_IF_USED",
+      "cleared": false
+    },
+    {
+      "id": "G4-05",
+      "status": "PARTIAL",
+      "cleared": false
+    },
+    {
+      "id": "G4-06",
+      "status": "NOT_AUTHORIZED",
+      "cleared": false
+    }
+  ],
+  "no_changes": {
+    "G2_FROZEN_POLICY": true,
+    "G3_FROZEN_ARTIFACTS": true,
+    "PR_MERGE": false,
+    "SOURCE_SEMANTIC_EXECUTION": false,
+    "RAW_TELEMETRY_REPUBLICATION": false,
+    "EXTERNAL_RIGHTS_HOLDER_CONTACT": false,
+    "SCIENTIFIC_RESULTS_GENERATED": false
+  },
+  "decision": "FINAL_ASSESSMENT_COMPLETE_DOCUMENTARY_SUPPORT_POSITIVE_FINAL_USE_RIGHTS_SIGNOFF_WITHHELD"
+}
