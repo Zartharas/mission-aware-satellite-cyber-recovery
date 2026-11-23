@@ -1,0 +1,298 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_RIGHTS_STANDARD_R1_PROSPECTIVE_AUTHOR_APPROVAL_AND_AMENDMENT_RECEIPT",
+  "recorded_utc_date": "2026-11-23",
+  "timestamp_precision": "UTC_DATE_ONLY_NO_PRECISE_TIMESTAMP_ASSERTED",
+  "author_decision": {
+    "verbatim": "I approve the prospective G4_RIGHTS_STANDARD_R1 evidence standard for future source-rights eligibility decisions, while preserving the original frozen G2 record. I do not authorize G4-06 or PR merges.",
+    "approval_interpretation": "EXPLICIT_APPROVAL_OF_EXACT_CANDIDATE_G4_RIGHTS_STANDARD_R1_FOR_FUTURE_SOURCE_ELIGIBILITY",
+    "approved_prior_candidate_path": "study10/G4_PROSPECTIVE_MEMBER_RIGHTS_EVIDENCE_STANDARD_CANDIDATE_20261123.json",
+    "approved_prior_candidate_git_blob_sha1": "bed4f5969467f38801f4ad21b0e9ca0976a933c2",
+    "signed_prior_limited_use_attestation_path": "study10/G4_LIMITED_SOURCE_USE_AUTHOR_ATTESTATION_APPROVAL_20261123.json",
+    "signed_prior_limited_use_attestation_git_blob_sha1": "92d0bfc3d6b52d2e0d78169577c8e4a433bafd54",
+    "author_approved_R1_standard": true,
+    "source_semantic_execution_authorized": false,
+    "PR_merge_authorized": false,
+    "raw_telemetry_public_redistribution_authorized": false,
+    "manuscript_publication_authorized": false,
+    "rights_holder_contact_authorized": false,
+    "permission_for_other_unpublished_original_material": false
+  },
+  "preserved_historical_G2": {
+    "frozen_receipt_path": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "frozen_receipt_git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "original_policy_id": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "original_rights_clearance_for_source_data": false,
+    "historical_artifacts_unmodified": true,
+    "R1_evidence_standard_is_prospective_additive_supersession_of_strict_exception_absence_proof_not_retroactive_edit": true,
+    "no_G2_or_G3_semantic_methods_changed": true
+  },
+  "R1_standard": {
+    "id": "G4_RIGHTS_STANDARD_R1",
+    "decision_status": "AUTHOR_APPROVED_PROSPECTIVE_UNMERGED_PR_RECORD",
+    "first_applicability": "FUTURE_G4_RIGHTS_ELIGIBILITY_DECISIONS_ONLY_NOT_RETROACTIVE_G2_CLEARANCE",
+    "source_scope_exact_versioned_dois": [
+      "10.5281/zenodo.15237121",
+      "10.5281/zenodo.12528696",
+      "10.5281/zenodo.15108715"
+    ],
+    "scope": "LOCAL_OFFLINE_NON_REDISTRIBUTING_INDEPENDENT_SCHOLARLY_RESEARCH_ONLY",
+    "approved_criteria": [
+      {
+        "id": "R1-01",
+        "criterion": "TRUSTED_PUBLISHER_OR_MAINTAINER_AND_EXACT_VERSIONED_SOURCE_IDENTITY"
+      },
+      {
+        "id": "R1-02",
+        "criterion": "POSITIVE_FIRST_PARTY_GRANT_COVERS_DATASET_OR_FILE_CLASS_NOT_MERELY_SOFTWARE"
+      },
+      {
+        "id": "R1-03",
+        "criterion": "LICENSE_TIED_TO_VERSIONED_RELEASE_AND_FILE_HASHES_OR_IDENTITY"
+      },
+      {
+        "id": "R1-04",
+        "criterion": "KNOWN_EXCEPTION_RESTRICTIONS_PRESERVED_AND_ACTUAL_CONFLICTS_REQUIRE_RESOLUTION"
+      },
+      {
+        "id": "R1-05",
+        "criterion": "ONLY_BOUNDED_NO_CONTRARY_NOTICE_OBSERVED_CLAIM_NOT_PROOF_UNIVERSAL_ABSENCE"
+      },
+      {
+        "id": "R1-06",
+        "criterion": "SOLE_AUTHOR_EXPLICIT_RESTRICTED_SCOPE_RESIDUAL_UNCERTAINTY_ACCEPTANCE_AND_STOP_RULE"
+      },
+      {
+        "id": "R1-07",
+        "criterion": "LICENSE_NOTICES_AND_ATTRIBUTION_OBLIGATIONS_ACCEPTED; ACTUAL_PUBLICATION_ARTIFACTS_REVIEWED_LATER"
+      },
+      {
+        "id": "R1-08",
+        "criterion": "IDENTITY_PREFLIGHT_AND_NEW_SEPARATE_G4_06_APPROVAL_BEFORE_ANY_SEMANTIC_EXECUTION"
+      },
+      {
+        "id": "R1-09",
+        "criterion": "STOP_ON_NEW_CREDIBLE_RIGHTS_CONFLICT_PRIVACY_OPERATIONAL_SECURITY_OR_HASH_MISMATCH"
+      }
+    ],
+    "exception_free_warranty_required": false,
+    "unexamined_third_party_restrictions_claimed_absent": false,
+    "author_acceptance_substitutes_for_third_party_permission": false,
+    "cannot_override_known_contractual_statutory_or_RH_restriction": true,
+    "raw_telemetry_redistribution_prohibited": true,
+    "derivative_artifact_privacy_reconstructability_review_required_before_release": true,
+    "old_frozen_design_4_times_8_equals_32_unchanged": true
+  },
+  "evidence_references": {
+    "ESA_v2_metadata_git_blob": "9da81fadbaf96cdfd2c7d8c5b906f4d45f80f461",
+    "ESA_v1_license_git_blob": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+    "ESA_v1_readme_git_blob": "76f66a4550d0d8d3910b595d1c968bde9bbabed6",
+    "OPS_SAT_v2_license_git_blob": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+    "OPS_SAT_project_readme_blob": "46e76152d1766d11f446270f6452620b35201bf5",
+    "independently_hashed_V2_sanitized_rights_report_sha256": "3b8af9e18722aee475fcc871503ac3ff39137e81ff2fb9e57fbf3dcf4de51adb",
+    "author_reported_only_V3_sanitized_rights_report_sha256": "0e12647f3c6437f196ae92f53e237f6a8fa85f705a79519c842e91c0598085d8",
+    "bounded_csv_prefixes_inspected": 26,
+    "recognized_notices_detected_in_bounded_prefixes": 0,
+    "exception_free_coverage_proven": false
+  },
+  "R1_source_by_source_adjudication": [
+    {
+      "source_id": "ESA_ADB_V2",
+      "source_scope": "ESA_v2_Missions_1_2_3_PRIMARY_DESCRIPTIVE_WITHIN_FAMILY",
+      "doi": "10.5281/zenodo.15237121",
+      "applicable_license": "CC BY 3.0 IGO",
+      "versioned_MDs": [
+        "9770ad12ed730238f37c42d5c27ab436",
+        "bfc72012691427d9327eb41f726ce45e",
+        "d63943f09c81378acd9fc5e565ecc66e"
+      ],
+      "evidence_for_versioned_grant": "DIRECT_PROJECT_V2_CROISSANT_LICENSE_LINKS_EXACT_DOI_AND_THREE_ZIP_MD5",
+      "provenance": "ESA_PUBLISHER_CREATOR_INSTITUTION_ESA_ESOC_KPLABS_AIRBUS",
+      "criteria_at_documentary_stage": {
+        "R1_01": "PASS",
+        "R1_02": "PASS",
+        "R1_03": "PASS",
+        "R1_04": "PASS_NO_KNOWN_CONFLICT_WITHIN_REVIEWED_EVIDENCE",
+        "R1_05": "PASS_BOUNDED_NOT_GLOBAL",
+        "R1_06": "PASS_RECORDED_AUTHOR_ATTESTATION",
+        "R1_07": "PASS_PLANNED_NOT_YET_IMPLEMENTED_IN_ACTUAL_MANUSCRIPT",
+        "R1_08": "PENDING_LOCAL_EXECUTION_BOUNDARY_PREFLIGHT_AND_SEPARATE_G4_06",
+        "R1_09": "PASS_STOP_RULE_DOCUMENTED"
+      },
+      "r1_documentary_source_rights_eligibility": "PASS_CONDITIONAL",
+      "historical_G4_01_at_G2_freeze": "HOLD_UNCHANGED_IN_ORIGINAL_RECEIPT",
+      "new_R1_G4_01_eligibility_gate": "EVIDENCE_STANDARD_R1_PASS_CONDITIONAL",
+      "permitted_now": "DOCUMENTARY_ONLY",
+      "conditions_before_scientific_source_execution": [
+        "LOCAL_HASH_AND_RELEASE_IDENTITY_PREFLIGHT",
+        "IMPLEMENT_APPLICABLE_INTERNAL_ATTRIBUTION_AND_NOTICE_PLAN",
+        "SEPARATE_EXPLICIT_G4_06_AUTHORIZATION",
+        "NO_KNOWN_CONFLICTING_RIGHTS_OR_SENSITIVE_OPERATIONS_DISCOVERED"
+      ],
+      "member_specific_exception_absence_proven": false,
+      "standalone_rightsholder_permissions_manufactured": false,
+      "final_dataset_redistribution_approved": false
+    },
+    {
+      "source_id": "ESA_ADB_V1",
+      "source_scope": "OPTIONAL_RQ_E3_MATCHED_PAIRED_RELEASE_SENSITIVITY_NOT_PRIMARY_STRATUM",
+      "doi": "10.5281/zenodo.12528696",
+      "applicable_license": "CC BY 3.0 IGO",
+      "evidence_for_versioned_grant": "ESA_OFFICIAL_PROJECT_LICENSE_README_LINKS_VERSIONED_V1_DOI",
+      "criteria_at_documentary_stage": {
+        "R1_01": "PASS",
+        "R1_02": "PASS",
+        "R1_03": "PASS_FROM_FROZEN_VERSIONED_RELEASE_AND_PINNED_AUTHOR_LOCAL_DIGESTS",
+        "R1_04": "PASS_NO_KNOWN_CONFLICT_WITHIN_REVIEWED_EVIDENCE",
+        "R1_05": "PASS_BOUNDED_NOT_GLOBAL",
+        "R1_06": "PASS_OPTIONAL_SOURCE_AND_STOP_RULE_SIGNED",
+        "R1_07": "PASS_PLANNED_IF_USED",
+        "R1_08": "PENDING_OPTIONAL_USE_PREFLIGHT_AND_SEPARATE_G4_06",
+        "R1_09": "PASS_STOP_RULE_DOCUMENTED"
+      },
+      "r1_documentary_source_rights_eligibility": "PASS_CONDITIONAL_IF_USED",
+      "historical_G4_02_at_G2_freeze": "HOLD_IF_USED_UNCHANGED",
+      "new_R1_G4_02_eligibility_gate": "EVIDENCE_STANDARD_R1_PASS_CONDITIONAL_IF_USED",
+      "permitted_now": "DOCUMENTARY_ONLY",
+      "conditions_before_scientific_source_execution": [
+        "OPTIONAL_RQ_E3_INCLUDED_ONLY_IF_PRE_RESULT_DECIDED",
+        "LOCAL_HASH_AND_RELEASE_IDENTITY_PREFLIGHT",
+        "APPLICABLE_V1_CC_ATTRIBUTION",
+        "SEPARATE_EXPLICIT_G4_06_AUTHORIZATION"
+      ],
+      "no_fifth_primary_stratum": true,
+      "member_specific_exception_absence_proven": false,
+      "third_party_rights_manufactured": false
+    },
+    {
+      "source_id": "OPS_SAT_AD_V2",
+      "source_scope": "FOURTH_PRIMARY_DESCRIPTIVE_SOURCE_FAMILY_ALLOWLIST_DATASET_SEGMENTS_LICENSE",
+      "doi": "10.5281/zenodo.15108715",
+      "applicable_license": "MIT License for OPS-SAT Dataset",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "license_covers": [
+        "software",
+        "data",
+        "associated documentation"
+      ],
+      "official_versioned_release_files": [
+        "dataset.csv",
+        "segments.csv",
+        "LICENSE"
+      ],
+      "published_MD5s": {
+        "dataset_csv": "5246fdc5e4630a4cecbf7fb6bc8b795e",
+        "segments_csv": "72f109630abb933a386106897a631188",
+        "LICENSE": "ea8befa9af2b37b7a54b5a16fc3712b0"
+      },
+      "provenance": "PUBLISHED_KP_LABS_DATASET_LICENSE_PLUS_ESA_AFFILIATED_OPS_SAT_DATA_ACQUISITION_COAUTHOR;_NO_CHAIN_OF_TITLE_WARRANTY",
+      "criteria_at_documentary_stage": {
+        "R1_01": "PASS",
+        "R1_02": "PASS_EXACT_V2_DATA_INCLUSIVE_LICENSE",
+        "R1_03": "PASS_DEPOSIT_LICENSE_AND_PUBLISHED_FILE_IDS",
+        "R1_04": "PASS_NO_KNOWN_CONFLICT_WITHIN_REVIEWED_EVIDENCE",
+        "R1_05": "PASS_BOUNDED_NOT_GLOBAL",
+        "R1_06": "PASS_RECORDED_AUTHOR_ATTESTATION",
+        "R1_07": "PASS_ACCEPTED_PLAN_FULL_NOTICE_IF_COPYING_SUBSTANTIAL_CONTENT",
+        "R1_08": "PENDING_LOCAL_EXECUTION_BOUNDARY_PREFLIGHT_AND_SEPARATE_G4_06",
+        "R1_09": "PASS_STOP_RULE_DOCUMENTED"
+      },
+      "r1_documentary_source_rights_eligibility": "PASS_CONDITIONAL",
+      "historical_G4_03_at_G2_freeze": "HOLD_UNCHANGED",
+      "new_R1_G4_03_eligibility_gate": "EVIDENCE_STANDARD_R1_PASS_CONDITIONAL",
+      "permitted_now": "DOCUMENTARY_ONLY",
+      "conditions_before_scientific_source_execution": [
+        "LOCAL_HASH_AND_RELEASE_IDENTITY_PREFLIGHT",
+        "INTERNAL_MIT_NOTICE_PROVENANCE_AND_NON_REDISTRIBUTION_GUARD",
+        "SEPARATE_EXPLICIT_G4_06_AUTHORIZATION",
+        "STOP_IF_ACTUAL_CSV_RIGHTS_CONFLICT_APPEARS"
+      ],
+      "citation_export_inconsistency": "ZENODO_V2_CREATOR_BOGDAN_RUSZCZAK_ORDER_PROVISIONAL_PENDING_PREPUBLICATION_CHECK",
+      "member_specific_exception_absence_proven": false,
+      "ESA_to_KP_Labs_raw_data_chain_of_title_independently_verified": false,
+      "third_party_rights_manufactured": false
+    }
+  ],
+  "gate_tracking": {
+    "historical_G2_statuses_unmodified": [
+      {
+        "id": "G4-01",
+        "status": "HOLD"
+      },
+      {
+        "id": "G4-02",
+        "status": "HOLD_IF_USED"
+      },
+      {
+        "id": "G4-03",
+        "status": "HOLD"
+      },
+      {
+        "id": "G4-04",
+        "status": "EXCLUDED_BLOCKED_IF_USED"
+      },
+      {
+        "id": "G4-05",
+        "status": "PARTIAL"
+      },
+      {
+        "id": "G4-06",
+        "status": "NOT_AUTHORIZED"
+      }
+    ],
+    "prospective_R1_documentary_eligibility": [
+      {
+        "id": "G4-01",
+        "status": "R1_EVIDENCE_PASS_CONDITIONAL",
+        "cleared_for_documentary_eligibility": true,
+        "authorized_for_semantic_processing": false
+      },
+      {
+        "id": "G4-02",
+        "status": "R1_EVIDENCE_PASS_CONDITIONAL_IF_USED",
+        "cleared_for_documentary_eligibility": true,
+        "authorized_for_semantic_processing": false
+      },
+      {
+        "id": "G4-03",
+        "status": "R1_EVIDENCE_PASS_CONDITIONAL",
+        "cleared_for_documentary_eligibility": true,
+        "authorized_for_semantic_processing": false
+      },
+      {
+        "id": "G4-04",
+        "status": "EXCLUDED_BLOCKED_IF_USED",
+        "cleared_for_documentary_eligibility": false,
+        "authorized_for_semantic_processing": false
+      },
+      {
+        "id": "G4-05",
+        "status": "PARTIAL_PREFLIGHT_AND_ACTUAL_NOTICE_SCOPE_PENDING",
+        "cleared_for_documentary_eligibility": false,
+        "authorized_for_semantic_processing": false
+      },
+      {
+        "id": "G4-06",
+        "status": "NOT_AUTHORIZED",
+        "cleared_for_documentary_eligibility": false,
+        "authorized_for_semantic_processing": false
+      }
+    ],
+    "all_semantic_processing_authorized": false,
+    "G4_05_not_overstated_as_fully_cleared": true,
+    "G4_06_not_authorized": true,
+    "G3_synthetic_controls_not_newly_authorized": true
+  },
+  "remaining_controls": {
+    "local_identity_preflight_at_future_execution_boundary_required": true,
+    "future_attribution_notice_compliance_required": true,
+    "no_unknown_field_coercion_or_relaxed_8_variable_design": true,
+    "no_source_semantics_or_scientific_results_generated": true,
+    "stop_on_discovered_conflicting_third_party_license_or_security_issue": true,
+    "separate_G4_06_explicit_author_grant_required": true,
+    "separate_PR_merge_authorization_required": true,
+    "no_dataset_rehosting": true,
+    "frozen_G2_G3_pins_unchanged": true
+  }
+}
