@@ -1,5 +1,5 @@
-- Three space-cyber datasets showed 0/8 direct recovery-state coverage.
-- Four real-flight strata likewise lacked qualifying direct recovery fields.
-- Operational recovery-action assessment was not evaluable for real-flight data.
-- ESA releases matched 224 channels but differed in 54 shared metadata cells.
-- Separate frozen studies distinguish decision identifiability from observability.
+- Anomaly labels alone do not establish trusted, authorized recovery state.
+- Study 9's 567,763 rows project to one all-unknown state per dataset.
+- Frozen policy sidecar requirements are 6/7/7/8 state variables.
+- Study 10's 16 operational action assessments were not evaluable.
+- Distinct estimands prevent mathematical ambiguity being called flight failure.
