@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_LIMITED_SOURCE_USE_ELIGIBILITY_DECISION_AND_SIGNOFF_CANDIDATE",
+  "recorded_utc_date": "2026-11-23",
+  "decision_scope": "DOCUMENTARY_ELIGIBILITY_ONLY_NO_ORIGINAL_SOURCE_SEMANTIC_PROCESSING",
+  "authority": {
+    "author_response": "yes, I authorize",
+    "immediately_preceding_request": "The next authorization should address that precise source-use eligibility decision. If a mandatory condition still lacks sufficient evidence, it must remain on hold or be addressed through a separately approved prospective change.",
+    "interpreted_as": "AUTHOR_AUTHORIZED_EVIDENCE_GROUNDED_ELIGIBILITY_DETERMINATION_AND_CANDIDATE_SIGNOFF_INSTRUMENT",
+    "explicit_acceptance_of_exact_new_attestation_text": false,
+    "no_inference_of_third_party_rights": false,
+    "no_G4_06_scientific_execution_approval": true,
+    "no_PR_merge_approval": true
+  },
+  "frozen_basis": {
+    "controlling_policy": "B_FREEZE_DESIGN_WITH_SOURCE_USE_HOLD",
+    "frozen_receipt_path": "study10/G2_PROTOCOL_FREEZE_RECEIPT_20261122.json",
+    "frozen_receipt_git_blob_sha1": "38e5da5edc193b358012bc9c2c3180917d7419ac",
+    "frozen_record_rights_clearance_for_source_data": false,
+    "no_modification_to_frozen_receipt": true,
+    "no_unapproved_policy_amendment": true
+  },
+  "evidence_classification": {
+    "original_exact_version_file_identity": "AUTHOR_RUN_HASH_PINNED_LOCAL_VALIDATION_PRIOR_AND_BOUND_TO_FROZEN_G2_MANIFEST",
+    "V2_sanitized_report_SHA256_independently_verified": "3b8af9e18722aee475fcc871503ac3ff39137e81ff2fb9e57fbf3dcf4de51adb",
+    "V3_sanitized_report_SHA256_author_reported_only": "0e12647f3c6437f196ae92f53e237f6a8fa85f705a79519c842e91c0598085d8",
+    "V3_report_bytes_independently_verified": false,
+    "inspected_bounded_csv_prefixes": 26,
+    "recognized_rights_notice_markers_in_those_prefixes": 0,
+    "scope_of_negative_finding": "LEADING_CSV_PREAMBLES_ONLY",
+    "late_inband_notices_or_third_party_exceptions_proved_absent": false,
+    "original_source_semantic_analysis_performed": false
+  },
+  "decisions": [
+    {
+      "id": "G4-01",
+      "dataset": "ESA_ADB_V2",
+      "doi": "10.5281/zenodo.15237121",
+      "exact_scoped_archive_basenames": [
+        "ESA-Mission1.zip",
+        "ESA-Mission2.zip",
+        "ESA-Mission3.zip"
+      ],
+      "license": "CC BY 3.0 IGO",
+      "release_specific_evidence": "ESA_ADB_CROISSANT_METADATA_WITH_THREE_EXACT_V2_ZIP_MD5_LINKS_AND_SOURCE_AUTHOR_STATEMENT",
+      "license_evidence_git_blob_sha1": "9da81fadbaf96cdfd2c7d8c5b906f4d45f80f461",
+      "intended_use": "THREE_WITHIN_FAMILY_PRIMARY_DESCRIPTIVE_STRATA_LOCAL_OFFLINE_RESEARCH_NO_RAW_REDISTRIBUTION",
+      "license_level_eligibility": "SUPPORTED_FOR_COVERED_MATERIAL_UNDER_PUBLISHED_TERMS",
+      "known_conflicting_file_terms": "NONE_IDENTIFIED_WITHIN_REVIEW_SCOPE",
+      "unexamined_member_rights": "UNKNOWN_NOT_PROVEN_ABSENT",
+      "specific_frozen_rights_signoff_required": true,
+      "author_acceptance_of_member_risk_in_this_exchange": false,
+      "gate_status": "HOLD",
+      "gate_cleared": false
+    },
+    {
+      "id": "G4-02",
+      "dataset": "ESA_ADB_V1",
+      "doi": "10.5281/zenodo.12528696",
+      "license": "CC BY 3.0 IGO",
+      "release_specific_evidence": "OFFICIAL_ESA_REPO_README_LINKED_V1_AND_CC_LICENSE",
+      "license_evidence_git_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+      "intended_use": "OPTIONAL_WITHIN_MISSION_PAIRED_RELEASE_METADATA_SENSITIVITY_RQ_E3_ONLY",
+      "independent_replicate": false,
+      "primary_strata_added": 0,
+      "license_level_eligibility": "SUPPORTED_FOR_COVERED_MATERIAL_UNDER_PUBLISHED_TERMS",
+      "known_conflicting_file_terms": "NONE_IDENTIFIED_WITHIN_REVIEW_SCOPE",
+      "unexamined_member_rights": "UNKNOWN_NOT_PROVEN_ABSENT",
+      "specific_frozen_rights_signoff_required_if_used": true,
+      "author_acceptance_of_member_risk_in_this_exchange": false,
+      "gate_status": "HOLD_IF_USED",
+      "gate_cleared": false
+    },
+    {
+      "id": "G4-03",
+      "dataset": "OPS_SAT_AD_V2",
+      "doi": "10.5281/zenodo.15108715",
+      "frozen_allowlist": [
+        "dataset.csv",
+        "segments.csv",
+        "LICENSE"
+      ],
+      "license": "MIT License for OPS-SAT Dataset",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "license_scope": [
+        "software",
+        "data",
+        "associated documentation"
+      ],
+      "license_evidence_git_blob_sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+      "intended_use": "FOURTH_PRIMARY_DESCRIPTIVE_STRATUM_LOCAL_OFFLINE_NO_RAW_REDISTRIBUTION",
+      "license_level_eligibility": "SUPPORTED_FOR_COVERED_MATERIAL_UNDER_PUBLISHED_TERMS",
+      "known_conflicting_file_terms": "NONE_IDENTIFIED_WITHIN_REVIEW_SCOPE",
+      "unexamined_member_rights": "UNKNOWN_NOT_PROVEN_ABSENT",
+      "pre_use_notice_plan": "CITE_VERSIONED_DATASET_AND_PRESERVE_COPYRIGHT_AND_PERMISSION_NOTICES_WHEN_APPLICABLE",
+      "publication_time_notice": "FULL_MIT_LICENSE_IN_ACTUAL_COPIES_OR_SUBSTANTIAL_PORTIONS_IF_FUTURE_DISTRIBUTION_OCCURS",
+      "final_dataset_citation_creator_format": "PROVISIONAL_PENDING_EXACT_VERSION_EXPORT",
+      "specific_frozen_rights_signoff_required": true,
+      "author_acceptance_of_member_risk_in_this_exchange": false,
+      "gate_status": "HOLD",
+      "gate_cleared": false
+    }
+  ],
+  "eligibility_verdict": {
+    "result": "LICENSE_LEVEL_RESTRICTED_LOCAL_RESEARCH_ELIGIBILITY_SUPPORTED",
+    "final_G2_Option_B_file_scope_signoff": "NOT_YET_RECORDED",
+    "reason": "FIRST_PARTY_OPEN_LICENSE_EVIDENCE_SUPPORTS_INTENDED_USE_BUT_HARD_FROZEN_MEMBER_RIGHTS_SIGNOFF_AND_SPECIFIC_AUTHOR_ACCEPTANCE_ARE_SEPARATE",
+    "exact_member_unknowns_not_upgraded_to_no_exceptions": true,
+    "only_one_material_author_decision_remains": "APPROVE_EXACT_SOURCE_SPECIFIC_RISK_AND_NOTICE_ATTESTATION_OR_KEEP_HOLD",
+    "G4_06_not_authorized": true
+  },
+  "author_attestation_candidate": {
+    "document_path": "study10/G4_LIMITED_SOURCE_USE_AUTHOR_ATTESTATION_CANDIDATE_20261123.md",
+    "exact_text_approval_requested_separately": true,
+    "user_current_message_not_falsely_treated_as_verbatim_attestation": true,
+    "expected_scope": "LIMITED_LOCAL_RESEARCH_USE_UNDER_THIRD_PARTY_PUBLIC_LICENSES_ACCEPT_UNVERIFIED_NOTICE_RISK_WITH_STOP_RULE",
+    "prospective_policy_amendment_required_only_if_g2_conditions_cannot_be_supported_even_AFTER_documented_author_risk_disposition": true,
+    "automatic_stop_on_new_conflicting_file_rights": true
+  },
+  "gates": [
+    {
+      "id": "G4-01",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "id": "G4-02",
+      "status": "HOLD_IF_USED",
+      "cleared": false
+    },
+    {
+      "id": "G4-03",
+      "status": "HOLD",
+      "cleared": false
+    },
+    {
+      "id": "G4-04",
+      "status": "EXCLUDED_BLOCKED_IF_USED",
+      "cleared": false
+    },
+    {
+      "id": "G4-05",
+      "status": "PARTIAL",
+      "cleared": false
+    },
+    {
+      "id": "G4-06",
+      "status": "NOT_AUTHORIZED",
+      "cleared": false
+    }
+  ],
+  "prohibited_actions": {
+    "source_semantic_execution": false,
+    "PR_merge": false,
+    "raw_data_upload": false,
+    "raw_data_redistribution": false,
+    "manuscript_submission": false,
+    "third_party_contact": false,
+    "frozen_G2_or_G3_edit": false,
+    "implicit_license_waiver": false
+  }
+}
