@@ -22,7 +22,7 @@
 ## Reproducible research presentation
 
 - The manuscript's Table `tab:phase2rq` is the nine-question crosswalk; Figure `fig:phase2gates` uses only native LaTeX primitives and has no external image dependency.
-- Appendix `app:fieldledger` is generated solely from the existing 24-row Study 9 matrix and archived 32-row Study 10 Tier A JSON. It preserves mapping classes, named candidates, exclusions and the Study 10 documented evidence-role categories.
+- The separate Supplementary Appendix S1 (`PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex`, importing `PHASE2_FIELD_LEVEL_EVIDENCE_APPENDIX.tex`) is generated solely from the existing 24-row Study 9 matrix and archived 32-row Study 10 Tier A JSON. It preserves mapping classes, named candidates, exclusions and the Study 10 documented evidence-role categories.
 - The Phase 2 validator checks field names and classes against those repository source files. This is an editorial provenance check, not new semantic adjudication or new scientific execution.
 - Original source schema and derived-evidence JSON are left byte-for-byte untouched. The Study 10 detail CSV and original ESA/OPS-SAT records remain outside the review branch.
 
@@ -36,4 +36,4 @@
 6. **Provenance limitations:** the author-local ESA outer-layout JSON digest was not independently rehashed from uploaded bytes.
 7. **External work and journal suitability:** Phase 1 cited close methods and limits; CSA novelty and length judgments require independent editorial review. No submission claim.
 
-**Disposition:** Phase 2 editorial additions are manuscript-candidate work only. Phase 0 science protection remains effective. Pending exact-head build, independent adversarial re-review, author attestations and separate publication authorization.
+**Disposition:** Phase 2 editorial additions are manuscript-candidate work only. The field evidence is a separately compiled supplement to control main-paper length; it has not been approved or deposited as publisher supplementary material. Phase 0 science protection remains effective. Pending exact-head build, independent adversarial re-review, author attestations and separate publication authorization.
