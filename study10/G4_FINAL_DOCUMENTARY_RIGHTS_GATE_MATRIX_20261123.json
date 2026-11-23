@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "study_id": "S10-RSEI-001",
+  "record_type": "G4_FINAL_DOCUMENTARY_RIGHTS_REVIEW_GATE_MATRIX",
+  "review_date_utc": "2026-11-23",
+  "documentary_review_status": "COMPLETED_PUBLIC_DOCUMENTARY_REVIEW_WITH_OPEN_RIGHTS_GATES",
+  "reviewed_sources": [
+    "ESA_ADB_V2",
+    "ESA_ADB_V1_IF_USED",
+    "OPS_SAT_AD_V2"
+  ],
+  "not_reviewed_or_excluded": [
+    "HACK_A_SAT_4_SOURCE_USE"
+  ],
+  "future_use_design": {
+    "ESA_v2_primary_descriptive_missions": 3,
+    "OPS_SAT_v2_primary_descriptive_strata": 1,
+    "primary_strata_total": 4,
+    "ESA_v1_optional_paired_sensitivity_only": true,
+    "v1_v2_independent_replication_claim_allowed": false,
+    "real_source_semantic_processing_done_under_this_review": false,
+    "original_raw_dataset_redistribution_planned": false
+  },
+  "author_reported_local_evidence": {
+    "nine_file_integrity_status": "PASS_AUTHOR_REPORTED_ONLY",
+    "nested_rights_marker_report_sha256": "b9486430f6a2c25384d105fe96296411df4b2e4526a6d0e759a8c960e3b28584",
+    "nested_zip_directories_examined": 2090,
+    "recognized_marker_filename_count": 0,
+    "marker_absence_proves_no_embedded_exceptions": false,
+    "original_report_bytes_reviewed_by_assistant": false
+  },
+  "sources": [
+    {
+      "source": "ESA_ADB_V2",
+      "gate": "G4-01",
+      "dataset_version": "v2",
+      "doi": "10.5281/zenodo.15237121",
+      "license_claim": "CC_BY_3_0_IGO",
+      "first_party_source": "https://github.com/kplabs-pl/ESA-ADB/blob/main/data/preprocessed/esa-anomaly-dataset-metadata.json",
+      "first_party_source_git_blob_sha1": "9da81fadbaf96cdfd2c7d8c5b906f4d45f80f461",
+      "first_party_links_exact_three_v2_zip_md5": true,
+      "zenodo_v2_rights_field": "BLANK_RENDERED",
+      "croissant_version_field": "1_METADATA_INTERNAL_NOT_PROOF_OF_ZENODO_V1",
+      "dataset_level_license_support": "STRONG_VERSION_LINKED_CORROBORATION",
+      "embedded_file_specific_license_exceptions": "NOT_PROVEN_ABSENT",
+      "notice_draft": "study10/G4_PROSPECTIVE_PUBLICATION_SOURCE_NOTICES_20261123.md",
+      "publication_notice_implemented": false,
+      "final_rights_signoff": false,
+      "gate_status": "HOLD"
+    },
+    {
+      "source": "ESA_ADB_V1",
+      "gate": "G4-02",
+      "dataset_version": "1.0",
+      "doi": "10.5281/zenodo.12528696",
+      "license_claim": "CC_BY_3_0_IGO",
+      "first_party_source": "https://github.com/esa/anomaly-dataset/blob/a969698e464788c961dbb646d3da24595c7c7a2b/LICENSE",
+      "first_party_source_git_blob_sha1": "e9603f00725a6580a4c82ac6ada160a13f53f323",
+      "readme_versioned_v1_doi_support": true,
+      "zenodo_v1_rights_field": "BLANK_RENDERED",
+      "embedded_file_specific_license_exceptions": "NOT_PROVEN_ABSENT",
+      "optional_use_scope": "PAIRED_SENSITIVITY_ONLY",
+      "publication_notice_implemented": false,
+      "final_rights_signoff": false,
+      "gate_status": "HOLD_IF_USED"
+    },
+    {
+      "source": "OPS_SAT_AD_V2",
+      "gate": "G4-03",
+      "dataset_version": "v2",
+      "doi": "10.5281/zenodo.15108715",
+      "license_claim": "MIT_DATA_INCLUSIVE",
+      "license_source": "https://zenodo.org/records/15108715/files/LICENSE?download=1",
+      "license_md5_published": "ea8befa9af2b37b7a54b5a16fc3712b0",
+      "upstream_license_git_blob_sha1": "6cba1d0ee3e2c245b7664a3bcb169afd3297ab11",
+      "copyright": "Copyright (c) 2024 KP Labs",
+      "license_explicit_coverage": [
+        "software",
+        "data",
+        "associated documentation"
+      ],
+      "source_license_directly_verified": true,
+      "citation_creator_order_finalized": false,
+      "required_mit_full_notice_if_copying_substantial_material": true,
+      "notice_implementation_finalized": false,
+      "original_CSV_in_band_rights_notices": "NOT_REVIEWED",
+      "associated_methods_paper_doi": "10.1038/s41597-025-05035-3",
+      "methods_paper_correction_doi": "10.1038/s41597-025-05751-w",
+      "embedded_file_specific_license_exceptions": "NOT_PROVEN_ABSENT",
+      "final_rights_signoff": false,
+      "gate_status": "HOLD_NOTICE_AND_EXCEPTION_SIGNOFF"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G4-01",
+      "status": "HOLD",
+      "cleared": false,
+      "reason": "ESA v2 exact license record blank; corroborating Croissant metadata; final scope/exceptions signoff outstanding"
+    },
+    {
+      "id": "G4-02",
+      "status": "HOLD_IF_USED",
+      "cleared": false,
+      "reason": "Optional ESA v1 paired comparator rights/notices/embedded exceptions unapproved"
+    },
+    {
+      "id": "G4-03",
+      "status": "HOLD",
+      "cleared": false,
+      "reason": "OPS-SAT MIT verified for data but notices/creator authority/in-band exceptions need review"
+    },
+    {
+      "id": "G4-04",
+      "status": "EXCLUDED_BLOCKED_IF_USED",
+      "cleared": false,
+      "reason": "Hack-A-Sat optional secondary excluded"
+    },
+    {
+      "id": "G4-05",
+      "status": "PARTIAL",
+      "cleared": false,
+      "reason": "Author-reported identity/inventory passed; attribution notice implementation and signoff pending"
+    },
+    {
+      "id": "G4-06",
+      "status": "NOT_AUTHORIZED",
+      "cleared": false,
+      "reason": "Separate explicit source-semantic execution approval required after mandatory gates"
+    }
+  ],
+  "source_rights_final_approval": false,
+  "G4_06_scientific_execution_authorized": false,
+  "raw_telemetry_rehost_authorized": false,
+  "paper_submission_authorized": false,
+  "PR_merge_authorized": false,
+  "github_main_changed_by_this_review": false,
+  "rights_holder_contact_authorized": false,
+  "independent_legal_clearance_claimed": false,
+  "documents": [
+    "study10/G4_FINAL_DOCUMENTARY_RIGHTS_REVIEW_20261123.md",
+    "study10/G4_PROSPECTIVE_PUBLICATION_SOURCE_NOTICES_20261123.md"
+  ],
+  "provenance_note": "Public legal, Zenodo and project documents were directly examined. Original dataset files and author-local report bytes were not accessible in this review; their metadata results are author-reported. Nothing here constitutes a license grant."
+}
