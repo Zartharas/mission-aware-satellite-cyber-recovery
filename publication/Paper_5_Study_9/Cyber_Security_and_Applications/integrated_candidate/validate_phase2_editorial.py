@@ -33,6 +33,13 @@ def validate():
                 marker += f" {row['evidence_visibility_role']}"
             assert appendix.count(marker + "\n") == 1, marker
             section = appendix.split(marker + "\n", 1)[1].split("\n% P2MAP ", 1)[0]
+            expected_class = "A" if row["mapping_class"] == "AMBIGUOUS" else "X"
+            if prefix == "S10":
+                role = {"EXPERIMENT_METADATA_ONLY": "M",
+                        "OFFLINE_GROUND_TRUTH_ONLY": "G",
+                        "DOCUMENTATION_ONLY": "D"}[row["evidence_visibility_role"]]
+                expected_class += "/" + role
+            assert " & " + expected_class + " & " in section.splitlines()[0], marker
             for key in ("native_field_names", "excluded_fields", "excluded_as_substitutes"):
                 for field in row.get(key, []):
                     assert r"\url{" + field + "}" in section, (marker, field)
@@ -40,7 +47,10 @@ def validate():
     assert len(re.findall(r"^% P2MAP S10 ", appendix, re.M)) == 32
     assert r"\label{tab:phase2rq}" in manuscript
     assert r"\label{fig:phase2gates}" in manuscript
-    assert r"\input{PHASE2_FIELD_LEVEL_EVIDENCE_APPENDIX.tex}" in manuscript
+    supplement = (HERE / "PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex").read_text(encoding="utf-8")
+    assert r"\input{PHASE2_FIELD_LEVEL_EVIDENCE_APPENDIX.tex}" in supplement
+    assert r"\input{PHASE2_FIELD_LEVEL_EVIDENCE_APPENDIX.tex}" not in manuscript
+    assert "Supplementary Appendix S1" in manuscript
     assert r"\label{app:fieldledger}" in appendix
     for rq in ("RQ1", "RQ2", "RQ3", "RQ4", "RQ-E1", "RQ-E2", "RQ-E3", "RQ-E4", "RQ-E5"):
         assert manuscript.count(r"\texttt{" + rq + "} &") == 1, rq
