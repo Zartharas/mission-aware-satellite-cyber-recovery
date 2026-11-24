@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "experiment_id": "P2X-NOS3-RG-001",
+  "record_type": "PROSPECTIVE_PREREGISTRATION",
+  "date": "2026-10-03",
+  "phase": "DESIGN_ONLY__NO_RUNTIME_AUTHORIZATION",
+  "main_authority": "4cd0c30a276b3c5a0494736b93a8d08dc1ed8df4",
+  "project": "Paper 2 / Studies 3, 4, 6 / new independent integrated rehearsal",
+  "hypothesis": "Under a preregistered NOS3/cFS recovery-qualification rehearsal, adding independently specified functional-conformance evidence to a six-process-signal gate changes observed unsafe test-command dispatch, benign deferral, and qualification latency compared with the process-only gate, measured on paired controlled scenarios.",
+  "infrastructure": {
+    "reused_tooling_only": true,
+    "nos3_repository": "https://github.com/nasa/nos3.git",
+    "nos3_commit": "5a3bdee6be9a2c67fdf994ae6db56d5c60395302",
+    "nos3_image_digest": "ivvitc/nos3-64@sha256:06aa945988a7770b759022c2e1f6f2531818c087fe41a4739d3a3a7f2a9dcce2",
+    "source_lock_script": "scripts/verify_nos3_source_lock.sh",
+    "nominal_build_script": "scripts/build_nominal_nos3.sh",
+    "reference_transport_script": "scripts/run_wp6_p7_mission_aware_integration.sh",
+    "policy_code_from_other_papers_reuse_authorized": false,
+    "historical_result_row_reuse_authorized": false,
+    "actual_host_checkout_and_image_availability": "NOT_VERIFIED_THIS_PHASE"
+  },
+  "experimental_unit": "One fresh, isolated NOS3/cFS software-in-the-loop recovery command attempt in a specified scenario and gate arm; sequence resets and trace IDs required.",
+  "comparison_arms": [
+    {
+      "id": "G0",
+      "name": "Process-evidence-only",
+      "inputs": [
+        "signature",
+        "target_digest",
+        "provenance",
+        "independent_rebuild",
+        "source_review",
+        "release_approval"
+      ],
+      "functional_conformance_visible": false
+    },
+    {
+      "id": "G1",
+      "name": "Process evidence plus separately specified functional conformance",
+      "inputs": [
+        "signature",
+        "target_digest",
+        "provenance",
+        "independent_rebuild",
+        "source_review",
+        "release_approval",
+        "pre_admission_functional_conformance"
+      ],
+      "functional_conformance_visible": true
+    }
+  ],
+  "scenario_register": [
+    {
+      "id": "C0",
+      "category": "clean_control",
+      "description": "Approved correct source, nominal command/telemetry path",
+      "primary": true
+    },
+    {
+      "id": "C1",
+      "category": "benign_degradation",
+      "description": "Approved correct source with controlled telemetry receipt delay/dropout",
+      "primary": true
+    },
+    {
+      "id": "C2",
+      "category": "benign_degradation",
+      "description": "Approved correct source with unavailable/delayed functional-conformance evidence",
+      "primary": true
+    },
+    {
+      "id": "F1",
+      "category": "controlled_semantic_fault",
+      "description": "New prespecified approved watchpoint/limit-table configuration defect, demonstrably exercised by an end-to-end input trace",
+      "primary": true
+    },
+    {
+      "id": "F2",
+      "category": "controlled_semantic_fault",
+      "description": "New prespecified approved watchpoint predicate defect in a separate source/configuration path, demonstrably exercised by an end-to-end input trace",
+      "primary": true
+    },
+    {
+      "id": "CAL1",
+      "category": "calibration_only",
+      "description": "Existing S6X > versus >= equality-boundary fixture as tooling calibration only; old observations excluded",
+      "primary": false
+    }
+  ],
+  "measurements": [
+    "real_udp_command_sent",
+    "cfs_CI_receipt_verified",
+    "simulated_target_transition_or_LC_response_observed",
+    "scenario_hidden_expected_recovery_permitted",
+    "unsafe_dispatch_count_by_scenario_and_gate",
+    "correct_case_held_or_deferred_count",
+    "gate_decision_time_ms",
+    "functional_evidence_collection_latency_ms",
+    "evidence_available_by_input",
+    "command_to_telemetry_confirmation_latency_ms",
+    "oracle_gate_information_separation"
+  ],
+  "independent_evaluation": {
+    "fault_injector": "A separate scenario builder creates signed, approved artifacts or simulator disturbances from a frozen manifest",
+    "functional_checker": "Precommitted requirements-based conformance vectors, run before admission; source and design separate from fault-injector",
+    "truth_oracle": "Separate read-only scenario/actual simulator-state assessor, not a variable in G0 or G1 gate inputs; independently confirms physical simulator command/response",
+    "raw_trace_audit": "Second implementation reconstructs decisions and packet/command outcomes from frozen raw logs",
+    "design_warning": "One-author research is not independent third-party replication; independently implemented controls require inspectable evidence and separate hashes"
+  },
+  "analysis_plan": {
+    "primary": "Report exact scenario-level paired G0 versus G1 unsafe command-dispatch and clean-case deferral/hold counts; show per-scenario raw traces; no pooling with Studies 3,4,6, S3X, or S6X.",
+    "secondary": "Qualification and command confirmation latency distributions; planned normal versus benign missing-evidence strata; any additional gates/fault classes require separate protocol amendment before viewing outcomes.",
+    "inference": "Do not treat repeated runs of the same engineered scenario as independent spacecraft missions. Report exact finite results and within-scenario repeat variability; no asserted real-world attack or orbital contact prevalence.",
+    "adverse_result_rule": "If the enhanced gate causes excessive correct-case holds, fails to detect a held-out defect, or fails preflight, report it and do not selectively omit."
+  },
+  "preexecution_gates": [
+    "Pin and verify actual NOS3 checkout, recursive submodules, build/image digests on clean host",
+    "Demonstrate unmodified two-way cFS/COSMOS test command and telemetry path with packet logs and checksum records",
+    "Freeze minimal mission-specific LC functional invariants from pinned requirements, independent of injected fault selection",
+    "Prove fault-injector/functional-checker/truth-oracle process and data-flow separation by read-set audit",
+    "Verify F1/F2 each compiles and actually changes simulator-visible behavior; fail closed if not",
+    "Freeze clean controls and benign evidence-withholding protocol; avoid tuning gates after observing outcome",
+    "Lock scenario IDs, seeds, order-balancing, repeats and exclusion criteria",
+    "Obtain separate author authorization for every live runtime/replay/canonical scientific execution"
+  ],
+  "guardrails": {
+    "old_studies_frozen": true,
+    "old_s3x_s6x_frozen": true,
+    "no_other_paper_result_import": true,
+    "do_not_use_CuCD_ID_or_Study5_rows": true,
+    "do_not_use_Study7_7E_results": true,
+    "do_not_use_Study8_8E_or_SatNOGS_rows": true,
+    "do_not_use_Study9_rows": true,
+    "reuse_preexisting_NOS3_infrastructure_only": true,
+    "nonoperational_simulation_only": true,
+    "no_actual_spacecraft_or_ground_station": true,
+    "no_nasa_endorsement_or_cfs_vulnerability_claim": true,
+    "no_contact_outage_claim": true,
+    "no_publisher_manuscript_edit_until_data_validation": true,
+    "no_scientific_execution_authorized": true,
+    "no_merge_authorized": true,
+    "no_publisher_submission_authorized": true
+  },
+  "outcome_data_present": false
+}
