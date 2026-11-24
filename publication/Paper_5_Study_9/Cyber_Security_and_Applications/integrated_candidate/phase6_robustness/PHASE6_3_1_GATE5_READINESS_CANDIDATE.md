@@ -1,0 +1,14 @@
+# Gate 5 execution-readiness candidate
+
+Author authorization covers preparation and validation of Gate 5 only, not canonical execution. Qualified payload 23e36944b03c6b45e2bf6c0eda0bdb480d03e3d5; immutable receipt at 33b7c6308c75bcf7aaa5b74649b6e3902574cdca, blob 0d91f0c0f9d9c099d1d380998d4608217ed1102b. All 18 qualified file identities and five frozen design identities remain unchanged. Gate 5 adds a separate launcher and engineering test rather than changing qualified scientific implementation.
+
+## Controls
+- Exact checkout HEAD and clean tracked/untracked worktree; reject extra files, directories, symlinks and stale bytecode in the implementation directory. Python isolated mode, no bytecode writes, optimization disabled. Hash qualified files and frozen design before local project imports. Trusted host/interpreter and no concurrent modification assumed.
+- Independently pin archived Study 9 policy strata and guaranteed sidecar records by Git blob and record SHA-256. Reconcile all three historical datasets, exact action sets and all minimum subsets. The dormant adapter adds a full set comparison after the already-qualified runner's cardinality regression. No new scientific evaluation in preflight.
+- Local preflight verifies all three exact attempt 003 evidence hashes, report/manifest status, Docker context, local Unix daemon, local image identity, host Python, OS and exact Docker version metadata. It only inspects Docker, does not launch a container. It writes an exclusive local evidence directory.
+- Future adapter preserves all mapping and metamorphic outputs, stops before logical analysis if mapping fails, checks 17 metamorphic groups / 25 transformed evaluations, 78,732 logical endpoints and archived F0 exact sets. Those counts are design arithmetic, not observations. No execution CLI is provided; --execute fails before checking inputs.
+- Future Phase 6.4 requires distinct author authorization, exact-pinned activation launcher, immutable preflight evidence, fresh environment checks, explicit offline host operation with local Docker only, and exclusive output directory. No automatic reruns after failure. The qualified worker uses network none and verifies mount/capability/isolation before reading inputs. Host-side reference/orchestration has no network operations except local Docker; host network disconnection is an operator control, not a demonstrated OS sandbox. Retain evidence of abrupt termination separately; disk or host failure may prevent final manifest.
+- No original data access, new source download, merge, publication or submission.
+
+## Remaining gate
+CI static/engineering validation and actual local preflight at the exact candidate head must succeed. Only then can Gate 5 close and a distinct execution authorization be requested. No experiment is authorized by this file.
