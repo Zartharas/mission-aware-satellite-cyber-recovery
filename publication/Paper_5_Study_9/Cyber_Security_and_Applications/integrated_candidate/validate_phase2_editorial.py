@@ -67,6 +67,9 @@ def validate():
         assert ("{" + citation + ",") in refs and (r"\cite{" + citation + "}") in manuscript, citation
     assert "no change of a recovery-state mapping class is established" in manuscript
     assert "16/16" in manuscript and "1,024" in manuscript
+    assert "not end-to-end evidence-to-predicate equivalence" in manuscript
+    assert "Completeness denotes presence" in manuscript
+    assert "historical G3 pass and its expected-value control remain unchanged" in manuscript
     assert "unconstrained Boolean completion space" in manuscript
     assert "physical realizability" in manuscript
     assert "24 source-to-predicate judgments" in manuscript

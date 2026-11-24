@@ -218,7 +218,7 @@
     {
       "id": "F2",
       "condition": "F1 and (not M_present or (signature_valid and source_trusted and fresh and epoch_valid))",
-      "status": "F1 plus conditional atomic admission-only publication; logical outer approximation",
+      "status": "F1 plus conditional complete-snapshot admission guarantee over ALL submitted rows; no filter that hides rejected evidence; logical outer approximation",
       "analytic_expected_size": 132
     }
   ],
@@ -249,5 +249,18 @@
   "acceptance": "all case assertions pass including diagnostics; no missing case, no false admission, false rejection, false/unknown conflation or unexplained oracle mismatch; F0 archived reference unchanged; F1/F2 analytic size and subset invariants; no strict reduction required",
   "execution_status": "NOT_RUN",
   "freeze_status": "NOT_FROZEN",
-  "next_gate": "author review exact design; approve separate freeze of exact immutable payload; implementation and execution still separate; runtime fixture serialization and byte hashes not yet generated"
+  "next_gate": "Review named candidate commit and M/Q clarification, then separately authorize immutable protocol freeze. Implementation, runtime fixture materialization, and execution remain subsequent gates.",
+  "candidate_input_blobs": {
+    "input_spec": {
+      "path": "PHASE6_1_CONTROL_INPUT_SPEC_CANDIDATE.json",
+      "git_blob_sha1": "62a9269e2c754f3155f982336a2d255414c9be44"
+    },
+    "expected_spec": {
+      "path": "PHASE6_1_CONTROL_EXPECTATIONS_CANDIDATE.json",
+      "git_blob_sha1": "976d26e221bf94e4b6e398348bfad449313c68ff"
+    },
+    "note": "Candidate Git object identities, not frozen run inputs. Exact runtime fixture serialization and SHA-256 manifests remain future gates."
+  },
+  "oracle_specification": "PHASE6_1_ORACLE_AND_CONSTRAINT_SPECIFICATION.md",
+  "pre_freeze_assessment": "PHASE6_1_CONSOLIDATED_FINDINGS_AND_PREFREEZE_REVIEW.md"
 }

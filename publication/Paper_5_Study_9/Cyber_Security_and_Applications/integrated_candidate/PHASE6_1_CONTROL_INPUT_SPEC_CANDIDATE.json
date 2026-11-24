@@ -9,7 +9,7 @@
     "clock": "SYN_CLOCK_A",
     "snapshot_id": "SYN_SNAPSHOT_1"
   },
-  "context_note": "Per-case target instant is normative_context except D-FRESH-02/03 and C-12, where it is the specified record decision_time_s. C-10 intentionally supplies stale row context relative to normative_context. Case metadata and family stripped before evaluator call. Synthetic premise only, no verified signatures.",
+  "context_note": "Each case is a separate artificial decision instance, never a repeated observation of the same real decision. requested_context is authoritative for this test. The row context must match requested_context for admission; C-10 is deliberately stale. Schema scope is independently checked. Case ID and family are not evaluator inputs. Source/authority/verification flags are synthetic premises, not verified signatures. No original source data.",
   "criteria": [
     "approved_version",
     "integrity_measurement_valid",
@@ -36,7 +36,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -46,11 +49,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "signature_valid": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -66,7 +81,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -76,11 +94,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "signature_valid": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -96,7 +126,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -106,11 +139,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "signature_valid": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -126,7 +171,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -136,11 +184,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -156,7 +216,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -166,11 +229,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "signature_valid": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -186,7 +261,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -196,11 +274,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "signature_valid": "true"
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -216,7 +306,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -226,11 +319,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "source_trusted": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -246,7 +351,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -256,11 +364,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "source_trusted": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -276,7 +396,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "STRING"
+          "domain": "STRING",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -286,11 +409,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "source_trusted": "SYN_SOURCE_A"
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -306,7 +441,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -316,11 +454,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -336,7 +486,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -346,11 +499,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "source_trusted": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -366,7 +531,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -376,9 +544,21 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -394,7 +574,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -404,11 +587,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "fresh": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -424,7 +619,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -434,11 +632,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "fresh": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -454,7 +664,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NUMBER"
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -464,11 +677,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "fresh": 1040
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -484,7 +709,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -494,11 +722,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -514,7 +754,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -524,11 +767,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "fresh": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -544,7 +799,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -554,11 +812,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "fresh": "true"
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -574,7 +844,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -584,11 +857,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "epoch_valid": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -604,7 +889,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -614,11 +902,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "epoch_valid": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -634,7 +934,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NUMBER"
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -644,11 +947,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "epoch_valid": 7
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -664,7 +979,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -674,11 +992,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -694,7 +1024,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -704,11 +1037,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "epoch_valid": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -724,7 +1069,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -734,9 +1082,21 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -752,7 +1112,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -762,11 +1125,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "contradictory": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -782,7 +1157,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -792,11 +1170,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "contradictory": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -812,7 +1202,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -822,11 +1215,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "contradictory": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -842,7 +1247,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -852,11 +1260,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -872,7 +1292,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -882,11 +1305,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "contradictory": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -902,7 +1337,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -912,11 +1350,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "contradictory": "true"
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -932,7 +1382,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -942,11 +1395,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "minimum_evidence_complete": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -962,7 +1427,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -972,11 +1440,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "minimum_evidence_complete": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -992,7 +1472,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NUMBER"
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1002,11 +1485,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "minimum_evidence_complete": 95
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1022,7 +1517,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1032,11 +1530,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1052,7 +1562,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1062,11 +1575,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "minimum_evidence_complete": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1082,7 +1607,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1092,9 +1620,21 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1110,7 +1650,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1120,11 +1663,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "security_signal": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1140,7 +1695,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1150,11 +1708,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "security_signal": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1170,7 +1740,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NUMBER"
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1180,11 +1753,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "security_signal": 0.8
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1200,7 +1785,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1210,11 +1798,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1230,7 +1830,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1240,11 +1843,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "security_signal": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1260,7 +1875,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1270,11 +1888,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "security_signal": "true"
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1290,7 +1920,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1300,11 +1933,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "authorization_available": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1320,7 +1965,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1330,11 +1978,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "authorization_available": false
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1350,7 +2010,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "STRING"
+          "domain": "STRING",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1360,11 +2023,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "authorization_available": "CMD_SYN_1"
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1380,7 +2055,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "INTEGER"
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1390,11 +2068,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "unrelated_test_counter": 17
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1410,7 +2100,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1420,11 +2113,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "authorization_available": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1440,7 +2145,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1450,9 +2158,21 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1468,7 +2188,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "decision_time_s",
@@ -1478,7 +2201,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "valid_for_s",
@@ -1488,7 +2214,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "POSITIVE_INTEGER"
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1498,13 +2227,25 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "issued_at_s": 1000,
           "decision_time_s": 1050,
           "valid_for_s": 100
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1520,7 +2261,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "decision_time_s",
@@ -1530,7 +2274,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "valid_for_s",
@@ -1540,7 +2287,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "POSITIVE_INTEGER"
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1550,13 +2300,25 @@
           "decision_time_s": 1101,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "issued_at_s": 1000,
           "decision_time_s": 1101,
           "valid_for_s": 100
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1101,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1572,7 +2334,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "decision_time_s",
@@ -1582,7 +2347,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "valid_for_s",
@@ -1592,7 +2360,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "POSITIVE_INTEGER"
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1602,13 +2373,25 @@
           "decision_time_s": 1000,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "issued_at_s": 1000,
           "decision_time_s": 1000,
           "valid_for_s": 100
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1000,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1624,7 +2407,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "decision_time_s",
@@ -1634,7 +2420,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "valid_for_s",
@@ -1644,7 +2433,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "POSITIVE_INTEGER"
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1654,12 +2446,24 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "issued_at_s": 1000,
           "decision_time_s": 1050
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1675,7 +2479,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "decision_time_s",
@@ -1685,7 +2492,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_B",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "valid_for_s",
@@ -1695,7 +2505,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "POSITIVE_INTEGER"
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1705,13 +2518,25 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "issued_at_s": 1000,
           "decision_time_s": 1050,
           "valid_for_s": 100
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1727,7 +2552,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "decision_time_s",
@@ -1737,7 +2565,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "valid_for_s",
@@ -1747,7 +2578,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "POSITIVE_INTEGER"
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1757,13 +2591,25 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "issued_at_s": 1000,
           "decision_time_s": 1050,
           "valid_for_s": 0
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1779,7 +2625,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "expected_epoch",
@@ -1789,7 +2638,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1799,12 +2651,24 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "claimed_epoch": 7,
           "expected_epoch": 7
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1820,7 +2684,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "expected_epoch",
@@ -1830,7 +2697,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1840,12 +2710,24 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "claimed_epoch": 6,
           "expected_epoch": 7
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1861,7 +2743,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "expected_epoch",
@@ -1871,7 +2756,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1881,12 +2769,24 @@
           "decision_time_s": 1050,
           "epoch": 0,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "claimed_epoch": 0,
           "expected_epoch": 0
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 0,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1902,7 +2802,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "expected_epoch",
@@ -1912,7 +2815,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1922,11 +2828,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "claimed_epoch": 7
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1942,7 +2860,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "expected_epoch",
@@ -1952,7 +2873,10 @@
           "subject_scope": "SYN_SUBJECT_B",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -1962,12 +2886,24 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "claimed_epoch": 7,
           "expected_epoch": 7
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -1983,7 +2919,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "expected_epoch",
@@ -1993,7 +2932,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -2003,12 +2945,24 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "claimed_epoch": -1,
           "expected_epoch": 7
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -2024,7 +2978,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -2034,11 +2991,23 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "attack_label": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -2055,7 +3024,9 @@
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
           "domain": "BOOLEAN_LITERAL",
-          "native_field": false
+          "native_field": false,
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A"
         }
       ],
       "record": {
@@ -2065,9 +3036,21 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -2082,7 +3065,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -2096,16 +3081,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2120,16 +3095,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2144,16 +3109,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2168,16 +3123,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2192,16 +3137,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2216,16 +3151,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2240,16 +3165,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2264,16 +3179,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2288,16 +3193,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2312,16 +3207,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL10",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2354,6 +3239,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -2368,7 +3263,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -2382,16 +3279,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2406,16 +3293,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2430,16 +3307,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2454,16 +3321,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2478,16 +3335,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2502,16 +3349,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2526,16 +3363,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2550,16 +3377,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2574,16 +3391,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2602,6 +3409,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -2616,7 +3433,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -2630,16 +3449,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2654,16 +3463,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2678,16 +3477,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2702,16 +3491,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2726,16 +3505,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2750,16 +3519,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2774,16 +3533,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2798,16 +3547,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2822,16 +3561,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2850,6 +3579,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -2864,7 +3603,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -2878,16 +3619,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2902,16 +3633,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2926,16 +3647,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2950,16 +3661,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2974,16 +3675,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -2998,16 +3689,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3022,16 +3703,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3046,16 +3717,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3070,16 +3731,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3094,16 +3745,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL10",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3122,6 +3763,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -3136,7 +3787,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -3150,16 +3803,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3174,16 +3817,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3198,16 +3831,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3222,16 +3845,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3246,16 +3859,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3270,16 +3873,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3294,16 +3887,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3318,16 +3901,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3342,16 +3915,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3366,16 +3929,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL10",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3408,6 +3961,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -3422,7 +3985,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -3436,16 +4001,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3460,16 +4015,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3484,16 +4029,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3508,16 +4043,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3532,16 +4057,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3556,16 +4071,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3580,16 +4085,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3604,16 +4099,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3628,16 +4113,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3652,16 +4127,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL10",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3708,6 +4173,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -3722,7 +4197,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -3736,16 +4213,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3760,16 +4227,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3784,16 +4241,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3808,16 +4255,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3832,16 +4269,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3856,16 +4283,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3880,16 +4297,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3904,16 +4311,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3928,16 +4325,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3952,16 +4339,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL10",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -3994,6 +4371,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -4009,7 +4396,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "BOOLEAN_LITERAL"
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -4019,11 +4409,23 @@
           "decision_time_s": 1040,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_STALE_SNAPSHOT"
+          "snapshot_id": "SYN_STALE_SNAPSHOT",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "authorization_available": true
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -4038,7 +4440,9 @@
           "decision_time_s": 1050,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {}
       },
@@ -4052,16 +4456,6 @@
         ],
         "claims": [
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL01",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4076,16 +4470,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL02",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4100,16 +4484,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL03",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4124,16 +4498,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL04",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4148,16 +4512,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL05",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4172,16 +4526,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL06",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4196,16 +4540,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL07",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4220,16 +4554,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL08",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4244,16 +4568,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL09",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4268,16 +4582,6 @@
             "sequence_valid": true
           },
           {
-            "0": "approved_version",
-            "1": "integrity_measurement_valid",
-            "2": "authorization_valid",
-            "3": "measured_state_current",
-            "4": "authorized_command_path_restored",
-            "5": "ground_spacecraft_state_agreed",
-            "6": "required_telemetry_restored",
-            "7": "health_checks_passed",
-            "8": "no_residual_unauthorized_state",
-            "9": "recovery_manifest_complete",
             "claim_id": "CL10",
             "source_id": "SYN_SOURCE_A",
             "subject_id": "SYN_SUBJECT_A",
@@ -4296,6 +4600,16 @@
         "expected_epoch": 7,
         "decision_time_s": 1050,
         "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     },
     {
@@ -4311,7 +4625,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "decision_time_s",
@@ -4321,7 +4638,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "NONNEGATIVE_INTEGER"
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         },
         {
           "name": "valid_for_s",
@@ -4331,7 +4651,10 @@
           "subject_scope": "SYN_SUBJECT_A",
           "decision_scope": "SYN_DECISION_1",
           "clock_scope": "SYN_CLOCK_A",
-          "domain": "POSITIVE_INTEGER"
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
         }
       ],
       "record": {
@@ -4341,13 +4664,25 @@
           "decision_time_s": 1100,
           "epoch": 7,
           "clock": "SYN_CLOCK_A",
-          "snapshot_id": "SYN_SNAPSHOT_1"
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
         },
         "values": {
           "issued_at_s": 1000,
           "decision_time_s": 1100,
           "valid_for_s": 100
         }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1100,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
       }
     }
   ]
