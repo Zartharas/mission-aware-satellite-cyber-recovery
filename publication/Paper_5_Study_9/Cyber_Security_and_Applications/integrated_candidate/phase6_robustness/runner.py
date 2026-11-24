@@ -4,7 +4,7 @@ import copy, json
 from collections import Counter
 from itertools import product
 from pathlib import Path
-import evaluator
+from isolated_worker import candidate_batch
 import reference_oracle
 import state_model
 from integrity import read_verified, verify_all
@@ -42,18 +42,22 @@ def perturb(payload,spec):
     if pid=="P-OFFLINE-LABEL":
         x["record"]["values"]["attack_label"]=not x["record"]["values"]["attack_label"];return [x]
     raise ValueError("UNKNOWN_PERTURBATION")
-def prepare_analysis():
+def prepare_analysis(image, progress):
     # Called only by a future separately approved launcher; no executable main path.
     verify_all()
     inputs=json.loads(read_verified("runtime_inputs.json"))["cases"]
-    outcomes=[]
-    # Candidate pure function receives payload only. No expected outcomes loaded yet.
-    for case in inputs:
-        outcomes.append({"routing_key":case["routing_key"],"actual":evaluator.evaluate(case["payload"])})
+    # Actual candidate execution occurs in an offline read-only container with no gold mount.
+    batch=candidate_batch(image,[case["payload"] for case in inputs])
+    outcomes=[{"routing_key":case["routing_key"],"actual":actual} for case,actual in zip(inputs,batch["results"])]
+    progress["candidate_outcomes"]=outcomes
+    if batch["error"] is not None:
+        progress["candidate_worker_error"]=batch["error"]
+        raise ValueError("CANDIDATE_BATCH_FAILED")
     refs=json.loads(read_verified("reference_expectations.json"))["rows"]
     routes=json.loads(read_verified("routing_manifest.json"))
     if len(inputs)!=72 or [x["routing_key"] for x in outcomes]!=[x["routing_key"] for x in refs]:raise ValueError("ROUTING_DRIFT")
     rows=[]; by_family={}; failures=[]
+    progress["mapping_and_ledger_rows"]=rows; progress["failures"]=failures
     for case,observed,ref,route in zip(inputs,outcomes,refs,routes["cases"]):
         if not case["routing_key"]==route["routing_key"]==ref["routing_key"]:raise ValueError("ROUTE_MISMATCH")
         a=observed["actual"]; e=ref["expectation"]; payload=case["payload"]
@@ -71,14 +75,17 @@ def prepare_analysis():
         rows.append(row)
     lookup={r["case_id"]:(x["payload"],a["actual"]) for r,x,a in zip(routes["cases"],inputs,outcomes)}
     metamorphic=[]
+    progress["metamorphic"]=metamorphic
     for spec in routes["perturbations"]:
         payload,original=lookup[spec["base_case"]]
-        observed=[signature(evaluator.evaluate(v)) for v in perturb(payload,spec)]
+        batch=candidate_batch(image,perturb(payload,spec))
+        if batch["error"] is not None:raise ValueError("METAMORPHIC_WORKER_FAILURE:"+spec["id"])
+        observed=[signature(v) for v in batch["results"]]
         ok=all(v==signature(original) for v in observed)
         metamorphic.append({"id":spec["id"],"match":ok,"observed":observed})
         if not ok:failures.append(spec["id"])
     return {"rows":rows,"metrics":[{"family":family,"method":k,**metrics(v)} for (family,k),v in sorted(by_family.items())],"metamorphic":metamorphic,"failures":failures}
-def logical_analysis():
+def logical_analysis(progress):
     # Never call with incomplete observations at the actual selector.
     verify_all()
     import selector_pinned as sel
@@ -91,6 +98,7 @@ def logical_analysis():
             if a!=b:raise ValueError("BOOLEAN_ORACLE_MISMATCH")
             labels[(policy,x)]=a
     primary=(None,)*8; records=[]
+    progress["logical_rows"]=records
     for o in (primary,*[x for x in product((None,False,True),repeat=8) if x!=primary]):
         slices={k:state_model.compatible(v,o) for k,v in models.items()}
         for policy in POLICIES:
@@ -107,5 +115,16 @@ def logical_analysis():
     primary_rows=[z for z in records if z["model"]=="F0" and z["observation"]==primary]
     if [z["action_count"] for z in primary_rows]!=[2,2,3,3] or [z["min_size"] for z in primary_rows]!=[6,7,7,8]:raise ValueError("ARCHIVED_F0_MISMATCH")
     return records
+def _prepared_attempt(image,output,metadata):
+    """Dormant integration function. Requires a future reviewed launcher and authorization.
+    No current CLI, workflow or engineering check calls this function.
+    """
+    from evidence_writer import preserve_attempt
+    def operation(progress):
+        report=prepare_analysis(image,progress)
+        progress["mapping_report"]=report
+        if report["failures"]:raise ValueError("SEMANTIC_CONTROL_OR_ORACLE_FAILURE")
+        logical_analysis(progress)
+    return preserve_attempt(output,metadata,operation)
 if __name__=="__main__":
     raise SystemExit("PHASE6_4_EXECUTION_NOT_AUTHORIZED: no experiment launched")

@@ -1,10 +1,13 @@
 """Conditional logical models; no computation on import."""
 from itertools import product, combinations
+def assert_nested(f0,f1,f2):
+    if not f0 or not f1 or not f2 or not set(f2)<=set(f1)<=set(f0):raise ValueError("MODEL_NESTING_FAIL")
 def domains():
     f0=list(product((False,True),repeat=8))
     f1=[x for x in f0 if not x[5] or not x[4]]
     f2=[x for x in f1 if not x[5] or all(x[:4])]
-    if [len(x) for x in (f0,f1,f2)]!=[256,192,132] or not set(f2)<=set(f1)<=set(f0): raise ValueError("MODEL_INVARIANT_FAIL")
+    if [len(x) for x in (f0,f1,f2)]!=[256,192,132]: raise ValueError("MODEL_INVARIANT_FAIL")
+    assert_nested(f0,f1,f2)
     return dict(zip(("F0","F1","F2"),(f0,f1,f2)))
 def compatible(states,o):
     if len(o)!=8 or any(x is not None and type(x) is not bool for x in o): raise ValueError("INVALID_PARTIAL_STATE")

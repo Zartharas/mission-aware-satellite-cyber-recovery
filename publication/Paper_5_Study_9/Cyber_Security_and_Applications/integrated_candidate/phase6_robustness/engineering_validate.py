@@ -27,7 +27,7 @@ def main():
     assert canon({"status":"FROZEN_DESIGN_MATERIALIZED_NOT_EXECUTED","cases":cases})==read_verified("runtime_inputs.json")
     assert canon({"status":"PRESPECIFIED_NOT_OBSERVED","rows":refs})==read_verified("reference_expectations.json")
     assert canon({"cases":routes,"perturbations":manifest["cases"]["perturbations"]})==read_verified("routing_manifest.json")
-    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py"):
+    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py","candidate_worker.py","isolated_worker.py","evidence_writer.py","engineering_mutations.py"):
         ast.parse((HERE/name).read_text(),filename=name)
     # No scientific-case calls. Tiny non-study truth tables exercise algorithms only.
     from state_model import partition_minima,endpoint
@@ -44,5 +44,7 @@ def main():
     assert integer(0) and not integer(True) and not integer(-1) and not integer(0,1)
     p=subprocess.run([sys.executable,"-B",str(HERE/"runner.py")],capture_output=True,text=True,timeout=10)
     assert p.returncode!=0 and "PHASE6_4_EXECUTION_NOT_AUTHORIZED" in p.stderr
+    from engineering_mutations import run
+    run()
     print("PHASE6_3_ENGINEERING_ONLY_PASS_NO_CANONICAL_EXECUTION")
 if __name__=="__main__":main()
