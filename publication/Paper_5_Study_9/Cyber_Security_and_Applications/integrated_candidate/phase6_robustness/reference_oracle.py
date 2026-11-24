@@ -39,3 +39,14 @@ def conflict_minima(states, actions, unknown):
         good=[s for s in combinations(unknown,n) if all(set(s)&c for c in minimal)]
         if good:return good
     raise ValueError("NO_SUFFICIENT_SUBSET")
+
+def domain_member(model,x):
+    if len(x)!=8 or any(type(v) is not bool for v in x):raise ValueError("INVALID_DOMAIN_STATE")
+    if model not in ("F0","F1","F2"):raise ValueError("INVALID_MODEL")
+    if model=="F0" or x[5] is False:return True
+    if x[4]:return False
+    return model=="F1" or not any(v is False for v in x[:4])
+def logical_domains():
+    # Integer decoding independent of candidate Cartesian product.
+    states=[tuple(bool(n & (1 << (7-i))) for i in range(8)) for n in range(256)]
+    return {k:{x for x in states if domain_member(k,x)} for k in ("F0","F1","F2")}

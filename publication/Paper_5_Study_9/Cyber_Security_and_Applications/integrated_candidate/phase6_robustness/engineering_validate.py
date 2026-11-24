@@ -27,7 +27,7 @@ def main():
     assert canon({"status":"FROZEN_DESIGN_MATERIALIZED_NOT_EXECUTED","cases":cases})==read_verified("runtime_inputs.json")
     assert canon({"status":"PRESPECIFIED_NOT_OBSERVED","rows":refs})==read_verified("reference_expectations.json")
     assert canon({"cases":routes,"perturbations":manifest["cases"]["perturbations"]})==read_verified("routing_manifest.json")
-    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py","candidate_worker.py","isolated_worker.py","evidence_writer.py","engineering_mutations.py"):
+    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py","candidate_worker.py","isolated_worker.py","evidence_writer.py","engineering_mutations.py","strict_json.py"):
         ast.parse((HERE/name).read_text(),filename=name)
     # No scientific-case calls. Tiny non-study truth tables exercise algorithms only.
     from state_model import partition_minima,endpoint
@@ -44,6 +44,17 @@ def main():
     assert integer(0) and not integer(True) and not integer(-1) and not integer(0,1)
     p=subprocess.run([sys.executable,"-B",str(HERE/"runner.py")],capture_output=True,text=True,timeout=10)
     assert p.returncode!=0 and "PHASE6_4_EXECUTION_NOT_AUTHORIZED" in p.stderr
+    from strict_json import equal,loads
+    assert not equal(True,1) and not equal({"x":False},{"x":0}) and equal({"x":True},{"x":True})
+    for bad in ('{"x":1,"x":2}','{"x":NaN}'):
+        try:loads(bad)
+        except ValueError:pass
+        else:raise AssertionError("INVALID_JSON_ACCEPTED")
+    from reference_oracle import domain_member
+    # Pointwise toy contract checks, no domain enumeration.
+    assert domain_member("F1",(False,False,False,False,True,False,False,False))
+    assert not domain_member("F1",(True,True,True,True,True,True,False,False))
+    assert not domain_member("F2",(True,False,True,True,False,True,False,False))
     from engineering_mutations import run
     run()
     print("PHASE6_3_ENGINEERING_ONLY_PASS_NO_CANONICAL_EXECUTION")

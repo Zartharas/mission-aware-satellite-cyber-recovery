@@ -2,6 +2,7 @@
 from __future__ import annotations
 import copy, json
 from collections import Counter
+from strict_json import equal
 from itertools import product
 from pathlib import Path
 from isolated_worker import candidate_batch
@@ -22,7 +23,7 @@ def metrics(pairs):
     confusion=Counter()
     for actual,expected in pairs:
         a,b=actual,expected; confusion[(b[0],a[0])]+=1
-        counts["cases"]+=1; counts["exact_class"]+=a[0]==b[0]; counts["exact_admission_value"]+=a[1:]==b[1:]
+        counts["cases"]+=1; counts["exact_class"]+=a[0]==b[0]; counts["exact_admission_value"]+=equal(a[1:],b[1:])
         counts["false_admission"]+=a[1]=="ADMIT" and b[1]!="ADMIT"
         counts["false_rejection"]+=a[1]!="ADMIT" and b[1]=="ADMIT"
         counts["wrong_admitted_value"]+=a[1]==b[1]=="ADMIT" and a[2] is not b[2]
@@ -61,11 +62,11 @@ def prepare_analysis(image, progress):
     for case,observed,ref,route in zip(inputs,outcomes,refs,routes["cases"]):
         if not case["routing_key"]==route["routing_key"]==ref["routing_key"]:raise ValueError("ROUTE_MISMATCH")
         a=observed["actual"]; e=ref["expectation"]; payload=case["payload"]
-        row={**route,"actual":a,"expected":e,"match":a==e}
-        if a!=e:failures.append(route["case_id"])
+        row={**route,"actual":a,"expected":e,"match":equal(a,e)}
+        if not row["match"]:failures.append(route["case_id"])
         if payload["target"] is None:
             row["ledger_oracle"]=reference_oracle.ledger_reference(payload["diagnostic"],payload["requested_context"])
-            if row["ledger_oracle"]!=e["diagnostics"]:failures.append(route["case_id"]+":LEDGER_ORACLE")
+            if not equal(row["ledger_oracle"],e["diagnostics"]):failures.append(route["case_id"]+":LEDGER_ORACLE")
         else:
             row["baselines"]={k:baseline(payload,k) for k in ("always_unknown","name_only")}
             for k in ("candidate","always_unknown","name_only"):
@@ -81,7 +82,7 @@ def prepare_analysis(image, progress):
         batch=candidate_batch(image,perturb(payload,spec))
         if batch["error"] is not None:raise ValueError("METAMORPHIC_WORKER_FAILURE:"+spec["id"])
         observed=[signature(v) for v in batch["results"]]
-        ok=all(v==signature(original) for v in observed)
+        ok=all(equal(v,signature(original)) for v in observed)
         metamorphic.append({"id":spec["id"],"match":ok,"observed":observed})
         if not ok:failures.append(spec["id"])
     return {"rows":rows,"metrics":[{"family":family,"method":k,**metrics(v)} for (family,k),v in sorted(by_family.items())],"metamorphic":metamorphic,"failures":failures}
@@ -90,12 +91,17 @@ def logical_analysis(progress):
     verify_all()
     import selector_pinned as sel
     models=state_model.domains()
+    independent=reference_oracle.logical_domains()
+    if any(set(models[k])!=independent[k] for k in models):raise ValueError("DOMAIN_ORACLE_MISMATCH")
+    progress["model_sizes"]={k:len(v) for k,v in models.items()}
     labels={}
     for x in models["F0"]:
         for policy in POLICIES:
             a=sel.select_action(sel.Study2Policy(policy),sel.ObservationSummary(**dict(zip(FIELDS,x)))).value
             b=reference_oracle.policy(policy,x)
-            if a!=b:raise ValueError("BOOLEAN_ORACLE_MISMATCH")
+            if a!=b:
+                progress["selector_mismatch"]={"policy":policy,"state":x,"actual":a,"reference":b}
+                raise ValueError("BOOLEAN_ORACLE_MISMATCH")
             labels[(policy,x)]=a
     primary=(None,)*8; records=[]
     progress["logical_rows"]=records
@@ -107,11 +113,16 @@ def logical_analysis(progress):
                 actions=[labels[(policy,x)] for x in states]
                 e=state_model.endpoint(states,actions,o)
                 minima=reference_oracle.conflict_minima(states,actions,tuple(i for i,v in enumerate(o) if v is None))
-                if e["minima"]!=minima:raise ValueError("SIDECAR_ORACLE_MISMATCH")
+                if e["minima"]!=minima:
+                    progress["logical_mismatch"]={"model":k,"policy":policy,"observation":o,"actual":e,"reference_minima":minima}
+                    raise ValueError("SIDECAR_ORACLE_MISMATCH")
                 if previous is not None and states:
-                    if previous["actions"] is None or not set(e["actions"])<=set(previous["actions"]) or e["min_size"]>previous["min_size"]:raise ValueError("NESTING_INVARIANT_FAIL")
+                    if previous["actions"] is None or not set(e["actions"])<=set(previous["actions"]) or e["min_size"]>previous["min_size"]:
+                        progress["logical_mismatch"]={"model":k,"policy":policy,"observation":o,"actual":e,"previous":previous}
+                        raise ValueError("NESTING_INVARIANT_FAIL")
                 previous=e
                 records.append({"model":k,"policy":policy,"observation":o,**e})
+    if len(records)!=3*4*3**8:raise ValueError("LOGICAL_ROW_COUNT_MISMATCH")
     primary_rows=[z for z in records if z["model"]=="F0" and z["observation"]==primary]
     if [z["action_count"] for z in primary_rows]!=[2,2,3,3] or [z["min_size"] for z in primary_rows]!=[6,7,7,8]:raise ValueError("ARCHIVED_F0_MISMATCH")
     return records
