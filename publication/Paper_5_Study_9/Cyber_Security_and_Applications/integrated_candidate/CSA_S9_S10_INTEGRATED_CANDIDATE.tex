@@ -3,6 +3,7 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
+\usepackage{xurl}
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{enumitem}
@@ -546,7 +547,7 @@ The immutable results-freeze record retains the complete SHA-256 identities of t
 The repository contains protocol, schema, mapping, code, tests, deterministic outputs, independent-audit outputs, and artifact identity records. Third-party raw dataset bytes are not redistributed in the repository; the verification records bind the analyzed public artifacts by source identity and cryptographic hash.
 
 
-Study 10's protocol is bound by an internal G2 freeze receipt under \texttt{study10/}; its pinned payload commit is \path{8ed6a2b16233b86bf91672f6f15605dcf906c5eb}, with the approval and file digests in the receipt. This was not an external preregistration. The G3 synthetic code, independent-oracle checks and audit records are retained at immutable commit \path{04317102b87eb63312ba4e1599f87a3971858d03}. Exact public source DOIs and the archived G2/G3 receipts, rather than the manuscript text alone, are needed for source-to-result reproduction.
+Study 10's protocol is bound by an internal G2 freeze receipt under \texttt{study10/}; its pinned payload commit is \url{8ed6a2b16233b86bf91672f6f15605dcf906c5eb}, with the approval and file digests in the receipt. This was not an external preregistration. The G3 synthetic code, independent-oracle checks and audit records are retained at immutable commit \url{04317102b87eb63312ba4e1599f87a3971858d03}. Exact public source DOIs and the archived G2/G3 receipts, rather than the manuscript text alone, are needed for source-to-result reproduction.
 
 Three sanitized, author-derived G4 JSON results and their checksum/exclusion manifest are held in PR \#255 under \path{integrated_candidate/study10_derived/}. They contain the 32-slot Tier A schema mapping, 16-row Tier C non-evaluability assessment and aggregate ESA paired-release sensitivity. The source-upload checksums are recorded in \texttt{README\_MANIFEST.json}. This is an unmerged review archive, not a public research-data deposit. The channel-level matched-detail CSV and original source telemetry remain local and have not been redistributed.
 
@@ -560,7 +561,7 @@ OPSSAT-AD v2 was released by Ruszczak in the KP Labs project and is also describ
 The author analyzed published schema and metadata structure, assigned recovery-state classifications, and compared paired ESA channel-metadata fields. No original flight-series samples were modified or published. The 54 observed ESA v1/v2 \texttt{Physical Unit} annotation differences do not establish converted telemetry values or semantic changes. Anomaly labels were not promoted to operational recovery evidence. No user data, original telemetry rows, or local channel-detail report is included in the archive.
 
 \subsection{Research data availability statement}
-The third-party input releases remain at \url{https://doi.org/10.5281/zenodo.15237121} (ESA v2), \url{https://doi.org/10.5281/zenodo.12528696} (ESA v1 paired sensitivity), and \url{https://doi.org/10.5281/zenodo.15108715} (OPSSAT-AD v2). Study 9 original sources and frozen results are identified in its canonical record. The immutable review snapshot \path{e8e9bd7a6d60d32eb9a03e83b1eba59a010bb7c1} of PR \#255 contains Study 10's sanitized, derived JSON outputs and hash manifest; the original third-party datasets and the locally retained channel-detail CSV are not redistributed. Any publisher-facing supplementary release, repository promotion, or revision of file-specific rights assumptions remains subject to a separate final review.
+The third-party input releases remain at \url{https://doi.org/10.5281/zenodo.15237121} (ESA v2), \url{https://doi.org/10.5281/zenodo.12528696} (ESA v1 paired sensitivity), and \url{https://doi.org/10.5281/zenodo.15108715} (OPSSAT-AD v2). Study 9 original sources and frozen results are identified in its canonical record. The immutable review snapshot \url{e8e9bd7a6d60d32eb9a03e83b1eba59a010bb7c1} of PR \#255 contains Study 10's sanitized, derived JSON outputs and hash manifest; the original third-party datasets and the locally retained channel-detail CSV are not redistributed. Any publisher-facing supplementary release, repository promotion, or revision of file-specific rights assumptions remains subject to a separate final review.
 
 \section{Conclusion}
 

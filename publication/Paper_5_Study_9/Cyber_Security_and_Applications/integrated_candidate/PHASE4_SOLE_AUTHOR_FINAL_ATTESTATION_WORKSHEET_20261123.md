@@ -1,5 +1,8 @@
 # Paper 5 sole-author final attestation worksheet
 
+> **Third-round remediation (2026-11-23, Central Time):** The manuscript was revised at `5fa905d6664e74bd0b062d919ebc20bfb70dc476`; the current source supersedes the historical Phase 4 layout, reference count and draft declarations. See [the 17-finding remediation record](PHASE5_THIRD_ROUND_REMEDIATION_20261123.md), [replay recipe](PHASE5_RETAINED_EVIDENCE_REPLAY_RECIPE_20261123.md) and [prospective extension concept](PHASE5_PROSPECTIVE_EXTENSION_CONCEPT_20261123.md). Author-only approval and journal submission remain pending. Earlier signed/unsigned checkpoints are historical, not replaced attestations.
+
+
 **Prepared:** 2026-11-23  
 **Current status:** `DRAFT_FOR_AUTHOR_ONLY__NOT_ATTESTED_NOT_SUBMITTED`.  
 **Sole-author resource declaration:** The author states that this is independently conducted research, with no funding/resources for commissioning outside pre-submission methods reviewers. That statement is recorded as an author-provided constraint. It is **not** a certification of all funding, institutional conflict, license or originality questions below.

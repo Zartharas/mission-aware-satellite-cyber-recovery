@@ -1,5 +1,8 @@
 # Paper 5: Source-to-result reproducibility and assurance map
 
+> **Phase 5 immutable pin update:** G3 audit branch resolved to `04317102b87eb63312ba4e1599f87a3971858d03`; the sanitized derived JSON review snapshot is `e8e9bd7a6d60d32eb9a03e83b1eba59a010bb7c1`. See [read-only replay recipe](PHASE5_RETAINED_EVIDENCE_REPLAY_RECIPE_20261123.md) for exact paths, reproduction boundaries and no-redistribution guard.
+
+
 **Prepared:** 2026-11-23; **purpose:** remedy AR-06 without reopening Study 9 or 10 science, or implying possession of withheld source bytes.  
 **Scope:** GitHub-visible scripts and derived records, author-reported original-source verifications, and source release citations.  
 **Status:** `REPRODUCIBILITY_PATHS_DOCUMENTED__ORIGINAL_SOURCE_REEXECUTION_NOT_CLAIMED`.  

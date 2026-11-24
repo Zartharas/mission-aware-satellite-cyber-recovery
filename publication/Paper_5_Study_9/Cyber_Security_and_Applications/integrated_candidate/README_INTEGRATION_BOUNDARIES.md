@@ -1,5 +1,8 @@
 # Integrated Paper 5 manuscript candidate: Study 9 + Study 10
 
+> **Third-round remediation (2026-11-23, Central Time):** The manuscript was revised at `5fa905d6664e74bd0b062d919ebc20bfb70dc476`; the current source supersedes the historical Phase 4 layout, reference count and draft declarations. See [the 17-finding remediation record](PHASE5_THIRD_ROUND_REMEDIATION_20261123.md), [replay recipe](PHASE5_RETAINED_EVIDENCE_REPLAY_RECIPE_20261123.md) and [prospective extension concept](PHASE5_PROSPECTIVE_EXTENSION_CONCEPT_20261123.md). Author-only approval and journal submission remain pending. Earlier signed/unsigned checkpoints are historical, not replaced attestations.
+
+
 Status: **DRAFT / AR-01–AR-12 DOCUMENTED / TECHNICAL_PDF_QA_PASS / SOLE_AUTHOR_APPRAISAL_PENDING / AUTHOR_VISUAL_PROOF_PENDING / NO_SUBMISSION**. Study 9 original author manuscript and both frozen scientific studies remain unmodified. This review branch is not merged or publication-approved. The source-pinned Phase 2 adversarial review is in `PHASE2_ADVERSARIAL_REREVIEW_20261123.md`; the current sole-author methodological challenge, visual-proof and publisher gate is in `PHASE3_HUMAN_REVIEW_AND_AUTHOR_PROOF_GATE_20261123.md` (historical filename retained for stable links).
 
 ## Identity and integration
