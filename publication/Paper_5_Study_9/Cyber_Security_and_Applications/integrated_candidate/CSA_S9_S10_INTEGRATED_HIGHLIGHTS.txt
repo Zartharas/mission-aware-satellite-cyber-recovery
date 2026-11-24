@@ -1,5 +1,5 @@
-- Study 9 audits 24 source-to-predicate judgments; none qualify directly.
-- Study 10 audits 32 published-schema slots; 14 ambiguous and 18 absent.
-- Unconstrained Boolean sidecar minima are 6/7/7/8 for the frozen policies.
-- Study 10's 16 operational assessments were not evaluable.
-- Matched ESA metadata changes do not establish recovery-semantic transitions.
+- Study 9 and Study 10 audit 24 and 32 distinct source-field judgments.
+- All 16 Study 10 operational stratum-policy assessments were not evaluable.
+- The frozen extension matches 72 controls and 25 transformed evaluations.
+- Three logical models yield 78,732 policy-observation endpoints.
+- Conditional all-unknown sidecar minima fall from 6/7/7/8 to 1/2/2/3.
