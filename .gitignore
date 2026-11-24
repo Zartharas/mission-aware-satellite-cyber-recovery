@@ -96,6 +96,10 @@ review-evidence/
 # These directories may contain author contact details, photographs, and final upload-ready documents.
 publication/Paper_4_Study_8/IJSCCN/_local_private/
 publication/Paper_4_Study_8/IJSCCN/_local_submission/
+# Local-only Paper 4 Security and Privacy personalization (Wiley venue retarget)
+publication/Paper_4_Study_8/Security_and_Privacy/_local_private/
+publication/Paper_4_Study_8/Security_and_Privacy/_local_submission/
+
 
 
 # Paper 2 extension local materialization and pre-runtime workspaces
