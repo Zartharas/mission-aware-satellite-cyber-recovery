@@ -20,3 +20,5 @@ jobs:
         run: python3 -B publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/engineering_validate.py
       - name: Validate Gate 5 pinned preflight and execution hold
         run: python3 -I -B publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/gate5_engineering.py
+      - name: Validate single-attempt activation controls without execution
+        run: python3 -I -B publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/phase6_4_activation_engineering.py
