@@ -74,7 +74,9 @@ def validate():
     assert "physical realizability" in manuscript
     assert "24 source-to-predicate judgments" in manuscript
     assert "sole-author, AI-assisted workflow" in manuscript
-    assert "Draft declaration pending sole-author confirmation" in manuscript
+    assert "The author declares no competing interests." in manuscript
+    assert "Draft declaration pending sole-author confirmation" not in manuscript
+    assert "This research did not receive any specific grant" in manuscript
     assert "tahir2025benchmark" in refs and r"\cite{tahir2025benchmark}" in manuscript
     assert "preregistered public space-cyber datasets" not in manuscript
     assert "04317102b87eb63312ba4e1599f87a3971858d03" in manuscript
