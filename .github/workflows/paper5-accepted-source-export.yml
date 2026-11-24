@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          ref: a6321794b91c610fe521e9afcf4d3e9431b4812a
+          ref: 2a98f098f52cd477ff55999d013e597a9f20282e
           persist-credentials: false
           sparse-checkout: |
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/
@@ -21,7 +21,7 @@ jobs:
       - name: Verify immutable source blobs and export allowlisted files only
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = "a6321794b91c610fe521e9afcf4d3e9431b4812a"
+          test "$(git rev-parse HEAD)" = "2a98f098f52cd477ff55999d013e597a9f20282e"
           mkdir export
           python3 - <<'PY'
           from pathlib import Path
@@ -29,9 +29,9 @@ jobs:
           import json
           base = Path("publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/")
           pins = {
-              "CSA_S9_S10_INTEGRATED_CANDIDATE.tex": "b341b21f6fce6a79a09ab1a9954347aa1c8f2ef7",
-              "references.bib": "3ba04d326a71eadf881bcc6c2af13b235986d396",
-              "PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex": "62895427a73974179571ecbc28d8bd7b6e169799",
+              "CSA_S9_S10_INTEGRATED_CANDIDATE.tex": "718564b08d3b8c08d9e8aa82e4fa528eeab79e22",
+              "references.bib": "629ce7efc6f1cb8764fb9af9955159d9ecd989f4",
+              "PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex": "ed07fdd842a3df8e86384f989ee685813b6453f2",
               "PHASE2_FIELD_LEVEL_EVIDENCE_APPENDIX.tex": "77d9542675490bb0934d678560e962414f2a7b82",
               "CSA_S9_S10_INTEGRATED_HIGHLIGHTS.txt": "0b14c7ebb4ca3087f36a4c2da7b597fd6241e295",
           }
@@ -44,7 +44,7 @@ jobs:
               assert blob == expected, name
               (Path("export") / name).write_bytes(data)
               records[name] = {"git_blob": blob, "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)}
-          (Path("export") / "SOURCE_MANIFEST.json").write_text(json.dumps({"source_commit": "a6321794b91c610fe521e9afcf4d3e9431b4812a", "files": records}, indent=2) + "\n")
+          (Path("export") / "SOURCE_MANIFEST.json").write_text(json.dumps({"source_commit": "2a98f098f52cd477ff55999d013e597a9f20282e", "files": records}, indent=2) + "\n")
           print("ACCEPTED_SOURCE_EXPORT_PASS")
           PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

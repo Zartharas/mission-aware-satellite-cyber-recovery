@@ -60,7 +60,7 @@ jobs:
           sudo apt-get update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
             latexmk texlive-latex-recommended texlive-latex-extra texlive-publishers \
-            texlive-fonts-recommended poppler-utils
+            texlive-fonts-recommended lmodern poppler-utils
       - name: Compile exact manuscript
         working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
         run: |
