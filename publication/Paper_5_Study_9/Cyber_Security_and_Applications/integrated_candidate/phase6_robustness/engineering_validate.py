@@ -27,7 +27,7 @@ def main():
     assert canon({"status":"FROZEN_DESIGN_MATERIALIZED_NOT_EXECUTED","cases":cases})==read_verified("runtime_inputs.json")
     assert canon({"status":"PRESPECIFIED_NOT_OBSERVED","rows":refs})==read_verified("reference_expectations.json")
     assert canon({"cases":routes,"perturbations":manifest["cases"]["perturbations"]})==read_verified("routing_manifest.json")
-    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py","candidate_worker.py","isolated_worker.py","evidence_writer.py","engineering_mutations.py","strict_json.py"):
+    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py","candidate_worker.py","isolated_worker.py","evidence_writer.py","engineering_mutations.py","strict_json.py","qualify_runtime.py"):
         ast.parse((HERE/name).read_text(),filename=name)
     # No scientific-case calls. Tiny non-study truth tables exercise algorithms only.
     from state_model import partition_minima,endpoint
