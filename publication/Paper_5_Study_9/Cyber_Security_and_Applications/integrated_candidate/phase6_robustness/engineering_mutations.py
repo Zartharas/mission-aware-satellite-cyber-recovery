@@ -42,7 +42,7 @@ def run():
       ("FALSE",false,("DIRECT","ADMIT",False),'if key not in values or values[key] is None:','if key not in values or not values[key]:'),
       ("OFFLINE",offline,("ABSENT","UNKNOWN",None),'return result("ABSENT","UNKNOWN",None,"OFFLINE_TRUTH_NOT_OPERATIONAL","OFFLINE_GROUND_TRUTH_ONLY")','return result("DIRECT","ADMIT",False,"QUALIFIED_DIRECT")'),
       ("CLOCK",wrong,("AMBIGUOUS","UNKNOWN",None),'if differences:\n                reason=','if differences - {"clock_scope"}:\n                reason='),
-      ("DURATION",zero,("DERIVABLE_BY_PREDECLARED_RULE","REJECT_INVALID",None),'1 if k=="valid_for_s" else 0','0')
+      ("DURATION",zero,("DERIVABLE_BY_PREDECLARED_RULE","REJECT_INVALID",None),'integer(values[k],1 if k=="valid_for_s" else 0)','integer(values[k],0)')
     ]
     for name,p,expected,old,new in probes:
         assert sig(ev.evaluate(p))==expected,name
