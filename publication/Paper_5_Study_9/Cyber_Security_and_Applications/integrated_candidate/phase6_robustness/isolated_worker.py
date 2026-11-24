@@ -11,10 +11,10 @@ def candidate_batch(image,payloads):
     if type(payloads) is not list or len(payloads)>128:raise ValueError("INVALID_BATCH")
     raw=json.dumps(payloads,allow_nan=False,separators=(",",":")).encode()
     if len(raw)>2_000_000:raise ValueError("INPUT_SIZE_LIMIT")
-    # Only three code files in this read-only mount; no gold, routing, telemetry or Docker socket.
+    # Only four code files in this read-only mount; no gold, routing, telemetry or Docker socket.
     with tempfile.TemporaryDirectory(prefix="p5-p6-worker-") as tmp:
         os.chmod(tmp,0o755)
-        for name in ("candidate_worker.py","evaluator.py","strict_json.py"):
+        for name in ("candidate_worker.py","evaluator.py","strict_json.py","network_isolation.py"):
             src=HERE/name
             if src.is_symlink() or not src.is_file():raise ValueError("INVALID_WORKER_SOURCE")
             dest=Path(tmp)/name;shutil.copyfile(src,dest);os.chmod(dest,0o444)

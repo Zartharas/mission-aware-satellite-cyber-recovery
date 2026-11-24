@@ -1,0 +1,36 @@
+{
+  "record": "PHASE6_3_1_RUNTIME_ATTEMPT_002_FAILURE_RECEIPT",
+  "implementation_commit": "385e365aac6586aaf24fd03f4202326ee77a1294",
+  "status": "FAIL_GATE3_HOLD",
+  "source": "Author-pasted terminal transcript; raw JSON bytes not supplied for attempt 002",
+  "reported_sha256": {
+    "attempt.json": "6b821b2cfa4733164aa49ebae0ba2ea90936a3a5a2f78ea73eeacd187089ec9a",
+    "report.json": "82df1457020297407cf2b058fcec5d3bf59d9ad958f3cead6135f081b4b27370",
+    "SHA256_MANIFEST.json": "3919ffdd53cdbfee07b172160cd056993f663c33e57bd4f446790dd77f6b042c"
+  },
+  "image": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "failed_stage": "ISOLATION_PROBE",
+  "exit_code": 1,
+  "assertion": "UNEXPECTED_NETWORK_INTERFACES",
+  "observed_sysfs_entries": [
+    "erspan0",
+    "bonding_masters",
+    "sit0",
+    "ip6tnl0",
+    "ip_vti0",
+    "tunl0",
+    "ip6_vti0",
+    "gre0",
+    "ip6gre0",
+    "gretap0",
+    "lo"
+  ],
+  "disposition": "Name-only assertion is insufficient to distinguish dormant fallback tunnel devices from usable connectivity. Actual network isolation remains unqualified; no bypass or security flag relaxation.",
+  "references": [
+    "https://kernel.org/doc/html/v5.12/admin-guide/sysctl/net.html",
+    "https://docs.docker.com/engine/network/drivers/none/"
+  ],
+  "toy_worker_reached": false,
+  "canonical_execution_authorized": false,
+  "canonical_execution_performed": false
+}

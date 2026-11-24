@@ -14,6 +14,8 @@ def handle(payloads):
             return {"results":results,"error":{"index":index,"type":type(exc).__name__,"reason":str(exc)[:300]}}
     return {"results":results,"error":None}
 if __name__=="__main__":
+    from network_isolation import verify_isolation
+    verify_isolation(worker=True)
     raw=sys.stdin.buffer.read(2_000_001)
     if len(raw)>2_000_000: raise SystemExit("INPUT_SIZE_LIMIT")
     print(json.dumps(handle(loads(raw)),sort_keys=True,allow_nan=False))

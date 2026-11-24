@@ -27,7 +27,7 @@ def main():
     assert canon({"status":"FROZEN_DESIGN_MATERIALIZED_NOT_EXECUTED","cases":cases})==read_verified("runtime_inputs.json")
     assert canon({"status":"PRESPECIFIED_NOT_OBSERVED","rows":refs})==read_verified("reference_expectations.json")
     assert canon({"cases":routes,"perturbations":manifest["cases"]["perturbations"]})==read_verified("routing_manifest.json")
-    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py","candidate_worker.py","isolated_worker.py","evidence_writer.py","engineering_mutations.py","strict_json.py","qualify_runtime.py"):
+    for name in ("evaluator.py","reference_oracle.py","state_model.py","runner.py","integrity.py","selector_pinned.py","candidate_worker.py","isolated_worker.py","evidence_writer.py","engineering_mutations.py","strict_json.py","qualify_runtime.py","network_isolation.py"):
         ast.parse((HERE/name).read_text(),filename=name)
     # No scientific-case calls. Tiny non-study truth tables exercise algorithms only.
     from state_model import partition_minima,endpoint
@@ -70,5 +70,25 @@ def main():
     assert diag["command_failure"]["stdout"].strip()=="toy stdout"
     assert diag["command_failure"]["stderr"].strip()=="toy stderr"
     print("PHASE6_3_1_FAILURE_DIAGNOSTIC_TOY_PASS")
+    # Synthetic snapshots only; no actual namespace or canonical evaluation.
+    from network_isolation import validate_network
+    loop={"name":"lo","flags":9,"addresses":["127.0.0.1","::1"]}
+    down={"name":"gre0","flags":128,"addresses":[]}
+    validate_network([loop],[],[])
+    validate_network([loop,down],[],[])
+    validate_network([loop,down],[],[{"interface":"gre0","flags":0x200}])
+    for interfaces,routes4,routes6 in (
+        ([loop,{"name":"gre0","flags":1,"addresses":[]}],[],[]),
+        ([loop,{"name":"eth0","flags":0,"addresses":["192.0.2.2"]}],[],[]),
+        ([loop,{"name":"sit0","flags":0,"addresses":["2001:db8::1"]}],[],[]),
+        ([loop,down],[{"interface":"gre0","flags":1}],[]),
+        ([loop,down],[],[{"interface":"gre0","flags":1}]),
+        ([loop],[],[{"interface":"eth0","flags":0x200}]),
+        ([{"name":"lo","flags":9,"addresses":["192.0.2.2"]}],[],[]),
+        ([down],[],[])):
+        try:validate_network(interfaces,routes4,routes6)
+        except ValueError:pass
+        else:raise AssertionError("UNSAFE_NETWORK_SNAPSHOT_ACCEPTED")
+    print("PHASE6_3_1_NETWORK_PREDICATE_TOY_PASS")
     print("PHASE6_3_ENGINEERING_ONLY_PASS_NO_CANONICAL_EXECUTION")
 if __name__=="__main__":main()
