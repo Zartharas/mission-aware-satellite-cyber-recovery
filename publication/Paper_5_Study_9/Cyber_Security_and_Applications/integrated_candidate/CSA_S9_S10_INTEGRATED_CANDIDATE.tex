@@ -1,5 +1,7 @@
 \documentclass[preprint,12pt]{elsarticle}
 
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
@@ -49,6 +51,7 @@ The contribution is a bounded evidence-sufficiency audit of 24 Study 9 and 32 St
 \emph{Under a fixed recovery-state semantic contract, which decision propositions are evidenced in public space-cyber and released real-flight anomaly-detection representations, and what downstream decision statements are justified when those propositions remain unknown?} Study 9 (\texttt{S9-RTSI-001}) evaluates mathematical action-set identifiability across three frozen datasets; Study 10 (\texttt{S10-RSEI-001}) audits ESA Anomaly Dataset v2 Missions 1--3 \cite{esaad2025v2} and OPS-SAT-AD v2 \cite{opssat2024v2} for operational evaluability. Their endpoints are nonexchangeable.
 
 \subsection{Two distinct estimands and permitted inferences}
+Table~\ref{tab:estimands} summarizes the distinct evidence units and permissible inferences.
 \begin{table}[H]
 \centering
 \small
@@ -197,7 +200,7 @@ Predicate & Required decision-time authority & Insufficient surrogate & Risk if 
 \end{tabular}
 \end{table}
 
-These risks motivate conservative interpretation of the fixed Study 2 selector but are not measured failure frequencies or proofs of necessity for all space systems. In the frozen semantic contract, minimum evidence completeness refers to ten accepted recovery criteria: approved version, valid integrity measurement, valid authorization, current measured state, restored authorized command path, ground--spacecraft agreement, restored required telemetry, passed health checks, no residual unauthorized state, and a complete recovery manifest. Completeness denotes presence of all ten accepted current criteria, not satisfaction of their required values. A mission-approved checklist alone is not evidence that these criteria are satisfied.
+The risks summarized in Table~\ref{tab:predicatecontract} motivate conservative interpretation of the fixed Study 2 selector but are not measured failure frequencies or proofs of necessity for all space systems. In the frozen semantic contract, minimum evidence completeness refers to ten accepted recovery criteria: approved version, valid integrity measurement, valid authorization, current measured state, restored authorized command path, ground--spacecraft agreement, restored required telemetry, passed health checks, no residual unauthorized state, and a complete recovery manifest. Completeness denotes presence of all ten accepted current criteria, not satisfaction of their required values. A mission-approved checklist alone is not evidence that these criteria are satisfied.
 
 \subsection{Dataset population}
 
@@ -221,9 +224,10 @@ UNSW-IoTSAT 2026 & 404,798 & 1 \\
 \subsection{Semantic mapping rubric}
 
 For dataset $d$ and required recovery variable $v$, the frozen mapping function assigns
-\[
+\begin{equation}
+\label{eq:mapping}
 M_d(v) \in \{\mathrm{DIRECT},\mathrm{DERIVABLE},\mathrm{AMBIGUOUS},\mathrm{ABSENT}\}.
-\]
+\end{equation}
 \texttt{DIRECT} requires a native operational field whose documented semantics establish the recovery variable. \texttt{DERIVABLE} requires a frozen deterministic rule whose inputs are themselves available under the allowed interface. \texttt{AMBIGUOUS} means one or more fields are semantically related but do not establish the required proposition. \texttt{ABSENT} means no eligible native field represents the proposition.
 
 Attack or scenario labels are excluded as operational recovery evidence. They may describe the source population, but they cannot be converted into trust, authorization, freshness, evidence completeness, contradiction state, cryptographic validity, or an operational security signal for the primary endpoint.
@@ -237,13 +241,15 @@ The initial semantic adjudication treated \texttt{Position\_Anomaly} as a direct
 \subsection{Decision identifiability}
 
 Let $U_d$ be the unresolved recovery-state variables for dataset $d$. For each native record or losslessly collapsed native-state group $g$, all binary assignments to $U_d$ are mathematically admissible completions under the frozen model. This is an unconstrained Boolean completion space: no independently validated mission-feasibility constraints, dependencies among predicates, or probabilities were imposed. In particular, a complete evidence checklist and separate authorization, epoch, or freshness predicates may be coupled in actual systems. Mathematical admissibility is not physical realizability. For policy $p$, the reachable action set is
-\[
+\begin{equation}
+\label{eq:reachable}
 A_{d,p}(g)=\{f_p(c):c\in C_d(g)\},
-\]
+\end{equation}
 where $f_p$ is the frozen selector under policy $p$ and $C_d(g)$ is the set of unconstrained mathematical completions. A recovery action is uniquely identifiable only when
-\[
+\begin{equation}
+\label{eq:unique}
 |A_{d,p}(g)|=1.
-\]
+\end{equation}
 The row-level unique-action fraction is computed with exact multiplicity weighting after lossless state collapse.
 
 Four policies were frozen and evaluated separately:
@@ -329,7 +335,7 @@ $\Downarrow$ action evaluation withheld\\
 no recovery-rate estimates
 \end{minipage}}
 \end{minipage}
-\caption{Revised source-to-decision evidence-gate schematic. Study 9 exhaustively evaluates a mathematical selector under unknown inputs; Study 10 withholds operational action evaluation without a valid decision-time witness. These are not flight performance measurements. OpenAI ChatGPT (GPT-6, revision on 23 November 2026) assisted with the editable native-LaTeX layout and wording of this conceptual diagram; GPT-6.2 revised the completion-space label on 23 November 2026; the exact model used for its earlier draft was not recorded. No observational image or source telemetry was fabricated. Author verification remains required.}
+\caption{Revised source-to-decision evidence-gate schematic. Study 9 exhaustively evaluates a mathematical selector under unknown inputs; Study 10 withholds operational action evaluation without a valid decision-time witness. These are not flight performance measurements. OpenAI ChatGPT (GPT-6, revision on 23 November 2026) assisted with the editable native-LaTeX layout and wording of this conceptual diagram; GPT-6.2 revised the completion-space label on 23 November 2026; the exact model used for its earlier draft was not recorded. No observational image or source telemetry was fabricated.}
 \label{fig:phase2gates}
 \end{figure}
 
@@ -370,11 +376,12 @@ The mapping is not based on field-name absence alone. For example, source identi
 
 \subsection{Exact all-unknown baseline and its interpretation}
 Because no Study 9 mapping qualifies as operationally \texttt{DIRECT} or a permitted \texttt{DERIVABLE}, each projected source record has the same completely unresolved eight-predicate state. For every dataset $d$, its single decision-equivalent group $g$, and each of four frozen policies $p$, the mathematical completion and reachable-action sets satisfy
-\[
+\begin{equation}
+\label{eq:allunknown}
 C_d(g)=\{0,1\}^{8},
 \qquad
 A_{d,p}(g)=\{f_p(x):x\in\{0,1\}^{8}\}.
-\]
+\end{equation}
 There are 256 \emph{unconstrained logical assignments} to the unknown state, regardless of how many source rows the dataset contains. They were not established as jointly realizable spacecraft states. The policy selectors therefore determine the set of possible actions in this all-unknown state; different dataset row counts do not create different action sets or new within-interface decision information. In fact, the 567,763 original rows across the three datasets reduce to exactly three dataset-specific groups carrying the \emph{same} unresolved state vector. Retaining row multiplicities is necessary to report exact frozen finite-population denominators and verify coverage; it is \emph{not} evidence of 567,763 independently tested recovery decisions. The zero singleton-action fraction follows from this bounded selector over the all-unknown vector. This derivation should not be mistaken for a new general cybersecurity theorem, an effectiveness test, or evidence that any spacecraft failed to recover.
 
 \subsection{Lossless native-state collapse}
@@ -591,7 +598,7 @@ The author declares no competing interests.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
 
-During the preparation of this work, OpenAI ChatGPT was used to support initial text drafting, language refinement, structural and adversarial review, literature screening, citation/consistency checks against separately frozen Study 9 and Study 10 evidence, and drafting the editable LaTeX layout for the conceptual evidence-gate figure. The generated diagram depicts only the documented research workflow and frozen aggregate endpoints, not synthetic observational data. The conceptual diagram was revised in editable LaTeX with OpenAI ChatGPT GPT-6 and its completion-space label was subsequently revised using GPT-6.2 on 23 November 2026; the exact model behind its earlier draft is not recorded and is disclosed as such in its caption. AI assistance also supported source-schema reasoning, preparation of mapping rationales, synthetic protocol and implementation drafting, and post-run computational checking and interpretation during the documented review workflow; archived adjudications are not independent human coding. The canonical experiment was operated by the author, and the assistant's separate computational audit is not independent human replication. The author retains responsibility for independently verifying all scientific claims and citations, evaluating figure accuracy and rights, editing the proposed text, making final editorial decisions, and approving the manuscript before submission. The author has approved this disclosure; final proof and submission approval remain separate.
+During the preparation of this work, OpenAI ChatGPT was used to support initial text drafting, language refinement, structural and adversarial review, literature screening, citation/consistency checks against separately frozen Study 9 and Study 10 evidence, and drafting the editable LaTeX layout for the conceptual evidence-gate figure. The generated diagram depicts only the documented research workflow and frozen aggregate endpoints, not synthetic observational data. The conceptual diagram was revised in editable LaTeX with OpenAI ChatGPT GPT-6 and its completion-space label was subsequently revised using GPT-6.2 on 23 November 2026; the exact model behind its earlier draft is not recorded and is disclosed as such in its caption. AI assistance also supported source-schema reasoning, preparation of mapping rationales, synthetic protocol and implementation drafting, and post-run computational checking and interpretation during the documented review workflow; archived adjudications are not independent human coding. The canonical experiment was operated by the author, and the assistant's separate computational audit is not independent human replication. The author retains responsibility for independently verifying all scientific claims and citations, evaluating figure accuracy and rights, editing the proposed text, making final editorial decisions, and approving the manuscript before submission.
 
 \bibliographystyle{elsarticle-num}
 \bibliography{references}
