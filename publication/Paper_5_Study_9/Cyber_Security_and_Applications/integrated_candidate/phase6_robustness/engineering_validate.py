@@ -57,5 +57,18 @@ def main():
     assert not domain_member("F2",(True,False,True,True,False,True,False,False))
     from engineering_mutations import run
     run()
+    # Deliberately fail an unrelated child process to verify local diagnostics.
+    from qualify_runtime import call
+    diag={}
+    try:
+        call([sys.executable,"-c","import sys; print('toy stdout'); print('toy stderr',file=sys.stderr); sys.exit(17)"],diag,"TOY_DIAGNOSTIC")
+    except RuntimeError as exc:
+        assert str(exc)=="TOY_DIAGNOSTIC_NONZERO_EXIT_17"
+    else:raise AssertionError("EXPECTED_DIAGNOSTIC_FAILURE")
+    assert diag["command_failure"]["exit_code"]==17
+    assert diag["command_failure"]["stage"]=="TOY_DIAGNOSTIC"
+    assert diag["command_failure"]["stdout"].strip()=="toy stdout"
+    assert diag["command_failure"]["stderr"].strip()=="toy stderr"
+    print("PHASE6_3_1_FAILURE_DIAGNOSTIC_TOY_PASS")
     print("PHASE6_3_ENGINEERING_ONLY_PASS_NO_CANONICAL_EXECUTION")
 if __name__=="__main__":main()

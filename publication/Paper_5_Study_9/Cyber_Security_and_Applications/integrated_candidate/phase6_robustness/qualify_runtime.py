@@ -5,20 +5,35 @@ from isolated_worker import candidate_batch
 from evidence_writer import preserve_attempt
 from strict_json import equal
 HERE=Path(__file__).resolve().parent
-def call(cmd):
-    return subprocess.run(cmd,capture_output=True,text=True,timeout=45,check=True).stdout
+def call(cmd,progress=None,stage="COMMAND"):
+    # Retain bounded subprocess diagnostics in local evidence before raising.
+    # Do not include the full command or arbitrary environment variables.
+    try:
+        result=subprocess.run(cmd,capture_output=True,text=True,errors="replace",timeout=45,check=False)
+    except subprocess.TimeoutExpired as exc:
+        if progress is not None:
+            def bounded(value):
+                if isinstance(value,bytes):value=value.decode("utf-8",errors="replace")
+                return (value or "")[:8192]
+            progress["command_failure"]={"stage":stage,"timeout":True,"stdout":bounded(exc.stdout),"stderr":bounded(exc.stderr)}
+        raise RuntimeError(stage+"_TIMEOUT") from exc
+    if result.returncode:
+        if progress is not None:
+            progress["command_failure"]={"stage":stage,"exit_code":result.returncode,"stdout":result.stdout[:8192],"stderr":result.stderr[:8192]}
+        raise RuntimeError(stage+"_NONZERO_EXIT_"+str(result.returncode))
+    return result.stdout
 def qualification(image,progress):
     if not re.fullmatch(r"[A-Za-z0-9._:/-]+@sha256:[a-f0-9]{64}",image):raise ValueError("PINNED_LOCAL_IMAGE_DIGEST_REQUIRED")
     if not shutil.which("docker"):raise ValueError("DOCKER_UNAVAILABLE")
     if os.environ.get("DOCKER_HOST"):raise ValueError("EXPLICIT_DOCKER_HOST_NOT_ALLOWED")
-    ctx=json.loads(call(["docker","context","inspect"]))
+    ctx=json.loads(call(["docker","context","inspect"],progress,"DOCKER_CONTEXT"))
     if not ctx[0]["Endpoints"]["docker"]["Host"].startswith("unix://"):raise ValueError("LOCAL_UNIX_DAEMON_REQUIRED")
-    meta=json.loads(call(["docker","image","inspect",image]))[0]
+    meta=json.loads(call(["docker","image","inspect",image],progress,"IMAGE_INSPECT"))[0]
     if image not in (meta.get("RepoDigests") or []):raise ValueError("IMAGE_DIGEST_NOT_VERIFIED")
-    progress["environment"]={"image":image,"image_id":meta["Id"],"os":meta["Os"],"architecture":meta["Architecture"],"docker_version":json.loads(call(["docker","version","--format","{{json .}}"])),"host":platform.platform(),"host_python":sys.version,"docker_context":ctx[0]["Name"],"endpoint_type":"local_unix"}
+    progress["environment"]={"image":image,"image_id":meta["Id"],"os":meta["Os"],"architecture":meta["Architecture"],"docker_version":json.loads(call(["docker","version","--format","{{json .}}"],progress,"DOCKER_VERSION")),"host":platform.platform(),"host_python":sys.version,"docker_context":ctx[0]["Name"],"endpoint_type":"local_unix"}
     if meta["Os"]!="linux":raise ValueError("LINUX_IMAGE_REQUIRED")
-    script="import os,sys,json\nassert os.getuid()==65534\nassert not os.path.exists('/var/run/docker.sock')\nassert not os.path.exists('/app/reference_expectations.json')\nassert not os.path.exists('/app/runtime_inputs.json')\ntry:\n open('/qualification_probe','w').close()\nexcept OSError: pass\nelse: raise AssertionError('root filesystem writable')\nassert set(os.listdir('/sys/class/net')) <= {'lo'}\nprint(json.dumps({'uid':os.getuid(),'interfaces':os.listdir('/sys/class/net'),'python':sys.version,'readonly':True}))"
-    raw=call(["docker","run","--rm","--pull","never","--network","none","--read-only","--cap-drop","ALL","--security-opt","no-new-privileges","--pids-limit","32","--memory","128m","--cpus","1","--user","65534:65534","--entrypoint","python3",image,"-B","-S","-c",script])
+    script="import os,sys,json\nassert os.getuid()==65534, (\'UNEXPECTED_UID\',os.getuid())\nassert not os.path.exists('/var/run/docker.sock'), 'DOCKER_SOCKET_VISIBLE'\nassert not os.path.exists('/app/reference_expectations.json'), 'REFERENCE_VISIBLE'\nassert not os.path.exists('/app/runtime_inputs.json'), 'CANONICAL_INPUT_VISIBLE'\ntry:\n open('/qualification_probe','w').close()\nexcept OSError: pass\nelse: raise AssertionError('root filesystem writable')\nassert set(os.listdir('/sys/class/net')) <= {'lo'}, ('UNEXPECTED_NETWORK_INTERFACES',os.listdir('/sys/class/net'))\nprint(json.dumps({'uid':os.getuid(),'interfaces':os.listdir('/sys/class/net'),'python':sys.version,'readonly':True}))"
+    raw=call(["docker","run","--rm","--pull","never","--network","none","--read-only","--cap-drop","ALL","--security-opt","no-new-privileges","--pids-limit","32","--memory","128m","--cpus","1","--user","65534:65534","--entrypoint","python3",image,"-B","-S","-c",script],progress,"ISOLATION_PROBE")
     progress["isolation_probe"]=json.loads(raw)
     context=dict(subject="QUAL_TOY",decision_id="TOY_9",decision_time_s=31,epoch=3,clock="TOY_CLOCK",snapshot_id="TOY_SNAPSHOT",source_id="TOY_ISSUER",evidence_id="TOY_EVIDENCE")
     descriptor=dict(name="toy_membership",meaning="Membership of the evidence source in the current verifier trusted-source set.",authority="TRUST_REGISTRY",visibility="OPERATIONAL_NATIVE",subject_scope=context["subject"],decision_scope=context["decision_id"],clock_scope=context["clock"],source_scope=context["source_id"],evidence_scope=context["evidence_id"],domain="BOOLEAN_LITERAL",native_field=True)
