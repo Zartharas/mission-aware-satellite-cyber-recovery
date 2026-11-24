@@ -1,0 +1,247 @@
+{
+  "record": "PHASE6_3_1_QUALIFIED_IMPLEMENTATION_AND_ENVIRONMENT_MANIFEST",
+  "status": "QUALIFIED_PAYLOAD_PINNED_EXECUTION_HOLD",
+  "scope": "Gate 3 non-study runtime qualification and Gate 4 immutable implementation and input identity manifest. Not canonical execution authorization.",
+  "qualified_payload": {
+    "commit": "23e36944b03c6b45e2bf6c0eda0bdb480d03e3d5",
+    "tree": "e5ae589c4b31015cc3f43a6ef26922450ae05afa",
+    "files": [
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/candidate_worker.py",
+        "git_blob_sha1": "9a99d6ff381342e43de0a1ef5d8059afa97dbad2",
+        "sha256": "f3ec963a00a76d312a7fa9bf674d94e0e3cc20c6265d000e2a9d1a94dfffebb9"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/engineering_mutations.py",
+        "git_blob_sha1": "31694438530802a6c300300cf5cb473dbe9a086b",
+        "sha256": "a6bf2a8cf731cd7b2544023a47b0050753b7c2716c2050d85c6e02a98f7bab08"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/engineering_validate.py",
+        "git_blob_sha1": "9f0c1e6811fa00c858b700a7654b527454c53d0c",
+        "sha256": "7b8cb6d3d9b554f115f7600f4ac9f7e43b0251938309a0d030f63fd640562b71"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/evaluator.py",
+        "git_blob_sha1": "383b517764b3544b1ad286f09ff9c4e50d1a907d",
+        "sha256": "634f55cb88d0a3b48b3c7e45b75785cc6f37bb35c204410230aa36f3b2834dff"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/evidence_writer.py",
+        "git_blob_sha1": "d4c0adfb4bcce3e3ae9d21a553d643930a47c3a4",
+        "sha256": "37609960342ceb69e58846762e7fbd96603429311a46360288bd2d16caaba945"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/integrity.py",
+        "git_blob_sha1": "92d56359b8506b695ccb5e6f0480877c3afc7897",
+        "sha256": "09b0bd72a4f391818623df954bdedc0c27a2f258194bd3d24a75fa30bb5827d8"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/isolated_worker.py",
+        "git_blob_sha1": "890392be07acb04896119f71d70fa177874283fe",
+        "sha256": "162f392c9613e145b3705531928642901851e3fdbe58293e2f974d1106c3091e"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/network_isolation.py",
+        "git_blob_sha1": "3e6c74c6b9577a554f1cf9c70e4bed357069f63b",
+        "sha256": "6c67785f8196ee258857e20e9f61bba767943e1499ea088f18ef582a2f9b635e"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/qualify_runtime.py",
+        "git_blob_sha1": "9dc6d788679c0a611e3219fce322b990e6ee2063",
+        "sha256": "f46e23764d7d71aeea0e8540a929dbaa7501df0857ffe01f8f21bde821841ccc"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/reference_oracle.py",
+        "git_blob_sha1": "95505aff527dfbc799e49c5e2f8706f7afd059e0",
+        "sha256": "8a6a48e8811e443e256e3fdd69994cdb5b7c1c0d71704124ce697b28f7a22eea"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/runner.py",
+        "git_blob_sha1": "170cf856c3f7bf64070489849343d257ae519961",
+        "sha256": "763502ed300698205c7f0586182e6866dfa790f28adcae35938af52aa2dc1848"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/selector_pinned.py",
+        "git_blob_sha1": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+        "sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/state_model.py",
+        "git_blob_sha1": "b38db9703e3cb38ef6d7187710070e6718a9cfa4",
+        "sha256": "fe03c37ea8b96559a0e7ad099b55cd44c1237498106f0d5fab429e0bb11c64a0"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/strict_json.py",
+        "git_blob_sha1": "6f726f54b57c52049abc89f07fd890e41a6df3f2",
+        "sha256": "6bb10964d942c0db1b3db27b922027c0f5c6ff26747695474d403ed61cb7d2ac"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/reference_expectations.json",
+        "git_blob_sha1": "60d3f0971f5cb8e878d7ad19175ef5bfcdfaac50",
+        "sha256": "f73e09dba34de0fba45982f3a9d5ec24c7ae3ef99c0b2079c240c8066b08c4b2"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/routing_manifest.json",
+        "git_blob_sha1": "febddf9d027b8be94c8f747c0fbb496027cd90a3",
+        "sha256": "0cdf104707d60231e96ff7f294833c1e1dcb8b3cd280888e25f36e58390cd980"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/runtime_inputs.json",
+        "git_blob_sha1": "308c7b16a5e2b5a5cc6c0a21d60753f43c64e582",
+        "sha256": "3a6a94a4213f5c6382258c87a62e7586fb60cd7e4bedae4d061804ce60660b68"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/MATERIALIZATION_MANIFEST.json",
+        "git_blob_sha1": "2cbaf8f70aef328a66c0e35ddd58c5fd739d1385",
+        "sha256": "a23df0d6a8ae38587e94bda89c9abbc00f51558e6a8a1688a22d7dfff243dfb1"
+      }
+    ],
+    "verification": "SHA-256 calculated from exact-commit UTF-8 repository contents, 14 Python hashes match author-uploaded PASS report, three materialized JSON hashes match materialization manifest; manifest itself hashed. Git blob identities retained."
+  },
+  "frozen_design": {
+    "commit": "b61eacc4c9791c2767bb3699597e51db2ee13592",
+    "tree": "98b0a5cb5bccac7c05e8488812f9a3535228693f",
+    "receipt_blob": "27b6422c3f83a3ad3383b102e61ea84239b04b4b",
+    "files": [
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CANDIDATE_PROTOCOL_MANIFEST.json",
+        "git_blob_sha1": "506d5d113264bd4bec1d73c40d02e7d39a94205a"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CONTROL_INPUT_SPEC_CANDIDATE.json",
+        "git_blob_sha1": "62a9269e2c754f3155f982336a2d255414c9be44"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CONTROL_EXPECTATIONS_CANDIDATE.json",
+        "git_blob_sha1": "976d26e221bf94e4b6e398348bfad449313c68ff"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_ORACLE_AND_CONSTRAINT_SPECIFICATION.md",
+        "git_blob_sha1": "2ea355768b7da52a7e13e8ab36c5d62d751569d6"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CONSOLIDATED_FINDINGS_AND_PREFREEZE_REVIEW.md",
+        "git_blob_sha1": "cdeb6f81dbd11e1fc16233ec1112d805cea085c5"
+      }
+    ],
+    "normative_pins": {
+      "s2_s9_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "selector_blob": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+      "selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+      "runtime_blob": "786ebc7de2792aff4f95dd04a29be666ac442b8f",
+      "evidence_blob": "5d107ecb24f24fec14f1d817ab48db95be744556",
+      "gate_blob": "2e9c41126eb9de480a013168c8547197bf9ae883",
+      "s10_g2_payload": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+      "s10_g3_audit": "04317102b87eb63312ba4e1599f87a3971858d03",
+      "g3_helper_blob": "e76de9e1271b350e43427205bf30f99462db6ca5"
+    }
+  },
+  "ci": [
+    {
+      "run_id": 45305274037,
+      "name": "Paper 5 Phase 6.3 engineering-only validation",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 45305273999,
+      "name": "Paper 5 integrated draft LaTeX validation",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 45305274070,
+      "name": "Validate research configurations",
+      "conclusion": "success"
+    }
+  ],
+  "runtime": {
+    "image": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+    "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+    "platform": "linux/amd64",
+    "docker_context": "desktop-linux",
+    "endpoint_type": "local_unix",
+    "docker_client": "29.10.0",
+    "docker_server": "29.9.3",
+    "docker_desktop": "4.100.0",
+    "kernel": "7.0.14-linuxkit",
+    "containerd": "2.4.2",
+    "runc": "1.5.3",
+    "host_python": "3.11.7",
+    "container_python": "3.11.18",
+    "qualification_attempt": 3,
+    "nonstudy_results": [
+      {
+        "input": "literal false",
+        "admission": "ADMIT",
+        "value": false
+      },
+      {
+        "input": "literal true",
+        "admission": "ADMIT",
+        "value": true
+      },
+      {
+        "input": "integer 1",
+        "admission": "REJECT_INVALID",
+        "value": null
+      }
+    ],
+    "observations": {
+      "uid": 65534,
+      "capabilities_dropped": true,
+      "no_new_privileges": true,
+      "root_readonly": true,
+      "nonloopback_interfaces_down_unaddressed": 9,
+      "ipv4_routes": 0,
+      "ipv6_routes": 3,
+      "ipv6_nonloopback_routes": 0,
+      "standalone_probe_worker_mount_verified": false,
+      "worker_isolation_check": "Successful toy worker returned results after its own mandatory mount/isolation check; separate worker observation snapshot not emitted."
+    }
+  },
+  "attempt_evidence": [
+    {
+      "attempt": 1,
+      "status": "FAIL",
+      "sha256": {
+        "attempt.json": "6b821b2cfa4733164aa49ebae0ba2ea90936a3a5a2f78ea73eeacd187089ec9a",
+        "report.json": "668d3196d1d773141059332137597a8cadecfde90e4540af29813253d073c174",
+        "SHA256_MANIFEST.json": "d7e0775e4c3ea7c8e8cc3b1229dce2b3dd8ed5a545a72a71e0edb87bcd2f7adf"
+      },
+      "verification": "Prior failure receipt; historical evidence retained."
+    },
+    {
+      "attempt": 2,
+      "status": "FAIL",
+      "sha256": {
+        "attempt.json": "6b821b2cfa4733164aa49ebae0ba2ea90936a3a5a2f78ea73eeacd187089ec9a",
+        "report.json": "82df1457020297407cf2b058fcec5d3bf59d9ad958f3cead6135f081b4b27370",
+        "SHA256_MANIFEST.json": "3919ffdd53cdbfee07b172160cd056993f663c33e57bd4f446790dd77f6b042c"
+      },
+      "verification": "Uploaded exact bytes independently hashed; manifest and terminal values match."
+    },
+    {
+      "attempt": 3,
+      "status": "PASS",
+      "sha256": {
+        "attempt.json": "6b821b2cfa4733164aa49ebae0ba2ea90936a3a5a2f78ea73eeacd187089ec9a",
+        "report.json": "80a665eb246536cf9663060a55b616dd16bb88b12e1201cdd99f734adc6b8ad3",
+        "SHA256_MANIFEST.json": "2f98929d3572bd5e20903bd1dc75388966be43d216fe19a15df10a6ad0c3fc91"
+      },
+      "verification": "Uploaded exact bytes independently hashed; manifest and terminal values match."
+    }
+  ],
+  "limits": [
+    "Author-operated local qualification; not an independent third-party reproduction or signed attestation.",
+    "Observed Linux interface and route state, not a universal isolation proof; trusted daemon and image required.",
+    "Raw local evidence retained outside public repository.",
+    "This pins qualified implementation and input bytes, not a final execution authorization or launcher. Gate 5 requires review and exact pinned preflight of a separately authorized launcher, with output retention and environment drift checks."
+  ],
+  "governance": {
+    "canonical_execution_authorized": false,
+    "canonical_execution_performed": false,
+    "original_source_access_authorized": false,
+    "merge_authorized": false,
+    "submission_authorized": false
+  }
+}
