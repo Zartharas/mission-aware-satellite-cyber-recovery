@@ -1,6 +1,6 @@
 # Current Publication State
 
-**Current-state date:** 2026-11-21 (Paper 2 CEAS editorial decision reconciled; other papers retain their last independently recorded updates)
+**Current-state date:** 2026-11-23 (Paper 5 CSA submission reconciled; other papers retain their last independently recorded updates)
 
 **Study 8E extension update:** 2026-09-20
 
@@ -20,7 +20,19 @@ This is the canonical cross-publication handoff for the `mission-aware-satellite
 
 ## Current publication portfolio
 
-The repository has **four publication lines that have been submitted historically**. Paper 1 remains active with its publisher. Paper 2 was rejected at TAES editorial pre-screening 2026-09-26 without external review, then submitted in rebuilt RevB form to CEAS Space Journal on 2026-10-19; the confirmed **editorial rejection date is 2026-10-22**, with the manuscript criticized as prose-like rather than sufficiently scientific; Springer Nature's November 1 message confirms the recommended transfer was not completed. Study 3/4/6 and S3X/S6X separately frozen evidence remain scientifically distinct. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+The repository has **five publication lines that have been submitted historically**. Paper 1 and Paper 5 remain active with their publishers. Paper 2 was rejected at TAES editorial pre-screening 2026-09-26 without external review, then submitted in rebuilt RevB form to CEAS Space Journal on 2026-10-19; the confirmed **editorial rejection date is 2026-10-22**, with the manuscript criticized as prose-like rather than sufficiently scientific; Springer Nature's November 1 message confirms the recommended transfer was not completed. Study 3/4/6 and S3X/S6X separately frozen evidence remain scientifically distinct. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 after handling-editor assessment. The original Paper 4 / Study 8 submission was rejected by Acta Astronautica. Rebuilt Paper 4 integrates separately frozen Study 8 and Study 8E evidence and was submitted to the International Journal of Satellite Communications and Networking (IJSCCN) on 2026-09-22 as manuscript `4920969`. IJSCCN declined it at editorial screening on 2026-09-24 with the stated reason `out of scope`; no external reviewer reports were supplied and no scientific change follows from that decision. Paper 3 has entered a separately authorized post-rejection research-requirements phase; no Study-7 rerun or Study-7E execution is authorized.
+
+### Paper 5 - Studies 9 + 10
+
+- **Journal:** Cyber Security and Applications (KeAi / Elsevier)
+- **Title:** Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit
+- **Manuscript ID:** `CSA-D-26-00979`
+- **Submitted:** 2026-11-23 (US Central; acknowledgements 2026-11-24 03:38:36 UTC)
+- **Last verified state:** `SUBMITTED__WITH_EDITOR`; managing editor assigned; external peer review and decision not established.
+- **Authority:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/CSA_SUBMISSION_STATUS.json`
+- **Submitted source snapshot:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/` (33-page manuscript, five-page supplement, 27 references; private publisher proof and correspondence retained separately).
+
+Study 9 and Study 10 retain their separate scientific denominators. The separately frozen synthetic extension does not establish mission feasibility or live recovery efficacy. No new scientific execution, source redistribution, journal revision, or merge is authorized by this closeout. SSRN posting was selected at submission; no public posting or DOI is verified.
 
 ### Paper 1 - Studies 1 + 2
 
@@ -155,7 +167,7 @@ Current Paper-4 architecture/originality authority:
 
 - `publication/Paper_4_Study_8/PAPER4_STUDY8_8E_ARCHITECTURE_AND_NONOVERLAP_GATE_2026-09-20.md`
 
-This gate confirms publication independence from Paper 5 / Study 9 and protects Paper 5's semantic-interoperability/action-identifiability lane from Paper-4 manuscript drift.
+This gate confirms publication independence from Paper 5 / Studies 9 and 10 and protects Paper 5's semantic-interoperability/action-identifiability lane from Paper-4 manuscript drift.
 
 Current Study 8E authority:
 
@@ -262,7 +274,7 @@ Paper 3 is now a separately authorized post-rejection recovery workstream. Study
 The remaining-study candidate audit remains separate while the Paper 4 / Study 8 + Study 8E fresh venue-fit audit is active, unless the author explicitly reprioritizes it. When resumed, it is a **read-only candidate audit** over the remaining eligible research lines. Known remaining work includes:
 
 - Study 5 / `S5-CUCD-001`, a separately frozen portability/external-validity boundary study;
-- any other demonstrably complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+- any other demonstrably complete repository experiment not already consumed by Papers 1, 2, 3, 4, or 5.
 
 No next venue or manuscript package is currently locked. Candidate selection must verify scientific coherence, novelty, reproducibility, self-overlap risk, claim boundaries, and live venue fit before a new publication branch is created.
 

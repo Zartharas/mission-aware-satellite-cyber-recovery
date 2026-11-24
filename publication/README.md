@@ -4,7 +4,7 @@ This directory is the human-facing publication layer for the `mission-aware-sate
 
 For canonical current state, read [`../docs/CURRENT_PUBLICATION_STATE.md`](../docs/CURRENT_PUBLICATION_STATE.md) first.
 
-The repository contains **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and **rejected following editorial assessment on 2026-10-22**. Springer Nature suggested a transfer, but its 2026-11-01 follow-up confirmed **transfer not completed**. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
+The repository contains **five publication lines that have been submitted**. Paper 1 and Paper 5 remain active with their publishers. Paper 2's TAES submission was rejected on 2026-09-26 without external review; its newer CEAS Space Journal RevB submission was received on 2026-10-19 and **rejected following editorial assessment on 2026-10-22**. Springer Nature suggested a transfer, but its 2026-11-01 follow-up confirmed **transfer not completed**. Paper 3 was rejected by CEAS Space Journal on 2026-09-22 and has entered a controlled post-rejection research-requirements phase. Paper 4 was first rejected by Acta Astronautica; its rebuilt Study 8 + Study 8E manuscript was then submitted to IJSCCN as manuscript `4920969` and declined at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied.
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems.
 2. **Paper 4:** Study 8 + Study 8E rebuilt manuscript, most recently submitted to IJSCCN; prior Acta submission retained as historical provenance.
@@ -12,6 +12,18 @@ The repository contains **four publication lines that have been submitted**. Pap
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal.
 
 Separately frozen study populations must never be silently pooled or reused as new evidence merely because they remain in the repository.
+
+## Paper 5 - Studies 9 + 10
+
+- **Journal:** Cyber Security and Applications (KeAi / Elsevier)
+- **Title:** Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit
+- **Manuscript ID:** `CSA-D-26-00979`
+- **Submitted:** 2026-11-23 (US Central; acknowledgements 2026-11-24 03:38:36 UTC)
+- **Last verified state:** `SUBMITTED__WITH_EDITOR`; managing editor assigned; external peer review and decision not established.
+- **Authority:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/CSA_SUBMISSION_STATUS.json`
+- **Submitted source snapshot:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/` (33-page manuscript, five-page supplement, 27 references; private publisher proof and correspondence retained separately).
+
+Study 9 and Study 10 retain their separate scientific denominators. The separately frozen synthetic extension does not establish mission feasibility or live recovery efficacy. No new scientific execution, source redistribution, journal revision, or merge is authorized by this closeout. SSRN posting was selected at submission; no public posting or DOI is verified.
 
 ## Paper 1 - Studies 1 + 2
 
@@ -124,7 +136,7 @@ Paper 4 is the Study 8 publication. Do not confuse it with Study 4 / `S4-MPQ-001
 
 Paper 3 recovery is now a separately authorized workstream. Frozen Study 7 remains part of that publication line, and any future Study 7E will be separately designed and unpooled.
 
-The independent remaining-study audit is still separate. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, or 4.
+The independent remaining-study audit is still separate. When resumed, it includes Study 5 / `S5-CUCD-001` and any other complete repository experiment not already consumed by Papers 1, 2, 3, 4, or 5.
 
 No remaining-study evidence may be imported into Paper 3 merely to answer the CEAS rejection.
 

@@ -1,6 +1,6 @@
 # Publication Phase Map
 
-**Current-state reference:** 2026-11-21 (Paper 2 CEAS editorial rejection reconciled; other papers retain separately verified source dates)
+**Current-state reference:** 2026-11-23 (Paper 5 CSA submission reconciled; other papers retain separately verified source dates)
 
 **Paper 4 IJSCCN decision overlay:** 2026-09-24
 
@@ -12,7 +12,7 @@ For canonical current state, read [`CURRENT_PUBLICATION_STATE.md`](CURRENT_PUBLI
 
 ## Scope boundary
 
-This map applies only to this repository and its Studies 1-8. Unrelated repositories and external research programs remain separate and are not pooled into this publication program.
+This map applies only to this repository and its Studies 1-10. Unrelated repositories and external research programs remain separate and are not pooled into this publication program.
 
 ## Overall publication-phase map
 
@@ -68,10 +68,16 @@ MISSION-AWARE SATELLITE CYBER RECOVERY PROGRAM
 |       State: IJSCCN_OUT_OF_SCOPE_CLOSEOUT__FRESH_VENUE_FIT_AUDIT
 |       Decision record: publication/Paper_4_Study_8/IJSCCN/R5_IJSCCN_EDITORIAL_DECISION_2026-09-24.md
 |
++- PHASE P5 - SUBMITTED WITH EDITOR
+|  +-- PAPER 5: Studies 9 + 10; separate synthetic extension
+|      Journal: Cyber Security and Applications
+|      Manuscript ID: CSA-D-26-00979; submitted 2026-11-23
+|      State: With Editor; no external peer review verified
+|
 +-- PHASE 6 - DEFERRED
     +-- REMAINING-CANDIDATE AUDIT
         +-- Study 5 / S5-CUCD-001
-        +-- any other still-eligible repository study not consumed by Papers 1, 2, 3, or 4
+        +-- any other still-eligible repository study not consumed by Papers 1, 2, 3, 4, or 5
         State: DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE
 ```
 
@@ -179,13 +185,25 @@ Decision authority:
 
 The work begins with a fresh live venue assessment against the actual rebuilt manuscript scope: satellite/space systems, cybersecurity, post-quantum cryptography, trusted recovery/key-state transition, intermittent connectivity, and contact/opportunity modeling. Transfer Desk suggestions may be inspected but do not constitute venue approval.
 
-Study 8 and Study 8E remain separate populations. Paper 5 / Study 9 remains outside this retarget gate. No new target venue is locked. Final venue lock, transfer, and publisher submission remain separate explicit author-approval gates.
+Study 8 and Study 8E remain separate populations. Paper 5 / Studies 9 and 10 remains outside this retarget gate. No new target venue is locked. Final venue lock, transfer, and publisher submission remain separate explicit author-approval gates.
+
+## Paper 5 - Submitted; editorial assessment
+
+- **Journal:** Cyber Security and Applications (KeAi / Elsevier)
+- **Title:** Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit
+- **Manuscript ID:** `CSA-D-26-00979`
+- **Submitted:** 2026-11-23 (US Central; acknowledgements 2026-11-24 03:38:36 UTC)
+- **Last verified state:** `SUBMITTED__WITH_EDITOR`; managing editor assigned; external peer review and decision not established.
+- **Authority:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/CSA_SUBMISSION_STATUS.json`
+- **Submitted source snapshot:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/` (33-page manuscript, five-page supplement, 27 references; private publisher proof and correspondence retained separately).
+
+Study 9 and Study 10 retain their separate scientific denominators. The separately frozen synthetic extension does not establish mission feasibility or live recovery efficacy. No new scientific execution, source redistribution, journal revision, or merge is authorized by this closeout. SSRN posting was selected at submission; no public posting or DOI is verified.
 
 ## Phase 6 - Remaining-candidate audit
 
 The next independent publication after the active Paper-4 retarget decision is not preselected.
 
-Known remaining work includes Study 5 / `S5-CUCD-001` plus any other repository experiment that is complete, provenance-bound, scientifically independent, and not already consumed by Papers 1, 2, 3, or 4.
+Known remaining work includes Study 5 / `S5-CUCD-001` plus any other repository experiment that is complete, provenance-bound, scientifically independent, and not already consumed by Papers 1, 2, 3, 4, or 5.
 
 The next-paper audit must include fresh literature review, novelty/self-overlap analysis, claim-boundary review, reproducibility review, and live venue review before any new publication branch is created.
 
@@ -222,3 +240,4 @@ Study 5 remains a portability/external-validity boundary study and must not be m
 | 4R | Paper 3 recovery | Study 7 + proposed Study 7E | `S7E-AERC-001` protocol draft complete, not executed | Author review; implementation remains separately gated |
 | 5 | Paper 4 retarget | Study 8 + Study 8E | IJSCCN scope rejection; next venue not locked | Live venue-fit audit with no scientific rerun |
 | 6 | Next independent candidate | Remaining eligible studies | Deferred while Paper-4 retarget audit is active | Resume read-only candidate audit later |
+| P5 | Paper 5 | Studies 9 + 10; separate synthetic extension | CSA `CSA-D-26-00979`, With Editor | Await editorial action |

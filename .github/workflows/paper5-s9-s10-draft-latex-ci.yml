@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/**"
+      - "publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/**"
       - ".github/workflows/paper5-s9-s10-draft-latex-ci.yml"
 
 permissions:
@@ -115,4 +116,46 @@ jobs:
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log
             publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PDF_REVIEW_SHA256SUMS.txt
           if-no-files-found: warn
+          retention-days: 14
+      - name: Validate exact submitted editable snapshot
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/
+        run: |
+          set -euo pipefail
+          sha256sum -c SUBMITTED_SOURCE_SHA256SUMS.txt
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          t = Path("CSA_S9_S10_MANUSCRIPT_EM.tex").read_text()
+          b = Path("references.bib").read_text()
+          keys = set(re.findall(r'\\bibitem\{([^}]+)\}', t))
+          cited = {k.strip() for item in re.findall(r'\\cite\{([^}]+)\}',t) for k in item.split(",")}
+          assert len(keys) == 27 and keys == cited
+          assert keys == set(re.findall(r'(?m)^@\w+\{([^,]+),',b))
+          assert r'\bibliography{' not in t
+          assert "OpenAI ChatGPT (GPT-6 series)" in t
+          print("SUBMITTED_SOURCE_HASH_AND_BIBLIOGRAPHY_PASS")
+          PY
+          for src in CSA_S9_S10_MANUSCRIPT_EM PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT; do
+            for pass in 1 2 3; do
+              pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -file-line-error "$src.tex" > "$src.pass$pass.txt"
+            done
+            test -s "$src.pdf"
+            if grep -E 'Citation .* undefined|There were undefined references|Overfull \\hbox' "$src.log"; then
+              exit 1
+            fi
+            pdfinfo "$src.pdf" | grep -E 'Pages:|Page size:'
+          done
+          sha256sum CSA_S9_S10_MANUSCRIPT_EM.pdf PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf > RECOMPILED_PDF_SHA256SUMS.txt
+      - name: Preserve submitted-source validation build (not publisher proof)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: paper5-submitted-source-validation
+          path: |
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/CSA_S9_S10_MANUSCRIPT_EM.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/CSA_S9_S10_MANUSCRIPT_EM.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/RECOMPILED_PDF_SHA256SUMS.txt
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/SUBMITTED_SOURCE_SHA256SUMS.txt
+          if-no-files-found: error
           retention-days: 14
