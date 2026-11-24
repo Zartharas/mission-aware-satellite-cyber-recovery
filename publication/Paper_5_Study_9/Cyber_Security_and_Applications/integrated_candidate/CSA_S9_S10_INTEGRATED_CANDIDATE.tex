@@ -16,7 +16,7 @@
 
 \begin{frontmatter}
 
-\title{Recovery-State Semantic Observability and Decision Identifiability Across Public Space-Cyber and Real-Flight Data Products}
+\title{Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit}
 
 \author[aff1]{Aman Kumar Singh\corref{cor1}}
 \ead{asingh65430@ucumberlands.edu}
@@ -27,7 +27,7 @@
             country={United States}}
 
 \begin{abstract}
-An anomaly label or telemetry timestamp does not, by itself, establish that a satellite cyber-recovery action is authorized, supported by trusted evidence, or valid at the decision time. This paper asks what recovery-decision information can legitimately be inferred from public space-cyber and real-flight anomaly-detection data products under one fixed eight-predicate interface. We synthesize two separately frozen studies, not a single prospectively pooled experiment. Study 9 classified source-native semantics in CuCD-ID v3, AegisSat 2025, and UNSW-IoTSAT 2026. Across 567,763 original source rows, none of the eight recovery predicates qualified as directly observed or predeclared derived. All rows consequently collapsed to one fully unresolved eight-variable decision-state group per dataset. Exhaustive evaluation of four frozen policies returned non-singleton action sets; the exact policy-conditioned minimum guaranteed additional sidecar state was 6, 7, 7, or 8 variables. These action results are mathematical consequences of a completely unknown input vector, not 567,763 distinct operational policy trials. Study 10 separately assessed four published-schema strata from ESA Anomaly Dataset v2 Missions 1--3 and OPS-SAT-AD v2. Its 32 source-variable classifications comprised 14 ambiguous and 18 absent representations; no qualified operational direct or derived predicate was documented. Because these released representations do not establish a native recovery decision instant and evidence-validity window, all 16 operational stratum-policy assessments were not evaluable, rather than observed failures or zero recovery rates. A within-mission ESA v1/v2 comparison matched 224 channels but found 54 changed values among 896 comparable metadata cells, without examining nested telemetry. The main finding is a bounded evidence-interface gap between released detection-oriented data and the decision-time predicates required by the selected recovery policies. It neither evaluates live spacecraft recovery nor claims that the missing fields are absent from the missions themselves.
+An anomaly label or timestamp does not establish whether a satellite cyber-recovery action is authorized or grounded in valid evidence. We audit source-field qualification under one fixed eight-predicate recovery interface, synthesizing two separately governed studies after their results were available. Study 9 made 24 source-to-predicate judgments across CuCD-ID v3, AegisSat 2025 and UNSW-IoTSAT 2026; none qualified as directly observed or permitted derived recovery state. The 567,763 original rows establish finite-population provenance and multiplicities, not independent recovery decisions: each dataset projects to the same eight-unknown state. Across all 256 unconstrained mathematical Boolean completions, four frozen policies have reachable action-set sizes 2, 2, 3 and 3 and guaranteed minimum sidecars of 6, 7, 7 and 8 variables. These are selector-conditioned results; the physical feasibility of the completions is unverified. Study 10 separately made 32 published-schema judgments across ESA Anomaly Dataset v2 Missions 1--3 and OPS-SAT-AD v2: 14 ambiguous and 18 absent, with no qualified direct or derived field. Without a documented decision instant and validity window, all 16 operational stratum-policy assessments were not evaluable. The optional ESA v1/v2 metadata comparison found 54 changed annotations among 896 shared cells across 224 matched channels; semantic mapping-class stability remains unanswered. The central contribution is a traceable distinction between available detection data and qualified recovery-decision evidence. A strict interface applied to detection-oriented releases makes negative coverage foreseeable; no alternative interface was evaluated. The findings motivate explicit decision-time evidence interfaces, not claims of live recovery efficacy or absent spacecraft controls.
 \end{abstract}
 
 \begin{keyword}
@@ -46,11 +46,11 @@ Cross-dataset cybersecurity research commonly focuses on predictive generalizati
 
 Study 9's three-dataset population and semantic mapping were internally frozen before the accepted row-level results; its original RQ1--RQ4 and four-policy selector remained unchanged. Study 10 was independently frozen later, following a disclosed pre-freeze inspection of source schema, headers, counts, and metadata. Both studies preserve unresolved evidence as unknown rather than converting a label, identifier, or convenient timestamp into a proven operational security proposition. The integrated comparison is a publication decision taken \emph{after} both studies' findings and is not a new joint preregistration.
 
-The principal contribution is an auditable, strictly bounded \emph{evidence-sufficiency test}: distinguish a dataset field from a qualified decision-time security proposition, then report either the exact action ambiguity under a fixed mathematical selector (Study 9) or the inability to ground an operational action evaluation in a released schema (Study 10). This complements prior uncertainty-aware response systems; it does not introduce a new detector, a new cryptographic mechanism, an operationally proven recovery controller, or a general theory of optimal response. Its testable empirical claim is deliberately conditional: a documented native field with the required decision-time, trust, and provenance semantics would refute the observed zero-coverage classification for that dataset and contract. The study does not test whether other recovery interfaces would admit more fields, or whether the fixed contract is universally required.
+The primary empirical contribution is the 24 Study 9 and 32 Study 10 source-to-predicate judgments, recorded separately with candidate fields and reasons for exclusion. The principal contribution is an auditable, strictly bounded \emph{evidence-sufficiency test}: distinguish a dataset field from a qualified decision-time security proposition, then report either the exact action ambiguity under a fixed mathematical selector (Study 9) or the inability to ground an operational action evaluation in a released schema (Study 10). This complements prior uncertainty-aware response systems; it does not introduce a new detector, a new cryptographic mechanism, an operationally proven recovery controller, or a general theory of optimal response. Its testable empirical claim is deliberately conditional: a documented native field with the required decision-time, trust, and provenance semantics would refute the observed zero-coverage classification for that dataset and contract. The study does not test whether other recovery interfaces would admit more fields, or whether the fixed contract is universally required.
 
 
 \paragraph{Integration scope and principal question.}
-The integrating research question is: \emph{Under a fixed recovery-state semantic contract, which decision propositions are evidenced in public space-cyber and released real-flight anomaly-detection representations, and what downstream decision statements are justified when those propositions remain unknown?} Study 9 (\texttt{S9-RTSI-001}) addresses mathematical action-set identifiability for three frozen space-cyber datasets. Study 10 (\texttt{S10-RSEI-001}) assesses the published representations of ESA Anomaly Dataset v2 Missions 1--3 \cite{esaad2025v2} and OPS-SAT-AD v2 \cite{opssat2024v2}, with a separate operational evaluability gate. Their results are not exchangeable. The decision to combine them into one manuscript followed both results and is not a retrospectively preregistered joint experiment.
+The integrating research question is: \emph{Under a fixed recovery-state semantic contract, which decision propositions are evidenced in public space-cyber and released real-flight anomaly-detection representations, and what downstream decision statements are justified when those propositions remain unknown?} Study 9 (\texttt{S9-RTSI-001}) addresses mathematical action-set identifiability for three frozen space-cyber datasets. Study 10 (\texttt{S10-RSEI-001}) assesses the published representations of ESA Anomaly Dataset v2 Missions 1--3 \cite{esaad2025v2} and OPS-SAT-AD v2 \cite{opssat2024v2}, with a separate operational evaluability gate. Their results are not exchangeable. The decision to combine them into one manuscript followed both results and is not a jointly prespecified experiment.
 
 \subsection{Two distinct estimands and permitted inferences}
 \begin{table}[H]
@@ -71,16 +71,16 @@ Study & Evidence / observational unit & Endpoint and denominator & Permitted con
 
 \subsection{Research questions}
 
-The study follows four preregistered research questions:
+The study follows four internally prespecified Study 9 research questions:
 
 \begin{description}[leftmargin=1.15cm,labelwidth=0.95cm,style=nextline]
-    \item[RQ1] Across preregistered public space-cyber datasets, which recovery decision variables are directly observable, deterministically derivable by a predeclared rule, ambiguous, or absent without using attack labels as operational truth?
+    \item[RQ1] Across internally prespecified public space-cyber datasets, which recovery decision variables are directly observable, deterministically derivable by a predeclared rule, ambiguous, or absent without using attack labels as operational truth?
     \item[RQ2] Conditioned only on qualifying dataset-native operationally visible state, when is the downstream recovery action uniquely identifiable versus ambiguous across admissible completions of missing decision state?
     \item[RQ3] What minimal additional sidecar or interface state is sufficient to make the downstream recovery action uniquely identifiable without imputing unavailable mission, trust, freshness, epoch, contradiction, or authorization semantics?
     \item[RQ4] Which missing recovery-state semantics are common across independently generated public space-cyber datasets and which are dataset-specific?
 \end{description}
 
-The Results section answers these questions in order through semantic coverage, policy-stratified action identifiability, guaranteed minimal sidecar state, and the cross-dataset common unresolved set.
+The Results section answers these Study 9 questions; the Study 10 questions and their partial or conditional endpoints are identified separately below. The Study 9 design and semantic adjudication were internally frozen before the accepted canonical results, following source/schema validation and prior exposure. This is not a claim of registration in an independent protocol registry.
 
 \subsection{Nine-question source-to-result traceability}
 \label{sec:phase2rq}
@@ -119,13 +119,15 @@ Field-level evidence for both studies is provided as source-editable Supplementa
 
 CuCD-ID provides labelled CubeSat cybersecurity data generated in NOS3/cFS with COSMOS reproduction tooling \cite{fayyaz2026cucd}. Its raw population contains 25,000 records. AegisSat was developed as an open satellite cybersecurity testbed combining a physical CubeSat, environmental emulation, controlled attacks, and labelled telemetry from repeated experiments \cite{idan2025aegissat}. UNSW-IoTSAT extends the smart-satellite dataset landscape with a hybrid cyber-physical testbed and more than 404,000 labelled records containing satellite, sensor, communications, and RF-related features \cite{abdelhameed2026unsw}.
 
+Tahir et al. \cite{tahir2025benchmark} benchmarked spacecraft anomaly-detection methods and compared telemetry datasets for diagnostic suitability, including operational relevance and model deployment considerations. Their objective is health monitoring and model selection, whereas the present audit asks whether named source fields establish a specific authorization- and recovery-related proposition at a decision instant. The methods are complementary; dataset relevance and explainability are not original concepts of this paper.
+
 These datasets were not created to instantiate the recovery-state interface evaluated here. Their inclusion therefore does not imply an expectation that they should contain every recovery variable. The purpose of the comparison is to measure semantic sufficiency under a fixed interface, not to grade dataset quality.
 
 \subsection{Cross-dataset transfer and harmonization}
 
 Cross-dataset generalization is a known challenge in machine-learning systems. WILDS formalized evaluation under naturally occurring distribution shifts and showed that in-distribution performance does not guarantee out-of-distribution robustness \cite{koh2021wilds}. In cybersecurity, cross-network evaluation similarly shows that intrusion-detection models can lose effectiveness when transferred to heterogeneous environments \cite{cerasuolo2026transfer}. Rule-based harmonization has also been proposed to transform heterogeneous IoT security datasets into more interoperable feature and label representations \cite{rodriguez2026harmonization}. Cybersecurity ontology research likewise uses semantic interoperability to unify heterogeneous defensive knowledge sources \cite{akbar2023ontology}.
 
-Study 9 is deliberately narrower. It does not harmonize attack taxonomies, propose semantic interoperability as a general concept, or train a transferable model. It tests whether the native operational fields of each selected dataset semantically establish a preregistered recovery-state contract. Statistical correlation with a missing recovery variable is not treated as semantic observability.
+Study 9 is deliberately narrower. It does not harmonize attack taxonomies, propose semantic interoperability as a general concept, or train a transferable model. It tests whether the native operational fields of each selected dataset semantically establish an internally frozen recovery-state contract. Statistical correlation with a missing recovery variable is not treated as semantic observability.
 
 \subsection{Intrusion response and cyber resilience}
 
@@ -136,29 +138,30 @@ These foundations motivate the central distinction in this paper: response selec
 The contribution therefore does not rest on claiming that semantic interoperability, space-system cyber response, or recovery are individually new. The research gap addressed here is their narrower conjunction: field-level semantic mapping across independently sourced public space-cyber datasets, exhaustive downstream action-identifiability analysis with missing state preserved as unknown, and minimal-sidecar derivation without using attack labels as operational truth.
 
 \subsection{Closest methods and limits of novelty}
-Actionability, incomplete-information reasoning, and evidence governance are established areas rather than inventions of this paper. NIST IR 8401 applies the Cybersecurity Framework to satellite ground-segment command and control \cite{nist2022ground}; NIST IR 8441 addresses the interfaces of heterogeneous hybrid satellite networks \cite{mccarthy2023hsn}. AIRSS addresses adaptive response in space systems \cite{sahakian2021airss}. In adjacent cyber-defense domains, TRACE constructs conformal candidate-action sets and a release gate for intrusion triage \cite{le2026trace}; RTEF-IDS defines separate authorization rules for admitting evidence, feedback and replacing retained history \cite{li2026rtef}; hybrid knowledge-based industrial CPS work studies response decision support \cite{guarino2026hybrid}. Work on cybersecurity decision support also treats uncertainty in the effects of security controls and investment choices \cite{zhang2025uncertainty}; this is distinct from deciding whether a specific published telemetry field qualifies as a valid recovery predicate. Thus neither evidence-conditioned response nor reasoning under uncertainty can be claimed as new.
+Actionability, incomplete-information reasoning, and evidence governance are established areas rather than inventions of this paper. NIST IR 8401 applies the Cybersecurity Framework to satellite ground-segment command and control \cite{nist2022ground}; NIST IR 8441 addresses the interfaces of heterogeneous hybrid satellite networks \cite{mccarthy2023hsn}. AIRSS addresses adaptive response in space systems \cite{sahakian2021airss}. In adjacent cyber-defense domains, TRACE constructs conformal candidate-action sets and a release gate for intrusion triage under benchmark feature-space feasibility constraints (not packet-level physical realizability) \cite{le2026trace}; RTEF-IDS defines separate authorization rules for admitting evidence, feedback and replacing retained history \cite{li2026rtef}; hybrid knowledge-based industrial CPS work studies response decision support \cite{guarino2026hybrid}. Work on cybersecurity decision support also treats uncertainty in the effects of security controls and investment choices \cite{zhang2025uncertainty}; this is distinct from deciding whether a specific published telemetry field qualifies as a valid recovery predicate. Thus neither evidence-conditioned response nor reasoning under uncertainty can be claimed as new.
 
 Table~\ref{tab:priorcompare} contrasts the \emph{evaluation objects}, not relative performance. Rows about work outside this paper are restricted to their documented objectives and accessible methods; a label of \emph{not assessed} does not imply that a competing system lacks an uninspected capability.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
-\scriptsize
-\setlength{\tabcolsep}{2pt}
+\small
+\setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\caption{Closest-method positioning. This is a descriptive scope comparison, not a performance benchmark of competing systems.}
+\caption{Closest-method positioning by evaluation object; not a performance benchmark.}
 \label{tab:priorcompare}
-\begin{tabular}{@{}p{0.145\linewidth}p{0.162\linewidth}p{0.145\linewidth}p{0.155\linewidth}p{0.145\linewidth}p{0.156\linewidth}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}>{\raggedright\arraybackslash}p{0.37\linewidth}@{}}
 \toprule
-Work & Objective & Decision evidence & Unknown-state handling & Endpoint & Unit and validation \\
+Work & Evaluation object & Distinction from the present audit \\
 \midrule
-NIST 8401/8441 \cite{nist2022ground,mccarthy2023hsn} & Space ground/HSN cyber risk and interfaces. & Stakeholder controls and security functions. & Framework-level risk guidance. & Cybersecurity posture and profile. & Guidance, not this field-level dataset test. \\
-AIRSS \cite{sahakian2021airss} & Space-system adaptive mitigation. & Threat context in response research. & Completeness not assessed here. & Mitigation support. & Space response research report; no direct benchmark with these outputs. \\
-Semantic maps \cite{akbar2023ontology,rodriguez2026harmonization} & Ontology and common security labels. & Dataset attributes and defensive concepts. & Semantic standardization, not this binary recovery contract. & Comparable representations. & Cyber/IoT studies, rather than space recovery decision rows. \\
-TRACE \cite{le2026trace} & Calibrated, action-governed IDS triage. & Detector posteriors, feasible feature alternatives. & Conformal plausible-action sets and release gates. & Triage action contract and selective release. & Multiple IDS benchmarks, feature-space evaluations. \\
-RTEF-IDS \cite{li2026rtef} & Reliable temporal intrusion-evidence updates. & Current and reviewed feedback evidence. & Admission, feedback and history-replacement rules. & Authorized evidence-state mutations. & IoT IDS experiments and analytic protocol. \\
-Hybrid CPS \cite{guarino2026hybrid} & Knowledge-supported intrusion response. & Cyber-physical state and knowledge model. & Hybrid inference/decision support; exact equivalence untested. & Response recommendation. & Industrial CPS study; not evaluated on these releases. \\
-ESA/OPS products \cite{esaad2025v2,opssat2024v2} & Anomaly-detection research resources. & Published telemetry/label metadata. & Recovery-state admission not their stated benchmark endpoint. & Detection resources. & Real-flight data products; no mission recovery trial here. \\
-Studies 9/10 (this paper) & Audit decision-time recovery-state sufficiency. & Strict source-field to eight-predicate mapping. & Explicit unknowns; math completion or operational gate. & Exact policy ambiguity (S9); \texttt{NOT\_EVALUABLE} (S10). & Three frozen row populations; four descriptive schema strata. \\
+NIST 8401/8441 \cite{nist2022ground,mccarthy2023hsn} & Ground and hybrid satellite risk profiles & Guidance on controls and interfaces, rather than dataset-field qualification. \\
+AIRSS \cite{sahakian2021airss} & Space-system adaptive mitigation & Response selection is prior art; no performance comparison. \\
+Semantic maps \cite{akbar2023ontology,rodriguez2026harmonization} & Security ontologies and label harmonization & Standardizing concepts differs from admitting decision-time propositions. \\
+Tahir et al. \cite{tahir2025benchmark} & Spacecraft health-monitoring data and detector benchmarking & Diagnostic suitability differs from recovery-specific authority and evidence qualification. \\
+TRACE \cite{le2026trace} & Feature-feasible action sets and triage release & Conformal triage and feasibility constraints are prior art; our full Boolean cube is unconstrained. \\
+RTEF-IDS \cite{li2026rtef} & Admission and replacement of intrusion evidence & Evidence governance is prior art; different source-field endpoint. \\
+Hybrid CPS \cite{guarino2026hybrid} & Knowledge-based response decision support & Industrial CPS response, not a matched evaluation of these releases. \\
+ESA/OPS products \cite{esaad2025v2,opssat2024v2} & Anomaly-detection resources & Published representations, not observed recovery decisions. \\
+Studies 9/10 & 24 source-field judgments; 32 published-schema judgments & Conditional mathematical action ambiguity and separately withheld operational evaluation. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -213,11 +216,11 @@ Predicate & Required decision-time authority & Insufficient surrogate & Risk if 
 \end{tabular}
 \end{table}
 
-These risks motivate conservative interpretation of the fixed Study 2 selector but are not measured failure frequencies or proofs of necessity for all space systems.
+These risks motivate conservative interpretation of the fixed Study 2 selector but are not measured failure frequencies or proofs of necessity for all space systems. In the frozen semantic contract, minimum evidence completeness refers to ten accepted recovery criteria: approved version, valid integrity measurement, valid authorization, current measured state, restored authorized command path, ground--spacecraft agreement, restored required telemetry, passed health checks, no residual unauthorized state, and a complete recovery manifest. A mission-approved checklist alone is not evidence that these criteria are satisfied.
 
 \subsection{Dataset population}
 
-The preregistered primary population consists of CuCD-ID v3, AegisSat 2025, and UNSW-IoTSAT 2026. Each dataset is analyzed as a separate finite source population; no pooled inferential population is constructed. Canonical source-row counts are shown in Table~\ref{tab:datasets}.
+The internally frozen primary population consists of CuCD-ID v3, AegisSat 2025, and UNSW-IoTSAT 2026. Each dataset is analyzed as a separate finite source population; no pooled inferential population is constructed. Canonical source-row counts are shown in Table~\ref{tab:datasets}.
 
 \begin{table}[htbp]
 \centering
@@ -252,11 +255,11 @@ The initial semantic adjudication treated \texttt{Position\_Anomaly} as a direct
 
 \subsection{Decision identifiability}
 
-Let $U_d$ be the unresolved recovery-state variables for dataset $d$. For each native record or losslessly collapsed native-state group $g$, all binary assignments to $U_d$ are treated as admissible completions. For policy $p$, the reachable action set is
+Let $U_d$ be the unresolved recovery-state variables for dataset $d$. For each native record or losslessly collapsed native-state group $g$, all binary assignments to $U_d$ are mathematically admissible completions under the frozen model. This is an unconstrained Boolean completion space: no independently validated mission-feasibility constraints, dependencies among predicates, or probabilities were imposed. In particular, a complete evidence checklist and separate authorization, epoch, or freshness predicates may be coupled in actual systems. Mathematical admissibility is not physical realizability. For policy $p$, the reachable action set is
 \[
 A_{d,p}(g)=\{f_p(c):c\in C_d(g)\},
 \]
-where $f_p$ is the frozen selector under policy $p$ and $C_d(g)$ is the set of admissible completions. A recovery action is uniquely identifiable only when
+where $f_p$ is the frozen selector under policy $p$ and $C_d(g)$ is the set of unconstrained mathematical completions. A recovery action is uniquely identifiable only when
 \[
 |A_{d,p}(g)|=1.
 \]
@@ -273,7 +276,7 @@ Policy pooling or averaging is prohibited.
 
 \subsection{Guaranteed minimal sidecar}
 
-For unresolved set $U$, a sidecar subset $S\subseteq U$ is sufficient only if revealing every possible assignment to $S$ guarantees a singleton reachable action set across every assignment to the unrevealed variables $U\setminus S$. The endpoint retains every sufficient subset of minimum cardinality. Actual unavailable values are never substituted merely to reduce ambiguity.
+For unresolved set $U$, a sidecar subset $S\subseteq U$ is sufficient only if revealing every possible assignment to $S$ guarantees a singleton reachable action set across every assignment to the unrevealed variables $U\setminus S$. The endpoint retains every sufficient subset of minimum cardinality. The guarantee is over the full unconstrained completion space, not a physically validated state space. Restricting that space to feasible states can only preserve or reduce the reachable action set and cannot increase the smallest guaranteed sufficient sidecar for the same selector and observation assumptions. Such a restricted model was not evaluated; no operational minimum is inferred. Actual unavailable values are never substituted merely to reduce ambiguity.
 
 \subsection{Finite-population reporting and audit}
 
@@ -328,7 +331,7 @@ retain unqualified \texttt{AMBIGUOUS}/\texttt{ABSENT} propositions as unknown
 \textbf{Study 9: mathematical selector}\\[2pt]
 Three frozen dataset populations\\
 $\Downarrow$ all eight unknown\\
-256 possible Boolean completions\\
+256 unconstrained Boolean completions\\
 $\Downarrow$ four frozen policy selectors\\
 Non-singleton action sets;\\
 guaranteed sidecars 6/7/7/8
@@ -345,7 +348,7 @@ $\Downarrow$ action evaluation withheld\\
 no recovery-rate estimates
 \end{minipage}}
 \end{minipage}
-\caption{Revised source-to-decision evidence-gate schematic. Study 9 exhaustively evaluates a mathematical selector under unknown inputs; Study 10 withholds operational action evaluation without a valid decision-time witness. These are not flight performance measurements. OpenAI ChatGPT (GPT-6, revision on 23 November 2026) assisted with the editable native-LaTeX layout and wording of this conceptual diagram; the exact model used for its earlier draft was not recorded. No observational image or source telemetry was fabricated. Author verification remains required.}
+\caption{Revised source-to-decision evidence-gate schematic. Study 9 exhaustively evaluates a mathematical selector under unknown inputs; Study 10 withholds operational action evaluation without a valid decision-time witness. These are not flight performance measurements. OpenAI ChatGPT (GPT-6, revision on 23 November 2026) assisted with the editable native-LaTeX layout and wording of this conceptual diagram; GPT-6.2 revised the completion-space label on 23 November 2026; the exact model used for its earlier draft was not recorded. No observational image or source telemetry was fabricated. Author verification remains required.}
 \label{fig:phase2gates}
 \end{figure}
 
@@ -381,7 +384,7 @@ C_d(g)=\{0,1\}^{8},
 \qquad
 A_{d,p}(g)=\{f_p(x):x\in\{0,1\}^{8}\}.
 \]
-There are 256 \emph{logical assignments} to the unknown state, regardless of how many physical rows the dataset contains. The policy selectors therefore determine the set of possible actions in this all-unknown state; different dataset row counts do not create different action sets or new within-interface decision information. In fact, the 567,763 original rows across the three datasets reduce to exactly three dataset-specific groups carrying the \emph{same} unresolved state vector. Retaining row multiplicities is necessary to report exact frozen finite-population denominators and verify coverage; it is \emph{not} evidence of 567,763 independently tested recovery decisions. The zero singleton-action fraction follows from this bounded selector over the all-unknown vector. This derivation should not be mistaken for a new general cybersecurity theorem, an effectiveness test, or evidence that any spacecraft failed to recover.
+There are 256 \emph{unconstrained logical assignments} to the unknown state, regardless of how many source rows the dataset contains. They were not established as jointly realizable spacecraft states. The policy selectors therefore determine the set of possible actions in this all-unknown state; different dataset row counts do not create different action sets or new within-interface decision information. In fact, the 567,763 original rows across the three datasets reduce to exactly three dataset-specific groups carrying the \emph{same} unresolved state vector. Retaining row multiplicities is necessary to report exact frozen finite-population denominators and verify coverage; it is \emph{not} evidence of 567,763 independently tested recovery decisions. The zero singleton-action fraction follows from this bounded selector over the all-unknown vector. This derivation should not be mistaken for a new general cybersecurity theorem, an effectiveness test, or evidence that any spacecraft failed to recover.
 
 \subsection{Lossless native-state collapse}
 
@@ -394,7 +397,7 @@ For all three datasets and all four policies, the unique-action fraction is 0. T
 \begin{table}[htbp]
 \centering
 \small
-\caption{Policy-level reachable actions and guaranteed minimal sidecar size. Human-readable action labels are used here; exact frozen action identifiers are retained in the canonical result artifacts.}
+\caption{Policy-level reachable actions and guaranteed minimal sidecar size under unconstrained Boolean completions. Exact action identifiers are retained in the canonical results.}
 \label{tab:policies}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.56\linewidth}c}
 \toprule
@@ -416,7 +419,7 @@ For the fail-closed policy, the guaranteed minimal sidecar contains six variable
 
 \subsection{Guaranteed minimal sidecar state (RQ3)}
 
-The exact guaranteed minimum is policy-dependent rather than dataset-dependent because all three datasets project to the same unresolved eight-variable recovery interface. The minimum cardinalities are 6 for B0 fail-closed, 7 for B1 fail-operational, 7 for B2 risk-threshold, and 8 for S1 evidence-aware. These values answer RQ3 under the frozen selector and do not imply that the same number of variables is universally required by other recovery architectures.
+Under unconstrained Boolean completion, the exact guaranteed minimum is policy-dependent rather than dataset-dependent because all three datasets project to the same unresolved eight-variable recovery interface. The minimum cardinalities are 6 for B0 fail-closed, 7 for B1 fail-operational, 7 for B2 risk-threshold, and 8 for S1 evidence-aware. These values answer RQ3 under the frozen selector and do not imply that the same number of variables is universally required by other recovery architectures.
 
 \subsection{Cross-dataset common missing semantics (RQ4)}
 
@@ -495,7 +498,7 @@ The incremental role of Study 10 is therefore an external \emph{representation-l
 A field may be relevant to cybersecurity yet still fail the narrower admission test. For example, Study 9 records \texttt{MsgId} and \texttt{ApId} as candidates for source identity, not proof of current trust-set membership; Study 10 records ESA \texttt{labels.csv} anomaly intervals, not a recovery decision instant and evidence-validity window. The first study can still enumerate \emph{logical} selector completions, because its mathematical question is explicitly defined for unknown inputs. The second cannot convert such completions into \emph{operational} action outcomes, because its required decision-time witness was not established. Figure~\ref{fig:phase2gates} shows the divergence, and Supplementary Appendix S1 preserves the field-level audit trail. Neither finding implies that a spacecraft lacks trusted commands or recovery controls.
 
 \subsection{Post-results integration and research integrity}
-Study 9 and Study 10 retained distinct frozen protocols, scopes, preexisting source exposures, analysis units, outcomes, evidence pins, and execution authorizations. The decision to integrate them into this manuscript was made after their respective results were available. The combined manuscript is therefore \emph{not} a jointly preregistered study, and no Study 9 population expansion or retrospective alteration of the Study 10 design is claimed. The publication integration was undertaken to synthesize related evidence transparently while avoiding two overlapping accounts of the same recovery-state interface.
+Study 9 and Study 10 retained distinct frozen protocols, scopes, preexisting source exposures, analysis units, outcomes, evidence pins, and execution authorizations. The decision to integrate them into this manuscript was made after their respective results were available. The combined manuscript is therefore \emph{not} a jointly prespecified study, and no Study 9 population expansion or retrospective alteration of the Study 10 design is claimed. The publication integration was undertaken to synthesize related evidence transparently while avoiding two overlapping accounts of the same recovery-state interface.
 
 \subsection{Limits of the evidence added by Study 10}
 The Study 10 dataset inventory covered metadata tables, OPS-SAT CSV headers, and ESA outer archive directory layouts plus published format documentation, not the contents of every nested flight-series object. The published-data-product mapping cannot rule out undocumented capabilities or support operational performance conclusions. The author-local original-source integrity check and ESA layout receipt have different verification provenance; the layout JSON digest was reported in terminal output rather than independently checked against uploaded bytes. ESA/OPS-SAT source-use rights and notices are conditionally qualified; third-party redistribution rights are not assumed. The ESA paired comparison summarizes metadata differences without exposing channel metadata values, so its 54 changed values cannot be interpreted as verified changes in physical units or telemetry meanings.
@@ -508,9 +511,9 @@ This distinction is important because presence of a related field is weaker than
 
 \subsection{Implications for dataset and interface design}
 
-If a cybersecurity dataset is intended only for detection or attack classification, omission of recovery semantics may be entirely appropriate. If the same data are expected to support intrusion response, resilience analysis, or recovery-policy evaluation, the findings suggest that an explicit sidecar interface should accompany the telemetry.
+A hypothetical ground operator could observe an anomalous telemetry channel yet lack a time-bound verifier result, current trust membership, the required evidence checklist or an authorized command path. The anomaly then warrants investigation, not an inferred recovery authorization. This is an illustrative interface distinction, not an observed mission event. If a cybersecurity dataset is intended only for detection or attack classification, omission of recovery semantics may be entirely appropriate. If the same data are expected to support intrusion response, resilience analysis, or recovery-policy evaluation, the findings suggest that an explicit sidecar interface should accompany the telemetry.
 
-The sidecar need not reproduce the entire spacecraft state. It should expose the propositions required by the decision interface with clear operational semantics and provenance. In the frozen selector studied here, the minimum guaranteed requirement ranges from six to eight binary variables depending on policy. That result provides a concrete interface-design target rather than a generic recommendation to collect ``more data.''
+The sidecar need not reproduce the entire spacecraft state. It should expose the propositions required by the decision interface with clear operational semantics and provenance. In the frozen selector studied here, the minimum guaranteed requirement ranges from six to eight binary variables depending on policy under unrestricted completion. This provides a conservative model-specific design reference, not a measured spacecraft requirement. A candidate recovery-oriented release should document predicate authority, evidence identifier, subject and epoch, decision timestamp and validity window, completeness criteria and authorization-path status. This is an inferred design recommendation, not a deployed or evaluated interface.
 
 \subsection{Semantic interoperability versus predictive transfer}
 
@@ -520,7 +523,7 @@ This distinction complements existing cross-dataset work rather than replacing i
 
 \subsection{Protocol conservatism}
 
-The UNSW \texttt{Position\_Anomaly} deviation illustrates why semantic claims must be population-wide and fail closed. The field was strongly related to the intended security-signal concept and documented as binary, but 72 released rows violated that domain. Selectively dropping or repairing those rows would have produced a more favorable direct-coverage result at the cost of changing the frozen population. Reclassifying the entire field as ambiguous preserved the released artifact and the preregistered semantics.
+The UNSW \texttt{Position\_Anomaly} deviation illustrates why semantic claims must be population-wide and fail closed. The field was strongly related to the intended security-signal concept and documented as binary, but 72 released rows violated that domain. Selectively dropping or repairing those rows would have produced a more favorable direct-coverage result at the cost of changing the frozen population. Reclassifying the entire field as ambiguous preserved the released artifact and the frozen semantics.
 
 Likewise, attack labels were not promoted into operational state even though doing so would have reduced ambiguity. Offline ground truth answers a different question from what a controller knows at decision time.
 
@@ -530,7 +533,7 @@ Several limitations bound interpretation. First, only three frozen public space-
 
 The four Study 10 published-representation strata are additional descriptive audit objects, not a population-generalizable spacecraft sample. The ESA v1/v2 metadata comparison does not answer semantic mapping-class stability, and secondary Hack-A-Sat challenge records were not assessed. Further, the fixed interface was chosen for one downstream recovery-decision task; this analysis does not quantify how results would change under a different, independently justified contract. Strict admission protects against unsupported operational inferences but can yield an expected negative finding when applied to retrospective anomaly-detection releases.
 
-The result also does not establish that six to eight sidecar variables are universally necessary for satellite recovery. Those cardinalities are exact only for the frozen selector, policies, and unresolved interface examined here.
+The result also does not establish that six to eight sidecar variables are universally necessary for satellite recovery. Those cardinalities are exact only for the frozen selector, policies, and unconstrained unresolved interface examined here. A mission-constrained state model could yield smaller action sets or sidecars; the feasible-state relation is unknown and requires separate prospective validation. Semantic judgments were made within a sole-author, AI-assisted workflow: a separate implementation and stored-result checks corroborate technical consistency but do not establish independent domain-adjudicator agreement or eliminate coder and construct-selection bias.
 
 \section{Reproducibility and Data Availability}
 
@@ -543,7 +546,7 @@ The immutable results-freeze record retains the complete SHA-256 identities of t
 The repository contains protocol, schema, mapping, code, tests, deterministic outputs, independent-audit outputs, and artifact identity records. Third-party raw dataset bytes are not redistributed in the repository; the verification records bind the analyzed public artifacts by source identity and cryptographic hash.
 
 
-Study 10's protocol is bound by an internal G2 freeze receipt under \texttt{study10/}; its pinned payload commit begins \texttt{8ed6a2b16233}, with the complete SHA and branch identity in the receipt. This was not an external preregistration. The separately pinned G3 branch retains synthetic code, independent-oracle checks and audit records. Exact public source DOIs and the archived G2/G3 receipts, rather than the manuscript text alone, are needed for source-to-result reproduction.
+Study 10's protocol is bound by an internal G2 freeze receipt under \texttt{study10/}; its pinned payload commit is \path{8ed6a2b16233b86bf91672f6f15605dcf906c5eb}, with the approval and file digests in the receipt. This was not an external preregistration. The G3 synthetic code, independent-oracle checks and audit records are retained at immutable commit \path{04317102b87eb63312ba4e1599f87a3971858d03}. Exact public source DOIs and the archived G2/G3 receipts, rather than the manuscript text alone, are needed for source-to-result reproduction.
 
 Three sanitized, author-derived G4 JSON results and their checksum/exclusion manifest are held in PR \#255 under \path{integrated_candidate/study10_derived/}. They contain the 32-slot Tier A schema mapping, 16-row Tier C non-evaluability assessment and aggregate ESA paired-release sensitivity. The source-upload checksums are recorded in \texttt{README\_MANIFEST.json}. This is an unmerged review archive, not a public research-data deposit. The channel-level matched-detail CSV and original source telemetry remain local and have not been redistributed.
 
@@ -557,7 +560,7 @@ OPSSAT-AD v2 was released by Ruszczak in the KP Labs project and is also describ
 The author analyzed published schema and metadata structure, assigned recovery-state classifications, and compared paired ESA channel-metadata fields. No original flight-series samples were modified or published. The 54 observed ESA v1/v2 \texttt{Physical Unit} annotation differences do not establish converted telemetry values or semantic changes. Anomaly labels were not promoted to operational recovery evidence. No user data, original telemetry rows, or local channel-detail report is included in the archive.
 
 \subsection{Research data availability statement}
-The third-party input releases remain at \url{https://doi.org/10.5281/zenodo.15237121} (ESA v2), \url{https://doi.org/10.5281/zenodo.12528696} (ESA v1 paired sensitivity), and \url{https://doi.org/10.5281/zenodo.15108715} (OPSSAT-AD v2). Study 9 original sources and frozen results are identified in its canonical record. The current PR \#255 review branch holds Study 10's sanitized, derived JSON outputs and a hash manifest; the original third-party datasets and the locally retained channel-detail CSV are not redistributed. Any publisher-facing supplementary release, repository promotion, or revision of file-specific rights assumptions remains subject to a separate final review.
+The third-party input releases remain at \url{https://doi.org/10.5281/zenodo.15237121} (ESA v2), \url{https://doi.org/10.5281/zenodo.12528696} (ESA v1 paired sensitivity), and \url{https://doi.org/10.5281/zenodo.15108715} (OPSSAT-AD v2). Study 9 original sources and frozen results are identified in its canonical record. The immutable review snapshot \path{e8e9bd7a6d60d32eb9a03e83b1eba59a010bb7c1} of PR \#255 contains Study 10's sanitized, derived JSON outputs and hash manifest; the original third-party datasets and the locally retained channel-detail CSV are not redistributed. Any publisher-facing supplementary release, repository promotion, or revision of file-specific rights assumptions remains subject to a separate final review.
 
 \section{Conclusion}
 
@@ -571,15 +574,15 @@ These complementary outcomes delineate a boundary between anomaly-detection data
 
 \section*{Funding}
 
-This research was conducted independently and received no specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+The author reports that the research is independent and unfunded. Final funding declaration requires author confirmation before submission.
 
 \section*{Declaration of competing interest}
 
-The author declares no competing financial or non-financial interests.
+\textbf{Draft declaration pending sole-author confirmation and the publisher-generated competing-interest form. Not for submission until resolved.}
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
 
-During the preparation of this work, OpenAI ChatGPT was used to support initial text drafting, language refinement, structural and adversarial review, literature screening, citation/consistency checks against separately frozen Study 9 and Study 10 evidence, and drafting the editable LaTeX layout for the conceptual evidence-gate figure. The generated diagram depicts only the documented research workflow and frozen aggregate endpoints, not synthetic observational data. The conceptual diagram was revised in editable LaTeX with OpenAI ChatGPT GPT-6 on 23 November 2026; the exact model behind its earlier draft is not recorded and is disclosed as such in its caption. The author retains responsibility for independently verifying all scientific claims and citations, evaluating figure accuracy and rights, editing the proposed text, making final editorial decisions, and approving the manuscript before submission.
+During the preparation of this work, OpenAI ChatGPT was used to support initial text drafting, language refinement, structural and adversarial review, literature screening, citation/consistency checks against separately frozen Study 9 and Study 10 evidence, and drafting the editable LaTeX layout for the conceptual evidence-gate figure. The generated diagram depicts only the documented research workflow and frozen aggregate endpoints, not synthetic observational data. The conceptual diagram was revised in editable LaTeX with OpenAI ChatGPT GPT-6 and its completion-space label was subsequently revised using GPT-6.2 on 23 November 2026; the exact model behind its earlier draft is not recorded and is disclosed as such in its caption. AI assistance also supported source-schema reasoning and preparation of mapping rationales during the documented review workflow; archived adjudications are not independent human coding. The author retains responsibility for independently verifying all scientific claims and citations, evaluating figure accuracy and rights, editing the proposed text, making final editorial decisions, and approving the manuscript before submission. The exact extent of AI assistance in scientific adjudication and the final declaration remain subject to author verification.
 
 \bibliographystyle{elsarticle-num}
 \bibliography{references}

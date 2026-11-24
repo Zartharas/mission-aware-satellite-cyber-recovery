@@ -1,5 +1,5 @@
-- Anomaly labels alone do not establish trusted, authorized recovery state.
-- Study 9's 567,763 rows project to one all-unknown state per dataset.
-- Frozen policy sidecar requirements are 6/7/7/8 state variables.
-- Study 10's 16 operational action assessments were not evaluable.
-- Distinct estimands prevent mathematical ambiguity being called flight failure.
+- Study 9 audits 24 source-to-predicate judgments; none qualify directly.
+- Study 10 audits 32 published-schema slots; 14 ambiguous and 18 absent.
+- Unconstrained Boolean sidecar minima are 6/7/7/8 for the frozen policies.
+- Study 10's 16 operational assessments were not evaluable.
+- Matched ESA metadata changes do not establish recovery-semantic transitions.

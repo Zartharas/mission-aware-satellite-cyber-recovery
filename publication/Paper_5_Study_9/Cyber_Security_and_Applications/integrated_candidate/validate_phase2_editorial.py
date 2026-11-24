@@ -67,6 +67,15 @@ def validate():
         assert ("{" + citation + ",") in refs and (r"\cite{" + citation + "}") in manuscript, citation
     assert "no change of a recovery-state mapping class is established" in manuscript
     assert "16/16" in manuscript and "1,024" in manuscript
+    assert "unconstrained Boolean completion space" in manuscript
+    assert "physical realizability" in manuscript
+    assert "24 source-to-predicate judgments" in manuscript
+    assert "sole-author, AI-assisted workflow" in manuscript
+    assert "Draft declaration pending sole-author confirmation" in manuscript
+    assert "tahir2025benchmark" in refs and r"\cite{tahir2025benchmark}" in manuscript
+    assert "preregistered public space-cyber datasets" not in manuscript
+    assert "04317102b87eb63312ba4e1599f87a3971858d03" in manuscript
+    assert "8ed6a2b16233b86bf91672f6f15605dcf906c5eb" in manuscript
     print("PAPER5_PHASE2_EDITORIAL_FIELD_TRACEABILITY_PASS: 9 RQs, 24 S9 + 32 S10 mappings")
 
 if __name__ == "__main__":
