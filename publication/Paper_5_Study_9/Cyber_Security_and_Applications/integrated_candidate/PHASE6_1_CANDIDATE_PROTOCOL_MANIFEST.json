@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "status": "CANDIDATE_UNFROZEN_UNIMPLEMENTED_UNEXECUTED",
+  "parent_commit": "047655a2d66cb99ce25a5c0f73555b081e3d8ac0",
+  "authorization": {
+    "author_message": "Yes, I authorize you to work on this one by one till we have resolved all the issues from all three assessments and the recent observations.",
+    "approved": [
+      "exact prospective case specifications",
+      "expected outcomes",
+      "oracle and baseline design",
+      "constraint proofs and counterexamples",
+      "pre-freeze review",
+      "draft manuscript clarification of confirmed static semantic discrepancy"
+    ],
+    "blocked": [
+      "freeze",
+      "executable implementation",
+      "experimental execution",
+      "new source access",
+      "merge",
+      "publication",
+      "data release"
+    ]
+  },
+  "normative_pins": {
+    "s2_s9_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+    "selector_blob": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+    "selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+    "runtime_blob": "786ebc7de2792aff4f95dd04a29be666ac442b8f",
+    "evidence_blob": "5d107ecb24f24fec14f1d817ab48db95be744556",
+    "gate_blob": "2e9c41126eb9de480a013168c8547197bf9ae883",
+    "s10_g2_payload": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+    "s10_g3_audit": "04317102b87eb63312ba4e1599f87a3971858d03",
+    "g3_helper_blob": "e76de9e1271b350e43427205bf30f99462db6ca5"
+  },
+  "fields": [
+    "signature_valid",
+    "source_trusted",
+    "fresh",
+    "epoch_valid",
+    "contradictory",
+    "minimum_evidence_complete",
+    "security_signal",
+    "authorization_available"
+  ],
+  "criteria": [
+    "approved_version",
+    "integrity_measurement_valid",
+    "authorization_valid",
+    "measured_state_current",
+    "authorized_command_path_restored",
+    "ground_spacecraft_state_agreed",
+    "required_telemetry_restored",
+    "health_checks_passed",
+    "no_residual_unauthorized_state",
+    "recovery_manifest_complete"
+  ],
+  "policies": [
+    "S2_B0_FAIL_CLOSED",
+    "S2_B1_FAIL_OPERATIONAL",
+    "S2_B2_RISK_THRESHOLD",
+    "S2_S1_EVIDENCE_AWARE"
+  ],
+  "cases": {
+    "total": 72,
+    "by_family": {
+      "TARGET": 48,
+      "DERIVATION": 12,
+      "CHALLENGE": 12
+    },
+    "mapping_endpoints": 64,
+    "ledger_diagnostics": 8,
+    "expected_admissible_mapping_cases": 23,
+    "expected_nonadmissible_mapping_cases": 41,
+    "inputs": "PHASE6_1_CONTROL_INPUT_SPEC_CANDIDATE.json",
+    "expectations": "PHASE6_1_CONTROL_EXPECTATIONS_CANDIDATE.json",
+    "perturbations": [
+      {
+        "id": "P-RENAME-1",
+        "base_case": "A01-T",
+        "operation": "rename native field and corresponding record key to neutral_1; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-RENAME-2",
+        "base_case": "A02-T",
+        "operation": "rename native field and corresponding record key to neutral_2; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-RENAME-3",
+        "base_case": "A03-T",
+        "operation": "rename native field and corresponding record key to neutral_3; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-RENAME-4",
+        "base_case": "A04-T",
+        "operation": "rename native field and corresponding record key to neutral_4; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-RENAME-5",
+        "base_case": "A05-T",
+        "operation": "rename native field and corresponding record key to neutral_5; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-RENAME-6",
+        "base_case": "A06-T",
+        "operation": "rename native field and corresponding record key to neutral_6; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-RENAME-7",
+        "base_case": "A07-T",
+        "operation": "rename native field and corresponding record key to neutral_7; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-RENAME-8",
+        "base_case": "A08-T",
+        "operation": "rename native field and corresponding record key to neutral_8; retain semantic documentation and authority",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-1",
+        "base_case": "A01-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-2",
+        "base_case": "A02-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-3",
+        "base_case": "A03-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-4",
+        "base_case": "A04-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-5",
+        "base_case": "A05-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-6",
+        "base_case": "A06-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-7",
+        "base_case": "A07-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-ORDER-8",
+        "base_case": "A08-F",
+        "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order",
+        "expected": "same classification, admission and value"
+      },
+      {
+        "id": "P-OFFLINE-LABEL",
+        "base_case": "C-01",
+        "operation": "flip attack_label true to false; retain offline role",
+        "expected": "ABSENT, UNKNOWN, null"
+      }
+    ]
+  },
+  "extension_derivation_registry": [
+    {
+      "id": "D_FRESH",
+      "target": "fresh",
+      "inputs": [
+        "issued_at_s",
+        "decision_time_s",
+        "valid_for_s"
+      ],
+      "predicate": "issued_at_s <= decision_time_s <= issued_at_s + valid_for_s",
+      "requirements": "all literal nonnegative integers except duration positive; same authoritative clock, evidence, subject, decision"
+    },
+    {
+      "id": "D_EPOCH",
+      "target": "epoch_valid",
+      "inputs": [
+        "claimed_epoch",
+        "expected_epoch"
+      ],
+      "predicate": "claimed_epoch == expected_epoch",
+      "requirements": "literal nonnegative integers, expected epoch authoritative, same subject and decision"
+    }
+  ],
+  "models": [
+    {
+      "id": "F0",
+      "condition": "true",
+      "status": "unrestricted mathematical comparator",
+      "analytic_expected_size": 256
+    },
+    {
+      "id": "F1",
+      "condition": "not M_present or not contradictory",
+      "status": "required-key-only, same subject/epoch/decision logical outer approximation",
+      "analytic_expected_size": 192
+    },
+    {
+      "id": "F2",
+      "condition": "F1 and (not M_present or (signature_valid and source_trusted and fresh and epoch_valid))",
+      "status": "F1 plus conditional complete-snapshot admission guarantee over ALL submitted rows; no filter that hides rejected evidence; logical outer approximation",
+      "analytic_expected_size": 132
+    }
+  ],
+  "observations": {
+    "primary": "all eight unknown",
+    "secondary": "all 3^8 partial patterns over false/true/null; compare common nonempty slices only",
+    "empty": "INCONSISTENT_OBSERVATION, no action or sidecar endpoint"
+  },
+  "baseline_definitions": {
+    "always_unknown": "Every mapping target: ABSENT, null, UNKNOWN; ledger diagnostics not applicable.",
+    "name_only": "Find exactly one native field with name equal to target; if literal Boolean at row, DIRECT/ADMIT; if missing, DIRECT/UNKNOWN_MISSING; if nonboolean, DIRECT/REJECT_INVALID; if no native matching field, ABSENT/UNKNOWN; ignore semantics/authority/visibility/context. No derivation. Ledger diagnostics not applicable."
+  },
+  "planned_metrics": [
+    "exact class",
+    "admission and nullable value",
+    "reason and rule ID",
+    "false admission / expected nonadmissible mapping cases",
+    "false rejection / expected admissible mapping cases",
+    "false-vs-unknown conflation",
+    "separate exact ledger diagnostics",
+    "17 metamorphic pairs",
+    "model sizes",
+    "completion and action sets",
+    "all minimum sidecar subsets",
+    "empty slices",
+    "monotonicity"
+  ],
+  "acceptance": "all case assertions pass including diagnostics; no missing case, no false admission, false rejection, false/unknown conflation or unexplained oracle mismatch; F0 archived reference unchanged; F1/F2 analytic size and subset invariants; no strict reduction required",
+  "execution_status": "NOT_RUN",
+  "freeze_status": "NOT_FROZEN",
+  "next_gate": "Review named candidate commit and M/Q clarification, then separately authorize immutable protocol freeze. Implementation, runtime fixture materialization, and execution remain subsequent gates.",
+  "candidate_input_blobs": {
+    "input_spec": {
+      "path": "PHASE6_1_CONTROL_INPUT_SPEC_CANDIDATE.json",
+      "git_blob_sha1": "62a9269e2c754f3155f982336a2d255414c9be44"
+    },
+    "expected_spec": {
+      "path": "PHASE6_1_CONTROL_EXPECTATIONS_CANDIDATE.json",
+      "git_blob_sha1": "976d26e221bf94e4b6e398348bfad449313c68ff"
+    },
+    "note": "Candidate Git object identities, not frozen run inputs. Exact runtime fixture serialization and SHA-256 manifests remain future gates."
+  },
+  "oracle_specification": "PHASE6_1_ORACLE_AND_CONSTRAINT_SPECIFICATION.md",
+  "pre_freeze_assessment": "PHASE6_1_CONSOLIDATED_FINDINGS_AND_PREFREEZE_REVIEW.md"
+}

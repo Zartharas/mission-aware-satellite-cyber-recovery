@@ -1,0 +1,4689 @@
+{
+  "schema_version": 1,
+  "status": "DESIGN_ONLY_NOT_RUNTIME_FIXTURES",
+  "normative_context": {
+    "subject": "SYN_SUBJECT_A",
+    "decision_id": "SYN_DECISION_1",
+    "decision_time_s": 1050,
+    "epoch": 7,
+    "clock": "SYN_CLOCK_A",
+    "snapshot_id": "SYN_SNAPSHOT_1"
+  },
+  "context_note": "Each case is a separate artificial decision instance, never a repeated observation of the same real decision. requested_context is authoritative for this test. The row context must match requested_context for admission; C-10 is deliberately stale. Schema scope is independently checked. Case ID and family are not evaluator inputs. Source/authority/verification flags are synthetic premises, not verified signatures. No original source data.",
+  "criteria": [
+    "approved_version",
+    "integrity_measurement_valid",
+    "authorization_valid",
+    "measured_state_current",
+    "authorized_command_path_restored",
+    "ground_spacecraft_state_agreed",
+    "required_telemetry_restored",
+    "health_checks_passed",
+    "no_residual_unauthorized_state",
+    "recovery_manifest_complete"
+  ],
+  "inputs": [
+    {
+      "case_id": "A01-T",
+      "family": "TARGET",
+      "target": "signature_valid",
+      "schema": [
+        {
+          "name": "signature_valid",
+          "meaning": "Known-key cryptographic verification outcome for the evidence bundle at the decision; synthetic premise, not actual crypto verification.",
+          "authority": "VERIFIER",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "signature_valid": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A01-F",
+      "family": "TARGET",
+      "target": "signature_valid",
+      "schema": [
+        {
+          "name": "signature_valid",
+          "meaning": "Known-key cryptographic verification outcome for the evidence bundle at the decision; synthetic premise, not actual crypto verification.",
+          "authority": "VERIFIER",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "signature_valid": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A01-P",
+      "family": "TARGET",
+      "target": "signature_valid",
+      "schema": [
+        {
+          "name": "signature_valid",
+          "meaning": "CRC/FECF frame check only, not signature verification.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "signature_valid": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A01-A",
+      "family": "TARGET",
+      "target": "signature_valid",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A01-W",
+      "family": "TARGET",
+      "target": "signature_valid",
+      "schema": [
+        {
+          "name": "signature_valid",
+          "meaning": "Known-key cryptographic verification outcome for the evidence bundle at the decision; synthetic premise, not actual crypto verification.",
+          "authority": "VERIFIER",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "signature_valid": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A01-B",
+      "family": "TARGET",
+      "target": "signature_valid",
+      "schema": [
+        {
+          "name": "signature_valid",
+          "meaning": "Known-key cryptographic verification outcome for the evidence bundle at the decision; synthetic premise, not actual crypto verification.",
+          "authority": "VERIFIER",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "signature_valid": "true"
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A02-T",
+      "family": "TARGET",
+      "target": "source_trusted",
+      "schema": [
+        {
+          "name": "source_trusted",
+          "meaning": "Membership of the evidence source in the current verifier trusted-source set.",
+          "authority": "TRUST_REGISTRY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "source_trusted": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A02-F",
+      "family": "TARGET",
+      "target": "source_trusted",
+      "schema": [
+        {
+          "name": "source_trusted",
+          "meaning": "Membership of the evidence source in the current verifier trusted-source set.",
+          "authority": "TRUST_REGISTRY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "source_trusted": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A02-P",
+      "family": "TARGET",
+      "target": "source_trusted",
+      "schema": [
+        {
+          "name": "source_trusted",
+          "meaning": "Sender identifier only; no trust registry membership.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "STRING",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "source_trusted": "SYN_SOURCE_A"
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A02-A",
+      "family": "TARGET",
+      "target": "source_trusted",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A02-W",
+      "family": "TARGET",
+      "target": "source_trusted",
+      "schema": [
+        {
+          "name": "source_trusted",
+          "meaning": "Membership of the evidence source in the current verifier trusted-source set.",
+          "authority": "TRUST_REGISTRY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "source_trusted": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A02-B",
+      "family": "TARGET",
+      "target": "source_trusted",
+      "schema": [
+        {
+          "name": "source_trusted",
+          "meaning": "Membership of the evidence source in the current verifier trusted-source set.",
+          "authority": "TRUST_REGISTRY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A03-T",
+      "family": "TARGET",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "fresh",
+          "meaning": "Evidence issue time and positive validity interval contain the decision instant, evaluated under the same authoritative clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "fresh": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A03-F",
+      "family": "TARGET",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "fresh",
+          "meaning": "Evidence issue time and positive validity interval contain the decision instant, evaluated under the same authoritative clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "fresh": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A03-P",
+      "family": "TARGET",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "fresh",
+          "meaning": "Packet timestamp only; no issue/validity and decision comparison.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "fresh": 1040
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A03-A",
+      "family": "TARGET",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A03-W",
+      "family": "TARGET",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "fresh",
+          "meaning": "Evidence issue time and positive validity interval contain the decision instant, evaluated under the same authoritative clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "fresh": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A03-B",
+      "family": "TARGET",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "fresh",
+          "meaning": "Evidence issue time and positive validity interval contain the decision instant, evaluated under the same authoritative clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "fresh": "true"
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A04-T",
+      "family": "TARGET",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "epoch_valid",
+          "meaning": "Claimed evidence epoch equals the expected evidence epoch for the same subject at the decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "epoch_valid": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A04-F",
+      "family": "TARGET",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "epoch_valid",
+          "meaning": "Claimed evidence epoch equals the expected evidence epoch for the same subject at the decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "epoch_valid": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A04-P",
+      "family": "TARGET",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "epoch_valid",
+          "meaning": "Packet sequence count only; no expected evidence epoch.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "epoch_valid": 7
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A04-A",
+      "family": "TARGET",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A04-W",
+      "family": "TARGET",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "epoch_valid",
+          "meaning": "Claimed evidence epoch equals the expected evidence epoch for the same subject at the decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "epoch_valid": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A04-B",
+      "family": "TARGET",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "epoch_valid",
+          "meaning": "Claimed evidence epoch equals the expected evidence epoch for the same subject at the decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A05-T",
+      "family": "TARGET",
+      "target": "contradictory",
+      "schema": [
+        {
+          "name": "contradictory",
+          "meaning": "Competing values among latest accepted current claims for identical subject, key and epoch in the complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "contradictory": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A05-F",
+      "family": "TARGET",
+      "target": "contradictory",
+      "schema": [
+        {
+          "name": "contradictory",
+          "meaning": "Competing values among latest accepted current claims for identical subject, key and epoch in the complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "contradictory": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A05-P",
+      "family": "TARGET",
+      "target": "contradictory",
+      "schema": [
+        {
+          "name": "contradictory",
+          "meaning": "Generic sensor disagreement; no accepted claim identity or epoch.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "contradictory": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A05-A",
+      "family": "TARGET",
+      "target": "contradictory",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A05-W",
+      "family": "TARGET",
+      "target": "contradictory",
+      "schema": [
+        {
+          "name": "contradictory",
+          "meaning": "Competing values among latest accepted current claims for identical subject, key and epoch in the complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "contradictory": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A05-B",
+      "family": "TARGET",
+      "target": "contradictory",
+      "schema": [
+        {
+          "name": "contradictory",
+          "meaning": "Competing values among latest accepted current claims for identical subject, key and epoch in the complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "contradictory": "true"
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A06-T",
+      "family": "TARGET",
+      "target": "minimum_evidence_complete",
+      "schema": [
+        {
+          "name": "minimum_evidence_complete",
+          "meaning": "All ten required keys present among accepted current nonconflicting values; presence, not required-value satisfaction; complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "minimum_evidence_complete": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A06-F",
+      "family": "TARGET",
+      "target": "minimum_evidence_complete",
+      "schema": [
+        {
+          "name": "minimum_evidence_complete",
+          "meaning": "All ten required keys present among accepted current nonconflicting values; presence, not required-value satisfaction; complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "minimum_evidence_complete": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A06-P",
+      "family": "TARGET",
+      "target": "minimum_evidence_complete",
+      "schema": [
+        {
+          "name": "minimum_evidence_complete",
+          "meaning": "Telemetry quality score only; no ten-key accepted-current evidence inventory.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "minimum_evidence_complete": 95
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A06-A",
+      "family": "TARGET",
+      "target": "minimum_evidence_complete",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A06-W",
+      "family": "TARGET",
+      "target": "minimum_evidence_complete",
+      "schema": [
+        {
+          "name": "minimum_evidence_complete",
+          "meaning": "All ten required keys present among accepted current nonconflicting values; presence, not required-value satisfaction; complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "minimum_evidence_complete": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A06-B",
+      "family": "TARGET",
+      "target": "minimum_evidence_complete",
+      "schema": [
+        {
+          "name": "minimum_evidence_complete",
+          "meaning": "All ten required keys present among accepted current nonconflicting values; presence, not required-value satisfaction; complete declared scope.",
+          "authority": "LEDGER_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A07-T",
+      "family": "TARGET",
+      "target": "security_signal",
+      "schema": [
+        {
+          "name": "security_signal",
+          "meaning": "Native operational security/anomaly guard result available at the decision, not retrospective truth.",
+          "authority": "GUARD_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "security_signal": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A07-F",
+      "family": "TARGET",
+      "target": "security_signal",
+      "schema": [
+        {
+          "name": "security_signal",
+          "meaning": "Native operational security/anomaly guard result available at the decision, not retrospective truth.",
+          "authority": "GUARD_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "security_signal": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A07-P",
+      "family": "TARGET",
+      "target": "security_signal",
+      "schema": [
+        {
+          "name": "security_signal",
+          "meaning": "Raw nonthresholded anomaly score; no operational guard result.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NUMBER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "security_signal": 0.8
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A07-A",
+      "family": "TARGET",
+      "target": "security_signal",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A07-W",
+      "family": "TARGET",
+      "target": "security_signal",
+      "schema": [
+        {
+          "name": "security_signal",
+          "meaning": "Native operational security/anomaly guard result available at the decision, not retrospective truth.",
+          "authority": "GUARD_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "security_signal": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A07-B",
+      "family": "TARGET",
+      "target": "security_signal",
+      "schema": [
+        {
+          "name": "security_signal",
+          "meaning": "Native operational security/anomaly guard result available at the decision, not retrospective truth.",
+          "authority": "GUARD_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "security_signal": "true"
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A08-T",
+      "family": "TARGET",
+      "target": "authorization_available",
+      "schema": [
+        {
+          "name": "authorization_available",
+          "meaning": "Availability of a mission-authorized recovery command/contact path at the decision.",
+          "authority": "COMMAND_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "authorization_available": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A08-F",
+      "family": "TARGET",
+      "target": "authorization_available",
+      "schema": [
+        {
+          "name": "authorization_available",
+          "meaning": "Availability of a mission-authorized recovery command/contact path at the decision.",
+          "authority": "COMMAND_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "authorization_available": false
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A08-P",
+      "family": "TARGET",
+      "target": "authorization_available",
+      "schema": [
+        {
+          "name": "authorization_available",
+          "meaning": "Historical command identifier only; not current path availability.",
+          "authority": "UNQUALIFIED_PROXY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "STRING",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "authorization_available": "CMD_SYN_1"
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A08-A",
+      "family": "TARGET",
+      "target": "authorization_available",
+      "schema": [
+        {
+          "name": "unrelated_test_counter",
+          "meaning": "Unrelated fixture bookkeeping; no recovery semantics.",
+          "authority": "NONE",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "unrelated_test_counter": 17
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A08-W",
+      "family": "TARGET",
+      "target": "authorization_available",
+      "schema": [
+        {
+          "name": "authorization_available",
+          "meaning": "Availability of a mission-authorized recovery command/contact path at the decision.",
+          "authority": "COMMAND_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "authorization_available": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "A08-B",
+      "family": "TARGET",
+      "target": "authorization_available",
+      "schema": [
+        {
+          "name": "authorization_available",
+          "meaning": "Availability of a mission-authorized recovery command/contact path at the decision.",
+          "authority": "COMMAND_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-FRESH-01",
+      "family": "DERIVATION",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "issued_at_s",
+          "meaning": "Evidence issue time for the stated evidence and decision, integer seconds.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "decision_time_s",
+          "meaning": "Authoritative decision time, same clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "valid_for_s",
+          "meaning": "Positive validity duration for the same evidence.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "issued_at_s": 1000,
+          "decision_time_s": 1050,
+          "valid_for_s": 100
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-FRESH-02",
+      "family": "DERIVATION",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "issued_at_s",
+          "meaning": "Evidence issue time for the stated evidence and decision, integer seconds.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "decision_time_s",
+          "meaning": "Authoritative decision time, same clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "valid_for_s",
+          "meaning": "Positive validity duration for the same evidence.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1101,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "issued_at_s": 1000,
+          "decision_time_s": 1101,
+          "valid_for_s": 100
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1101,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-FRESH-03",
+      "family": "DERIVATION",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "issued_at_s",
+          "meaning": "Evidence issue time for the stated evidence and decision, integer seconds.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "decision_time_s",
+          "meaning": "Authoritative decision time, same clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "valid_for_s",
+          "meaning": "Positive validity duration for the same evidence.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1000,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "issued_at_s": 1000,
+          "decision_time_s": 1000,
+          "valid_for_s": 100
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1000,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-FRESH-04",
+      "family": "DERIVATION",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "issued_at_s",
+          "meaning": "Evidence issue time for the stated evidence and decision, integer seconds.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "decision_time_s",
+          "meaning": "Authoritative decision time, same clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "valid_for_s",
+          "meaning": "Positive validity duration for the same evidence.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "issued_at_s": 1000,
+          "decision_time_s": 1050
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-FRESH-05",
+      "family": "DERIVATION",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "issued_at_s",
+          "meaning": "Evidence issue time for the stated evidence and decision, integer seconds.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "decision_time_s",
+          "meaning": "Authoritative decision time, same clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_B",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "valid_for_s",
+          "meaning": "Positive validity duration for the same evidence.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "issued_at_s": 1000,
+          "decision_time_s": 1050,
+          "valid_for_s": 100
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-FRESH-06",
+      "family": "DERIVATION",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "issued_at_s",
+          "meaning": "Evidence issue time for the stated evidence and decision, integer seconds.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "decision_time_s",
+          "meaning": "Authoritative decision time, same clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "valid_for_s",
+          "meaning": "Positive validity duration for the same evidence.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "issued_at_s": 1000,
+          "decision_time_s": 1050,
+          "valid_for_s": 0
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-EPOCH-01",
+      "family": "DERIVATION",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "claimed_epoch",
+          "meaning": "Claimed evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "expected_epoch",
+          "meaning": "Authoritative expected evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "claimed_epoch": 7,
+          "expected_epoch": 7
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-EPOCH-02",
+      "family": "DERIVATION",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "claimed_epoch",
+          "meaning": "Claimed evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "expected_epoch",
+          "meaning": "Authoritative expected evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "claimed_epoch": 6,
+          "expected_epoch": 7
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-EPOCH-03",
+      "family": "DERIVATION",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "claimed_epoch",
+          "meaning": "Claimed evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "expected_epoch",
+          "meaning": "Authoritative expected evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 0,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "claimed_epoch": 0,
+          "expected_epoch": 0
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 0,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-EPOCH-04",
+      "family": "DERIVATION",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "claimed_epoch",
+          "meaning": "Claimed evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "expected_epoch",
+          "meaning": "Authoritative expected evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "claimed_epoch": 7
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-EPOCH-05",
+      "family": "DERIVATION",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "claimed_epoch",
+          "meaning": "Claimed evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "expected_epoch",
+          "meaning": "Authoritative expected evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_B",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "claimed_epoch": 7,
+          "expected_epoch": 7
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "D-EPOCH-06",
+      "family": "DERIVATION",
+      "target": "epoch_valid",
+      "schema": [
+        {
+          "name": "claimed_epoch",
+          "meaning": "Claimed evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "expected_epoch",
+          "meaning": "Authoritative expected evidence epoch for same subject at decision.",
+          "authority": "EPOCH_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "claimed_epoch": -1,
+          "expected_epoch": 7
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-01",
+      "family": "CHALLENGE",
+      "target": "security_signal",
+      "schema": [
+        {
+          "name": "attack_label",
+          "meaning": "Retrospective experiment ground truth only.",
+          "authority": "EXPERIMENTER",
+          "visibility": "OFFLINE_GROUND_TRUTH_ONLY",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "attack_label": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-02",
+      "family": "CHALLENGE",
+      "target": "signature_valid",
+      "schema": [
+        {
+          "name": "signature_valid",
+          "meaning": "Documentation mentions verifier outcome but no released native field.",
+          "authority": "VERIFIER",
+          "visibility": "DOCUMENTATION_ONLY",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "native_field": false,
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A"
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-03",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": true,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL10",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "recovery_manifest_complete",
+            "epoch": 7,
+            "sequence": 10,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL_DUP",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": false,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": true,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-04",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": false,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": true,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-05",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": true,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": true,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-06",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": true,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL10",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "recovery_manifest_complete",
+            "epoch": 7,
+            "sequence": 10,
+            "value": false,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": true,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-07",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": true,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL10",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "recovery_manifest_complete",
+            "epoch": 7,
+            "sequence": 10,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL_CONFLICT",
+            "source_id": "SYN_SOURCE_B",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": false,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": true,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-08",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": true,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL10",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "recovery_manifest_complete",
+            "epoch": 7,
+            "sequence": 10,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL11",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "unrelated_mode",
+            "epoch": 7,
+            "sequence": 11,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL_OTHER_CONFLICT",
+            "source_id": "SYN_SOURCE_B",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "unrelated_mode",
+            "epoch": 7,
+            "sequence": 1,
+            "value": false,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": true,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-09",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": true,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL10",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "recovery_manifest_complete",
+            "epoch": 7,
+            "sequence": 10,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL11",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "unrelated_mode",
+            "epoch": 7,
+            "sequence": 11,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": false,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": true,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-10",
+      "family": "CHALLENGE",
+      "target": "authorization_available",
+      "schema": [
+        {
+          "name": "authorization_available",
+          "meaning": "Availability of a mission-authorized recovery command/contact path at the decision.",
+          "authority": "COMMAND_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "BOOLEAN_LITERAL",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1040,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_STALE_SNAPSHOT",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "authorization_available": true
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-11",
+      "family": "CHALLENGE",
+      "target": null,
+      "schema": [],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1050,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {}
+      },
+      "diagnostic": {
+        "kind": "LEDGER_DIAGNOSTIC",
+        "inventory_complete": true,
+        "scope": "ALL_KEYS_SUBJECT_A_EPOCH_7_DECISION_1",
+        "known_trust_sources": [
+          "SYN_SOURCE_A",
+          "SYN_SOURCE_B"
+        ],
+        "claims": [
+          {
+            "claim_id": "CL01",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "approved_version",
+            "epoch": 7,
+            "sequence": 1,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL02",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "integrity_measurement_valid",
+            "epoch": 7,
+            "sequence": 2,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL03",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorization_valid",
+            "epoch": 7,
+            "sequence": 3,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL04",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "measured_state_current",
+            "epoch": 7,
+            "sequence": 4,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL05",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "authorized_command_path_restored",
+            "epoch": 7,
+            "sequence": 5,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL06",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "ground_spacecraft_state_agreed",
+            "epoch": 7,
+            "sequence": 6,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL07",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "required_telemetry_restored",
+            "epoch": 7,
+            "sequence": 7,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL08",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "health_checks_passed",
+            "epoch": 7,
+            "sequence": 8,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL09",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "no_residual_unauthorized_state",
+            "epoch": 7,
+            "sequence": 9,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          },
+          {
+            "claim_id": "CL10",
+            "source_id": "SYN_SOURCE_A",
+            "subject_id": "SYN_SUBJECT_A",
+            "key": "recovery_manifest_complete",
+            "epoch": 7,
+            "sequence": 10,
+            "value": true,
+            "issued_at_s": 1000,
+            "valid_for_s": 100,
+            "signature_valid": true,
+            "source_trusted": true,
+            "sequence_valid": true
+          }
+        ],
+        "contact_available": false,
+        "expected_epoch": 7,
+        "decision_time_s": 1050,
+        "minimum_sequence_by_source_epoch": 0
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1050,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    },
+    {
+      "case_id": "C-12",
+      "family": "CHALLENGE",
+      "target": "fresh",
+      "schema": [
+        {
+          "name": "issued_at_s",
+          "meaning": "Evidence issue time for the stated evidence and decision, integer seconds.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "decision_time_s",
+          "meaning": "Authoritative decision time, same clock.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "NONNEGATIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        },
+        {
+          "name": "valid_for_s",
+          "meaning": "Positive validity duration for the same evidence.",
+          "authority": "TIME_AUTHORITY",
+          "visibility": "OPERATIONAL_NATIVE",
+          "subject_scope": "SYN_SUBJECT_A",
+          "decision_scope": "SYN_DECISION_1",
+          "clock_scope": "SYN_CLOCK_A",
+          "domain": "POSITIVE_INTEGER",
+          "source_scope": "SYN_SOURCE_A",
+          "evidence_scope": "SYN_EVIDENCE_A",
+          "native_field": true
+        }
+      ],
+      "record": {
+        "context": {
+          "subject": "SYN_SUBJECT_A",
+          "decision_id": "SYN_DECISION_1",
+          "decision_time_s": 1100,
+          "epoch": 7,
+          "clock": "SYN_CLOCK_A",
+          "snapshot_id": "SYN_SNAPSHOT_1",
+          "source_id": "SYN_SOURCE_A",
+          "evidence_id": "SYN_EVIDENCE_A"
+        },
+        "values": {
+          "issued_at_s": 1000,
+          "decision_time_s": 1100,
+          "valid_for_s": 100
+        }
+      },
+      "requested_context": {
+        "subject": "SYN_SUBJECT_A",
+        "decision_id": "SYN_DECISION_1",
+        "decision_time_s": 1100,
+        "epoch": 7,
+        "clock": "SYN_CLOCK_A",
+        "snapshot_id": "SYN_SNAPSHOT_1",
+        "source_id": "SYN_SOURCE_A",
+        "evidence_id": "SYN_EVIDENCE_A"
+      }
+    }
+  ]
+}

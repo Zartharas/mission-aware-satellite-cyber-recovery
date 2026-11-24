@@ -1,0 +1,15 @@
+{
+  "execution_authorized": false,
+  "files": {
+    "reference_expectations.json": "f73e09dba34de0fba45982f3a9d5ec24c7ae3ef99c0b2079c240c8066b08c4b2",
+    "routing_manifest.json": "0cdf104707d60231e96ff7f294833c1e1dcb8b3cd280888e25f36e58390cd980",
+    "runtime_inputs.json": "3a6a94a4213f5c6382258c87a62e7586fb60cd7e4bedae4d061804ce60660b68",
+    "selector_pinned.py": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505"
+  },
+  "freeze_receipt_blob": "27b6422c3f83a3ad3383b102e61ea84239b04b4b",
+  "frozen_payload": "b61eacc4c9791c2767bb3699597e51db2ee13592",
+  "materialization": "Canonical sorted ASCII JSON with LF, 72 routed inputs and separate prespecified expectations; not evaluated.",
+  "record": "PHASE6_3_RUNTIME_MATERIALIZATION",
+  "selector_source": "Byte-identical read-only copy of frozen Study 2 selector; SHA-256 verified during preparation.",
+  "source_data": "Synthetic only; no original telemetry."
+}

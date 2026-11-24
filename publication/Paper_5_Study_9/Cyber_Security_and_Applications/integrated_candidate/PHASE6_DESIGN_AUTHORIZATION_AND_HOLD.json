@@ -1,0 +1,30 @@
+{
+  "record": "PAPER5_PHASE6_DESIGN_AUTHORIZATION_AND_HOLD",
+  "scope": "Paper 5 Studies 9 and 10; prospective extension only",
+  "author_message": "Yes, I authorize and approve.",
+  "approved": [
+    "prospective protocol design",
+    "feasibility assessment",
+    "adversarial design review",
+    "documentation-only recording in draft PR"
+  ],
+  "not_approved": [
+    "immutable protocol freeze",
+    "synthetic fixture generation or executable harness implementation",
+    "selector or new experiment execution",
+    "new source dataset retrieval or adjudication",
+    "frozen Study 2/9/10 modifications",
+    "PR merge",
+    "data release",
+    "journal submission"
+  ],
+  "baseline": "442a59b3319c9c2dd3224609e2169c87f83cac35",
+  "phase5_ci": {
+    "latex": 45294627270,
+    "research": 45294627295,
+    "conclusions": "both success"
+  },
+  "status": "DESIGN_REVIEW_DRAFT_NOT_FROZEN_NOT_EXECUTED",
+  "scientific_claims_new": false,
+  "author_attestation": false
+}

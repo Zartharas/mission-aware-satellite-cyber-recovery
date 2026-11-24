@@ -4,7 +4,7 @@
 Historical Study-8 technical-close, source-publication freeze, and Acta
 package-freeze artifacts retain their stage-local wording. This checker binds
 those frozen records and submitted publisher bytes while validating the live
-2026-11-21 cross-publication record (Paper 2 CEAS editorial rejection reconciled; Study-8 frozen checks unchanged).
+2026-11-23 cross-publication record (Paper 5 CSA submission reconciled; Study-8 frozen checks unchanged).
 
 The checker never executes scientific analysis and never modifies frozen
 evidence, statistics, or publisher-facing files.
@@ -56,8 +56,8 @@ EXPECTED_SUBMITTED_FILES = {
 CURRENT_DOCS = {
     "docs/CURRENT_PUBLICATION_STATE.md": {
         "required": (
-            "**Current-state date:** 2026-11-21",
-            "four publication lines that have been submitted",
+            "**Current-state date:** 2026-11-23",
+            "five publication lines that have been submitted",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_NORMALIZED_STATUS,
             PAPER1_ID,
@@ -75,7 +75,7 @@ CURRENT_DOCS = {
     },
     "docs/PUBLICATION_PHASE_MAP.md": {
         "required": (
-            "**Current-state reference:** 2026-11-21",
+            "**Current-state reference:** 2026-11-23",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
             PAPER2_ID,
@@ -93,7 +93,7 @@ CURRENT_DOCS = {
     },
     "publication/README.md": {
         "required": (
-            "four publication lines that have been submitted",
+            "five publication lines that have been submitted",
             ACTA_MANUSCRIPT_ID,
             ACTA_CURRENT_STATUS,
             PAPER1_ID,
@@ -308,7 +308,7 @@ def main() -> int:
     print(f"acta_submission_date={ACTA_SUBMISSION_DATE}")
     print(f"acta_current_status={ACTA_CURRENT_STATUS}")
     print(f"acta_current_normalized_status={ACTA_CURRENT_NORMALIZED_STATUS}")
-    print("publication_portfolio_state=FOUR_SUBMITTED_HISTORY_THREE_ACTIVE_ONE_REJECTED")
+    print("publication_portfolio_state=FIVE_HISTORICALLY_SUBMITTED_TWO_ACTIVE_THREE_REJECTED")
     print("study8_next_gate=POST_REJECTION_STUDY8_MANUSCRIPT_AND_VENUE_AUDIT")
     print("paper4_resubmission_handoff=PASS")
     print("remaining_candidate_audit=DEFERRED_WHILE_PAPER4_RETARGET_AUDIT_ACTIVE")

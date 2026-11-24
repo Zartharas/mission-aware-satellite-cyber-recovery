@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "record": "PAPER5_PHASE0_EDITORIAL_REVISION_BASELINE",
+  "date": "2026-11-23",
+  "status": "READ_ONLY_SCIENTIFIC_DATA_EDITORIAL_REVISION_ONLY",
+  "approved_scope": [
+    "PHASE_0_PROTECTION",
+    "PHASE_1_MANUSCRIPT_SCIENTIFIC_INTERPRETATION_NOVELTY"
+  ],
+  "reviewed_head": "25f88adb20b790dc0de0104aab4e5426ccf1a00a",
+  "baseline_manuscript_git_blob": "7048c47d323d2b3bb4e82cefd5e3818bf753296c",
+  "baseline_bibliography_git_blob": "0489c924d7bbd71f95879ebf6eafffcd285c62e2",
+  "baseline_compilation": {
+    "pages": 23,
+    "overfull_boxes": 0,
+    "unresolved_references": 0,
+    "latex_ci_run": 45241540654,
+    "research_validation_run": 45241540672,
+    "ci_complete": true
+  },
+  "source_evidence": {
+    "study9_mapping_path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/mapping_matrix.json",
+    "study9_policy_path": "study9/results/S9-RTSI-001_CANONICAL_RUN_20260914/policy_strata.json",
+    "study10_derived_path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/study10_derived/",
+    "study10_original_sha256": [
+      "f727bc80823d9fe5a47d44c361b9aefcdadc6b5a144331f2857079ce91508d1c",
+      "93dd4f92810a33f0dbe13dd11f842f732a4ccc9fac322a762fcab557185623f6",
+      "ba343e858b4d54256f8f4d8b118bb87a95a49a0d99baebc394ac5517c418ddc9"
+    ]
+  },
+  "protected_results": {
+    "study9_source_rows_by_dataset": {
+      "CUCD_ID_V3": 25000,
+      "AEGISSAT_2025": 137965,
+      "UNSW_IOTSAT_2026": 404798
+    },
+    "study9_total_source_rows": 567763,
+    "study9_native_state_groups_per_dataset": 1,
+    "study9_eight_variables_unknown": true,
+    "study9_direct_or_derived_coverage": {
+      "numerator": 0,
+      "denominator": 8
+    },
+    "study9_mapping_counts": [
+      {
+        "dataset": "CUCD_ID_V3",
+        "ambiguous": 4,
+        "absent": 4
+      },
+      {
+        "dataset": "AEGISSAT_2025",
+        "ambiguous": 5,
+        "absent": 3
+      },
+      {
+        "dataset": "UNSW_IOTSAT_2026",
+        "ambiguous": 5,
+        "absent": 3
+      }
+    ],
+    "study9_policy_action_set_cardinalities": {
+      "S2_B0_FAIL_CLOSED": 2,
+      "S2_B1_FAIL_OPERATIONAL": 2,
+      "S2_B2_RISK_THRESHOLD": 3,
+      "S2_S1_EVIDENCE_AWARE": 3
+    },
+    "study9_guaranteed_sidecars": {
+      "S2_B0_FAIL_CLOSED": 6,
+      "S2_B1_FAIL_OPERATIONAL": 7,
+      "S2_B2_RISK_THRESHOLD": 7,
+      "S2_S1_EVIDENCE_AWARE": 8
+    },
+    "study9_unique_action_fraction_numerator": 0,
+    "study10_tier_a_slots": 32,
+    "study10_ambiguous": 14,
+    "study10_absent": 18,
+    "study10_direct": 0,
+    "study10_derived": 0,
+    "study10_strata": 4,
+    "study10_tier_c_policy_stratum_rows": 16,
+    "study10_action_endpoint": "NOT_EVALUABLE_FOR_OPERATIONAL_ACTION",
+    "study10_esa_paired_channels": 224,
+    "study10_esa_common_cells": 896,
+    "study10_equal_cells": 842,
+    "study10_different_cells": 54,
+    "study10_new_v2_categorical": 224,
+    "study10_synthetic_oracle_comparisons_recorded": 1024
+  },
+  "classifications": {
+    "MANUSCRIPT_ONLY": [
+      "framing",
+      "estimand_table",
+      "all_unknown_proof",
+      "contract_rationale",
+      "scope_boundary",
+      "abstract"
+    ],
+    "SOURCE_CITATION": [
+      "closest_priors",
+      "NIST_ground_profile",
+      "citation_to_claim_justifications"
+    ],
+    "READ_ONLY_DERIVED_EVIDENCE": [
+      "derive numeric assertions using already archived JSON; no study rerun"
+    ],
+    "AUTHOR_ONLY": [
+      "claims about personal correspondence, ethics, funding, rights, originality, submission"
+    ],
+    "NEW_PROSPECTIVE_RESEARCH": [
+      "new mission dataset",
+      "new field adjudication",
+      "G5",
+      "new operational recovery experiment",
+      "policy change"
+    ]
+  },
+  "prohibitions": [
+    "edit_Study2_or_Study9_or_Study10_frozen_results",
+    "original_telemetry_publication",
+    "reinterpret_unknown_as_false",
+    "pool_nonexchangeable_units",
+    "merge_PR",
+    "submit_or_publish",
+    "invent_prior_work_claims",
+    "infer_operational_recovery"
+  ],
+  "rollback": "Original manuscript blob available at reviewed PR commit; revision is confined to review-branch manuscript, bibliography and validation/support files."
+}

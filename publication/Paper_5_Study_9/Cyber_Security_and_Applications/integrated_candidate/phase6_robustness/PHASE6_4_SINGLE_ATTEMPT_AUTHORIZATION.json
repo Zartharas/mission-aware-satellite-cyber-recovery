@@ -1,0 +1,48 @@
+{
+  "record": "PAPER5_PHASE6_4_SINGLE_ATTEMPT_AUTHORIZATION",
+  "authorization_message": "yes, I authorize",
+  "authorization_scope": "One controlled canonical experiment, conditional upon successful exact-preflight-head CI and activation-wrapper validation; no automatic rerun.",
+  "preflight_head": "d2bcaf82e08b751f7e49332e489d96f749cbdd14",
+  "qualified_payload": "23e36944b03c6b45e2bf6c0eda0bdb480d03e3d5",
+  "qualification_manifest_blob": "0d91f0c0f9d9c099d1d380998d4608217ed1102b",
+  "launcher_sha256": "4d3e5218a1477860067bdc30d32cb9f32d0743f394674b2c1f7260195b4664b6",
+  "preflight_evidence_sha256": {
+    "attempt.json": "bb82d96be7a9708d32b55f4cb4c16caa7e4d7568e5982431df29b5780f6c92be",
+    "report.json": "79b431e88e48dc34123ebfd7f841e8cae6f6e1e8cbc288f6e75948bb608d1bb9",
+    "SHA256_MANIFEST.json": "e93ef23e9093f833201dd867d80b510763e227630ada2fcea90115446f55bf6f"
+  },
+  "ci": [
+    {
+      "id": 45306612104,
+      "conclusion": "success"
+    },
+    {
+      "id": 45306612083,
+      "conclusion": "success"
+    },
+    {
+      "id": 45306612258,
+      "conclusion": "success"
+    }
+  ],
+  "attempt_id": "P5_PHASE6_4_CANONICAL_ATTEMPT_001",
+  "design": {
+    "controls": 72,
+    "mapping": 64,
+    "ledger": 8,
+    "metamorphic_groups": 17,
+    "transformed_evaluations": 25,
+    "logical_endpoints": 78732
+  },
+  "governance": {
+    "canonical_execution_authorized_conditionally": true,
+    "canonical_execution_performed": false,
+    "automatic_rerun": false,
+    "original_data_access": false,
+    "protocol_change": false,
+    "merge": false,
+    "publication": false,
+    "submission": false
+  },
+  "limitations": "Local operator, trusted host and daemon. Technical oracle separation, not independent human replication. Host disconnection is an operator control. Failed or interrupted attempts remain evidence, not a license to retry. Activation commit and wrapper byte identity must be verified before use."
+}

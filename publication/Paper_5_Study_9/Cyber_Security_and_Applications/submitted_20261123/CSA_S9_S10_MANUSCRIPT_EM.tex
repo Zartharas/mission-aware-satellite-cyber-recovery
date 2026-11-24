@@ -1,0 +1,828 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{longtable}
+
+\emergencystretch=2em
+
+\journal{Cyber Security and Applications}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit}
+
+\author[aff1]{Aman Kumar Singh\corref{cor1}}
+\ead{aman.singh2406@live.com}
+\cortext[cor1]{Corresponding author. ORCID: 0009-0008-9752-3743.}
+\affiliation[aff1]{organization={Independent Researcher},
+            city={The Woodlands},
+            state={Texas},
+            country={United States}}
+
+\begin{abstract}
+Anomaly labels and timestamps do not establish valid or authorized satellite recovery decisions. We audit source-field qualification under a fixed eight-predicate interface using two separately governed studies and a prospectively frozen synthetic extension. Study 9 made 24 source-to-predicate judgments across CuCD-ID v3, AegisSat 2025 and UNSW-IoTSAT 2026: none qualified, leaving eight unknowns per dataset. The 567,763 rows represent multiplicities, not independent recovery decisions. Study 10 made 32 published-schema judgments across ESA v2 Missions 1--3 and OPS-SAT-AD v2: 14 ambiguous and 18 absent. All 16 operational stratum-policy assessments were not evaluable without documented decision-time validity. The optional ESA v1/v2 comparison found 54 changed annotations among 896 shared cells across 224 matched channels; mapping-class stability remains unanswered. The extension matched 72/72 synthetic controls and 25/25 transformations across 17 groups. Exhaustive analysis of 78,732 model-policy-observation endpoints reproduced unrestricted minimum sidecar sizes of 6, 7, 7 and 8, decreasing to 5, 6, 6 and 7 under a required-key restriction and 1, 2, 2 and 3 under a hypothetical snapshot contract. These conditional mathematical results distinguish detection data from qualified recovery evidence without establishing mission feasibility or live recovery efficacy.
+\end{abstract}
+
+\begin{keyword}
+satellite cybersecurity \sep semantic observability \sep cyber resilience \sep spacecraft telemetry \sep recovery state \sep decision identifiability
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+
+Public satellite cybersecurity datasets support repeatable detection and telemetry research: CuCD-ID uses a NOS3/cFS CubeSat environment \cite{fayyaz2026cucd}, AegisSat combines a physical CubeSat with emulation and controlled attacks \cite{idan2025aegissat}, and UNSW-IoTSAT uses a hybrid cyber-physical and radio-frequency testbed \cite{abdelhameed2026unsw}. Detection data, however, need not establish the verifier, trust, temporal validity, contradiction, completeness, guard and authorization predicates required by a recovery decision. Intrusion response and cyber-resiliency engineering distinguish detection from risk-informed response and recovery \cite{bashendy2023irs}, \cite{ross2021cyberresilient}.
+
+Unlike predictive transfer and harmonization research \cite{koh2021wilds}, \cite{cerasuolo2026transfer}, \cite{rodriguez2026harmonization}, this audit tests whether native fields qualify under a fixed recovery-state interface. Study 9's population, mappings, four research questions and selector were internally frozen before accepted results. Study 10 was separately frozen after disclosed schema, header, count and metadata inspection. Unresolved propositions remain unknown; their post-results integration is not joint preregistration.
+
+The audit records 24 Study 9 and 32 Study 10 source-field judgments and their exclusion rationales. Study 9 quantifies mathematical action ambiguity; Study 10 tests whether operational evaluation is possible. A qualifying native field with documented decision-time, trust and provenance semantics would refute the zero-coverage classification for its dataset and contract. The extension, frozen after historical results but before canonical execution, tests stipulated semantic qualification and sensitivity to two hypothetical completion-domain restrictions. No new detector, cryptographic mechanism, general optimal-response theory, universally necessary interface or operational recovery performance is claimed.
+
+\paragraph{Integration scope and principal question.}
+\emph{Under a fixed recovery-state semantic contract, which decision propositions are evidenced in public space-cyber and released real-flight anomaly-detection representations, and what downstream decision statements are justified when those propositions remain unknown?} Study 9 (\texttt{S9-RTSI-001}) evaluates mathematical action-set identifiability across three frozen datasets; Study 10 (\texttt{S10-RSEI-001}) audits ESA Anomaly Dataset v2 Missions 1--3 \cite{esaad2025v2} and OPS-SAT-AD v2 \cite{opssat2024v2} for operational evaluability. Their endpoints are nonexchangeable.
+
+\subsection{Two distinct estimands and permitted inferences}
+Table~\ref{tab:estimands} summarizes the distinct evidence units and permissible inferences.
+\begin{table}[H]
+\centering
+\small
+\caption{Pre-existing study endpoints. These are different analyses, not pooled trials or competing operational recovery-rate estimates.}
+\label{tab:estimands}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.10\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}}
+\toprule
+Study & Evidence / observational unit & Endpoint and denominator & Permitted conclusion \\
+\midrule
+9 & Published native fields projected from each of three finite datasets to an eight-predicate state; each original row retains multiplicity. & Exact reachable-action set and guaranteed smallest sufficient sidecar under four frozen selectors; source rows 25,000, 137,965, 404,798. & Selector-conditioned mathematical identifiability, not observed actions or success rates. \\
+10 & Four descriptive published-schema strata; one source/variable mapping judgment per predicate and stratum. & 32 semantic-classification slots (8 per stratum); 16 conditional operational action-evaluability assessments. & Representation-level observability and operational \texttt{NOT\_EVALUABLE}; no flight recovery rate. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Research questions}
+
+The study follows four internally prespecified Study 9 research questions:
+
+\begin{description}[leftmargin=1.15cm,labelwidth=0.95cm,style=nextline]
+    \item[RQ1] Across internally prespecified public space-cyber datasets, which recovery decision variables are directly observable, deterministically derivable by a predeclared rule, ambiguous, or absent without using attack labels as operational truth?
+    \item[RQ2] Conditioned only on qualifying dataset-native operationally visible state, when is the downstream recovery action uniquely identifiable versus ambiguous across admissible completions of missing decision state?
+    \item[RQ3] What minimal additional sidecar or interface state is sufficient to make the downstream recovery action uniquely identifiable without imputing unavailable mission, trust, freshness, epoch, contradiction, or authorization semantics?
+    \item[RQ4] Which missing recovery-state semantics are common across independently generated public space-cyber datasets and which are dataset-specific?
+\end{description}
+
+The Results section answers these Study 9 questions; the Study 10 questions and their partial or conditional endpoints are identified separately below. The Study 9 design and semantic adjudication were internally frozen before the accepted canonical results, following source/schema validation and prior exposure. This is not a claim of registration in an independent protocol registry.
+
+\subsection{Nine-question source-to-result traceability}
+\label{sec:phase2rq}
+Table~\ref{tab:phase2rq} aligns the four original Study 9 questions and five Study 10 questions with their distinct evidence units. This is an editorial consolidation after both studies, not a merged prospective protocol. Unmeasured endpoints remain unanswered.
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{longtable}{@{}p{0.09\linewidth}p{0.25\linewidth}p{0.36\linewidth}p{0.20\linewidth}@{}}
+\caption{Question-level evidence and inference limits, retained without pooling Study 9 and Study 10.}\label{tab:phase2rq}\\
+\toprule RQ & Frozen evidence unit & Supported result & Critical boundary \\
+\midrule
+\endfirsthead
+\toprule RQ & Frozen evidence unit & Supported result & Critical boundary \\
+\midrule
+\endhead
+\texttt{RQ1} & 24 Study 9 dataset--predicate mappings & No direct or permitted derived values; ambiguous/absent 4/4, 5/3, 5/3. & Field similarity is not operational evidence. \\
+\texttt{RQ2} & Three native-state groups, four separately frozen selector policies & All group-level action sets non-singleton; row-weighted unique-action fraction 0 under each policy. & Exact mathematical completion, not observed flight actions. \\
+\texttt{RQ3} & Frozen guaranteed sidecar search per policy & Minimum sufficient sidecar sizes B0/B1/B2/S1 = 6/7/7/8. & Architecture- and selector-specific, not universal. \\
+\texttt{RQ4} & Intersection of three Study 9 unresolved-variable sets & All eight predicates unresolved across all three datasets; mapping-class composition still differs by source. & Not a claim that all telemetry fields are missing. \\
+\texttt{RQ-E1} & 32 published-schema variable slots, four Study 10 strata & 14 ambiguous and 18 absent; 0/8 qualifying fields in every stratum. & Metadata and header scope, not mission-wide capability. \\
+\texttt{RQ-E2} & Three ESA v2 missions and one OPS-SAT-AD v2 stratum & G2-frozen primary four-stratum descriptive comparison completed. & Historical secondary Hack-A-Sat contrast untested; no independent-mission inference. \\
+\texttt{RQ-E3} & Within-mission ESA v1/v2 channel metadata pairs & 224 matched channels; 842 of 896 shared cells equal, 54 \texttt{Physical Unit} differences, 224 v2 \texttt{Categorical} additions. & \emph{Partial}: metadata sensitivity, not v1/v2 recovery mapping-class transitions. \\
+\texttt{RQ-E4} & Four Study 10 strata by four policy identifiers & 16/16 \texttt{NOT\_EVALUABLE} without decision time and validity window. & No operational action set or recovery-rate denominator. \\
+\texttt{RQ-E5} & Synthetic controls and independent selector oracle & 18 synthetic cases; 22 repository tests; 1,024 parity comparisons with zero mismatches. & Boolean selector parity; projection equivalence is unestablished. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+Field-level evidence for both studies is provided as source-editable Supplementary Appendix S1, compiled separately from this journal manuscript. The canonical Study 9 and Study 10 JSON records remain authoritative for complete adjudication rationales.
+
+\section{Related Work and Research Gap}
+
+\subsection{Public space-cybersecurity datasets and testbeds}
+CuCD-ID supplies labelled NOS3/cFS data and COSMOS reproduction tooling \cite{fayyaz2026cucd}; AegisSat combines a physical CubeSat, environmental emulation and controlled attacks \cite{idan2025aegissat}; UNSW-IoTSAT supplies hybrid satellite, sensor, communications and RF features \cite{abdelhameed2026unsw}. Tahir et al. \cite{tahir2025benchmark} compare spacecraft anomaly detectors and telemetry datasets for diagnostic suitability, operational relevance and deployment. This audit instead evaluates recovery-specific authority and evidence qualification, not dataset quality.
+
+\subsection{Cross-dataset transfer and harmonization}
+Distribution-shift evaluation \cite{koh2021wilds} and heterogeneous-network intrusion-detection transfer \cite{cerasuolo2026transfer} address predictive robustness. Rule-based IoT label harmonization \cite{rodriguez2026harmonization} and security ontologies \cite{akbar2023ontology} address semantic interoperability. Neither statistical correlation nor normalized labels alone establish a decision-time recovery proposition.
+
+\subsection{Intrusion response and cyber resilience}
+Intrusion-response systems select actions after detection \cite{bashendy2023irs}; NIST cyber-resiliency engineering addresses trustworthy state, recovery and adaptation \cite{ross2021cyberresilient}. NIST IR 8401 and 8441 address ground-segment command and control and hybrid satellite interfaces \cite{nist2022ground}, \cite{mccarthy2023hsn}. AIRSS addresses real-time adaptive space-system mitigation \cite{sahakian2021airss}. Response selection is prior art; the audit asks whether published fields establish the prerequisites of a fixed selector without imputing missing state.
+
+\subsection{Closest methods and limits of novelty}
+TRACE constructs conformal candidate-action sets and a triage release gate under benchmark feature-space feasibility constraints, not packet-level physical realizability \cite{le2026trace}. RTEF-IDS governs evidence admission, feedback and retained-history replacement \cite{li2026rtef}; hybrid industrial CPS research studies knowledge-based response support \cite{guarino2026hybrid}. Cybersecurity investment and control-effect uncertainty are also established topics \cite{zhang2025uncertainty}. Table~\ref{tab:priorcompare} compares documented evaluation objects, not performance; unassessed capabilities are not presumed absent.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\caption{Closest-method positioning by evaluation object; not a performance benchmark.}
+\label{tab:priorcompare}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}>{\raggedright\arraybackslash}p{0.37\linewidth}@{}}
+\toprule
+Work & Evaluation object & Distinction from the present audit \\
+\midrule
+NIST 8401/8441 \cite{nist2022ground,mccarthy2023hsn} & Ground and hybrid satellite risk profiles & Guidance on controls and interfaces, rather than dataset-field qualification. \\
+AIRSS \cite{sahakian2021airss} & Space-system adaptive mitigation & Response selection is prior art; no performance comparison. \\
+Semantic maps \cite{akbar2023ontology,rodriguez2026harmonization} & Security ontologies and label harmonization & Standardizing concepts differs from admitting decision-time propositions. \\
+Tahir et al. \cite{tahir2025benchmark} & Spacecraft health-monitoring data and detector benchmarking & Diagnostic suitability differs from recovery-specific authority and evidence qualification. \\
+TRACE \cite{le2026trace} & Feature-feasible action sets and triage release & Conformal triage and feasibility constraints are prior art; our full Boolean cube is unconstrained. \\
+RTEF-IDS \cite{li2026rtef} & Admission and replacement of intrusion evidence & Evidence governance is prior art; different source-field endpoint. \\
+Hybrid CPS \cite{guarino2026hybrid} & Knowledge-based response decision support & Industrial CPS response, not a matched evaluation of these releases. \\
+ESA/OPS products \cite{esaad2025v2,opssat2024v2} & Anomaly-detection resources & Published representations, not observed recovery decisions. \\
+Studies 9/10 & 24 source-field judgments; 32 published-schema judgments & Conditional mathematical action ambiguity and separately withheld operational evaluation. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Recent space-security work further bounds novelty: an onboard CCSDS firewall audits ingress protocol and configuration \cite{im2026ccsds}; Stargate enforces CubeSat Space Protocol identities, commands and mission context \cite{ramsey2026stargate}; SAFE applies calibrated trust checks to environmental telemetry for satellite IoT links and evaluates a communications mechanism \cite{qasim2026safe}; evidence-bound action warrants require freshness and authorization before SOC actions \cite{torstensson2026warrants}. These are active enforcement or admission methods, not the present cross-release field audit. We neither reproduce their performance nor claim superiority. Stargate was consulted as a November 2026 preprint; the CCSDS comparison is based on the publisher abstract.
+
+The method combines an eight-predicate admission rubric, exhaustive analysis of fixed-selector completions and a separate test of operational evaluability in published flight-data representations. Zero admitted native state implies zero dataset-dependent action information under the fixed selector; the resulting action sets have limited independent empirical variation. The empirical contribution is the auditable source-to-predicate classification, not repetition of a deterministic action-set calculation.
+
+\section{Study Design}
+
+\subsection{Two-study design and nonexchangeable units}
+Study 9 retains its original frozen RQ1--RQ4, three datasets, finite source-row denominators, four-policy action sets, and exact minimal-sidecar analysis. Study 10 retains its separately frozen RQ-E1--RQ-E5, four descriptive source strata (three ESA v2 missions and one OPS-SAT-AD v2 stratum), schema-level mapping endpoints, conditional action-evaluability rule, synthetic controls, and optional matched ESA v1/v2 release sensitivity. Both use the pinned eight-variable Study 9 semantic contract and the four Study 2 policy identifiers, without altering either. Scientific outcomes were generated under separate protocols. Study 9 source rows cannot be pooled with Study 10 source-variable slots, and the ESA missions are not treated as independent samples of spacecraft effectiveness. The post-results manuscript integration is disclosed here explicitly.
+
+\subsection{Frozen recovery-state interface}
+
+The downstream interface contains eight binary recovery-state variables:
+\begin{enumerate}[label=(\arabic*)]
+    \item \texttt{signature\_valid},
+    \item \texttt{source\_trusted},
+    \item \texttt{fresh},
+    \item \texttt{epoch\_valid},
+    \item \texttt{contradictory},
+    \item \texttt{minimum\_evidence\_complete},
+    \item \texttt{security\_signal}, and
+    \item \texttt{authorization\_available}.
+\end{enumerate}
+
+The frozen Study 2 selector is used only as a bounded downstream decision interface. It is not retrained, optimized, or revalidated by this study. The selector identity is fixed by SHA-256 in the Study 9 governance records.
+
+\subsection{Hypothetical controller, threat and evidence authority}
+The evaluated interface is a bounded model of a hypothetical ground- or spacecraft-side \emph{recovery-decision actor}; it is not an implemented flight-control service. The assumed decision actor would obtain cryptographic-verifier results, an authorized-source policy, an epoch/time reference, an evidence-completeness rule, a contradiction assessment, a qualified security guard, and a mission-authorized recovery path from relevant authorities. A public anomaly benchmark cannot be assumed to encode these authorities simply because it records telemetry, simulator attacks, labels, channel identifiers, or command metadata. An adversary could seek to exploit untrusted or stale evidence or misleading offline labels; this study does \emph{not} simulate adversarial replays, forge signatures, compromise those authorities, demonstrate key management, or test real-time operator/spacecraft failover.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Decision-proposition rationale for the frozen eight-variable interface. Authorities and misuse consequences are conceptual design requirements, not observed source functions.}
+\label{tab:predicatecontract}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.185\linewidth}>{\raggedright\arraybackslash}p{0.245\linewidth}>{\raggedright\arraybackslash}p{0.245\linewidth}>{\raggedright\arraybackslash}p{0.245\linewidth}}
+\toprule
+Predicate & Required decision-time authority & Insufficient surrogate & Risk if falsely accepted \\
+\midrule
+\texttt{signature\_valid} & Qualified cryptographic-verification outcome bound to accepted evidence. & CRC, message ID, attack label. & Accepting tampered or unauthenticated evidence. \\
+\texttt{source\_trusted} & Current source-admission policy or trust registry. & Source identifier. & Trusting an unapproved producer. \\
+\texttt{fresh} & Decision-time reference and valid evidence-age window. & Timestamp without decision-time context. & Acting on stale or replayed evidence. \\
+\texttt{epoch\_valid} & Authoritative recovery/key/mission epoch binding. & Sequence counter or event time alone. & Cross-epoch or rolled-back state use. \\
+\texttt{contradictory} & Qualified check for conflicts among accepted propositions. & Anomaly class or severity tag. & Ignoring materially inconsistent evidence. \\
+\shortstack[l]{\texttt{minimum\_}\\\texttt{evidence\_}\\\texttt{complete}} & Mission-approved evidence checklist with verification status. & Many populated telemetry columns. & Prematurely authorizing recovery. \\
+\texttt{security\_signal} & Current, accepted security guard at decision instant. & Retrospective ground-truth label. & Treating offline truth as a live alarm. \\
+\shortstack[l]{\texttt{authorization\_}\\\texttt{available}} & Time-valid operator/mission permission and viable control path. & Historical command log or telecommand name. & Proceeding without operational authority. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:predicatecontract} describes risks that motivate conservative interpretation of the fixed Study 2 selector. These risks are not measured failure frequencies or proofs of necessity for all space systems. In the frozen semantic contract, minimum evidence completeness refers to ten accepted recovery criteria: approved version, valid integrity measurement, valid authorization, current measured state, restored authorized command path, ground--spacecraft agreement, restored required telemetry, passed health checks, no residual unauthorized state, and a complete recovery manifest. Completeness denotes presence of all ten accepted current criteria, not satisfaction of their required values. A mission-approved checklist alone is not evidence that these criteria are satisfied.
+
+\subsection{Dataset population}
+
+The internally frozen primary population consists of CuCD-ID v3 \cite{fayyaz2026cucddata}, AegisSat 2025 \cite{elovici2025aegissatdata}, and UNSW-IoTSAT 2026. The latter is bound to source repository commit \url{48ccc99ebd182d886eb18d2b94e95baba5a2a89a} at \url{https://github.com/Osama-Abdelhameed/UNSW-IoTSAT}. Each dataset is analyzed as a separate finite source population; no pooled inferential population is constructed. Canonical source-row counts are shown in Table~\ref{tab:datasets}.
+
+\begin{table}[htbp]
+\centering
+\caption{Frozen Study 9 dataset populations.}
+\label{tab:datasets}
+\begin{tabular}{lrr}
+\toprule
+Dataset & Source rows & Native-state groups \\
+\midrule
+CuCD-ID v3 & 25,000 & 1 \\
+AegisSat 2025 & 137,965 & 1 \\
+UNSW-IoTSAT 2026 & 404,798 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Semantic mapping rubric}
+
+For dataset $d$ and required recovery variable $v$, the frozen mapping function assigns
+\begin{equation}
+\label{eq:mapping}
+M_d(v) \in \{\mathrm{DIRECT},\mathrm{DERIVABLE},\mathrm{AMBIGUOUS},\mathrm{ABSENT}\}.
+\end{equation}
+\texttt{DIRECT} requires a native operational field whose documented semantics establish the recovery variable. \texttt{DERIVABLE} requires a frozen deterministic rule whose inputs are themselves available under the allowed interface. \texttt{AMBIGUOUS} means one or more fields are semantically related but do not establish the required proposition. \texttt{ABSENT} means no eligible native field represents the proposition.
+
+Attack or scenario labels are excluded as operational recovery evidence. They may describe the source population, but they cannot be converted into trust, authorization, freshness, evidence completeness, contradiction state, cryptographic validity, or an operational security signal for the primary endpoint.
+
+No deterministic derivation rules were permitted in the frozen Study 9 adjudication. Consequently, direct-or-derivable coverage can exceed direct coverage only if a prospectively frozen derivation exists; none did.
+
+\subsection{Protocol deviation for UNSW \texttt{Position\_Anomaly}}
+
+The initial semantic adjudication treated \texttt{Position\_Anomaly} as a direct binary security signal. Full-population validation found 72 of 404,798 canonical rows outside the documented 0/1 domain. Before accepting canonical results, a protocol deviation reclassified the field from direct to ambiguous for the entire frozen UNSW population. The analysis did not drop the violating rows, salvage only binary-looking rows, coerce non-zero values, realign neighboring columns, or substitute attack labels. This conservative correction was recorded before the accepted canonical run.
+
+\subsection{Decision identifiability}
+
+Let $U_d$ be the unresolved recovery-state variables for dataset $d$. For each native record or losslessly collapsed native-state group $g$, all binary assignments to $U_d$ are mathematically admissible completions under the frozen model. This is an unconstrained Boolean completion space: no independently validated mission-feasibility constraints, dependencies among predicates, or probabilities were imposed. In particular, a complete evidence checklist and separate authorization, epoch, or freshness predicates may be coupled in actual systems. Mathematical admissibility is not physical realizability. For policy $p$, the reachable action set is
+\begin{equation}
+\label{eq:reachable}
+A_{d,p}(g)=\{f_p(c):c\in C_d(g)\},
+\end{equation}
+where $f_p$ is the frozen selector under policy $p$ and $C_d(g)$ is the set of unconstrained mathematical completions. A recovery action is uniquely identifiable only when
+\begin{equation}
+\label{eq:unique}
+|A_{d,p}(g)|=1.
+\end{equation}
+The row-level unique-action fraction is computed with exact multiplicity weighting after lossless state collapse.
+
+Four policies were frozen and evaluated separately:
+\begin{itemize}[nosep,leftmargin=*]
+    \item \texttt{S2\_B0\_FAIL\_CLOSED},
+    \item \texttt{S2\_B1\_FAIL\_OPERATIONAL},
+    \item \texttt{S2\_B2\_RISK\_THRESHOLD}, and
+    \item \texttt{S2\_S1\_EVIDENCE\_AWARE}.
+\end{itemize}
+Policy pooling or averaging is prohibited.
+
+\subsection{Guaranteed minimal sidecar}
+
+For unresolved set $U$, a sidecar subset $S\subseteq U$ is sufficient only if revealing every possible assignment to $S$ guarantees a singleton reachable action set across every assignment to the unrevealed variables $U\setminus S$. The endpoint retains every sufficient subset of minimum cardinality. The guarantee is over the full unconstrained completion space, not a physically validated state space. Restricting that space to feasible states can only preserve or reduce the reachable action set and cannot increase the smallest guaranteed sufficient sidecar for the same selector and observation assumptions. No restricted model was evaluated in the original Study 9 run; the separately frozen extension evaluates two conditional logical restrictions without inferring an operational minimum (Section~\ref{sec:extensionresults}). Actual unavailable values are never substituted merely to reduce ambiguity.
+
+\subsection{Finite-population reporting and audit}
+
+Primary reporting uses deterministic finite-population counts, fractions, set operations, and exact combinatorial summaries. No sampling model was introduced, so no $p$-values or confidence intervals are reported. The canonical implementation uses lossless decision-equivalent state collapse with exact multiplicity preservation. A separate independent audit reconstructs raw-row projection and policy-independent coverage without calling the canonical projector or mapping implementation. Accepted outputs are bound by SHA-256 in the frozen result record.
+
+
+\subsection{Study 10: real-flight published-schema observability (RQ-E1--RQ-E5)}
+Study 10 evaluated the v2 ESA Anomaly Dataset for Missions 1--3 \cite{esaad2025v2} and OPS-SAT-AD v2 \cite{opssat2024v2}. The frozen primary units were four descriptive source strata times eight recovery-state variables, yielding 32 classification slots, \emph{not} 32 independent experiments or 32 independent spacecraft observations. Study 10 applied the same fixed classes \texttt{DIRECT}, \texttt{DERIVABLE\_BY\_PREDECLARED\_RULE}, \texttt{AMBIGUOUS}, and \texttt{ABSENT}, with an empty derivation registry and a required visibility role for each classification. A field was operationally direct only when a documented native field supplied the decision-relevant value at the required decision point. Source identifiers did not establish trusted membership; timestamps without a decision reference and validity interval did not establish freshness; retrospective anomaly labels did not count as live security signals; and telecommand presence did not establish an available authorized contact path.
+
+Study 10's bounded source inventory checked nine version-pinned local files and the published metadata inventory described in Table~\ref{tab:stud10scope}. It inspected exactly 12 ESA metadata tables, plus the first-line headers only of the two OPS-SAT CSV files; it did \emph{not} inspect OPS-SAT rows, deserialize ESA nested pickled channel tables, or test operational telemetry samples. ESA v2 outer ZIP central directories accounted for 224 channel and 821 telecommand nested archives without opening their payloads. The author-reported ESA outer-layout report digest was not independently rehashed from uploaded report bytes; by contrast, the earlier G4-05 execution-boundary and G4-06 schema JSON files were independently received and hashed. Consequently \texttt{ABSENT} here means \emph{not represented by a qualifying field in the inspected published data-product schema}, not \emph{absent from the spacecraft or ground system}. The scope cannot rule out a recovery-relevant signal inside an uninspected payload, undocumented operator system, or alternate release.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Bounded published-representation inspection. The inventory identifies coverage of release metadata, not completeness of mission operational information.}
+\label{tab:stud10scope}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.43\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
+\toprule
+Stratum & Released items whose schema was examined & Inspection boundary \\
+\midrule
+ESA v2 M1 & \texttt{anomaly\_types.csv}, \texttt{channels.csv}, \texttt{labels.csv}, \texttt{telecommands.csv}. & Four metadata tables; 76 channel archives and 698 telecommand archives in the outer directory. \\
+ESA v2 M2 & Above four, plus \texttt{events.csv}. & Five metadata tables; 100 channel and 123 telecommand archives in the outer directory. \\
+ESA v2 M3 & \texttt{anomaly\_types.csv}, \texttt{channels.csv}, \texttt{labels.csv}. & Three metadata tables; 48 channel and no telecommand archives in the outer directory. \\
+OPS-SAT-AD v2 & \texttt{dataset.csv} derived-feature schema; \texttt{segments.csv} telemetry-segment schema. & First-line headers only (23 and 8 columns, respectively); no source sample values or rows. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Under the frozen conditional action rule, Study 10 could enumerate admissible policy action sets only for a defensible native recovery decision time and evidence-validity window. If that prerequisite was absent, the specified result was \texttt{NOT\_EVALUABLE\_FOR\_OPERATIONAL\_ACTION}, not a zero rate or an assumed false recovery-state vector. Separately, synthetic G3 controls tested 18 prespecified cases and all 256 complete Boolean inputs under each of four policies against an independent oracle; these are methodology tests and do not contribute to primary empirical coverage.
+
+The optional Study 10 paired sensitivity compared ESA v1 \cite{esaad2024v1} and v2 \cite{esaad2025v2} \texttt{channels.csv} metadata by exact (mission, channel identifier, field) matching. It counted shared-field equality/difference and release-specific columns without reading nested channel telemetry. ESA v1 was not a fifth primary stratum. Study 10's source-rights status remained conditional under the locally authorized R1 evidence standard, and no third-party dataset contents were redistributed.
+
+\begin{figure}[H]
+\centering
+\small
+\fbox{\begin{minipage}{0.86\linewidth}\centering
+\textbf{Inspected published data representation}\\[2pt]
+Detection-oriented fields, headers, metadata, and retrospective labels
+\end{minipage}}
+\par\vspace{5pt}
+$\Downarrow$ \quad \textit{Frozen eight-predicate admission; labels are not recovery authority}
+\par\vspace{5pt}
+\fbox{\begin{minipage}{0.86\linewidth}\centering
+\textbf{Decision-state interface}\\[2pt]
+Accept only documented direct or predeclared-derived operational propositions;\\
+retain unqualified \texttt{AMBIGUOUS}/\texttt{ABSENT} propositions as unknown
+\end{minipage}}
+\par\vspace{7pt}
+\begin{minipage}[t]{0.44\linewidth}\centering
+\fbox{\begin{minipage}{0.91\linewidth}\centering
+\textbf{Study 9: mathematical selector}\\[2pt]
+Three frozen dataset populations\\
+$\Downarrow$ all eight unknown\\
+256 unconstrained Boolean completions\\
+$\Downarrow$ four frozen policy selectors\\
+Non-singleton action sets;\\
+guaranteed sidecars 6/7/7/8
+\end{minipage}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.44\linewidth}\centering
+\fbox{\begin{minipage}{0.91\linewidth}\centering
+\textbf{Study 10: operational gate}\\[2pt]
+Four published-schema strata\\
+$\Downarrow$ no qualified native state\\
+No decision instant or validity window\\
+$\Downarrow$ action evaluation withheld\\
+16 \texttt{NOT\_EVALUABLE} outcomes;\\
+no recovery-rate estimates
+\end{minipage}}
+\end{minipage}
+\caption{Revised source-to-decision evidence-gate schematic. Study 9 exhaustively evaluates a mathematical selector under unknown inputs; Study 10 withholds operational action evaluation without a valid decision-time witness. These are not flight performance measurements. The conceptual diagram was prepared with assistance from OpenAI ChatGPT (GPT-6 series; earlier draft model unrecorded) and reviewed by the author for accuracy. No original observational data or research imagery was generated or manipulated.}
+\label{fig:phase2gates}
+\end{figure}
+
+\subsection{Separately frozen synthetic qualification and architecture sensitivity}
+\label{sec:extensionmethods}
+Following the historical results and adversarial manuscript review, a separate extension was internally frozen before its own execution. The original Study 9 and 10 estimands, source populations and derivation registries remain unchanged. The extension contains 48 target controls (eight predicates by six case types), 12 derivation controls (two extension-only rules by six), and 12 challenge controls. Of the 72 cases, 64 are mapping endpoints and eight are separate ledger diagnostics; neither denominator is pooled with the source audits. The frozen mapping expectations contain 23 admissible (13 true, 10 false) and 41 nonadmissible cases. The evaluator matches declared meaning, authority, visibility and context, distinguishing schema capability from row admission. It admits literal false as evidence, preserves unknown for missing or unqualified state and rejects invalid domains. The two extension-only derivations use authoritative, same-context integer fields for inclusive freshness and claimed-versus-expected epoch equality. They do not change the original studies' derivation registries.
+
+Synthetic premises stipulate verifier and authority outcomes; no cryptography, flight data or ground-space recovery is exercised. Ledger diagnostics distinguish presence of all ten nonconflicting accepted-current criteria ($M$) from their satisfaction ($Q$); contradiction and all-submitted evidence aggregates are computed separately from live authorization. The candidate container receives input payloads without case identifiers or reference outcomes. Frozen expectations are joined afterward; a separately coded ledger checker corroborates diagnostics. Two simple comparators always return unknown or admit a literal Boolean by exact native field name alone. Exact class and admission/value agreement, false admission (denominator 41), false rejection (denominator 23), wrong admitted value and false-to-unknown transitions are counted on the mapping cases. Seventeen prespecified metamorphic groups comprise eight field renames, sixteen evaluations with unrelated fields in two orders, and one offline-label flip (25 transformed evaluations). They compare class, admission and value with the base case and are not independent additional cases.
+
+Let $x=(S,T,F,E,C,M,G,A)$ denote signature, source trust, freshness, epoch validity, contradiction, evidence presence, guard and authorization. The frozen selector is evaluated under $F_0=\{0,1\}^8$, $F_1=\{x\in F_0:M\Rightarrow\neg C\}$, and $F_2=\{x\in F_1:M\Rightarrow(S\land T\land F\land E)\}$. $F_1$ assumes a closed snapshot restricted to the ten required keys at one subject, epoch and decision instant; $F_2$ additionally assumes that when $M$ holds the entire submitted snapshot is nonempty and every submitted claim is accepted. These nested domains are conditional logical outer approximations, not a demonstrated mission-feasible state relation. For each of the $3^8$ partial observations, all four policies and all three domains, empty completion sets are inconsistent and have no action set or sidecar minimum. For nonempty sets, partition-based sidecar enumeration is checked by a distinct conflict-pair oracle retaining every tied minimum. Complete-state selector outputs are compared with a separately expressed Boolean policy oracle. For the same observation and two nonempty nested slices, action inclusion and nonincreasing minimum cardinality are required. All-unknown $F_0$ action sets and minimum subsets are compared exactly with archived Study 9 records.
+
+The single authorized canonical attempt used a locally qualified, pinned read-only Docker worker with networking disabled, a prospectively frozen expectation table and hashed implementation and inputs. Reference and orchestration ran on the author-operated host; disconnection was operator-confirmed, not an externally attested host sandbox. The design and expectations were visible to the shared author/AI-assisted workflow, so this is technical separation rather than blind human adjudication. A separate post-run bitset/refinement checker audited the retained output without invoking the candidate, selector or prior oracle. All case and logical denominators are finite design counts, not statistical samples.
+
+\section{Results}
+
+\subsection{Recovery-state coverage (RQ1)}
+
+Table~\ref{tab:coverage} summarizes the mapping classes. No dataset contains a variable classified as \texttt{DIRECT} or \texttt{DERIVABLE}. CuCD-ID has four ambiguous and four absent variables. AegisSat and UNSW-IoTSAT each have five ambiguous and three absent variables.
+
+\begin{table}[htbp]
+\centering
+\caption{Recovery-state semantic coverage under the frozen rubric.}
+\label{tab:coverage}
+\begin{tabular}{lrrrr}
+\toprule
+Dataset & Direct & Derivable & Ambiguous & Absent \\
+\midrule
+CuCD-ID v3 & 0 & 0 & 4 & 4 \\
+AegisSat 2025 & 0 & 0 & 5 & 3 \\
+UNSW-IoTSAT 2026 & 0 & 0 & 5 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Accordingly, operational direct coverage is 0/8 for every dataset, and operational direct-or-derivable coverage is also 0/8 for every dataset. The cross-dataset common unresolved set is the complete eight-variable recovery interface.
+
+The mapping is not based on field-name absence alone. For example, source identifiers in all three datasets are related to provenance but do not establish membership in a trusted source set. Time and sequence fields exist in CuCD-ID and AegisSat but do not provide the decision reference and validity semantics required for freshness or epoch validity. UNSW-IoTSAT includes CRC, quality, satellite-identity, timestamp, and position-anomaly fields, yet those fields do not establish cryptographic signature validity, trusted-source membership, recovery evidence completeness, or a population-wide boolean security signal under the frozen definitions.
+
+\subsection{Exact all-unknown baseline and its interpretation}
+Because no Study 9 mapping qualifies as operationally \texttt{DIRECT} or a permitted \texttt{DERIVABLE}, each projected source record has the same completely unresolved eight-predicate state. For every dataset $d$, its single decision-equivalent group $g$, and each of four frozen policies $p$, the mathematical completion and reachable-action sets satisfy
+\begin{equation}
+\label{eq:allunknown}
+C_d(g)=\{0,1\}^{8},
+\qquad
+A_{d,p}(g)=\{f_p(x):x\in\{0,1\}^{8}\}.
+\end{equation}
+There are 256 \emph{unconstrained logical assignments} to the unknown state, regardless of how many source rows the dataset contains. They were not established as jointly realizable spacecraft states. The policy selectors therefore determine the set of possible actions in this all-unknown state; different dataset row counts do not create different action sets or new within-interface decision information. In fact, the 567,763 original rows across the three datasets reduce to exactly three dataset-specific groups carrying the \emph{same} unresolved state vector. Retaining row multiplicities is necessary to report exact frozen finite-population denominators and verify coverage; it is \emph{not} evidence of 567,763 independently tested recovery decisions. The zero singleton-action fraction follows from this bounded selector over the all-unknown vector. This derivation should not be mistaken for a new general cybersecurity theorem, an effectiveness test, or evidence that any spacecraft failed to recover.
+
+\subsection{Lossless native-state collapse}
+
+After semantic projection, all eight required variables remain unresolved for every row in each dataset. Therefore each source population forms a single decision-equivalent native-state group. This collapse is computationally lossless: multiplicities of 25,000, 137,965, and 404,798 are retained exactly and used in all row-level denominators. It is not sampling, deduplication, or row exclusion.
+
+\subsection{Policy-stratified action identifiability (RQ2)}
+
+For all three datasets and all four policies, the unique-action fraction is 0. Table~\ref{tab:policies} reports the reachable action sets and guaranteed sidecar cardinalities. Because every dataset projects to the same unresolved eight-variable interface, the policy-level action sets are identical across datasets; only the source-row multiplicities differ.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Policy-level reachable actions and guaranteed minimal sidecar size under unconstrained Boolean completions. Exact action identifiers are retained in the canonical results.}
+\label{tab:policies}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.56\linewidth}c}
+\toprule
+Policy & Reachable actions from native state & Sidecar size \\
+\midrule
+B0 fail-closed &
+Restrict and request authorization; proceed to recovery gate & 6 \\
+B1 fail-operational &
+Preserve limited operation; restrict and request authorization & 7 \\
+B2 risk-threshold &
+Hold and require evidence; preserve limited operation; restrict and request authorization & 7 \\
+S1 evidence-aware &
+Hold and require evidence; restrict and request authorization; proceed to recovery gate & 8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the fail-closed policy, the guaranteed minimal sidecar contains six variables: signature validity, source trust, freshness, epoch validity, contradiction state, and minimum evidence completeness. The fail-operational and risk-threshold policies additionally require the security signal, giving seven variables. The evidence-aware policy requires all eight variables, including authorization availability.
+
+\subsection{Guaranteed minimal sidecar state (RQ3)}
+
+Under unconstrained Boolean completion, the exact guaranteed minimum varies by policy only: all three datasets project to the same unresolved eight-variable recovery interface. The minimum cardinalities are 6 for B0 fail-closed, 7 for B1 fail-operational, 7 for B2 risk-threshold, and 8 for S1 evidence-aware. These values answer RQ3 under the frozen selector and do not imply that the same number of variables is universally required by other recovery architectures.
+
+\subsection{Cross-dataset common missing semantics (RQ4)}
+
+The intersection of unresolved recovery state across the three datasets equals the entire required interface:
+\begin{itemize}[nosep,leftmargin=*]
+    \item \texttt{signature\_valid},
+    \item \texttt{source\_trusted},
+    \item \texttt{fresh},
+    \item \texttt{epoch\_valid},
+    \item \texttt{contradictory},
+    \item \texttt{minimum\_evidence\_complete},
+    \item \texttt{security\_signal}, and
+    \item \texttt{authorization\_available}.
+\end{itemize}
+No dataset-specific missing variable remains after taking this intersection because all eight are unresolved in all three datasets.
+
+
+\subsection{Study 10: published-data-product observability (RQ-E1 and RQ-E2)}
+The separate Study 10 primary analysis classified eight recovery variables within each of four descriptive release strata. Table~\ref{tab:study10coverage} records the complete frozen-schema mapping totals. All 32 slots were assigned as 14 ambiguous and 18 absent. None was a qualifying operational direct field or a permitted predeclared derivation. The resulting \emph{published-schema-level} direct and direct-or-derivable coverage was 0/8 within each stratum. These four descriptive outcomes are not an additional row-level population of Study 9, and a seven-stratum pooled coverage percentage is not calculated.
+
+\begin{table}[htbp]
+\centering
+\caption{Study 10 classification counts by published real-flight data-product stratum. These are schema-level descriptions, not independent flight trials.}
+\label{tab:study10coverage}
+\begin{tabular}{lrrrr}
+\toprule
+Source stratum & Direct & Derivable & Ambiguous & Absent \\
+\midrule
+ESA v2 Mission 1 & 0 & 0 & 4 & 4 \\
+ESA v2 Mission 2 & 0 & 0 & 4 & 4 \\
+ESA v2 Mission 3 & 0 & 0 & 3 & 5 \\
+OPS-SAT-AD v2 & 0 & 0 & 3 & 5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The ESA products contain channel and anomaly metadata, with telecommand records present in the documented Mission 1 and 2 layouts; the OPS-SAT release contains timestamped telemetry-related fields and derived anomaly-detection features, as described in the associated benchmark publication \cite{ruszczak2025opssatbenchmark}. Their released representations do not contain a documented, complete recovery evidence state conforming to the pinned interface. The G2-frozen \emph{primary} RQ-E2 source-family comparison is complete for these four ESA/OPS-SAT published representations; it is descriptive, and unverified overlap between anonymized ESA mission identities and OPS-SAT prevents an independent-spacecraft replication claim. Hack-A-Sat was retained as \emph{secondary, unpooled competition context} in the G2 design, and that historical wider source-type contrast was not executed. Accordingly, the completed answer addresses the frozen primary comparison but not the optional secondary contrast. An \texttt{ABSENT} mapping means absent from the documented published representation under the adjudication contract; it does not assert that the mission never implemented the underlying onboard function. An \texttt{AMBIGUOUS} mapping means related metadata do not uniquely establish the required decision proposition. Neither may be coerced to a known false Boolean.
+
+\subsection{Study 10: conditional action evaluability (RQ-E4)}
+Across four Study 10 strata and four frozen policy identifiers, the predeclared result is \texttt{NOT\_EVALUABLE\_FOR\_OPERATIONAL\_ACTION} for all 16 reporting combinations. Published-schema evidence did not establish the required native recovery decision point and evidence-validity window. No operationally grounded action set, singleton-action fraction, row-level denominator, or recoverability rate was calculated. This outcome must be distinguished from Study 9's exact mathematical exhaustive-completion analysis: the Study 9 zero unique-action fractions are \emph{not} operational flight-recovery failure rates, and they are not substituted as Study 10 outcomes.
+
+\subsection{Study 10: within-family ESA release sensitivity (RQ-E3)}
+The optional matched release analysis identified the same 224 channel identifiers in ESA v1 and v2: 76 Mission 1, 100 Mission 2, and 48 Mission 3, with zero v1-only or v2-only channels. Of 896 comparable cells in the four shared fields \texttt{Subsystem}, \texttt{Physical Unit}, \texttt{Group}, and \texttt{Target}, 842 were equal and 54 differed. All 54 differences were in \texttt{Physical Unit}: zero in Mission 1, ten in Mission 2, and 44 in Mission 3. The new v2 \texttt{Categorical} metadata field was present for all 224 channels and is counted as a release-specific field addition, \emph{not} 224 changed existing cells. Table~\ref{tab:esareleases} retains the paired within-mission reporting.
+
+\begin{table}[htbp]
+\centering
+\caption{Matched ESA channel-metadata sensitivity. Comparisons concern annotations, not nested telemetry payloads or recovery semantics.}
+\label{tab:esareleases}
+\begin{tabular}{lrrrr}
+\toprule
+Mission & Matched & Equal & Changed & New in v2 \\
+\midrule
+ESA Mission 1 & 76 & 304 & 0 & 76 \\
+ESA Mission 2 & 100 & 390 & 10 & 100 \\
+ESA Mission 3 & 48 & 148 & 44 & 48 \\
+\midrule
+Total & 224 & 842 & 54 & 224 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Changed physical-unit metadata does not, without the original unit values and an authoritative explanation, establish a unit conversion, a semantic change, an error correction, or a different series payload. No nested channel stream was opened, and no matched-release result is counted as independent spacecraft replication. The paired metadata result does not constitute a complete v1 eight-predicate mapping re-adjudication, so no change of a recovery-state mapping class is established. Thus the original semantic mapping-stability aspect of RQ-E3 remains unanswered by this optional Tier B comparison; the supported endpoint is only release-level metadata sensitivity.
+
+\subsection{Study 10: synthetic technical parity (RQ-E5)}
+The frozen synthetic-control implementation passed all 18 cases and 22 repository-native unit tests in the recorded GitHub Actions execution. An independently coded four-policy oracle matched the pinned Study 2 selector for 1,024 comparisons (256 complete Boolean inputs per policy), with zero mismatches. These results establish the recorded synthetic harness checks and Boolean selector parity, not end-to-end evidence-to-predicate equivalence. Static inspection of the frozen runtime and the historical G3 helper reveals a semantic distinction: the runtime's minimum-evidence-completeness predicate requires presence of all ten accepted current criteria, whereas the G3 helper also required expected-value equality. A present criterion with an unsatisfied value therefore distinguishes completeness from satisfaction. The historical G3 pass and its expected-value control remain unchanged; their scope is not a validation of equivalent projection semantics. The separate trusted-recovery gate checks required values, contradictions and residual unauthorized state, so proceeding to that gate does not establish recovery authorization. This distinction does not change the recorded native field mappings or non-evaluability results; the historical G3 subsection reports no new test; the separately frozen extension is reported in Section~\ref{sec:extensionresults}.
+
+\subsection{Synthetic extension: semantic qualification and architecture sensitivity}
+\label{sec:extensionresults}
+The single canonical attempt completed with no recorded failures. All 72 exact candidate-to-reference comparisons matched, including eight ledger diagnostics; all 17 metamorphic groups (25 transformed evaluations) preserved the expected classification, admission and value. The 64 mapping cases comprised 25 direct, 11 derivable, 18 ambiguous and 10 absent schema classifications; admission was 13 true, 10 false, 29 unknown, six unknown-missing and six invalid. Direct or derivable schema capability is therefore not equivalent to a populated valid row. All eight ledger diagnostic records also matched the separately coded ledger checker. Table~\ref{tab:extensionmapping} gives the bounded comparator results; the always-unknown comparator has no false admissions but misses every admissible case. All three methods had zero wrong admitted Boolean values and zero unknown-to-false conversions on this fixture set.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Prespecified synthetic mapping endpoints only ($n=64$). Baselines are diagnostic comparators, not state-of-the-art methods.}
+\label{tab:extensionmapping}
+\begin{tabular}{lrrr}
+\toprule
+Metric & Contract evaluator & Name only & Always unknown \\
+\midrule
+Exact class & 64/64 & 35/64 & 10/64 \\
+Exact admission/value & 64/64 & 36/64 & 29/64 \\
+False admission & 0/41 & 11/41 & 0/41 \\
+False rejection & 0/23 & 7/23 & 23/23 \\
+Known false to unknown & 0/10 & 2/10 & 10/10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ledger controls provide specific counterexamples to conflating evidence predicates: C-06 retains $M=1,Q=0$; C-07 has a required-key conflict and $M=0$; C-08 has an unrelated-key conflict with $M=1,C=1$; C-09 has $M=1$ despite a rejected extra row and a false all-submitted signature aggregate; C-11 has $M=Q=1$ with authorization unavailable. The first distinction clarifies the historical G3 projection limitation without rewriting the historical test. C-08 and C-09 show why neither architectural restriction can be asserted for the unrestricted ledger. Incomplete and duplicate ledgers were not converted into complete operational observations.
+
+The observed domain sizes were 256, 192 and 132, matching the prespecified algebraic counts. Across 6,561 partial observations per model, respectively 6,561, 5,832 and 4,662 had nonempty completion sets; 0, 729 and 1,899 were inconsistent. Thus the four-policy analysis returned 68,220 evaluable and 10,512 inconsistent endpoints (78,732 total), with null action/minimum fields for inconsistent observations. Every exact minimum subset matched the conflict-pair oracle; complete-state selector comparisons had no reported mismatch. The post-run checker independently recomputed all 78,732 completion counts, action sets and minimum subsets from the declared model and policy semantics, confirmed endpoint uniqueness and nested monotonicity, and reconstructed the frozen reference document with the same SHA-256 digest. This is a technical result audit, not an independent reproduction of the author-operated canonical run.
+
+\begin{table}[H]
+\centering
+\small
+\caption{All-unknown mathematical slice: reachable action count and minimum sufficient sidecar size. The action sets are identical across these three all-unknown slices; sidecar requirements depend on the declared contract.}
+\label{tab:extensionsidecar}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & Actions (each model) & $F_0$ & $F_1$ & $F_2$ \\
+\midrule
+B0 & 2 & 6 & 5 & 1 \\
+B1 & 2 & 7 & 6 & 2 \\
+B2 & 3 & 7 & 6 & 2 \\
+S1 & 3 & 8 & 7 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The exact historical $F_0$ action sets and minimum subsets were reproduced. All four all-unknown minima were unique within each model: $F_1$ removes the contradiction coordinate from the unrestricted minima; $F_2$ retains $M$ alone for B0, $M,G$ for B1/B2 and $M,G,A$ for S1. Table~\ref{tab:extensionsidecar} gives sufficient sidecar sizes for the stated architectures only. It does not establish that an implementation can safely observe $M$ without obtaining the evidence underlying the stronger snapshot guarantee. No field in either historical source audit is newly admitted by this synthetic extension.
+
+\section{Discussion}
+
+\subsection{Cross-study synthesis and the boundary of external applicability}
+Both studies find zero qualifying recovery-state coverage under the same eight-variable interface, but their endpoints differ. Study 9 computes exact reachable actions and guaranteed minimum sidecars for a fixed mathematical selector; Study 10 cannot ground operational evaluation without a documented decision-time witness. For example, \texttt{MsgId} and \texttt{ApId} do not establish current trust membership, and ESA \texttt{labels.csv} intervals do not establish decision time or evidence validity. Figure~\ref{fig:phase2gates} and Supplementary Appendix S1 trace this distinction. Neither outcome demonstrates the absence of spacecraft security controls or recovery performance. The three curated ESA mission strata and OPS-SAT are descriptive representations, not independent flight trials; independence of the ESA missions from the OPS-SAT lineage has not been established. Their shared zero coverage is neither seven independent replications nor a pooled resilience estimate.
+
+\subsection{Post-results integration and research integrity}
+The studies retain distinct frozen protocols, prior source exposures, units, evidence pins and execution authorizations. Their integration followed both results; it is not a jointly prespecified study or a retrospective alteration of either protocol. The extension was motivated by post-results review, internally frozen before its own outcomes and executed once.
+
+\subsection{Meaning of the negative result}
+The findings concern a stringent decision interface, not dataset quality. Detection-oriented releases were not designed to supply verifier, authorization, epoch or evidence-validity propositions, so the negative outcome is partly expected. Relevant fields do not necessarily establish the corresponding proposition: a CRC is not signature verification, an identifier is not trust membership, and a timestamp without a validity rule and decision-time reference is not freshness. The positive and negative synthetic controls test qualification within the stipulated contract; no independently justified alternative interface separates rubric sensitivity from broader dataset limitations.
+
+\subsection{Implications for dataset and interface design}
+An anomaly warrants investigation, not inferred recovery authorization. For recovery-oriented evaluation, a sidecar should document predicate authority, evidence identity, subject and epoch, decision timestamp, validity window, completeness and authorization-path status. The unrestricted six-to-eight-variable minima are model-specific design references; smaller conditional minima require stronger guarantees whose instrumentation is not free. This is a design implication, not a deployed interface. Predictive transfer and semantic interoperability are distinct: a model can transfer statistically without equivalent decision semantics, and semantic compatibility need not imply matching feature distributions. This complements distribution-shift, cross-network detection and harmonization research \cite{koh2021wilds}, \cite{cerasuolo2026transfer}, \cite{rodriguez2026harmonization}.
+
+\subsection{Protocol conservatism}
+After 72 domain violations, reclassifying UNSW \texttt{Position\_Anomaly} preserved the frozen population without repairing or dropping rows. Offline attack labels likewise cannot establish what a controller knows at decision time.
+
+\subsection{Limitations}
+The three Study 9 datasets and four Study 10 schema strata are finite audit objects, not representative samples. Conclusions are limited to one eight-variable interface and four policies; detection accuracy, predictive transfer, attack prevalence and causal mission effects are not estimated. No flight hardware, live mission, mission operator or real authorization authority validates the actions. The Study 10 inventory covers metadata, OPS-SAT CSV headers, ESA outer archive layouts and format documentation, not every nested flight-series object; undocumented capabilities cannot be excluded. The ESA layout digest was reported in terminal output, not independently rehashed from uploaded bytes. Source-use rights remain conditional, and no third-party redistribution is assumed. The 54 metadata changes do not establish physical-unit conversions or mapping-class transitions; secondary Hack-A-Sat records were not assessed. No original-source independent replay was performed.
+
+The all-unknown minima are exact only for the stated selector and completion domains. The restricted models preserve all four all-unknown action-set cardinalities; establishing $M$ or the stronger snapshot guarantees may itself require substantial evidence. Physical feasibility and alternative independently justified interfaces remain untested. Semantic judgments were made within a sole-author, AI-assisted workflow: separate implementation and stored-result checks corroborate technical consistency, not independent domain-adjudicator agreement or freedom from coder and construct-selection bias.
+
+\section{Reproducibility and Data Availability}
+
+The accepted Study 9 science is frozen in the public repository at
+\url{https://github.com/Zartharas/mission-aware-satellite-cyber-recovery}.
+The canonical run is identified as
+\texttt{S9-RTSI-001\_CANONICAL\_RUN\_20260914} under \texttt{study9/results/}.
+The immutable results-freeze record retains the complete SHA-256 identities of the accepted outputs. For concise manuscript traceability, the accepted science merge and governance-closeout commits begin with \texttt{1dfdef4ec9a0} and \texttt{ced258fc3ba9}, respectively; their complete identifiers remain in the repository governance records.
+
+The repository contains protocol, schema, mapping, code, tests, deterministic outputs, independent-audit outputs, and artifact identity records. Third-party raw dataset bytes are not redistributed in the repository; the verification records bind the analyzed public artifacts by source identity and cryptographic hash.
+
+
+Study 10's protocol is bound by an internal G2 freeze receipt under \texttt{study10/}; its pinned payload commit is \url{8ed6a2b16233b86bf91672f6f15605dcf906c5eb}, with the approval and file digests in the receipt. This was not an external preregistration. The G3 synthetic code, independent-oracle checks and audit records are retained at immutable commit \url{04317102b87eb63312ba4e1599f87a3971858d03}. Source-to-result reproduction requires the exact public source DOIs and the archived G2/G3 receipts.
+
+Three sanitized, author-derived G4 JSON results and their checksum/exclusion manifest are held in PR \#255 under \path{integrated_candidate/study10_derived/}. They contain the 32-slot Tier A schema mapping, 16-row Tier C non-evaluability assessment and aggregate ESA paired-release sensitivity. The source-upload checksums are recorded in \texttt{README\_MANIFEST.json}. This is a version-pinned snapshot in a public repository, not a formally deposited or publisher-supplied research-data package. The channel-level matched-detail CSV and original source telemetry remain local and have not been redistributed.
+
+The PR tests validate checksum preservation and internal consistency of \emph{archived derived evidence}, not an independent replay of original source inspection. In particular, the ESA outer-layout report checksum was reported in author terminal output but was not independently rehashed from uploaded report bytes; the withheld matched-detail CSV cannot be reconstructed from the summary. Independent reproduction would require lawful retrieval of the exact releases, separate pinned methods and renewed semantic adjudication. Successful CI does not close these provenance limits.
+
+The extension's frozen design, executable inputs, expectation table, qualification and activation receipts are retained at immutable activation commit \url{https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/commit/aa81959317a0c3fae6bfcfe9891175bf6ff07bfe}. The canonical attempt identifier is \texttt{P5\_PHASE6\_4\_CANONICAL\_ATTEMPT\_001}; its retained report SHA-256 is \url{dc230908147872314b10340b7e0f8819c54285edeb35e063f2007ae0532f7e45}. The full author-local report and attempt manifest were rehashed and audited after execution; aggregate results and verification details accompany the manuscript candidate. This does not imply public availability of the full local report or independent source-data replay.
+
+\subsection{Source attribution, licenses, and changes}
+The frozen Study 9 source manifest records CC BY 4.0 for CuCD-ID v3 and AegisSat. For UNSW-IoTSAT, it records an MIT project-distribution interpretation and explicitly notes that separate dataset-specific license text was not independently located in the downloaded package. No third-party source rows are redistributed.
+
+Study 10 used the ESA Anomaly Dataset v2 release (Missions 1--3) \cite{esaad2025v2} and OPSSAT-AD v2 \cite{opssat2024v2}; ESA Anomaly Dataset v1 was used exclusively for the within-mission paired metadata sensitivity \cite{esaad2024v1}. The ESA datasets were created by De Canio, Kotowski, and Haskamp and released in the European Space Agency research program. Version-linked first-party ESA metadata and the version-1 project license identify the Creative Commons Attribution 3.0 Intergovernmental Organizations (CC BY 3.0 IGO) license (\url{https://creativecommons.org/licenses/by/3.0/igo/}). Because the readable ESA v2 Zenodo rights entry does not explicitly display a license, the first-party project metadata supports the dataset-level attribution while file-specific exceptions remain unverified. This independent study was not undertaken or endorsed by ESA or the dataset contributors.
+
+OPSSAT-AD v2 was released by Ruszczak in the KP Labs project and is also described by Ruszczak and colleagues \cite{ruszczak2025opssatbenchmark}. Its versioned dataset \texttt{LICENSE} identifies the MIT License for OPS-SAT Dataset, Copyright (c) 2024 KP Labs (\url{https://zenodo.org/records/15108715/files/LICENSE}). This manuscript does not reproduce original OPS-SAT source data or substantial code, and the complete third-party license remains available from the source for uses requiring its notice. Unreviewed file-specific license exceptions cannot be excluded.
+
+The author analyzed published schema and metadata structure, assigned recovery-state classifications, and compared paired ESA channel-metadata fields. No original flight-series samples were modified or published. The 54 observed ESA v1/v2 \texttt{Physical Unit} annotation differences do not establish converted telemetry values or semantic changes. Anomaly labels were not promoted to operational recovery evidence. No user data, original telemetry rows, or local channel-detail report is included in the archive.
+
+\subsection{Research data availability statement}
+The third-party input releases remain at \url{https://doi.org/10.5281/zenodo.15237121} (ESA v2), \url{https://doi.org/10.5281/zenodo.12528696} (ESA v1 paired sensitivity), and \url{https://doi.org/10.5281/zenodo.15108715} (OPSSAT-AD v2). Study 9 used CuCD-ID v3 \cite{fayyaz2026cucddata} and the AegisSat dataset \cite{elovici2025aegissatdata}, with the UNSW-IoTSAT repository commit pinned in the dataset-population section. The canonical record identifies the exact artifacts and frozen results. The immutable review snapshot \url{https://github.com/Zartharas/mission-aware-satellite-cyber-recovery/commit/e8e9bd7a6d60d32eb9a03e83b1eba59a010bb7c1} of PR \#255 contains Study 10's sanitized, derived JSON outputs and hash manifest; the original third-party datasets and the locally retained channel-detail CSV are not redistributed. Author-generated semantic adjudication records, derived analytical outputs, and supporting computational materials are retained in version-controlled research records. Original third-party dataset files and locally retained channel-level intermediate records are not redistributed. Requests for additional author-generated supporting materials may be considered subject to applicable licensing, source-specific restrictions, and research-integrity requirements. Supplementary Appendix S1 is the intended publisher supplementary file; the referenced JSON records are repository evidence, not separate publisher supplementary files. Any additional release remains subject to a separate rights and author review.
+
+\section{Conclusion}
+
+Two separately governed studies found zero qualified direct or derived recovery state under a fixed eight-variable interface. Study 9 found no uniquely identifiable native-state action across its three datasets and four policies; Study 10's 16 operational stratum-policy assessments were not evaluable without a documented decision point and validity interval. Its 224-channel ESA comparison identified 54 metadata differences, not established changes in telemetry meaning or recovery semantics. The separately frozen extension matched 72 controls and 25 transformations; conditional all-unknown minimum sidecars fell from 6/7/7/8 to 5/6/6/7 and 1/2/2/3 under nested logical models. The contribution is a contract-relative distinction between anomaly-detection data and qualified recovery evidence, not demonstrated physical feasibility, operational recovery efficacy, control absence or universal policy superiority.
+
+\section*{CRediT authorship contribution statement}
+
+\textbf{Aman Kumar Singh:} Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Resources; Data curation; Writing -- original draft; Writing -- review and editing; Visualization; Project administration.
+
+\section*{Funding}
+
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of competing interest}
+
+The author declares no competing interests.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+
+During the preparation of this work, the author used OpenAI ChatGPT (GPT-6 series) to assist with manuscript drafting, language refinement, literature screening, semantic analysis, research methodology, code development, computational verification, and conceptual figure preparation. The author reviewed and edited the AI-assisted content and takes full responsibility for the scientific accuracy, integrity, and content of the published article.
+
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{fayyaz2026cucd}
+Y.~Fayyaz, S.~N. Afrasiabi, L.~Yang, K.~El-Khatib, {CubeSat} cybersecurity
+  dataset for intrusion detection ({CuCD-ID}): Labelled {NOS3/cFS} telemetry
+  (raw + augmented) with {COSMOS} reproduction scripts, Data Brief 65 (2026)
+  112598.
+\newblock \href {https://doi.org/10.1016/j.dib.2026.112598}
+  {\path{doi:10.1016/j.dib.2026.112598}}.
+
+\bibitem{idan2025aegissat}
+R.~Idan, R.~Peled, A.~Ben Siman~Tov, E.~Markus, B.~Zadov, O.~Chodeda,
+  Y.~Fadida, O.~Holschke, J.~Plachy, A.~Shabtai, Y.~Elovici, Aegissat: A
+  satellite cybersecurity testbed, in: Workshop on the Security of Space and
+  Satellite Systems (SpaceSec 2025), 2025.
+\newblock \href {https://doi.org/10.14722/spacesec.2025.23069}
+  {\path{doi:10.14722/spacesec.2025.23069}}.
+
+\bibitem{abdelhameed2026unsw}
+O.~Abdelhameed, B.~Turnbull, N.~Koroniotis, {UNSW-IoTSAT}: A hybrid
+  testbed-derived dataset for enabling cybersecurity research in the smart
+  satellite domain, Cyber Secur. Appl. 4 (2026) 100133.
+\newblock \href {https://doi.org/10.1016/j.csa.2026.100133}
+  {\path{doi:10.1016/j.csa.2026.100133}}.
+
+\bibitem{bashendy2023irs}
+M.~Bashendy, A.~Tantawy, A.~Erradi, Intrusion response systems for
+  cyber-physical systems: A comprehensive survey, Comput. Secur. 124 (2023)
+  102984.
+\newblock \href {https://doi.org/10.1016/j.cose.2022.102984}
+  {\path{doi:10.1016/j.cose.2022.102984}}.
+
+\bibitem{ross2021cyberresilient}
+R.~Ross, V.~Pillitteri, R.~Graubart, D.~Bodeau, R.~McQuaid, Developing
+  cyber-resilient systems: A systems security engineering approach, NIST
+  Special Publication 800-160 Volume 2 Revision 1, National Institute of
+  Standards and Technology (2021).
+\newblock \href {https://doi.org/10.6028/NIST.SP.800-160v2r1}
+  {\path{doi:10.6028/NIST.SP.800-160v2r1}}.
+
+\bibitem{koh2021wilds}
+P.~W. Koh, S.~Sagawa, H.~Marklund, S.~M. Xie, M.~Zhang, A.~Balsubramani, W.~Hu,
+  M.~Yasunaga, R.~L. Phillips, I.~Gao, T.~Lee, E.~David, I.~Stavness, W.~Guo,
+  B.~A. Earnshaw, I.~S. Haque, S.~M. Beery, J.~Leskovec, A.~Kundaje,
+  E.~Pierson, S.~Levine, C.~Finn, P.~Liang,
+  \href{https://proceedings.mlr.press/v139/koh21a.html}{{WILDS}: A benchmark of
+  in-the-wild distribution shifts}, in: Proceedings of the 38th International
+  Conference on Machine Learning, Vol. 139 of Proceedings of Machine Learning
+  Research, PMLR, 2021, pp. 5637--5664, accessed 23 November 2026.
+\newline\urlprefix\url{https://proceedings.mlr.press/v139/koh21a.html}
+
+\bibitem{cerasuolo2026transfer}
+F.~Cerasuolo, G.~Bovenzi, A.~Pescap{\`e}, Cross-network transferability of
+  {AI}-based network intrusion detection systems in heterogeneous internet of
+  things environments, Comput. Netw. 286 (2026) 112434.
+\newblock \href {https://doi.org/10.1016/j.comnet.2026.112434}
+  {\path{doi:10.1016/j.comnet.2026.112434}}.
+
+\bibitem{rodriguez2026harmonization}
+M.~Rodr{\'i}guez, L.~Mehavilla, {\'A}.~Alesanco, J.~Garc{\'i}a, A rule-based
+  label harmonization framework for cross-dataset {IoT} intrusion detection,
+  Internet of Things 39 (2026) 102030.
+\newblock \href {https://doi.org/10.1016/j.iot.2026.102030}
+  {\path{doi:10.1016/j.iot.2026.102030}}.
+
+\bibitem{esaad2025v2}
+G.~De~Canio, K.~Kotowski, C.~Haskamp,
+  \href{https://doi.org/10.5281/zenodo.15237121}{{ESA} anomaly dataset
+  {[dataset]}}, European Space Agency, Zenodo dataset, version 2 (2025).
+\newblock \href {https://doi.org/10.5281/zenodo.15237121}
+  {\path{doi:10.5281/zenodo.15237121}}.
+\newline\urlprefix\url{https://doi.org/10.5281/zenodo.15237121}
+
+\bibitem{opssat2024v2}
+B.~Ruszczak, \href{https://doi.org/10.5281/zenodo.15108715}{{OPSSAT-AD} -
+  anomaly detection dataset for satellite telemetry {[dataset]}}, Zenodo
+  dataset, version 2 (2024).
+\newblock \href {https://doi.org/10.5281/zenodo.15108715}
+  {\path{doi:10.5281/zenodo.15108715}}.
+\newline\urlprefix\url{https://doi.org/10.5281/zenodo.15108715}
+
+\bibitem{tahir2025benchmark}
+H.~A. Tahir, M.~R. Jabbarpour, B.~Q. Vo, R.~Kowalczyk, J.~Barr, T.~Bessell,
+  Toward explainable {AI} in spacecraft health monitoring: Comparative
+  benchmarking of anomaly detection models and open-source datasets, IEEE
+  Access 13 (2025) 209368--209398.
+\newblock \href {https://doi.org/10.1109/ACCESS.2025.3639551}
+  {\path{doi:10.1109/ACCESS.2025.3639551}}.
+
+\bibitem{akbar2023ontology}
+K.~A. Akbar, F.~I. Rahman, A.~Singhal, L.~Khan, B.~Thuraisingham, The design
+  and application of a unified ontology for cyber security, in: Information
+  Systems Security, Vol. 14424 of Lecture Notes in Computer Science, Springer,
+  2023, pp. 23--41.
+\newblock \href {https://doi.org/10.1007/978-3-031-49099-6{\_}2}
+  {\path{doi:10.1007/978-3-031-49099-6{\_}2}}.
+
+\bibitem{nist2022ground}
+S.~Lightman, T.~Suloway, J.~Brule, Satellite ground segment: Applying the
+  cybersecurity framework to satellite command and control, NIST
+  Interagency/Internal Report 8401, National Institute of Standards and
+  Technology (2022).
+\newblock \href {https://doi.org/10.6028/NIST.IR.8401}
+  {\path{doi:10.6028/NIST.IR.8401}}.
+
+\bibitem{mccarthy2023hsn}
+J.~McCarthy, D.~Mamula, J.~Brule, K.~Meldorf, R.~Jennings, J.~Wiltberger,
+  C.~Thorpe, J.~Dombrowski, O.~Lattin, S.~Sepassi, Cybersecurity framework
+  profile for hybrid satellite networks ({HSN}), NIST Interagency/Internal
+  Report 8441, National Institute of Standards and Technology (2023).
+\newblock \href {https://doi.org/10.6028/NIST.IR.8441}
+  {\path{doi:10.6028/NIST.IR.8441}}.
+
+\bibitem{sahakian2021airss}
+M.~Sahakian, D.~Jose, S.~Musuvathy, J.~Thorpe, M.~Umbenhower, S.~Verzi,
+  M.~Dykstra, E.~Vugrin,
+  \href{https://www.sandia.gov/ccr/staff/srideep-musuvathy/}{{AIRSS}: Adaptive
+  intrusion response for space systems}, SAND Report SAND2021-11864, Sandia
+  National Laboratories, accessed 23 November 2026 (2021).
+\newline\urlprefix\url{https://www.sandia.gov/ccr/staff/srideep-musuvathy/}
+
+\bibitem{le2026trace}
+T.~D. Le, M.~Arifuzzaman, Y.~Bao, {TRACE}: Feature-space feasible action
+  contracts for explainable intrusion triage, Electronics 15~(15) (2026) 3291.
+\newblock \href {https://doi.org/10.3390/electronics15153291}
+  {\path{doi:10.3390/electronics15153291}}.
+
+\bibitem{li2026rtef}
+Z.~Li, J.~Wang, X.~Meng, Y.~Song, An applied mathematical protocol for evidence
+  admission and history replacement in evolving {IoT} intrusion detection,
+  Mathematics 14~(17) (2026) 3030.
+\newblock \href {https://doi.org/10.3390/math14173030}
+  {\path{doi:10.3390/math14173030}}.
+
+\bibitem{guarino2026hybrid}
+S.~Guarino, L.~Faramondi, G.~Oliva, E.~Del~Prete, F.~Flammini, R.~Setola,
+  Hybrid knowledge-based decision support system for intrusion response in
+  industrial cyber-physical systems, Future Gener. Comput. Syst. 179 (2026)
+  108306.
+\newblock \href {https://doi.org/10.1016/j.future.2025.108306}
+  {\path{doi:10.1016/j.future.2025.108306}}.
+
+\bibitem{zhang2025uncertainty}
+Y.~Zhang, P.~Malacaria, Dealing with uncertainty in cybersecurity decision
+  support, Comput. Secur. 148 (2025) 104153.
+\newblock \href {https://doi.org/10.1016/j.cose.2024.104153}
+  {\path{doi:10.1016/j.cose.2024.104153}}.
+
+\bibitem{im2026ccsds}
+W.~Im, G.~Oh, S.~Kan, K.~Ito, H.~Lin, S.~Kim, J.~Jeong, S.~Yun, D.~Jang,
+  {CCSDS}-based firewall for modern satellite system, Comput. Secur. 171 (2026)
+  105128.
+\newblock \href {https://doi.org/10.1016/j.cose.2026.105128}
+  {\path{doi:10.1016/j.cose.2026.105128}}.
+
+\bibitem{ramsey2026stargate}
+O.~Ramsey, C.~Gonzalez-Cortes, E.~Lopez-Morales,
+  \href{https://arxiv.org/abs/2611.18874}{Stargate: Security analysis and
+  mission-aware firewall for the {CubeSat} space protocol}, arXiv preprint,
+  arXiv:2611.18874, version 1, arXiv-issued DOI registration pending at access
+  on 23 November 2026 (2026).
+\newblock \href {https://doi.org/10.48550/arXiv.2611.18874}
+  {\path{doi:10.48550/arXiv.2611.18874}}.
+\newline\urlprefix\url{https://arxiv.org/abs/2611.18874}
+
+\bibitem{qasim2026safe}
+M.~Qasim, K.~A. Awan, M.~H. Alanazi, A.~Nayyar, S.~Yogarayan, M.~Uddin,
+  Cybersecurity-driven communication framework for edge-assisted satellite
+  internet of things environmental monitoring, Connect. Sci. 38~(1) (2026)
+  2764011.
+\newblock \href {https://doi.org/10.1080/09540091.2026.2764011}
+  {\path{doi:10.1080/09540091.2026.2764011}}.
+
+\bibitem{torstensson2026warrants}
+O.~Torstensson, D.~Prokopovych-Tkachenko, O.~Korneiko, K.~Tkachenko,
+  M.~Bondarenko, Evidence-bound action warrants for agentic security
+  operations: A deterministic gateway enforcing evidence freshness, calibrated
+  confidence, and response deadlines, Inventions 11~(6) (2026) 128.
+\newblock \href {https://doi.org/10.3390/inventions11060128}
+  {\path{doi:10.3390/inventions11060128}}.
+
+\bibitem{fayyaz2026cucddata}
+Y.~Fayyaz, L.~Yang, K.~El-Khatib,
+  \href{https://data.mendeley.com/datasets/7n2d42pm3n/3}{{CubeSat}
+  cybersecurity dataset for intrusion detection ({CuCD-ID}): Labelled
+  {NOS3/cFS} telemetry (raw + augmented) with {COSMOS} reproduction scripts
+  {[dataset]}}, Mendeley Data, version 3 (2026).
+\newblock \href {https://doi.org/10.17632/7n2d42pm3n.3}
+  {\path{doi:10.17632/7n2d42pm3n.3}}.
+\newline\urlprefix\url{https://data.mendeley.com/datasets/7n2d42pm3n/3}
+
+\bibitem{elovici2025aegissatdata}
+Y.~Elovici, A.~Shabtai, A.~Ben Siman~Tov, R.~Idan, R.~Peled,
+  \href{https://doi.org/10.5281/zenodo.14960983}{{AegisSat}: Telemetry dataset
+  of a physical {CubeSat} environment with labeled attacks {[dataset]}}, Zenodo
+  (2025).
+\newblock \href {https://doi.org/10.5281/zenodo.14960983}
+  {\path{doi:10.5281/zenodo.14960983}}.
+\newline\urlprefix\url{https://doi.org/10.5281/zenodo.14960983}
+
+\bibitem{esaad2024v1}
+G.~De~Canio, K.~Kotowski, C.~Haskamp,
+  \href{https://doi.org/10.5281/zenodo.12528696}{{ESA} anomaly dataset
+  {[dataset]}}, European Space Agency, Zenodo dataset, version 1 (2024).
+\newblock \href {https://doi.org/10.5281/zenodo.12528696}
+  {\path{doi:10.5281/zenodo.12528696}}.
+\newline\urlprefix\url{https://doi.org/10.5281/zenodo.12528696}
+
+\bibitem{ruszczak2025opssatbenchmark}
+B.~Ruszczak, K.~Kotowski, D.~Evans, J.~Nalepa, The {OPS-SAT} benchmark for
+  detecting anomalies in satellite telemetry, Sci. Data 12 (2025) 710, a
+  published correction addresses figure ordering, DOI
+  10.1038/s41597-025-05751-w.
+\newblock \href {https://doi.org/10.1038/s41597-025-05035-3}
+  {\path{doi:10.1038/s41597-025-05035-3}}.
+
+\end{thebibliography}
+
+\end{document}

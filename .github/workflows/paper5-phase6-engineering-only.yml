@@ -1,0 +1,24 @@
+name: Paper 5 Phase 6.3 engineering-only validation
+on:
+  pull_request:
+    paths:
+      - "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/**"
+      - ".github/workflows/paper5-phase6-engineering-only.yml"
+permissions:
+  contents: read
+jobs:
+  engineering:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'paper5/study9-study10-integrated-manuscript-candidate-20261123' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Verify materialized design, syntax, toy algorithms and blocked launcher
+        run: python3 -B publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/engineering_validate.py
+      - name: Validate Gate 5 pinned preflight and execution hold
+        run: python3 -I -B publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/gate5_engineering.py
+      - name: Validate single-attempt activation controls without execution
+        run: python3 -I -B publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/phase6_robustness/phase6_4_activation_engineering.py

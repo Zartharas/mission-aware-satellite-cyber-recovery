@@ -1,0 +1,161 @@
+name: Paper 5 integrated draft LaTeX validation
+on:
+  pull_request:
+    paths:
+      - "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/**"
+      - "publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/**"
+      - ".github/workflows/paper5-s9-s10-draft-latex-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'paper5/study9-study10-integrated-manuscript-candidate-20261123' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR commit without persisted credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Validate archived derived evidence and highlights
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' \
+            'f727bc80823d9fe5a47d44c361b9aefcdadc6b5a144331f2857079ce91508d1c' 'study10_derived/S10_G4_TierA_32Slot_PublishedSchema.json' \
+            '93dd4f92810a33f0dbe13dd11f842f732a4ccc9fac322a762fcab557185623f6' 'study10_derived/S10_G4_TierC_16_StratumPolicy_NonEvaluable.json' \
+            'ba343e858b4d54256f8f4d8b118bb87a95a49a0d99baebc394ac5517c418ddc9' 'study10_derived/S10_RQ_E3_ESA_V1V2_Aggregate_Metadata.json' | sha256sum -c -
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          base = Path("study10_derived")
+          a = json.loads((base / "S10_G4_TierA_32Slot_PublishedSchema.json").read_text())
+          c = json.loads((base / "S10_G4_TierC_16_StratumPolicy_NonEvaluable.json").read_text())
+          e = json.loads((base / "S10_RQ_E3_ESA_V1V2_Aggregate_Metadata.json").read_text())
+          m = json.loads((base / "README_MANIFEST.json").read_text())
+          expected = {"S10_G4_TierA_32Slot_PublishedSchema.json","S10_G4_TierC_16_StratumPolicy_NonEvaluable.json","S10_RQ_E3_ESA_V1V2_Aggregate_Metadata.json","README_MANIFEST.json"}
+          assert set(p.name for p in base.iterdir()) == expected
+          assert len(a["adjudications"]) == 32
+          assert a["counts"]["mapping_class_counts"] == {"ABSENT": 18, "AMBIGUOUS": 14}
+          assert len(c["policy_results"]) == 16
+          assert all(x["Tier_C_disposition"] == "NOT_EVALUABLE_FOR_OPERATIONAL_ACTION" for x in c["policy_results"])
+          assert e["channel_identifiers_in_report"] is False and e["metadata_values_in_report"] is False
+          assert e["totals"]["matched_channels"] == 224 and e["totals"]["changed_common_field_values"] == 54
+          assert len(m["evidence"]) == 3 and m["content_guards"]["no_local_detail_csv_uploaded"] is True
+          highlights = Path("CSA_S9_S10_INTEGRATED_HIGHLIGHTS.txt").read_text().splitlines()
+          assert 3 <= len(highlights) <= 5
+          assert all(x.startswith("- ") and len(x[2:]) <= 85 for x in highlights)
+          print("STUDY10_ARCHIVE_HASHES_AND_HIGHLIGHTS_PASS")
+          PY
+      - name: Assert frozen Study 9/10 science and Phase 1 manuscript anchors
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: python3 validate_phase0_science.py
+      - name: Assert Phase 2 field-level and nine-RQ traceability
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: python3 validate_phase2_editorial.py
+      - name: Install LaTeX (no manuscript external network processing)
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+            latexmk texlive-latex-recommended texlive-latex-extra texlive-publishers \
+            texlive-fonts-recommended lmodern poppler-utils
+      - name: Compile exact manuscript
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: |
+          set -euo pipefail
+          echo "CI_PR_HEAD=$(git rev-parse HEAD)"
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha }}"
+          latexmk -pdf -no-shell-escape -interaction=nonstopmode -halt-on-error -file-line-error \
+            CSA_S9_S10_INTEGRATED_CANDIDATE.tex
+          test -s CSA_S9_S10_INTEGRATED_CANDIDATE.pdf
+          pdfinfo CSA_S9_S10_INTEGRATED_CANDIDATE.pdf | grep -E 'Pages:|Page size:|File size:'
+          echo "PDF_SHA256=$(sha256sum CSA_S9_S10_INTEGRATED_CANDIDATE.pdf | awk '{print $1}')"
+          echo "OVERFULL_HBOX_COUNT=$(grep -c 'Overfull \\hbox' CSA_S9_S10_INTEGRATED_CANDIDATE.log || true)"
+          echo "UNDERFULL_HBOX_COUNT=$(grep -c 'Underfull \\hbox' CSA_S9_S10_INTEGRATED_CANDIDATE.log || true)"
+          if grep -E 'Citation .* undefined|There were undefined references|I couldn.t open database file|I found no \\bibdata' CSA_S9_S10_INTEGRATED_CANDIDATE.log; then
+            echo "UNRESOLVED_CITATIONS_OR_REFERENCES_FAIL"
+            exit 1
+          fi
+          pdftotext CSA_S9_S10_INTEGRATED_CANDIDATE.pdf - | grep -F -q 'Recovery-State Semantic Observability'
+          echo "PAPER5_INTEGRATED_DRAFT_LATEX_COMPILED_PASS"
+      - name: Compile separate field-level Supplementary Appendix S1
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: |
+          set -euo pipefail
+          latexmk -pdf -no-shell-escape -interaction=nonstopmode -halt-on-error -file-line-error \
+            PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.tex
+          test -s PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf
+          pdfinfo PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf | grep -E 'Pages:|Page size:'
+          echo "SUPPLEMENT_SHA256=$(sha256sum PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf | awk '{print $1}')"
+          echo "SUPPLEMENT_OVERFULL_HBOX_COUNT=$(grep -c 'Overfull \\hbox' PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log || true)"
+          echo "PAPER5_PHASE2_SUPPLEMENT_COMPILED_PASS"
+      - name: Seal compiled review PDF bytes in artifact manifest
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate
+        run: |
+          set -euo pipefail
+          sha256sum \
+            CSA_S9_S10_INTEGRATED_CANDIDATE.pdf \
+            PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf \
+            > PDF_REVIEW_SHA256SUMS.txt
+          sha256sum -c PDF_REVIEW_SHA256SUMS.txt
+          echo "PAPER5_FINAL_PACKAGED_PDF_DIGEST_MANIFEST_PASS"
+          cat PDF_REVIEW_SHA256SUMS.txt
+      - name: Preserve review PDF and compilation logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: paper5-integrated-draft-latex-qa
+          path: |
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/CSA_S9_S10_INTEGRATED_CANDIDATE.blg
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PDF_REVIEW_SHA256SUMS.txt
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Validate exact submitted editable snapshot
+        working-directory: publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/
+        run: |
+          set -euo pipefail
+          sha256sum -c SUBMITTED_SOURCE_SHA256SUMS.txt
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          t = Path("CSA_S9_S10_MANUSCRIPT_EM.tex").read_text()
+          b = Path("references.bib").read_text()
+          keys = set(re.findall(r'\\bibitem\{([^}]+)\}', t))
+          cited = {k.strip() for item in re.findall(r'\\cite\{([^}]+)\}',t) for k in item.split(",")}
+          assert len(keys) == 27 and keys == cited
+          assert keys == set(re.findall(r'(?m)^@\w+\{([^,]+),',b))
+          assert r'\bibliography{' not in t
+          assert "OpenAI ChatGPT (GPT-6 series)" in t
+          print("SUBMITTED_SOURCE_HASH_AND_BIBLIOGRAPHY_PASS")
+          PY
+          for src in CSA_S9_S10_MANUSCRIPT_EM PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT; do
+            for pass in 1 2 3; do
+              pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -file-line-error "$src.tex" > "$src.pass$pass.txt"
+            done
+            test -s "$src.pdf"
+            if grep -E 'Citation .* undefined|There were undefined references|Overfull \\hbox' "$src.log"; then
+              exit 1
+            fi
+            pdfinfo "$src.pdf" | grep -E 'Pages:|Page size:'
+          done
+          sha256sum CSA_S9_S10_MANUSCRIPT_EM.pdf PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf > RECOMPILED_PDF_SHA256SUMS.txt
+      - name: Preserve submitted-source validation build (not publisher proof)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: paper5-submitted-source-validation
+          path: |
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/CSA_S9_S10_MANUSCRIPT_EM.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.pdf
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/CSA_S9_S10_MANUSCRIPT_EM.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/PHASE2_FIELD_LEVEL_EVIDENCE_SUPPLEMENT.log
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/RECOMPILED_PDF_SHA256SUMS.txt
+            publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/SUBMITTED_SOURCE_SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14

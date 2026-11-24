@@ -1,0 +1,7 @@
+# Phase 9 final controlled compression candidate
+
+Parent: a0f672320b5f624467d1194b3a8d6579bf19344c (36-page main PDF and five-page S1; LaTeX and engineering PASS; repository-wide CI in progress at preparation). Original 39-page baseline remains at 88c3e003419e82f7ccddf989c6c3724474329e32.
+
+Author authorized a final controlled editorial pass toward 32–34 pages, with scientific quality as the stopping rule. Changes limited to abstract, introductory narrative and related-work prose; no layout setting, table, figure, research-question text, methods, results, discussion, limitations, reproducibility, rights or declaration changes. Existing validator scripts unchanged. Static comparisons verified byte-identical source from Study Design to end, all table/longtable/figure/description blocks, citation-key set (25) and manuscript anchor presence. Whitespace-delimited source tokens: 9593 -> 8585 (removed 1008); abstract whitespace-delimited words: 230 -> 185. This is not a compiled page-count or quality certification.
+
+Final proof requires exact-head CI, artifact hash/manifest, rendered pages and adversarial review of condensed prose. If quality is impaired, retain or restore the 36-page candidate; do not cut scientific substance to reach an arbitrary page count. No new experiment, original-source access, additional data release, merge or submission. Prior author-confirmed declarations remain; private postal affiliation, official Elsevier Word declaration and final revised proof/submission authorization remain outstanding.

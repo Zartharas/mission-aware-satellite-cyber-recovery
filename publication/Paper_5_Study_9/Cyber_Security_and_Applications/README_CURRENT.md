@@ -1,87 +1,17 @@
-# Paper 5 - Study 9 - Cyber Security and Applications
+# Paper 5 - Studies 9 and 10 - Cyber Security and Applications
 
-**Experiment:** `S9-RTSI-001`  
-**Target journal:** Cyber Security and Applications (KeAi / Elsevier)  
-**Working article type:** Research article  
-**Manuscript phase:** authorized and active  
-**Submission phase:** not authorized  
-**Manuscript branch:** `paper5/study9-csa-manuscript`  
-**Scientific source main:** `ced258fc3ba9513b34cf3b231abab1d2b3f2ca01`
+- **Journal:** Cyber Security and Applications (KeAi / Elsevier)
+- **Title:** Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit
+- **Manuscript ID:** `CSA-D-26-00979`
+- **Submitted:** 2026-11-23 (US Central; acknowledgements 2026-11-24 03:38:36 UTC)
+- **Last verified state:** `SUBMITTED__WITH_EDITOR`; managing editor assigned; external peer review and decision not established.
+- **Authority:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/CSA_SUBMISSION_STATUS.json`
+- **Submitted source snapshot:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/` (33-page manuscript, five-page supplement, 27 references; private publisher proof and correspondence retained separately).
 
-## Purpose
+Study 9 and Study 10 retain their separate scientific denominators. The separately frozen synthetic extension does not establish mission feasibility or live recovery efficacy. No new scientific execution, source redistribution, journal revision, or merge is authorized by this closeout. SSRN posting was selected at submission; no public posting or DOI is verified.
 
-This directory contains the manuscript-development package for Study 9 after scientific execution, result freeze, repository integration, governance closeout, and post-closeout CI validation.
+## Current and historical source boundaries
 
-Manuscript development must not modify or reinterpret the frozen Study 9 result artifacts to improve venue fit. The accepted negative/interoperability-limited result remains the scientific basis of the paper.
+The exact submitted editable source is in [submitted_20261123/](submitted_20261123/). Its checksum manifest identifies the author-local submitted package and publisher proof without publishing private documents. The [integrated_candidate/](integrated_candidate/) directory remains the historical validated preparation and scientific-evidence authority. Original Study-9-only files, `MANUSCRIPT_CREATION_STATUS.json` and `submission_package/` are historical development records; their old submission holds do not describe the completed integrated submission.
 
-## Current files
-
-- `CSA_MANUSCRIPT_DRAFT.tex` - initial journal-aligned LaTeX manuscript draft.
-- `references.bib` - verified bibliography starter for sources already used in the manuscript.
-- `CSA_HIGHLIGHTS.txt` - five candidate highlights, each within the journal's 85-character limit.
-- `AUTHOR_METADATA.md` - current author, affiliation, CRediT, funding, conflict, and AI-use metadata.
-- `MANUSCRIPT_CREATION_STATUS.json` - machine-readable manuscript governance state.
-- `MANUSCRIPT_EVIDENCE_NOVELTY_AUDIT.md` - claim-to-evidence and bounded-novelty audit.
-
-## Frozen scientific anchors
-
-- Results freeze SHA-256: `0c80bde43b5678c0f9d566b24c2b2c7645b34656a401d557f717479a8cfbb5d2`
-- Study 9 science merge: `1dfdef4ec9a0336f4dccfa11baa4bda4c6cf7ed6`
-- Study 9 post-merge governance closeout: `ced258fc3ba9513b34cf3b231abab1d2b3f2ca01`
-- Frozen Study 2 selector SHA-256: `3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505`
-
-The manuscript may summarize these artifacts but may not alter them.
-
-## Journal-format basis verified 2026-09-15
-
-The current Cyber Security and Applications author guide:
-
-- recommends LaTeX;
-- accepts Research Articles;
-- requires a concise factual abstract of no more than 350 words;
-- requires 3-6 English keywords;
-- uses numbered manuscript sections;
-- uses numbered square-bracket references;
-- encourages 3-5 highlights of at most 85 characters each;
-- encourages a data-availability statement;
-- requires disclosure of generative-AI use in manuscript preparation when applicable.
-
-Submission-specific portal values, cover letters, declarations-tool exports, reviewer suggestions, and final submission files are deliberately excluded because submission is not yet authorized.
-
-## Scientific boundaries
-
-The manuscript must not claim:
-
-- intrusion-detection accuracy or classifier transferability;
-- external validation;
-- flight or on-orbit validation;
-- operational spacecraft recovery effectiveness;
-- mission certification or mission-success probability;
-- policy superiority;
-- that attack labels are operational recovery truth;
-- that the three datasets represent all satellite-cybersecurity datasets.
-
-## Current manuscript validation state
-
-- Repository CI on manuscript head `3641546bc744563acebee7b930e90f2190a5d341`: PASS.
-- Read-only local manuscript validator r2 SHA-256: `088f52b31e875a19ed986a6d33a975374ee7f729f7f5087d286c50a004a0d232`.
-- LaTeX/BibTeX compile: PASS.
-- Undefined citations or references: 0.
-- Compiled PDF before layout refinement: 13 pages, 204,092 bytes.
-- Pre-refinement layout diagnostics: 18 overfull and 4 underfull hboxes.
-- Novelty framing: bounded; no universal “first” claim is authorized.
-
-## Review-candidate preparation
-
-The review-candidate pass adds explicit traceability to all four frozen Study 9 research questions and cites AIRSS as prior space-system response-selection work. These changes refine manuscript positioning only; they do not alter Study 9 methods, results, frozen artifacts, or scientific claims.
-
-The candidate remains a draft PR until fresh CI and final manuscript review are complete.
-
-## Next manuscript-development tasks
-
-1. Validate the review-candidate commit with fresh repository CI.
-2. Perform final human review of the compiled manuscript and claim boundaries.
-3. Decide separately whether to authorize manuscript merge.
-4. Keep submission-package creation and publisher submission closed until separately authorized.
-
-Submission remains a separate explicit authorization gate.
+The new submission receipt does not modify the frozen Study 9/10 artifacts, the synthetic extension protocol, or any prior review assessment. Wait for a journal request before modifying the submitted version. No raw source data, local channel-detail records, or private portal documents are redistributed.

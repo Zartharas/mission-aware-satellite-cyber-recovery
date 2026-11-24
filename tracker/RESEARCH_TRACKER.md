@@ -1,17 +1,18 @@
 # Research Tracker
 
-Last updated: 2026-11-21 (Paper 2 CEAS rejection reconciled; other papers retain last verified entries)
+Last updated: 2026-11-23 (Paper 5 CSA submission reconciled; other papers retain last verified entries)
 
 ## Current focus
 
-The repository now contains four submitted publication lines:
+The repository now contains five historically submitted publication lines:
 
 1. **Paper 1:** Studies 1 + 2, submitted to AIAA Journal of Aerospace Information Systems as manuscript `2026-09-I012066` on 2026-09-05.
 2. **Paper 4:** rebuilt Study 8 + Study 8E manuscript, submitted to IJSCCN as manuscript `4920969` on 2026-09-22; rejected at editorial screening on 2026-09-24 as `out of scope`, with no external reviewer reports supplied. The earlier Acta rejection remains historical provenance.
 3. **Paper 2:** Studies 3 + 4 + 6, **CEAS Space Journal RevB received 2026-10-19, editorially REJECTED 2026-10-22; recommended transfer NOT COMPLETED**; prior TAES `TAES-2026-4182` was rejected at editorial pre-screening 2026-09-26.
 4. **Paper 3:** Study 7, submitted to CEAS Space Journal on 2026-09-13 as submission `6db04a31-8223-4aaf-af02-e4bafe06ef89`; rejected by handling-editor editorial assessment on 2026-09-22.
+5. **Paper 5:** Studies 9 + 10 and separately frozen synthetic extension, submitted to Cyber Security and Applications as `CSA-D-26-00979` on 2026-11-23; With Editor.
 
-Paper 1 remains frozen pending journal action. Paper 2's rejected TAES R10, original Studies 3/4/6 and separately governed S3X/S6X results remain frozen. Its latest CEAS RevB submission was received 2026-10-19 and REJECTED 2026-10-22 after editorial assessment; the proposed transfer was not completed by 2026-11-01; former Phase-3 pre-execution gates are historical, not the live publisher status. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
+Paper 1 and Paper 5 remain frozen pending journal action. Paper 2's rejected TAES R10, original Studies 3/4/6 and separately governed S3X/S6X results remain frozen. Its latest CEAS RevB submission was received 2026-10-19 and REJECTED 2026-10-22 after editorial assessment; the proposed transfer was not completed by 2026-11-01; former Phase-3 pre-execution gates are historical, not the live publisher status. The rejected Paper-3 CEAS, Paper-4 Acta, and Paper-4 IJSCCN packages remain frozen as provenance. Paper 3 now has an explicitly authorized rejection-to-research-requirements workstream; its completed audit proposes a new prospective extension but does not authorize scientific execution. Paper 4 is now in a fresh venue-fit phase after the IJSCCN scope rejection; no scientific rerun or automatic Wiley transfer is authorized.
 
 This is a journal/research publication workflow, not a dissertation-revision workflow.
 
@@ -28,6 +29,19 @@ Use these current-state records before older preparation or work-package documen
 For scientific facts, per-study freeze/provenance records remain authoritative. For submitted papers, exact submitted-state packages and publisher-status records take precedence over older venue-development material.
 
 ## Submitted publication state
+
+### Paper 5 - Studies 9 + 10
+
+- **Journal:** Cyber Security and Applications (KeAi / Elsevier)
+- **Title:** Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit
+- **Manuscript ID:** `CSA-D-26-00979`
+- **Submitted:** 2026-11-23 (US Central; acknowledgements 2026-11-24 03:38:36 UTC)
+- **Last verified state:** `SUBMITTED__WITH_EDITOR`; managing editor assigned; external peer review and decision not established.
+- **Authority:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/CSA_SUBMISSION_STATUS.json`
+- **Submitted source snapshot:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/` (33-page manuscript, five-page supplement, 27 references; private publisher proof and correspondence retained separately).
+
+Study 9 and Study 10 retain their separate scientific denominators. The separately frozen synthetic extension does not establish mission feasibility or live recovery efficacy. No new scientific execution, source redistribution, journal revision, or merge is authorized by this closeout. SSRN posting was selected at submission; no public posting or DOI is verified.
+
 
 ### Paper 1 - Studies 1 + 2
 
@@ -125,7 +139,7 @@ Study 5 remains a portability/external-validity boundary study. Its publication 
 
 ### Other remaining studies
 
-Any other repository study or experiment may enter the next-paper candidate audit only if it is demonstrably complete, provenance-bound, scientifically independent, and not already consumed as experimental evidence by Papers 1, 2, 3, or 4.
+Any other repository study or experiment may enter the next-paper candidate audit only if it is demonstrably complete, provenance-bound, scientifically independent, and not already consumed as experimental evidence by Papers 1, 2, 3, 4, or 5.
 
 ## Current exact action
 

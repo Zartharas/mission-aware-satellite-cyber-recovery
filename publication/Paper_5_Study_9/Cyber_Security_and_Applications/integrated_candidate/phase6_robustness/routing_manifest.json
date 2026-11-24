@@ -1,0 +1,468 @@
+{
+  "cases": [
+    {
+      "case_id": "A01-T",
+      "family": "TARGET",
+      "routing_key": "R001"
+    },
+    {
+      "case_id": "A01-F",
+      "family": "TARGET",
+      "routing_key": "R002"
+    },
+    {
+      "case_id": "A01-P",
+      "family": "TARGET",
+      "routing_key": "R003"
+    },
+    {
+      "case_id": "A01-A",
+      "family": "TARGET",
+      "routing_key": "R004"
+    },
+    {
+      "case_id": "A01-W",
+      "family": "TARGET",
+      "routing_key": "R005"
+    },
+    {
+      "case_id": "A01-B",
+      "family": "TARGET",
+      "routing_key": "R006"
+    },
+    {
+      "case_id": "A02-T",
+      "family": "TARGET",
+      "routing_key": "R007"
+    },
+    {
+      "case_id": "A02-F",
+      "family": "TARGET",
+      "routing_key": "R008"
+    },
+    {
+      "case_id": "A02-P",
+      "family": "TARGET",
+      "routing_key": "R009"
+    },
+    {
+      "case_id": "A02-A",
+      "family": "TARGET",
+      "routing_key": "R010"
+    },
+    {
+      "case_id": "A02-W",
+      "family": "TARGET",
+      "routing_key": "R011"
+    },
+    {
+      "case_id": "A02-B",
+      "family": "TARGET",
+      "routing_key": "R012"
+    },
+    {
+      "case_id": "A03-T",
+      "family": "TARGET",
+      "routing_key": "R013"
+    },
+    {
+      "case_id": "A03-F",
+      "family": "TARGET",
+      "routing_key": "R014"
+    },
+    {
+      "case_id": "A03-P",
+      "family": "TARGET",
+      "routing_key": "R015"
+    },
+    {
+      "case_id": "A03-A",
+      "family": "TARGET",
+      "routing_key": "R016"
+    },
+    {
+      "case_id": "A03-W",
+      "family": "TARGET",
+      "routing_key": "R017"
+    },
+    {
+      "case_id": "A03-B",
+      "family": "TARGET",
+      "routing_key": "R018"
+    },
+    {
+      "case_id": "A04-T",
+      "family": "TARGET",
+      "routing_key": "R019"
+    },
+    {
+      "case_id": "A04-F",
+      "family": "TARGET",
+      "routing_key": "R020"
+    },
+    {
+      "case_id": "A04-P",
+      "family": "TARGET",
+      "routing_key": "R021"
+    },
+    {
+      "case_id": "A04-A",
+      "family": "TARGET",
+      "routing_key": "R022"
+    },
+    {
+      "case_id": "A04-W",
+      "family": "TARGET",
+      "routing_key": "R023"
+    },
+    {
+      "case_id": "A04-B",
+      "family": "TARGET",
+      "routing_key": "R024"
+    },
+    {
+      "case_id": "A05-T",
+      "family": "TARGET",
+      "routing_key": "R025"
+    },
+    {
+      "case_id": "A05-F",
+      "family": "TARGET",
+      "routing_key": "R026"
+    },
+    {
+      "case_id": "A05-P",
+      "family": "TARGET",
+      "routing_key": "R027"
+    },
+    {
+      "case_id": "A05-A",
+      "family": "TARGET",
+      "routing_key": "R028"
+    },
+    {
+      "case_id": "A05-W",
+      "family": "TARGET",
+      "routing_key": "R029"
+    },
+    {
+      "case_id": "A05-B",
+      "family": "TARGET",
+      "routing_key": "R030"
+    },
+    {
+      "case_id": "A06-T",
+      "family": "TARGET",
+      "routing_key": "R031"
+    },
+    {
+      "case_id": "A06-F",
+      "family": "TARGET",
+      "routing_key": "R032"
+    },
+    {
+      "case_id": "A06-P",
+      "family": "TARGET",
+      "routing_key": "R033"
+    },
+    {
+      "case_id": "A06-A",
+      "family": "TARGET",
+      "routing_key": "R034"
+    },
+    {
+      "case_id": "A06-W",
+      "family": "TARGET",
+      "routing_key": "R035"
+    },
+    {
+      "case_id": "A06-B",
+      "family": "TARGET",
+      "routing_key": "R036"
+    },
+    {
+      "case_id": "A07-T",
+      "family": "TARGET",
+      "routing_key": "R037"
+    },
+    {
+      "case_id": "A07-F",
+      "family": "TARGET",
+      "routing_key": "R038"
+    },
+    {
+      "case_id": "A07-P",
+      "family": "TARGET",
+      "routing_key": "R039"
+    },
+    {
+      "case_id": "A07-A",
+      "family": "TARGET",
+      "routing_key": "R040"
+    },
+    {
+      "case_id": "A07-W",
+      "family": "TARGET",
+      "routing_key": "R041"
+    },
+    {
+      "case_id": "A07-B",
+      "family": "TARGET",
+      "routing_key": "R042"
+    },
+    {
+      "case_id": "A08-T",
+      "family": "TARGET",
+      "routing_key": "R043"
+    },
+    {
+      "case_id": "A08-F",
+      "family": "TARGET",
+      "routing_key": "R044"
+    },
+    {
+      "case_id": "A08-P",
+      "family": "TARGET",
+      "routing_key": "R045"
+    },
+    {
+      "case_id": "A08-A",
+      "family": "TARGET",
+      "routing_key": "R046"
+    },
+    {
+      "case_id": "A08-W",
+      "family": "TARGET",
+      "routing_key": "R047"
+    },
+    {
+      "case_id": "A08-B",
+      "family": "TARGET",
+      "routing_key": "R048"
+    },
+    {
+      "case_id": "D-FRESH-01",
+      "family": "DERIVATION",
+      "routing_key": "R049"
+    },
+    {
+      "case_id": "D-FRESH-02",
+      "family": "DERIVATION",
+      "routing_key": "R050"
+    },
+    {
+      "case_id": "D-FRESH-03",
+      "family": "DERIVATION",
+      "routing_key": "R051"
+    },
+    {
+      "case_id": "D-FRESH-04",
+      "family": "DERIVATION",
+      "routing_key": "R052"
+    },
+    {
+      "case_id": "D-FRESH-05",
+      "family": "DERIVATION",
+      "routing_key": "R053"
+    },
+    {
+      "case_id": "D-FRESH-06",
+      "family": "DERIVATION",
+      "routing_key": "R054"
+    },
+    {
+      "case_id": "D-EPOCH-01",
+      "family": "DERIVATION",
+      "routing_key": "R055"
+    },
+    {
+      "case_id": "D-EPOCH-02",
+      "family": "DERIVATION",
+      "routing_key": "R056"
+    },
+    {
+      "case_id": "D-EPOCH-03",
+      "family": "DERIVATION",
+      "routing_key": "R057"
+    },
+    {
+      "case_id": "D-EPOCH-04",
+      "family": "DERIVATION",
+      "routing_key": "R058"
+    },
+    {
+      "case_id": "D-EPOCH-05",
+      "family": "DERIVATION",
+      "routing_key": "R059"
+    },
+    {
+      "case_id": "D-EPOCH-06",
+      "family": "DERIVATION",
+      "routing_key": "R060"
+    },
+    {
+      "case_id": "C-01",
+      "family": "CHALLENGE",
+      "routing_key": "R061"
+    },
+    {
+      "case_id": "C-02",
+      "family": "CHALLENGE",
+      "routing_key": "R062"
+    },
+    {
+      "case_id": "C-03",
+      "family": "CHALLENGE",
+      "routing_key": "R063"
+    },
+    {
+      "case_id": "C-04",
+      "family": "CHALLENGE",
+      "routing_key": "R064"
+    },
+    {
+      "case_id": "C-05",
+      "family": "CHALLENGE",
+      "routing_key": "R065"
+    },
+    {
+      "case_id": "C-06",
+      "family": "CHALLENGE",
+      "routing_key": "R066"
+    },
+    {
+      "case_id": "C-07",
+      "family": "CHALLENGE",
+      "routing_key": "R067"
+    },
+    {
+      "case_id": "C-08",
+      "family": "CHALLENGE",
+      "routing_key": "R068"
+    },
+    {
+      "case_id": "C-09",
+      "family": "CHALLENGE",
+      "routing_key": "R069"
+    },
+    {
+      "case_id": "C-10",
+      "family": "CHALLENGE",
+      "routing_key": "R070"
+    },
+    {
+      "case_id": "C-11",
+      "family": "CHALLENGE",
+      "routing_key": "R071"
+    },
+    {
+      "case_id": "C-12",
+      "family": "CHALLENGE",
+      "routing_key": "R072"
+    }
+  ],
+  "perturbations": [
+    {
+      "base_case": "A01-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-1",
+      "operation": "rename native field and corresponding record key to neutral_1; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A02-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-2",
+      "operation": "rename native field and corresponding record key to neutral_2; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A03-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-3",
+      "operation": "rename native field and corresponding record key to neutral_3; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A04-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-4",
+      "operation": "rename native field and corresponding record key to neutral_4; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A05-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-5",
+      "operation": "rename native field and corresponding record key to neutral_5; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A06-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-6",
+      "operation": "rename native field and corresponding record key to neutral_6; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A07-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-7",
+      "operation": "rename native field and corresponding record key to neutral_7; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A08-T",
+      "expected": "same classification, admission and value",
+      "id": "P-RENAME-8",
+      "operation": "rename native field and corresponding record key to neutral_8; retain semantic documentation and authority"
+    },
+    {
+      "base_case": "A01-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-1",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "A02-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-2",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "A03-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-3",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "A04-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-4",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "A05-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-5",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "A06-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-6",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "A07-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-7",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "A08-F",
+      "expected": "same classification, admission and value",
+      "id": "P-ORDER-8",
+      "operation": "add unrelated_test_counter documented as fixture bookkeeping (integer 17), compare original and reversed field/record-key order"
+    },
+    {
+      "base_case": "C-01",
+      "expected": "ABSENT, UNKNOWN, null",
+      "id": "P-OFFLINE-LABEL",
+      "operation": "flip attack_label true to false; retain offline role"
+    }
+  ]
+}

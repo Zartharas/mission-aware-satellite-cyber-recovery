@@ -1,0 +1,101 @@
+{
+  "record": "PAPER5_PHASE6_2_IMMUTABLE_PROTOCOL_FREEZE_RECEIPT",
+  "status": "INTERNALLY_FROZEN_DESIGN_ONLY_NO_IMPLEMENTATION_NO_EXECUTION",
+  "authorization": {
+    "message": "yes, I authorize",
+    "scope": "Phase 6.2 immutable protocol freeze at b61eacc4c9791c2767bb3699597e51db2ee13592, conditional on successful current-head validation; condition satisfied",
+    "author_attestations_not_inferred": true
+  },
+  "frozen_payload": {
+    "commit": "b61eacc4c9791c2767bb3699597e51db2ee13592",
+    "tree": "98b0a5cb5bccac7c05e8488812f9a3535228693f",
+    "files": [
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CANDIDATE_PROTOCOL_MANIFEST.json",
+        "git_blob_sha1": "506d5d113264bd4bec1d73c40d02e7d39a94205a"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CONTROL_INPUT_SPEC_CANDIDATE.json",
+        "git_blob_sha1": "62a9269e2c754f3155f982336a2d255414c9be44"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CONTROL_EXPECTATIONS_CANDIDATE.json",
+        "git_blob_sha1": "976d26e221bf94e4b6e398348bfad449313c68ff"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_ORACLE_AND_CONSTRAINT_SPECIFICATION.md",
+        "git_blob_sha1": "2ea355768b7da52a7e13e8ab36c5d62d751569d6"
+      },
+      {
+        "path": "publication/Paper_5_Study_9/Cyber_Security_and_Applications/integrated_candidate/PHASE6_1_CONSOLIDATED_FINDINGS_AND_PREFREEZE_REVIEW.md",
+        "git_blob_sha1": "cdeb6f81dbd11e1fc16233ec1112d805cea085c5"
+      }
+    ],
+    "normative_pins": {
+      "s2_s9_commit": "5ee451c2a739cbca7dc948d49239d985c6b4cc07",
+      "selector_blob": "6ac7d0767a719c6305a5a47555cc9d0cfc74fa23",
+      "selector_sha256": "3bd5b607095807acf93a929d6d67c5cc1d2f592e5b0650c14032a7724e5f5505",
+      "runtime_blob": "786ebc7de2792aff4f95dd04a29be666ac442b8f",
+      "evidence_blob": "5d107ecb24f24fec14f1d817ab48db95be744556",
+      "gate_blob": "2e9c41126eb9de480a013168c8547197bf9ae883",
+      "s10_g2_payload": "8ed6a2b16233b86bf91672f6f15605dcf906c5eb",
+      "s10_g3_audit": "04317102b87eb63312ba4e1599f87a3971858d03",
+      "g3_helper_blob": "e76de9e1271b350e43427205bf30f99462db6ca5"
+    }
+  },
+  "validation": {
+    "latex": {
+      "run_id": 45297273589,
+      "job_id": 138120743172,
+      "conclusion": "success"
+    },
+    "research": {
+      "run_id": 45297273608,
+      "job_id": 138120742736,
+      "conclusion": "success"
+    },
+    "scope": "Existing CI and static design checks; not new Phase 6 scientific execution."
+  },
+  "design": {
+    "cases": 72,
+    "mapping": 64,
+    "expected_admissible": 23,
+    "expected_nonadmissible": 41,
+    "ledger_diagnostics": 8,
+    "metamorphic_pairs": 17,
+    "models": [
+      {
+        "id": "F0",
+        "condition": "true",
+        "status": "unrestricted mathematical comparator",
+        "analytic_expected_size": 256
+      },
+      {
+        "id": "F1",
+        "condition": "not M_present or not contradictory",
+        "status": "required-key-only, same subject/epoch/decision logical outer approximation",
+        "analytic_expected_size": 192
+      },
+      {
+        "id": "F2",
+        "condition": "F1 and (not M_present or (signature_valid and source_trusted and fresh and epoch_valid))",
+        "status": "F1 plus conditional complete-snapshot admission guarantee over ALL submitted rows; no filter that hides rejected evidence; logical outer approximation",
+        "analytic_expected_size": 132
+      }
+    ],
+    "scope": "Expected values and analytic domain sizes, not observations. Design files publicly visible in draft PR; not a blinded holdout or external preregistration."
+  },
+  "governance": {
+    "historical_candidate_labels": "Retained as written at approved commit; this additive receipt establishes freeze without rewriting approved payload.",
+    "runtime_materialization": "BLOCKED_PENDING_IMPLEMENTATION_APPROVAL",
+    "implementation": "NOT_AUTHORIZED",
+    "execution": "NOT_AUTHORIZED",
+    "source_access": "NOT_AUTHORIZED",
+    "data_release": "NOT_AUTHORIZED",
+    "merge": "NOT_AUTHORIZED",
+    "submission": "NOT_AUTHORIZED",
+    "frozen_studies_modified": false,
+    "changes_to_frozen_design": "Separate explicit author approval and recorded prospective amendment required; no post-result tuning.",
+    "next_gate": "Phase 6.3 implementation and technical oracle under separate authorization, with runtime fixture and code digests before any experiment."
+  }
+}

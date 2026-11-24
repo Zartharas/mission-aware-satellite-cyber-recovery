@@ -1,0 +1,949 @@
+{
+  "rows": [
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R001"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R002"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R003"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R004"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R005"
+    },
+    {
+      "expectation": {
+        "admission": "REJECT_INVALID",
+        "classification": "DIRECT",
+        "reason": "INVALID_BOOLEAN_LITERAL",
+        "release_domain": "DOMAIN_VIOLATION_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R006"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R007"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R008"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R009"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R010"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R011"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN_MISSING",
+        "classification": "DIRECT",
+        "reason": "MISSING_ROW_VALUE",
+        "release_domain": "MISSINGNESS_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R012"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R013"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R014"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R015"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R016"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R017"
+    },
+    {
+      "expectation": {
+        "admission": "REJECT_INVALID",
+        "classification": "DIRECT",
+        "reason": "INVALID_BOOLEAN_LITERAL",
+        "release_domain": "DOMAIN_VIOLATION_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R018"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R019"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R020"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R021"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R022"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R023"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN_MISSING",
+        "classification": "DIRECT",
+        "reason": "MISSING_ROW_VALUE",
+        "release_domain": "MISSINGNESS_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R024"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R025"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R026"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R027"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R028"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R029"
+    },
+    {
+      "expectation": {
+        "admission": "REJECT_INVALID",
+        "classification": "DIRECT",
+        "reason": "INVALID_BOOLEAN_LITERAL",
+        "release_domain": "DOMAIN_VIOLATION_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R030"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R031"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R032"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R033"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R034"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R035"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN_MISSING",
+        "classification": "DIRECT",
+        "reason": "MISSING_ROW_VALUE",
+        "release_domain": "MISSINGNESS_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R036"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R037"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R038"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R039"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R040"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R041"
+    },
+    {
+      "expectation": {
+        "admission": "REJECT_INVALID",
+        "classification": "DIRECT",
+        "reason": "INVALID_BOOLEAN_LITERAL",
+        "release_domain": "DOMAIN_VIOLATION_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R042"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R043"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DIRECT",
+        "reason": "QUALIFIED_DIRECT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R044"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "NON_EQUIVALENT_PROXY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R045"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "NO_RELEVANT_OPERATIONAL_FIELD",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R046"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "SCHEMA_SCOPE_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R047"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN_MISSING",
+        "classification": "DIRECT",
+        "reason": "MISSING_ROW_VALUE",
+        "release_domain": "MISSINGNESS_HOLD",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R048"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "QUALIFIED_DERIVATION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": "D_FRESH",
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R049"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "QUALIFIED_DERIVATION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": "D_FRESH",
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R050"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "QUALIFIED_DERIVATION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": "D_FRESH",
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R051"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN_MISSING",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "MISSING_RULE_INPUT",
+        "release_domain": "MISSINGNESS_HOLD",
+        "rule_id": "D_FRESH",
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R052"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "RULE_CLOCK_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R053"
+    },
+    {
+      "expectation": {
+        "admission": "REJECT_INVALID",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "INVALID_RULE_DOMAIN",
+        "release_domain": "DOMAIN_VIOLATION_HOLD",
+        "rule_id": "D_FRESH",
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R054"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "QUALIFIED_DERIVATION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": "D_EPOCH",
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R055"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "QUALIFIED_DERIVATION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": "D_EPOCH",
+        "value": false,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R056"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "QUALIFIED_DERIVATION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": "D_EPOCH",
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R057"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN_MISSING",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "MISSING_RULE_INPUT",
+        "release_domain": "MISSINGNESS_HOLD",
+        "rule_id": "D_EPOCH",
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R058"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "AMBIGUOUS",
+        "reason": "RULE_SUBJECT_MISMATCH",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R059"
+    },
+    {
+      "expectation": {
+        "admission": "REJECT_INVALID",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "INVALID_RULE_DOMAIN",
+        "release_domain": "DOMAIN_VIOLATION_HOLD",
+        "rule_id": "D_EPOCH",
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R060"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "OFFLINE_TRUTH_NOT_OPERATIONAL",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OFFLINE_GROUND_TRUTH_ONLY"
+      },
+      "routing_key": "R061"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "ABSENT",
+        "reason": "DOCUMENTATION_ONLY_NOT_NATIVE",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "DOCUMENTATION_ONLY"
+      },
+      "routing_key": "R062"
+    },
+    {
+      "expectation": {
+        "admission": "REJECT_INVALID",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": null,
+          "Q_satisfied": null,
+          "authorization_available": null,
+          "contradictory": null,
+          "epoch_valid": null,
+          "fresh": null,
+          "signature_valid": null,
+          "source_trusted": null
+        },
+        "reason": "DUPLICATE_SOURCE_EPOCH_SEQUENCE",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R063"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": null,
+          "Q_satisfied": null,
+          "authorization_available": true,
+          "contradictory": null,
+          "epoch_valid": null,
+          "fresh": null,
+          "signature_valid": null,
+          "source_trusted": null
+        },
+        "reason": "INCOMPLETE_LEDGER_INVENTORY",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R064"
+    },
+    {
+      "expectation": {
+        "admission": "DIAGNOSTIC",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": false,
+          "Q_satisfied": false,
+          "authorization_available": true,
+          "contradictory": false,
+          "epoch_valid": true,
+          "fresh": true,
+          "signature_valid": true,
+          "source_trusted": true
+        },
+        "reason": "CLOSED_LEDGER_REQUIRED_KEY_MISSING",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R065"
+    },
+    {
+      "expectation": {
+        "admission": "DIAGNOSTIC",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": true,
+          "Q_satisfied": false,
+          "authorization_available": true,
+          "contradictory": false,
+          "epoch_valid": true,
+          "fresh": true,
+          "signature_valid": true,
+          "source_trusted": true
+        },
+        "reason": "PRESENCE_NOT_SATISFACTION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R066"
+    },
+    {
+      "expectation": {
+        "admission": "DIAGNOSTIC",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": false,
+          "Q_satisfied": false,
+          "authorization_available": true,
+          "contradictory": true,
+          "epoch_valid": true,
+          "fresh": true,
+          "signature_valid": true,
+          "source_trusted": true
+        },
+        "reason": "REQUIRED_KEY_CONFLICT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R067"
+    },
+    {
+      "expectation": {
+        "admission": "DIAGNOSTIC",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": true,
+          "Q_satisfied": true,
+          "authorization_available": true,
+          "contradictory": true,
+          "epoch_valid": true,
+          "fresh": true,
+          "signature_valid": true,
+          "source_trusted": true
+        },
+        "reason": "UNRELATED_KEY_CONFLICT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R068"
+    },
+    {
+      "expectation": {
+        "admission": "DIAGNOSTIC",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": true,
+          "Q_satisfied": true,
+          "authorization_available": true,
+          "contradictory": false,
+          "epoch_valid": true,
+          "fresh": true,
+          "signature_valid": false,
+          "source_trusted": true
+        },
+        "reason": "REJECTED_EXTRA_ROW_AGGREGATE_INVALID",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R069"
+    },
+    {
+      "expectation": {
+        "admission": "UNKNOWN",
+        "classification": "DIRECT",
+        "reason": "STALE_DECISION_WITNESS",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R070"
+    },
+    {
+      "expectation": {
+        "admission": "DIAGNOSTIC",
+        "classification": "NOT_A_MAPPING_ENDPOINT",
+        "diagnostics": {
+          "M_present": true,
+          "Q_satisfied": true,
+          "authorization_available": false,
+          "contradictory": false,
+          "epoch_valid": true,
+          "fresh": true,
+          "signature_valid": true,
+          "source_trusted": true
+        },
+        "reason": "ACCEPTED_AUTHORIZATION_NOT_LIVE_CONTACT",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": null,
+        "value": null,
+        "visibility": null
+      },
+      "routing_key": "R071"
+    },
+    {
+      "expectation": {
+        "admission": "ADMIT",
+        "classification": "DERIVABLE_BY_PREDECLARED_RULE",
+        "reason": "QUALIFIED_DERIVATION",
+        "release_domain": "NOT_ASSESSED",
+        "rule_id": "D_FRESH",
+        "value": true,
+        "visibility": "OPERATIONAL_NATIVE"
+      },
+      "routing_key": "R072"
+    }
+  ],
+  "status": "PRESPECIFIED_NOT_OBSERVED"
+}

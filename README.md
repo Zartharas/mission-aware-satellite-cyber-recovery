@@ -21,7 +21,7 @@
 
 Read [`docs/CURRENT_PUBLICATION_STATE.md`](docs/CURRENT_PUBLICATION_STATE.md) before using older preparation, freeze, venue-fit, or handoff documents.
 
-The repository has **four publication lines that have been submitted**. Paper 1 remains active with its publisher. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2's CEAS Space Journal RevB submission was received on 2026-10-19 and **rejected on 2026-10-22** following editorial assessment; transfer was recommended but not completed as of the 2026-11-01 follow-up; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
+The repository has **five publication lines that have been submitted**. Paper 1 and Paper 5 remain active with their publishers. Papers 2, 3, and 4 have editorial rejections recorded. Paper 2's CEAS Space Journal RevB submission was received on 2026-10-19 and **rejected on 2026-10-22** following editorial assessment; transfer was recommended but not completed as of the 2026-11-01 follow-up; Paper 3 is in a controlled post-rejection research-requirements phase; Paper 4 is in a fresh venue-retarget workflow. Rejected publisher packages and frozen scientific records remain immutable provenance:
 
 | Publication | Studies | Journal | Submission / manuscript ID | Submitted | Current state |
 |---|---|---|---|---|---|
@@ -29,6 +29,7 @@ The repository has **four publication lines that have been submitted**. Paper 1 
 | Paper 4 | Study 8 | Acta Astronautica | `AA-D-26-02872` | 2026-09-06 | `Rejected` (decision recorded 2026-09-19) |
 | Paper 2 | Studies 3 + 4 + 6; separate S3X/S6X qualifications | CEAS Space Journal (latest submission) | Portal tracking ID `38cc76f5-ab6b-4b8e-b6ba-24727db86b48` | 2026-10-19 | `REJECTED__EDITORIAL_ASSESSMENT__2026-10-22`; transfer not completed; prior TAES rejection historical |
 | Paper 3 | Study 7 | CEAS Space Journal | `6db04a31-8223-4aaf-af02-e4bafe06ef89` | 2026-09-13 | `Rejected` (decision 2026-09-22) |
+| Paper 5 | Studies 9 + 10; separate synthetic extension | Cyber Security and Applications | `CSA-D-26-00979` | 2026-11-23 | With Editor |
 
 Submitted and rejected packages remain frozen as provenance. Do not modify active publisher-facing packages without a journal request, and do not alter the rejected Acta package. Study 8 retargeting must begin from the frozen source science through a new controlled venue-specific package.
 
@@ -47,6 +48,19 @@ The program intentionally keeps separately frozen studies and publication popula
 These populations are not silently pooled across papers.
 
 ## Submitted publication packages
+
+### Paper 5 - Studies 9 + 10
+
+- **Journal:** Cyber Security and Applications (KeAi / Elsevier)
+- **Title:** Recovery-State Semantic Observability in Published Space-Cyber and Flight Anomaly Data: A Source-Field Audit
+- **Manuscript ID:** `CSA-D-26-00979`
+- **Submitted:** 2026-11-23 (US Central; acknowledgements 2026-11-24 03:38:36 UTC)
+- **Last verified state:** `SUBMITTED__WITH_EDITOR`; managing editor assigned; external peer review and decision not established.
+- **Authority:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/CSA_SUBMISSION_STATUS.json`
+- **Submitted source snapshot:** `publication/Paper_5_Study_9/Cyber_Security_and_Applications/submitted_20261123/` (33-page manuscript, five-page supplement, 27 references; private publisher proof and correspondence retained separately).
+
+Study 9 and Study 10 retain their separate scientific denominators. The separately frozen synthetic extension does not establish mission feasibility or live recovery efficacy. No new scientific execution, source redistribution, journal revision, or merge is authorized by this closeout. SSRN posting was selected at submission; no public posting or DOI is verified.
+
 
 ### Paper 1 - Studies 1 + 2
 

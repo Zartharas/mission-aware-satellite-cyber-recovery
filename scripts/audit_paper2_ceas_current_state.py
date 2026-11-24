@@ -23,9 +23,9 @@ ZIP_SHA = "cd58668c183cbfdf9a14be85159435d2d4224e25d353365a5f608d2c4f6ab64f"
 TEXT_SURFACES = {
     "README.md": ("CEAS Space Journal", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "TAES-2026-4182"),
     "publication/README.md": ("### Latest decision: CEAS Space Journal RevB editorial rejection", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "### Historical: TAES initial submission and rejection"),
-    "docs/CURRENT_PUBLICATION_STATE.md": ("**Current-state date:** 2026-11-21", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: rejected TAES"),
-    "docs/PUBLICATION_PHASE_MAP.md": ("**Current-state reference:** 2026-11-21", "PHASE 3S - PAPER 2 LATEST CEAS REV-B EDITORIAL DECISION", PORTAL_ID, RECEIPT, STATE, "Phase 3R - Paper 2 post-rejection rebuild (historical)"),
-    "tracker/RESEARCH_TRACKER.md": ("Last updated: 2026-11-21", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: TAES initial submission"),
+    "docs/CURRENT_PUBLICATION_STATE.md": ("**Current-state date:** 2026-11-23", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: rejected TAES"),
+    "docs/PUBLICATION_PHASE_MAP.md": ("**Current-state reference:** 2026-11-23", "PHASE 3S - PAPER 2 LATEST CEAS REV-B EDITORIAL DECISION", PORTAL_ID, RECEIPT, STATE, "Phase 3R - Paper 2 post-rejection rebuild (historical)"),
+    "tracker/RESEARCH_TRACKER.md": ("Last updated: 2026-11-23", PORTAL_ID, RECEIPT, STATE, ZIP_SHA, "HISTORICAL: TAES initial submission"),
     "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/README.md": ("CURRENT CEAS PAPER-2 PUBLISHER STATUS", "Historical phase-by-phase provenance (not current status)", RECEIPT, "PHASE5C_AUTHORIZED"),
     "publication/Paper_2_Studies_3_4_6/Post_Rejection_Rebuild/CEAS_REVB_SUBMISSION_HANDOFF_2026-10-19.md": ("CURRENT DECISION / POST-SUBMISSION ADDENDUM", PORTAL_ID, RECEIPT, ZIP_SHA, "NOT submitted to CEAS"),
     "publication/Paper_2_Studies_3_4_6/CEAS_Space_Journal/CEAS_EDITORIAL_DECISION_2026-10-22.md": (STATE, DECISION_DATE, PORTAL_ID, TRANSFER_STATE, ZIP_SHA, "Wilhelm Kordulla"),
